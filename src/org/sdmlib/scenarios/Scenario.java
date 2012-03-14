@@ -264,4 +264,9 @@ public class Scenario
    {
       newLogEntries.put(entry.getDate(), entry);
    }
+
+   public void addImage(String imageFile)
+   {
+      steps.add("<img src='" + imageFile + "'>");     
+   }
 }

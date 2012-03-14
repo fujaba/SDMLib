@@ -25,9 +25,11 @@ import java.util.LinkedHashSet;
 
 import org.junit.Test;
 import org.sdmlib.kanban.ProjectBoard;
+import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -73,6 +75,10 @@ public class ClassModelTest
       .withName("target")
       .withType("Role");
       
+      new Association()
+      .withSource("model", modelClass, Role.ONE, Role.AGGREGATION)
+      .withTarget("associations", associationClass, Role.MANY);
+      
       Clazz roleClass = new Clazz()
       .withName("org.sdmlib.models.classes.Role");
       
@@ -105,6 +111,8 @@ public class ClassModelTest
       .withName("org.sdmlib.codegen.Parser");
       
       model.generate("src");
+      
+      scenario.addImage(model.dumpClassDiag("ClassModelClasses01"));
             
       scenario.addLogEntry(new LogEntry()
       .withDate("11.03.2012 00:27:00")

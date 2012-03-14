@@ -78,7 +78,54 @@ public class Student
 
    
    public static final LinkedHashSet<Student> EMPTY_SET = new LinkedHashSet<Student>();
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+   
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      this.name = value;
+   }
+   
+   public Student withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_MATRNO = "matrNo";
+   
+   private int matrNo;
+   
+   public int getMatrNo()
+   {
+      return this.matrNo;
+   }
+   
+   public void setMatrNo(int value)
+   {
+      this.matrNo = value;
+   }
+   
+   public Student withMatrNo(int value)
+   {
+      setMatrNo(value);
+      return this;
+   } 
 }
+
 
 
 

@@ -21,10 +21,17 @@
    
 package org.sdmlib.models.classes;
 
+import java.util.LinkedHashSet;
+
 import org.sdmlib.codegen.Parser;
 
 public class Association
 {
+   public Association()
+   {
+      setModel(ClassModel.classModel);
+   }
+   
    public Association withSource(String roleName, Clazz sourceClass, String card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
@@ -129,7 +136,63 @@ public class Association
       setTarget(value);
       return this;
    } 
+
+   
+   public static final LinkedHashSet<Association> EMPTY_SET = new LinkedHashSet<Association>();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Association ----------------------------------- ClassModel
+    *              associations                   model
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MODEL = "model";
+   
+   private ClassModel model = null;
+   
+   public ClassModel getModel()
+   {
+      return this.model;
+   }
+   
+   public boolean setModel(ClassModel value)
+   {
+      boolean changed = false;
+      
+      if (this.model != value)
+      {
+         ClassModel oldValue = this.model;
+         
+         if (this.model != null)
+         {
+            this.model = null;
+            oldValue.withoutAssociations(this);
+         }
+         
+         this.model = value;
+         
+         if (value != null)
+         {
+            value.withAssociations(this);
+         }
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_MODEL, null, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Association withModel(ClassModel value)
+   {
+      setModel(value);
+      return this;
+   } 
 }
+
 
 
 

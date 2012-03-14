@@ -1,0 +1,19 @@
+
+ graph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    ClassModel [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>ClassModel</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td>classes :LinkedHashSet&#60;Clazz&#62;</td></tr>  </table></td></tr> </table>>];
+    Clazz [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Clazz</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    Attribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Attribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td>initialization :String</td></tr>  </table></td></tr> </table>>];
+    Association [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Association</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td>source :Role</td></tr> <tr><td>target :Role</td></tr>  </table></td></tr> </table>>];
+    Role [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Role</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td>name :String</td></tr> <tr><td>clazz :Clazz</td></tr> <tr><td>card :String</td></tr> <tr><td>kind :String</td></tr>  </table></td></tr> </table>>];
+    CGUtil [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>CGUtil</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    Parser [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Parser</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    ClassModel -- Association [headlabel = "associations" taillabel = "model"];
+}
+

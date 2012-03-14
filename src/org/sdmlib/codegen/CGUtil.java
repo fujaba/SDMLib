@@ -101,6 +101,7 @@ public class CGUtil
       }
       
       // in the second run, replace <$<placeholders>$> by replacement
+      pos = -1 - args[0].length();
       for (int i = 0; i < args.length; i += 2)
       {
          placeholder = "<$<" + args[i] + ">$>";
@@ -114,6 +115,29 @@ public class CGUtil
          }
       }
       
+   }
+   
+   public static String encodeHTML(String s)
+   {
+       StringBuffer out = new StringBuffer();
+       for(int i=0; i<s.length(); i++)
+       {
+           char c = s.charAt(i);
+           if(c > 127 || c=='"' || c=='<' || c=='>')
+           {
+              out.append("&#"+(int)c+";");
+           }
+           else
+           {
+               out.append(c);
+           }
+       }
+       return out.toString();
+   }
+   
+   public static String shortClassNameHTMLEncoded(String name)
+   {
+      return encodeHTML(shortClassName(name));
    }
 
    public static String shortClassName(String name)

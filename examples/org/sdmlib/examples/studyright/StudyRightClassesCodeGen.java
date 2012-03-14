@@ -55,18 +55,31 @@ public class StudyRightClassesCodeGen
       .withName("name")
       .withType("String");
       
+      
       scenario.add("2. generate class Student");
       
       Clazz studClass = new Clazz()
       .withName("org.sdmlib.examples.studyright.Student");
       
+      new Attribute()
+      .withName("name")
+      .withType("String");
+      
+      new Attribute()
+      .withName("matrNo")
+      .withType("int");
+
+      
       scenario.add("3. add uni --> stud assoc");
       
       Association uniToStud = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("students", studClass, Role.MANY)
-      .generate("examples"); 
+      .withTarget("students", studClass, Role.MANY); 
       
+      model.generate("examples");
+      
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
+
       scenario.add("next. compile University.java");
       
       String javaClassPath = System.getProperty("java.class.path");
@@ -87,6 +100,14 @@ public class StudyRightClassesCodeGen
       
       University uni = new University()
          .withName("StudyRight");
+      
+      Student stud1 = new Student()
+      .withUni(uni);
+      
+      Student stud2 = new Student()
+      .withUni(uni);
+      
+      Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
       
       scenario.addLogEntry(new LogEntry()
       .withDate("14.03.2012 14:04:42")
