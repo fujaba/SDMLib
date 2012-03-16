@@ -44,7 +44,7 @@ public class University
    
    protected HashMap<String, Integer>[] d3;
 
-   public void m(HashMap<String, org.sdmlib.codegen.Fragment>[]... formParam) // throws IOException, OutOfMemoryError
+   public void m(HashMap<String, org.sdmlib.codegen.SymTabEntry>[]... formParam) // throws IOException, OutOfMemoryError
    {
       // just some other comment // /* " 
    }
@@ -154,4 +154,127 @@ public class University
          this.removeFromStudents(value);
       }
    }
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+
+      return false;
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * University ----------------------------------- Room
+    *              uni                   rooms
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ROOMS = "rooms";
+   
+   private LinkedHashSet<Room> rooms = null;
+   
+   public LinkedHashSet<Room> getRooms()
+   {
+      if (this.rooms == null)
+      {
+         return Room.EMPTY_SET;
+      }
+   
+      return this.rooms;
+   }
+   
+   public boolean addToRooms(Room value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.rooms == null)
+         {
+            this.rooms = new LinkedHashSet<Room>();
+         }
+         
+         changed = this.rooms.add (value);
+         
+         if (changed)
+         {
+            value.withUni(this);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromRooms(Room value)
+   {
+      boolean changed = false;
+      
+      if ((this.rooms != null) && (value != null))
+      {
+         changed = this.rooms.remove (value);
+         
+         if (changed)
+         {
+            value.setUni(null);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public University withRooms(Room value)
+   {
+      addToRooms(value);
+      return this;
+   } 
+   
+   public University withoutRooms(Room value)
+   {
+      removeFromRooms(value);
+      return this;
+   } 
+   
+   public void removeAllFromRooms()
+   {
+      LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getRooms());
+   
+      for (Room value : tmpSet)
+      {
+         this.removeFromRooms(value);
+      }
+   }
 }
+
+
+
+
+
+

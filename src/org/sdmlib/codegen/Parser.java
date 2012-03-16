@@ -23,6 +23,7 @@ package org.sdmlib.codegen;
 
 import java.nio.channels.NotYetConnectedException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.sdmlib.utils.StrUtil;
 
@@ -43,10 +44,16 @@ public class Parser
 
    public static final String ATTRIBUTE = "attribute";
 
+   public static final String METHOD = "method";
+   
    public static final String IMPORT = "import";
 
    public static final String CLASS_END = "classEnd";
-   
+
+   public static final String NAME_TOKEN = "nameToken";
+
+   public static final String METHOD_END = "methodEnd";
+
    public static char NEW_LINE = '\n';
    
    private StringBuilder fileBody = null;
@@ -59,7 +66,12 @@ public class Parser
 
    private int index;
    
-   private HashMap<String, Fragment> symTab;
+   private LinkedHashMap<String, SymTabEntry> symTab;
+   
+   public LinkedHashMap<String, SymTabEntry> getSymTab()
+   {
+      return symTab;
+   }
 
    private int endPos;
 
@@ -67,7 +79,14 @@ public class Parser
 
    private int lookAheadIndex;
 
-   private String searchString;   
+   private String searchString;
+
+   private int methodBodyStartPos;  
+   
+   public int getMethodBodyStartPos()
+   {
+      return methodBodyStartPos;
+   }
    
    class SearchStringFoundException extends RuntimeException { }
    
@@ -88,8 +107,13 @@ public class Parser
       
       if (symTab == null)
       {
-         symTab = new HashMap<String, Fragment>();
+         symTab = new LinkedHashMap<String, SymTabEntry>();
       }
+      else
+      {
+         symTab.clear();
+      }
+      
       
       currentChar = 0;
       
@@ -134,6 +158,11 @@ public class Parser
       {
          // found it, return indexOfResult
       }
+      catch (Exception e) 
+      {
+         // problem with parsing. Return not found
+         e.printStackTrace();
+      }
       
       return indexOfResult;
    }
@@ -160,12 +189,15 @@ public class Parser
       parseModifiers();
       
       // skip keyword
-      nextRealToken();
+      skip ("class");
       
       className = currentRealWord();
       
       // skip name
       nextRealToken();
+      
+      // TODO: extends 
+      // TODO: implements 
       
       parseClassBody();     
    }
@@ -176,24 +208,21 @@ public class Parser
       skip("{");
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
-         parseClassBodyDecl();
+         parseMemberDecl();
       }
       
       if (currentRealKindEquals('}'))
       {
          checkSearchStringFound(CLASS_END, currentRealToken.startPos);
       }
-   }
-
-   private void parseClassBodyDecl()
-   {
-      // ; | [static] block | memberDecl
-      parseMemberDecl();
+      skip("}");      
    }
 
    private void parseMemberDecl()
    {
       // modifiers ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
+      
+      // TODO: annotations
       
       int startPos = currentRealToken.startPos;
       
@@ -207,14 +236,14 @@ public class Parser
       
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
       {
-         // constructor
+         // TODO: constructor
          skip(className);
          parseFormalParamList();
          parseBlock();
       }
       else
       {
-         parseTypeRef();
+         String type = parseTypeRef();
 
          String memberName = currentRealWord();
          nextRealToken();
@@ -228,20 +257,48 @@ public class Parser
 
             skip(";");
 
+            symTab.put(memberName, 
+               new SymTabEntry()
+               .withMemberName(memberName)
+               .withKind(ATTRIBUTE)
+               .withType(type)
+               );
+
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
          }
          else if (currentRealKindEquals(';'))
          {
             // field declaration
             skip(";");
+            
+            symTab.put(memberName, 
+               new SymTabEntry()
+               .withMemberName(memberName)
+               .withKind(ATTRIBUTE)
+               .withType(type)
+               );
+            
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
          }
          else if (currentRealKindEquals('('))
          {
-            parseFormalParamList();
+            
+            String params = parseFormalParamList();
 
+            methodBodyStartPos = currentRealToken.startPos;
+            
             parseBlock();
-         }
+            
+            String methodSignature = memberName + params;
+            checkSearchStringFound(METHOD + ":" + methodSignature, startPos);
+            
+            symTab.put(methodSignature, 
+               new SymTabEntry()
+               .withMemberName(methodSignature)
+               .withKind(METHOD)
+               .withType(methodSignature)
+               );
+            }
       }
    }
 
@@ -281,8 +338,10 @@ public class Parser
       skip("}");      
    }
 
-   private void parseTypeRef()
+   private String parseTypeRef()
    {
+      StringBuilder typeString = new StringBuilder();
+      
       // (void | qualifiedName) <T1, T2> [] ...  
       String typeName = VOID;
       if (currentRealTokenEquals(VOID))
@@ -295,46 +354,63 @@ public class Parser
          typeName = parseQualifiedName();
       }
       
+      typeString.append(typeName);
+      
       if (currentRealKindEquals('<'))
       {
          // <name, name, ...>
-         skip("<");
+         skip("<"); typeString.append('<');
+         
          // skip first name
+         typeString.append(currentRealWord());
          nextRealToken();
          
          while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
          {
+            typeString.append(currentRealWord());
             nextRealToken();
          }
          
          // should be a < now
+         typeString.append(">");
          skip(">");
       }
       
       if (currentRealKindEquals('['))
       {
+         typeString.append("[]");
          skip("[");
          skip("]");
       }
       
       if (currentRealKindEquals('.'))
       {
+         typeString.append("...");
          skip(".");
          skip(".");
          skip(".");
       }
       
       // phew
+      return typeString.toString();
    }
 
-   private void parseFormalParamList()
+   private String parseFormalParamList()
    {
+      StringBuilder paramList = new StringBuilder().append('(');
+      
       // '(' (type name[,] )* ') [throws type , (type,)*] 
       skip("(");
       
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(')'))
       {
+         int typeStartPos = currentRealToken.startPos;
+         
          parseTypeRef();
+         
+         int typeEndPos = currentRealToken.startPos-1;
+         
+         paramList.append(fileBody.substring(typeStartPos, typeEndPos));
          
          // skip param name
          nextRealToken();
@@ -342,10 +418,15 @@ public class Parser
          if (currentRealKindEquals(','))
          {
             skip(",");
+            paramList.append(',');
          }
       }
       
       skip(")");
+      
+      paramList.append(')');
+      
+      return paramList.toString();
    }
 
    private boolean currentRealKindEquals(char c)
@@ -423,6 +504,17 @@ public class Parser
       return fileBody.substring(startPos, endPos+1);
    }
 
+   private void skip(char c)
+   {
+      if (currentRealKindEquals(c))
+      {
+         nextRealToken();
+      }
+      else
+      {
+         throw new RuntimeException("parse error");
+      }
+   }
    private void skip(String string)
    {
       if (currentRealTokenEquals(string))
@@ -431,6 +523,8 @@ public class Parser
       }
       else
       {
+         System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() + " at pos " + currentRealToken.startPos + " in file \n" 
+            + fileName);
          throw new RuntimeException("parse error");
       }
    }
@@ -444,6 +538,9 @@ public class Parser
    private Token previousToken;
 
    private String className;
+
+   public int lastIfStart;
+   public int lastIfEnd;
 
    
    
@@ -698,6 +795,116 @@ public class Parser
          
          lookAheadChar = fileBody.charAt(lookAheadIndex);         
       }
+   }
+
+   public int methodBodyIndexOf(String searchString, int searchStartPos)
+   {
+      indexOfResult = -1;
+      lastIfStart = -1;
+      lastIfEnd = -1;
+      
+      // initialize parser to start reading at pos
+      withInit(searchStartPos, fileBody.length());
+      
+      this.searchString = searchString;
+      
+      try
+      {
+         parseBlockDetails();
+      }
+      catch (SearchStringFoundException e)
+      {
+         // found it, return indexOfResult
+      }
+      catch (Exception e) 
+      {
+         // problem with parsing. Return not found
+         e.printStackTrace();
+      }
+
+      return indexOfResult;
+   }
+
+   private void parseBlockDetails()
+   {
+      // parse method and generate statement index
+      skip('{');
+
+      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+      {
+         if (currentRealTokenEquals("if"))
+         {
+            lastIfStart = currentRealToken.startPos;
+            skip("if");
+            
+            parseBracketExpressionDetails();
+            
+            parseBlockDetails();
+            
+            lastIfEnd = previousRealToken.startPos;
+         }
+         else if (currentRealKindEquals('v'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
+            
+            nextRealToken();
+         }
+         else if (currentRealKindEquals('{'))
+         {
+            parseBlockDetails();
+         }
+         else
+         {
+            nextRealToken();
+         }
+      }
+
+      // checkSearchStringFound(METHOD_END, currentRealToken.startPos);
+      skip('}');
+   }
+
+   private void parseBracketExpressionDetails()
+   {
+      skip('(');
+      
+      while ( ! currentRealKindEquals(EOF) 
+         && ! currentRealKindEquals(')'))
+      {
+         if (currentRealKindEquals('('))
+         {
+            parseBracketExpressionDetails();
+         }
+         else if (currentRealKindEquals('v'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
+            
+            nextRealToken();
+         }
+         else
+         {            
+            nextRealToken();
+         }
+      }
+      
+      skip(')');      
+   }
+
+   private String fileName;
+   
+   public String getFileName()
+   {
+      return fileName;
+   }
+   
+   public void setFileName(String fileName)
+   {
+      this.fileName = fileName;
+   }
+   
+   public Parser withFileName(String fileName)
+   {
+      setFileName(fileName);
+      return this;
    }
 }
 

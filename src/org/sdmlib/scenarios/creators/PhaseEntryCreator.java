@@ -24,95 +24,62 @@ package org.sdmlib.scenarios.creators;
 import java.util.HashSet;
 import java.util.Arrays;
 
-import org.sdmlib.json.JsonCreator;
-import org.sdmlib.json.JsonIdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.scenarios.PhaseEntry;
 
 
-public class PhaseEntryCreator implements JsonCreator
+public class PhaseEntryCreator implements SendableEntityCreator
 {
-   private final String[] attribute = new  String[] {
-      PhaseEntry.PROPERTY_PHASE     ,
-      PhaseEntry.PROPERTY_DEVELOPER     ,
-      PhaseEntry.PROPERTY_PLANNED_START     ,
-      PhaseEntry.PROPERTY_PLANNED_END     ,
-      PhaseEntry.PROPERTY_ACTUAL_START     ,
-      PhaseEntry.PROPERTY_ACTUAL_END     ,
-      PhaseEntry.PROPERTY_HOURS_SPEND     ,
-      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_PHASE     ,
-      PhaseEntry.PROPERTY_HOURS_PLANNED     ,
-      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL           
-   };
-
-   private final HashSet<String> toManyFields = new HashSet<String>(Arrays.asList(new String[] { 
-      PhaseEntry.PROPERTY_LOG_ENTRIES            
-   }));
-
-   private final String[] reference = new String[] {
-      PhaseEntry.PROPERTY_KANBAN_ENTRY      ,
-      PhaseEntry.PROPERTY_KANBAN_ENTRY            
-   };
-
-   private final String[] aggregationen=new  String[] {
+   private final String[] attributes = new  String[] {
+      PhaseEntry.PROPERTY_PHASE,
+      PhaseEntry.PROPERTY_DEVELOPER,
+      PhaseEntry.PROPERTY_PLANNED_START,
+      PhaseEntry.PROPERTY_PLANNED_END,
+      PhaseEntry.PROPERTY_ACTUAL_START,
+      PhaseEntry.PROPERTY_ACTUAL_END,
+      PhaseEntry.PROPERTY_HOURS_SPEND,
+      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
+      PhaseEntry.PROPERTY_HOURS_PLANNED ,
+      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
+      PhaseEntry.PROPERTY_LOG_ENTRIES,
+      PhaseEntry.PROPERTY_KANBAN_ENTRY,
+      PhaseEntry.PROPERTY_KANBAN_ENTRY, 
       PhaseEntry.PROPERTY_LOG_ENTRIES            
    };
 
-   @Override
-   public String[] getAttributesTypes() 
-   {
-      return attribute;
- 	 }
-
 	 @Override
-	 public String[] getAggregationTypes() 
-   {
-	    return aggregationen;
-	 }
-
-	 @Override
-	 public String[] getReferenceTypes() 
-   {
-	    return reference;
-	 }
-
-	 @Override
-	 public Object newInstance() 
+	 public Object getSendableInstance(boolean reference)
    {
       return new PhaseEntry();
 	 }
 
-   @Override
-   public String getClassName() 
-   {
- 	    return "org.sdmlib.scenarios.PhaseEntry";
- 	 }
-
 	 @Override
-	 public boolean isToManyField(String fieldName)
-	 {
-	    return toManyFields.contains(fieldName);
-	 }
-
-   @Override
-   public Object get(Object target, String attribute)
+   public Object getValue(Object target, String attribute)
    {
       return ((PhaseEntry)target).get(attribute);
    }
 
    @Override
-   public boolean set(Object target, String attribute, Object value)
+   public boolean setValue(Object target, String attribute, Object value)
    {
       return ((PhaseEntry)target).set(attribute, value);
    }
 
 
    public static JsonIdMap createIdMap(String sessionID)
-	 {
-		JsonIdMap jsonIdMap = new JsonIdMap(sessionID);
-		
-        jsonIdMap.addCreater(new LogEntryCreator());
-        jsonIdMap.addCreater(new PhaseEntryCreator());
-		 
-		return jsonIdMap;
-	 }
+   {
+      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
+
+      jsonIdMap.addCreater(new LogEntryCreator());
+      jsonIdMap.addCreater(new PhaseEntryCreator());
+
+      return jsonIdMap;
+   }
+
+   @Override
+   public String[] getProperties()
+   {
+      return attributes;
+   }
 }

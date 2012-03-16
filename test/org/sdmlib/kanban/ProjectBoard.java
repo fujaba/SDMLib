@@ -41,7 +41,9 @@ public class ProjectBoard
       ScenarioManager man = ScenarioManager.get();
       
       
-      KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
+      KanbanEntry kanbanBoard = man.loadOldKanbanEntries()
+         .withName("SMDLibProject")
+         .withPhase(ACTIVE);
 
       KanbanEntry sprint1 = kanbanBoard.findOrCreate("Sprint.001.Booting")
             .withLastDeveloper("zuendorf")

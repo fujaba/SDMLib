@@ -49,9 +49,21 @@ public class Role
       return this.clazz;
    }
    
-   public void setClazz(Clazz value)
+   public boolean setClazz(Clazz value)
    {
-      this.clazz = value;
+      boolean changed = false;
+      
+      if (this.clazz != value)
+      {
+         Clazz oldValue = this.clazz;
+         
+         this.clazz = value;
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOC, null, value);
+         changed = true;
+      }
+      
+      return changed;
    }
    
    public Role withClazz(Clazz value)
@@ -402,5 +414,94 @@ public class Role
          );
    } 
 
+
+   
+   public static final LinkedHashSet<Role> EMPTY_SET = new LinkedHashSet<Role>();
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Role ----------------------------------- Association
+    *              source                   assoc
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ASSOC = "assoc";
+   
+   private Association assoc = null;
+   
+   public Association getAssoc()
+   {
+      return this.assoc;
+   }
+   
+   public boolean setAssoc(Association value)
+   {
+      boolean changed = false;
+      
+      if (this.assoc != value)
+      {
+         Association oldValue = this.assoc;
+         
+         this.assoc = value;
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOC, null, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Role withAssoc(Association value)
+   {
+      setAssoc(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         setCard((String) value);
+         return true;
+      }
+
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         setKind((String) value);
+         return true;
+      }
+
+      return false;
+   }
 }
+
+
+
 

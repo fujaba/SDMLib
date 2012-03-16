@@ -54,11 +54,11 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.sdmlib.json.Const;
-import org.sdmlib.json.JsonArray;
-import org.sdmlib.json.JsonIdMap;
-import org.sdmlib.json.JsonObject;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.scenarios.creators.KanbanEntryCreator;
+import org.sdmlib.utils.StrUtil;
 
 public class ScenarioManager 
 {
@@ -212,7 +212,7 @@ public class ScenarioManager
          JsonObject jsonObject = jsonArray.getJSONObject(i);
          
          String objectLine = "<a name='objectId'><p></p></a>\n";
-         objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(Const.JSON_ID));
+         objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.JSON_ID));
          
          // iterate through keys
          for (Iterator iter = jsonObject.keys(); iter.hasNext();)
@@ -272,7 +272,7 @@ public class ScenarioManager
 				
 				if (readLine == null) break; 
 				
-				buf.append(readLine);
+				buf.append(readLine + '\n');
 			}
 			
 			JsonArray jsonObject = new JsonArray(buf.toString());
@@ -525,7 +525,7 @@ public class ScenarioManager
             }
             
             // add new log entries
-            if (lastPhaseEntry == null || ! lastPhaseEntry.getPhase().equals(newLogEntry.getPhase()))
+            if (lastPhaseEntry == null || ! StrUtil.stringEquals(lastPhaseEntry.getPhase(), newLogEntry.getPhase()))
             {
                lastPhaseEntry = new PhaseEntry()
                .withKanbanEntry(rootEntry)

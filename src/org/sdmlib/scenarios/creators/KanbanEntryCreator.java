@@ -24,79 +24,60 @@ package org.sdmlib.scenarios.creators;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.sdmlib.json.JsonCreator;
-import org.sdmlib.json.JsonIdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.scenarios.KanbanEntry;
 
 
-public class KanbanEntryCreator implements JsonCreator {
-   private final String[] attribute = new  String[] {
-                  KanbanEntry.PROPERTY_NAME,
-                  KanbanEntry.PROPERTY_PHASE,
-                  KanbanEntry.PROPERTY_LAST_DEVELOPER,
-                  KanbanEntry.PROPERTY_HOURS_REMAINING,
-                  KanbanEntry.PROPERTY_HOURS_SPEND,
-                  KanbanEntry.PROPERTY_FILES
-            };
-   private final HashSet <String> toManyFields = new HashSet<String>(Arrays.asList(new String[] {
-                  KanbanEntry.PROPERTY_SUBENTRIES,
-                  KanbanEntry.PROPERTY_PHASE_ENTRIES
-            }));
-   private final String[] reference = new String[] {
-                  KanbanEntry.PROPERTY_PARENT
-            };
-   private final String[] aggregationen = new  String[] {
-                  KanbanEntry.PROPERTY_SUBENTRIES,
-                  KanbanEntry.PROPERTY_PHASE_ENTRIES
-            };
+public class KanbanEntryCreator implements SendableEntityCreator 
+{
+   private final String[] attributes = new  String[] 
+      {
+      KanbanEntry.PROPERTY_NAME,
+      KanbanEntry.PROPERTY_PHASE,
+      KanbanEntry.PROPERTY_LAST_DEVELOPER,
+      KanbanEntry.PROPERTY_HOURS_REMAINING,
+      KanbanEntry.PROPERTY_HOURS_SPEND,
+      KanbanEntry.PROPERTY_FILES,
+      KanbanEntry.PROPERTY_SUBENTRIES,
+      KanbanEntry.PROPERTY_PHASE_ENTRIES,
+      KanbanEntry.PROPERTY_PARENT,
+      KanbanEntry.PROPERTY_SUBENTRIES,
+      KanbanEntry.PROPERTY_PHASE_ENTRIES
+      };
+
+   public static JsonIdMap createIdMap(String sessionID) {
+      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
+
+      jsonIdMap.addCreater(new KanbanEntryCreator());
+      jsonIdMap.addCreater(new LogEntryCreator());
+      jsonIdMap.addCreater(new PhaseEntryCreator());
+
+      return jsonIdMap;
+   }
+   
    @Override
-   public String[] getAttributesTypes () 
+   public String[] getProperties()
    {
-      return attribute;
-             	 }
+      return attributes;
+   }
+   
    @Override
-   public String[] getAggregationTypes () 
-   {
-      return aggregationen;
-            	 }
-   @Override
-   public String[] getReferenceTypes () 
-   {
-      return reference;
-            	 }
-   @Override
-   public Object newInstance () 
+   public Object getSendableInstance(boolean reference)
    {
       return new KanbanEntry();
-            	 }
-   @Override
-   public String getClassName () 
-   {
-      return "org.sdmlib.scenarios.KanbanEntry";
-             	 }
-   @Override
-   public boolean isToManyField (String fieldName) 
-   {
-      return toManyFields.contains(fieldName);
-            	 }
-   @Override
-   public Object get (Object target, String attribute) 
-   {
-      return ((KanbanEntry)target).get(attribute);
-            }
-   @Override
-   public boolean set (Object target, String attribute, Object value) 
-   {
-      return ((KanbanEntry)target).set(attribute, value);
-            }
-   public static JsonIdMap createIdMap(String sessionID) {
-      JsonIdMap jsonIdMap = new JsonIdMap(sessionID);
-            		
-         jsonIdMap.addCreater(new KanbanEntryCreator());
-         jsonIdMap.addCreater(new LogEntryCreator());
-         jsonIdMap.addCreater(new PhaseEntryCreator());
-            		 
-            		return jsonIdMap;
-            	 }
-   
    }
+   
+   @Override
+   public Object getValue(Object entity, String attribute)
+   {
+      return ((KanbanEntry) entity).get(attribute);
+   }
+   
+   @Override
+   public boolean setValue(Object entity, String attribute, Object value)
+   {
+      return ((KanbanEntry) entity).set(attribute, value);
+   }
+   
+}

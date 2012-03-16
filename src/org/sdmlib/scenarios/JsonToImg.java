@@ -30,9 +30,9 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.sdmlib.json.Const;
-import org.sdmlib.json.JsonArray;
-import org.sdmlib.json.JsonObject;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
 
 
 public class JsonToImg
@@ -49,7 +49,7 @@ public class JsonToImg
       return theInstance;
    }
    
-   public String toImg(String imgName, JsonArray objects)
+   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
       String link = "<img src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", imgName + ".png");
@@ -70,7 +70,7 @@ public class JsonToImg
       for (int i = 0; i < objects.length(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
-         String jsonId = jsonObject.getString(Const.JSON_ID);
+         String jsonId = jsonObject.getString(JsonIdMap.JSON_ID);
          knownIds.add(jsonId);
       }
       
@@ -81,10 +81,10 @@ public class JsonToImg
          JsonObject jsonObject = objects.getJSONObject(i);
          String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
         
-         String jsonId = lastPartLow(jsonObject.getString(Const.JSON_ID));
+         String jsonId = lastPartLow(jsonObject.getString(JsonIdMap.JSON_ID));
          nodeLine = nodeLine.replaceAll("<id>", jsonId);
          
-         String className = lastPart(jsonObject.getString(Const.CLASS));
+         String className = lastPart(jsonObject.getString(JsonIdMap.CLASS));
          nodeLine = nodeLine.replaceAll("<classname>", className);
          
          // go through attributes
@@ -94,7 +94,7 @@ public class JsonToImg
          {
             String key = (String) iter.next();
             
-            if (! Const.JSON_ID.equals(key) && ! Const.CLASS.equals(key))
+            if (! JsonIdMap.JSON_ID.equals(key) && ! JsonIdMap.CLASS.equals(key))
             {
                Object value = jsonObject.get(key);
                

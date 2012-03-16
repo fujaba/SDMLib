@@ -24,9 +24,12 @@ package org.sdmlib.models.classes;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.utils.StrUtil;
 
@@ -278,6 +281,57 @@ public class ClassModel
          this.removeFromAssociations(value);
       }
    }
+
+   public void updateFromCode(String string, String string2)
+   {
+      // find java files
+      
+      // parse each java file
+      for (Clazz clazz : getClasses())
+      {
+         // get list of members
+         Parser parser = clazz.getOrCreateParser("examples");
+         
+         parser.indexOf(Parser.CLASS_END);
+         
+         LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+         
+         for (String memberName : symTab.keySet())
+         {
+            SymTabEntry entry = symTab.get(memberName);
+            // do something with it.
+         }
+      }
+      
+      // add model creation code at invocation place, if not yet there
+      
+      
+   }
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      return false;
+   }
 }
+
 
 

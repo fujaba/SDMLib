@@ -334,7 +334,7 @@ public class KanbanEntry implements PropertyChangeClient{
    public KanbanEntry findOldEntry(String name) {
       KanbanEntry result = null;
 
-      if (this.getName().equals(name))
+      if (StrUtil.stringEquals(this.getName(), name))
       {
          return this;
       }
@@ -572,7 +572,8 @@ public class KanbanEntry implements PropertyChangeClient{
       return false;
    }
 
-   public Object get(String attrName) {
+   public Object get(String attrName) 
+   {
       int pos=attrName.indexOf(".");
       String attribute = attrName;
 

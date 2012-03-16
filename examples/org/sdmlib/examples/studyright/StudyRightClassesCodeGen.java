@@ -46,40 +46,58 @@ public class StudyRightClassesCodeGen
       Scenario scenario = new Scenario("StudyRightClassesCodeGen");
       
       scenario.add("1. generate class University");
+      
       ClassModel model = new ClassModel();
       
+      //============================================================
       Clazz uniClass = new Clazz()
       .withName("org.sdmlib.examples.studyright.University");
       
-      new Attribute()
-      .withName("name")
-      .withType("String");
-      
-      
+      new Attribute().withName("name").withType("String");
+            
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
+
       scenario.add("2. generate class Student");
       
+      //============================================================
       Clazz studClass = new Clazz()
       .withName("org.sdmlib.examples.studyright.Student");
       
-      new Attribute()
-      .withName("name")
-      .withType("String");
+      new Attribute().withName("name").withType("String");
       
-      new Attribute()
-      .withName("matrNo")
-      .withType("int");
+      new Attribute().withName("matrNo").withType("int");
 
-      
-      scenario.add("3. add uni --> stud assoc");
-      
       Association uniToStud = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
       .withTarget("students", studClass, Role.MANY); 
       
+      //============================================================
+      Clazz roomClass = new Clazz()
+      .withName("org.sdmlib.examples.studyright.Room");
+      
+      new Attribute().withName("roomNo").withType("String");
+      
+      scenario.add("3. add uni --> stud assoc");
+      
+      Association uniToRoom = new Association()
+      .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
+      .withTarget("rooms", roomClass, Role.MANY); 
+      
+      
+      //============================================================
+      model.updateFromCode("examples test src", "org.sdmlib.examples");
+      
       model.generate("examples");
       
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
+      scenario.add("x. generate generic get");
+      scenario.add("x. generate removeYou method");
+      scenario.add("x. generate imports");
+      scenario.add("x. generate property change support");
 
+      
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses99"));
+
+      
       scenario.add("next. compile University.java");
       
       String javaClassPath = System.getProperty("java.class.path");
@@ -110,11 +128,11 @@ public class StudyRightClassesCodeGen
       Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
       
       scenario.addLogEntry(new LogEntry()
-      .withDate("14.03.2012 14:04:42")
+      .withDate("16.03.2012 17:41:42")
       .withPhase(IMPLEMENTATION)
       .withDeveloper("zuendorf")
-      .withHoursSpend(18)
-      .withHoursRemainingInTotal(25));
+      .withHoursSpend(42)
+      .withHoursRemainingInTotal(200));
       
       ScenarioManager.get()
       .add(scenario)

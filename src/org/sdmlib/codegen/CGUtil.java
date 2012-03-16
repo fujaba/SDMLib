@@ -90,6 +90,7 @@ public class CGUtil
       for (int i = 0; i < args.length; i += 2)
       {
          placeholder = args[i];
+         pos = -1 - placeholder.length();
          
          pos = text.indexOf(placeholder, pos + placeholder.length());
          
@@ -101,11 +102,11 @@ public class CGUtil
       }
       
       // in the second run, replace <$<placeholders>$> by replacement
-      pos = -1 - args[0].length();
       for (int i = 0; i < args.length; i += 2)
       {
          placeholder = "<$<" + args[i] + ">$>";
-         
+         pos = -1 - placeholder.length();
+           
          pos = text.indexOf(placeholder, pos + placeholder.length());
          
          while (pos >= 0)

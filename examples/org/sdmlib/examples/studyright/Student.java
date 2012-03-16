@@ -124,7 +124,62 @@ public class Student
       setMatrNo(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         setMatrNo((Integer) value);
+         return true;
+      }
+
+      return false;
+   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

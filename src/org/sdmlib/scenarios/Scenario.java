@@ -37,9 +37,9 @@ import java.util.Vector;
 
 import javax.swing.text.DateFormatter;
 
-import org.sdmlib.json.JsonArray;
-import org.sdmlib.json.JsonIdMap;
-import org.sdmlib.json.JsonObject;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
 
 
 

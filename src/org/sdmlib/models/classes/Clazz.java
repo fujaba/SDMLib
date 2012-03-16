@@ -31,6 +31,7 @@ import javax.swing.text.DateFormatter;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.utils.StrUtil;
 
 public class Clazz
 {
@@ -45,6 +46,7 @@ public class Clazz
       ClassModel.classModel.addToClasses(this);
    }
    
+   public static final String PROPERTY_NAME = "name";
    private String name = null; 
    
    public String getName()
@@ -96,6 +98,8 @@ public class Clazz
                  
       insertLicense(parser);
       
+      insertGenericGetSet();
+      
       for (Attribute attr : this.getAttributes())
       {
          attr.generate(rootDir, false);
@@ -111,6 +115,65 @@ public class Clazz
       if (really)
       {
          CGUtil.printFile(javaFile, fileBody.toString());
+      }
+   }
+
+   private void insertGenericGetSet()
+   {
+      // class should have generic get(String attrName) method;
+      String searchString = Parser.METHOD + ":get(String)";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         // add generic get method in class file
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         StringBuilder text = new StringBuilder
+            (  "\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   public Object get(String attrName)" +
+               "\n   {" +
+               "\n      int pos = attrName.indexOf('.');" +
+               "\n      String attribute = attrName;" +
+               "\n      " +
+               "\n      if (pos > 0)" +
+               "\n      {" +
+               "\n         attribute = attrName.substring(0, pos);" +
+               "\n      }" +
+               "\n      " +
+               "\n      return null;" +
+               "\n   }" +
+               "\n"
+               );
+         
+         parser.getFileBody().insert(pos, text.toString());
+         fileHasChanged = true;
+      }
+      
+      searchString = Parser.METHOD + ":set(String,Object)";
+      
+      pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         // add generic get method in class file
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         StringBuilder text = new StringBuilder
+            (  "\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   public boolean set(String attrName, Object value)" +
+               "\n   {" +
+               "\n      return false;" +
+               "\n   }" +
+               "\n"
+               );
+         
+         parser.getFileBody().insert(pos, text.toString());
+         fileHasChanged = true;
       }
    }
 
@@ -151,6 +214,7 @@ public class Clazz
          CGUtil.replace(text, "<developer>", System.getProperty("user.name"));
          
          fileBody.replace(0, 0, text.toString());
+         fileHasChanged = true;
       }
       
    }
@@ -222,13 +286,15 @@ public class Clazz
                   "{\n" +
                   "}\n");
             
-            CGUtil.replace(text, "className", className);        
-            CGUtil.replace(text, "packageName", packageName);
+            CGUtil.replaceAll(text, 
+               "className", className, 
+               "packageName", packageName);
             
             fileBody.append(text.toString());
          }
          
          parser = new Parser()
+         .withFileName(fileName)
          .withFileBody(fileBody);
 
       }
@@ -246,4 +312,295 @@ public class Clazz
       this.fileHasChanged = fileHasChanged;
    }
 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Role
+    *              clazz                   sourceRoles
+    * </pre>
+    */
+   
+   public static final String PROPERTY_SOURCEROLES = "sourceRoles";
+   
+   private LinkedHashSet<Role> sourceRoles = null;
+   
+   public LinkedHashSet<Role> getSourceRoles()
+   {
+      if (this.sourceRoles == null)
+      {
+         return Role.EMPTY_SET;
+      }
+   
+      return this.sourceRoles;
+   }
+   
+   public boolean addToSourceRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.sourceRoles == null)
+         {
+            this.sourceRoles = new LinkedHashSet<Role>();
+         }
+         
+         changed = this.sourceRoles.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCEROLES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromSourceRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if ((this.sourceRoles != null) && (value != null))
+      {
+         changed = this.sourceRoles.remove (value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCEROLES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withSourceRoles(Role value)
+   {
+      addToSourceRoles(value);
+      return this;
+   } 
+   
+   public Clazz withoutSourceRoles(Role value)
+   {
+      removeFromSourceRoles(value);
+      return this;
+   } 
+   
+   public void removeAllFromSourceRoles()
+   {
+      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getSourceRoles());
+   
+      for (Role value : tmpSet)
+      {
+         this.removeFromSourceRoles(value);
+      }
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Role
+    *              clazz                   targetRoles
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TARGETROLES = "targetRoles";
+   
+   private LinkedHashSet<Role> targetRoles = null;
+   
+   public LinkedHashSet<Role> getTargetRoles()
+   {
+      if (this.targetRoles == null)
+      {
+         return Role.EMPTY_SET;
+      }
+   
+      return this.targetRoles;
+   }
+   
+   public boolean addToTargetRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.targetRoles == null)
+         {
+            this.targetRoles = new LinkedHashSet<Role>();
+         }
+         
+         changed = this.targetRoles.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETROLES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromTargetRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if ((this.targetRoles != null) && (value != null))
+      {
+         changed = this.targetRoles.remove (value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETROLES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withTargetRoles(Role value)
+   {
+      addToTargetRoles(value);
+      return this;
+   } 
+   
+   public Clazz withoutTargetRoles(Role value)
+   {
+      removeFromTargetRoles(value);
+      return this;
+   } 
+   
+   public void removeAllFromTargetRoles()
+   {
+      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getTargetRoles());
+   
+      for (Role value : tmpSet)
+      {
+         this.removeFromTargetRoles(value);
+      }
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Method
+    *              clazz                   methods
+    * </pre>
+    */
+   
+   public static final String PROPERTY_METHODS = "methods";
+   
+   private LinkedHashSet<Method> methods = null;
+   
+   public LinkedHashSet<Method> getMethods()
+   {
+      if (this.methods == null)
+      {
+         return Method.EMPTY_SET;
+      }
+   
+      return this.methods;
+   }
+   
+   public boolean addToMethods(Method value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.methods == null)
+         {
+            this.methods = new LinkedHashSet<Method>();
+         }
+         
+         changed = this.methods.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromMethods(Method value)
+   {
+      boolean changed = false;
+      
+      if ((this.methods != null) && (value != null))
+      {
+         changed = this.methods.remove (value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withMethods(Method value)
+   {
+      addToMethods(value);
+      return this;
+   } 
+   
+   public Clazz withoutMethods(Method value)
+   {
+      removeFromMethods(value);
+      return this;
+   } 
+   
+   public void removeAllFromMethods()
+   {
+      LinkedHashSet<Method> tmpSet = new LinkedHashSet<Method>(this.getMethods());
+   
+      for (Method value : tmpSet)
+      {
+         this.removeFromMethods(value);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      return false;
+   }
 }
+
+
+

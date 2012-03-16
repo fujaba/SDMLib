@@ -24,78 +24,55 @@ package org.sdmlib.scenarios.creators;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.sdmlib.json.JsonCreator;
-import org.sdmlib.json.JsonIdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.scenarios.LogEntry;
 
 
-public class LogEntryCreator implements JsonCreator {
-   private final String[] attribute = new  String[] {
+public class LogEntryCreator implements SendableEntityCreator {
+   private final String[] attributes = new  String[] {
          LogEntry.PROPERTY_DATE     ,
          LogEntry.PROPERTY_HOURS_SPEND     ,
          LogEntry.PROPERTY_HOURS_REMAINING_IN_PHASE     ,
          LogEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL     ,
          LogEntry.PROPERTY_DEVELOPER     ,
          LogEntry.PROPERTY_PHASE   ,
-         LogEntry.PROPERTY_COMMENT
-      };
-   private final HashSet <String> toManyFields = new HashSet<String>(Arrays.asList(new String[] { 
-   
-      }));
-   private final String[] reference = new String[] {
+         LogEntry.PROPERTY_COMMENT,
          LogEntry.PROPERTY_KANBAN_ENTRY            
       };
-   private final String[] aggregationen = new  String[] {
-   
-      };
+
    @Override
-   public String[] getAttributesTypes () 
-   {
-      return attribute;
-       	 }
-   @Override
-   public String[] getAggregationTypes () 
-   {
-      return aggregationen;
-      	 }
-   @Override
-   public String[] getReferenceTypes () 
-   {
-      return reference;
-      	 }
-   @Override
-   public Object newInstance () 
-   {
-      return new LogEntry();
-      	 }
-   @Override
-   public String getClassName () 
-   {
-      return "org.sdmlib.scenarios.LogEntry";
-       	 }
-   @Override
-   public boolean isToManyField (String fieldName) 
-   {
-      return toManyFields.contains(fieldName);
-      	 }
-   @Override
-   public Object get (Object target, String attribute) 
+   public Object getValue (Object target, String attribute) 
    {
       return ((LogEntry)target).get(attribute);
-      }
+   }
+   
    @Override
-   public boolean set (Object target, String attribute, Object value) 
+   public boolean setValue (Object target, String attribute, Object value) 
    {
       return ((LogEntry)target).set(attribute, value);
-      }
-   public static JsonIdMap createIdMap(String sessionID) {
-      JsonIdMap jsonIdMap = new JsonIdMap(sessionID);
-      		
-           jsonIdMap.addCreater(new KanbanEntryCreator());
-           jsonIdMap.addCreater(new LogEntryCreator());
-           jsonIdMap.addCreater(new PhaseEntryCreator());
-      		 
-      		return jsonIdMap;
-      	 }
-   
    }
+   
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
+
+      jsonIdMap.addCreater(new KanbanEntryCreator());
+      jsonIdMap.addCreater(new LogEntryCreator());
+      jsonIdMap.addCreater(new PhaseEntryCreator());
+
+      return jsonIdMap;
+   }
+   
+   @Override
+   public String[] getProperties()
+   {
+      return attributes;
+   }
+   
+   @Override
+   public Object getSendableInstance(boolean reference)
+   {
+      return new LogEntry();
+   }
+}

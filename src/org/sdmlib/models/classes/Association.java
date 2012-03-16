@@ -94,29 +94,6 @@ public class Association
    
    //==========================================================================
    
-   public static final String PROPERTY_SOURCE = "source";
-   
-   private Role source;
-   
-   public Role getSource()
-   {
-      return this.source;
-   }
-   
-   public void setSource(Role value)
-   {
-      this.source = value;
-   }
-   
-   public Association withSource(Role value)
-   {
-      setSource(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
    public static final String PROPERTY_TARGET = "target";
    
    private Role target;
@@ -191,7 +168,85 @@ public class Association
       setModel(value);
       return this;
    } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Association ----------------------------------- Role
+    *              assoc                   source
+    * </pre>
+    */
+   
+   public static final String PROPERTY_SOURCE = "source";
+   
+   private Role source = null;
+   
+   public Role getSource()
+   {
+      return this.source;
+   }
+   
+   public boolean setSource(Role value)
+   {
+      boolean changed = false;
+      
+      if (this.source != value)
+      {
+         Role oldValue = this.source;
+         
+         if (this.source != null)
+         {
+            this.source = null;
+            oldValue.setAssoc(null);
+         }
+         
+         this.source = value;
+         
+         if (value != null)
+         {
+            value.setAssoc(this);
+         }
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Association withSource(Role value)
+   {
+      setSource(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      return false;
+   }
 }
+
+
 
 
 
