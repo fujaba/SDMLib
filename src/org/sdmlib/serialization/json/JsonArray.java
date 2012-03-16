@@ -29,6 +29,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
@@ -343,14 +344,14 @@ public class JsonArray {
 	 *             If the array contains an invalid number.
 	 */
 	public String join(String separator) throws RuntimeException {
-		int len = length();
+		List<Object> elements = getElements();
 		StringBuffer sb = new StringBuffer();
 
-		for (int i = 0; i < len; i += 1) {
+		for (int i = 0; i < elements.size(); i += 1) {
 			if (i > 0) {
 				sb.append(separator);
 			}
-			sb.append(JsonObject.valueToString(this.myArrayList.get(i)));
+			sb.append(JsonObject.valueToString(elements.get(i)));
 		}
 		return sb.toString();
 	}
@@ -831,6 +832,10 @@ public class JsonArray {
 	public String toString(int indentFactor) throws RuntimeException {
 		return toString(indentFactor, 0);
 	}
+	
+	public List<Object> getElements(){
+		return myArrayList;
+	}
 
 	/**
 	 * Make a prettyprinted JSON text of this JSONArray. Warning: This method
@@ -845,14 +850,15 @@ public class JsonArray {
 	 * @throws RuntimeException
 	 */
 	String toString(int indentFactor, int indent) throws RuntimeException {
-		int len = length();
+		List<Object> elements = getElements();
+		int len = elements.size();
 		if (len == 0) {
 			return "[]";
 		}
 		int i;
 		StringBuffer sb = new StringBuffer("[");
 		if (len == 1) {
-			sb.append(JsonObject.valueToString(this.myArrayList.get(0),
+			sb.append(JsonObject.valueToString(elements.get(0),
 					indentFactor, indent));
 		} else {
 			int newindent = indent + indentFactor;
@@ -864,7 +870,7 @@ public class JsonArray {
 				for (int j = 0; j < newindent; j += 1) {
 					sb.append(' ');
 				}
-				sb.append(JsonObject.valueToString(this.myArrayList.get(i),
+				sb.append(JsonObject.valueToString(elements.get(i),
 						indentFactor, newindent));
 			}
 			sb.append('\n');
@@ -887,8 +893,9 @@ public class JsonArray {
 	 */
 	public Writer write(Writer writer) throws RuntimeException {
 		try {
+			List<Object> elements = getElements();
 			boolean b = false;
-			int len = length();
+			int len = elements.size();
 
 			writer.write('[');
 
@@ -896,7 +903,7 @@ public class JsonArray {
 				if (b) {
 					writer.write(',');
 				}
-				Object v = this.myArrayList.get(i);
+				Object v = elements.get(i);
 				if (v instanceof JsonObject) {
 					((JsonObject) v).write(writer);
 				} else if (v instanceof JsonArray) {

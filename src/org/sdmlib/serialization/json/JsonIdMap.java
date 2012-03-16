@@ -7,7 +7,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.creater.DateCreator;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
+import org.sdmlib.serialization.interfaces.UpdateListener;
 
 public class JsonIdMap extends IdMap<SendableEntityCreator>{
 	public static final String REMOVE_SUFFIX = ".old";
@@ -16,6 +16,7 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 	public static final String JSON_PROPS = "prop";
 	public static final String REF_SUFFIX = "_ref";
 	public static final String JSONVALUE = "value";
+	private UpdateListener updatelistener;
 
 	public JsonIdMap() {
 		super();
@@ -194,21 +195,7 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 			}
 			put(jsonId, target);
 
-			// adjust number to be higher than read numbers
-			String[] split = jsonId.split("\\.");
-
-			if (split.length != 2) {
-				throw new RuntimeException("jsonid " + jsonId
-						+ " should have one . in its middle");
-			}
-
-			if (sessionId.equals(split[0])) {
-				String oldNumber = split[1].substring(1);
-				long oldInt = Long.parseLong(oldNumber);
-				if (oldInt >= number) {
-					number = oldInt + 1;
-				}
-			}
+			getCounter().readId(jsonId);
 		}
 		if (isProperties && jsonObject.has(JSON_PROPS)) {
 			JsonObject jsonProp = (JsonObject) jsonObject.get(JSON_PROPS);
@@ -281,9 +268,17 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 		return jsonArray;
 	}
 
+	public JsonArray toJsonSortedArray(Object object, String property) {
+		JsonSortedArray jsonArray = new JsonSortedArray();
+		jsonArray.setSortProp(property);
+		JsonFilter filter = new JsonFilter();
+		toJsonArray(jsonArray, object, filter);
+		return jsonArray;
+	}
+	
 	private void toJsonArray(JsonArray jsonArray, Object object,
 			JsonFilter filter) {
-
+		
 		String id = getId(object);
 		String className = object.getClass().getName();
 
@@ -352,14 +347,21 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 	}
 
 	public String toToYUmlObject(Object object) {
-		YUMLParser parser=new YUMLParser(this);
+		YUMLIdParser parser=new YUMLIdParser(this);
 		return parser.parseObject(object);
 	}
 	public String toToYUmlClass(Object object) {
-		YUMLParser parser=new YUMLParser(this);
+		YUMLIdParser parser=new YUMLIdParser(this);
 		return parser.parseClass(object, false);
 	}
+	
+	public void setUpdateMsgListener(UpdateListener listener){
+		this.updatelistener=listener;
+	}
 
+	public void sendUpdateMsg(JsonObject jsonObject) {
+		this.updatelistener.sendUpdateMsg(jsonObject);
+	}
    public JsonIdMap withSessionId(String sessionID)
    {
       setSessionId(sessionID);

@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
-
 public class Encoding {
 	public static final String ID="id";
 	private StringBuffer buffer;
@@ -73,7 +72,7 @@ public class Encoding {
 							}
 							ArrayList<String> list = children.get(label);
 							if(list==null){
-								list=new ArrayList();
+								list=new ArrayList<String>();
 							}
 							list.add(property);
 							children.put(label, list);							
@@ -93,7 +92,7 @@ public class Encoding {
 							property+=XMLIdMap.ENTITYSPLITTER;
 							ArrayList<String> list = children.get(property);
 							if(list==null){
-								list=new ArrayList();
+								list=new ArrayList<String>();
 								children.put(property, list);
 							}else{
 								list.add(property);

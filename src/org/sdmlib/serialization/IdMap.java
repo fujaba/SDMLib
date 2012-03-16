@@ -1,32 +1,47 @@
 package org.sdmlib.serialization;
 
-import java.util.LinkedHashMap;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
 
+import org.sdmlib.serialization.interfaces.IdCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-
 public class IdMap<T extends SendableEntityCreator> {
-	protected String sessionId="J1";
-	protected long number = 1;
-	private LinkedHashMap<Object, String> keys = new LinkedHashMap<Object, String>();
-	private LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
-	private LinkedHashMap<String, T> creators = new LinkedHashMap<String, T>();
+	public static final String REMOVE="rem";
+	public static final String UPDATE="upd";
+	private HashMap<Object, String> keys = new HashMap<Object, String>();
+	private HashMap<String, Object> values = new HashMap<String, Object>();
+	private HashMap<String, T> creators = new HashMap<String, T>();
 	protected IdMap<T> parent;
 	protected boolean isId = true;
+	private IdCounter counter;
+	private UpdateListener updateListener;
+	private RemoveListener removeListener;
 
 	public IdMap(){
-		keys = new LinkedHashMap<Object, String>();
-		values = new LinkedHashMap<String, Object>();
-		creators = new LinkedHashMap<String, T>();
+		keys = new HashMap<Object, String>();
+		values = new HashMap<String, Object>();
+		creators = new HashMap<String, T>();
 	}
 	public IdMap(IdMap<T> parent){
 		this.parent=parent;
 	}
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public void setCounter(IdCounter counter){
+		this.counter=counter;
 	}
+	public IdCounter getCounter(){
+		if(counter==null){
+			counter=new SimpleIdCounter();
+		}
+		return counter;
+	}
+	
+	public void setSessionId(String sessionId) {
+		getCounter().setPrefixId(sessionId);
+	}
+	
 
 	// Key Value paar
 	public String getKey(Object obj) {
@@ -51,29 +66,13 @@ public class IdMap<T extends SendableEntityCreator> {
 			return parent.getId(obj);
 		}
 		String key = keys.get(obj);
-		if (key == null) {
-			// new object generate key and add to tables
-			// <session id>.<first char><running number>
-			if (obj == null) {
-				try {
-					throw new Exception("NullPointer: " + obj);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			String className = obj.getClass().getName();
-			char firstChar = className.charAt(className.lastIndexOf('.') + 1);
-			if (sessionId != null) {
-				key = sessionId + "." + firstChar + number;
-			} else {
-				key = "" + firstChar + number;
-			}
-			number++;
-
+		if(key==null){
+			key=getCounter().getId(obj);
 			put(key, obj);
 		}
 		return key;
 	}
+	
 
 	public void put(String jsonId, Object object) {
 		if(parent!=null){
@@ -82,9 +81,25 @@ public class IdMap<T extends SendableEntityCreator> {
 			values.put(jsonId, object);
 			keys.put(object, jsonId);
 			if(object instanceof SendableEntity){
-				((SendableEntity)object).setRemoveListener(new RemoveEntity(this, object));
+				((SendableEntity)object).addPropertyChangeListener(IdMap.REMOVE, getListener(IdMap.REMOVE));
+				((SendableEntity)object).addPropertyChangeListener(IdMap.UPDATE, getListener(IdMap.UPDATE));
 			}
 		}
+	}
+	
+	public PropertyChangeListener getListener(String id){
+		if(id==IdMap.UPDATE){
+			if(this.updateListener==null){
+				this.updateListener=new UpdateListener(this);
+			}
+			return updateListener;
+		}else if(id==IdMap.REMOVE){
+			if(this.removeListener==null){
+				this.removeListener=new RemoveListener(this);
+			}
+			return removeListener;
+		}
+		return null;
 	}
 
 	public boolean remove(Object oldValue) {
@@ -93,8 +108,8 @@ public class IdMap<T extends SendableEntityCreator> {
 		}
 		String key = getKey(oldValue);
 		if (key != null) {
-			keys.remove(key);
-			values.remove(oldValue);
+			keys.remove(oldValue);
+			values.remove(key);
 			return true;
 		}
 		return false;
