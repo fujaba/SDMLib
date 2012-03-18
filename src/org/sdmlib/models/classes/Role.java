@@ -471,6 +471,21 @@ public class Role
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         return getCard();
+      }
+
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         return getKind();
+      }
       
       return null;
    }
@@ -501,6 +516,7 @@ public class Role
       return false;
    }
 }
+
 
 
 

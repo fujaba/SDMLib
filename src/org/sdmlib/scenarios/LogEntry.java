@@ -33,6 +33,13 @@ import org.sdmlib.utils.StrUtil;
 // should have a creator class
 public class LogEntry implements PropertyChangeClient
 {
+   
+   public LogEntry()
+   {
+      int i = 0;
+      i = i + 1;
+   }
+   
    public static final LinkedHashSet<LogEntry> EMPTY_SET = new LinkedHashSet<LogEntry>();
 
    public static final String PROPERTY_DATE = "date";
@@ -99,45 +106,6 @@ public class LogEntry implements PropertyChangeClient
    public double getHoursRemainingInTotal() {
       return this.hoursRemainingInTotal;
    }
-   /**
-    * <pre>
-    *           0..n     1..1
-    * LogEntry ------------------------- PhaseEntry
-    *           logEntries        &lt;       kanbanEntry
-    * </pre>
-    */
-
-   public static final String PROPERTY_KANBAN_ENTRY = "kanbanEntry";
-   private PhaseEntry kanbanEntry;
-
-   public boolean setKanbanEntry (PhaseEntry value)		
-   {
-      boolean changed = false;
-
-      if (this.kanbanEntry != value)
-      {
-         PhaseEntry oldValue = this.kanbanEntry;
-         if (this.kanbanEntry != null)
-         {
-            this.kanbanEntry = null;
-            oldValue.removeFromLogEntries(this);
-         }
-         this.kanbanEntry = value;
-
-         if (value != null)
-         {
-            value.addToLogEntries(this);
-         }
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_KANBAN_ENTRY, oldValue, value);
-         changed = true;
-      }
-      return changed;
-   }
-
-   public PhaseEntry getKanbanEntry ()	
-   {
-      return this.kanbanEntry;
-   }
    public static final String PROPERTY_DEVELOPER = "developer";
 
    private String developer;
@@ -185,11 +153,6 @@ public class LogEntry implements PropertyChangeClient
 
    public String getComment() {
       return this.comment;
-   }
-
-   public void removeYou()
-   {
-      this.setKanbanEntry (null);
    }
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -241,9 +204,9 @@ public class LogEntry implements PropertyChangeClient
          setHoursRemainingInTotal(Double.parseDouble(value.toString()));
          return true;
       }
-      else   if (PROPERTY_KANBAN_ENTRY.equalsIgnoreCase(attrName)) 
+      else   if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName)) 
       {
-         setKanbanEntry((PhaseEntry) value);
+         setKanbanEntry((KanbanEntry) value);
          return true;
       }
       else   if (PROPERTY_DEVELOPER.equalsIgnoreCase(attrName)) 
@@ -290,10 +253,11 @@ public class LogEntry implements PropertyChangeClient
       {
          return getHoursRemainingInTotal();
       }
-      else     if (PROPERTY_KANBAN_ENTRY.equalsIgnoreCase(attribute)) 
+      else     if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attribute)) 
       {
          return getKanbanEntry();
-      }        else     if (PROPERTY_DEVELOPER.equalsIgnoreCase(attribute)) 
+      }  
+      else     if (PROPERTY_DEVELOPER.equalsIgnoreCase(attribute)) 
       {
          return getDeveloper();
       }
@@ -336,14 +300,7 @@ public class LogEntry implements PropertyChangeClient
    }
 
 
-   public LogEntry withKanbanEntry(PhaseEntry newValue)
-   {
-      this.setKanbanEntry(newValue);
-      return this;
-   }
-
-
-   public LogEntry withDeveloper(String newValue)
+  public LogEntry withDeveloper(String newValue)
    {
       this.setDeveloper(newValue);
       return this;
@@ -363,6 +320,57 @@ public class LogEntry implements PropertyChangeClient
       return this;
    }
 
-
-
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * LogEntry ----------------------------------- KanbanEntry
+    *              logEntries                   kanbanEntry
+    * </pre>
+    */
+   
+   public static final String PROPERTY_KANBANENTRY = "kanbanEntry";
+   
+   private KanbanEntry kanbanEntry = null;
+   
+   public KanbanEntry getKanbanEntry()
+   {
+      return this.kanbanEntry;
+   }
+   
+   public boolean setKanbanEntry(KanbanEntry value)
+   {
+      boolean changed = false;
+      
+      if (this.kanbanEntry != value)
+      {
+         KanbanEntry oldValue = this.kanbanEntry;
+         
+         if (this.kanbanEntry != null)
+         {
+            this.kanbanEntry = null;
+            oldValue.withoutLogEntries(this);
+         }
+         
+         this.kanbanEntry = value;
+         
+         if (value != null)
+         {
+            value.withLogEntries(this);
+         }
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_KANBANENTRY, null, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public LogEntry withKanbanEntry(KanbanEntry value)
+   {
+      setKanbanEntry(value);
+      return this;
+   } 
 }
+
+

@@ -94,62 +94,41 @@ public class Scenario
 		   .withName(this.getName())
 		   .withPhase(backlog)
 		   .withParent(kanbanBoard)
-		   .withPhaseEntries(
-		         new PhaseEntry()
-		             .withPhase(backlog)
-		             .withLogEntries(		         
-		                   new LogEntry()
-		                   .withDate(todayString)
-		                   .withPhase(backlog)
-		                   .withDeveloper(System.getProperty("user.name"))
-		                   .withHoursRemainingInTotal(Math.max(50, steps.size()))));
+		   .withLogEntries(		         
+		      new LogEntry()
+		      .withDate(todayString)
+		      .withPhase(backlog)
+		      .withDeveloper(System.getProperty("user.name"))
+		      .withHoursRemainingInTotal(0.0));
 		}
 		
       // update log entries
-      for(PhaseEntry phaseEntry : kanbanEntry.getPhaseEntries())
+      for (LogEntry oldEntry : kanbanEntry.getLogEntries())
       {
-         for (LogEntry oldEntry : phaseEntry.getLogEntries())
+         // do I have a new entry for this date
+         String oldDate = oldEntry.getDate();
+         LogEntry newLogEntry = newLogEntries.get(oldDate);
+
+         if (newLogEntry != null)
          {
-            // do I have a new entry for this date
-            String oldDate = oldEntry.getDate();
-            LogEntry newLogEntry = newLogEntries.get(oldDate);
+            // transfer values
+            oldEntry.withDeveloper(newLogEntry.getDeveloper())
+            .withHoursRemainingInPhase(newLogEntry.getHoursRemainingInPhase())
+            .withHoursRemainingInTotal(newLogEntry.getHoursRemainingInTotal())
+            .withHoursSpend(newLogEntry.getHoursSpend())
+            .withPhase(newLogEntry.getPhase());
 
-            if (newLogEntry != null)
-            {
-               // transfer values
-               oldEntry.withDeveloper(newLogEntry.getDeveloper())
-               .withHoursRemainingInPhase(newLogEntry.getHoursRemainingInPhase())
-               .withHoursRemainingInTotal(newLogEntry.getHoursRemainingInTotal())
-               .withHoursSpend(newLogEntry.getHoursSpend())
-               .withPhase(newLogEntry.getPhase());
-
-               // remove from newLogEntries
-               newLogEntries.remove(oldDate);
-            }
+            // remove from newLogEntries
+            newLogEntries.remove(oldDate);
          }
-      }
+      }    
       
-      // find last phase entry
-      PhaseEntry lastPhaseEntry = null;
-      for (PhaseEntry phaseEntry : kanbanEntry.getPhaseEntries())
-      {
-         lastPhaseEntry = phaseEntry;
-      }
-      
-      // add new log entries
       for (String key : newLogEntries.keySet())
       {
-         LogEntry logEntry = newLogEntries.get(key);
-         if (lastPhaseEntry == null || ! lastPhaseEntry.getPhase().equals(logEntry.getPhase()))
-         {
-            lastPhaseEntry = new PhaseEntry()
-            .withKanbanEntry(kanbanEntry)
-            .withPhase(logEntry.getPhase());
-         }
-         
-         lastPhaseEntry.addToLogEntries(logEntry);
+         LogEntry newLogEntry = newLogEntries.get(key);
+         kanbanEntry.addToLogEntries(newLogEntry);
       }
-
+      
       // generate the html text
 		String htmlText = "<html>\n" +
             "<body>\n" +
@@ -268,5 +247,17 @@ public class Scenario
    public void addImage(String imageFile)
    {
       steps.add("<img src='" + imageFile + "'>");     
+   }
+
+   public void add(String string, String phase, String developer, String date, double hoursSpend, double hoursRemaining)
+   {
+      add(string);
+      addLogEntry(new LogEntry()
+      .withDate(date)
+      .withPhase(phase)
+      .withDeveloper(developer)
+      .withHoursSpend(hoursSpend)
+      .withHoursRemainingInTotal(hoursRemaining)
+      .withComment("Achieved: " + string));
    }
 }

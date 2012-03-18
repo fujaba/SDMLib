@@ -167,6 +167,11 @@ public class University
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
       
       return null;
    }
@@ -271,7 +276,10 @@ public class University
          this.removeFromRooms(value);
       }
    }
+
 }
+
+
 
 
 

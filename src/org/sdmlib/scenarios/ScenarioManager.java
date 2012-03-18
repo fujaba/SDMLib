@@ -197,7 +197,7 @@ public class ScenarioManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-	   JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard);
+	   JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.JSON_ID);
 	   String jsonString = jsonArray.toString(2);
      
 	   printFile(new File(DOC_KANBAN_ENTRIES_JSON), jsonString);
@@ -301,7 +301,7 @@ public class ScenarioManager
       collectHours(kanbanBoard);
       
 		// store entries into file for next run
-		JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard);
+		JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.JSON_ID);
 		String text = jsonArray.toString(2);
 		File file = new File (DOC_KANBAN_ENTRIES_JSON);
 		printFile(file, text);
@@ -324,39 +324,35 @@ public class ScenarioManager
 		   TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
 		   TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
          
-		   for (PhaseEntry phaseEntry : kanbanEntry.getPhaseEntries())
-         {
-            for (LogEntry logEntry : phaseEntry.getLogEntries())
-            {
-               phases.add(logEntry.getPhase());
-               lastLogEntry = logEntry;
-               sumOfHoursSpend += logEntry.getHoursSpend();
+		   for (LogEntry logEntry : kanbanEntry.getLogEntries())
+		   {
+		      phases.add(logEntry.getPhase());
+		      lastLogEntry = logEntry;
+		      sumOfHoursSpend += logEntry.getHoursSpend();
 
-               try
-               {
-                  repairDate(logEntry);
+		      try
+		      {
+		         repairDate(logEntry);
 
-                  Date theDate = dateParser.parse(logEntry.getDate());
-                  Second theDay = new Second(theDate);
-                  double hoursEstimated = sumOfHoursSpend
-                        + Math.max(logEntry.getHoursRemainingInPhase(),
-                              logEntry.getHoursRemainingInTotal());
-                  hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
-                  hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
-               }
-               catch (ParseException e)
-               {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-               }
-
-            }
-         }
-         // create burnup chart for kanban entry
+		         Date theDate = dateParser.parse(logEntry.getDate());
+		         Second theDay = new Second(theDate);
+		         double hoursEstimated = sumOfHoursSpend
+		               + Math.max(logEntry.getHoursRemainingInPhase(),
+		                  logEntry.getHoursRemainingInTotal());
+		         hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
+		         hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
+		      }
+		      catch (ParseException e)
+		      {
+		         // TODO Auto-generated catch block
+		         e.printStackTrace();
+		      }
+		   }
+		   
+		   // create burnup chart for kanban entry
 		   createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
 
-         
-         if (lastLogEntry != null)
+		   if (lastLogEntry != null)
          {
             kanbanEntry
                   .withLastDeveloper(lastLogEntry.getDeveloper())
@@ -379,21 +375,18 @@ public class ScenarioManager
       for (KanbanEntry kanbanEntry : allEntries)
       {
          StringBuilder text = new StringBuilder();
-         for (PhaseEntry phaseEntry : kanbanEntry.getPhaseEntries())
+         // for entry node, dump html page
+         for (LogEntry logEntry : kanbanEntry.getLogEntries())
          {
-            // for entry node, dump html page
-            for (LogEntry logEntry : phaseEntry.getLogEntries())
-            {
-               String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
-               logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
-               logLine = logLine.replaceFirst("developer", ""+logEntry.getDeveloper());
-               logLine = logLine.replaceFirst("hoursspend", ""+logEntry.getHoursSpend());
-               logLine = logLine.replaceFirst("hoursremaining", ""+logEntry.getHoursRemainingInTotal());
-               logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
-               logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
-               
-               text.append(logLine);
-            }
+            String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
+            logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
+            logLine = logLine.replaceFirst("developer", ""+logEntry.getDeveloper());
+            logLine = logLine.replaceFirst("hoursspend", ""+logEntry.getHoursSpend());
+            logLine = logLine.replaceFirst("hoursremaining", ""+logEntry.getHoursRemainingInTotal());
+            logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
+            logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
+
+            text.append(logLine);
          }
          
          printFile(
@@ -507,94 +500,86 @@ public class ScenarioManager
             // store new hours
             rootEntry.withHoursSpend(hoursSpendSum)
             .withHoursRemaining(hoursRemainingSum);
-            
+             
             // create log entry
+            String latestDate;
+            String latestDeveloper;
+            String latestComment = null;
+            
+            if (latestLogEntry == null)
+            {
+               latestDate = dateParser.format(new Date(System.currentTimeMillis()));
+               latestDeveloper = System.getProperty("user.name");
+            }
+            else
+            {
+               latestDate = latestLogEntry.getDate();
+               latestDeveloper = latestLogEntry.getDeveloper();
+               latestComment = latestLogEntry.getKanbanEntry().getName() + ": " 
+                     + latestLogEntry.getComment();
+            }
+            
             LogEntry newLogEntry = new LogEntry()
             .withHoursSpend(hoursSpendSum-oldHoursSpend)
             .withHoursRemainingInTotal(hoursRemainingSum)
-            .withDate(latestLogEntry.getDate())
-            .withDeveloper(latestLogEntry.getDeveloper())
+            .withDate(latestDate)
+            .withDeveloper(latestDeveloper)
             .withPhase(rootEntry.getPhase())
-            .withComment(latestLogEntry.getComment());
-            
-            // find last phase entry
-            PhaseEntry lastPhaseEntry = null;
-            for (PhaseEntry phaseEntry : rootEntry.getPhaseEntries())
-            {
-               lastPhaseEntry = phaseEntry;
-            }
-            
-            // add new log entries
-            if (lastPhaseEntry == null || ! StrUtil.stringEquals(lastPhaseEntry.getPhase(), newLogEntry.getPhase()))
-            {
-               lastPhaseEntry = new PhaseEntry()
-               .withKanbanEntry(rootEntry)
-               .withPhase(newLogEntry.getPhase());
-            }        
-
-            lastPhaseEntry.withLogEntries(newLogEntry);
+            .withComment(latestComment)
+            .withKanbanEntry(rootEntry);
          }
       }
       else // no subentries
-      {
-         // collect hours from phase entries
-         double phaseHoursSpend = 0;
-         double phaseHoursRemaining = 0;
+      {         
+         // collect hours from log entries
+         double logHoursSpend = 0.0;
+         double logHoursRemaining = 0.0;
          
-         for (PhaseEntry phaseEntry : rootEntry.getPhaseEntries())
+         for (LogEntry logEntry : rootEntry.getLogEntries())
          {
-            // collect hours from log entries
-            for (LogEntry logEntry : phaseEntry.getLogEntries())
-            {
-               phaseHoursSpend += logEntry.getHoursSpend();
-               phaseHoursRemaining = Math.max(logEntry.getHoursRemainingInPhase(), logEntry.getHoursRemainingInTotal());
-            }
- 
-            phaseEntry
-            .withHoursSpend(phaseHoursSpend)
-            .withHoursRemainingInTotal(phaseHoursRemaining);
-
-            hoursSpendSum += phaseEntry.getHoursSpend();
-            hoursRemainingSum = Math.max(phaseEntry.getHoursRemainingInPhase(), phaseEntry.getHoursRemainingInTotal());
-
+            logHoursSpend += logEntry.getHoursSpend();
+            logHoursRemaining = Math.max(logEntry.getHoursRemainingInPhase(), logEntry.getHoursRemainingInTotal());
          }
-         
-         rootEntry.setHoursSpend(hoursSpendSum);
-         rootEntry.setHoursRemaining(hoursRemainingSum);
+ 
+         hoursSpendSum = logHoursSpend;
+         hoursRemainingSum = logHoursRemaining;
       }
+         
+      rootEntry.setHoursSpend(hoursSpendSum);
+      rootEntry.setHoursRemaining(hoursRemainingSum);
    }
 
    private LogEntry findLatestLogEntry(LogEntry latestLogEntry,
          KanbanEntry subentry)
    {
-      for (PhaseEntry phaseEntry : subentry.getPhaseEntries())
+      for (LogEntry logEntry : subentry.getLogEntries())
       {
-         for (LogEntry logEntry : phaseEntry.getLogEntries())
+         if (latestLogEntry == null)
          {
-            if (latestLogEntry == null)
+            latestLogEntry = logEntry;
+         }
+         else
+         {
+            try
             {
-               latestLogEntry = logEntry;
+               repairDate(latestLogEntry);
+               repairDate(logEntry);
+
+               long latestTime = dateParser.parse(latestLogEntry.getDate()).getTime();
+               long thisTime = dateParser.parse(logEntry.getDate()).getTime();
+
+               if (thisTime > latestTime)
+               {
+                  latestLogEntry = logEntry;
+               }
             }
-            else
+            catch (ParseException e)
             {
-               try
-               {
-                  repairDate(latestLogEntry);
-                  repairDate(logEntry);
-                  long latestTime = dateParser.parse(latestLogEntry.getDate()).getTime();
-                  long thisTime = dateParser.parse(logEntry.getDate()).getTime();
-                  if (thisTime > latestTime)
-                  {
-                     latestLogEntry = logEntry;
-                  }
-               }
-               catch (ParseException e)
-               {
-                  // not that important AZ
-               }
+               // not that important AZ
             }
          }
       }
+
       return latestLogEntry;
    }
 

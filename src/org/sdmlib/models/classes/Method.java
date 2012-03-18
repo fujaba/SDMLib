@@ -116,6 +116,11 @@ public class Method
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
+      {
+         return getSignature();
+      }
       
       return null;
    }
@@ -134,5 +139,6 @@ public class Method
       return false;
    }
 }
+
 
 

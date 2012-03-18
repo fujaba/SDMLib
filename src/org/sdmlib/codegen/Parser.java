@@ -72,6 +72,18 @@ public class Parser
    {
       return symTab;
    }
+   
+   private boolean verbose = false;
+   
+   public void setVerbose(boolean verbose)
+   {
+      this.verbose = verbose;
+   }
+   
+   public boolean isVerbose()
+   {
+      return verbose;
+   }
 
    private int endPos;
 
@@ -196,8 +208,31 @@ public class Parser
       // skip name
       nextRealToken();
       
-      // TODO: extends 
-      // TODO: implements 
+      // extends 
+      if ("extends".equals(currentRealWord()))
+      {
+         skip ("extends");
+         
+         // skip superclass name
+         nextRealToken(); 
+      }
+      
+      // implements 
+      if ("implements".equals(currentRealWord()))
+      {
+         skip ("implements");
+         
+         while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('{'))
+         {
+            // skip interface name
+            nextRealToken(); 
+            
+            if (currentRealKindEquals(','))
+            {
+               nextRealToken();
+            }
+         }
+      }
       
       parseClassBody();     
    }
@@ -246,6 +281,8 @@ public class Parser
          String type = parseTypeRef();
 
          String memberName = currentRealWord();
+         verbose("parsing member: " + memberName);
+         
          nextRealToken();
 
          if (currentRealKindEquals('='))
@@ -289,16 +326,28 @@ public class Parser
             
             parseBlock();
             
-            String methodSignature = memberName + params;
-            checkSearchStringFound(METHOD + ":" + methodSignature, startPos);
-            
+            String methodSignature = Parser.METHOD + ":" + memberName + params;
+                        
             symTab.put(methodSignature, 
                new SymTabEntry()
                .withMemberName(methodSignature)
                .withKind(METHOD)
                .withType(methodSignature)
+               .withStartPos(startPos)
+               .withEndPos(previousRealToken.startPos)
+               .withBodyStartPos(methodBodyStartPos)
                );
+
+            checkSearchStringFound(methodSignature, startPos);
             }
+      }
+   }
+
+   private void verbose(String string)
+   {
+      if (verbose)
+      {
+         System.out.println(string);
       }
    }
 
@@ -515,6 +564,7 @@ public class Parser
          throw new RuntimeException("parse error");
       }
    }
+   
    private void skip(String string)
    {
       if (currentRealTokenEquals(string))
@@ -523,8 +573,10 @@ public class Parser
       }
       else
       {
-         System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() + " at pos " + currentRealToken.startPos + " in file \n" 
-            + fileName);
+         
+         System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() 
+            + " at pos " + currentRealToken.startPos 
+            + " in file \n" + fileName);
          throw new RuntimeException("parse error");
       }
    }
@@ -583,6 +635,17 @@ public class Parser
          lookAheadRealToken.startPos = constStartPos;
          lookAheadRealToken.endPos = previousToken.startPos;
       }
+      else if (currentToken.kind == '\'')
+      {
+         int constStartPos = currentToken.startPos;
+
+         parseCharConstant();
+         
+         lookAheadRealToken.kind = '\'';
+         lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos+1));
+         lookAheadRealToken.startPos = constStartPos;
+         lookAheadRealToken.endPos = previousToken.startPos;
+      }
       else
       {
          lookAheadRealToken.kind = currentToken.kind;
@@ -594,6 +657,23 @@ public class Parser
       }
    }
    
+   private void parseCharConstant()
+   {
+      // " 'c' or '\c' "
+      skipBasicToken('\'');
+      
+      // skip \ 
+      if (currentToken.kind == '\\')
+      {
+         nextToken();
+      }
+      
+      // skip c
+      nextToken();
+
+      skipBasicToken('\'');
+   }
+
    private void parseLineComment()
    {
       // '//' ... \n

@@ -38,6 +38,11 @@ public class Room
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
+      {
+         return getRoomNo();
+      }
       
       return null;
    }
@@ -134,5 +139,8 @@ public class Room
       setUni(value);
       return this;
    } 
+
 }
+
+
 

@@ -145,7 +145,7 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 		for (int i = 0; i <= len; i++) {
 			JsonObject kidObject = jsonArray.getJSONObject(i);
 			Object tmp = readJson(kidObject);
-			if (i == len) {
+			if (i == 0) {
 				result = tmp;
 			}
 		}

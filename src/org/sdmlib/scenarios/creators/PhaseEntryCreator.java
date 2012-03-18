@@ -32,29 +32,26 @@ import org.sdmlib.scenarios.PhaseEntry;
 public class PhaseEntryCreator implements SendableEntityCreator
 {
    private final String[] attributes = new  String[] {
-      PhaseEntry.PROPERTY_PHASE,
-      PhaseEntry.PROPERTY_DEVELOPER,
-      PhaseEntry.PROPERTY_PLANNED_START,
-      PhaseEntry.PROPERTY_PLANNED_END,
-      PhaseEntry.PROPERTY_ACTUAL_START,
-      PhaseEntry.PROPERTY_ACTUAL_END,
-      PhaseEntry.PROPERTY_HOURS_SPEND,
-      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
-      PhaseEntry.PROPERTY_HOURS_PLANNED ,
-      PhaseEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
-      PhaseEntry.PROPERTY_LOG_ENTRIES,
-      PhaseEntry.PROPERTY_KANBAN_ENTRY,
-      PhaseEntry.PROPERTY_KANBAN_ENTRY, 
-      PhaseEntry.PROPERTY_LOG_ENTRIES            
+         PhaseEntry.PROPERTY_PHASE,
+         PhaseEntry.PROPERTY_DEVELOPER,
+         PhaseEntry.PROPERTY_PLANNED_START,
+         PhaseEntry.PROPERTY_PLANNED_END,
+         PhaseEntry.PROPERTY_ACTUAL_START,
+         PhaseEntry.PROPERTY_ACTUAL_END,
+         PhaseEntry.PROPERTY_HOURS_SPEND,
+         PhaseEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
+         PhaseEntry.PROPERTY_HOURS_PLANNED ,
+         PhaseEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
+         PhaseEntry.PROPERTY_KANBAN_ENTRY,
    };
 
-	 @Override
-	 public Object getSendableInstance(boolean reference)
+   @Override
+   public Object getSendableInstance(boolean reference)
    {
       return new PhaseEntry();
-	 }
+   }
 
-	 @Override
+   @Override
    public Object getValue(Object target, String attribute)
    {
       return ((PhaseEntry)target).get(attribute);

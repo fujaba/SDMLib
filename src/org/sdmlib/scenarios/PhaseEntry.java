@@ -167,7 +167,8 @@ public class PhaseEntry implements PropertyChangeClient
 
    private double hoursPlanned;
 
-   public void setHoursPlanned(double value) {
+   public void setHoursPlanned(double value) 
+   {
       if ( this.hoursPlanned != value )
       {
          double oldValue = this.hoursPlanned;
@@ -176,9 +177,11 @@ public class PhaseEntry implements PropertyChangeClient
       }
    }
 
-   public double getHoursPlanned() {
+   public double getHoursPlanned() 
+   {
       return this.hoursPlanned;
    }
+   
    /**
     * <pre>
     *           0..n     1..1
@@ -218,6 +221,7 @@ public class PhaseEntry implements PropertyChangeClient
    {
       return this.kanbanEntry;
    }
+   
    public static final String PROPERTY_HOURS_REMAINING_IN_TOTAL = "hoursRemainingInTotal";
 
    private double hoursRemainingInTotal;
@@ -237,77 +241,6 @@ public class PhaseEntry implements PropertyChangeClient
 
    public static final Set<PhaseEntry> EMPTY_SET = new LinkedHashSet<PhaseEntry>();
 
-
-   /**
-    * <pre>
-    *           1..1     0..n
-    * PhaseEntry ------------------------- LogEntry
-    *           kanbanEntry        &gt;       logEntries
-    * </pre>
-    */
-
-   public static final String PROPERTY_LOG_ENTRIES = "logEntries";
-
-   private LinkedHashSet<LogEntry> logEntries;
-
-   public boolean addToLogEntries (LogEntry value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.logEntries == null)
-         {
-            this.logEntries = new LinkedHashSet<LogEntry> ();
-         }
-         changed = this.logEntries.add (value);
-         if (changed)
-         {
-            value.setKanbanEntry(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_LOG_ENTRIES, null, value);
-         }
-      }
-      return changed;
-   }
-
-   public boolean removeFromLogEntries (LogEntry value)	
-   {
-      boolean changed = false;
-
-      if ((this.logEntries != null) && (value != null))
-      {
-         changed = this.logEntries.remove (value);
-         if (changed)
-         {
-            value.setKanbanEntry(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_LOG_ENTRIES, value, null);
-         }
-      }
-      return changed;
-   }
-
-   public void removeAllFromLogEntries ()
-   {
-      LogEntry tmpValue;
-      
-      for (LogEntry logEntry : getLogEntries())
-      {
-         removeAllFromLogEntries();
-      }
-   }
-
-   public boolean hasInLogEntries (LogEntry value)
-   {
-      return ((this.logEntries != null) &&
-            (value != null) &&
-            this.logEntries.contains (value));
-   }
-
-   public void removeYou()
-   {
-      this.setKanbanEntry (null);
-      removeAllFromLogEntries();
-   }
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -393,11 +326,6 @@ public class PhaseEntry implements PropertyChangeClient
          setHoursRemainingInTotal(Double.parseDouble(value.toString()));
          return true;
       }
-      else   if (PROPERTY_LOG_ENTRIES.equalsIgnoreCase(attrName)) 
-      {
-         addToLogEntries((LogEntry) value);
-         return true;
-      }
       return false;
    }
 
@@ -453,10 +381,6 @@ public class PhaseEntry implements PropertyChangeClient
       }        else     if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attribute)) 
       {
          return getHoursRemainingInTotal();
-      }
-      else     if (PROPERTY_LOG_ENTRIES.equalsIgnoreCase(attribute)) 
-      {
-         return getLogEntries();
       }
       return null;
    }
@@ -536,29 +460,4 @@ public class PhaseEntry implements PropertyChangeClient
       this.setHoursRemainingInTotal(newValue);
       return this;
    }
-
-
-   public Set<LogEntry> getLogEntries()
-   {
-      if (this.logEntries == null)
-      {
-         return LogEntry.EMPTY_SET;  
-      }
-
-      return Collections.unmodifiableSet(this.logEntries);
-   }
-
-   public PhaseEntry withLogEntries(LogEntry newValue)
-   {
-      this.addToLogEntries(newValue);
-      return this;
-   }
-
-   public PhaseEntry withoutLogEntries(LogEntry newValue)
-   {
-      this.removeFromLogEntries(newValue);
-      return this;
-   }
-
-
 }

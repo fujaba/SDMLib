@@ -40,77 +40,53 @@ public class ClassModelTest
    public void testClassModelCodeGen()
    {
       Scenario scenario = new Scenario("ClassModelCodeGen");
-      
+
+      //=======================================================================
       scenario.add("This tests generates some classes with some elements. ");
-      
+
+
+      //=======================================================================
       scenario.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
-      
+
       ClassModel model = new ClassModel();
       
-      //=======================================================================
-      Clazz symTabEntryClass = new Clazz()
-      .withName("org.sdmlib.codegen.SymTabEntry");
-      
-      new Attribute().withName("kind").withType("String");
-      new Attribute().withName("memberName").withType("String");
-      new Attribute().withName("type").withType("String");
-      new Attribute().withName("startPos").withType("int");
-      new Attribute().withName("bodyStartPos").withType("int");
-      new Attribute().withName("endPos").withType("int");
-      
-      //=======================================================================
-      Clazz modelClass = new Clazz()
-      .withName("org.sdmlib.models.classes.ClassModel");
+      Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel");
            
-      //=======================================================================
-      Clazz clazzClass = new Clazz()
-      .withName("org.sdmlib.models.classes.Clazz");
-      
-      new Attribute().withName("name").withType("String");
+      Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz")
+      .withAttribute("name", "String");
       
       new Association()
       .withSource("classModel", modelClass, Role.ONE, Role.AGGREGATION)
       .withTarget("classes", clazzClass, Role.MANY);
       
-      //=======================================================================
-      Clazz attributeClass = new Clazz()
-      .withName("org.sdmlib.models.classes.Attribute");
       
-      new Attribute().withName("initialization").withType("String");
+      Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
+      .withAttribute("initialization", "String");
       
       new Association()
       .withSource("clazz", clazzClass, Role.ONE, Role.AGGREGATION)
       .withTarget("attributes", attributeClass, Role.MANY);
       
       
-    //=======================================================================
-      Clazz methodClass = new Clazz()
-      .withName("org.sdmlib.models.classes.Method");
-      
-      new Attribute().withName("signature").withType("String");
-      
+      Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
+      .withAttribute("signature", "String");     
       
       new Association()
       .withSource("clazz", clazzClass, Role.ONE, Role.AGGREGATION)
       .withTarget("methods", methodClass, Role.MANY);
       
-      //=======================================================================
-      Clazz associationClass = new Clazz()
-      .withName("org.sdmlib.models.classes.Association");
+      
+      Clazz associationClass = new Clazz("org.sdmlib.models.classes.Association");
       
       new Association()
       .withSource("model", modelClass, Role.ONE, Role.AGGREGATION)
       .withTarget("associations", associationClass, Role.MANY);
       
-      //=======================================================================
-      Clazz roleClass = new Clazz()
-      .withName("org.sdmlib.models.classes.Role");
       
-      new Attribute().withName("name").withType("String").withInitialization("null");
-      
-      new Attribute().withName("card").withType("String").withInitialization("MANY");
-
-      new Attribute().withName("kind").withType("String").withInitialization("VANILLA");
+      Clazz roleClass = new Clazz("org.sdmlib.models.classes.Role")
+      .withAttribute("name", "String")
+      .withAttribute("card", "String", "MANY")
+      .withAttribute("kind", "String", "VANILLA");
       
       new Association()
       .withSource("clazz", clazzClass, Role.ONE)
@@ -136,19 +112,26 @@ public class ClassModelTest
       //      Clazz parserContextClass = new Clazz()
       //      .withName("org.sdmlib.codegen.Parser");
       
+      Clazz symTabEntryClass = new Clazz("org.sdmlib.codegen.SymTabEntry")
+      .withAttribute("kind", "String")
+      .withAttribute("memberName", "String")
+      .withAttribute("type", "String")
+      .withAttribute("startPos", "int")
+      .withAttribute("bodyStartPos", "int")
+      .withAttribute("endPos", "int");
       
-      
-      model.generate("src");
+      scenario.add("Basic bootstrap done.", 
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 10);
       
       scenario.addImage(model.dumpClassDiag("ClassModelClasses01"));
-            
-      scenario.addLogEntry(new LogEntry()
-      .withDate("16.03.2012 17:19:00")
-      .withPhase(ProjectBoard.MODELING)
-      .withDeveloper("zuendorf")
-      .withHoursSpend(2)
-      .withHoursRemainingInTotal(19)
-      .withComment("Added SymTabEntry class."));
+      
+      scenario.add("Generate generic get and set and removeYou. First for attributes. ", 
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 9);
+
+      scenario.add("Generate creator classes.");
+
+      
+      model.generate("src");
       
       ScenarioManager.get()
       .add(scenario)

@@ -46,6 +46,12 @@ public class Clazz
       ClassModel.classModel.addToClasses(this);
    }
    
+   public Clazz(String name)
+   {
+      this();
+      setName(name);
+   }
+
    public static final String PROPERTY_NAME = "name";
    private String name = null; 
    
@@ -583,6 +589,11 @@ public class Clazz
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
       
       return null;
    }
@@ -600,7 +611,20 @@ public class Clazz
 
       return false;
    }
+
+   public Clazz withAttribute(String name, String type)
+   {      
+      this.withAttributes(new Attribute().withName(name).withType(type));
+      return this;
+   }
+
+   public Clazz withAttribute(String name, String type, String initialization)
+   {      
+      this.withAttributes(new Attribute().withName(name).withType(type).withInitialization(initialization));
+      return this;
+   }
 }
+
 
 
 

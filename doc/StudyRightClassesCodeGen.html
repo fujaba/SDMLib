@@ -2,13 +2,53 @@
 <body>
 <p>Scenario StudyRightClassesCodeGen</p>
 <pre>1. generate class University</pre>
-<img src='StudyRightClasses01.svg'><pre>2. generate class Student</pre>
-<pre>3. add uni --> stud assoc</pre>
-<pre>x. generate generic get</pre>
+<img src='StudyRightClasses01.svg'><pre>2. generate class Student with new notation</pre>
+<img src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
+<img src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
+<img src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes</pre>
+<pre>   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         setMatrNo((Integer) value);
+         return true;
+      }
+
+      return false;
+   }</pre>
+<pre>6. generate generic get for attributes</pre>
+<pre>   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         return getMatrNo();
+      }
+      
+      return null;
+   }</pre>
 <pre>x. generate removeYou method</pre>
 <pre>x. generate imports</pre>
 <pre>x. generate property change support</pre>
-<img src='StudyRightClasses99.svg'><pre>next. compile University.java</pre>
+<pre>next. compile University.java</pre>
 <pre>next. use University class to build object structure</pre>
 
 </body>

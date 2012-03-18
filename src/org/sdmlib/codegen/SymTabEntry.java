@@ -36,6 +36,36 @@ public class SymTabEntry
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         return getKind();
+      }
+
+      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
+      {
+         return getMemberName();
+      }
+
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return getType();
+      }
+
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         return getStartPos();
+      }
+
+      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         return getBodyStartPos();
+      }
+
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         return getEndPos();
+      }
       
       return null;
    }
@@ -222,4 +252,5 @@ public class SymTabEntry
       return this;
    } 
 }
+
 

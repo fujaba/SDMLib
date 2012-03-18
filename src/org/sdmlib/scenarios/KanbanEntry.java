@@ -35,15 +35,14 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeClient;
 import org.sdmlib.utils.StrUtil;
 
-
-
-
-public class KanbanEntry implements PropertyChangeClient{
+public class KanbanEntry implements PropertyChangeClient
+{
    public static final String PROPERTY_NAME = "name";
 
    private String name;
 
-   public void setName(String value) {
+   public void setName(String value) 
+   {
       if ( StrUtil.stringCompare (this.name, value) != 0 )
       {
          String oldValue = this.name;
@@ -55,11 +54,13 @@ public class KanbanEntry implements PropertyChangeClient{
    public String getName() {
       return this.name;
    }
+   
    public static final String PROPERTY_PHASE = "phase";
 
    private String phase;
 
-   public void setPhase(String value) {
+   public void setPhase(String value) 
+   {
       if ( StrUtil.stringCompare (this.phase, value) != 0 )
       {
          String oldValue = this.phase;
@@ -68,9 +69,11 @@ public class KanbanEntry implements PropertyChangeClient{
       }
    }
 
-   public String getPhase() {
+   public String getPhase() 
+   {
       return this.phase;
    }
+   
    public static final String PROPERTY_LAST_DEVELOPER = "lastDeveloper";
 
    private String lastDeveloper;
@@ -84,14 +87,17 @@ public class KanbanEntry implements PropertyChangeClient{
       }
    }
 
-   public String getLastDeveloper() {
+   public String getLastDeveloper() 
+   {
       return this.lastDeveloper;
    }
+   
    public static final String PROPERTY_HOURS_REMAINING = "hoursRemaining";
 
    private double hoursRemaining;
 
-   public void setHoursRemaining(double value) {
+   public void setHoursRemaining(double value) 
+   {
       if ( this.hoursRemaining != value )
       {
          double oldValue = this.hoursRemaining;
@@ -100,14 +106,17 @@ public class KanbanEntry implements PropertyChangeClient{
       }
    }
 
-   public double getHoursRemaining() {
+   public double getHoursRemaining() 
+   {
       return this.hoursRemaining;
    }
+   
    public static final String PROPERTY_HOURS_SPEND = "hoursSpend";
 
    private double hoursSpend;
 
-   public void setHoursSpend(double value) {
+   public void setHoursSpend(double value) 
+   {
       if ( this.hoursSpend != value )
       {
          double oldValue = this.hoursSpend;
@@ -116,9 +125,11 @@ public class KanbanEntry implements PropertyChangeClient{
       }
    }
 
-   public double getHoursSpend() {
+   public double getHoursSpend() 
+   {
       return this.hoursSpend;
    }
+   
    /**
     * <pre>
     *           0..n     1..1
@@ -158,6 +169,7 @@ public class KanbanEntry implements PropertyChangeClient{
    {
       return this.parent;
    }
+   
    /**
     * <pre>
     *           1..1     0..n
@@ -291,26 +303,12 @@ public class KanbanEntry implements PropertyChangeClient{
    public String getFiles() {
       return this.files;
    }
-   public LogEntry findOrCreateLogEntry(String date, String phase) {
+   public LogEntry findOrCreateLogEntry(String date, String phase) 
+   {
       LogEntry result = null;
 
-      // find last phase entry
-      PhaseEntry lastPhaseEntry = null;
-      for (PhaseEntry phaseEntry : this.getPhaseEntries())
-      {
-         lastPhaseEntry = phaseEntry;
-      }
-
-      // ensure right phase
-      if (lastPhaseEntry == null || ! lastPhaseEntry.getPhase().equals(phase))
-      {
-         lastPhaseEntry = new PhaseEntry()
-         .withKanbanEntry(this)
-         .withPhase(phase);
-      }        
-
       // find logEntry
-      for (LogEntry logEntry : lastPhaseEntry.getLogEntries())
+      for (LogEntry logEntry : getLogEntries())
       {
          if (logEntry.getDate() != null && logEntry.getDate().equals(date))
          {
@@ -322,11 +320,10 @@ public class KanbanEntry implements PropertyChangeClient{
       result = new LogEntry()
       .withDate(date)
       .withDeveloper(System.getProperty("user.name"))
-      .withHoursSpend(1)
-      .withHoursRemainingInTotal(50)
+      .withHoursSpend(0)
+      .withHoursRemainingInTotal(0)
       .withPhase(phase)
-      .withKanbanEntry(lastPhaseEntry);
-
+      .withKanbanEntry(this);
 
       return result;
    }
@@ -559,6 +556,11 @@ public class KanbanEntry implements PropertyChangeClient{
          addToSubentries((KanbanEntry) value);
          return true;
       } 
+      else   if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName)) 
+      {
+         addToLogEntries((LogEntry) value);
+         return true;
+      } 
       else   if (PROPERTY_PHASE_ENTRIES.equalsIgnoreCase(attrName)) 
       {
          addToPhaseEntries((PhaseEntry) value);
@@ -577,33 +579,55 @@ public class KanbanEntry implements PropertyChangeClient{
       int pos=attrName.indexOf(".");
       String attribute = attrName;
 
-      if(pos>0)
+      if (pos > 0)
       {
-         attribute=attrName.substring(0, pos);
+         attribute = attrName.substring(0, pos);
       }
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute)) 
-      {      return getName();   } 
-      else if (PROPERTY_PHASE.equalsIgnoreCase(attribute)) 
-      {      return getPhase();   } 
-      else if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attribute)) 
-      {      return getLastDeveloper();   } 
-      else if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attribute)) 
-      {      return getHoursRemaining();   } 
-      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute)) 
-      {      return getHoursSpend();   } 
-      else if (PROPERTY_PARENT.equalsIgnoreCase(attribute)) 
-      {	       if(pos>0)
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return getParent().get(attrName.substring(pos+1));
+         return getName();
       }
+      else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
+      {
+         return getPhase();
+      }
+      else if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attribute))
+      {
+         return getLastDeveloper();
+      }
+      else if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attribute))
+      {
+         return getHoursRemaining();
+      }
+      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute))
+      {
+         return getHoursSpend();
+      }
+      else if (PROPERTY_PARENT.equalsIgnoreCase(attribute))
+      {
+         if (pos > 0)
+         {
+            return getParent().get(attrName.substring(pos + 1));
+         }
 
-      return getParent();   } 
-      else if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attribute)) 
-      {      return getSubentries();   } 
-      else if (PROPERTY_PHASE_ENTRIES.equalsIgnoreCase(attribute)) 
-      {      return getPhaseEntries();   } 
-      else if (PROPERTY_FILES.equalsIgnoreCase(attribute)) 
-      {      return getFiles();       }
+         return getParent();
+      }
+      else if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attribute))
+      {
+         return getSubentries();
+      }
+      else if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attribute))
+      {
+         return getLogEntries();
+      }
+      else if (PROPERTY_PHASE_ENTRIES.equalsIgnoreCase(attribute))
+      {
+         return getPhaseEntries();
+      }
+      else if (PROPERTY_FILES.equalsIgnoreCase(attribute))
+      {
+         return getFiles();
+      }
       return null;
    }
 
@@ -672,5 +696,110 @@ public class KanbanEntry implements PropertyChangeClient{
       return listeners;
    }
 
+   public PhaseEntry getOrCreatePhaseEntry(String wantedPhase)
+   {
+      PhaseEntry result = null; 
+      
+      for (PhaseEntry phaseEntry : getPhaseEntries())
+      {
+         if (StrUtil.stringEquals(phaseEntry.getPhase(), wantedPhase))
+         {
+            return phaseEntry;
+         }  
+      }
+      
+      result = new PhaseEntry()
+      .withPhase(wantedPhase)
+      .withKanbanEntry(this);
+      
+      return result;
+   }
 
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * KanbanEntry ----------------------------------- LogEntry
+    *              kanbanEntry                   logEntries
+    * </pre>
+    */
+   
+   public static final String PROPERTY_LOGENTRIES = "logEntries";
+   
+   private LinkedHashSet<LogEntry> logEntries = null;
+   
+   public LinkedHashSet<LogEntry> getLogEntries()
+   {
+      if (this.logEntries == null)
+      {
+         return LogEntry.EMPTY_SET;
+      }
+   
+      return this.logEntries;
+   }
+   
+   public boolean addToLogEntries(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.logEntries == null)
+         {
+            this.logEntries = new LinkedHashSet<LogEntry>();
+         }
+         
+         changed = this.logEntries.add (value);
+         
+         if (changed)
+         {
+            value.withKanbanEntry(this);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromLogEntries(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if ((this.logEntries != null) && (value != null))
+      {
+         changed = this.logEntries.remove (value);
+         
+         if (changed)
+         {
+            value.setKanbanEntry(null);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public KanbanEntry withLogEntries(LogEntry value)
+   {
+      addToLogEntries(value);
+      return this;
+   } 
+   
+   public KanbanEntry withoutLogEntries(LogEntry value)
+   {
+      removeFromLogEntries(value);
+      return this;
+   } 
+   
+   public void removeAllFromLogEntries()
+   {
+      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(this.getLogEntries());
+   
+      for (LogEntry value : tmpSet)
+      {
+         this.removeFromLogEntries(value);
+      }
+   }
 }
+
+

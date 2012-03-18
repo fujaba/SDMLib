@@ -27,6 +27,8 @@ import javax.tools.JavaCompiler;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
@@ -45,57 +47,94 @@ public class StudyRightClassesCodeGen
    {
       Scenario scenario = new Scenario("StudyRightClassesCodeGen");
       
+      
+      //============================================================
       scenario.add("1. generate class University");
       
       ClassModel model = new ClassModel();
       
-      //============================================================
-      Clazz uniClass = new Clazz()
-      .withName("org.sdmlib.examples.studyright.University");
-      
-      new Attribute().withName("name").withType("String");
+      Clazz uniClass = new Clazz("org.sdmlib.examples.studyright.University")
+      .withAttribute("name", "String");
             
       scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
-
-      scenario.add("2. generate class Student");
+      
       
       //============================================================
-      Clazz studClass = new Clazz()
-      .withName("org.sdmlib.examples.studyright.Student");
+      scenario.add("2. generate class Student with new notation", 
+         IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 20);
       
-      new Attribute().withName("name").withType("String");
-      
-      new Attribute().withName("matrNo").withType("int");
+      Clazz studClass = new Clazz("org.sdmlib.examples.studyright.Student")
+      .withAttribute("name", "String")
+      .withAttribute("matrNo", "int");
 
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses02"));
+      
+      
+      //============================================================
+      scenario.add("3. add uni --> stud assoc");
+      
       Association uniToStud = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
       .withTarget("students", studClass, Role.MANY); 
       
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses03"));
+      
+      
       //============================================================
-      Clazz roomClass = new Clazz()
-      .withName("org.sdmlib.examples.studyright.Room");
+      scenario.add("4. add uni --> room");
       
-      new Attribute().withName("roomNo").withType("String");
-      
-      scenario.add("3. add uni --> stud assoc");
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      .withAttribute("roomNo", "String");
       
       Association uniToRoom = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
       .withTarget("rooms", roomClass, Role.MANY); 
-      
-      
+            
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses04"));
+
+
       //============================================================
       model.updateFromCode("examples test src", "org.sdmlib.examples");
       
       model.generate("examples");
       
-      scenario.add("x. generate generic get");
+      scenario.add("5. generate generic set for attributes", 
+         IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 20);
+      
+      Parser parser = studClass.getOrCreateParser("examples");
+      int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
+      
+      Assert.assertTrue("did not find method set(String,Object) in class student", pos >= 0);
+      
+      SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":set(String,Object)");
+      
+      Assert.assertNotNull("did not find symtab entry for method set(String,Object)", symTabEntry);
+      
+      String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      
+      scenario.add(methodText);
+      
+      
+      //============================================================
+      scenario.add("6. generate generic get for attributes", 
+         IMPLEMENTATION, "zuendorf", "19.03.2012 00:13:42", 1, 18);
+      
+      pos = parser.indexOf(Parser.METHOD + ":get(String)");
+      
+      Assert.assertTrue("did not find method get(String) in class student", pos >= 0);
+      
+      symTabEntry = parser.getSymTab().get(Parser.METHOD + ":get(String)");
+      
+      Assert.assertNotNull("did not find symtab entry for method get(String)", symTabEntry);
+      
+      methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      
+      scenario.add(methodText);
+      
+      //============================================================
       scenario.add("x. generate removeYou method");
       scenario.add("x. generate imports");
       scenario.add("x. generate property change support");
-
-      
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses99"));
 
       
       scenario.add("next. compile University.java");
@@ -126,13 +165,6 @@ public class StudyRightClassesCodeGen
       .withUni(uni);
       
       Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
-      
-      scenario.addLogEntry(new LogEntry()
-      .withDate("16.03.2012 17:41:42")
-      .withPhase(IMPLEMENTATION)
-      .withDeveloper("zuendorf")
-      .withHoursSpend(42)
-      .withHoursRemainingInTotal(200));
       
       ScenarioManager.get()
       .add(scenario)

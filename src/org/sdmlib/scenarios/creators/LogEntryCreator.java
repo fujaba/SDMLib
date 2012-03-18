@@ -38,7 +38,7 @@ public class LogEntryCreator implements SendableEntityCreator {
          LogEntry.PROPERTY_DEVELOPER     ,
          LogEntry.PROPERTY_PHASE   ,
          LogEntry.PROPERTY_COMMENT,
-         LogEntry.PROPERTY_KANBAN_ENTRY            
+         LogEntry.PROPERTY_KANBANENTRY            
       };
 
    @Override

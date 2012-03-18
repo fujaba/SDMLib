@@ -137,6 +137,16 @@ public class Student
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         return getMatrNo();
+      }
       
       return null;
    }
@@ -161,6 +171,8 @@ public class Student
       return false;
    }
 }
+
+
 
 
 
