@@ -21,28 +21,23 @@
 
 package org.sdmlib.scenarios.creators;
 
-import java.util.HashSet;
-import java.util.Arrays;
-
+import org.sdmlib.scenarios.PhaseEntry;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.scenarios.PhaseEntry;
 
 
 public class PhaseEntryCreator implements SendableEntityCreator
 {
-   private final String[] attributes = new  String[] {
-         PhaseEntry.PROPERTY_PHASE,
-         PhaseEntry.PROPERTY_DEVELOPER,
-         PhaseEntry.PROPERTY_PLANNED_START,
-         PhaseEntry.PROPERTY_PLANNED_END,
-         PhaseEntry.PROPERTY_ACTUAL_START,
-         PhaseEntry.PROPERTY_ACTUAL_END,
+   private final String[] attributes = new String[]
+   { 
+         PhaseEntry.PROPERTY_PHASE, PhaseEntry.PROPERTY_DEVELOPER,
+         PhaseEntry.PROPERTY_PLANNED_START, PhaseEntry.PROPERTY_PLANNED_END,
+         PhaseEntry.PROPERTY_ACTUAL_START, PhaseEntry.PROPERTY_ACTUAL_END,
          PhaseEntry.PROPERTY_HOURS_SPEND,
          PhaseEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
-         PhaseEntry.PROPERTY_HOURS_PLANNED ,
+         PhaseEntry.PROPERTY_HOURS_PLANNED,
          PhaseEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
-         PhaseEntry.PROPERTY_KANBAN_ENTRY,
+         PhaseEntry.PROPERTY_KANBAN_ENTRY,  
    };
 
    @Override
@@ -68,8 +63,8 @@ public class PhaseEntryCreator implements SendableEntityCreator
    {
       JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
 
-      jsonIdMap.addCreater(new LogEntryCreator());
-      jsonIdMap.addCreater(new PhaseEntryCreator());
+      jsonIdMap.addCreator(new LogEntryCreator());
+      jsonIdMap.addCreator(new PhaseEntryCreator());
 
       return jsonIdMap;
    }

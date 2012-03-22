@@ -16,13 +16,15 @@
         "KE.L24",
         "KE.L28",
         "KE.L31",
-        "KE.L34"
+        "KE.L34",
+        "KE.L37",
+        "KE.L40"
       ],
       "name": "SDMLibProject",
       "phase": "active",
-      "lastDeveloper": "zuendorf",
-      "hoursRemaining": 67,
-      "hoursSpend": 20
+      "lastDeveloper": "zuendorf joern alex",
+      "hoursRemaining": 64,
+      "hoursSpend": 25
     }
   },
   {
@@ -33,13 +35,15 @@
         "KE.L18",
         "KE.L19",
         "KE.L22",
-        "KE.L29"
+        "KE.L29",
+        "KE.L35",
+        "KE.L38"
       ],
       "name": "StudyRightClassesCodeGen",
       "phase": "implementation",
-      "lastDeveloper": "zuendorf",
-      "hoursRemaining": 18,
-      "hoursSpend": 14,
+      "lastDeveloper": "zuendorf joern alex",
+      "hoursRemaining": 15,
+      "hoursSpend": 19,
       "parent": "KE.K2"
     }
   },
@@ -60,13 +64,15 @@
         "KE.L23",
         "KE.L27",
         "KE.L30",
-        "KE.L33"
+        "KE.L33",
+        "KE.L36",
+        "KE.L39"
       ],
       "name": "Sprint.001.Booting",
       "phase": "active",
-      "lastDeveloper": "zuendorf",
-      "hoursRemaining": 44,
-      "hoursSpend": 19,
+      "lastDeveloper": "zuendorf joern alex",
+      "hoursRemaining": 41,
+      "hoursSpend": 24,
       "parent": "KE.K1"
     }
   },
@@ -438,6 +444,76 @@
     }
   },
   {
+    "id": "KE.L35",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 14:40:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 17,
+      "developer": "zuendorf",
+      "phase": "implementation",
+      "comment": "Achieved: 6. generate generic get for attributes and assocs",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L36",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 14:40:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 43,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L37",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 14:40:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 66,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L38",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 18:37:42",
+      "hoursSpend": 4,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 15,
+      "developer": "zuendorf joern alex",
+      "phase": "implementation",
+      "comment": "Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L39",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 18:37:42",
+      "hoursSpend": 4,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 41,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
     "id": "KE.L4",
     "class": "org.sdmlib.scenarios.LogEntry",
     "prop": {
@@ -448,6 +524,20 @@
       "developer": "zuendorf",
       "phase": "backlog",
       "kanbanEntry": "KE.K3"
+    }
+  },
+  {
+    "id": "KE.L40",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "22.03.2012 18:37:42",
+      "hoursSpend": 4,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 64,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K1"
     }
   },
   {

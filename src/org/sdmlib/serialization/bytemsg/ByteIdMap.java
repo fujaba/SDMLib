@@ -25,8 +25,8 @@ public class ByteIdMap extends IdMap<PrimaryEntityCreator>{
 	}
 
 	@Override
-	public boolean addCreater(PrimaryEntityCreator createrClass) {
-		boolean result=super.addCreater(createrClass);
+	public boolean addCreator(PrimaryEntityCreator createrClass) {
+		boolean result=super.addCreator(createrClass);
 		if (decoderMap == null) {
 			decoderMap = new HashMap<Byte, PrimaryEntityCreator>();
 		}

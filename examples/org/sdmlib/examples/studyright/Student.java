@@ -147,6 +147,11 @@ public class Student
       {
          return getMatrNo();
       }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         return getUni();
+      }
       
       return null;
    }
@@ -168,9 +173,47 @@ public class Student
          return true;
       }
 
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         setUni((University) value);
+         return true;
+      }
+
       return false;
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

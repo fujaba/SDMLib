@@ -43,6 +43,11 @@ public class Room
       {
          return getRoomNo();
       }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         return getUni();
+      }
       
       return null;
    }
@@ -55,6 +60,12 @@ public class Room
       if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
       {
          setRoomNo((String) value);
+         return true;
+      }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         setUni((University) value);
          return true;
       }
 
@@ -141,6 +152,38 @@ public class Room
    } 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

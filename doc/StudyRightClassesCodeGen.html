@@ -5,7 +5,7 @@
 <img src='StudyRightClasses01.svg'><pre>2. generate class Student with new notation</pre>
 <img src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
 <img src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
-<img src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes</pre>
+<img src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes and assocs</pre>
 <pre>   public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -20,9 +20,15 @@
          return true;
       }
 
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         setUni((University) value);
+         return true;
+      }
+
       return false;
    }</pre>
-<pre>6. generate generic get for attributes</pre>
+<pre>6. generate generic get for attributes and assocs</pre>
 <pre>   public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -42,9 +48,15 @@
       {
          return getMatrNo();
       }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         return getUni();
+      }
       
       return null;
    }</pre>
+<pre>7. generate creator classes</pre>
 <pre>x. generate removeYou method</pre>
 <pre>x. generate imports</pre>
 <pre>x. generate property change support</pre>

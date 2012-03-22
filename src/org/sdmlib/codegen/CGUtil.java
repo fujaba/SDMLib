@@ -146,6 +146,13 @@ public class CGUtil
       int pos = name.lastIndexOf('.');
       return name.substring(pos + 1);
    }
+
+   public static String packageName(String name)
+   {
+      int pos = name.lastIndexOf('.');
+      
+      return name.substring(0, pos);
+   }
 }
 
 

@@ -57,9 +57,9 @@ public class LogEntryCreator implements SendableEntityCreator {
    {
       JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
 
-      jsonIdMap.addCreater(new KanbanEntryCreator());
-      jsonIdMap.addCreater(new LogEntryCreator());
-      jsonIdMap.addCreater(new PhaseEntryCreator());
+      jsonIdMap.addCreator(new KanbanEntryCreator());
+      jsonIdMap.addCreator(new LogEntryCreator());
+      jsonIdMap.addCreator(new PhaseEntryCreator());
 
       return jsonIdMap;
    }

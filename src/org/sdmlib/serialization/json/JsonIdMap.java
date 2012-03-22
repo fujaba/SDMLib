@@ -20,7 +20,7 @@ public class JsonIdMap extends IdMap<SendableEntityCreator>{
 
 	public JsonIdMap() {
 		super();
-		this.addCreater(new DateCreator());
+		this.addCreator(new DateCreator());
 	}
 
 	public JsonObject toJsonObject(Object object) {

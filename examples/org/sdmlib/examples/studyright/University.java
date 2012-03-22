@@ -21,12 +21,11 @@
    
 package org.sdmlib.examples.studyright;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class University
 {
@@ -172,6 +171,16 @@ public class University
       {
          return getName();
       }
+
+      if (PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      {
+         return getStudents();
+      }
+
+      if (PROPERTY_ROOMS.equalsIgnoreCase(attrName))
+      {
+         return getRooms();
+      }
       
       return null;
    }
@@ -187,6 +196,29 @@ public class University
          return true;
       }
 
+      if (PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      {
+         addToStudents((Student) value);
+         return true;
+      }
+      
+      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromStudents((Student) value);
+         return true;
+      }
+
+      if (PROPERTY_ROOMS.equalsIgnoreCase(attrName))
+      {
+         addToRooms((Room) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ROOMS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromRooms((Room) value);
+         return true;
+      }
 
       return false;
    }
@@ -278,6 +310,38 @@ public class University
    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

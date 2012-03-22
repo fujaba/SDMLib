@@ -54,6 +54,8 @@ public class Parser
 
    public static final String METHOD_END = "methodEnd";
 
+   public static final String LAST_RETURN_POS = "lastReturnPos";
+
    public static char NEW_LINE = '\n';
    
    private StringBuilder fileBody = null;
@@ -93,7 +95,14 @@ public class Parser
 
    private String searchString;
 
-   private int methodBodyStartPos;  
+   private int methodBodyStartPos;
+
+   private int endOfAttributeInitialization;  
+   
+   public int getEndOfAttributeInitialization()
+   {
+      return endOfAttributeInitialization;
+   }
    
    public int getMethodBodyStartPos()
    {
@@ -291,10 +300,12 @@ public class Parser
             skip("=");
 
             parseExpression();
+            
+            endOfAttributeInitialization = previousRealToken.startPos;
 
             skip(";");
 
-            symTab.put(memberName, 
+            symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
                .withMemberName(memberName)
                .withKind(ATTRIBUTE)
@@ -593,6 +604,13 @@ public class Parser
 
    public int lastIfStart;
    public int lastIfEnd;
+
+   private int lastReturnStart;
+   
+   public int getLastReturnStart()
+   {
+      return lastReturnStart;
+   }
 
    
    
@@ -922,6 +940,16 @@ public class Parser
             parseBlockDetails();
             
             lastIfEnd = previousRealToken.startPos;
+         }
+         else if (currentRealTokenEquals("return"))
+         {
+            lastReturnStart = currentRealToken.startPos;
+            
+            skip("return");
+            
+            parseExpression();
+            
+            skip(';');
          }
          else if (currentRealKindEquals('v'))
          {

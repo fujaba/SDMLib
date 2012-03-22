@@ -98,7 +98,7 @@ public class StudyRightClassesCodeGen
       
       model.generate("examples");
       
-      scenario.add("5. generate generic set for attributes", 
+      scenario.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 20);
       
       Parser parser = studClass.getOrCreateParser("examples");
@@ -116,8 +116,8 @@ public class StudyRightClassesCodeGen
       
       
       //============================================================
-      scenario.add("6. generate generic get for attributes", 
-         IMPLEMENTATION, "zuendorf", "19.03.2012 00:13:42", 1, 18);
+      scenario.add("6. generate generic get for attributes and assocs", 
+         IMPLEMENTATION, "zuendorf", "22.03.2012 14:40:42", 1, 17);
       
       pos = parser.indexOf(Parser.METHOD + ":get(String)");
       
@@ -132,10 +132,13 @@ public class StudyRightClassesCodeGen
       scenario.add(methodText);
       
       //============================================================
+      scenario.add("7. generate creator classes", 
+         IMPLEMENTATION, "zuendorf joern alex", "22.03.2012 18:37:42", 4, 15);
+      
       scenario.add("x. generate removeYou method");
       scenario.add("x. generate imports");
       scenario.add("x. generate property change support");
-
+      
       
       scenario.add("next. compile University.java");
       

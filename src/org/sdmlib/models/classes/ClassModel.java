@@ -31,11 +31,25 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.StrUtil;
 
 public class ClassModel
 {
    public static ClassModel classModel = null;
+
+   private Parser parser;
+
+   private File javaFile;
+
+   private StringBuilder fileBody;
+
+   private boolean fileHasChanged;
+   
+   public void setFileHasChanged(boolean fileHasChanged)
+   {
+      this.fileHasChanged = fileHasChanged;
+   }
    
    public ClassModel()
    {
@@ -49,6 +63,8 @@ public class ClassModel
          clazz.generate(rootDir);
       }
       
+      generateCreatorCreatorClass(rootDir);
+      
       for (Association assoc : getAssociations())
       {
          assoc.generate(rootDir);
@@ -58,6 +74,94 @@ public class ClassModel
    }
 
    
+   private void generateCreatorCreatorClass(String rootDir)
+   {
+      // take first class to find package
+      
+      getOrCreateParser(rootDir);
+      
+      for (Clazz clazz : getClasses())
+      {
+         clazz.insertCreatorClassInCreatorCreator(parser);
+      }
+      
+      printFile(fileHasChanged);
+   }
+
+   public void printFile(boolean really)
+   {
+      if (really)
+      {
+         CGUtil.printFile(javaFile, fileBody.toString());
+      }
+   }
+
+
+   public Parser getOrCreateParser(String rootDir)
+   {
+      if (parser == null)
+      {
+         // try to find existing file
+         Clazz firstClass = getClasses().iterator().next();
+         
+         String className = firstClass.getName();
+         
+         int pos = className.lastIndexOf('.');
+         
+         String packageName = className.substring(0, pos) + ".creators"; 
+         
+         className = packageName + ".CreatorCreator";
+         
+         String fileName = className;
+         
+         fileName = fileName.replaceAll("\\.", "/");
+         
+         fileName = rootDir + "/" + fileName + ".java";
+         
+         javaFile = new File(fileName);
+         
+         // found old one?
+         if (javaFile.exists())
+         {
+            fileBody = CGUtil.readFile(javaFile);
+         }
+         else
+         {
+            fileBody = new StringBuilder();
+
+            StringBuilder text = new StringBuilder(
+                  "package packageName;\n" +
+                  "\n" +
+                  "import org.sdmlib.serialization.json.JsonIdMap;\n" +
+                  "\n" +
+                  "public class className\n" +
+                  "{\n" +
+                  "   public static JsonIdMap createIdMap(String sessionID)\n" +
+                  "   {\n" +
+                  "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" +
+                  "      \n" +
+                  "      return jsonIdMap;\n" +
+                  "   }\n" +
+                  "}\n");
+            
+            CGUtil.replaceAll(text, 
+               "className", CGUtil.shortClassName(className), 
+               "packageName", packageName);
+            
+            fileBody.append(text.toString());
+            
+            fileHasChanged = true;
+         }
+         
+         parser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(fileBody);         
+      }
+      
+      return parser;
+   }
+
+
    //==========================================================================
    
    public static final String PROPERTY_CLASSES = "classes";

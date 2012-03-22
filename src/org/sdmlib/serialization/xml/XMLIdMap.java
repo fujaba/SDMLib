@@ -43,8 +43,8 @@ public class XMLIdMap extends IdMap<XMLEntityCreator>{
 		return decoder.decode(value);
 	}
 	@Override
-	public boolean addCreater(XMLEntityCreator createrClass) {
-		boolean result=super.addCreater(createrClass);
+	public boolean addCreator(XMLEntityCreator createrClass) {
+		boolean result=super.addCreator(createrClass);
 		if (decoderMap == null) {
 			decoderMap = new HashMap<String, XMLEntityCreator>();
 		}

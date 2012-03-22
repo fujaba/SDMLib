@@ -26,12 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
-import javax.swing.text.DateFormatter;
-
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.scenarios.ScenarioManager;
-import org.sdmlib.utils.StrUtil;
 
 public class Clazz
 {
@@ -74,8 +70,15 @@ public class Clazz
    private ClassModel classModel = null;
    
    private StringBuilder fileBody;
+   private StringBuilder creatorFileBody;
 
    private boolean fileHasChanged;
+   private boolean creatorFileHasChanged;
+   
+   public void setCreatorFileHasChanged(boolean creatorFileHasChanged)
+   {
+      this.creatorFileHasChanged = creatorFileHasChanged;
+   }
    
    public StringBuilder getFileBody()
    {
@@ -100,6 +103,7 @@ public class Clazz
 
    public Clazz generate(String rootDir)
    {
+      // first generate the class itself
       getOrCreateParser(rootDir);
                  
       insertLicense(parser);
@@ -113,6 +117,10 @@ public class Clazz
       
       printFile(fileHasChanged);
       
+      // now generate the corresponding creator class
+      getOrCreateParserForCreatorClass(rootDir);
+      printCreatorFile(creatorFileHasChanged);
+      
       return this;
    }
 
@@ -121,6 +129,14 @@ public class Clazz
       if (really)
       {
          CGUtil.printFile(javaFile, fileBody.toString());
+      }
+   }
+
+   public void printCreatorFile(boolean really)
+   {
+      if (really)
+      {
+         CGUtil.printFile(creatorJavaFile, creatorFileBody.toString());
       }
    }
 
@@ -250,8 +266,10 @@ public class Clazz
    }
 
    Parser parser = null;
+   Parser creatorParser = null;
 
    private File javaFile;
+   private File creatorJavaFile;
    
    public File getJavaFile()
    {
@@ -297,15 +315,107 @@ public class Clazz
                "packageName", packageName);
             
             fileBody.append(text.toString());
+            
+            fileHasChanged = true;
          }
          
          parser = new Parser()
          .withFileName(fileName)
-         .withFileBody(fileBody);
-
+         .withFileBody(fileBody);         
       }
       
       return parser;
+   }
+
+   public Parser getOrCreateParserForCreatorClass(String rootDir)
+   {
+      if (creatorParser == null)
+      {
+         // try to find existing file
+         int pos = name.lastIndexOf('.');
+         
+         String packageName = name.substring(0, pos) + ".creators";
+         
+         String fullEntityClassName = name;
+         
+         String entitiyClassName = name.substring(pos + 1);
+         
+         String creatorClassName = entitiyClassName + "Creator";
+         
+         String fileName = packageName + "." + creatorClassName;
+
+         fileName = fileName.replaceAll("\\.", "/");
+         
+         fileName = rootDir + "/" + fileName + ".java";
+         
+         creatorJavaFile = new File(fileName);
+         
+         // found old one?
+         if (creatorJavaFile.exists())
+         {
+            creatorFileBody = CGUtil.readFile(creatorJavaFile);
+         }
+         else
+         {
+            creatorFileBody = new StringBuilder();
+
+            StringBuilder text = new StringBuilder(
+                  "package packageName;\n" +
+                  "\n" +
+                  "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" +
+                  "import org.sdmlib.serialization.json.JsonIdMap;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class creatorClassName implements SendableEntityCreator\n" +
+                  "{\n" +
+                  "   private final String[] properties = new String[]\n" +
+                  "   {\n" +
+                  "   };\n" +
+                  "   \n" +
+                  "   public String[] getProperties()\n" +
+                  "   {\n" +
+                  "      return properties;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   public Object getSendableInstance(boolean reference)\n" +
+                  "   {\n" +
+                  "      return new entitiyClassName();\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   public Object getValue(Object target, String attrName)\n" +
+                  "   {\n" +
+                  "      return ((entitiyClassName) target).get(attrName);\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   public boolean setValue(Object target, String attrName, Object value)\n" +
+                  "   {\n" +
+                  "      return ((entitiyClassName) target).set(attrName, value);\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   public static JsonIdMap createIdMap(String sessionID)\n" +
+                  "   {\n" +
+                  "      return CreatorCreator.createIdMap(sessionID);\n" +
+                  "   }\n" +
+                  "}\n");
+            
+            CGUtil.replaceAll(text, 
+               "creatorClassName", creatorClassName, 
+               "entitiyClassName", entitiyClassName, 
+               "fullEntityClassName", fullEntityClassName,
+               "packageName", packageName);
+            
+            creatorFileBody.append(text.toString());
+            
+            creatorFileHasChanged = true;
+         }
+         
+         creatorParser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(creatorFileBody);
+
+      }
+      
+      return creatorParser;
    }
 
    public boolean isFileHasChanged()
@@ -622,6 +732,48 @@ public class Clazz
    {      
       this.withAttributes(new Attribute().withName(name).withType(type).withInitialization(initialization));
       return this;
+   }
+
+   public void insertCreatorClassInCreatorCreator(Parser ccParser)
+   {
+      int pos = ccParser.indexOf(Parser.METHOD + ":createIdMap(String)");
+
+      if (pos < 0)
+      {
+         // ups, did not find createIdMap method. 
+         System.err.println("Warning: SDMLib codgen for creator construction invocation " + getName() + "Creator for class " + ccParser.getFileName() 
+            + ": \nDid not find method createIdMap(String). Should have been generated by my model. " 
+            + "\nCould not add required code fragment there. :( ");
+
+         return;
+      }
+
+      // OK, found method, parse its body to find if that handles me. 
+      int methodBodyStartPos = ccParser.getMethodBodyStartPos();
+      
+      String creatorClassName = CGUtil.packageName(getName()) + ".creators." 
+            + CGUtil.shortClassName(getName()) + "Creator";
+      
+      pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + getName() + "Creator", methodBodyStartPos);
+
+      if (pos < 0)
+      {         
+         // need to add if block to generic get method
+         ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+         
+         int lastReturnPos = ccParser.getLastReturnStart(); 
+         
+         StringBuilder text = new StringBuilder
+            (  "jsonIdMap.addCreator(new ClassCreator());\n      " 
+               );
+
+         CGUtil.replaceAll(text, 
+            "ClassCreator", creatorClassName
+            );
+
+         ccParser.getFileBody().insert(lastReturnPos, text.toString());
+         getClassModel().setFileHasChanged(true);
+      }
    }
 }
 

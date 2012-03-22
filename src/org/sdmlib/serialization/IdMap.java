@@ -140,9 +140,9 @@ public class IdMap<T extends SendableEntityCreator> {
 		return creators.get(reference.getClass().getName());
 	}
 	
-	public boolean addCreater(T createrClass) {
+	public boolean addCreator(T createrClass) {
 		if(parent!=null){
-			return parent.addCreater(createrClass);
+			return parent.addCreator(createrClass);
 		}else{
 			Object reference = createrClass.getSendableInstance(true);
 			creators.put(reference.getClass().getName(), createrClass);
