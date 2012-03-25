@@ -52,7 +52,7 @@ public class JsonToImg
    public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
       String link = "<img src='<imagename>'>\n";
-      link = link.replaceFirst("<imagename>", imgName + ".png");
+      link = link.replaceFirst("<imagename>", imgName + ".svg");
       
       // generate dot file
       String fileText = "graph ObjectDiagram {\n" +
@@ -88,6 +88,9 @@ public class JsonToImg
          nodeLine = nodeLine.replaceAll("<classname>", className);
          
          // go through attributes
+         
+         jsonObject = jsonObject.getJSONObject(JsonIdMap.JSON_PROPS);
+         
          String attrText = "<tr><td><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
          boolean addAttrText = false;
          for (Iterator iter = jsonObject.keys(); iter.hasNext();)
@@ -182,7 +185,7 @@ public class JsonToImg
          writeToFile(imgName, fileText);
          
          // generate image
-         String command = "makeimage.bat " + imgName;
+         String command = "tools/makeimage.bat " + imgName;
 
          Process child = Runtime.getRuntime().exec(command);
       }

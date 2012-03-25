@@ -76,3 +76,5 @@ public class LogEntryCreator implements SendableEntityCreator {
       return new LogEntry();
    }
 }
+
+

@@ -29,6 +29,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.studyright.creators.UniversityCreator;
+import org.sdmlib.examples.studyright.pathes.Path;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
@@ -37,11 +39,81 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 import com.sun.tools.javac.Main;
    
 public class StudyRightClassesCodeGen 
 {
+   @Test
+   public void testStudyRightObjectScenarios()
+   {
+      Scenario scenario = new Scenario("StudyRightObjectScenarios");
+      
+      scenario.add("Start situation: use University class to build object structure",
+         BACKLOG, "zuendorf", "25.03.2012 21:37:46", 0, 0);
+      
+      University uni = new University()
+         .withName("StudyRight");
+      
+      Student albert = new Student()
+      .withMatrNo(4242)
+      .withName("Albert")
+      .withUni(uni);
+      
+      Student nina = new Student()
+      .withMatrNo(2323)
+      .withName("Nina")
+      .withUni(uni);
+      
+      Room mathRoom = new Room()
+      .withRoomNo("math")
+      .withCredits(42)     
+      .withUni(uni); 
+      
+      Room artsRoom = new Room()
+      .withRoomNo("arts")
+      .withCredits(23)
+      .withNeighbors(mathRoom)
+      .withUni(uni); 
+
+      Room sportsRoom = new Room()
+      .withRoomNo("sports")
+      .withCredits(23)
+      .withNeighbors(mathRoom)
+      .withNeighbors(artsRoom)
+      .withUni(uni); 
+
+      
+      scenario.add("step 1: dump object diagram");
+      
+      JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
+      scenario.addObjectDiag(idMap, uni);
+      
+      Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
+      
+      scenario.add("step 2: add support for path navigation\n" +
+            "   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\n" +
+            "shall compute to 88\n" +
+            "Path classes need to be generated.", 
+         MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
+
+      int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();
+      
+      Assert.assertEquals("credits sum error", 88, sum);
+      
+      scenario.add("build a pattern");
+      
+      // patternObject.withCandidates(uni);
+      
+      scenario.add("run pattern");
+      
+
+      ScenarioManager.get()
+      .add(scenario)
+      .dumpHTML();
+   }
+
    @Test
    public void testStudyRightClassesCodeGen()
    {
@@ -74,7 +146,7 @@ public class StudyRightClassesCodeGen
       scenario.add("3. add uni --> stud assoc");
       
       Association uniToStud = new Association()
-      .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
+      .withSource("uni", uniClass, Role.ONE)
       .withTarget("students", studClass, Role.MANY); 
       
       scenario.addImage(model.dumpClassDiag("StudyRightClasses03"));
@@ -84,14 +156,21 @@ public class StudyRightClassesCodeGen
       scenario.add("4. add uni --> room");
       
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-      .withAttribute("roomNo", "String");
+      .withAttribute("roomNo", "String")
+      .withAttribute("credits", "int");
       
       Association uniToRoom = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
       .withTarget("rooms", roomClass, Role.MANY); 
             
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses04"));
+      Association doors = new Association().withSource("neighbors", roomClass, Role.MANY)
+            .withTarget("neighbors", roomClass, Role.MANY);
+      
+      Association studsInRoom = new Association()
+      .withSource("students", studClass, Role.MANY)
+      .withTarget("in", roomClass, Role.ONE);
 
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses04"));
 
       //============================================================
       model.updateFromCode("examples test src", "org.sdmlib.examples");
@@ -133,12 +212,26 @@ public class StudyRightClassesCodeGen
       
       //============================================================
       scenario.add("7. generate creator classes", 
-         IMPLEMENTATION, "zuendorf joern alex", "22.03.2012 18:37:42", 4, 15);
+         IMPLEMENTATION, "zuendorf joern alex", "25.03.2012 22:32:42", 1, 23);
+      
+      scenario.add("<a href='../examples/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br>");
+      
+      //============================================================
+      scenario.add("8. generate imports", 
+         IMPLEMENTATION, "zuendorf", "25.03.2012 22:37:42", 1, 22);
+      
+      pos = parser.indexOf(Parser.IMPORT);
+      methodText = parser.getFileBody().substring(pos, parser.getEndOfImports() + 1);
+      
+      scenario.add(methodText);
+      
+      //============================================================
+      scenario.add("9. generate property change support", 
+         IMPLEMENTATION, "zuendorf", "25.03.2012 22:39:42", 2, 20);      
+      
+      scenario.add("Caution: property change support needs not to be generated if the parent class does this already.");
       
       scenario.add("x. generate removeYou method");
-      scenario.add("x. generate imports");
-      scenario.add("x. generate property change support");
-      
       
       scenario.add("next. compile University.java");
       
@@ -156,19 +249,6 @@ public class StudyRightClassesCodeGen
       
       Assert.assertEquals("compile did not work: ", 0, compResult);
       
-      scenario.add("next. use University class to build object structure");
-      
-      University uni = new University()
-         .withName("StudyRight");
-      
-      Student stud1 = new Student()
-      .withUni(uni);
-      
-      Student stud2 = new Student()
-      .withUni(uni);
-      
-      Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
-      
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();
@@ -180,5 +260,7 @@ public class StudyRightClassesCodeGen
    private static final String IMPLEMENTATION = "implementation";
    private static final String BACKLOG = "backlog";
 }
+
+
 
 

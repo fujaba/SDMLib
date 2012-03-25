@@ -26,6 +26,12 @@
          return true;
       }
 
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         setIn((Room) value);
+         return true;
+      }
+
       return false;
    }</pre>
 <pre>6. generate generic get for attributes and assocs</pre>
@@ -53,15 +59,24 @@
       {
          return getUni();
       }
+
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         return getIn();
+      }
       
       return null;
    }</pre>
 <pre>7. generate creator classes</pre>
+<a href='../examples/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><pre>8. generate imports</pre>
+<pre>import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
+import java.util.LinkedHashSet;</pre>
+<pre>9. generate property change support</pre>
+<pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
 <pre>x. generate removeYou method</pre>
-<pre>x. generate imports</pre>
-<pre>x. generate property change support</pre>
 <pre>next. compile University.java</pre>
-<pre>next. use University class to build object structure</pre>
 
 </body>
 </html>

@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +29,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Clazz
 {
@@ -110,6 +113,8 @@ public class Clazz
       
       insertGenericGetSet();
       
+      insertPropertyChangeSupport();
+      
       for (Attribute attr : this.getAttributes())
       {
          attr.generate(rootDir, false);
@@ -122,6 +127,103 @@ public class Clazz
       printCreatorFile(creatorFileHasChanged);
       
       return this;
+   }
+
+   private void insertPropertyChangeSupport()
+   {
+      insertImplementsClauseForPropertyChangeInterface();
+      
+      // does it implement PropertyChangeSupportClient?
+      String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         // add property change implementation
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         StringBuilder text = new StringBuilder
+            (  "\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
+               "\n   " +
+               "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
+               "\n   {" +
+               "\n      return listeners;" +
+               "\n   }" +
+               "\n"
+               );
+         
+         parser.getFileBody().insert(pos, text.toString());
+         fileHasChanged = true;
+      }
+      
+      insertImport(PropertyChangeSupport.class.getName());
+   }
+
+   private void insertImplementsClauseForPropertyChangeInterface()
+   {
+      String searchString = Parser.IMPLEMENTS;
+      int implementsPos = parser.indexOf(searchString);
+      
+      String propertyChangeInterface = PropertyChangeInterface.class.getSimpleName();
+      
+      if (implementsPos < 0)
+      {
+         // class has no implements clause at all
+         implementsPos = parser.getEndOfExtendsClause();
+         
+         if (implementsPos == 0)
+         {
+            // class does not even have an extends clause
+            implementsPos = parser.getEndOfClassName();
+         }
+         
+         parser.getFileBody().insert(implementsPos + 1, 
+               " implements " + PropertyChangeInterface.class.getSimpleName());
+         
+         insertImport(PropertyChangeInterface.class.getName());
+         
+         fileHasChanged = true;
+      }
+      else
+      {
+         // there is already an implements clause, does it already implement PropertyChangeInterface? 
+         SymTabEntry symTabEntry = parser.getSymTab().get(Parser.IMPLEMENTS + ":" + propertyChangeInterface);
+         
+         if (symTabEntry == null)
+         {
+            // propertyChangeClients is still missing.
+            parser.getFileBody().insert(parser.getEndOfImplementsClause() + 1, 
+               ", " + propertyChangeInterface);
+         }
+
+         insertImport(PropertyChangeInterface.class.getName());
+         
+         fileHasChanged = true;
+      }
+   }
+
+   public void insertImport(String className)
+   {
+      // TODO Auto-generated method stub
+      int pos = parser.indexOf(Parser.IMPORT);
+
+      String prefix = "";
+      if (fileBody.indexOf(Parser.IMPORT, pos) < 0)
+      {
+         prefix = "\n";
+      }
+      
+      SymTabEntry symTabEntry = parser.getSymTab().get(Parser.IMPORT + ":" + className);
+      if (symTabEntry == null)
+      {
+         parser.getFileBody().insert(parser.getEndOfImports() + 1, 
+               prefix + "\nimport " + className + ";");
+         
+         fileHasChanged = true;
+      }
    }
 
    public void printFile(boolean really)

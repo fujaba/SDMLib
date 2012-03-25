@@ -18,13 +18,21 @@
         "KE.L31",
         "KE.L34",
         "KE.L37",
-        "KE.L40"
+        "KE.L40",
+        "KE.L43",
+        "KE.L45",
+        "KE.L50",
+        "KE.L52",
+        "KE.L55",
+        "KE.L57",
+        "KE.L60",
+        "KE.L63"
       ],
       "name": "SDMLibProject",
       "phase": "active",
-      "lastDeveloper": "zuendorf joern alex",
-      "hoursRemaining": 64,
-      "hoursSpend": 25
+      "lastDeveloper": "zuendorf",
+      "hoursRemaining": 69,
+      "hoursSpend": 30
     }
   },
   {
@@ -37,13 +45,17 @@
         "KE.L22",
         "KE.L29",
         "KE.L35",
-        "KE.L38"
+        "KE.L38",
+        "KE.L41",
+        "KE.L53",
+        "KE.L58",
+        "KE.L61"
       ],
       "name": "StudyRightClassesCodeGen",
       "phase": "implementation",
-      "lastDeveloper": "zuendorf joern alex",
-      "hoursRemaining": 15,
-      "hoursSpend": 19,
+      "lastDeveloper": "zuendorf",
+      "hoursRemaining": 20,
+      "hoursSpend": 24,
       "parent": "KE.K2"
     }
   },
@@ -54,7 +66,8 @@
       "subentries": [
         "KE.K17",
         "KE.K3",
-        "KE.K25"
+        "KE.K25",
+        "KE.K46"
       ],
       "logEntries": [
         "KE.L5",
@@ -66,13 +79,21 @@
         "KE.L30",
         "KE.L33",
         "KE.L36",
-        "KE.L39"
+        "KE.L39",
+        "KE.L42",
+        "KE.L44",
+        "KE.L49",
+        "KE.L51",
+        "KE.L54",
+        "KE.L56",
+        "KE.L59",
+        "KE.L62"
       ],
       "name": "Sprint.001.Booting",
       "phase": "active",
-      "lastDeveloper": "zuendorf joern alex",
-      "hoursRemaining": 41,
-      "hoursSpend": 24,
+      "lastDeveloper": "zuendorf",
+      "hoursRemaining": 46,
+      "hoursSpend": 29,
       "parent": "KE.K1"
     }
   },
@@ -107,6 +128,23 @@
       "lastDeveloper": "zuendorf",
       "hoursRemaining": 17,
       "hoursSpend": 3,
+      "parent": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.K46",
+    "class": "org.sdmlib.scenarios.KanbanEntry",
+    "prop": {
+      "logEntries": [
+        "KE.L47",
+        "KE.L48"
+      ],
+      "name": "StudyRightObjectScenarios",
+      "phase": "modeling",
+      "lastDeveloper": "zuendorf joern alex",
+      "hoursRemaining": 0,
+      "hoursSpend": 0,
+      "files": "examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java",
       "parent": "KE.K2"
     }
   },
@@ -541,6 +579,118 @@
     }
   },
   {
+    "id": "KE.L41",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 24,
+      "developer": "zuendorf joern alex",
+      "phase": "implementation",
+      "comment": "Achieved: add support for path navigation",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L42",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 51,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: add support for path navigation",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L43",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 74,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L44",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 50,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: add support for path navigation",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L45",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 73,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L47",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 21:37:46",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 0,
+      "developer": "zuendorf",
+      "phase": "backlog",
+      "comment": "Achieved: Start situation: use University class to build object structure",
+      "kanbanEntry": "KE.K46"
+    }
+  },
+  {
+    "id": "KE.L48",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 14:57:42",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 0,
+      "developer": "zuendorf joern alex",
+      "phase": "modeling",
+      "comment": "Achieved: step 2: add support for path navigation\n   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\nshall compute to 88\nPaht classes need to be generated.",
+      "kanbanEntry": "KE.K46"
+    }
+  },
+  {
+    "id": "KE.L49",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 21:37:46",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 74,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
     "id": "KE.L5",
     "class": "org.sdmlib.scenarios.LogEntry",
     "prop": {
@@ -555,6 +705,146 @@
     }
   },
   {
+    "id": "KE.L50",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 21:37:46",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 97,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L51",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 21:37:46",
+      "hoursSpend": -1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 50,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L52",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 21:37:46",
+      "hoursSpend": -1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 73,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L53",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:32:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 23,
+      "developer": "zuendorf joern alex",
+      "phase": "implementation",
+      "comment": "Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L54",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:32:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 40,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L55",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:32:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 63,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L56",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:32:42",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 49,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L57",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:32:42",
+      "hoursSpend": 0,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 72,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L58",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:37:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 22,
+      "developer": "zuendorf",
+      "phase": "implementation",
+      "comment": "Achieved: 8. generate imports",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L59",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:37:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 48,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 8. generate imports",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
     "id": "KE.L6",
     "class": "org.sdmlib.scenarios.LogEntry",
     "prop": {
@@ -565,6 +855,62 @@
       "developer": "zuendorf",
       "phase": "active",
       "comment": "Sprint.001.Booting: ScenarioInfrastructure: null",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L60",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:37:42",
+      "hoursSpend": 1,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 71,
+      "developer": "zuendorf joern alex",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 8. generate imports",
+      "kanbanEntry": "KE.K1"
+    }
+  },
+  {
+    "id": "KE.L61",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:39:42",
+      "hoursSpend": 2,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 20,
+      "developer": "zuendorf",
+      "phase": "implementation",
+      "comment": "Achieved: 9. generate property change support",
+      "kanbanEntry": "KE.K17"
+    }
+  },
+  {
+    "id": "KE.L62",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:39:42",
+      "hoursSpend": 2,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 46,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "StudyRightClassesCodeGen: Achieved: 9. generate property change support",
+      "kanbanEntry": "KE.K2"
+    }
+  },
+  {
+    "id": "KE.L63",
+    "class": "org.sdmlib.scenarios.LogEntry",
+    "prop": {
+      "date": "25.03.2012 22:39:42",
+      "hoursSpend": 2,
+      "hoursRemainingInPhase": 0,
+      "hoursRemainingInTotal": 69,
+      "developer": "zuendorf",
+      "phase": "active",
+      "comment": "Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 9. generate property change support",
       "kanbanEntry": "KE.K1"
     }
   },

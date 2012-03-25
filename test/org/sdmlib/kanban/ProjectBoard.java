@@ -73,6 +73,10 @@ public class ProjectBoard
       entry = kanbanBoard.findOrCreate("StudyRightClassesCodeGen")
             .withParent(sprint1);
       
+      entry = kanbanBoard.findOrCreate("StudyRightObjectScenarios")
+            .withParent(sprint1);
+      entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      
       entry = kanbanBoard.findOrCreate("ClassModelCodeGen")
             .withParent(sprint1);
       

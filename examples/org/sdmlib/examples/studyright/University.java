@@ -21,138 +21,14 @@
    
 package org.sdmlib.examples.studyright;
 
-import java.util.HashMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
-
-import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class University
+public class University implements PropertyChangeInterface
 {
-   private String dummy2 = "otto ist /* */  // \" \\\"  \n ";
-   
-   private CGUtil dummy = new CGUtil(){
-
-      @Override
-      public String toString()
-      {
-         return ";;;;";
-      }
-      
-   };
-   
-   protected HashMap<String, Integer>[] d3;
-
-   public void m(HashMap<String, org.sdmlib.codegen.SymTabEntry>[]... formParam) // throws IOException, OutOfMemoryError
-   {
-      // just some other comment // /* " 
-   }
-   
-   public static final String PROPERTY_NAME = "name";
- 
-   private String name;
-   
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      this.name = value;
-   }
-   
-   public University withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * University ----------------------------------- Student
-    *              uni                   students
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STUDENTS = "students";
-   
-   private LinkedHashSet<Student> students = null;
-   
-   public LinkedHashSet<Student> getStudents()
-   {
-      if (this.students == null)
-      {
-         return Student.EMPTY_SET;
-      }
-   
-      return this.students;
-   }
-   
-   public boolean addToStudents(Student value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.students == null)
-         {
-            this.students = new LinkedHashSet<Student>();
-         }
-         
-         changed = this.students.add (value);
-         
-         if (changed)
-         {
-            value.withUni(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public boolean removeFromStudents(Student value)
-   {
-      boolean changed = false;
-      
-      if ((this.students != null) && (value != null))
-      {
-         changed = this.students.remove (value);
-         
-         if (changed)
-         {
-            value.setUni(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public University withStudents(Student value)
-   {
-      addToStudents(value);
-      return this;
-   } 
-   
-   public University withoutStudents(Student value)
-   {
-      removeFromStudents(value);
-      return this;
-   } 
-   
-   public void removeAllFromStudents()
-   {
-      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
-   
-      for (Student value : tmpSet)
-      {
-         this.removeFromStudents(value);
-      }
-   }
 
    
    //==========================================================================
@@ -224,6 +100,130 @@ public class University
    }
 
    
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+   
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if (StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public University withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * University ----------------------------------- Student
+    *              uni                   students
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STUDENTS = "students";
+   
+   private LinkedHashSet<Student> students = null;
+   
+   public LinkedHashSet<Student> getStudents()
+   {
+      if (this.students == null)
+      {
+         return Student.EMPTY_SET;
+      }
+   
+      return this.students;
+   }
+   
+   public boolean addToStudents(Student value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.students == null)
+         {
+            this.students = new LinkedHashSet<Student>();
+         }
+         
+         changed = this.students.add (value);
+         
+         if (changed)
+         {
+            value.withUni(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromStudents(Student value)
+   {
+      boolean changed = false;
+      
+      if ((this.students != null) && (value != null))
+      {
+         changed = this.students.remove (value);
+         
+         if (changed)
+         {
+            value.setUni(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public University withStudents(Student value)
+   {
+      addToStudents(value);
+      return this;
+   } 
+   
+   public University withoutStudents(Student value)
+   {
+      removeFromStudents(value);
+      return this;
+   } 
+   
+   public void removeAllFromStudents()
+   {
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
+   
+      for (Student value : tmpSet)
+      {
+         this.removeFromStudents(value);
+      }
+   }
+
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -262,7 +262,7 @@ public class University
          if (changed)
          {
             value.withUni(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
          }
       }
          
@@ -280,7 +280,7 @@ public class University
          if (changed)
          {
             value.setUni(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, value, null);
          }
       }
          
@@ -308,40 +308,7 @@ public class University
          this.removeFromRooms(value);
       }
    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

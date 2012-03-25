@@ -162,8 +162,6 @@ public class Attribute
       if (pos < 0)
       {
          // add attribute declaration and get, set, with methods in class file
-         pos = parser.indexOf(Parser.CLASS_END);
-         
          StringBuilder text = new StringBuilder
             (  "\n   " +
                "\n   //==========================================================================" +
@@ -179,7 +177,12 @@ public class Attribute
                "\n   " +
                "\n   public void setName(type value)" +
                "\n   {" +
-               "\n      this.name = value;" +
+               "\n      if (valueCompare)" +
+               "\n      {" +
+               "\n         type oldValue = this.name;" +
+               "\n         this.name = value;" +
+               "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
+               "\n      }" +
                "\n   }" +
                "\n   " +
                "\n   public ownerClass withName(type value)" +
@@ -189,7 +192,16 @@ public class Attribute
                "\n   } " +
                "\n"
                );
+         
+         String valueCompare = "this.name != value";
+         
+         if ("String".equals(getType()))
+         {
+            valueCompare = "StrUtil.stringEquals(this.name, value)";
+            getClazz().insertImport(StrUtil.class.getName());
+         }
 
+         CGUtil.replaceAll(text, "valueCompare", valueCompare);
          
          CGUtil.replaceAll(text, 
                "type", getType(), 
@@ -199,6 +211,8 @@ public class Attribute
                " init", getInitialization() == null ? "" : " = " + getInitialization(),
                "ownerClass", CGUtil.shortClassName(this.getClazz().getName())
                );
+         
+         pos = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(pos, text.toString());
          getClazz().setFileHasChanged(true);

@@ -34,8 +34,9 @@ import java.util.Set;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeClient;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.utils.PropertyChangeInterface;
 
-public class KanbanEntry implements PropertyChangeClient
+public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterface
 {
    public static final String PROPERTY_NAME = "name";
 
@@ -447,16 +448,11 @@ public class KanbanEntry implements PropertyChangeClient
                      "   {\n" +
                      "      Scenario scenario = new Scenario(\"" + testName + "\");\n" +
                      "      \n" +
-                     "      \n" +
-                     "      \n" +
-                     "      scenario.addLogEntry(new LogEntry()\n" +
-                     "      .withDate(\"" + 
-                     ScenarioManager.get().dateParser.format(new Date(System.currentTimeMillis()))
-                     +  "\")\n" +
-                     "      .withPhase(MODELING)\n" +
-                     "      .withDeveloper(\"" + System.getProperty("user.name") + "\")\n" +
-                     "      .withHoursSpend(1)\n" +
-                     "      .withHoursRemainingInTotal(40));\n" +
+                     "      scenario.add(\"Start situation: \",\n" +
+                     "         BACKLOG, " +
+                     "\"" + System.getProperty("user.name") + "\", " +
+                     "\"" + ScenarioManager.get().dateParser.format(new Date(System.currentTimeMillis())) +  "\", " +
+                     "0, 0);\n" +
                      "      \n" +
                      "      ScenarioManager.get()\n" +
                      "      .add(scenario)\n" +
@@ -801,5 +797,7 @@ public class KanbanEntry implements PropertyChangeClient
       }
    }
 }
+
+
 
 

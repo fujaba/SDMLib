@@ -14,8 +14,183 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.RoomCreator());
       return jsonIdMap;
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

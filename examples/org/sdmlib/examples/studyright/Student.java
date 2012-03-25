@@ -21,10 +21,152 @@
    
 package org.sdmlib.examples.studyright;
 
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
 
-public class Student
-{ 
+public class Student implements PropertyChangeInterface
+{
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         return getMatrNo();
+      }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         return getUni();
+      }
+
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         return getIn();
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         setMatrNo((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
+      {
+         setUni((University) value);
+         return true;
+      }
+
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         setIn((Room) value);
+         return true;
+      }
+
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+   
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if (StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Student withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_MATRNO = "matrNo";
+   
+   private int matrNo;
+   
+   public int getMatrNo()
+   {
+      return this.matrNo;
+   }
+   
+   public void setMatrNo(int value)
+   {
+      if (this.matrNo != value)
+      {
+         int oldValue = this.matrNo;
+         this.matrNo = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MATRNO, oldValue, value);
+      }
+   }
+   
+   public Student withMatrNo(int value)
+   {
+      setMatrNo(value);
+      return this;
+   } 
+
+   
+   public static final LinkedHashSet<Student> EMPTY_SET = new LinkedHashSet<Student>();
+
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -63,7 +205,7 @@ public class Student
             value.withStudents(this);
          }
          
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_UNI, null, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNI, oldValue, value);
          changed = true;
       }
       
@@ -77,160 +219,57 @@ public class Student
    } 
 
    
-   public static final LinkedHashSet<Student> EMPTY_SET = new LinkedHashSet<Student>();
-
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Student ----------------------------------- Room
+    *              students                   in
+    * </pre>
+    */
    
-   //==========================================================================
+   public static final String PROPERTY_IN = "in";
    
-   public static final String PROPERTY_NAME = "name";
+   private Room in = null;
    
-   private String name;
-   
-   public String getName()
+   public Room getIn()
    {
-      return this.name;
+      return this.in;
    }
    
-   public void setName(String value)
+   public boolean setIn(Room value)
    {
-      this.name = value;
-   }
-   
-   public Student withName(String value)
-   {
-      setName(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_MATRNO = "matrNo";
-   
-   private int matrNo;
-   
-   public int getMatrNo()
-   {
-      return this.matrNo;
-   }
-   
-   public void setMatrNo(int value)
-   {
-      this.matrNo = value;
-   }
-   
-   public Student withMatrNo(int value)
-   {
-      setMatrNo(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
+      boolean changed = false;
       
-      if (pos > 0)
+      if (this.in != value)
       {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
-      {
-         return getMatrNo();
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         return getUni();
+         Room oldValue = this.in;
+         
+         if (this.in != null)
+         {
+            this.in = null;
+            oldValue.withoutStudents(this);
+         }
+         
+         this.in = value;
+         
+         if (value != null)
+         {
+            value.withStudents(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue, value);
+         changed = true;
       }
       
-      return null;
+      return changed;
    }
-
    
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
+   public Student withIn(Room value)
    {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
-      {
-         setMatrNo((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         setUni((University) value);
-         return true;
-      }
-
-      return false;
-   }
+      setIn(value);
+      return this;
+   } 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -151,19 +151,19 @@ public class Role
       if (pos < 0)
       {
          // add attribute declaration in class file
-         pos = myParser.indexOf(Parser.CLASS_END);
-         
          StringBuilder text = new StringBuilder();
          
          if (StrUtil.stringEquals(partnerRole.getCard(), MANY))
          {
             generateToManyRole(partnerRole, text);
+            getClazz().insertImport(LinkedHashSet.class.getName());
          }
          else
          {
             generateToOneRole(partnerRole, text);
-        }
+         }
 
+         pos = myParser.indexOf(Parser.CLASS_END);
          myParser.getFileBody().insert(pos, text.toString());
          getClazz().setFileHasChanged(true);
       }
@@ -290,6 +290,9 @@ public class Role
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
+         
+         getClazz().insertImport(JsonIdMap.class.getName());
+         
          getClazz().setFileHasChanged(true);
       }
    }
@@ -425,6 +428,9 @@ public class Role
             );
          
          partnerParser.getFileBody().insert(partnerPos, partnerText.toString());
+         
+         partnerRole.getClazz().insertImport(LinkedHashSet.class.getName());
+         
          partnerRole.getClazz().setFileHasChanged(true);
          partnerRole.getClazz().printFile(doGenerate);
 
@@ -473,7 +479,7 @@ public class Role
             "\n         if (changed)" +
             "\n         {" +
             "\n            value.withMyRoleName(this);" +
-            "\n            // getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+            "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
             "\n         }" +
             "\n      }" +
             "\n         " +
@@ -491,7 +497,7 @@ public class Role
             "\n         if (changed)" +
             "\n         {" +
             "\n            value.reverseWithoutCall(this);" +
-            "\n            // getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+            "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, value, null);" +
             "\n         }" +
             "\n      }" +
             "\n         " +
@@ -595,7 +601,7 @@ public class Role
             "\n            value.withMyRoleName(this);" +
             "\n         }" +
             "\n         " +
-            "\n         // getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+            "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);" +
             "\n         changed = true;" +
             "\n      }" +
             "\n      " +

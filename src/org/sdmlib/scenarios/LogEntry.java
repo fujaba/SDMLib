@@ -28,10 +28,11 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeClient;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 
 // should have a creator class
-public class LogEntry implements PropertyChangeClient
+public class LogEntry implements PropertyChangeClient, PropertyChangeInterface
 {
    
    public LogEntry()
@@ -372,5 +373,7 @@ public class LogEntry implements PropertyChangeClient
       return this;
    } 
 }
+
+
 
 

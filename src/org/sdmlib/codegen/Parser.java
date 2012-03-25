@@ -56,6 +56,8 @@ public class Parser
 
    public static final String LAST_RETURN_POS = "lastReturnPos";
 
+   public static final String IMPLEMENTS = "implements";
+
    public static char NEW_LINE = '\n';
    
    private StringBuilder fileBody = null;
@@ -97,7 +99,35 @@ public class Parser
 
    private int methodBodyStartPos;
 
-   private int endOfAttributeInitialization;  
+   private int endOfAttributeInitialization;
+
+   private int endOfImplementsClause;
+
+   private int endOfClassName;
+
+   private int endOfExtendsClause;
+
+   private int endOfImports;  
+   
+   public int getEndOfImports()
+   {
+      return endOfImports;
+   }
+   
+   public int getEndOfExtendsClause()
+   {
+      return endOfExtendsClause;
+   }
+   
+   public int getEndOfClassName()
+   {
+      return endOfClassName;
+   }
+   
+   public int getEndOfImplementsClause()
+   {
+      return endOfImplementsClause;
+   }
    
    public int getEndOfAttributeInitialization()
    {
@@ -196,10 +226,16 @@ public class Parser
          parsePackageDecl();
       }
       
+      int startPos = currentRealToken.startPos;
+      
       while (currentRealTokenEquals(IMPORT))
       {
          parseImport();
       }
+      
+      endOfImports = previousRealToken.endPos;
+      
+      checkSearchStringFound(IMPORT, startPos);
       
       parseClassDecl();
    }
@@ -213,6 +249,7 @@ public class Parser
       skip ("class");
       
       className = currentRealWord();
+      endOfClassName = currentRealToken.endPos;
       
       // skip name
       nextRealToken();
@@ -223,16 +260,25 @@ public class Parser
          skip ("extends");
          
          // skip superclass name
+         endOfExtendsClause = currentRealToken.endPos;
          nextRealToken(); 
       }
       
       // implements 
       if ("implements".equals(currentRealWord()))
       {
+         int startPos = currentRealToken.startPos;
+         
          skip ("implements");
          
          while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('{'))
          {
+            symTab.put(IMPLEMENTS + ":" + currentRealWord(), 
+               new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
+               .withKind(IMPLEMENTS)
+               .withMemberName(currentRealWord())
+               .withEndPos(currentRealToken.endPos));
+            
             // skip interface name
             nextRealToken(); 
             
@@ -241,6 +287,10 @@ public class Parser
                nextRealToken();
             }
          }
+ 
+         endOfImplementsClause = previousRealToken.endPos;
+         
+         checkSearchStringFound(IMPLEMENTS, startPos);
       }
       
       parseClassBody();     
@@ -519,11 +569,18 @@ public class Parser
       // import qualifiedName [. *];
       int startPos = currentRealToken.startPos;
       nextRealToken();
-      parseQualifiedName();
+      
+      String importName = parseQualifiedName();
       if (currentRealToken.kind == '*')
       {
          skip("*");
       }
+      
+      symTab.put(IMPORT + ":" + importName, 
+         new SymTabEntry().withMemberName(importName)
+         .withStartPos(startPos)
+         .withEndPos(previousRealToken.endPos));
+      
       skip(";");
    }
 
@@ -561,7 +618,7 @@ public class Parser
          endPos = currentRealToken.endPos;
       }
       
-      return fileBody.substring(startPos, endPos+1);
+      return fileBody.substring(startPos, endPos);
    }
 
    private void skip(char c)
