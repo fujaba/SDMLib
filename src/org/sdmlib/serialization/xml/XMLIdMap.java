@@ -22,18 +22,19 @@ public class XMLIdMap extends IdMap<XMLEntityCreator>{
 		super(parent);
 		isId=false;
 	}
-	public String encode(Object value) {
+	public XMLEntity encode(Object value) {
 		if (encoder == null) {
 			encoder = new Encoding(this);
 		}
-		return encoder.encode(value, false, false);
+//		return encoder.encode(value, false, false).toString();
+		return encoder.encode(value);
 	}
 
-	public String encode(Object value, boolean simple, boolean fullEncoding) {
+	public XMLEntity encode(Object value, boolean simple, boolean fullEncoding) {
 		if (encoder == null) {
 			encoder = new Encoding(this);
 		}
-		return encoder.encode(value, simple, fullEncoding);
+		return encoder.encode(value);
 	}
 
 	public Object decode(String value) {

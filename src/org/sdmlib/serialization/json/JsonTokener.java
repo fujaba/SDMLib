@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
+import org.sdmlib.serialization.EntityUtil;
+
 /*
 Copyright (c) 2002 JSON.org
 
@@ -380,7 +382,7 @@ public class JsonTokener {
         if (string.equals("")) {
             throw syntaxError("Missing value");
         }
-        return JsonObject.stringToValue(string);
+        return EntityUtil.stringToValue(string);
     }
 
 

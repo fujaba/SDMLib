@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
-
 public class Decoding {
 	public static final char PREFIX = ':';
 	private String buffer;

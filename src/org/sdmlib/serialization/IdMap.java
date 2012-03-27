@@ -1,6 +1,7 @@
 package org.sdmlib.serialization;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 
 import org.sdmlib.serialization.interfaces.IdCounter;
@@ -83,6 +84,9 @@ public class IdMap<T extends SendableEntityCreator> {
 			if(object instanceof SendableEntity){
 				((SendableEntity)object).addPropertyChangeListener(IdMap.REMOVE, getListener(IdMap.REMOVE));
 				((SendableEntity)object).addPropertyChangeListener(IdMap.UPDATE, getListener(IdMap.UPDATE));
+			}else if(object instanceof PropertyChangeSupport){
+				((PropertyChangeSupport)object).addPropertyChangeListener(IdMap.REMOVE, getListener(IdMap.REMOVE));
+				((PropertyChangeSupport)object).addPropertyChangeListener(IdMap.UPDATE, getListener(IdMap.UPDATE));
 			}
 		}
 	}

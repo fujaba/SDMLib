@@ -28,7 +28,7 @@ public class UpdateListener implements PropertyChangeListener{
 		Object source = evt.getSource();
 				
 
-		JsonObject jsonObject = new JsonObject()
+		JsonObject jsonObject = (JsonObject) new JsonObject()
 		.put(JsonIdMap.JSON_ID, map.getId(source));
 
 		String propertyName = evt.getPropertyName();

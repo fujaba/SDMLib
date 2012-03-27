@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+
 public class YUMLIdParser extends IdMap<SendableEntityCreator>{
 	public static final String URL="http://yuml.me/diagram/class/";
 	public static final int CLASS = 1;

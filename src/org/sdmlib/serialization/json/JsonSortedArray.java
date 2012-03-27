@@ -23,7 +23,7 @@ public class JsonSortedArray extends JsonArray{
 	
 	@Override
 	public JsonArray put(Object value) {
-		JsonArray result = super.put(value);
+		super.put(value);
 		JsonObject json=(JsonObject) value;
 		if(propSort){
 			JsonObject props = (JsonObject) json.get(JsonIdMap.JSON_PROPS);
@@ -33,7 +33,7 @@ public class JsonSortedArray extends JsonArray{
 		}else{
 			this.mySortArrayList.put(json.get(sortProp), json);
 		}
-		return result;
+		return this;
 	}
 	@Override
 	public List<Object> getElements() {
