@@ -663,6 +663,8 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
       this.setParent (null);
       removeAllFromSubentries();
       removeAllFromPhaseEntries();
+      removeAllFromLogEntries();
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -797,6 +799,13 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
       }
    }
 }
+
+
+
+
+
+
+
 
 
 

@@ -23,7 +23,10 @@ package org.sdmlib.models.classes;
 
 import java.util.LinkedHashSet;
 
-public class Association
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+
+public class Association implements PropertyChangeInterface
 {
    public Association()
    {
@@ -231,6 +234,21 @@ public class Association
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_MODEL.equalsIgnoreCase(attrName))
+      {
+         return getModel();
+      }
+
+      if (PROPERTY_SOURCE.equalsIgnoreCase(attrName))
+      {
+         return getSource();
+      }
+
+      if (PROPERTY_TARGET.equalsIgnoreCase(attrName))
+      {
+         return getTarget();
+      }
       
       return null;
    }
@@ -240,9 +258,51 @@ public class Association
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_MODEL.equalsIgnoreCase(attrName))
+      {
+         setModel((ClassModel) value);
+         return true;
+      }
+
+      if (PROPERTY_SOURCE.equalsIgnoreCase(attrName))
+      {
+         setSource((Role) value);
+         return true;
+      }
+
+      if (PROPERTY_TARGET.equalsIgnoreCase(attrName))
+      {
+         setTarget((Role) value);
+         return true;
+      }
+
       return false;
    }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      setModel(null);
+      setSource(null);
+      setTarget(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 
 

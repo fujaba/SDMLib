@@ -28,7 +28,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 public class KanbanEntryCreator implements SendableEntityCreator 
 {
-   private final String[] attributes = new  String[] {
+   private final String[] properties = new  String[] {
          KanbanEntry.PROPERTY_SUBENTRIES,
          KanbanEntry.PROPERTY_LOGENTRIES,
          KanbanEntry.PROPERTY_PHASE_ENTRIES,
@@ -54,7 +54,7 @@ public class KanbanEntryCreator implements SendableEntityCreator
    @Override
    public String[] getProperties()
    {
-      return attributes;
+      return properties;
    }
    
    @Override
@@ -76,5 +76,12 @@ public class KanbanEntryCreator implements SendableEntityCreator
    }
    
 }
+
+
+
+
+
+
+
 
 

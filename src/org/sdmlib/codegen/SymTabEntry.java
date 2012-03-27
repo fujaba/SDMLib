@@ -21,7 +21,10 @@
 
 package org.sdmlib.codegen;
 
-public class SymTabEntry 
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+
+public class SymTabEntry implements PropertyChangeInterface 
 {   
 
    
@@ -251,6 +254,27 @@ public class SymTabEntry
       setEndPos(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 

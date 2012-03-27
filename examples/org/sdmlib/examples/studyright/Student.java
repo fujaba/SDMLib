@@ -110,6 +110,16 @@ public class Student implements PropertyChangeInterface
    
    //==========================================================================
    
+   public void removeYou()
+   {
+      setUni(null);
+      setIn(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   //==========================================================================
+   
    public static final String PROPERTY_NAME = "name";
    
    private String name;
@@ -121,7 +131,7 @@ public class Student implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (StrUtil.stringEquals(this.name, value))
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -270,12 +280,4 @@ public class Student implements PropertyChangeInterface
       return this;
    } 
 }
-
-
-
-
-
-
-
-
 

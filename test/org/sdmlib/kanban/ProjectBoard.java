@@ -65,10 +65,10 @@ public class ProjectBoard
       entry = kanbanBoard.findOrCreate("ProjectManagement")
             .withParent(kanbanBoard);
 
-      logEntry = entry.findOrCreateLogEntry("18.03.2012 13:00:00", ACTIVE)
+      logEntry = entry.findOrCreateLogEntry("26.03.2012 23:16:00", ACTIVE)
             .withDeveloper("zuendorf")
             .withHoursSpend(1)
-            .withHoursRemainingInTotal(23);
+            .withHoursRemainingInTotal(22);
       
       entry = kanbanBoard.findOrCreate("StudyRightClassesCodeGen")
             .withParent(sprint1);
@@ -116,7 +116,7 @@ public class ProjectBoard
 
       scenario.add(" Editing the log entries is still too tedious. " +
             "\n Add parameters to scenario.add and derive log entry from it.", 
-            IMPLEMENTATION, "zuendorf", "18.03.2012 17:45:42", 0, 17);
+            IMPLEMENTATION, "zuendorf", "18.03.2012 17:45:42", 1, 0);
       
       ScenarioManager.get()
       .add(scenario)

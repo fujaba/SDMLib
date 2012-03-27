@@ -27,7 +27,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 
 public class LogEntryCreator implements SendableEntityCreator {
-   private final String[] attributes = new  String[] {
+   private final String[] properties = new  String[] {
          LogEntry.PROPERTY_DATE     ,
          LogEntry.PROPERTY_HOURS_SPEND     ,
          LogEntry.PROPERTY_HOURS_REMAINING_IN_PHASE     ,
@@ -64,7 +64,7 @@ public class LogEntryCreator implements SendableEntityCreator {
    @Override
    public String[] getProperties()
    {
-      return attributes;
+      return properties;
    }
    
    @Override
@@ -73,5 +73,12 @@ public class LogEntryCreator implements SendableEntityCreator {
       return new LogEntry();
    }
 }
+
+
+
+
+
+
+
 
 

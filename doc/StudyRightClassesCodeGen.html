@@ -5,7 +5,7 @@
 <img src='StudyRightClasses01.svg'><pre>2. generate class Student with new notation</pre>
 <img src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
 <img src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
-<img src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes and assocs</pre>
+<img src='StudyRightClasses04.svg'><img src='StudyRightClasses05.svg'><pre>5. generate generic set for attributes and assocs</pre>
 <pre>   public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -75,7 +75,14 @@ import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;</pre>
 <pre>9. generate property change support</pre>
 <pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
-<pre>x. generate removeYou method</pre>
+<pre>10. generate removeYou method</pre>
+<pre>   public void removeYou()
+   {
+      setUni(null);
+      setIn(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }</pre>
+<pre>We need inheritance</pre>
 <pre>next. compile University.java</pre>
 
 </body>

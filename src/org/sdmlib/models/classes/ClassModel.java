@@ -37,8 +37,11 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
-public class ClassModel
+public class ClassModel implements PropertyChangeInterface
 {
    public static ClassModel classModel = null;
 
@@ -196,6 +199,35 @@ public class ClassModel
       
       this.classes.add(value);
    }
+   
+   public boolean removeFromClasses(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.classes != null) && (value != null))
+      {
+         changed = this.classes.remove (value);
+         
+         if (changed)
+         {
+            value.setClassModel(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public void removeAllFromClasses()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getClasses());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromClasses(value);
+      }
+   }
+
 
    public String dumpClassDiag(String diagName)
    {
@@ -445,8 +477,9 @@ public class ClassModel
 		for (File file : javaFiles) {
 			String filePath = file.getAbsolutePath();
 			filePath = filePath.replace(srcFolder.getPath() , "");
-			filePath = filePath.replace("/" , ".");
+			filePath = filePath.replace(File.separatorChar, '.');
 			int indexOfPackage = filePath.lastIndexOf(packages, filePath.length()-1);
+			System.out.println("FilePath: " + filePath);
 			filePath = filePath.substring(indexOfPackage, filePath.length() - 5);	
 			
 			if(!classes.contains(filePath)){
@@ -532,6 +565,16 @@ public class ClassModel
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+      {
+         return getClasses();
+      }
+
+      if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName))
+      {
+         return getAssociations();
+      }
       
       return null;
    }
@@ -541,9 +584,56 @@ public class ClassModel
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+      {
+         addToClasses((Clazz) value);
+         return true;
+      }
+      
+      if ((PROPERTY_CLASSES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromClasses((Clazz) value);
+         return true;
+      }
+
+      if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName))
+      {
+         addToAssociations((Association) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromAssociations((Association) value);
+         return true;
+      }
+
       return false;
    }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      removeAllFromClasses();
+      removeAllFromAssociations();
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 
 

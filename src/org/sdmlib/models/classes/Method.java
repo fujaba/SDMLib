@@ -22,8 +22,10 @@
 package org.sdmlib.models.classes;
 
 import java.util.LinkedHashSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
-public class Method
+public class Method implements PropertyChangeInterface
 {
 
    
@@ -121,6 +123,11 @@ public class Method
       {
          return getSignature();
       }
+
+      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         return getClazz();
+      }
       
       return null;
    }
@@ -136,9 +143,37 @@ public class Method
          return true;
       }
 
+      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         setClazz((Clazz) value);
+         return true;
+      }
+
       return false;
    }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      setClazz(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 
 

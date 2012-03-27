@@ -117,14 +117,15 @@ public class ClassModelTest
       .withAttribute("endPos", "int");
       
       scenario.add("Basic bootstrap done.", 
-         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 10);
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
       
       scenario.addImage(model.dumpClassDiag("ClassModelClasses01"));
       
-      scenario.add("Generate generic get and set and removeYou. First for attributes. ", 
-         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 9);
+      scenario.add("Generate generic get and set and removeYou.", 
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);
 
-      scenario.add("Generate creator classes.");
+      scenario.add("Generate creator classes.", 
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
       
       model.generate("src");

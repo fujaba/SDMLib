@@ -92,6 +92,13 @@ public class Scenario
 		      .withDeveloper(System.getProperty("user.name"))
 		      .withHoursRemainingInTotal(0.0));
 		}
+      
+      // compute total remaining time
+      double sumOfRemainingTime = 0.0;
+      for (LogEntry newEntry : newLogEntries.values())
+      {
+         sumOfRemainingTime += newEntry.getHoursRemainingInTotal();
+      }
 		
       // update log entries
       for (LogEntry oldEntry : kanbanEntry.getLogEntries())
@@ -105,7 +112,7 @@ public class Scenario
             // transfer values
             oldEntry.withDeveloper(newLogEntry.getDeveloper())
             .withHoursRemainingInPhase(newLogEntry.getHoursRemainingInPhase())
-            .withHoursRemainingInTotal(newLogEntry.getHoursRemainingInTotal())
+            .withHoursRemainingInTotal(sumOfRemainingTime)
             .withHoursSpend(newLogEntry.getHoursSpend())
             .withPhase(newLogEntry.getPhase());
 
@@ -117,6 +124,7 @@ public class Scenario
       for (String key : newLogEntries.keySet())
       {
          LogEntry newLogEntry = newLogEntries.get(key);
+         newLogEntry.setHoursRemainingInTotal(sumOfRemainingTime);
          kanbanEntry.addToLogEntries(newLogEntry);
       }
       

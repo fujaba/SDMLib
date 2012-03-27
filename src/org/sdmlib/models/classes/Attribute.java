@@ -25,8 +25,10 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
-public class Attribute 
+public class Attribute implements PropertyChangeInterface 
 {
    public static final LinkedHashSet<Attribute> EMPTY_SET = new LinkedHashSet<Attribute>();
    
@@ -36,6 +38,7 @@ public class Attribute
       Clazz.clazz.withAttributes(this);   
    }
    
+   public static final String PROPERTY_CLAZZ = "clazz";
    private Clazz clazz = null;
    
    public Clazz getClazz()
@@ -196,7 +199,7 @@ public class Attribute
          
          if ("String".equals(getType()))
          {
-            valueCompare = "StrUtil.stringEquals(this.name, value)";
+            valueCompare = " ! StrUtil.stringEquals(this.name, value)";
             getClazz().insertImport(StrUtil.class.getName());
          }
 
@@ -376,6 +379,11 @@ public class Attribute
       {
          return getInitialization();
       }
+
+      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         return getClazz();
+      }
       
       return null;
    }
@@ -391,9 +399,37 @@ public class Attribute
          return true;
       }
 
+      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         setClazz((Clazz) value);
+         return true;
+      }
+
       return false;
    }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      setClazz(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 
 

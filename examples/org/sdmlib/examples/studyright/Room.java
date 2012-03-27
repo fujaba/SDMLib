@@ -134,6 +134,17 @@ public class Room implements PropertyChangeInterface
    
    //==========================================================================
    
+   public void removeYou()
+   {
+      setUni(null);
+      removeAllFromNeighbors();
+      removeAllFromStudents();
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   //==========================================================================
+   
    public static final String PROPERTY_ROOMNO = "roomNo";
    
    private String roomNo;
@@ -145,7 +156,7 @@ public class Room implements PropertyChangeInterface
    
    public void setRoomNo(String value)
    {
-      if (StrUtil.stringEquals(this.roomNo, value))
+      if ( ! StrUtil.stringEquals(this.roomNo, value))
       {
          String oldValue = this.roomNo;
          this.roomNo = value;
@@ -414,12 +425,4 @@ public class Room implements PropertyChangeInterface
       }
    }
 }
-
-
-
-
-
-
-
-
 

@@ -372,7 +372,23 @@ public class LogEntry implements PropertyChangeClient, PropertyChangeInterface
       setKanbanEntry(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      setKanbanEntry(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
+
+
+
+
 
 
 

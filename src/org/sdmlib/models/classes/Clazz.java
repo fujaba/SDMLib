@@ -31,8 +31,9 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class Clazz
+public class Clazz implements PropertyChangeInterface
 {
    public static final LinkedHashSet<Clazz> EMPTY_SET = new LinkedHashSet<Clazz>();
 
@@ -70,6 +71,7 @@ public class Clazz
       return this;
    }
    
+   public static final String PROPERTY_CLASSMODEL = "classModel";
    private ClassModel classModel = null;
    
    private StringBuilder fileBody;
@@ -115,6 +117,8 @@ public class Clazz
       
       insertPropertyChangeSupport();
       
+      insertRemoveYourMethod();
+      
       for (Attribute attr : this.getAttributes())
       {
          attr.generate(rootDir, false);
@@ -127,6 +131,32 @@ public class Clazz
       printCreatorFile(creatorFileHasChanged);
       
       return this;
+   }
+
+   private void insertRemoveYourMethod()
+   {
+      String searchString = Parser.METHOD + ":removeYou()";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         // add removeYou method
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         StringBuilder text = new StringBuilder
+            (  "\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   public void removeYou()" +
+               "\n   {" +
+               "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +
+               "\n   }" +
+               "\n"
+               );
+         
+         parser.getFileBody().insert(pos, text.toString());
+         fileHasChanged = true;
+      }
    }
 
    private void insertPropertyChangeSupport()
@@ -230,6 +260,12 @@ public class Clazz
    {
       if (really)
       {
+         while (fileBody.charAt(fileBody.length() - 1) == '\n')
+         {
+            fileBody.replace(fileBody.length() - 1 , fileBody.length(), "");
+         }
+         fileBody.append('\n');
+         
          CGUtil.printFile(javaFile, fileBody.toString());
       }
    }
@@ -343,30 +379,92 @@ public class Clazz
       
    }
    
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Attribute
+    *              clazz                   attributes
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ATTRIBUTES = "attributes";
+   
    private LinkedHashSet<Attribute> attributes = null;
    
    public LinkedHashSet<Attribute> getAttributes()
    {
-      if (attributes == null)
+      if (this.attributes == null)
       {
          return Attribute.EMPTY_SET;
       }
-      
-      return attributes;
+   
+      return this.attributes;
    }
    
-
+   public boolean addToAttributes(Attribute value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.attributes == null)
+         {
+            this.attributes = new LinkedHashSet<Attribute>();
+         }
+         
+         changed = this.attributes.add (value);
+         
+         if (changed)
+         {
+            value.setClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromAttributes(Attribute value)
+   {
+      boolean changed = false;
+      
+      if ((this.attributes != null) && (value != null))
+      {
+         changed = this.attributes.remove (value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
    public Clazz withAttributes(Attribute value)
    {
-      if (attributes == null)
-      {
-         attributes = new LinkedHashSet<Attribute>();
-      }
-      
-      attributes.add(value);
+      addToAttributes(value);
       return this;
+   } 
+   
+   public Clazz withoutAttributes(Attribute value)
+   {
+      removeFromAttributes(value);
+      return this;
+   } 
+   
+   public void removeAllFromAttributes()
+   {
+      LinkedHashSet<Attribute> tmpSet = new LinkedHashSet<Attribute>(this.getAttributes());
+   
+      for (Attribute value : tmpSet)
+      {
+         this.removeFromAttributes(value);
+      }
    }
 
+   
    Parser parser = null;
    Parser creatorParser = null;
 
@@ -806,6 +904,31 @@ public class Clazz
       {
          return getName();
       }
+
+      if (PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      {
+         return getClassModel();
+      }
+
+      if (PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
+      {
+         return getAttributes();
+      }
+
+      if (PROPERTY_METHODS.equalsIgnoreCase(attrName))
+      {
+         return getMethods();
+      }
+
+      if (PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
+      {
+         return getSourceRoles();
+      }
+
+      if (PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
+      {
+         return getTargetRoles();
+      }
       
       return null;
    }
@@ -818,6 +941,60 @@ public class Clazz
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      {
+         setClassModel((ClassModel) value);
+         return true;
+      }
+
+      if (PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
+      {
+         addToAttributes((Attribute) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromAttributes((Attribute) value);
+         return true;
+      }
+
+      if (PROPERTY_METHODS.equalsIgnoreCase(attrName))
+      {
+         addToMethods((Method) value);
+         return true;
+      }
+      
+      if ((PROPERTY_METHODS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromMethods((Method) value);
+         return true;
+      }
+
+      if (PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
+      {
+         addToSourceRoles((Role) value);
+         return true;
+      }
+      
+      if ((PROPERTY_SOURCEROLES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromSourceRoles((Role) value);
+         return true;
+      }
+
+      if (PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
+      {
+         addToTargetRoles((Role) value);
+         return true;
+      }
+      
+      if ((PROPERTY_TARGETROLES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      {
+         removeFromTargetRoles((Role) value);
          return true;
       }
 
@@ -853,10 +1030,10 @@ public class Clazz
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = ccParser.getMethodBodyStartPos();
       
-      String creatorClassName = CGUtil.packageName(getName()) + ".creators." 
-            + CGUtil.shortClassName(getName()) + "Creator";
+      String shortCreatorClassName = CGUtil.shortClassName(getName()) + "Creator";
+      String creatorClassName = CGUtil.packageName(getName()) + ".creators." + shortCreatorClassName;
       
-      pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + getName() + "Creator", methodBodyStartPos);
+      pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + shortCreatorClassName, methodBodyStartPos);
 
       if (pos < 0)
       {         
@@ -877,7 +1054,33 @@ public class Clazz
          getClassModel().setFileHasChanged(true);
       }
    }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      setClassModel(null);
+      removeAllFromAttributes();
+      removeAllFromMethods();
+      removeAllFromSourceRoles();
+      removeAllFromTargetRoles();
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+
+
+
 
 
 

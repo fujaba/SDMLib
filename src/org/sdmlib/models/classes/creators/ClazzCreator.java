@@ -1,17 +1,19 @@
-package org.sdmlib.examples.studyright.creators;
+package org.sdmlib.models.classes.creators;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.models.classes.Clazz;
 
-public class StudentCreator implements SendableEntityCreator
+public class ClazzCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Student.PROPERTY_NAME,
-      Student.PROPERTY_MATRNO,
-      Student.PROPERTY_UNI,
-      Student.PROPERTY_IN,
+      Clazz.PROPERTY_NAME,
+      Clazz.PROPERTY_CLASSMODEL,
+      Clazz.PROPERTY_ATTRIBUTES,
+      Clazz.PROPERTY_METHODS,
+      Clazz.PROPERTY_SOURCEROLES,
+      Clazz.PROPERTY_TARGETROLES,
    };
    
    public String[] getProperties()
@@ -21,17 +23,17 @@ public class StudentCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Student();
+      return new Clazz();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Student) target).get(attrName);
+      return ((Clazz) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Student) target).set(attrName, value);
+      return ((Clazz) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -39,31 +41,6 @@ public class StudentCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
