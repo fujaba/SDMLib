@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class intPath extends ArrayList<Integer>
 {
 
-   public int sum()
+	private static final long serialVersionUID = -2345886837862490672L;
+
+public int sum()
    {
       int result = 0;
       

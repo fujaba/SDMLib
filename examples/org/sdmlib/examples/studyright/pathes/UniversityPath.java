@@ -8,7 +8,9 @@ import org.sdmlib.examples.studyright.University;
 public class UniversityPath extends LinkedHashSet<University>
 {
 
-   public RoomPath getRooms()
+	private static final long serialVersionUID = -1064130644494271551L;
+
+public RoomPath getRooms()
    {
       RoomPath roomPath = new RoomPath();
       

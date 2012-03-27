@@ -25,7 +25,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -89,11 +88,11 @@ public class JsonToImg
          
          // go through attributes
          
-         jsonObject = jsonObject.getJSONObject(JsonIdMap.JSON_PROPS);
+         jsonObject = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
          
          String attrText = "<tr><td><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
          boolean addAttrText = false;
-         for (Iterator iter = jsonObject.keys(); iter.hasNext();)
+         for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
          {
             String key = (String) iter.next();
             

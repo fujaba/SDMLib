@@ -22,7 +22,6 @@
 package org.sdmlib.codegen;
 
 import java.nio.channels.NotYetConnectedException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.sdmlib.utils.StrUtil;
@@ -139,7 +138,8 @@ public class Parser
       return methodBodyStartPos;
    }
    
-   class SearchStringFoundException extends RuntimeException { }
+   class SearchStringFoundException extends RuntimeException {
+	private static final long serialVersionUID = 1L; }
    
    public StringBuilder getFileBody()
    {

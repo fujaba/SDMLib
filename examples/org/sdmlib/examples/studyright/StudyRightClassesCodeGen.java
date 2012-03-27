@@ -21,10 +21,6 @@
    
 package org.sdmlib.examples.studyright;
    
-import java.util.LinkedHashSet;
-
-import javax.tools.JavaCompiler;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
@@ -32,11 +28,9 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.examples.studyright.pathes.Path;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;

@@ -78,7 +78,7 @@ public class University implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStudents((Student) value);
          return true;
@@ -90,7 +90,7 @@ public class University implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_ROOMS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_ROOMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromRooms((Room) value);
          return true;

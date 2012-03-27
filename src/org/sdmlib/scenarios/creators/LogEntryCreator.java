@@ -21,12 +21,9 @@
 
 package org.sdmlib.scenarios.creators;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
+import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.scenarios.LogEntry;
 
 
 public class LogEntryCreator implements SendableEntityCreator {

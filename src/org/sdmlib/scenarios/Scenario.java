@@ -23,23 +23,15 @@ package org.sdmlib.scenarios;
 
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Vector;
 
-import javax.swing.text.DateFormatter;
-
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
 
 
 
@@ -79,7 +71,6 @@ public class Scenario
 
 	private static String backlog = "backlog";;
 
-	@SuppressWarnings("deprecation")
 	public void dumpHTML(KanbanEntry kanbanBoard) 
 	{
 	   // get kanbanEntry

@@ -24,7 +24,6 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.StrUtil;
 
 public class Attribute 

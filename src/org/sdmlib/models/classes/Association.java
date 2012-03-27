@@ -23,8 +23,6 @@ package org.sdmlib.models.classes;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.codegen.Parser;
-
 public class Association
 {
    public Association()

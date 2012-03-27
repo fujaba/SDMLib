@@ -21,16 +21,12 @@
 
 package org.sdmlib.model.classes;
 
-import java.util.LinkedHashSet;
-
 import org.junit.Test;
 import org.sdmlib.kanban.ProjectBoard;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 

@@ -180,7 +180,7 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
     */
 
    public static final String PROPERTY_SUBENTRIES = "subentries";
-   private LinkedHashSet subentries;
+   private LinkedHashSet<KanbanEntry> subentries;
 
    public boolean addToSubentries (KanbanEntry value)
    {
@@ -190,7 +190,7 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
       {
          if (this.subentries == null)
          {
-            this.subentries = new LinkedHashSet ();
+            this.subentries = new LinkedHashSet<KanbanEntry>();
          }
          changed = this.subentries.add (value);
          if (changed)
@@ -221,7 +221,7 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
    public void removeAllFromSubentries ()
    {
       KanbanEntry tmpValue;
-      Iterator iter = this.getSubentries().iterator ();
+      Iterator<KanbanEntry> iter = this.getSubentries().iterator ();
 
       while (iter.hasNext ())
       {

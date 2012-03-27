@@ -1,13 +1,14 @@
 package org.sdmlib.examples.studyright.pathes;
 
 import java.util.LinkedHashSet;
-import java.util.Vector;
 
 import org.sdmlib.examples.studyright.Room;
 
 public class RoomPath extends LinkedHashSet<Room>
 {
-   public intPath getCredits()
+	private static final long serialVersionUID = 2091079250205273044L;
+
+public intPath getCredits()
    {
       intPath result = new intPath();
       

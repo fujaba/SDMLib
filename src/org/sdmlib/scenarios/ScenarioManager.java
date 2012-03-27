@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.StringWriter;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,23 +41,19 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import javax.swing.text.DateFormatter;
-
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.time.Day;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.sdmlib.scenarios.creators.KanbanEntryCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.scenarios.creators.KanbanEntryCreator;
-import org.sdmlib.utils.StrUtil;
 
 public class ScenarioManager 
 {
@@ -215,7 +210,7 @@ public class ScenarioManager
          objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.JSON_ID));
          
          // iterate through keys
-         for (Iterator iter = jsonObject.keys(); iter.hasNext();)
+         for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
          {
             
             String key = (String) iter.next();

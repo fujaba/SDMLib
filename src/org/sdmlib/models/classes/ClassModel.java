@@ -31,8 +31,6 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.StrUtil;
 
 public class ClassModel
 {

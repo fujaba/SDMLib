@@ -21,12 +21,9 @@
 
 package org.sdmlib.scenarios.creators;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
+import org.sdmlib.scenarios.KanbanEntry;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.scenarios.KanbanEntry;
 
 
 public class KanbanEntryCreator implements SendableEntityCreator 

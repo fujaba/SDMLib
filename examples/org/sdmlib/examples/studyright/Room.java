@@ -100,7 +100,7 @@ public class Room implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_NEIGHBORS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_NEIGHBORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromNeighbors((Room) value);
          return true;
@@ -112,7 +112,7 @@ public class Room implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStudents((Student) value);
          return true;

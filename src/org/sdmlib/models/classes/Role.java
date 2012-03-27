@@ -25,11 +25,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.scenarios.PhaseEntry;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.StrUtil;
-
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 public class Role
 {

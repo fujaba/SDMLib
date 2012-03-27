@@ -7,7 +7,9 @@ import org.sdmlib.examples.studyright.University;
 
 public class StudentPath extends LinkedHashSet<Student>
 {
-   public StudentPath with(Student value)
+	private static final long serialVersionUID = 4968869988238673731L;
+
+public StudentPath with(Student value)
    {
       this.add(value);
       return this;
