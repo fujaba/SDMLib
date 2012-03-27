@@ -260,8 +260,8 @@ public class Parser
          skip ("extends");
          
          // skip superclass name
-         endOfExtendsClause = currentRealToken.endPos;
-         nextRealToken(); 
+         parseTypeRef(); 
+         endOfExtendsClause = previousRealToken.endPos;
       }
       
       // implements 
@@ -643,13 +643,25 @@ public class Parser
       {
          
          System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() 
-            + " at pos " + currentRealToken.startPos 
+            + " at pos " + currentRealToken.startPos + " at line " + getLineIndexOf(currentRealToken.startPos, fileBody)
             + " in file \n" + fileName);
          throw new RuntimeException("parse error");
       }
    }
 
-   public Token currentRealToken; 
+   private long getLineIndexOf(int startPos, StringBuilder fileBody) {
+	long count = 0;
+	String substring = fileBody.substring(0, startPos);
+	for (int index = 0; index < substring.length() -1; ++index)
+	{
+		final char firstChar = substring.charAt(index);
+		if ( firstChar == NEW_LINE)
+			count++;
+	}
+	return count;
+}
+
+public Token currentRealToken; 
    public Token lookAheadRealToken;
    public Token previousRealToken;
 

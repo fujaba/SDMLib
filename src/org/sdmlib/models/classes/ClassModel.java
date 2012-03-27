@@ -21,9 +21,15 @@
 
 package org.sdmlib.models.classes;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -193,80 +199,111 @@ public class ClassModel
 
    public String dumpClassDiag(String diagName)
    {
-      // generate dot file 
-      StringBuilder dotFileText = new StringBuilder
-         (  "\n graph ClassDiagram {" +
-            "\n    node [shape = none, fontsize = 10]; " +
-            "\n    edge [fontsize = 10];" +
-            "\n    " +
-            "\n    modelClasses" +
-            "\n    " +
-//            "\n    g1 -- p2 " +
-//            "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
-            "\n    " +
-            "\n    modelAssocs" +
-            "\n}" +
-            "\n"
-            );
-      
-      // add classes
-      StringBuilder modelClassesText = new StringBuilder();
+	   // generate dot file 
+	   StringBuilder dotFileText = new StringBuilder
+			   (  "\n graph ClassDiagram {" +
+					   "\n    node [shape = none, fontsize = 10]; " +
+					   "\n    edge [fontsize = 10];" +
+					   "\n    " +
+					   "\n    modelClasses" +
+					   "\n    " +
+					   //            "\n    g1 -- p2 " +
+					   //            "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
+					   "\n    " +
+					   "\n    modelAssocs" +
+					   "\n}" +
+					   "\n"
+					   );
 
-      for (Clazz clazz : this.getClasses())
-      {
-         StringBuilder modelClassText = new StringBuilder
-            (  "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment </table>>];");
+	   // add classes
+	   StringBuilder modelClassesText = new StringBuilder();
 
-         CGUtil.replaceAll(modelClassText, 
-            "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
-            "attrCompartment", dumpAttributes(clazz));
+	   for (Clazz clazz : this.getClasses())
+	   {
+		   StringBuilder modelClassText = new StringBuilder
+				   (  "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
 
-         modelClassesText.append(modelClassText.toString());
-      }
-            
-      // add associations
-      StringBuilder allAssocsText = new StringBuilder();
-      
-      for (Association assoc : getAssociations())
-      {
-         StringBuilder oneAssocText = new StringBuilder
-            (  "\n    sourceClass -- targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\"];" );
-         
-         CGUtil.replaceAll(oneAssocText, 
-            "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()),
-            "targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()),
-            "sourceRole", assoc.getSource().getName(),
-            "targetRole", assoc.getTarget().getName());
-         
-         allAssocsText.append(oneAssocText.toString());
-      }
+		   CGUtil.replaceAll(modelClassText, 
+				   "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
+				   "attrCompartment", dumpAttributes(clazz),
+				   "methodCompartment", dumpMethods(clazz));
 
-      CGUtil.replaceAll(dotFileText, 
-         "modelClasses", modelClassesText.toString(),
-         "modelAssocs", allAssocsText.toString());
-      
-      // write dot file 
-      File docDir = new File("doc");
-      docDir.mkdir();
-      
-      BufferedWriter out;
-      try
-      {
-         File dotFile = new File("doc/" + diagName + ".dot");
-         ScenarioManager.get().printFile(dotFile, dotFileText.toString());
-        
-         // generate image
-         String command = "..\\SDMLib\\tools\\makeimage.bat " + diagName;
+		   modelClassesText.append(modelClassText.toString());
+	   }
 
-         Process child = Runtime.getRuntime().exec(command);
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      
-      return diagName + ".svg";
+	   // add associations
+	   StringBuilder allAssocsText = new StringBuilder();
+
+	   for (Association assoc : getAssociations())
+	   {
+		   StringBuilder oneAssocText = new StringBuilder
+				   (  "\n    sourceClass -- targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\"];" );
+
+		   CGUtil.replaceAll(oneAssocText, 
+				   "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()),
+				   "targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()),
+				   "sourceRole", assoc.getSource().getName(),
+				   "targetRole", assoc.getTarget().getName());
+
+		   allAssocsText.append(oneAssocText.toString());
+	   }
+
+	   CGUtil.replaceAll(dotFileText, 
+			   "modelClasses", modelClassesText.toString(),
+			   "modelAssocs", allAssocsText.toString());
+
+	   // write dot file 
+	   File docDir = new File("doc");
+	   docDir.mkdir();
+
+	   BufferedWriter out;
+
+	   File dotFile = new File("doc/" + diagName + ".dot");
+	   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
+
+	   // generate image
+	   String command = "";
+	   
+	   if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
+		   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
+	   } else {
+		   command = "../SDMLib/tools/makeimage.bat " + diagName;
+	   }
+	   try {
+		   Process child = Runtime.getRuntime().exec(command);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   }
+	   
+	return diagName + ".svg";
+   }
+
+   private String dumpMethods(Clazz clazz) 
+   {
+	   StringBuilder allMethodsText = new StringBuilder
+			   ( "<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");
+
+	   if (clazz.getMethods().size() > 0)
+	   {
+		   for (Method method : clazz.getMethods())
+		   {
+			   StringBuilder oneMethodText = new StringBuilder(
+					   "<tr><td>methodDecl</td></tr>");
+
+			   CGUtil.replaceAll(oneMethodText, "methodDecl", method.getSignature());
+
+			   CGUtil.replaceAll(allMethodsText, "methodRow",
+					   oneMethodText.append(" methodRow").toString());
+		   }
+
+		   CGUtil.replaceAll(allMethodsText, "methodRow", "");
+	   }
+	   else
+	   {
+		   CGUtil.replaceAll(allMethodsText, "methodRow", "<tr><td> </td></tr>");
+	   }
+
+	   return allMethodsText.toString();
    }
 
    private String dumpAttributes(Clazz clazz)
@@ -384,26 +421,75 @@ public class ClassModel
       }
    }
 
-   public void updateFromCode(String string, String string2)
+   public void updateFromCode(String includePathes, String packages)
    {
-      // find java files
-      
-      // parse each java file
-      for (Clazz clazz : getClasses())
-      {
-         // get list of members
-         Parser parser = clazz.getOrCreateParser("examples");
-         
-         parser.indexOf(Parser.CLASS_END);
-         
-         LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
-         
-         for (String memberName : symTab.keySet())
-         {
-            SymTabEntry entry = symTab.get(memberName);
-            // do something with it.
-         }
-      }
+      // find java files   
+	  String binDir = getClass().getClassLoader().getResource(".").getPath();
+	  String srcDir = binDir.substring(0, binDir.length()-4);
+	  File srcFolder = new File(srcDir);
+	  System.out.println(binDir);
+	  if (srcFolder != null) {
+		System.out.println("package "+ srcFolder + "  found");
+		
+		ArrayList<File> javaFiles = new ArrayList<File>();
+		String packagepath = packages.replace('.', '/');
+		String[] includes = includePathes.split("\\s+");
+		for (String include : includes) {	
+			String newPath = srcFolder.getPath() + "/" + include + "/"  + packagepath;
+			System.out.println("source " + newPath);
+			javaFiles.addAll(searchForJavaFiles(newPath));
+		}
+		
+		// classes.add(foundClass)
+		System.out.println("java classes");
+		for (File file : javaFiles) {
+			String filePath = file.getAbsolutePath();
+			filePath = filePath.replace(srcFolder.getPath() , "");
+			filePath = filePath.replace("/" , ".");
+			int indexOfPackage = filePath.lastIndexOf(packages, filePath.length()-1);
+			filePath = filePath.substring(indexOfPackage, filePath.length() - 5);	
+			
+			if(!classes.contains(filePath)){
+				System.out.println("add " + filePath);
+				Clazz clazz = new Clazz(filePath);
+				classes.add(clazz );
+			}
+		}
+			
+		// parse each java file
+		for (Clazz clazz : getClasses()) {
+			// get list of members
+			Parser parser = clazz.getOrCreateParser("examples");
+
+			parser.indexOf(Parser.CLASS_END);
+
+			LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+
+			for (String memberName : symTab.keySet()) {
+				SymTabEntry entry = symTab.get(memberName);
+				System.out.println(clazz.getName()+":"+memberName);
+				// do something with it.
+				
+				// add new methods
+				if (memberName.startsWith(Parser.METHOD))
+				{
+					String[] split = memberName.split(":");
+					String signature = split[1];
+					new Method()
+					.withClazz(clazz)
+					.withSignature(signature);
+				}
+				
+				// add new attributes
+				
+				// add new assocs
+				
+				// add super classes
+				
+				// add interfaces 
+			}
+		}
+	}
       
       // add model creation code at invocation place, if not yet there
       
@@ -413,6 +499,30 @@ public class ClassModel
    
    //==========================================================================
    
+	private ArrayList<File> searchForJavaFiles(String path) {
+		ArrayList<File> javaFiles = new ArrayList<File>();
+		File file = new File(path);
+		if (file.exists() && file.isDirectory()) {
+			File[] listFiles = file.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File file, String string) {
+					return string.toLowerCase().endsWith(".java");
+				}
+			});
+			Collections.addAll(javaFiles, listFiles);
+			File[] directory = file.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File file, String string) {
+					return  file.isDirectory();
+				}
+			});
+			for (File dir : directory) {
+				javaFiles.addAll(searchForJavaFiles(dir.getPath()));
+			}	
+		} 
+		return javaFiles;
+	}
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');

@@ -177,23 +177,26 @@ public class JsonToImg
       
       File docDir = new File("doc");
       docDir.mkdir();
+      BufferedWriter out; 
+      String command = "";
+      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
+		   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + imgName;
+	   } else {
+		   command = "../SDMLib/tools/makeimage.bat " + imgName;
+	   }
+	   try {
+		   writeToFile(imgName, fileText);
+		   Process child = Runtime.getRuntime().exec(command);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   }
       
-      BufferedWriter out;
-      try
-      {
-         writeToFile(imgName, fileText);
-         
-         // generate image
-         String command = "tools/makeimage.bat " + imgName;
+		
+//		   BufferedWriter out;
+//
+//		   File dotFile = new File("doc/" + diagName + ".dot");
+//		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
 
-         Process child = Runtime.getRuntime().exec(command);
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      
       // generate link
       
       return link;
