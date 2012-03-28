@@ -21,17 +21,16 @@
 
 package org.sdmlib.models.classes;
 
-import java.io.BufferedReader;
+import java.beans.PropertyChangeSupport;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
@@ -39,12 +38,6 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-
-import com.sun.tools.javac.code.Symtab;
-
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public class ClassModel implements PropertyChangeInterface
 {
@@ -464,21 +457,21 @@ public class ClassModel implements PropertyChangeInterface
 	  String binDir = getClass().getClassLoader().getResource(".").getPath();
 	  String srcDir = binDir.substring(0, binDir.length()-4);
 	  File srcFolder = new File(srcDir);
-	  System.out.println(binDir);
+//	  System.out.println(binDir);
 	  if (srcFolder != null) {
-		System.out.println("package "+ srcFolder + "  found");
+//		System.out.println("package "+ srcFolder + "  found");
 		
 		ArrayList<File> javaFiles = new ArrayList<File>();
 		String packagepath = packages.replace('.', '/');
 		String[] includes = includePathes.split("\\s+");
 		for (String include : includes) {	
 			String newPath = srcFolder.getPath() + "/" + include + "/"  + packagepath;
-			System.out.println("source " + newPath);
+//			System.out.println("source " + newPath);
 			javaFiles.addAll(searchForJavaFiles(newPath));
 		}
 		
 		// classes.add(foundClass)
-		System.out.println("java classes");
+//		System.out.println("java classes");
 		for (File file : javaFiles) {
 			String filePath = file.getAbsolutePath();
 			filePath = filePath.replace(srcFolder.getPath() , "");
@@ -488,7 +481,7 @@ public class ClassModel implements PropertyChangeInterface
 			filePath = filePath.substring(indexOfPackage, filePath.length() - 5);	
 			
 			if(!classes.contains(filePath)){
-				System.out.println("add " + filePath);
+//				System.out.println("add " + filePath);
 				Clazz clazz = new Clazz(filePath);
 				classes.add(clazz );
 			}
@@ -502,10 +495,11 @@ public class ClassModel implements PropertyChangeInterface
 			parser.indexOf(Parser.CLASS_END);
 
 			LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
-
-			for (String memberName : symTab.keySet()) {
+			
+			Set<String> keySet = symTab.keySet();
+			for (String memberName : keySet) {
 				SymTabEntry entry = symTab.get(memberName);
-				System.out.println(clazz.getName()+":"+memberName);
+//				System.out.println(clazz.getName()+":"+memberName);
 				// do something with it.
 				
 				// add new methods
@@ -517,41 +511,43 @@ public class ClassModel implements PropertyChangeInterface
 					// filter internal generated methods
 					String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()";
 					
-					new Method()
-					.withClazz(clazz)
-					.withSignature(signature);
+					if(filterString.indexOf(signature)<0) {
+						new Method()
+						.withClazz(clazz)
+						.withSignature(signature);
+					}
 				}
 				
 				// add new attributes
 				else if (memberName.startsWith(Parser.ATTRIBUTE))
 				{
-				   String[] split = memberName.split(":");
-               String attrName = split[1];
-               
-               // get type
-               SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
-               
-               // filter public static final constances
-               String modifiers = symTabEntry.getModifiers();
-               if (modifiers.indexOf("public") >= 0 
-                     && modifiers.indexOf("static") >= 0
-                     && modifiers.indexOf("final") >= 0)
-               {
-                  // ignore
-                  break;
-               }
-               
-               new Attribute()
-               .withClazz(clazz)
-               .withName(attrName)
-               .withType(symTabEntry.getType());
+					String[] split = memberName.split(":");
+					String attrName = split[1];
+
+					// get type
+					SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
+
+					// filter public static final constances
+					String modifiers = symTabEntry.getModifiers();
+					if (modifiers.indexOf("public") >= 0 
+							&& modifiers.indexOf("static") >= 0
+							&& modifiers.indexOf("final") >= 0)
+					{
+						// ignore
+						continue;
+					}
+
+					new Attribute()
+					.withClazz(clazz)
+					.withName(attrName)
+					.withType(symTabEntry.getType());
 				}
 				
-				// add new assocs
+				// TODO : add new assocs with roles,  
 				
-				// add super classes
+				// TODO : add super classes
 				
-				// add interfaces 
+				// TODO : add interfaces 
 			}
 		}
 	}

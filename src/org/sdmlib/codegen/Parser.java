@@ -375,7 +375,7 @@ public class Parser
             // field declaration
             skip(";");
             
-            symTab.put(memberName, 
+            symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
                .withMemberName(memberName)
                .withKind(ATTRIBUTE)
