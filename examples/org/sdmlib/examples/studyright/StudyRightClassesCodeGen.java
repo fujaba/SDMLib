@@ -277,11 +277,11 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .dumpHTML();
    }
 
-   private static final String MODELING = "modeling";
-   private static final String ACTIVE = "active";
-   private static final String DONE = "done";
-   private static final String IMPLEMENTATION = "implementation";
-   private static final String BACKLOG = "backlog";
+   public static final String MODELING = "modeling";
+   public static final String ACTIVE = "active";
+   public static final String DONE = "done";
+   public static final String IMPLEMENTATION = "implementation";
+   public static final String BACKLOG = "backlog";
 
    
    //==========================================================================

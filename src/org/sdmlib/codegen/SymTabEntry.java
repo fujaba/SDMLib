@@ -23,6 +23,9 @@ package org.sdmlib.codegen;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 
 public class SymTabEntry implements PropertyChangeInterface 
 {   
@@ -69,6 +72,11 @@ public class SymTabEntry implements PropertyChangeInterface
       {
          return getEndPos();
       }
+
+      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
+      {
+         return getModifiers();
+      }
       
       return null;
    }
@@ -111,6 +119,12 @@ public class SymTabEntry implements PropertyChangeInterface
       if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
       {
          setEndPos((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
+      {
+         setModifiers((String) value);
          return true;
       }
 
@@ -272,9 +286,33 @@ public class SymTabEntry implements PropertyChangeInterface
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_MODIFIERS = "modifiers";
+   
+   private String modifiers;
+   
+   public String getModifiers()
+   {
+      return this.modifiers;
+   }
+   
+   public void setModifiers(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.modifiers, value))
+      {
+         String oldValue = this.modifiers;
+         this.modifiers = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODIFIERS, oldValue, value);
+      }
+   }
+   
+   public SymTabEntry withModifiers(String value)
+   {
+      setModifiers(value);
+      return this;
+   } 
 }
-
-
-
-
 

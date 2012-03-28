@@ -24,6 +24,8 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
 public class Method implements PropertyChangeInterface
 {
@@ -171,9 +173,4 @@ public class Method implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
-
-
-
-
 

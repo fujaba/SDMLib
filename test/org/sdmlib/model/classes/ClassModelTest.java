@@ -114,7 +114,8 @@ public class ClassModelTest
       .withAttribute("type", "String")
       .withAttribute("startPos", "int")
       .withAttribute("bodyStartPos", "int")
-      .withAttribute("endPos", "int");
+      .withAttribute("endPos", "int")
+      .withAttribute("modifiers", "String");
       
       scenario.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);

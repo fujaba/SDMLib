@@ -30,6 +30,8 @@ import org.sdmlib.utils.StrUtil;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
 
 public class Role implements PropertyChangeInterface
@@ -839,11 +841,4 @@ public class Role implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
-
-
-
-
-
-
 

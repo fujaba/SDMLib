@@ -32,6 +32,8 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -1078,10 +1080,4 @@ public class Clazz implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
-
-
-
-
-
 

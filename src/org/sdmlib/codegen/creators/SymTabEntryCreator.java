@@ -15,6 +15,7 @@ public class SymTabEntryCreator implements SendableEntityCreator
       SymTabEntry.PROPERTY_STARTPOS,
       SymTabEntry.PROPERTY_BODYSTARTPOS,
       SymTabEntry.PROPERTY_ENDPOS,
+      SymTabEntry.PROPERTY_MODIFIERS,
    };
    
    public String[] getProperties()
@@ -42,4 +43,5 @@ public class SymTabEntryCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

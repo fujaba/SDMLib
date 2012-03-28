@@ -20,11 +20,14 @@
 
 package org.sdmlib.models.classes;
 
+
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
@@ -38,24 +41,56 @@ public class Attribute implements PropertyChangeInterface
       Clazz.clazz.withAttributes(this);   
    }
    
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Attribute ----------------------------------- Clazz
+    *              attributes                   clazz
+    * </pre>
+    */
+   
    public static final String PROPERTY_CLAZZ = "clazz";
+   
    private Clazz clazz = null;
    
    public Clazz getClazz()
    {
-      return clazz;
+      return this.clazz;
    }
    
-   public void setClazz(Clazz clazz)
+   public boolean setClazz(Clazz value)
    {
-      this.clazz = clazz;
+      boolean changed = false;
+      
+      if (this.clazz != value)
+      {
+         Clazz oldValue = this.clazz;
+         
+         if (this.clazz != null)
+         {
+            this.clazz = null;
+            oldValue.withoutAttributes(this);
+         }
+         
+         this.clazz = value;
+         
+         if (value != null)
+         {
+            value.withAttributes(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
    }
    
-   private Attribute withClazz(Clazz clazz)
+   public Attribute withClazz(Clazz value)
    {
-      setClazz(clazz);
+      setClazz(value);
       return this;
-   }
+   } 
 
    private String name = null;
 
@@ -427,11 +462,4 @@ public class Attribute implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
-
-
-
-
-
-
 

@@ -39,6 +39,11 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+
+import com.sun.tools.javac.code.Symtab;
+
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
 public class ClassModel implements PropertyChangeInterface
@@ -320,7 +325,7 @@ public class ClassModel implements PropertyChangeInterface
 		   for (Method method : clazz.getMethods())
 		   {
 			   StringBuilder oneMethodText = new StringBuilder(
-					   "<tr><td>methodDecl</td></tr>");
+					   "<tr><td align='left'>methodDecl</td></tr>");
 
 			   CGUtil.replaceAll(oneMethodText, "methodDecl", method.getSignature());
 
@@ -348,7 +353,7 @@ public class ClassModel implements PropertyChangeInterface
          for (Attribute attr : clazz.getAttributes())
          {
             StringBuilder oneAttrText = new StringBuilder(
-               "<tr><td>attrDecl</td></tr>");
+               "<tr><td align='left'>attrDecl</td></tr>");
 
             CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :" +
                CGUtil.shortClassNameHTMLEncoded(attr.getType()));
@@ -508,12 +513,39 @@ public class ClassModel implements PropertyChangeInterface
 				{
 					String[] split = memberName.split(":");
 					String signature = split[1];
+					
+					// filter internal generated methods
+					String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()";
+					
 					new Method()
 					.withClazz(clazz)
 					.withSignature(signature);
 				}
 				
 				// add new attributes
+				else if (memberName.startsWith(Parser.ATTRIBUTE))
+				{
+				   String[] split = memberName.split(":");
+               String attrName = split[1];
+               
+               // get type
+               SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
+               
+               // filter public static final constances
+               String modifiers = symTabEntry.getModifiers();
+               if (modifiers.indexOf("public") >= 0 
+                     && modifiers.indexOf("static") >= 0
+                     && modifiers.indexOf("final") >= 0)
+               {
+                  // ignore
+                  break;
+               }
+               
+               new Attribute()
+               .withClazz(clazz)
+               .withName(attrName)
+               .withType(symTabEntry.getType());
+				}
 				
 				// add new assocs
 				
@@ -631,9 +663,4 @@ public class ClassModel implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
-
-
-
-
 

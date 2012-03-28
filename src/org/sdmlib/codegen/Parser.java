@@ -320,7 +320,7 @@ public class Parser
       
       int startPos = currentRealToken.startPos;
       
-      parseModifiers();
+      String modifiers = parseModifiers();
       
       if (currentRealTokenEquals(CLASS))
       {
@@ -360,6 +360,7 @@ public class Parser
                .withMemberName(memberName)
                .withKind(ATTRIBUTE)
                .withType(type)
+               .withModifiers(modifiers)
                );
 
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
@@ -374,6 +375,7 @@ public class Parser
                .withMemberName(memberName)
                .withKind(ATTRIBUTE)
                .withType(type)
+               .withModifiers(modifiers)
                );
             
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
@@ -397,6 +399,7 @@ public class Parser
                .withStartPos(startPos)
                .withEndPos(previousRealToken.startPos)
                .withBodyStartPos(methodBodyStartPos)
+               .withModifiers(modifiers)
                );
 
             checkSearchStringFound(methodSignature, startPos);
@@ -554,14 +557,18 @@ public class Parser
       return StrUtil.stringEquals(currentRealWord(), word);
    }
 
-   private void parseModifiers()
+   private String parseModifiers()
    {
       // names != class
+      String result = "";
       String modifiers = " public protected private static abstract final native synchronized transient volatile strictfp ";
       while (modifiers.indexOf(" " + currentRealWord() + " ") >= 0)
       {
+         result += currentRealWord() + " ";
          nextRealToken();
       }
+      
+      return result;
    }
 
    private void parseImport()
@@ -618,7 +625,7 @@ public class Parser
          endPos = currentRealToken.endPos;
       }
       
-      return fileBody.substring(startPos, endPos);
+      return fileBody.substring(startPos, endPos + 1);
    }
 
    private void skip(char c)
