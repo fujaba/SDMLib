@@ -23,6 +23,7 @@ package org.sdmlib.codegen;
 
 import java.nio.channels.NotYetConnectedException;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.StrUtil;
 
@@ -56,6 +57,8 @@ public class Parser
    public static final String LAST_RETURN_POS = "lastReturnPos";
 
    public static final String IMPLEMENTS = "implements";
+
+   public static final String QUALIFIED_NAME = "qualifiedName";
 
    public static char NEW_LINE = '\n';
    
@@ -164,6 +167,8 @@ public class Parser
       {
          symTab.clear();
       }
+      
+      methodBodyQualifiedNames.clear();
       
       
       currentChar = 0;
@@ -682,6 +687,8 @@ public Token currentRealToken;
    public int lastIfEnd;
 
    private int lastReturnStart;
+
+   private LinkedHashSet<String> methodBodyQualifiedNames = new LinkedHashSet<String>();
    
    public int getLastReturnStart()
    {
@@ -1006,9 +1013,10 @@ public Token currentRealToken;
 
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
+         int startPos = currentRealToken.startPos;
          if (currentRealTokenEquals("if"))
          {
-            lastIfStart = currentRealToken.startPos;
+            lastIfStart = startPos;
             skip("if");
             
             parseBracketExpressionDetails();
@@ -1019,19 +1027,21 @@ public Token currentRealToken;
          }
          else if (currentRealTokenEquals("return"))
          {
-            lastReturnStart = currentRealToken.startPos;
+            lastReturnStart = startPos;
             
             skip("return");
             
-            parseExpression();
+            parseExpressionDetails();
             
             skip(';');
          }
          else if (currentRealKindEquals('v'))
          {
-            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
             
-            nextRealToken();
+            String qualifiedName = parseQualifiedName();
+            
+            methodBodyQualifiedNames.add(qualifiedName);
          }
          else if (currentRealKindEquals('{'))
          {
@@ -1046,6 +1056,31 @@ public Token currentRealToken;
       // checkSearchStringFound(METHOD_END, currentRealToken.startPos);
       skip('}');
    }
+
+   private void parseExpressionDetails()
+   {
+      // ... { ;;; } ;
+      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(';'))
+      {
+         if (currentRealKindEquals('{'))
+         {
+            parseBlockDetails();
+         }
+         else if (currentRealKindEquals('v'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
+            
+            String qualifiedName = parseQualifiedName();
+            
+            methodBodyQualifiedNames.add(qualifiedName);
+         }
+         else
+         {
+            nextRealToken();
+         }
+      }
+   }
+
 
    private void parseBracketExpressionDetails()
    {
@@ -1062,7 +1097,9 @@ public Token currentRealToken;
          {
             checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
             
-            nextRealToken();
+            String qualifiedName = parseQualifiedName();
+            
+            methodBodyQualifiedNames.add(qualifiedName);
          }
          else
          {            
