@@ -626,8 +626,8 @@ public class Parser
          skip(".");
          
          // read next name
-         nextRealToken();
          endPos = currentRealToken.endPos;
+         nextRealToken();
       }
       
       return fileBody.substring(startPos, endPos + 1);
@@ -689,7 +689,10 @@ public Token currentRealToken;
    private int lastReturnStart;
 
    private LinkedHashSet<String> methodBodyQualifiedNames = new LinkedHashSet<String>();
-   
+
+	public LinkedHashSet<String> getMethodBodyQualifiedNames() {
+		return methodBodyQualifiedNames;
+	}
    public int getLastReturnStart()
    {
       return lastReturnStart;
@@ -992,6 +995,7 @@ public Token currentRealToken;
       try
       {
          parseBlockDetails();
+         checkSearchStringFound(METHOD_END, previousRealToken.startPos);
       }
       catch (SearchStringFoundException e)
       {
@@ -1053,7 +1057,7 @@ public Token currentRealToken;
          }
       }
 
-      // checkSearchStringFound(METHOD_END, currentRealToken.startPos);
+
       skip('}');
    }
 
