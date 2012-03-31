@@ -82,4 +82,23 @@ public class StrUtil
    {
       return name == null || name.equals("");
    }
+
+
+	public static String downFirstChar(String name) 
+	{
+		if (isEmptyString(name)) 
+		{
+			return name;
+		}
+
+		StringBuilder stringBuilder = new StringBuilder(name);
+
+		char firstChar = stringBuilder.charAt(0);
+
+		firstChar = Character.toLowerCase(firstChar);
+
+		stringBuilder.setCharAt(0, firstChar);
+
+		return stringBuilder.toString();
+	}
 }

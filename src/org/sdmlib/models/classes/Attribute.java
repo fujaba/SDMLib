@@ -28,11 +28,12 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public class Attribute implements PropertyChangeInterface 
 {
+	public static final String SIMPLE = "simple";
+	   public static final String COMPLEX = "complex";
+	
    public static final LinkedHashSet<Attribute> EMPTY_SET = new LinkedHashSet<Attribute>();
    
    public Attribute()
