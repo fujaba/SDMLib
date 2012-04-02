@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
-import org.sdmlib.examples.studyright.pathes.Path;
+import org.sdmlib.examples.studyright.modelsets.ModelSet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -41,6 +41,30 @@ import java.beans.PropertyChangeSupport;
    
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
+   @Test
+   public void testStudyRightReverseClassModel()
+   {
+      Scenario scenario = new Scenario("StudyRightReverseClassModel");
+      
+      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ",
+         BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
+      
+      ClassModel model = new ClassModel();
+      
+      model.updateFromCode("examples test src", "org.sdmlib.examples");
+      
+      model.insertModelCreationCodeHere("examples");
+      
+      scenario.addImage(model.dumpClassDiag("StudyRightClasses05"));
+
+      
+      
+      
+      ScenarioManager.get()
+      .add(scenario)
+      .dumpHTML();
+   }
+
    @Test
    public void testStudyRightObjectScenarios()
    {
@@ -95,11 +119,11 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
             "Path classes need to be generated.", 
          MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
 
-      int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();
+      int sum = ModelSet.startWith(albert).getUni().getRooms().getCredits().sum();
       
       Assert.assertEquals("credits sum error", 88, sum);
       
-      Path any = Path.startWith(albert).getAny();
+      ModelSet any = ModelSet.startWith(albert).getAny();
 
       Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
 
@@ -174,12 +198,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.addImage(model.dumpClassDiag("StudyRightClasses04"));
 
       //============================================================
-      model.generate("examples");
-      
-      model.updateFromCode("examples test src", "org.sdmlib.examples");
-      
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses05"));
-
+      model.generate("examples", "examplehelpers");
       
       scenario.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
@@ -325,4 +344,5 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
+
 
