@@ -108,7 +108,7 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
 
-   public Clazz generate(String rootDir)
+   public Clazz generate(String rootDir, String helpersDir)
    {
       // first generate the class itself
       getOrCreateParser(rootDir);
@@ -123,13 +123,13 @@ public class Clazz implements PropertyChangeInterface
       
       for (Attribute attr : this.getAttributes())
       {
-         attr.generate(rootDir, false);
+         attr.generate(rootDir, helpersDir, false);
       }
       
       printFile(fileHasChanged);
       
       // now generate the corresponding creator class
-      getOrCreateParserForCreatorClass(rootDir);
+      getOrCreateParserForCreatorClass(helpersDir);
       printCreatorFile(creatorFileHasChanged);
       
       return this;

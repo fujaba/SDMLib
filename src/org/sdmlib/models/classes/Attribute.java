@@ -128,14 +128,14 @@ public class Attribute implements PropertyChangeInterface
       return this;
    }
 
-   public Attribute generate(String rootDir)
+   public Attribute generate(String rootDir, String helpersDir)
    {
-      generate(rootDir, true);
+      generate(rootDir, helpersDir, true);
       
       return this;
    } 
 
-   public Attribute generate(String rootDir, boolean doGenerate)
+   public Attribute generate(String rootDir, String helpersDir, boolean doGenerate)
    {
       // get parser from class
       Parser parser = clazz.getOrCreateParser(rootDir);
@@ -146,7 +146,7 @@ public class Attribute implements PropertyChangeInterface
       
       getClazz().printFile(doGenerate);
 
-      Parser creatorParser = clazz.getOrCreateParserForCreatorClass(rootDir);
+      Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
 
       insertPropertyInCreatorClass(creatorParser);
 

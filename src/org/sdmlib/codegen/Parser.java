@@ -1039,6 +1039,12 @@ public Token currentRealToken;
             
             skip(';');
          }
+         else if (currentRealKindEquals('v')
+               && lookAheadRealToken.kind == 'v')
+         {
+            // local var decl with simple type
+            parseLocalVarDeclDetails();
+         }
          else if (currentRealKindEquals('v'))
          {
             checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
@@ -1061,14 +1067,77 @@ public Token currentRealToken;
       skip('}');
    }
 
+   private void parseLocalVarDeclDetails()
+   {
+      // skip static and or final
+      while ("static final".indexOf(currentRealWord()) >= 0
+            && ! currentRealKindEquals(Parser.EOF))
+      {
+         nextRealToken();
+      }
+      
+      // parse type
+      String type = parseTypeRef();
+      
+      String varName = currentRealWord();
+      nextRealToken();
+      
+      if (currentRealKindEquals('='))
+      {
+         skip('=');
+         
+         while (! currentRealKindEquals(Parser.EOF)
+               && ! currentRealKindEquals(';'))
+         {
+            parseMethodCallDetails();
+         }
+      }
+   }
+
+   private void parseMethodCallDetails()
+   {
+      if ("new".equals(currentRealWord()))
+      {
+         // constructor call
+         skip("new");
+         
+         String type = parseTypeRef();
+         
+         skip('(');
+         
+         while (! currentRealKindEquals(Parser.EOF)
+               && ! currentRealKindEquals(')'))
+         {
+            int paramStartPos = currentRealToken.startPos;
+            parseExpressionDetails();
+            int paramEndPos = previousRealToken.endPos;
+            
+            if (currentRealKindEquals(','))
+            {
+               skip (',');
+            }
+         }
+         
+         skip (')');
+      }
+      
+   }
+
    private void parseExpressionDetails()
    {
       // ... { ;;; } ;
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(';'))
+      while ( ! currentRealKindEquals(EOF) 
+            && ! currentRealKindEquals(';')
+            && ! currentRealKindEquals(',')
+            && ! currentRealKindEquals(')'))
       {
          if (currentRealKindEquals('{'))
          {
             parseBlockDetails();
+         }
+         else if (currentRealKindEquals('('))
+         {
+            parseBracketExpressionDetails();
          }
          else if (currentRealKindEquals('v'))
          {

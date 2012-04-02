@@ -800,13 +800,3 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
    }
 }
 
-
-
-
-
-
-
-
-
-
-

@@ -383,13 +383,3 @@ public class LogEntry implements PropertyChangeClient, PropertyChangeInterface
    }
 }
 
-
-
-
-
-
-
-
-
-
-

@@ -60,14 +60,14 @@ public class ClassModel implements PropertyChangeInterface {
 		classModel = this;
 	}
 
-	public ClassModel generate(String rootDir) 
+	public ClassModel generate(String rootDir, String helpersDir) 
 	{
 		for (Clazz clazz : getClasses()) 
 		{
-			clazz.generate(rootDir);
+			clazz.generate(rootDir, helpersDir);
 		}
 
-		generateCreatorCreatorClass(rootDir);
+		generateCreatorCreatorClass(helpersDir);
 
 		for (Association assoc : getAssociations()) 
 		{
@@ -720,7 +720,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private boolean classExists(String filePath) 
 	{
-		for (Clazz clazz  : classes) 
+		for (Clazz clazz  : getClasses()) 
 		{
 			if(clazz.getName().equals(filePath))
 				return true;
@@ -731,7 +731,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private boolean assocWithRolesExists(Role source, Role target) 
 	{
-		for (Association assoc : associations) 
+		for (Association assoc : getAssociations()) 
 		{
 			if ( isEqual(source, target, assoc) || isEqual(target, source, assoc))
 				return true;
@@ -917,4 +917,58 @@ public class ClassModel implements PropertyChangeInterface {
 		removeAllFromAssociations();
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 	}
+
+   public void insertModelCreationCodeHere(String rootDir)
+   {
+      String fileName = null;
+      String className = null;
+      String methodName = null;
+
+      try
+      {
+         // find here
+         throw new RuntimeException();
+      }
+      catch (Exception e)
+      {
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement stackTraceElement = stackTrace[1];
+
+         fileName = stackTraceElement.getFileName();
+         className = stackTraceElement.getClassName();
+         methodName = stackTraceElement.getMethodName();
+      }
+      
+      // parse the model creation file
+      Clazz modelCreationClass = new Clazz(className);
+      parser = modelCreationClass.getOrCreateParser(rootDir);
+      
+      String signature = Parser.METHOD + ":" + methodName + "()";
+      int pos = parser.indexOf(signature); // TODO should work for methods with params, too. Parse to method end and search in symtab. 
+
+      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+      
+      parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
+      
+      LinkedHashSet<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
+      
+      // insert code
+      // insert code for new Clazz()
+      for (Clazz clazz : getClasses())
+      {
+         
+      }
+      
+      // insert code for new Attr()
+      
+      // insert code for new Method()
+      
+      // insert code for new Assoc
+      
+      
+      
+      System.out.println(pos);
+      
+      
+   }
 }

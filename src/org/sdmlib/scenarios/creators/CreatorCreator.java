@@ -12,8 +12,11 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.LogEntryCreator());
       jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.KanbanEntryCreator());
       jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.LogEntryCreator());
+      jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.KanbanEntryCreator());
+      jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.LogEntryCreator());
       return jsonIdMap;
    }
 }
+
 
 
