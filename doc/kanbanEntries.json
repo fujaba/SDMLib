@@ -73,7 +73,8 @@
         "KE.K17",
         "KE.K3",
         "KE.K25",
-        "KE.K46"
+        "KE.K46",
+        "KE.K75"
       ],
       "logEntries":[
         "KE.L5",
@@ -172,6 +173,20 @@
       "hoursRemaining":22,
       "hoursSpend":2,
       "parent":"KE.K1"
+    }
+  },
+  {
+    "id":"KE.K75",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":["KE.L76"],
+      "name":"StudyRightReverseClassModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java",
+      "parent":"KE.K2"
     }
   },
   {
@@ -1078,6 +1093,20 @@
       "phase":"active",
       "comment":"ProjectManagement: null",
       "kanbanEntry":"KE.K1"
+    }
+  },
+  {
+    "id":"KE.L76",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"02.04.2012 14:58:18",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "developer":"zuendorf",
+      "phase":"backlog",
+      "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: ",
+      "kanbanEntry":"KE.K75"
     }
   },
   {
