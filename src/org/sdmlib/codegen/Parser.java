@@ -22,6 +22,7 @@
 package org.sdmlib.codegen;
 
 import java.nio.channels.NotYetConnectedException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -1086,22 +1087,28 @@ public Token currentRealToken;
       {
          skip('=');
          
+         ArrayList<ArrayList<String>> initCallSequence = new ArrayList<ArrayList<String>>();
+         
          while (! currentRealKindEquals(Parser.EOF)
                && ! currentRealKindEquals(';'))
          {
-            parseMethodCallDetails();
+            ArrayList<String> methodClassDetails = parseMethodCallDetails();
+            initCallSequence.add(methodClassDetails);
          }
       }
    }
 
-   private void parseMethodCallDetails()
+   private ArrayList<String> parseMethodCallDetails()
    {
+      ArrayList<String> methodCallElements = new ArrayList<String>();
       if ("new".equals(currentRealWord()))
       {
          // constructor call
          skip("new");
          
          String type = parseTypeRef();
+         
+         methodCallElements.add("new " + type);
          
          skip('(');
          
@@ -1121,6 +1128,7 @@ public Token currentRealToken;
          skip (')');
       }
       
+      return methodCallElements;
    }
 
    private void parseExpressionDetails()
