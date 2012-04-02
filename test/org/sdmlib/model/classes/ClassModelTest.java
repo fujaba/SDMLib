@@ -129,7 +129,7 @@ public class ClassModelTest
          ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
       
-      model.generate("src");
+      model.generate("src", "srchelpers");
       
       ScenarioManager.get()
       .add(scenario)

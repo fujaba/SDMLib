@@ -77,6 +77,12 @@ public class ProjectBoard
             .withParent(sprint1);
       entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
+      entry = kanbanBoard.findOrCreate("StudyRightReverseClassModel")
+            .withParent(sprint1);
+      entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      
+      
+      
       entry = kanbanBoard.findOrCreate("ClassModelCodeGen")
             .withParent(sprint1);
       
@@ -112,7 +118,7 @@ public class ProjectBoard
       .withTarget("logEntries", logEntryClass, Role.MANY);
       
       scenario.addImage(model.dumpClassDiag("ScenarioClasses.001"));
-      model.generate("src");
+      model.generate("src", "srchelpers");
 
       scenario.add(" Editing the log entries is still too tedious. " +
             "\n Add parameters to scenario.add and derive log entry from it.", 
