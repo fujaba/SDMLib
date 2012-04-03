@@ -11,6 +11,7 @@ public class StudentCreator implements SendableEntityCreator
       Student.PROPERTY_NAME,
       Student.PROPERTY_MATRNO,
       Student.PROPERTY_UNI,
+      Student.PROPERTY_IN,
    };
    
    public String[] getProperties()
@@ -38,5 +39,49 @@ public class StudentCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
