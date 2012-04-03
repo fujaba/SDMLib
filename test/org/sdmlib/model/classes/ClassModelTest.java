@@ -117,6 +117,11 @@ public class ClassModelTest
       .withAttribute("endPos", "int")
       .withAttribute("modifiers", "String");
       
+      Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
+      .withAttribute("name", "String")
+      .withAttribute("type", "String")
+      .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
+      
       scenario.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
       
