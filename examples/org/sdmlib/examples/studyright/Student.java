@@ -25,26 +25,6 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public class Student implements PropertyChangeInterface
 {
@@ -54,6 +34,16 @@ public class Student implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         return getMatrNo();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -90,6 +80,18 @@ public class Student implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         setMatrNo((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);

@@ -26,26 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
+
 
 public class Room implements PropertyChangeInterface
 {
@@ -55,6 +36,16 @@ public class Room implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         return getCredits();
+      }
+
+      if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
+      {
+         return getRoomNo();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -96,6 +87,18 @@ public class Room implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         setCredits((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
+      {
+         setRoomNo((String) value);
+         return true;
+      }
+
       if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
       {
          setRoomNo((String) value);

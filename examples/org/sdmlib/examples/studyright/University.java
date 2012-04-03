@@ -26,26 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
+
 
 public class University implements PropertyChangeInterface
 {
@@ -55,6 +36,11 @@ public class University implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -86,6 +72,12 @@ public class University implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);

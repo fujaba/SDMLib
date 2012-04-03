@@ -44,26 +44,26 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    @Test
    public void testStudyRightReverseClassModel()
    {
-      Scenario scenario = new Scenario("StudyRightReverseClassModel");
-      
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ",
-         BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
-      
-      ClassModel model = new ClassModel();
-      
-      model.updateFromCode("examples test src", "org.sdmlib.examples");
-      
-      model.insertModelCreationCodeHere("examples");
-      
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses05"));
+		Scenario scenario = new Scenario("StudyRightReverseClassModel");
 
-      
-      
-      
-      ScenarioManager.get()
-      .add(scenario)
-      .dumpHTML();
-   }
+		scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
+
+		ClassModel model = new ClassModel();
+		
+		Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+    .withAttribute("roomNo", "String")
+    .withAttribute("credits", "int");
+    
+		model.updateFromCode("examples test src", "org.sdmlib.examples");
+
+		model.insertModelCreationCodeHere("examples");
+
+		scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
+
+		ScenarioManager.get()
+				.add(scenario)
+				.dumpHTML();
+	}
 
    @Test
    public void testStudyRightObjectScenarios()
@@ -344,5 +344,4 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-
 
