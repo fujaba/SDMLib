@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -30,8 +29,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -277,7 +278,7 @@ public class ClassModel implements PropertyChangeInterface {
 		   File docDir = new File("doc");
 		   docDir.mkdir();
 
-		   BufferedWriter out;
+//		   BufferedWriter out;
 
 		   File dotFile = new File("doc/" + diagName + ".dot");
 		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
@@ -295,7 +296,7 @@ public class ClassModel implements PropertyChangeInterface {
 		   }
 		   try 
 		   {
-			   Process child = Runtime.getRuntime().exec(command);
+			   Runtime.getRuntime().exec(command);
 		   } 
 		   catch (IOException e) 
 		   {
@@ -401,15 +402,15 @@ public class ClassModel implements PropertyChangeInterface {
 		return changed;
 	}
 
-	public boolean removeFromAssociations(Association value) 
+	public boolean removeFromAssociations(Association value)
 	{
 		boolean changed = false;
 
-		if ((this.associations != null) && (value != null)) 
+		if ((this.associations != null) && (value != null))
 		{
 			changed = this.associations.remove(value);
 
-			if (changed) 
+			if (changed)
 			{
 				value.setModel(null);
 				// getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOCIATIONS,
@@ -443,113 +444,110 @@ public class ClassModel implements PropertyChangeInterface {
 	}
 	
 
-	public void updateFromCode(String includePathes, String packages) 
+	public void updateFromCode(String includePathes, String packages)
 	{
 		// find java files
 		String binDir = getClass().getClassLoader().getResource(".").getPath();
 		String srcDir = binDir.substring(0, binDir.length() - 4);
 		File srcFolder = new File(srcDir);
-		
-		if (srcFolder != null) 
+
+		if (srcFolder != null)
 		{
 			ArrayList<File> javaFiles = searchForJavaFiles(includePathes, packages, srcFolder);
 			addJavaFilesToClasses(packages, srcFolder, javaFiles);
 
 			// parse each java file
-			for (Clazz clazz : getClasses()) 
+			for (Clazz clazz : getClasses())
 			{
 				handleMember(clazz);
 			}
-		}	
-		
+		}
+
 		// add model creation code at invocation place, if not yet there
 	}
 
-	private void handleMember(Clazz clazz) 
+	private void handleMember(Clazz clazz)
 	{
 		Parser parser = clazz.getOrCreateParser("examples");
 		parser.indexOf(Parser.CLASS_END);
-		
-		// TODO : remove copy workaround for "methodBodyIndexOf clear symtab"
-		LinkedHashMap<String, SymTabEntry> symTab = new LinkedHashMap<String, SymTabEntry>();//parser.getSymTab();
-		for (String key : parser.getSymTab().keySet()) 
+
+		LinkedHashMap<String, SymTabEntry> symTab = new LinkedHashMap<String, SymTabEntry>();// parser.getSymTab();
+		for (String key : parser.getSymTab().keySet())
 		{
 			symTab.put(key, parser.getSymTab().get(key));
-		}	
-		//-------------------
-		
+		}
+		// -------------------
+
 		LinkedHashMap<SymTabEntry, String> attributes = new LinkedHashMap<SymTabEntry, String>();
-		
-		for (String memberName : symTab.keySet()) 
+
+		for (String memberName : symTab.keySet())
 		{
 			addMemberToModel(clazz, parser, attributes, memberName);
 		}
-		
+
 		// add new assocs with roles,
-		for (SymTabEntry symTabEntry : attributes.keySet()) 
+		for (SymTabEntry symTabEntry : attributes.keySet())
 		{
 			String memberName = symTabEntry.getMemberName();
 			String partnerTypeName = symTabEntry.getType();
-			
-			if (Attribute.COMPLEX.equals(attributes.get(symTabEntry))) 
+
+			if (Attribute.COMPLEX.equals(attributes.get(symTabEntry)))
 			{
 
 				String card = findRoleCard(partnerTypeName);
-				String partnerClassName = findPartnerClassName(partnerTypeName);;
-				Clazz partnerClass = findPartnerClass(partnerTypeName);					
+				String partnerClassName = findPartnerClassName(partnerTypeName);
+				Clazz partnerClass = findPartnerClass(partnerTypeName);
 				String setterPrefix = findSetterPrefix(partnerTypeName);
-				
+
 				if (partnerClass == null)
 					continue;
-				
+
 				String name = StrUtil.upFirstChar(memberName);
 				Method addToMethod = findMethod(clazz, setterPrefix + name + "(" + partnerClassName + ")");
-				
+
 				if (addToMethod == null)
 					continue;
-				
+
 				SymTabEntry addToSymTabEntry = symTab.get(Parser.METHOD + ":" + addToMethod.getSignature());
-				
+
 				if (addToSymTabEntry == null)
 					continue;
-				
-				// TODO : methodBodyIndexOf clear symtab
+
+				// TODO : fix methodBodyIndexOf clears symtab
 				parser.methodBodyIndexOf(Parser.METHOD_END, addToSymTabEntry.getBodyStartPos());
-				
-				// TODO : remove copy workaround for "indexOf clear symtab"
+
 				LinkedHashSet<String> methodBodyQualifiedNames = new LinkedHashSet<String>(); // = parser.getMethodBodyQualifiedNames();
-				for (String key : parser.getMethodBodyQualifiedNames()) 
+				for (String key : parser.getMethodBodyQualifiedNames())
 				{
 					methodBodyQualifiedNames.add(key);
 				}
-				//---------------------
-				
-				for (String qualifiedName : methodBodyQualifiedNames) 
-				{				
-					if (qualifiedName.startsWith("value.with")) 
+
+				for (String qualifiedName : methodBodyQualifiedNames)
+				{
+					if (qualifiedName.startsWith("value.with"))
 					{
 						handleAssoc(clazz, memberName, card, partnerClassName, partnerClass, qualifiedName);
 					}
 				}
 			}
-			// remove getter with setter or addTo removeFrom  removeAllFrom without
+			// remove getter with setter or addTo removeFrom removeAllFrom without
 			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
 		}
 	}
 
-	private void handleAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName) 
+	private void handleAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
 	{
 		String partnerAttrName = qName.substring("value.with".length());
 		partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
 		Parser partnerParser = partnerClass.getOrCreateParser("examples"); // TODO fix rootdir
 		String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
-		
-		// TODO : indexOf clear symtab
+
+		// TODO : fix indexOf clears symtab
 		int attributePosition = partnerParser.indexOf(searchString);
-		
-		if (attributePosition > -1) 
-		{			
-			String partnerCard = findRoleCard(partnerParser, searchString);	
+
+		if (attributePosition > -1)
+		{
+			String partnerCard = findRoleCard(partnerParser, searchString);
 			tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
 		}
 	}
@@ -918,57 +916,115 @@ public class ClassModel implements PropertyChangeInterface {
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 	}
 
-   public void insertModelCreationCodeHere(String rootDir)
+	public void insertModelCreationCodeHere(String rootDir)
+	{
+		String fileName = null;
+		String className = null;
+		String methodName = null;
+
+		String callMethodName = null;
+
+		try
+		{
+			// find here
+			throw new RuntimeException();
+		}
+		catch (Exception e)
+		{
+			StackTraceElement[] stackTrace = e.getStackTrace();
+
+			StackTraceElement firstStackTraceElement = stackTrace[0];
+			callMethodName = firstStackTraceElement.getMethodName();
+
+			StackTraceElement secondStackTraceElement = stackTrace[1];
+			fileName = secondStackTraceElement.getFileName();
+			className = secondStackTraceElement.getClassName();
+			methodName = secondStackTraceElement.getMethodName();
+		}
+		
+		// parse the model creation file
+		Clazz modelCreationClass = getOrCreateClazz(className);
+		
+		parser = modelCreationClass.getOrCreateParser(rootDir);
+
+		String signature = Parser.METHOD + ":" + methodName + "()";
+		int pos = parser.indexOf(signature); // TODO should work for methods with params, too. Parse to method end and search in symtab.
+
+		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+
+		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
+
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		// insert code
+		// insert code for new Clazz()
+		for (Clazz clazz : getClasses())
+		{
+			String modelClassName = clazz.getName();
+			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
+
+			if (entry == null)
+			{
+				// no creation code yet. Insert it.
+				StringBuilder text = new StringBuilder("\nClazz localVar = new Clazz(\"className\");\n");
+
+				CGUtil.replaceAll(text, 
+						"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
+						"className", modelClassName);
+
+				Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
+				for (String qualifiedName : methodBodyQualifiedNames)
+				{
+					if (qualifiedName.contains(callMethodName))
+					{
+						int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
+						String substring = parser.getFileBody().substring(callPos, symTabEntry.getEndPos());
+						int insertPos = callPos + substring.indexOf(';') + 1;
+						parser.getFileBody().insert(insertPos, text.toString());
+						modelCreationClass.setFileHasChanged(true);
+						break;
+					}
+				}
+			}
+		}
+		modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
+		// insert code for new Attr()
+
+		// insert code for new Method()
+
+		// insert code for new Assoc
+	}
+
+	private Clazz getOrCreateClazz(String className)
+  {
+	  for (Clazz clazz : classes)
+	  {
+	    if (StrUtil.stringEquals(clazz.getName(), className)) 
+	    {
+	    	return clazz;
+	    }
+	  }    
+	  return new Clazz(className);
+  }
+
+   private LocalVarTableEntry findInLocalVarTable(LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name)
    {
-      String fileName = null;
-      String className = null;
-      String methodName = null;
+  	 for (LocalVarTableEntry entry : localVarTable.values())
+  	 {
+  		 if ("Clazz".equals(entry.getType()))
+  		 {
+  			 ArrayList<String> initSequence = entry.getInitSequence().get(0);
+  			 if (initSequence.size() == 2 && initSequence.get(0).startsWith("new"))
+  			 {
+  				 String className = initSequence.get(1).replaceAll("\"", "");
+  				 if (StrUtil.stringEquals(name, className))
+  				 {
+  					 return entry;
+  				 }
+  			 }
+  		 }
+  	 }
 
-      try
-      {
-         // find here
-         throw new RuntimeException();
-      }
-      catch (Exception e)
-      {
-         StackTraceElement[] stackTrace = e.getStackTrace();
-         StackTraceElement stackTraceElement = stackTrace[1];
-
-         fileName = stackTraceElement.getFileName();
-         className = stackTraceElement.getClassName();
-         methodName = stackTraceElement.getMethodName();
-      }
-      
-      // parse the model creation file
-      Clazz modelCreationClass = new Clazz(className);
-      parser = modelCreationClass.getOrCreateParser(rootDir);
-      
-      String signature = Parser.METHOD + ":" + methodName + "()";
-      int pos = parser.indexOf(signature); // TODO should work for methods with params, too. Parse to method end and search in symtab. 
-
-      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
-      
-      parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
-      
-      LinkedHashSet<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
-      
-      // insert code
-      // insert code for new Clazz()
-      for (Clazz clazz : getClasses())
-      {
-         
-      }
-      
-      // insert code for new Attr()
-      
-      // insert code for new Method()
-      
-      // insert code for new Assoc
-      
-      
-      
-      System.out.println(pos);
-      
-      
+  	 return null;
    }
 }
+
