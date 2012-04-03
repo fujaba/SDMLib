@@ -240,7 +240,7 @@ public class JsonToImg
    private void writeToFile(String imgName, String fileText) throws IOException
    {
       BufferedWriter out;
-      out = new BufferedWriter(new FileWriter("doc\\" + imgName + ".dot"));
+      out = new BufferedWriter(new FileWriter("doc/" + imgName + ".dot"));
 
       out.write(fileText);
       out.close();

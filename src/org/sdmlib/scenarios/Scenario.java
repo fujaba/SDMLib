@@ -196,7 +196,7 @@ public class Scenario
    {
       try
       {
-         BufferedWriter out = new BufferedWriter(new FileWriter("doc\\" + imgName));
+         BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
 
          out.write(fileText);
          out.close();
