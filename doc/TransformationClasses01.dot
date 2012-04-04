@@ -1,0 +1,18 @@
+
+ graph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    TransformOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>TransformOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    OperationObject [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>OperationObject</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    Statement [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Statement</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    TransformOp -- OperationObject [headlabel = "opObjects" taillabel = "transformOp"];
+    Statement -- Statement [headlabel = "next" taillabel = "prev"];
+    Statement -- OperationObject [headlabel = "operationObjects" taillabel = "statements"];
+    TransformOp -- Statement [headlabel = "statements" taillabel = "transformOp"];
+}
+

@@ -1,26 +1,26 @@
 /*
    Copyright (c) 2012 zuendorf 
-   
+
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
    furnished to do so, subject to the following conditions: 
-   
+
    The above copyright notice and this permission notice shall be included in all copies or 
    substantial portions of the Software. 
-   
+
    The Software shall be used for Good, not Evil. 
-   
+
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright;
-   
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
@@ -38,60 +38,66 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import com.sun.tools.javac.Main;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-   
+
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
    @Test
    public void testStudyRightReverseClassModel()
    {
-		Scenario scenario = new Scenario("StudyRightReverseClassModel");
+      Scenario scenario = new Scenario("StudyRightReverseClassModel");
 
-		scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
+      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
 
-		ClassModel model = new ClassModel();
-		
-		Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-    .withAttribute("roomNo", "String")
-    .withAttribute("credits", "int");
-    
-		model.updateFromCode("examples test src", "org.sdmlib.examples");
+      ClassModel model = new ClassModel();
 
-		model.insertModelCreationCodeHere("examples");
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      .withAttribute("roomNo", "String")
+      .withAttribute("credits", "int");
 
-		scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
+      model.updateFromCode("examples test src", "org.sdmlib.examples");
 
-		ScenarioManager.get()
-				.add(scenario)
-				.dumpHTML();
-	}
+      model.insertModelCreationCodeHere("examples");
+      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University");
+
+      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
+
+      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student");
+
+
+      scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
+
+      ScenarioManager.get()
+      .add(scenario)
+      .dumpHTML();
+   }
 
    @Test
    public void testStudyRightObjectScenarios()
    {
       Scenario scenario = new Scenario("StudyRightObjectScenarios");
-      
+
       scenario.add("Start situation: use University class to build object structure",
          BACKLOG, "zuendorf", "25.03.2012 21:37:46", 0, 0);
-      
+
       University uni = new University()
-         .withName("StudyRight");
-      
+      .withName("StudyRight");
+
       Student albert = new Student()
       .withMatrNo(4242)
       .withName("Albert")
       .withUni(uni);
-      
+
       Student nina = new Student()
       .withMatrNo(2323)
       .withName("Nina")
       .withUni(uni);
-      
+
       Room mathRoom = new Room()
       .withRoomNo("math")
       .withCredits(42)  
       .withStudents(albert)
       .withUni(uni); 
-      
+
       Room artsRoom = new Room()
       .withRoomNo("arts")
       .withCredits(23)
@@ -105,34 +111,34 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withNeighbors(artsRoom)
       .withUni(uni); 
 
-      
+
       scenario.add("step 1: dump object diagram");
-      
+
       JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
       scenario.addObjectDiag(idMap, uni);
-      
+
       Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
-      
+
       scenario.add("step 2: add support for path navigation\n" +
             "   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\n" +
             "shall compute to 88\n" +
             "Path classes need to be generated.", 
-         MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
+            MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
 
       int sum = ModelSet.startWith(albert).getUni().getRooms().getCredits().sum();
-      
+
       Assert.assertEquals("credits sum error", 88, sum);
-      
+
       ModelSet any = ModelSet.startWith(albert).getAny();
 
       Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
 
       scenario.add("build a pattern");
-      
+
       // patternObject.withCandidates(uni);
-      
+
       scenario.add("run pattern");
-      
+
 
       ScenarioManager.get()
       .add(scenario)
@@ -143,54 +149,54 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightClassesCodeGen()
    {
       Scenario scenario = new Scenario("StudyRightClassesCodeGen");
-      
-      
+
+
       //============================================================
       scenario.add("1. generate class University");
-      
+
       ClassModel model = new ClassModel();
-      
+
       Clazz uniClass = new Clazz("org.sdmlib.examples.studyright.University")
       .withAttribute("name", "String");
-            
+
       scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
-      
-      
+
+
       //============================================================
       scenario.add("2. generate class Student with new notation", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
-      
+
       Clazz studClass = new Clazz("org.sdmlib.examples.studyright.Student")
       .withAttribute("name", "String")
       .withAttribute("matrNo", "int");
 
       scenario.addImage(model.dumpClassDiag("StudyRightClasses02"));
-      
-      
+
+
       //============================================================
       scenario.add("3. add uni --> stud assoc");
-      
+
       Association uniToStud = new Association()
       .withSource("uni", uniClass, Role.ONE)
       .withTarget("students", studClass, Role.MANY); 
-      
+
       scenario.addImage(model.dumpClassDiag("StudyRightClasses03"));
-      
-      
+
+
       //============================================================
       scenario.add("4. add uni --> room");
-      
+
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
       .withAttribute("roomNo", "String")
       .withAttribute("credits", "int");
-      
+
       Association uniToRoom = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
       .withTarget("rooms", roomClass, Role.MANY); 
-            
+
       Association doors = new Association().withSource("neighbors", roomClass, Role.MANY)
             .withTarget("neighbors", roomClass, Role.MANY);
-      
+
       Association studsInRoom = new Association()
       .withSource("students", studClass, Role.MANY)
       .withTarget("in", roomClass, Role.ONE);
@@ -199,98 +205,98 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       //============================================================
       model.generate("examples", "examplehelpers");
-      
+
       scenario.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
-      
+
       Parser parser = studClass.getOrCreateParser("examples");
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
-      
+
       Assert.assertTrue("did not find method set(String,Object) in class student", pos >= 0);
-      
+
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":set(String,Object)");
-      
+
       Assert.assertNotNull("did not find symtab entry for method set(String,Object)", symTabEntry);
-      
+
       String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
-      
+
       scenario.add(methodText);
-      
-      
+
+
       //============================================================
       scenario.add("6. generate generic get for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "22.03.2012 14:40:42", 1, 0);
-      
+
       pos = parser.indexOf(Parser.METHOD + ":get(String)");
-      
+
       Assert.assertTrue("did not find method get(String) in class student", pos >= 0);
-      
+
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":get(String)");
-      
+
       Assert.assertNotNull("did not find symtab entry for method get(String)", symTabEntry);
-      
+
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
-      
+
       scenario.add(methodText);
-      
+
       //============================================================
       scenario.add("7. generate creator classes", 
          IMPLEMENTATION, "zuendorf joern alex", "25.03.2012 22:32:42", 1, 0);
-      
+
       scenario.add("<a href='../examples/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br>");
-      
+
       //============================================================
       scenario.add("8. generate imports", 
          IMPLEMENTATION, "zuendorf", "25.03.2012 22:37:42", 1, 0);
-      
+
       pos = parser.indexOf(Parser.IMPORT);
       methodText = parser.getFileBody().substring(pos, parser.getEndOfImports() + 1);
-      
+
       scenario.add(methodText);
-      
+
       //============================================================
       scenario.add("9. generate property change support", 
          IMPLEMENTATION, "zuendorf", "25.03.2012 22:39:42", 2, 0);      
-      
+
       scenario.add("Caution: property change support needs not to be generated if the parent class does this already.");
-      
+
       //============================================================
       scenario.add("10. generate removeYou method", 
          IMPLEMENTATION, "zuendorf", "26.03.2012 22:20:42", 2, 0);
-      
+
       pos = parser.indexOf(Parser.METHOD + ":removeYou()");
-      
+
       Assert.assertTrue("did not find method removeYou) in class student", pos >= 0);
-      
+
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":removeYou()");
-      
+
       Assert.assertNotNull("did not find symtab entry for method removeYou()", symTabEntry);
-      
+
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
-      
+
       scenario.add(methodText);
-      
-      
+
+
       //============================================================
       scenario.add("We need inheritance", 
          IMPLEMENTATION, "zuendorf", "26.03.2012 22:34:42", 0, 18);
-      
+
       scenario.add("next. compile University.java");
-      
+
       String javaClassPath = System.getProperty("java.class.path");
 
       String[] compArgs = new String[]
-         {
-         "-d", "bin",
-         "-sourcepath", "examples",
-         "-classpath", javaClassPath,
-         "examples/org/sdmlib/examples/studyright/University.java"
-         };
+            {
+            "-d", "bin",
+            "-sourcepath", "examples",
+            "-classpath", javaClassPath,
+            "examples/org/sdmlib/examples/studyright/University.java"
+            };
 
       int compResult = Main.compile(compArgs);
-      
+
       Assert.assertEquals("compile did not work: ", 0, compResult);
-      
+
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();
@@ -302,43 +308,43 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
 
-   
+
    //==========================================================================
-   
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
-      
+
       return null;
    }
 
-   
+
    //==========================================================================
-   
+
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
-   
+
    //==========================================================================
-   
+
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
+
    //==========================================================================
-   
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);

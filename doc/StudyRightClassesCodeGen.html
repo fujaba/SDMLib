@@ -8,6 +8,18 @@
 <img src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes and assocs</pre>
 <pre>   public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         setMatrNo((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
@@ -37,6 +49,16 @@
 <pre>6. generate generic get for attributes and assocs</pre>
 <pre>   public Object get(String attrName)
    {
+      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      {
+         return getMatrNo();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -72,27 +94,7 @@
 <pre>import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import java.util.LinkedHashSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;</pre>
+import java.util.LinkedHashSet;</pre>
 <pre>9. generate property change support</pre>
 <pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
 <pre>10. generate removeYou method</pre>

@@ -87,8 +87,20 @@ public class ProjectBoard
             .withParent(sprint1);
       
       
-      // entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
-
+      entry = kanbanBoard.findOrCreate("GroupAccountCodegen")
+            .withParent(sprint1);
+      entry.linkToTest("examples.org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      
+      entry = kanbanBoard.findOrCreate("GroupAccountRuleRecognition")
+            .withParent(sprint1);
+      entry.linkToTest("examples.org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      
+      entry = kanbanBoard.findOrCreate("TransformationsCodegen")
+            .withParent(sprint1);
+      entry.linkToTest("src.org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
+      
+      
+      
       man.dumpKanban();
    }
 

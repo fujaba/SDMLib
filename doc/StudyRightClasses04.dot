@@ -13,5 +13,6 @@
     University -- Student [headlabel = "students" taillabel = "uni"];
     University -- Room [headlabel = "rooms" taillabel = "uni"];
     Room -- Room [headlabel = "neighbors" taillabel = "neighbors"];
+    Student -- Room [headlabel = "in" taillabel = "students"];
 }
 
