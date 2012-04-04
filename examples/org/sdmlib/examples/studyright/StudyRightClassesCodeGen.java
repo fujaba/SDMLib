@@ -28,6 +28,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.examples.studyright.modelsets.ModelSet;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
@@ -57,12 +58,6 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       model.updateFromCode("examples test src", "org.sdmlib.examples");
 
       model.insertModelCreationCodeHere("examples");
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University");
-
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-
-      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student");
-
 
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
