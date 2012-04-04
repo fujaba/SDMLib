@@ -2,6 +2,7 @@ package org.sdmlib.serialization;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -9,17 +10,20 @@ import org.sdmlib.serialization.json.JsonObject;
 
 public class UpdateListener implements PropertyChangeListener{
 	private JsonIdMap map;
-	private boolean suspendPeerNotifications;
+	private ArrayList<String> suspendIdList;
 
-	public UpdateListener(IdMap<?> map) {
-		this.map=(JsonIdMap) map;
+	public UpdateListener(IdMap map) {
+		if(map instanceof JsonIdMap){
+			this.map=(JsonIdMap) map;
+		}
 	}
 	
 	public void suspendNotification(){
-		this.suspendPeerNotifications=true;
+		this.suspendIdList=new ArrayList<String>();
 	}
 	public void resetNotification(){
-		this.suspendPeerNotifications=false;
+		map.toJsonArrayByIds(suspendIdList);
+		this.suspendIdList=null;
 	}
 
 	@Override
@@ -63,6 +67,9 @@ public class UpdateListener implements PropertyChangeListener{
 			}else{
 				childProp.put(propertyName, map.toJsonObject(newValue));
 				jsonObject.put(IdMap.UPDATE, childProp);
+				if(suspendIdList!=null){
+					suspendIdList.add(map.getId(newValue));
+				}
 			}
 		}
 		else if (newValue != null)
@@ -89,8 +96,7 @@ public class UpdateListener implements PropertyChangeListener{
 			}
 		}		
 
-		if (!suspendPeerNotifications)
-		{
+		if(suspendIdList==null){
 			map.sendUpdateMsg(jsonObject);
 		}
 	}		

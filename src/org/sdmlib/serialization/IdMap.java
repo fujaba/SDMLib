@@ -4,35 +4,35 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 
-import org.sdmlib.serialization.interfaces.IdCounter;
+import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class IdMap<T extends SendableEntityCreator> {
-	public static final String REMOVE="rem";
+public class IdMap {
+	public static final String REMOVE=".old";
 	public static final String UPDATE="upd";
-	private HashMap<Object, String> keys = new HashMap<Object, String>();
-	private HashMap<String, Object> values = new HashMap<String, Object>();
-	private HashMap<String, T> creators = new HashMap<String, T>();
-	protected IdMap<T> parent;
+	private HashMap<Object, String> keys;
+	private HashMap<String, Object> values;
+	private HashMap<String, SendableEntityCreator> creators;
+	protected IdMap parent;
 	protected boolean isId = true;
-	private IdCounter counter;
+	private IdMapCounter counter;
 	private UpdateListener updateListener;
 	private RemoveListener removeListener;
 
 	public IdMap(){
 		keys = new HashMap<Object, String>();
 		values = new HashMap<String, Object>();
-		creators = new HashMap<String, T>();
+		creators = new HashMap<String, SendableEntityCreator>();
 	}
-	public IdMap(IdMap<T> parent){
+	public IdMap(IdMap parent){
 		this.parent=parent;
 	}
 
-	public void setCounter(IdCounter counter){
+	public void setCounter(IdMapCounter counter){
 		this.counter=counter;
 	}
-	public IdCounter getCounter(){
+	public IdMapCounter getCounter(){
 		if(counter==null){
 			counter=new SimpleIdCounter();
 		}
@@ -130,21 +130,21 @@ public class IdMap<T extends SendableEntityCreator> {
 		return keys.size();
 	}
 
-	public T getCreatorClasses(String className) {
+	public SendableEntityCreator getCreatorClasses(String className) {
 		if(parent!=null){
-			return (T)parent.getCreatorClasses(className);
+			return parent.getCreatorClasses(className);
 		}
 		return creators.get(className);
 	}
 
-	public T getCreatorClass(Object reference) {
+	public SendableEntityCreator getCreatorClass(Object reference) {
 		if(parent!=null){
-			return (T)parent.getCreatorClass(reference);
+			return parent.getCreatorClass(reference);
 		}
 		return creators.get(reference.getClass().getName());
 	}
 	
-	public boolean addCreator(T createrClass) {
+	public boolean addCreator(SendableEntityCreator createrClass) {
 		if(parent!=null){
 			return parent.addCreator(createrClass);
 		}else{

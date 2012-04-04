@@ -1,9 +1,9 @@
 package org.sdmlib.serialization.event.creater;
 
 import org.sdmlib.serialization.event.BasicMessage;
-import org.sdmlib.serialization.interfaces.PrimaryEntityCreator;
+import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 
-public class BasicMessageCreator implements PrimaryEntityCreator {
+public class BasicMessageCreator implements ByteEntityCreator {
 	protected final String[] properties = new String[] { BasicMessage.PROPERTY_VALUE };
 
 	public String[] getProperties() {

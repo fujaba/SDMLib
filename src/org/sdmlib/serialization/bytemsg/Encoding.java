@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.event.creater.BasicMessageCreator;
-import org.sdmlib.serialization.interfaces.PrimaryEntityCreator;
+import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class Encoding  {
@@ -113,11 +113,11 @@ public class Encoding  {
 		return (byte) (n - 256);
 	}
 	public ByteBuffer encode(Object entity) {
-		SendableEntityCreator temp = parent.getCreatorClass(entity);
-		if (temp == null) {
+		SendableEntityCreator creater = parent.getCreatorClass(entity);
+		if (creater == null) {
 			return null;
 		}
-		PrimaryEntityCreator creater = (PrimaryEntityCreator) temp;
+//		ByteEntityCreator creater = (ByteEntityCreator) temp;
 
 		if (creater instanceof BasicMessageCreator) {
 			BasicMessage basicEvent = (BasicMessage) entity;
@@ -128,11 +128,16 @@ public class Encoding  {
 			return message;
 		}
 
-		int length;
+		int length=0;
+		if(creater instanceof ByteEntityCreator){
+			length++;
+		}else{
+			Object reference = creater.getSendableInstance(true);
+			int len=reference.getClass().getName().length();
+			length+=2+len;
+		}
 		if (lenCheck) {
-			length = 1 + 5;
-		} else {
-			length = 1;
+			length += 5;
 		}
 		maxpos = 0;
 		String[] properties = creater.getProperties();
@@ -148,8 +153,17 @@ public class Encoding  {
 			}
 			length -= lastType;
 			ByteBuffer message = ByteBuffer.allocate(length);
-			//Fixme
-			message.put(creater.getEventTyp());
+			if(creater instanceof ByteEntityCreator){
+				message.put(((ByteEntityCreator)creater).getEventTyp());
+			}else{
+				Object reference = creater.getSendableInstance(true);
+				String name = reference.getClass().getName();
+				int len=name.length();
+				message.put(ByteIdMap.STDID);
+				message.put((byte)len);
+				message.put(name.getBytes());
+			}
+			
 			pos = 0;
 			if (lenCheck) {
 				message.put(ByteConst.DATATYPE_CHECK);

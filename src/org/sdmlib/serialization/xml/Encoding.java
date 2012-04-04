@@ -15,13 +15,19 @@ public class Encoding {
 	}
 
 	public XMLEntity encode(Object entity) {
-		XMLEntityCreator createrProtoTyp = parent.getCreatorClass(entity);
+		SendableEntityCreator createrProtoTyp = parent.getCreatorClass(entity);
 		if (createrProtoTyp == null) {
 			return null;
 		} 
 		XMLEntity xmlEntity=new XMLEntity();
-		if(createrProtoTyp.getTag()!=null){
-			xmlEntity.setTag(createrProtoTyp.getTag());
+		
+		if(createrProtoTyp instanceof XMLEntityCreator){
+			XMLEntityCreator xmlCreater=(XMLEntityCreator) createrProtoTyp;
+			if(xmlCreater.getTag()!=null){
+				xmlEntity.setTag(xmlCreater.getTag());
+			}else{
+				xmlEntity.setTag(entity.getClass().getName());
+			}
 		}else{
 			xmlEntity.setTag(entity.getClass().getName());
 		}

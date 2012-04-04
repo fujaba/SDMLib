@@ -3,10 +3,10 @@ package org.sdmlib.serialization.xml;
 import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
-
-public class XMLIdMap extends IdMap<XMLEntityCreator>{
+public class XMLIdMap extends IdMap {
 	public static final String ENTITYSPLITTER = "&";
 	public static final String ATTRIBUTEVALUE = "?";
 	private Encoding encoder;
@@ -18,7 +18,7 @@ public class XMLIdMap extends IdMap<XMLEntityCreator>{
 		isId=false;
 	}
 	
-	public XMLIdMap(IdMap<XMLEntityCreator> parent){
+	public XMLIdMap(IdMap parent){
 		super(parent);
 		isId=false;
 	}
@@ -44,15 +44,20 @@ public class XMLIdMap extends IdMap<XMLEntityCreator>{
 		return decoder.decode(value);
 	}
 	@Override
-	public boolean addCreator(XMLEntityCreator createrClass) {
+	public boolean addCreator(SendableEntityCreator createrClass) {
 		boolean result=super.addCreator(createrClass);
 		if (decoderMap == null) {
 			decoderMap = new HashMap<String, XMLEntityCreator>();
 		}
-		if (decoderMap.containsKey(createrClass.getTag())) {
+		if(createrClass instanceof XMLEntityCreator){
+			XMLEntityCreator xmlCreator=(XMLEntityCreator) createrClass;
+			if (decoderMap.containsKey(xmlCreator.getTag())) {
+				return false;
+			}
+			decoderMap.put(xmlCreator.getTag(), xmlCreator);
+		}else{
 			return false;
 		}
-		decoderMap.put(createrClass.getTag(), createrClass);
 		return result;
 	}
 

@@ -1,10 +1,9 @@
 package org.sdmlib.serialization.interfaces;
 
-public interface SendableEntityCreator 
-{
+public interface SendableEntityCreator {
 	public String[] getProperties();
 
-	public Object getSendableInstance(boolean reference);
+	public Object getSendableInstance(boolean prototyp);
 
 	public Object getValue(Object entity, String attribute);
 

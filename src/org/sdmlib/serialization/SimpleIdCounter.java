@@ -1,8 +1,9 @@
 package org.sdmlib.serialization;
 
-import org.sdmlib.serialization.interfaces.IdCounter;
+import org.sdmlib.serialization.interfaces.IdMapCounter;
 
-public class SimpleIdCounter implements IdCounter{
+
+public class SimpleIdCounter implements IdMapCounter{
 	protected String prefixId="J1";
 	protected long number = 1;
 	

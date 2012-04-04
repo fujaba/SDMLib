@@ -4,9 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class RemoveListener implements PropertyChangeListener{
-	private IdMap<?> map;
+	private IdMap map;
 
-	public RemoveListener(IdMap<?> map){
+	public RemoveListener(IdMap map){
 		this.map=map;
 	}
 	public boolean exeucte(Object entity){
@@ -19,8 +19,6 @@ public class RemoveListener implements PropertyChangeListener{
 			if(key!=null){
 				exeucte(evt.getOldValue());
 			}
-//			if(evt.getPropertyName().equals(IdMap.REMOVE)){
-//			}
 		}
 	}
 }

@@ -4,10 +4,12 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.PrimaryEntityCreator;
+import org.sdmlib.serialization.interfaces.ByteEntityCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class ByteIdMap extends IdMap<PrimaryEntityCreator>{
-	protected HashMap<Byte, PrimaryEntityCreator> decoderMap;
+public class ByteIdMap extends IdMap{
+	public static final byte STDID = 0x23;
+	protected HashMap<Byte, ByteEntityCreator> decoderMap;
 	private Encoding encoder;
 	private Decoding decoder;
 	public static char SPLITTER = ' ';
@@ -25,15 +27,20 @@ public class ByteIdMap extends IdMap<PrimaryEntityCreator>{
 	}
 
 	@Override
-	public boolean addCreator(PrimaryEntityCreator createrClass) {
+	public boolean addCreator(SendableEntityCreator createrClass) {
 		boolean result=super.addCreator(createrClass);
 		if (decoderMap == null) {
-			decoderMap = new HashMap<Byte, PrimaryEntityCreator>();
+			decoderMap = new HashMap<Byte, ByteEntityCreator>();
 		}
-		if (decoderMap.containsKey(createrClass.getEventTyp())) {
+		if(createrClass instanceof ByteEntityCreator){
+			ByteEntityCreator byteCreator=(ByteEntityCreator) createrClass;
+			if (decoderMap.containsKey(byteCreator.getEventTyp())) {
+				return false;
+			}
+			decoderMap.put(byteCreator.getEventTyp(), byteCreator);
+		}else{
 			return false;
 		}
-		decoderMap.put(createrClass.getEventTyp(), createrClass);
 		return result;
 	}
 	
@@ -86,7 +93,7 @@ public class ByteIdMap extends IdMap<PrimaryEntityCreator>{
 		buffer.limit(limit);
 		return decode(buffer);
 	}
-	public PrimaryEntityCreator getCreatorDecoderClass(byte typ) {
+	public ByteEntityCreator getCreatorDecoderClass(byte typ) {
 		return decoderMap.get(typ);
 	}
 }

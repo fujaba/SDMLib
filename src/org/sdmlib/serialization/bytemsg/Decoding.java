@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import org.sdmlib.serialization.event.ByteMessage;
 import org.sdmlib.serialization.event.UnknownMessage;
-import org.sdmlib.serialization.interfaces.PrimaryEntityCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class Decoding {
 	private ByteIdMap parent;
@@ -31,7 +31,13 @@ public class Decoding {
 
 		Object entity = null;
 		byte typ = in.get();
-		PrimaryEntityCreator eventCreater = parent.getCreatorDecoderClass(typ);
+		SendableEntityCreator eventCreater=null;
+		if(typ==ByteIdMap.STDID){
+			String clazz = (String) getDecodeObject(ByteConst.DATATYPE_STRING, in);
+			eventCreater = parent.getCreatorClasses(clazz);
+		}else{
+			eventCreater = parent.getCreatorDecoderClass(typ);
+		}
 		if (eventCreater == null) {
 			UnknownMessage e = new UnknownMessage();
 			e.set(ByteMessage.PROPERTY_VALUE, in.array());
