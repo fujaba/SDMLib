@@ -965,33 +965,45 @@ public class ClassModel implements PropertyChangeInterface {
 			if (entry == null)
 			{
 				// no creation code yet. Insert it.
-				StringBuilder text = new StringBuilder("\nClazz localVar = new Clazz(\"className\");\n");
+				StringBuilder text = new StringBuilder("\n    Clazz localVar = new Clazz(\"className\");\n");
 
 				CGUtil.replaceAll(text, 
 						"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
 						"className", modelClassName);
 
-				Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
-				for (String qualifiedName : methodBodyQualifiedNames)
-				{
-					if (qualifiedName.contains(callMethodName))
-					{
-						int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
-						String substring = parser.getFileBody().substring(callPos, symTabEntry.getEndPos());
-						int insertPos = callPos + substring.indexOf(';') + 1;
-						parser.getFileBody().insert(insertPos, text.toString());
-						modelCreationClass.setFileHasChanged(true);
-						break;
-					}
-				}
+				insertCreationClass(callMethodName, modelCreationClass, symTabEntry, text);
 			}
+			
+			
+			// insert code for new Attr()
+
+			// insert code for new Method()
+
+			// insert code for new Assoc
 		}
+
 		modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
-		// insert code for new Attr()
+	}
 
-		// insert code for new Method()
-
-		// insert code for new Assoc
+	private void insertCreationClass(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, StringBuilder text)
+  { 
+	  int insertPos = searchForQualifiedNamePosition(callMethodName, symTabEntry.getEndPos(), parser);
+		parser.getFileBody().insert(insertPos, text.toString());
+		modelCreationClass.setFileHasChanged(true);
+  }
+	
+	private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser) {
+		Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
+	  for (String qualifiedName : methodBodyQualifiedNames)
+	  {
+	  	if (qualifiedName.contains(methodCall))
+	  	{
+	  		int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
+	  		String substring = parser.getFileBody().substring(callPos, methodEndPos);
+	  		return callPos + substring.indexOf(';') + 1;
+	  	}
+	  }
+	  return -1;
 	}
 
 	private Clazz getOrCreateClazz(String className)
