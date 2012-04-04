@@ -698,7 +698,13 @@ public class ClassModel implements PropertyChangeInterface {
 		
 		if (!assocWithRolesExists(sourceRole, targetRole)) 
 		{
-			new Association().withSource(sourceRole).withTarget(targetRole);
+			new Association()
+			.withSource(sourceRole)
+			.withTarget(targetRole);
+			
+			clazz.addToSourceRoles(sourceRole);
+			partnerClass.addToTargetRoles(targetRole);
+			
 			System.out.println("assoc detected : " + CGUtil.shortClassName(clazz.getName()) + " " + partnerAttrName + " " + partnerCard + " " + " -- "
 					+ CGUtil.shortClassName(partnerClassName) + " " + memberName + " " + card);
 		}
@@ -956,40 +962,219 @@ public class ClassModel implements PropertyChangeInterface {
 
 		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
 		// insert code
-		// insert code for new Clazz()
+		int currentInsertPos = searchForQualifiedNamePosition(callMethodName, symTabEntry.getEndPos(), parser);
+		LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
 		for (Clazz clazz : getClasses())
 		{
 			String modelClassName = clazz.getName();
+			handledClazzes.put(modelClassName, clazz);
 			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
-
+	
 			if (entry == null)
 			{
-				// no creation code yet. Insert it.
-				StringBuilder text = new StringBuilder("\n    Clazz localVar = new Clazz(\"className\");\n");
-
-				CGUtil.replaceAll(text, 
-						"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
-						"className", modelClassName);
-
-				insertCreationClass(callMethodName, modelCreationClass, symTabEntry, text);
+				// insert code for new Clazz()
+				currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, symTabEntry, clazz, handledClazzes, currentInsertPos);			
 			}
-			
-			
-			// insert code for new Attr()
-
-			// insert code for new Method()
-
-			// insert code for new Assoc
+			else 
+			{				
+				// check code for clazz			
+				currentInsertPos = checkCodeForClazz(entry, callMethodName, modelCreationClass, symTabEntry, clazz, currentInsertPos);
+			}
 		}
 
 		modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
 	}
 
-	private void insertCreationClass(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, StringBuilder text)
-  { 
-	  int insertPos = searchForQualifiedNamePosition(callMethodName, symTabEntry.getEndPos(), parser);
+	private int checkCodeForClazz( LocalVarTableEntry entry, String callMethodName, Clazz modelCreationClass, 
+																 SymTabEntry symTabEntry, Clazz clazz, int currentInsertPos)
+  {
+//		String modelClassName = clazz.getName();
+	  // check code for attribut
+  	LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+  	for (Attribute attribute : clazzAttributes)
+    {
+  		if (!hasAttribute(attribute, entry)) 
+  		{
+  			System.out.println(attribute);
+  		}
+    }
+  
+  // check code for method
+
+  // check code for assoc
+  	
+  	return currentInsertPos;
+  }
+
+	private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, 
+																							SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, 
+																							Clazz> handledClazzes, int currentInsertPos)
+  {
+		String modelClassName = clazz.getName();
+	  // no creation code yet. Insert it.
+	  currentInsertPos = insertCreationClassCode( currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
+	  
+
+	  // insert code for new Attr()
+	  LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+	  for (Attribute attribute : clazzAttributes)
+	  {
+	  	currentInsertPos = insertAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
+
+	  }
+	  currentInsertPos = 1+ insertCreationCode( new StringBuilder(";"), currentInsertPos -1, modelCreationClass, symTabEntry);
+
+	  // insert code for new Method()
+	  LinkedHashSet<Method> methods = clazz.getMethods();
+	  for (Method method : methods)
+	  {
+	  	currentInsertPos = insertMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+
+	  }
+	  // insert code for new Assoc
+	  LinkedHashSet<Role> sourceRoles = clazz.getSourceRoles();
+	  currentInsertPos = handleAssocs(sourceRoles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
+
+	  LinkedHashSet<Role> targetRoles = clazz.getTargetRoles();
+	  currentInsertPos = handleAssocs(targetRoles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
+
+	  
+	  return currentInsertPos;
+  }
+
+	private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, 
+													SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+  {
+		for (Role role : roles)
+    {
+	    Association assoc = role.getAssoc();
+	    Role secondRole;
+	    
+	    if (assoc.getTarget() != role)
+	    	secondRole = assoc.getTarget();
+	    else
+	    	secondRole = assoc.getSource();
+	    
+	    String secondClassName = secondRole.getClazz().getName();
+	    
+	    if (handledClazzes.containsKey(secondClassName)) 
+	    {
+	    	currentInsertPos = insertAssocCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
+	    }
+    }
+		return currentInsertPos;
+  }
+
+	private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
+  {
+		StringBuilder text = new StringBuilder("\n    Clazz localVar = new Clazz(\"className\")\n");
+
+		CGUtil.replaceAll(text, 
+				"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
+				"className", modelClassName);
+		
+	  return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
+  }
+
+	private int insertAttributeCode(Attribute attribute, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+  {
+		StringBuilder text = new StringBuilder("    .withAttribute(\"attributeName\", \"attributeType\"attributeInit)\n");
+		
+		// has init value
+		String initialization = attribute.getInitialization();
+		if(initialization != null) 
+		{
+			initialization = ", \"" + initialization + "\"";
+		}
+		else
+		{
+			initialization = "";
+		}
+		
+		CGUtil.replaceAll(text, 
+				"attributeName", attribute.getName(),
+				"attributeType", attribute.getType(),
+				"attributeInit", initialization);
+		return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
+
+  }
+
+	private int insertMethodeCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+  {
+//		StringBuilder text = new StringBuilder("/*    .withMethods(methodName)*/\n");
+//		String signature = method.getSignature();
+//		String methodName = signature.substring(0, signature.indexOf('('));
+//		CGUtil.replaceAll(text, "methodName", methodName);
+		
+		StringBuilder text = new StringBuilder("\n    new Method()" +
+																					 "\n			.withClazz(clazzName)" +
+																					 "\n			.withSignature(\"methodSignature\");\n");
+		
+		String clazzName = method.getClazz().getName();
+		clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
+		String signature = method.getSignature();
+		
+		CGUtil.replaceAll(text, 
+				"clazzName", clazzName,
+				"methodSignature", signature);
+		
+		return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
+  }
+	
+
+	private int insertAssocCode(Association assoc, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+		StringBuilder text = new StringBuilder("\n    new Association()" +
+				 "\n			.withSource(\"sourceName\", sourceClazz, \"sourceRole\")" +
+				 "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\");\n");
+		
+		String sourceRole = assoc.getSource().getCard();
+		String sourceName = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName()));
+		String sourceClazz = sourceName + "Class";
+		if ( Role.MANY.equals(sourceRole) ) 
+			sourceName += "s";
+		
+
+		String targetRole = assoc.getTarget().getCard(); 
+		String targetName = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()));
+		String targetClazz = targetName + "Class";
+		if ( Role.MANY.equals(targetRole) ) 
+			targetName += "s";
+		
+		CGUtil.replaceAll(text, 
+				"sourceName", sourceName,
+				"sourceClazz", sourceClazz,
+				"sourceRole", sourceRole,
+				"targetName", targetName,
+				"targetClazz", targetClazz,
+				"targetRole", targetRole);
+
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+	
+	private boolean hasAttribute(Attribute attribute, LocalVarTableEntry entry)
+  {	
+		String name = attribute.getName();
+		String type = attribute.getType();
+		ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
+		for (ArrayList<String> sequencePart : initSequence)
+    {
+			if ("withAttribute".equals(sequencePart.get(0))) 
+			{
+				String sequencePartName = sequencePart.get(1).replace("\"", "");
+				String sequencePartType = sequencePart.get(2).replace("\"", "");
+				if (StrUtil.stringEquals(name, sequencePartName) && StrUtil.stringEquals(type, sequencePartType) )
+					return true;
+			}
+    }
+		return false;
+  }
+
+	private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+  {   
 		parser.getFileBody().insert(insertPos, text.toString());
 		modelCreationClass.setFileHasChanged(true);
+		return insertPos + text.length();
   }
 	
 	private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser) {

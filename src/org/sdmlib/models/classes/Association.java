@@ -106,9 +106,34 @@ public class Association implements PropertyChangeInterface
       return this.target;
    }
    
-   public void setTarget(Role value)
+   public boolean setTarget(Role value)
    {
-      this.target = value;
+      
+      boolean changed = false;
+      
+      if (this.target != value)
+      {
+         Role oldValue = this.target;
+         
+         if (this.target != null)
+         {
+            this.target = null;
+            oldValue.setAssoc(null);
+         }
+         
+         this.target = value;
+         
+         if (value != null)
+         {
+            value.setAssoc(this);
+         }
+         
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+         changed = true;
+      }
+      
+      return changed;
+      
    }
    
    public Association withTarget(Role value)
