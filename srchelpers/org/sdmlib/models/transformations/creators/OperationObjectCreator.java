@@ -12,6 +12,8 @@ public class OperationObjectCreator implements SendableEntityCreator
       OperationObject.PROPERTY_TYPE,
       OperationObject.PROPERTY_TRANSFORMOP,
       OperationObject.PROPERTY_STATEMENTS,
+      OperationObject.PROPERTY_SET,
+      OperationObject.PROPERTY_ATTRIBUTEOPS,
    };
    
    public String[] getProperties()
@@ -39,5 +41,10 @@ public class OperationObjectCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
+
+
+
+
 
 

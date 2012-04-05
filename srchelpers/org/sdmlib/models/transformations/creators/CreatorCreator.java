@@ -14,8 +14,32 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
       jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
       jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
+      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
       return jsonIdMap;
    }
 }
+
+
+
+
+
 
 

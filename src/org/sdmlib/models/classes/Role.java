@@ -323,7 +323,7 @@ public class Role implements PropertyChangeInterface
                "\n         return true;" +
                "\n      }" +
                "\n      " + 
-               "\n      if ((PROPERTY_NAME + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))" +
+               "\n      if ((PROPERTY_NAME + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))" +
                "\n      {" +
                "\n         removeFromPropertyName((type) value);" +
                "\n         return true;" +

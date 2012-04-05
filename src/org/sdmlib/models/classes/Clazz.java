@@ -956,7 +956,7 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromAttributes((Attribute) value);
          return true;
@@ -968,7 +968,7 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_METHODS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_METHODS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMethods((Method) value);
          return true;
@@ -980,7 +980,7 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_SOURCEROLES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_SOURCEROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromSourceRoles((Role) value);
          return true;
@@ -992,7 +992,7 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_TARGETROLES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_TARGETROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTargetRoles((Role) value);
          return true;

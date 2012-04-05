@@ -68,7 +68,7 @@ public class GroupAccount implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_PERSONS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPersons((Person) value);
          return true;
@@ -80,7 +80,7 @@ public class GroupAccount implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_ITEMS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_ITEMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromItems((Item) value);
          return true;

@@ -47,12 +47,20 @@ public class TransformationsCodeGen
       
       Clazz operationObjectClass = new Clazz("org.sdmlib.models.transformations.OperationObject")
       .withAttribute("name", "String")
-      .withAttribute("type", "String");
+      .withAttribute("type", "String")
+      .withAttribute("set", "boolean");
       
       new Association()
       .withSource("transformOp", transformOpClass, Role.ONE)
       .withTarget("opObjects", operationObjectClass, Role.MANY);
       
+      Clazz attributeOpClass = new Clazz("org.sdmlib.models.transformations.AttributeOp")
+      .withAttribute("text", "String");
+      
+      new Association()
+      .withSource("operationObject", operationObjectClass, Role.ONE)
+      .withTarget("attributeOps", attributeOpClass, Role.MANY);
+
       Clazz statementClass = new Clazz("org.sdmlib.models.transformations.Statement")
       .withAttribute("text", "String");
 
@@ -70,11 +78,59 @@ public class TransformationsCodeGen
       
       scenario.addImage(model.dumpClassDiag("TransformationClasses01"));
       
+      
       model.generate("src", "srchelpers");
       
       scenario.add("create some example transformOp:",
          MODELING, "zuendorf", "04.04.2012 02:19:42", 0, 1);
       
+      TransformOp transformOp = new TransformOp();
+      
+      OperationObject thisOp = new OperationObject()
+      .withName("this")
+      .withTransformOp(transformOp);
+      
+      OperationObject itemsOp = new OperationObject()
+      .withName("items")
+      .withSet(true)
+      .withTransformOp(transformOp);
+
+      Statement sumStat = new Statement()
+      .withText("total = sum()")
+      .withOperationObjects(itemsOp)
+      .withTransformOp(transformOp);
+      
+      OperationObject personsOp = new OperationObject()
+      .withName("persons")
+      .withSet(true)
+      .withTransformOp(transformOp);
+
+      Statement shareStat = new Statement()
+      .withText("share = total / size()")
+      .withOperationObjects(personsOp)
+      .withPrev(sumStat)
+      .withTransformOp(transformOp);
+      
+      OperationObject personOp = new OperationObject()
+      .withName("person")
+      .withTransformOp(transformOp);
+
+      OperationObject personItemsOp = new OperationObject()
+      .withName("items")
+      .withSet(true)
+      .withTransformOp(transformOp);
+
+      Statement myCostsStat = new Statement()
+      .withText("myCosts = sum()")
+      .withOperationObjects(personItemsOp)
+      .withPrev(shareStat)
+      .withTransformOp(transformOp);
+      
+      Statement assingStat = new Statement()
+      .withText("setBalance(myCosts - share)")
+      .withOperationObjects(personOp)
+      .withPrev(myCostsStat)
+      .withTransformOp(transformOp);
       
       scenario.add("dump an image from the transformOp:",
          MODELING, "zuendorf", "04.04.2012 02:20:42", 0, 4);

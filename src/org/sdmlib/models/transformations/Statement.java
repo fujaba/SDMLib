@@ -100,7 +100,7 @@ public class Statement implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_OPERATIONOBJECTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_OPERATIONOBJECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromOperationObjects((OperationObject) value);
          return true;

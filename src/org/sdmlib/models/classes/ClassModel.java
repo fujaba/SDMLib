@@ -888,7 +888,7 @@ public class ClassModel implements PropertyChangeInterface {
 			return true;
 		}
 
-		if ((PROPERTY_CLASSES + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName)) {
+		if ((PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName)) {
 			removeFromClasses((Clazz) value);
 			return true;
 		}
@@ -898,7 +898,7 @@ public class ClassModel implements PropertyChangeInterface {
 			return true;
 		}
 
-		if ((PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName)) {
+		if ((PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName)) {
 			removeFromAssociations((Association) value);
 			return true;
 		}

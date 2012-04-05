@@ -59,6 +59,22 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       model.insertModelCreationCodeHere("examples");
 
+      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person");
+
+      Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item");
+
+      Clazz groupAccountTestsClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccountTests");
+
+      Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
+
+      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University");
+
+      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
+
+      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student");
+
+
+
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
       ScenarioManager.get()
@@ -276,6 +292,12 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.add("We need inheritance", 
          IMPLEMENTATION, "zuendorf", "26.03.2012 22:34:42", 0, 18);
 
+      
+      scenario.add("generic set does not work for boolean and double and probably more", 
+         IMPLEMENTATION, "zuendorf", "05.04.2012 12:52:42", 0, 1);
+
+      
+      
       scenario.add("next. compile University.java");
 
       String javaClassPath = System.getProperty("java.class.path");

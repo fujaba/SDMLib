@@ -97,7 +97,7 @@ public class Person implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_ITEMS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_ITEMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromItems((Item) value);
          return true;

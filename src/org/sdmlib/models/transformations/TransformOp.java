@@ -78,7 +78,7 @@ public class TransformOp implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_OPOBJECTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_OPOBJECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromOpObjects((OperationObject) value);
          return true;
@@ -90,7 +90,7 @@ public class TransformOp implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStatements((Statement) value);
          return true;

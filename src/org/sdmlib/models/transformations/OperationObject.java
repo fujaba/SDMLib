@@ -62,6 +62,16 @@ public class OperationObject implements PropertyChangeInterface
       {
          return getStatements();
       }
+
+      if (PROPERTY_SET.equalsIgnoreCase(attrName))
+      {
+         return getSet();
+      }
+
+      if (PROPERTY_ATTRIBUTEOPS.equalsIgnoreCase(attrName))
+      {
+         return getAttributeOps();
+      }
       
       return null;
    }
@@ -95,9 +105,27 @@ public class OperationObject implements PropertyChangeInterface
          return true;
       }
       
-      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE_SUFFIX).equalsIgnoreCase(attrName))
+      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStatements((Statement) value);
+         return true;
+      }
+
+      if (PROPERTY_SET.equalsIgnoreCase(attrName))
+      {
+         setSet((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_ATTRIBUTEOPS.equalsIgnoreCase(attrName))
+      {
+         addToAttributeOps((AttributeOp) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ATTRIBUTEOPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromAttributeOps((AttributeOp) value);
          return true;
       }
 
@@ -121,6 +149,7 @@ public class OperationObject implements PropertyChangeInterface
    {
       setTransformOp(null);
       removeAllFromStatements();
+      removeAllFromAttributeOps();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -318,6 +347,120 @@ public class OperationObject implements PropertyChangeInterface
       for (Statement value : tmpSet)
       {
          this.removeFromStatements(value);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_SET = "set";
+   
+   private boolean set;
+   
+   public boolean getSet()
+   {
+      return this.set;
+   }
+   
+   public void setSet(boolean value)
+   {
+      if (this.set != value)
+      {
+         boolean oldValue = this.set;
+         this.set = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SET, oldValue, value);
+      }
+   }
+   
+   public OperationObject withSet(boolean value)
+   {
+      setSet(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * OperationObject ----------------------------------- AttributeOp
+    *              operationObject                   attributeOps
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ATTRIBUTEOPS = "attributeOps";
+   
+   private LinkedHashSet<AttributeOp> attributeOps = null;
+   
+   public LinkedHashSet<AttributeOp> getAttributeOps()
+   {
+      if (this.attributeOps == null)
+      {
+         return AttributeOp.EMPTY_SET;
+      }
+   
+      return this.attributeOps;
+   }
+   
+   public boolean addToAttributeOps(AttributeOp value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.attributeOps == null)
+         {
+            this.attributeOps = new LinkedHashSet<AttributeOp>();
+         }
+         
+         changed = this.attributeOps.add (value);
+         
+         if (changed)
+         {
+            value.withOperationObject(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTEOPS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromAttributeOps(AttributeOp value)
+   {
+      boolean changed = false;
+      
+      if ((this.attributeOps != null) && (value != null))
+      {
+         changed = this.attributeOps.remove (value);
+         
+         if (changed)
+         {
+            value.setOperationObject(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTEOPS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public OperationObject withAttributeOps(AttributeOp value)
+   {
+      addToAttributeOps(value);
+      return this;
+   } 
+   
+   public OperationObject withoutAttributeOps(AttributeOp value)
+   {
+      removeFromAttributeOps(value);
+      return this;
+   } 
+   
+   public void removeAllFromAttributeOps()
+   {
+      LinkedHashSet<AttributeOp> tmpSet = new LinkedHashSet<AttributeOp>(this.getAttributeOps());
+   
+      for (AttributeOp value : tmpSet)
+      {
+         this.removeFromAttributeOps(value);
       }
    }
 }

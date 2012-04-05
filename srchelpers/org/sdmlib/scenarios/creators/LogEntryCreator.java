@@ -8,7 +8,14 @@ public class LogEntryCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      LogEntry.PROPERTY_KANBANENTRY,
+         LogEntry.PROPERTY_DATE,
+         LogEntry.PROPERTY_HOURS_SPEND,
+         LogEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
+         LogEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
+         LogEntry.PROPERTY_KANBANENTRY,
+         LogEntry.PROPERTY_DEVELOPER,
+         LogEntry.PROPERTY_PHASE,
+         LogEntry.PROPERTY_COMMENT,
    };
    
    public String[] getProperties()

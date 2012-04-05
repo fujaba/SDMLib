@@ -9,6 +9,16 @@ public class KanbanEntryCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       KanbanEntry.PROPERTY_LOGENTRIES,
+      KanbanEntry.PROPERTY_NAME,
+      KanbanEntry.PROPERTY_PHASE,
+      KanbanEntry.PROPERTY_LAST_DEVELOPER,
+      KanbanEntry.PROPERTY_HOURS_REMAINING,
+      KanbanEntry.PROPERTY_HOURS_SPEND,
+      KanbanEntry.PROPERTY_PARENT,
+      KanbanEntry.PROPERTY_SUBENTRIES,
+      KanbanEntry.PROPERTY_LOGENTRIES,
+      KanbanEntry.PROPERTY_PHASE_ENTRIES,
+      KanbanEntry.PROPERTY_FILES, 
    };
    
    public String[] getProperties()
