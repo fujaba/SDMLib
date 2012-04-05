@@ -51,29 +51,9 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       ClassModel model = new ClassModel();
 
-      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
-
       model.updateFromCode("examples test src", "org.sdmlib.examples");
 
       model.insertModelCreationCodeHere("examples");
-
-      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person");
-
-      Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item");
-
-      Clazz groupAccountTestsClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccountTests");
-
-      Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
-
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University");
-
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-
-      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student");
-
-
 
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 

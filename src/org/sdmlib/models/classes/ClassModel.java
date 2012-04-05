@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -476,7 +476,6 @@ public class ClassModel implements PropertyChangeInterface {
 		{
 			symTab.put(key, parser.getSymTab().get(key));
 		}
-		// -------------------
 
 		LinkedHashMap<SymTabEntry, String> attributes = new LinkedHashMap<SymTabEntry, String>();
 
@@ -486,9 +485,11 @@ public class ClassModel implements PropertyChangeInterface {
 		}
 
 		// add new assocs with roles,
+		ArrayList<String> memberNames = new ArrayList<String>();
 		for (SymTabEntry symTabEntry : attributes.keySet())
 		{
 			String memberName = symTabEntry.getMemberName();
+			memberNames.add(memberName);
 			String partnerTypeName = symTabEntry.getType();
 
 			if (Attribute.COMPLEX.equals(attributes.get(symTabEntry)))
@@ -503,6 +504,7 @@ public class ClassModel implements PropertyChangeInterface {
 					continue;
 
 				String name = StrUtil.upFirstChar(memberName);
+				
 				Method addToMethod = findMethod(clazz, setterPrefix + name + "(" + partnerClassName + ")");
 
 				if (addToMethod == null)
@@ -531,8 +533,13 @@ public class ClassModel implements PropertyChangeInterface {
 				}
 			}
 			// remove getter with setter or addTo removeFrom removeAllFrom without
-			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
+//			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
 		}
+		for (String memberName : memberNames)
+    {
+		// remove getter with setter or addTo removeFrom removeAllFrom without
+					findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
+    }
 	}
 
 	private void handleAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
@@ -580,7 +587,9 @@ public class ClassModel implements PropertyChangeInterface {
 	{
 		// filter public static final constances
 		String modifiers = symTabEntry.getModifiers();
-		if (modifiers.indexOf("public") >= 0 && modifiers.indexOf("static") >= 0 && modifiers.indexOf("final") >= 0) 
+		if (  (modifiers.indexOf("public") >= 0 || modifiers.indexOf("private") >= 0) 
+				&& modifiers.indexOf("static") >= 0 
+				&& modifiers.indexOf("final") >= 0) 
 		{
 			// ignore
 			return;
@@ -589,7 +598,7 @@ public class ClassModel implements PropertyChangeInterface {
 		String type = symTabEntry.getType();
 		// include arrays
 		type = type.replace("[]", "");
-		String primitiveTypes = "String long int char boolean byte";
+		String primitiveTypes = "String long int char boolean byte float double";
 		
 		if (primitiveTypes.indexOf(type) > -1) 
 		{
@@ -692,9 +701,15 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private void tryToCreateAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String partnerAttrName, String partnerCard) 
 	{
-		Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard);
-		Role targetRole = new Role().withName(memberName).withClazz(partnerClass).withCard(card);
+		Role sourceRole = new Role()
+			.withName(partnerAttrName)
+			.withClazz(clazz)
+			.withCard(partnerCard);
 		
+		Role targetRole = new Role()
+			.withName(memberName)
+			.withClazz(partnerClass)
+			.withCard(card);
 		
 		if (!assocWithRolesExists(sourceRole, targetRole)) 
 		{
@@ -1032,12 +1047,10 @@ public class ClassModel implements PropertyChangeInterface {
 
 	  }
 	  // insert code for new Assoc
-	  LinkedHashSet<Role> sourceRoles = clazz.getSourceRoles();
-	  currentInsertPos = handleAssocs(sourceRoles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
-
-	  LinkedHashSet<Role> targetRoles = clazz.getTargetRoles();
-	  currentInsertPos = handleAssocs(targetRoles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
-
+	  
+	  LinkedHashSet<Role> roles = clazz.getSourceRoles();
+	  roles.addAll(clazz.getTargetRoles());
+	  currentInsertPos = handleAssocs(roles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
 	  
 	  return currentInsertPos;
   }
@@ -1045,12 +1058,20 @@ public class ClassModel implements PropertyChangeInterface {
 	private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, 
 													SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
   {
-		for (Role role : roles)
+		ArrayList<Association> handledAssocs = new ArrayList<Association>();
+		
+		for (Role firstRole : roles)
     {
-	    Association assoc = role.getAssoc();
+	    Association assoc = firstRole.getAssoc();
+	    
+	    if(assocHasHandled(assoc, handledAssocs)) {
+	    	continue;
+	    }
+	    handledAssocs.add(assoc);
+	    
 	    Role secondRole;
 	    
-	    if (assoc.getTarget() != role)
+	    if (assoc.getTarget() != firstRole)
 	    	secondRole = assoc.getTarget();
 	    else
 	    	secondRole = assoc.getSource();
@@ -1063,6 +1084,24 @@ public class ClassModel implements PropertyChangeInterface {
 	    }
     }
 		return currentInsertPos;
+  }
+
+	private boolean assocHasHandled(Association assoc, ArrayList<Association> handledAssocs)
+  {
+  	Role source = assoc.getSource();
+  	Role target = assoc.getTarget();
+  	
+	  for (Association association : handledAssocs)
+    {
+
+	  	Role source2 = association.getSource();
+	  	Role target2 = association.getTarget();
+	  	
+			if ( isEqual(source, target2) && isEqual(target, source2))
+				return true;
+
+    }
+	  return false;
   }
 
 	private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
@@ -1129,17 +1168,15 @@ public class ClassModel implements PropertyChangeInterface {
 				 "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\");\n");
 		
 		String sourceRole = assoc.getSource().getCard();
-		String sourceName = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName()));
-		String sourceClazz = sourceName + "Class";
-		if ( Role.MANY.equals(sourceRole) ) 
-			sourceName += "s";
+		String sourceName = assoc.getSource().getName();
+		String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
+												+ "Class";
 		
 
 		String targetRole = assoc.getTarget().getCard(); 
-		String targetName = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()));
-		String targetClazz = targetName + "Class";
-		if ( Role.MANY.equals(targetRole) ) 
-			targetName += "s";
+		String targetName = assoc.getTarget().getName();
+		String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
+												+ "Class";
 		
 		CGUtil.replaceAll(text, 
 				"sourceName", sourceName,
