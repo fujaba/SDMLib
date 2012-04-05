@@ -1,17 +1,16 @@
-package org.sdmlib.examples.studyright.creators;
+package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.models.transformations.LinkOp;
 
-public class StudentCreator implements SendableEntityCreator
+public class LinkOpCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Student.PROPERTY_NAME,
-      Student.PROPERTY_MATRNO,
-      Student.PROPERTY_UNI,
-      Student.PROPERTY_IN,
+      LinkOp.PROPERTY_SRCTEXT,
+      LinkOp.PROPERTY_TGTTEXT,
+      LinkOp.PROPERTY_TRANSFORMOP,
    };
    
    public String[] getProperties()
@@ -21,17 +20,17 @@ public class StudentCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Student();
+      return new LinkOp();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Student) target).get(attrName);
+      return ((LinkOp) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Student) target).set(attrName, value);
+      return ((LinkOp) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -39,52 +38,6 @@ public class StudentCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

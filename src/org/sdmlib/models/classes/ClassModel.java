@@ -72,7 +72,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 		for (Association assoc : getAssociations()) 
 		{
-			assoc.generate(rootDir);
+			assoc.generate(rootDir, false);
 		}
 
 		return this;

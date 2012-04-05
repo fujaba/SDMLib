@@ -11,6 +11,7 @@ public class TransformOpCreator implements SendableEntityCreator
       TransformOp.PROPERTY_NAME,
       TransformOp.PROPERTY_OPOBJECTS,
       TransformOp.PROPERTY_STATEMENTS,
+      TransformOp.PROPERTY_LINKOPS,
    };
    
    public String[] getProperties()
@@ -38,6 +39,11 @@ public class TransformOpCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
+
+
+
+
 
 
 

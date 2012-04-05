@@ -124,7 +124,7 @@ public class Clazz implements PropertyChangeInterface
          attr.generate(rootDir, helpersDir, false);
       }
       
-      printFile(fileHasChanged);
+      printFile(isFileHasChanged());
       
       // now generate the corresponding creator class
       getOrCreateParserForCreatorClass(helpersDir);
@@ -155,7 +155,7 @@ public class Clazz implements PropertyChangeInterface
                );
          
          parser.getFileBody().insert(pos, text.toString());
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
    }
 
@@ -186,7 +186,7 @@ public class Clazz implements PropertyChangeInterface
                );
          
          parser.getFileBody().insert(pos, text.toString());
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
       
       insertImport(PropertyChangeSupport.class.getName());
@@ -215,7 +215,7 @@ public class Clazz implements PropertyChangeInterface
          
          insertImport(PropertyChangeInterface.class.getName());
          
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
       else
       {
@@ -227,11 +227,11 @@ public class Clazz implements PropertyChangeInterface
             // propertyChangeClients is still missing.
             parser.getFileBody().insert(parser.getEndOfImplementsClause() + 1, 
                ", " + propertyChangeInterface);
+
+            setFileHasChanged(true);
          }
 
-         insertImport(PropertyChangeInterface.class.getName());
-         
-         fileHasChanged = true;
+         insertImport(PropertyChangeInterface.class.getName());        
       }
    }
 
@@ -252,7 +252,7 @@ public class Clazz implements PropertyChangeInterface
          parser.getFileBody().insert(parser.getEndOfImports() + 1, 
                prefix + "\nimport " + className + ";");
          
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
    }
 
@@ -309,7 +309,7 @@ public class Clazz implements PropertyChangeInterface
                );
          
          parser.getFileBody().insert(pos, text.toString());
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
       
       searchString = Parser.METHOD + ":set(String,Object)";
@@ -333,7 +333,7 @@ public class Clazz implements PropertyChangeInterface
                );
          
          parser.getFileBody().insert(pos, text.toString());
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
    }
 
@@ -344,7 +344,7 @@ public class Clazz implements PropertyChangeInterface
       if (pos < 0 || pos > 20)
       {
          // insert MIT License otherwise. 
-         fileHasChanged = true;
+         setFileHasChanged(true);
          StringBuilder text = new StringBuilder(
                "/*\n" +
                "   Copyright (c) <year> <developer> \n" +
@@ -374,7 +374,7 @@ public class Clazz implements PropertyChangeInterface
          CGUtil.replace(text, "<developer>", System.getProperty("user.name"));
          
          fileBody.replace(0, 0, text.toString());
-         fileHasChanged = true;
+         setFileHasChanged(true);
       }
       
    }
@@ -516,7 +516,7 @@ public class Clazz implements PropertyChangeInterface
             
             fileBody.append(text.toString());
             
-            fileHasChanged = true;
+            setFileHasChanged(true);
          }
          
          parser = new Parser()

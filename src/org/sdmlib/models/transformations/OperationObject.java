@@ -72,6 +72,16 @@ public class OperationObject implements PropertyChangeInterface
       {
          return getAttributeOps();
       }
+
+      if (PROPERTY_OUTGOINGS.equalsIgnoreCase(attrName))
+      {
+         return getOutgoings();
+      }
+
+      if (PROPERTY_INCOMINGS.equalsIgnoreCase(attrName))
+      {
+         return getIncomings();
+      }
       
       return null;
    }
@@ -129,6 +139,30 @@ public class OperationObject implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_OUTGOINGS.equalsIgnoreCase(attrName))
+      {
+         addToOutgoings((LinkOp) value);
+         return true;
+      }
+      
+      if ((PROPERTY_OUTGOINGS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromOutgoings((LinkOp) value);
+         return true;
+      }
+
+      if (PROPERTY_INCOMINGS.equalsIgnoreCase(attrName))
+      {
+         addToIncomings((LinkOp) value);
+         return true;
+      }
+      
+      if ((PROPERTY_INCOMINGS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromIncomings((LinkOp) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -150,6 +184,8 @@ public class OperationObject implements PropertyChangeInterface
       setTransformOp(null);
       removeAllFromStatements();
       removeAllFromAttributeOps();
+      removeAllFromOutgoings();
+      removeAllFromIncomings();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -461,6 +497,178 @@ public class OperationObject implements PropertyChangeInterface
       for (AttributeOp value : tmpSet)
       {
          this.removeFromAttributeOps(value);
+      }
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * OperationObject ----------------------------------- LinkOp
+    *              src                   outgoings
+    * </pre>
+    */
+   
+   public static final String PROPERTY_OUTGOINGS = "outgoings";
+   
+   private LinkedHashSet<LinkOp> outgoings = null;
+   
+   public LinkedHashSet<LinkOp> getOutgoings()
+   {
+      if (this.outgoings == null)
+      {
+         return LinkOp.EMPTY_SET;
+      }
+   
+      return this.outgoings;
+   }
+   
+   public boolean addToOutgoings(LinkOp value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.outgoings == null)
+         {
+            this.outgoings = new LinkedHashSet<LinkOp>();
+         }
+         
+         changed = this.outgoings.add (value);
+         
+         if (changed)
+         {
+            value.withSrc(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOINGS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromOutgoings(LinkOp value)
+   {
+      boolean changed = false;
+      
+      if ((this.outgoings != null) && (value != null))
+      {
+         changed = this.outgoings.remove (value);
+         
+         if (changed)
+         {
+            value.setSrc(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOINGS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public OperationObject withOutgoings(LinkOp value)
+   {
+      addToOutgoings(value);
+      return this;
+   } 
+   
+   public OperationObject withoutOutgoings(LinkOp value)
+   {
+      removeFromOutgoings(value);
+      return this;
+   } 
+   
+   public void removeAllFromOutgoings()
+   {
+      LinkedHashSet<LinkOp> tmpSet = new LinkedHashSet<LinkOp>(this.getOutgoings());
+   
+      for (LinkOp value : tmpSet)
+      {
+         this.removeFromOutgoings(value);
+      }
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * OperationObject ----------------------------------- LinkOp
+    *              tgt                   incomings
+    * </pre>
+    */
+   
+   public static final String PROPERTY_INCOMINGS = "incomings";
+   
+   private LinkedHashSet<LinkOp> incomings = null;
+   
+   public LinkedHashSet<LinkOp> getIncomings()
+   {
+      if (this.incomings == null)
+      {
+         return LinkOp.EMPTY_SET;
+      }
+   
+      return this.incomings;
+   }
+   
+   public boolean addToIncomings(LinkOp value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.incomings == null)
+         {
+            this.incomings = new LinkedHashSet<LinkOp>();
+         }
+         
+         changed = this.incomings.add (value);
+         
+         if (changed)
+         {
+            value.withTgt(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMINGS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromIncomings(LinkOp value)
+   {
+      boolean changed = false;
+      
+      if ((this.incomings != null) && (value != null))
+      {
+         changed = this.incomings.remove (value);
+         
+         if (changed)
+         {
+            value.setTgt(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMINGS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public OperationObject withIncomings(LinkOp value)
+   {
+      addToIncomings(value);
+      return this;
+   } 
+   
+   public OperationObject withoutIncomings(LinkOp value)
+   {
+      removeFromIncomings(value);
+      return this;
+   } 
+   
+   public void removeAllFromIncomings()
+   {
+      LinkedHashSet<LinkOp> tmpSet = new LinkedHashSet<LinkOp>(this.getIncomings());
+   
+      for (LinkOp value : tmpSet)
+      {
+         this.removeFromIncomings(value);
       }
    }
 }

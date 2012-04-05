@@ -38,7 +38,7 @@ public class TransformationsCodeGen
       Scenario scenario = new Scenario("TransformationsCodegen");
       
       scenario.add("classes for model transformations:",
-         MODELING, "zuendorf", "04.04.2012 01:41:27", 0, 2);
+         MODELING, "zuendorf", "05.04.2012 16:24:42", 2, 0);
       
       ClassModel model = new ClassModel();
       
@@ -61,6 +61,23 @@ public class TransformationsCodeGen
       .withSource("operationObject", operationObjectClass, Role.ONE)
       .withTarget("attributeOps", attributeOpClass, Role.MANY);
 
+      Clazz linkOpClass = new Clazz("org.sdmlib.models.transformations.LinkOp")
+      .withAttribute("srcText", "String")
+      .withAttribute("tgtText", "String");
+
+      new Association()
+      .withSource("src", operationObjectClass, Role.ONE)
+      .withTarget("outgoings", linkOpClass, Role.MANY);
+      
+      new Association()
+      .withSource("incomings", linkOpClass, Role.MANY)
+      .withTarget("tgt", operationObjectClass, Role.ONE);
+      
+      new Association()
+      .withSource("transformOp", transformOpClass, Role.ONE)
+      .withTarget("linkOps", linkOpClass, Role.MANY);
+      
+      
       Clazz statementClass = new Clazz("org.sdmlib.models.transformations.Statement")
       .withAttribute("text", "String");
 
@@ -76,13 +93,14 @@ public class TransformationsCodeGen
       .withSource("transformOp", transformOpClass, Role.ONE)
       .withTarget("statements", statementClass, Role.MANY);
       
+      
       scenario.addImage(model.dumpClassDiag("TransformationClasses01"));
       
       
       model.generate("src", "srchelpers");
       
       scenario.add("create some example transformOp:",
-         MODELING, "zuendorf", "04.04.2012 02:19:42", 0, 1);
+         MODELING, "zuendorf", "05.04.2012 16:31:42", 1, 0);
       
       TransformOp transformOp = new TransformOp();
       
@@ -93,6 +111,16 @@ public class TransformationsCodeGen
       OperationObject itemsOp = new OperationObject()
       .withName("items")
       .withSet(true)
+      .withTransformOp(transformOp);
+      
+      AttributeOp valueOp = new AttributeOp()
+      .withText("value")
+      .withOperationObject(itemsOp);
+      
+      LinkOp thisToItems = new LinkOp()
+      .withSrc(thisOp)
+      .withTgt(itemsOp)
+      .withTgtText("get")
       .withTransformOp(transformOp);
 
       Statement sumStat = new Statement()
@@ -105,6 +133,12 @@ public class TransformationsCodeGen
       .withSet(true)
       .withTransformOp(transformOp);
 
+      LinkOp thisToPersons = new LinkOp()
+      .withSrc(thisOp)
+      .withTgt(personsOp)
+      .withTgtText("get")
+      .withTransformOp(transformOp);
+
       Statement shareStat = new Statement()
       .withText("share = total / size()")
       .withOperationObjects(personsOp)
@@ -115,9 +149,26 @@ public class TransformationsCodeGen
       .withName("person")
       .withTransformOp(transformOp);
 
+      LinkOp personsToPerson = new LinkOp()
+      .withSrc(personsOp)
+      .withTgt(personOp)
+      .withTgtText("foreach")
+      .withTransformOp(transformOp);
+
       OperationObject personItemsOp = new OperationObject()
-      .withName("items")
+      .withName("personItems")
       .withSet(true)
+      .withTransformOp(transformOp);
+      
+      AttributeOp myValueOp = new AttributeOp()
+      .withText("value")
+      .withOperationObject(personItemsOp);
+      
+
+      LinkOp personToItems = new LinkOp()
+      .withSrc(personOp)
+      .withTgt(personItemsOp)
+      .withTgtText("get")
       .withTransformOp(transformOp);
 
       Statement myCostsStat = new Statement()
@@ -135,6 +186,7 @@ public class TransformationsCodeGen
       scenario.add("dump an image from the transformOp:",
          MODELING, "zuendorf", "04.04.2012 02:20:42", 0, 4);
       
+      scenario.addImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
       
       ScenarioManager.get()
       .add(scenario)

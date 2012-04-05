@@ -31,13 +31,15 @@
         "KE.L86",
         "KE.L90",
         "KE.L93",
-        "KE.L94"
+        "KE.L94",
+        "KE.L97",
+        "KE.L100"
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":60,
-      "hoursSpend":36,
+      "hoursRemaining":57,
+      "hoursSpend":39,
       "subentries":[
         "KE.K2",
         "KE.K7"
@@ -101,13 +103,15 @@
         "KE.L85",
         "KE.L89",
         "KE.L92",
-        "KE.L95"
+        "KE.L95",
+        "KE.L98",
+        "KE.L101"
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":38,
-      "hoursSpend":34,
+      "hoursRemaining":35,
+      "hoursSpend":37,
       "parent":"KE.K1",
       "subentries":[
         "KE.K17",
@@ -241,13 +245,15 @@
       "logEntries":[
         "KE.L84",
         "KE.L87",
-        "KE.L88"
+        "KE.L88",
+        "KE.L99",
+        "KE.L102"
       ],
       "name":"TransformationsCodegen",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":7,
-      "hoursSpend":0,
+      "hoursRemaining":4,
+      "hoursSpend":3,
       "parent":"KE.K2",
       "files":"src/org/sdmlib/models/transformations/TransformationsCodeGen.java"
     }
@@ -264,6 +270,48 @@
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Hour calculation improved."
+    }
+  },
+  {
+    "id":"KE.L100",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:31:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":57,
+      "kanbanEntry":"KE.K1",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: create some example transformOp:"
+    }
+  },
+  {
+    "id":"KE.L101",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:31:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":35,
+      "kanbanEntry":"KE.K2",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"TransformationsCodegen: Achieved: create some example transformOp:"
+    }
+  },
+  {
+    "id":"KE.L102",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:31:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":"KE.K83",
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: create some example transformOp:"
     }
   },
   {
@@ -1290,7 +1338,7 @@
       "date":"04.04.2012 02:19:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":7,
+      "hoursRemainingInTotal":5,
       "kanbanEntry":"KE.K83",
       "developer":"zuendorf",
       "phase":"modeling",
@@ -1304,7 +1352,7 @@
       "date":"04.04.2012 02:20:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":7,
+      "hoursRemainingInTotal":4,
       "kanbanEntry":"KE.K83",
       "developer":"zuendorf",
       "phase":"modeling",
@@ -1435,6 +1483,48 @@
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: generic set does not work for boolean and double and probably more"
+    }
+  },
+  {
+    "id":"KE.L97",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:24:42",
+      "hoursSpend":2,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":58,
+      "kanbanEntry":"KE.K1",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: classes for model transformations:"
+    }
+  },
+  {
+    "id":"KE.L98",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:24:42",
+      "hoursSpend":2,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":36,
+      "kanbanEntry":"KE.K2",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"TransformationsCodegen: Achieved: classes for model transformations:"
+    }
+  },
+  {
+    "id":"KE.L99",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"05.04.2012 16:24:42",
+      "hoursSpend":2,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":"KE.K83",
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: classes for model transformations:"
     }
   }
 ]

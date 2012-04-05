@@ -153,6 +153,26 @@ public class CGUtil
       
       return name.substring(0, pos);
    }
+
+   public static String encodeJavaName(String text)
+   {
+      StringBuilder result = new StringBuilder();
+      
+      if ( ! Character.isLetter(text.charAt(0)))
+      {
+         result.append('_');
+      }
+      
+      for(int i = 0; i < text.length(); i++)
+      {
+         if (Character.isLetter(text.charAt(i)) ||  Character.isDigit(text.charAt(i)))
+         {
+            result.append(text.charAt(i));
+         }
+      }
+      
+      return result.toString();
+   }
 }
 
 
