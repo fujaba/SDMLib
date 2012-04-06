@@ -390,6 +390,7 @@ public class Parser
          else if (currentRealKindEquals(';'))
          {
             // field declaration
+        	 checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
             skip(";");
             
             symTab.put(ATTRIBUTE+":"+memberName, 
@@ -1048,62 +1049,129 @@ public class Parser
       return indexOfResult;
    }
 
+   public int methodCallIndexOf(String searchString, int searchStartPos, int searchEndPos)
+   {
+      indexOfResult = -1;
+      lastIfStart = -1;
+      lastIfEnd = -1;
+      
+      // initialize parser to start reading at pos
+      withInit(searchStartPos, searchEndPos);
+      
+      this.searchString = searchString;
+      
+      try
+      {
+         parseBlockDetails();
+         checkSearchStringFound(METHOD_END, previousRealToken.startPos);
+      }
+      catch (SearchStringFoundException e)
+      {
+         // found it, return indexOfResult
+      }
+      catch (Exception e) 
+      {
+         // problem with parsing. Return not found
+         e.printStackTrace();
+      }
+
+      return indexOfResult;
+   }
+   
+   public int IndexOfInMethodBody(String searchString, int searchStartPos, int searchEndPos)
+   {
+      indexOfResult = -1;
+      lastIfStart = -1;
+      lastIfEnd = -1;
+      
+      // initialize parser to start reading at pos
+      withInit(searchStartPos, searchEndPos);
+      
+      this.searchString = searchString;
+      
+      try
+      {
+         parseInnerBlockDetails();
+         checkSearchStringFound(METHOD_END, previousRealToken.startPos);
+      }
+      catch (SearchStringFoundException e)
+      {
+         // found it, return indexOfResult
+      }
+      catch (Exception e) 
+      {
+         // problem with parsing. Return not found
+         e.printStackTrace();
+      }
+
+      return indexOfResult;
+   }
+
    private void parseBlockDetails()
    {
       // parse method and generate statement index
       skip('{');
 
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
-      {
-         int startPos = currentRealToken.startPos;
-         if (currentRealTokenEquals("if"))
-         {
-            lastIfStart = startPos;
-            skip("if");
-            
-            parseBracketExpressionDetails();
-            
-            parseBlockDetails();
-            
-            lastIfEnd = previousRealToken.startPos;
-         }
-         else if (currentRealTokenEquals("return"))
-         {
-            lastReturnStart = startPos;
-            
-            skip("return");
-            
-            parseExpressionDetails();
-            
-            skip(';');
-         }
-         else if (currentRealKindEquals('v')
-               && lookAheadRealToken.kind == 'v')
-         {
-            // local var decl with simple type
-            parseLocalVarDeclDetails();
-         }
-         else if (currentRealKindEquals('v'))
-         {
-            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
-            
-            String qualifiedName = parseQualifiedName();
-            
-            methodBodyQualifiedNames.put(qualifiedName, startPos);
-         }
-         else if (currentRealKindEquals('{'))
-         {
-            parseBlockDetails();
-         }
-         else
-         {
-            nextRealToken();
-         }
-      }
-
+      parseInnerBlockDetails();
 
       skip('}');
    }
+
+	private void parseInnerBlockDetails()
+  {
+	  while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+	  {
+	     int startPos = currentRealToken.startPos;
+	     if (currentRealTokenEquals("if"))
+	     {
+	        lastIfStart = startPos;
+	        skip("if");
+	        
+	        parseBracketExpressionDetails();
+	        
+	        parseBlockDetails();
+	        
+	        lastIfEnd = previousRealToken.startPos;
+	     }
+	     else if (currentRealTokenEquals("return"))
+	     {
+	        lastReturnStart = startPos;
+	        
+	        skip("return");
+	        
+	        parseExpressionDetails();
+	        
+	        skip(';');
+	     }
+	     else if (currentRealKindEquals('v')
+	           && lookAheadRealToken.kind == 'v')
+	     {
+	        // local var decl with simple type
+	        parseLocalVarDeclDetails();
+	     }
+	     else if (currentRealKindEquals('v'))
+	     {
+	        checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
+	        
+	        String qualifiedName = parseQualifiedName();
+	        
+	        methodBodyQualifiedNames.put(qualifiedName, startPos);
+	     }
+	     else if (currentRealKindEquals('{'))
+	     {
+	        parseBlockDetails();
+	     }
+	     else if (currentRealKindEquals(';'))
+	     {
+	       checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
+	       skip(';');
+	     }
+	     else
+	     {
+	        nextRealToken();
+	     }
+	  }
+  }
 
    private void parseLocalVarDeclDetails()
    {
@@ -1117,6 +1185,8 @@ public class Parser
       // parse type
       String type = parseTypeRef();
       String varName = currentRealWord();
+      
+      checkSearchStringFound(NAME_TOKEN + ":" + varName, previousRealToken.startPos);
       
       nextRealToken();
       
@@ -1163,7 +1233,7 @@ public class Parser
          String type = parseTypeRef();
          
          methodCallElements.add("new " + type);
-         System.out.println("new " + type +" at line " + getLineIndexOf(currentRealToken.startPos , fileBody) + " in " + className + ".java");
+//         System.out.println("new " + type +" at line " + getLineIndexOf(currentRealToken.startPos , fileBody) + " in " + className + ".java");
          
          skip('(');
          

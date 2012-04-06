@@ -797,6 +797,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 			}
 		}
+//		System.err.println("type note found : " + partnerTypeName);
 		return null;
 	}
 
@@ -968,16 +969,20 @@ public class ClassModel implements PropertyChangeInterface {
 		
 		parser = modelCreationClass.getOrCreateParser(rootDir);
 
-		String signature = Parser.METHOD + ":" + methodName + "()";
-		int pos = parser.indexOf(signature); // TODO should work for methods with params, too. Parse to method end and search in symtab.
+		String signature = Parser.METHOD + ":" + methodName + "()";// TODO should work for methods with params, too. Parse to method end and search in symtab.
+//		int pos = parser.indexOf(signature);
 
 		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
 
 		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
-		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = (LinkedHashMap<String, LocalVarTableEntry>) parser.getLocalVarTable().clone();
 		// insert code
-		int currentInsertPos = searchForQualifiedNamePosition(callMethodName, symTabEntry.getEndPos(), parser);
+		int currentInsertPos = parser.methodCallIndexOf(Parser.NAME_TOKEN + ":model", symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+		currentInsertPos = parser.IndexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos, symTabEntry.getEndPos()) + 1;
+		currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+		
+		
 		LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
 		for (Clazz clazz : getClasses())
 		{
@@ -995,6 +1000,8 @@ public class ClassModel implements PropertyChangeInterface {
 				// check code for clazz			
 				currentInsertPos = checkCodeForClazz(entry, callMethodName, modelCreationClass, symTabEntry, clazz, currentInsertPos);
 			}
+			parser.indexOf(Parser.CLASS_END);
+			symTabEntry = parser.getSymTab().get(signature);
 		}
 
 		modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
@@ -1010,13 +1017,34 @@ public class ClassModel implements PropertyChangeInterface {
     {
   		if (!hasAttribute(attribute, entry)) 
   		{
-  			System.out.println(attribute);
+  		// find insert position	
+  			String token =  Parser.NAME_TOKEN + ":" + entry.getName();		
+				int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+				token = Parser.NAME_TOKEN + ":;";			
+				currentInsertPos = parser.IndexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+  			// add attribut
+				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos = insertAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos = insertCreationCode(" /* add attribut */", currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos++;
   		}
+  		// set insert position to next line
+  		currentInsertPos++;
     }
   
   // check code for method
+  	LinkedHashSet<Method> methods = clazz.getMethods();
+  	for (Method method : methods)
+    {
+	    
+    }
 
   // check code for assoc
+  	LinkedHashSet<Role> sourceRoles = clazz.getSourceRoles();
+  	for (Role role : sourceRoles)
+    {
+	    
+    }
   	
   	return currentInsertPos;
   }
@@ -1033,11 +1061,11 @@ public class ClassModel implements PropertyChangeInterface {
 	  // insert code for new Attr()
 	  LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
 	  for (Attribute attribute : clazzAttributes)
-	  {
+	  { 	
 	  	currentInsertPos = insertAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
-
+	  	currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);	
 	  }
-	  currentInsertPos = 1+ insertCreationCode( new StringBuilder(";"), currentInsertPos -1, modelCreationClass, symTabEntry);
+	  currentInsertPos = 1 +insertCreationCode( ";", currentInsertPos -1, modelCreationClass, symTabEntry);
 
 	  // insert code for new Method()
 	  LinkedHashSet<Method> methods = clazz.getMethods();
@@ -1106,7 +1134,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
   {
-		StringBuilder text = new StringBuilder("\n    Clazz localVar = new Clazz(\"className\")\n");
+		StringBuilder text = new StringBuilder("\n      Clazz localVar = new Clazz(\"className\")\n");
 
 		CGUtil.replaceAll(text, 
 				"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
@@ -1117,7 +1145,7 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private int insertAttributeCode(Attribute attribute, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
   {
-		StringBuilder text = new StringBuilder("    .withAttribute(\"attributeName\", \"attributeType\"attributeInit)\n");
+		StringBuilder text = new StringBuilder("      .withAttribute(\"attributeName\", \"attributeType\"attributeInit)");
 		
 		// has init value
 		String initialization = attribute.getInitialization();
@@ -1140,12 +1168,8 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private int insertMethodeCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
   {
-//		StringBuilder text = new StringBuilder("/*    .withMethods(methodName)*/\n");
-//		String signature = method.getSignature();
-//		String methodName = signature.substring(0, signature.indexOf('('));
-//		CGUtil.replaceAll(text, "methodName", methodName);
 		
-		StringBuilder text = new StringBuilder("\n    new Method()" +
+		StringBuilder text = new StringBuilder("\n      new Method()" +
 																					 "\n			.withClazz(clazzName)" +
 																					 "\n			.withSignature(\"methodSignature\");\n");
 		
@@ -1163,28 +1187,47 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private int insertAssocCode(Association assoc, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
 	{
-		StringBuilder text = new StringBuilder("\n    new Association()" +
-				 "\n			.withSource(\"sourceName\", sourceClazz, \"sourceRole\")" +
-				 "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\");\n");
+		StringBuilder text = new StringBuilder("\n      new Association()" +
+				 "\n			.withSource(\"sourceName\", sourceClazz, \"sourceRole\"sourceKind)" +
+				 "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\"targetKind);\n");
 		
 		String sourceRole = assoc.getSource().getCard();
 		String sourceName = assoc.getSource().getName();
 		String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
 												+ "Class";
-		
+		String sourceKind = assoc.getSource().getKind();
+		if( !Role.VANILLA.equals(sourceKind)) 
+		{
+			sourceKind = ", \"" +sourceKind+"\"";
+		}	
+		else
+		{
+			sourceKind = "";
+		}
 
 		String targetRole = assoc.getTarget().getCard(); 
 		String targetName = assoc.getTarget().getName();
 		String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
 												+ "Class";
+		String targetKind = assoc.getTarget().getKind();
+		if( !Role.VANILLA.equals(targetKind)) 
+		{
+			targetKind = ", \"" +targetKind +"\"";
+		}
+		else
+		{
+			targetKind = "";
+		}
 		
 		CGUtil.replaceAll(text, 
 				"sourceName", sourceName,
 				"sourceClazz", sourceClazz,
 				"sourceRole", sourceRole,
+				"sourceKind", sourceKind,
 				"targetName", targetName,
 				"targetClazz", targetClazz,
-				"targetRole", targetRole);
+				"targetRole", targetRole,
+				"targetKind", targetKind);
 
 		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
 	}
@@ -1212,6 +1255,12 @@ public class ClassModel implements PropertyChangeInterface {
 		parser.getFileBody().insert(insertPos, text.toString());
 		modelCreationClass.setFileHasChanged(true);
 		return insertPos + text.length();
+  }
+	
+	private int insertCreationCode(String string, int insertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+  { 
+		StringBuilder text = new StringBuilder(string);
+		return insertCreationCode( text, insertPos, modelCreationClass, symTabEntry);
   }
 	
 	private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser) {

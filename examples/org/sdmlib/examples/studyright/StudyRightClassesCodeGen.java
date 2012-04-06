@@ -45,15 +45,21 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    @Test
    public void testStudyRightReverseClassModel()
    {
+  	 
       Scenario scenario = new Scenario("StudyRightReverseClassModel");
 
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
-
+      
       model.updateFromCode("examples test src", "org.sdmlib.examples");
 
+      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person");
+      
       model.insertModelCreationCodeHere("examples");
+      
+      Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item")
+      .withAttribute("description", "String");
 
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
