@@ -747,6 +747,36 @@ public class Role implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         return getKind();
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         return getCard();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         return getKind();
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         return getCard();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -788,6 +818,42 @@ public class Role implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         setKind((String) value);
+         return true;
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         setCard((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         setKind((String) value);
+         return true;
+      }
+
+      if (PROPERTY_CARD.equalsIgnoreCase(attrName))
+      {
+         setCard((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
@@ -839,6 +905,18 @@ public class Role implements PropertyChangeInterface
       setClazz(null);
       setAssoc(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   public Role getPartnerRole()
+   {
+      if (this == this.getAssoc().getSource())
+      {
+         return this.getAssoc().getTarget();
+      }
+      else 
+      {
+         return this.getAssoc().getSource();
+      }
    }
 }
 

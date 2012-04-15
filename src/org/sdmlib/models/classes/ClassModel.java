@@ -598,9 +598,8 @@ public class ClassModel implements PropertyChangeInterface {
 		String type = symTabEntry.getType();
 		// include arrays
 		type = type.replace("[]", "");
-		String primitiveTypes = "String long int char boolean byte float double";
 		
-		if (primitiveTypes.indexOf(type) > -1) 
+		if (CGUtil.isPrimitiveType(type)) 
 		{
 			
 			if (!classContainsAttribut(clazz, attrName, symTabEntry.getType())) 
@@ -695,6 +694,19 @@ public class ClassModel implements PropertyChangeInterface {
 			// partner to many
 			partnerCard = Role.MANY;
 		}
+		else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
+		{
+		   // it might be a ModelSet. Look if it starts with a clazz name
+		   String prefix = partnerTypeName.substring(0, partnerTypeName.length() - 3);
+		   for (Clazz clazz : getClasses())
+         {
+            if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
+            {
+               partnerCard = Role.MANY;
+               break;
+            }
+         }
+		}
 		return partnerCard;
 	}
 	
@@ -719,9 +731,6 @@ public class ClassModel implements PropertyChangeInterface {
 			
 			clazz.addToSourceRoles(sourceRole);
 			partnerClass.addToTargetRoles(targetRole);
-			
-			System.out.println("assoc detected : " + CGUtil.shortClassName(clazz.getName()) + " " + partnerAttrName + " " + partnerCard + " " + " -- "
-					+ CGUtil.shortClassName(partnerClassName) + " " + memberName + " " + card);
 		}
 	}
 	
@@ -811,6 +820,11 @@ public class ClassModel implements PropertyChangeInterface {
 		{
 			partnerClassName = partnerTypeName.substring(openAngleBracket + 1, closeAngleBracket);
 		} 
+		else if (partnerTypeName.endsWith("Set"))
+		{
+		   // TODO: should check for superclass ModelSet
+		   partnerClassName = partnerTypeName.substring(0, partnerTypeName.length()-3);
+		}
 		else 
 		{
 			partnerClassName = partnerTypeName;
@@ -925,6 +939,13 @@ public class ClassModel implements PropertyChangeInterface {
 	// ==========================================================================
 
 	protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+   private String currentTypeCard;
+   
+   public String getCurrentTypeCard()
+   {
+      return currentTypeCard;
+   }
 
 	public PropertyChangeSupport getPropertyChangeSupport() {
 		return listeners;
@@ -1308,6 +1329,48 @@ public class ClassModel implements PropertyChangeInterface {
   	 }
 
   	 return null;
+   }
+
+   public String getMemberType(String currentType, String varName)
+   {
+      String result = null;
+      
+      for(Clazz clazz : this.getClasses())
+      {
+         String name = CGUtil.shortClassName(clazz.getName());
+         if (StrUtil.stringEquals(name, currentType))
+         {
+            for (Attribute attr : clazz.getAttributes())
+            {
+               if (StrUtil.stringEquals(attr.getName(), varName))
+               {
+                  return attr.getType();
+               }
+            }
+            
+            for (Role role : clazz.getSourceRoles())
+            {
+               role = role.getPartnerRole();
+               if (StrUtil.stringEquals(role.getName(), varName))
+               {
+                  currentTypeCard = role.getCard();
+                  return CGUtil.shortClassName(role.getClazz().getName());
+               }
+            }
+
+            for (Role role : clazz.getTargetRoles())
+            {
+               role = role.getPartnerRole();
+               if (StrUtil.stringEquals(role.getName(), varName))
+               {
+                  currentTypeCard = role.getCard();
+                  return CGUtil.shortClassName(role.getClazz().getName());
+               }
+            }
+         }
+      }
+      
+      return result;
    }
 }
 

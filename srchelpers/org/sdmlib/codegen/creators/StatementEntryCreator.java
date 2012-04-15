@@ -1,16 +1,17 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.codegen.creators;
 
+import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.classes.Association;
+import org.sdmlib.codegen.StatementEntry;
 
-public class AssociationCreator implements SendableEntityCreator
+public class StatementEntryCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Association.PROPERTY_MODEL,
-      Association.PROPERTY_SOURCE,
-      Association.PROPERTY_TARGET,
+      StatementEntry.PROPERTY_KIND,
+      StatementEntry.PROPERTY_TOKENLIST,
+      StatementEntry.PROPERTY_ASSIGNTARGETVARNAME,
    };
    
    public String[] getProperties()
@@ -20,17 +21,17 @@ public class AssociationCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Association();
+      return new StatementEntry();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Association) target).get(attrName);
+      return ((StatementEntry) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Association) target).set(attrName, value);
+      return ((StatementEntry) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -38,7 +39,4 @@ public class AssociationCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
-
-
 

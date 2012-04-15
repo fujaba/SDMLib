@@ -79,21 +79,28 @@ public class GroupAccountTests
       JsonIdMap createIdMap = GroupAccountCreator.createIdMap("az42");
       scenario.addObjectDiag(createIdMap, groupAccount);
       
-      scenario.add("Now we call / program method updateBalances()");
+      scenario.add("We will call updateBalances() to compute the correct balances.\n" +
+      		"Therefore, show updateBalances() first as code and then as a graphical model transformation operation diagram.",
+         MODELING, "zuendorf", "15.04.2012 17:18:42", 8, 2);
       
       groupAccount.updateBalances();
       
-      Assert.assertEquals("Wrong balance for Albert:", 5, albert.getBalance(), 0.0001);
-
-      scenario.addObjectDiag(createIdMap, groupAccount);
+      String methodText = scenario.getMethodText("examples", "org.sdmlib.examples.groupAccount.GroupAccount", "updateBalances()");
       
-      scenario.add("Now we analyze updateBalances() and create a graphical model transformation from its code.",
-         MODELING, "zuendorf", "04.04.2012 02:22:59", 0, 12);
+      scenario.add(methodText);
       
       TransformOp transformOp = new TransformOp()
       .withName("org.sdmlib.examples.groupAccount.GroupAccount.updateBalances()");
       
-      transformOp.updateFromSourceCode("examples");
+      transformOp.updateFromSourceCode("examples", "org.sdmlib.examples.groupAccount");
+      
+      scenario.addImage(transformOp.dumpTransformOpDiagram("GroupAccount.UpdateBalances02"));
+      
+      scenario.add("The effects of executing updateBalances() is shown in: ");
+      
+      Assert.assertEquals("Wrong balance for Albert:", 5, albert.getBalance(), 0.0001);
+
+      scenario.addObjectDiag(createIdMap, groupAccount);
       
       ScenarioManager.get()
       .add(scenario)

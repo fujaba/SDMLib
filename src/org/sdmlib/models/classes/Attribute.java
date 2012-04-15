@@ -403,6 +403,16 @@ public class Attribute implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         return getInitialization();
+      }
+
+      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         return getInitialization();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -429,6 +439,18 @@ public class Attribute implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         setInitialization((String) value);
+         return true;
+      }
+
+      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         setInitialization((String) value);
+         return true;
+      }
+
       if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
       {
          setInitialization((String) value);

@@ -33,13 +33,16 @@
         "KE.L93",
         "KE.L94",
         "KE.L97",
-        "KE.L100"
+        "KE.L100",
+        "KE.L103",
+        "KE.L106",
+        "KE.L108"
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":57,
-      "hoursSpend":39,
+      "hoursRemaining":43,
+      "hoursSpend":51,
       "subentries":[
         "KE.K2",
         "KE.K7"
@@ -105,13 +108,16 @@
         "KE.L92",
         "KE.L95",
         "KE.L98",
-        "KE.L101"
+        "KE.L101",
+        "KE.L104",
+        "KE.L107",
+        "KE.L109"
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":35,
-      "hoursSpend":37,
+      "hoursRemaining":21,
+      "hoursSpend":49,
       "parent":"KE.K1",
       "subentries":[
         "KE.K17",
@@ -227,13 +233,14 @@
     "prop":{
       "logEntries":[
         "KE.L82",
-        "KE.L91"
+        "KE.L91",
+        "KE.L110"
       ],
       "name":"GroupAccountRuleRecognition",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":12,
-      "hoursSpend":0,
+      "hoursRemaining":2,
+      "hoursSpend":8,
       "parent":"KE.K2",
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
@@ -247,13 +254,14 @@
         "KE.L87",
         "KE.L88",
         "KE.L99",
-        "KE.L102"
+        "KE.L102",
+        "KE.L105"
       ],
       "name":"TransformationsCodegen",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
-      "hoursSpend":3,
+      "hoursRemaining":0,
+      "hoursSpend":7,
       "parent":"KE.K2",
       "files":"src/org/sdmlib/models/transformations/TransformationsCodeGen.java"
     }
@@ -307,11 +315,109 @@
       "date":"05.04.2012 16:31:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":4,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":"KE.K83",
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: create some example transformOp:"
+    }
+  },
+  {
+    "id":"KE.L103",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"06.04.2012 15:19:42",
+      "hoursSpend":3,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":54,
+      "kanbanEntry":"KE.K1",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
+    }
+  },
+  {
+    "id":"KE.L104",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"06.04.2012 15:19:42",
+      "hoursSpend":3,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":32,
+      "kanbanEntry":"KE.K2",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
+    }
+  },
+  {
+    "id":"KE.L105",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"06.04.2012 15:19:42",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":"KE.K83",
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: dump an image from the transformOp:"
+    }
+  },
+  {
+    "id":"KE.L106",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"06.04.2012 15:19:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":53,
+      "kanbanEntry":"KE.K1",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
+    }
+  },
+  {
+    "id":"KE.L107",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"06.04.2012 15:19:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":31,
+      "kanbanEntry":"KE.K2",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
+    }
+  },
+  {
+    "id":"KE.L108",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":43,
+      "kanbanEntry":"KE.K1",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L109",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":21,
+      "kanbanEntry":"KE.K2",
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
     }
   },
   {
@@ -326,6 +432,20 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ScenarioInfrastructure: Hour calculation improved."
+    }
+  },
+  {
+    "id":"KE.L110",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":"KE.K81",
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
     }
   },
   {
@@ -1282,7 +1402,7 @@
       "date":"04.04.2012 00:26:59",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":12,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":"KE.K81",
       "developer":"zuendorf",
       "phase":"modeling",
@@ -1520,7 +1640,7 @@
       "date":"05.04.2012 16:24:42",
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":4,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":"KE.K83",
       "developer":"zuendorf",
       "phase":"modeling",

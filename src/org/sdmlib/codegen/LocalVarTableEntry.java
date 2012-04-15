@@ -35,6 +35,36 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      {
+         return getInitSequence();
+      }
+
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return getType();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      {
+         return getInitSequence();
+      }
+
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return getType();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -66,6 +96,42 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      {
+         setInitSequence((ArrayList<ArrayList<String>>) value);
+         return true;
+      }
+
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         setType((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      {
+         setInitSequence((ArrayList<ArrayList<String>>) value);
+         return true;
+      }
+
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         setType((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);

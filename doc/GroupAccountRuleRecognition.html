@@ -3,9 +3,23 @@
 <p>Scenario GroupAccountRuleRecognition</p>
 <pre>Start situation: classes have been generated. Now create some example object structure</pre>
 <img src='GroupAccountRuleRecognition3.svg'>
-<pre>Now we call / program method updateBalances()</pre>
-<img src='GroupAccountRuleRecognition5.svg'>
-<pre>Now we analyze updateBalances() and create a graphical model transformation from its code.</pre>
+<pre>We will call updateBalances() to compute the correct balances.
+Therefore, show updateBalances() first as code and then as a graphical model transformation operation diagram.</pre>
+<pre>   public void updateBalances()
+   {
+      double total = this.getItems().getValue().sum();
+      
+      double share = total / this.getPersons().size();
+      
+      for (Person person : this.getPersons())
+      {
+         double myCosts = person.getItems().getValue().sum();
+         
+         person.setBalance(myCosts - share); 
+      }
+   }</pre>
+<img src='GroupAccount.UpdateBalances02.svg'><pre>The effects of executing updateBalances() is shown in: </pre>
+<img src='GroupAccountRuleRecognition8.svg'>
 
 </body>
 </html>

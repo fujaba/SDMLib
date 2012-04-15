@@ -11,6 +11,8 @@
     Association [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Association</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     Role [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Role</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>card :String</td></tr> <tr><td align='left'>kind :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     SymTabEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>SymTabEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>memberName :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>startPos :int</td></tr> <tr><td align='left'>bodyStartPos :int</td></tr> <tr><td align='left'>endPos :int</td></tr> <tr><td align='left'>modifiers :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    LocalVarTableEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>LocalVarTableEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>initSequence :ArrayList&#60;ArrayList&#60;String&#62;&#62;</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    StatementEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>StatementEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>tokenList :ArrayList&#60;String&#62;</td></tr> <tr><td align='left'>assignTargetVarName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
@@ -22,5 +24,6 @@
     Clazz -- Role [headlabel = "targetRoles" taillabel = "clazz"];
     Association -- Role [headlabel = "source" taillabel = "assoc"];
     Association -- Role [headlabel = "target" taillabel = "assoc"];
+    StatementEntry -- StatementEntry [headlabel = "bodyStats" taillabel = "parent"];
 }
 

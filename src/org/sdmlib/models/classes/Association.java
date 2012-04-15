@@ -32,7 +32,7 @@ public class Association implements PropertyChangeInterface
 {
    public Association()
    {
-      setModel(ClassModel.classModel);
+      ClassModel.classModel.addToAssociations(this);
    }
    
    public Association withSource(String roleName, Clazz sourceClass, String card)

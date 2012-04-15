@@ -42,8 +42,12 @@ public class Clazz implements PropertyChangeInterface
    public Clazz()
    {
       clazz = this;
-      setClassModel(ClassModel.classModel);
-      ClassModel.classModel.addToClasses(this);
+      
+      if (ClassModel.classModel != null)
+      {
+         setClassModel(ClassModel.classModel);
+         ClassModel.classModel.addToClasses(this);
+      }
    }
    
    public Clazz(String name)
@@ -258,7 +262,7 @@ public class Clazz implements PropertyChangeInterface
 
    public void printFile(boolean really)
    {
-      if (really)
+      if (really || fileHasChanged)
       {
          while (fileBody.charAt(fileBody.length() - 1) == '\n')
          {
@@ -892,6 +896,16 @@ public class Clazz implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -938,6 +952,18 @@ public class Clazz implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
@@ -1076,6 +1102,11 @@ public class Clazz implements PropertyChangeInterface
       removeAllFromSourceRoles();
       removeAllFromTargetRoles();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+   
+   public String toString()
+   {
+      return "["+getName()+"]";
    }
 }
 

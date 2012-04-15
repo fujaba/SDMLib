@@ -30,7 +30,25 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Room implements PropertyChangeInterface
 {
-
+   public void findPath(String path, int motivation)
+   {
+      if (StrUtil.stringEquals(this.getRoomNo(), "exam"))
+      {
+         if (motivation == 0)
+         {
+            System.out.println(path);
+         }
+      }
+      else if (this.getCredits() <= motivation)
+      {
+         path += " " + this.getRoomNo();
+         
+         for (Room next : this.getNeighbors())
+         {
+            next.findPath(path, motivation - this.getCredits());
+         }
+      }
+   }
    
    //==========================================================================
    

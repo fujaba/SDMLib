@@ -2,18 +2,15 @@ package org.sdmlib.models.classes.creators;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
 
-public class ClazzCreator implements SendableEntityCreator
+public class RoleCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Clazz.PROPERTY_NAME,
-      Clazz.PROPERTY_CLASSMODEL,
-      Clazz.PROPERTY_ATTRIBUTES,
-      Clazz.PROPERTY_METHODS,
-      Clazz.PROPERTY_SOURCEROLES,
-      Clazz.PROPERTY_TARGETROLES,
+      Role.PROPERTY_NAME,
+      Role.PROPERTY_CARD,
+      Role.PROPERTY_KIND,
    };
    
    public String[] getProperties()
@@ -23,17 +20,17 @@ public class ClazzCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Clazz();
+      return new Role();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Clazz) target).get(attrName);
+      return ((Role) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Clazz) target).set(attrName, value);
+      return ((Role) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -41,7 +38,4 @@ public class ClazzCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
-
-
 

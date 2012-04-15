@@ -39,6 +39,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import com.sun.tools.javac.Main;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
@@ -51,16 +53,82 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
-      
-      model.updateFromCode("examples test src", "org.sdmlib.examples");
 
-      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person");
+
+      Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
+
+      new Method()
+			.withClazz(groupAccountClass)
+			.withSignature("updateBalances()");
+
+      Clazz groupAccountTestsClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccountTests");
+
+      new Method()
+			.withClazz(groupAccountTestsClass)
+			.withSignature("testGroupAccountRuleRecognition()");
+
+      new Method()
+			.withClazz(groupAccountTestsClass)
+			.withSignature("testGroupAccountCodegen()");
+
       
-      model.insertModelCreationCodeHere("examples");
+      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person")
+      .withAttribute("name", "String") /* add attribut */
+      .withAttribute("balance", "double") /* add attribut */;
+
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      .withAttribute("roomNo", "String")
+      .withAttribute("credits", "int");
+
+      new Method()
+			.withClazz(roomClass)
+			.withSignature("findPath(String,int)");
+
+      new Association()
+			.withSource("neighbors", roomClass, "many")
+			.withTarget("neighbors", roomClass, "many");
+
+      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
+      .withAttribute("name", "String")
+      .withAttribute("matrNo", "int");
+
+      new Association()
+			.withSource("in", roomClass, "one")
+			.withTarget("students", studentClass, "many");
+
+      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
+
+      new Method()
+			.withClazz(studyRightClassesCodeGenClass)
+			.withSignature("testStudyRightReverseClassModel()");
+
+      new Method()
+			.withClazz(studyRightClassesCodeGenClass)
+			.withSignature("testStudyRightObjectScenarios()");
+
+      new Method()
+			.withClazz(studyRightClassesCodeGenClass)
+			.withSignature("testStudyRightClassesCodeGen()");
+
+      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
+      .withAttribute("name", "String");
+
+      new Association()
+			.withSource("rooms", roomClass, "many")
+			.withTarget("uni", universityClass, "one");
+
+      new Association()
+			.withSource("students", studentClass, "many")
+			.withTarget("uni", universityClass, "one");
       
       Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item")
-      .withAttribute("description", "String");
+      .withAttribute("description", "String")
+      .withAttribute("value", "double") /* add attribut */;
 
+      model.updateFromCode("examples test src", "org.sdmlib.examples");
+
+      model.insertModelCreationCodeHere("examples");
+      
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
       ScenarioManager.get()
@@ -108,7 +176,13 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withNeighbors(artsRoom)
       .withUni(uni); 
 
-
+      Room examRoom = new Room()
+      .withRoomNo("exam")
+      .withCredits(0)
+      .withNeighbors(sportsRoom)
+      .withNeighbors(artsRoom)
+      .withUni(uni);
+      
       scenario.add("step 1: dump object diagram");
 
       JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
@@ -116,25 +190,32 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       Assert.assertEquals("false number of students:" , 2, uni.getStudents().size());
 
-      scenario.add("step 2: add support for path navigation\n" +
-            "   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\n" +
-            "shall compute to 88\n" +
-            "Path classes need to be generated.", 
-            MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
+      scenario.add("step 2: add support for path navigation\n      call ");
 
+      scenario.markCodeStart();
       int sum = ModelSet.startWith(albert).getUni().getRooms().getCredits().sum();
-
+      scenario.addCode("examples");
+      
+      scenario.add(
+            "      shall compute to 88\n" +
+            "      Path classes need to be generated.", 
+            MODELING, "zuendorf joern alex", "25.03.2012 14:57:42", 0, 0);
+      
       Assert.assertEquals("credits sum error", 88, sum);
 
       ModelSet any = ModelSet.startWith(albert).getAny();
 
       Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
 
-      scenario.add("build a pattern");
-
-      // patternObject.withCandidates(uni);
-
-      scenario.add("run pattern");
+      scenario.add("step 3: call ");
+      
+      scenario.recordSystemOut();
+      
+      scenario.markCodeStart();
+      mathRoom.findPath("", 88);
+      scenario.addCode("examples");
+      
+      scenario.add("System.out: \n" + scenario.getSystemOut());
 
 
       ScenarioManager.get()
@@ -207,6 +288,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Parser parser = studClass.getOrCreateParser("examples");
+      
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       Assert.assertTrue("did not find method set(String,Object) in class student", pos >= 0);

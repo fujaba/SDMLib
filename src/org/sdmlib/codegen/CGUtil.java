@@ -29,6 +29,15 @@ import java.io.PrintStream;
 
 public class CGUtil 
 {
+   public static boolean isPrimitiveType(String type)
+   {
+      String primitiveTypes = "String long int char boolean byte float double";
+      
+      if (type == null)  return false;
+      
+      return primitiveTypes.indexOf(type) >= 0;
+   }
+   
    public static void printFile(File file, String text)
    {
       try {

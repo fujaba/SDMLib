@@ -9,7 +9,6 @@ public class MethodCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Method.PROPERTY_SIGNATURE,
-      Method.PROPERTY_CLAZZ,
    };
    
    public String[] getProperties()
@@ -37,7 +36,4 @@ public class MethodCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
-
-
 

@@ -17,7 +17,6 @@
     setBalancemyCostsshare [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>setBalance(myCosts - share)</td></tr></table>>];
     
     
-    
     this -- items [headlabel = "get" taillabel = ""];
     this -- persons [headlabel = "get" taillabel = ""];
     persons -- person [headlabel = "foreach" taillabel = ""];

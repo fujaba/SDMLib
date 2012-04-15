@@ -27,11 +27,20 @@ import org.sdmlib.utils.StrUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.codegen.LocalVarTableEntry;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -346,13 +355,297 @@ public class TransformOp implements PropertyChangeInterface
    }
 
 
-   public void updateFromSourceCode(String string)
+   public void updateFromSourceCode(String rootDir, String modelPackage)
    {
-      // TODO Auto-generated method stub
+      LinkedHashSet<String> usedOpObjectNames = new LinkedHashSet<String>();
+      LinkedHashMap<String, OperationObject> opObjTable = new LinkedHashMap<String, OperationObject>();
       
+      // we need model information, reverse engineer it 
+      ClassModel model = new ClassModel();
+
+      model.updateFromCode(rootDir, modelPackage);
+
+      LinkedHashMap<String, String> typeTable = new LinkedHashMap<String, String>();
+      // find class and method
+      int pos = this.getName().lastIndexOf('.');
+
+      String className = this.getName().substring(0, pos);
+
+      typeTable.put("this", CGUtil.shortClassName(className));
+
+      Clazz methodClass = new Clazz(className);
+
+      Parser parser = methodClass.getOrCreateParser(rootDir);
+
+      String signature = Parser.METHOD + ":" + this.getName().substring(pos + 1);
+
+      pos = parser.indexOf(signature);
+
+      if (pos >= 0)
+      {
+         // parse method body
+         SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+         parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
+
+         // analyze statement list
+         StatementEntry statementList = parser.getStatementList();
+         LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+
+         Statement previousStat = null; 
+         Statement currentStat = null;
+         StringBuilder currentStatText;
+         currentOpObj = null;
+         currentType = null;
+         
+         currentStat = handleStatementList(usedOpObjectNames, opObjTable,
+            model, typeTable, statementList, localVarTable, currentStat);
+      }
+   }
+
+
+   private Statement handleStatementList(
+         LinkedHashSet<String> usedOpObjectNames,
+         LinkedHashMap<String, OperationObject> opObjTable, ClassModel model,
+         LinkedHashMap<String, String> typeTable, StatementEntry statementList,
+         LinkedHashMap<String, LocalVarTableEntry> localVarTable,
+         Statement currentStat)
+   {
+      Statement previousStat;
+      StringBuilder currentStatText;
+      for (StatementEntry statEntry : statementList.getBodyStats())
+      {
+         System.out.println("transformOp analyzing: " + statEntry.toString());
+
+         previousStat = currentStat;
+
+         if ("assign".equals(statEntry.getKind()))
+         {
+            LocalVarTableEntry entry = localVarTable.get(statEntry.getAssignTargetVarName());
+            if (entry != null)
+            {
+               typeTable.put(entry.getName(), entry.getType());
+
+               if (CGUtil.isPrimitiveType(entry.getType()))
+               {
+                  // create a statement
+                  currentStat = new Statement()
+                  .withPrev(previousStat)
+                  .withTransformOp(this);
+
+                  currentStatText = new StringBuilder().append(entry.getName() + " = ");
+
+                  handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+                     currentStat, currentStatText, statEntry);
+                  
+                  currentStat.setText(currentStatText.toString());
+               }
+            }
+         }
+         else if ("for".equals(statEntry.getKind()))
+         {
+            LocalVarTableEntry entry = localVarTable.get(statEntry.getAssignTargetVarName());
+            if (entry != null)
+            {
+               typeTable.put(entry.getName(), entry.getType());
+               if ( ! CGUtil.isPrimitiveType(entry.getType()))
+               {
+                  // loop with object variable, add OperationObj for it
+                  getOrCreateOperationObject(entry.getName(), opObjTable, Role.ONE, usedOpObjectNames);
+                  
+                  OperationObject loopVarOpObj = currentOpObj;
+                  
+                  currentStat = new Statement()
+                  .withPrev(previousStat)
+                  .withText("foreach " + entry.getName())
+                  .withOperationObjects(loopVarOpObj)
+                  .withTransformOp(this); 
+                  
+                  currentStatText = new StringBuilder();
+
+                  handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+                     currentStat, currentStatText, statEntry);
+                  
+                  // now append loop var opObj
+                  new LinkOp()
+                  .withSrc(currentOpObj)
+                  .withTgt(loopVarOpObj)
+                  .withSrcText("in")
+                  .withTransformOp(this);
+                  
+                  currentOpObj = loopVarOpObj;
+                  
+                  // walk through body, recursively
+                  currentStat = handleStatementList(usedOpObjectNames, opObjTable,
+                     model, typeTable, statEntry, localVarTable, currentStat);
+
+               }
+            }                     
+         }
+         else
+         {
+            // simple statement
+            currentStat = new Statement()
+            .withPrev(previousStat)
+            .withTransformOp(this);
+
+            currentStatText = new StringBuilder();
+
+            handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+               currentStat, currentStatText, statEntry);
+                  
+            currentStat.setText(currentStatText.toString());
+         }
+      }
+      return currentStat;
+   }
+
+
+   private void handelStatementTokens(LinkedHashSet<String> usedOpObjectNames,
+         LinkedHashMap<String, OperationObject> opObjTable, ClassModel model, LinkedHashMap<String, String> typeTable,
+         Statement currentStat, StringBuilder currentStatText,
+         StatementEntry statEntry)
+   {
+      String navigationPath = "this";
+      boolean skipBrackets = false;
+      String lastGraphicalElementName = null;
+      
+      for (String callString : statEntry.getTokenList())
+      {
+         String[] split = callString.split("\\.");
+         if (split.length > 1)
+         {
+            // something like x.m  create var node and target node
+            String varName = split[0];
+
+            currentType = typeTable.get(varName);
+            if (currentType != null && ! CGUtil.isPrimitiveType(currentType))
+            {
+               navigationPath = getOrCreateOperationObject(varName, opObjTable, Role.ONE, usedOpObjectNames);
+               
+               lastGraphicalElementName = varName;
+            }
+
+
+            callString = split[1];
+         }
+
+         if (callString.startsWith("get"))
+         {
+            // look up of attribute or assoc?
+            String varName = callString.substring(3, callString.length());
+            varName = StrUtil.downFirstChar(varName);
+
+            // what is the type of this getOperation?
+            currentType = model.getMemberType(currentType, varName);
+
+            if ( ! CGUtil.isPrimitiveType(currentType))
+            {
+               navigationPath = navigationPath + "." + varName;
+               navigationPath = getOrCreateOperationObject(navigationPath, opObjTable, model.getCurrentTypeCard(), usedOpObjectNames);
+               
+               lastGraphicalElementName = varName;
+            }
+            else
+            {
+               // add an attribute to the current operation object
+               new AttributeOp().withText(varName).withOperationObject(currentOpObj);
+
+               lastGraphicalElementName = varName;
+            }
+            
+            skipBrackets = true;
+         }
+         else if (skipBrackets && "()".indexOf(callString) >= 0)
+         {
+            // brackets for navigation op, skip
+            if (")".equals(callString))
+            {
+               skipBrackets = false;
+            }
+         }
+         else if (".".equals(callString))
+         {
+         }
+         else
+         {
+            // usual method, add it to current statement
+            if (lastGraphicalElementName != null)
+            {
+               currentStatText.append(lastGraphicalElementName).append(".");
+               currentStat.addToOperationObjects(currentOpObj);
+               lastGraphicalElementName = null;
+            }
+            
+            if ("/+-*==:!".indexOf(callString) >= 0)
+            {
+               callString = " " + callString + " ";
+            }
+            
+            currentStatText.append(callString);
+         }
+
+      }
+   }
+
+
+   private String getOrCreateOperationObject(String varName, LinkedHashMap<String, OperationObject> opObjTable, String card, LinkedHashSet<String> usedOpObjectNames)
+   {
+      int pos = varName.lastIndexOf('.');
+      String opObjName = varName;
+      String previousOpName = null;
+      if (pos >= 0)
+      {
+         opObjName = varName.substring(pos + 1);
+         previousOpName = varName.substring(0, pos);
+      }
+      
+      currentOpObj = opObjTable.get(varName);
+      
+      if (currentOpObj == null)
+      {
+         currentOpObj = new OperationObject()
+         .withName(findNewName(usedOpObjectNames, opObjName))
+         .withSet(Role.MANY.equals(card))
+         .withTransformOp(this);
+         
+         opObjTable.put(varName, currentOpObj);
+
+         if (previousOpName != null)
+         {
+            OperationObject previousOp = opObjTable.get(previousOpName);
+            if (previousOp != null)
+            {
+               new LinkOp()
+               .withSrc(previousOp)
+               .withTgt(currentOpObj)
+               .withTgtText("get")
+               .withTransformOp(this);
+            }
+         }
+      }
+      
+      
+      return varName;
    }
 
    
+   private String findNewName(LinkedHashSet<String> usedOpObjectNames,
+         String varName)
+   {
+      String newName = varName;
+      int i = 2;
+      while (usedOpObjectNames.contains(newName))
+      {
+         newName = varName + i; 
+         i++;
+      }
+      
+      usedOpObjectNames.add(newName);
+      
+      return newName;
+   }
+
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -364,6 +657,10 @@ public class TransformOp implements PropertyChangeInterface
    public static final String PROPERTY_LINKOPS = "linkOps";
    
    private LinkedHashSet<LinkOp> linkOps = null;
+
+   private OperationObject currentOpObj;
+
+   private String currentType;
    
    public LinkedHashSet<LinkOp> getLinkOps()
    {
@@ -443,16 +740,13 @@ public class TransformOp implements PropertyChangeInterface
    {
       // generate dot file 
       StringBuilder dotFileText = new StringBuilder
-            (  "\n graph TrafoOpDiagram {" +
+            (  "\n digraph TrafoOpDiagram {" +
                   "\n    node [shape = none, fontsize = 10]; " +
                   "\n    edge [fontsize = 10];" +
                   "\n    " +
                   "\n    operationObjects" +
                   "\n    " +
                   "\n    statements" +
-                  "\n    " +
-                  //            "\n    g1 -- p2 " +
-                  //            "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
                   "\n    " +
                   "\n    links" +
                   "\n}" +
@@ -517,7 +811,7 @@ public class TransformOp implements PropertyChangeInterface
       for (LinkOp linkOp : this.getLinkOps())
       {
          StringBuilder oneLinkText = new StringBuilder(
-            "\n    source -- target [headlabel = \"headLabel\" taillabel = \"tailLabel\"];");
+            "\n    source -> target [headlabel = \"headLabel\" taillabel = \"tailLabel\" arrowhead = \"none\" ];");
       
          CGUtil.replaceAll(oneLinkText, 
             "source", linkOp.getSrc().getName(),
@@ -534,7 +828,7 @@ public class TransformOp implements PropertyChangeInterface
          if (stat.getNext() != null)
          {
             StringBuilder oneLinkText = new StringBuilder(
-                  "\n    source -- target [style = \"dotted\"];");
+                  "\n    source -> target [style = \"dotted\", arrowhead = \"vee\"];");
             
             CGUtil.replaceAll(oneLinkText, 
                "source", CGUtil.encodeJavaName(stat.getText()),
@@ -546,7 +840,7 @@ public class TransformOp implements PropertyChangeInterface
          for(OperationObject targetOp : stat.getOperationObjects())
          {
             StringBuilder oneLinkText = new StringBuilder(
-                  "\n    source -- target [style = \"dotted\"];");
+                  "\n    source -> target [style = \"dotted\" arrowhead = \"none\"];");
             
             CGUtil.replaceAll(oneLinkText, 
                "target", CGUtil.encodeJavaName(stat.getText()),

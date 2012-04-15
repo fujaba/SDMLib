@@ -113,6 +113,16 @@ public class Method implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
+      {
+         return getSignature();
+      }
+
+      if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
+      {
+         return getSignature();
+      }
+
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -139,6 +149,18 @@ public class Method implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
+      {
+         setSignature((String) value);
+         return true;
+      }
+
+      if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
+      {
+         setSignature((String) value);
+         return true;
+      }
+
       if (PROPERTY_SIGNATURE.equalsIgnoreCase(attrName))
       {
          setSignature((String) value);

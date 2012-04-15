@@ -22,14 +22,25 @@
 package org.sdmlib.scenarios;
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Vector;
 
+import org.junit.Assert;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -258,5 +269,114 @@ public class Scenario
       .withHoursSpend(hoursSpend)
       .withHoursRemainingInTotal(hoursRemaining)
       .withComment("Achieved: " + string));
+   }
+
+   private int codeStartLineNumber = -1;
+
+   private ByteArrayOutputStream systemOutRecorder;
+   
+   public ByteArrayOutputStream getSystemOut()
+   {
+      return systemOutRecorder;
+   }
+   
+   public void markCodeStart()
+   {
+      // store code start line number
+      try
+      {
+         throw new RuntimeException();
+      }
+      catch (Exception e)
+      {
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement callEntry = stackTrace[1];
+         codeStartLineNumber = callEntry.getLineNumber();
+      }
+      
+   }
+
+   public void addCode(String rootDir)
+   {
+      String className = "";
+      // store code end line number
+      int codeEndLineNumber = -1;
+      try
+      {
+         throw new RuntimeException();
+      }
+      catch (Exception e)
+      {
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement callEntry = stackTrace[1];
+         codeEndLineNumber = callEntry.getLineNumber();
+         
+         className = callEntry.getClassName();
+      }
+      
+      // open java file and copy code lines
+      String fileName = rootDir + "/" + className.replaceAll("\\.", "/") + ".java";
+      File file = new File(fileName);
+      
+      if (file.exists())
+      {
+         try
+         {
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            
+            String line = "";
+            int lineNo = 0;
+            
+            StringBuilder buf = new StringBuilder();
+            
+            while (true)
+            {
+               line = in.readLine();
+               
+               if (line != null)
+               {
+                  lineNo++;
+                  
+                  if (lineNo > codeStartLineNumber && lineNo < codeEndLineNumber)
+                  {
+                     buf.append(line).append('\n');
+                  }
+                  
+                  if (lineNo >= codeEndLineNumber)
+                  {
+                     this.add(buf.toString());
+                     return;
+                  }
+               }
+            }
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
+   }
+
+   public void recordSystemOut()
+   {
+      systemOutRecorder = new ByteArrayOutputStream();
+      System.setOut(new PrintStream(systemOutRecorder));      
+   }
+
+   public String getMethodText(String rootDir, String className, String methodSignature)
+   {
+      ClassModel model = new ClassModel();
+      
+      Clazz clazz = new Clazz(className);
+      
+      Parser parser = clazz.getOrCreateParser(rootDir);
+      
+      int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
+
+      SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
+
+      String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+
+      return methodText;
    }
 }

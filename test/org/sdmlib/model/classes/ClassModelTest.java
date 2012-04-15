@@ -21,6 +21,8 @@
 
 package org.sdmlib.model.classes;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.sdmlib.kanban.ProjectBoard;
 import org.sdmlib.models.classes.Association;
@@ -121,6 +123,17 @@ public class ClassModelTest
       .withAttribute("name", "String")
       .withAttribute("type", "String")
       .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
+      
+      
+      Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
+      .withAttribute("kind", "String")
+      .withAttribute("tokenList", "ArrayList<String>")
+      .withAttribute("assignTargetVarName", "String");
+      
+      new Association()
+      .withSource("parent", statementEntry, Role.ONE)
+      .withTarget("bodyStats", statementEntry, Role.MANY);
+      
       
       scenario.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);

@@ -184,7 +184,7 @@ public class TransformationsCodeGen
       .withTransformOp(transformOp);
       
       scenario.add("dump an image from the transformOp:",
-         MODELING, "zuendorf", "04.04.2012 02:20:42", 0, 4);
+         MODELING, "zuendorf", "06.04.2012 15:19:42", 4, 0);
       
       scenario.addImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
       
