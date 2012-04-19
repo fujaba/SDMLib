@@ -87,6 +87,16 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       {
          return getInitSequence();
       }
+
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         return getStartPos();
+      }
+
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         return getEndPos();
+      }
       
       return null;
    }
@@ -147,6 +157,18 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
       {
          setInitSequence((ArrayList<ArrayList<String>>) value);
+         return true;
+      }
+
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         setStartPos((Integer) value);
+         return true;
+      }
+
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         setEndPos((Integer) value);
          return true;
       }
 
@@ -254,5 +276,61 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       setInitSequence(value);
       return this;
    } 
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STARTPOS = "startPos";
+   
+   private int startPos;
+   
+   public int getStartPos()
+   {
+      return this.startPos;
+   }
+   
+   public void setStartPos(int value)
+   {
+      if (this.startPos != value)
+      {
+         int oldValue = this.startPos;
+         this.startPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPOS, oldValue, value);
+      }
+   }
+   
+   public LocalVarTableEntry withStartPos(int value)
+   {
+      setStartPos(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ENDPOS = "endPos";
+   
+   private int endPos;
+   
+   public int getEndPos()
+   {
+      return this.endPos;
+   }
+   
+   public void setEndPos(int value)
+   {
+      if (this.endPos != value)
+      {
+         int oldValue = this.endPos;
+         this.endPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENDPOS, oldValue, value);
+      }
+   }
+   
+   public LocalVarTableEntry withEndPos(int value)
+   {
+      setEndPos(value);
+      return this;
+   } 
+
 }
 

@@ -40,7 +40,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-public class ClassModel implements PropertyChangeInterface {
+public class ClassModel implements PropertyChangeInterface
+{
 	public static ClassModel classModel = null;
 
 	private Parser parser;
@@ -51,26 +52,26 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private boolean fileHasChanged;
 
-	public void setFileHasChanged(boolean fileHasChanged) 
+	public void setFileHasChanged(boolean fileHasChanged)
 	{
 		this.fileHasChanged = fileHasChanged;
 	}
 
-	public ClassModel() 
+	public ClassModel()
 	{
 		classModel = this;
 	}
 
-	public ClassModel generate(String rootDir, String helpersDir) 
+	public ClassModel generate(String rootDir, String helpersDir)
 	{
-		for (Clazz clazz : getClasses()) 
+		for (Clazz clazz : getClasses())
 		{
 			clazz.generate(rootDir, helpersDir);
 		}
 
 		generateCreatorCreatorClass(helpersDir);
 
-		for (Association assoc : getAssociations()) 
+		for (Association assoc : getAssociations())
 		{
 			assoc.generate(rootDir, false);
 		}
@@ -78,13 +79,13 @@ public class ClassModel implements PropertyChangeInterface {
 		return this;
 	}
 
-	private void generateCreatorCreatorClass(String rootDir) 
+	private void generateCreatorCreatorClass(String rootDir)
 	{
 		// take first class to find package
 
 		getOrCreateParser(rootDir);
 
-		for (Clazz clazz : getClasses()) 
+		for (Clazz clazz : getClasses())
 		{
 			clazz.insertCreatorClassInCreatorCreator(parser);
 		}
@@ -92,17 +93,17 @@ public class ClassModel implements PropertyChangeInterface {
 		printFile(fileHasChanged);
 	}
 
-	public void printFile(boolean really) 
+	public void printFile(boolean really)
 	{
-		if (really) 
+		if (really)
 		{
 			CGUtil.printFile(javaFile, fileBody.toString());
 		}
 	}
 
-	public Parser getOrCreateParser(String rootDir) 
+	public Parser getOrCreateParser(String rootDir)
 	{
-		if (parser == null ) 
+		if (parser == null)
 		{
 			// try to find existing file
 			Clazz firstClass = getClasses().iterator().next();
@@ -124,28 +125,17 @@ public class ClassModel implements PropertyChangeInterface {
 			javaFile = new File(fileName);
 
 			// found old one?
-			if (javaFile.exists()) 
+			if (javaFile.exists())
 			{
 				fileBody = CGUtil.readFile(javaFile);
-			} 
-			else 
+			}
+			else
 			{
 				fileBody = new StringBuilder();
 
-				StringBuilder text = new StringBuilder(
-						"package packageName;\n" + 
-					    "\n" + 
-						"import org.sdmlib.serialization.json.JsonIdMap;\n" + 
-					    "\n" + 
-						"public class className\n" + 
-					    "{\n" + 
-					    "   public static JsonIdMap createIdMap(String sessionID)\n" + 
-					    "   {\n" +
-						"      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" + 
-					    "      \n" + 
-						"      return jsonIdMap;\n" + 
-						"   }\n" + 
-						"}\n");
+				StringBuilder text = new StringBuilder("package packageName;\n" + "\n" + "import org.sdmlib.serialization.json.JsonIdMap;\n" + "\n" + "public class className\n" + "{\n"
+				    + "   public static JsonIdMap createIdMap(String sessionID)\n" + "   {\n" + "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" + "      \n"
+				    + "      return jsonIdMap;\n" + "   }\n" + "}\n");
 
 				CGUtil.replaceAll(text, "className", CGUtil.shortClassName(className), "packageName", packageName);
 
@@ -166,40 +156,40 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private LinkedHashSet<Clazz> classes;
 
-	public LinkedHashSet<Clazz> getClasses() 
+	public LinkedHashSet<Clazz> getClasses()
 	{
-		if (classes == null) 
+		if (classes == null)
 		{
 			return Clazz.EMPTY_SET;
 		}
 		return this.classes;
 	}
 
-	public ClassModel withClasses(Clazz value) 
+	public ClassModel withClasses(Clazz value)
 	{
 		addToClasses(value);
 		return this;
 	}
 
-	 public void addToClasses(Clazz value)
-	 {
-	      if (this.classes == null)
-	      {
-	         this.classes = new LinkedHashSet<Clazz>();
-	      }
-	      
-	      this.classes.add(value);
-	   }
+	public void addToClasses(Clazz value)
+	{
+		if (this.classes == null)
+		{
+			this.classes = new LinkedHashSet<Clazz>();
+		}
 
-	public boolean removeFromClasses(Clazz value) 
+		this.classes.add(value);
+	}
+
+	public boolean removeFromClasses(Clazz value)
 	{
 		boolean changed = false;
 
-		if ((this.classes != null) && (value != null)) 
+		if ((this.classes != null) && (value != null))
 		{
 			changed = this.classes.remove(value);
 
-			if (changed) 
+			if (changed)
 			{
 				value.setClassModel(null);
 				getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, value, null);
@@ -209,110 +199,93 @@ public class ClassModel implements PropertyChangeInterface {
 		return changed;
 	}
 
-	public void removeAllFromClasses() 
+	public void removeAllFromClasses()
 	{
 		LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getClasses());
 
-		for (Clazz value : tmpSet) 
+		for (Clazz value : tmpSet)
 		{
 			this.removeFromClasses(value);
 		}
 	}
 
-	   public String dumpClassDiag(String diagName)
-	   {
-		   // generate dot file 
-		   StringBuilder dotFileText = new StringBuilder
-				   (  "\n graph ClassDiagram {" +
-						   "\n    node [shape = none, fontsize = 10]; " +
-						   "\n    edge [fontsize = 10];" +
-						   "\n    " +
-						   "\n    modelClasses" +
-						   "\n    " +
-						   //            "\n    g1 -- p2 " +
-						   //            "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
-						   "\n    " +
-						   "\n    modelAssocs" +
-						   "\n}" +
-						   "\n"
-						   );
+	public String dumpClassDiag(String diagName)
+	{
+		// generate dot file
+		StringBuilder dotFileText = new StringBuilder("\n graph ClassDiagram {" + "\n    node [shape = none, fontsize = 10]; " + "\n    edge [fontsize = 10];" + "\n    "
+		    + "\n    modelClasses" + "\n    " +
+		    // "\n    g1 -- p2 " +
+		    // "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
+		    "\n    " + "\n    modelAssocs" + "\n}" + "\n");
 
-		   // add classes
-		   StringBuilder modelClassesText = new StringBuilder();
+		// add classes
+		StringBuilder modelClassesText = new StringBuilder();
 
-		   for (Clazz clazz : this.getClasses())
-		   {
-			   StringBuilder modelClassText = new StringBuilder
-					   (  "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
+		for (Clazz clazz : this.getClasses())
+		{
+			StringBuilder modelClassText = new StringBuilder(
+			    "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
 
-			   CGUtil.replaceAll(modelClassText, 
-					   "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
-					   "attrCompartment", dumpAttributes(clazz),
-					   "methodCompartment", dumpMethods(clazz));
+			CGUtil.replaceAll(modelClassText, "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()), "attrCompartment", dumpAttributes(clazz), "methodCompartment",
+			    dumpMethods(clazz));
 
-			   modelClassesText.append(modelClassText.toString());
-		   }
+			modelClassesText.append(modelClassText.toString());
+		}
 
-		   // add associations
-		   StringBuilder allAssocsText = new StringBuilder();
+		// add associations
+		StringBuilder allAssocsText = new StringBuilder();
 
-		   for (Association assoc : getAssociations())
-		   {
-			   StringBuilder oneAssocText = new StringBuilder
-					   (  "\n    sourceClass -- targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\"];" );
+		for (Association assoc : getAssociations())
+		{
+			StringBuilder oneAssocText = new StringBuilder("\n    sourceClass -- targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\"];");
 
-			   CGUtil.replaceAll(oneAssocText, 
-					   "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()),
-					   "targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()),
-					   "sourceRole", assoc.getSource().getName(),
-					   "targetRole", assoc.getTarget().getName());
+			CGUtil.replaceAll(oneAssocText, "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), "targetClass",
+			    CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), "sourceRole", assoc.getSource().getName(), "targetRole", assoc.getTarget().getName());
 
-			   allAssocsText.append(oneAssocText.toString());
-		   }
+			allAssocsText.append(oneAssocText.toString());
+		}
 
-		   CGUtil.replaceAll(dotFileText, 
-				   "modelClasses", modelClassesText.toString(),
-				   "modelAssocs", allAssocsText.toString());
+		CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
 
-		   // write dot file 
-		   File docDir = new File("doc");
-		   docDir.mkdir();
+		// write dot file
+		File docDir = new File("doc");
+		docDir.mkdir();
 
-//		   BufferedWriter out;
+		// BufferedWriter out;
 
-		   File dotFile = new File("doc/" + diagName + ".dot");
-		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
+		File dotFile = new File("doc/" + diagName + ".dot");
+		ScenarioManager.get().printFile(dotFile, dotFileText.toString());
 
-		   // generate image
-		   String command = "";
-		   
-		   if ((System.getProperty("os.name").toLowerCase()).contains("mac")) 
-		   {
-			   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
-		   } 
-		   else 
-		   {
-			   command = "../SDMLib/tools/makeimage.bat " + diagName;
-		   }
-		   try 
-		   {
-			   Runtime.getRuntime().exec(command);
-		   } 
-		   catch (IOException e) 
-		   {
-			   e.printStackTrace();
-		   }
-		   
+		// generate image
+		String command = "";
+
+		if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+		{
+			command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
+		}
+		else
+		{
+			command = "../SDMLib/tools/makeimage.bat " + diagName;
+		}
+		try
+		{
+			Runtime.getRuntime().exec(command);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 		return diagName + ".svg";
 	}
 
-	private String dumpMethods(Clazz clazz) 
+	private String dumpMethods(Clazz clazz)
 	{
 		StringBuilder allMethodsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");
 
-		if (clazz.getMethods().size() > 0) 
+		if (clazz.getMethods().size() > 0)
 		{
-			for (Method method : clazz.getMethods()) 
+			for (Method method : clazz.getMethods())
 			{
 				StringBuilder oneMethodText = new StringBuilder("<tr><td align='left'>methodDecl</td></tr>");
 
@@ -322,8 +295,8 @@ public class ClassModel implements PropertyChangeInterface {
 			}
 
 			CGUtil.replaceAll(allMethodsText, "methodRow", "");
-		} 
-		else 
+		}
+		else
 		{
 			CGUtil.replaceAll(allMethodsText, "methodRow", "<tr><td> </td></tr>");
 		}
@@ -331,13 +304,13 @@ public class ClassModel implements PropertyChangeInterface {
 		return allMethodsText.toString();
 	}
 
-	private String dumpAttributes(Clazz clazz) 
+	private String dumpAttributes(Clazz clazz)
 	{
 		StringBuilder allAttrsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> attrRow </table></td></tr>");
 
-		if (clazz.getAttributes().size() > 0) 
+		if (clazz.getAttributes().size() > 0)
 		{
-			for (Attribute attr : clazz.getAttributes()) 
+			for (Attribute attr : clazz.getAttributes())
 			{
 				StringBuilder oneAttrText = new StringBuilder("<tr><td align='left'>attrDecl</td></tr>");
 
@@ -347,8 +320,8 @@ public class ClassModel implements PropertyChangeInterface {
 			}
 
 			CGUtil.replaceAll(allAttrsText, "attrRow", "");
-		} 
-		else 
+		}
+		else
 		{
 			CGUtil.replaceAll(allAttrsText, "attrRow", "<tr><td> </td></tr>");
 		}
@@ -368,9 +341,9 @@ public class ClassModel implements PropertyChangeInterface {
 
 	private LinkedHashSet<Association> associations = null;
 
-	public LinkedHashSet<Association> getAssociations() 
+	public LinkedHashSet<Association> getAssociations()
 	{
-		if (this.associations == null) 
+		if (this.associations == null)
 		{
 			return Association.EMPTY_SET;
 		}
@@ -378,20 +351,20 @@ public class ClassModel implements PropertyChangeInterface {
 		return this.associations;
 	}
 
-	public boolean addToAssociations(Association value) 
+	public boolean addToAssociations(Association value)
 	{
 		boolean changed = false;
 
-		if (value != null) 
+		if (value != null)
 		{
-			if (this.associations == null) 
+			if (this.associations == null)
 			{
 				this.associations = new LinkedHashSet<Association>();
 			}
 
 			changed = this.associations.add(value);
 
-			if (changed) 
+			if (changed)
 			{
 				value.withModel(this);
 				// getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOCIATIONS,
@@ -421,28 +394,27 @@ public class ClassModel implements PropertyChangeInterface {
 		return changed;
 	}
 
-	public ClassModel withAssociations(Association value) 
+	public ClassModel withAssociations(Association value)
 	{
 		addToAssociations(value);
 		return this;
 	}
 
-	public ClassModel withoutAssociations(Association value) 
+	public ClassModel withoutAssociations(Association value)
 	{
 		removeFromAssociations(value);
 		return this;
 	}
 
-	public void removeAllFromAssociations() 
+	public void removeAllFromAssociations()
 	{
 		LinkedHashSet<Association> tmpSet = new LinkedHashSet<Association>(this.getAssociations());
 
-		for (Association value : tmpSet) 
+		for (Association value : tmpSet)
 		{
 			this.removeFromAssociations(value);
 		}
 	}
-	
 
 	public void updateFromCode(String includePathes, String packages)
 	{
@@ -504,7 +476,7 @@ public class ClassModel implements PropertyChangeInterface {
 					continue;
 
 				String name = StrUtil.upFirstChar(memberName);
-				
+
 				Method addToMethod = findMethod(clazz, setterPrefix + name + "(" + partnerClassName + ")");
 
 				if (addToMethod == null)
@@ -515,8 +487,8 @@ public class ClassModel implements PropertyChangeInterface {
 				if (addToSymTabEntry == null)
 					continue;
 
-				// TODO : fix methodBodyIndexOf clears symtab
-				parser.methodBodyIndexOf(Parser.METHOD_END, addToSymTabEntry.getBodyStartPos());
+//				parser.methodBodyIndexOf(Parser.METHOD_END, addToSymTabEntry.getBodyStartPos());
+				 parser.parseMethodBody(addToSymTabEntry);
 
 				LinkedHashSet<String> methodBodyQualifiedNames = new LinkedHashSet<String>(); // = parser.getMethodBodyQualifiedNames();
 				for (String key : parser.getMethodBodyQualifiedNames())
@@ -533,13 +505,12 @@ public class ClassModel implements PropertyChangeInterface {
 				}
 			}
 			// remove getter with setter or addTo removeFrom removeAllFrom without
-//			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
 		}
 		for (String memberName : memberNames)
-    {
-		// remove getter with setter or addTo removeFrom removeAllFrom without
-					findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
-    }
+		{
+			// remove getter with setter or addTo removeFrom removeAllFrom without
+			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
+		}
 	}
 
 	private void handleAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
@@ -558,22 +529,21 @@ public class ClassModel implements PropertyChangeInterface {
 			tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
 		}
 	}
-	
 
-	private void addMemberToModel(Clazz clazz, Parser parser, LinkedHashMap<SymTabEntry, String> attributes, String memberName) 
+	private void addMemberToModel(Clazz clazz, Parser parser, LinkedHashMap<SymTabEntry, String> attributes, String memberName)
 	{
 		// add new methods
-		
-		if (memberName.startsWith(Parser.METHOD)) 
+
+		if (memberName.startsWith(Parser.METHOD))
 		{
 			addMemberAsMethod(clazz, memberName);
 		}
 		// add new attributes
-		else if (memberName.startsWith(Parser.ATTRIBUTE)) 
-		{		
+		else if (memberName.startsWith(Parser.ATTRIBUTE))
+		{
 			String[] split = memberName.split(":");
 			String attrName = split[1];
-			SymTabEntry symTabEntry = parser.getSymTab().get(memberName);			
+			SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
 			addMemberAsAttribut(clazz, attributes, attrName, symTabEntry);
 		}
 
@@ -581,15 +551,12 @@ public class ClassModel implements PropertyChangeInterface {
 
 		// TODO : add interfaces
 	}
-	
 
-	private void addMemberAsAttribut(Clazz clazz, LinkedHashMap<SymTabEntry, String> attributes, String attrName, SymTabEntry symTabEntry) 
+	private void addMemberAsAttribut(Clazz clazz, LinkedHashMap<SymTabEntry, String> attributes, String attrName, SymTabEntry symTabEntry)
 	{
 		// filter public static final constances
 		String modifiers = symTabEntry.getModifiers();
-		if (  (modifiers.indexOf("public") >= 0 || modifiers.indexOf("private") >= 0) 
-				&& modifiers.indexOf("static") >= 0 
-				&& modifiers.indexOf("final") >= 0) 
+		if ((modifiers.indexOf("public") >= 0 || modifiers.indexOf("private") >= 0) && modifiers.indexOf("static") >= 0 && modifiers.indexOf("final") >= 0)
 		{
 			// ignore
 			return;
@@ -598,24 +565,23 @@ public class ClassModel implements PropertyChangeInterface {
 		String type = symTabEntry.getType();
 		// include arrays
 		type = type.replace("[]", "");
-		
-		if (CGUtil.isPrimitiveType(type)) 
+
+		if (CGUtil.isPrimitiveType(type))
 		{
-			
-			if (!classContainsAttribut(clazz, attrName, symTabEntry.getType())) 
+
+			if (!classContainsAttribut(clazz, attrName, symTabEntry.getType()))
 			{
 				new Attribute().withClazz(clazz).withName(attrName).withType(symTabEntry.getType());
 			}
 			attributes.put(symTabEntry, Attribute.SIMPLE);
-		} 
-		else 
+		}
+		else
 		{
 			attributes.put(symTabEntry, Attribute.COMPLEX);
 		}
 	}
-	
 
-	private void addMemberAsMethod(Clazz clazz, String memberName) 
+	private void addMemberAsMethod(Clazz clazz, String memberName)
 	{
 		String[] split = memberName.split(":");
 		String signature = split[1];
@@ -623,31 +589,29 @@ public class ClassModel implements PropertyChangeInterface {
 		// filter internal generated methods
 		String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()";
 
-		if (filterString.indexOf(signature) < 0) 
+		if (filterString.indexOf(signature) < 0)
 		{
 			new Method().withClazz(clazz).withSignature(signature);
 		}
 	}
-	
 
-	private ArrayList<File> searchForJavaFiles(String includePathes, String packages, File srcFolder) 
+	private ArrayList<File> searchForJavaFiles(String includePathes, String packages, File srcFolder)
 	{
 		ArrayList<File> javaFiles = new ArrayList<File>();
 		String packagepath = packages.replace('.', '/');
 		String[] includes = includePathes.split("\\s+");
-		
-		for (String include : includes) 
+
+		for (String include : includes)
 		{
 			String newPath = srcFolder.getPath() + "/" + include + "/" + packagepath;
 			javaFiles.addAll(searchForJavaFiles(newPath));
 		}
 		return javaFiles;
 	}
-	
 
-	private void addJavaFilesToClasses(String packages, File srcFolder, ArrayList<File> javaFiles) 
+	private void addJavaFilesToClasses(String packages, File srcFolder, ArrayList<File> javaFiles)
 	{
-		for (File file : javaFiles) 
+		for (File file : javaFiles)
 		{
 			String filePath = file.getAbsolutePath();
 			filePath = filePath.replace(srcFolder.getPath(), "");
@@ -655,7 +619,7 @@ public class ClassModel implements PropertyChangeInterface {
 			int indexOfPackage = filePath.lastIndexOf(packages, filePath.length() - 1);
 			filePath = filePath.substring(indexOfPackage, filePath.length() - 5);
 
-			if (!classExists(filePath)) 
+			if (!classExists(filePath))
 			{
 				Clazz clazz = new Clazz(filePath);
 				classes.add(clazz);
@@ -663,119 +627,104 @@ public class ClassModel implements PropertyChangeInterface {
 		}
 	}
 
-	private String findSetterPrefix(String partnerTypeName) 
+	private String findSetterPrefix(String partnerTypeName)
 	{
 		int openAngleBracket = partnerTypeName.indexOf("<");
 		int closeAngleBracket = partnerTypeName.indexOf(">");
-		
-		if (openAngleBracket > -1 && closeAngleBracket > openAngleBracket) 
+
+		if (openAngleBracket > -1 && closeAngleBracket > openAngleBracket)
 		{
 			return "addTo";
-		} 
+		}
 		return "set";
 	}
-	
-	private String findRoleCard(Parser partnerParser, String searchString) 
+
+	private String findRoleCard(Parser partnerParser, String searchString)
 	{
 		String partnerTypeName;
 		SymTabEntry partnerSymTabEntry = partnerParser.getSymTab().get(searchString);
 		partnerTypeName = partnerSymTabEntry.getType();
-		
+
 		return findRoleCard(partnerTypeName);
 	}
-	
-	private String findRoleCard(String partnerTypeName) 
+
+	private String findRoleCard(String partnerTypeName)
 	{
 		String partnerCard = Role.ONE;
 		int _openAngleBracket = partnerTypeName.indexOf("<");
 		int _closeAngleBracket = partnerTypeName.indexOf(">");
-		if (_openAngleBracket > -1 && _closeAngleBracket > _openAngleBracket) 
+		if (_openAngleBracket > -1 && _closeAngleBracket > _openAngleBracket)
 		{
 			// partner to many
 			partnerCard = Role.MANY;
 		}
 		else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
 		{
-		   // it might be a ModelSet. Look if it starts with a clazz name
-		   String prefix = partnerTypeName.substring(0, partnerTypeName.length() - 3);
-		   for (Clazz clazz : getClasses())
-         {
-            if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
-            {
-               partnerCard = Role.MANY;
-               break;
-            }
-         }
+			// it might be a ModelSet. Look if it starts with a clazz name
+			String prefix = partnerTypeName.substring(0, partnerTypeName.length() - 3);
+			for (Clazz clazz : getClasses())
+			{
+				if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
+				{
+					partnerCard = Role.MANY;
+					break;
+				}
+			}
 		}
 		return partnerCard;
 	}
-	
 
-	private void tryToCreateAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String partnerAttrName, String partnerCard) 
+	private void tryToCreateAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String partnerAttrName, String partnerCard)
 	{
-		Role sourceRole = new Role()
-			.withName(partnerAttrName)
-			.withClazz(clazz)
-			.withCard(partnerCard);
-		
-		Role targetRole = new Role()
-			.withName(memberName)
-			.withClazz(partnerClass)
-			.withCard(card);
-		
-		if (!assocWithRolesExists(sourceRole, targetRole)) 
+		Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard);
+
+		Role targetRole = new Role().withName(memberName).withClazz(partnerClass).withCard(card);
+
+		if (!assocWithRolesExists(sourceRole, targetRole))
 		{
-			new Association()
-			.withSource(sourceRole)
-			.withTarget(targetRole);
-			
+			new Association().withSource(sourceRole).withTarget(targetRole);
+
 			clazz.addToSourceRoles(sourceRole);
 			partnerClass.addToTargetRoles(targetRole);
 		}
 	}
-	
 
-	private boolean classContainsAttribut(Clazz clazz, String attrName, String type) 
+	private boolean classContainsAttribut(Clazz clazz, String attrName, String type)
 	{
-		for (Attribute attr : clazz.getAttributes()) 
+		for (Attribute attr : clazz.getAttributes())
 		{
 			if (attrName.equals(attr.getName()) && type.equals(attr.getType()))
 				return true;
 		}
 		return false;
 	}
-	
 
-	private boolean classExists(String filePath) 
+	private boolean classExists(String filePath)
 	{
-		for (Clazz clazz  : getClasses()) 
+		for (Clazz clazz : getClasses())
 		{
-			if(clazz.getName().equals(filePath))
+			if (clazz.getName().equals(filePath))
 				return true;
 		}
 		return false;
 	}
-	
 
-	private boolean assocWithRolesExists(Role source, Role target) 
+	private boolean assocWithRolesExists(Role source, Role target)
 	{
-		for (Association assoc : getAssociations()) 
+		for (Association assoc : getAssociations())
 		{
-			if ( isEqual(source, target, assoc) || isEqual(target, source, assoc))
+			if (compareRoles(source, target, assoc) || compareRoles(target, source, assoc))
 				return true;
 		}
 		return false;
 	}
-	
 
-	private boolean isEqual(Role source, Role target, Association assoc) 
+	private boolean compareRoles(Role source, Role target, Association assoc)
 	{
-		return isEqual(assoc.getSource(),source) &&
-			 isEqual(assoc.getTarget() ,target);
+		return compareRoles(assoc.getSource(), source) && compareRoles(assoc.getTarget(), target);
 	}
-	
 
-	private boolean isEqual(Role first, Role second) 
+	private boolean compareRoles(Role first, Role second)
 	{
 		Clazz firstClass = first.getClazz();
 		String firstName = first.getName();
@@ -787,71 +736,68 @@ public class ClassModel implements PropertyChangeInterface {
 			return true;
 		return false;
 	}
-	
 
-	private Clazz findPartnerClass(String partnerTypeName) 
+	private Clazz findPartnerClass(String partnerTypeName)
 	{
-		
+
 		String partnerClassName = findPartnerClassName(partnerTypeName);
-		
-		for (Clazz partnerClass : classes) 
+
+		for (Clazz partnerClass : classes)
 		{
 
 			String shortClassName = CGUtil.shortClassName(partnerClass.getName());
 
-			if (partnerClassName.equals(shortClassName)) 
+			if (partnerClassName.equals(shortClassName))
 			{
 
 				return partnerClass;
 
 			}
 		}
-//		System.err.println("type note found : " + partnerTypeName);
+		// System.err.println("type note found : " + partnerTypeName);
 		return null;
 	}
 
-	private String findPartnerClassName(String partnerTypeName) 
+	private String findPartnerClassName(String partnerTypeName)
 	{
 		String partnerClassName;
 		int openAngleBracket = partnerTypeName.indexOf("<");
 		int closeAngleBracket = partnerTypeName.indexOf(">");
-		
-		if (openAngleBracket > -1 && closeAngleBracket > openAngleBracket) 
+
+		if (openAngleBracket > -1 && closeAngleBracket > openAngleBracket)
 		{
 			partnerClassName = partnerTypeName.substring(openAngleBracket + 1, closeAngleBracket);
-		} 
+		}
 		else if (partnerTypeName.endsWith("Set"))
 		{
-		   // TODO: should check for superclass ModelSet
-		   partnerClassName = partnerTypeName.substring(0, partnerTypeName.length()-3);
+			// TODO: should check for superclass ModelSet
+			partnerClassName = partnerTypeName.substring(0, partnerTypeName.length() - 3);
 		}
-		else 
+		else
 		{
 			partnerClassName = partnerTypeName;
 		}
 		return partnerClassName;
 	}
-	
 
-	private void findAndRemoveMethods(Clazz clazz, String memberName, String prefix) 
+	private void findAndRemoveMethods(Clazz clazz, String memberName, String prefix)
 	{
 		String name = StrUtil.upFirstChar(memberName);
 		String[] split = prefix.split(" ");
-		for (String post : split) 
+		for (String post : split)
 		{
 			Method method = findMethod(clazz, post + name + "(");
-			if (method != null) 
+			if (method != null)
 			{
 				clazz.removeFromMethods(method);
 			}
 		}
 	}
-	
 
-	private Method findMethod(Clazz clazz, String name) 
+	private Method findMethod(Clazz clazz, String name)
 	{
 		LinkedHashSet<Method> methods = clazz.getMethods();
-		for (Method method : methods) 
+		for (Method method : methods)
 		{
 			if (method.getSignature().contains(name))
 				return method;
@@ -861,49 +807,54 @@ public class ClassModel implements PropertyChangeInterface {
 
 	// ==========================================================================
 
-	private ArrayList<File> searchForJavaFiles(String path) 
+	private ArrayList<File> searchForJavaFiles(String path)
 	{
 		ArrayList<File> javaFiles = new ArrayList<File>();
 		File file = new File(path);
-		if (file.exists() && file.isDirectory()) 
+		if (file.exists() && file.isDirectory())
 		{
-			File[] listFiles = file.listFiles(new FilenameFilter() 
+			File[] listFiles = file.listFiles(new FilenameFilter()
 			{
 				@Override
-				public boolean accept(File file, String string) 
+				public boolean accept(File file, String string)
 				{
 					return string.toLowerCase().endsWith(".java");
 				}
 			});
 			Collections.addAll(javaFiles, listFiles);
-			File[] directory = file.listFiles(new FilenameFilter() 
+			File[] directory = file.listFiles(new FilenameFilter()
 			{
 				@Override
-				public boolean accept(File file, String string) 
+				public boolean accept(File file, String string)
 				{
 					return file.isDirectory();
 				}
 			});
-			for (File dir : directory) {
+			for (File dir : directory)
+			{
 				javaFiles.addAll(searchForJavaFiles(dir.getPath()));
 			}
 		}
 		return javaFiles;
 	}
 
-	public Object get(String attrName) {
+	public Object get(String attrName)
+	{
 		int pos = attrName.indexOf('.');
 		String attribute = attrName;
 
-		if (pos > 0) {
+		if (pos > 0)
+		{
 			attribute = attrName.substring(0, pos);
 		}
 
-		if (PROPERTY_CLASSES.equalsIgnoreCase(attrName)) {
+		if (PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+		{
 			return getClasses();
 		}
 
-		if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName)) {
+		if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName))
+		{
 			return getAssociations();
 		}
 
@@ -912,23 +863,28 @@ public class ClassModel implements PropertyChangeInterface {
 
 	// ==========================================================================
 
-	public boolean set(String attrName, Object value) {
-		if (PROPERTY_CLASSES.equalsIgnoreCase(attrName)) {
+	public boolean set(String attrName, Object value)
+	{
+		if (PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+		{
 			addToClasses((Clazz) value);
 			return true;
 		}
 
-		if ((PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName)) {
+		if ((PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+		{
 			removeFromClasses((Clazz) value);
 			return true;
 		}
 
-		if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName)) {
+		if (PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName))
+		{
 			addToAssociations((Association) value);
 			return true;
 		}
 
-		if ((PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName)) {
+		if ((PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+		{
 			removeFromAssociations((Association) value);
 			return true;
 		}
@@ -940,20 +896,22 @@ public class ClassModel implements PropertyChangeInterface {
 
 	protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
-   private String currentTypeCard;
-   
-   public String getCurrentTypeCard()
-   {
-      return currentTypeCard;
-   }
+	private String currentTypeCard;
 
-	public PropertyChangeSupport getPropertyChangeSupport() {
+	public String getCurrentTypeCard()
+	{
+		return currentTypeCard;
+	}
+
+	public PropertyChangeSupport getPropertyChangeSupport()
+	{
 		return listeners;
 	}
 
 	// ==========================================================================
 
-	public void removeYou() {
+	public void removeYou()
+	{
 		removeAllFromClasses();
 		removeAllFromAssociations();
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -984,193 +942,472 @@ public class ClassModel implements PropertyChangeInterface {
 			className = secondStackTraceElement.getClassName();
 			methodName = secondStackTraceElement.getMethodName();
 		}
-		
+
 		// parse the model creation file
 		Clazz modelCreationClass = getOrCreateClazz(className);
-		
+
 		parser = modelCreationClass.getOrCreateParser(rootDir);
 
 		String signature = Parser.METHOD + ":" + methodName + "()";// TODO should work for methods with params, too. Parse to method end and search in symtab.
-//		int pos = parser.indexOf(signature);
+
+		rescanCode();
 
 		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
 
 		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
+		@SuppressWarnings("unchecked")
 		LinkedHashMap<String, LocalVarTableEntry> localVarTable = (LinkedHashMap<String, LocalVarTableEntry>) parser.getLocalVarTable().clone();
 		// insert code
 		int currentInsertPos = parser.methodCallIndexOf(Parser.NAME_TOKEN + ":model", symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-		currentInsertPos = parser.IndexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos, symTabEntry.getEndPos()) + 1;
+		currentInsertPos = parser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1, symTabEntry.getEndPos() - 1) + 1;
 		currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
-		
-		
-		LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
-		for (Clazz clazz : getClasses())
-		{
-			String modelClassName = clazz.getName();
-			handledClazzes.put(modelClassName, clazz);
-			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
-	
-			if (entry == null)
-			{
-				// insert code for new Clazz()
-				currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, symTabEntry, clazz, handledClazzes, currentInsertPos);			
-			}
-			else 
-			{				
-				// check code for clazz			
-				currentInsertPos = checkCodeForClazz(entry, callMethodName, modelCreationClass, symTabEntry, clazz, currentInsertPos);
-			}
-			parser.indexOf(Parser.CLASS_END);
-			symTabEntry = parser.getSymTab().get(signature);
-		}
 
+		currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, localVarTable, currentInsertPos);
+
+		currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, localVarTable, currentInsertPos);
+
+		writeToFile(modelCreationClass);
+	}
+
+	private void writeToFile(Clazz modelCreationClass)
+	{
 		modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
 	}
 
-	private int checkCodeForClazz( LocalVarTableEntry entry, String callMethodName, Clazz modelCreationClass, 
-																 SymTabEntry symTabEntry, Clazz clazz, int currentInsertPos)
-  {
-//		String modelClassName = clazz.getName();
-	  // check code for attribut
-  	LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
-  	for (Attribute attribute : clazzAttributes)
-    {
-  		if (!hasAttribute(attribute, entry)) 
-  		{
-  		// find insert position	
-  			String token =  Parser.NAME_TOKEN + ":" + entry.getName();		
-				int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-				token = Parser.NAME_TOKEN + ":;";			
-				currentInsertPos = parser.IndexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
-  			// add attribut
-				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
-				currentInsertPos = insertAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
-				currentInsertPos = insertCreationCode(" /* add attribut */", currentInsertPos, modelCreationClass, symTabEntry);
-				currentInsertPos++;
-  		}
-  		// set insert position to next line
-  		currentInsertPos++;
-    }
-  
-  // check code for method
-  	LinkedHashSet<Method> methods = clazz.getMethods();
-  	for (Method method : methods)
-    {
-	    
-    }
+	LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
 
-  // check code for assoc
-  	LinkedHashSet<Role> sourceRoles = clazz.getSourceRoles();
-  	for (Role role : sourceRoles)
-    {
-	    
-    }
-  	
-  	return currentInsertPos;
-  }
+	private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature, LinkedHashMap<String, LocalVarTableEntry> localVarTable,
+	    int currentInsertPos)
+	{
 
-	private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, 
-																							SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, 
-																							Clazz> handledClazzes, int currentInsertPos)
-  {
-		String modelClassName = clazz.getName();
-	  // no creation code yet. Insert it.
-	  currentInsertPos = insertCreationClassCode( currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
-	  
+		for (Clazz clazz : getClasses())
+		{
+			String modelClassName = clazz.getName();
 
-	  // insert code for new Attr()
-	  LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
-	  for (Attribute attribute : clazzAttributes)
-	  { 	
-	  	currentInsertPos = insertAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
-	  	currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);	
-	  }
-	  currentInsertPos = 1 +insertCreationCode( ";", currentInsertPos -1, modelCreationClass, symTabEntry);
+			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
 
-	  // insert code for new Method()
-	  LinkedHashSet<Method> methods = clazz.getMethods();
-	  for (Method method : methods)
-	  {
-	  	currentInsertPos = insertMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+			if (entry == null)
+			{
+				// insert code for new Clazz()
+				handledClazzes.put(modelClassName, clazz);
+				currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature), clazz, handledClazzes, currentInsertPos);
 
-	  }
-	  // insert code for new Assoc
-	  
-	  LinkedHashSet<Role> roles = clazz.getSourceRoles();
-	  roles.addAll(clazz.getTargetRoles());
-	  currentInsertPos = handleAssocs(roles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
-	  
-	  return currentInsertPos;
-  }
+			}
 
-	private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, 
-													SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
-  {
-		ArrayList<Association> handledAssocs = new ArrayList<Association>();
-		
-		for (Role firstRole : roles)
-    {
-	    Association assoc = firstRole.getAssoc();
-	    
-	    if(assocHasHandled(assoc, handledAssocs)) {
-	    	continue;
-	    }
-	    handledAssocs.add(assoc);
-	    
-	    Role secondRole;
-	    
-	    if (assoc.getTarget() != firstRole)
-	    	secondRole = assoc.getTarget();
-	    else
-	    	secondRole = assoc.getSource();
-	    
-	    String secondClassName = secondRole.getClazz().getName();
-	    
-	    if (handledClazzes.containsKey(secondClassName)) 
-	    {
-	    	currentInsertPos = insertAssocCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
-	    }
-    }
+			writeToFile(modelCreationClass);
+		}
 		return currentInsertPos;
-  }
+	}
+
+	private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature, LinkedHashMap<String, LocalVarTableEntry> localVarTable,
+	    int currentInsertPos)
+	{
+		for (Clazz clazz : getClasses())
+		{
+			String modelClassName = clazz.getName();
+			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
+
+			if (entry != null)
+			{
+				// check code for clazz
+				handledClazzes.put(modelClassName, clazz);
+				currentInsertPos = checkCodeForClazz(entry, signature, callMethodName, modelCreationClass, refreshMethodScan(signature), clazz, handledClazzes, currentInsertPos);
+			}
+			writeToFile(modelCreationClass);
+
+		}
+		return currentInsertPos;
+	}
+
+	private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
+	    LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos)
+	{
+		rescanCode();
+		// check code for attribut
+		LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+
+		for (Attribute attribute : clazzAttributes)
+		{
+
+			if (!hasAttribute(attribute, entry))
+			{
+				writeToFile(modelCreationClass);
+				// find insert position
+				String token = Parser.NAME_TOKEN + ":" + entry.getName();
+				int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+				token = Parser.NAME_TOKEN + ":;";
+				currentInsertPos = parser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+				// add attribut
+				currentInsertPos = insertCreationCode("\n			/*add attribut*/", currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos = insertCreationAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos++;
+			}
+
+			// set insert position to next line
+			currentInsertPos++;
+			symTabEntry = refreshMethodScan(signature);
+		}
+
+		// check code for method
+		LinkedHashSet<Method> methods = clazz.getMethods();
+
+		for (Method method : methods)
+		{
+			currentInsertPos = tryToInsertMethod(symTabEntry, method, currentInsertPos, modelCreationClass);
+		}
+
+		// check code for assoc
+		LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+
+		if (!clazz.getSourceRoles().isEmpty())
+			roles.addAll(clazz.getSourceRoles());
+
+		if (!clazz.getTargetRoles().isEmpty())
+			roles.addAll(clazz.getTargetRoles());
+
+		for (Role role : roles)
+		{
+			String sourceClassName = role.getAssoc().getSource().getClazz().getName();
+			String targetClassName = role.getAssoc().getTarget().getClazz().getName();
+
+			if (handledClazzes.containsKey(sourceClassName) && handledClazzes.containsKey(targetClassName))
+			{
+
+				symTabEntry = refreshMethodScan(signature);
+
+				int indexOfSourceClassPos = positionOfClazzDecl(sourceClassName);
+				int indexOfTargetClassPos = positionOfClazzDecl(targetClassName);
+				int resultPos = Math.max(indexOfSourceClassPos, indexOfTargetClassPos) + 3;
+				currentInsertPos = Math.max(resultPos, currentInsertPos);
+				currentInsertPos = tryToInsertAssoc(symTabEntry, role, currentInsertPos, modelCreationClass);
+			}
+
+		}
+		return currentInsertPos;
+	}
+
+	private int positionOfClazzDecl(String sourceClassName)
+	{
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		for (String localVarTableEntityName : localVarTable.keySet())
+		{
+			LocalVarTableEntry localVarTableEntry = localVarTable.get(localVarTableEntityName);
+			ArrayList<String> arrayList = localVarTableEntry.getInitSequence().get(0);
+			String string = "";
+			if (arrayList.size() > 1)
+			{
+				string = arrayList.get(1).replaceAll("\"", "");
+
+				if (sourceClassName.equals(string))
+				{
+					return localVarTableEntry.getEndPos();
+				}
+			}
+		}
+		return -1;
+	}
+
+	private SymTabEntry refreshMethodScan(String signature)
+	{
+		SymTabEntry symTabEntry;
+		rescanCode();
+		symTabEntry = parser.getSymTab().get(signature);
+		parser.parseMethodBody(symTabEntry);
+		return symTabEntry;
+	}
+
+	private void rescanCode()
+	{
+		parser.indexOf(Parser.CLASS_END);
+	}
+
+	private int tryToInsertAssoc(SymTabEntry symTabEntry, Role role, int currentInsertPos, Clazz modelCreationClass)
+	{
+		parser.parseMethodBody(symTabEntry);
+		boolean assocIsNew = true;
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+
+		for (String string : localVarTable.keySet())
+		{
+
+			if (string.startsWith("Association_"))
+			{
+				LocalVarTableEntry localVarTableEntry = localVarTable.get(string);
+
+				if (compareAssocDecl(role.getAssoc(), localVarTableEntry))
+				{
+					assocIsNew = false;
+					break;
+				}
+			}
+		}
+
+		if (assocIsNew)
+		{
+			String name = CGUtil.shortClassName(role.getClazz().getName()) + "Class";
+			name = StrUtil.downFirstChar(name);
+			LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
+			int insertPos = localVarTableEntry.getEndPos() + 3;
+			insertPos = currentInsertPos;
+			currentInsertPos = insertCreationCode("      /* add assoc */", insertPos, modelCreationClass, symTabEntry);
+			currentInsertPos = insertCreationAssociationCode(role.getAssoc(), currentInsertPos, modelCreationClass, symTabEntry);
+		}
+		return currentInsertPos;
+	}
+
+	private boolean compareAssocDecl(Association assoc, LocalVarTableEntry localVarTableEntry)
+	{
+
+		if (compareAssocs(assoc, localVarTableEntry.getInitSequence()))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean compareAssocs(Association assoc, ArrayList<ArrayList<String>> initSequence)
+	{
+
+		String sourceInitSequence = findInitSequenceAsString(".withSource", initSequence);
+
+		String targetInitSequence = findInitSequenceAsString(".withTarget", initSequence);
+
+		String sourceSequence = getInitSequenceAsString(".withSource", assoc);
+
+		String targetSequence = getInitSequenceAsString(".withTarget", assoc);
+
+		if ((sourceInitSequence.equals(sourceSequence) && targetInitSequence.equals(targetSequence))
+		    || (targetInitSequence.equals(sourceSequence) && sourceInitSequence.equals(targetSequence)))
+			return true;
+
+		return false;
+	}
+
+	private String getInitSequenceAsString(String string, Association assoc)
+	{
+		String sequence = string + "(";
+		Role role = null;
+		if (".withSource".equals(string))
+			role = assoc.getSource();
+		else if (".withTarget".equals(string))
+			role = assoc.getTarget();
+		else
+			return null;
+		sequence += "\"" + role.getName() + "\"";
+		String shortClassName = CGUtil.shortClassName(role.getClazz().getName());
+		String clazzString = StrUtil.downFirstChar(shortClassName) + "Class";
+		sequence += "," + clazzString + ",";
+		sequence += "\"" + role.getCard() + "\"" + ")";
+		return sequence;
+	}
+
+	private ArrayList<String> findSequence(String searchString, ArrayList<ArrayList<String>> initSequence)
+	{
+		for (ArrayList<String> sequence : initSequence)
+		{
+			String sequenceString = "";
+			for (String string : sequence)
+			{
+				sequenceString += string;
+			}
+			if (sequenceString.startsWith(searchString))
+			{
+				return sequence;
+			}
+		}
+		return null;
+	}
+
+	private String findInitSequenceAsString(String searchString, ArrayList<ArrayList<String>> initSequence)
+	{
+		for (ArrayList<String> sequence : initSequence)
+		{
+			String sequenceString = "";
+			for (String string : sequence)
+			{
+				sequenceString += string;
+			}
+			if (sequenceString.startsWith(searchString))
+			{
+				return sequenceString;
+			}
+		}
+		return null;
+	}
+
+	private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
+	{
+		parser.parseMethodBody(symTabEntry);
+		boolean methodIsNew = true;
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+
+		for (String string : localVarTable.keySet())
+		{
+
+			if (string.startsWith("Method_"))
+			{
+				LocalVarTableEntry localVarTableEntry = localVarTable.get(string);
+
+				if (compareMethodDecl(method, localVarTableEntry))
+				{
+					methodIsNew = false;
+					break;
+				}
+			}
+		}
+
+		if (methodIsNew)
+		{
+			String name = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
+			name = StrUtil.downFirstChar(name);
+			LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
+			int insertPos = localVarTableEntry.getEndPos() + 3;
+			currentInsertPos = insertCreationCode("      /* add method */", insertPos, modelCreationClass, symTabEntry);
+			currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+			writeToFile(modelCreationClass);
+		}
+
+		return currentInsertPos;
+	}
+
+	private boolean compareMethodDecl(Method method, LocalVarTableEntry localVarTableEntry)
+	{
+		String shortClassName = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
+		shortClassName = StrUtil.downFirstChar(shortClassName);
+		String signature = method.getSignature();
+
+		String methodClass = "";
+		String methodSignature = "";
+		ArrayList<ArrayList<String>> initSequence = localVarTableEntry.getInitSequence();
+
+		for (ArrayList<String> arrayList : initSequence)
+		{
+
+			if (".".equals(arrayList.get(0)) && "withClazz".equals(arrayList.get(1)))
+			{
+				methodClass = arrayList.get(3);
+			}
+			else if (".".equals(arrayList.get(0)) && "withSignature".equals(arrayList.get(1)))
+			{
+				methodSignature = arrayList.get(3).replace("\"", "");
+			}
+		}
+
+		if (StrUtil.stringEquals(shortClassName, methodClass) && StrUtil.stringEquals(signature, methodSignature))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
+	    int currentInsertPos)
+	{
+		String modelClassName = clazz.getName();
+		// no creation code yet. Insert it.
+		currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
+
+		// insert code for new Attr()
+		LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+		for (Attribute attribute : clazzAttributes)
+		{
+			currentInsertPos = insertCreationAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
+			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+		}
+		currentInsertPos = 1 + insertCreationCode(";", currentInsertPos - 1, modelCreationClass, symTabEntry);
+
+		// insert code for new Method()
+		LinkedHashSet<Method> methods = clazz.getMethods();
+		for (Method method : methods)
+		{
+			currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+
+		}
+
+		// insert code for new Assoc
+		LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+
+		if (!clazz.getSourceRoles().isEmpty())
+			roles.addAll(clazz.getSourceRoles());
+
+		if (!clazz.getTargetRoles().isEmpty())
+			roles.addAll(clazz.getTargetRoles());
+
+		currentInsertPos = handleAssocs(roles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
+
+		return currentInsertPos;
+	}
+
+	private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+	{
+		ArrayList<Association> handledAssocs = new ArrayList<Association>();
+		for (Role firstRole : roles)
+		{
+			Association assoc = firstRole.getAssoc();
+
+			if (assocHasHandled(assoc, handledAssocs))
+			{
+				continue;
+			}
+			handledAssocs.add(assoc);
+
+			Role secondRole;
+
+			if (assoc.getTarget() != firstRole)
+				secondRole = assoc.getTarget();
+			else
+				secondRole = assoc.getSource();
+
+			String secondClassName = secondRole.getClazz().getName();
+
+			if (handledClazzes.containsKey(secondClassName))
+			{
+				currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
+			}
+
+			writeToFile(modelCreationClass);
+		}
+		return currentInsertPos;
+	}
 
 	private boolean assocHasHandled(Association assoc, ArrayList<Association> handledAssocs)
-  {
-  	Role source = assoc.getSource();
-  	Role target = assoc.getTarget();
-  	
-	  for (Association association : handledAssocs)
-    {
+	{
+		Role source = assoc.getSource();
+		Role target = assoc.getTarget();
 
-	  	Role source2 = association.getSource();
-	  	Role target2 = association.getTarget();
-	  	
-			if ( isEqual(source, target2) && isEqual(target, source2))
+		for (Association association : handledAssocs)
+		{
+
+			Role source2 = association.getSource();
+			Role target2 = association.getTarget();
+
+			if (compareRoles(source, target2) && compareRoles(target, source2))
 				return true;
 
-    }
-	  return false;
-  }
+		}
+		return false;
+	}
 
 	private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
-  {
+	{
 		StringBuilder text = new StringBuilder("\n      Clazz localVar = new Clazz(\"className\")\n");
 
-		CGUtil.replaceAll(text, 
-				"localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class",
-				"className", modelClassName);
-		
-	  return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
-  }
+		CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class", "className", modelClassName);
 
-	private int insertAttributeCode(Attribute attribute, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
-  {
+		currentInsertPos = checkImport("Clazz", currentInsertPos, modelCreationClass, symTabEntry);
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+
+	private int insertCreationAttributeCode(Attribute attribute, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
 		StringBuilder text = new StringBuilder("      .withAttribute(\"attributeName\", \"attributeType\"attributeInit)");
-		
+
 		// has init value
 		String initialization = attribute.getInitialization();
-		if(initialization != null) 
+		if (initialization != null)
 		{
 			initialization = ", \"" + initialization + "\"";
 		}
@@ -1178,199 +1415,214 @@ public class ClassModel implements PropertyChangeInterface {
 		{
 			initialization = "";
 		}
-		
-		CGUtil.replaceAll(text, 
-				"attributeName", attribute.getName(),
-				"attributeType", attribute.getType(),
-				"attributeInit", initialization);
-		return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
 
-  }
+		CGUtil.replaceAll(text, "attributeName", attribute.getName(), "attributeType", attribute.getType(), "attributeInit", initialization);
 
-	private int insertMethodeCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
-  {
-		
-		StringBuilder text = new StringBuilder("\n      new Method()" +
-																					 "\n			.withClazz(clazzName)" +
-																					 "\n			.withSignature(\"methodSignature\");\n");
-		
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+
+	}
+
+	private int insertCreationMethodeCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+
+		StringBuilder text = new StringBuilder("\n      new Method()" + "\n			.withClazz(clazzName)" + "\n			.withSignature(\"methodSignature\");\n");
+
 		String clazzName = method.getClazz().getName();
 		clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
 		String signature = method.getSignature();
-		
-		CGUtil.replaceAll(text, 
-				"clazzName", clazzName,
-				"methodSignature", signature);
-		
-		return insertCreationCode( text, currentInsertPos, modelCreationClass, symTabEntry);
-  }
-	
 
-	private int insertAssocCode(Association assoc, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+		CGUtil.replaceAll(text, "clazzName", clazzName, "methodSignature", signature);
+
+		currentInsertPos = checkImport("Method", currentInsertPos, modelCreationClass, symTabEntry);
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+
+	private int checkImport(String string, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
 	{
-		StringBuilder text = new StringBuilder("\n      new Association()" +
-				 "\n			.withSource(\"sourceName\", sourceClazz, \"sourceRole\"sourceKind)" +
-				 "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\"targetKind);\n");
-		
+		parser.indexOf(Parser.CLASS_END);
+		LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
+
+		for (String key : symTab.keySet())
+		{
+			if (key.startsWith(Parser.IMPORT) && (key.endsWith("." + string) || key.endsWith(".ClassModel")))
+			{
+				String path = key.replace(Parser.IMPORT + ":", "");
+				int lastIndexOf = path.lastIndexOf('.') + 1;
+				String name = path.substring(lastIndexOf);
+				String pathString = path.substring(0, lastIndexOf - 1);
+				result.put(name, pathString);
+			}
+		}
+
+		if (!result.containsKey(string) && result.containsKey("ClassModel"))
+		{
+			String symTabEntryName = result.get("ClassModel");
+			int endOfImports = parser.getEndOfImports() + 1;
+			String importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + string + ";";
+			insertCreationCode(importString, endOfImports, modelCreationClass, symTabEntry);
+			currentInsertPos += importString.length();
+		}
+
+		return currentInsertPos;
+	}
+
+	private int insertCreationAssociationCode(Association assoc, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+		StringBuilder text = new StringBuilder("\n      new Association()" + "\n			.withSource(\"sourceName\", sourceClazz, \"sourceRole\"sourceKind)"
+		    + "\n			.withTarget(\"targetName\", targetClazz, \"targetRole\"targetKind);\n");
+
 		String sourceRole = assoc.getSource().getCard();
 		String sourceName = assoc.getSource().getName();
-		String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
-												+ "Class";
+		String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName())) + "Class";
 		String sourceKind = assoc.getSource().getKind();
-		if( !Role.VANILLA.equals(sourceKind)) 
+		if (!Role.VANILLA.equals(sourceKind))
 		{
-			sourceKind = ", \"" +sourceKind+"\"";
-		}	
+			sourceKind = ", \"" + sourceKind + "\"";
+		}
 		else
 		{
 			sourceKind = "";
 		}
 
-		String targetRole = assoc.getTarget().getCard(); 
+		String targetRole = assoc.getTarget().getCard();
 		String targetName = assoc.getTarget().getName();
-		String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
-												+ "Class";
+		String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName())) + "Class";
 		String targetKind = assoc.getTarget().getKind();
-		if( !Role.VANILLA.equals(targetKind)) 
+		if (!Role.VANILLA.equals(targetKind))
 		{
-			targetKind = ", \"" +targetKind +"\"";
+			targetKind = ", \"" + targetKind + "\"";
 		}
 		else
 		{
 			targetKind = "";
 		}
-		
-		CGUtil.replaceAll(text, 
-				"sourceName", sourceName,
-				"sourceClazz", sourceClazz,
-				"sourceRole", sourceRole,
-				"sourceKind", sourceKind,
-				"targetName", targetName,
-				"targetClazz", targetClazz,
-				"targetRole", targetRole,
-				"targetKind", targetKind);
 
+		CGUtil.replaceAll(text, "sourceName", sourceName, "sourceClazz", sourceClazz, "sourceRole", sourceRole, "sourceKind", sourceKind, "targetName", targetName, "targetClazz",
+		    targetClazz, "targetRole", targetRole, "targetKind", targetKind);
+
+		currentInsertPos = checkImport("Association", currentInsertPos, modelCreationClass, symTabEntry);
 		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
 	}
-	
+
 	private boolean hasAttribute(Attribute attribute, LocalVarTableEntry entry)
-  {	
+	{
 		String name = attribute.getName();
 		String type = attribute.getType();
 		ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
 		for (ArrayList<String> sequencePart : initSequence)
-    {
-			if ("withAttribute".equals(sequencePart.get(0))) 
+		{
+			if ("withAttribute".equals(sequencePart.get(0)))
 			{
 				String sequencePartName = sequencePart.get(1).replace("\"", "");
 				String sequencePartType = sequencePart.get(2).replace("\"", "");
-				if (StrUtil.stringEquals(name, sequencePartName) && StrUtil.stringEquals(type, sequencePartType) )
+				if (StrUtil.stringEquals(name, sequencePartName) && StrUtil.stringEquals(type, sequencePartType))
 					return true;
 			}
-    }
+		}
 		return false;
-  }
+	}
 
 	private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
-  {   
+	{
 		parser.getFileBody().insert(insertPos, text.toString());
 		modelCreationClass.setFileHasChanged(true);
 		return insertPos + text.length();
-  }
-	
+	}
+
 	private int insertCreationCode(String string, int insertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
-  { 
+	{
 		StringBuilder text = new StringBuilder(string);
-		return insertCreationCode( text, insertPos, modelCreationClass, symTabEntry);
-  }
-	
-	private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser) {
+		return insertCreationCode(text, insertPos, modelCreationClass, symTabEntry);
+	}
+
+	private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser)
+	{
 		Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
-	  for (String qualifiedName : methodBodyQualifiedNames)
-	  {
-	  	if (qualifiedName.contains(methodCall))
-	  	{
-	  		int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
-	  		String substring = parser.getFileBody().substring(callPos, methodEndPos);
-	  		return callPos + substring.indexOf(';') + 1;
-	  	}
-	  }
-	  return -1;
+		for (String qualifiedName : methodBodyQualifiedNames)
+		{
+			if (qualifiedName.contains(methodCall))
+			{
+				int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
+				String substring = parser.getFileBody().substring(callPos, methodEndPos);
+				return callPos + substring.indexOf(';') + 1;
+			}
+		}
+		return -1;
 	}
 
 	private Clazz getOrCreateClazz(String className)
-  {
-	  for (Clazz clazz : classes)
-	  {
-	    if (StrUtil.stringEquals(clazz.getName(), className)) 
-	    {
-	    	return clazz;
-	    }
-	  }    
-	  return new Clazz(className);
-  }
+	{
+		for (Clazz clazz : classes)
+		{
+			if (StrUtil.stringEquals(clazz.getName(), className))
+			{
+				return clazz;
+			}
+		}
+		return new Clazz(className);
+	}
 
-   private LocalVarTableEntry findInLocalVarTable(LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name)
-   {
-  	 for (LocalVarTableEntry entry : localVarTable.values())
-  	 {
-  		 if ("Clazz".equals(entry.getType()))
-  		 {
-  			 ArrayList<String> initSequence = entry.getInitSequence().get(0);
-  			 if (initSequence.size() == 2 && initSequence.get(0).startsWith("new"))
-  			 {
-  				 String className = initSequence.get(1).replaceAll("\"", "");
-  				 if (StrUtil.stringEquals(name, className))
-  				 {
-  					 return entry;
-  				 }
-  			 }
-  		 }
-  	 }
+	private LocalVarTableEntry findInLocalVarTable(LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name)
+	{
+		for (LocalVarTableEntry entry : localVarTable.values())
+		{
+			if ("Clazz".equals(entry.getType()))
+			{
+				ArrayList<String> initSequence = entry.getInitSequence().get(0);
+				if (initSequence.size() == 2 && initSequence.get(0).startsWith("new"))
+				{
+					String className = initSequence.get(1).replaceAll("\"", "");
+					if (StrUtil.stringEquals(name, className))
+					{
+						return entry;
+					}
+				}
+			}
+		}
 
-  	 return null;
-   }
+		return null;
+	}
 
-   public String getMemberType(String currentType, String varName)
-   {
-      String result = null;
-      
-      for(Clazz clazz : this.getClasses())
-      {
-         String name = CGUtil.shortClassName(clazz.getName());
-         if (StrUtil.stringEquals(name, currentType))
-         {
-            for (Attribute attr : clazz.getAttributes())
-            {
-               if (StrUtil.stringEquals(attr.getName(), varName))
-               {
-                  return attr.getType();
-               }
-            }
-            
-            for (Role role : clazz.getSourceRoles())
-            {
-               role = role.getPartnerRole();
-               if (StrUtil.stringEquals(role.getName(), varName))
-               {
-                  currentTypeCard = role.getCard();
-                  return CGUtil.shortClassName(role.getClazz().getName());
-               }
-            }
+	public String getMemberType(String currentType, String varName)
+	{
+		String result = null;
 
-            for (Role role : clazz.getTargetRoles())
-            {
-               role = role.getPartnerRole();
-               if (StrUtil.stringEquals(role.getName(), varName))
-               {
-                  currentTypeCard = role.getCard();
-                  return CGUtil.shortClassName(role.getClazz().getName());
-               }
-            }
-         }
-      }
-      
-      return result;
-   }
+		for (Clazz clazz : this.getClasses())
+		{
+			String name = CGUtil.shortClassName(clazz.getName());
+			if (StrUtil.stringEquals(name, currentType))
+			{
+				for (Attribute attr : clazz.getAttributes())
+				{
+					if (StrUtil.stringEquals(attr.getName(), varName))
+					{
+						return attr.getType();
+					}
+				}
+
+				for (Role role : clazz.getSourceRoles())
+				{
+					role = role.getPartnerRole();
+					if (StrUtil.stringEquals(role.getName(), varName))
+					{
+						currentTypeCard = role.getCard();
+						return CGUtil.shortClassName(role.getClazz().getName());
+					}
+				}
+
+				for (Role role : clazz.getTargetRoles())
+				{
+					role = role.getPartnerRole();
+					if (StrUtil.stringEquals(role.getName(), varName))
+					{
+						currentTypeCard = role.getCard();
+						return CGUtil.shortClassName(role.getClazz().getName());
+					}
+				}
+			}
+		}
+
+		return result;
+	}
 }
-

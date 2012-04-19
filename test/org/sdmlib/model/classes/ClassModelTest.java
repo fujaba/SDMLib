@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -122,7 +122,9 @@ public class ClassModelTest
       Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
       .withAttribute("name", "String")
       .withAttribute("type", "String")
-      .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
+      .withAttribute("initSequence", "ArrayList<ArrayList<String>>")
+      .withAttribute("startPos", "int")
+      .withAttribute("endPos", "int");
       
       
       Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
