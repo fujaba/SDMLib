@@ -11,6 +11,7 @@
     items2 [label=<<table border='1' cellborder='1' cellspacing='0'> <tr> <td><u>items2</u></td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>value</td></tr> </table></td></tr> </table>>];
     
     
+    GroupAccountupdateBalances [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>GroupAccount::updateBalances()</td></tr></table>>];
     totalvaluesum [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>total = value.sum()</td></tr></table>>];
     sharetotalpersonssize [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>share = total / persons.size()</td></tr></table>>];
     foreachperson [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>foreach person</td></tr></table>>];
@@ -22,6 +23,7 @@
     this -> persons [headlabel = "get" taillabel = "" arrowhead = "none" ];
     persons -> person [headlabel = "" taillabel = "in" arrowhead = "none" ];
     person -> items2 [headlabel = "get" taillabel = "" arrowhead = "none" ];
+    GroupAccountupdateBalances -> totalvaluesum [style = "dotted", arrowhead = "vee"];
     totalvaluesum -> sharetotalpersonssize [style = "dotted", arrowhead = "vee"];
     items -> totalvaluesum [style = "dotted" arrowhead = "none"];
     sharetotalpersonssize -> foreachperson [style = "dotted", arrowhead = "vee"];

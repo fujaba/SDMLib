@@ -377,7 +377,8 @@ public class TransformOp implements PropertyChangeInterface
 
       Parser parser = methodClass.getOrCreateParser(rootDir);
 
-      String signature = Parser.METHOD + ":" + this.getName().substring(pos + 1);
+      String plainSignature = this.getName().substring(pos + 1);
+      String signature = Parser.METHOD + ":" + plainSignature;
 
       pos = parser.indexOf(signature);
 
@@ -391,11 +392,15 @@ public class TransformOp implements PropertyChangeInterface
          StatementEntry statementList = parser.getStatementList();
          LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
 
-         Statement previousStat = null; 
          Statement currentStat = null;
          StringBuilder currentStatText;
          currentOpObj = null;
          currentType = null;
+         
+         // add stat for method signature
+         currentStat = new Statement()
+         .withText(CGUtil.shortClassName(className) + "::" + plainSignature)
+         .withTransformOp(this);
          
          currentStat = handleStatementList(usedOpObjectNames, opObjTable,
             model, typeTable, statementList, localVarTable, currentStat);
