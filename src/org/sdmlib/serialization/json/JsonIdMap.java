@@ -27,7 +27,7 @@ public class JsonIdMap extends IdMap{
 	}
 
 	public JsonObject toJsonObject(Object object) {
-		return toJsonObject(object, new JsonFilter());
+		return toJsonObject(object,  new JsonFilter());
 	}
 
 	private JsonObject toJsonObject(Object entity, IdMapFilter filter) {
@@ -49,6 +49,9 @@ public class JsonIdMap extends IdMap{
 		Object referenceObject = prototyp.getSendableInstance(true);
 		if (properties != null) {
 			for (String property : properties) {
+				if(jsonProp.has(property)){
+					throw new RuntimeException("Property duplicate:"+property+"("+className+")");
+				}
 				Object value = prototyp.getValue(entity, property);
 				if (value != null) {
 					boolean encoding=simpleCheck;
@@ -71,11 +74,14 @@ public class JsonIdMap extends IdMap{
 										agg=!filter.existsObject(subId);
 									}
 									if (agg) {
+//System.out.println("REF1: "+id+":"+property+"-"+this.getId(containee));
 										subValues.put(toJsonObject(containee, filter));
 									} else {
+										
 										JsonObject child = new JsonObject();
 										child.put(JSON_ID, this.getId(containee));
 										subValues.put(child);
+//System.out.println("LINK2: "+id+":"+property+"-"+this.getId(containee));
 									}
 								} else {
 									subValues.put(value);
@@ -94,19 +100,23 @@ public class JsonIdMap extends IdMap{
 										String subId = this.getKey(value);
 										if(!filter.existsObject(subId)) {
 											int oldValue = filter.setDeep(IdMapFilter.DEEPER);
+//System.out.println("REF3: "+id+":"+property+"-"+this.getId(value));
 											jsonProp.put(property,
 													toJsonObject(value, filter));
+
 											filter.setDeep(oldValue);
 										}else{
 											JsonObject child = new JsonObject();
-											child.put(JSON_ID, this.getId(value));											
+											child.put(JSON_ID, subId);											
 											jsonProp.put(property, child);
+//System.out.println("LINK4: "+id+":"+property+"-"+subId);
 										}
 									}
 								} else {
 									JsonObject child = new JsonObject();
 									child.put(JSON_ID, this.getId(value));
 									jsonProp.put(property, child);
+//System.out.println("LINK5: "+id+":"+property+"-"+this.getId(value));
 								}
 							} else {
 								jsonProp.put(property, value);
@@ -273,7 +283,7 @@ public class JsonIdMap extends IdMap{
 		return toJsonArray(object, null);
 	}
 
-	public JsonArray toJsonArray(Object object, JsonFilter filter) {
+	public JsonArray toJsonArray(Object object, IdMapFilter filter) {
 		JsonArray jsonArray = new JsonArray();
 		if (filter == null) {
 			filter = new JsonFilter();
@@ -291,9 +301,11 @@ public class JsonIdMap extends IdMap{
 	}
 	
 	private void toJsonArray(JsonArray jsonArray, Object entity,
-			JsonFilter filter) {
-		
-		String id = getId(entity);
+			IdMapFilter filter) {
+		toJsonArray(jsonArray, entity, filter, getId(entity));
+	}
+	private void toJsonArray(JsonArray jsonArray, Object entity,
+				IdMapFilter filter, String id) {
 		String className = entity.getClass().getName();
 
 		JsonObject jsonObject = new JsonObject();
@@ -329,7 +341,7 @@ public class JsonIdMap extends IdMap{
 											if (!filter.existsObject(subId)) {
 												int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 												this.toJsonArray(jsonArray,
-														containee, filter);
+														containee, filter, subId);
 												filter.setDeep(oldValue);
 											}
 										}
@@ -345,14 +357,12 @@ public class JsonIdMap extends IdMap{
 						if (valueCreater != null) {
 							String subId = this.getId(value);
 							JsonObject child = new JsonObject();
-							child.put(JSON_ID, this.getId(subId));
+							child.put(JSON_ID, subId);
 							jsonProps.put(property, child);
 							if (aggregation) {
-								if (!filter.existsObject(subId)) {
-									int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-									this.toJsonArray(jsonArray, value, filter);
-									filter.setDeep(oldValue);
-								}
+								int oldValue = filter.setDeep(IdMapFilter.DEEPER);
+								this.toJsonArray(jsonArray, value, filter, subId);
+								filter.setDeep(oldValue);
 							}
 						} else {
 							jsonProps.put(property, value);
