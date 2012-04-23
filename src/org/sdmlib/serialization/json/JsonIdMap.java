@@ -26,18 +26,14 @@ public class JsonIdMap extends IdMap{
 	}
 
 	public JsonObject toJsonObject(Object object) {
-		return toJsonObject(object, null);
+		return toJsonObject(object, new JsonFilter());
 	}
 
 	private JsonObject toJsonObject(Object entity, JsonFilter filter) {
 		String id="";
 		String className = entity.getClass().getName();
 
-		if (filter == null) {
-			filter = new JsonFilter();
-		}
-
-		SendableEntityCreator prototyp = getCreatorClass(entity);
+		SendableEntityCreator prototyp = getCreatorClasses(className);
 		if(prototyp==null){
 			return null;
 		}
@@ -66,9 +62,14 @@ public class JsonIdMap extends IdMap{
 							JsonArray subValues = new JsonArray();
 							int oldValue = filter.setDeeper();
 							for (Object containee : ((Collection<?>) value)) {
+								boolean agg=aggregation;
 								SendableEntityCreator valueCreater = getCreatorClass(containee);
 								if (valueCreater != null) {
-									if (aggregation) {
+									if(agg){
+										String subId = this.getId(value);
+										agg=!filter.existsObject(subId);
+									}
+									if (agg) {
 										subValues.put(toJsonObject(containee, filter));
 									} else {
 										JsonObject child = new JsonObject();
@@ -303,9 +304,10 @@ public class JsonIdMap extends IdMap{
 
 		SendableEntityCreator prototyp = getCreatorClasses(className);
 		String[] properties = prototyp.getProperties();
-		JsonObject jsonProps = new JsonObject();
+		filter.addObject(id);
 
 		if (properties != null) {
+			JsonObject jsonProps = new JsonObject();
 			for (String property : properties) {
 				Object value = prototyp.getValue(entity, property);
 				if (value != null) {
@@ -320,7 +322,7 @@ public class JsonIdMap extends IdMap{
 									if (containeeCreater != null) {
 										String subId = this.getId(containee);
 										JsonObject child = new JsonObject();
-										child.put(JSON_ID, this.getId(containee));
+										child.put(JSON_ID, subId);
 										refArray.put(child);
 										if (aggregation) {
 											if (!filter.existsObject(subId)) {
@@ -358,9 +360,9 @@ public class JsonIdMap extends IdMap{
 					}
 				}
 			}
-		}
-		if (jsonProps.length() > 0) {
-			jsonObject.put(JSON_PROPS, jsonProps);
+			if (jsonProps.length() > 0) {
+				jsonObject.put(JSON_PROPS, jsonProps);
+			}
 		}
 	}
 

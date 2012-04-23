@@ -9,7 +9,6 @@ import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-
 public class IdMap {
 	public static final String REMOVE = ".old";
 	public static final String UPDATE = "upd";
@@ -144,10 +143,7 @@ public class IdMap {
 	}
 
 	public SendableEntityCreator getCreatorClass(Object reference) {
-		if (parent != null) {
-			return parent.getCreatorClass(reference);
-		}
-		return creators.get(reference.getClass().getName());
+		return getCreatorClasses(reference.getClass().getName());
 	}
 
 	public Object cloneObject(Object reference) {
