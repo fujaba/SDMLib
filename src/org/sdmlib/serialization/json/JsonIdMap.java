@@ -30,7 +30,7 @@ public class JsonIdMap extends IdMap{
 		return toJsonObject(object,  new JsonFilter());
 	}
 
-	private JsonObject toJsonObject(Object entity, IdMapFilter filter) {
+	public JsonObject toJsonObject(Object entity, IdMapFilter filter) {
 		String id="";
 		String className = entity.getClass().getName();
 
@@ -66,25 +66,24 @@ public class JsonIdMap extends IdMap{
 							JsonArray subValues = new JsonArray();
 							int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 							for (Object containee : ((Collection<?>) value)) {
-								boolean agg=aggregation;
-								SendableEntityCreator valueCreater = getCreatorClass(containee);
-								if (valueCreater != null) {
-									if(agg){
-										String subId = this.getKey(containee);
-										agg=!filter.existsObject(subId);
-									}
-									if (agg) {
-//System.out.println("REF1: "+id+":"+property+"-"+this.getId(containee));
-										subValues.put(toJsonObject(containee, filter));
-									} else {
-										
-										JsonObject child = new JsonObject();
-										child.put(JSON_ID, this.getId(containee));
-										subValues.put(child);
-//System.out.println("LINK2: "+id+":"+property+"-"+this.getId(containee));
+								if (aggregation) {
+									SendableEntityCreator valueCreater = getCreatorClass(containee);
+									if(valueCreater!=null){
+										if(valueCreater instanceof NoIndexCreator){
+											subValues.put(toJsonObject(containee, filter));
+										}else{
+											String subId = this.getKey(containee);
+											if(!filter.existsObject(subId)) {
+												subValues.put(toJsonObject(containee, filter));
+											}else{
+												subValues.put(new JsonObject(JSON_ID, subId));
+											}
+										}
+									}else{
+										subValues.put(containee);
 									}
 								} else {
-									subValues.put(value);
+									subValues.put(new JsonObject(JSON_ID, this.getId(containee)));
 								}
 							}
 							filter.setDeep(oldValue);
@@ -100,23 +99,16 @@ public class JsonIdMap extends IdMap{
 										String subId = this.getKey(value);
 										if(!filter.existsObject(subId)) {
 											int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-//System.out.println("REF3: "+id+":"+property+"-"+this.getId(value));
 											jsonProp.put(property,
 													toJsonObject(value, filter));
 
 											filter.setDeep(oldValue);
 										}else{
-											JsonObject child = new JsonObject();
-											child.put(JSON_ID, subId);											
-											jsonProp.put(property, child);
-//System.out.println("LINK4: "+id+":"+property+"-"+subId);
+											jsonProp.put(property, new JsonObject(JSON_ID, subId));
 										}
 									}
 								} else {
-									JsonObject child = new JsonObject();
-									child.put(JSON_ID, this.getId(value));
-									jsonProp.put(property, child);
-//System.out.println("LINK5: "+id+":"+property+"-"+this.getId(value));
+									jsonProp.put(property, new JsonObject(JSON_ID, this.getId(value)));
 								}
 							} else {
 								jsonProp.put(property, value);
@@ -413,5 +405,9 @@ public class JsonIdMap extends IdMap{
 
 	public void setSimpleCheck(boolean simpleCheck) {
 		this.simpleCheck = simpleCheck;
+	}
+	public JsonIdMap withSessionId(String sessionID) {
+		setSessionId(sessionID);
+		return this;
 	}
 }

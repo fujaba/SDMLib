@@ -51,9 +51,6 @@ public class JsonFilter implements IdMapFilter{
 
 	public boolean existsObject(String id) {
 		boolean result = objects.contains(id);
-//		if (!result) {
-//			this.objects.add(id);
-//		}
 		return result;
 	}
 	public boolean addObject(String id){
@@ -64,7 +61,7 @@ public class JsonFilter implements IdMapFilter{
 		return false;
 	}
 	public boolean isConvertable(IdMap map, Object entity, String property, Object value) {
-		if (getDeep() == 0)
+		if (getDeep() == LASTDEEP)
 			return false;
 		if (getExcusiveProperties() != null) {
 			for (String prop : getExcusiveProperties()) {

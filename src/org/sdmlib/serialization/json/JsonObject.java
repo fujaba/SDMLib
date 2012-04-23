@@ -91,6 +91,16 @@ public class JsonObject extends Entity{
      */
     public JsonObject() {
     }
+    
+    public JsonObject(String... values) {
+    	if(values.length%2==0){
+    		for(int z=0;z<values.length;z+=2){
+    			put(values[z], values[z+1]);
+    		}
+    	}
+    }
+
+ 
 
     /**
      * Construct a JsonObject from a JSONTokener.
