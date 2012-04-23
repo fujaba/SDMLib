@@ -7,7 +7,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.IdMapFilter;
 
 public class JsonFilter implements IdMapFilter{
-	public final static int ALLDEEP = -1;
 	private int deep = ALLDEEP;
 	private String[] exclusiveProperties;
 	private HashSet<String> objects = new HashSet<String>();
@@ -38,17 +37,16 @@ public class JsonFilter implements IdMapFilter{
 		return exclusiveProperties;
 	}
 
-	public int setDeeper() {
-		int oldVlaue = deep;
-		if (deep != ALLDEEP) {
-			deep = deep - 1;
+	public int setDeep(int value) {
+		int oldValue = deep;
+		if(value==DEEPER){
+			if (deep != ALLDEEP) {
+				deep = deep - 1;
+			}
+		}else{
+			deep=value;
 		}
-
-		return oldVlaue;
-	}
-
-	public void setDeep(int value) {
-		this.deep = value;
+		return oldValue;
 	}
 
 	public boolean existsObject(String id) {

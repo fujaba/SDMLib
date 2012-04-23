@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.creater.DateCreator;
+import org.sdmlib.serialization.interfaces.IdMapFilter;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -29,7 +30,7 @@ public class JsonIdMap extends IdMap{
 		return toJsonObject(object, new JsonFilter());
 	}
 
-	private JsonObject toJsonObject(Object entity, JsonFilter filter) {
+	private JsonObject toJsonObject(Object entity, IdMapFilter filter) {
 		String id="";
 		String className = entity.getClass().getName();
 
@@ -60,7 +61,7 @@ public class JsonIdMap extends IdMap{
 						boolean aggregation = filter.isConvertable(this, entity, property, value);
 						if (value instanceof Collection<?>) {
 							JsonArray subValues = new JsonArray();
-							int oldValue = filter.setDeeper();
+							int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 							for (Object containee : ((Collection<?>) value)) {
 								boolean agg=aggregation;
 								SendableEntityCreator valueCreater = getCreatorClass(containee);
@@ -92,7 +93,7 @@ public class JsonIdMap extends IdMap{
 									}else{
 										String subId = this.getKey(value);
 										if(!filter.existsObject(subId)) {
-											int oldValue = filter.setDeeper();
+											int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 											jsonProp.put(property,
 													toJsonObject(value, filter));
 											filter.setDeep(oldValue);
@@ -326,8 +327,7 @@ public class JsonIdMap extends IdMap{
 										refArray.put(child);
 										if (aggregation) {
 											if (!filter.existsObject(subId)) {
-												int oldValue = filter
-														.setDeeper();
+												int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 												this.toJsonArray(jsonArray,
 														containee, filter);
 												filter.setDeep(oldValue);
@@ -349,7 +349,7 @@ public class JsonIdMap extends IdMap{
 							jsonProps.put(property, child);
 							if (aggregation) {
 								if (!filter.existsObject(subId)) {
-									int oldValue = filter.setDeeper();
+									int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 									this.toJsonArray(jsonArray, value, filter);
 									filter.setDeep(oldValue);
 								}
