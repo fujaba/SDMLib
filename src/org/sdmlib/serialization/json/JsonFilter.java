@@ -84,6 +84,9 @@ public class JsonFilter implements IdMapFilter{
 		}
 		return !property.endsWith(JsonIdMap.REF_SUFFIX);
 	}
+	public String[] getObjects(){
+		return objects.toArray(new String[objects.size()]);
+	}
 
 	public boolean isTreesync() {
 		return treesync;

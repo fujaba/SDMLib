@@ -66,8 +66,10 @@ public class JsonIdMap extends IdMap{
 								SendableEntityCreator valueCreater = getCreatorClass(containee);
 								if (valueCreater != null) {
 									if(agg){
-										String subId = this.getId(value);
-										agg=!filter.existsObject(subId);
+										String subId = this.getKey(value);
+										if(subId!=null){
+											agg=!filter.existsObject(subId);
+										}
 									}
 									if (agg) {
 										subValues.put(toJsonObject(containee, filter));
@@ -90,8 +92,8 @@ public class JsonIdMap extends IdMap{
 									jsonProp.put(property,
 											toJsonObject(value, filter));
 									}else{
-										String subId = this.getId(value);
-										if (!filter.existsObject(subId)) {
+										String subId = this.getKey(value);
+										if(subId==null||!filter.existsObject(subId)) {
 											int oldValue = filter.setDeeper();
 											jsonProp.put(property,
 													toJsonObject(value, filter));
