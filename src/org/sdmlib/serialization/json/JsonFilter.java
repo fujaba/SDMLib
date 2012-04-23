@@ -53,9 +53,9 @@ public class JsonFilter implements IdMapFilter{
 
 	public boolean existsObject(String id) {
 		boolean result = objects.contains(id);
-		if (!result) {
-			this.objects.add(id);
-		}
+//		if (!result) {
+//			this.objects.add(id);
+//		}
 		return result;
 	}
 	public boolean addObject(String id){
