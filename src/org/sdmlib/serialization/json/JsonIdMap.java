@@ -317,15 +317,6 @@ public class JsonIdMap extends IdMap{
 		return entity;
 	}
 
-	public String toToYUmlObject(Object object) {
-		YUMLIdParser parser=new YUMLIdParser(this);
-		return parser.parseObject(object);
-	}
-	public String toToYUmlClass(Object object) {
-		YUMLIdParser parser=new YUMLIdParser(this);
-		return parser.parseClass(object, false);
-	}
-	
 	public void setUpdateMsgListener(MapUpdateListener listener){
 		this.updatelistener=listener;
 	}
