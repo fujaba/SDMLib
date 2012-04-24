@@ -21,6 +21,8 @@
 
 package org.sdmlib.examples.studyright;
 
+import java.beans.PropertyChangeSupport;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
@@ -36,7 +38,6 @@ import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 
 import com.sun.tools.javac.Main;
 

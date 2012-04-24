@@ -22,12 +22,11 @@
 package org.sdmlib.scenarios;
 
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.utils.PropertyChangeListener;
-import org.sdmlib.utils.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 
 // should have a creator class

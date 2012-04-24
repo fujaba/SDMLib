@@ -21,10 +21,10 @@
    
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 
 public class Method implements PropertyChangeInterface
 {

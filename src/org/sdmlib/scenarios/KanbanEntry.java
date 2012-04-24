@@ -21,6 +21,7 @@
 
 package org.sdmlib.scenarios;
 
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +31,6 @@ import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeListener;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 public class KanbanEntry implements PropertyChangeInterface

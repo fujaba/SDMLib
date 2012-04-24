@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.studyright.modelsets;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.examples.studyright.University;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 
 public class UniversitySet extends LinkedHashSet<University> implements PropertyChangeInterface
 {

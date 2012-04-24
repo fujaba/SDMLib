@@ -21,10 +21,10 @@
    
 package org.sdmlib.examples.studyright.modelsets;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 
 public class intList extends ArrayList<Integer> implements PropertyChangeInterface
 {

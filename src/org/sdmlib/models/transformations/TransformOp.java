@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.transformations;
 
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -37,7 +38,6 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 public class TransformOp implements PropertyChangeInterface

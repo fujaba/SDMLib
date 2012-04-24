@@ -21,10 +21,10 @@
    
 package org.sdmlib.models.transformations;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 public class AttributeOp implements PropertyChangeInterface

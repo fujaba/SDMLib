@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -37,7 +38,6 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 public class ClassModel implements PropertyChangeInterface

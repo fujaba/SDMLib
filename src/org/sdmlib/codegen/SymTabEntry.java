@@ -21,8 +21,9 @@
 
 package org.sdmlib.codegen;
 
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 public class SymTabEntry implements PropertyChangeInterface 

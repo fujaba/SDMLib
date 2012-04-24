@@ -22,11 +22,11 @@
 package org.sdmlib.scenarios;
 
 
-import java.util.*;
-
+import java.beans.PropertyChangeSupport;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 
