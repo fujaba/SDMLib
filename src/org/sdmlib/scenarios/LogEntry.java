@@ -22,17 +22,16 @@
 package org.sdmlib.scenarios;
 
 
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.utils.PropertyChangeListener;
+import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 
 // should have a creator class
-public class LogEntry implements PropertyChangeClient, PropertyChangeInterface
+public class LogEntry implements PropertyChangeInterface
 {
    
    public LogEntry()
@@ -157,26 +156,6 @@ public class LogEntry implements PropertyChangeClient, PropertyChangeInterface
    }
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public void addPropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   public void removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-   }
-
-   public void addPropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(property, listener);
-   }
-
-   public void removePropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(property, listener);
-   }
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {

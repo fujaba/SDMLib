@@ -27,7 +27,7 @@ import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.University;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeSupport;
 
 public class StudentSet extends LinkedHashSet<Student> implements PropertyChangeInterface
 {

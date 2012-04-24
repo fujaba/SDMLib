@@ -21,10 +21,11 @@
    
 package org.sdmlib.models.transformations;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 
 public class LinkOp implements PropertyChangeInterface
 {

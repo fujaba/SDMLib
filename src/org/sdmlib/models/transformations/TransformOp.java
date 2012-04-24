@@ -21,13 +21,8 @@
    
 package org.sdmlib.models.transformations;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -36,13 +31,14 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 
 public class TransformOp implements PropertyChangeInterface
 {

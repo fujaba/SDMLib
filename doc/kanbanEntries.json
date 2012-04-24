@@ -4,48 +4,52 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L6"},
-        {"id":"KE.L9"},
-        {"id":"KE.L12"},
-        {"id":"KE.L15"},
-        {"id":"KE.L20"},
-        {"id":"KE.L24"},
-        {"id":"KE.L28"},
-        {"id":"KE.L31"},
-        {"id":"KE.L34"},
-        {"id":"KE.L37"},
-        {"id":"KE.L40"},
-        {"id":"KE.L43"},
-        {"id":"KE.L45"},
-        {"id":"KE.L50"},
-        {"id":"KE.L52"},
-        {"id":"KE.L55"},
-        {"id":"KE.L57"},
-        {"id":"KE.L60"},
-        {"id":"KE.L63"},
-        {"id":"KE.L66"},
-        {"id":"KE.L70"},
-        {"id":"KE.L72"},
-        {"id":"KE.L74"},
-        {"id":"KE.L80"},
-        {"id":"KE.L86"},
-        {"id":"KE.L90"},
-        {"id":"KE.L93"},
-        {"id":"KE.L94"},
-        {"id":"KE.L97"},
-        {"id":"KE.L100"},
-        {"id":"KE.L103"},
-        {"id":"KE.L106"},
-        {"id":"KE.L108"}
+        {"id": "KE.L52"},
+        {"id": "KE.L50"},
+        {"id": "KE.L108"},
+        {"id": "KE.L106"},
+        {"id": "KE.L94"},
+        {"id": "KE.L31"},
+        {"id": "KE.L86"},
+        {"id": "KE.L24"},
+        {"id": "KE.L70"},
+        {"id": "KE.L45"},
+        {"id": "KE.L55"},
+        {"id": "KE.L37"},
+        {"id": "KE.L57"},
+        {"id": "KE.L12"},
+        {"id": "KE.L43"},
+        {"id": "KE.L63"},
+        {"id": "KE.L20"},
+        {"id": "KE.L6"},
+        {"id": "KE.L113"},
+        {"id": "KE.L97"},
+        {"id": "KE.L93"},
+        {"id": "KE.L115"},
+        {"id": "KE.L74"},
+        {"id": "KE.L34"},
+        {"id": "KE.L66"},
+        {"id": "KE.L60"},
+        {"id": "KE.L72"},
+        {"id": "KE.L80"},
+        {"id": "KE.L40"},
+        {"id": "KE.L9"},
+        {"id": "KE.L15"},
+        {"id": "KE.L103"},
+        {"id": "KE.L28"},
+        {"id": "KE.L90"},
+        {"id": "KE.L111"},
+        {"id": "KE.L100"},
+        {"id": "KE.L117"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":43,
+      "hoursRemaining":62,
       "hoursSpend":51,
       "subentries":[
-        {"id":"KE.K2"},
-        {"id":"KE.K7"}
+        {"id": "KE.K7"},
+        {"id": "KE.K2"}
       ]
     }
   },
@@ -54,26 +58,26 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L18"},
-        {"id":"KE.L19"},
-        {"id":"KE.L22"},
-        {"id":"KE.L29"},
-        {"id":"KE.L35"},
-        {"id":"KE.L38"},
-        {"id":"KE.L41"},
-        {"id":"KE.L53"},
-        {"id":"KE.L58"},
-        {"id":"KE.L61"},
-        {"id":"KE.L64"},
-        {"id":"KE.L67"},
-        {"id":"KE.L96"}
+        {"id": "KE.L22"},
+        {"id": "KE.L58"},
+        {"id": "KE.L18"},
+        {"id": "KE.L64"},
+        {"id": "KE.L29"},
+        {"id": "KE.L67"},
+        {"id": "KE.L53"},
+        {"id": "KE.L35"},
+        {"id": "KE.L61"},
+        {"id": "KE.L41"},
+        {"id": "KE.L96"},
+        {"id": "KE.L38"},
+        {"id": "KE.L19"}
       ],
       "name":"StudyRightClassesCodeGen",
       "phase":"implementation",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":19,
+      "hoursRemaining":20,
       "hoursSpend":26,
-      "parent":{"id":"KE.K2"}
+      "parent":{"id": "KE.K2"}
     }
   },
   {
@@ -81,53 +85,57 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L5"},
-        {"id":"KE.L11"},
-        {"id":"KE.L14"},
-        {"id":"KE.L21"},
-        {"id":"KE.L23"},
-        {"id":"KE.L27"},
-        {"id":"KE.L30"},
-        {"id":"KE.L33"},
-        {"id":"KE.L36"},
-        {"id":"KE.L39"},
-        {"id":"KE.L42"},
-        {"id":"KE.L44"},
-        {"id":"KE.L49"},
-        {"id":"KE.L51"},
-        {"id":"KE.L54"},
-        {"id":"KE.L56"},
-        {"id":"KE.L59"},
-        {"id":"KE.L62"},
-        {"id":"KE.L65"},
-        {"id":"KE.L69"},
-        {"id":"KE.L71"},
-        {"id":"KE.L79"},
-        {"id":"KE.L85"},
-        {"id":"KE.L89"},
-        {"id":"KE.L92"},
-        {"id":"KE.L95"},
-        {"id":"KE.L98"},
-        {"id":"KE.L101"},
-        {"id":"KE.L104"},
-        {"id":"KE.L107"},
-        {"id":"KE.L109"}
+        {"id": "KE.L101"},
+        {"id": "KE.L95"},
+        {"id": "KE.L85"},
+        {"id": "KE.L56"},
+        {"id": "KE.L79"},
+        {"id": "KE.L109"},
+        {"id": "KE.L21"},
+        {"id": "KE.L30"},
+        {"id": "KE.L98"},
+        {"id": "KE.L49"},
+        {"id": "KE.L104"},
+        {"id": "KE.L65"},
+        {"id": "KE.L89"},
+        {"id": "KE.L5"},
+        {"id": "KE.L27"},
+        {"id": "KE.L62"},
+        {"id": "KE.L42"},
+        {"id": "KE.L112"},
+        {"id": "KE.L51"},
+        {"id": "KE.L59"},
+        {"id": "KE.L33"},
+        {"id": "KE.L14"},
+        {"id": "KE.L114"},
+        {"id": "KE.L107"},
+        {"id": "KE.L44"},
+        {"id": "KE.L116"},
+        {"id": "KE.L23"},
+        {"id": "KE.L54"},
+        {"id": "KE.L92"},
+        {"id": "KE.L71"},
+        {"id": "KE.L11"},
+        {"id": "KE.L69"},
+        {"id": "KE.L36"},
+        {"id": "KE.L39"},
+        {"id": "KE.L118"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":21,
+      "hoursRemaining":40,
       "hoursSpend":49,
-      "parent":{"id":"KE.K1"},
+      "parent":{"id": "KE.K1"},
       "subentries":[
-        {"id":"KE.K17"},
-        {"id":"KE.K3"},
-        {"id":"KE.K25"},
-        {"id":"KE.K46"},
-        {"id":"KE.K75"},
-        {"id":"KE.K77"},
-        {"id":"KE.K81"},
-        {"id":"KE.K83"}
+        {"id": "KE.K81"},
+        {"id": "KE.K75"},
+        {"id": "KE.K3"},
+        {"id": "KE.K25"},
+        {"id": "KE.K83"},
+        {"id": "KE.K46"},
+        {"id": "KE.K17"},
+        {"id": "KE.K77"}
       ]
     }
   },
@@ -136,16 +144,16 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L26"},
-        {"id":"KE.L32"},
-        {"id":"KE.L68"}
+        {"id": "KE.L26"},
+        {"id": "KE.L68"},
+        {"id": "KE.L32"}
       ],
       "name":"ClassModelCodeGen",
       "phase":"implementation",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":3,
-      "parent":{"id":"KE.K2"}
+      "parent":{"id": "KE.K2"}
     }
   },
   {
@@ -153,17 +161,17 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L4"},
-        {"id":"KE.L10"},
-        {"id":"KE.L13"},
-        {"id":"KE.L16"}
+        {"id": "KE.L16"},
+        {"id": "KE.L13"},
+        {"id": "KE.L4"},
+        {"id": "KE.L10"}
       ],
       "name":"ScenarioInfrastructure",
       "phase":"implementation",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":0,
+      "hoursRemaining":18,
       "hoursSpend":4,
-      "parent":{"id":"KE.K2"}
+      "parent":{"id": "KE.K2"}
     }
   },
   {
@@ -171,15 +179,15 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L47"},
-        {"id":"KE.L48"}
+        {"id": "KE.L47"},
+        {"id": "KE.L48"}
       ],
       "name":"StudyRightObjectScenarios",
       "phase":"modeling",
       "lastDeveloper":"zuendorf joern alex",
       "hoursRemaining":0,
       "hoursSpend":0,
-      "parent":{"id":"KE.K2"},
+      "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
     }
   },
@@ -188,28 +196,28 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L8"},
-        {"id":"KE.L73"}
+        {"id": "KE.L8"},
+        {"id": "KE.L73"}
       ],
       "name":"ProjectManagement",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":22,
       "hoursSpend":2,
-      "parent":{"id":"KE.K1"}
+      "parent":{"id": "KE.K1"}
     }
   },
   {
     "id":"KE.K75",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
-      "logEntries":["KE.L76"],
+      "logEntries":[{"id": "KE.L76"}],
       "name":"StudyRightReverseClassModel",
       "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":0,
-      "parent":{"id":"KE.K2"},
+      "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
     }
   },
@@ -217,13 +225,13 @@
     "id":"KE.K77",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
-      "logEntries":["KE.L78"],
+      "logEntries":[{"id": "KE.L78"}],
       "name":"GroupAccountCodegen",
       "phase":"done",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":1,
-      "parent":{"id":"KE.K2"},
+      "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
   },
@@ -232,16 +240,16 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L82"},
-        {"id":"KE.L91"},
-        {"id":"KE.L110"}
+        {"id": "KE.L82"},
+        {"id": "KE.L91"},
+        {"id": "KE.L110"}
       ],
       "name":"GroupAccountRuleRecognition",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":2,
       "hoursSpend":8,
-      "parent":{"id":"KE.K2"},
+      "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
   },
@@ -250,19 +258,19 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L84"},
-        {"id":"KE.L87"},
-        {"id":"KE.L88"},
-        {"id":"KE.L99"},
-        {"id":"KE.L102"},
-        {"id":"KE.L105"}
+        {"id": "KE.L105"},
+        {"id": "KE.L102"},
+        {"id": "KE.L87"},
+        {"id": "KE.L84"},
+        {"id": "KE.L88"},
+        {"id": "KE.L99"}
       ],
       "name":"TransformationsCodegen",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":7,
-      "parent":{"id":"KE.K2"},
+      "parent":{"id": "KE.K2"},
       "files":"src/org/sdmlib/models/transformations/TransformationsCodeGen.java"
     }
   },
@@ -274,7 +282,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id":"KE.K3"},
+      "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Hour calculation improved."
@@ -288,7 +296,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":57,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: create some example transformOp:"
@@ -302,7 +310,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":35,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: create some example transformOp:"
@@ -316,7 +324,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: create some example transformOp:"
@@ -330,7 +338,7 @@
       "hoursSpend":3,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":54,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -344,7 +352,7 @@
       "hoursSpend":3,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":32,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -358,7 +366,7 @@
       "hoursSpend":4,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: dump an image from the transformOp:"
@@ -372,7 +380,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":53,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -386,7 +394,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":31,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -400,7 +408,7 @@
       "hoursSpend":8,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
@@ -414,7 +422,7 @@
       "hoursSpend":8,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":21,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
@@ -428,7 +436,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ScenarioInfrastructure: Hour calculation improved."
@@ -442,10 +450,122 @@
       "hoursSpend":8,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K81"},
+      "kanbanEntry":{"id": "KE.K81"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L111",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":55,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L112",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":32,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L113",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":66,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L114",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":43,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L115",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":61,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L116",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":39,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L117",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":62,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L118",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":40,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
     }
   },
   {
@@ -456,7 +576,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ScenarioInfrastructure: Hour calculation improved."
@@ -470,7 +590,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":17,
-      "kanbanEntry":{"id":"KE.K3"},
+      "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved:  Editing the log entries is still too tedious. \n Add parameters to scenario.add and derive log entry from it."
@@ -484,7 +604,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":17,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ScenarioInfrastructure: Hour calculation improved."
@@ -498,7 +618,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ScenarioInfrastructure: Hour calculation improved."
@@ -512,7 +632,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K3"},
+      "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved:  Editing the log entries is still too tedious. \n Add parameters to scenario.add and derive log entry from it."
@@ -526,7 +646,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"backlog"
     }
@@ -539,7 +659,7 @@
       "hoursSpend":12,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation"
     }
@@ -552,7 +672,7 @@
       "hoursSpend":12,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: null"
@@ -566,7 +686,7 @@
       "hoursSpend":12,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: null"
@@ -580,7 +700,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 2. generate class Student with new notation"
@@ -594,7 +714,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 2. generate class Student with new notation"
@@ -608,7 +728,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 2. generate class Student with new notation"
@@ -622,7 +742,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K25"},
+      "kanbanEntry":{"id": "KE.K25"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: Basic bootstrap done."
@@ -636,7 +756,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":47,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ClassModelCodeGen: Achieved: Basic bootstrap done."
@@ -650,7 +770,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":70,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Basic bootstrap done."
@@ -664,7 +784,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 6. generate generic get for attributes"
@@ -678,7 +798,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":45,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes"
@@ -692,7 +812,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":68,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes"
@@ -706,7 +826,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K25"},
+      "kanbanEntry":{"id": "KE.K25"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: Generate generic get and set and removeYou. First for attributes. "
@@ -720,7 +840,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":44,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ClassModelCodeGen: Achieved: Generate generic get and set and removeYou. First for attributes. "
@@ -734,7 +854,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":67,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate generic get and set and removeYou. First for attributes. "
@@ -748,7 +868,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 6. generate generic get for attributes and assocs"
@@ -762,7 +882,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs"
@@ -776,7 +896,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":66,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs"
@@ -790,7 +910,7 @@
       "hoursSpend":4,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":15,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf joern alex",
       "phase":"implementation",
       "comment":"Achieved: 7. generate creator classes"
@@ -804,7 +924,7 @@
       "hoursSpend":4,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -818,7 +938,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id":"KE.K3"},
+      "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
       "phase":"backlog"
     }
@@ -831,7 +951,7 @@
       "hoursSpend":4,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":64,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -845,7 +965,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":24,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf joern alex",
       "phase":"implementation",
       "comment":"Achieved: add support for path navigation"
@@ -859,7 +979,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":51,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: add support for path navigation"
@@ -873,7 +993,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":74,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation"
@@ -887,7 +1007,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":50,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: add support for path navigation"
@@ -901,7 +1021,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":73,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation"
@@ -915,7 +1035,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K46"},
+      "kanbanEntry":{"id": "KE.K46"},
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Start situation: use University class to build object structure"
@@ -929,7 +1049,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K46"},
+      "kanbanEntry":{"id": "KE.K46"},
       "developer":"zuendorf joern alex",
       "phase":"modeling",
       "comment":"Achieved: step 2: add support for path navigation\n   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\nshall compute to 88\nPaht classes need to be generated."
@@ -943,7 +1063,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":74,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
@@ -957,7 +1077,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ScenarioInfrastructure: null"
@@ -971,7 +1091,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":97,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
@@ -985,7 +1105,7 @@
       "hoursSpend":-1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":50,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
@@ -999,7 +1119,7 @@
       "hoursSpend":-1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":73,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
@@ -1013,7 +1133,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf joern alex",
       "phase":"implementation",
       "comment":"Achieved: 7. generate creator classes"
@@ -1027,7 +1147,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -1041,7 +1161,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":63,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -1055,7 +1175,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":49,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -1069,7 +1189,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":72,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
@@ -1083,7 +1203,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 8. generate imports"
@@ -1097,7 +1217,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":48,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 8. generate imports"
@@ -1111,7 +1231,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ScenarioInfrastructure: null"
@@ -1125,7 +1245,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":71,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf joern alex",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 8. generate imports"
@@ -1139,7 +1259,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 9. generate property change support"
@@ -1153,7 +1273,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":46,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 9. generate property change support"
@@ -1167,7 +1287,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":69,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 9. generate property change support"
@@ -1181,7 +1301,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: 10. generate removeYou method"
@@ -1195,7 +1315,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":44,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: 10. generate removeYou method"
@@ -1209,7 +1329,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":67,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 10. generate removeYou method"
@@ -1223,7 +1343,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: We need inheritance"
@@ -1237,7 +1357,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K25"},
+      "kanbanEntry":{"id": "KE.K25"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: Generate creator classes."
@@ -1251,7 +1371,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":35,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ClassModelCodeGen: Achieved: Generate creator classes."
@@ -1265,7 +1385,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":58,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate creator classes."
@@ -1279,7 +1399,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ClassModelCodeGen: Achieved: Generate creator classes."
@@ -1293,7 +1413,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate creator classes."
@@ -1307,7 +1427,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":22,
-      "kanbanEntry":{"id":"KE.K7"},
+      "kanbanEntry":{"id": "KE.K7"},
       "developer":"zuendorf",
       "phase":"active"
     }
@@ -1320,7 +1440,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ProjectManagement: null"
@@ -1334,7 +1454,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K75"},
+      "kanbanEntry":{"id": "KE.K75"},
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
@@ -1348,7 +1468,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K77"},
+      "kanbanEntry":{"id": "KE.K77"},
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Start situation: Nothing here yet. Generated classes"
@@ -1362,7 +1482,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"GroupAccountCodegen: Achieved: Start situation: Nothing here yet. Generated classes"
@@ -1376,7 +1496,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":23,
-      "kanbanEntry":{"id":"KE.K7"},
+      "kanbanEntry":{"id": "KE.K7"},
       "developer":"zuendorf",
       "phase":"active"
     }
@@ -1389,7 +1509,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: GroupAccountCodegen: Achieved: Start situation: Nothing here yet. Generated classes"
@@ -1403,7 +1523,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K81"},
+      "kanbanEntry":{"id": "KE.K81"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
@@ -1417,7 +1537,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":7,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: classes for model transformations:"
@@ -1431,7 +1551,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: classes for model transformations:"
@@ -1445,7 +1565,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":42,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: classes for model transformations:"
@@ -1459,7 +1579,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":5,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: create some example transformOp:"
@@ -1473,7 +1593,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: dump an image from the transformOp:"
@@ -1487,7 +1607,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":25,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -1501,7 +1621,7 @@
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ProjectManagement: null"
@@ -1515,7 +1635,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":47,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
@@ -1529,7 +1649,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":12,
-      "kanbanEntry":{"id":"KE.K81"},
+      "kanbanEntry":{"id": "KE.K81"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
@@ -1543,7 +1663,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"GroupAccountRuleRecognition: Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
@@ -1557,7 +1677,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":59,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
@@ -1571,7 +1691,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: generic set does not work for boolean and double and probably more"
@@ -1585,7 +1705,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":38,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightClassesCodeGen: Achieved: generic set does not work for boolean and double and probably more"
@@ -1599,7 +1719,7 @@
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id":"KE.K17"},
+      "kanbanEntry":{"id": "KE.K17"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: generic set does not work for boolean and double and probably more"
@@ -1613,7 +1733,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":58,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: classes for model transformations:"
@@ -1627,7 +1747,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":36,
-      "kanbanEntry":{"id":"KE.K2"},
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TransformationsCodegen: Achieved: classes for model transformations:"
@@ -1641,7 +1761,7 @@
       "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id":"KE.K83"},
+      "kanbanEntry":{"id": "KE.K83"},
       "developer":"zuendorf",
       "phase":"modeling",
       "comment":"Achieved: classes for model transformations:"

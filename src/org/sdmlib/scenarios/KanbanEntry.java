@@ -21,22 +21,20 @@
 
 package org.sdmlib.scenarios;
 
-import java.text.SimpleDateFormat;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.utils.PropertyChangeClient;
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeListener;
+import org.sdmlib.utils.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 
-public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterface
+public class KanbanEntry implements PropertyChangeInterface
 {
    public static final String PROPERTY_NAME = "name";
 
@@ -668,26 +666,6 @@ public class KanbanEntry implements PropertyChangeClient, PropertyChangeInterfac
    }
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public void addPropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   public void removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-   }
-
-   public void addPropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(property, listener);
-   }
-
-   public void removePropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(property, listener);
-   }
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {

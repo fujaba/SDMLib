@@ -28,19 +28,17 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.examples.studyright.modelsets.ModelSet;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeSupport;
 
 import com.sun.tools.javac.Main;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {

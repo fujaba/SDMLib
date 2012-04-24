@@ -24,15 +24,14 @@ package org.sdmlib.scenarios;
 
 import java.util.*;
 
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
-import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 
 
 // should have a creator class
-public class PhaseEntry implements PropertyChangeClient
+public class PhaseEntry implements PropertyChangeInterface
 {
    public static final String PROPERTY_PHASE = "phase";
 
@@ -244,25 +243,6 @@ public class PhaseEntry implements PropertyChangeClient
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
-   public void addPropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   public void removePropertyChangeListener(PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-   }
-
-   public void addPropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(property, listener);
-   }
-
-   public void removePropertyChangeListener(String property, PropertyChangeListener listener)
-   {
-      getPropertyChangeSupport().removePropertyChangeListener(property, listener);
-   }
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {

@@ -23,9 +23,8 @@ package org.sdmlib.examples.groupAccount;
 
 import org.sdmlib.examples.groupAccount.modlesets.ItemSet;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import java.util.LinkedHashSet;
 
 public class Item implements PropertyChangeInterface
 {

@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.classes;
 
-import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +29,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeSupport;
 
 public class Clazz implements PropertyChangeInterface
 {
