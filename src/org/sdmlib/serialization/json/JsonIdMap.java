@@ -66,12 +66,12 @@ public class JsonIdMap extends IdMap{
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
 								if(containee!=null){
-									subValues.put(parseObject(containee, aggregation, filter));
+									subValues.put(parseObject(containee, aggregation, filter, null));
 								}
 							}
 							jsonProp.put(property, subValues);
 						} else {
-							jsonProp.put(property, parseObject(value, aggregation, filter));
+							jsonProp.put(property, parseObject(value, aggregation, filter, null));
 						}
 					}
 				}
@@ -98,26 +98,6 @@ public class JsonIdMap extends IdMap{
 		return jsonObject;
 	}
 	
-	public Object parseObject(Object entity, boolean aggregation, IdMapFilter filter){
-		if (aggregation) {
-			SendableEntityCreator valueCreater = getCreatorClass(entity);
-			if(valueCreater!=null){
-				String subId = this.getKey(entity);
-				if(valueCreater instanceof NoIndexCreator||!filter.existsObject(subId)) {
-					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-					JsonObject jsonObject = toJsonObject(entity, filter);
-					filter.setDeep(oldValue);
-					return jsonObject;
-				}else{
-					return new JsonObject(JSON_ID, subId);
-				}
-			}else{
-				return entity;
-			}
-		}
-		return new JsonObject(JSON_ID, this.getId(entity));
-	}
-
 	public Object readJson(JsonArray jsonArray) {
 		Object result = null;
 		int len = jsonArray.length() - 1;
@@ -272,12 +252,9 @@ public class JsonIdMap extends IdMap{
 	}
 	
 	private void toJsonArray(JsonArray jsonArray, Object entity,
-			IdMapFilter filter) {
-		toJsonArray(jsonArray, entity, filter, getId(entity));
-	}
-	private void toJsonArray(JsonArray jsonArray, Object entity,
-				IdMapFilter filter, String id) {
+				IdMapFilter filter) {
 		String className = entity.getClass().getName();
+		String id=getId(entity);
 
 		JsonObject jsonObject = new JsonObject();
 		if (isId) {
@@ -302,13 +279,13 @@ public class JsonIdMap extends IdMap{
 							JsonArray refArray = new JsonArray();
 							for (Object containee : list) {
 								if (containee != null) {
-									refArray.put(parseArrayObject(containee, aggregation, filter, jsonArray));
+									refArray.put(parseObject(containee, aggregation, filter, jsonArray));
 								}
 							}
 							jsonProps.put(property, refArray);
 						}
 					} else {
-						jsonProps.put(property, parseArrayObject(value, aggregation, filter, jsonArray));
+						jsonProps.put(property, parseObject(value, aggregation, filter, jsonArray));
 					}
 				}
 			}
@@ -317,20 +294,25 @@ public class JsonIdMap extends IdMap{
 			}
 		}
 	}
-	private Object parseArrayObject(Object entity, boolean aggregation, IdMapFilter filter, JsonArray jsonArray){
+
+	private Object parseObject(Object entity, boolean aggregation, IdMapFilter filter, JsonArray jsonArray){
 		SendableEntityCreator valueCreater = getCreatorClass(entity);
 		if (valueCreater != null) {
-			String subId = this.getId(entity);
-			JsonObject child=new JsonObject(JSON_ID, subId);
 			if (aggregation) {
-				if (!filter.existsObject(subId)) {
+				String subId = this.getKey(entity);
+				if(valueCreater instanceof NoIndexCreator||!filter.existsObject(subId)){
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
+					if(jsonArray==null){
+						JsonObject result = toJsonObject(entity, filter);
+						filter.setDeep(oldValue);
+						return result;
+					}
 					this.toJsonArray(jsonArray,
-							entity, filter, subId);
+							entity, filter);
 					filter.setDeep(oldValue);
 				}
 			}
-			return child;
+			return new JsonObject(JSON_ID, getId(entity));
 		}
 		return entity;
 	}
@@ -370,8 +352,9 @@ public class JsonIdMap extends IdMap{
 		return simpleCheck;
 	}
 
-	public void setSimpleCheck(boolean simpleCheck) {
+	public boolean setSimpleCheck(boolean simpleCheck) {
 		this.simpleCheck = simpleCheck;
+		return simpleCheck;
 	}
 	public JsonIdMap withSessionId(String sessionID) {
 		setSessionId(sessionID);
