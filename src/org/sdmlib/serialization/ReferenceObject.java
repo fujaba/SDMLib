@@ -1,6 +1,5 @@
-package org.sdmlib.serialization.json;
+package org.sdmlib.serialization;
 
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class ReferenceObject {
@@ -9,7 +8,12 @@ public class ReferenceObject {
 	private String property;
 	private Object entity;
 	private IdMap map;
-
+	public ReferenceObject(SendableEntityCreator creator, String property, IdMap map, Object entity){
+		this.creator=creator;
+		this.property=property;
+		this.entity=entity;
+		this.map=map;
+	}	
 	public ReferenceObject(String jsonId, SendableEntityCreator creator, String property, IdMap map, Object entity){
 		this.jsonId=jsonId;
 		this.creator=creator;
@@ -24,5 +28,18 @@ public class ReferenceObject {
 			return true;
 		}
 		return false;
+	}
+	public SendableEntityCreator getCreater(){
+		return creator;
+	}
+	public Object getEntity(){
+		return entity;
+	}
+	public String getProperty() {
+		return property;
+	}
+	@Override
+	public String toString() {
+		return property+":"+entity.getClass().getName();
 	}
 }

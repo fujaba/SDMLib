@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.event.creater.DateCreator;
 import org.sdmlib.serialization.interfaces.IdMapFilter;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;

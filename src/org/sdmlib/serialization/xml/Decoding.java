@@ -3,6 +3,8 @@ package org.sdmlib.serialization.xml;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.sdmlib.serialization.ReferenceObject;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
 public class Decoding {
@@ -10,8 +12,7 @@ public class Decoding {
 	private String buffer;
 	private int len;
 	private int pos;
-	private ArrayList<XMLEntityCreator> stack = new ArrayList<XMLEntityCreator>();
-	private ArrayList<Object> entities = new ArrayList<Object>();
+	private ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
 	private HashSet<String> stopwords=new HashSet<String>();
 	private XMLIdMap parent;
 
@@ -29,7 +30,6 @@ public class Decoding {
 		this.len = value.length();
 		this.pos = 0;
 		this.stack.clear();
-		this.entities.clear();
 		while (pos < len) {
 			result = findTag("");
 			if (result != null && !(result instanceof String)) {
@@ -71,17 +71,18 @@ public class Decoding {
 							return null;
 						}
 						// Not found child creater
-						entityCreater = stack.get(stack.size() - 1);
+						ReferenceObject referenceObject = stack.get(stack.size() - 1);
+						entityCreater = (XMLEntityCreator) referenceObject.getCreater();
 						String[] properties = entityCreater.getProperties();
 						prefix += tag;
 
 						for (String prop : properties) {
 							if (prop.equalsIgnoreCase(prefix)) {
-								entity = entities.get(entities.size() - 1);
+								entity = referenceObject.getEntity();
 								plainvalue = true;
 								break;
 							} else if (prop.startsWith(prefix)) {
-								entity = entities.get(entities.size() - 1);
+								entity = referenceObject.getEntity();
 							}
 						}
 
@@ -94,37 +95,63 @@ public class Decoding {
 						}
 					} else {
 						entity = entityCreater.getSendableInstance(false);
-						stack.add(entityCreater);
-						entities.add(entity);
+						stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
 						newPrefix = XMLIdMap.ENTITYSPLITTER;
 					}
 					if (entity != null) {
 						if (!plainvalue) {
 							convertParams(entityCreater, entity, prefix);
 						}
-						if (buffer.charAt(pos) == '/') {
-							// ENDTAG
-							pos += 2;
-						} else {
+						if (plainvalue) {
+							start = ++pos;
+							String value;
+							stepPos('<');
+							value = buffer.substring(start, pos);
+							stepPos('>');
 							pos++;
-							if (plainvalue) {
-								start = pos;
-								String value;
-								stepPos('<');
-								value = buffer.substring(start, pos);
-								stepPos('>');
-								pos++;
-								entityCreater.setValue(entity, prefix, value);
-							} else {
-								findTag(newPrefix);
+							entityCreater.setValue(entity, prefix, value);
+							return null;
+						} else {
+							//Children
+							while (pos < len) {
+								String currentTag=getNextTag();
+								Object result = findTag(newPrefix);
+								String startTag=getNextTag();
+								if(stack.size()>0&&result!=null){
+									ReferenceObject refObject = stack.get(stack.size() - 1);
+									SendableEntityCreator parentCreator=refObject.getCreater();
+									parentCreator.setValue(refObject.getEntity(), currentTag, result);
+								}
+								System.out.println(startTag);
+								if(startTag.startsWith("/"+tag)){
+									if(stack.size()>0){
+										stack.remove(stack.size() - 1);
+									}
+									stepPos('<');
+									pos++;
+									break;
+								}
+								start = ++pos;
 							}
 						}
-						return entity;
 					}
+					return entity;
 				}
 			}
 		}
 		return null;
+	}
+	public String getNextTag(){
+		String tag="";
+		int savePos=pos;
+		stepPos('<');
+		int start=++pos;
+		stepPos(' ', '>');
+		if(start<buffer.length()){
+			tag=buffer.substring(start, pos);
+		}
+		pos=savePos;
+		return tag;
 	}
 
 	private String getEntity(int start) {
