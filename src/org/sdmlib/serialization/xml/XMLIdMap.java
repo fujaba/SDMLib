@@ -22,6 +22,14 @@ public class XMLIdMap extends IdMap {
 		super(parent);
 		isId=false;
 	}
+	
+	public boolean addStopWords(String... stopwords){
+		if (decoder == null) {
+			decoder = new Decoding(this);
+		}
+		decoder.addStopWords(stopwords);
+		return true;
+	}
 	public XMLEntity encode(Object value) {
 		if (encoder == null) {
 			encoder = new Encoding(this);

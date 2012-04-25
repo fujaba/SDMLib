@@ -1,6 +1,7 @@
 package org.sdmlib.serialization.xml;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
@@ -11,10 +12,15 @@ public class Decoding {
 	private int pos;
 	private ArrayList<XMLEntityCreator> stack = new ArrayList<XMLEntityCreator>();
 	private ArrayList<Object> entities = new ArrayList<Object>();
+	private HashSet<String> stopwords=new HashSet<String>();
 	private XMLIdMap parent;
 
 	public Decoding(XMLIdMap parent){
 		this.parent=parent;
+		stopwords.add("?xml");
+		stopwords.add("!--");
+		stopwords.add("!DOCTYPE");
+		stopwords.add("/");
 	}
 
 	public Object decode(String value) {
@@ -61,6 +67,9 @@ public class Decoding {
 					boolean plainvalue = false;
 					String newPrefix = "";
 					if (entityCreater == null) {
+						if(stack.size()==0){
+							return null;
+						}
 						// Not found child creater
 						entityCreater = stack.get(stack.size() - 1);
 						String[] properties = entityCreater.getProperties();
@@ -120,12 +129,17 @@ public class Decoding {
 
 	private String getEntity(int start) {
 		String tag = buffer.substring(start, pos);
-		if (tag.startsWith("?xml")) {
-		} else if (tag.charAt(0) == '/') {
-		} else {
-			return tag;
+		for(String stopword : stopwords){
+			if(tag.startsWith(stopword)){
+				return "";
+			}
 		}
-		return "";
+		return tag;
+	}
+	public void addStopWords(String... stopwords){
+		for(String stopword : stopwords){
+			this.stopwords.add(stopword);
+		}
 	}
 
 	private void convertParams(XMLEntityCreator entityCreater, Object entity,
@@ -148,5 +162,4 @@ public class Decoding {
 			}
 		}
 	}
-
 }
