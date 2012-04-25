@@ -703,13 +703,24 @@ public class ClassModel implements PropertyChangeInterface
 		// filter internal generated methods
 		String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()";
 
-		if (filterString.indexOf(signature) < 0)
+		if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
 		{
 			new Method().
 			withClazz(clazz).
 			withSignature(signature);
 		}
 	}
+
+	private boolean isNewMethod(String memberName, Clazz clazz)
+  {
+	  for ( Method method : clazz.getMethods() )
+	  {
+	  	if ( method.getSignature().equals(memberName) )
+	  		return false;
+	  }
+	  
+	  return true;
+  }
 
 	private ArrayList<File> searchForJavaFiles(String includePathes, String packages, File srcFolder)
 	{
