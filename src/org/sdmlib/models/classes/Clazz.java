@@ -75,6 +75,25 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
    
+   public static final String PROPERTY_SUPERCLASS = "superClass";
+   private Clazz superClass = null; 
+   
+   public Clazz getSuperClass()
+   {
+      return superClass;
+   }
+   
+   public void setSuperClass(Clazz superClass)
+   {
+      this.superClass = superClass;
+   }
+   
+   public Clazz withSuperClass(Clazz superClass)
+   {
+  	 	setSuperClass(superClass);
+      return this;
+   }
+   
    public static final String PROPERTY_CLASSMODEL = "classModel";
    private ClassModel classModel = null;
    
@@ -117,27 +136,146 @@ public class Clazz implements PropertyChangeInterface
                  
       insertLicense(parser);
       
-      insertGenericGetSet();
+      insertInterfaces();
       
-      insertPropertyChangeSupport();
+      if ( !isInterfaze() )
+      {
+	      insertGenericGetSet();
+	      insertSuperClass();
+	      insertPropertyChangeSupport();
+	      insertRemoveYourMethod();
+	      insertInterfaceMethods(this, rootDir, helpersDir);
+	      insertInterfaceAttributesInCreatorClass(this, rootDir, helpersDir);
+      }
       
-      insertRemoveYourMethod();
+      for (Method method : this.getMethods()) {
+      	method.generate(rootDir, helpersDir, false);
+      }
       
-      for (Attribute attr : this.getAttributes())
+			for (Attribute attr : this.getAttributes())
       {
          attr.generate(rootDir, helpersDir, false);
       }
-      
+			
       printFile(isFileHasChanged());
       
-      // now generate the corresponding creator class
-      getOrCreateParserForCreatorClass(helpersDir);
+      if ( !isInterfaze() )
+      {
+      	// now generate the corresponding creator class
+      	getOrCreateParserForCreatorClass(helpersDir);
+      }
       printCreatorFile(creatorFileHasChanged);
       
       return this;
    }
 
-   private void insertRemoveYourMethod()
+  private void insertInterfaceAttributesInCreatorClass(Clazz clazz, String rootDir, String helpersDir)
+  {
+  	for (Clazz interfaze : clazz.getInterfaces())
+    {
+	  	if (interfaze.isInterfaze())
+      {
+	      for (Attribute attr : interfaze.getAttributes())
+	      {
+	      	Parser creatorParser = this.getOrCreateParserForCreatorClass(helpersDir);
+	      	attr.insertPropertyInCreatorClass(interfaze.getName(), creatorParser, helpersDir, false);
+	      }
+	      
+      }
+	  	
+	  	insertInterfaceAttributesInCreatorClass(interfaze, rootDir, helpersDir);
+
+    } 
+  }
+
+	private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
+  {
+	  for (Clazz interfaze : clazz.getInterfaces())
+    {
+	  	if (interfaze.isInterfaze())
+      {
+	      for (Attribute attr : interfaze.getAttributes())
+	      {
+		      attr.generateMethodsInKindClass(this, rootDir, helpersDir, false);
+	      }
+	      
+	      for (Method method : interfaze.getMethods())
+	      {
+		      method.generate(this, rootDir, helpersDir, false);
+	      }
+	      
+      }
+	  	
+	  	insertInterfaceMethods(interfaze, rootDir, helpersDir);
+
+    } 
+  }
+
+	private void insertInterfaces()
+   {
+		
+		String string = Parser.IMPLEMENTS;
+		if (isInterfaze())
+			string = Parser.EXTENDS;
+		
+  	for ( Clazz interfaze : getInterfaces() )
+    {
+  		 int extendsPos = parser.indexOf(Parser.IMPLEMENTS);
+       
+       if (extendsPos < 0)
+       {
+          extendsPos = parser.getEndOfClassName();
+          
+          parser.getFileBody().insert(extendsPos + 1, 
+          		" " + string + " " + CGUtil.shortClassName(interfaze.getName()));
+          
+          insertImport(interfaze.getName());
+          
+          setFileHasChanged(true);
+       }
+       else 
+       {
+      	 String shortClassName = CGUtil.shortClassName( interfaze.getName());
+      	 
+      	 String key = string + ":" + shortClassName;
+      	 
+      	 SymTabEntry symTabEntry = parser.getSymTab().get(key);
+      	 
+      	if (symTabEntry == null)
+        {
+	        parser.getFileBody().insert(parser.getEndOfImplementsClause() + 1, ", " + shortClassName);
+	        
+	        insertImport(interfaze.getName());
+	        
+	        setFileHasChanged(true);
+        }               
+      }
+    }	  
+  }
+
+	private void insertSuperClass()
+  {
+  	 if (superClass == null) {
+  		 return;
+  	 }
+  	 
+  	 String searchString = Parser.EXTENDS;
+     int extendsPos = parser.indexOf(searchString);
+     
+     if (extendsPos < 0)
+     {
+        extendsPos = parser.getEndOfClassName();
+        
+        parser.getFileBody().insert(extendsPos + 1, 
+              " extends " + CGUtil.shortClassName(superClass.getName()));
+        
+        insertImport(superClass.getName());
+        
+        setFileHasChanged(true);
+     }
+  }
+
+	private void insertRemoveYourMethod()
    {
       String searchString = Parser.METHOD + ":removeYou()";
       int pos = parser.indexOf(searchString);
@@ -214,8 +352,10 @@ public class Clazz implements PropertyChangeInterface
             implementsPos = parser.getEndOfClassName();
          }
          
-         parser.getFileBody().insert(implementsPos + 1, 
-               " implements " + PropertyChangeInterface.class.getSimpleName());
+         String string = " implements ";
+         if (isInterfaze())
+        	 string = " extends ";
+				parser.getFileBody().insert(implementsPos + 1, string + propertyChangeInterface);
          
          insertImport(PropertyChangeInterface.class.getName());
          
@@ -513,6 +653,10 @@ public class Clazz implements PropertyChangeInterface
                   "public class className\n" +
                   "{\n" +
                   "}\n");
+            
+            if (isInterfaze()) {
+            	CGUtil.replaceAll(text, "public class className", "public interface className");
+            }
             
             CGUtil.replaceAll(text, 
                "className", className, 
@@ -943,6 +1087,31 @@ public class Clazz implements PropertyChangeInterface
       {
          return getTargetRoles();
       }
+
+      if (PROPERTY_KINDCLASSES.equalsIgnoreCase(attrName))
+      {
+         return getKindClasses();
+      }
+
+      if (PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
+      {
+         return getSuperClass();
+      }
+
+      if (PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      {
+         return isInterfaze();
+      }
+
+      if (PROPERTY_KINDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
+      {
+         return getKindClassesAsInterface();
+      }
+
+      if (PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
+      {
+         return getInterfaces();
+      }
       
       return null;
    }
@@ -1024,6 +1193,54 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_KINDCLASSES.equalsIgnoreCase(attrName))
+      {
+         addToKindClasses((Clazz) value);
+         return true;
+      }
+      
+      if ((PROPERTY_KINDCLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromKindClasses((Clazz) value);
+         return true;
+      }
+
+      if (PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
+      {
+         setSuperClass((Clazz) value);
+         return true;
+      }
+
+      if (PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      {
+         setInterfaze((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_KINDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
+      {
+         addToKindClassesAsInterface((Clazz) value);
+         return true;
+      }
+      
+      if ((PROPERTY_KINDCLASSESASINTERFACE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromKindClassesAsInterface((Clazz) value);
+         return true;
+      }
+
+      if (PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
+      {
+         addToInterfaces((Clazz) value);
+         return true;
+      }
+      
+      if ((PROPERTY_INTERFACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromInterfaces((Clazz) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -1041,7 +1258,7 @@ public class Clazz implements PropertyChangeInterface
 
    public void insertCreatorClassInCreatorCreator(Parser ccParser)
    {
-      int pos = ccParser.indexOf(Parser.METHOD + ":createIdMap(String)");
+  	 	int pos = ccParser.indexOf(Parser.METHOD + ":createIdMap(String)");
 
       if (pos < 0)
       {
@@ -1053,6 +1270,10 @@ public class Clazz implements PropertyChangeInterface
          return;
       }
 
+//      SymTabEntry symTabEntry = ccParser.getSymTab().get(Parser.METHOD + ":createIdMap(String)");
+//      
+//      ccParser.parseMethodBody(symTabEntry);
+      
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = ccParser.getMethodBodyStartPos();
       
@@ -1101,12 +1322,301 @@ public class Clazz implements PropertyChangeInterface
       removeAllFromMethods();
       removeAllFromSourceRoles();
       removeAllFromTargetRoles();
+      removeAllFromKindClasses();
+      setSuperClass(null);
+      removeAllFromKindClassesAsInterface();
+      removeAllFromInterfaces();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
    public String toString()
    {
       return "["+getName()+"]";
+   }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Clazz
+    *              superClass                   kindClasses
+    * </pre>
+    */
+   
+   public static final String PROPERTY_KINDCLASSES = "kindClasses";
+   
+   private LinkedHashSet<Clazz> kindClasses = null;
+   
+   public LinkedHashSet<Clazz> getKindClasses()
+   {
+      if (this.kindClasses == null)
+      {
+         return Clazz.EMPTY_SET;
+      }
+   
+      return this.kindClasses;
+   }
+   
+   public boolean addToKindClasses(Clazz value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.kindClasses == null)
+         {
+            this.kindClasses = new LinkedHashSet<Clazz>();
+         }
+         
+         changed = this.kindClasses.add (value);
+         
+         if (changed)
+         {
+            value.withSuperClass(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromKindClasses(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.kindClasses != null) && (value != null))
+      {
+         changed = this.kindClasses.remove (value);
+         
+         if (changed)
+         {
+            value.setSuperClass(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withKindClasses(Clazz value)
+   {
+      addToKindClasses(value);
+      return this;
+   } 
+   
+   public Clazz withoutKindClasses(Clazz value)
+   {
+      removeFromKindClasses(value);
+      return this;
+   } 
+   
+   public void removeAllFromKindClasses()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKindClasses());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromKindClasses(value);
+      }
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_INTERFAZE = "interfaze";
+   
+   private Boolean interfaze = false;
+   
+   public Boolean isInterfaze()
+   {
+      return this.interfaze;
+   }
+   
+   public void setInterfaze(Boolean value)
+   {
+      if (this.interfaze != value)
+      {
+         Boolean oldValue = this.interfaze;
+         this.interfaze = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+      }
+   }
+   
+   public Clazz withInterfaze(Boolean value)
+   {
+      setInterfaze(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Clazz ----------------------------------- Clazz
+    *              interfaces                   kindClassesAsInterface
+    * </pre>
+    */
+   
+   public static final String PROPERTY_KINDCLASSESASINTERFACE = "kindClassesAsInterface";
+   
+   private LinkedHashSet<Clazz> kindClassesAsInterface = null;
+   
+   public LinkedHashSet<Clazz> getKindClassesAsInterface()
+   {
+      if (this.kindClassesAsInterface == null)
+      {
+         return Clazz.EMPTY_SET;
+      }
+   
+      return this.kindClassesAsInterface;
+   }
+
+   public boolean addToKindClassesAsInterface(Clazz value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.kindClassesAsInterface == null)
+         {
+            this.kindClassesAsInterface = new LinkedHashSet<Clazz>();
+         }
+         
+         changed = this.kindClassesAsInterface.add (value);
+         
+         if (changed)
+         {
+            value.withInterfaces(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSESASINTERFACE, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromKindClassesAsInterface(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.kindClassesAsInterface != null) && (value != null))
+      {
+         changed = this.kindClassesAsInterface.remove (value);
+         
+         if (changed)
+         {
+            value.withoutInterfaces(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSESASINTERFACE, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withKindClassesAsInterface(Clazz value)
+   {
+      addToKindClassesAsInterface(value);
+      return this;
+   } 
+   
+   public Clazz withoutKindClassesAsInterface(Clazz value)
+   {
+  	  removeFromKindClassesAsInterface(value);
+      return this;
+   } 
+   
+   public void removeAllFromKindClassesAsInterface()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getInterfaces());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromKindClassesAsInterface(value);
+      }
+   }
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Clazz ----------------------------------- Clazz
+    *              kindClassesAsInterface                   interfaces
+    * </pre>
+    */
+   
+   public static final String PROPERTY_INTERFACES = "interfaces";
+   
+   private LinkedHashSet<Clazz> interfaces = null;
+   
+   public LinkedHashSet<Clazz> getInterfaces()
+   {
+      if (this.interfaces == null)
+      {
+         return Clazz.EMPTY_SET;
+      }
+   
+      return this.interfaces;
+   }
+   
+   public boolean addToInterfaces(Clazz value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.interfaces == null)
+         {
+            this.interfaces = new LinkedHashSet<Clazz>();
+         }
+         
+         changed = this.interfaces.add (value);
+         
+         if (changed)
+         {
+            value.withKindClassesAsInterface(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromInterfaces(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.interfaces != null) && (value != null))
+      {
+         changed = this.interfaces.remove (value);
+         
+         if (changed)
+         {
+            value.withoutKindClassesAsInterface(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Clazz withInterfaces(Clazz value)
+   {
+      addToInterfaces(value);
+      return this;
+   } 
+   
+   public Clazz withoutInterfaces(Clazz value)
+   {
+      removeFromInterfaces(value);
+      return this;
+   } 
+   
+   public void removeAllFromInterfaces()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getInterfaces());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromInterfaces(value);
+      }
    }
 }
 

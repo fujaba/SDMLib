@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
@@ -130,31 +131,70 @@ public class Attribute implements PropertyChangeInterface
 
    public Attribute generate(String rootDir, String helpersDir)
    {
-      generate(rootDir, helpersDir, true);
+      generate(this.clazz, rootDir, helpersDir, true);
       
       return this;
    } 
 
    public Attribute generate(String rootDir, String helpersDir, boolean doGenerate)
    {
+      generate(this.clazz, rootDir, helpersDir, doGenerate);
+      
+      return this;
+   } 
+   
+   public Attribute generate(Clazz clazz, String rootDir, String helpersDir)
+   {
+      generate(clazz, rootDir, helpersDir, true);
+      
+      return this;
+   } 
+
+   public Attribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate)
+   {
       // get parser from class
       Parser parser = clazz.getOrCreateParser(rootDir);
       
       insertAttrDeclPlusAccessors(parser);
       
-      insertCaseInGenericGetSet(parser);
+      if ( !clazz.isInterfaze())
+      	insertCaseInGenericGetSet(parser);
       
-      getClazz().printFile(doGenerate);
+      clazz.printFile(doGenerate);
 
-      Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
-
-      insertPropertyInCreatorClass(creatorParser);
-
-      getClazz().printCreatorFile(doGenerate);
-      
-      return this;
+      if ( !clazz.isInterfaze())
+      {
+	      Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
+	      
+	      insertPropertyInCreatorClass(creatorParser);
+	      
+	      clazz.printCreatorFile(doGenerate);
+      }
+			return this;
    }
 
+   public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
+   {
+  	 insertPropertyInCreatorClass(creatorParser);
+  	 
+     int pos = creatorParser.indexOf(Parser.IMPORT);
+
+     String prefix = "";
+     StringBuilder fileBody = creatorParser.getFileBody();
+		if (fileBody .indexOf(Parser.IMPORT, pos) < 0)
+     {
+        prefix = "\n";
+     }
+     
+     SymTabEntry symTabEntry = creatorParser.getSymTab().get(Parser.IMPORT + ":" + className);
+     if (symTabEntry == null)
+     {
+    	 creatorParser.getFileBody().insert(creatorParser.getEndOfImports() + 1, 
+              prefix + "\nimport " + className + ";");
+        
+     }  	 
+   }
+   
    private void insertPropertyInCreatorClass(Parser parser)
    {
       String key = Parser.ATTRIBUTE + ":properties";
@@ -193,14 +233,110 @@ public class Attribute implements PropertyChangeInterface
       }
    }
 
+ 	public void generateMethodsInKindClass(Clazz clazz, String rootDir, String helpersDir, boolean b)
+  {
+ 		Parser parser = clazz.getOrCreateParser(rootDir);
+ 		
+ 		int pos = parser.indexOf(Parser.METHOD + ":get" + StrUtil.upFirstChar(getName())+ "()");
+
+    // TODO : FIX ME
+    String string = Parser.METHOD + ":get" + StrUtil.upFirstChar(getName()) + "()";     
+		SymTabEntry symTabEntry = parser.getSymTab().get(string);
+    
+    if (pos < 0 && symTabEntry == null)
+    {
+       // add attribute declaration and get, set, with methods in class file
+       StringBuilder text = new StringBuilder
+          (  "\n   " +
+             "\n   //==========================================================================" +
+             "\n   // methods for PROPERTY_NAME = \"name\"" +
+             "\n   " +
+             "\n   private type name init;" +
+             "\n   " +
+             "\n   public type getName()" +
+             "\n   {" +
+             "\n      return this.name;" +
+             "\n   }" +
+             "\n   " +
+             "\n   public void setName(type value)" +
+             "\n   {" +
+             "\n      if (valueCompare)" +
+             "\n      {" +
+             "\n         type oldValue = this.name;" +
+             "\n         this.name = value;" +
+             "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
+             "\n      }" +
+             "\n   }" +
+             "\n   " +
+             "\n   public ownerClass withName(type value)" +
+             "\n   {" +
+             "\n      setName(value);" +
+             "\n      return this;" +
+             "\n   } " +
+             "\n"
+             );
+       
+       String valueCompare = "this.name != value";
+       
+       if ("String".equals(getType()))
+       {
+          valueCompare = " ! StrUtil.stringEquals(this.name, value)";
+          clazz.insertImport(StrUtil.class.getName());        
+       }
+       
+       else if ("Boolean".equals(getType()))
+       {
+      	 	CGUtil.replaceAll(text, "getName()", "isName()");
+      	 	clazz.insertImport(StrUtil.class.getName()); 
+       }
+       
+       CGUtil.replaceAll(text, "valueCompare", valueCompare);
+       
+       CGUtil.replaceAll(text, 
+             "type", getType(), 
+             "name", getName(),
+             "Name", StrUtil.upFirstChar(getName()),
+             "NAME", getName().toUpperCase(),
+             " init", getInitialization() == null ? "" : " = " + getInitialization(),
+             "ownerClass", CGUtil.shortClassName( clazz.getName())
+             );
+       
+       pos = parser.indexOf(Parser.CLASS_END);
+       
+       parser.getFileBody().insert(pos, text.toString());
+       clazz.setFileHasChanged(true);
+    }
+  }
+   
    private void insertAttrDeclPlusAccessors(Parser parser)
    {
-      int pos = parser.indexOf(Parser.ATTRIBUTE+":"+getName());
+      int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName());
+
+      // TODO : FIX ME
+      String string = Parser.ATTRIBUTE+":PROPERTY_" + getName().toUpperCase();      
+			SymTabEntry symTabEntry = parser.getSymTab().get(string);
       
-      if (pos < 0)
+      if (pos < 0 && symTabEntry == null)
       {
          // add attribute declaration and get, set, with methods in class file
-         StringBuilder text = new StringBuilder
+         StringBuilder  text = null;
+         
+         if(clazz.isInterfaze())
+        	 text = new StringBuilder
+           (  "\n   " +
+              "\n   //==========================================================================" +
+              "\n   " +
+              "\n   public static final String PROPERTY_NAME = \"name\";" +
+              "\n   " +
+              "\n   public type getName();" +
+              "\n   " +
+              "\n   public void setName(type value);" +
+              "\n   " +
+              "\n   public ownerClass withName(type value);" +
+              "\n"
+              );
+         else
+        	 text = new StringBuilder
             (  "\n   " +
                "\n   //==========================================================================" +
                "\n   " +
@@ -236,9 +372,15 @@ public class Attribute implements PropertyChangeInterface
          if ("String".equals(getType()))
          {
             valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-            getClazz().insertImport(StrUtil.class.getName());
+            getClazz().insertImport(StrUtil.class.getName());        
          }
-
+         
+         else if ("Boolean".equals(getType()))
+         {
+        	 	CGUtil.replaceAll(text, "getName()", "isName()");
+        	  getClazz().insertImport(StrUtil.class.getName()); 
+         }
+         
          CGUtil.replaceAll(text, "valueCompare", valueCompare);
          
          CGUtil.replaceAll(text, 
@@ -332,6 +474,7 @@ public class Attribute implements PropertyChangeInterface
 
       if (pos < 0)
       {
+      	if (getClazz().isInterfaze())
          // ups, did not find generic get method. 
          System.err.println("Warning: SDMLib codgen for attribute " + getName() + " for class " + getClazz().getName() 
             + ": \nDid not find method get(String). Should have been generated by my clazz. " 
@@ -364,6 +507,11 @@ public class Attribute implements PropertyChangeInterface
                "\n" 
                );
 
+         if ("Boolean".equals(getType()))
+         {
+        	 CGUtil.replaceAll(text, "getPropertyName()", "isPropertyName()");
+         }
+         
          CGUtil.replaceAll(text, 
             "PropertyName", StrUtil.upFirstChar(getName()),
             "PROPERTY_NAME", "PROPERTY_" + getName().toUpperCase()
@@ -484,5 +632,7 @@ public class Attribute implements PropertyChangeInterface
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+
 }
 

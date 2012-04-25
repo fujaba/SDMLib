@@ -31,11 +31,13 @@ import org.sdmlib.utils.StrUtil;
 public class Parser
 {
 
-   private static final char EOF = Character.MIN_VALUE;
+	 public static final char EOF = Character.MIN_VALUE;
 
-   private static final String VOID = "void";
+   public static final String VOID = "void";
 
-   private static final String CLASS = "class";
+   public static final String CLASS = "class";
+   
+   public static final String INTERFACE = "interface";
 
    public static final char COMMENT_START = 'c';
 
@@ -60,6 +62,8 @@ public class Parser
    public static final String IMPLEMENTS = "implements";
 
    public static final String QUALIFIED_NAME = "qualifiedName";
+
+   public static final String EXTENDS = "extends";
 
    public static char NEW_LINE = '\n';
    
@@ -279,7 +283,10 @@ public class Parser
       parseModifiers();
       
       // skip keyword
-      skip ("class");
+//      skip ("class");
+      
+      //class or interface
+      parseClassType();
       
       className = currentRealWord();
       endOfClassName = currentRealToken.endPos;
@@ -290,11 +297,22 @@ public class Parser
       // extends 
       if ("extends".equals(currentRealWord()))
       {
+      	int startPos = currentRealToken.startPos;
+      	
          skip ("extends");
+         
+         symTab.put(EXTENDS + ":" + currentRealWord(), 
+             new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
+             .withKind(EXTENDS)
+             .withMemberName(currentRealWord())
+             .withEndPos(currentRealToken.endPos));
          
          // skip superclass name
          parseTypeRef(); 
+         
          endOfExtendsClause = previousRealToken.endPos;
+         
+         checkSearchStringFound(EXTENDS, startPos);
       }
       
       // implements 
@@ -329,7 +347,23 @@ public class Parser
       parseClassBody();     
    }
 
-   private void parseClassBody()
+   private String parseClassType()
+  {
+  	 
+     if ("class".equals(currentRealWord()) ) {
+    	 skip("class");
+    	 classType = "class";
+     }
+     
+     else if ("interface".equals(currentRealWord()) ) {
+    	 skip("interface");
+    	 classType = "interface";
+     }
+     
+     return classType;
+  }
+
+	private void parseClassBody()
    {
       // { classBodyDecl* }
       skip("{");
@@ -421,7 +455,13 @@ public class Parser
 
             methodBodyStartPos = currentRealToken.startPos;
             
-            parseBlock();
+            if (currentRealKindEquals('{'))
+            {
+            	parseBlock();
+            }
+            
+            else if (currentRealKindEquals(';'))
+            	skip(';');
             
             String methodSignature = Parser.METHOD + ":" + memberName + params;
                     
@@ -730,6 +770,11 @@ public class Parser
 	private Token previousToken;
 
 	private String className;
+	private String classType;
+	public String getClassType()
+  {
+	  return classType;
+  }
 
 	public int lastIfStart;
 	public int lastIfEnd;

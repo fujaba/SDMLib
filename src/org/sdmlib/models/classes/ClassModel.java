@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
@@ -87,7 +89,8 @@ public class ClassModel implements PropertyChangeInterface
 
 		for (Clazz clazz : getClasses())
 		{
-			clazz.insertCreatorClassInCreatorCreator(parser);
+			if (!clazz.isInterfaze()) 
+				clazz.insertCreatorClassInCreatorCreator(parser);
 		}
 
 		printFile(fileHasChanged);
@@ -212,11 +215,19 @@ public class ClassModel implements PropertyChangeInterface
 	public String dumpClassDiag(String diagName)
 	{
 		// generate dot file
-		StringBuilder dotFileText = new StringBuilder("\n graph ClassDiagram {" + "\n    node [shape = none, fontsize = 10]; " + "\n    edge [fontsize = 10];" + "\n    "
-		    + "\n    modelClasses" + "\n    " +
+		StringBuilder dotFileText = new StringBuilder(
+				"\n digraph ClassDiagram {" 
+			+ "\n    node [shape = none, fontsize = 10]; " 
+			+ "\n    edge [fontsize = 10];" 
+			+ "\n    "
+		  + "\n    modelClasses" 
+			+ "\n    " +
 		    // "\n    g1 -- p2 " +
 		    // "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
-		    "\n    " + "\n    modelAssocs" + "\n}" + "\n");
+		    "\n    " 
+		  + "\n    modelAssocs" 
+		  + "\n}" 
+		  + "\n");
 
 		// add classes
 		StringBuilder modelClassesText = new StringBuilder();
@@ -226,25 +237,62 @@ public class ClassModel implements PropertyChangeInterface
 			StringBuilder modelClassText = new StringBuilder(
 			    "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
 
+			if (clazz.isInterfaze())
+				CGUtil.replaceAll(modelClassText, "border='0'", "border='2'");
+			
 			CGUtil.replaceAll(modelClassText, "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()), "attrCompartment", dumpAttributes(clazz), "methodCompartment",
 			    dumpMethods(clazz));
 
 			modelClassesText.append(modelClassText.toString());
 		}
 
-		// add associations
-		StringBuilder allAssocsText = new StringBuilder();
 
+		StringBuilder allAssocsText = new StringBuilder();
+		
+		// add class inheritance	
+		for (Clazz clazz : this.getClasses())
+		{
+			if (clazz.getSuperClass() != null)
+			{
+
+				StringBuilder oneSuperClassText = new StringBuilder("\n    superClass ->  mClass [dir = \"back\" arrowhead = \"empty\"];");
+
+				CGUtil.replaceAll(oneSuperClassText, "superClass", CGUtil.shortClassName(clazz.getSuperClass().getName())
+																			, "mClass", CGUtil.shortClassName(clazz.getName()));
+
+				allAssocsText.append(oneSuperClassText.toString());
+			}
+		}
+		
+		// add interface inheritance
+		for (Clazz clazz : this.getClasses())
+		{
+			for (Clazz interfaceClass : clazz.getInterfaces())
+      {	
+				if (interfaceClass.isInterfaze())
+        {
+	        StringBuilder oneSuperClassText = new StringBuilder("\n    interfaceClass ->  mClass [dir = \"back\" arrowhead = \"empty\"];");
+	        
+	        CGUtil.replaceAll(oneSuperClassText, 
+	        									"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
+	        									"mClass", CGUtil.shortClassName(clazz.getName()));
+	        
+	        allAssocsText.append(oneSuperClassText.toString());
+        }
+			}
+		}
+		
+		// add associations
 		for (Association assoc : getAssociations())
 		{
-			StringBuilder oneAssocText = new StringBuilder("\n    sourceClass -- targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\"];");
+			StringBuilder oneAssocText = new StringBuilder("\n    sourceClass -> targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
 
 			CGUtil.replaceAll(oneAssocText, "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), "targetClass",
 			    CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), "sourceRole", assoc.getSource().getName(), "targetRole", assoc.getTarget().getName());
 
 			allAssocsText.append(oneAssocText.toString());
 		}
-
+		
 		CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
 
 		// write dot file
@@ -416,7 +464,7 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
-	public void updateFromCode(String includePathes, String packages)
+	public void updateFromCode(String rootDir, String includePathes, String packages)
 	{
 		// find java files
 		String binDir = getClass().getClassLoader().getResource(".").getPath();
@@ -431,19 +479,19 @@ public class ClassModel implements PropertyChangeInterface
 			// parse each java file
 			for (Clazz clazz : getClasses())
 			{
-				handleMember(clazz);
+				handleMember(clazz, rootDir);
 			}
 		}
 
 		// add model creation code at invocation place, if not yet there
 	}
 
-	private void handleMember(Clazz clazz)
+	private void handleMember(Clazz clazz, String rootDir)
 	{
-		Parser parser = clazz.getOrCreateParser("examples");
+		Parser parser = clazz.getOrCreateParser(rootDir);
 		parser.indexOf(Parser.CLASS_END);
 
-		LinkedHashMap<String, SymTabEntry> symTab = new LinkedHashMap<String, SymTabEntry>();// parser.getSymTab();
+		LinkedHashMap<String, SymTabEntry> symTab = new LinkedHashMap<String, SymTabEntry>();
 		for (String key : parser.getSymTab().keySet())
 		{
 			symTab.put(key, parser.getSymTab().get(key));
@@ -532,8 +580,14 @@ public class ClassModel implements PropertyChangeInterface
 
 	private void addMemberToModel(Clazz clazz, Parser parser, LinkedHashMap<SymTabEntry, String> attributes, String memberName)
 	{
-		// add new methods
 
+			// add class or interface
+			if (Parser.INTERFACE.equals(parser.getClassType()))
+			{
+				clazz.setInterfaze(true);
+			}
+		
+		// add new methods
 		if (memberName.startsWith(Parser.METHOD))
 		{
 			addMemberAsMethod(clazz, memberName);
@@ -547,9 +601,22 @@ public class ClassModel implements PropertyChangeInterface
 			addMemberAsAttribut(clazz, attributes, attrName, symTabEntry);
 		}
 
-		// TODO : add super classes
+		// add super classes 
+		if (memberName.startsWith(Parser.EXTENDS))
+		{
+			if (clazz.isInterfaze()) {
+				addMemberAsInterface(clazz, memberName, parser);
+			}
+			else {
+				addMemberAsSuperClass(clazz, memberName, parser);
+			}
+		}
 
 		// TODO : add interfaces
+		else if (memberName.startsWith(Parser.IMPLEMENTS))
+		{
+			addMemberAsInterface(clazz, memberName, parser);
+		}
 	}
 
 	private void addMemberAsAttribut(Clazz clazz, LinkedHashMap<SymTabEntry, String> attributes, String attrName, SymTabEntry symTabEntry)
@@ -581,6 +648,53 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
+	private void addMemberAsSuperClass(Clazz clazz, String memberName, Parser parser)
+	{
+		Clazz memberClass = findMemberClass(clazz, memberName, parser);
+		
+		if (memberClass != null)
+			clazz.setSuperClass(memberClass);
+	}
+	
+	private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
+	{
+		Clazz memberClass = findMemberClass(clazz, memberName, parser);
+		
+		if (memberClass != null) {
+			clazz.addToInterfaces(memberClass);
+		}
+	}
+
+	private Clazz findMemberClass(Clazz clazz, String memberName, Parser parser)
+  {
+	  String[] split = memberName.split(":");
+		String signature = split[1];
+
+		LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+
+		for (String key : symTab.keySet())
+		{
+			String importName = symTab.get(key).getMemberName();
+
+			if (key.startsWith(Parser.IMPORT + ":") && importName.endsWith(signature))
+			{
+				LinkedHashSet<Clazz> classes = getClasses();
+
+				for (Clazz eClazz : classes)
+				{
+					if (eClazz.getName().equals(importName))
+					{
+						return eClazz;
+					}
+				}
+			}
+		}
+		
+		return null;
+  }
+	
+	
+	
 	private void addMemberAsMethod(Clazz clazz, String memberName)
 	{
 		String[] split = memberName.split(":");
@@ -591,7 +705,9 @@ public class ClassModel implements PropertyChangeInterface
 
 		if (filterString.indexOf(signature) < 0)
 		{
-			new Method().withClazz(clazz).withSignature(signature);
+			new Method().
+			withClazz(clazz).
+			withSignature(signature);
 		}
 	}
 
@@ -951,9 +1067,9 @@ public class ClassModel implements PropertyChangeInterface
 		String signature = Parser.METHOD + ":" + methodName + "()";// TODO should work for methods with params, too. Parse to method end and search in symtab.
 
 		rescanCode();
-
+		
 		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
-
+		
 		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
 		@SuppressWarnings("unchecked")
@@ -981,8 +1097,17 @@ public class ClassModel implements PropertyChangeInterface
 	    int currentInsertPos)
 	{
 
+		Queue<Clazz> clazzQueue = new LinkedList<Clazz>(); 
+
 		for (Clazz clazz : getClasses())
 		{
+			clazzQueue.offer(clazz);
+		}
+		
+		while (!clazzQueue.isEmpty())
+    {
+	    Clazz clazz  = clazzQueue.poll();
+	    
 			String modelClassName = clazz.getName();
 
 			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
@@ -990,15 +1115,56 @@ public class ClassModel implements PropertyChangeInterface
 			if (entry == null)
 			{
 				// insert code for new Clazz()
-				handledClazzes.put(modelClassName, clazz);
-				currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature), clazz, handledClazzes, currentInsertPos);
-
+				if (!checkDependencies(clazz)) {
+					clazzQueue.offer(clazz);
+				}
+				else
+				{
+					handledClazzes.put(modelClassName, clazz);
+					currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature), clazz, handledClazzes, currentInsertPos);
+				}
 			}
-
-			writeToFile(modelCreationClass);
-		}
+    }
+		
+//		for (Clazz clazz : getClasses())
+//		{
+//			String modelClassName = clazz.getName();
+//
+//			LocalVarTableEntry entry = findInLocalVarTable(localVarTable, modelClassName);
+//
+//			if (entry == null)
+//			{
+//				// insert code for new Clazz()
+//				if (checkDependencies(clazz)) {
+//					
+//				}
+//				
+//				handledClazzes.put(modelClassName, clazz);
+//				currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature), clazz, handledClazzes, currentInsertPos);
+//
+//			}
+//
+//			writeToFile(modelCreationClass);
+//		}
 		return currentInsertPos;
 	}
+
+	private boolean checkDependencies(Clazz clazz)
+  {
+	  ArrayList<Clazz> dependencies = new ArrayList<Clazz>();
+	  if (clazz.getSuperClass() != null)
+	  	dependencies.add(clazz.getSuperClass());
+	  if (clazz.getInterfaces() != null)
+	  	dependencies.addAll(clazz.getInterfaces());
+	  
+	  for (Clazz depClazz : dependencies)
+    {
+	     if (handledClazzes.get(depClazz.getName()) == null) {
+	    	  return false;
+	     }
+    }  
+	  return true;
+  }
 
 	private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature, LinkedHashMap<String, LocalVarTableEntry> localVarTable,
 	    int currentInsertPos)
@@ -1309,7 +1475,28 @@ public class ClassModel implements PropertyChangeInterface
 		String modelClassName = clazz.getName();
 		// no creation code yet. Insert it.
 		currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
+	
+		// check interface attr
+		if (clazz.isInterfaze()) {
+			currentInsertPos = insertCreationIsInterfaceCode(currentInsertPos, modelCreationClass, symTabEntry);
+			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+		}
+		
+		// insert code for superclass
+		Clazz superClass = clazz.getSuperClass();
+		if (superClass != null) {
+			currentInsertPos = insertCreationSuperClassCode( currentInsertPos, superClass.getName(), modelCreationClass, symTabEntry);
+			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+		}
 
+		// insert code for interfaces
+		for ( Clazz interfaze :clazz.getInterfaces() ){
+			if (interfaze != null) {
+				currentInsertPos = insertCreationInterfaceCode(currentInsertPos, interfaze.getName(), modelCreationClass, symTabEntry);
+				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass, symTabEntry);
+			}
+		}
+		
 		// insert code for new Attr()
 		LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
 		for (Attribute attribute : clazzAttributes)
@@ -1395,9 +1582,32 @@ public class ClassModel implements PropertyChangeInterface
 	{
 		StringBuilder text = new StringBuilder("\n      Clazz localVar = new Clazz(\"className\")\n");
 
-		CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class", "className", modelClassName);
+		CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class", 
+														"className", modelClassName);
 
 		currentInsertPos = checkImport("Clazz", currentInsertPos, modelCreationClass, symTabEntry);
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+	
+	private int insertCreationSuperClassCode(int currentInsertPos, String superClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+		StringBuilder text = new StringBuilder("      .withSuperClass(superClassName)");
+
+		CGUtil.replaceAll(text, "superClassName", StrUtil.downFirstChar(CGUtil.shortClassName(superClassName)) + "Class");
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+	
+	private int insertCreationInterfaceCode(int currentInsertPos, String interfaceName, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+		StringBuilder text = new StringBuilder("      .withInterfaces(interfaceName)");
+
+		CGUtil.replaceAll(text, "interfaceName", StrUtil.downFirstChar(CGUtil.shortClassName(interfaceName)) + "Class");
+		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
+	}
+	
+	private int insertCreationIsInterfaceCode(int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+	{
+		StringBuilder text = new StringBuilder("      .withInterfaze(true)");
 		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
 	}
 
@@ -1416,7 +1626,9 @@ public class ClassModel implements PropertyChangeInterface
 			initialization = "";
 		}
 
-		CGUtil.replaceAll(text, "attributeName", attribute.getName(), "attributeType", attribute.getType(), "attributeInit", initialization);
+		CGUtil.replaceAll(text, "attributeName", attribute.getName(), 
+														"attributeType", attribute.getType(), 
+														"attributeInit", initialization);
 
 		return insertCreationCode(text, currentInsertPos, modelCreationClass, symTabEntry);
 
@@ -1625,4 +1837,6 @@ public class ClassModel implements PropertyChangeInterface
 
 		return result;
 	}
+
+
 }

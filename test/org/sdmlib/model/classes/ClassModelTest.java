@@ -51,12 +51,20 @@ public class ClassModelTest
       Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel");
            
       Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz")
-      .withAttribute("name", "String");
+      .withAttribute("name", "String")
+      .withAttribute("interfaze", "Boolean", "false");
       
       new Association()
       .withSource("classModel", modelClass, Role.ONE, Role.AGGREGATION)
       .withTarget("classes", clazzClass, Role.MANY);
       
+      new Association()
+      .withSource("superClass", clazzClass, Role.ONE)
+      .withTarget("kindClasses", clazzClass, Role.MANY);
+      
+      new Association()
+      .withSource("interfaces", clazzClass, Role.MANY)
+      .withTarget("kindClassesAsInterface", clazzClass, Role.MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
       .withAttribute("initialization", "String");
@@ -122,9 +130,9 @@ public class ClassModelTest
       Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
       .withAttribute("name", "String")
       .withAttribute("type", "String")
-      .withAttribute("initSequence", "ArrayList<ArrayList<String>>")
       .withAttribute("startPos", "int")
-      .withAttribute("endPos", "int");
+      .withAttribute("endPos", "int")
+      .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
       
       
       Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")

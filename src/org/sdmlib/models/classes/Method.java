@@ -26,6 +26,10 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
+
 public class Method implements PropertyChangeInterface
 {
 
@@ -193,5 +197,79 @@ public class Method implements PropertyChangeInterface
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+	public Method generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate)
+  {
+    // get parser from class
+    Parser parser = clazz.getOrCreateParser(rootDir);
+    
+    insertMethodDecl(clazz, parser);
+    
+//    insertCaseInGenericGetSet(parser);
+    
+    clazz.printFile(doGenerate);
+
+		return this;
+	  
+  }
+
+	private void insertMethodDecl(Clazz clazz, Parser parser)
+	{		
+		String signature = getSignature();
+		int pos = parser.indexOf(Parser.METHOD + ":" + signature);
+
+		String string = Parser.METHOD + ":" + signature;
+		SymTabEntry symTabEntry = parser.getSymTab().get(string);
+
+		if (pos < 0)
+		{
+			StringBuilder text = new StringBuilder
+      (  "\n   " +
+         "\n   //==========================================================================" +
+         "\n   " +
+         "\n   modifiers returnType mehodName( parameter )\n   {\n   }" +
+         "\n"
+      );
+			
+			if ( clazz.isInterfaze())
+				CGUtil.replaceAll(text, "\n   {\n   }", ";");
+			
+			String methodName = signature.substring(0, signature.indexOf("("));
+      
+			String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+			
+			String parameter = "";
+			
+			String[] parameters = parameterSig.split("\\s*,\\s*");
+			
+			if (!(parameters.length == 1 && parameters[0].isEmpty())) 
+			{
+				for (int i = 0; i < parameters.length; i++)
+				{
+					parameter += parameters[i] + " p" + i;
+					if (i + 1 < parameters.length)
+						parameter += ", ";
+				}
+			}
+		
+			CGUtil.replaceAll(text, 
+          "modifiers", "public", 
+          "returnType", "void",
+          "mehodName", methodName,
+          "parameter", parameter
+          );
+      
+      pos = parser.indexOf(Parser.CLASS_END);
+      
+      parser.getFileBody().insert(pos, text.toString());
+      clazz.setFileHasChanged(true);
+		}
+
+	}
+
+	public void generate(String rootDir, String helpersDir, boolean doGenerate)
+  {
+		generate(this.clazz,  rootDir, helpersDir, doGenerate);  
+  }
 }
 

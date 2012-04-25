@@ -190,11 +190,14 @@ public class Role implements PropertyChangeInterface
       
       
       // generate property in creator class
-      Parser creatorParser = getClazz().getOrCreateParserForCreatorClass(rootDir);
-      
-      insertPropertyInCreatorClass(creatorParser, partnerRole);
-      
-      getClazz().printCreatorFile(doGenerate);
+		if (!clazz.isInterfaze())
+		{
+			Parser creatorParser = getClazz().getOrCreateParserForCreatorClass(rootDir);
+
+			insertPropertyInCreatorClass(creatorParser, partnerRole);
+
+			getClazz().printCreatorFile(doGenerate);
+		}
    }
    
    private void insertRemovalInRemoveYou(Parser parser, Role partnerRole)

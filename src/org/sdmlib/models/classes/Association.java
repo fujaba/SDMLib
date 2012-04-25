@@ -24,9 +24,8 @@ package org.sdmlib.models.classes;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
-
-
 
 
 public class Association implements PropertyChangeInterface
@@ -85,14 +84,29 @@ public class Association implements PropertyChangeInterface
    
    public Association generate(String rootDir, boolean doGenerate)
    {
-      // open source class and get or insert role implementation
-      // Parser sourceClassParser = getSourceClass().getOrCreateParser(rootDir);
-      getSource().generate(rootDir, getTarget(), doGenerate);
-      
-      // open target class and get or insert role implementation
-      getTarget().generate(rootDir, getSource(), doGenerate);
-      
-      return this;
+  	 // check if no interface
+      if (!getSource().getClazz().isInterfaze() && !getTarget().getClazz().isInterfaze())
+      {
+	      // open source class and get or insert role implementation
+	      getSource().generate(rootDir, getTarget(), doGenerate);
+	      // open target class and get or insert role implementation
+	      getTarget().generate(rootDir, getSource(), doGenerate);
+      }
+      else
+      {
+      	String string = "";
+      	if (getSource().getClazz().isInterfaze())
+      	{
+      		string += " source class " + CGUtil.shortClassName(getSource().getClazz().getName()) + " is interface !!\n";
+      	}
+      	if (getTarget().getClazz().isInterfaze())
+      	{
+      		string += " target class " + CGUtil.shortClassName(getTarget().getClazz().getName()) + " is interface !!\n";
+      	}
+      	
+        System.err.println("Association Error: code generation for association failed !!! \n" + string);
+      }
+			return this;
    } 
 
    

@@ -359,7 +359,7 @@ public class TransformOp implements PropertyChangeInterface
       // we need model information, reverse engineer it 
       ClassModel model = new ClassModel();
 
-      model.updateFromCode(rootDir, modelPackage);
+      model.updateFromCode("examples", rootDir, modelPackage);
 
       LinkedHashMap<String, String> typeTable = new LinkedHashMap<String, String>();
       // find class and method
