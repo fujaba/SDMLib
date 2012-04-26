@@ -220,7 +220,7 @@ public class Clazz implements PropertyChangeInterface
 		
   	for ( Clazz interfaze : getInterfaces() )
     {
-  		 int extendsPos = parser.indexOf(Parser.IMPLEMENTS);
+  		 int extendsPos = parser.indexOf(string);
        
        if (extendsPos < 0)
        {
