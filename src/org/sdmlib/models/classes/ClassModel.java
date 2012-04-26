@@ -1776,7 +1776,7 @@ public class ClassModel implements PropertyChangeInterface
 
 	private Clazz getOrCreateClazz(String className)
 	{
-		for (Clazz clazz : classes)
+		for (Clazz clazz : getClasses())
 		{
 			if (StrUtil.stringEquals(clazz.getName(), className))
 			{
