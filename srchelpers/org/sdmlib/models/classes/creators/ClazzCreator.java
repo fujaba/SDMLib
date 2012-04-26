@@ -9,6 +9,7 @@ public class ClazzCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Clazz.PROPERTY_NAME,
+      Clazz.PROPERTY_INTERFAZE,
    };
    
    public String[] getProperties()
