@@ -22,6 +22,8 @@ public class Decoding {
 		stopwords.add("!--");
 		stopwords.add("!DOCTYPE");
 		stopwords.add("/");
+		stopwords.add("br");
+		stopwords.add("br/");
 	}
 
 	public Object decode(String value) {
@@ -47,6 +49,27 @@ public class Decoding {
 					exit = true;
 					break;
 				}
+			}
+			if (!exit) {
+				pos++;
+			}
+		}
+		return exit;
+	}
+	
+	protected boolean stepPos(String searchString) {
+		boolean exit = false;
+		int strLen=searchString.length();
+		int z=0;
+		while (pos < len && !exit) {
+			if (buffer.charAt(pos) == searchString.charAt(z)) {
+					z++;
+					if(z>=strLen){
+						exit = true;
+						break;
+					}
+			}else{
+				z=0;
 			}
 			if (!exit) {
 				pos++;
@@ -91,14 +114,16 @@ public class Decoding {
 								newPrefix = prefix + XMLIdMap.ENTITYSPLITTER;
 								prefix += XMLIdMap.ATTRIBUTEVALUE;
 							}
-							stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
+//							stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
 						}
 					} else {
 						entity = entityCreater.getSendableInstance(false);
 						stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
 						newPrefix = XMLIdMap.ENTITYSPLITTER;
 					}
-					if (entity != null) {
+					if(entity==null){
+						parseChildren(prefix + XMLIdMap.ENTITYSPLITTER, entity, tag);
+					}else{
 						if (!plainvalue) {
 							convertParams(entityCreater, entity, prefix);
 						}
@@ -107,31 +132,11 @@ public class Decoding {
 							String value;
 							stepPos('<');
 							value = buffer.substring(start, pos);
-							stepPos('>');
-							pos++;
 							entityCreater.setValue(entity, prefix, value);
 							return null;
 						} else {
 							//Children
-							while (pos < len) {
-								String currentTag=getNextTag();
-								Object result = findTag(newPrefix);
-								String startTag=getNextTag();
-								if(stack.size()>0&&result!=null){
-									ReferenceObject refObject = stack.get(stack.size() - 1);
-									SendableEntityCreator parentCreator=refObject.getCreater();
-									parentCreator.setValue(refObject.getEntity(), currentTag, result);
-								}
-								if(startTag.startsWith("/"+tag)){
-									if(stack.size()>0){
-										stack.remove(stack.size() - 1);
-									}
-									stepPos('<');
-									pos++;
-									break;
-								}
-								start = ++pos;
-							}
+							parseChildren(newPrefix, entity, tag);
 						}
 					}
 					return entity;
@@ -140,6 +145,39 @@ public class Decoding {
 		}
 		return null;
 	}
+	
+	private void parseChildren(String newPrefix, Object entity, String tag){
+		while (pos < len) {
+//			String currentTag = getEntity(pos);
+//			String currentTag=getNextTag();
+//			if(currentTag.startsWith("/")){
+//				break;
+//			}
+			String nextTag=getNextTag();
+			Object result = null;
+			if(!nextTag.startsWith("/") && !nextTag.endsWith("/")){
+				System.out.println(newPrefix);
+				result = findTag(newPrefix);
+//				nextTag=getNextTag();
+			}
+			if(result!=null){
+				ReferenceObject refObject = stack.get(stack.size() - 1);
+				SendableEntityCreator parentCreator=refObject.getCreater();
+				parentCreator.setValue(refObject.getEntity(), nextTag, result);
+			}
+			if(nextTag.startsWith("/"+tag) && !nextTag.endsWith("/")){
+				if(entity!=null&&stack.size()>0){
+					stack.remove(stack.size() - 1);
+				}
+				stepPos('<');
+				pos++;
+				
+				break;
+			}
+			pos++;
+		}
+	}
+	
 	public String getNextTag(){
 		String tag="";
 		int savePos=pos;
