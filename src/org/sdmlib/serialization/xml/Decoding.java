@@ -90,8 +90,8 @@ public class Decoding {
 							if (!plainvalue) {
 								newPrefix = prefix + XMLIdMap.ENTITYSPLITTER;
 								prefix += XMLIdMap.ATTRIBUTEVALUE;
-
 							}
+							stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
 						}
 					} else {
 						entity = entityCreater.getSendableInstance(false);
