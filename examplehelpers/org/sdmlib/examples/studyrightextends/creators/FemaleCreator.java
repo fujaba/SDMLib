@@ -1,19 +1,15 @@
-package org.sdmlib.codegen.creators;
+package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.codegen.LocalVarTableEntry;
+import org.sdmlib.examples.studyrightextends.Female;
+import org.sdmlib.examples.studyrightextends.Person;
 
-public class LocalVarTableEntryCreator implements SendableEntityCreator
+public class FemaleCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      LocalVarTableEntry.PROPERTY_NAME,
-      LocalVarTableEntry.PROPERTY_TYPE,
-      LocalVarTableEntry.PROPERTY_STARTPOS,
-      LocalVarTableEntry.PROPERTY_ENDPOS,
-      LocalVarTableEntry.PROPERTY_INITSEQUENCE,
+      Person.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -23,17 +19,17 @@ public class LocalVarTableEntryCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new LocalVarTableEntry();
+      return new Female();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((LocalVarTableEntry) target).get(attrName);
+      return ((Female) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((LocalVarTableEntry) target).set(attrName, value);
+      return ((Female) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
