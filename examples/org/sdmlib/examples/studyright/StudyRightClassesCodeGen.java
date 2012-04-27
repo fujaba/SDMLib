@@ -47,88 +47,143 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightReverseClassModel()
    {
   	 
-      Scenario scenario = new Scenario("StudyRightReverseClassModel");
+  	  Scenario scenario = new Scenario("StudyRightReverseClassModel");
 
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "zuendorf", "02.04.2012 14:58:18", 0, 0);
+      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
 
-      Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
-
-      new Method()
-			.withClazz(groupAccountClass)
-			.withSignature("updateBalances()");
-
-      Clazz groupAccountTestsClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccountTests");
-
-      new Method()
-			.withClazz(groupAccountTestsClass)
-			.withSignature("testGroupAccountRuleRecognition()");
-
-      new Method()
-			.withClazz(groupAccountTestsClass)
-			.withSignature("testGroupAccountCodegen()");
-
+      model.updateFromCode("examples", "examples test src", "org.sdmlib.examples");
       
-      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person")
-      .withAttribute("name", "String") /* add attribut */
-      .withAttribute("balance", "double") /* add attribut */;
+      model.insertModelCreationCodeHere("examples");
+      scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
-      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      ScenarioManager.get()
+      .add(scenario)
+      .dumpHTML();
+   }
+   
+   @Test
+   public void testStudyRightExtendsReverseClassModel()
+   {
+  	 
+  	  Scenario scenario = new Scenario("StudyRightExtendsReverseClassModel");
+
+      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+
+      ClassModel model = new ClassModel();
+
+      Clazz lectureClass = new Clazz("org.sdmlib.examples.studyrightextends.Lecture")
+      .withAttribute("Title", "String");
+
+      Clazz personClass = new Clazz("org.sdmlib.examples.studyrightextends.Person")
+      .withInterfaze(true);
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("findMyPosition()");
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("findMyPosition(String)");
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("findMyPosition(String,int)");
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("getName()");
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("setName(String)");
+
+      new Method()
+			.withClazz(personClass)
+			.withSignature("withName(String)");
+
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
       .withAttribute("roomNo", "String")
       .withAttribute("credits", "int");
 
       new Method()
 			.withClazz(roomClass)
-			.withSignature("findPath(String,int)");
+			.withSignature("studentCount()");
 
       new Association()
 			.withSource("neighbors", roomClass, "many")
 			.withTarget("neighbors", roomClass, "many");
 
-      Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
-
       new Association()
-			.withSource("in", roomClass, "one")
-			.withTarget("students", studentClass, "many");
+			.withSource("lecture", lectureClass, "many")
+			.withTarget("in", roomClass, "one");
 
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-
-      new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightReverseClassModel()");
-
-      new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightObjectScenarios()");
-
-      new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightClassesCodeGen()");
-
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
+      Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
       .withAttribute("name", "String");
 
       new Association()
 			.withSource("rooms", roomClass, "many")
 			.withTarget("uni", universityClass, "one");
 
+      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
+
+      Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
+      .withInterfaces(personClass)
+      .withAttribute("name", "String");
+
+      new Method()
+			.withClazz(femaleClass)
+			.withSignature("findMyPosition()");
+
+      new Method()
+			.withClazz(femaleClass)
+			.withSignature("findMyPosition(String)");
+
+      new Method()
+			.withClazz(femaleClass)
+			.withSignature("findMyPosition(String,int)");
+
+      Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
+      .withInterfaze(true)
+      .withInterfaces(personClass);
+
+      Clazz professorClass = new Clazz("org.sdmlib.examples.studyrightextends.Professor")
+      .withSuperClass(femaleClass)
+      .withAttribute("PersNr", "int");
+
       new Association()
-			.withSource("students", studentClass, "many")
-			.withTarget("uni", universityClass, "one");
+			.withSource("lecture", lectureClass, "many")
+			.withTarget("has", professorClass, "one");
+
+      Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
+      .withInterfaces(maleClass)
+      .withAttribute("name", "String")
+      .withAttribute("matrNo", "int");
+
+      new Method()
+			.withClazz(studentClass)
+			.withSignature("findMyPosition()");
+
+      new Method()
+			.withClazz(studentClass)
+			.withSignature("findMyPosition(String)");
+
+      new Method()
+			.withClazz(studentClass)
+			.withSignature("findMyPosition(String,int)");
+
+      new Association()
+			.withSource("lecture", lectureClass, "many")
+			.withTarget("listen", studentClass, "one");
+
+
+
+      model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
       
-      Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item")
-      .withAttribute("description", "String")
-      .withAttribute("value", "double") /* add attribut */;
-
-      model.updateFromCode("examples test src", "org.sdmlib.examples");
-
       model.insertModelCreationCodeHere("examples");
-      
-      scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
+      scenario.addImage(model.dumpClassDiag("StudyRightExtendsReverseClassModel"));
 
       ScenarioManager.get()
       .add(scenario)
