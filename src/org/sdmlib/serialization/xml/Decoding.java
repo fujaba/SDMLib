@@ -8,7 +8,6 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
 public class Decoding {
-	public static final char PREFIX = ':';
 	private String buffer;
 	private int len;
 	private int pos;
@@ -21,9 +20,6 @@ public class Decoding {
 		stopwords.add("?xml");
 		stopwords.add("!--");
 		stopwords.add("!DOCTYPE");
-		stopwords.add("/");
-		stopwords.add("br");
-		stopwords.add("br/");
 	}
 
 	public Object decode(String value) {
@@ -41,7 +37,7 @@ public class Decoding {
 		return result;
 	}
 
-	private boolean stepPos(char... character) {
+	public boolean stepPos(char... character) {
 		boolean exit = false;
 		while (pos < len && !exit) {
 			for (char zeichen : character) {
@@ -57,7 +53,7 @@ public class Decoding {
 		return exit;
 	}
 	
-	protected boolean stepPos(String searchString) {
+	public boolean stepPos(String searchString) {
 		boolean exit = false;
 		int strLen=searchString.length();
 		int z=0;
@@ -82,99 +78,120 @@ public class Decoding {
 		if (stepPos('<')) {
 			int start = ++pos;
 
-			if (stepPos(' ', '>')) {
+			if (stepPos(' ', '>', '/')) {
 				String tag = getEntity(start);
-				if (tag.length() > 0) {
-					XMLEntityCreator entityCreater = parent.getCreatorDecodeClass(tag);
-					Object entity = null;
-					boolean plainvalue = false;
-					String newPrefix = "";
-					if (entityCreater == null) {
-						if(stack.size()==0){
-							return null;
-						}
-						// Not found child creater
-						ReferenceObject referenceObject = stack.get(stack.size() - 1);
-						entityCreater = (XMLEntityCreator) referenceObject.getCreater();
-						String[] properties = entityCreater.getProperties();
-						prefix += tag;
+				return findTag(prefix, tag);
+			}
+		}
+		return null;
+	}
+	private Object findTag(String prefix, String tag){
+		if (tag.length() > 0) {
+			XMLEntityCreator entityCreater = parent.getCreatorDecodeClass(tag);
+			Object entity = null;
+			boolean plainvalue = false;
+			String newPrefix = "";
+			if (entityCreater == null) {
+				if(stack.size()==0){
+					return null;
+				}
+				// Not found child creater
+				ReferenceObject referenceObject = stack.get(stack.size() - 1);
+				entityCreater = (XMLEntityCreator) referenceObject.getCreater();
+				String[] properties = entityCreater.getProperties();
+				prefix += tag;
 
-						for (String prop : properties) {
-							if (prop.equalsIgnoreCase(prefix)) {
-								entity = referenceObject.getEntity();
-								plainvalue = true;
-								break;
-							} else if (prop.startsWith(prefix)) {
-								entity = referenceObject.getEntity();
-							}
-						}
-
-						if (entity != null) {
-							if (!plainvalue) {
-								newPrefix = prefix + XMLIdMap.ENTITYSPLITTER;
-								prefix += XMLIdMap.ATTRIBUTEVALUE;
-							}
-//							stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
-						}
-					} else {
-						entity = entityCreater.getSendableInstance(false);
-						stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
-						newPrefix = XMLIdMap.ENTITYSPLITTER;
+				for (String prop : properties) {
+					if (prop.equalsIgnoreCase(prefix)) {
+						entity = referenceObject.getEntity();
+						plainvalue = true;
+						break;
+					} else if (prop.startsWith(prefix)) {
+						entity = referenceObject.getEntity();
+						break;
 					}
-					if(entity==null){
-						parseChildren(prefix + XMLIdMap.ENTITYSPLITTER, entity, tag);
+				}
+
+				if (entity != null) {
+					if (!plainvalue) {
+						newPrefix = prefix + XMLIdMap.ENTITYSPLITTER;
+						prefix += XMLIdMap.ATTRIBUTEVALUE;
+					}
+				}
+			} else {
+				entity = entityCreater.getSendableInstance(false);
+				stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
+				newPrefix = XMLIdMap.ENTITYSPLITTER;
+				prefix="";
+			}
+			if(entity==null){
+				//Children
+				parseChildren(prefix + XMLIdMap.ENTITYSPLITTER, entity, tag);
+			}else{
+				if (!plainvalue) {
+					convertParams(entityCreater, entity, prefix);
+					if(buffer.charAt(pos)!='/'){
+						//Children
+						parseChildren(newPrefix, entity, tag);
 					}else{
-						if (!plainvalue) {
-							convertParams(entityCreater, entity, prefix);
-						}
-						if (plainvalue) {
-							start = ++pos;
-							String value;
-							stepPos('<');
-							value = buffer.substring(start, pos);
-							entityCreater.setValue(entity, prefix, value);
-							return null;
-						} else {
-							//Children
-							parseChildren(newPrefix, entity, tag);
-						}
+						pos++;
 					}
 					return entity;
 				}
+				int start = ++pos;
+				stepPos('<');
+				String value= buffer.substring(start, pos);
+				entityCreater.setValue(entity, prefix, value);
+				stepPos('<');
+				stepPos('>');
+				return null;
 			}
+			return entity;
 		}
 		return null;
 	}
 	
 	private void parseChildren(String newPrefix, Object entity, String tag){
 		while (pos < len) {
-//			String currentTag = getEntity(pos);
-//			String currentTag=getNextTag();
-//			if(currentTag.startsWith("/")){
-//				break;
-//			}
-			String nextTag=getNextTag();
-			Object result = null;
-			if(!nextTag.startsWith("/") && !nextTag.endsWith("/")){
-				System.out.println(newPrefix);
-				result = findTag(newPrefix);
-//				nextTag=getNextTag();
-			}
-			if(result!=null){
-				ReferenceObject refObject = stack.get(stack.size() - 1);
-				SendableEntityCreator parentCreator=refObject.getCreater();
-				parentCreator.setValue(refObject.getEntity(), nextTag, result);
-			}
-			if(nextTag.startsWith("/"+tag) && !nextTag.endsWith("/")){
-				if(entity!=null&&stack.size()>0){
-					stack.remove(stack.size() - 1);
+			if (stepPos('<')) {
+				int start = ++pos;
+
+				if (stepPos(' ', '>', '/')) {
+					String nextTag = getEntity(start);
+			
+					if(nextTag.length()>0){
+						Object result = findTag(newPrefix, nextTag);
+			
+						if(result!=null){
+							ReferenceObject refObject=null;
+							if(result!=entity){
+								if("&".equals(newPrefix)){
+									refObject = stack.get(stack.size() - 2);
+								}else{
+									refObject = stack.get(stack.size() - 1);
+								}
+								if(refObject!=null){
+									SendableEntityCreator parentCreator=refObject.getCreater();
+									parentCreator.setValue(refObject.getEntity(), nextTag, result);
+									if(entity!=null&&stack.size()>0){
+										stack.remove(stack.size() - 1);
+									}
+								}
+							}
+						}
+					}
+					if(pos>=len){
+						if(entity!=null&&stack.size()>0){
+							stack.remove(stack.size() - 1);
+						}
+					}else if(buffer.charAt(pos)=='/'){
+						System.out.println(buffer.substring(pos));
+						stepPos('>');
+						break;
+					}
+					pos++;
 				}
-				stepPos('<');
-				pos++;
-				
-				break;
 			}
-			pos++;
 		}
 	}
 	
