@@ -42,8 +42,6 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-import com.sun.media.sound.HsbParser;
-
 public class ClassModel implements PropertyChangeInterface
 {
 	public static ClassModel classModel = null;
