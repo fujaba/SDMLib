@@ -4,10 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.IdMapFilter;
+import org.sdmlib.serialization.IdMapFilter;
 
-public class JsonFilter implements IdMapFilter{
-	private int deep = ALLDEEP;
+public class JsonFilter extends IdMapFilter{
 	private String[] exclusiveProperties;
 	private HashSet<String> objects = new HashSet<String>();
 	private boolean treesync=false;
@@ -29,24 +28,8 @@ public class JsonFilter implements IdMapFilter{
 		this.exclusiveProperties = filter;
 	}
 
-	public int getDeep() {
-		return deep;
-	}
-
 	public String[] getExcusiveProperties() {
 		return exclusiveProperties;
-	}
-
-	public int setDeep(int value) {
-		int oldValue = deep;
-		if(value==DEEPER){
-			if (deep != ALLDEEP) {
-				deep = deep - 1;
-			}
-		}else{
-			deep=value;
-		}
-		return oldValue;
 	}
 
 	public boolean existsObject(String id) {
@@ -61,8 +44,9 @@ public class JsonFilter implements IdMapFilter{
 		return false;
 	}
 	public boolean isConvertable(IdMap map, Object entity, String property, Object value) {
-		if (getDeep() == LASTDEEP)
+		if (!super.isConvertable(map, entity, property, value)){
 			return false;
+		}
 		if (getExcusiveProperties() != null) {
 			for (String prop : getExcusiveProperties()) {
 				if (property.equalsIgnoreCase(prop)) {

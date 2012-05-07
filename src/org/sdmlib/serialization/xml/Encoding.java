@@ -42,9 +42,13 @@ public class Encoding {
 			for (String property : properties) {
 				Object value = createrProtoTyp.getValue(entity, property);
 				if (value != null) {
-					Object referenceTyp = createrProtoTyp.getValue(referenceObject,
-							property);
-					if(!value.equals(referenceTyp)){
+					boolean encoding=parent.isSimpleCheck();
+					if(!encoding){
+						Object refValue = createrProtoTyp.getValue(referenceObject,
+								property);
+						encoding=!value.equals(refValue);
+					}
+					if(encoding){
 						if (property.startsWith(XMLIdMap.ENTITYSPLITTER)) {
 							parserChild(xmlEntity, property, value);
 						}else{

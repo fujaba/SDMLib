@@ -10,16 +10,19 @@ import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class IdMap {
-	public static final String REMOVE = ".old";
+	public static final String REMOVE= "rem";
 	public static final String UPDATE = "upd";
+	public static final String PRIO = "prio";
 	private HashMap<Object, String> keys;
 	private HashMap<String, Object> values;
 	private HashMap<String, SendableEntityCreator> creators;
 	protected IdMap parent;
 	protected boolean isId = true;
 	private IdMapCounter counter;
-	private UpdateListener updateListener;
-	private RemoveListener removeListener;
+	protected UpdateListener updateListener;
+	protected RemoveListener removeListener;
+	private boolean simpleCheck;
+	private Object prio;
 
 	public IdMap() {
 		keys = new HashMap<Object, String>();
@@ -147,42 +150,38 @@ public class IdMap {
 	}
 
 	public Object cloneObject(Object reference) {
-		return cloneObject(reference, null, false);
+		return cloneObject(reference, new CloneFilter(CloneFilter.SIMPLE));
 	}
-
-	public Object cloneObjectWithAssocSingle(Object reference) {
-		return cloneObject(reference, new HashMap<Object, Object>(), false);
-	}
-
-	public Object cloneObjectWithAssocFull(Object reference) {
-		return cloneObject(reference, new HashMap<Object, Object>(), true);
-	}
-
-	private Object cloneObject(Object reference, HashMap<Object, Object> assoc,
-			boolean full) {
+	
+	public Object cloneObject(Object reference, CloneFilter filter) {
 		SendableEntityCreator creatorClass = getCreatorClass(reference);
 		Object newObject = null;
 		if (creatorClass != null) {
 			newObject = creatorClass.getSendableInstance(false);
 			String[] properties = creatorClass.getProperties();
-			if (assoc != null) {
-				assoc.put(reference, newObject);
-			}
+			filter.addObject(reference, newObject);
+
 			for (String property : properties) {
 				Object value = creatorClass.getValue(reference, property);
-				if (assoc == null) {
+				if(filter.getTyp()==CloneFilter.SIMPLE){
 					creatorClass.setValue(newObject, property, value);
 				} else if (value instanceof Collection<?>) {
-					if (full) {
+					if(filter.getTyp()==CloneFilter.FULL){
 						Collection<?> list = (Collection<?>) value;
 						for (Object item : list) {
-							if (assoc.containsKey(item)) {
+							if(filter.hasObject(item)){
 								creatorClass.setValue(newObject, property,
-										assoc.get(item));
+										filter.getObject(item));
 							} else {
 								SendableEntityCreator childCreatorClass = getCreatorClass(item);
 								if (childCreatorClass != null) {
-									cloneObject(item, assoc, full);
+									if(!filter.isConvertable(this, item, property, value)){
+										creatorClass.setValue(newObject, property, item);
+									}else{
+										int oldDeep=filter.setDeep(filter.getDeep()-1);
+										cloneObject(item, filter);
+										filter.setDeep(oldDeep);
+									}
 								}else{
 									creatorClass.setValue(newObject, property,
 											item);
@@ -193,13 +192,19 @@ public class IdMap {
 						creatorClass.setValue(newObject, property, value);
 					}
 				} else {
-					if (assoc.containsKey(value)) {
+					if(filter.hasObject(value)){
 						creatorClass.setValue(newObject, property,
-								assoc.get(value));
+								filter.getObject(value));
 					} else {
 						SendableEntityCreator childCreatorClass = getCreatorClass(value);
 						if (childCreatorClass != null) {
-							cloneObject(value, assoc, full);
+							if(!filter.isConvertable(this, value, property, value)){
+								creatorClass.setValue(newObject, property, value);
+							}else{
+								int oldDeep=filter.setDeep(filter.getDeep()-1);
+								cloneObject(value, filter);
+								filter.setDeep(oldDeep);
+							}
 						}else{
 							creatorClass.setValue(newObject, property,
 									value);
@@ -222,5 +227,21 @@ public class IdMap {
 			creators.put(reference.getClass().getName(), createrClass);
 			return true;
 		}
+	}
+	public boolean isSimpleCheck() {
+		return simpleCheck;
+	}
+
+	public boolean setSimpleCheck(boolean simpleCheck) {
+		this.simpleCheck = simpleCheck;
+		return simpleCheck;
+	}
+
+	public Object getPrio() {
+		return prio;
+	}
+
+	public void setPrio(Object prio) {
+		this.prio = prio;
 	}
 }

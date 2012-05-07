@@ -14,6 +14,7 @@ public class YUMLIdParser extends IdMap{
 	private HashMap<String, String> linkProperty = new HashMap<String, String>();
 	private HashMap<String, String> linkCardinality = new HashMap<String, String>();
 	private HashMap<String, String> valueYUML = new HashMap<String, String>();
+	private boolean showLine;
 	private int type;
 	private boolean showCardinality;
 	
@@ -89,7 +90,12 @@ public class YUMLIdParser extends IdMap{
 			return removeString;
 		}
 		if (type == OBJECT) {
-			return "[" + id + " : " + getClassName(id) + "]";
+			if(isShowLine()){
+				String text=id + " : " + getClassName(id);
+				return "[" + text+"\\n"+new String(new char[text.length()]).replace("\0", "&oline;") + "]";
+			}else{
+				return "[" + id + " : " + getClassName(id) + "]";
+			}
 		} else {
 			return "[" + id + "]";
 		}
@@ -183,5 +189,11 @@ public class YUMLIdParser extends IdMap{
 		}
 		String className = object.getClass().getName();
 		return className.substring(className.lastIndexOf('.') + 1);
+	}
+	public boolean isShowLine() {
+		return showLine;
+	}
+	public void setShowLine(boolean showLine) {
+		this.showLine = showLine;
 	}
 }
