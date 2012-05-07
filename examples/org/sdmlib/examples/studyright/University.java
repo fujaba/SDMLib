@@ -22,7 +22,10 @@
 package org.sdmlib.examples.studyright;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -173,14 +176,14 @@ public class University implements PropertyChangeInterface
    
    private LinkedHashSet<Student> students = null;
    
-   public LinkedHashSet<Student> getStudents()
+   public Set<Student> getStudents()
    {
       if (this.students == null)
       {
-         return Student.EMPTY_SET;
+         return Collections.emptySet();
       }
    
-      return this.students;
+      return Collections.unmodifiableSet(this.students);
    }
    
    public boolean addToStudents(Student value)

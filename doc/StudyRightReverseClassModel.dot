@@ -6,21 +6,21 @@
     
     GroupAccount [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GroupAccount</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>updateBalances()</td></tr> <tr><td align='left'>updateBalances()</td></tr>  </table></td></tr> </table>>];
     GroupAccountTests [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GroupAccountTests</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>testGroupAccountRuleRecognition()</td></tr> <tr><td align='left'>testGroupAccountCodegen()</td></tr> <tr><td align='left'>testGroupAccountRuleRecognition()</td></tr> <tr><td align='left'>testGroupAccountCodegen()</td></tr>  </table></td></tr> </table>>];
+    Item [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Item</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>description :String</td></tr> <tr><td align='left'>value :double</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>balance :double</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>roomNo :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findPath(String,int)</td></tr> <tr><td align='left'>findPath(String,int)</td></tr>  </table></td></tr> </table>>];
     Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>matrNo :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     StudyRightClassesCodeGen [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>StudyRightClassesCodeGen</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>testStudyRightReverseClassModel()</td></tr> <tr><td align='left'>testStudyRightObjectScenarios()</td></tr> <tr><td align='left'>testStudyRightClassesCodeGen()</td></tr> <tr><td align='left'>testStudyRightReverseClassModel()</td></tr> <tr><td align='left'>testStudyRightObjectScenarios()</td></tr> <tr><td align='left'>testStudyRightClassesCodeGen()</td></tr>  </table></td></tr> </table>>];
     University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Item [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Item</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>description :String</td></tr> <tr><td align='left'>value :double</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
+    Item -- GroupAccount [headlabel = "parent" taillabel = "items"];
+    GroupAccount -- Person [headlabel = "persons" taillabel = "parent"];
+    Item -- Person [headlabel = "buyer" taillabel = "items"];
     Room -- Room [headlabel = "neighbors" taillabel = "neighbors"];
     Room -- Student [headlabel = "students" taillabel = "in"];
     Room -- University [headlabel = "uni" taillabel = "rooms"];
     Student -- University [headlabel = "uni" taillabel = "students"];
-    GroupAccount -- Person [headlabel = "persons" taillabel = "parent"];
-    Item -- GroupAccount [headlabel = "parent" taillabel = "items"];
-    Item -- Person [headlabel = "buyer" taillabel = "items"];
 }
 

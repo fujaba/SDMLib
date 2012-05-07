@@ -57,18 +57,15 @@ public class ProjectBoard
       KanbanEntry entry = kanbanBoard.findOrCreate("ScenarioInfrastructure")
             .withParent(sprint1);
 
-      LogEntry logEntry = entry.findOrCreateLogEntry("17.03.2012 22:40:00", BACKLOG)
-            .withDeveloper("zuendorf")
-            .withHoursSpend(0)
-            .withHoursRemainingInTotal(20);
+      LogEntry logEntry;
       
       entry = kanbanBoard.findOrCreate("ProjectManagement")
             .withParent(kanbanBoard);
 
-      logEntry = entry.findOrCreateLogEntry("26.03.2012 23:16:00", ACTIVE)
+      logEntry = entry.findOrCreateLogEntry("07.05.2012 23:38:42", ACTIVE)
             .withDeveloper("zuendorf")
-            .withHoursSpend(1)
-            .withHoursRemainingInTotal(22);
+            .withHoursSpend(0)
+            .withHoursRemainingInTotal(0);
       
       entry = kanbanBoard.findOrCreate("StudyRightClassesCodeGen")
             .withParent(sprint1);
@@ -107,7 +104,7 @@ public class ProjectBoard
    @Test
    public void testScenarioInfrastructure()
    {
-      Scenario scenario = new Scenario("ScenarioInfrastructure");
+      Scenario scenario = new Scenario("test", "ScenarioInfrastructure");
       
       scenario.add("This scenario tests the scenario infrastructure. ");
       scenario.add("At first creating the html file just with text should work. ");
@@ -132,9 +129,8 @@ public class ProjectBoard
       scenario.addImage(model.dumpClassDiag("ScenarioClasses.001"));
       model.generate("src", "srchelpers");
 
-      scenario.add(" Editing the log entries is still too tedious. " +
-            "\n Add parameters to scenario.add and derive log entry from it.", 
-            IMPLEMENTATION, "zuendorf", "18.03.2012 17:45:42", 1, 0);
+      scenario.add(" Editing the log entries works now fine as part of the add method. " , 
+            DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
       
       ScenarioManager.get()
       .add(scenario)

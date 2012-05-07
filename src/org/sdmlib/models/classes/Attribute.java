@@ -169,10 +169,13 @@ public class Attribute implements PropertyChangeInterface
 	      insertPropertyInCreatorClass(creatorParser);
 	      
 	      clazz.printCreatorFile(doGenerate);
-      }
-			return this;
-   }
 
+	      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
+	      insertGetterInModelSetClass(modelSetParser);
+	      getClazz().printModelSetFile(doGenerate);
+      }
+      return this;
+   }
    public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
    {
   	 insertPropertyInCreatorClass(creatorParser);
@@ -230,6 +233,54 @@ public class Attribute implements PropertyChangeInterface
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
          getClazz().setCreatorFileHasChanged(true);
+      }
+   }
+
+   private void insertGetterInModelSetClass(Parser parser)
+   {
+      String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(this.getName()) + "()";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         // need to add property to string array
+         
+         StringBuilder text = new StringBuilder(  
+            "   public ModelSetType getName()\n" + 
+            "   {\n" + 
+            "      ModelSetType result = new ModelSetType();\n" + 
+            "      \n" + 
+            "      for (ContentType obj : this)\n" + 
+            "      {\n" + 
+            "         result.add(obj.getName());\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      return result;\n" + 
+            "   }\n" +
+            "\n" + 
+            ""
+            );
+
+         String fullModelSetType = getType()+"Set";
+         String modelSetType = CGUtil.shortClassName(getType())+"Set";
+         
+         if ("String int double long".indexOf(getType()) >= 0)
+         {
+            modelSetType = CGUtil.shortClassName(getType())+"List";
+            fullModelSetType = "org.sdmlib.models.modelsets." + modelSetType;
+         }
+         
+         CGUtil.replaceAll(text, 
+            "ContentType", CGUtil.shortClassName(getClazz().getName()),
+            "ModelSetType", modelSetType,
+            "Name", StrUtil.upFirstChar(getName())
+            );
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setModelSetFileHasChanged(true);
+         
+         getClazz().insertImport(parser, fullModelSetType);
       }
    }
 

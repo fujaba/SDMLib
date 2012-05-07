@@ -39,7 +39,7 @@ public class GroupAccountTests
    @Test
    public void testGroupAccountRuleRecognition()
    {
-      Scenario scenario = new Scenario("GroupAccountRuleRecognition");
+      Scenario scenario = new Scenario("examples", "GroupAccountRuleRecognition");
       
       scenario.add("Start situation: classes have been generated. Now create some example object structure",
          MODELING, "zuendorf", "04.04.2012 00:26:59", 0, 0);
@@ -110,7 +110,7 @@ public class GroupAccountTests
    @Test
    public void testGroupAccountCodegen()
    {
-      Scenario scenario = new Scenario("GroupAccountCodegen");
+      Scenario scenario = new Scenario("examples", "GroupAccountCodegen");
       
       scenario.add("Start situation: Nothing here yet. Generated classes",
          DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);

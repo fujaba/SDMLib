@@ -53,9 +53,145 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.GroupAccountCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.PersonCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.groupAccount.creators.ItemCreator());
       return jsonIdMap;
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

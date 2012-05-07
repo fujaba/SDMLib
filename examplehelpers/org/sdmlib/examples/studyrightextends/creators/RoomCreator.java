@@ -10,6 +10,9 @@ public class RoomCreator implements SendableEntityCreator
    {
       Room.PROPERTY_ROOMNO,
       Room.PROPERTY_CREDITS,
+      Room.PROPERTY_UNI,
+      Room.PROPERTY_NEIGHBORS,
+      Room.PROPERTY_LECTURE,
    };
    
    public String[] getProperties()
@@ -37,4 +40,5 @@ public class RoomCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

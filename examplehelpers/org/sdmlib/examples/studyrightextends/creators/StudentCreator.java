@@ -11,6 +11,7 @@ public class StudentCreator implements SendableEntityCreator
    {
       Person.PROPERTY_NAME,
       Student.PROPERTY_MATRNO,
+      Student.PROPERTY_LECTURE,
    };
    
    public String[] getProperties()
@@ -38,4 +39,5 @@ public class StudentCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

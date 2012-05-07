@@ -198,6 +198,14 @@ public class Role implements PropertyChangeInterface
 
 			getClazz().printCreatorFile(doGenerate);
 		}
+      
+      // generate property in creator class
+      Parser modelSetParser = getClazz().getOrCreateParserForModelSetFile(rootDir);
+      
+      insertGetterInModelSetFile(modelSetParser, partnerRole);
+      
+      getClazz().printModelSetFile(doGenerate);
+
    }
    
    private void insertRemovalInRemoveYou(Parser parser, Role partnerRole)
@@ -246,6 +254,54 @@ public class Role implements PropertyChangeInterface
       }
    }
 
+   private void insertGetterInModelSetFile(Parser parser, Role partnerRole)
+   {
+      String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public ModelSetType getName()\n" + 
+            "   {\n" + 
+            "      ModelSetType result = new ModelSetType();\n" + 
+            "      \n" + 
+            "      for (ContentType obj : this)\n" + 
+            "      {\n" + 
+            "         result.add(obj.getName());\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      return result;\n" + 
+            "   }\n"
+            );
+
+         String fullModelSetType = partnerRole.getClazz().getName() + "Set";
+         String modelSetType = CGUtil.shortClassName(fullModelSetType);
+         
+         String adderCall = "result.add";
+         
+         if (partnerRole.getCard().equals(Role.MANY))
+         {
+            adderCall = "result.addAll";
+         }
+         
+         CGUtil.replaceAll(text, 
+            "ContentType", CGUtil.shortClassName(getClazz().getName()),
+            "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set",
+            "Name", StrUtil.upFirstChar(partnerRole.getName()),
+            "result.add", adderCall
+            );
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setModelSetFileHasChanged(true);
+         
+         getClazz().insertImport(parser, partnerRole.getClazz().getName());
+      }
+   }
+
+
    private void insertPropertyInCreatorClass(Parser parser, Role partnerRole)
    {
       String key = Parser.ATTRIBUTE + ":properties";
@@ -285,6 +341,7 @@ public class Role implements PropertyChangeInterface
    }
 
 
+   
    
    private void insertCaseInGenericSetToMany(Parser parser, Role partnerRole)
    {
@@ -475,7 +532,7 @@ public class Role implements PropertyChangeInterface
          String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getName());
          
          CGUtil.replaceAll(partnerText, 
-            "type", "LinkedHashSet<" + partnerClassName + ">"
+            "type", partnerClassName + "Set"
             );
          
          partnerParser.getFileBody().insert(partnerPos, partnerText.toString());
@@ -598,7 +655,7 @@ public class Role implements PropertyChangeInterface
       CGUtil.replaceAll(text, 
          "myCard", this.getCard(),
          "partnerCard", partnerRole.getCard(),
-         "type", "LinkedHashSet<" + partnerClassName + ">", 
+         "type", partnerClassName + "Set", 
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
          "myRoleName", getName(),
@@ -608,6 +665,8 @@ public class Role implements PropertyChangeInterface
          "PartnerRoleName", partnerRoleUpFirstChar,
          "reverseWithoutCall(this)", reverseWithoutCall
          );
+      
+      getClazz().insertImport(partnerRole.getClazz().getName() + "Set");
    } 
    
    private void generateToOneRole(Role partnerRole, StringBuilder text)

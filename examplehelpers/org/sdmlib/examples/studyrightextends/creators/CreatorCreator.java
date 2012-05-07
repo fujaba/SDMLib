@@ -20,8 +20,15 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.ProfessorCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.LectureCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.RoomCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.UniversityCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.FemaleCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.ProfessorCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.LectureCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.RoomCreator());
       return jsonIdMap;
    }
 }
+
 
 

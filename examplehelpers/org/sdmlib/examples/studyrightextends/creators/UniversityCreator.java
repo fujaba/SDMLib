@@ -9,6 +9,7 @@ public class UniversityCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       University.PROPERTY_NAME,
+      University.PROPERTY_ROOMS,
    };
    
    public String[] getProperties()
@@ -36,4 +37,5 @@ public class UniversityCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

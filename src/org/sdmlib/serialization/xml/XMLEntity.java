@@ -1,6 +1,6 @@
 package org.sdmlib.serialization.xml;
 
-import java.io.Writer;
+// import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -66,10 +66,10 @@ public class XMLEntity extends Entity{
 		this.value = value;
 	}
 	
-	@Override
-	public Writer write(Writer writer) {
-		return null;
-	}
+//	@Override
+//	public Writer write(Writer writer) {
+//		return null;
+//	}
 	
 	
 	@Override

@@ -168,6 +168,12 @@ public class LogEntry implements PropertyChangeInterface
          setDate((String) value);
          return true;
       }
+
+      if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName))
+      {
+         setKanbanEntry((KanbanEntry) value);
+         return true;
+      }
       else   if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName)) 
       {
          setHoursSpend(Double.parseDouble(value.toString()));
@@ -219,6 +225,11 @@ public class LogEntry implements PropertyChangeInterface
       if (PROPERTY_DATE.equalsIgnoreCase(attribute)) 
       {
          return getDate();
+      }
+
+      if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName))
+      {
+         return getKanbanEntry();
       }
       else     if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute)) 
       {

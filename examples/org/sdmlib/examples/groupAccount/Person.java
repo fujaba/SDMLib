@@ -24,7 +24,8 @@ package org.sdmlib.examples.groupAccount;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.examples.groupAccount.modlesets.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -183,7 +184,7 @@ public class Person implements PropertyChangeInterface
    } 
 
    
-   public static final LinkedHashSet<Person> EMPTY_SET = new LinkedHashSet<Person>();
+   public static final PersonSet EMPTY_SET = new PersonSet();
 
    
    /********************************************************************

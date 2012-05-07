@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.studyright.modelsets;
+package org.sdmlib.models.modelsets;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;

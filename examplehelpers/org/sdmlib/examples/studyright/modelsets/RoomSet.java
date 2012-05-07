@@ -25,6 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class RoomSet extends LinkedHashSet<Room> implements PropertyChangeInterface

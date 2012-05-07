@@ -30,6 +30,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -102,10 +103,17 @@ public class Clazz implements PropertyChangeInterface
 
    private boolean fileHasChanged;
    private boolean creatorFileHasChanged;
+
+   private boolean modelSetFileHasChanged;
    
    public void setCreatorFileHasChanged(boolean creatorFileHasChanged)
    {
       this.creatorFileHasChanged = creatorFileHasChanged;
+   }
+   
+   public void setModelSetFileHasChanged(boolean modelSetFileHasChanged)
+   {
+      this.modelSetFileHasChanged = modelSetFileHasChanged;
    }
    
    public StringBuilder getFileBody()
@@ -165,6 +173,10 @@ public class Clazz implements PropertyChangeInterface
       	getOrCreateParserForCreatorClass(helpersDir);
       }
       printCreatorFile(creatorFileHasChanged);
+      
+      // now generate the corresponding ModelSet class
+      getOrCreateParserForModelSetFile(helpersDir);
+      printModelSetFile(modelSetFileHasChanged);
       
       return this;
    }
@@ -381,8 +393,13 @@ public class Clazz implements PropertyChangeInterface
 
    public void insertImport(String className)
    {
+      insertImport(parser, className);
+   }
+   
+   public void insertImport(Parser myParser, String className)
+   {
       // TODO Auto-generated method stub
-      int pos = parser.indexOf(Parser.IMPORT);
+      int pos = myParser.indexOf(Parser.IMPORT);
 
       String prefix = "";
       if (fileBody.indexOf(Parser.IMPORT, pos) < 0)
@@ -390,10 +407,10 @@ public class Clazz implements PropertyChangeInterface
          prefix = "\n";
       }
       
-      SymTabEntry symTabEntry = parser.getSymTab().get(Parser.IMPORT + ":" + className);
+      SymTabEntry symTabEntry = myParser.getSymTab().get(Parser.IMPORT + ":" + className);
       if (symTabEntry == null)
       {
-         parser.getFileBody().insert(parser.getEndOfImports() + 1, 
+         myParser.getFileBody().insert(myParser.getEndOfImports() + 1, 
                prefix + "\nimport " + className + ";");
          
          setFileHasChanged(true);
@@ -416,9 +433,17 @@ public class Clazz implements PropertyChangeInterface
 
    public void printCreatorFile(boolean really)
    {
-      if (really)
+      if (really || creatorFileHasChanged)
       {
          CGUtil.printFile(creatorJavaFile, creatorFileBody.toString());
+      }
+   }
+   
+   public void printModelSetFile(boolean really)
+   {
+      if (really || modelSetFileHasChanged)
+      {
+         CGUtil.printFile(modelSetJavaFile, modelSetFileBody.toString());
       }
    }
 
@@ -614,6 +639,11 @@ public class Clazz implements PropertyChangeInterface
 
    private File javaFile;
    private File creatorJavaFile;
+   private File modelSetJavaFile;
+
+   private Parser modelSetParser = null;
+
+   private StringBuilder modelSetFileBody;
    
    public File getJavaFile()
    {
@@ -765,6 +795,70 @@ public class Clazz implements PropertyChangeInterface
       
       return creatorParser;
    }
+   
+   public Parser getOrCreateParserForModelSetFile(String rootDir)
+   {
+      if (modelSetParser == null)
+      {
+         // try to find existing file
+         int pos = name.lastIndexOf('.');
+         
+         String packageName = name.substring(0, pos) + ".creators";
+         
+         String fullEntityClassName = name;
+         
+         String entitiyClassName = name.substring(pos + 1);
+         
+         String modelSetClassName = entitiyClassName + "Set";
+         
+         String fileName = packageName + "." + modelSetClassName;
+
+         fileName = fileName.replaceAll("\\.", "/");
+         
+         fileName = rootDir + "/" + fileName + ".java";
+         
+         modelSetJavaFile = new File(fileName);
+         
+         // found old one?
+         if (modelSetJavaFile.exists())
+         {
+            modelSetFileBody = CGUtil.readFile(modelSetJavaFile);
+         }
+         else
+         {
+            modelSetFileBody = new StringBuilder();
+
+            StringBuilder text = new StringBuilder(
+                  "package packageName;\n" +
+                  "\n" +
+                  "import java.util.LinkedHashSet;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class modelSetClassName extends LinkedHashSet<entitiyClassName>\n" +
+                  "{\n" +
+                  "}\n");
+            
+            CGUtil.replaceAll(text, 
+               "modelSetClassName", modelSetClassName, 
+               "entitiyClassName", entitiyClassName, 
+               "fullEntityClassName", fullEntityClassName,
+               "packageName", packageName);
+            
+            modelSetFileBody.append(text.toString());
+            
+            modelSetFileHasChanged = true;
+         }
+         
+         modelSetParser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(modelSetFileBody);
+
+      }
+      
+      return modelSetParser;
+   }
+
+
 
    public boolean isFileHasChanged()
    {

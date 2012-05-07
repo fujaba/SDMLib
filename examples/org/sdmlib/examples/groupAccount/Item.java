@@ -23,9 +23,10 @@ package org.sdmlib.examples.groupAccount;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.examples.groupAccount.modlesets.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.util.LinkedHashSet;
 
 public class Item implements PropertyChangeInterface
 {
@@ -175,8 +176,6 @@ public class Item implements PropertyChangeInterface
    } 
 
    
-   public static final ItemSet EMPTY_SET = new ItemSet();
-
    
    /********************************************************************
     * <pre>
@@ -280,5 +279,8 @@ public class Item implements PropertyChangeInterface
       setBuyer(value);
       return this;
    } 
+
+   
+   public static final ItemSet EMPTY_SET = new ItemSet();
 }
 

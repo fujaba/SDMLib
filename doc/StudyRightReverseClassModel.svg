@@ -20,7 +20,7 @@
 <text text-anchor="start" x="13" y="-128" font-family="Times New Roman,serif" font-size="10.00">updateBalances()</text>
 </g>
 <!-- Person -->
-<g id="node3" class="node"><title>Person</title>
+<g id="node4" class="node"><title>Person</title>
 <polygon fill="none" stroke="black" points="49,-58 49,-75 124,-75 124,-58 49,-58"/>
 <text text-anchor="start" x="72.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
 <polygon fill="none" stroke="black" points="49,-24 49,-58 124,-58 124,-24 49,-24"/>
@@ -30,7 +30,7 @@
 <text text-anchor="start" x="85" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- GroupAccount&#45;&#45;Person -->
-<g id="edge10" class="edge"><title>GroupAccount&#45;&#45;Person</title>
+<g id="edge4" class="edge"><title>GroupAccount&#45;&#45;Person</title>
 <path fill="none" stroke="black" d="M60.8651,-116.405C64.8269,-104.519 69.1873,-91.4381 73.1482,-79.5555"/>
 <text text-anchor="middle" x="74.2915" y="-86.9899" font-family="Times New Roman,serif" font-size="10.00">persons</text>
 <text text-anchor="middle" x="59.7218" y="-103.97" font-family="Times New Roman,serif" font-size="10.00">parent</text>
@@ -47,8 +47,30 @@
 <text text-anchor="start" x="168" y="-272" font-family="Times New Roman,serif" font-size="10.00">testGroupAccountRuleRecognition()</text>
 <text text-anchor="start" x="168" y="-258" font-family="Times New Roman,serif" font-size="10.00">testGroupAccountCodegen()</text>
 </g>
+<!-- Item -->
+<g id="node3" class="node"><title>Item</title>
+<polygon fill="none" stroke="black" points="44,-318 44,-335 129,-335 129,-318 44,-318"/>
+<text text-anchor="start" x="77.5" y="-324.5" font-family="Times New Roman,serif" font-size="10.00">Item</text>
+<polygon fill="none" stroke="black" points="44,-284 44,-318 129,-318 129,-284 44,-284"/>
+<text text-anchor="start" x="49" y="-306" font-family="Times New Roman,serif" font-size="10.00">description :String</text>
+<text text-anchor="start" x="49" y="-292" font-family="Times New Roman,serif" font-size="10.00">value :double</text>
+<polygon fill="none" stroke="black" points="44,-264 44,-284 129,-284 129,-264 44,-264"/>
+<text text-anchor="start" x="85" y="-272" font-family="Times New Roman,serif" font-size="10.00"> </text>
+</g>
+<!-- Item&#45;&#45;GroupAccount -->
+<g id="edge2" class="edge"><title>Item&#45;&#45;GroupAccount</title>
+<path fill="none" stroke="black" d="M75.6163,-260.198C70.2545,-240.161 63.7311,-215.785 58.3711,-195.755"/>
+<text text-anchor="middle" x="64.7965" y="-200.918" font-family="Times New Roman,serif" font-size="10.00">parent</text>
+<text text-anchor="middle" x="69.1909" y="-250.035" font-family="Times New Roman,serif" font-size="10.00">items</text>
+</g>
+<!-- Item&#45;&#45;Person -->
+<g id="edge6" class="edge"><title>Item&#45;&#45;Person</title>
+<path fill="none" stroke="black" d="M94.9073,-260.105C98.8562,-240.921 103.046,-217.368 105,-196 108.238,-160.592 109.4,-151.282 105,-116 103.504,-104.004 100.712,-91.1729 97.7193,-79.5767"/>
+<text text-anchor="middle" x="104.043" y="-84.8236" font-family="Times New Roman,serif" font-size="10.00">buyer</text>
+<text text-anchor="middle" x="92.562" y="-247.883" font-family="Times New Roman,serif" font-size="10.00">items</text>
+</g>
 <!-- Room -->
-<g id="node4" class="node"><title>Room</title>
+<g id="node5" class="node"><title>Room</title>
 <polygon fill="none" stroke="black" points="356,-325 356,-342 444,-342 444,-325 356,-325"/>
 <text text-anchor="start" x="388" y="-331.5" font-family="Times New Roman,serif" font-size="10.00">Room</text>
 <polygon fill="none" stroke="black" points="356,-291 356,-325 444,-325 444,-291 356,-291"/>
@@ -59,13 +81,13 @@
 <text text-anchor="start" x="361" y="-265" font-family="Times New Roman,serif" font-size="10.00">findPath(String,int)</text>
 </g>
 <!-- Room&#45;&#45;Room -->
-<g id="edge2" class="edge"><title>Room&#45;&#45;Room</title>
+<g id="edge8" class="edge"><title>Room&#45;&#45;Room</title>
 <path fill="none" stroke="black" d="M452.202,-325.886C462.592,-322.972 470,-314.344 470,-300 470,-285.656 462.592,-277.028 452.202,-274.114"/>
 <text text-anchor="middle" x="462.149" y="-270.582" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
 <text text-anchor="middle" x="459.386" y="-316.43" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
 </g>
 <!-- Student -->
-<g id="node5" class="node"><title>Student</title>
+<g id="node6" class="node"><title>Student</title>
 <polygon fill="none" stroke="black" points="336,-174 336,-191 397,-191 397,-174 336,-174"/>
 <text text-anchor="start" x="350.5" y="-180.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 <polygon fill="none" stroke="black" points="336,-140 336,-174 397,-174 397,-140 336,-140"/>
@@ -75,13 +97,13 @@
 <text text-anchor="start" x="365" y="-128" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- Room&#45;&#45;Student -->
-<g id="edge4" class="edge"><title>Room&#45;&#45;Student</title>
+<g id="edge10" class="edge"><title>Room&#45;&#45;Student</title>
 <path fill="none" stroke="black" d="M389.055,-253.289C384.629,-234.803 379.573,-213.687 375.326,-195.949"/>
 <text text-anchor="middle" x="381.546" y="-201.279" font-family="Times New Roman,serif" font-size="10.00">students</text>
 <text text-anchor="middle" x="382.835" y="-242.959" font-family="Times New Roman,serif" font-size="10.00">in</text>
 </g>
 <!-- University -->
-<g id="node7" class="node"><title>University</title>
+<g id="node8" class="node"><title>University</title>
 <polygon fill="none" stroke="black" points="369,-51 369,-68 430,-68 430,-51 369,-51"/>
 <text text-anchor="start" x="378" y="-57.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 <polygon fill="none" stroke="black" points="369,-31 369,-51 430,-51 430,-31 369,-31"/>
@@ -90,19 +112,19 @@
 <text text-anchor="start" x="398" y="-19" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- Room&#45;&#45;University -->
-<g id="edge6" class="edge"><title>Room&#45;&#45;University</title>
+<g id="edge12" class="edge"><title>Room&#45;&#45;University</title>
 <path fill="none" stroke="black" d="M407.359,-253.457C412.354,-216.405 417.329,-162.78 413,-116 411.67,-101.624 408.934,-85.8928 406.231,-72.5674"/>
 <text text-anchor="middle" x="412.147" y="-78.1295" font-family="Times New Roman,serif" font-size="10.00">uni</text>
 <text text-anchor="middle" x="404.322" y="-241.429" font-family="Times New Roman,serif" font-size="10.00">rooms</text>
 </g>
 <!-- Student&#45;&#45;University -->
-<g id="edge8" class="edge"><title>Student&#45;&#45;University</title>
+<g id="edge14" class="edge"><title>Student&#45;&#45;University</title>
 <path fill="none" stroke="black" d="M377.172,-116.405C381.286,-102.194 385.894,-86.2736 389.813,-72.7364"/>
 <text text-anchor="middle" x="391.353" y="-80.1172" font-family="Times New Roman,serif" font-size="10.00">uni</text>
 <text text-anchor="middle" x="375.633" y="-104.024" font-family="Times New Roman,serif" font-size="10.00">students</text>
 </g>
 <!-- StudyRightClassesCodeGen -->
-<g id="node6" class="node"><title>StudyRightClassesCodeGen</title>
+<g id="node7" class="node"><title>StudyRightClassesCodeGen</title>
 <polygon fill="none" stroke="black" points="497,-346 497,-363 656,-363 656,-346 497,-346"/>
 <text text-anchor="start" x="519.5" y="-352.5" font-family="Times New Roman,serif" font-size="10.00">StudyRightClassesCodeGen</text>
 <polygon fill="none" stroke="black" points="497,-326 497,-346 656,-346 656,-326 497,-326"/>
@@ -114,28 +136,6 @@
 <text text-anchor="start" x="502" y="-272" font-family="Times New Roman,serif" font-size="10.00">testStudyRightReverseClassModel()</text>
 <text text-anchor="start" x="502" y="-258" font-family="Times New Roman,serif" font-size="10.00">testStudyRightObjectScenarios()</text>
 <text text-anchor="start" x="502" y="-244" font-family="Times New Roman,serif" font-size="10.00">testStudyRightClassesCodeGen()</text>
-</g>
-<!-- Item -->
-<g id="node8" class="node"><title>Item</title>
-<polygon fill="none" stroke="black" points="44,-318 44,-335 129,-335 129,-318 44,-318"/>
-<text text-anchor="start" x="77.5" y="-324.5" font-family="Times New Roman,serif" font-size="10.00">Item</text>
-<polygon fill="none" stroke="black" points="44,-284 44,-318 129,-318 129,-284 44,-284"/>
-<text text-anchor="start" x="49" y="-306" font-family="Times New Roman,serif" font-size="10.00">description :String</text>
-<text text-anchor="start" x="49" y="-292" font-family="Times New Roman,serif" font-size="10.00">value :double</text>
-<polygon fill="none" stroke="black" points="44,-264 44,-284 129,-284 129,-264 44,-264"/>
-<text text-anchor="start" x="85" y="-272" font-family="Times New Roman,serif" font-size="10.00"> </text>
-</g>
-<!-- Item&#45;&#45;GroupAccount -->
-<g id="edge12" class="edge"><title>Item&#45;&#45;GroupAccount</title>
-<path fill="none" stroke="black" d="M75.6163,-260.198C70.2545,-240.161 63.7311,-215.785 58.3711,-195.755"/>
-<text text-anchor="middle" x="64.7965" y="-200.918" font-family="Times New Roman,serif" font-size="10.00">parent</text>
-<text text-anchor="middle" x="69.1909" y="-250.035" font-family="Times New Roman,serif" font-size="10.00">items</text>
-</g>
-<!-- Item&#45;&#45;Person -->
-<g id="edge14" class="edge"><title>Item&#45;&#45;Person</title>
-<path fill="none" stroke="black" d="M94.9073,-260.105C98.8562,-240.921 103.046,-217.368 105,-196 108.238,-160.592 109.4,-151.282 105,-116 103.504,-104.004 100.712,-91.1729 97.7193,-79.5767"/>
-<text text-anchor="middle" x="104.043" y="-84.8236" font-family="Times New Roman,serif" font-size="10.00">buyer</text>
-<text text-anchor="middle" x="92.562" y="-247.883" font-family="Times New Roman,serif" font-size="10.00">items</text>
 </g>
 </g>
 </svg>

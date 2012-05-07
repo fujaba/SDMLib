@@ -1,5 +1,5 @@
 
- graph ClassDiagram {
+ digraph ClassDiagram {
     node [shape = none, fontsize = 10]; 
     edge [fontsize = 10];
     
@@ -9,6 +9,6 @@
     
     
     
-    KanbanEntry -- LogEntry [headlabel = "logEntries" taillabel = "kanbanEntry"];
+    KanbanEntry -> LogEntry [headlabel = "logEntries" taillabel = "kanbanEntry" arrowhead = "none" ];
 }
 

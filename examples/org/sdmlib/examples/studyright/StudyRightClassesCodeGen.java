@@ -47,7 +47,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightReverseClassModel()
    {
   	 
-  	  Scenario scenario = new Scenario("StudyRightReverseClassModel");
+      Scenario scenario = new Scenario("examples", "StudyRightReverseClassModel");
 
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
@@ -68,117 +68,13 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightExtendsReverseClassModel()
    {
   	 
-  	  Scenario scenario = new Scenario("StudyRightExtendsReverseClassModel");
+  	  Scenario scenario = new Scenario("examples", "StudyRightExtendsReverseClassModel");
 
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
-      Clazz lectureClass = new Clazz("org.sdmlib.examples.studyrightextends.Lecture")
-      .withAttribute("Title", "String");
-
-      Clazz personClass = new Clazz("org.sdmlib.examples.studyrightextends.Person")
-      .withInterfaze(true);
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition()");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String)");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String,int)");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("getName()");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("setName(String)");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("withName(String)");
-
-      Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
-
-      new Method()
-			.withClazz(roomClass)
-			.withSignature("studentCount()");
-
-      new Association()
-			.withSource("neighbors", roomClass, "many")
-			.withTarget("neighbors", roomClass, "many");
-
-      new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("in", roomClass, "one");
-
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
-      .withAttribute("name", "String");
-
-      new Association()
-			.withSource("rooms", roomClass, "many")
-			.withTarget("uni", universityClass, "one");
-
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-
-      Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
-      .withInterfaces(personClass)
-      .withAttribute("name", "String");
-
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition()");
-
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String)");
-
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String,int)");
-
-      Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
-      .withInterfaze(true)
-      .withInterfaces(personClass);
-
-      Clazz professorClass = new Clazz("org.sdmlib.examples.studyrightextends.Professor")
-      .withSuperClass(femaleClass)
-      .withAttribute("PersNr", "int");
-
-      new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("has", professorClass, "one");
-
-      Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
-      .withInterfaces(maleClass)
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
-
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition()");
-
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String)");
-
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String,int)");
-
-      new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("listen", studentClass, "one");
-
-
+      
 
       model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
       
@@ -193,7 +89,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    @Test
    public void testStudyRightObjectScenarios()
    {
-      Scenario scenario = new Scenario("StudyRightObjectScenarios");
+      Scenario scenario = new Scenario("examples", "StudyRightObjectScenarios");
 
       scenario.add("Start situation: use University class to build object structure",
          BACKLOG, "zuendorf", "25.03.2012 21:37:46", 0, 0);
@@ -280,7 +176,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    @Test
    public void testStudyRightClassesCodeGen()
    {
-      Scenario scenario = new Scenario("StudyRightClassesCodeGen");
+      Scenario scenario = new Scenario("examples", "StudyRightClassesCodeGen");
 
 
       //============================================================

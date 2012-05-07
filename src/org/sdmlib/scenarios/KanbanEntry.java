@@ -32,6 +32,7 @@ import java.util.Set;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class KanbanEntry implements PropertyChangeInterface
 {
@@ -519,6 +520,18 @@ public class KanbanEntry implements PropertyChangeInterface
          setName((String) value);
          return true;
       } 
+      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
+      {
+         addToLogEntries((LogEntry) value);
+         return true;
+      }
+      
+      if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromLogEntries((LogEntry) value);
+         return true;
+      }
+
       else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
       {
          setPhase((String) value);
@@ -579,6 +592,11 @@ public class KanbanEntry implements PropertyChangeInterface
       if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
+      }
+
+      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
+      {
+         return getLogEntries();
       }
       else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
       {

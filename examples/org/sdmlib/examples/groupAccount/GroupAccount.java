@@ -24,7 +24,8 @@ package org.sdmlib.examples.groupAccount;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.examples.groupAccount.modlesets.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -110,6 +111,25 @@ public class GroupAccount implements PropertyChangeInterface
    }
 
    
+
+   public void updateBalances()
+   {
+      double total = this.getItems().getValue().sum();
+      
+      double share = total / this.getPersons().size();
+      
+      for (Person person : this.getPersons())
+      {
+         double myCosts = person.getItems().getValue().sum();
+         
+         person.setBalance(myCosts - share); 
+      }
+      
+      // did all participants buy something? 
+      this.getItems(); 
+   }
+
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -120,9 +140,9 @@ public class GroupAccount implements PropertyChangeInterface
    
    public static final String PROPERTY_PERSONS = "persons";
    
-   private LinkedHashSet<Person> persons = null;
+   private PersonSet persons = null;
    
-   public LinkedHashSet<Person> getPersons()
+   public PersonSet getPersons()
    {
       if (this.persons == null)
       {
@@ -140,7 +160,7 @@ public class GroupAccount implements PropertyChangeInterface
       {
          if (this.persons == null)
          {
-            this.persons = new LinkedHashSet<Person>();
+            this.persons = new PersonSet();
          }
          
          changed = this.persons.add (value);
@@ -278,21 +298,6 @@ public class GroupAccount implements PropertyChangeInterface
       for (Item value : tmpSet)
       {
          this.removeFromItems(value);
-      }
-   }
-
-
-   public void updateBalances()
-   {
-      double total = this.getItems().getValue().sum();
-      
-      double share = total / this.getPersons().size();
-      
-      for (Person person : this.getPersons())
-      {
-         double myCosts = person.getItems().getValue().sum();
-         
-         person.setBalance(myCosts - share); 
       }
    }
 }

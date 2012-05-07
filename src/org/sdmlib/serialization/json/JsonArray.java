@@ -24,8 +24,8 @@ package org.sdmlib.serialization.json;
  SOFTWARE.
  */
 
-import java.io.IOException;
-import java.io.Writer;
+//import java.io.IOException;
+//import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -335,34 +335,34 @@ public class JsonArray extends EntityList{
 	 * @return The writer.
 	 * @throws RuntimeException
 	 */
-	public Writer write(Writer writer) throws RuntimeException {
-		try {
-			List<Object> elements = getElements();
-			boolean b = false;
-			int len = elements.size();
-
-			writer.write('[');
-
-			for (int i = 0; i < len; i += 1) {
-				if (b) {
-					writer.write(',');
-				}
-				Object v = elements.get(i);
-				if (v instanceof JsonObject) {
-					((JsonObject) v).write(writer);
-				} else if (v instanceof JsonArray) {
-					((JsonArray) v).write(writer);
-				} else {
-					writer.write(EntityUtil.valueToString(v, this));
-				}
-				b = true;
-			}
-			writer.write(']');
-			return writer;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+//	public Writer write(Writer writer) throws RuntimeException {
+//		try {
+//			List<Object> elements = getElements();
+//			boolean b = false;
+//			int len = elements.size();
+//
+//			writer.write('[');
+//
+//			for (int i = 0; i < len; i += 1) {
+//				if (b) {
+//					writer.write(',');
+//				}
+//				Object v = elements.get(i);
+//				if (v instanceof JsonObject) {
+//					((JsonObject) v).write(writer);
+//				} else if (v instanceof JsonArray) {
+//					((JsonArray) v).write(writer);
+//				} else {
+//					writer.write(EntityUtil.valueToString(v, this));
+//				}
+//				b = true;
+//			}
+//			writer.write(']');
+//			return writer;
+//		} catch (IOException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 
 	@Override
 	public Entity getNewObject() {

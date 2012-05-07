@@ -37,7 +37,7 @@ public class ClassModelTest
    @Test
    public void testClassModelCodeGen()
    {
-      Scenario scenario = new Scenario("ClassModelCodeGen");
+      Scenario scenario = new Scenario("test", "ClassModelCodeGen");
 
       //=======================================================================
       scenario.add("This test generates some classes with some elements. ");

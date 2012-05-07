@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.Vector;
 
 import org.junit.Assert;
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
@@ -48,7 +49,9 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Scenario 
 {
-   private String name; 
+   private String name;
+
+   private String javaTestFileName; 
    
    public String getName()
    {
@@ -71,11 +74,23 @@ public class Scenario
       
    }
    
-   public Scenario(String name)
+   public Scenario(String rootDir, String name)
    {
       setName(name);
       
       steps.add(name);
+      
+      try
+      {
+         throw new RuntimeException();
+      }
+      catch (Exception e)
+      {
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement callEntry = stackTrace[1];
+         javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
+      }
+
    }
    
 	public Vector<String> steps = new Vector<String>();
@@ -142,14 +157,16 @@ public class Scenario
       // generate the html text
 		String htmlText = "<html>\n" +
             "<body>\n" +
-            "<p>Scenario scenarioName</p>\n" +
+            "<p>Scenario <a href='testfilename' type='text/x-java'>scenarioName</a></p>\n" +
             "$text\n" +
             "</body>\n" +
             "</html>\n";
 
 		String scenarioName = (String) steps.get(0);
+		
 		htmlText = htmlText.replaceFirst("scenarioName", scenarioName);
-		kanbanEntry.setName(scenarioName);
+		htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
+      kanbanEntry.setName(scenarioName);
 		
 		String shortFileName = "" + scenarioName + ".html";
 		String pathname = "doc/" + shortFileName;

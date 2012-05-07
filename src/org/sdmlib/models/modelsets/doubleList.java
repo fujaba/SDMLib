@@ -1,4 +1,4 @@
-package org.sdmlib.examples.groupAccount.modlesets;
+package org.sdmlib.models.modelsets;
 
 import java.util.ArrayList;
 

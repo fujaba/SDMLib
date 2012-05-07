@@ -35,7 +35,7 @@ public class TransformationsCodeGen
    @Test
    public void testTransformationsCodegen()
    {
-      Scenario scenario = new Scenario("TransformationsCodegen");
+      Scenario scenario = new Scenario("test", "TransformationsCodegen");
       
       scenario.add("classes for model transformations:",
          MODELING, "zuendorf", "05.04.2012 16:24:42", 2, 0);

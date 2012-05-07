@@ -376,7 +376,7 @@ public abstract class EntityList extends BaseEntity{
 		getElements().remove(index);
 		return o;
 	}
-	public abstract Writer write(Writer writer);
+	// public abstract Writer write(Writer writer);
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
 	public abstract String toString();

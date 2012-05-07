@@ -9,6 +9,9 @@ public class LectureCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Lecture.PROPERTY_TITLE,
+      Lecture.PROPERTY_IN,
+      Lecture.PROPERTY_HAS,
+      Lecture.PROPERTY_LISTEN,
    };
    
    public String[] getProperties()
@@ -36,4 +39,5 @@ public class LectureCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 
