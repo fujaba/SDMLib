@@ -10,7 +10,7 @@ import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class IdMap {
-	public static final String REMOVE= "rem";
+	public static final String REMOVE= ".rem";
 	public static final String UPDATE = "upd";
 	public static final String PRIO = "prio";
 	private HashMap<Object, String> keys;

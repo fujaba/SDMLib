@@ -161,7 +161,7 @@ public abstract class Entity extends BaseEntity{
 	 */
 	public boolean getBoolean(String key)  {
 		Object object = this.get(key);
-		if (object.equals(Boolean.FALSE) ||
+		if (object == null || object.equals(Boolean.FALSE) ||
 				(object instanceof String &&
 						((String)object).equalsIgnoreCase("false"))) {
 			return false;

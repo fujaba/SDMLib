@@ -160,23 +160,39 @@ public class JsonIdMap extends IdMap{
 
 	private Object readJson(Object target, JsonObject jsonObject, HashSet<ReferenceObject> refs) {
 		// JSONArray jsonArray;
-		if (isId) {
+		if (isId) 
+		{
 			String jsonId = (String) jsonObject.get(JSON_ID);
-			if (jsonId == null) {
+			if (jsonId == null) 
+			{
 				return target;
 			}
 			put(jsonId, target);
 
 			getCounter().readId(jsonId);
 		}
-		if (jsonObject.has(JSON_PROPS)) {
+		if (jsonObject.has(JSON_PROPS)) 
+		{
 			JsonObject jsonProp = (JsonObject) jsonObject.get(JSON_PROPS);
 			SendableEntityCreator prototyp = getCreatorClass(target);
 			String[] properties = prototyp.getProperties();
-			if (properties != null) {
-				for (String property : properties) {
+			if (properties != null) 
+			{
+				for (String property : properties) 
+				{
 					Object obj = jsonProp.get(property);
-					parseValue(target, property, obj, prototyp, refs);
+					if (obj != null)
+					{
+					   parseValue(target, property, obj, prototyp, refs);
+					}
+					else
+					{
+					   obj = jsonProp.get(property + IdMap.REMOVE);
+					   if (obj != null)
+	               {
+	                  parseValue(target, property + IdMap.REMOVE, obj, prototyp, refs);
+	               }
+					}
 				}
 			}
 		}
@@ -185,39 +201,60 @@ public class JsonIdMap extends IdMap{
 
 	private void parseValue(Object target, String property, Object value,
 			SendableEntityCreator creator, HashSet<ReferenceObject> refs) {
-		if (value != null) {
-			if (value instanceof JsonArray) {
+		if (value != null) 
+		{
+			if (value instanceof JsonArray) 
+			{
 				JsonArray jsonArray = (JsonArray) value;
-				for (int i = 0; i < jsonArray.length(); i++) {
+				for (int i = 0; i < jsonArray.length(); i++) 
+				{
 					Object kid = jsonArray.get(i);
-					if (kid instanceof JsonObject) {
+					if (kid instanceof JsonObject) 
+					{
 						// got a new kid, create it
 						JsonObject child=(JsonObject) kid;
 						String className = (String) child.get(CLASS);
 						String jsonId = (String) child.get(JSON_ID);
-						if (className == null&&jsonId!=null) {
+						if (className == null && jsonId != null && child.length() == 1) 
+						{
 							// It is a Ref
 							refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-						}else{
+						}
+						else
+						{
 							creator.setValue(target, property, readJson((JsonObject) kid));
 						}
-					}else{
+					}
+					else
+					{
 						creator.setValue(target, property, kid);
 					}
 				}
-			} else {
-				if (value instanceof JsonObject) {
+			}
+			else 
+			{
+				if (value instanceof JsonObject) 
+				{
 //					// got a new kid, create it
 					JsonObject child=(JsonObject) value;
 					String className = (String) child.get(CLASS);
 					String jsonId = (String) child.get(JSON_ID);
-					if (className == null&&jsonId!=null) {
+					if (className == null && jsonId != null && child.length()==1) 
+					{
 						// It is a Ref
 						refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-					}else{
+					}
+					else if (className != null && jsonId != null )
+					{
 						creator.setValue(target, property, readJson((JsonObject) value));
 					}
-				}else{
+					else 
+					{
+					   creator.setValue(target, property, value);
+					}
+				}
+				else
+				{
 					creator.setValue(target, property, value);
 				}
 			}
