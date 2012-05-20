@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -363,13 +363,12 @@ public class KanbanEntry implements PropertyChangeInterface
       return result;
    }
 
-   public void linkToTest(String className, String testName) 
+   public void linkToTest(String rootDir, String className, String testName) 
    {
-      int firstDotPos = className.indexOf('.');
       int lastDotPos = className.lastIndexOf('.');
 
-      String packageName = className.substring(firstDotPos+1, lastDotPos);
-      String fileName = className;
+      String packageName = className.substring(0, lastDotPos);
+      String fileName = rootDir + "." + className;
 
       className = className.substring(lastDotPos+1);
 
@@ -420,6 +419,7 @@ public class KanbanEntry implements PropertyChangeInterface
                      "   private static final String DONE = \"done\";\n" +
                      "   private static final String IMPLEMENTATION = \"implementation\";\n" +
                      "   private static final String BACKLOG = \"backlog\";\n" +
+                     "   private static final String BUG = \"bug\";\n" +
                      "}\n");
 
                String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
@@ -444,7 +444,7 @@ public class KanbanEntry implements PropertyChangeInterface
                "   @Test\n" +
                      "   public void " + methodName + "()\n" +
                      "   {\n" +
-                     "      Scenario scenario = new Scenario(\"" + testName + "\");\n" +
+                     "      Scenario scenario = new Scenario(\"" + rootDir + "\", \"" + testName + "\");\n" +
                      "      \n" +
                      "      scenario.add(\"Start situation: \",\n" +
                      "         BACKLOG, " +

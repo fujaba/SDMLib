@@ -28,8 +28,8 @@
 <polygon fill="none" stroke="black" points="8,-4 8,-24 69,-24 69,-4 8,-4"/>
 <text text-anchor="start" x="37" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- University&#45;&#45;Student -->
-<g id="edge2" class="edge"><title>University&#45;&#45;Student</title>
+<!-- University&#45;&gt;Student -->
+<g id="edge2" class="edge"><title>University&#45;&gt;Student</title>
 <path fill="none" stroke="black" d="M38,-116.475C38,-105.009 38,-91.9132 38,-79.8848"/>
 <text text-anchor="middle" x="42.2262" y="-86.4479" font-family="Times New Roman,serif" font-size="10.00">students</text>
 <text text-anchor="middle" x="33.7738" y="-104.912" font-family="Times New Roman,serif" font-size="10.00">uni</text>

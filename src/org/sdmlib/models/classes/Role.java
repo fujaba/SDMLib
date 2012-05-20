@@ -518,6 +518,8 @@ public class Role implements PropertyChangeInterface
       
       int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
       
+      String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getName());
+
       if (partnerPos < 0)
       {
          // add attribute declaration in class file
@@ -529,20 +531,18 @@ public class Role implements PropertyChangeInterface
                "\n"
                );
          
-         String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getName());
-         
          CGUtil.replaceAll(partnerText, 
             "type", partnerClassName + "Set"
             );
          
          partnerParser.getFileBody().insert(partnerPos, partnerText.toString());
          
-         partnerRole.getClazz().insertImport(LinkedHashSet.class.getName());
          
          partnerRole.getClazz().setFileHasChanged(true);
          partnerRole.getClazz().printFile(doGenerate);
 
       }
+      partnerRole.getClazz().insertImport(partnerRole.getClazz().getModelSetClassName());
    }
 
    private void generateToManyRole(Role partnerRole, StringBuilder text)
@@ -666,7 +666,7 @@ public class Role implements PropertyChangeInterface
          "reverseWithoutCall(this)", reverseWithoutCall
          );
       
-      getClazz().insertImport(partnerRole.getClazz().getName() + "Set");
+      getClazz().insertImport(partnerRole.getClazz().getModelSetClassName());
    } 
    
    private void generateToOneRole(Role partnerRole, StringBuilder text)
@@ -701,7 +701,7 @@ public class Role implements PropertyChangeInterface
             "\n         if (this.partnerRoleName != null)" +
             "\n         {" +
             "\n            this.partnerRoleName = null;" +
-            "\n            oldValue.withoutMyRoleName(this);" +
+            "\n            oldValue.withoutMethodCall(this);" +
             "\n         }" +
             "\n         " +
             "\n         this.partnerRoleName = value;" +
@@ -735,11 +735,11 @@ public class Role implements PropertyChangeInterface
       
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
       
-      String reverseWithoutCall = "set" + partnerRoleUpFirstChar + "(null)";
+      String reverseWithoutCall = "set" + StrUtil.upFirstChar(getName()) + "(null)";
       
       if (getCard().equals(MANY))
       {
-         reverseWithoutCall = "without" + partnerRoleUpFirstChar + "(this)";
+         reverseWithoutCall = "without" + StrUtil.upFirstChar(getName()) + "(this)";
       }
       
       CGUtil.replaceAll(text, 
@@ -752,7 +752,7 @@ public class Role implements PropertyChangeInterface
          "partnerRoleName", partnerRoleName,
          "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
          "PartnerRoleName", partnerRoleUpFirstChar,
-         "withoutMyRoleName(this)", reverseWithoutCall
+         "withoutMethodCall(this)", reverseWithoutCall
          );
    } 
 

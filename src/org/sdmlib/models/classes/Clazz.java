@@ -796,6 +796,22 @@ public class Clazz implements PropertyChangeInterface
       return creatorParser;
    }
    
+   
+   public String getModelSetClassName()
+   {
+      int pos = name.lastIndexOf('.');
+      
+      String packageName = name.substring(0, pos) + ".creators";
+      
+      String entitiyClassName = name.substring(pos + 1);
+      
+      String modelSetClassName = entitiyClassName + "Set";
+      
+      String fullModelSetClassName = packageName + "." + modelSetClassName;
+      
+      return fullModelSetClassName;
+   }
+   
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
       if (modelSetParser == null)

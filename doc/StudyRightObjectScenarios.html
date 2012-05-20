@@ -1,17 +1,19 @@
 <html>
 <body>
-<p>Scenario StudyRightObjectScenarios</p>
+<p>Scenario <a href='../examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java' type='text/x-java'>StudyRightObjectScenarios</a></p>
 <pre>Start situation: use University class to build object structure</pre>
 <pre>step 1: dump object diagram</pre>
 <img src='StudyRightObjectScenarios4.svg'>
 <pre>step 2: add support for path navigation
       call </pre>
-<pre>      scenario.markCodeStart();
+<pre>      int sum = albert.getUni().getRooms().getCredits().sum();
 </pre>
 <pre>      shall compute to 88
-      Path classes need to be generated.</pre>
+      Path classes are generated.</pre>
+<pre>Feature Request: model sets need to provide a navigation to any neighbors
+e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </pre>
 <pre>step 3: call </pre>
-<pre>      scenario.markCodeStart();
+<pre>      mathRoom.findPath("", 88);
 </pre>
 <pre>System.out: 
  math arts sports

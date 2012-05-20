@@ -2,16 +2,14 @@ package org.sdmlib.examples.studyright.creators;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.Professor;
 
-public class StudentCreator implements SendableEntityCreator
+public class ProfessorCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Student.PROPERTY_NAME,
-      Student.PROPERTY_MATRNO,
-      Student.PROPERTY_UNI,
-      Student.PROPERTY_IN,
+      Professor.PROPERTY_NAME,
+      Professor.PROPERTY_TOPIC,
    };
    
    public String[] getProperties()
@@ -21,17 +19,17 @@ public class StudentCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Student();
+      return new Professor();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Student) target).get(attrName);
+      return ((Professor) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Student) target).set(attrName, value);
+      return ((Professor) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -72,11 +72,11 @@ public class ProjectBoard
       
       entry = kanbanBoard.findOrCreate("StudyRightObjectScenarios")
             .withParent(sprint1);
-      entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
       entry = kanbanBoard.findOrCreate("StudyRightReverseClassModel")
             .withParent(sprint1);
-      entry.linkToTest("examples.org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
       
       
@@ -86,15 +86,15 @@ public class ProjectBoard
       
       entry = kanbanBoard.findOrCreate("GroupAccountCodegen")
             .withParent(sprint1);
-      entry.linkToTest("examples.org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
       
       entry = kanbanBoard.findOrCreate("GroupAccountRuleRecognition")
             .withParent(sprint1);
-      entry.linkToTest("examples.org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
       
       entry = kanbanBoard.findOrCreate("TransformationsCodegen")
             .withParent(sprint1);
-      entry.linkToTest("src.org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
+      entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
       
       
       
@@ -132,6 +132,9 @@ public class ProjectBoard
       scenario.add(" Editing the log entries works now fine as part of the add method. " , 
             DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
       
+      scenario.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
+         DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
+   
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();

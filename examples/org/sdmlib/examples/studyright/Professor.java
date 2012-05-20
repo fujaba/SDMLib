@@ -24,9 +24,8 @@ package org.sdmlib.examples.studyright;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.studyright.creators.StudentSet;
 
-public class Student implements PropertyChangeInterface
+public class Professor implements PropertyChangeInterface
 {
 
    
@@ -47,19 +46,9 @@ public class Student implements PropertyChangeInterface
          return getName();
       }
 
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      if (PROPERTY_TOPIC.equalsIgnoreCase(attrName))
       {
-         return getMatrNo();
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         return getUni();
-      }
-
-      if (PROPERTY_IN.equalsIgnoreCase(attrName))
-      {
-         return getIn();
+         return getTopic();
       }
       
       return null;
@@ -76,21 +65,9 @@ public class Student implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      if (PROPERTY_TOPIC.equalsIgnoreCase(attrName))
       {
-         setMatrNo((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         setUni((University) value);
-         return true;
-      }
-
-      if (PROPERTY_IN.equalsIgnoreCase(attrName))
-      {
-         setIn((Room) value);
+         setTopic((Topic) value);
          return true;
       }
 
@@ -112,8 +89,7 @@ public class Student implements PropertyChangeInterface
    
    public void removeYou()
    {
-      setUni(null);
-      setIn(null);
+      setTopic(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -139,144 +115,61 @@ public class Student implements PropertyChangeInterface
       }
    }
    
-   public Student withName(String value)
+   public Professor withName(String value)
    {
       setName(value);
       return this;
    } 
 
    
-   //==========================================================================
-   
-   public static final String PROPERTY_MATRNO = "matrNo";
-   
-   private int matrNo;
-   
-   public int getMatrNo()
-   {
-      return this.matrNo;
-   }
-   
-   public void setMatrNo(int value)
-   {
-      if (this.matrNo != value)
-      {
-         int oldValue = this.matrNo;
-         this.matrNo = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MATRNO, oldValue, value);
-      }
-   }
-   
-   public Student withMatrNo(int value)
-   {
-      setMatrNo(value);
-      return this;
-   } 
-
-   
-   public static final StudentSet EMPTY_SET = new StudentSet();
-
-   
    /********************************************************************
     * <pre>
-    *              many                       one
-    * Student ----------------------------------- University
-    *              students                   uni
+    *              one                       one
+    * Professor ----------------------------------- Topic
+    *              prof                   topic
     * </pre>
     */
    
-   public static final String PROPERTY_UNI = "uni";
+   public static final String PROPERTY_TOPIC = "topic";
    
-   private University uni = null;
+   private Topic topic = null;
    
-   public University getUni()
+   public Topic getTopic()
    {
-      return this.uni;
+      return this.topic;
    }
    
-   public boolean setUni(University value)
+   public boolean setTopic(Topic value)
    {
       boolean changed = false;
       
-      if (this.uni != value)
+      if (this.topic != value)
       {
-         University oldValue = this.uni;
+         Topic oldValue = this.topic;
          
-         if (this.uni != null)
+         if (this.topic != null)
          {
-            this.uni = null;
-            oldValue.withoutStudents(this);
+            this.topic = null;
+            oldValue.setProf(null);
          }
          
-         this.uni = value;
+         this.topic = value;
          
          if (value != null)
          {
-            value.withStudents(this);
+            value.withProf(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNI, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
    
-   public Student withUni(University value)
+   public Professor withTopic(Topic value)
    {
-      setUni(value);
-      return this;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Student ----------------------------------- Room
-    *              students                   in
-    * </pre>
-    */
-   
-   public static final String PROPERTY_IN = "in";
-   
-   private Room in = null;
-   
-   public Room getIn()
-   {
-      return this.in;
-   }
-   
-   public boolean setIn(Room value)
-   {
-      boolean changed = false;
-      
-      if (this.in != value)
-      {
-         Room oldValue = this.in;
-         
-         if (this.in != null)
-         {
-            this.in = null;
-            oldValue.withoutStudents(this);
-         }
-         
-         this.in = value;
-         
-         if (value != null)
-         {
-            value.withStudents(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Student withIn(Room value)
-   {
-      setIn(value);
+      setTopic(value);
       return this;
    } 
 }

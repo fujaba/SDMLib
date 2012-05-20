@@ -21,16 +21,13 @@
    
 package org.sdmlib.examples.studyright;
 
-import java.beans.PropertyChangeSupport;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.creators.RoomSet;
 
 public class University implements PropertyChangeInterface
 {
@@ -40,11 +37,6 @@ public class University implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
       int pos = attrName.indexOf('.');
       String attribute = attrName;
       
@@ -76,12 +68,6 @@ public class University implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
@@ -174,16 +160,16 @@ public class University implements PropertyChangeInterface
    
    public static final String PROPERTY_STUDENTS = "students";
    
-   private LinkedHashSet<Student> students = null;
+   private StudentSet students = null;
    
-   public Set<Student> getStudents()
+   public StudentSet getStudents()
    {
       if (this.students == null)
       {
-         return Collections.emptySet();
+         return Student.EMPTY_SET;
       }
    
-      return Collections.unmodifiableSet(this.students);
+      return this.students;
    }
    
    public boolean addToStudents(Student value)
@@ -194,7 +180,7 @@ public class University implements PropertyChangeInterface
       {
          if (this.students == null)
          {
-            this.students = new LinkedHashSet<Student>();
+            this.students = new StudentSet();
          }
          
          changed = this.students.add (value);
@@ -260,9 +246,9 @@ public class University implements PropertyChangeInterface
    
    public static final String PROPERTY_ROOMS = "rooms";
    
-   private LinkedHashSet<Room> rooms = null;
+   private RoomSet rooms = null;
    
-   public LinkedHashSet<Room> getRooms()
+   public RoomSet getRooms()
    {
       if (this.rooms == null)
       {
@@ -280,7 +266,7 @@ public class University implements PropertyChangeInterface
       {
          if (this.rooms == null)
          {
-            this.rooms = new LinkedHashSet<Room>();
+            this.rooms = new RoomSet();
          }
          
          changed = this.rooms.add (value);

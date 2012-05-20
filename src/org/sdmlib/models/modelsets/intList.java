@@ -31,7 +31,7 @@ public class intList extends ArrayList<Integer> implements PropertyChangeInterfa
 
 	private static final long serialVersionUID = -2345886837862490672L;
 
-public int sum()
+	public int sum()
    {
       int result = 0;
       
@@ -46,7 +46,6 @@ public int sum()
 
    
    //==========================================================================
-   
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -62,7 +61,6 @@ public int sum()
 
    
    //==========================================================================
-   
    public boolean set(String attrName, Object value)
    {
       return false;
@@ -70,7 +68,6 @@ public int sum()
 
    
    //==========================================================================
-   
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
@@ -80,7 +77,6 @@ public int sum()
 
    
    //==========================================================================
-   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);

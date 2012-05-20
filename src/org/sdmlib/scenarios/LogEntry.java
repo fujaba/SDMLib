@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.scenarios.creators.LogEntrySet;
 
 
 // should have a creator class

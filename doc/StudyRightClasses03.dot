@@ -1,5 +1,5 @@
 
- graph ClassDiagram {
+ digraph ClassDiagram {
     node [shape = none, fontsize = 10]; 
     edge [fontsize = 10];
     
@@ -9,6 +9,6 @@
     
     
     
-    University -- Student [headlabel = "students" taillabel = "uni"];
+    University -> Student [headlabel = "students" taillabel = "uni" arrowhead = "none" ];
 }
 

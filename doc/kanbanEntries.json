@@ -4,64 +4,28 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id": "KE.L74"},
-        {"id": "KE.L90"},
-        {"id": "KE.L103"},
-        {"id": "KE.L106"},
-        {"id": "KE.L131"},
-        {"id": "KE.L45"},
-        {"id": "KE.L93"},
-        {"id": "KE.L34"},
-        {"id": "KE.L72"},
-        {"id": "KE.L40"},
-        {"id": "KE.L70"},
-        {"id": "KE.L138"},
-        {"id": "KE.L143"},
-        {"id": "KE.L108"},
-        {"id": "KE.L113"},
-        {"id": "KE.L57"},
-        {"id": "KE.L80"},
-        {"id": "KE.L28"},
-        {"id": "KE.L20"},
-        {"id": "KE.L50"},
-        {"id": "KE.L115"},
-        {"id": "KE.L129"},
-        {"id": "KE.L12"},
-        {"id": "KE.L94"},
-        {"id": "KE.L52"},
-        {"id": "KE.L141"},
-        {"id": "KE.L86"},
-        {"id": "KE.L24"},
-        {"id": "KE.L117"},
-        {"id": "KE.L125"},
-        {"id": "KE.L135"},
-        {"id": "KE.L133"},
-        {"id": "KE.L100"},
-        {"id": "KE.L66"},
-        {"id": "KE.L43"},
-        {"id": "KE.L15"},
-        {"id": "KE.L111"},
-        {"id": "KE.L9"},
-        {"id": "KE.L31"},
-        {"id": "KE.L127"},
-        {"id": "KE.L63"},
-        {"id": "KE.L60"},
-        {"id": "KE.L122"},
-        {"id": "KE.L6"},
+        {"id": "KE.L14"},
+        {"id": "KE.L23"},
+        {"id": "KE.L33"},
+        {"id": "KE.L36"},
+        {"id": "KE.L38"},
+        {"id": "KE.L42"},
+        {"id": "KE.L47"},
+        {"id": "KE.L51"},
+        {"id": "KE.L53"},
         {"id": "KE.L55"},
-        {"id": "KE.L97"},
-        {"id": "KE.L119"},
-        {"id": "KE.L37"},
-        {"id": "KE.L144"}
+        {"id": "KE.L59"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":76,
-      "hoursSpend":51,
+      "hoursRemaining":2,
+      "hoursSpend":17,
       "subentries":[
-        {"id": "KE.K7"},
-        {"id": "KE.K2"}
+        {"id": "KE.K2"},
+        {"id": "KE.K11"},
+        {"id": "KE.K18"},
+        {"id": "KE.K45"}
       ]
     }
   },
@@ -70,68 +34,32 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id": "KE.L116"},
-        {"id": "KE.L132"},
-        {"id": "KE.L114"},
-        {"id": "KE.L130"},
-        {"id": "KE.L142"},
-        {"id": "KE.L104"},
-        {"id": "KE.L140"},
-        {"id": "KE.L128"},
-        {"id": "KE.L51"},
-        {"id": "KE.L44"},
-        {"id": "KE.L107"},
-        {"id": "KE.L11"},
-        {"id": "KE.L59"},
-        {"id": "KE.L69"},
-        {"id": "KE.L21"},
-        {"id": "KE.L89"},
-        {"id": "KE.L120"},
-        {"id": "KE.L126"},
-        {"id": "KE.L23"},
-        {"id": "KE.L33"},
-        {"id": "KE.L27"},
-        {"id": "KE.L118"},
-        {"id": "KE.L112"},
-        {"id": "KE.L62"},
-        {"id": "KE.L54"},
-        {"id": "KE.L79"},
-        {"id": "KE.L71"},
-        {"id": "KE.L65"},
-        {"id": "KE.L14"},
-        {"id": "KE.L36"},
-        {"id": "KE.L123"},
-        {"id": "KE.L5"},
-        {"id": "KE.L109"},
-        {"id": "KE.L56"},
-        {"id": "KE.L42"},
-        {"id": "KE.L30"},
-        {"id": "KE.L49"},
-        {"id": "KE.L136"},
+        {"id": "KE.L15"},
+        {"id": "KE.L24"},
+        {"id": "KE.L34"},
+        {"id": "KE.L37"},
         {"id": "KE.L39"},
-        {"id": "KE.L98"},
-        {"id": "KE.L134"},
-        {"id": "KE.L85"},
-        {"id": "KE.L92"},
-        {"id": "KE.L101"},
-        {"id": "KE.L95"},
-        {"id": "KE.L145"}
+        {"id": "KE.L43"},
+        {"id": "KE.L48"},
+        {"id": "KE.L52"},
+        {"id": "KE.L54"},
+        {"id": "KE.L56"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":54,
-      "hoursSpend":49,
+      "hoursRemaining":2,
+      "hoursSpend":16,
       "parent":{"id": "KE.K1"},
       "subentries":[
-        {"id": "KE.K17"},
-        {"id": "KE.K81"},
-        {"id": "KE.K77"},
-        {"id": "KE.K46"},
-        {"id": "KE.K75"},
         {"id": "KE.K3"},
-        {"id": "KE.K25"},
-        {"id": "KE.K83"}
+        {"id": "KE.K4"},
+        {"id": "KE.K5"},
+        {"id": "KE.K6"},
+        {"id": "KE.K7"},
+        {"id": "KE.K8"},
+        {"id": "KE.K9"},
+        {"id": "KE.K10"}
       ]
     }
   },
@@ -140,2034 +68,825 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id": "KE.L4"},
         {"id": "KE.L13"},
-        {"id": "KE.L137"},
-        {"id": "KE.L16"},
-        {"id": "KE.L124"},
-        {"id": "KE.L10"}
+        {"id": "KE.L16"}
       ],
       "name":"ScenarioInfrastructure",
-      "phase":"implementation",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":18,
-      "hoursSpend":4,
+      "hoursRemaining":0,
+      "hoursSpend":1,
       "parent":{"id": "KE.K2"}
+    }
+  },
+  {
+    "id":"KE.K4",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id": "KE.L25"},
+        {"id": "KE.L26"},
+        {"id": "KE.L27"},
+        {"id": "KE.L28"},
+        {"id": "KE.L29"},
+        {"id": "KE.L30"},
+        {"id": "KE.L31"},
+        {"id": "KE.L32"},
+        {"id": "KE.L40"},
+        {"id": "KE.L41"},
+        {"id": "KE.L44"},
+        {"id": "KE.L57"},
+        {"id": "KE.L58"}
+      ],
+      "name":"StudyRightClassesCodeGen",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":13,
+      "parent":{"id": "KE.K2"}
+    }
+  },
+  {
+    "id":"KE.K5",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id": "KE.L21"},
+        {"id": "KE.L22"},
+        {"id": "KE.L49"},
+        {"id": "KE.L50"}
+      ],
+      "name":"StudyRightObjectScenarios",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":2,
+      "hoursSpend":1,
+      "parent":{"id": "KE.K2"},
+      "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
+    }
+  },
+  {
+    "id":"KE.K6",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id": "KE.L17"},
+        {"id": "KE.L35"}
+      ],
+      "name":"StudyRightReverseClassModel",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":1,
+      "parent":{"id": "KE.K2"},
+      "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
     }
   },
   {
     "id":"KE.K7",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
-      "logEntries":[
-        {"id": "KE.L8"},
-        {"id": "KE.L121"},
-        {"id": "KE.L139"},
-        {"id": "KE.L73"}
-      ],
+      "name":"ClassModelCodeGen",
+      "phase":"backlog",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id": "KE.K2"}
+    }
+  },
+  {
+    "id":"KE.K8",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountCodegen",
+      "phase":"backlog",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id": "KE.K2"},
+      "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
+    }
+  },
+  {
+    "id":"KE.K9",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountRuleRecognition",
+      "phase":"backlog",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id": "KE.K2"},
+      "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
+    }
+  },
+  {
+    "id":"KE.K10",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"TransformationsCodegen",
+      "phase":"backlog",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id": "KE.K2"},
+      "files":"test/org/sdmlib/models/transformations/TransformationsCodeGen.java"
+    }
+  },
+  {
+    "id":"KE.K11",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[{"id": "KE.L12"}],
       "name":"ProjectManagement",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":22,
-      "hoursSpend":2,
+      "hoursRemaining":0,
+      "hoursSpend":0,
       "parent":{"id": "KE.K1"}
     }
   },
   {
-    "id":"KE.K17",
+    "id":"KE.K18",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id": "KE.L18"},
         {"id": "KE.L19"},
-        {"id": "KE.L64"},
-        {"id": "KE.L22"},
-        {"id": "KE.L41"},
-        {"id": "KE.L29"},
-        {"id": "KE.L35"},
-        {"id": "KE.L96"},
-        {"id": "KE.L58"},
-        {"id": "KE.L53"},
-        {"id": "KE.L67"},
-        {"id": "KE.L38"},
-        {"id": "KE.L61"}
+        {"id": "KE.L20"}
       ],
-      "name":"StudyRightClassesCodeGen",
-      "phase":"implementation",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":19,
-      "hoursSpend":26,
-      "parent":{"id": "KE.K2"}
-    }
-  },
-  {
-    "id":"KE.K25",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "logEntries":[
-        {"id": "KE.L68"},
-        {"id": "KE.L26"},
-        {"id": "KE.L32"}
-      ],
-      "name":"ClassModelCodeGen",
-      "phase":"implementation",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":0,
-      "hoursSpend":3,
-      "parent":{"id": "KE.K2"}
-    }
-  },
-  {
-    "id":"KE.K46",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "logEntries":[
-        {"id": "KE.L47"},
-        {"id": "KE.L48"}
-      ],
-      "name":"StudyRightObjectScenarios",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf joern alex",
-      "hoursRemaining":0,
-      "hoursSpend":0,
-      "parent":{"id": "KE.K2"},
-      "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
-    }
-  },
-  {
-    "id":"KE.K75",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "logEntries":[{"id": "KE.L76"}],
-      "name":"StudyRightReverseClassModel",
+      "name":"StudyRightExtendsReverseClassModel",
       "phase":"backlog",
-      "lastDeveloper":"zuendorf",
+      "lastDeveloper":"ajahl",
       "hoursRemaining":0,
       "hoursSpend":0,
-      "parent":{"id": "KE.K2"},
-      "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
+      "parent":{"id": "KE.K1"}
     }
   },
   {
-    "id":"KE.K77",
+    "id":"KE.K45",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
-      "logEntries":[{"id": "KE.L78"}],
-      "name":"GroupAccountCodegen",
+      "logEntries":[
+        {"id": "KE.L46"},
+        {"id": "KE.L60"}
+      ],
+      "name":"StudyRightOneToOneAssoc",
       "phase":"done",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":1,
-      "parent":{"id": "KE.K2"},
-      "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
-    }
-  },
-  {
-    "id":"KE.K81",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "logEntries":[
-        {"id": "KE.L110"},
-        {"id": "KE.L82"},
-        {"id": "KE.L91"}
-      ],
-      "name":"GroupAccountRuleRecognition",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":12,
-      "hoursSpend":8,
-      "parent":{"id": "KE.K2"},
-      "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
-    }
-  },
-  {
-    "id":"KE.K83",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "logEntries":[
-        {"id": "KE.L102"},
-        {"id": "KE.L99"},
-        {"id": "KE.L105"},
-        {"id": "KE.L84"},
-        {"id": "KE.L88"},
-        {"id": "KE.L87"}
-      ],
-      "name":"TransformationsCodegen",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":5,
-      "hoursSpend":7,
-      "parent":{"id": "KE.K2"},
-      "files":"src/org/sdmlib/models/transformations/TransformationsCodeGen.java"
-    }
-  },
-  {
-    "id":"KE.L4",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"17.03.2012 22:40:00",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id": "KE.K3"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L5",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"17.03.2012 22:40:00",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: null"
-    }
-  },
-  {
-    "id":"KE.L6",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"17.03.2012 22:40:00",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ScenarioInfrastructure: null"
-    }
-  },
-  {
-    "id":"KE.L8",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 13:00:00",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":23,
-      "kanbanEntry":{"id": "KE.K7"},
-      "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
-    "id":"KE.L9",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 13:00:00",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L10",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 13:05:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id": "KE.K3"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Hour calculation improved."
-    }
-  },
-  {
-    "id":"KE.L11",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 13:05:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Hour calculation improved."
+      "parent":{"id": "KE.K1"}
     }
   },
   {
     "id":"KE.L12",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"18.03.2012 13:05:42",
-      "hoursSpend":2,
+      "date":"07.05.2012 23:38:42",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K11"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ScenarioInfrastructure: Hour calculation improved."
+      "phase":"active"
     }
   },
   {
     "id":"KE.L13",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"18.03.2012 17:34:42",
-      "hoursSpend":1,
+      "date":"07.05.2012 23:36:42",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":17,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved:  Editing the log entries is still too tedious. \n Add parameters to scenario.add and derive log entry from it."
+      "phase":"done",
+      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
     }
   },
   {
     "id":"KE.L14",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"18.03.2012 13:05:42",
+      "date":"19.05.2012 19:22:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":17,
-      "kanbanEntry":{"id": "KE.K2"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ScenarioInfrastructure: Hour calculation improved."
+      "comment":"Sprint.001.Booting: ScenarioInfrastructure: Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
     }
   },
   {
     "id":"KE.L15",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"18.03.2012 13:05:42",
+      "date":"19.05.2012 19:22:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: ScenarioInfrastructure: Hour calculation improved."
+      "comment":"ScenarioInfrastructure: Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
     }
   },
   {
     "id":"KE.L16",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"18.03.2012 17:45:42",
+      "date":"19.05.2012 19:22:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
       "kanbanEntry":{"id": "KE.K3"},
       "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved:  Editing the log entries is still too tedious. \n Add parameters to scenario.add and derive log entry from it."
+      "phase":"done",
+      "comment":"Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
     }
   },
   {
-    "id":"KE.L18",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 12:00:00",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L19",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 18:06:42",
-      "hoursSpend":12,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation"
-    }
-  },
-  {
-    "id":"KE.L20",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 18:06:42",
-      "hoursSpend":12,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: null"
-    }
-  },
-  {
-    "id":"KE.L21",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 18:06:42",
-      "hoursSpend":12,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: null"
-    }
-  },
-  {
-    "id":"KE.L22",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:05:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 2. generate class Student with new notation"
-    }
-  },
-  {
-    "id":"KE.L23",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:05:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 2. generate class Student with new notation"
-    }
-  },
-  {
-    "id":"KE.L24",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:05:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 2. generate class Student with new notation"
-    }
-  },
-  {
-    "id":"KE.L26",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:35:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K25"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Basic bootstrap done."
-    }
-  },
-  {
-    "id":"KE.L27",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:35:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":47,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ClassModelCodeGen: Achieved: Basic bootstrap done."
-    }
-  },
-  {
-    "id":"KE.L28",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:35:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":70,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Basic bootstrap done."
-    }
-  },
-  {
-    "id":"KE.L29",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:13:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 6. generate generic get for attributes"
-    }
-  },
-  {
-    "id":"KE.L30",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:13:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":45,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes"
-    }
-  },
-  {
-    "id":"KE.L31",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:13:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":68,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes"
-    }
-  },
-  {
-    "id":"KE.L32",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:19:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K25"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Generate generic get and set and removeYou. First for attributes. "
-    }
-  },
-  {
-    "id":"KE.L33",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:19:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":44,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ClassModelCodeGen: Achieved: Generate generic get and set and removeYou. First for attributes. "
-    }
-  },
-  {
-    "id":"KE.L34",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:19:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":67,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate generic get and set and removeYou. First for attributes. "
-    }
-  },
-  {
-    "id":"KE.L35",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 14:40:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 6. generate generic get for attributes and assocs"
-    }
-  },
-  {
-    "id":"KE.L36",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 14:40:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs"
-    }
-  },
-  {
-    "id":"KE.L37",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 14:40:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":66,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 6. generate generic get for attributes and assocs"
-    }
-  },
-  {
-    "id":"KE.L38",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 18:37:42",
-      "hoursSpend":4,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":15,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf joern alex",
-      "phase":"implementation",
-      "comment":"Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L39",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 18:37:42",
-      "hoursSpend":4,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L40",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"22.03.2012 18:37:42",
-      "hoursSpend":4,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":64,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L41",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":24,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf joern alex",
-      "phase":"implementation",
-      "comment":"Achieved: add support for path navigation"
-    }
-  },
-  {
-    "id":"KE.L42",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":51,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: add support for path navigation"
-    }
-  },
-  {
-    "id":"KE.L43",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":74,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation"
-    }
-  },
-  {
-    "id":"KE.L44",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":50,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: add support for path navigation"
-    }
-  },
-  {
-    "id":"KE.L45",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":73,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: add support for path navigation"
-    }
-  },
-  {
-    "id":"KE.L47",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 21:37:46",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K46"},
-      "developer":"zuendorf",
-      "phase":"backlog",
-      "comment":"Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L48",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 14:57:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K46"},
-      "developer":"zuendorf joern alex",
-      "phase":"modeling",
-      "comment":"Achieved: step 2: add support for path navigation\n   int sum = Path.startWith(albert).getUni().getRooms().getCredits().sum();\nshall compute to 88\nPaht classes need to be generated."
-    }
-  },
-  {
-    "id":"KE.L49",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 21:37:46",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":74,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L50",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 21:37:46",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":97,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L51",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 21:37:46",
-      "hoursSpend":-1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":50,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L52",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 21:37:46",
-      "hoursSpend":-1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":73,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L53",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf joern alex",
-      "phase":"implementation",
-      "comment":"Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L54",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L55",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":63,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L56",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":49,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L57",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":72,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L58",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:37:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 8. generate imports"
-    }
-  },
-  {
-    "id":"KE.L59",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:37:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":48,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 8. generate imports"
-    }
-  },
-  {
-    "id":"KE.L60",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:37:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":71,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf joern alex",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 8. generate imports"
-    }
-  },
-  {
-    "id":"KE.L61",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:39:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 9. generate property change support"
-    }
-  },
-  {
-    "id":"KE.L62",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:39:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":46,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 9. generate property change support"
-    }
-  },
-  {
-    "id":"KE.L63",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:39:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":69,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 9. generate property change support"
-    }
-  },
-  {
-    "id":"KE.L64",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:20:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 10. generate removeYou method"
-    }
-  },
-  {
-    "id":"KE.L65",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:20:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":44,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: 10. generate removeYou method"
-    }
-  },
-  {
-    "id":"KE.L66",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:20:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":67,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: 10. generate removeYou method"
-    }
-  },
-  {
-    "id":"KE.L67",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:34:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: We need inheritance"
-    }
-  },
-  {
-    "id":"KE.L68",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K25"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L69",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":35,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ClassModelCodeGen: Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L70",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":58,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L71",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ClassModelCodeGen: Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L72",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":41,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ClassModelCodeGen: Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L73",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 23:16:00",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":22,
-      "kanbanEntry":{"id": "KE.K7"},
-      "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
-    "id":"KE.L74",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"26.03.2012 23:16:00",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L76",
+    "id":"KE.L17",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
       "date":"02.04.2012 14:58:18",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K75"},
-      "developer":"zuendorf",
+      "kanbanEntry":{"id": "KE.K6"},
+      "developer":"ajahl",
       "phase":"backlog",
       "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
     }
   },
   {
-    "id":"KE.L78",
+    "id":"KE.L19",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 00:11:32",
-      "hoursSpend":1,
+      "date":"19.05.2012 12:00:00",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K77"},
+      "kanbanEntry":{"id": "KE.K18"},
       "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: Nothing here yet. Generated classes"
+      "phase":"backlog"
     }
   },
   {
-    "id":"KE.L79",
+    "id":"KE.L20",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 00:11:32",
-      "hoursSpend":1,
+      "date":"02.04.2012 14:58:18",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":18,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountCodegen: Achieved: Start situation: Nothing here yet. Generated classes"
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K18"},
+      "developer":"ajahl",
+      "phase":"backlog",
+      "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
     }
   },
   {
-    "id":"KE.L80",
+    "id":"KE.L21",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 00:11:32",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountCodegen: Achieved: Start situation: Nothing here yet. Generated classes"
-    }
-  },
-  {
-    "id":"KE.L82",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 00:26:59",
+      "date":"25.03.2012 21:37:46",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id": "KE.K81"},
+      "kanbanEntry":{"id": "KE.K5"},
       "developer":"zuendorf",
+      "phase":"backlog",
+      "comment":"Achieved: Start situation: use University class to build object structure"
+    }
+  },
+  {
+    "id":"KE.L22",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"25.03.2012 14:57:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K5"},
+      "developer":"zuendorf joern alex",
       "phase":"modeling",
-      "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
+      "comment":"Achieved:       shall compute to 88\n      Path classes need to be generated."
     }
   },
   {
-    "id":"KE.L84",
+    "id":"KE.L23",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 01:41:27",
-      "hoursSpend":0,
+      "date":"19.05.2012 19:22:42",
+      "hoursSpend":8,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":7,
-      "kanbanEntry":{"id": "KE.K83"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: classes for model transformations:"
-    }
-  },
-  {
-    "id":"KE.L85",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 01:41:27",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: classes for model transformations:"
-    }
-  },
-  {
-    "id":"KE.L86",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 01:41:27",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":42,
+      "hoursRemainingInTotal":19,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: classes for model transformations:"
+      "comment":"Sprint.001.Booting: ScenarioInfrastructure: Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
     }
   },
   {
-    "id":"KE.L87",
+    "id":"KE.L24",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 02:19:42",
-      "hoursSpend":0,
+      "date":"19.05.2012 19:22:42",
+      "hoursSpend":8,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":5,
-      "kanbanEntry":{"id": "KE.K83"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: create some example transformOp:"
-    }
-  },
-  {
-    "id":"KE.L88",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 02:20:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id": "KE.K83"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: dump an image from the transformOp:"
-    }
-  },
-  {
-    "id":"KE.L89",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 02:20:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":25,
+      "hoursRemainingInTotal":19,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "comment":"ScenarioInfrastructure: Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
     }
   },
   {
-    "id":"KE.L90",
+    "id":"KE.L25",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 02:20:42",
-      "hoursSpend":0,
+      "date":"18.03.2012 23:05:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":47,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "phase":"implementation",
+      "comment":"Achieved: 5. generate generic set for attributes and assocs"
     }
   },
   {
-    "id":"KE.L91",
+    "id":"KE.L26",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 02:22:59",
-      "hoursSpend":0,
+      "date":"22.03.2012 14:40:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":12,
-      "kanbanEntry":{"id": "KE.K81"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
+      "phase":"implementation",
+      "comment":"Achieved: 6. generate generic get for attributes and assocs"
     }
   },
   {
-    "id":"KE.L92",
+    "id":"KE.L27",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 02:22:59",
-      "hoursSpend":0,
+      "date":"25.03.2012 22:32:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":37,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf joern alex",
+      "phase":"implementation",
+      "comment":"Achieved: 7. generate creator classes"
     }
   },
   {
-    "id":"KE.L93",
+    "id":"KE.L28",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"04.04.2012 02:22:59",
-      "hoursSpend":0,
+      "date":"25.03.2012 22:37:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":59,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: Now we analyze updateBalances() and create a graphical model transformation from its code."
+      "phase":"implementation",
+      "comment":"Achieved: 8. generate imports"
     }
   },
   {
-    "id":"KE.L94",
+    "id":"KE.L29",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"05.04.2012 12:52:42",
-      "hoursSpend":0,
+      "date":"25.03.2012 22:39:42",
+      "hoursSpend":2,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":60,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: generic set does not work for boolean and double and probably more"
+      "phase":"implementation",
+      "comment":"Achieved: 9. generate property change support"
     }
   },
   {
-    "id":"KE.L95",
+    "id":"KE.L30",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"05.04.2012 12:52:42",
-      "hoursSpend":0,
+      "date":"26.03.2012 22:20:42",
+      "hoursSpend":2,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":38,
-      "kanbanEntry":{"id": "KE.K2"},
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightClassesCodeGen: Achieved: generic set does not work for boolean and double and probably more"
+      "phase":"implementation",
+      "comment":"Achieved: 10. generate removeYou method"
     }
   },
   {
-    "id":"KE.L96",
+    "id":"KE.L31",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"26.03.2012 22:34:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":19,
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: We need inheritance"
+    }
+  },
+  {
+    "id":"KE.L32",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
       "date":"05.04.2012 12:52:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":19,
-      "kanbanEntry":{"id": "KE.K17"},
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: generic set does not work for boolean and double and probably more"
     }
   },
   {
-    "id":"KE.L97",
+    "id":"KE.L33",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"05.04.2012 16:24:42",
-      "hoursSpend":2,
+      "date":"19.05.2012 19:39:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":58,
+      "hoursRemainingInTotal":23,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: classes for model transformations:"
+      "comment":"Sprint.001.Booting: StudyRightReverseClassModel: Achieved: Bug: running the test multiple times inserts the code multiple times "
     }
   },
   {
-    "id":"KE.L98",
+    "id":"KE.L34",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"05.04.2012 16:24:42",
-      "hoursSpend":2,
+      "date":"19.05.2012 19:39:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":36,
+      "hoursRemainingInTotal":23,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: classes for model transformations:"
+      "comment":"StudyRightReverseClassModel: Achieved: Bug: running the test multiple times inserts the code multiple times "
     }
   },
   {
-    "id":"KE.L99",
+    "id":"KE.L35",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"05.04.2012 16:24:42",
-      "hoursSpend":2,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K83"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: classes for model transformations:"
-    }
-  },
-  {
-    "id":"KE.L100",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"05.04.2012 16:31:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":57,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: create some example transformOp:"
-    }
-  },
-  {
-    "id":"KE.L101",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"05.04.2012 16:31:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":35,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: create some example transformOp:"
-    }
-  },
-  {
-    "id":"KE.L102",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"05.04.2012 16:31:42",
+      "date":"19.05.2012 19:39:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K83"},
+      "kanbanEntry":{"id": "KE.K6"},
       "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: create some example transformOp:"
+      "phase":"done",
+      "comment":"Achieved: Bug: running the test multiple times inserts the code multiple times "
     }
   },
   {
-    "id":"KE.L103",
+    "id":"KE.L36",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":3,
+      "date":"19.05.2012 19:39:42",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":54,
+      "hoursRemainingInTotal":19,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "comment":"Sprint.001.Booting: StudyRightReverseClassModel: Achieved: Bug: running the test multiple times inserts the code multiple times "
     }
   },
   {
-    "id":"KE.L104",
+    "id":"KE.L37",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":3,
+      "date":"19.05.2012 19:39:42",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":32,
+      "hoursRemainingInTotal":19,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "comment":"StudyRightReverseClassModel: Achieved: Bug: running the test multiple times inserts the code multiple times "
     }
   },
   {
-    "id":"KE.L105",
+    "id":"KE.L38",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":4,
+      "date":"19.05.2012 20:00:42",
+      "hoursSpend":2,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K83"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: dump an image from the transformOp:"
-    }
-  },
-  {
-    "id":"KE.L106",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":1,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":53,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: generic set now works for double. Perhabs boolean and other are still missing"
     }
   },
   {
-    "id":"KE.L107",
+    "id":"KE.L39",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":1,
+      "date":"19.05.2012 20:00:42",
+      "hoursSpend":2,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":31,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"TransformationsCodegen: Achieved: dump an image from the transformOp:"
+      "comment":"StudyRightClassesCodeGen: Achieved: generic set now works for double. Perhabs boolean and other are still missing"
     }
   },
   {
-    "id":"KE.L108",
+    "id":"KE.L40",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":8,
+      "date":"19.05.2012 19:59:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":43,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel"
+    }
+  },
+  {
+    "id":"KE.L41",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 20:00:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":3,
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: generic set now works for double. Perhabs boolean and other are still missing"
+    }
+  },
+  {
+    "id":"KE.L42",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 20:01:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":3,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: BUG: one to one assoc generate code that does not compile."
     }
   },
   {
-    "id":"KE.L109",
+    "id":"KE.L43",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":8,
+      "date":"19.05.2012 20:01:42",
+      "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":21,
+      "hoursRemainingInTotal":3,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+      "comment":"StudyRightClassesCodeGen: Achieved: BUG: one to one assoc generate code that does not compile."
     }
   },
   {
-    "id":"KE.L110",
+    "id":"KE.L44",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":8,
+      "date":"19.05.2012 20:01:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":3,
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf",
+      "phase":"bug",
+      "comment":"Achieved: BUG: one to one assoc generate code that does not compile."
+    }
+  },
+  {
+    "id":"KE.L46",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K45"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L47",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 20:42:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":5,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+    }
+  },
+  {
+    "id":"KE.L48",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 20:42:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":5,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+    }
+  },
+  {
+    "id":"KE.L49",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.05.2012 20:40:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id": "KE.K81"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L111",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":55,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L112",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":32,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L113",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":66,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L114",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":43,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L115",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":61,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L116",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":39,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L117",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":62,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L118",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":40,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L119",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 15:01:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":52,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L120",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":52,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountRuleRecognition: Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
-    "id":"KE.L121",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 15:01:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K7"},
-      "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
-    "id":"KE.L122",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 15:01:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":26,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L123",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 14:56:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":26,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L124",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 14:56:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K3"},
-      "developer":"zuendorf",
+      "kanbanEntry":{"id": "KE.K5"},
+      "developer":"zuendorf joern alex",
       "phase":"done",
-      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
+      "comment":"Achieved:       shall compute to 88\n      Path classes are generated."
     }
   },
   {
-    "id":"KE.L125",
+    "id":"KE.L50",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 15:01:42",
+      "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":61,
-      "kanbanEntry":{"id": "KE.K1"},
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id": "KE.K5"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
+      "phase":"backlog",
+      "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L126",
+    "id":"KE.L51",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 14:56:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":39,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L127",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 15:01:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":56,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L128",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 14:56:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":56,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L129",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 15:01:42",
+      "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":7,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ProjectManagement: null"
+      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L130",
+    "id":"KE.L52",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 14:56:42",
+      "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":7,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L131",
+    "id":"KE.L53",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 15:01:42",
+      "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
+      "hoursRemainingInTotal":5,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ProjectManagement: null"
+      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L132",
+    "id":"KE.L54",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 14:56:42",
+      "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":20,
+      "hoursRemainingInTotal":5,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L133",
+    "id":"KE.L55",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 15:01:42",
-      "hoursSpend":0,
+      "date":"20.05.2012 20:01:42",
+      "hoursSpend":3,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":39,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ProjectManagement: null"
+      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
     }
   },
   {
-    "id":"KE.L134",
+    "id":"KE.L56",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 14:56:42",
-      "hoursSpend":0,
+      "date":"20.05.2012 20:01:42",
+      "hoursSpend":3,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":39,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id": "KE.K2"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
+      "comment":"StudyRightClassesCodeGen: Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
     }
   },
   {
-    "id":"KE.L135",
+    "id":"KE.L57",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":49,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L136",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":26,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L137",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
+      "date":"19.05.2012 13:51:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K3"},
+      "kanbanEntry":{"id": "KE.K4"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: generic set now works for double. Perhabs boolean and other are still missing"
+    }
+  },
+  {
+    "id":"KE.L58",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"20.05.2012 20:01:42",
+      "hoursSpend":2,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K4"},
       "developer":"zuendorf",
       "phase":"done",
-      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
+      "comment":"Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
     }
   },
   {
-    "id":"KE.L138",
+    "id":"KE.L59",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 23:38:42",
-      "hoursSpend":0,
+      "date":"20.05.2012 20:01:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":25,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id": "KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
-      "comment":"ProjectManagement: null"
+      "comment":"Sprint.001.Booting: StudyRightClassesCodeGen: Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
     }
   },
   {
-    "id":"KE.L139",
+    "id":"KE.L60",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
-      "date":"07.05.2012 23:38:42",
-      "hoursSpend":0,
+      "date":"20.05.2012 15:19:42",
+      "hoursSpend":1,
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
-      "kanbanEntry":{"id": "KE.K7"},
+      "kanbanEntry":{"id": "KE.K45"},
       "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
-    "id":"KE.L140",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":25,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L141",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:38:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":48,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L142",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":26,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L143",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:38:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":26,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L144",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:38:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":76,
-      "kanbanEntry":{"id": "KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ProjectManagement: null"
-    }
-  },
-  {
-    "id":"KE.L145",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "hoursSpend":0,
-      "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":54,
-      "kanbanEntry":{"id": "KE.K2"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ScenarioInfrastructure: Achieved:  Editing the log entries works now fine as part of the add method. "
+      "phase":"done",
+      "comment":"Achieved: One to one assocs now work. "
     }
   }
 ]
