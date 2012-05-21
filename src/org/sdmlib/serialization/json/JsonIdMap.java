@@ -176,9 +176,20 @@ public class JsonIdMap extends IdMap{
 			String[] properties = prototyp.getProperties();
 			if (properties != null) {
 				for (String property : properties) {
-					Object obj = jsonProp.get(property);
-					parseValue(target, property, obj, prototyp, refs);
-				}
+               Object obj = jsonProp.get(property);
+               if (obj != null)
+               {
+                  parseValue(target, property, obj, prototyp, refs);
+               }
+               else
+               {
+                  obj = jsonProp.get(property + IdMap.REMOVE);
+                  if (obj != null)
+                  {
+                     parseValue(target, property + IdMap.REMOVE, obj, prototyp, refs);
+                  }
+               }
+            }
 			}
 		}
 		return target;
