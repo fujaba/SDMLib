@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
@@ -15,12 +16,12 @@ import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class JsonIdMap extends IdMap{
+	public static final String JSON_NEW_NEIGHBORS = "newNeighbors";
 	public static final String CLASS = "class";
 	public static final String JSON_ID = "id";
 	public static final String JSON_PROPS = "prop";
 	public static final String REF_SUFFIX = "_ref";
 	public static final String MAINITEM = "main";
-	public static final String JSON_NEW_NEIGHBORS = "newNeighbors";
 	private MapUpdateListener updatelistener;
 
 	public JsonIdMap() {
@@ -121,7 +122,7 @@ public class JsonIdMap extends IdMap{
 	}
 
 	public Object readJson(JsonObject jsonObject) {
-	   LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
+		LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
 		Object mainItem=readJson(jsonObject, refs);
 		for(ReferenceObject ref : refs){
 			ref.execute();
@@ -129,7 +130,7 @@ public class JsonIdMap extends IdMap{
 		return mainItem;
 	}
 	public Object readJson(Object target, JsonObject jsonObject){
-	   LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
+		LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
 		Object mainItem=readJson(target, jsonObject, refs);
 		for(ReferenceObject ref : refs){
 			ref.execute();
@@ -160,39 +161,23 @@ public class JsonIdMap extends IdMap{
 
 	private Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
 		// JSONArray jsonArray;
-		if (isId) 
-		{
+		if (isId) {
 			String jsonId = (String) jsonObject.get(JSON_ID);
-			if (jsonId == null) 
-			{
+			if (jsonId == null) {
 				return target;
 			}
 			put(jsonId, target);
 
 			getCounter().readId(jsonId);
 		}
-		if (jsonObject.has(JSON_PROPS)) 
-		{
+		if (jsonObject.has(JSON_PROPS)) {
 			JsonObject jsonProp = (JsonObject) jsonObject.get(JSON_PROPS);
 			SendableEntityCreator prototyp = getCreatorClass(target);
 			String[] properties = prototyp.getProperties();
-			if (properties != null) 
-			{
-				for (String property : properties) 
-				{
+			if (properties != null) {
+				for (String property : properties) {
 					Object obj = jsonProp.get(property);
-					if (obj != null)
-					{
-					   parseValue(target, property, obj, prototyp, refs);
-					}
-					else
-					{
-					   obj = jsonProp.get(property + IdMap.REMOVE);
-					   if (obj != null)
-	               {
-	                  parseValue(target, property + IdMap.REMOVE, obj, prototyp, refs);
-	               }
-					}
+					parseValue(target, property, obj, prototyp, refs);
 				}
 			}
 		}
@@ -201,21 +186,22 @@ public class JsonIdMap extends IdMap{
 
 	private void parseValue(Object target, String property, Object value,
 			SendableEntityCreator creator, LinkedHashSet<ReferenceObject> refs) {
-		if (value != null) 
+		if (value != null)
 		{
-			if (value instanceof JsonArray) 
+			if (value instanceof JsonArray)
 			{
 				JsonArray jsonArray = (JsonArray) value;
-				for (int i = 0; i < jsonArray.length(); i++) 
+				for (int i = 0; i < jsonArray.length(); i++)
 				{
 					Object kid = jsonArray.get(i);
-					if (kid instanceof JsonObject) 
+					if (kid instanceof JsonObject)
 					{
 						// got a new kid, create it
 						JsonObject child=(JsonObject) kid;
 						String className = (String) child.get(CLASS);
 						String jsonId = (String) child.get(JSON_ID);
-						if (className == null && jsonId != null && child.length() == 1) 
+						//FIXME if (className == null&&jsonId!=null)
+						if (className == null&&jsonId!=null&& child.length() == 1)
 						{
 							// It is a Ref
 							refs.add(new ReferenceObject(jsonId, creator, property, this, target));
@@ -231,10 +217,9 @@ public class JsonIdMap extends IdMap{
 					}
 				}
 			}
-			else 
+			else
 			{
-				if (value instanceof JsonObject) 
-				{
+				if (value instanceof JsonObject) {
 //					// got a new kid, create it
 					JsonObject child=(JsonObject) value;
 					String className = (String) child.get(CLASS);
@@ -252,9 +237,13 @@ public class JsonIdMap extends IdMap{
 					{
 					   creator.setValue(target, property, value);
 					}
-				}
-				else
-				{
+//FIXME					if (className == null&&jsonId!=null) {
+//						// It is a Ref
+//						refs.add(new ReferenceObject(jsonId, creator, property, this, target));
+//					}else{
+//						creator.setValue(target, property, readJson((JsonObject) value));
+//					}
+				}else{
 					creator.setValue(target, property, value);
 				}
 			}
@@ -324,7 +313,6 @@ public class JsonIdMap extends IdMap{
 				jsonObject.put(JSON_PROPS, jsonProps);
 			}
 		}
-		
 		return jsonArray;
 	}
 
@@ -378,6 +366,15 @@ public class JsonIdMap extends IdMap{
 			this.updateListener = new UpdateListener(this);
 		}
 		return this.updateListener.execute(element);
+	}
+
+	public void garbageCollection(LinkedHashSet<String> classCounts) {
+		Set<String> allIds = this.values.keySet();
+		for(String id : allIds){
+			if(!classCounts.contains(id)){
+				remove(getObject(id));
+			}
+		}
 	}
 	
 	public JsonIdMap withSessionId(String sessionId){

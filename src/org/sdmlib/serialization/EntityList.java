@@ -1,6 +1,5 @@
 package org.sdmlib.serialization;
 
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,11 +7,13 @@ import java.util.List;
 
 
 public abstract class EntityList extends BaseEntity{
+	protected ArrayList<Object> values;
+
 	public EntityList(){
 		
 	}
 	/**
-	 * Construct a JSONArray from a Collection.
+	 * Construct a EntityList from a Collection.
 	 * 
 	 * @param collection
 	 *            A Collection.
@@ -32,14 +33,13 @@ public abstract class EntityList extends BaseEntity{
 	}
 	
 	/**
-	 * The arrayList where the JSONArray's properties are kept.
+	 * The arrayList where the EntityList's properties are kept.
 	 */
-	private ArrayList<Object> myArrayList;
 	public List<Object> getElements(){
-		if(myArrayList==null){
-			myArrayList=new ArrayList<Object>();
+		if(values==null){
+			values=new ArrayList<Object>();
 		}
-		return myArrayList;
+		return values;
 	}
 	/**
 	 * Get the object value associated with an index.
@@ -53,7 +53,7 @@ public abstract class EntityList extends BaseEntity{
 	public Object get(int index) throws RuntimeException {
 		Object object = getElements().get(index);
 		if (object == null) {
-			throw new RuntimeException("JSONArray[" + index + "] not found.");
+			throw new RuntimeException("EntityList[" + index + "] not found.");
 		}
 		return object;
 	}
@@ -79,7 +79,7 @@ public abstract class EntityList extends BaseEntity{
 						.equalsIgnoreCase("true"))) {
 			return true;
 		}
-		throw new RuntimeException("JSONArray[" + index + "] is not a boolean.");
+		throw new RuntimeException("EntityList[" + index + "] is not a boolean.");
 	}
 
 	/**
@@ -98,7 +98,7 @@ public abstract class EntityList extends BaseEntity{
 			return object instanceof Number ? ((Number) object).doubleValue()
 					: Double.parseDouble((String) object);
 		} catch (Exception e) {
-			throw new RuntimeException("JSONArray[" + index
+			throw new RuntimeException("EntityList[" + index
 					+ "] is not a number.");
 		}
 	}
@@ -118,7 +118,7 @@ public abstract class EntityList extends BaseEntity{
 			return object instanceof Number ? ((Number) object).intValue()
 					: Integer.parseInt((String) object);
 		} catch (Exception e) {
-			throw new RuntimeException("JSONArray[" + index
+			throw new RuntimeException("EntityList[" + index
 					+ "] is not a number.");
 		}
 	}
@@ -138,7 +138,7 @@ public abstract class EntityList extends BaseEntity{
 			return object instanceof Number ? ((Number) object).longValue()
 					: Long.parseLong((String) object);
 		} catch (Exception e) {
-			throw new RuntimeException("JSONArray[" + index
+			throw new RuntimeException("EntityList[" + index
 					+ "] is not a number.");
 		}
 	}
@@ -161,7 +161,7 @@ public abstract class EntityList extends BaseEntity{
 	}
 
 	/**
-	 * Make a string from the contents of this JSONArray. The
+	 * Make a string from the contents of this EntityList. The
 	 * <code>separator</code> string is inserted between each element. Warning:
 	 * This method assumes that the data structure is acyclical.
 	 * 
@@ -185,7 +185,7 @@ public abstract class EntityList extends BaseEntity{
 	}
 
 	/**
-	 * Get the number of elements in the JSONArray, included nulls.
+	 * Get the number of elements in the EntityList, included nulls.
 	 * 
 	 * @return The length (or size).
 	 */
@@ -234,8 +234,7 @@ public abstract class EntityList extends BaseEntity{
 	 * 
 	 * @param value
 	 *            An object value. The value should be a Boolean, Double,
-	 *            Integer, JSONArray, JSONObject, Long, or String, or the
-	 *            JSONObject.NULL object.
+	 *            Integer, EntityList, Entity, Long, or String object.
 	 * @return 
 	 */
 	public EntityList put(Object value) {
@@ -244,8 +243,8 @@ public abstract class EntityList extends BaseEntity{
 	}
 
 	/**
-	 * Put or replace a boolean value in the JSONArray. If the index is greater
-	 * than the length of the JSONArray, then null elements will be added as
+	 * Put or replace a boolean value in the EntityList. If the index is greater
+	 * than the length of the EntityList, then null elements will be added as
 	 * necessary to pad it out.
 	 * 
 	 * @param index
@@ -263,7 +262,7 @@ public abstract class EntityList extends BaseEntity{
 	}
 	/**
 	 * Put or replace a double value. If the index is greater than the length of
-	 * the JSONArray, then null elements will be added as necessary to pad it
+	 * the EntityList, then null elements will be added as necessary to pad it
 	 * out.
 	 * 
 	 * @param index
@@ -281,7 +280,7 @@ public abstract class EntityList extends BaseEntity{
 
 	/**
 	 * Put or replace an int value. If the index is greater than the length of
-	 * the JSONArray, then null elements will be added as necessary to pad it
+	 * the EntityList, then null elements will be added as necessary to pad it
 	 * out.
 	 * 
 	 * @param index
@@ -299,7 +298,7 @@ public abstract class EntityList extends BaseEntity{
 
 	/**
 	 * Put or replace a long value. If the index is greater than the length of
-	 * the JSONArray, then null elements will be added as necessary to pad it
+	 * the EntityList, then null elements will be added as necessary to pad it
 	 * out.
 	 * 
 	 * @param index
@@ -316,16 +315,16 @@ public abstract class EntityList extends BaseEntity{
 	}
 
 	/**
-	 * Put or replace an object value in the JSONArray. If the index is greater
-	 * than the length of the JSONArray, then null elements will be added as
+	 * Put or replace an object value in the EntityList. If the index is greater
+	 * than the length of the EntityList, then null elements will be added as
 	 * necessary to pad it out.
 	 * 
 	 * @param index
 	 *            The subscript.
 	 * @param value
 	 *            The value to put into the array. The value should be a
-	 *            Boolean, Double, Integer, JSONArray, JSONObject, Long, or
-	 *            String, or the JSONObject.NULL object.
+	 *            Boolean, Double, Integer, EntityList, Entity, Long, or
+	 *            String object.
 	 * @return this.
 	 * @throws RuntimeException
 	 *             If the index is negative or if the the value is an invalid
@@ -334,7 +333,7 @@ public abstract class EntityList extends BaseEntity{
 	public EntityList put(int index, Object value) throws RuntimeException {
 		EntityUtil.testValidity(value);
 		if (index < 0) {
-			throw new RuntimeException("JSONArray[" + index + "] not found.");
+			throw new RuntimeException("EntityList[" + index + "] not found.");
 		}
 		if (index < length()) {
 			getElements().set(index, value);
@@ -376,7 +375,6 @@ public abstract class EntityList extends BaseEntity{
 		getElements().remove(index);
 		return o;
 	}
-	// public abstract Writer write(Writer writer);
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
 	public abstract String toString();

@@ -10,17 +10,16 @@ import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class IdMap {
-	public static final String REMOVE= ".rem";
+	public static final String REMOVE= "rem";
 	public static final String UPDATE = "upd";
 	public static final String PRIO = "prio";
-	private HashMap<Object, String> keys;
-	private HashMap<String, Object> values;
-	private HashMap<String, SendableEntityCreator> creators;
+	protected HashMap<Object, String> keys;
+	protected HashMap<String, Object> values;
+	protected HashMap<String, SendableEntityCreator> creators;
 	protected IdMap parent;
 	protected boolean isId = true;
 	private IdMapCounter counter;
 	protected UpdateListener updateListener;
-	protected RemoveListener removeListener;
 	private boolean simpleCheck;
 	private Object prio;
 
@@ -87,12 +86,8 @@ public class IdMap {
 			keys.put(object, jsonId);
 			if (object instanceof SendableEntity) {
 				((SendableEntity) object).addPropertyChangeListener(
-						IdMap.REMOVE, getListener(IdMap.REMOVE));
-				((SendableEntity) object).addPropertyChangeListener(
 						IdMap.UPDATE, getListener(IdMap.UPDATE));
 			} else if (object instanceof PropertyChangeSupport) {
-				((PropertyChangeSupport) object).addPropertyChangeListener(
-						IdMap.REMOVE, getListener(IdMap.REMOVE));
 				((PropertyChangeSupport) object).addPropertyChangeListener(
 						IdMap.UPDATE, getListener(IdMap.UPDATE));
 			}
@@ -105,11 +100,6 @@ public class IdMap {
 				this.updateListener = new UpdateListener(this);
 			}
 			return updateListener;
-		} else if (id == IdMap.REMOVE) {
-			if (this.removeListener == null) {
-				this.removeListener = new RemoveListener(this);
-			}
-			return removeListener;
 		}
 		return null;
 	}
@@ -243,5 +233,17 @@ public class IdMap {
 
 	public void setPrio(Object prio) {
 		this.prio = prio;
+	}
+	public void startCarbageCollection(Object root){
+		if (this.updateListener == null) {
+			this.updateListener = new UpdateListener(this);
+		}
+		updateListener.startCarbageColection(root);
+	}
+	public void garbageCollection(Object root){
+		if (this.updateListener == null) {
+			this.updateListener = new UpdateListener(this);
+		}
+		updateListener.garbageCollection(root);
 	}
 }

@@ -486,5 +486,4 @@ public abstract class Entity extends BaseEntity{
 	 */
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
-	// public abstract Writer write(Writer writer);
 }

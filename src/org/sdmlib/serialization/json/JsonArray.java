@@ -33,6 +33,7 @@ import java.util.List;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
+import org.sdmlib.serialization.Tokener;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
@@ -97,7 +98,7 @@ public class JsonArray extends EntityList{
 	 * @throws RuntimeException
 	 *             If there is a syntax error.
 	 */
-	public JsonArray(JsonTokener x) throws RuntimeException {
+	public JsonArray(Tokener x) throws RuntimeException {
 		this();
 		if (x.nextClean() != '[') {
 			throw x.syntaxError("A JSONArray text must start with '['");
@@ -140,7 +141,7 @@ public class JsonArray extends EntityList{
 	 *             If there is a syntax error.
 	 */
 	public JsonArray(String source) throws RuntimeException {
-		this(new JsonTokener(source));
+		this(new Tokener(source));
 	}
 
 	/**
@@ -325,44 +326,6 @@ public class JsonArray extends EntityList{
 		sb.append(']');
 		return sb.toString();
 	}
-
-	/**
-	 * Write the contents of the JSONArray as JSON text to a writer. For
-	 * compactness, no whitespace is added.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 * 
-	 * @return The writer.
-	 * @throws RuntimeException
-	 */
-//	public Writer write(Writer writer) throws RuntimeException {
-//		try {
-//			List<Object> elements = getElements();
-//			boolean b = false;
-//			int len = elements.size();
-//
-//			writer.write('[');
-//
-//			for (int i = 0; i < len; i += 1) {
-//				if (b) {
-//					writer.write(',');
-//				}
-//				Object v = elements.get(i);
-//				if (v instanceof JsonObject) {
-//					((JsonObject) v).write(writer);
-//				} else if (v instanceof JsonArray) {
-//					((JsonArray) v).write(writer);
-//				} else {
-//					writer.write(EntityUtil.valueToString(v, this));
-//				}
-//				b = true;
-//			}
-//			writer.write(']');
-//			return writer;
-//		} catch (IOException e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
 
 	@Override
 	public Entity getNewObject() {

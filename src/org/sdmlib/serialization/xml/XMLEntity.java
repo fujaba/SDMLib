@@ -66,12 +66,6 @@ public class XMLEntity extends Entity{
 		this.value = value;
 	}
 	
-//	@Override
-//	public Writer write(Writer writer) {
-//		return null;
-//	}
-	
-	
 	@Override
 	public String toString() {
 		return toString(0);

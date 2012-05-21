@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class JsonSortedArray extends JsonArray{
 	private SortedMap<Object, JsonObject> mySortArrayList;
 	
-	private String sortProp;
+	private String sortProp=JsonIdMap.JSON_ID;
 	private boolean propSort;
 	
 	
