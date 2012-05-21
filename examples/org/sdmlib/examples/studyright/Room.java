@@ -44,10 +44,7 @@ public class Room implements PropertyChangeInterface
       {
          path += " " + this.getRoomNo();
          
-         for (Room next : this.getNeighbors())
-         {
-            next.findPath(path, motivation - this.getCredits());
-         }
+         this.getNeighbors().findPath(path, motivation - this.getCredits());
       }
    }
    

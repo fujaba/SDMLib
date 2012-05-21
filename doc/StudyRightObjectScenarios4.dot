@@ -10,21 +10,16 @@ r5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r5 :Ro
 r6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r6 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>roomNo = "exam"</td></tr><tr><td>credits = 0</td></tr></table></td></tr></table>>];
 s7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s7 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Nina"</td></tr><tr><td>matrNo = 2323</td></tr></table></td></tr></table>>];
 
-r3 -- r4"} [headlabel = "neighbors" taillabel = ""];
-r3 -- r5"} [headlabel = "neighbors" taillabel = ""];
-r3 -- s2"} [headlabel = "students" taillabel = ""];
-r4 -- r3"} [headlabel = "neighbors" taillabel = ""];
-r4 -- r5"} [headlabel = "neighbors" taillabel = ""];
-r4 -- r6"} [headlabel = "neighbors" taillabel = ""];
-r5 -- r3"} [headlabel = "neighbors" taillabel = ""];
-r5 -- r4"} [headlabel = "neighbors" taillabel = ""];
-r5 -- r6"} [headlabel = "neighbors" taillabel = ""];
-r6 -- r4"} [headlabel = "neighbors" taillabel = ""];
-r6 -- r5"} [headlabel = "neighbors" taillabel = ""];
-u1 -- r3"} [headlabel = "rooms" taillabel = ""];
-u1 -- r4"} [headlabel = "rooms" taillabel = ""];
-u1 -- r5"} [headlabel = "rooms" taillabel = ""];
-u1 -- r6"} [headlabel = "rooms" taillabel = ""];
-u1 -- s2"} [headlabel = "students" taillabel = ""];
-u1 -- s7"} [headlabel = "students" taillabel = ""];
+r3 -- r4 [headlabel = "neighbors" taillabel = "neighbors"];
+r3 -- r5 [headlabel = "neighbors" taillabel = "neighbors"];
+r4 -- r5 [headlabel = "neighbors" taillabel = "neighbors"];
+r4 -- r6 [headlabel = "neighbors" taillabel = "neighbors"];
+r5 -- r6 [headlabel = "neighbors" taillabel = "neighbors"];
+s2 -- r3 [headlabel = "in" taillabel = "students"];
+u1 -- r3 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r4 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r5 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r6 [headlabel = "rooms" taillabel = "uni"];
+u1 -- s2 [headlabel = "students" taillabel = "uni"];
+u1 -- s7 [headlabel = "students" taillabel = "uni"];
 }

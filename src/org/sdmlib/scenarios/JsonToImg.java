@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -102,21 +103,14 @@ public class JsonToImg
                
                if (value instanceof String)
                {
-                  if (knownIds.contains(value))
-                  {
-                     addToEdges(edgeMap, jsonId, lastPartLow(value.toString()), key);
-                  }
-                  else
-                  {
-                     addAttrText = true;
+                  addAttrText = true;
 
-                     // add attribute line
-                     String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
-                     attrLine = attrLine.replaceFirst("<key>", key);
-                     attrLine = attrLine.replaceFirst("<value>", value.toString());
+                  // add attribute line
+                  String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
+                  attrLine = attrLine.replaceFirst("<key>", key);
+                  attrLine = attrLine.replaceFirst("<value>", value.toString());
 
-                     attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
-                  }
+                  attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
                }
                else if (value instanceof Integer || value instanceof Double)
                {
@@ -129,13 +123,22 @@ public class JsonToImg
                   
                   attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
                }
+               else if (value instanceof JsonObject)
+               {
+                  JsonObject tgtJsonObject = (JsonObject) value;
+                  String tgtId = tgtJsonObject.getString(JsonIdMap.JSON_ID);
+                  tgtId = lastPartLow(tgtId);
+                  addToEdges(edgeMap, jsonId, tgtId, key);
+               }
                else if (value instanceof JsonArray)
                {
                   // array of links
                   JsonArray jsonArray = (JsonArray) value;
                   for (int j = 0; j < jsonArray.length(); j++)
                   {
-                     String tgtId = lastPartLow(jsonArray.getString(j));
+                     JsonObject tgtJsonObject = jsonArray.getJSONObject(j);
+                     String tgtId = tgtJsonObject.getString(JsonIdMap.JSON_ID);
+                     tgtId = lastPartLow(tgtId);
                      addToEdges(edgeMap, jsonId, tgtId, key);
                   }
                }

@@ -330,7 +330,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withNeighbors(artsRoom)
       .withUni(uni);
       
-      scenario.add("step 1: dump object diagram");
+      scenario.add("step 1: dump object diagram", 
+         BACKLOG, "zuendorf joern alex", "21.05.2012 17:55:42", 1, 0);
 
       JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
       scenario.addObjectDiag(idMap, uni);
@@ -354,6 +355,9 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       		"e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
          BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
    
+      scenario.add( "Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
+            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
+         BACKLOG, "zuendorf", "21.05.2012 18:02:42", 0, 4);
 
       // Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
 
