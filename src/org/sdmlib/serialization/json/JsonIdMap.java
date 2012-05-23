@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.sdmlib.serialization.IdMap;
@@ -299,6 +300,9 @@ public abstract class JsonIdMap extends IdMap{
 		jsonArray.put(jsonObject);
 
 		SendableEntityCreator prototyp = getCreatorClasses(className);
+		if(prototyp==null){
+			throw new RuntimeException("No Creator exist for "+className);
+		}
 		String[] properties = prototyp.getProperties();
 		filter.addObject(id);
 
@@ -375,6 +379,13 @@ public abstract class JsonIdMap extends IdMap{
 		JsonObject sendObj=new JsonObject();
 		sendObj.put(IdMap.UPDATE, children);
 		sendUpdateMsg(sendObj);
+	}
+	public JsonArray toJsonArray(List<Object> items){
+		JsonArray jsonArray=new JsonArray();
+		for(Object item : items){
+			jsonArray.put(toJsonObject(item));
+		}
+		return jsonArray;
 	}
 	public boolean executeUpdateMsg(JsonObject element){
 		if (this.updateListener == null) {

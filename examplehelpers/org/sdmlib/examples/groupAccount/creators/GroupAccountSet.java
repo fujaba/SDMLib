@@ -1,9 +1,8 @@
 package org.sdmlib.examples.groupAccount.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.examples.groupAccount.Person;
-import org.sdmlib.examples.groupAccount.Item;
 
 public class GroupAccountSet extends LinkedHashSet<GroupAccount>
 {
