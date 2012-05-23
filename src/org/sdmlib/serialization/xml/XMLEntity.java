@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
 
 /**
@@ -73,7 +74,7 @@ public class XMLEntity extends Entity{
     }
     public void setTokener(Tokener x){
         char c;
-        String key;
+        
         x.setCreator(this);
 
         if (x.nextClean() != '<') {
@@ -87,45 +88,55 @@ public class XMLEntity extends Entity{
         }
         x.back();
         setTag(sb.toString());
-        
+        XMLEntity child;
         for (;;) {
+        	String key=null;
             c = x.nextClean();
             switch (c) {
             case 0:
                 throw x.syntaxError("A JsonObject text must end with '>'");
             case '>':
-                return;
+            	if(x.getCurrentChar()>' '||x.nextClean()>' '){
+            		if(x.getCurrentChar()=='<'){
+                		child = (XMLEntity) getNewObject();
+                		child.setTokener(x);
+                		this.addChild(child);
+            		}else{
+            			String value = x.nextString('<');
+            			this.setValue(value);
+            			x.back();
+            		}
+            	}
+        		break;
+            case '<':
+            	if(x.next()=='/'){
+            		x.stepPos('>');
+            		x.next();
+            		return;
+            	}else{
+            		x.back();
+            		x.back();
+            		child = (XMLEntity) getNewObject();
+            		child.setTokener(x);
+            		this.addChild(child);
+            		break;
+            	}
+            case '/':
+            	x.next();
+            	return;
             default:
                 x.back();
                 key = x.nextValue().toString();
             }
-
+            if(key!=null){
 // The key is followed by ':'. We will also tolerate '=' or '=>'.
-
-            c = x.nextClean();
-            if (c == '=') {
-                if (x.next() != '>') {
-                    x.back();
-                }
-            } else if (c != ':') {
-                throw x.syntaxError("Expected a ':' after a key");
-            }
-            this.put(key, x.nextValue());
-
-// Pairs are separated by ','. We will also tolerate ';'.
-
-            switch (x.nextClean()) {
-            case ';':
-            case ',':
-                if (x.nextClean() == '}') {
-                    return;
-                }
-                x.back();
-                break;
-            case '>':
-                return;
-            default:
-                throw x.syntaxError("Expected a ',' or '>'");
+	            c = x.nextClean();
+	            if (c == '=') {
+	                if (x.next() != '>') {
+	                    x.back();
+	                }
+	            }
+	            this.put(key, x.nextValue());
             }
         }
     }
@@ -277,7 +288,7 @@ public class XMLEntity extends Entity{
 		
 		for(Iterator<Entry<String, Object>> i = attributes.entrySet().iterator();i.hasNext();){
 			Entry<String, Object> attribute = i.next();
-			sb.append(" "+attribute.getKey()+"=\""+attribute.getValue()+"\"");
+			sb.append(" "+attribute.getKey()+"="+EntityUtil.quote((String)attribute.getValue()));
 		}
 		boolean hasChild=(children!=null&&children.size()>0);
 		if(value==null&&!hasChild){

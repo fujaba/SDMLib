@@ -42,7 +42,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
  * The Class JsonIdMap.
  */
-public abstract class JsonIdMap extends IdMap{
+public class JsonIdMap extends IdMap{
 	
 	/** The Constant CLASS. */
 	public static final String CLASS = "class";
@@ -380,6 +380,7 @@ public abstract class JsonIdMap extends IdMap{
 		sendObj.put(IdMap.UPDATE, children);
 		sendUpdateMsg(sendObj);
 	}
+
 	public JsonArray toJsonArray(List<Object> items){
 		JsonArray jsonArray=new JsonArray();
 		for(Object item : items){
@@ -387,6 +388,7 @@ public abstract class JsonIdMap extends IdMap{
 		}
 		return jsonArray;
 	}
+
 	public boolean executeUpdateMsg(JsonObject element){
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
