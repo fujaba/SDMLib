@@ -1,5 +1,27 @@
 package org.sdmlib.serialization.bytes;
+/*
+Copyright (c) 2012 Stefan Lindel
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,43 +32,93 @@ import java.util.Map.Entry;
 
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+/**
+ * The Class ByteEntity.
+ */
 public class ByteEntity extends Entity{
+	
+	/** The Constant BIT OF A BYTE. */
 	public final static int BITOFBYTE=8;
+	
+	/** The children of the ByteEntity. */
 	protected ArrayList<ByteEntity> children;
+	
+	/** The Byte Typ. */
 	protected byte typ;
+	
+	/** The values. */
 	protected byte[] values;
+	
+	/** The length of the Entity. */
 	private int len;
+	
+	/** The is dynamic Transform integer to short etc.. */
 	private boolean isDynamic;
+	
+	/** The is len check. */
 	protected boolean isLenCheck;
 	
+	
+	/**
+	 * Instantiates a new byte entity.
+	 */
 	public ByteEntity(){
 		
 	}
 	
+	/**
+	 * Instantiates a new byte entity.
+	 *
+	 * @param typ the typ
+	 */
 	public ByteEntity(byte typ){
 		this.setTyp(typ);
 	}
 	
+	/**
+	 * Instantiates a new byte entity.
+	 *
+	 * @param isDynamic the is dynamic
+	 */
 	public ByteEntity(boolean isDynamic){
 		this.isDynamic=isDynamic;
 	}
 	
+	/**
+	 * Instantiates a new byte entity.
+	 *
+	 * @param typ the typ
+	 * @param value the value
+	 */
 	public ByteEntity(byte typ, byte[] value){
 		this.setTyp(typ);
 		this.setValue(value);
 	}
 	
+	/*
+	 * @see de.uni.kassel.peermessage.BaseEntity#getNewArray()
+	 */
 	@Override
 	public EntityList getNewArray() {
 		return null;
 	}
 
+	/*
+	 * @see de.uni.kassel.peermessage.BaseEntity#getNewObject()
+	 */
 	@Override
 	public Entity getNewObject() {
 		return new ByteEntity();
 	}
+	
+	/**
+	 * Gets the children.
+	 *
+	 * @return the children
+	 */
 	public ArrayList<ByteEntity> getChildren() {
 		if(children==null){
 			children=new ArrayList<ByteEntity>();
@@ -54,14 +126,29 @@ public class ByteEntity extends Entity{
 		return children;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public byte[] getValue() {
 		return values;
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue(byte[] value) {
 		this.values = value;
 	}
 
+	/**
+	 * Clean up.
+	 *
+	 * @return the length
+	 */
 	public int cleanUp() {
 		int length=0;
 		if(children!=null){
@@ -92,10 +179,23 @@ public class ByteEntity extends Entity{
 		return length;
 	}
 	
+	/**
+	 * Gets the typ.
+	 *
+	 * @param group the group
+	 * @param subgroup the subgroup
+	 * @return the typ
+	 */
 	private byte getTyp(byte group, byte subgroup){
 		byte returnValue=(byte) ((group/16)*16);
 		return (byte) (returnValue+(subgroup%16));
 	}
+	
+	/**
+	 * Calc length.
+	 *
+	 * @return the Length
+	 */
 	private int calcLength(){
 		// Length calculate Sonderfaelle ermitteln
 		int len=1;
@@ -117,14 +217,30 @@ public class ByteEntity extends Entity{
 		return len;
 	}
 
+	/**
+	 * Gets the length.
+	 *
+	 * @return the length
+	 */
 	public int getLength() {
 		return len;
 	}
 	
+	/**
+	 * Checks if is len check.
+	 *
+	 * @return true, if is len check
+	 */
 	public boolean isLenCheck() {
 		return isLenCheck;
 	}
 
+	/**
+	 * Sets the len check.
+	 *
+	 * @param isLenCheck the is len check
+	 * @return true, if successful
+	 */
 	public boolean setLenCheck(boolean isLenCheck) {
 		boolean oldValue=this.isLenCheck;
 
@@ -155,11 +271,21 @@ public class ByteEntity extends Entity{
 		}
 		return false;
 	}
+	
+	/**
+	 * Byte to unsigned byte.
+	 *
+	 * @param n the Byte
+	 * @return the Byte
+	 */
 	public byte byteToUnsignedByte(int n) {
 		if (n < 128) return (byte) n;
 		return (byte) (n - 256);
 	}
 	
+	/*
+	 * @see de.uni.kassel.peermessage.Entity#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuffer returnValue = new StringBuffer();
@@ -175,21 +301,28 @@ public class ByteEntity extends Entity{
 				}
 			}
 		}
-//		if(children!=null){
-//			for(ByteEntity item : children){
-//				returnValue.append(item.toString());
-//			}
-//		}
 		return returnValue.toString();
 	}
+	
+	/*
+	 * @see de.uni.kassel.peermessage.Entity#toString(int)
+	 */
 	public String toString(int indentFactor) {
 		return toString();
 	}
 
+	/*
+	 * @see de.uni.kassel.peermessage.Entity#toString(int, int)
+	 */
 	public String toString(int indentFactor, int intent) {
 		return  toString();
 	}
 	
+	/**
+	 * Gets the bytes.
+	 *
+	 * @return the bytes
+	 */
 	public ByteBuffer getBytes(){
 		int len=calcLength();
 		if(children!=null){
@@ -231,6 +364,15 @@ public class ByteEntity extends Entity{
 		return message;
 	}
 	
+	/**
+	 * Adds the child.
+	 *
+	 * @param creator the creator
+	 * @param entity the entity
+	 * @param referenceObject the reference object
+	 * @param property the property
+	 * @param parent the parent
+	 */
 	public void addChild(SendableEntityCreator creator, Object entity,
 			Object referenceObject, String property, ByteIdMap parent) {
 		Object valueTyp = creator.getValue(entity, property);
@@ -248,6 +390,13 @@ public class ByteEntity extends Entity{
 		}
 	}
 
+	/**
+	 * Encoding data type.
+	 *
+	 * @param value the value
+	 * @param parent the parent
+	 * @return the byte entity
+	 */
 	private ByteEntity encodingDataType(Object value, ByteIdMap parent) {
 		ByteEntity entity=new ByteEntity(isDynamic());
 		if (value instanceof Short) {
@@ -280,6 +429,13 @@ public class ByteEntity extends Entity{
 		return entity;
 	}
 
+	/**
+	 * Sets the values.
+	 *
+	 * @param typ the typ
+	 * @param value the value
+	 * @param parent the parent
+	 */
 	public void setValues(byte typ, Object value, ByteIdMap parent){
 		ByteBuffer buffer=null;
 		if(isDynamic()){
@@ -379,11 +535,8 @@ public class ByteEntity extends Entity{
 						.hasNext();) {
 					java.util.Map.Entry<?,?> entity = (Entry<?, ?>) i.next();
 
-//					ByteEntity child = new ByteEntity(isDynamic());
-//					child.setTyp(ByteIdMap.DATATYPE_ENTITY);
 					getChildren().add(encodingDataType(entity.getKey(), parent));
 					getChildren().add(encodingDataType(entity.getValue(), parent));
-//					getChildren().add(child);
 				}
 			}
 			this.isLenCheck=true;
@@ -408,18 +561,38 @@ public class ByteEntity extends Entity{
 		}
 	}
 
+	/**
+	 * Gets the typ.
+	 *
+	 * @return the typ
+	 */
 	public byte getTyp() {
 		return typ;
 	}
 
+	/**
+	 * Sets the typ.
+	 *
+	 * @param typ the new typ
+	 */
 	public void setTyp(byte typ) {
 		this.typ = typ;
 	}
 
+	/**
+	 * Checks if is dynamic.
+	 *
+	 * @return true, if is dynamic
+	 */
 	public boolean isDynamic() {
 		return isDynamic;
 	}
 
+	/**
+	 * Sets the dynamic.
+	 *
+	 * @param isDynamic the new dynamic
+	 */
 	public void setDynamic(boolean isDynamic) {
 		boolean oldValue=this.isDynamic;
 		this.isDynamic = isDynamic;
@@ -437,5 +610,10 @@ public class ByteEntity extends Entity{
 				// Zurueckformen nicht möglich da keine Infos vorliegen
 			}
 		}
+	}
+
+	@Override
+	public void setTokener(Tokener x) {
+		
 	}
 }

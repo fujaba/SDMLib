@@ -1,4 +1,27 @@
 package org.sdmlib.serialization;
+/*
+Copyright (c) 2012 Stefan Lindel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -12,19 +35,49 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 
+/**
+ * The listener interface for receiving update events.
+ * The class that is interested in processing a update
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addUpdateListener<code> method. When
+ * the update event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see UpdateEvent
+ */
 public class UpdateListener implements PropertyChangeListener{
+	
+	/** The map. */
 	private JsonIdMap map;
+	
+	/** The suspend id list. */
 	private ArrayList<String> suspendIdList;
+	
+	/** The garbage collection. */
 	private HashMap<String, Integer> garbageCollection=null;
+	
+	/** The class counts. */
 	private HashSet<String> classCounts;
 
 	
+	/**
+	 * Instantiates a new update listener.
+	 *
+	 * @param map the map
+	 */
 	public UpdateListener(IdMap map) {
 		if(map instanceof JsonIdMap){
 			this.map=(JsonIdMap) map;
 		}
 	}
 	
+	/**
+	 * Start carbage colection.
+	 *
+	 * @param root the root
+	 * @return the json object
+	 */
 	public JsonObject startCarbageColection(Object root){
 		garbageCollection=new HashMap<String, Integer>();
 		classCounts=new HashSet<String>();
@@ -32,6 +85,13 @@ public class UpdateListener implements PropertyChangeListener{
 		countMessage(initField);
 		return initField;
 	}
+	
+	/**
+	 * Garbage collection.
+	 *
+	 * @param root the root
+	 * @return the json object
+	 */
 	public JsonObject garbageCollection(Object root){
 		boolean isStarted=garbageCollection!=null;
 		garbageCollection=new HashMap<String, Integer>();
@@ -48,14 +108,24 @@ public class UpdateListener implements PropertyChangeListener{
 		return initField;
 	}
 	
+	/**
+	 * Suspend notification.
+	 */
 	public void suspendNotification(){
 		this.suspendIdList=new ArrayList<String>();
 	}
+	
+	/**
+	 * Reset notification.
+	 */
 	public void resetNotification(){
 		map.toJsonArrayByIds(suspendIdList);
 		this.suspendIdList=null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// put changes into msg and send to receiver
@@ -151,6 +221,13 @@ public class UpdateListener implements PropertyChangeListener{
 			map.sendUpdateMsg(jsonObject);
 		}
 	}
+	
+	/**
+	 * Execute.
+	 *
+	 * @param updateMessage the update message
+	 * @return true, if successful
+	 */
 	public boolean execute(JsonObject updateMessage){
 		if(updateMessage.has(JsonIdMap.JSON_PROPS)){
 			// its a new Object
@@ -228,6 +305,14 @@ public class UpdateListener implements PropertyChangeListener{
 		return false;
 	}
 	
+	/**
+	 * Check value.
+	 *
+	 * @param value the value
+	 * @param key the key
+	 * @param jsonObj the json obj
+	 * @return true, if successful
+	 */
 	private boolean checkValue(Object value, String key, JsonObject jsonObj){
 		if(value!=null){
 			Object oldValue=jsonObj.get(key);
@@ -242,6 +327,12 @@ public class UpdateListener implements PropertyChangeListener{
 		return false;
 	}
 	
+	/**
+	 * Check prio.
+	 *
+	 * @param prio the prio
+	 * @return true, if successful
+	 */
 	private boolean checkPrio(Object prio){
 		Object myPrio=map.getPrio();
 		if(prio!=null&&myPrio!=null){
@@ -256,6 +347,15 @@ public class UpdateListener implements PropertyChangeListener{
 		return false;
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param creator the creator
+	 * @param element the element
+	 * @param key the key
+	 * @param newValue the new value
+	 * @return true, if successful
+	 */
 	private boolean setValue(SendableEntityCreator creator, Object element, String key, Object newValue){
 		if(newValue instanceof JsonObject){
 			creator.setValue(element, key, map.readJson((JsonObject) newValue));
@@ -265,6 +365,11 @@ public class UpdateListener implements PropertyChangeListener{
 		return true;
 	}
 	
+	/**
+	 * Count message.
+	 *
+	 * @param message the message
+	 */
 	private void countMessage(JsonObject message){
 		if(garbageCollection!=null){
 			if(message.has(JsonIdMap.JSON_ID)){
@@ -297,6 +402,11 @@ public class UpdateListener implements PropertyChangeListener{
 		}
 	}
 
+	/**
+	 * Count message.
+	 *
+	 * @param message the message
+	 */
 	private void countMessage(JsonArray message){
 		for(Object obj : message.getElements()){
 			if(obj instanceof JsonObject){

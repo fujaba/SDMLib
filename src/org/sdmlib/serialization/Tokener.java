@@ -1,13 +1,51 @@
 package org.sdmlib.serialization;
 
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonObject;
+/*
+Copyright (c) 2012 Stefan Lindel
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+/**
+ * The Class Tokener.
+ */
 public class Tokener {
+    
+    /** The index. */
     private int 	index;
+    
+    /** The line. */
     private int 	line;
+    
+    /** The character. */
     private int 	character;
+    
+    /** The buffer. */
     private String 	buffer;
+    
+    /** The first char. */
+    private char 	firstChar;
+	
+	/** The creator. */
+	private BaseEntity creator;
 
     /**
      * Construct a Tokener from a string.
@@ -18,6 +56,7 @@ public class Tokener {
     	this.buffer=s;
     	this.index=0;
     	this.line=0;
+    	this.firstChar=s.charAt(0);
     }
 
 
@@ -54,6 +93,11 @@ public class Tokener {
         return -1;
     }
     
+    /**
+     * End.
+     *
+     * @return true, if successful
+     */
     public boolean end() {
     	return buffer.length()<=index;
     }
@@ -88,6 +132,12 @@ public class Tokener {
     	}
         return c;
     }
+    
+    /**
+     * Next pos.
+     *
+     * @return the int
+     */
     public int nextPos()  {
     	next();
     	return index;
@@ -200,7 +250,8 @@ public class Tokener {
     /**
      * Get the text up but not including the specified character or the
      * end of line, whichever comes first.
-     * @param  delimiter A delimiter character.
+     *
+     * @param delimiter the delimiter
      * @return   A string.
      */
     public String nextTo(char delimiter)  {
@@ -250,16 +301,33 @@ public class Tokener {
         char c = nextClean();
         String string;
 
-        switch (c) {
+        if(firstChar=='{'||firstChar=='['){
+	        switch (c) {
+	            case '"':
+	            case '\'':
+	                return nextString(c);
+	            case '{':
+	                back();
+	                BaseEntity element = creator.getNewObject();
+	                element.setTokener(this);
+	                return element; 
+	            case '[':
+	                back();
+	                EntityList elementList = creator.getNewArray();
+	                elementList.setTokener(this);
+	                return elementList;
+	        }
+        }else if(firstChar=='<'){
+	        switch (c) {
             case '"':
             case '\'':
                 return nextString(c);
-            case '{':
+            case '<':
                 back();
-                return new JsonObject(this);
-            case '[':
-                back();
-                return new JsonArray(this);
+                BaseEntity element = creator.getNewObject();
+                element.setTokener(this);
+                return element;
+	        }
         }
 
         /*
@@ -286,6 +354,12 @@ public class Tokener {
     }
 
 
+    /**
+     * Skip.
+     *
+     * @param pos the pos
+     * @return true, if successful
+     */
     public boolean skip(int pos){
     	while(pos>0){
     		if(next()==0){
@@ -296,6 +370,12 @@ public class Tokener {
     	return true;
     }
     
+    /**
+     * Step pos.
+     *
+     * @param character the character
+     * @return true, if successful
+     */
     public boolean stepPos(char... character) {
 		boolean exit = false;
 		while (index < buffer.length() && !exit) {
@@ -312,6 +392,12 @@ public class Tokener {
 		return exit;
 	}
     
+	/**
+	 * Step pos.
+	 *
+	 * @param searchString the search string
+	 * @return true, if successful
+	 */
 	public boolean stepPos(String searchString) {
 		boolean exit = false;
 		int strLen=searchString.length();
@@ -332,6 +418,14 @@ public class Tokener {
 		}
 		return exit;
 	}
+	
+	/**
+	 * Step pos but not.
+	 *
+	 * @param not the not
+	 * @param character the character
+	 * @return true, if successful
+	 */
 	public boolean stepPosButNot(char not, char... character) {
 		boolean exit = false;
 		while (index < buffer.length() && !exit) {
@@ -348,14 +442,30 @@ public class Tokener {
 		return exit;
 	}
 
+    /**
+     * Syntax error.
+     *
+     * @param message the message
+     * @return the runtime exception
+     */
     public RuntimeException syntaxError(String message) {
         return new RuntimeException(message + toString());
     }
     
+    /**
+     * Gets the index.
+     *
+     * @return the index
+     */
     public int getIndex(){
     	return index;
     }
     
+    /**
+     * Gets the length.
+     *
+     * @return the length
+     */
     public int getLength(){
     	return buffer.length();
     }
@@ -371,9 +481,21 @@ public class Tokener {
         	this.line + "]";
     }
     
+    /**
+     * Char at.
+     *
+     * @param pos the pos
+     * @return the char
+     */
     public char charAt(int pos){
     	return buffer.charAt(pos);
     }
+    
+    /**
+     * Gets the current char.
+     *
+     * @return the current char
+     */
     public char getCurrentChar(){
     	if(index<buffer.length()){
     		return buffer.charAt(index);
@@ -381,13 +503,33 @@ public class Tokener {
     	return 0;
     }
     
+    /**
+     * Previous.
+     *
+     * @param start the start
+     * @return the string
+     */
     public String previous(int start){
     	return buffer.substring(start, index);
     }
     
+    /**
+     * Substring.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the string
+     */
     public String substring(int start, int end){
     	return buffer.substring(start, end);
     }
+    
+    /**
+     * Check values.
+     *
+     * @param items the items
+     * @return true, if successful
+     */
     public boolean checkValues(char... items){
     	char current=buffer.charAt(index);
     	for(char item : items){
@@ -398,7 +540,22 @@ public class Tokener {
     	return true;
     }
 
+	/**
+	 * Sets the index.
+	 *
+	 * @param index the new index
+	 */
 	public void setIndex(int index) {
 		this.index=index;
+	}
+
+
+	/**
+	 * Sets the creator.
+	 *
+	 * @param creator the new creator
+	 */
+	public void setCreator(BaseEntity creator) {
+		this.creator=creator;
 	}
 }

@@ -2,6 +2,7 @@ package org.sdmlib.serialization.json;
 
 /*
 Copyright (c) 2002 JSON.org
+Copyright (c) 2012 Stefan Lindel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// import java.io.IOException;
-// import java.io.Writer;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -101,8 +100,6 @@ public class JsonObject extends Entity{
     	}
     }
 
- 
-
     /**
      * Construct a JsonObject from a JSONTokener.
      * @param x A JSONTokener object containing the source string.
@@ -110,9 +107,14 @@ public class JsonObject extends Entity{
      */
     public JsonObject(Tokener x) {
         this();
+        setTokener(x);
+    }
+    
+    public void setTokener(Tokener x){
         char c;
         String key;
 
+        x.setCreator(this);
         if (x.nextClean() != '{') {
             throw x.syntaxError("A JsonObject text must begin with '{'");
         }
@@ -122,7 +124,7 @@ public class JsonObject extends Entity{
             case 0:
                 throw x.syntaxError("A JsonObject text must end with '}'");
             case '}':
-                return;
+                return ;
             default:
                 x.back();
                 key = x.nextValue().toString();
@@ -157,7 +159,6 @@ public class JsonObject extends Entity{
             }
         }
     }
-
 
     /**
      * Construct a JsonObject from a Map.
@@ -345,11 +346,17 @@ public class JsonObject extends Entity{
         return sb.toString();
     }
 
+	/**
+	 * Get a new Instance of JsonArray
+	 */
 	@Override
 	public EntityList getNewArray() {
 		return new JsonArray();
 	}
 
+	/** 
+	 * Get a new Instance of JsonObject
+	 */
 	@Override
 	public Entity getNewObject() {
 		return new JsonObject();

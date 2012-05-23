@@ -1,5 +1,27 @@
 package org.sdmlib.serialization.bytes;
+/*
+Copyright (c) 2012 Stefan Lindel
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +35,12 @@ import org.sdmlib.serialization.event.creater.BasicMessageCreator;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+/**
+ * The Class ByteIdMap.
+ */
 public class ByteIdMap extends IdMap{
+	
+	/** The SPLITTER. */
 	public static char SPLITTER = ' ';
 	/** The Constant CLASS-VALUE. */
 	public static final byte DATATYPE_CLAZZ = 0x22;
@@ -45,6 +72,7 @@ public class ByteIdMap extends IdMap{
 	/** The Constant DATATYPE_BYTEARRAY. */
 	public static final byte DATATYPE_DATE = 0x35;
 		
+	/** The Constant DATATYPE_BYTE. */
 	public static final byte DATATYPE_BYTE = 0x36;
 
 	/** The Constant DATATYPE_BYTEARRAY. */
@@ -53,9 +81,6 @@ public class ByteIdMap extends IdMap{
 	/** The Constant DATATYPE_BYTEARRAY. */
 	public static final byte DATATYPE_CHAR = 0x38;
 
-//	public static final byte DATATYPE_ENTITY = 0x39;
-
-	
 	/** The Constant DATATYPE_MAP. */
 	public static final byte DATATYPE_ASSOC = 0x3A;
 	
@@ -122,18 +147,34 @@ public class ByteIdMap extends IdMap{
 	/** The Constant DATATYPE_MAP. */
 	public static final byte DATATYPE_MAPLAST = 0x76;
 
+	/** The decoder map. */
 	protected HashMap<Byte, ByteEntityCreator> decoderMap;
+	
+	/** The len check. */
 	private boolean lenCheck;
+	
+	/** The is dynamic. */
 	private boolean isDynamic;
 
+	/**
+	 * Instantiates a new byte id map.
+	 */
 	public ByteIdMap() {
 
 	}
 
+	/**
+	 * Sets the check len.
+	 *
+	 * @param checklen the new check len
+	 */
 	public void setCheckLen(boolean checklen) {
 		this.lenCheck = checklen;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.uni.kassel.peermessage.IdMap#addCreator(de.uni.kassel.peermessage.interfaces.SendableEntityCreator)
+	 */
 	@Override
 	public boolean addCreator(SendableEntityCreator createrClass) {
 		boolean result=super.addCreator(createrClass);
@@ -152,6 +193,12 @@ public class ByteIdMap extends IdMap{
 		return result;
 	}
 	
+	/**
+	 * Encode.
+	 *
+	 * @param entity the entity
+	 * @return the byte entity message
+	 */
 	public ByteEntityMessage encode(Object entity) {
 		SendableEntityCreator creator;
 		if(parent!=null){
@@ -196,6 +243,13 @@ public class ByteIdMap extends IdMap{
 		return msg;
 	}
 
+	/**
+	 * Decode http.
+	 *
+	 * @param bytes the bytes
+	 * @return the object
+	 * @throws RuntimeException the runtime exception
+	 */
 	public Object decodeHTTP(String bytes) throws RuntimeException {
 		int len = bytes.length();
 		ByteBuffer buffer = ByteBuffer.allocate(len);
@@ -214,10 +268,22 @@ public class ByteIdMap extends IdMap{
 		return decode(buffer);
 	}
 
+	/**
+	 * Gets the creator decoder class.
+	 *
+	 * @param typ the typ
+	 * @return the creator decoder class
+	 */
 	public ByteEntityCreator getCreatorDecoderClass(byte typ) {
 		return decoderMap.get(typ);
 	}
 	
+	/**
+	 * To hex string.
+	 *
+	 * @param bytes the bytes
+	 * @return the string
+	 */
 	public static String toHexString(byte[] bytes) {
 		if (bytes == null) {
 			return null;
@@ -236,6 +302,12 @@ public class ByteIdMap extends IdMap{
 
 	}
 
+	/**
+	 * To byte string.
+	 *
+	 * @param hexString the hex string
+	 * @return the byte[]
+	 */
 	public static byte[] toByteString(String hexString) {
 		String hexVal = "0123456789ABCDEF";
 		byte[] out = new byte[hexString.length() / 2];
@@ -254,14 +326,31 @@ public class ByteIdMap extends IdMap{
 		return out;
 	}
 
+	/**
+	 * Checks if is dynamic.
+	 *
+	 * @return true, if is dynamic
+	 */
 	public boolean isDynamic() {
 		return isDynamic;
 	}
 
+	/**
+	 * Sets the dynamic.
+	 *
+	 * @param isDynamic the new dynamic
+	 */
 	public void setDynamic(boolean isDynamic) {
 		this.isDynamic = isDynamic;
 	}
 	
+	/**
+	 * Decode.
+	 *
+	 * @param value the value
+	 * @return the object
+	 * @throws RuntimeException the runtime exception
+	 */
 	public Object decode(Object value) throws RuntimeException {
 		if (value instanceof ByteBuffer) {
 			return decode((ByteBuffer) value);
@@ -271,6 +360,13 @@ public class ByteIdMap extends IdMap{
 		return null;
 	}
 
+	/**
+	 * Decode.
+	 *
+	 * @param in the in
+	 * @return the object
+	 * @throws RuntimeException the runtime exception
+	 */
 	public Object decode(ByteBuffer in) throws RuntimeException {
 		if (in.remaining() < 1)
 			throw new RuntimeException("DecodeExpeption - Remaining:" + in.remaining());
@@ -315,6 +411,13 @@ public class ByteIdMap extends IdMap{
 		return entity;
 	}
 
+	/**
+	 * Gets the decode object.
+	 *
+	 * @param typValue the typ value
+	 * @param in the in
+	 * @return the decode object
+	 */
 	public Object getDecodeObject(Byte typValue, ByteBuffer in) {
 		if (in.remaining() < 1) {
 			return null;
@@ -393,6 +496,14 @@ public class ByteIdMap extends IdMap{
 		}
 		return null;
 	}
+	
+	/**
+	 * Gets the typ.
+	 *
+	 * @param group the group
+	 * @param subgroup the subgroup
+	 * @return the typ
+	 */
 	private byte getTyp(byte group, byte subgroup){
 		byte returnValue=(byte) ((group/16)*16);
 		return (byte) (returnValue+(subgroup%16));

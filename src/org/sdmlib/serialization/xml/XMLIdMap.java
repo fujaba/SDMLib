@@ -1,4 +1,27 @@
 package org.sdmlib.serialization.xml;
+/*
+Copyright (c) 2012 Stefan Lindel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,28 +35,65 @@ import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
+/**
+ * The Class XMLIdMap.
+ */
 public class XMLIdMap extends IdMap {
+	
+	/** The Constant ENTITYSPLITTER. */
 	public static final String ENTITYSPLITTER = "&";
+	
+	/** The Constant ATTRIBUTEVALUE. */
 	public static final String ATTRIBUTEVALUE = "?";
+	
+	/** The Constant ENDTAG. */
 	public static final char ENDTAG='/';
+	
+	/** The Constant ITEMEND. */
 	public static final char ITEMEND='>';
+	
+	/** The Constant ITEMSTART. */
 	public static final char ITEMSTART='<';
+	
+	/** The Constant SPACE. */
 	public static final char SPACE=' ';
+	
+	/** The decoder map. */
 	private HashMap<String, XMLEntityCreator> decoderMap;
+	
+	/** The stack. */
 	private ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
+	
+	/** The stopwords. */
 	private HashSet<String> stopwords=new HashSet<String>();
+	
+	/** The value. */
 	private Tokener value;
+	
+	/** The Constant ID. */
 	public static final String ID="id";
 
+	/**
+	 * Instantiates a new xML id map.
+	 */
 	public XMLIdMap() {
 		super();
 		init();
 	}
 	
+	/**
+	 * Instantiates a new xML id map.
+	 *
+	 * @param parent the parent
+	 */
 	public XMLIdMap(IdMap parent){
 		super(parent);
 		init();
 	}
+	
+	/**
+	 * Inits the.
+	 */
 	private void init(){
 		stopwords.add("?xml");
 		stopwords.add("!--");
@@ -41,6 +101,9 @@ public class XMLIdMap extends IdMap {
 		isId=false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.sdmlib.serialization.IdMap#addCreator(org.sdmlib.serialization.interfaces.SendableEntityCreator)
+	 */
 	public boolean addCreator(SendableEntityCreator createrClass) {
 		boolean result=super.addCreator(createrClass);
 		if (decoderMap == null) {
@@ -58,6 +121,12 @@ public class XMLIdMap extends IdMap {
 		return result;
 	}
 
+	/**
+	 * Gets the creator decode class.
+	 *
+	 * @param tag the tag
+	 * @return the creator decode class
+	 */
 	public XMLEntityCreator getCreatorDecodeClass(String tag) {
 		if(decoderMap==null){
 			return null;
@@ -65,10 +134,21 @@ public class XMLIdMap extends IdMap {
 		return decoderMap.get(tag);
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param value the new id
+	 */
 	public void setId(boolean value) {
 		this.isId=value;
 	}
 	
+	/**
+	 * Encode.
+	 *
+	 * @param entity the entity
+	 * @return the xML entity
+	 */
 	public XMLEntity encode(Object entity) {
 		SendableEntityCreator createrProtoTyp = getCreatorClass(entity);
 		if (createrProtoTyp == null) {
@@ -128,6 +208,14 @@ public class XMLIdMap extends IdMap {
 		return xmlEntity;
 	}
 		
+	/**
+	 * Parser child.
+	 *
+	 * @param parent the parent
+	 * @param property the property
+	 * @param value the value
+	 * @return the xML entity
+	 */
 	private XMLEntity parserChild(XMLEntity parent,
 			String property, Object value) {
 		
@@ -163,6 +251,12 @@ public class XMLIdMap extends IdMap {
 		return null;
 	}
 
+	/**
+	 * Decode.
+	 *
+	 * @param value the value
+	 * @return the object
+	 */
 	public Object decode(String value) {
 		Object result = null;
 		this.value=new Tokener(value);
@@ -176,6 +270,14 @@ public class XMLIdMap extends IdMap {
 		return result;
 	}
 	
+	/**
+	 * Step empty pos.
+	 *
+	 * @param newPrefix the new prefix
+	 * @param entity the entity
+	 * @param tag the tag
+	 * @return true, if successful
+	 */
 	public boolean stepEmptyPos(String newPrefix, Object entity, String tag) {
 		boolean exit = false;
 		boolean empty=true;
@@ -215,6 +317,12 @@ public class XMLIdMap extends IdMap {
 		return exit;
 	}
 	
+	/**
+	 * Find tag.
+	 *
+	 * @param prefix the prefix
+	 * @return the object
+	 */
 	private Object findTag(String prefix) {
 		if (value.stepPos(ITEMSTART)) {
 			int start = value.nextPos();
@@ -226,6 +334,14 @@ public class XMLIdMap extends IdMap {
 		}
 		return null;
 	}
+	
+	/**
+	 * Find tag.
+	 *
+	 * @param prefix the prefix
+	 * @param tag the tag
+	 * @return the object
+	 */
 	private Object findTag(String prefix, String tag){
 		if (tag.length() > 0) {
 			XMLEntityCreator entityCreater = getCreatorDecodeClass(tag);
@@ -315,6 +431,13 @@ public class XMLIdMap extends IdMap {
 		return null;
 	}
 	
+	/**
+	 * Parses the children.
+	 *
+	 * @param newPrefix the new prefix
+	 * @param entity the entity
+	 * @param tag the tag
+	 */
 	private void parseChildren(String newPrefix, Object entity, String tag){
 		while (!value.end()) {
 			if (stepEmptyPos(newPrefix, entity, tag)) {
@@ -358,6 +481,12 @@ public class XMLIdMap extends IdMap {
 		}
 	}
 	
+	/**
+	 * Gets the entity.
+	 *
+	 * @param start the start
+	 * @return the entity
+	 */
 	private String getEntity(int start) {
 		String tag = value.substring(start, value.getIndex());
 		for(String stopword : stopwords){
@@ -367,6 +496,13 @@ public class XMLIdMap extends IdMap {
 		}
 		return tag;
 	}
+	
+	/**
+	 * Adds the stop words.
+	 *
+	 * @param stopwords the stopwords
+	 * @return true, if successful
+	 */
 	public boolean addStopWords(String... stopwords){
 		for(String stopword : stopwords){
 			this.stopwords.add(stopword);

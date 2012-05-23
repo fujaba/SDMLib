@@ -2,6 +2,7 @@ package org.sdmlib.serialization.json;
 
 /*
  Copyright (c) 2002 JSON.org
+ Copyright (c) 2012 Stefan Lindel
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +25,6 @@ package org.sdmlib.serialization.json;
  SOFTWARE.
  */
 
-//import java.io.IOException;
-//import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -82,6 +81,7 @@ import org.sdmlib.serialization.Tokener;
  * @author JSON.org
  * @version 2010-12-28
  */
+
 public class JsonArray extends EntityList{
 
 	/**
@@ -100,6 +100,11 @@ public class JsonArray extends EntityList{
 	 */
 	public JsonArray(Tokener x) throws RuntimeException {
 		this();
+	    setTokener(x);
+	}
+	    
+	public void setTokener(Tokener x){
+		x.setCreator(this);
 		if (x.nextClean() != '[') {
 			throw x.syntaxError("A JSONArray text must start with '['");
 		}
@@ -281,19 +286,22 @@ public class JsonArray extends EntityList{
 	/**
 	 * Make a prettyprinted JSON text of this JSONArray. Warning: This method
 	 * assumes that the data structure is acyclical.
-	 * 
-	 * @param indentFactor
-	 *            The number of spaces to add to each level of indentation.
+	 *
+	 * @param indentFactor The number of spaces to add to each level of indentation.
 	 * @return a printable, displayable, transmittable representation of the
-	 *         object, beginning with <code>[</code>&nbsp;<small>(left
-	 *         bracket)</small> and ending with <code>]</code>
-	 *         &nbsp;<small>(right bracket)</small>.
-	 * @throws RuntimeException
+	 * object, beginning with <code>[</code>&nbsp;<small>(left
+	 * bracket)</small> and ending with <code>]</code>
+	 * &nbsp;<small>(right bracket)</small>.
+	 * @throws RuntimeException the runtime exception
 	 */
 	@Override
 	public String toString(int indentFactor) throws RuntimeException {
 		return toString(indentFactor, 0);
 	}
+	
+	/** 
+	 * Make a prettyprinted JSON text of this JSONArray.
+	 */
 	public String toString(int indentFactor, int indent) {
 		List<Object> elements = getElements();
 		int len = elements.size();
@@ -327,11 +335,17 @@ public class JsonArray extends EntityList{
 		return sb.toString();
 	}
 
+	/**
+	 *  Get a new Instance of a JsonObject
+	 */
 	@Override
 	public Entity getNewObject() {
 		return new JsonObject();
 	}
 
+	/**
+	 * Get a new Instance of a JsonArray
+	 */
 	@Override
 	public EntityList getNewArray() {
 		return new JsonArray();

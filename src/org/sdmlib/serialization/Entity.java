@@ -1,6 +1,28 @@
 package org.sdmlib.serialization;
+/*
+Copyright (c) 2012 Stefan Lindel
 
-// import java.io.Writer;
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -9,7 +31,7 @@ import java.util.Map.Entry;
 
 public abstract class Entity extends BaseEntity{
 	/**
-	 * The map where the JsonObject's properties are kept.
+	 * The map where the Entity's properties are kept.
 	 */
 	private Map<String, Object> map;
 	protected Map<String, Object> getMap(){
@@ -20,16 +42,16 @@ public abstract class Entity extends BaseEntity{
 	}
 
 	/**
-	 * Construct an empty JsonObject.
+	 * Construct an empty Entity.
 	 */
 	public Entity() {
 	}
 
-		/**
-	 * Construct a JsonObject from a Map.
+	/**
+	 * Construct a Entity from a Map.
 	 *
 	 * @param map A map object that can be used to initialize the contents of
-	 *  the JsonObject.
+	 *  the Entity.
 	 */
 	public Entity(Map<String, Object> map) {
 		initWithMap(map);
@@ -54,18 +76,16 @@ public abstract class Entity extends BaseEntity{
 	/**
 	 * Accumulate values under a key. It is similar to the put method except
 	 * that if there is already an object stored under the key then a
-	 * JsonArray is stored under the key to hold all of the accumulated values.
-	 * If there is already a JsonArray, then the new value is appended to it.
+	 * EntityList is stored under the key to hold all of the accumulated values.
+	 * If there is already a EntityList, then the new value is appended to it.
 	 * In contrast, the put method replaces the previous value.
 	 *
-	 * If only one value is accumulated that is not a JsonArray, then the
+	 * If only one value is accumulated that is not a EntityList, then the
 	 * result will be the same as using put. But if multiple values are
 	 * accumulated, then the result will be like append.
 	 * @param key   A key string.
 	 * @param value An object to be accumulated under the key.
 	 * @return this.
-	 * @throws JSONException If the value is an invalid number
-	 *  or if the key is null.
 	 */
 	public Entity accumulate(String key, Object value){
 		EntityUtil.testValidity(value);
@@ -85,14 +105,14 @@ public abstract class Entity extends BaseEntity{
 
 	/**
 	 * Append values to the array under a key. If the key does not exist in the
-	 * JsonObject, then the key is put in the JsonObject with its value being a
-	 * JsonArray containing the value parameter. If the key was already
-	 * associated with a JsonArray, then the value parameter is appended to it.
+	 * Entity, then the key is put in the Entity with its value being a
+	 * EntityList containing the value parameter. If the key was already
+	 * associated with a EntityList, then the value parameter is appended to it.
 	 * @param key   A key string.
 	 * @param value An object to be accumulated under the key.
 	 * @return this.
 	 * @throws RuntimeException If the key is null or if the current value
-	 *  associated with the key is not a JsonArray.
+	 *  associated with the key is not a EntityList.
 	 */
 	public Entity append(String key, Object value) {
 		EntityUtil.testValidity(value);
@@ -102,8 +122,7 @@ public abstract class Entity extends BaseEntity{
 		} else if (object instanceof EntityList) {
 			this.put(key, ((EntityList)object).put(value));
 		} else {
-			throw new RuntimeException("JsonObject[" + key +
-			                                       "] is not a JsonArray.");
+			throw new RuntimeException("Entity["+key+"] is not a EntityList.");
 		}
 		return this;
 	}
@@ -170,8 +189,7 @@ public abstract class Entity extends BaseEntity{
 						((String)object).equalsIgnoreCase("true"))) {
 			return true;
 		}
-		throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-				"] is not a Boolean.");
+		throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] is not a Boolean.");
 	}
 
 
@@ -189,8 +207,7 @@ public abstract class Entity extends BaseEntity{
 					? ((Number)object).doubleValue()
 							: Double.parseDouble((String)object);
 		} catch (Exception e) {
-			throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-			                                       "] is not a number.");
+			throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] is not a number.");
 		}
 	}
 
@@ -210,8 +227,7 @@ public abstract class Entity extends BaseEntity{
 					? ((Number)object).intValue()
 							: Integer.parseInt((String)object);
 		} catch (Exception e) {
-			throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-			                                       "] is not an int.");
+			throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] is not an int.");
 		}
 	}
 
@@ -230,14 +246,13 @@ public abstract class Entity extends BaseEntity{
 					? ((Number)object).longValue()
 							: Long.parseLong((String)object);
 		} catch (Exception e) {
-			throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-			                                       "] is not a long.");
+			throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] is not a long.");
 		}
 	}
 
 
 	/**
-	 * Get an array of field names from a JsonObject.
+	 * Get an array of field names from a Entity.
 	 *
 	 * @return An array of field names, or null if there are no names.
 	 */
@@ -268,14 +283,13 @@ public abstract class Entity extends BaseEntity{
 		if (object instanceof String) {
 			return (String)object;
 		}
-		throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-				"] not a string.");
+		throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] not a string.");
 	}
 
 	/**
-	 * Determine if the JsonObject contains a specific key.
+	 * Determine if the Entity contains a specific key.
 	 * @param key   A key string.
-	 * @return      true if the key exists in the JsonObject.
+	 * @return      true if the key exists in the Entity.
 	 */
 	public boolean has(String key) {
 		return getMap().containsKey(key);
@@ -283,7 +297,7 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Increment a property of a JsonObject. If there is no such property,
+	 * Increment a property of a Entity. If there is no such property,
 	 * create one with a value of 1. If there is such a property, and if
 	 * it is an Integer, Long, Double, or Float, then add one to it.
 	 * @param key  A key string.
@@ -310,7 +324,7 @@ public abstract class Entity extends BaseEntity{
 	}
 
 	/**
-	 * Get an enumeration of the keys of the JsonObject.
+	 * Get an enumeration of the keys of the Entity.
 	 *
 	 * @return An iterator of the keys.
 	 */
@@ -319,9 +333,9 @@ public abstract class Entity extends BaseEntity{
 	}
 
 	/**
-	 * Get the number of keys stored in the JsonObject.
+	 * Get the number of keys stored in the Entity.
 	 *
-	 * @return The number of keys in the JsonObject.
+	 * @return The number of keys in the Entity.
 	 */
 	public int length() {
 		if(map==null){
@@ -331,9 +345,9 @@ public abstract class Entity extends BaseEntity{
 	}
 
 	/**
-	 * Produce a JsonArray containing the names of the elements of this
-	 * JsonObject.
-	 * @return A JsonArray containing the key strings, or null if the JsonObject
+	 * Produce a EntityList containing the names of the elements of this
+	 * Entity.
+	 * @return A EntityList containing the key strings, or null if the Entity
 	 * is empty.
 	 */
 	public EntityList names() {
@@ -348,7 +362,7 @@ public abstract class Entity extends BaseEntity{
 	
 
 	/**
-	 * Put a key/boolean pair in the JsonObject.
+	 * Put a key/boolean pair in the Entity.
 	 *
 	 * @param key   A key string.
 	 * @param value A boolean which is the value.
@@ -361,8 +375,8 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/value pair in the JsonObject, where the value will be a
-	 * JsonArray which is produced from a Collection.
+	 * Put a key/value pair in the Entity, where the value will be a
+	 * EntityList which is produced from a Collection.
 	 * @param key   A key string.
 	 * @param value A Collection value.
 	 * @return      this.
@@ -374,7 +388,7 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/double pair in the JsonObject.
+	 * Put a key/double pair in the Entity.
 	 *
 	 * @param key   A key string.
 	 * @param value A double which is the value.
@@ -387,7 +401,7 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/int pair in the JsonObject.
+	 * Put a key/int pair in the Entity.
 	 *
 	 * @param key   A key string.
 	 * @param value An int which is the value.
@@ -400,7 +414,7 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/long pair in the JsonObject.
+	 * Put a key/long pair in the Entity.
 	 *
 	 * @param key   A key string.
 	 * @param value A long which is the value.
@@ -413,12 +427,11 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/value pair in the JsonObject, where the value will be a
-	 * JsonObject which is produced from a Map.
+	 * Put a key/value pair in the Entity, where the value will be a
+	 * Entity which is produced from a Map.
 	 * @param key   A key string.
 	 * @param value A Map value.
 	 * @return      this.
-	 * @throws JSONException
 	 */
 	public Entity put(String key, Map<String, Object> value)  {
 		this.put(key, getNewObject().initWithMap(value));
@@ -427,15 +440,12 @@ public abstract class Entity extends BaseEntity{
 
 
 	/**
-	 * Put a key/value pair in the JsonObject. If the value is null,
-	 * then the key will be removed from the JsonObject if it is present.
+	 * Put a key/value pair in the Entity. If the value is null,
+	 * then the key will be removed from the Entity if it is present.
 	 * @param key   A key string.
 	 * @param value An object which is the value. It should be of one of these
-	 *  types: Boolean, Double, Integer, JsonArray, JsonObject, Long, String,
-	 *  or the JsonObject.NULL object.
+	 *  types: Boolean, Double, Integer, EntityList, Entity, Long or String object.
 	 * @return this.
-	 * @throws RuntimeException If the value is non-finite number
-	 *  or if the key is null.
 	 */
 	public Entity put(String key, Object value) {
 		if (key == null) {
@@ -461,8 +471,8 @@ public abstract class Entity extends BaseEntity{
 	}
 
 	/**
-	 * Make a JSON text of this JsonObject. For compactness, no whitespace
-	 * is added. If this would not result in a syntactically correct JSON text,
+	 * Make a Text of this Entity. For compactness, no whitespace
+	 * is added. If this would not result in a syntactically correct Text,
 	 * then null will be returned instead.
 	 * <p>
 	 * Warning: This method assumes that the data structure is acyclical.
@@ -474,7 +484,7 @@ public abstract class Entity extends BaseEntity{
 	 */
 	public abstract String toString();
 	/**
-	 * Make a prettyprinted JSON text of this JsonObject.
+	 * Make a prettyprinted Text of this Entity.
 	 * <p>
 	 * Warning: This method assumes that the data structure is acyclical.
 	 * @param indentFactor The number of spaces to add to each level of

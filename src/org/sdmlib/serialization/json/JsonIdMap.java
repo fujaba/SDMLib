@@ -1,4 +1,27 @@
 package org.sdmlib.serialization.json;
+/*
+Copyright (c) 2012 Stefan Lindel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,15 +38,32 @@ import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class JsonIdMap extends IdMap{
-	public static final String JSON_NEW_NEIGHBORS = "newNeighbors";
+/**
+ * The Class JsonIdMap.
+ */
+public abstract class JsonIdMap extends IdMap{
+	
+	/** The Constant CLASS. */
 	public static final String CLASS = "class";
+	
+	/** The Constant JSON_ID. */
 	public static final String JSON_ID = "id";
+	
+	/** The Constant JSON_PROPS. */
 	public static final String JSON_PROPS = "prop";
+	
+	/** The Constant REF_SUFFIX. */
 	public static final String REF_SUFFIX = "_ref";
+	
+	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
+	
+	/** The updatelistener. */
 	private MapUpdateListener updatelistener;
 
+	/**
+	 * Instantiates a new json id map.
+	 */
 	public JsonIdMap() {
 		super();
 		this.addCreator(new DateCreator());
@@ -159,7 +199,7 @@ public class JsonIdMap extends IdMap{
 		return result;
 	}
 
-	private Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
+	protected Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
 		// JSONArray jsonArray;
 		if (isId) {
 			String jsonId = (String) jsonObject.get(JSON_ID);
@@ -176,84 +216,48 @@ public class JsonIdMap extends IdMap{
 			String[] properties = prototyp.getProperties();
 			if (properties != null) {
 				for (String property : properties) {
-               Object obj = jsonProp.get(property);
-               if (obj != null)
-               {
-                  parseValue(target, property, obj, prototyp, refs);
-               }
-               else
-               {
-                  obj = jsonProp.get(property + IdMap.REMOVE);
-                  if (obj != null)
-                  {
-                     parseValue(target, property + IdMap.REMOVE, obj, prototyp, refs);
-                  }
-               }
-            }
+					Object obj = jsonProp.get(property);
+					parseValue(target, property, obj, prototyp, refs);
+				}
 			}
 		}
 		return target;
 	}
 
-	private void parseValue(Object target, String property, Object value,
+	protected void parseValue(Object target, String property, Object value,
 			SendableEntityCreator creator, LinkedHashSet<ReferenceObject> refs) {
-		if (value != null)
-		{
-			if (value instanceof JsonArray)
-			{
+		if (value != null) {
+			if (value instanceof JsonArray) {
 				JsonArray jsonArray = (JsonArray) value;
-				for (int i = 0; i < jsonArray.length(); i++)
-				{
+				for (int i = 0; i < jsonArray.length(); i++) {
 					Object kid = jsonArray.get(i);
-					if (kid instanceof JsonObject)
-					{
+					if (kid instanceof JsonObject) {
 						// got a new kid, create it
 						JsonObject child=(JsonObject) kid;
 						String className = (String) child.get(CLASS);
 						String jsonId = (String) child.get(JSON_ID);
-						//FIXME if (className == null&&jsonId!=null)
-						if (className == null&&jsonId!=null&& child.length() == 1)
-						{
+						if (className == null&&jsonId!=null) {
 							// It is a Ref
 							refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-						}
-						else
-						{
+						}else{
 							creator.setValue(target, property, readJson((JsonObject) kid));
 						}
-					}
-					else
-					{
+					}else{
 						creator.setValue(target, property, kid);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				if (value instanceof JsonObject) {
 //					// got a new kid, create it
 					JsonObject child=(JsonObject) value;
 					String className = (String) child.get(CLASS);
 					String jsonId = (String) child.get(JSON_ID);
-					if (className == null && jsonId != null && child.length()==1) 
-					{
+					if (className == null&&jsonId!=null) {
 						// It is a Ref
 						refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-					}
-					else if (className != null && jsonId != null )
-					{
+					}else{
 						creator.setValue(target, property, readJson((JsonObject) value));
 					}
-					else 
-					{
-					   creator.setValue(target, property, value);
-					}
-//FIXME					if (className == null&&jsonId!=null) {
-//						// It is a Ref
-//						refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-//					}else{
-//						creator.setValue(target, property, readJson((JsonObject) value));
-//					}
 				}else{
 					creator.setValue(target, property, value);
 				}
@@ -386,10 +390,5 @@ public class JsonIdMap extends IdMap{
 				remove(getObject(id));
 			}
 		}
-	}
-	
-	public JsonIdMap withSessionId(String sessionId){
-		setSessionId(sessionId);
-		return this;
 	}
 }
