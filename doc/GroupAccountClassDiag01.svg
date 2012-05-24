@@ -28,10 +28,10 @@
 <polygon fill="none" stroke="black" points="8,-120 8,-140 83,-140 83,-120 8,-120"/>
 <text text-anchor="start" x="44" y="-128" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- GroupAccount&#45;&#45;Person -->
-<g id="edge2" class="edge"><title>GroupAccount&#45;&#45;Person</title>
+<!-- GroupAccount&#45;&gt;Person -->
+<g id="edge2" class="edge"><title>GroupAccount&#45;&gt;Person</title>
 <path fill="none" stroke="black" d="M71.0989,-232.475C67.134,-221.009 62.6055,-207.913 58.4462,-195.885"/>
-<text text-anchor="middle" x="65.4022" y="-200.569" font-family="Times New Roman,serif" font-size="10.00">persons</text>
+<text text-anchor="middle" x="65.4022" y="-200.569" font-family="Times New Roman,serif" font-size="10.00">persons *</text>
 <text text-anchor="middle" x="64.1429" y="-222.791" font-family="Times New Roman,serif" font-size="10.00">parent</text>
 </g>
 <!-- Item -->
@@ -44,16 +44,16 @@
 <polygon fill="none" stroke="black" points="40,-4 40,-24 125,-24 125,-4 40,-4"/>
 <text text-anchor="start" x="81" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- GroupAccount&#45;&#45;Item -->
-<g id="edge4" class="edge"><title>GroupAccount&#45;&#45;Item</title>
+<!-- GroupAccount&#45;&gt;Item -->
+<g id="edge4" class="edge"><title>GroupAccount&#45;&gt;Item</title>
 <path fill="none" stroke="black" d="M91.5882,-232.476C94.5939,-221.096 97.5132,-208.078 99,-196 103.344,-160.711 102.954,-151.335 99,-116 97.6636,-104.059 95.1657,-91.2437 92.4882,-79.6455"/>
-<text text-anchor="middle" x="98.6142" y="-85.0494" font-family="Times New Roman,serif" font-size="10.00">items</text>
+<text text-anchor="middle" x="98.6142" y="-85.0494" font-family="Times New Roman,serif" font-size="10.00">items *</text>
 <text text-anchor="middle" x="89.7732" y="-220.143" font-family="Times New Roman,serif" font-size="10.00">parent</text>
 </g>
-<!-- Person&#45;&#45;Item -->
-<g id="edge6" class="edge"><title>Person&#45;&#45;Item</title>
+<!-- Person&#45;&gt;Item -->
+<g id="edge6" class="edge"><title>Person&#45;&gt;Item</title>
 <path fill="none" stroke="black" d="M57.5265,-116.405C61.384,-104.519 65.6297,-91.4381 69.4864,-79.5555"/>
-<text text-anchor="middle" x="70.7083" y="-86.9805" font-family="Times New Roman,serif" font-size="10.00">items</text>
+<text text-anchor="middle" x="70.7083" y="-86.9805" font-family="Times New Roman,serif" font-size="10.00">items *</text>
 <text text-anchor="middle" x="56.3046" y="-103.98" font-family="Times New Roman,serif" font-size="10.00">buyer</text>
 </g>
 </g>

@@ -16,13 +16,15 @@
         {"id": "KE.L55"},
         {"id": "KE.L59"},
         {"id": "KE.L61"},
-        {"id": "KE.L64"}
+        {"id": "KE.L64"},
+        {"id": "KE.L67"},
+        {"id": "KE.L70"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":6,
-      "hoursSpend":18,
+      "hoursSpend":20,
       "subentries":[
         {"id": "KE.K2"},
         {"id": "KE.K11"},
@@ -47,13 +49,15 @@
         {"id": "KE.L54"},
         {"id": "KE.L56"},
         {"id": "KE.L62"},
-        {"id": "KE.L65"}
+        {"id": "KE.L65"},
+        {"id": "KE.L68"},
+        {"id": "KE.L71"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":6,
-      "hoursSpend":17,
+      "hoursSpend":19,
       "parent":{"id": "KE.K1"},
       "subentries":[
         {"id": "KE.K3"},
@@ -163,10 +167,15 @@
     "id":"KE.K8",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
+      "logEntries":[
+        {"id": "KE.L69"},
+        {"id": "KE.L72"}
+      ],
       "name":"GroupAccountCodegen",
-      "phase":"backlog",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
-      "hoursSpend":0,
+      "hoursSpend":2,
       "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
@@ -977,6 +986,90 @@
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L67",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"21.05.2012 18:02:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L68",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"21.05.2012 18:02:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L69",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.04.2012 00:11:32",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K8"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: Nothing here yet. Generated classes"
+    }
+  },
+  {
+    "id":"KE.L70",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"24.05.2012 00:16:18",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GroupAccountCodegen: Achieved: Resolved Bug: creatorcreator class is no longer growing on each run. "
+    }
+  },
+  {
+    "id":"KE.L71",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"24.05.2012 00:16:18",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountCodegen: Achieved: Resolved Bug: creatorcreator class is no longer growing on each run. "
+    }
+  },
+  {
+    "id":"KE.L72",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"24.05.2012 00:16:18",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K8"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Resolved Bug: creatorcreator class is no longer growing on each run. "
     }
   }
 ]

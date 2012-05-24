@@ -1,5 +1,5 @@
 
- graph ClassDiagram {
+ digraph ClassDiagram {
     node [shape = none, fontsize = 10]; 
     edge [fontsize = 10];
     
@@ -10,8 +10,8 @@
     
     
     
-    GroupAccount -- Person [headlabel = "persons" taillabel = "parent"];
-    GroupAccount -- Item [headlabel = "items" taillabel = "parent"];
-    Person -- Item [headlabel = "items" taillabel = "buyer"];
+    GroupAccount -> Person [headlabel = "persons *" taillabel = "parent" arrowhead = "none" ];
+    GroupAccount -> Item [headlabel = "items *" taillabel = "parent" arrowhead = "none" ];
+    Person -> Item [headlabel = "items *" taillabel = "buyer" arrowhead = "none" ];
 }
 

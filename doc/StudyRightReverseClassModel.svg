@@ -46,8 +46,8 @@
 <!-- Room&#45;&gt;Room -->
 <g id="edge4" class="edge"><title>Room&#45;&gt;Room</title>
 <path fill="none" stroke="black" d="M228.202,-303.448C238.592,-300.696 246,-292.547 246,-279 246,-265.453 238.592,-257.304 228.202,-254.552"/>
-<text text-anchor="middle" x="238.13" y="-250.849" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
-<text text-anchor="middle" x="235.505" y="-294.116" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
+<text text-anchor="middle" x="238.13" y="-250.849" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
+<text text-anchor="middle" x="235.505" y="-294.116" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
 </g>
 <!-- Student -->
 <g id="node4" class="node"><title>Student</title>
@@ -62,7 +62,7 @@
 <!-- Room&#45;&gt;Student -->
 <g id="edge6" class="edge"><title>Room&#45;&gt;Student</title>
 <path fill="none" stroke="black" d="M165.111,-239.314C160.023,-221.238 153.979,-199.768 148.891,-181.691"/>
-<text text-anchor="middle" x="155.415" y="-186.77" font-family="Times New Roman,serif" font-size="10.00">students</text>
+<text text-anchor="middle" x="155.415" y="-186.77" font-family="Times New Roman,serif" font-size="10.00">students *</text>
 <text text-anchor="middle" x="158.587" y="-229.235" font-family="Times New Roman,serif" font-size="10.00">in</text>
 </g>
 <!-- University -->
@@ -78,13 +78,13 @@
 <g id="edge8" class="edge"><title>Room&#45;&gt;University</title>
 <path fill="none" stroke="black" d="M181.342,-239.462C185.493,-203.747 189.806,-149.179 185,-102 183.778,-90.0089 181.375,-77.0099 178.899,-65.6201"/>
 <text text-anchor="middle" x="184.925" y="-71.1007" font-family="Times New Roman,serif" font-size="10.00">uni</text>
-<text text-anchor="middle" x="178.134" y="-227.49" font-family="Times New Roman,serif" font-size="10.00">rooms</text>
+<text text-anchor="middle" x="178.134" y="-227.49" font-family="Times New Roman,serif" font-size="10.00">rooms *</text>
 </g>
 <!-- Student&#45;&gt;University -->
 <g id="edge10" class="edge"><title>Student&#45;&gt;University</title>
 <path fill="none" stroke="black" d="M149.914,-102.371C153.643,-90.2786 157.712,-77.0858 161.272,-65.5428"/>
 <text text-anchor="middle" x="162.639" y="-72.9489" font-family="Times New Roman,serif" font-size="10.00">uni</text>
-<text text-anchor="middle" x="148.546" y="-89.9645" font-family="Times New Roman,serif" font-size="10.00">students</text>
+<text text-anchor="middle" x="148.546" y="-89.9645" font-family="Times New Roman,serif" font-size="10.00">students *</text>
 </g>
 <!-- StudyRightClassesCodeGen -->
 <g id="node5" class="node"><title>StudyRightClassesCodeGen</title>

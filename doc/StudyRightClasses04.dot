@@ -10,9 +10,9 @@
     
     
     
-    University -> Student [headlabel = "students" taillabel = "uni" arrowhead = "none" ];
-    University -> Room [headlabel = "rooms" taillabel = "uni" arrowhead = "none" ];
-    Room -> Room [headlabel = "neighbors" taillabel = "neighbors" arrowhead = "none" ];
-    Student -> Room [headlabel = "in" taillabel = "students" arrowhead = "none" ];
+    University -> Student [headlabel = "students *" taillabel = "uni" arrowhead = "none" ];
+    University -> Room [headlabel = "rooms *" taillabel = "uni" arrowhead = "none" ];
+    Room -> Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
+    Student -> Room [headlabel = "in" taillabel = "students *" arrowhead = "none" ];
 }
 

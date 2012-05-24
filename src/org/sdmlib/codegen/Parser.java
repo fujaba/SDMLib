@@ -688,6 +688,8 @@ public class Parser
       // return dotted name
       int startPos = currentRealToken.startPos;
       int endPos = currentRealToken.endPos;
+      
+      checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentToken.startPos);
       nextRealToken();
       
       while (currentRealKindEquals('.') && ! (lookAheadRealToken.kind == '.') && ! currentRealKindEquals(EOF))
@@ -696,6 +698,7 @@ public class Parser
          
          // read next name
          endPos = currentRealToken.endPos;
+         checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentToken.startPos);
          nextRealToken();
       }
       

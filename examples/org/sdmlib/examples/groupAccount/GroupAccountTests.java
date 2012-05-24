@@ -143,6 +143,9 @@ public class GroupAccountTests
       
       scenario.addImage(model.dumpClassDiag("GroupAccountClassDiag01"));
 
+      scenario.add("Resolved Bug: creatorcreator class is no longer growing on each run. ",
+         DONE, "zuendorf", "24.05.2012 00:16:18", 1, 0);
+      
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();

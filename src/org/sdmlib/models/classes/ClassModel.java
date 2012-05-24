@@ -238,7 +238,7 @@ public class ClassModel implements PropertyChangeInterface
 			    "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
 
 			if (clazz.isInterfaze())
-				CGUtil.replaceAll(modelClassText, "border='0'", "border='2'");
+				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
 			
 			CGUtil.replaceAll(modelClassText, "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()), "attrCompartment", dumpAttributes(clazz), "methodCompartment",
 			    dumpMethods(clazz));
@@ -255,7 +255,7 @@ public class ClassModel implements PropertyChangeInterface
 			if (clazz.getSuperClass() != null)
 			{
 
-				StringBuilder oneSuperClassText = new StringBuilder("\n    superClass ->  mClass [dir = \"back\" arrowhead = \"empty\"];");
+				StringBuilder oneSuperClassText = new StringBuilder("\n    superClass ->  mClass [dir = \"back\" arrowtail = \"empty\"];");
 
 				CGUtil.replaceAll(oneSuperClassText, "superClass", CGUtil.shortClassName(clazz.getSuperClass().getName())
 																			, "mClass", CGUtil.shortClassName(clazz.getName()));
@@ -271,7 +271,7 @@ public class ClassModel implements PropertyChangeInterface
       {	
 				if (interfaceClass.isInterfaze())
         {
-	        StringBuilder oneSuperClassText = new StringBuilder("\n    interfaceClass ->  mClass [dir = \"back\" arrowhead = \"empty\"];");
+	        StringBuilder oneSuperClassText = new StringBuilder("\n    interfaceClass ->  mClass [dir = \"back\" arrowtail = \"empty\"];");
 	        
 	        CGUtil.replaceAll(oneSuperClassText, 
 	        									"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
@@ -287,8 +287,11 @@ public class ClassModel implements PropertyChangeInterface
 		{
 			StringBuilder oneAssocText = new StringBuilder("\n    sourceClass -> targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
 
-			CGUtil.replaceAll(oneAssocText, "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), "targetClass",
-			    CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), "sourceRole", assoc.getSource().getName(), "targetRole", assoc.getTarget().getName());
+			CGUtil.replaceAll(oneAssocText, 
+			   "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), 
+			   "targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), 
+			   "sourceRole", labelForRole(assoc.getSource()), 
+			   "targetRole", labelForRole(assoc.getTarget()));
 
 			allAssocsText.append(oneAssocText.toString());
 		}
@@ -327,6 +330,18 @@ public class ClassModel implements PropertyChangeInterface
 		return diagName + ".svg";
 	}
 
+   private String labelForRole(Role role)
+   {
+      String result = role.getName();
+      
+      if (role.getCard().equals(Role.MANY))
+      {
+         result = result + " *";
+      }
+      
+      return result;
+   }
+   
 	private String dumpMethods(Clazz clazz)
 	{
 		StringBuilder allMethodsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");

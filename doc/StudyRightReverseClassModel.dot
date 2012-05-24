@@ -14,9 +14,9 @@
     
     
     Professor -> Topic [headlabel = "topic" taillabel = "prof" arrowhead = "none" ];
-    Room -> Room [headlabel = "neighbors" taillabel = "neighbors" arrowhead = "none" ];
-    Room -> Student [headlabel = "students" taillabel = "in" arrowhead = "none" ];
-    Room -> University [headlabel = "uni" taillabel = "rooms" arrowhead = "none" ];
-    Student -> University [headlabel = "uni" taillabel = "students" arrowhead = "none" ];
+    Room -> Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
+    Room -> Student [headlabel = "students *" taillabel = "in" arrowhead = "none" ];
+    Room -> University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
+    Student -> University [headlabel = "uni" taillabel = "students *" arrowhead = "none" ];
 }
 
