@@ -5,5 +5,6 @@ import org.sdmlib.examples.studyrightextends.Female;
 
 public class FemaleSet extends LinkedHashSet<Female>
 {
+	private static final long serialVersionUID = 1L;
 }
 

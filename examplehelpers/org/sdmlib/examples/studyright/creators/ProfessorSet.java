@@ -1,13 +1,15 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyright.Professor;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.studyright.Topic;
 
 public class ProfessorSet extends LinkedHashSet<Professor>
 {
-   public StringList getName()
+	private static final long serialVersionUID = 1L;
+
+public StringList getName()
    {
       StringList result = new StringList();
       

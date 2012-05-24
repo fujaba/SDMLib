@@ -5,5 +5,6 @@ import org.sdmlib.examples.studyrightextends.Person;
 
 public class PersonSet extends LinkedHashSet<Person>
 {
+   private static final long serialVersionUID = 1L;
 }
 

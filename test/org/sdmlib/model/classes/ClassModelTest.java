@@ -21,8 +21,6 @@
 
 package org.sdmlib.model.classes;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 import org.sdmlib.kanban.ProjectBoard;
 import org.sdmlib.models.classes.Association;

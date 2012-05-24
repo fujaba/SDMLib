@@ -1,14 +1,14 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyrightextends.University;
-import org.sdmlib.examples.studyrightextends.Lecture;
 
 public class RoomSet extends LinkedHashSet<Room>
 {
+   private static final long serialVersionUID = 1L;
    public StringList getRoomNo()
    {
       StringList result = new StringList();

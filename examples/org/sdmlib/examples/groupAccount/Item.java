@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.util.LinkedHashSet;
 
 public class Item implements PropertyChangeInterface
 {

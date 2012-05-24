@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import org.sdmlib.utils.StrUtil;
 
 public interface Person
 {

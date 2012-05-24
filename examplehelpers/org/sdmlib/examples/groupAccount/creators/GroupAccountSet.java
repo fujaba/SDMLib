@@ -6,7 +6,8 @@ import org.sdmlib.examples.groupAccount.GroupAccount;
 
 public class GroupAccountSet extends LinkedHashSet<GroupAccount>
 {
-   public PersonSet getPersons()
+	private static final long serialVersionUID = 1L;
+	public PersonSet getPersons()
    {
       PersonSet result = new PersonSet();
       

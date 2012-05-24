@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class doubleList extends ArrayList<Double>
 {
+   private static final long serialVersionUID = 1L;
 
    public double sum()
    {

@@ -1,15 +1,15 @@
 package org.sdmlib.examples.groupAccount.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.examples.groupAccount.Person;
 
 public class ItemSet extends LinkedHashSet<Item>
 {
-   public StringList getDescription()
+	private static final long serialVersionUID = 1L;
+public StringList getDescription()
    {
       StringList result = new StringList();
       
