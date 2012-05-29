@@ -1,0 +1,8 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+WilliAllee [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>WilliAllee :Building</u></td></tr></table>>];
+_2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>_2 :Floor</u></td></tr></table>>];
+
+<edges>}

@@ -142,7 +142,7 @@ public class Role implements PropertyChangeInterface
       return this;
    }
 
-   public void generate(String rootDir, Role partnerRole, boolean doGenerate)
+   public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
    {
       Parser myParser = getClazz().getOrCreateParser(rootDir);
       
@@ -192,15 +192,15 @@ public class Role implements PropertyChangeInterface
       // generate property in creator class
 		if (!clazz.isInterfaze())
 		{
-			Parser creatorParser = getClazz().getOrCreateParserForCreatorClass(rootDir);
+			Parser creatorParser = getClazz().getOrCreateParserForCreatorClass(helperDir);
 
 			insertPropertyInCreatorClass(creatorParser, partnerRole);
 
 			getClazz().printCreatorFile(doGenerate);
 		}
       
-      // generate property in creator class
-      Parser modelSetParser = getClazz().getOrCreateParserForModelSetFile(rootDir);
+      // generate property in model set class
+      Parser modelSetParser = getClazz().getOrCreateParserForModelSetFile(helperDir);
       
       insertGetterInModelSetFile(modelSetParser, partnerRole);
       
@@ -320,7 +320,7 @@ public class Role implements PropertyChangeInterface
       // OK, found method, parse its body to find if that handles me. 
       int endOfStringArrayInit = parser.getEndOfAttributeInitialization();
       
-      String propertyName = "PROPERTY_" + partnerRole.getName().toUpperCase();
+      String propertyName = "PROPERTY_" + partnerRole.getName().toUpperCase() +",";
       
       int propertyNameIndex = parser.getFileBody().indexOf(propertyName, pos);
 

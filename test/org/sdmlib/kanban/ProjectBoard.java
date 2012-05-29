@@ -97,6 +97,10 @@ public class ProjectBoard
       entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
       
       
+      entry = kanbanBoard.findOrCreate("GenericObjectDiagram")
+            .withParent(sprint1);
+     
+      entry.linkToTest("test", "org.sdmlib.models.objects.GenericObjectsTest", entry.getName());
       
       man.dumpKanban();
    }

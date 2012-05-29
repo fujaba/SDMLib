@@ -9,6 +9,6 @@
     
     
     
-    KanbanEntry -> LogEntry [headlabel = "logEntries" taillabel = "kanbanEntry" arrowhead = "none" ];
+    KanbanEntry -> LogEntry [headlabel = "logEntries *" taillabel = "kanbanEntry" arrowhead = "none" ];
 }
 

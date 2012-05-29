@@ -1,0 +1,25 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "WilliAllee"</td></tr><tr><td>type = "Building"</td></tr></table></td></tr></table>>];
+g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "id"</td></tr><tr><td>value = "WA73"</td></tr></table></td></tr></table>>];
+g3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g3 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "has"</td></tr></table></td></tr></table>>];
+g4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g4 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "seFloor"</td></tr><tr><td>type = "Floor"</td></tr></table></td></tr></table>>];
+g5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g5 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "id"</td></tr><tr><td>value = "WA13"</td></tr></table></td></tr></table>>];
+g6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g6 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "level"</td></tr><tr><td>value = "first floor"</td></tr></table></td></tr></table>>];
+g7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g7 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "has"</td></tr></table></td></tr></table>>];
+g8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g8 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "digitalFloor"</td></tr><tr><td>type = "Floor"</td></tr></table></td></tr></table>>];
+g9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g9 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "id"</td></tr><tr><td>value = "WA03"</td></tr></table></td></tr></table>>];
+g10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g10 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "level"</td></tr><tr><td>value = "ground floor"</td></tr></table></td></tr></table>>];
+
+g1 -- g2 [headlabel = "attrs" taillabel = "owner"];
+g1 -- g3 [headlabel = "outgoingLinks" taillabel = "src"];
+g1 -- g7 [headlabel = "outgoingLinks" taillabel = "src"];
+g3 -- g4 [headlabel = "tgt" taillabel = "incommingLinks"];
+g4 -- g5 [headlabel = "attrs" taillabel = "owner"];
+g4 -- g6 [headlabel = "attrs" taillabel = "owner"];
+g7 -- g8 [headlabel = "tgt" taillabel = "incommingLinks"];
+g8 -- g10 [headlabel = "attrs" taillabel = "owner"];
+g8 -- g9 [headlabel = "attrs" taillabel = "owner"];
+}

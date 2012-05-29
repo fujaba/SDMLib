@@ -1727,5 +1727,19 @@ public class Clazz implements PropertyChangeInterface
          this.removeFromInterfaces(value);
       }
    }
+
+   public Attribute getOrCreateAttribute(String attrName, String attrType)
+   {
+      for (Attribute attrDecl : getAttributes())
+      {
+         if (attrDecl.getName().equals(attrName))
+         {
+            return attrDecl;
+         }
+      }
+      
+      return new Attribute().withName(attrName).withType(attrType).withClazz(this);
+      
+   }
 }
 

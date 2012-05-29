@@ -37,6 +37,9 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.objects.GenericAttribute;
+import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -75,7 +78,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		for (Association assoc : getAssociations())
 		{
-			assoc.generate(rootDir, false);
+			assoc.generate(rootDir, helpersDir, false);
 		}
 
 		return this;
@@ -1942,6 +1945,107 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
 
 		return result;
 	}
+
+   public ClassModel learnFromGenericObjects(String packageName, GenericObject root)
+   {
+      // collect all objects and links
+      LinkedHashSet<GenericObject> allObjects = new LinkedHashSet<GenericObject>();
+      LinkedList<GenericObject> todoObjects = new LinkedList<GenericObject>();
+      
+      LinkedHashSet<GenericLink> allLinks = new LinkedHashSet<GenericLink>();
+      
+      todoObjects.add(root);
+      
+      while (! todoObjects.isEmpty())
+      {
+         GenericObject currentObject = todoObjects.pop();
+         allObjects.add(currentObject);
+
+         for (GenericLink currentLink : currentObject.getOutgoingLinks())
+         {
+            allLinks.add(currentLink);
+            
+            GenericObject neighbor = currentLink.getTgt();
+            if ( ! allObjects.contains(neighbor))
+            {
+               todoObjects.add(neighbor);
+            }
+         }
+
+         for (GenericLink currentLink : currentObject.getIncommingLinks())
+         {
+            allLinks.add(currentLink);
+            
+            GenericObject neighbor = currentLink.getSrc();
+            if ( ! allObjects.contains(neighbor))
+            {
+               todoObjects.add(neighbor);
+            }
+         }
+      }
+
+      // now derive classes from node types
+      for (GenericObject currentObject : allObjects)
+      {
+         if (currentObject.getType() != null)
+         {
+            Clazz currentClazz = this.getOrCreateClazz(packageName + "." + currentObject.getType());
+            
+            // add attribute declarations
+            for (GenericAttribute attr : currentObject.getAttrs())
+            {
+               currentClazz.getOrCreateAttribute(attr.getName(), "String");
+            }
+         }
+      }
+      
+      // now derive assocs from links
+      for (GenericLink currentLink : allLinks)
+      {
+         String sourceType = currentLink.getSrc().getType();
+         if (sourceType == null) continue;
+         
+         String targetType = currentLink.getTgt().getType();
+         if (targetType == null) continue;
+         
+         String sourceLabel = currentLink.getSrcLabel(); 
+         if (sourceLabel == null)
+         {
+            sourceLabel = StrUtil.downFirstChar(sourceType) + "s";
+         }
+         
+         String targetLabel = currentLink.getTgtLabel(); 
+         if (targetLabel == null)
+         {
+            targetLabel = StrUtil.downFirstChar(sourceType) + "s";
+         }
+
+         // search for an assoc with similar srcClazz, srcLabel, tgtClass, tgtLabel
+         Association currentAssoc = null; 
+         for (Association assoc : this.getAssociations())
+         {
+            if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
+                  && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
+                  && sourceLabel.equals(assoc.getSource().getName())
+                  && targetLabel.equals(assoc.getTarget().getName()))
+            {
+               // found old one
+               currentAssoc = assoc; 
+               break;
+            }
+         }
+         
+         if (currentAssoc == null)
+         {
+            // need to create a new one
+            currentAssoc = new Association()
+            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Role.MANY)
+            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Role.MANY);
+         }
+      }
+
+      return this;
+   }
 
 
 }
