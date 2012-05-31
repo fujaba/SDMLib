@@ -58,9 +58,20 @@ public class Role implements PropertyChangeInterface
       {
          Clazz oldValue = this.clazz;
          
+         if (this.clazz != null)
+         {
+            this.clazz = null;
+            oldValue.withoutSourceRoles(this);
+         }
+         
          this.clazz = value;
          
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSOC, null, value);
+         if (value != null)
+         {
+            value.withSourceRoles(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
          changed = true;
       }
       

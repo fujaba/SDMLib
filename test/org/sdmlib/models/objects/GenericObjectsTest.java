@@ -31,12 +31,18 @@ import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+
+import de.kassel.roombook.Building;
+
+import java.beans.PropertyChangeSupport;
    
-public class GenericObjectsTest 
+public class GenericObjectsTest implements PropertyChangeInterface 
 {
    @Test
    public void testGenericObjectDiagram()
    {
+      //====================================================================================================
       Scenario scenario = new Scenario("test", "GenericObjectDiagram");
       
       scenario.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
@@ -44,7 +50,7 @@ public class GenericObjectsTest
       
       scenario.add("Step 1: We build a generic class model for object structures: ");
 
-      ClassModel model = new ClassModel();
+      ClassModel genericModel = new ClassModel();
       
       Clazz genericObjectClazz = new Clazz("org.sdmlib.models.objects.GenericObject")
       .withAttribute("name", "String")
@@ -70,21 +76,22 @@ public class GenericObjectsTest
       .withSource("tgt", genericObjectClazz, Role.ONE)
       .withTarget("incommingLinks", genericLinkClazz, Role.MANY);
       
-      scenario.addImage(model.dumpClassDiag("GenericObjectStructureClasses"));
+      scenario.addImage(genericModel.dumpClassDiag("GenericObjectStructureClasses"));
       
      
-      model.generate("src", "srchelpers");
+      genericModel.generate("src", "srchelpers");
       
+      //====================================================================================================
       scenario.add("Step 2: We just build our example object structure with generic objects: ");
       
       GenericObject building = new GenericObject()
-      .with("id", "WA73")
+      .with("name", "WA73")
       .withName("WilliAllee")
       .withType("Building");
 
       GenericObject wa13 = new GenericObject()
-      .with("id", "WA13")
-      .with("level", "first floor")
+      .with("name", "WA13")
+      .with("level", "1")
       .withName("seFloor")
       .withType("Floor");
       
@@ -94,8 +101,8 @@ public class GenericObjectsTest
       .withTgtLabel("has");
       
       GenericObject wa03 = new GenericObject()
-      .with("id", "WA03")
-      .with("level", "ground floor")
+      .with("name", "WA03")
+      .with("level", "0")
       .withName("digitalFloor")
       .withType("Floor");
       
@@ -107,29 +114,62 @@ public class GenericObjectsTest
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("go");
       scenario.addObjectDiag(jsonIdMap, building);
 
+      //====================================================================================================
       scenario.add("Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: ");
       
       scenario.addGenericObjectDiag("specificgenericobjectdiag", building);
       
+      //====================================================================================================
       scenario.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
       
-      ClassModel newModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
+      ClassModel learnedModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
       
-      scenario.addImage(newModel.dumpClassDiag("DerivedFromGenericObjectsClassDiag"));
+      scenario.addImage(learnedModel.dumpClassDiag("DerivedFromGenericObjectsClassDiag"));
       
+      //====================================================================================================
       scenario.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
-         IMPLEMENTATION, "zuendorf", "28.05.2012 23:54:42", 0, 1);
+         DONE, "zuendorf", "31.05.2012 13:51:42", 1, 0);
       
+      scenario.markCodeStart();
+      ClassModel model = new ClassModel();
+
+      Clazz buildingClass = new Clazz("de.kassel.roombook.Building")
+      .withAttribute("name", "String");
+
+      Clazz floorClass = new Clazz("de.kassel.roombook.Floor")
+      .withAttribute("level", "int")
+		.withAttribute("name", "String"); // changed attr type to int
+		
+      new Association()
+			.withSource("buildings", buildingClass, Role.ONE) // changed cardinality to ONE
+			.withTarget("has", floorClass, "many");
+
+      learnedModel.insertModelCreationCodeHere("test");
+      scenario.addCode("test");
+      
+      scenario.addImage(model.dumpClassDiag("ManuallyImprovedLearnedClassDiag"));
+      
+      //====================================================================================================
       scenario.add("Step 6: generate code from the learned class diagram ");
+      model.generate("test", "test");
       
+      //====================================================================================================
       scenario.add("Step 7: derive non-generic objects from the generic objects ",
-         IMPLEMENTATION, "zuendorf", "28.05.2012 23:55:42", 0, 2);
+         DONE, "zuendorf", "31.05.2012 15:15:42", 1, 0);
       
+      JsonIdMap createIdMap = de.kassel.roombook.creators.CreatorCreator.createIdMap("gen2spec");
+      
+      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", building);
+      
+      scenario.addObjectDiag(createIdMap, specificBuilding);
+      scenario.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
+         BUG, "zuendorf", "31.05.2012 15:22:42", 0, 0);
       
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();
    }
+   
 
    private static final String MODELING = "modeling";
    private static final String ACTIVE = "active";
@@ -137,6 +177,47 @@ public class GenericObjectsTest
    private static final String IMPLEMENTATION = "implementation";
    private static final String BACKLOG = "backlog";
    private static final String BUG = "bug";
-}
 
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+}
 

@@ -21,13 +21,15 @@
         {"id": "KE.L70"},
         {"id": "KE.L74"},
         {"id": "KE.L77"},
-        {"id": "KE.L80"}
+        {"id": "KE.L80"},
+        {"id": "KE.L84"},
+        {"id": "KE.L87"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":9,
-      "hoursSpend":24,
+      "hoursRemaining":6,
+      "hoursSpend":26,
       "subentries":[
         {"id": "KE.K2"},
         {"id": "KE.K11"},
@@ -57,13 +59,15 @@
         {"id": "KE.L71"},
         {"id": "KE.L75"},
         {"id": "KE.L78"},
-        {"id": "KE.L81"}
+        {"id": "KE.L81"},
+        {"id": "KE.L85"},
+        {"id": "KE.L88"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":9,
-      "hoursSpend":23,
+      "hoursRemaining":6,
+      "hoursSpend":25,
       "parent":{"id": "KE.K1"},
       "subentries":[
         {"id": "KE.K3"},
@@ -264,13 +268,16 @@
         {"id": "KE.L76"},
         {"id": "KE.L79"},
         {"id": "KE.L82"},
-        {"id": "KE.L83"}
+        {"id": "KE.L83"},
+        {"id": "KE.L86"},
+        {"id": "KE.L89"},
+        {"id": "KE.L90"}
       ],
       "name":"GenericObjectDiagram",
-      "phase":"implementation",
+      "phase":"bug",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":3,
-      "hoursSpend":4,
+      "hoursRemaining":0,
+      "hoursSpend":6,
       "parent":{"id": "KE.K2"},
       "files":"test/org/sdmlib/models/objects/GenericObjectsTest.java"
     }
@@ -1175,7 +1182,7 @@
       "date":"28.05.2012 23:51:42",
       "hoursSpend":4,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":3,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id": "KE.K73"},
       "developer":"zuendorf",
       "phase":"done",
@@ -1231,11 +1238,109 @@
       "date":"28.05.2012 23:55:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":3,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id": "KE.K73"},
       "developer":"zuendorf",
       "phase":"implementation",
       "comment":"Achieved: Step 7: derive non-generic objects from the generic objects "
+    }
+  },
+  {
+    "id":"KE.L84",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 13:51:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GenericObjectDiagram: Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
+    }
+  },
+  {
+    "id":"KE.L85",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 13:51:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GenericObjectDiagram: Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
+    }
+  },
+  {
+    "id":"KE.L86",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 13:51:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K73"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
+    }
+  },
+  {
+    "id":"KE.L87",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:15:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GenericObjectDiagram: Achieved: Step 7: derive non-generic objects from the generic objects "
+    }
+  },
+  {
+    "id":"KE.L88",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:15:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GenericObjectDiagram: Achieved: Step 7: derive non-generic objects from the generic objects "
+    }
+  },
+  {
+    "id":"KE.L89",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:15:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K73"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Step 7: derive non-generic objects from the generic objects "
+    }
+  },
+  {
+    "id":"KE.L90",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id": "KE.K73"},
+      "developer":"zuendorf",
+      "phase":"bug",
+      "comment":"Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
     }
   }
 ]

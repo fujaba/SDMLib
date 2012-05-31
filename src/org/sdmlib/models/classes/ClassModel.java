@@ -139,9 +139,22 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				fileBody = new StringBuilder();
 
-				StringBuilder text = new StringBuilder("package packageName;\n" + "\n" + "import org.sdmlib.serialization.json.JsonIdMap;\n" + "\n" + "public class className\n" + "{\n"
-				    + "   public static JsonIdMap createIdMap(String sessionID)\n" + "   {\n" + "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" + "      \n"
-				    + "      return jsonIdMap;\n" + "   }\n" + "}\n");
+				StringBuilder text = 
+				      new StringBuilder(
+				         "package packageName;\n" + 
+				               "\n" + 
+				               "import org.sdmlib.serialization.json.JsonIdMap;\n" +
+				               "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n" + 
+				               "\n" + 
+				               "public class className\n" + 
+				               "{\n" + 
+				               "   public static JsonIdMap createIdMap(String sessionID)\n" + 
+				               "   {\n" + 
+				               "      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
+				               "      \n" + 
+				               "      return jsonIdMap;\n" + 
+				               "   }\n" + 
+				               "}\n");
 
 				CGUtil.replaceAll(text, "className", CGUtil.shortClassName(className), "packageName", packageName);
 
@@ -1416,19 +1429,29 @@ public class ClassModel implements PropertyChangeInterface
 	{
 
 		String sourceInitSequence = findInitSequenceAsString(".withSource", initSequence);
+		sourceInitSequence = cutCardinality(sourceInitSequence);
 
 		String targetInitSequence = findInitSequenceAsString(".withTarget", initSequence);
-
+		targetInitSequence = cutCardinality(targetInitSequence);
+		
 		String sourceSequence = getInitSequenceAsString(".withSource", assoc);
-
+		sourceSequence = cutCardinality(sourceSequence);
+      
 		String targetSequence = getInitSequenceAsString(".withTarget", assoc);
-
+		targetSequence = cutCardinality(targetSequence);
+      
 		if ((sourceInitSequence.equals(sourceSequence) && targetInitSequence.equals(targetSequence))
 		    || (targetInitSequence.equals(sourceSequence) && sourceInitSequence.equals(targetSequence)))
 			return true;
 
 		return false;
 	}
+
+   private String cutCardinality(String sourceInitSequence)
+   {
+      sourceInitSequence = sourceInitSequence.substring(0, sourceInitSequence.lastIndexOf(','));
+      return sourceInitSequence;
+   }
 
 	private String getInitSequenceAsString(String string, Association assoc)
 	{
@@ -1806,7 +1829,9 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				String sequencePartName = sequencePart.get(1).replace("\"", "");
 				String sequencePartType = sequencePart.get(2).replace("\"", "");
-				if (StrUtil.stringEquals(name, sequencePartName) && StrUtil.stringEquals(type, sequencePartType))
+				if (StrUtil.stringEquals(name, sequencePartName)) 
+				   // check only for attr name, user may have changed attr type, do not overwrite this. 
+				   //  && StrUtil.stringEquals(type, sequencePartType))
 					return true;
 			}
 		}
@@ -2040,7 +2065,8 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
             // need to create a new one
             currentAssoc = new Association()
             .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Role.MANY)
-            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Role.MANY);
+            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Role.MANY)
+            .withModel(this);
          }
       }
 
