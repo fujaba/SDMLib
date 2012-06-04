@@ -308,20 +308,11 @@ public class EntityUtil {
 			if (object instanceof Map) {
 				return reference.getNewObject().initWithMap((Map<String,Object>)object);
 			}
-			Package objectPackage = object.getClass().getPackage();
-			String objectPackageName = objectPackage != null
-					? objectPackage.getName()
-							: "";
-					if (
-							objectPackageName.startsWith("java.") ||
-							objectPackageName.startsWith("javax.") ||
-							object.getClass().getClassLoader() == null
-							) {
-						return object.toString();
-					}
-					return null;
-		} catch(Exception exception) {
-			return null;
-		}
+			if (object.getClass().getName().startsWith("java.") || object.getClass().getName().startsWith("javax.")) {
+                return object.toString();
+            }
+        } catch(Exception exception) {
+        }
+        return null; 
 	}
 }
