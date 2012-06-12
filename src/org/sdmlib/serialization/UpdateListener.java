@@ -59,6 +59,8 @@ public class UpdateListener implements PropertyChangeListener{
 	
 	/** The class counts. */
 	private HashSet<String> classCounts;
+	
+	private UpdateFilter updateFilter = new UpdateFilter();
 
 	
 	/**
@@ -78,7 +80,7 @@ public class UpdateListener implements PropertyChangeListener{
 	 * @param root the root
 	 * @return the json object
 	 */
-	public JsonObject startCarbageColection(Object root){
+	public JsonObject startGarbageColection(Object root){
 		garbageCollection=new HashMap<String, Integer>();
 		classCounts=new HashSet<String>();
 		JsonObject initField = map.toJsonObject(root);
@@ -131,7 +133,7 @@ public class UpdateListener implements PropertyChangeListener{
 		// put changes into msg and send to receiver
 		Object source = evt.getSource();
 		String propertyName = evt.getPropertyName();
-		SendableEntityCreator creatorClass =map.getCreatorClass(source);
+		SendableEntityCreator creatorClass = map.getCreatorClass(source);
 		
 		boolean done=false;
 		String gc = null;
@@ -154,7 +156,7 @@ public class UpdateListener implements PropertyChangeListener{
 		Object newValue = evt.getNewValue();
 		
 		if(oldValue!=null){
-			creatorClass=map.getCreatorClass(oldValue);
+			creatorClass = map.getCreatorClass(oldValue);
 			
 			JsonObject child=new JsonObject();
 			if(creatorClass!=null)
@@ -179,13 +181,13 @@ public class UpdateListener implements PropertyChangeListener{
 			{
 				String key = map.getKey(newValue);
 				if(key!=null){
-					JsonObject item=new JsonObject(JsonIdMap.JSON_ID, key);
+					JsonObject item = new JsonObject(JsonIdMap.JSON_ID, key);
 					countMessage(item);
 					child.put(propertyName, item);
 				}else{
-					JsonObject item=map.toJsonObject(newValue);
+					JsonObject item=map.toJsonObject(newValue, updateFilter);
 					countMessage(item);
-					child.put(propertyName, map.toJsonObject(newValue));
+					child.put(propertyName, item);
 					if(suspendIdList!=null){
 						suspendIdList.add(map.getId(newValue));
 					}

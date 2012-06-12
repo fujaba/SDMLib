@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert Zï¿½ndorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -114,6 +114,8 @@ public class ScenarioManager
    public void dumpHTML()
    {
       loadOldKanbanEntries();
+      
+      new File("doc").mkdirs();
       
       dumpKanban();
    }
@@ -280,12 +282,14 @@ public class ScenarioManager
 		} 
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
       if (kanbanBoard == null)
       {
-         kanbanBoard = new KanbanEntry();
+         kanbanBoard = new KanbanEntry()
+         .withName("Project")
+         .withPhase("active");
       }
 
       return kanbanBoard;

@@ -126,7 +126,7 @@ public class GroupAccount implements PropertyChangeInterface
       }
       
       // did all participants buy something? 
-      this.getItems(); 
+      // this.getItems(); 
    }
 
    

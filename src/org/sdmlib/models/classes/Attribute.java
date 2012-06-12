@@ -499,12 +499,18 @@ public class Attribute implements PropertyChangeInterface
          String type = getType();
          if ("int".equals(type))
          {
-            type = "Integer";
+            typePlaceholder = "(type) value";
+            type = "Integer.parseInt(value.toString())";
          }
          else if ("long".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Long.parseLong(value.toString())";
+         }
+         else if ("double".equals(type))
+         {
+            typePlaceholder = "(type) value";
+            type = "Double.parseDouble(value.toString())";
          }
 
          CGUtil.replaceAll(text, 

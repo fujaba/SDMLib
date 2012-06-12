@@ -167,7 +167,7 @@ public class CGUtil
    {
       StringBuilder result = new StringBuilder();
       
-      if ( ! Character.isLetter(text.charAt(0)))
+      if ( text.length() == 0 || ! Character.isLetter(text.charAt(0)))
       {
          result.append('_');
       }

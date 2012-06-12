@@ -357,7 +357,7 @@ public class JsonIdMap extends IdMap{
 	}
 
 	public void setUpdateMsgListener(MapUpdateListener listener){
-		this.updatelistener=listener;
+		this.updatelistener = listener;
 	}
 
 	public boolean sendUpdateMsg(JsonObject jsonObject) {

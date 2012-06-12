@@ -22,7 +22,10 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -2071,6 +2074,131 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
       }
 
       return this;
+   }
+
+   public void removeAllGeneratedCode(String rootDir, String srcDir, String helpersDir)
+   {
+      turnRemoveCallToComment(rootDir);
+      
+      // now remove class file, creator file, and modelset file for each class and the CreatorCreator
+      String packageName = null;
+      for (Clazz clazz : this.getClasses())
+      {
+         try
+         {
+            removeAllCodeForClass(srcDir, helpersDir, clazz);
+         }
+         catch (Exception e)
+         {
+            
+         }
+      }
+   }
+
+   public void turnRemoveCallToComment(String rootDir)
+   {
+      int codeLineNumber = -1;
+      String className = null;
+      
+      // first find the call to this method and make it a comment, to avoid undesired execution on later runs. 
+      try
+      {
+         throw new RuntimeException();
+      }
+      catch (Exception e)
+      {
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement callEntry = stackTrace[2];
+         codeLineNumber  = callEntry.getLineNumber();
+         
+         className = callEntry.getClassName();
+      }
+      
+      // open java file and find code line
+      String fileName = rootDir + "/" + className.replaceAll("\\.", "/") + ".java";
+      File file = new File(fileName);
+      
+      if (file.exists())
+      {
+         try
+         {
+            BufferedReader in = new BufferedReader(new FileReader(file));
+            
+            String line = "";
+            int lineNo = 0;
+            
+            StringBuilder buf = new StringBuilder();
+            
+            while (true)
+            {
+               line = in.readLine();
+               
+               if (line == null) break;
+               
+               lineNo++;
+                  
+               if (lineNo == codeLineNumber)
+               {
+                  int pos = 0;
+                  while (pos < line.length() && Character.isWhitespace(line.charAt(pos)))
+                  {
+                     pos++;
+                  }
+                  
+                  line = line.substring(0, pos) + "// " + line.substring(pos);   
+               }
+               buf.append(line).append('\n');
+            }
+            
+            in.close();
+            
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(buf.toString());
+            fileWriter.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
+   }
+
+   public void removeAllCodeForClass(String srcDir, String helpersDir,
+         Clazz clazz)
+   {
+      String className;
+      String fileName;
+      String packageName;
+      className = clazz.getName();
+      int pos = className.lastIndexOf('.');
+      packageName = className.substring(0, pos);
+      
+      // class file
+      fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
+      deleteFile(fileName);
+      
+      // creator file
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Creator.java";
+      deleteFile(fileName);
+      
+      // modelset file
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Set.java";
+      deleteFile(fileName);
+      
+      // CreatorCreator in that package
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/CreatorCreator.java";
+      deleteFile(fileName);
+   }
+
+   private void deleteFile(String fileName)
+   {
+      File file;
+      file = new File(fileName);
+      
+      if (file.exists())
+      {
+         file.delete();
+      }
    }
 
 

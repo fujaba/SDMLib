@@ -31,6 +31,7 @@ import java.util.HashMap;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 /**
  * The Class IdMap.
@@ -187,6 +188,9 @@ public class IdMap {
 			} else if (object instanceof PropertyChangeSupport) {
 				((PropertyChangeSupport) object).addPropertyChangeListener(
 						IdMap.UPDATE, getListener(IdMap.UPDATE));
+			} else if (object instanceof PropertyChangeInterface)
+			{
+			   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getListener(IdMap.UPDATE));
 			}
 		}
 	}
@@ -349,6 +353,11 @@ public class IdMap {
 		}
 		return newObject;
 	}
+	
+	public void putCreator(String className, SendableEntityCreator creator)
+	{
+	   creators.put(className, creator);
+	}
 
 	/**
 	 * Adds the creator.
@@ -416,7 +425,7 @@ public class IdMap {
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
 		}
-		updateListener.startCarbageColection(root);
+		updateListener.startGarbageColection(root);
 	}
 	
 	/**

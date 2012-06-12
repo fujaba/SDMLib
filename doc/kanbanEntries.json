@@ -23,13 +23,16 @@
         {"id": "KE.L77"},
         {"id": "KE.L80"},
         {"id": "KE.L84"},
-        {"id": "KE.L87"}
+        {"id": "KE.L87"},
+        {"id": "KE.L91"},
+        {"id": "KE.L95"},
+        {"id": "KE.L97"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":6,
-      "hoursSpend":26,
+      "hoursRemaining":8,
+      "hoursSpend":34,
       "subentries":[
         {"id": "KE.K2"},
         {"id": "KE.K11"},
@@ -61,13 +64,16 @@
         {"id": "KE.L78"},
         {"id": "KE.L81"},
         {"id": "KE.L85"},
-        {"id": "KE.L88"}
+        {"id": "KE.L88"},
+        {"id": "KE.L92"},
+        {"id": "KE.L96"},
+        {"id": "KE.L98"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":6,
-      "hoursSpend":25,
+      "hoursRemaining":8,
+      "hoursSpend":33,
       "parent":{"id": "KE.K1"},
       "subentries":[
         {"id": "KE.K3"},
@@ -195,10 +201,15 @@
     "id":"KE.K9",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
+      "logEntries":[
+        {"id": "KE.L93"},
+        {"id": "KE.L94"}
+      ],
       "name":"GroupAccountRuleRecognition",
-      "phase":"backlog",
-      "hoursRemaining":0,
-      "hoursSpend":0,
+      "phase":"modeling",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":2,
+      "hoursSpend":8,
       "parent":{"id": "KE.K2"},
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
@@ -1341,6 +1352,118 @@
       "developer":"zuendorf",
       "phase":"bug",
       "comment":"Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L91",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L92",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L93",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.04.2012 00:26:59",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id": "KE.K9"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
+    }
+  },
+  {
+    "id":"KE.L94",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id": "KE.K9"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
+    }
+  },
+  {
+    "id":"KE.L95",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":10,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L96",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":10,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L97",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L98",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id": "KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GenericObjectDiagram: Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
     }
   }
 ]

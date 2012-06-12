@@ -35,6 +35,12 @@ public class Association implements PropertyChangeInterface
       ClassModel.classModel.addToAssociations(this);
    }
    
+   public Association withSource(Clazz sourceClass, String roleName, String card)
+   {
+      withSource(roleName, sourceClass, card, Role.VANILLA);
+      return this;
+   }
+   
    public Association withSource(String roleName, Clazz sourceClass, String card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
@@ -54,7 +60,12 @@ public class Association implements PropertyChangeInterface
       return this;
    }
 
- 
+   public Association withTarget(Clazz targetClass, String roleName, String card)
+   {
+      withTarget(roleName, targetClass, card, Role.VANILLA);
+      return this;
+   }
+   
    public Association withTarget(String roleName, Clazz targetClass, String card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);

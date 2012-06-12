@@ -1741,5 +1741,12 @@ public class Clazz implements PropertyChangeInterface
       return new Attribute().withName(attrName).withType(attrType).withClazz(this);
       
    }
+
+   public void removeAllGeneratedCode(String testDir, String srcDir,
+         String helpersDir)
+   {
+      getClassModel().turnRemoveCallToComment(testDir);
+      getClassModel().removeAllCodeForClass(srcDir, helpersDir, this);
+   }
 }
 
