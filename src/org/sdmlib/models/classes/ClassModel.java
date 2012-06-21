@@ -60,6 +60,8 @@ public class ClassModel implements PropertyChangeInterface
 
 	private boolean fileHasChanged;
 
+	private String creatorCreatorClassName;
+
 	public void setFileHasChanged(boolean fileHasChanged)
 	{
 		this.fileHasChanged = fileHasChanged;
@@ -72,12 +74,12 @@ public class ClassModel implements PropertyChangeInterface
 
 	public ClassModel generate(String rootDir, String helpersDir)
 	{
+		generateCreatorCreatorClass(helpersDir);
+		
 		for (Clazz clazz : getClasses())
 		{
 			clazz.generate(rootDir, helpersDir);
 		}
-
-		generateCreatorCreatorClass(helpersDir);
 
 		for (Association assoc : getAssociations())
 		{
@@ -110,6 +112,10 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
+	public String getCreatorCreatorClassName() {
+		return creatorCreatorClassName;
+	}
+	   
 	public Parser getOrCreateParser(String rootDir)
 	{
 		if (!getClasses().isEmpty() && parser == null)
@@ -117,15 +123,15 @@ public class ClassModel implements PropertyChangeInterface
 			// try to find existing file
 			Clazz firstClass = getClasses().iterator().next();
 
-			String className = firstClass.getName();
+			creatorCreatorClassName = firstClass.getName();
 
-			int pos = className.lastIndexOf('.');
+			int pos = creatorCreatorClassName.lastIndexOf('.');
 
-			String packageName = className.substring(0, pos) + ".creators";
+			String packageName = creatorCreatorClassName.substring(0, pos) + ".creators";
 
-			className = packageName + ".CreatorCreator";
+			creatorCreatorClassName = packageName + ".CreatorCreator";
 
-			String fileName = className;
+			String fileName = creatorCreatorClassName;
 
 			fileName = fileName.replaceAll("\\.", "/");
 
@@ -159,7 +165,7 @@ public class ClassModel implements PropertyChangeInterface
 				               "   }\n" + 
 				               "}\n");
 
-				CGUtil.replaceAll(text, "className", CGUtil.shortClassName(className), "packageName", packageName);
+				CGUtil.replaceAll(text, "className", CGUtil.shortClassName(creatorCreatorClassName), "packageName", packageName);
 
 				fileBody.append(text.toString());
 
@@ -167,6 +173,7 @@ public class ClassModel implements PropertyChangeInterface
 			}
 
 			parser = new Parser().withFileName(fileName).withFileBody(fileBody);
+
 		}
 
 		return parser;
@@ -371,7 +378,7 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				StringBuilder oneMethodText = new StringBuilder("<tr><td align='left'>methodDecl</td></tr>");
 
-				CGUtil.replaceAll(oneMethodText, "methodDecl", method.getSignature());
+				CGUtil.replaceAll(oneMethodText, "methodDecl", CGUtil.shortClassNameHTMLEncoded(method.getSignature()));
 
 				CGUtil.replaceAll(allMethodsText, "methodRow", oneMethodText.append(" methodRow").toString());
 			}
@@ -546,6 +553,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		// add new assocs with roles,
 		ArrayList<String> memberNames = new ArrayList<String>();
+		//ArrayList<Attribute> assocWithoutPartnerClass = new ArrayList<Attribute>();
 		for (SymTabEntry symTabEntry : attributes.keySet())
 		{
 			String memberName = symTabEntry.getMemberName();
@@ -560,8 +568,10 @@ public class ClassModel implements PropertyChangeInterface
 				Clazz partnerClass = findPartnerClass(partnerTypeName);
 				String setterPrefix = findSetterPrefix(partnerTypeName);
 
-				if (partnerClass == null)
+				if (partnerClass == null) {
+					new Attribute().withName(memberName).withType(partnerTypeName).withClazz(clazz);
 					continue;
+				}
 
 				String name = StrUtil.upFirstChar(memberName);
 
@@ -597,7 +607,7 @@ public class ClassModel implements PropertyChangeInterface
 		for (String memberName : memberNames)
 		{
 			// remove getter with setter or addTo removeFrom removeAllFrom without
-			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom");
+			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom iteratorOf hasIn sizeOf removePropertyChange addPropertyChange");
 		}
 		
 		return clazz;
@@ -723,9 +733,20 @@ public class ClassModel implements PropertyChangeInterface
 						return eClazz;
 					}
 				}
+			}		
+		}
+		String name = clazz.getName();
+		int lastIndex = name.lastIndexOf('.');
+		name = name.substring(0, lastIndex + 1) + signature;
+
+		LinkedHashSet<Clazz> classes = getClasses();
+
+		for (Clazz eClazz : classes) {
+			if (eClazz.getName().equals(name)) {
+				return eClazz;
 			}
 		}
-		
+
 		return null;
   }
 	
@@ -737,7 +758,9 @@ public class ClassModel implements PropertyChangeInterface
 		String signature = split[1];
 
 		// filter internal generated methods
-		String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()";
+		String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()" +
+				" addPropertyChangeListener(PropertyChangeListener) removePropertyChangeListener(PropertyChangeListener)" +
+				" addPropertyChangeListener(String,PropertyChangeListener) removePropertyChangeListener(String,PropertyChangeListener)";
 
 		if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
 		{
@@ -758,34 +781,44 @@ public class ClassModel implements PropertyChangeInterface
 	  return true;
   }
 
-	private ArrayList<File> searchForJavaFiles(String includePathes, String packages, File srcFolder)
+	private ArrayList<File> searchForJavaFiles(String includePathes, String packageString, File srcFolder)
 	{
 		ArrayList<File> javaFiles = new ArrayList<File>();
-		String packagepath = packages.replace('.', '/');
-		String[] includes = includePathes.split("\\s+");
-
-		for (String include : includes)
-		{
-			String newPath = srcFolder.getPath() + "/" + include + "/" + packagepath;
-			javaFiles.addAll(searchForJavaFiles(newPath));
+		String[] packages = packageString.split("\\s+");
+		for (String pAckage :packages) {
+			String packagepath = pAckage.replace('.', '/');
+			String[] includes = includePathes.split("\\s+");
+			for (String include : includes) {
+				String newPath = srcFolder.getPath() + "/" + include + "/" + packagepath;
+				javaFiles.addAll(searchForJavaFiles(newPath));
+			}
 		}
 		return javaFiles;
 	}
 
-	private void addJavaFilesToClasses(String packages, File srcFolder, ArrayList<File> javaFiles)
+	private void addJavaFilesToClasses(String packageString, File srcFolder, ArrayList<File> javaFiles)
 	{
 		for (File file : javaFiles)
 		{
 			String filePath = file.getAbsolutePath();
 			filePath = filePath.replace(srcFolder.getPath(), "");
 			filePath = filePath.replace(File.separatorChar, '.');
-			int indexOfPackage = filePath.lastIndexOf(packages, filePath.length() - 1);
-			filePath = filePath.substring(indexOfPackage, filePath.length() - 5);
+			String[] packages = packageString.split("\\s+"); 
+			addClassToClasses(filePath, packages);	
+		}
+	}
 
-			if (!classExists(filePath))
-			{
-				Clazz clazz = new Clazz(filePath);
-				classes.add(clazz);
+	private void addClassToClasses(String filePath, String[] packages) {
+		for (String pAckage : packages) {
+			if (filePath.contains(pAckage)) {
+				int indexOfPackage = filePath.lastIndexOf(pAckage, filePath.length() - 1);					
+				filePath = filePath.substring(indexOfPackage, filePath.length() - 5);
+				if (!classExists(filePath))
+				{
+					Clazz clazz = new Clazz(filePath);
+					classes.add(clazz);
+				}
+				return;
 			}
 		}
 	}
@@ -1087,6 +1120,7 @@ public class ClassModel implements PropertyChangeInterface
 		String methodName = null;
 
 		String callMethodName = null;
+		int callMethodLineNumber = -1;
 
 		try
 		{
@@ -1104,6 +1138,7 @@ public class ClassModel implements PropertyChangeInterface
 			fileName = secondStackTraceElement.getFileName();
 			className = secondStackTraceElement.getClassName();
 			methodName = secondStackTraceElement.getMethodName();
+			callMethodLineNumber = secondStackTraceElement.getLineNumber();
 		}
 
 		// parse the model creation file
@@ -1111,11 +1146,14 @@ public class ClassModel implements PropertyChangeInterface
 
 		parser = modelCreationClass.getOrCreateParser(rootDir);
 
-		String signature = Parser.METHOD + ":" + methodName + "()";// TODO should work for methods with params, too. Parse to method end and search in symtab.
+		String signature = Parser.METHOD + ":" + methodName + "(";// TODO should work for methods with params, too. Parse to method end and search in symtab.
 
 		rescanCode();
 		
-		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+//		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+		SymTabEntry symTabEntry = parser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
+		
+		signature = parser.getSignatureFor(symTabEntry);
 		
 		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
@@ -1615,7 +1653,6 @@ public class ClassModel implements PropertyChangeInterface
 		for (Method method : methods)
 		{
 			currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
-
 		}
 
 		// insert code for new Assoc
@@ -1631,6 +1668,20 @@ public class ClassModel implements PropertyChangeInterface
 
 		return currentInsertPos;
 	}
+
+//	private boolean isInteralMethod(Method method, LinkedHashSet<Attribute> clazzAttributes) {
+//		for (Attribute attribute : clazzAttributes)
+//		{
+//			String signature = method.getSignature(); 
+//			String methodName = signature.substring(0, signature.indexOf("("));
+//			String attributeName = StrUtil.upFirstChar(attribute.getName());
+//			String result = methodName.replace(attributeName, "");
+//			
+//			System.out.println(attributeName + "  " + result);
+//			
+//		}
+//		return false;
+//	}
 
 	private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
 	{

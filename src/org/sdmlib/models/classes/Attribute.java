@@ -290,8 +290,8 @@ public class Attribute implements PropertyChangeInterface
  		
  		int pos = parser.indexOf(Parser.METHOD + ":get" + StrUtil.upFirstChar(getName())+ "()");
 
-    // TODO : FIX ME
-    String string = Parser.METHOD + ":get" + StrUtil.upFirstChar(getName()) + "()";     
+ 		// TODO : FIX ME
+ 		String string = Parser.METHOD + ":get" + StrUtil.upFirstChar(getName()) + "()";     
 		SymTabEntry symTabEntry = parser.getSymTab().get(string);
     
     if (pos < 0 && symTabEntry == null)
@@ -361,62 +361,27 @@ public class Attribute implements PropertyChangeInterface
    
    private void insertAttrDeclPlusAccessors(Parser parser)
    {
-      int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName());
+//	   int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName()); //remove
 
       // TODO : FIX ME
+	  parser.indexOf(Parser.CLASS_END);
       String string = Parser.ATTRIBUTE+":PROPERTY_" + getName().toUpperCase();      
-			SymTabEntry symTabEntry = parser.getSymTab().get(string);
+      SymTabEntry symTabEntry = parser.getSymTab().get(string);
       
-      if (pos < 0 && symTabEntry == null)
+      if (symTabEntry == null)
       {
          // add attribute declaration and get, set, with methods in class file
-         StringBuilder  text = null;
+         StringBuilder text = null;
          
-         if(clazz.isInterfaze())
-        	 text = new StringBuilder
-           (  "\n   " +
-              "\n   //==========================================================================" +
-              "\n   " +
-              "\n   public static final String PROPERTY_NAME = \"name\";" +
-              "\n   " +
-              "\n   public type getName();" +
-              "\n   " +
-              "\n   public void setName(type value);" +
-              "\n   " +
-              "\n   public ownerClass withName(type value);" +
-              "\n"
-              );
-         else
-        	 text = new StringBuilder
-            (  "\n   " +
-               "\n   //==========================================================================" +
-               "\n   " +
-               "\n   public static final String PROPERTY_NAME = \"name\";" +
-               "\n   " +
-               "\n   private type name init;" +
-               "\n   " +
-               "\n   public type getName()" +
-               "\n   {" +
-               "\n      return this.name;" +
-               "\n   }" +
-               "\n   " +
-               "\n   public void setName(type value)" +
-               "\n   {" +
-               "\n      if (valueCompare)" +
-               "\n      {" +
-               "\n         type oldValue = this.name;" +
-               "\n         this.name = value;" +
-               "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
-               "\n      }" +
-               "\n   }" +
-               "\n   " +
-               "\n   public ownerClass withName(type value)" +
-               "\n   {" +
-               "\n      setName(value);" +
-               "\n      return this;" +
-               "\n   } " +
-               "\n"
-               );
+         if(clazz.isInterfaze()) {    	 
+        	 text = insertPropertyInInterface(parser); 	 
+         }
+         else {
+        	 text = insertPropertyInClass(parser);
+         }
+         
+         if (text == null)
+        	 return;
          
          String valueCompare = "this.name != value";
          
@@ -443,14 +408,111 @@ public class Attribute implements PropertyChangeInterface
                "ownerClass", CGUtil.shortClassName(this.getClazz().getName())
                );
          
-         pos = parser.indexOf(Parser.CLASS_END);
+         int pos = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(pos, text.toString());
          getClazz().setFileHasChanged(true);
       }
    }
 
-   private void insertCaseInGenericGetSet(Parser parser)
+private StringBuilder insertPropertyInClass(Parser parser) {
+	StringBuilder text;
+	text = new StringBuilder
+	(  "\n   " +
+	   "\n   //==========================================================================" +
+	   "\n   " +
+	   "\n   public static final String PROPERTY_NAME = \"name\";" +
+	   "\n   " 
+//               "\n   private type name init;" +
+//               "\n   " +
+//               "\n   public type getName()" +
+//               "\n   {" +
+//               "\n      return this.name;" +
+//               "\n   }" +
+//               "\n   " +
+//               "\n   public void setName(type value)" +
+//               "\n   {" +
+//               "\n      if (valueCompare)" +
+//               "\n      {" +
+//               "\n         type oldValue = this.name;" +
+//               "\n         this.name = value;" +
+//               "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
+//               "\n      }" +
+//               "\n   }" +
+//               "\n   " +
+//               "\n   public ownerClass withName(type value)" +
+//               "\n   {" +
+//               "\n      setName(value);" +
+//               "\n      return this;" +
+//               "\n   } " +
+//               "\n"
+	   );
+	 if (!entryExist(Parser.ATTRIBUTE+":" + getName(), parser))
+		 text.append("\n   private type name init;\n");
+	 
+	 if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public type getName()" +
+	               "\n   {" +
+	               "\n      return this.name;" +
+	               "\n   }" +
+	               "\n   ");
+	 
+	 if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public void setName(type value)" +
+	               "\n   {" +
+	               "\n      if (valueCompare)" +
+	               "\n      {" +
+	               "\n         type oldValue = this.name;" +
+	               "\n         this.name = value;" +
+	               "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
+	               "\n      }" +
+	               "\n   }" +
+	               "\n   ");
+	 
+	 if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public ownerClass withName(type value)" +
+	               "\n   {" +
+	               "\n      setName(value);" +
+	               "\n      return this;" +
+	               "\n   } " +
+	               "\n");
+	return text;
+}
+
+private StringBuilder insertPropertyInInterface(Parser parser) {
+	StringBuilder text;
+	text = new StringBuilder
+         (  "\n   " +
+	  "\n   //==========================================================================" +
+	  "\n   " +
+	  "\n   public static final String PROPERTY_NAME = \"name\";" +
+	  "\n   " 
+//              "\n   public type getName();" +
+//              "\n   " +
+//              "\n   public void setName(type value);" +
+//              "\n   " +
+//              "\n   public ownerClass withName(type value);" +
+//              "\n"
+	  );
+
+	 if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public type getName();\n");
+	 
+	 if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public void setName(type value);\n");
+	 
+	 if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(getName())+ "()", parser))
+		 text.append("\n   public ownerClass withName(type value);\n");
+	return text;
+}
+
+   private boolean entryExist(String string, Parser parser) {
+	   if (parser.indexOf(string) > -1)
+		   return true;
+	return false;
+}
+
+private void insertCaseInGenericGetSet(Parser parser)
    {
       insertCaseInGenericGet(parser);
       insertCaseInGenericSet(parser);

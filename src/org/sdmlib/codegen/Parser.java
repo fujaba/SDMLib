@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 import org.sdmlib.utils.StrUtil;
 
 public class Parser
@@ -392,7 +394,15 @@ public class Parser
       if (currentRealTokenEquals(CLASS))
       {
          // parse nested class
-         throw new NotYetConnectedException();
+         // throw new RuntimeException("class "  + className + " has nested class. " + " Can't parse it.");
+         System.err.println("class "  + fileName + " has nested class in line " + getLineIndexOf(currentRealToken.startPos) + "  Can't parse it. Skip it.");
+         while (!currentRealTokenEquals("{")) {
+        	 nextRealToken();
+         }
+         skipBody();
+         if (currentRealTokenEquals("}")) 
+        	 return;
+         modifiers = parseModifiers();
       }
       
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
@@ -454,6 +464,11 @@ public class Parser
             String params = parseFormalParamList();
 
             methodBodyStartPos = currentRealToken.startPos;
+            // skip throws
+            if (currentRealTokenEquals("throws")) 
+            {
+            	skipTo('{');
+            }
             
             if (currentRealKindEquals('{'))
             {
@@ -477,9 +492,29 @@ public class Parser
                );
 
             checkSearchStringFound(methodSignature, startPos);
+            //System.out.println(className + " :  " +  methodSignature);
             }
       }
    }
+
+private void skipTo(char c) {
+	while (!currentRealKindEquals('{') && ! currentRealKindEquals(EOF)) {
+		nextRealToken();
+	}
+}
+
+private void skipBody() {
+	int index = 1;
+	 nextRealToken();
+	 while (index > 0 && ! currentRealKindEquals(EOF)) {
+		 nextRealToken();
+		 if (currentRealTokenEquals("{"))
+			 index++;
+		 else if (currentRealTokenEquals("}"))
+			 index--;
+	 }   
+	 nextRealToken();
+}
 
    private void verbose(String string)
    {
@@ -578,6 +613,18 @@ public class Parser
          skip(".");
       }
       
+      if ("extends".equals(lookAheadRealToken.text.toString()) )
+      {
+    	  typeString.append(currentRealToken.text);
+    	  nextRealToken();
+    	  typeString.append(currentRealToken.text);
+    	  nextRealToken();
+    	  typeString.append(currentRealToken.text);
+    	  nextRealToken();
+    	  typeString.append(currentRealToken.text);
+    	  
+      }
+      
       // phew
       return typeString.toString();
    }
@@ -651,7 +698,13 @@ public class Parser
       int startPos = currentRealToken.startPos;
       nextRealToken();
       
+      String modifier = parseModifiers();
+      
+     // if (!modifier.isEmpty())
+     //  System.out.println("static import");
+      
       String importName = parseQualifiedName();
+      
       if (currentRealToken.kind == '*')
       {
          skip("*");
@@ -659,6 +712,7 @@ public class Parser
       
       symTab.put(IMPORT + ":" + importName, 
          new SymTabEntry().withMemberName(importName)
+         .withModifiers(modifier)
          .withStartPos(startPos)
          .withEndPos(previousRealToken.endPos));
       
@@ -1614,5 +1668,36 @@ public class Parser
 		if ( symTabEntry.getMemberName().startsWith(METHOD+":") )
 			indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() +1, symTabEntry.getEndPos() -1); 
   }
+
+	public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature) {
+		ArrayList<SymTabEntry> entries = new ArrayList<SymTabEntry>();
+		Set<String> keySet = symTab.keySet();
+		for (String key : keySet) {
+			if (key.contains(signature))
+				entries.add(symTab.get(key));
+		}
+		return entries;
+	}
+
+	public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
+		ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);
+		for (SymTabEntry symTabEntry : symTabEntries) {
+			long lineIndexOfStart = getLineIndexOf(symTabEntry.getStartPos());
+			long lineIndexOfEnd = getLineIndexOf(symTabEntry.getEndPos());
+			if ( lineIndexOfStart <= callMethodLineNumber && lineIndexOfEnd >= callMethodLineNumber) {
+				return symTabEntry;
+			}
+		}
+		return null;
+	}
+
+	public String getSignatureFor(SymTabEntry symTabEntry) {	
+		Set<String> keySet = symTab.keySet();
+		for (String key : keySet) {
+			if (symTab.get(key) == symTabEntry)
+				return key;
+		}
+		return "";
+	}
 }
 

@@ -324,12 +324,13 @@ public class Clazz implements PropertyChangeInterface
       {
          // add property change implementation
          pos = parser.indexOf(Parser.CLASS_END);
+         //System.out.println(parser.getLineIndexOf(pos));
          
          StringBuilder text = new StringBuilder
             (  "\n   " +
                "\n   //==========================================================================" +
                "\n   " +
-               "\n   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
+               "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
                "\n   " +
                "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
                "\n   {" +
@@ -739,6 +740,7 @@ public class Clazz implements PropertyChangeInterface
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                   "\n" +
+                  "import CreatorCreatorClass;\n" + 
                   "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" +
                   "import org.sdmlib.serialization.json.JsonIdMap;\n" +
                   "import fullEntityClassName;\n" +
@@ -774,7 +776,9 @@ public class Clazz implements PropertyChangeInterface
                   "      return CreatorCreator.createIdMap(sessionID);\n" +
                   "   }\n" +
                   "}\n");
-            
+			 
+			CGUtil.replaceAll(text, "CreatorCreatorClass", classModel.getCreatorCreatorClassName());
+			 
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
@@ -1409,6 +1413,7 @@ public class Clazz implements PropertyChangeInterface
          ccParser.getFileBody().insert(lastReturnPos, text.toString());
          getClassModel().setFileHasChanged(true);
       }
+
    }
 
    
