@@ -171,7 +171,7 @@ public class Attribute implements PropertyChangeInterface
 	      clazz.printCreatorFile(doGenerate);
 
 	      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
-	      insertGetterInModelSetClass(modelSetParser);
+	      insertGetterInModelSetClass(modelSetParser, clazz);
 	      getClazz().printModelSetFile(doGenerate);
       }
       return this;
@@ -237,7 +237,7 @@ public class Attribute implements PropertyChangeInterface
       }
    }
 
-   private void insertGetterInModelSetClass(Parser parser)
+   private void insertGetterInModelSetClass(Parser parser, Clazz ownerClazz)
    {
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(this.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -272,16 +272,18 @@ public class Attribute implements PropertyChangeInterface
          }
          
          CGUtil.replaceAll(text, 
-            "ContentType", CGUtil.shortClassName(getClazz().getName()),
+            "ContentType", CGUtil.shortClassName(ownerClazz.getName()),
             "ModelSetType", modelSetType,
             "Name", StrUtil.upFirstChar(getName())
             );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setModelSetFileHasChanged(true);
+//         getClazz()
+         ownerClazz.setModelSetFileHasChanged(true);
          
-         getClazz().insertImport(parser, fullModelSetType);
+//         getClazz()
+         ownerClazz.insertImport(parser, fullModelSetType);
       }
    }
 

@@ -1328,7 +1328,7 @@ public class ClassModel implements PropertyChangeInterface
 		
 		for (Attribute attribute : clazzAttributes)
 		{
-			if (!hasAttribute(attribute, entry))
+			if (!hasAttribute(attribute, entry) && !"PropertyChangeSupport".equals(attribute.getType()))
 			{
 				writeToFile(modelCreationClass);
 				// find insert position
@@ -1643,8 +1643,12 @@ public class ClassModel implements PropertyChangeInterface
 		LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
 		for (Attribute attribute : clazzAttributes)
 		{
-			currentInsertPos = insertCreationAttributeCode(attribute, currentInsertPos, modelCreationClass, symTabEntry);
-			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
+			if ( !"PropertyChangeSupport".equals(attribute.getType())) {
+				currentInsertPos = insertCreationAttributeCode(attribute,
+						currentInsertPos, modelCreationClass, symTabEntry);
+				currentInsertPos = insertCreationCode("\n", currentInsertPos,
+						modelCreationClass);
+			}
 		}
 		currentInsertPos = 1 + insertCreationCode(";", currentInsertPos - 1, modelCreationClass);
 

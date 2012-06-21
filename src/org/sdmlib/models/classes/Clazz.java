@@ -179,6 +179,8 @@ public class Clazz implements PropertyChangeInterface
 
 	private void generateAttributes(String rootDir, String helpersDir) {
 		for (Attribute attr : this.getAttributes()) {
+			if ("PropertyChangeSupport".equals(attr.getType()))
+			  continue;
 			attr.generate(rootDir, helpersDir, false);
 		}
 		if (superClass != null) {
@@ -190,6 +192,8 @@ public class Clazz implements PropertyChangeInterface
 			String helpersDir) {
 
 		for (Attribute attr : superClazz.getAttributes()) {
+			if ("PropertyChangeSupport".equals(attr.getType()))
+				 continue;
 			attr.generate(this, rootDir, helpersDir, false);
 		}
 		if (superClazz.getSuperClass() != null) {
