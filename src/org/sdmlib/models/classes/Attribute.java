@@ -166,7 +166,7 @@ public class Attribute implements PropertyChangeInterface
       {
 	      Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
 	      
-	      insertPropertyInCreatorClass(creatorParser);
+	      insertPropertyInCreatorClass(creatorParser, clazz );
 	      
 	      clazz.printCreatorFile(doGenerate);
 
@@ -176,9 +176,10 @@ public class Attribute implements PropertyChangeInterface
       }
       return this;
    }
+   
    public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
    {
-  	 insertPropertyInCreatorClass(creatorParser);
+  	 insertPropertyInCreatorClass(creatorParser, getClazz());
   	 
      int pos = creatorParser.indexOf(Parser.IMPORT);
 
@@ -198,7 +199,7 @@ public class Attribute implements PropertyChangeInterface
      }  	 
    }
    
-   private void insertPropertyInCreatorClass(Parser parser)
+   private void insertPropertyInCreatorClass(Parser parser, Clazz ownerClazz)
    {
       String key = Parser.ATTRIBUTE + ":properties";
       int pos = parser.indexOf(key);
@@ -227,7 +228,7 @@ public class Attribute implements PropertyChangeInterface
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          CGUtil.replaceAll(text, 
-            "className", CGUtil.shortClassName(getClazz().getName()),
+            "className", CGUtil.shortClassName(ownerClazz.getName()),
             "PROPERTY_NAME", "PROPERTY_" + getName().toUpperCase()
             );
 

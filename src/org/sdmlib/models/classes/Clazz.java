@@ -159,11 +159,8 @@ public class Clazz implements PropertyChangeInterface
       	method.generate(rootDir, helpersDir, false);
       }
       
-			for (Attribute attr : this.getAttributes())
-      {
-         attr.generate(rootDir, helpersDir, false);
-      }
-			
+	  generateAttributes(rootDir, helpersDir);
+	  
       printFile(isFileHasChanged());
       
       if ( !isInterfaze() )
@@ -179,6 +176,27 @@ public class Clazz implements PropertyChangeInterface
       
       return this;
    }
+
+	private void generateAttributes(String rootDir, String helpersDir) {
+		for (Attribute attr : this.getAttributes()) {
+			attr.generate(rootDir, helpersDir, false);
+		}
+		if (superClass != null) {
+			gernerateSuperAttributes(superClass, rootDir, helpersDir);
+		}
+	}
+
+	private void gernerateSuperAttributes(Clazz superClazz, String rootDir,
+			String helpersDir) {
+
+		for (Attribute attr : superClazz.getAttributes()) {
+			attr.generate(this, rootDir, helpersDir, false);
+		}
+		if (superClazz.getSuperClass() != null) {
+			gernerateSuperAttributes(superClazz.getSuperClass(), rootDir,
+					helpersDir);
+		}
+	}
 
   private void insertInterfaceAttributesInCreatorClass(Clazz clazz, String rootDir, String helpersDir)
   {
