@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 
 /**
@@ -210,14 +211,6 @@ public abstract class EntityList extends BaseEntity{
 		return sb.toString();
 	}
 
-	/**
-	 * Get the number of elements in the EntityList, included nulls.
-	 * 
-	 * @return The length (or size).
-	 */
-	public int length() {
-		return getElements().size();
-	}
 
 	/**
 	 * Append a boolean value. This increases the array's length by one.
@@ -361,10 +354,10 @@ public abstract class EntityList extends BaseEntity{
 		if (index < 0) {
 			throw new RuntimeException("EntityList[" + index + "] not found.");
 		}
-		if (index < length()) {
+		if (index < size()) {
 			getElements().set(index, value);
 		} else {
-			while (index != length()) {
+			while (index != size()) {
 				put(null);
 			}
 			put(value);
@@ -404,4 +397,99 @@ public abstract class EntityList extends BaseEntity{
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
 	public abstract String toString();
+	
+
+	/**
+	 * Get the number of elements in the EntityList, included nulls.
+	 * 
+	 * @return The length (or size).
+	 */
+	public int size() {
+		return getElements().size();
+	}
+
+	/**
+	 * If the JsonArray is Empty
+	 * 
+	 * @return boolean of size
+	 */
+	public boolean isEmpty() {
+		return getElements().size()<1;
+	}
+
+	public boolean contains(Object o) {
+		return getElements().contains(o);
+	}
+
+	public Iterator<Object> iterator() {
+		return getElements().iterator();
+	}
+
+	public Object[] toArray() {
+		return getElements().toArray();
+	}
+
+	public <T> T[] toArray(T[] a) {
+		return getElements().toArray(a);
+	}
+
+	public boolean add(Object e) {
+		return getElements().add(e);
+	}
+
+	public boolean remove(Object o) {
+		return getElements().remove(o);
+	}
+
+	public boolean containsAll(Collection<?> c) {
+		return getElements().containsAll(c);
+	}
+
+	public boolean addAll(Collection<? extends Object> c) {
+		return getElements().addAll(c);
+	}
+
+	public boolean addAll(int index, Collection<? extends Object> c) {
+		return getElements().addAll(index, c);
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		return getElements().removeAll(c);
+	}
+
+	public boolean retainAll(Collection<?> c) {
+		return retainAll(c);
+	}
+
+	public void clear() {
+		getElements().clear();
+	}
+
+	public Object set(int index, Object element) {
+		return getElements().set(index, element);
+	}
+
+	public void add(int index, Object element) {
+		getElements().add(index, element);
+	}
+
+	public int indexOf(Object o) {
+		return getElements().indexOf(o);
+	}
+
+	public int lastIndexOf(Object o) {
+		return getElements().lastIndexOf(o);
+	}
+
+	public ListIterator<Object> listIterator() {
+		return getElements().listIterator();
+	}
+
+	public ListIterator<Object> listIterator(int index) {
+		return getElements().listIterator(index);
+	}
+
+	public List<Object> subList(int fromIndex, int toIndex) {
+		return getElements().subList(fromIndex, toIndex);
+	}
 }

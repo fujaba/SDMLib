@@ -43,25 +43,33 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class JsonIdMap.
  */
 public class JsonIdMap extends IdMap{
-	
 	/** The Constant CLASS. */
 	public static final String CLASS = "class";
-	
+
+	/** The Constant VALUE. */
+	public static final String VALUE = "value";
+
 	/** The Constant JSON_ID. */
 	public static final String JSON_ID = "id";
-	
+
 	/** The Constant JSON_PROPS. */
 	public static final String JSON_PROPS = "prop";
-	
+
 	/** The Constant REF_SUFFIX. */
 	public static final String REF_SUFFIX = "_ref";
-	
+
+	/** The Constant REF_SUFFIX. */
+	public static final String NOT_SUFFIX = "_not";
+
 	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
-	
+
 	/** The updatelistener. */
 	private MapUpdateListener updatelistener;
 
+	
+	/** If this is true the IdMap save the Typ of primary datatypes. */
+	private boolean typSave;
 	/**
 	 * Instantiates a new json id map.
 	 */
@@ -70,21 +78,34 @@ public class JsonIdMap extends IdMap{
 		this.addCreator(new DateCreator());
 	}
 
+	/**
+	 * To json object.
+	 *
+	 * @param object the object
+	 * @return the json object
+	 */
 	public JsonObject toJsonObject(Object object) {
-		return toJsonObject(object,  new JsonFilter());
+		return toJsonObject(object, new JsonFilter());
 	}
 
+	/**
+	 * To json object.
+	 *
+	 * @param entity the entity
+	 * @param filter the filter
+	 * @return the json object
+	 */
 	public JsonObject toJsonObject(Object entity, JsonFilter filter) {
-		String id="";
+		String id = "";
 		String className = entity.getClass().getName();
 
 		SendableEntityCreator prototyp = getCreatorClasses(className);
-		if(prototyp==null){
+		if (prototyp == null) {
 			return null;
 		}
-		
-		if(!(prototyp instanceof NoIndexCreator)){
-			id=getId(entity);	
+
+		if (!(prototyp instanceof NoIndexCreator)) {
+			id = getId(entity);
 		}
 		JsonObject jsonProp = new JsonObject();
 
@@ -93,95 +114,134 @@ public class JsonIdMap extends IdMap{
 		Object referenceObject = prototyp.getSendableInstance(true);
 		if (properties != null) {
 			for (String property : properties) {
-				if(jsonProp.has(property)){
-					throw new RuntimeException("Property duplicate:"+property+"("+className+")");
+				if (jsonProp.has(property)) {
+					throw new RuntimeException("Property duplicate:" + property
+							+ "(" + className + ")");
 				}
 				Object value = prototyp.getValue(entity, property);
 				if (value != null) {
-					boolean encoding=isSimpleCheck();
-					if(!encoding){
+					boolean encoding = isSimpleCheck();
+					if (!encoding) {
 						Object refValue = prototyp.getValue(referenceObject,
 								property);
-						encoding=!value.equals(refValue);
+						encoding = !value.equals(refValue);
 					}
-					if(encoding){
-						boolean aggregation = filter.isConvertable(this, entity, property, value);
+					if (encoding) {
+						if(property.endsWith(NOT_SUFFIX)){
+							continue;
+						}
+						boolean aggregation = filter.isConvertable(this,
+								entity, property, value);
+						
 						if (value instanceof Collection<?>) {
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
-								if(containee!=null){
-									subValues.put(parseObject(containee, aggregation, filter, null));
+								if (containee != null) {
+									subValues.put(parseObject(containee,
+											aggregation, filter, null));
 								}
 							}
 							jsonProp.put(property, subValues);
 						} else {
-							jsonProp.put(property, parseObject(value, aggregation, filter, null));
+							jsonProp.put(
+									property,
+									parseObject(value, aggregation, filter,
+											null));
 						}
 					}
 				}
 			}
 		}
 		JsonObject jsonObject = new JsonObject();
-		if(prototyp instanceof NoIndexCreator){
+		if (prototyp instanceof NoIndexCreator) {
 			Iterator<String> keys = jsonProp.keys();
-			while(keys.hasNext()){
-				String key=keys.next();
+			while (keys.hasNext()) {
+				String key = keys.next();
 				jsonObject.put(key, jsonProp.get(key));
 			}
 			jsonObject.put(CLASS, className);
-		}else{
-			if (isId) {
+		} else {
+			if (isId&&filter.isId()) {
 				jsonObject.put(JSON_ID, id);
 			}
 			jsonObject.put(CLASS, className);
-	
+
 			if (jsonProp.length() > 0) {
 				jsonObject.put(JSON_PROPS, jsonProp);
 			}
 		}
 		return jsonObject;
 	}
-	
+
+	/**
+	 * Read json.
+	 *
+	 * @param jsonArray the json array
+	 * @return the object
+	 */
 	public Object readJson(JsonArray jsonArray) {
 		Object result = null;
-		int len = jsonArray.length() - 1;
+		int len = jsonArray.size() - 1;
 		// Add all Objects
-		LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
+		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
 		for (int i = 0; i <= len; i++) {
 			JsonObject kidObject = jsonArray.getJSONObject(i);
 			Object tmp = readJson(kidObject, refs);
-			if(kidObject.has(MAINITEM)){
+			if (kidObject.has(MAINITEM)) {
 				result = tmp;
-			}else if(i == 0) {
+			} else if (i == 0) {
 				result = tmp;
 			}
 		}
-		for(ReferenceObject ref : refs){
+		for (ReferenceObject ref : refs) {
 			ref.execute();
 		}
 		return result;
 	}
 
+	/**
+	 * Read json.
+	 *
+	 * @param jsonObject the json object
+	 * @return the object
+	 */
 	public Object readJson(JsonObject jsonObject) {
-		LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
-		Object mainItem=readJson(jsonObject, refs);
-		for(ReferenceObject ref : refs){
+		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
+		Object mainItem = readJson(jsonObject, refs);
+		for (ReferenceObject ref : refs) {
 			ref.execute();
 		}
 		return mainItem;
 	}
-	public Object readJson(Object target, JsonObject jsonObject){
-		LinkedHashSet<ReferenceObject> refs=new LinkedHashSet<ReferenceObject>();
-		Object mainItem=readJson(target, jsonObject, refs);
-		for(ReferenceObject ref : refs){
+
+	/**
+	 * Read json.
+	 *
+	 * @param target the target
+	 * @param jsonObject the json object
+	 * @return the object
+	 */
+	public Object readJson(Object target, JsonObject jsonObject) {
+		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
+		Object mainItem = readJson(target, jsonObject, refs);
+		for (ReferenceObject ref : refs) {
 			ref.execute();
 		}
 		return mainItem;
 	}
-	private Object readJson(JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
+
+	/**
+	 * Read json.
+	 *
+	 * @param jsonObject the json object
+	 * @param refs the refs
+	 * @return the object
+	 */
+	private Object readJson(JsonObject jsonObject,
+			LinkedHashSet<ReferenceObject> refs) {
 		Object result = null;
 		Object className = jsonObject.get(CLASS);
-	
+
 		SendableEntityCreator typeInfo = getCreatorClasses((String) className);
 
 		if (typeInfo != null) {
@@ -200,7 +260,16 @@ public class JsonIdMap extends IdMap{
 		return result;
 	}
 
-	protected Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
+	/**
+	 * Read json.
+	 *
+	 * @param target the target
+	 * @param jsonObject the json object
+	 * @param refs the refs
+	 * @return the object
+	 */
+	protected Object readJson(Object target, JsonObject jsonObject,
+			LinkedHashSet<ReferenceObject> refs) {
 		// JSONArray jsonArray;
 		if (isId) {
 			String jsonId = (String) jsonObject.get(JSON_ID);
@@ -225,51 +294,77 @@ public class JsonIdMap extends IdMap{
 		return target;
 	}
 
+	/**
+	 * Parses the value.
+	 *
+	 * @param target the target
+	 * @param property the property
+	 * @param value the value
+	 * @param creator the creator
+	 * @param refs the refs
+	 */
 	protected void parseValue(Object target, String property, Object value,
 			SendableEntityCreator creator, LinkedHashSet<ReferenceObject> refs) {
 		if (value != null) {
 			if (value instanceof JsonArray) {
 				JsonArray jsonArray = (JsonArray) value;
-				for (int i = 0; i < jsonArray.length(); i++) {
+				for (int i = 0; i < jsonArray.size(); i++) {
 					Object kid = jsonArray.get(i);
 					if (kid instanceof JsonObject) {
 						// got a new kid, create it
-						JsonObject child=(JsonObject) kid;
+						JsonObject child = (JsonObject) kid;
 						String className = (String) child.get(CLASS);
 						String jsonId = (String) child.get(JSON_ID);
-						if (className == null&&jsonId!=null) {
+						if (className == null && jsonId != null) {
 							// It is a Ref
-							refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-						}else{
-							creator.setValue(target, property, readJson((JsonObject) kid));
+							refs.add(new ReferenceObject(jsonId, creator,
+									property, this, target));
+						} else {
+							creator.setValue(target, property,
+									readJson((JsonObject) kid));
 						}
-					}else{
+					} else {
 						creator.setValue(target, property, kid);
 					}
 				}
 			} else {
 				if (value instanceof JsonObject) {
-//					// got a new kid, create it
-					JsonObject child=(JsonObject) value;
+					// // got a new kid, create it
+					JsonObject child = (JsonObject) value;
 					String className = (String) child.get(CLASS);
 					String jsonId = (String) child.get(JSON_ID);
-					if (className == null&&jsonId!=null) {
+					if (className == null && jsonId != null) {
 						// It is a Ref
-						refs.add(new ReferenceObject(jsonId, creator, property, this, target));
-					}else{
-						creator.setValue(target, property, readJson((JsonObject) value));
+						refs.add(new ReferenceObject(jsonId, creator, property,
+								this, target));
+					} else {
+						creator.setValue(target, property,
+								readJson((JsonObject) value));
 					}
-				}else{
+				} else {
 					creator.setValue(target, property, value);
 				}
 			}
 		}
 	}
 
+	/**
+	 * To json array.
+	 *
+	 * @param object the object
+	 * @return the json array
+	 */
 	public JsonArray toJsonArray(Object object) {
 		return toJsonArray(object, null);
 	}
 
+	/**
+	 * To json array.
+	 *
+	 * @param object the object
+	 * @param filter the filter
+	 * @return the json array
+	 */
 	public JsonArray toJsonArray(Object object, JsonFilter filter) {
 		JsonArray jsonArray = new JsonArray();
 		if (filter == null) {
@@ -279,29 +374,43 @@ public class JsonIdMap extends IdMap{
 		return jsonArray;
 	}
 
+	/**
+	 * To json sorted array.
+	 *
+	 * @param object the object
+	 * @param property the property
+	 * @return the json array
+	 */
 	public JsonArray toJsonSortedArray(Object object, String property) {
 		JsonSortedArray jsonArray = new JsonSortedArray();
 		jsonArray.setSortProp(property);
 		toJsonArray(object, jsonArray, new JsonFilter());
 		return jsonArray;
 	}
-	
-	
-	public JsonArray toJsonArray(Object entity, JsonArray jsonArray, 
+
+	/**
+	 * To json array.
+	 *
+	 * @param entity the entity
+	 * @param jsonArray the json array
+	 * @param filter the filter
+	 * @return the json array
+	 */
+	public JsonArray toJsonArray(Object entity, JsonArray jsonArray,
 			JsonFilter filter) {
 		String className = entity.getClass().getName();
-		String id=getId(entity);
+		String id = getId(entity);
 
 		JsonObject jsonObject = new JsonObject();
-		if (isId) {
+		if (isId&&filter.isId()) {
 			jsonObject.put(JSON_ID, id);
 		}
 		jsonObject.put(CLASS, className);
 		jsonArray.put(jsonObject);
 
 		SendableEntityCreator prototyp = getCreatorClasses(className);
-		if(prototyp==null){
-			throw new RuntimeException("No Creator exist for "+className);
+		if (prototyp == null) {
+			throw new RuntimeException("No Creator exist for " + className);
 		}
 		String[] properties = prototyp.getProperties();
 		filter.addObject(id);
@@ -311,20 +420,25 @@ public class JsonIdMap extends IdMap{
 			for (String property : properties) {
 				Object value = prototyp.getValue(entity, property);
 				if (value != null) {
-					boolean aggregation = filter.isConvertable(this, entity, property, value);
+					boolean aggregation = filter.isConvertable(this, entity,
+							property, value);
 					if (value instanceof Collection) {
 						Collection<?> list = ((Collection<?>) value);
 						if (list.size() > 0) {
 							JsonArray refArray = new JsonArray();
 							for (Object containee : list) {
 								if (containee != null) {
-									refArray.put(parseObject(containee, aggregation, filter, jsonArray));
+									refArray.put(parseObject(containee,
+											aggregation, filter, jsonArray));
 								}
 							}
 							jsonProps.put(property, refArray);
 						}
 					} else {
-						jsonProps.put(property, parseObject(value, aggregation, filter, jsonArray));
+						jsonProps.put(
+								property,
+								parseObject(value, aggregation, filter,
+										jsonArray));
 					}
 				}
 			}
@@ -335,14 +449,25 @@ public class JsonIdMap extends IdMap{
 		return jsonArray;
 	}
 
-	private Object parseObject(Object entity, boolean aggregation, JsonFilter filter, JsonArray jsonArray){
+	/**
+	 * Parses the object.
+	 *
+	 * @param entity the entity
+	 * @param aggregation the aggregation
+	 * @param filter the filter
+	 * @param jsonArray the json array
+	 * @return the object
+	 */
+	private Object parseObject(Object entity, boolean aggregation,
+			JsonFilter filter, JsonArray jsonArray) {
 		SendableEntityCreator valueCreater = getCreatorClass(entity);
 		if (valueCreater != null) {
 			if (aggregation) {
 				String subId = this.getKey(entity);
-				if(valueCreater instanceof NoIndexCreator||!filter.existsObject(subId)){
+				if (valueCreater instanceof NoIndexCreator
+						|| !filter.existsObject(subId)) {
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-					if(jsonArray==null){
+					if (jsonArray == null) {
 						JsonObject result = toJsonObject(entity, filter);
 						filter.setDeep(oldValue);
 						return result;
@@ -353,55 +478,131 @@ public class JsonIdMap extends IdMap{
 			}
 			return new JsonObject(JSON_ID, getId(entity));
 		}
+		if(isTypSave()){
+			JsonObject returnValue=new JsonObject(CLASS, entity.getClass().getName());
+			returnValue.put(VALUE, entity);
+			return returnValue;
+		}
 		return entity;
 	}
 
-	public void setUpdateMsgListener(MapUpdateListener listener){
+	/**
+	 * Sets the update msg listener.
+	 *
+	 * @param listener the new update msg listener
+	 */
+	public void setUpdateMsgListener(MapUpdateListener listener) {
 		this.updatelistener = listener;
 	}
 
+	/**
+	 * Send update msg.
+	 *
+	 * @param jsonObject the json object
+	 * @return true, if successful
+	 */
 	public boolean sendUpdateMsg(JsonObject jsonObject) {
-		if(this.updatelistener!=null){
-			return this.updatelistener.sendUpdateMsg(jsonObject);	
+		if (this.updatelistener != null) {
+			return this.updatelistener.sendUpdateMsg(jsonObject);
 		}
 		return true;
 	}
-	
-	public JsonObject toJsonObjectById(String id){
+
+	/**
+	 * To json object by id.
+	 *
+	 * @param id the id
+	 * @return the json object
+	 */
+	public JsonObject toJsonObjectById(String id) {
 		return toJsonObject(super.getObject(id), new JsonFilter(0));
 	}
 
+	/**
+	 * To json array by ids.
+	 *
+	 * @param suspendIdList the suspend id list
+	 */
 	public void toJsonArrayByIds(ArrayList<String> suspendIdList) {
-		JsonArray children=new JsonArray();
-		for(String childId : suspendIdList){
+		JsonArray children = new JsonArray();
+		for (String childId : suspendIdList) {
 			children.put(toJsonObjectById(childId));
 		}
-		JsonObject sendObj=new JsonObject();
+		JsonObject sendObj = new JsonObject();
 		sendObj.put(IdMap.UPDATE, children);
 		sendUpdateMsg(sendObj);
 	}
 
-	public JsonArray toJsonArray(List<Object> items){
-		JsonArray jsonArray=new JsonArray();
-		for(Object item : items){
+	/**
+	 * To json array.
+	 *
+	 * @param items the items
+	 * @return the json array
+	 */
+	public JsonArray toJsonArray(List<? extends Object> items) {
+		JsonArray jsonArray = new JsonArray();
+		for (Object item : items) {
 			jsonArray.put(toJsonObject(item));
 		}
 		return jsonArray;
 	}
 
-	public boolean executeUpdateMsg(JsonObject element){
+	/**
+	 * Execute update msg.
+	 *
+	 * @param element the element
+	 * @return true, if successful
+	 */
+	public boolean executeUpdateMsg(JsonObject element) {
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
 		}
 		return this.updateListener.execute(element);
 	}
 
-	public void garbageCollection(LinkedHashSet<String> classCounts) {
+	/* (non-Javadoc)
+	 * @see de.uni.kassel.peermessage.IdMap#garbageCollection(java.util.Set)
+	 */
+	public void garbageCollection(Set<String> classCounts) {
 		Set<String> allIds = this.values.keySet();
-		for(String id : allIds){
-			if(!classCounts.contains(id)){
+		for (String id : allIds) {
+			if (!classCounts.contains(id)) {
 				remove(getObject(id));
 			}
 		}
+	}
+	
+	/**
+	 * Gets the keys.
+	 *
+	 * @return the keys
+	 */
+	public Set<String> getKeys() {
+		return values.keySet();
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString(){
+		return this.getClass().getName()+" ("+this.size()+")";
+	}
+
+	/**
+	 * Checks if is typ save.
+	 *
+	 * @return true, if is typ save
+	 */
+	public boolean isTypSave() {
+		return typSave;
+	}
+
+	/**
+	 * Sets the typ save.
+	 *
+	 * @param typSave the new typ save
+	 */
+	public void setTypSave(boolean typSave) {
+		this.typSave = typSave;
 	}
 }

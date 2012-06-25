@@ -356,7 +356,7 @@ public abstract class Entity extends BaseEntity{
 		while (keys.hasNext()) {
 			ja.put(keys.next());
 		}
-		return ja.length() == 0 ? null : ja;
+		return ja.size() == 0 ? null : ja;
 	}
 
 	
@@ -382,7 +382,7 @@ public abstract class Entity extends BaseEntity{
 	 * @return      this.
 	 */
 	public Entity put(String key, Collection<?> value) {
-		this.put(key, getNewArray().initWithMap(value));
+		put(key, (Object)getNewArray().initWithMap(value));
 		return this;
 	}
 

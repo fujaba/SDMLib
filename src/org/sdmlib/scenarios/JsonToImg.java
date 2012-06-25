@@ -66,7 +66,7 @@ public class JsonToImg
       
       // collect all jsonIds
       TreeSet<String> knownIds = new TreeSet<String>();
-      for (int i = 0; i < objects.length(); i++)
+      for (int i = 0; i < objects.size(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
          String jsonId = jsonObject.getString(JsonIdMap.JSON_ID);
@@ -75,7 +75,7 @@ public class JsonToImg
       
       // list of nodes
       StringBuilder nodeBuilder = new StringBuilder();
-      for (int i = 0; i < objects.length(); i++)
+      for (int i = 0; i < objects.size(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
          String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
@@ -133,7 +133,7 @@ public class JsonToImg
                {
                   // array of links
                   JsonArray jsonArray = (JsonArray) value;
-                  for (int j = 0; j < jsonArray.length(); j++)
+                  for (int j = 0; j < jsonArray.size(); j++)
                   {
                      JsonObject tgtJsonObject = jsonArray.getJSONObject(j);
                      String tgtId = tgtJsonObject.getString(JsonIdMap.JSON_ID);

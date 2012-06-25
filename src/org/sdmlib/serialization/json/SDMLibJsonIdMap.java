@@ -1,10 +1,12 @@
 package org.sdmlib.serialization.json;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class SDMLibJsonIdMap extends JsonIdMap{
 	public static final String JSON_NEW_NEIGHBORS = "newNeighbors";
@@ -55,7 +57,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 			if (value instanceof JsonArray)
 			{
 				JsonArray jsonArray = (JsonArray) value;
-				for (int i = 0; i < jsonArray.length(); i++)
+				for (int i = 0; i < jsonArray.size(); i++)
 				{
 					Object kid = jsonArray.get(i);
 					if (kid instanceof JsonObject)
@@ -113,6 +115,25 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 			}
 		}
 	}
+	
+	@Override
+	public boolean addListener(Object object) {
+		if(super.addListener(object)){
+			return true;
+		}
+		if (object instanceof PropertyChangeSupport) {
+			((PropertyChangeSupport) object).addPropertyChangeListener(
+					IdMap.UPDATE, getUpdateListener());
+			return true;
+		} else if (object instanceof PropertyChangeInterface)
+		{
+		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateListener());
+		   return true;
+		}
+		return false;
+		
+	}
+	
 	public JsonIdMap withSessionId(String sessionId){
 		setSessionId(sessionId);
 		return this;

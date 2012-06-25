@@ -254,11 +254,11 @@ public class JsonArray extends EntityList{
 	 *             If any of the names are null.
 	 */
 	public JsonObject toJSONObject(JsonArray names) throws RuntimeException {
-		if (names == null || names.length() == 0 || length() == 0) {
+		if (names == null || names.size() == 0 || size() == 0) {
 			return null;
 		}
 		JsonObject jo = new JsonObject();
-		for (int i = 0; i < names.length(); i += 1) {
+		for (int i = 0; i < names.size(); i += 1) {
 			jo.put(names.getString(i), this.get(i));
 		}
 		return jo;

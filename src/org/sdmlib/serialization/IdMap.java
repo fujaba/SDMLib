@@ -23,15 +23,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.utils.PropertyChangeInterface;
 
 /**
  * The Class IdMap.
@@ -121,6 +119,15 @@ public class IdMap {
 	public void setSessionId(String sessionId) {
 		getCounter().setPrefixId(sessionId);
 	}
+	
+	/**
+	 * Sets the splitter Character.
+	 *
+	 * @param Character the new splitter-Character for the session id
+	 */
+	public void setSpliiterId(char splitter) {
+		getCounter().setSplitter(splitter);
+	}
 
 	// Key Value paar
 	/**
@@ -182,34 +189,28 @@ public class IdMap {
 		} else {
 			values.put(jsonId, object);
 			keys.put(object, jsonId);
-			if (object instanceof SendableEntity) {
-				((SendableEntity) object).addPropertyChangeListener(
-						IdMap.UPDATE, getListener(IdMap.UPDATE));
-			} else if (object instanceof PropertyChangeSupport) {
-				((PropertyChangeSupport) object).addPropertyChangeListener(
-						IdMap.UPDATE, getListener(IdMap.UPDATE));
-			} else if (object instanceof PropertyChangeInterface)
-			{
-			   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getListener(IdMap.UPDATE));
-			}
+			addListener(object);
 		}
 	}
 
-	/**
-	 * Gets the listener.
-	 *
-	 * @param id the id
-	 * @return the listener
-	 */
-	public PropertyChangeListener getListener(String id) {
-		if (id == IdMap.UPDATE) {
-			if (this.updateListener == null) {
-				this.updateListener = new UpdateListener(this);
-			}
-			return updateListener;
+	public UpdateListener getUpdateListener(){
+		if (this.updateListener == null) {
+			this.updateListener = new UpdateListener(this);
 		}
-		return null;
+		return updateListener;
 	}
+
+	/**
+	 * @param check for add Listener to object 
+	 */
+	public boolean addListener(Object object){
+		if (object instanceof SendableEntity) {
+			return ((SendableEntity) object).addPropertyChangeListener(
+					IdMap.UPDATE, getUpdateListener());
+		}
+		return false;
+	}
+
 
 	/**
 	 * Removes the.
@@ -353,11 +354,6 @@ public class IdMap {
 		}
 		return newObject;
 	}
-	
-	public void putCreator(String className, SendableEntityCreator creator)
-	{
-	   creators.put(className, creator);
-	}
 
 	/**
 	 * Adds the creator.
@@ -373,10 +369,22 @@ public class IdMap {
 			if(reference == null){
 				return false;
 			}
-			creators.put(reference.getClass().getName(), createrClass);
+			addCreator(reference.getClass().getName(), createrClass);
 			return true;
 		}
 	}
+	
+	/**
+	 * add a Creator to list
+	 *
+	 * @param className the class name
+	 * @param creator the creator
+	 */
+	public void addCreator(String className, SendableEntityCreator creator)
+	{
+	   creators.put(className, creator);
+	}
+
 	
 	/**
 	 * Checks if is simple check.
@@ -438,5 +446,18 @@ public class IdMap {
 			this.updateListener = new UpdateListener(this);
 		}
 		updateListener.garbageCollection(root);
+	}
+	
+	public void garbageCollection(Set<String> classCounts) {
+	}
+	public Object startUpdateModell(String clazz){
+		SendableEntityCreator creator=getCreatorClasses(clazz);
+		if(creator!=null){
+			Object result=creator.getSendableInstance(false);
+			String id = getId(result);
+			put(id, result);
+			return result;
+		}
+		return null;
 	}
 }

@@ -38,7 +38,7 @@ public interface SendableEntity {
  	 * @param propertyName the property name
  	 * @param listener the listener
  	 */
- 	public void addPropertyChangeListener(
+ 	public boolean addPropertyChangeListener(
              String propertyName,
              PropertyChangeListener listener);
 }

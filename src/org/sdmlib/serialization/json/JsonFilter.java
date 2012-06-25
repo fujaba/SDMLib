@@ -35,9 +35,14 @@ import org.sdmlib.serialization.IdMapFilter;
  * serialization  
  */
 public class JsonFilter extends IdMapFilter{
+	/** The Constant REFERENCE. */
+	public static final String REF= "_ref";
+
 	
 	/** The exclusive properties. */
 	private String[] exclusiveProperties;
+	
+	private boolean isId=true;
 	
 	/** The objects. */
 	private HashSet<String> objects = new HashSet<String>();
@@ -122,6 +127,9 @@ public class JsonFilter extends IdMapFilter{
 		if (!super.isConvertable(map, entity, property, value)){
 			return false;
 		}
+		if(property.endsWith(REF)){
+			return false;
+		}
 		if (getExcusiveProperties() != null) {
 			for (String prop : getExcusiveProperties()) {
 				if (property.equalsIgnoreCase(prop)) {
@@ -164,5 +172,13 @@ public class JsonFilter extends IdMapFilter{
 	 */
 	public void setTreesync(boolean treesync) {
 		this.treesync = treesync;
+	}
+
+	public boolean isId() {
+		return isId;
+	}
+
+	public void setId(boolean isId) {
+		this.isId = isId;
 	}
 }

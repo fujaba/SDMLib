@@ -38,6 +38,8 @@ public class SimpleIdCounter implements IdMapCounter{
 	/** The number. */
 	protected long number = 1;
 	
+	private char splitter='.';
+	
 	/** 
 	 * Set the Session Prefix for a Peer
 	 */
@@ -61,9 +63,9 @@ public class SimpleIdCounter implements IdMapCounter{
 			}
 		}
 		String className = obj.getClass().getName();
-		char firstChar = className.charAt(className.lastIndexOf('.') + 1);
+		char firstChar = className.charAt(className.lastIndexOf(splitter) + 1);
 		if (prefixId != null) {
-			key = prefixId + "." + firstChar + number;
+			key = prefixId + splitter + firstChar + number;
 		} else {
 			key = "" + firstChar + number;
 		}
@@ -76,11 +78,11 @@ public class SimpleIdCounter implements IdMapCounter{
 	 */
 	public void readId(String jsonId) {
 		// adjust number to be higher than read numbers
-		String[] split = jsonId.split("\\.");
+		String[] split = jsonId.split("\\"+splitter);
 
 		if (split.length != 2) {
 			throw new RuntimeException("jsonid " + jsonId
-					+ " should have one . in its middle");
+					+ " should have one "+splitter+" in its middle");
 		}
 		if (prefixId.equals(split[0])) {
 			String oldNumber = split[1].substring(1);
@@ -89,5 +91,13 @@ public class SimpleIdCounter implements IdMapCounter{
 				number = oldInt + 1;
 			}
 		}
+	}
+
+	public char getSplitter() {
+		return splitter;
+	}
+
+	public void setSplitter(char splitter) {
+		this.splitter = splitter;
 	}
 }

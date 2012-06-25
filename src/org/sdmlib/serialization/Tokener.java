@@ -183,7 +183,7 @@ public class Tokener {
             case 0:
             case '\n':
             case '\r':
-                throw syntaxError("Unterminated string");
+                throw syntaxError("Unterminated string ("+sb.substring(0, 20)+")");
             case '\\':
                 c = next();
                 switch (c) {

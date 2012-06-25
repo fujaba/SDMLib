@@ -208,7 +208,7 @@ public class ScenarioManager
 	   
 	   StringBuilder buf = new StringBuilder();
 	   // iterate through object
-	   for (int i = 0; i < jsonArray.length(); i++)
+	   for (int i = 0; i < jsonArray.size(); i++)
       {
          JsonObject jsonObject = jsonArray.getJSONObject(i);
          
@@ -233,7 +233,7 @@ public class ScenarioManager
             {
                // list of references
                cellString += "";
-               for (int j = 0; j < ((JsonArray) object).length(); j++)
+               for (int j = 0; j < ((JsonArray) object).size(); j++)
                {
                   String ref = ((JsonArray) object).getString(j);
                   cellString += "<a href='#" + ref + "'>"+ ref + "</a> ";
