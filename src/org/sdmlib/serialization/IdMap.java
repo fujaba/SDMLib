@@ -35,7 +35,6 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class IdMap.
  */
 public class IdMap {
-	
 	/** The Constant REMOVE. */
 	public static final String REMOVE= "rem";
 	
@@ -125,7 +124,7 @@ public class IdMap {
 	 *
 	 * @param Character the new splitter-Character for the session id
 	 */
-	public void setSpliiterId(char splitter) {
+	public void setSplitterId(char splitter) {
 		getCounter().setSplitter(splitter);
 	}
 
@@ -199,9 +198,9 @@ public class IdMap {
 		}
 		return updateListener;
 	}
-
 	/**
 	 * @param check for add Listener to object 
+	 * @return success of adding
 	 */
 	public boolean addListener(Object object){
 		if (object instanceof SendableEntity) {
@@ -210,7 +209,6 @@ public class IdMap {
 		}
 		return false;
 	}
-
 
 	/**
 	 * Removes the.

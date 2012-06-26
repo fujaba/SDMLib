@@ -97,7 +97,7 @@ public class JsonIdComparator implements Comparator<Object>
       }
    }
 
-   private int compareSimple(String str1, String str2)
+   protected int compareSimple(String str1, String str2)
    {
       int numberSuffixPos1 = indexOfNumberSuffix(str1);
       int numberSuffixPos2 = indexOfNumberSuffix(str2);

@@ -257,7 +257,7 @@ public abstract class Entity extends BaseEntity{
 	 * @return An array of field names, or null if there are no names.
 	 */
 	public static String[] getNames(Entity jo) {
-		int length = jo.length();
+		int length = jo.size();
 		if (length == 0) {
 			return null;
 		}
@@ -337,7 +337,7 @@ public abstract class Entity extends BaseEntity{
 	 *
 	 * @return The number of keys in the Entity.
 	 */
-	public int length() {
+	public int size() {
 		if(map==null){
 			return 0;
 		}

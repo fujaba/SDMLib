@@ -1,5 +1,6 @@
 package org.sdmlib.serialization;
 
+
 /*
 Copyright (c) 2012 Stefan Lindel
 
@@ -28,7 +29,6 @@ SOFTWARE.
  * The Class IdMapFilter.
  */
 public class IdMapFilter {
-	
 	/** The Constant ALLDEEP. */
 	public final static int ALLDEEP = -1;
 	
@@ -54,6 +54,10 @@ public class IdMapFilter {
 		if (getDeep() == LASTDEEP){
 			return false;
 		}
+		return true;
+	}
+
+	public boolean isRegard(IdMap map, Object entity, String property, Object value){
 		return true;
 	}
 	

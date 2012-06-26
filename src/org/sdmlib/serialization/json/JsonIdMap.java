@@ -112,7 +112,9 @@ public class JsonIdMap extends IdMap{
 		String[] properties = prototyp.getProperties();
 		filter.addObject(id);
 		Object referenceObject = prototyp.getSendableInstance(true);
+		
 		if (properties != null) {
+			boolean typSave= !(prototyp instanceof NoIndexCreator)&&isTypSave();
 			for (String property : properties) {
 				if (jsonProp.has(property)) {
 					throw new RuntimeException("Property duplicate:" + property
@@ -138,7 +140,7 @@ public class JsonIdMap extends IdMap{
 							for (Object containee : ((Collection<?>) value)) {
 								if (containee != null) {
 									subValues.put(parseObject(containee,
-											aggregation, filter, null));
+											aggregation, filter, null, typSave));
 								}
 							}
 							jsonProp.put(property, subValues);
@@ -146,7 +148,7 @@ public class JsonIdMap extends IdMap{
 							jsonProp.put(
 									property,
 									parseObject(value, aggregation, filter,
-											null));
+											null,typSave));
 						}
 					}
 				}
@@ -166,7 +168,7 @@ public class JsonIdMap extends IdMap{
 			}
 			jsonObject.put(CLASS, className);
 
-			if (jsonProp.length() > 0) {
+			if (jsonProp.size() > 0) {
 				jsonObject.put(JSON_PROPS, jsonProp);
 			}
 		}
@@ -247,15 +249,26 @@ public class JsonIdMap extends IdMap{
 		if (typeInfo != null) {
 			if (isId) {
 				String jsonId = (String) jsonObject.get(JSON_ID);
-				if (jsonId == null) {
-					return null;
+				if (jsonId != null) {
+					result = getObject(jsonId);
 				}
-				result = getObject(jsonId);
 			}
 			if (result == null) {
 				result = typeInfo.getSendableInstance(false);
 			}
-			readJson(result, jsonObject, refs);
+			if(typeInfo instanceof NoIndexCreator){
+				String[] properties = typeInfo.getProperties();
+				if (properties != null) {
+					for (String property : properties) {
+						Object obj = jsonObject.get(property);
+						parseValue(result, property, obj, typeInfo, refs);
+					}
+				}
+			}else{
+				readJson(result, jsonObject, refs);
+			}
+		}else if(jsonObject.get(VALUE)!=null){
+			return jsonObject.get(VALUE);
 		}
 		return result;
 	}
@@ -337,9 +350,9 @@ public class JsonIdMap extends IdMap{
 						// It is a Ref
 						refs.add(new ReferenceObject(jsonId, creator, property,
 								this, target));
-					} else {
+					}else{
 						creator.setValue(target, property,
-								readJson((JsonObject) value));
+								readJson(child));
 					}
 				} else {
 					creator.setValue(target, property, value);
@@ -429,7 +442,7 @@ public class JsonIdMap extends IdMap{
 							for (Object containee : list) {
 								if (containee != null) {
 									refArray.put(parseObject(containee,
-											aggregation, filter, jsonArray));
+											aggregation, filter, jsonArray, isTypSave()));
 								}
 							}
 							jsonProps.put(property, refArray);
@@ -438,11 +451,11 @@ public class JsonIdMap extends IdMap{
 						jsonProps.put(
 								property,
 								parseObject(value, aggregation, filter,
-										jsonArray));
+										jsonArray, isTypSave()));
 					}
 				}
 			}
-			if (jsonProps.length() > 0) {
+			if (jsonProps.size() > 0) {
 				jsonObject.put(JSON_PROPS, jsonProps);
 			}
 		}
@@ -459,7 +472,7 @@ public class JsonIdMap extends IdMap{
 	 * @return the object
 	 */
 	private Object parseObject(Object entity, boolean aggregation,
-			JsonFilter filter, JsonArray jsonArray) {
+			JsonFilter filter, JsonArray jsonArray, boolean typSave) {
 		SendableEntityCreator valueCreater = getCreatorClass(entity);
 		if (valueCreater != null) {
 			if (aggregation) {
@@ -478,7 +491,7 @@ public class JsonIdMap extends IdMap{
 			}
 			return new JsonObject(JSON_ID, getId(entity));
 		}
-		if(isTypSave()){
+		if(typSave){
 			JsonObject returnValue=new JsonObject(CLASS, entity.getClass().getName());
 			returnValue.put(VALUE, entity);
 			return returnValue;
@@ -604,5 +617,21 @@ public class JsonIdMap extends IdMap{
 	 */
 	public void setTypSave(boolean typSave) {
 		this.typSave = typSave;
+	}
+	
+	public ArrayList<Object> getTypList(SendableEntityCreator creator){
+		if(creator==null){
+			return null;
+		}
+		ArrayList<Object> result=new ArrayList<Object>();
+		String clazzName = creator.getSendableInstance(true).getClass().getName();
+		for(Object obj : this.values.values()){
+			if(obj!=null){
+				if(obj.getClass().getName().equals(clazzName)){
+					result.add(obj);
+				}
+			}
+		}
+		return result;
 	}
 }

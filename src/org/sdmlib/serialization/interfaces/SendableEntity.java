@@ -31,7 +31,6 @@ import java.beans.PropertyChangeListener;
  * Add this Interface to your Modellentity to activate the propertyChange Notification 
  */
 public interface SendableEntity {
-	 
  	/**
  	 * Adds the property change listener.
  	 *

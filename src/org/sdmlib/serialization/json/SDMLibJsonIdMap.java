@@ -67,7 +67,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 						String className = (String) child.get(CLASS);
 						String jsonId = (String) child.get(JSON_ID);
 						//FIXME if (className == null&&jsonId!=null)
-						if (className == null&&jsonId!=null&& child.length() == 1)
+						if (className == null&&jsonId!=null&& child.size() == 1)
 						{
 							// It is a Ref
 							refs.add(new ReferenceObject(jsonId, creator, property, this, target));
@@ -90,7 +90,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 					JsonObject child=(JsonObject) value;
 					String className = (String) child.get(CLASS);
 					String jsonId = (String) child.get(JSON_ID);
-					if (className == null && jsonId != null && child.length()==1) 
+					if (className == null && jsonId != null && child.size()==1) 
 					{
 						// It is a Ref
 						refs.add(new ReferenceObject(jsonId, creator, property, this, target));

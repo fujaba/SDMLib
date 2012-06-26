@@ -302,7 +302,7 @@ public class JsonObject extends Entity{
     }
     public String toString(int indentFactor, int indent) {
         int i;
-        int length = this.length();
+        int length = this.size();
         if (length == 0) {
             return "{}";
         }
