@@ -132,6 +132,9 @@ public class JsonIdMap extends IdMap{
 						if(property.endsWith(NOT_SUFFIX)){
 							continue;
 						}
+						if(!filter.isRegard(this, entity, property, value)){
+							continue;
+						}
 						boolean aggregation = filter.isConvertable(this,
 								entity, property, value);
 						
@@ -629,6 +632,33 @@ public class JsonIdMap extends IdMap{
 			if(obj!=null){
 				if(obj.getClass().getName().equals(clazzName)){
 					result.add(obj);
+				}
+			}
+		}
+		return result;
+	}
+	public boolean replaceObject(Object newObject){
+		String key = getKey(newObject);
+		if(key!=null){
+			return false;
+		}
+		if(!(newObject instanceof Comparable<?>)){
+			return false;
+		}
+		SendableEntityCreator creator=getCreatorClass(newObject);
+		if(creator==null){
+			return false;
+		}
+		boolean result=false;
+		ArrayList<Object> oldValues = getTypList(creator);
+		for(Object obj : oldValues){
+			@SuppressWarnings("unchecked")
+			Comparable<Object> oldValue=(Comparable<Object>) obj;
+			if(oldValue.compareTo(newObject)==0){
+				String oldKey=getKey(oldValue);
+				if(oldKey!=null){
+					remove(oldValue);
+					put(oldKey, newObject);
 				}
 			}
 		}

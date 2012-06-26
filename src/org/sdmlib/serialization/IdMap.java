@@ -130,7 +130,7 @@ public class IdMap {
 
 	// Key Value paar
 	/**
-	 * Gets the key.
+	 * Gets the Id. Do not generate a Id
 	 *
 	 * @param obj the obj
 	 * @return the key
@@ -156,7 +156,7 @@ public class IdMap {
 	}
 
 	/**
-	 * Gets the id.
+	 * Gets or Create the id. 
 	 *
 	 * @param obj the obj
 	 * @return the id
