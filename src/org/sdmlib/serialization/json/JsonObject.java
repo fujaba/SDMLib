@@ -155,7 +155,7 @@ public class JsonObject extends Entity{
             case '}':
                 return;
             default:
-                throw x.syntaxError("Expected a ',' or '}'");
+                throw x.syntaxError("Expected a ',' or '}' got a " + x.nextClean());
             }
         }
     }
