@@ -90,7 +90,8 @@ public class Clazz implements PropertyChangeInterface
    
    public Clazz withSuperClass(Clazz superClass)
    {
-  	 	setSuperClass(superClass);
+  	  setSuperClass(superClass);
+  	  superClass.addToKindClasses(this);
       return this;
    }
    
@@ -188,17 +189,15 @@ public class Clazz implements PropertyChangeInterface
 		}
 	}
 
-	private void gernerateSuperAttributes(Clazz superClazz, String rootDir,
-			String helpersDir) {
+	private void gernerateSuperAttributes(Clazz superClazz, String rootDir, String helpersDir) {
 
 		for (Attribute attr : superClazz.getAttributes()) {
 			if ("PropertyChangeSupport".equals(attr.getType()))
 				 continue;
-			attr.generate(this, rootDir, helpersDir, false);
+			attr.generate(this, rootDir, helpersDir, false, true);
 		}
 		if (superClazz.getSuperClass() != null) {
-			gernerateSuperAttributes(superClazz.getSuperClass(), rootDir,
-					helpersDir);
+			gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
 		}
 	}
 
@@ -206,7 +205,7 @@ public class Clazz implements PropertyChangeInterface
   {
   	for (Clazz interfaze : clazz.getInterfaces())
     {
-	  	if (interfaze.isInterfaze())
+	  if (interfaze.isInterfaze())
       {
 	      for (Attribute attr : interfaze.getAttributes())
 	      {
@@ -216,16 +215,16 @@ public class Clazz implements PropertyChangeInterface
 	      
       }
 	  	
-	  	insertInterfaceAttributesInCreatorClass(interfaze, rootDir, helpersDir);
+	  insertInterfaceAttributesInCreatorClass(interfaze, rootDir, helpersDir);
 
     } 
   }
 
 	private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
   {
-	  for (Clazz interfaze : clazz.getInterfaces())
+	for (Clazz interfaze : clazz.getInterfaces())
     {
-	  	if (interfaze.isInterfaze())
+	  if (interfaze.isInterfaze())
       {
 	      for (Attribute attr : interfaze.getAttributes())
 	      {
@@ -239,7 +238,7 @@ public class Clazz implements PropertyChangeInterface
 	      
       }
 	  	
-	  	insertInterfaceMethods(interfaze, rootDir, helpersDir);
+	  insertInterfaceMethods(interfaze, rootDir, helpersDir);
 
     } 
   }
@@ -697,6 +696,7 @@ public class Clazz implements PropertyChangeInterface
          }
          else
          {
+        	System.out.println("generate/modify file for " + fileName);
             fileBody = new StringBuilder();
 
             StringBuilder text = new StringBuilder(
@@ -1736,6 +1736,7 @@ public class Clazz implements PropertyChangeInterface
    public Clazz withInterfaces(Clazz value)
    {
       addToInterfaces(value);
+      value.addToKindClassesAsInterface(this);
       return this;
    } 
    

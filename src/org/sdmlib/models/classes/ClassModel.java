@@ -517,6 +517,11 @@ public class ClassModel implements PropertyChangeInterface
 			ArrayList<File> javaFiles = searchForJavaFiles(includePathes, packages, srcFolder);
 			addJavaFilesToClasses(packages, srcFolder, javaFiles);
 			
+			if (getClasses().isEmpty()) {
+				System.out.println("no class files found !!!! END");
+				return;
+			}			
+			
 			// parse each java file
 			for (Clazz clazz : getClasses())
 			{
@@ -529,6 +534,7 @@ public class ClassModel implements PropertyChangeInterface
 
 	private Clazz handleMember(Clazz clazz, String rootDir)
 	{
+		System.out.println("parse " + clazz.getName());
 		Parser parser = clazz.getOrCreateParser(rootDir);
 		parser.indexOf(Parser.CLASS_END);
 		
@@ -568,8 +574,12 @@ public class ClassModel implements PropertyChangeInterface
 				Clazz partnerClass = findPartnerClass(partnerTypeName);
 				String setterPrefix = findSetterPrefix(partnerTypeName);
 
+				// type is unknown
 				if (partnerClass == null) {
-					new Attribute().withName(memberName).withType(partnerTypeName).withClazz(clazz);
+					new Attribute()
+						.withName(memberName)
+						.withType(partnerTypeName)
+						.withClazz(clazz);
 					continue;
 				}
 
@@ -598,7 +608,7 @@ public class ClassModel implements PropertyChangeInterface
 				{
 					if (qualifiedName.startsWith("value.with"))
 					{
-						handleAssoc(clazz, memberName, card, partnerClassName, partnerClass, qualifiedName);
+						handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName);
 					}
 				}
 			}
@@ -608,16 +618,40 @@ public class ClassModel implements PropertyChangeInterface
 		{
 			// remove getter with setter or addTo removeFrom removeAllFrom without
 			findAndRemoveMethods(clazz, memberName, "get set with without addTo removeFrom removeAllFrom iteratorOf hasIn sizeOf removePropertyChange addPropertyChange");
+			findAndRemoveAttributs(clazz, "listeners");
 		}
 		
 		return clazz;
 	}
 
-	private void handleAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
+	private void findAndRemoveAttributs(Clazz clazz, String names) { 
+		String[] split = names.split(" ");
+		for (String attrName : split)
+		{
+			Attribute attr = findAttribute(clazz, attrName);
+			if (attr != null)
+			{
+				clazz.removeFromAttributes(attr);
+			}
+		}
+		
+	}
+
+	private Attribute findAttribute(Clazz clazz, String attrName) {
+		LinkedHashSet<Attribute> attrs = clazz.getAttributes();
+		for (Attribute attr : attrs)
+		{
+			if (attr.getName().equals(attrName))
+				return attr;
+		}
+		return null;
+	}
+
+	private void handleAssoc(Clazz clazz, String rootDir, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
 	{
 		String partnerAttrName = qName.substring("value.with".length());
 		partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
-		Parser partnerParser = partnerClass.getOrCreateParser("examples"); // TODO fix rootdir
+		Parser partnerParser = partnerClass.getOrCreateParser(rootDir); 
 		String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
 
 		// TODO : fix indexOf clears symtab
@@ -828,7 +862,7 @@ public class ClassModel implements PropertyChangeInterface
 		int openAngleBracket = partnerTypeName.indexOf("<");
 		int closeAngleBracket = partnerTypeName.indexOf(">");
 
-		if (openAngleBracket > -1 && closeAngleBracket > openAngleBracket)
+		if ((openAngleBracket > -1 && closeAngleBracket > openAngleBracket) || partnerTypeName.endsWith("Set"))
 		{
 			return "addTo";
 		}
@@ -938,19 +972,19 @@ public class ClassModel implements PropertyChangeInterface
 
 		String partnerClassName = findPartnerClassName(partnerTypeName);
 
+		// System.err.println("type note found : " + partnerTypeName);
+		return findClass(partnerClassName);
+	}
+
+	public Clazz findClass(String partnerClassName) {
 		for (Clazz partnerClass : classes)
 		{
-
 			String shortClassName = CGUtil.shortClassName(partnerClass.getName());
-
 			if (partnerClassName.equals(shortClassName))
 			{
-
 				return partnerClass;
-
 			}
 		}
-		// System.err.println("type note found : " + partnerTypeName);
 		return null;
 	}
 
@@ -1145,6 +1179,8 @@ public class ClassModel implements PropertyChangeInterface
 		Clazz modelCreationClass = getOrCreateClazz(className);
 
 		parser = modelCreationClass.getOrCreateParser(rootDir);
+		
+		removeFromClasses(modelCreationClass);
 
 		String signature = Parser.METHOD + ":" + methodName + "(";// TODO should work for methods with params, too. Parse to method end and search in symtab.
 
@@ -1153,8 +1189,13 @@ public class ClassModel implements PropertyChangeInterface
 //		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
 		SymTabEntry symTabEntry = parser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
 		
-		signature = parser.getSignatureFor(symTabEntry);
+		if (symTabEntry == null) {
+			System.out.println("parser error");
+			return;
+		}
 		
+		signature = parser.getSignatureFor(symTabEntry);
+
 		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
 		@SuppressWarnings("unchecked")
@@ -1367,8 +1408,11 @@ public class ClassModel implements PropertyChangeInterface
 
 		for (Role role : roles)
 		{
-			String sourceClassName = role.getAssoc().getSource().getClazz().getName();
-			String targetClassName = role.getAssoc().getTarget().getClazz().getName();
+			Association  association = role.getAssoc();
+			if (association == null)
+				continue;
+			String sourceClassName = association.getSource().getClazz().getName();
+			String targetClassName = association.getTarget().getClazz().getName();
 
 			if (handledClazzes.containsKey(sourceClassName) && handledClazzes.containsKey(targetClassName))
 			{
@@ -1572,6 +1616,8 @@ public class ClassModel implements PropertyChangeInterface
 			String name = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
 			name = StrUtil.downFirstChar(name);
 			LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
+			if (localVarTableEntry == null)
+				return currentInsertPos;
 			int insertPos = localVarTableEntry.getEndPos() + 3;
 			currentInsertPos = insertCreationCode("      /* add method */", insertPos, modelCreationClass);
 			currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
@@ -1694,7 +1740,7 @@ public class ClassModel implements PropertyChangeInterface
 		{
 			Association assoc = firstRole.getAssoc();
 
-			if (assocHasHandled(assoc, handledAssocs))
+			if (assoc == null || assocHasHandled(assoc, handledAssocs))
 			{
 				continue;
 			}
@@ -1963,7 +2009,8 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
 				return clazz;
 			}
 		}
-		return new Clazz(className);
+		Clazz clazz = new Clazz(className);
+		return clazz;
 	}
 
 	private LocalVarTableEntry findInLocalVarTable(LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name)

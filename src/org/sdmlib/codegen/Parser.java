@@ -21,12 +21,9 @@
    
 package org.sdmlib.codegen;
 
-import java.nio.channels.NotYetConnectedException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
-
-import javax.management.RuntimeErrorException;
 
 import org.sdmlib.utils.StrUtil;
 
@@ -786,6 +783,7 @@ private void skipBody() {
          System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() 
             + " at pos " + currentRealToken.startPos + " at line " + getLineIndexOf(currentRealToken.startPos, fileBody)
             + " in file \n" + fileName);
+       
          throw new RuntimeException("parse error");
       }
    }

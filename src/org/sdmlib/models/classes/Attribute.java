@@ -22,6 +22,7 @@ package org.sdmlib.models.classes;
 
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
@@ -152,10 +153,15 @@ public class Attribute implements PropertyChangeInterface
 
    public Attribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate)
    {
+	   return generate( clazz,  rootDir,  helpersDir,  doGenerate, false);
+   }
+   
+   public Attribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate, boolean fromSuperClass)
+   {
       // get parser from class
       Parser parser = clazz.getOrCreateParser(rootDir);
-      
-      insertAttrDeclPlusAccessors(parser);
+      if(  ! fromSuperClass)   
+    	  insertAttrDeclPlusAccessors(clazz, parser);
       
       if ( !clazz.isInterfaze())
       	insertCaseInGenericGetSet(parser);
@@ -237,57 +243,113 @@ public class Attribute implements PropertyChangeInterface
       }
    }
 
-   private void insertGetterInModelSetClass(Parser parser, Clazz ownerClazz)
-   {
-      String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(this.getName()) + "()";
-      int pos = parser.indexOf(key);
+	private void insertGetterInModelSetClass(Parser parser, Clazz ownerClazz) {
+		String key = Parser.METHOD + ":get"
+				+ StrUtil.upFirstChar(this.getName()) + "()";
+		int pos = parser.indexOf(key);
 
-      if (pos < 0)
-      {
-         // need to add property to string array
-         
-         StringBuilder text = new StringBuilder(  
-            "   public ModelSetType getName()\n" + 
-            "   {\n" + 
-            "      ModelSetType result = new ModelSetType();\n" + 
-            "      \n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         result.add(obj.getName());\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return result;\n" + 
-            "   }\n" +
-            "\n" + 
-            ""
-            );
+		if (pos < 0) {
+			// need to add property to string array
 
-         String fullModelSetType = getType()+"Set";
-         String modelSetType = CGUtil.shortClassName(getType())+"Set";
-         
-         if ("String int double long".indexOf(getType()) >= 0)
-         {
-            modelSetType = CGUtil.shortClassName(getType())+"List";
-            fullModelSetType = "org.sdmlib.models.modelsets." + modelSetType;
-         }
-         
-         CGUtil.replaceAll(text, 
-            "ContentType", CGUtil.shortClassName(ownerClazz.getName()),
-            "ModelSetType", modelSetType,
-            "Name", StrUtil.upFirstChar(getName())
-            );
+			StringBuilder text = new StringBuilder(
+					"   public ModelSetType getName()\n"
+							+ "   {\n"
+							+ "      ModelSetType result = new ModelSetType();\n"
+							+ "      \n"
+							+ "      for (ContentType obj : this)\n"
+							+ "      {\n"
+							+ "         result.add(obj.getName());\n"
+							+ "      }\n" + "      \n"
+							+ "      return result;\n" + "   }\n" + "\n" + "");
 
-         int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-//         getClazz()
-         ownerClazz.setModelSetFileHasChanged(true);
-         
-//         getClazz()
-         ownerClazz.insertImport(parser, fullModelSetType);
-      }
-   }
+			String fullModelSetType = getType();
+			String modelSetType = CGUtil.shortClassName(getType());
+			
+			ArrayList<String> importClassesFromTypes = new ArrayList<String>();
+			
+			if (!getType().contains("<") && !getType().endsWith("Set")) {
+				fullModelSetType = getType() + "Set";
+				modelSetType = CGUtil.shortClassName(getType()) + "Set";
+				String importForSet = checkSetImportFor(CGUtil.shortClassName(getType()));
+				if(importForSet != null)
+					importClassesFromTypes.add(importForSet);
+			}
+			else {
+//				System.out.println("no set");
+			}
+			
+			if ("String int double long".indexOf(getType()) >= 0) {
+				modelSetType = CGUtil.shortClassName(getType()) + "List";
+				fullModelSetType = "org.sdmlib.models.modelsets."
+						+ modelSetType;
+				importClassesFromTypes.add(fullModelSetType);
+				importClassesFromTypes.add("java.util.List");
+			}
 
- 	public void generateMethodsInKindClass(Clazz clazz, String rootDir, String helpersDir, boolean b)
+			
+			CGUtil.replaceAll(text, "ContentType",
+					CGUtil.shortClassName(ownerClazz.getName()),
+					"ModelSetType", modelSetType, "Name",
+					StrUtil.upFirstChar(getName()));
+
+			importClassesFromTypes.addAll(checkImportClassesFromType(fullModelSetType));
+			
+			ownerClazz.printFile(true);
+			int classEnd = parser.indexOf(Parser.CLASS_END);
+			parser.getFileBody().insert(classEnd, text.toString());
+			// getClazz()
+			ownerClazz.setModelSetFileHasChanged(true);
+			
+			
+
+			// getClazz()
+			for (String setType : importClassesFromTypes) {
+				ownerClazz.insertImport(parser, setType);
+			}
+			
+		}
+	}
+
+ 	private String checkSetImportFor(String type) {
+		Clazz findClass = clazz.getClassModel().findClass(type);
+		if (findClass == null)
+			return null;
+		Clazz attributClass = getClazz();
+		String packageNameFromFindClass = CGUtil.packageName(findClass.getName());
+		String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getName());
+		if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) {
+			return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getName()) + "Set";
+		}
+		else 
+			return null;
+	}
+
+	private ArrayList<String> checkImportClassesFromType(String modelSetType) {
+ 		ArrayList<String> importList = new ArrayList<String>();
+ 		modelSetType = modelSetType.trim();
+ 		int index = modelSetType.indexOf("<");
+		if(index >= 0) {
+			String listType = modelSetType.substring(0, index);
+			if ("List Vector HashSet HashMap".indexOf(listType) >= 0)
+				listType = "java.util." +listType;
+			importList.add( listType);
+			String substring = modelSetType.substring(index+1, modelSetType.lastIndexOf(">"));
+			String[] strings = substring.split(",");
+			for (String string : strings) {
+				Clazz findClass = clazz.getClassModel().findClass(string);
+				if(findClass != null)
+					importList.add(findClass.getName());
+			}
+		} else {
+			Clazz findClass = getClazz().getClassModel().findClass(modelSetType);
+			if (findClass != null)
+				importList.add(findClass.getName());
+		}
+		
+		return importList;
+	}
+
+	public void generateMethodsInKindClass(Clazz clazz, String rootDir, String helpersDir, boolean b)
   {
  		Parser parser = clazz.getOrCreateParser(rootDir);
  		
@@ -335,7 +397,7 @@ public class Attribute implements PropertyChangeInterface
        if ("String".equals(getType()))
        {
           valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-          clazz.insertImport(StrUtil.class.getName());        
+          clazz.insertImport(StrUtil.class.getName());    
        }
        
        else if ("Boolean".equals(getType()))
@@ -359,10 +421,11 @@ public class Attribute implements PropertyChangeInterface
        
        parser.getFileBody().insert(pos, text.toString());
        clazz.setFileHasChanged(true);
+       clazz.printFile(true);
     }
   }
    
-   private void insertAttrDeclPlusAccessors(Parser parser)
+   private void insertAttrDeclPlusAccessors(Clazz clazz, Parser parser)
    {
 //	   int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName()); //remove
 
@@ -391,13 +454,13 @@ public class Attribute implements PropertyChangeInterface
          if ("String".equals(getType()))
          {
             valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-            getClazz().insertImport(StrUtil.class.getName());        
+            clazz.insertImport(StrUtil.class.getName()); 
          }
          
          else if ("Boolean".equals(getType()))
          {
-        	 	CGUtil.replaceAll(text, "getName()", "isName()");
-        	  getClazz().insertImport(StrUtil.class.getName()); 
+        	  CGUtil.replaceAll(text, "getName()", "isName()");
+        	  clazz.insertImport(StrUtil.class.getName()); 
          }
          
          CGUtil.replaceAll(text, "valueCompare", valueCompare);
@@ -414,6 +477,10 @@ public class Attribute implements PropertyChangeInterface
          int pos = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(pos, text.toString());
+         ArrayList<String> importClassesFromTypes = checkImportClassesFromType(getType());
+			for (String typeImport : importClassesFromTypes) {
+				clazz.insertImport(parser, typeImport);
+			}
          getClazz().setFileHasChanged(true);
       }
    }
