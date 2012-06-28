@@ -2,20 +2,34 @@ package org.sdmlib.serialization.xml;
 
 import java.util.HashMap;
 
-/**
- * Collection of static methods to convert special and extended characters into
- * HTML entitities and vice versa.<br/>
- * <br/>
- * Copyright (c) 2004-2005 Tecnick.com S.r.l (www.tecnick.com) Via Ugo Foscolo
- * n.19 - 09045 Quartu Sant'Elena (CA) - ITALY - www.tecnick.com -
- * info@tecnick.com<br/>
- * Project homepage: <a href="http://htmlentities.sourceforge.net"
- * target="_blank">http://htmlentities.sourceforge.net</a><br/>
- * License: http://www.gnu.org/copyleft/lesser.html LGPL
- * 
- * @author Nicola Asuni [www.tecnick.com].
- * @version 1.0.004
- */
+/*
+Copyright (c) 2012, Stefan Lindel
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. All advertising materials mentioning features or use of this software
+   must display the following acknowledgement:
+   This product includes software developed by Stefan Lindel.
+4. Neither the name of contributors may be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 public class HTMLEntities {
 
 	/**
@@ -27,10 +41,6 @@ public class HTMLEntities {
 	 * Map to convert html entities in exteden characters.
 	 */
 	private HashMap<String, Integer> unhtmlentities_map = new HashMap<String, Integer>();
-
-	// ==============================================================================
-	// METHODS
-	// ==============================================================================
 
 	/**
 	 * Initialize HTML translation maps.
@@ -319,12 +329,10 @@ public class HTMLEntities {
 
 		for (int i = 0; i < str.length(); ++i) {
 			char ch = str.charAt(i);
-			String entity = (String) htmlentities_map
-					.get(new Integer((int) ch)); // get equivalent html entity
+			String entity = htmlentities_map.get((int) ch); // get equivalent html entity
 			if (entity == null) { // if entity has not been found
-				if (((int) ch) > 128) { // check if is an extended character
-					buf.append("&#" + ((int) ch) + ";"); // convert extended
-															// character
+				if (ch > 128) { // check if is an extended character
+					buf.append("&#" + ((int) ch) + ";"); // convert extended character
 				} else {
 					buf.append(ch); // append the character as is
 				}
@@ -364,14 +372,13 @@ public class HTMLEntities {
 				}
 				if (entity.charAt(1) == '#') {
 					if (entity.charAt(2) == 'x') {
-						iso = new Integer(Integer.parseInt(
-								entity.substring(3, entity.length() - 1), 16));
+						iso = Integer.parseInt(entity.substring(3, entity.length() - 1), 16);
 					} else {
 						iso = new Integer(entity.substring(2,
 								entity.length() - 1));
 					}
 				} else {
-					iso = (Integer) unhtmlentities_map.get(entity);
+					iso = unhtmlentities_map.get(entity);
 				}
 				if (iso == null) {
 					buf.append(entity);
@@ -437,33 +444,6 @@ public class HTMLEntities {
 	 */
 	public static String unhtmlDoubleQuotes(String str) {
 		return str.replaceAll("&quot;", "\"");
-	}
-
-	/**
-	 * Replace single and double quotes characters with HTML entities.
-	 * 
-	 * @param str
-	 *            the input string
-	 * @return string with replaced quotes
-	 */
-	public static String htmlQuotes(String str) {
-		str = htmlDoubleQuotes(str); // convert double quotes
-		str = htmlSingleQuotes(str); // convert single quotes
-		return str;
-	}
-
-	/**
-	 * Replace single and double quotes HTML entities with equivalent
-	 * characters.
-	 * 
-	 * @param str
-	 *            the input string
-	 * @return string with replaced quotes
-	 */
-	public static String unhtmlQuotes(String str) {
-		str = unhtmlDoubleQuotes(str); // convert double quotes
-		str = unhtmlSingleQuotes(str); // convert single quotes
-		return str;
 	}
 
 	/**
