@@ -347,7 +347,6 @@ public class ScenarioManager
 		      }
 		      catch (ParseException e)
 		      {
-		         // TODO Auto-generated catch block
 		         e.printStackTrace();
 		      }
 		   }
@@ -718,7 +717,6 @@ public class ScenarioManager
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 	   
@@ -727,7 +725,6 @@ public class ScenarioManager
 
    public ScenarioManager add(Scenario scenario)
    {
-      // TODO Auto-generated method stub
       scenarios.add(scenario);
       return this;
    }
@@ -740,7 +737,6 @@ public class ScenarioManager
    
    public void addEntry(KanbanEntry sprint1)
    {
-      // TODO Auto-generated method stub
       newEntries.add(sprint1);
    }
 

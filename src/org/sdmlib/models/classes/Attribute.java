@@ -355,7 +355,6 @@ public class Attribute implements PropertyChangeInterface
  		
  		int pos = parser.indexOf(Parser.METHOD + ":get" + StrUtil.upFirstChar(getName())+ "()");
 
- 		// TODO : FIX ME
  		String string = Parser.METHOD + ":get" + StrUtil.upFirstChar(getName()) + "()";     
 		SymTabEntry symTabEntry = parser.getSymTab().get(string);
     
@@ -429,7 +428,6 @@ public class Attribute implements PropertyChangeInterface
    {
 //	   int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName()); //remove
 
-      // TODO : FIX ME
 	  parser.indexOf(Parser.CLASS_END);
       String string = Parser.ATTRIBUTE+":PROPERTY_" + getName().toUpperCase();      
       SymTabEntry symTabEntry = parser.getSymTab().get(string);

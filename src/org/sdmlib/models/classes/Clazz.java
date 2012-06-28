@@ -425,7 +425,6 @@ public class Clazz implements PropertyChangeInterface
    
    public void insertImport(Parser myParser, String className)
    {
-      // TODO Auto-generated method stub
       int pos = myParser.indexOf(Parser.IMPORT);
 
       String prefix = "";

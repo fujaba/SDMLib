@@ -183,7 +183,7 @@ public class Role implements PropertyChangeInterface
       {
          generateEmptySetInPartnerClass(rootDir, partnerRole, doGenerate);
       }
-      // TODO : add props to kind classes
+
       insertCaseInGenericGet(myParser, partnerRole, rootDir);
 
       if (StrUtil.stringEquals(partnerRole.getCard(), MANY))
@@ -542,7 +542,6 @@ public class Role implements PropertyChangeInterface
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          getClazz().setFileHasChanged(true);
          
-         //TODO : no kind casses found ????
          LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
          for (Clazz clazz : kindClasses) {
         	 createInKindClassesSetToOne(clazz, partnerRole, rootDir);

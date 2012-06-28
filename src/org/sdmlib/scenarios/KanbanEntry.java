@@ -30,9 +30,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.serialization.json.JsonIdMap;
 
 public class KanbanEntry implements PropertyChangeInterface
 {

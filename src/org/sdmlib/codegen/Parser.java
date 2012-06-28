@@ -459,7 +459,11 @@ public class Parser
          {
             
             String params = parseFormalParamList();
-
+            
+            // FIXME : skip annotations 
+            if("@".equals(type))
+            	return;
+            
             methodBodyStartPos = currentRealToken.startPos;
             // skip throws
             if (currentRealTokenEquals("throws")) 
@@ -642,6 +646,10 @@ private void skipBody() {
          int typeEndPos = currentRealToken.startPos-1;
          
          paramList.append(fileBody.substring(typeStartPos, typeEndPos));
+         
+         // parameter ends
+         if (currentRealKindEquals(')'))
+        	 break;
          
          // skip param name
          nextRealToken();
@@ -1341,7 +1349,7 @@ private void skipBody() {
 	        
 	        parseSimpleStatementDetails();
 	        
-//	        String qualifiedName = parseQualifiedName();   TODO : remove this
+//	        String qualifiedName = parseQualifiedName();   
 //	        methodBodyQualifiedNames.put(qualifiedName, startPos);
 	     }
 	     else if (currentRealKindEquals('{'))
@@ -1426,7 +1434,7 @@ private void skipBody() {
          
          skip(';');
       }
-// TODO : Diff
+
 		else if (currentRealKindEquals('('))
 		{
 			ArrayList<ArrayList<String>> initElements = new ArrayList<ArrayList<String>>();

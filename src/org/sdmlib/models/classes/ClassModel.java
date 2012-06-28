@@ -654,7 +654,6 @@ public class ClassModel implements PropertyChangeInterface
 		Parser partnerParser = partnerClass.getOrCreateParser(rootDir); 
 		String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
 
-		// TODO : fix indexOf clears symtab
 		int attributePosition = partnerParser.indexOf(searchString);
 
 		if (attributePosition > -1)
@@ -691,7 +690,6 @@ public class ClassModel implements PropertyChangeInterface
 			}
 		}
 
-		// TODO : add interfaces
 		else if (memberName.startsWith(Parser.IMPLEMENTS))
 		{
 			addMemberAsInterface(clazz, memberName, parser);

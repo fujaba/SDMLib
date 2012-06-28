@@ -32,12 +32,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import org.sdmlib.codegen.Parser;
@@ -47,12 +44,8 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.scenarios.JsonToImg.EdgeLabels;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-
-import com.sun.tools.javac.code.Type.ForAll;
 
 
 
@@ -240,7 +233,6 @@ public class Scenario
       }
       catch (IOException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
    }
@@ -254,7 +246,6 @@ public class Scenario
 
    public void addObjectDiag(JsonIdMap jsonIdMap, Object root)
    {
-      // TODO Auto-generated method stub
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
       
       String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
