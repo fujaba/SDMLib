@@ -318,15 +318,21 @@ public class Clazz implements PropertyChangeInterface
          pos = parser.indexOf(Parser.CLASS_END);
          
          StringBuilder text = new StringBuilder
-            (  "\n   " +
+         (     "\n   " +
                "\n   //==========================================================================" +
                "\n   " +
                "\n   public void removeYou()" +
                "\n   {" +
-               "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +
+               "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +              
                "\n   }" +
                "\n"
-               );
+         );
+         
+         if (superClass != null) {
+
+        		 CGUtil.replaceAll(text,"\n   }",  "\n      super.removeYou();\n   }");
+
+         }
          
          parser.getFileBody().insert(pos, text.toString());
          setFileHasChanged(true);
