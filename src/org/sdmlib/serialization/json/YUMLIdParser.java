@@ -33,6 +33,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 /**
@@ -90,9 +91,20 @@ public class YUMLIdParser extends IdMap{
 	 * @return the string
 	 */
 	public String parseObject(Object object) {
-		return parse(object, OBJECT);
+		return parse(object, OBJECT, new IdMapFilter());
+	}
+	
+	/**
+	 * Parses the object.
+	 *
+	 * @param object the object
+	 * @return the string
+	 */
+	public String parseObject(Object object, IdMapFilter filter) {
+		return parse(object, OBJECT, filter);
 	}
 
+	
 	/**
 	 * Parses the class.
 	 *
@@ -102,7 +114,19 @@ public class YUMLIdParser extends IdMap{
 	 */
 	public String parseClass(Object object, boolean showCardinality) {
 		this.showCardinality=showCardinality;
-		return parse(object, CLASS);
+		return parse(object, CLASS, new IdMapFilter());
+	}
+	/**
+	 * Parses the class.
+	 *
+	 * @param object the object
+	 * @param showCardinality the show cardinality
+	 * @param IdMapFilter Filter function
+	 * @return the string
+	 */
+	public String parseClass(Object object, boolean showCardinality, IdMapFilter filter) {
+		this.showCardinality=showCardinality;
+		return parse(object, CLASS, filter);
 	}
 
 	/**
@@ -110,13 +134,14 @@ public class YUMLIdParser extends IdMap{
 	 *
 	 * @param object the object
 	 * @param typ the typ
+	 * @param IdMapFilter Filter for serialisation
 	 * @return the string
 	 */
-	public String parse(Object object, int typ) {
+	public String parse(Object object, int typ, IdMapFilter filter) {
 		String result = "";
 		boolean isFirst = true;
 		this.type = typ;
-		String id = parse(object);
+		String id = parse(object, filter);
 		// Links auflösen
 		ArrayList<String> keys = new ArrayList<String>();
 		keys.addAll(linkProperty.keySet());
@@ -191,7 +216,7 @@ public class YUMLIdParser extends IdMap{
 	 * @param object the object
 	 * @return the string
 	 */
-	private String parse(Object object) {
+	private String parse(Object object, IdMapFilter filter) {
 		String className="";
 		String id="";
 		String mainKey="";
@@ -221,34 +246,38 @@ public class YUMLIdParser extends IdMap{
 				for (String property : prototyp.getProperties()) {
 					Object value = prototyp.getValue(object, property);
 					if (value != null) {
-						if (value instanceof Collection<?>) {
-							for (Object containee : ((Collection<?>) value)) {
-								String subId = parse(containee);
-								String key = id + "-" + subId;
-								linkProperty.put(key, property);
-								linkCardinality
-										.put(key, getCardinality("0..n"));
-							}
-						} else {
-							SendableEntityCreator valueCreater = getCreatorClass(value);
-							if (valueCreater != null) {
-								String subId = parse(value);
-								String key = id + "-" + subId;
-								linkProperty.put(key, property);
-								linkCardinality
-										.put(key, getCardinality("0..1"));
+						if(filter.isConvertable(this, object, property, value)){
+							int oldValue = filter.setDeep(IdMapFilter.DEEPER);
+							if (value instanceof Collection<?>) {
+								for (Object containee : ((Collection<?>) value)) {
+									String subId = parse(containee, filter);
+									String key = id + "-" + subId;
+									linkProperty.put(key, property);
+									linkCardinality
+											.put(key, getCardinality("0..n"));
+								}
 							} else {
-								if (!first) {
-									result += ";";
+								SendableEntityCreator valueCreater = getCreatorClass(value);
+								if (valueCreater != null) {
+									String subId = parse(value, filter);
+									String key = id + "-" + subId;
+									linkProperty.put(key, property);
+									linkCardinality
+											.put(key, getCardinality("0..1"));
+								} else {
+									if (!first) {
+										result += ";";
+									}
+									// plain attr just add text
+									if(type==OBJECT){
+									result += property + "=" + value;
+									}else{
+										result += property + ":" + value.getClass().getName();
+									}
+									first = false;
 								}
-								// plain attr just add text
-								if(type==OBJECT){
-								result += property + "=" + value;
-								}else{
-									result += property + ":" + value.getClass().getName();
-								}
-								first = false;
 							}
+							filter.setDeep(oldValue);
 						}
 					}
 				}
