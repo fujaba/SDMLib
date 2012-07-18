@@ -234,7 +234,7 @@ public class UpdateListener implements PropertyChangeListener{
 		}
 
 		if (suspendIdList == null) {
-			map.sendUpdateMsg(jsonObject);
+			map.sendUpdateMsg(oldValue, newValue, jsonObject);
 		}
 	}
 

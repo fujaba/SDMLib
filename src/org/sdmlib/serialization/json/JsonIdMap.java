@@ -263,6 +263,9 @@ public class JsonIdMap extends IdMap{
 			}
 			if (result == null) {
 				result = typeInfo.getSendableInstance(false);
+				sendReceiveMsg(MapUpdateListener.TYP_NEW, result, jsonObject);
+			}else{
+				sendReceiveMsg(MapUpdateListener.TYP_UPDATE, result, jsonObject);
 			}
 			if(typeInfo instanceof NoIndexCreator){
 				String[] properties = typeInfo.getProperties();
@@ -441,21 +444,26 @@ public class JsonIdMap extends IdMap{
 			for (String property : properties) {
 				Object value = prototyp.getValue(entity, property);
 				if (value != null) {
-					boolean aggregation = filter.isConvertable(this, entity,
-							property, value);
 					if (value instanceof Collection) {
 						Collection<?> list = ((Collection<?>) value);
 						if (list.size() > 0) {
 							JsonArray refArray = new JsonArray();
 							for (Object containee : list) {
+
 								if (containee != null && filter.isRegard(this, entity, property, containee)) {
+									boolean aggregation = filter.isConvertable(this, entity,
+											property, containee);
 									refArray.put(parseObject(containee,
 											aggregation, filter, jsonArray, isTypSave()));
 								}
 							}
-							jsonProps.put(property, refArray);
+							if(refArray.size()>0){
+								jsonProps.put(property, refArray);
+							}
 						}
 					} else if (filter.isRegard(this, entity, property, value)){
+						boolean aggregation = filter.isConvertable(this, entity,
+								property, value);
 						jsonProps.put(
 								property,
 								parseObject(value, aggregation, filter,
@@ -522,9 +530,16 @@ public class JsonIdMap extends IdMap{
 	 * @param jsonObject the json object
 	 * @return true, if successful
 	 */
-	public boolean sendUpdateMsg(JsonObject jsonObject) {
+	public boolean sendUpdateMsg(Object oldObj, Object newObject, JsonObject jsonObject) {
 		if (this.updatelistener != null) {
-			return this.updatelistener.sendUpdateMsg(jsonObject);
+			return this.updatelistener.sendUpdateMsg(oldObj, newObject, jsonObject);
+		}
+		return true;
+	}
+	
+	public boolean sendReceiveMsg(String type, Object value, JsonObject props){
+		if (this.updatelistener != null) {
+			return this.updatelistener.readMessages(type, value, props);
 		}
 		return true;
 	}
@@ -551,7 +566,7 @@ public class JsonIdMap extends IdMap{
 		}
 		JsonObject sendObj = new JsonObject();
 		sendObj.put(IdMap.UPDATE, children);
-		sendUpdateMsg(sendObj);
+		sendUpdateMsg(null, null, sendObj);
 	}
 
 	/**
