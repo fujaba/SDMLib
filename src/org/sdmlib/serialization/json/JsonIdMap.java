@@ -448,14 +448,14 @@ public class JsonIdMap extends IdMap{
 						if (list.size() > 0) {
 							JsonArray refArray = new JsonArray();
 							for (Object containee : list) {
-								if (containee != null) {
+								if (containee != null && filter.isRegard(this, entity, property, containee)) {
 									refArray.put(parseObject(containee,
 											aggregation, filter, jsonArray, isTypSave()));
 								}
 							}
 							jsonProps.put(property, refArray);
 						}
-					} else {
+					} else if (filter.isRegard(this, entity, property, value)){
 						jsonProps.put(
 								property,
 								parseObject(value, aggregation, filter,
