@@ -316,35 +316,30 @@ public class JsonObject extends Entity{
         int newindent = indent + indentFactor;
         Object object;
         StringBuffer sb = new StringBuffer("{");
-        if (length == 1) {
-            object = keys.next();
-            sb.append(EntityUtil.quote(object.toString()));
-            sb.append(": ");
-            sb.append(EntityUtil.valueToString(map.get(object), indentFactor,
-                    indent, false, this));
-        } else {
-            while (keys.hasNext()) {
-                object = keys.next();
-                if (sb.length() > 1) {
-                    sb.append(",");
-                }
-            	if(indentFactor>0){
-            		sb.append(CRLF);
-            		for (i = 0; i < newindent; i += 1) {
-                        sb.append(' ');
-                    }
-            	}
 
-                sb.append(EntityUtil.quote(object.toString()));
-                sb.append(":");
-                sb.append(EntityUtil.valueToString(map.get(object), indentFactor,
-                        newindent, false, this));
-            }
-            if(indentFactor>0&&sb.length() > 1){
-                sb.append(CRLF);
-                for (i = 0; i < indent; i += 1) {
+        object = keys.next();
+        sb.append(EntityUtil.quote(object.toString()));
+        sb.append(":");
+        sb.append(EntityUtil.valueToString(map.get(object), indentFactor, indent, false, this));
+        while (keys.hasNext()) {
+            object = keys.next();
+            sb.append(",");
+        	if(indentFactor>0){
+        		sb.append(CRLF);
+        		for (i = 0; i < newindent; i += 1) {
                     sb.append(' ');
                 }
+        	}
+
+            sb.append(EntityUtil.quote(object.toString()));
+            sb.append(":");
+            sb.append(EntityUtil.valueToString(map.get(object), indentFactor,
+                    newindent, false, this));
+        }
+        if(indentFactor>0){
+            sb.append(CRLF);
+            for (i = 0; i < indent; i += 1) {
+                sb.append(' ');
             }
         }
         sb.append('}');
