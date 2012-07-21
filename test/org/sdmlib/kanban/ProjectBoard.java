@@ -96,12 +96,28 @@ public class ProjectBoard
             .withParent(sprint1);
       entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
       
+      KanbanEntry sprint2 = kanbanBoard.findOrCreate("Sprint.002.Transformations")
+            .withLastDeveloper("zuendorf")
+            .withPhase(ACTIVE)
+            .withParent(kanbanBoard);
+      
+      entry = kanbanBoard.findOrCreate("PatternModelCodeGen")
+            .withParent(sprint2)
+            .linkToTest("test", "org.sdmlib.models.patterns.PatternModelCodeGen", entry.getName());
       
       entry = kanbanBoard.findOrCreate("GenericObjectDiagram")
             .withParent(sprint1);
      
       entry.linkToTest("test", "org.sdmlib.models.objects.GenericObjectsTest", entry.getName());
       
+      entry = kanbanBoard.findOrCreate("LudoModel")
+            .withParent(sprint2)
+            .linkToTest("examples", "org.sdmlib.examples.ludo.LudoModel", entry.getName());
+
+      entry = kanbanBoard.findOrCreate("LudoScenario")
+            .withParent(sprint2)
+            .linkToTest("examples", "org.sdmlib.examples.ludo.LudoScenario", entry.getName());
+
       man.dumpKanban();
    }
 

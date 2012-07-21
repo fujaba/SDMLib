@@ -24,6 +24,7 @@ package org.sdmlib.model.test.superclasses;
 import org.sdmlib.model.test.superclasses.Continent;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.utils.StrUtil;
 
 public class State extends Continent implements PropertyChangeInterface
 {
@@ -40,6 +41,11 @@ public class State extends Continent implements PropertyChangeInterface
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (PROPERTY_TEST.equalsIgnoreCase(attrName))
+      {
+         return getTest();
+      }
       
       return null;
    }
@@ -49,6 +55,12 @@ public class State extends Continent implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_TEST.equalsIgnoreCase(attrName))
+      {
+         setTest((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -69,5 +81,33 @@ public class State extends Continent implements PropertyChangeInterface
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEST = "test";
+   
+   private String test;
+
+   public String getTest()
+   {
+      return this.test;
+   }
+   
+   public void setTest(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.test, value))
+      {
+         String oldValue = this.test;
+         this.test = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEST, oldValue, value);
+      }
+   }
+   
+   public State withTest(String value)
+   {
+      setTest(value);
+      return this;
+   } 
 }
 

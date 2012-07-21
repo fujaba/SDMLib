@@ -73,7 +73,8 @@ public class ClassModelTest
       
       
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
-      .withAttribute("signature", "String");     
+      .withAttribute("signature", "String")
+      .withAttribute("returnType", "String");     
       
       new Association()
       .withSource("clazz", clazzClass, Role.ONE, Role.AGGREGATION)
@@ -129,8 +130,8 @@ public class ClassModelTest
       .withAttribute("name", "String")
       .withAttribute("type", "String")
       .withAttribute("startPos", "int")
-      .withAttribute("endPos", "int")
-      .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
+      .withAttribute("endPos", "int");
+      // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
       
       
       Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
@@ -154,8 +155,11 @@ public class ClassModelTest
       scenario.add("Generate creator classes.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
+      scenario.add("Generate PatternObject classes.", 
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "20.07.2012 16:56:42", 1, 8);
+
       
-      model.generate("tmp", "tmp");
+      model.generate("src", "srcHelpers");
       
       ScenarioManager.get()
       .add(scenario)
