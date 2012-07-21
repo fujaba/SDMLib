@@ -4,7 +4,7 @@
     edge [fontsize = 10];
     
     
-    GroupAccount [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GroupAccount</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    GroupAccount [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GroupAccount</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>initAccounts(double,String)</td></tr> <tr><td align='left'>updateBalances()</td></tr>  </table></td></tr> </table>>];
     Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>balance :double</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     Item [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Item</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>description :String</td></tr> <tr><td align='left'>value :double</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     

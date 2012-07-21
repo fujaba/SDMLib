@@ -1,0 +1,30 @@
+<html>
+<body>
+<p>Scenario <a href='../examples/org/sdmlib/examples/ludo/LudoScenario.java' type='text/x-java'>LudoScenario</a></p>
+<pre>Start situation: </pre>
+<img src='LudoScenario3.svg'>
+<pre>now the pawn may move to Tom's start field</pre>
+<pre>      // build move operation with SDM model transformations
+      Pattern p = new Pattern(CreatorCreator.getIdMap());
+      
+      PawnPO pawnPO = (PawnPO) p.bind(p8);
+      
+      PlayerPO playerPO = pawnPO.hasPlayer();
+      
+      DicePO dicePO = playerPO.hasDice().hasValue(6);
+      
+      FieldPO baseField = pawnPO.hasPos().hasKind("base");
+      
+      playerPO.hasBase(baseField);
+      
+      FieldPO startFieldPO = playerPO.hasStart();
+      
+      PawnPO otherOwnPawnPO = startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
+</pre>
+<img src='LudoMoveWithMatch01.svg'>
+<pre>      pawnPO.setPos(startFieldPO);
+</pre>
+<img src='LudoMoveAfterSetPos02.svg'>
+
+</body>
+</html>

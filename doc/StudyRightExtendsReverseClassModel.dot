@@ -4,26 +4,8 @@
     edge [fontsize = 10];
     
     
-    Lecture [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Lecture</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>Title :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Person [label=<<table color='lightgrey' border='0' cellborder='1' cellspacing='0'> <tr> <td>Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findMyPosition()</td></tr> <tr><td align='left'>findMyPosition(String)</td></tr> <tr><td align='left'>findMyPosition(String,int)</td></tr> <tr><td align='left'>getName()</td></tr> <tr><td align='left'>setName(String)</td></tr> <tr><td align='left'>withName(String)</td></tr>  </table></td></tr> </table>>];
-    Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>roomNo :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>studentCount()</td></tr>  </table></td></tr> </table>>];
-    University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    StudyRightClassesCodeGen [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>StudyRightClassesCodeGen</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>testStudyRightOneToOneAssoc()</td></tr> <tr><td align='left'>testStudyRightClassesCodeGen()</td></tr> <tr><td align='left'>testStudyRightObjectScenarios()</td></tr> <tr><td align='left'>testStudyRightExtendsReverseClassModel()</td></tr> <tr><td align='left'>testStudyRightReverseClassModel()</td></tr>  </table></td></tr> </table>>];
-    Female [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Female</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findMyPosition()</td></tr> <tr><td align='left'>findMyPosition(String)</td></tr> <tr><td align='left'>findMyPosition(String,int)</td></tr>  </table></td></tr> </table>>];
-    Male [label=<<table color='lightgrey' border='0' cellborder='1' cellspacing='0'> <tr> <td>Male</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Professor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Professor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>PersNr :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>matrNo :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findMyPosition()</td></tr> <tr><td align='left'>findMyPosition(String)</td></tr> <tr><td align='left'>findMyPosition(String,int)</td></tr>  </table></td></tr> </table>>];
     
     
     
-    Female ->  Professor [dir = "back" arrowtail = "empty"];
-    Person ->  Female [dir = "back" arrowtail = "empty"];
-    Person ->  Male [dir = "back" arrowtail = "empty"];
-    Male ->  Student [dir = "back" arrowtail = "empty"];
-    Room -> Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
-    Lecture -> Room [headlabel = "in" taillabel = "lecture *" arrowhead = "none" ];
-    Room -> University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
-    Lecture -> Professor [headlabel = "has" taillabel = "lecture *" arrowhead = "none" ];
-    Lecture -> Student [headlabel = "listen" taillabel = "lecture *" arrowhead = "none" ];
 }
 
