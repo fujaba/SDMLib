@@ -8,6 +8,7 @@ public class ContinentCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      Continent.PROPERTY_TEST,
    };
    
    public String[] getProperties()
@@ -35,4 +36,5 @@ public class ContinentCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

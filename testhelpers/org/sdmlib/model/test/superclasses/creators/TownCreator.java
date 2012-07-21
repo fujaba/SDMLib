@@ -8,6 +8,7 @@ public class TownCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      Town.PROPERTY_TEST,
    };
    
    public String[] getProperties()
@@ -35,4 +36,5 @@ public class TownCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 
