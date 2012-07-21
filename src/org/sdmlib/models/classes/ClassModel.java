@@ -200,6 +200,12 @@ public class ClassModel implements PropertyChangeInterface
 		return this;
 	}
 
+	public ClassModel withoutClasses(Clazz value)
+   {
+      removeFromClasses(value);
+      return this;
+   }
+	
 	public void addToClasses(Clazz value)
 	{
 		if (this.classes == null)
@@ -668,7 +674,7 @@ public class ClassModel implements PropertyChangeInterface
 		// add new methods
 		if (memberName.startsWith(Parser.METHOD))
 		{
-			addMemberAsMethod(clazz, memberName);
+			addMemberAsMethod(clazz, memberName, parser.getSymTab().get(memberName));
 		}
 		// add new attributes
 		else if (memberName.startsWith(Parser.ATTRIBUTE))
@@ -784,9 +790,10 @@ public class ClassModel implements PropertyChangeInterface
 	
 	
 	
-	private void addMemberAsMethod(Clazz clazz, String memberName)
+	private void addMemberAsMethod(Clazz clazz, String memberName, SymTabEntry symTabEntry)
 	{
-		String[] split = memberName.split(":");
+	   String fullSignature = symTabEntry.getType();
+		String[] split = fullSignature.split(":");
 		String signature = split[1];
 
 		// filter internal generated methods
@@ -796,9 +803,10 @@ public class ClassModel implements PropertyChangeInterface
 
 		if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
 		{
-			new Method().
-			withClazz(clazz).
-			withSignature(signature);
+			new Method()
+			.withClazz(clazz)
+			.withSignature(signature)
+			.withReturnType(split[2]);
 		}
 	}
 
@@ -2303,3 +2311,4 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
 
 
 }
+

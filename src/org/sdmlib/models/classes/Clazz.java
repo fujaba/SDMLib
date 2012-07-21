@@ -32,6 +32,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.models.classes.creators.ClazzSet;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -106,6 +107,13 @@ public class Clazz implements PropertyChangeInterface
 
    private boolean modelSetFileHasChanged;
    
+   private boolean patternObjectFileHasChanged;
+   
+   public void setPatternObjectFileHasChanged(boolean patternObjectFileHasChanged)
+   {
+      this.patternObjectFileHasChanged = patternObjectFileHasChanged;
+   }
+
    public void setCreatorFileHasChanged(boolean creatorFileHasChanged)
    {
       this.creatorFileHasChanged = creatorFileHasChanged;
@@ -160,7 +168,7 @@ public class Clazz implements PropertyChangeInterface
       	method.generate(rootDir, helpersDir, false);
       }
       
-	  generateAttributes(rootDir, helpersDir);
+      generateAttributes(rootDir, helpersDir);
 	  
       printFile(isFileHasChanged());
       
@@ -173,6 +181,10 @@ public class Clazz implements PropertyChangeInterface
       
       // now generate the corresponding ModelSet class
       getOrCreateParserForModelSetFile(helpersDir);
+      printModelSetFile(modelSetFileHasChanged);
+      
+      // now generate the corresponding PatterObject class
+      getOrCreateParserForPatternObjectFile(helpersDir);
       printModelSetFile(modelSetFileHasChanged);
       
       return this;
@@ -666,10 +678,15 @@ public class Clazz implements PropertyChangeInterface
    private File javaFile;
    private File creatorJavaFile;
    private File modelSetJavaFile;
+   private File patternObjectJavaFile;
 
    private Parser modelSetParser = null;
 
    private StringBuilder modelSetFileBody;
+   
+   private Parser patternObjectParser = null;
+
+   private StringBuilder patternObjectFileBody;
    
    public File getJavaFile()
    {
@@ -904,6 +921,68 @@ public class Clazz implements PropertyChangeInterface
       return modelSetParser;
    }
 
+
+   public Parser getOrCreateParserForPatternObjectFile(String rootDir)
+   {
+      if (patternObjectParser == null)
+      {
+         // try to find existing file
+         int pos = name.lastIndexOf('.');
+         
+         String packageName = name.substring(0, pos) + ".creators";
+         
+         String fullEntityClassName = name;
+         
+         String entitiyClassName = name.substring(pos + 1);
+         
+         String patternObjectClassName = entitiyClassName + "PO";
+         
+         String fileName = packageName + "." + patternObjectClassName;
+
+         fileName = fileName.replaceAll("\\.", "/");
+         
+         fileName = rootDir + "/" + fileName + ".java";
+         
+         patternObjectJavaFile = new File(fileName);
+         
+         // found old one?
+         if (patternObjectJavaFile.exists())
+         {
+            patternObjectFileBody = CGUtil.readFile(patternObjectJavaFile);
+         }
+         else
+         {
+            patternObjectFileBody = new StringBuilder();
+
+            StringBuilder text = new StringBuilder(
+                  "package packageName;\n" +
+                  "\n" +
+                  "import org.sdmlib.models.pattern.PatternObject;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class patternObjectClassName extends PatternObject\n" +
+                  "{\n" +
+                  "}\n");
+            
+            CGUtil.replaceAll(text, 
+               "patternObjectClassName", patternObjectClassName, 
+               "entitiyClassName", entitiyClassName, 
+               "fullEntityClassName", fullEntityClassName,
+               "packageName", packageName);
+            
+            patternObjectFileBody.append(text.toString());
+            
+            patternObjectFileHasChanged = true;
+         }
+         
+         patternObjectParser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(patternObjectFileBody);
+
+      }
+      
+      return modelSetParser;
+   }
 
 
    public boolean isFileHasChanged()

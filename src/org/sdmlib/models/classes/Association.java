@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.models.classes.creators.AssociationSet;
 
 
 public class Association implements PropertyChangeInterface

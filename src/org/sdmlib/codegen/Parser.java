@@ -485,7 +485,7 @@ public class Parser
                new SymTabEntry()
                .withMemberName(methodSignature)
                .withKind(METHOD)
-               .withType(methodSignature)
+               .withType(methodSignature + ":" + type)
                .withStartPos(startPos)
                .withEndPos(previousRealToken.startPos)
                .withBodyStartPos(methodBodyStartPos)

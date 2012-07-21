@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.scenarios.creators.LogEntrySet;
 
 
 // should have a creator class

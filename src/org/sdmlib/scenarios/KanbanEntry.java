@@ -363,7 +363,7 @@ public class KanbanEntry implements PropertyChangeInterface
       return result;
    }
 
-   public void linkToTest(String rootDir, String className, String testName) 
+   public KanbanEntry linkToTest(String rootDir, String className, String testName) 
    {
       int lastDotPos = className.lastIndexOf('.');
 
@@ -467,6 +467,7 @@ public class KanbanEntry implements PropertyChangeInterface
          ScenarioManager.get().printFile(javaFile, fileBody);
       }
 
+      return this;
    }
 
    public KanbanEntry withParent(KanbanEntry newValue) 

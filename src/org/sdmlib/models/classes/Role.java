@@ -29,6 +29,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.classes.creators.RoleSet;
 
 
 public class Role implements PropertyChangeInterface
@@ -214,6 +215,7 @@ public class Role implements PropertyChangeInterface
       Parser modelSetParser = getClazz().getOrCreateParserForModelSetFile(helperDir);
       
       insertGetterInModelSetFile(modelSetParser, partnerRole);
+      insertSetterInModelSetFile(modelSetParser, partnerRole);
       
       getClazz().printModelSetFile(doGenerate);
 
@@ -309,6 +311,83 @@ public class Role implements PropertyChangeInterface
          getClazz().setModelSetFileHasChanged(true);
          
          getClazz().insertImport(parser, partnerRole.getClazz().getName());
+      }
+   }
+
+
+   private void insertSetterInModelSetFile(Parser parser, Role partnerRole)
+   {
+      String targetType = CGUtil.shortClassName(partnerRole.getClazz().getName());
+      
+      String key = Parser.METHOD + ":with" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public ModelSetType withName(TargetType value)\n" + 
+            "   {\n" + 
+            "      for (ContentType obj : this)\n" + 
+            "      {\n" + 
+            "         obj.withName(value);\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      return this;\n" + 
+            "   }\n\n"
+            );
+
+         String fullModelSetType = this.getClazz().getName() + "Set";
+         
+         CGUtil.replaceAll(text, 
+            "TargetType", targetType,
+            "ContentType", CGUtil.shortClassName(getClazz().getName()),
+            "ModelSetType", CGUtil.shortClassName(this.getClazz().getName()) + "Set",
+            "Name", StrUtil.upFirstChar(partnerRole.getName())
+            );
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setModelSetFileHasChanged(true);
+         
+         getClazz().insertImport(parser, partnerRole.getClazz().getName());
+      }
+      
+      if (partnerRole.getCard().equals(Role.MANY))
+      {
+         key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
+         pos = parser.indexOf(key);
+
+         if (pos < 0)
+         {
+            StringBuilder text = new StringBuilder(
+               "   public ModelSetType withoutName(TargetType value)\n" + 
+               "   {\n" + 
+               "      for (ContentType obj : this)\n" + 
+               "      {\n" + 
+               "         obj.withoutName(value);\n" + 
+               "      }\n" + 
+               "      \n" + 
+               "      return this;\n" + 
+               "   }\n\n"
+               );
+
+            String fullModelSetType = this.getClazz().getName() + "Set";
+            
+            CGUtil.replaceAll(text, 
+               "TargetType", targetType,
+               "ContentType", CGUtil.shortClassName(getClazz().getName()),
+               "ModelSetType", CGUtil.shortClassName(this.getClazz().getName()) + "Set",
+               "Name", StrUtil.upFirstChar(partnerRole.getName())
+               );
+
+            int classEnd = parser.indexOf(Parser.CLASS_END);
+            
+            parser.getFileBody().insert(classEnd, text.toString());
+            getClazz().setModelSetFileHasChanged(true);
+            
+            getClazz().insertImport(parser, partnerRole.getClazz().getName());
+         }
       }
    }
 

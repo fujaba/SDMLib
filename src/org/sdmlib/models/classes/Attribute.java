@@ -30,6 +30,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.classes.creators.AttributeSet;
 
 public class Attribute implements PropertyChangeInterface 
 {
@@ -178,7 +179,8 @@ public class Attribute implements PropertyChangeInterface
 
 	      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
 	      insertGetterInModelSetClass(modelSetParser, clazz);
-	      getClazz().printModelSetFile(doGenerate);
+	      insertSetterInModelSetClass(modelSetParser, clazz);
+         getClazz().printModelSetFile(doGenerate);
       }
       return this;
    }
@@ -242,6 +244,43 @@ public class Attribute implements PropertyChangeInterface
          getClazz().setCreatorFileHasChanged(true);
       }
    }
+   
+   private void insertSetterInModelSetClass(Parser parser, Clazz ownerClazz) {
+      String attrType = CGUtil.shortClassName(getType());
+      String key = Parser.METHOD + ":with"
+            + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0) {
+         // need to add property to string array
+
+         StringBuilder text = new StringBuilder(
+               "   public ModelSetType withName(AttrType value)\n"
+                     + "   {\n"
+                     + "      for (ContentType obj : this)\n"
+                     + "      {\n"
+                     + "         obj.withName(value);\n"
+                     + "      }\n" + "      \n"
+                     + "      return this;\n" 
+                     + "   }\n" 
+                     + "\n");
+
+         String fullModelSetType = getType();
+         String modelSetType = CGUtil.shortClassName(ownerClazz.getName()) + "Set";
+         
+         CGUtil.replaceAll(text, 
+            "AttrType", attrType,
+            "ContentType", CGUtil.shortClassName(ownerClazz.getName()),
+            "ModelSetType", modelSetType, 
+            "Name", StrUtil.upFirstChar(getName()));
+         
+         ownerClazz.printFile(true);
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         // getClazz()
+         ownerClazz.setModelSetFileHasChanged(true);         
+      }
+   }
 
 	private void insertGetterInModelSetClass(Parser parser, Clazz ownerClazz) {
 		String key = Parser.METHOD + ":get"
@@ -260,7 +299,8 @@ public class Attribute implements PropertyChangeInterface
 							+ "      {\n"
 							+ "         result.add(obj.getName());\n"
 							+ "      }\n" + "      \n"
-							+ "      return result;\n" + "   }\n" + "\n" + "");
+							+ "      return result;\n" 
+							+ "   }\n" + "\n" + "");
 
 			String fullModelSetType = getType();
 			String modelSetType = CGUtil.shortClassName(getType());
