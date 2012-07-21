@@ -2,14 +2,17 @@ package org.sdmlib.examples.groupAccount.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
+import org.sdmlib.examples.groupAccount.Person;
 
 public class ItemSet extends LinkedHashSet<Item>
 {
 	private static final long serialVersionUID = 1L;
-public StringList getDescription()
+
+	public StringList getDescription()
    {
       StringList result = new StringList();
       
@@ -56,6 +59,62 @@ public StringList getDescription()
       return result;
    }
 
+   public ItemSet withDescription(String value)
+   {
+      for (Item obj : this)
+      {
+         obj.withDescription(value);
+      }
+      
+      return this;
+   }
+
+   public ItemSet withValue(double value)
+   {
+      for (Item obj : this)
+      {
+         obj.withValue(value);
+      }
+      
+      return this;
+   }
+
+   public ItemSet withParent(GroupAccount value)
+   {
+      for (Item obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
+   public ItemSet withBuyer(Person value)
+   {
+      for (Item obj : this)
+      {
+         obj.withBuyer(value);
+      }
+      
+      return this;
+   }
+
+   public ItemSet withoutBuyer(Person value)
+   {
+      for (Item obj : this)
+      {
+         obj.withBuyer(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
+
+
+
 
 

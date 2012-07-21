@@ -5,6 +5,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
+import java.util.List;
+import org.sdmlib.examples.groupAccount.GroupAccount;
+import org.sdmlib.examples.groupAccount.Item;
 
 public class PersonSet extends LinkedHashSet<Person>
 {
@@ -55,6 +58,65 @@ public class PersonSet extends LinkedHashSet<Person>
       
       return result;
    }
+   
+   public PersonSet setParent(GroupAccount value)
+   {
+      for (Person obj : this)
+      {
+         obj.setParent(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet withName(String value)
+   {
+      for (Person obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet withBalance(double value)
+   {
+      for (Person obj : this)
+      {
+         obj.withBalance(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet withParent(GroupAccount value)
+   {
+      for (Person obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet withItems(Item value)
+   {
+      for (Person obj : this)
+      {
+         obj.withItems(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet withoutItems(Item value)
+   {
+      for (Person obj : this)
+      {
+         obj.withoutItems(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
