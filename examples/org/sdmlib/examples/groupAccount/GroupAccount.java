@@ -32,6 +32,30 @@ import org.sdmlib.utils.PropertyChangeInterface;
 public class GroupAccount implements PropertyChangeInterface
 {
 
+   public void updateBalances()
+   {
+      double total = this.getItems().getValue().sum();
+      
+      double share = total / this.getPersons().size();
+      
+      for (Person person : this.getPersons())
+      {
+         double myCosts = person.getItems().getValue().sum();
+         
+         person.setBalance(myCosts - share); 
+      }
+      
+      // did all participants buy something? 
+      // this.getItems(); 
+   }
+
+   
+   public double initAccounts(double param, String value)
+   {
+      System.out.println("Hello world.");
+      return 0;
+   }
+   
    
    //==========================================================================
    
@@ -112,24 +136,6 @@ public class GroupAccount implements PropertyChangeInterface
 
    
 
-   public void updateBalances()
-   {
-      double total = this.getItems().getValue().sum();
-      
-      double share = total / this.getPersons().size();
-      
-      for (Person person : this.getPersons())
-      {
-         double myCosts = person.getItems().getValue().sum();
-         
-         person.setBalance(myCosts - share); 
-      }
-      
-      // did all participants buy something? 
-      // this.getItems(); 
-   }
-
-   
    /********************************************************************
     * <pre>
     *              one                       many

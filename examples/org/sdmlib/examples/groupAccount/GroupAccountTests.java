@@ -32,6 +32,7 @@ import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.classes.Method;
    
 public class GroupAccountTests 
 {
@@ -117,6 +118,16 @@ public class GroupAccountTests
       ClassModel model = new ClassModel();
       
       Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
+      /* add method */
+      new Method()
+			.withClazz(groupAccountClass)
+			.withSignature("initAccounts(double,String)")
+			.withReturnType("double");
+      /* add method */
+      new Method()
+			.withClazz(groupAccountClass)
+			.withSignature("updateBalances()")
+			.withReturnType("void");
       
       Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person")
       .withAttribute("name", "String")
@@ -138,6 +149,10 @@ public class GroupAccountTests
       .withSource("buyer", personClass, Role.ONE)
       .withTarget("items", itemClass, Role.MANY);
 
+      model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
+      
+      model.insertModelCreationCodeHere("examples");
+      
       model.generate("examples", "examplehelpers");
       
       scenario.addImage(model.dumpClassDiag("GroupAccountClassDiag01"));
@@ -156,6 +171,4 @@ public class GroupAccountTests
    private static final String IMPLEMENTATION = "implementation";
    private static final String BACKLOG = "backlog";
 }
-
-
 
