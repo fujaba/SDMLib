@@ -1,19 +1,17 @@
-package org.sdmlib.codegen.creators;
+package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.classes.creators.CreatorCreator;
+import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.models.pattern.Pattern;
 
-public class StatementEntryCreator implements SendableEntityCreator
+public class PatternCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      StatementEntry.PROPERTY_KIND,
-      StatementEntry.PROPERTY_TOKENLIST,
-      StatementEntry.PROPERTY_ASSIGNTARGETVARNAME,
-      StatementEntry.PROPERTY_BODYSTATS,
-      StatementEntry.PROPERTY_PARENT,
+      Pattern.PROPERTY_ELEMENTS,
+      Pattern.PROPERTY_HASMATCH,
+      Pattern.PROPERTY_CURRENTNAC,
    };
    
    public String[] getProperties()
@@ -23,17 +21,17 @@ public class StatementEntryCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new StatementEntry();
+      return new Pattern();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((StatementEntry) target).get(attrName);
+      return ((Pattern) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((StatementEntry) target).set(attrName, value);
+      return ((Pattern) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -41,5 +39,7 @@ public class StatementEntryCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
+
 
 

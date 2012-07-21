@@ -8,6 +8,9 @@ public class AssociationCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      Association.PROPERTY_MODEL,
+      Association.PROPERTY_SOURCE,
+      Association.PROPERTY_TARGET,
    };
    
    public String[] getProperties()
@@ -35,4 +38,5 @@ public class AssociationCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

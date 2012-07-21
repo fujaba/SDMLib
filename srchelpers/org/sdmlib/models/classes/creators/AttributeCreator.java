@@ -9,6 +9,7 @@ public class AttributeCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       Attribute.PROPERTY_INITIALIZATION,
+      Attribute.PROPERTY_CLAZZ,
    };
    
    public String[] getProperties()
@@ -36,4 +37,5 @@ public class AttributeCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

@@ -10,6 +10,15 @@ public class ClazzCreator implements SendableEntityCreator
    {
       Clazz.PROPERTY_NAME,
       Clazz.PROPERTY_INTERFAZE,
+      Clazz.PROPERTY_CLASSMODEL,
+      Clazz.PROPERTY_KINDCLASSES,
+      Clazz.PROPERTY_SUPERCLASS,
+      Clazz.PROPERTY_KINDCLASSESASINTERFACE,
+      Clazz.PROPERTY_INTERFACES,
+      Clazz.PROPERTY_ATTRIBUTES,
+      Clazz.PROPERTY_METHODS,
+      Clazz.PROPERTY_SOURCEROLES,
+      Clazz.PROPERTY_TARGETROLES,
    };
    
    public String[] getProperties()
@@ -37,4 +46,5 @@ public class ClazzCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

@@ -8,6 +8,8 @@ public class ClassModelCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      ClassModel.PROPERTY_CLASSES,
+      ClassModel.PROPERTY_ASSOCIATIONS,
    };
    
    public String[] getProperties()
@@ -35,4 +37,5 @@ public class ClassModelCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 

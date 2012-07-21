@@ -11,6 +11,8 @@ public class RoleCreator implements SendableEntityCreator
       Role.PROPERTY_NAME,
       Role.PROPERTY_CARD,
       Role.PROPERTY_KIND,
+      Role.PROPERTY_CLAZZ,
+      Role.PROPERTY_ASSOC,
    };
    
    public String[] getProperties()
@@ -38,4 +40,5 @@ public class RoleCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
 
