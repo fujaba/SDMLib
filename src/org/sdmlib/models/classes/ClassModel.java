@@ -1188,15 +1188,14 @@ public class ClassModel implements PropertyChangeInterface
 		
 		removeFromClasses(modelCreationClass);
 
-		String signature = Parser.METHOD + ":" + methodName + "(";// TODO should work for methods with params, too. Parse to method end and search in symtab.
+		String signature = Parser.METHOD + ":" + methodName + "(";
 
 		rescanCode();
 		
-//		SymTabEntry symTabEntry = parser.getSymTab().get(signature);
 		SymTabEntry symTabEntry = parser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
 		
 		if (symTabEntry == null) {
-			System.out.println("parser error");
+			System.out.println("call method for model creation code not found");
 			return;
 		}
 		

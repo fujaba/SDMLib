@@ -727,7 +727,7 @@ private void insertCaseInGenericGetSet(Parser parser)
          }
          
          StringBuilder text = new StringBuilder
-            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attribute))" +
                "\n      {" +
                "\n         return getPropertyName();" +
                "\n      }" +
