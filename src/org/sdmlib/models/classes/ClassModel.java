@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Z�ndorf
+   Copyright (c) 2012 Albert Zündorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -1730,10 +1730,8 @@ public class ClassModel implements PropertyChangeInterface
 //			String signature = method.getSignature(); 
 //			String methodName = signature.substring(0, signature.indexOf("("));
 //			String attributeName = StrUtil.upFirstChar(attribute.getName());
-//			String result = methodName.replace(attributeName, "");
-//			
-//			System.out.println(attributeName + "  " + result);
-//			
+//			String result = methodName.replace(attributeName, "");		
+//			System.out.println(attributeName + "  " + result);		
 //		}
 //		return false;
 //	}
