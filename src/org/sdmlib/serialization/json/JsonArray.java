@@ -30,8 +30,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
+import org.sdmlib.serialization.BaseEntity;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
@@ -86,7 +86,6 @@ import org.sdmlib.serialization.Tokener;
  */
 
 public class JsonArray extends EntityList{
-
 	/**
 	 * Construct an empty JSONArray.
 	 */
@@ -103,40 +102,10 @@ public class JsonArray extends EntityList{
 	 */
 	public JsonArray(Tokener x) throws RuntimeException {
 		this();
-	    setTokener(x);
+		x.parseToEntity(this);
 	}
 	    
-	public void setTokener(Tokener x){
-		x.setCreator(this);
-		if (x.nextClean() != '[') {
-			throw x.syntaxError("A JSONArray text must start with '['");
-		}
-		if (x.nextClean() != ']') {
-			x.back();
-			for (;;) {
-				if (x.nextClean() == ',') {
-					x.back();
-					put(null);
-				} else {
-					x.back();
-					put(x.nextValue());
-				}
-				switch (x.nextClean()) {
-				case ';':
-				case ',':
-					if (x.nextClean() == ']') {
-						return;
-					}
-					x.back();
-					break;
-				case ']':
-					return;
-				default:
-					throw x.syntaxError("Expected a ',' or ']'");
-				}
-			}
-		}
-	}
+
 
 	/**
 	 * Construct a JSONArray from a source JSON text.
@@ -149,7 +118,7 @@ public class JsonArray extends EntityList{
 	 *             If there is a syntax error.
 	 */
 	public JsonArray(String source) throws RuntimeException {
-		this(new Tokener(source));
+		this(new JsonTokener(source));
 	}
 
 	/**
@@ -167,8 +136,17 @@ public class JsonArray extends EntityList{
 			}
 		}
 	}
-
-
+	
+	/**
+	 * Construct a JSONArray from a BaseEntityArray.
+	 * 
+	 * @param Array of Elements.
+	 */
+	public JsonArray(BaseEntity... values) {
+		for(int i=0;i<values.length;i++){
+			put(EntityUtil.wrap(values[i], this));
+		}
+	}
 
 	/**
 	 * Get the JSONArray associated with an index.
@@ -306,35 +284,37 @@ public class JsonArray extends EntityList{
 	 * Make a prettyprinted JSON text of this JSONArray.
 	 */
 	public String toString(int indentFactor, int indent) {
-		List<Object> elements = getElements();
-		int len = elements.size();
-		if (len == 0) {
+		Iterator<Object> iterator = getElements().iterator();
+		if(!iterator.hasNext()){
 			return "[]";
 		}
-		int i;
-		StringBuffer sb = new StringBuffer("[");
-		if (len == 1) {
-			sb.append(EntityUtil.valueToString(elements.get(0),
-					indentFactor, indent, false, this));
-		} else {
-			int newindent = indent + indentFactor;
-            sb.append('\n');
-            for (i = 0; i < len; i += 1) {
-                if (i > 0) {
-                    sb.append(",\n");
-                }
-                for (int j = 0; j < newindent; j += 1) {
-                    sb.append(' ');
-                }
-                sb.append(EntityUtil.valueToString(elements.get(i),
-						indentFactor, newindent, false, this));
+
+		StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < indentFactor; i++) {
+        	sb.append(' ');
+        }
+        String step=sb.toString();
+        String prefix="";
+        int newindent = indent + indentFactor;
+		if(newindent>0){
+        	sb = new StringBuilder();
+            for(int i = 0; i < indent; i+=indentFactor) {
+            	sb.append(step);
             }
-			sb.append('\n');
-			for (i = 0; i < indent; i += 1) {
-                sb.append(' ');
-            }
+            prefix=CRLF+sb.toString();
 		}
-		sb.append(']');
+		//First Element
+		
+		sb = new StringBuilder("["+prefix+step);
+		Object element = iterator.next();
+		sb.append(EntityUtil.valueToString(element, indentFactor, newindent, false, this));
+		
+		while(iterator.hasNext()){
+			element = iterator.next();
+			sb.append(","+prefix+step);
+			sb.append(EntityUtil.valueToString(element, indentFactor, newindent, false, this));
+		}
+		sb.append(prefix+']');
 		return sb.toString();
 	}
 

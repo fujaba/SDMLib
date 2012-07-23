@@ -44,7 +44,6 @@ import org.sdmlib.serialization.interfaces.XMLEntityCreator;
  * The Class XMLIdMap.
  */
 public class XMLIdMap extends IdMap {
-	
 	/** The Constant ENTITYSPLITTER. */
 	public static final String ENTITYSPLITTER = "&";
 	
@@ -74,9 +73,6 @@ public class XMLIdMap extends IdMap {
 	
 	/** The value. */
 	private Tokener value;
-	
-	/** The Constant ID. */
-	public static final String ID="id";
 
 	/**
 	 * Instantiates a new xML id map.
@@ -240,7 +236,8 @@ public class XMLIdMap extends IdMap {
 			if(label.length()>0){
 				XMLEntity child = parent.getChild(label);
 				if(child==null){
-					child=new XMLEntity(label);
+					child=new XMLEntity();
+					child.setTag(label);
 					parserChild(child, newProp, value);
 					parent.addChild(child);
 				}else{
@@ -264,10 +261,13 @@ public class XMLIdMap extends IdMap {
 	 */
 	public Object decode(String value) {
 		Object result = null;
-		this.value=new Tokener(value);
+		this.value=new XMLTokener(value);
 		this.stack.clear();
-		while (!this.value.end()) {
-			result = findTag("");
+		while (!this.value.isEnd()) {
+			if (this.value.stepPos(ITEMSTART)) {
+				String tag=getEntity();
+				result = findTag("", tag);
+			}
 			if (result != null && !(result instanceof String)) {
 				break;
 			}
@@ -294,14 +294,38 @@ public class XMLIdMap extends IdMap {
 			value.next();
 		}
 		int start=value.getIndex();
-		while (!value.end() && !exit) {
+		ArrayList<String> stack=new ArrayList<String>();
+		while (!value.isEnd() && !exit) {
 			if(value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)){
 				empty=false;
 			}
 			if (value.getCurrentChar() == ITEMSTART) {
-				if(empty||value.charAt(value.getIndex()+1)==ENDTAG){
+				if(empty){
 					exit = true;
 					break;
+				}
+				String nextTag=value.getNextTag();
+				if(nextTag.length()>0){
+					stack.add(nextTag);
+					continue;
+				}
+				if(value.getCurrentChar()==ENDTAG){
+					if(stack.size()>0){
+						int temp=value.getIndex();
+						String endTag = value.getNextTag();
+						if(stack.get(stack.size()-1).equals(endTag)){
+							stack.remove(stack.size()-1);
+						}else{
+							stack.remove(stack.size()-1);
+							value.setIndex(temp-1);
+							continue;
+						}
+						
+					}else{
+						value.back();
+						exit = true;
+						break;
+					}
 				}
 			}
 			if (!exit) {
@@ -309,10 +333,10 @@ public class XMLIdMap extends IdMap {
 			}
 		}
 		if(!empty&&exit){
-			String value=this.value.previous(start);
+			String value=this.value.getPreviousString(start);
 			ReferenceObject refObject=null;
 			if("&".equals(newPrefix)){
-				refObject = stack.get(stack.size() - 1);
+				refObject = this.stack.get(this.stack.size() - 1);
 			}
 			if(refObject!=null){
 				SendableEntityCreator parentCreator=refObject.getCreater();
@@ -320,24 +344,6 @@ public class XMLIdMap extends IdMap {
 			}
 		}
 		return exit;
-	}
-	
-	/**
-	 * Find tag.
-	 *
-	 * @param prefix the prefix
-	 * @return the object
-	 */
-	private Object findTag(String prefix) {
-		if (value.stepPos(ITEMSTART)) {
-			int start = value.nextPos();
-
-			if (value.stepPos(SPACE, ITEMEND, ENDTAG)) {
-				String tag = getEntity(start);
-				return findTag(prefix, tag);
-			}
-		}
-		return null;
 	}
 	
 	/**
@@ -392,18 +398,18 @@ public class XMLIdMap extends IdMap {
 			}else{
 				if (!plainvalue) {
 					// Parse Attributes
-					while (!value.end() && value.getCurrentChar() != ITEMEND) {
+					while (!value.isEnd() && value.getCurrentChar() != ITEMEND) {
 						if (value.getCurrentChar() == ENDTAG) {
 							break;
 						}
 						int start = value.nextPos();
 						if (value.getCurrentChar() != ENDTAG) {
 							if (value.stepPos('=')) {
-								String key = value.previous(start);
+								String key = value.getPreviousString(start);
 								value.skip(2);
 								start = value.getIndex();
 								if (value.stepPosButNot('\\', '"')) {
-									String value = this.value.previous(start);
+									String value = this.value.getPreviousString(start);
 									this.value.next();
 									entityCreater.setValue(entity, prefix + key, value);
 								}
@@ -424,7 +430,7 @@ public class XMLIdMap extends IdMap {
 				}else{
 					int start = this.value.nextPos();
 					this.value.stepPosButNot('\\', ITEMSTART);
-					String value= this.value.previous(start);
+					String value= this.value.getPreviousString(start);
 					entityCreater.setValue(entity, prefix, value);
 					this.value.stepPos(ITEMSTART);
 					this.value.stepPos(ITEMEND);
@@ -444,44 +450,40 @@ public class XMLIdMap extends IdMap {
 	 * @param tag the tag
 	 */
 	private void parseChildren(String newPrefix, Object entity, String tag){
-		while (!value.end()) {
+		while (!value.isEnd()) {
 			if (stepEmptyPos(newPrefix, entity, tag)) {
-				int start = value.nextPos();
+				String nextTag=value.getNextTag();
 
-				if (value.stepPos(SPACE, ITEMEND, ENDTAG)) {
-					String nextTag = getEntity(start);
-			
-					if(nextTag.length()>0){
-						Object result = findTag(newPrefix, nextTag);
-			
-						if(result!=null){
-							ReferenceObject refObject=null;
-							if(result!=entity){
-								if("&".equals(newPrefix)){
-									refObject = stack.get(stack.size() - 2);
-								}else{
-									refObject = stack.get(stack.size() - 1);
-								}
-								if(refObject!=null){
-									SendableEntityCreator parentCreator=refObject.getCreater();
-									parentCreator.setValue(refObject.getEntity(), nextTag, result);
-									if(entity!=null&&stack.size()>0){
-										stack.remove(stack.size() - 1);
-									}
+				if(nextTag.length()>0){
+					Object result = findTag(newPrefix, nextTag);
+		
+					if(result!=null){
+						ReferenceObject refObject=null;
+						if(result!=entity){
+							if("&".equals(newPrefix)){
+								refObject = stack.get(stack.size() - 2);
+							}else{
+								refObject = stack.get(stack.size() - 1);
+							}
+							if(refObject!=null){
+								SendableEntityCreator parentCreator=refObject.getCreater();
+								parentCreator.setValue(refObject.getEntity(), nextTag, result);
+								if(entity!=null&&stack.size()>0){
+									stack.remove(stack.size() - 1);
 								}
 							}
 						}
 					}
-					if(value.end()){
-						if(entity!=null&&stack.size()>0){
-							stack.remove(stack.size() - 1);
-						}
-					}else if(value.getCurrentChar()==ENDTAG){
-						value.stepPos(ITEMEND);
-						break;
-					}
-					value.next();
 				}
+				if(value.isEnd()){
+					if(entity!=null&&stack.size()>0){
+						stack.remove(stack.size() - 1);
+					}
+				}else if(value.getCurrentChar()==ENDTAG){
+					value.stepPos(ITEMEND);
+					break;
+				}
+				value.next();
 			}
 		}
 	}
@@ -492,8 +494,8 @@ public class XMLIdMap extends IdMap {
 	 * @param start the start
 	 * @return the entity
 	 */
-	private String getEntity(int start) {
-		String tag = value.substring(start, value.getIndex());
+	private String getEntity() {
+		String tag=value.getNextTag();
 		for(String stopword : stopwords){
 			if(tag.startsWith(stopword)){
 				return "";

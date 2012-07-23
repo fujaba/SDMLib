@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Class BaseEntity.
  */
 public abstract class BaseEntity {
+	public static final String CRLF="\r\n";
 	public abstract EntityList getNewArray();
 	public abstract Entity getNewObject();
-	public abstract void setTokener(Tokener x);
 }

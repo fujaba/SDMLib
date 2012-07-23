@@ -37,14 +37,12 @@ import java.util.Map.Entry;
 
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
-import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 /**
  * The Class ByteEntity.
  */
 public class ByteEntity extends Entity{
-	
 	/** The Constant BIT OF A BYTE. */
 	public final static int BITOFBYTE=8;
 	
@@ -615,10 +613,5 @@ public class ByteEntity extends Entity{
 				// Zurueckformen nicht möglich da keine Infos vorliegen
 			}
 		}
-	}
-
-	@Override
-	public void setTokener(Tokener x) {
-		
 	}
 }

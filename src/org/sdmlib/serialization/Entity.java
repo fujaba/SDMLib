@@ -501,4 +501,17 @@ public abstract class Entity extends BaseEntity{
 	 */
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
+
+	public void setValue(String key, Object value){
+    	String myKey=key;
+    	if(key.indexOf('.')>0){
+    		myKey=key.substring(0, key.indexOf('.'));
+    		Object child=getMap().get(myKey);
+    		if(child instanceof Entity){
+    			((Entity)child).setValue(key.substring(key.indexOf('.')+1), value);
+    		}
+    	}else{
+    		put(key, value);
+    	}
+    }
 }

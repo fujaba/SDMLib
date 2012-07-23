@@ -75,6 +75,9 @@ public class IdMap {
 	
 	/** The prio. */
 	private Object prio;
+	
+	/** The Constant ID. */
+	public static final String ID="id";
 
 	/**
 	 * Instantiates a new id map.

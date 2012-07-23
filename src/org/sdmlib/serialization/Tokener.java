@@ -1,4 +1,5 @@
 package org.sdmlib.serialization;
+
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -31,8 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * The Class Tokener.
  */
-public class Tokener {
-    
+public abstract class Tokener {
     /** The index. */
     private int 	index;
     
@@ -45,12 +45,8 @@ public class Tokener {
     /** The buffer. */
     private String 	buffer;
     
-    /** The first char. */
-    private char 	firstChar;
-	
-	/** The creator. */
-	private BaseEntity creator;
-
+    public Tokener() {
+    }
     /**
      * Construct a Tokener from a string.
      *
@@ -60,8 +56,6 @@ public class Tokener {
     	this.buffer=s;
     	this.index=0;
     	this.line=0;
-    	this.firstChar=nextClean();
-    	back();
     }
 
 
@@ -103,7 +97,7 @@ public class Tokener {
      *
      * @return true, if successful
      */
-    public boolean end() {
+    public boolean isEnd() {
     	return buffer.length()<=index;
     }
 
@@ -156,7 +150,7 @@ public class Tokener {
      *   Substring bounds error if there are not
      *   n characters remaining in the source string.
      */
-     public String next(int n)  {
+     public String getNextString(int n)  {
     	 if (n == -1) {
     		n=buffer.length()-index; 
     	 } else if (n == 0) {
@@ -168,7 +162,7 @@ public class Tokener {
 
          while (pos < n) {
              chars[pos] = next();
-             if (end()) {
+             if (isEnd()) {
                  throw syntaxError("Substring bounds error");                 
              }
              pos += 1;
@@ -210,7 +204,7 @@ public class Tokener {
             case 0:
             case '\n':
             case '\r':
-                throw syntaxError("Unterminated string ("+sb.substring(0, 20)+")");
+                throw syntaxError("Unterminated string");
             case '\\':
                 c = next();
                 switch (c) {
@@ -230,7 +224,7 @@ public class Tokener {
                     sb.append('\r');
                     break;
                 case 'u':
-                    sb.append((char)Integer.parseInt(next(4), 16));
+                    sb.append((char)Integer.parseInt(getNextString(4), 16));
                     break;
                 case '"':
                 case '\'':
@@ -250,114 +244,30 @@ public class Tokener {
             }
         }
     }
-
-
-    /**
-     * Get the text up but not including the specified character or the
-     * end of line, whichever comes first.
+    
+	 /**
+     * Handle unquoted text. This could be the values true, false, or
+     * null, or it can be a number. An implementation (such as this one)
+     * is allowed to also accept non-standard forms.
      *
-     * @param delimiter the delimiter
-     * @return   A string.
+     * Accumulate characters until we reach the end of the text or a
+     * formatting character.
      */
-    public String nextTo(char delimiter)  {
-        StringBuffer sb = new StringBuffer();
-        for (;;) {
-            char c = next();
-            if (c == delimiter || c == 0 || c == '\n' || c == '\r') {
-                if (c != 0) {
-                    back();
-                }
-                return sb.toString().trim();
-            }
-            sb.append(c);
-        }
-    }
-
-    /**
-     * Get the text up but not including one of the specified delimiter
-     * characters or the end of line, whichever comes first.
-     * @param delimiters A set of delimiter characters.
-     * @return A string, trimmed.
-     */
-    public String nextTo(String delimiters)  {
-        char c;
-        StringBuffer sb = new StringBuffer();
-        for (;;) {
-            c = next();
-            if (delimiters.indexOf(c) >= 0 || c == 0 ||
-                    c == '\n' || c == '\r') {
-                if (c != 0) {
-                    back();
-                }
-                return sb.toString().trim();
-            }
-            sb.append(c);
-        }
-    }
-
-
-    /**
-     * Get the next value. The value can be a Boolean, Double, Integer,
-     * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
-     *
-     * @return An object.
-     */
-    public Object nextValue()  {
-        char c = nextClean();
-        String string;
-
-        if(firstChar=='{'||firstChar=='['){
-	        switch (c) {
-	            case '"':
-	            case '\'':
-	                return nextString(c);
-	            case '{':
-	                back();
-	                BaseEntity element = creator.getNewObject();
-	                element.setTokener(this);
-	                return element; 
-	            case '[':
-	                back();
-	                EntityList elementList = creator.getNewArray();
-	                elementList.setTokener(this);
-	                return elementList;
-	        }
-        }else if(firstChar=='<'){
-	        switch (c) {
-            case '"':
-            case '\'':
-                return nextString(c);
-            case '<':
-                back();
-                BaseEntity element = creator.getNewObject();
-                element.setTokener(this);
-                return element;
-	        }
-        }
-
-        /*
-         * Handle unquoted text. This could be the values true, false, or
-         * null, or it can be a number. An implementation (such as this one)
-         * is allowed to also accept non-standard forms.
-         *
-         * Accumulate characters until we reach the end of the text or a
-         * formatting character.
-         */
-
-        StringBuffer sb = new StringBuffer();
-        while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
-            sb.append(c);
-            c = next();
-        }
-        back();
-
-        string = sb.toString().trim();
-        if (string.equals("")) {
-            throw syntaxError("Missing value");
-        }
-        return EntityUtil.stringToValue(string);
-    }
-
+    public Object nextValue(BaseEntity creator) {
+    	char c = nextClean();
+	    StringBuffer sb = new StringBuffer();
+	    while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
+	        sb.append(c);
+	        c = next();
+	    }
+	    back();
+	
+	    String value = sb.toString().trim();
+	    if (value.equals("")) {
+	        throw syntaxError("Missing value");
+	    }
+	    return EntityUtil.stringToValue(value);
+  }
 
     /**
      * Skip.
@@ -514,7 +424,7 @@ public class Tokener {
      * @param start the start
      * @return the string
      */
-    public String previous(int start){
+    public String getPreviousString(int start){
     	return buffer.substring(start, index);
     }
     
@@ -548,6 +458,15 @@ public class Tokener {
     	return true;
     }
 
+    public String getNextTag(){
+    	int startTag=nextPos();
+		if(stepPos(' ', '>', '/', '<')){
+			return getPreviousString(startTag);	
+		}
+		return "";
+    }
+    
+    
 	/**
 	 * Sets the index.
 	 *
@@ -556,14 +475,7 @@ public class Tokener {
 	public void setIndex(int index) {
 		this.index=index;
 	}
-
-
-	/**
-	 * Sets the creator.
-	 *
-	 * @param creator the new creator
-	 */
-	public void setCreator(BaseEntity creator) {
-		this.creator=creator;
-	}
+	
+	public abstract void parseToEntity(Entity entity);
+	public abstract void parseToEntity(EntityList entityList);
 }

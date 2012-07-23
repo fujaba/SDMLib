@@ -69,7 +69,7 @@ public class JsonToImg
       for (int i = 0; i < objects.size(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
-         String jsonId = jsonObject.getString(JsonIdMap.JSON_ID);
+         String jsonId = jsonObject.getString(JsonIdMap.ID);
          knownIds.add(jsonId);
       }
       
@@ -80,7 +80,7 @@ public class JsonToImg
          JsonObject jsonObject = objects.getJSONObject(i);
          String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
         
-         String jsonId = lastPartLow(jsonObject.getString(JsonIdMap.JSON_ID));
+         String jsonId = lastPartLow(jsonObject.getString(JsonIdMap.ID));
          nodeLine = nodeLine.replaceAll("<id>", jsonId);
          
          String className = lastPart(jsonObject.getString(JsonIdMap.CLASS));
@@ -96,7 +96,7 @@ public class JsonToImg
          {
             String key = (String) iter.next();
             
-            if (! JsonIdMap.JSON_ID.equals(key) && ! JsonIdMap.CLASS.equals(key))
+            if (! JsonIdMap.ID.equals(key) && ! JsonIdMap.CLASS.equals(key))
             {
                Object value = jsonObject.get(key);
                
@@ -125,7 +125,7 @@ public class JsonToImg
                else if (value instanceof JsonObject)
                {
                   JsonObject tgtJsonObject = (JsonObject) value;
-                  String tgtId = tgtJsonObject.getString(JsonIdMap.JSON_ID);
+                  String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
                   tgtId = lastPartLow(tgtId);
                   addToEdges(edgeMap, jsonId, tgtId, key);
                }
@@ -136,7 +136,7 @@ public class JsonToImg
                   for (int j = 0; j < jsonArray.size(); j++)
                   {
                      JsonObject tgtJsonObject = jsonArray.getJSONObject(j);
-                     String tgtId = tgtJsonObject.getString(JsonIdMap.JSON_ID);
+                     String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
                      tgtId = lastPartLow(tgtId);
                      addToEdges(edgeMap, jsonId, tgtId, key);
                   }

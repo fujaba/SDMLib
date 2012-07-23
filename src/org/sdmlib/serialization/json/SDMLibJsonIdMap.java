@@ -15,7 +15,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 	protected Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
 		// JSONArray jsonArray;
 		if (isId) {
-			String jsonId = (String) jsonObject.get(JSON_ID);
+			String jsonId = (String) jsonObject.get(ID);
 			if (jsonId == null) {
 				return target;
 			}
@@ -65,7 +65,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 						// got a new kid, create it
 						JsonObject child=(JsonObject) kid;
 						String className = (String) child.get(CLASS);
-						String jsonId = (String) child.get(JSON_ID);
+						String jsonId = (String) child.get(ID);
 						//FIXME if (className == null&&jsonId!=null)
 						if (className == null&&jsonId!=null&& child.size() == 1)
 						{
@@ -89,7 +89,7 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 //					// got a new kid, create it
 					JsonObject child=(JsonObject) value;
 					String className = (String) child.get(CLASS);
-					String jsonId = (String) child.get(JSON_ID);
+					String jsonId = (String) child.get(ID);
 					if (className == null && jsonId != null && child.size()==1) 
 					{
 						// It is a Ref

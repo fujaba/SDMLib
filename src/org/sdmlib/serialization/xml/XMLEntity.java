@@ -42,7 +42,6 @@ import org.sdmlib.serialization.Tokener;
  * The Class XMLEntity.
  */
 public class XMLEntity extends Entity{
-	
 	/** The children. */
 	private ArrayList<XMLEntity> children;
 	
@@ -64,86 +63,18 @@ public class XMLEntity extends Entity{
 	 *
 	 * @param tag the tag
 	 */
-	public XMLEntity(String tag){
-		this.setTag(tag);
+	public XMLEntity(String value){
+		this(new XMLTokener(value));
 	}
 	
     /**
      * Construct a XMLEntity from a Tokener.
-     * @param x A Tokener object containing the source string.
+     * @param value A Tokener object containing the source string.
      *  or a duplicated key.
      */
-    public XMLEntity(Tokener x) {
+    public XMLEntity(Tokener tokener) {
         this();
-        setTokener(x);
-    }
-    public void setTokener(Tokener x){
-        char c;
-        
-        x.setCreator(this);
-
-        if (x.nextClean() != '<') {
-            throw x.syntaxError("A JsonObject text must begin with '<'");
-        }
-        StringBuffer sb = new StringBuffer();
-        c = x.nextClean();
-        while (c >= ' ' && ",:]>/\\\"<;=# ".indexOf(c) < 0) {
-            sb.append(c);
-            c = x.next();
-        }
-        x.back();
-        setTag(sb.toString());
-        XMLEntity child;
-        for (;;) {
-        	String key=null;
-            c = x.nextClean();
-            switch (c) {
-            case 0:
-                throw x.syntaxError("A JsonObject text must end with '>'");
-            case '>':
-            	if(x.getCurrentChar()>' '||x.nextClean()>' '){
-            		if(x.getCurrentChar()=='<'){
-                		child = (XMLEntity) getNewObject();
-                		child.setTokener(x);
-                		this.addChild(child);
-            		}else{
-            			String value = x.nextString('<');
-            			this.setValue(value);
-            			x.back();
-            		}
-            	}
-        		break;
-            case '<':
-            	if(x.next()=='/'){
-            		x.stepPos('>');
-            		x.next();
-            		return;
-            	}else{
-            		x.back();
-            		x.back();
-            		child = (XMLEntity) getNewObject();
-            		child.setTokener(x);
-            		this.addChild(child);
-            		break;
-            	}
-            case '/':
-            	x.next();
-            	return;
-            default:
-                x.back();
-                key = x.nextValue().toString();
-            }
-            if(key!=null){
-// The key is followed by ':'. We will also tolerate '=' or '=>'.
-	            c = x.nextClean();
-	            if (c == '=') {
-	                if (x.next() != '>') {
-	                    x.back();
-	                }
-	            }
-	            this.put(key, x.nextValue());
-            }
-        }
+        tokener.parseToEntity(this);
     }
 
 	/* (non-Javadoc)

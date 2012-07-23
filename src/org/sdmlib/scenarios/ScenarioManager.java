@@ -197,7 +197,7 @@ public class ScenarioManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-      JsonSortedArray jsonSortedArray = new JsonSortedArray(new JsonIdComparator(), JsonIdMap.JSON_ID);
+      JsonSortedArray jsonSortedArray = new JsonSortedArray(new JsonIdComparator(), JsonIdMap.ID);
 	   JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, new JsonFilter());
 	   String jsonString = jsonArray.toString(2);
      
@@ -213,7 +213,7 @@ public class ScenarioManager
          JsonObject jsonObject = jsonArray.getJSONObject(i);
          
          String objectLine = "<a name='objectId'><p></p></a>\n";
-         objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.JSON_ID));
+         objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.ID));
          
          // iterate through keys
          for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
@@ -304,7 +304,7 @@ public class ScenarioManager
       collectHours(kanbanBoard);
       
 		// store entries into file for next run
-		JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.JSON_ID);
+		JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
 		String text = jsonArray.toString(2);
 		File file = new File (DOC_KANBAN_ENTRIES_JSON);
 		printFile(file, text);

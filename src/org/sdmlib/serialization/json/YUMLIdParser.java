@@ -40,7 +40,6 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class YUMLIdParser.
  */
 public class YUMLIdParser extends IdMap{
-	
 	/** The Constant URL. */
 	public static final String URL="http://yuml.me/diagram/class/";
 	
@@ -245,41 +244,46 @@ public class YUMLIdParser extends IdMap{
 				boolean first = true;
 				for (String property : prototyp.getProperties()) {
 					Object value = prototyp.getValue(object, property);
-					if (value != null) {
-						if(filter.isConvertable(this, object, property, value)){
-							int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-							if (value instanceof Collection<?>) {
-								for (Object containee : ((Collection<?>) value)) {
-									String subId = parse(containee, filter);
-									String key = id + "-" + subId;
-									linkProperty.put(key, property);
-									linkCardinality
-											.put(key, getCardinality("0..n"));
-								}
-							} else {
-								SendableEntityCreator valueCreater = getCreatorClass(value);
-								if (valueCreater != null) {
-									String subId = parse(value, filter);
-									String key = id + "-" + subId;
-									linkProperty.put(key, property);
-									linkCardinality
-											.put(key, getCardinality("0..1"));
-								} else {
-									if (!first) {
-										result += ";";
-									}
-									// plain attr just add text
-									if(type==OBJECT){
-									result += property + "=" + value;
-									}else{
-										result += property + ":" + value.getClass().getName();
-									}
-									first = false;
-								}
+					if (value == null) {
+						continue;
+					}
+					if(!filter.isRegard(this, object, property, value)){
+						continue;
+					}
+					if(filter.isConvertable(this, object, property, value)){
+						continue;
+					}
+					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
+					if (value instanceof Collection<?>) {
+						for (Object containee : ((Collection<?>) value)) {
+							String subId = parse(containee, filter);
+							String key = id + "-" + subId;
+							linkProperty.put(key, property);
+							linkCardinality
+									.put(key, getCardinality("0..n"));
+						}
+					} else {
+						SendableEntityCreator valueCreater = getCreatorClass(value);
+						if (valueCreater != null) {
+							String subId = parse(value, filter);
+							String key = id + "-" + subId;
+							linkProperty.put(key, property);
+							linkCardinality
+									.put(key, getCardinality("0..1"));
+						} else {
+							if (!first) {
+								result += ";";
 							}
-							filter.setDeep(oldValue);
+							// plain attr just add text
+							if(type==OBJECT){
+								result += property + "=" + value;
+							}else{
+								result += property + ":" + value.getClass().getName();
+							}
+							first = false;
 						}
 					}
+					filter.setDeep(oldValue);
 				}
 			}
 			result += "]";

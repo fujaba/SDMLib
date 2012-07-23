@@ -38,12 +38,11 @@ import java.util.TreeMap;
  * The Class JsonSortedArray.
  */
 public class JsonSortedArray extends JsonArray{
-	
 	/** The my sort array list. */
 	private SortedMap<Object, JsonObject> mySortArrayList;
 			
 	/** The sort prop. */
-	private String sortProp=JsonIdMap.JSON_ID;
+	private String sortProp=JsonIdMap.ID;
 	
 	/** The prop sort. */
 	private boolean propSort;

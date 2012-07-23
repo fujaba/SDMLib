@@ -90,7 +90,6 @@ import org.sdmlib.serialization.Tokener;
  * @version 2011-11-24
  */
 public class JsonObject extends Entity{
-	public static final char CRLF='\n';
     /**
      * Construct an empty JsonObject.
      */
@@ -112,59 +111,29 @@ public class JsonObject extends Entity{
      */
     public JsonObject(Tokener x) {
         this();
-        setTokener(x);
+        x.parseToEntity(this);
+    }
+
+    
+    public JsonObject(Entity entity){
+    	JsonTokener tokener=new JsonTokener();
+    	tokener.parseToEntity(this, entity);
     }
     
-    public void setTokener(Tokener x){
-        char c;
-        String key;
-
-        x.setCreator(this);
-        if (x.nextClean() != '{') {
-            throw x.syntaxError("A JsonObject text must begin with '{'");
-        }
-        for (;;) {
-            c = x.nextClean();
-            switch (c) {
-            case 0:
-                throw x.syntaxError("A JsonObject text must end with '}'");
-            case '}':
-                return ;
-            default:
-                x.back();
-                key = x.nextValue().toString();
-            }
-
-// The key is followed by ':'. We will also tolerate '=' or '=>'.
-
-            c = x.nextClean();
-            if (c == '=') {
-                if (x.next() != '>') {
-                    x.back();
-                }
-            } else if (c != ':') {
-                throw x.syntaxError("Expected a ':' after a key");
-            }
-            this.put(key, x.nextValue());
-
-// Pairs are separated by ','. We will also tolerate ';'.
-
-            switch (x.nextClean()) {
-            case ';':
-            case ',':
-                if (x.nextClean() == '}') {
-                    return;
-                }
-                x.back();
-                break;
-            case '}':
-                return;
-            default:
-                throw x.syntaxError("Expected a ',' or '}' got a " + x.nextClean());
-            }
-        }
+    /**
+     * Construct a JsonObject from a source JSON text string.
+     * This is the most commonly used JsonObject constructor.
+     * @param source    A string beginning
+     *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
+     *  with <code>}</code>&nbsp;<small>(right brace)</small>.
+     */
+    public JsonObject(String source) {
+    	this();
+    	JsonTokener tokener = new JsonTokener(source);
+    	tokener.parseToEntity(this);
     }
-
+    
+   
     /**
      * Construct a JsonObject from a Map.
      *
@@ -183,18 +152,6 @@ public class JsonObject extends Entity{
                 }
             }
         }
-    }
-
-
-    /**
-     * Construct a JsonObject from a source JSON text string.
-     * This is the most commonly used JsonObject constructor.
-     * @param source    A string beginning
-     *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-     *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-     */
-    public JsonObject(String source) {
-        this(new Tokener(source));
     }
 
     /**
@@ -270,24 +227,7 @@ public class JsonObject extends Entity{
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
     public String toString() {
-        try {
-        	Iterator<String> keys = this.keys();
-            StringBuffer sb = new StringBuffer("{");
-
-            while (keys.hasNext()) {
-                if (sb.length() > 1) {
-                    sb.append(',');
-                }
-                Object o = keys.next();
-                sb.append(EntityUtil.quote(o.toString()));
-                sb.append(':');
-                sb.append(EntityUtil.valueToString(getMap().get(o), this));
-            }
-            sb.append('}');
-            return sb.toString();
-        } catch (Exception e) {
-            return null;
-        }
+    	return toString(0,0);
     }
 
 
@@ -305,47 +245,60 @@ public class JsonObject extends Entity{
     public String toString(int indentFactor){
     	return toString(indentFactor, 0);
     }
+
     public String toString(int indentFactor, int indent) {
-        int i;
         int length = this.size();
         if (length == 0) {
             return "{}";
         }
+
         Map<String, Object> map = getMap();
         Iterator<String> keys = map.keySet().iterator();
+       
         int newindent = indent + indentFactor;
-        Object object;
-        StringBuffer sb = new StringBuffer("{");
-
-        object = keys.next();
-        sb.append(EntityUtil.quote(object.toString()));
-        sb.append(":");
-        sb.append(EntityUtil.valueToString(map.get(object), indentFactor, indent, false, this));
-        while (keys.hasNext()) {
-            object = keys.next();
-            sb.append(",");
-        	if(indentFactor>0){
-        		sb.append(CRLF);
-        		for (i = 0; i < newindent; i += 1) {
-                    sb.append(' ');
-                }
-        	}
-
-            sb.append(EntityUtil.quote(object.toString()));
-            sb.append(":");
-            sb.append(EntityUtil.valueToString(map.get(object), indentFactor,
-                    newindent, false, this));
+        String prefix="";
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < indentFactor; i++) {
+        	sb.append(' ');
         }
-        if(indentFactor>0){
-            sb.append(CRLF);
-            for (i = 0; i < indent; i += 1) {
-                sb.append(' ');
+        String step=sb.toString();
+        if(indent>0){
+        	sb = new StringBuilder();
+            for(int i = 0; i < indent; i+=indentFactor) {
+            	sb.append(step);
             }
+            prefix=CRLF+sb.toString();
+    	}else if(indentFactor>0){
+    		prefix=CRLF;
+    	}
+        
+        Object key= keys.next();
+        Object value=map.get(key);
+        if(length==1&&!(value instanceof Entity)){
+        	sb = new StringBuilder("{");
+        }else{
+        	sb = new StringBuilder("{"+prefix+step);
         }
-        sb.append('}');
+       
+        sb.append(EntityUtil.quote(key.toString()));
+        sb.append(":");
+        sb.append(EntityUtil.valueToString(value, indentFactor, newindent, false, this));
+        while (keys.hasNext()) {
+            key = keys.next();
+            sb.append(","+prefix+step);
+            sb.append(EntityUtil.quote(key.toString()));
+            sb.append(":");
+            sb.append(EntityUtil.valueToString(map.get(key), indentFactor,
+            		newindent, false, this));
+        }
+        if(length==1&&!(value instanceof Entity)){
+        	sb.append("}");
+        }else{
+        	sb.append(prefix+"}");
+        }
         return sb.toString();
     }
-
+    
 	/**
 	 * Get a new Instance of JsonArray
 	 */

@@ -52,7 +52,6 @@ import org.sdmlib.serialization.json.JsonObject;
  * @see UpdateEvent
  */
 public class UpdateListener implements PropertyChangeListener{
-
 	/** The map. */
 	private JsonIdMap map;
 
@@ -159,7 +158,7 @@ public class UpdateListener implements PropertyChangeListener{
 			return;
 		}
 
-		JsonObject jsonObject = new JsonObject(JsonIdMap.JSON_ID,
+		JsonObject jsonObject = new JsonObject(JsonIdMap.ID,
 				map.getId(source));
 
 		Object oldValue = evt.getOldValue();
@@ -179,7 +178,7 @@ public class UpdateListener implements PropertyChangeListener{
 				String oldId = map.getId(oldValue);
 				if (oldId != null) {
 					gc = oldId;
-					child.put(propertyName, new JsonObject(JsonIdMap.JSON_ID,
+					child.put(propertyName, new JsonObject(JsonIdMap.ID,
 							oldId));
 				}
 			} else {
@@ -195,7 +194,7 @@ public class UpdateListener implements PropertyChangeListener{
 			if (creatorClass != null) {
 				String key = map.getKey(newValue);
 				if (key != null) {
-					JsonObject item = new JsonObject(JsonIdMap.JSON_ID, key);
+					JsonObject item = new JsonObject(JsonIdMap.ID, key);
 					countMessage(item);
 					child.put(propertyName, item);
 				} else {
@@ -252,7 +251,7 @@ public class UpdateListener implements PropertyChangeListener{
 			return true;
 		}
 
-		String id = updateMessage.getString(JsonIdMap.JSON_ID);
+		String id = updateMessage.getString(JsonIdMap.ID);
 		JsonObject remove = (JsonObject) updateMessage.get(JsonIdMap.REMOVE);
 		JsonObject update = (JsonObject) updateMessage.get(JsonIdMap.UPDATE);
 		Object prio = updateMessage.get(JsonIdMap.PRIO);
@@ -346,7 +345,7 @@ public class UpdateListener implements PropertyChangeListener{
 			if (oldValue instanceof JsonObject) {
 				// GLAUB ICH MAL
 				String oldId = (String) ((JsonObject) oldValue)
-						.get(JsonIdMap.JSON_ID);
+						.get(JsonIdMap.ID);
 				return oldId.equals(map.getId(value));
 			} else if (oldValue.equals(value)) {
 				return true;
@@ -407,8 +406,8 @@ public class UpdateListener implements PropertyChangeListener{
 	 */
 	private void countMessage(JsonObject message) {
 		if (garbageCollection != null) {
-			if (message.has(JsonIdMap.JSON_ID)) {
-				String id = (String) message.get(JsonIdMap.JSON_ID);
+			if (message.has(JsonIdMap.ID)) {
+				String id = (String) message.get(JsonIdMap.ID);
 				if (garbageCollection.containsKey(id)) {
 					garbageCollection.put(id, garbageCollection.get(id) + 1);
 				} else {
