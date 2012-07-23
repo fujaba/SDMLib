@@ -67,6 +67,14 @@ public class IdMapFilter {
 		return true;
 	}
 	
+	
+	/**
+	 * Change IdMap to not give a ID and dont add UpdateListener
+	 * @return boolean
+	 */
+	public boolean isTemporary(){
+		return false;
+	}
 	/**
 	 * Gets the deep.
 	 *

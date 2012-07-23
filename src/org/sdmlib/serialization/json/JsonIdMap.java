@@ -106,7 +106,7 @@ public class JsonIdMap extends IdMap{
 			return null;
 		}
 
-		if (!(prototyp instanceof NoIndexCreator)) {
+		if (!(prototyp instanceof NoIndexCreator||filter.isTemporary())) {
 			id = getId(entity);
 		}
 		JsonObject jsonProp = new JsonObject();
@@ -229,8 +229,11 @@ public class JsonIdMap extends IdMap{
 	 * @return the object
 	 */
 	public Object readJson(Object target, JsonObject jsonObject) {
+		return readJson(target, jsonObject, true);
+	}
+	public Object readJson(Object target, JsonObject jsonObject, boolean readId) {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
-		Object mainItem = readJson(target, jsonObject, refs);
+		Object mainItem = readJson(target, jsonObject, refs, readId);
 		for (ReferenceObject ref : refs) {
 			ref.execute();
 		}
@@ -273,7 +276,7 @@ public class JsonIdMap extends IdMap{
 					}
 				}
 			}else{
-				readJson(result, jsonObject, refs);
+				readJson(result, jsonObject, refs, true);
 			}
 		}else if(jsonObject.get(VALUE)!=null){
 			return jsonObject.get(VALUE);
@@ -290,9 +293,9 @@ public class JsonIdMap extends IdMap{
 	 * @return the object
 	 */
 	protected Object readJson(Object target, JsonObject jsonObject,
-			LinkedHashSet<ReferenceObject> refs) {
+			LinkedHashSet<ReferenceObject> refs, boolean readId) {
 		// JSONArray jsonArray;
-		if (isId) {
+		if (isId&&readId) {
 			String jsonId = (String) jsonObject.get(ID);
 			if (jsonId == null) {
 				return target;

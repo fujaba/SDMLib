@@ -12,9 +12,9 @@ public class SDMLibJsonIdMap extends JsonIdMap{
 	public static final String JSON_NEW_NEIGHBORS = "newNeighbors";
 	
 	@Override
-	protected Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs) {
+	protected Object readJson(Object target, JsonObject jsonObject, LinkedHashSet<ReferenceObject> refs, boolean readId) {
 		// JSONArray jsonArray;
-		if (isId) {
+		if (isId&&!readId) {
 			String jsonId = (String) jsonObject.get(ID);
 			if (jsonId == null) {
 				return target;
