@@ -15,7 +15,9 @@ public class CreatorCreator
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.FemaleCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.ProfessorCreator());
       jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.StudentCreator());
+      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenCreator());
       return jsonIdMap;
    }
 }
+
 

@@ -153,27 +153,34 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       new Method()
 			.withClazz(personClass)
-			.withSignature("findMyPosition()");
+			.withSignature("findMyPosition()")
+         .withReturnType("void");
 
       new Method()
 			.withClazz(personClass)
-			.withSignature("findMyPosition(String)");
+			.withSignature("findMyPosition(String)")
+         .withReturnType("void");
 
       new Method()
 			.withClazz(personClass)
-			.withSignature("findMyPosition(String,int)");
+			.withSignature("findMyPosition(String,int)")
+         .withReturnType("void");
 
-      new Method()
-			.withClazz(personClass)
-			.withSignature("getName()");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("setName(String)");
-
-      new Method()
-			.withClazz(personClass)
-			.withSignature("withName(String)");
+      // commented as generated code does not work, interface should have an attr instead of attr access methods
+      //      new Method()
+      //			.withClazz(personClass)
+      //			.withSignature("getName()")
+      //         .withReturnType("String");
+      //
+      //      new Method()
+      //			.withClazz(personClass)
+      //			.withSignature("setName(String)")
+      //         .withReturnType("void");
+      //
+      //      new Method()
+      //			.withClazz(personClass)
+      //			.withSignature("withName(String)")
+      //         .withReturnType("Person");
 
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
       .withAttribute("roomNo", "String")
@@ -181,7 +188,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       new Method()
 			.withClazz(roomClass)
-			.withSignature("studentCount()");
+			.withSignature("studentCount()")
+         .withReturnType("int");
 
       new Association()
 			.withSource("neighbors", roomClass, "many")
@@ -202,23 +210,28 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       /* add method */
       new Method()
 			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightOneToOneAssoc()");
+			.withSignature("testStudyRightOneToOneAssoc()")
+         .withReturnType("void");
       /* add method */
       new Method()
 			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightClassesCodeGen()");
+			.withSignature("testStudyRightClassesCodeGen()")
+         .withReturnType("void");
       /* add method */
       new Method()
 			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightObjectScenarios()");
+			.withSignature("testStudyRightObjectScenarios()")
+         .withReturnType("void");
       /* add method */
       new Method()
 			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightExtendsReverseClassModel()");
+			.withSignature("testStudyRightExtendsReverseClassModel()")
+         .withReturnType("void");
       /* add method */
       new Method()
 			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightReverseClassModel()");
+			.withSignature("testStudyRightReverseClassModel()")
+         .withReturnType("void");
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
       .withInterfaces(personClass)
@@ -226,15 +239,18 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       new Method()
 			.withClazz(femaleClass)
-			.withSignature("findMyPosition()");
+			.withSignature("findMyPosition()")
+         .withReturnType("void");
 
       new Method()
 			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String)");
+			.withSignature("findMyPosition(String)")
+         .withReturnType("void");
 
       new Method()
 			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String,int)");
+			.withSignature("findMyPosition(String,int)")
+         .withReturnType("void");
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
       .withInterfaze(true)
@@ -251,30 +267,35 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
       .withInterfaces(maleClass)
       .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
+      .withAttribute("matrNo", "int")
+			/*set superclass*/
+      .withSuperClass(femaleClass);
 
       new Method()
 			.withClazz(studentClass)
-			.withSignature("findMyPosition()");
+			.withSignature("findMyPosition()")
+			.withReturnType("void");
 
       new Method()
 			.withClazz(studentClass)
-			.withSignature("findMyPosition(String)");
+			.withSignature("findMyPosition(String)")
+         .withReturnType("void");
 
       new Method()
 			.withClazz(studentClass)
-			.withSignature("findMyPosition(String,int)");
+			.withSignature("findMyPosition(String,int)")
+         .withReturnType("void");
 
       new Association()
 			.withSource("lecture", lectureClass, "many")
 			.withTarget("listen", studentClass, "one");
 
 
+      // model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
       
-
-      model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
+      // model.insertModelCreationCodeHere("examples");
       
-      model.insertModelCreationCodeHere("examples");
+      model.generate("examples", "examplehelpers");
       
       scenario.addImage(model.dumpClassDiag("StudyRightExtendsReverseClassModel"));
 

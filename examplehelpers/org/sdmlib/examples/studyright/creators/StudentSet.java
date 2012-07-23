@@ -5,6 +5,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.Room;
 
 public class StudentSet extends LinkedHashSet<Student>
 {
@@ -55,5 +57,46 @@ public StringList getName()
       
       return result;
    }
+   public StudentSet withName(String value)
+   {
+      for (Student obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withMatrNo(int value)
+   {
+      for (Student obj : this)
+      {
+         obj.withMatrNo(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withUni(University value)
+   {
+      for (Student obj : this)
+      {
+         obj.withUni(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withIn(Room value)
+   {
+      for (Student obj : this)
+      {
+         obj.withIn(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

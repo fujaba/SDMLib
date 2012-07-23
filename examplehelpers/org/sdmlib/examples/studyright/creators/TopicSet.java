@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.studyright.Topic;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyright.Professor;
 
 public class TopicSet extends LinkedHashSet<Topic>
 {
@@ -30,5 +31,26 @@ public class TopicSet extends LinkedHashSet<Topic>
       
       return result;
    }
+   public TopicSet withTitle(String value)
+   {
+      for (Topic obj : this)
+      {
+         obj.withTitle(value);
+      }
+      
+      return this;
+   }
+
+   public TopicSet withProf(Professor value)
+   {
+      for (Topic obj : this)
+      {
+         obj.withProf(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

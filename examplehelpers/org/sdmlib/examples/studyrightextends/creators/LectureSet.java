@@ -55,5 +55,47 @@ public class LectureSet extends LinkedHashSet<Lecture>
       
       return result;
    }
+   public LectureSet withTitle(String value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withTitle(value);
+      }
+      
+      return this;
+   }
+
+   public LectureSet withIn(Room value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withIn(value);
+      }
+      
+      return this;
+   }
+
+   public LectureSet withHas(Professor value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withHas(value);
+      }
+      
+      return this;
+   }
+
+   public LectureSet withListen(Student value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withListen(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 

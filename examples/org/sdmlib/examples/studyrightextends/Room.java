@@ -64,6 +64,11 @@ public class Room implements PropertyChangeInterface
       {
          return getUni();
       }
+
+      if (PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
+      {
+         return getNeighbors();
+      }
       
       return null;
    }
@@ -103,6 +108,18 @@ public class Room implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
+      {
+         addToNeighbors((Room) value);
+         return true;
+      }
+      
+      if ((PROPERTY_NEIGHBORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromNeighbors((Room) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -123,14 +140,16 @@ public class Room implements PropertyChangeInterface
    {
       removeAllFromLecture();
       setUni(null);
+      removeAllFromNeighbors();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
    //==========================================================================
    
-   public void studentCount(  )
+   public int studentCount(  )
    {
+      return 0;
    }
 
    
@@ -329,5 +348,91 @@ public class Room implements PropertyChangeInterface
 
    
    public static final RoomSet EMPTY_SET = new RoomSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Room ----------------------------------- Room
+    *              neighbors                   neighbors
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEIGHBORS = "neighbors";
+   
+   private RoomSet neighbors = null;
+   
+   public RoomSet getNeighbors()
+   {
+      if (this.neighbors == null)
+      {
+         return Room.EMPTY_SET;
+      }
+   
+      return this.neighbors;
+   }
+   
+   public boolean addToNeighbors(Room value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.neighbors == null)
+         {
+            this.neighbors = new RoomSet();
+         }
+         
+         changed = this.neighbors.add (value);
+         
+         if (changed)
+         {
+            value.withNeighbors(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEIGHBORS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromNeighbors(Room value)
+   {
+      boolean changed = false;
+      
+      if ((this.neighbors != null) && (value != null))
+      {
+         changed = this.neighbors.remove (value);
+         
+         if (changed)
+         {
+            value.withoutNeighbors(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEIGHBORS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Room withNeighbors(Room value)
+   {
+      addToNeighbors(value);
+      return this;
+   } 
+   
+   public Room withoutNeighbors(Room value)
+   {
+      removeFromNeighbors(value);
+      return this;
+   } 
+   
+   public void removeAllFromNeighbors()
+   {
+      LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getNeighbors());
+   
+      for (Room value : tmpSet)
+      {
+         this.removeFromNeighbors(value);
+      }
+   }
 }
 

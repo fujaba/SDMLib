@@ -1,19 +1,14 @@
-package org.sdmlib.examples.studyrightextends.creators;
+package org.sdmlib.examples.studyright.creators;
 
 import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.studyrightextends.Room;
+import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 
-public class RoomCreator implements SendableEntityCreator
+public class StudyRightClassesCodeGenCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Room.PROPERTY_ROOMNO,
-      Room.PROPERTY_CREDITS,
-      Room.PROPERTY_LECTURE,
-      Room.PROPERTY_UNI,
-      Room.PROPERTY_NEIGHBORS,
    };
    
    public String[] getProperties()
@@ -23,17 +18,17 @@ public class RoomCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Room();
+      return new StudyRightClassesCodeGen();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Room) target).get(attrName);
+      return ((StudyRightClassesCodeGen) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Room) target).set(attrName, value);
+      return ((StudyRightClassesCodeGen) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -41,5 +36,4 @@ public class RoomCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
 

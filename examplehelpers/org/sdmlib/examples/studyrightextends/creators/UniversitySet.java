@@ -31,5 +31,36 @@ public class UniversitySet extends LinkedHashSet<University>
       
       return result;
    }
+   public UniversitySet withName(String value)
+   {
+      for (University obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet withRooms(Room value)
+   {
+      for (University obj : this)
+      {
+         obj.withRooms(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet withoutRooms(Room value)
+   {
+      for (University obj : this)
+      {
+         obj.withoutRooms(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

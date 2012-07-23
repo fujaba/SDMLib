@@ -185,7 +185,7 @@ public class Clazz implements PropertyChangeInterface
       
       // now generate the corresponding PatterObject class
       getOrCreateParserForPatternObjectFile(helpersDir);
-      printModelSetFile(modelSetFileHasChanged);
+      printPatternObjectFile(modelSetFileHasChanged);
       
       return this;
    }
@@ -482,6 +482,14 @@ public class Clazz implements PropertyChangeInterface
       if (really || modelSetFileHasChanged)
       {
          CGUtil.printFile(modelSetJavaFile, modelSetFileBody.toString());
+      }
+   }
+
+   public void printPatternObjectFile(boolean really)
+   {
+      if (really || patternObjectFileHasChanged)
+      {
+         CGUtil.printFile(patternObjectJavaFile, patternObjectFileBody.toString());
       }
    }
 

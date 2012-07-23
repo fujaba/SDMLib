@@ -149,9 +149,9 @@ public class GroupAccountTests
       .withSource("buyer", personClass, Role.ONE)
       .withTarget("items", itemClass, Role.MANY);
 
-      model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
+      // model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
       
-      model.insertModelCreationCodeHere("examples");
+      // model.insertModelCreationCodeHere("examples");
       
       model.generate("examples", "examplehelpers");
       

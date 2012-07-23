@@ -285,6 +285,10 @@ public class Method implements PropertyChangeInterface
          String returnStat = "return this;";
          
          String type = this.getReturnType();
+         if (type == null)
+         {
+            type = "void";
+         }
          String importType = type;
          if ("void".equals(type))
          {

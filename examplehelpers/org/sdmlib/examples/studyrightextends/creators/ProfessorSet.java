@@ -44,5 +44,46 @@ public class ProfessorSet extends LinkedHashSet<Professor>
       
       return result;
    }
+   public ProfessorSet withPersNr(int value)
+   {
+      for (Professor obj : this)
+      {
+         obj.withPersNr(value);
+      }
+      
+      return this;
+   }
+
+   public ProfessorSet withName(String value)
+   {
+      for (Professor obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public ProfessorSet withLecture(Lecture value)
+   {
+      for (Professor obj : this)
+      {
+         obj.withLecture(value);
+      }
+      
+      return this;
+   }
+
+   public ProfessorSet withoutLecture(Lecture value)
+   {
+      for (Professor obj : this)
+      {
+         obj.withoutLecture(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
