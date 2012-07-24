@@ -23,7 +23,15 @@ public class FieldPO extends PatternObject
       this.getPattern().findMatch();
       
       return this;
-
+   }
+   
+   public FieldPO withKind(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Field) getCurrentMatch()).withKind(value);
+      }
+      return this;
    }
 
    public FieldPO startNAC()

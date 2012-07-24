@@ -202,13 +202,17 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
 
-	private void generateAttributes(String rootDir, String helpersDir) {
-		for (Attribute attr : this.getAttributes()) {
+	private void generateAttributes(String rootDir, String helpersDir) 
+	{
+		for (Attribute attr : this.getAttributes()) 
+		{
 			if ("PropertyChangeSupport".equals(attr.getType()))
 			  continue;
 			attr.generate(rootDir, helpersDir, false);
 		}
-		if (superClass != null) {
+		
+		if (superClass != null) 
+		{
 			gernerateSuperAttributes(superClass, rootDir, helpersDir);
 		}
 	}
@@ -1634,6 +1638,29 @@ public class Clazz implements PropertyChangeInterface
       }
 
    }
+
+   public String shortNameAndImport(String typeName, Parser parser)
+   {
+      // no dot no import
+      if (typeName.indexOf('.') < 0)
+      {
+         return typeName;
+      }
+      
+      String baseName = CGUtil.shortClassName(typeName);
+      
+      // generic type? 
+      int pos = typeName.indexOf('<');
+      if (pos >=0)
+      {
+         typeName = typeName.substring(0,  pos);
+      }
+      
+      insertImport(parser, typeName);
+      
+      return baseName;
+   }
+
 
    
    //==========================================================================

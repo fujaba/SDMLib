@@ -26,7 +26,7 @@ public class CreatorCreator
       return creatorSet;
    }
 
-public static JsonIdMap createIdMap(String sessionID)
+   public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       

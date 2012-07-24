@@ -162,6 +162,11 @@ public class CGUtil
       return name.substring(0, pos);
    }
 
+   public static String helperClassName(String modelClassName, String suffix)
+   {
+      return packageName(modelClassName) + ".creators." + shortClassName(modelClassName) + suffix;
+   }
+   
    public static String encodeJavaName(String text)
    {
       StringBuilder result = new StringBuilder();
@@ -181,6 +186,7 @@ public class CGUtil
       
       return result.toString();
    }
+
 }
 
 

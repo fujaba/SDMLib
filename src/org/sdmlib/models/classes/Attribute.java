@@ -28,9 +28,12 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.classes.creators.AttributeSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class Attribute implements PropertyChangeInterface 
 {
@@ -181,6 +184,13 @@ public class Attribute implements PropertyChangeInterface
 	      insertGetterInModelSetClass(modelSetParser, clazz);
 	      insertSetterInModelSetClass(modelSetParser, clazz);
          getClazz().printModelSetFile(doGenerate);
+         
+         Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+         insertGetterInPatternObjectClass(patternObjectParser, clazz);
+         insertSetterInPatternObjectClass(patternObjectParser, clazz);
+         getClazz().printPatternObjectFile(doGenerate);
+         
+         
       }
       return this;
    }
@@ -350,7 +360,86 @@ public class Attribute implements PropertyChangeInterface
 		}
 	}
 
- 	private String checkSetImportFor(String type) {
+   private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) {
+      String key = Parser.METHOD + ":has"
+            + StrUtil.upFirstChar(this.getName()) + "()";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0) {
+         // need to add property to string array
+
+         StringBuilder text = new StringBuilder(
+                     "   public PatternObjectType hasName(AttrType value)\n" + 
+                     "   {\n" + 
+                     "      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()\n" + 
+                     "      .withAttrName(ModelClass.PROPERTY_NAME)\n" + 
+                     "      .withTgtValue(value)\n" + 
+                     "      .withSrc(this)\n" + 
+                     "      .withPattern(this.getPattern());\n" + 
+                     "      \n" + 
+                     "      this.getPattern().findMatch();\n" + 
+                     "      \n" + 
+                     "      return this;\n" + 
+                     "   }\n" +
+                     "   \n");
+
+         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
+         String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "hasName", "has" + StrUtil.upFirstChar(getName()), 
+            "AttrType", attrType, 
+            "ModelClass", ownerClazz.shortNameAndImport(ownerClazz.getName(), parser),
+            "PROPERTY_NAME", "PROPERTY_" + getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         ownerClazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
+   private void insertSetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
+   {
+      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      
+      String attrNameUpFirstChar = StrUtil.upFirstChar(this.getName());
+      
+      String key = Parser.METHOD + ":with"
+            + attrNameUpFirstChar + "(" + attrType + ")";
+      
+      int pos = parser.indexOf(key);
+
+      if (pos < 0) {
+         // need to add property to string array
+
+         StringBuilder text = new StringBuilder(
+                     "   public PatternObjectType withAttrName(AttrType value)\n" + 
+                     "   {\n" + 
+                     "      if (this.getPattern().getHasMatch())\n" + 
+                     "      {\n" + 
+                     "         ((ModelClass) getCurrentMatch()).withAttrName(value);\n" + 
+                     "      }\n" + 
+                     "      return this;\n" + 
+                     "   }\n" +
+                     "   \n");
+
+         String patternObjectClassName = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectClassName,
+            "AttrName", StrUtil.upFirstChar(getName()), 
+            "AttrType", attrType, 
+            "ModelClass", ownerClazz.shortNameAndImport(ownerClazz.getName(), parser));
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         ownerClazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
+   private String checkSetImportFor(String type) {
 		Clazz findClass = clazz.getClassModel().findClass(type);
 		if (findClass == null)
 			return null;
