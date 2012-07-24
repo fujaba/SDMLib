@@ -684,4 +684,13 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
+
+   public void addCreator(LinkedHashSet<SendableEntityCreator> creatorSet)
+   {
+      for (SendableEntityCreator sendableEntityCreator : creatorSet)
+      {
+         addCreator(sendableEntityCreator);
+      }
+      
+   }
 }

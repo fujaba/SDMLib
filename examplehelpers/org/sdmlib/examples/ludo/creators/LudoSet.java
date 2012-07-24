@@ -41,5 +41,56 @@ public class LudoSet extends LinkedHashSet<Ludo>
       
       return result;
    }
+   public LudoSet withPlayers(Player value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.withPlayers(value);
+      }
+      
+      return this;
+   }
+
+   public LudoSet withoutPlayers(Player value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.withoutPlayers(value);
+      }
+      
+      return this;
+   }
+
+   public LudoSet withDice(Dice value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.withDice(value);
+      }
+      
+      return this;
+   }
+
+   public LudoSet withFields(Field value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.withFields(value);
+      }
+      
+      return this;
+   }
+
+   public LudoSet withoutFields(Field value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.withoutFields(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

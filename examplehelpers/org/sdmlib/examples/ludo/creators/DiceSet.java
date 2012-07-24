@@ -43,6 +43,37 @@ public class DiceSet extends LinkedHashSet<Dice>
       return result;
    }
 
+   public DiceSet withValue(int value)
+   {
+      for (Dice obj : this)
+      {
+         obj.withValue(value);
+      }
+      
+      return this;
+   }
+
+   public DiceSet withGame(Ludo value)
+   {
+      for (Dice obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
+   public DiceSet withPlayer(Player value)
+   {
+      for (Dice obj : this)
+      {
+         obj.withPlayer(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

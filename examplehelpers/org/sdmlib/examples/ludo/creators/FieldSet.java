@@ -169,6 +169,147 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+   public FieldSet withColor(String value)
+   {
+      for (Field obj : this)
+      {
+         obj.withColor(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withKind(String value)
+   {
+      for (Field obj : this)
+      {
+         obj.withKind(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withX(int value)
+   {
+      for (Field obj : this)
+      {
+         obj.withX(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withY(int value)
+   {
+      for (Field obj : this)
+      {
+         obj.withY(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withGame(Ludo value)
+   {
+      for (Field obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withNext(Field value)
+   {
+      for (Field obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withPrev(Field value)
+   {
+      for (Field obj : this)
+      {
+         obj.withPrev(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withLanding(Field value)
+   {
+      for (Field obj : this)
+      {
+         obj.withLanding(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withEntry(Field value)
+   {
+      for (Field obj : this)
+      {
+         obj.withEntry(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withStarter(Player value)
+   {
+      for (Field obj : this)
+      {
+         obj.withStarter(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withBaseowner(Player value)
+   {
+      for (Field obj : this)
+      {
+         obj.withBaseowner(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withLander(Player value)
+   {
+      for (Field obj : this)
+      {
+         obj.withLander(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withPawns(Pawn value)
+   {
+      for (Field obj : this)
+      {
+         obj.withPawns(value);
+      }
+      
+      return this;
+   }
+
+   public FieldSet withoutPawns(Pawn value)
+   {
+      for (Field obj : this)
+      {
+         obj.withoutPawns(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

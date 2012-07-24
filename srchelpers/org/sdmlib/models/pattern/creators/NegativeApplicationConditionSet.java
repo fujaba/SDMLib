@@ -31,6 +31,27 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return result;
    }
 
+   public NegativeApplicationConditionSet withHasMatch(boolean value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
+   public NegativeApplicationConditionSet withCurrentNAC(NegativeApplicationCondition value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withCurrentNAC(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

@@ -1,34 +1,44 @@
 package org.sdmlib.examples.ludo.creators;
 
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class CreatorCreator
 {
+   public static LinkedHashSet<SendableEntityCreator> creatorSet = null;
+   
+   public static LinkedHashSet<SendableEntityCreator> getCreatorSet()
+   {
+      if (creatorSet == null)
+      {
+         creatorSet = new LinkedHashSet<SendableEntityCreator>();
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.LudoCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.LudoPOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PlayerCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PlayerPOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.DiceCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.DicePOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.FieldCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.FieldPOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PawnCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PawnPOCreator());
+         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
+      }
+      
+      return creatorSet;
+   }
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.LudoCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.PlayerCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.DiceCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.FieldCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.PawnCreator());
-
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.PawnPOCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.PlayerPOCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.DicePOCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.ludo.creators.FieldPOCreator());
-      
-      jsonIdMap.addCreator(new org.sdmlib.models.pattern.creators.PatternCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.pattern.creators.PatternLinkCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.pattern.creators.AttributeConstraintCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.pattern.creators.LinkConstraintCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.pattern.creators.NegativeApplicationConditionCreator());
-      
+      jsonIdMap.addCreator(getCreatorSet());
 
       return jsonIdMap;
    }
+   
    
    private static JsonIdMap staticMap = null;
    

@@ -32,5 +32,26 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       return result;
    }
 
+   public LinkConstraintSet withTgtRoleName(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withTgtRoleName(value);
+      }
+      
+      return this;
+   }
+
+   public LinkConstraintSet withHostGraphSrcObject(Object value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withHostGraphSrcObject(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

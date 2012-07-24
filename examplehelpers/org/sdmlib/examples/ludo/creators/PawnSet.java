@@ -68,5 +68,56 @@ public class PawnSet extends LinkedHashSet<Pawn>
       
       return result;
    }
+   public PawnSet withColor(String value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withColor(value);
+      }
+      
+      return this;
+   }
+
+   public PawnSet withX(int value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withX(value);
+      }
+      
+      return this;
+   }
+
+   public PawnSet withY(int value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withY(value);
+      }
+      
+      return this;
+   }
+
+   public PawnSet withPlayer(Player value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withPlayer(value);
+      }
+      
+      return this;
+   }
+
+   public PawnSet withPos(Field value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withPos(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

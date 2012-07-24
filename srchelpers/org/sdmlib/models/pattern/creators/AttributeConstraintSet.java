@@ -56,5 +56,46 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       
       return result;
    }
+   public AttributeConstraintSet withAttrName(String value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withAttrName(value);
+      }
+      
+      return this;
+   }
+
+   public AttributeConstraintSet withTgtValue(Object value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withTgtValue(value);
+      }
+      
+      return this;
+   }
+
+   public AttributeConstraintSet withHostGraphSrcObject(Object value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withHostGraphSrcObject(value);
+      }
+      
+      return this;
+   }
+
+   public AttributeConstraintSet withSrc(PatternObject value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withSrc(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

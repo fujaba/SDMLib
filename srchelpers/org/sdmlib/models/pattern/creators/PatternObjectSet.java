@@ -64,7 +64,88 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       
       return result;
    }
+   public PatternObjectSet withCurrentMatch(Object value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withCurrentMatch(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withCandidates(Object value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withCandidates(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withIncomming(PatternLink value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withIncomming(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutIncomming(PatternLink value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutIncomming(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withOutgoing(PatternLink value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withOutgoing(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutOutgoing(PatternLink value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutOutgoing(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withAttrConstraints(AttributeConstraint value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withAttrConstraints(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutAttrConstraints(AttributeConstraint value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutAttrConstraints(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

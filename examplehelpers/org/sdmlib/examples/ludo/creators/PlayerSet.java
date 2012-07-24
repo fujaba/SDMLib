@@ -148,6 +148,137 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withColor(String value)
+   {
+      for (Player obj : this)
+      {
+         obj.withColor(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withName(String value)
+   {
+      for (Player obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withX(int value)
+   {
+      for (Player obj : this)
+      {
+         obj.withX(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withY(int value)
+   {
+      for (Player obj : this)
+      {
+         obj.withY(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withGame(Ludo value)
+   {
+      for (Player obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withNext(Player value)
+   {
+      for (Player obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withPrev(Player value)
+   {
+      for (Player obj : this)
+      {
+         obj.withPrev(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withDice(Dice value)
+   {
+      for (Player obj : this)
+      {
+         obj.withDice(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withStart(Field value)
+   {
+      for (Player obj : this)
+      {
+         obj.withStart(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withBase(Field value)
+   {
+      for (Player obj : this)
+      {
+         obj.withBase(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withLanding(Field value)
+   {
+      for (Player obj : this)
+      {
+         obj.withLanding(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withPawns(Pawn value)
+   {
+      for (Player obj : this)
+      {
+         obj.withPawns(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withoutPawns(Pawn value)
+   {
+      for (Player obj : this)
+      {
+         obj.withoutPawns(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

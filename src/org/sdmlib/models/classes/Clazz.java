@@ -30,6 +30,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.classes.creators.ClazzSet;
@@ -108,6 +109,13 @@ public class Clazz implements PropertyChangeInterface
    private boolean modelSetFileHasChanged;
    
    private boolean patternObjectFileHasChanged;
+
+   private boolean patternObjectCreatorFileHasChanged;
+   
+   public void setPatternObjectCreatorFileHasChanged(boolean patternObjectCreatorFileHasChanged)
+   {
+      this.patternObjectCreatorFileHasChanged = patternObjectCreatorFileHasChanged;
+   }
    
    public void setPatternObjectFileHasChanged(boolean patternObjectFileHasChanged)
    {
@@ -185,7 +193,11 @@ public class Clazz implements PropertyChangeInterface
       
       // now generate the corresponding PatterObject class
       getOrCreateParserForPatternObjectFile(helpersDir);
-      printPatternObjectFile(modelSetFileHasChanged);
+      printPatternObjectFile(patternObjectFileHasChanged);
+      
+      // now generate the corresponding PatterObjectCreator class
+      getOrCreateParserForPatternObjectCreatorFile(helpersDir);
+      printPatternObjectCreatorFile(patternObjectCreatorFileHasChanged);
       
       return this;
    }
@@ -493,6 +505,14 @@ public class Clazz implements PropertyChangeInterface
       }
    }
 
+   public void printPatternObjectCreatorFile(boolean really)
+   {
+      if (really || patternObjectCreatorFileHasChanged)
+      {
+         CGUtil.printFile(patternObjectCreatorJavaFile, patternObjectCreatorFileBody.toString());
+      }
+   }
+
    private void insertGenericGetSet()
    {
       // class should have generic get(String attrName) method;
@@ -687,6 +707,7 @@ public class Clazz implements PropertyChangeInterface
    private File creatorJavaFile;
    private File modelSetJavaFile;
    private File patternObjectJavaFile;
+   private File patternObjectCreatorJavaFile;
 
    private Parser modelSetParser = null;
 
@@ -695,6 +716,10 @@ public class Clazz implements PropertyChangeInterface
    private Parser patternObjectParser = null;
 
    private StringBuilder patternObjectFileBody;
+   
+   private Parser patternObjectCreatorParser = null;
+
+   private StringBuilder patternObjectCreatorFileBody;
    
    public File getJavaFile()
    {
@@ -929,7 +954,7 @@ public class Clazz implements PropertyChangeInterface
       return modelSetParser;
    }
 
-
+   
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
       if (patternObjectParser == null)
@@ -986,6 +1011,83 @@ public class Clazz implements PropertyChangeInterface
          patternObjectParser = new Parser()
          .withFileName(fileName)
          .withFileBody(patternObjectFileBody);
+
+      }
+      
+      return patternObjectParser;
+   }
+
+
+
+
+   public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
+   {
+      if (patternObjectCreatorParser == null)
+      {
+         // try to find existing file
+         int pos = name.lastIndexOf('.');
+         
+         String packageName = name.substring(0, pos) + ".creators";
+         
+         String fullEntityClassName = name;
+         
+         String entitiyClassName = name.substring(pos + 1);
+         
+         String patternObjectCreatorClassName = entitiyClassName + "POCreator";
+         
+         String fileName = packageName + "." + patternObjectCreatorClassName;
+
+         fileName = fileName.replaceAll("\\.", "/");
+         
+         fileName = rootDir + "/" + fileName + ".java";
+         
+         patternObjectCreatorJavaFile = new File(fileName);
+         
+         // found old one?
+         if (patternObjectCreatorJavaFile.exists())
+         {
+            patternObjectCreatorFileBody = CGUtil.readFile(patternObjectCreatorJavaFile);
+         }
+         else
+         {
+            patternObjectCreatorFileBody = new StringBuilder();
+
+            StringBuilder text = new StringBuilder(
+                  "package packageName;\n" +
+                  "\n" +
+                  "import org.sdmlib.models.pattern.creators.PatternObjectCreator;\n" +
+                  "\n" +
+                  "public class patternObjectCreatorClassName extends PatternObjectCreator\n" +
+                  "{\n" +
+                  "   public Object getSendableInstance(boolean reference)\n" + 
+                  "   {\n" + 
+                  "      return new entitiyPOClassName();\n" + 
+                  "   }\n" + 
+                  "   \n" + 
+                  "   public Object getValue(Object target, String attrName)\n" + 
+                  "   {\n" + 
+                  "      return ((entitiyPOClassName) target).get(attrName);\n" + 
+                  "   }\n" + 
+                  "   \n" + 
+                  "   public boolean setValue(Object target, String attrName, Object value)\n" + 
+                  "   {\n" + 
+                  "      return ((entitiyPOClassName) target).set(attrName, value);\n" + 
+                  "   }\n" +
+                  "}\n");
+            
+            CGUtil.replaceAll(text, 
+               "patternObjectCreatorClassName", patternObjectCreatorClassName, 
+               "entitiyPOClassName", entitiyClassName + "PO", 
+               "packageName", packageName);
+            
+            patternObjectCreatorFileBody.append(text.toString());
+            
+            patternObjectCreatorFileHasChanged = true;
+         }
+         
+         patternObjectCreatorParser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(patternObjectCreatorFileBody);
 
       }
       
@@ -1485,13 +1587,13 @@ public class Clazz implements PropertyChangeInterface
 
    public void insertCreatorClassInCreatorCreator(Parser ccParser)
    {
-  	 	int pos = ccParser.indexOf(Parser.METHOD + ":createIdMap(String)");
+  	 	int pos = ccParser.indexOf(Parser.METHOD + ":getCreatorSet()");
 
       if (pos < 0)
       {
          // ups, did not find createIdMap method. 
-         System.err.println("Warning: SDMLib codgen for creator construction invocation " + getName() + "Creator for class " + ccParser.getFileName() 
-            + ": \nDid not find method createIdMap(String). Should have been generated by my model. " 
+         System.err.println("Warning: SDMLib codgen for creatorSet initialisation invocation " + getName() + "Creator for class " + ccParser.getFileName() 
+            + ": \nDid not find method getCreatorSet(). Should have been generated by my model. " 
             + "\nCould not add required code fragment there. :( ");
 
          return;
@@ -1505,26 +1607,29 @@ public class Clazz implements PropertyChangeInterface
       int methodBodyStartPos = ccParser.getMethodBodyStartPos();
       
       String shortCreatorClassName = CGUtil.shortClassName(getName()) + "Creator";
+      String shortCreatorPOClassName = CGUtil.shortClassName(getName()) + "POCreator";
       String creatorClassName = CGUtil.packageName(getName()) + ".creators." + shortCreatorClassName;
+      String creatorPOClassName = CGUtil.packageName(getName()) + ".creators." + shortCreatorPOClassName;
       
       pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + shortCreatorClassName, methodBodyStartPos);
 
       if (pos < 0)
       {         
-         // need to add if block to generic get method
-         ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+         int medthodEndPos = ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
          
-         int lastReturnPos = ccParser.getLastReturnStart(); 
+         int addCreatorPos = ccParser.getFileBody().indexOf("creatorSet.addAll", methodBodyStartPos); 
          
          StringBuilder text = new StringBuilder
-            (  "jsonIdMap.addCreator(new ClassCreator());\n      " 
+            (  "creatorSet.add(new ClassCreator());\n" +
+            		"         creatorSet.add(new ClassPOCreator());\n         " 
                );
 
          CGUtil.replaceAll(text, 
-            "ClassCreator", creatorClassName
+            "ClassCreator", creatorClassName,
+            "ClassPOCreator", creatorPOClassName
             );
 
-         ccParser.getFileBody().insert(lastReturnPos, text.toString());
+         ccParser.getFileBody().insert(addCreatorPos, text.toString());
          getClassModel().setFileHasChanged(true);
       }
 

@@ -67,6 +67,47 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       return result;
    }
 
+   public PatternLinkSet withTgtRoleName(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withTgtRoleName(value);
+      }
+      
+      return this;
+   }
+
+   public PatternLinkSet withHostGraphSrcObject(Object value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withHostGraphSrcObject(value);
+      }
+      
+      return this;
+   }
+
+   public PatternLinkSet withTgt(PatternObject value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withTgt(value);
+      }
+      
+      return this;
+   }
+
+   public PatternLinkSet withSrc(PatternObject value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withSrc(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

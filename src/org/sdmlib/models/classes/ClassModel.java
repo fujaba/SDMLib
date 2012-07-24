@@ -44,6 +44,7 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -152,15 +153,32 @@ public class ClassModel implements PropertyChangeInterface
 				      new StringBuilder(
 				         "package packageName;\n" + 
 				               "\n" + 
+				               "import java.util.LinkedHashSet;\n" + 
+				               "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" + 
 				               "import org.sdmlib.serialization.json.JsonIdMap;\n" +
 				               "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n" + 
 				               "\n" + 
 				               "public class className\n" + 
 				               "{\n" + 
+				               "   public static LinkedHashSet<SendableEntityCreator> creatorSet = null;\n" + 
+				               "   \n" +
+				               "   public static LinkedHashSet<SendableEntityCreator> getCreatorSet()\n" + 
+				               "   {\n" + 
+				               "      if (creatorSet == null)\n" + 
+				               "      {\n" + 
+				               "         creatorSet = new LinkedHashSet<SendableEntityCreator>();\n" + 
+                           "         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());\n" + 
+				               "      }\n" + 
+				               "      \n" + 
+				               "      return creatorSet;\n" + 
+				               "   }\n" + 
+				               "\n" + 
 				               "   public static JsonIdMap createIdMap(String sessionID)\n" + 
 				               "   {\n" + 
 				               "      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
 				               "      \n" + 
+				               "      jsonIdMap.addCreator(getCreatorSet());\n" + 
+				               "\n" + 
 				               "      return jsonIdMap;\n" + 
 				               "   }\n" + 
 				               "}\n");

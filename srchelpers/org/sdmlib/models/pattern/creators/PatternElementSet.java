@@ -18,5 +18,16 @@ public class PatternElementSet extends ArrayList<PatternElement>
       
       return result;
    }
+   public PatternElementSet withPattern(Pattern value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
