@@ -140,6 +140,9 @@ public class YUMLIdParser extends IdMap{
 		String result = "";
 		boolean isFirst = true;
 		this.type = typ;
+		linkProperty.clear();
+		linkCardinality.clear();
+		valueYUML.clear();
 		String id = parse(object, filter);
 		// Links auflösen
 		ArrayList<String> keys = new ArrayList<String>();
