@@ -61,9 +61,6 @@ public class YUMLIdParser extends IdMap{
 	/** The show line. */
 	private boolean showLine;
 	
-	/** The type. */
-	private int type;
-	
 	/** The show cardinality. */
 	private boolean showCardinality;
 
@@ -137,54 +134,54 @@ public class YUMLIdParser extends IdMap{
 	 * @return the string
 	 */
 	public String parse(Object object, int typ, IdMapFilter filter) {
-		String result = "";
-		boolean isFirst = true;
-		this.type = typ;
 		linkProperty.clear();
 		linkCardinality.clear();
 		valueYUML.clear();
-		String id = parse(object, filter);
+
+		String id = parse(object, filter, typ);
 		// Links auflösen
 		ArrayList<String> keys = new ArrayList<String>();
 		keys.addAll(linkProperty.keySet());
 		if (keys.size() > 0) {
+			String result=getUMLText(typ);
+			
 			while (keys.size() > 0) {
-				String key = keys.remove(0);
-				String[] itemsId = key.split("-");
-				
-				String first = getYUMLString(itemsId[0]);
-				String second = getYUMLString(itemsId[1]);
-				if (!isFirst) {
-					result += ",";
-				}
-
-				if(type==OBJECT){
-					result += first+"-" + second;
-				}else{
-					String firstCardNo=linkCardinality.get(key);
-					String secondCardNo=linkCardinality.get(itemsId[1] + "-" + itemsId[0]);
-					result += first;
-					if(showCardinality){
-						String firstCardName = linkProperty.get(key);
-						String secondCardName = linkProperty.get(itemsId[1] + "-" + itemsId[0]);
-						result += firstCardName+ ": "+firstCardNo+"-";
-						if(secondCardName!=null){
-							result += secondCardName+ ": "+secondCardNo;
-						}
-					}else{
-						result += firstCardNo+"-";
-						if(secondCardNo!=null){
-							result += secondCardNo;
-						}
-					}
-					result += second;
-				}
-				keys.remove(itemsId[1] + "-" + itemsId[0]);
-				isFirst = false;
+				result += ","+getUMLText(typ);
 			}
-		} else {
-			result = getYUMLString(id);
+			return result;
 		}
+		return getYUMLString(id, typ);
+	}
+	
+	private String getUMLText(int typ){
+		String key = keys.remove(0);
+		String[] itemsId = key.split("-");
+		
+		String first = getYUMLString(itemsId[0], typ);
+		String second = getYUMLString(itemsId[1], typ);
+		String result;
+		if(typ==OBJECT){
+			result = first+ "-" + second;
+		}else{
+			String firstCardNo=linkCardinality.get(key);
+			String secondCardNo=linkCardinality.get(itemsId[1] + "-" + itemsId[0]);
+			result=first;
+			if(showCardinality){
+				String firstCardName = linkProperty.get(key);
+				String secondCardName = linkProperty.get(itemsId[1] + "-" + itemsId[0]);
+				result += firstCardName+ ": "+firstCardNo+"-";
+				if(secondCardName!=null){
+					result += secondCardName+ ": "+secondCardNo;
+				}
+			}else{
+				result += firstCardNo+"-";
+				if(secondCardNo!=null){
+					result += secondCardNo;
+				}
+			}
+			result += second;
+		}
+		keys.remove(itemsId[1] + "-" + itemsId[0]);
 		return result;
 	}
 
@@ -194,12 +191,12 @@ public class YUMLIdParser extends IdMap{
 	 * @param id the id
 	 * @return the yUML string
 	 */
-	private String getYUMLString(String id) {
+	private String getYUMLString(String id, int typ) {
 		String removeString = valueYUML.remove(id);
 		if (removeString != null) {
 			return removeString;
 		}
-		if (type == OBJECT) {
+		if (typ == OBJECT) {
 			if(isShowLine()){
 				String text=id + " : " + getClassName(id);
 				return "[" + text+"\\n"+new String(new char[text.length()]).replace("\0", "&oline;") + "]";
@@ -213,12 +210,12 @@ public class YUMLIdParser extends IdMap{
 	}
 
 	/**
-	 * Parses the.
+	 * Parses the instance Object
 	 *
 	 * @param object the object
 	 * @return the string
 	 */
-	private String parse(Object object, IdMapFilter filter) {
+	private String parse(Object object, IdMapFilter filter, int typ) {
 		String className="";
 		String id="";
 		String mainKey="";
@@ -230,8 +227,7 @@ public class YUMLIdParser extends IdMap{
 			prototyp = getCreatorClass(object);
 			className = object.getClass().getName();
 			className = className.substring(className.lastIndexOf('.') + 1);
-			if (type == OBJECT) {
-//				id=getId(object);
+			if (typ == OBJECT) {
 				id=mainKey;
 				result += id+ " : " + className;
 			} else {
@@ -253,18 +249,18 @@ public class YUMLIdParser extends IdMap{
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 					if (value instanceof Collection<?>) {
 						for (Object containee : ((Collection<?>) value)) {
-							if(!filter.isRegard(this, object, property, value)){
+							if(!filter.isRegard(this, object, property, containee)){
 								continue;
 							}
-							if(!filter.isConvertable(this, object, property, value)){
+							if(!filter.isConvertable(this, object, property, containee)){
 								continue;
 							}
 
-							String subId = parse(containee, filter);
+							String subId = parse(containee, filter, typ);
 							String key = id + "-" + subId;
 							linkProperty.put(key, property);
 							linkCardinality
-									.put(key, getCardinality("0..n"));
+									.put(key, getCardinality("0..n", typ));
 						}
 					} else {
 						if(!filter.isRegard(this, object, property, value)){
@@ -275,17 +271,17 @@ public class YUMLIdParser extends IdMap{
 						}
 						SendableEntityCreator valueCreater = getCreatorClass(value);
 						if (valueCreater != null) {
-							String subId = parse(value, filter);
+							String subId = parse(value, filter, typ);
 							String key = id + "-" + subId;
 							linkProperty.put(key, property);
 							linkCardinality
-									.put(key, getCardinality("0..1"));
+									.put(key, getCardinality("0..1", typ));
 						} else {
 							if (!first) {
 								result += ";";
 							}
 							// plain attr just add text
-							if(type==OBJECT){
+							if(typ==OBJECT){
 								result += property + "=" + value;
 							}else{
 								result += property + ":" + value.getClass().getName();
@@ -299,10 +295,6 @@ public class YUMLIdParser extends IdMap{
 			result += "]";
 			put(id, object);
 			valueYUML.put(id, result);
-//		} else if (type == CLASS) {
-//			String className = object.getClass().getName();
-//			className = className.substring(className.lastIndexOf('.') + 1);
-//			id = className;
 		}
 		return id;
 	}
@@ -313,8 +305,8 @@ public class YUMLIdParser extends IdMap{
 	 * @param cardinaltity the cardinaltity
 	 * @return the cardinality
 	 */
-	private String getCardinality(String cardinaltity) {
-		if (type == OBJECT) {
+	private String getCardinality(String cardinaltity, int typ) {
+		if (typ == OBJECT) {
 			return "";
 		} else {
 			return cardinaltity;
