@@ -62,9 +62,6 @@ public class JsonIdMap extends IdMap{
 	/** The Constant REF_SUFFIX. */
 	public static final String REF_SUFFIX = "_ref";
 
-	/** The Constant REF_SUFFIX. */
-	public static final String NOT_SUFFIX = "_not";
-
 	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
 
@@ -135,21 +132,18 @@ public class JsonIdMap extends IdMap{
 						encoding = !value.equals(refValue);
 					}
 					if (encoding) {
-						if(property.endsWith(NOT_SUFFIX)){
-							continue;
-						}
 						if(!filter.isRegard(this, entity, property, value)){
 							continue;
 						}
-						boolean aggregation = filter.isConvertable(this,
-								entity, property, value);
-						
 						SendableEntityCreator referenceCreator=getCreatorClass(value);
 						
 						if (value instanceof Collection<?>&&referenceCreator==null) {
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
 								if (containee != null) {
+									boolean aggregation = filter.isConvertable(this,
+											entity, property, containee);
+
 									referenceCreator=getCreatorClass(containee);
 									subValues.put(parseObject(containee,
 											aggregation, filter, null, referenceCreator, typSave));
@@ -157,6 +151,8 @@ public class JsonIdMap extends IdMap{
 							}
 							jsonProp.put(property, subValues);
 						} else {
+							boolean aggregation = filter.isConvertable(this,
+									entity, property, value);
 							jsonProp.put(
 									property,
 									parseObject(value, aggregation, filter,

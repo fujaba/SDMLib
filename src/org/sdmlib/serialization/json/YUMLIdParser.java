@@ -247,15 +247,16 @@ public class YUMLIdParser extends IdMap{
 					if (value == null) {
 						continue;
 					}
-					if(!filter.isRegard(this, object, property, value)){
-						continue;
-					}
-					if(!filter.isConvertable(this, object, property, value)){
-						continue;
-					}
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 					if (value instanceof Collection<?>) {
 						for (Object containee : ((Collection<?>) value)) {
+							if(!filter.isRegard(this, object, property, value)){
+								continue;
+							}
+							if(!filter.isConvertable(this, object, property, value)){
+								continue;
+							}
+
 							String subId = parse(containee, filter);
 							String key = id + "-" + subId;
 							linkProperty.put(key, property);
@@ -263,6 +264,12 @@ public class YUMLIdParser extends IdMap{
 									.put(key, getCardinality("0..n"));
 						}
 					} else {
+						if(!filter.isRegard(this, object, property, value)){
+							continue;
+						}
+						if(!filter.isConvertable(this, object, property, value)){
+							continue;
+						}
 						SendableEntityCreator valueCreater = getCreatorClass(value);
 						if (valueCreater != null) {
 							String subId = parse(value, filter);
