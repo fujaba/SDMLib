@@ -335,13 +335,13 @@ public class UpdateListener implements PropertyChangeListener{
 	 *            the value
 	 * @param key
 	 *            the key
-	 * @param jsonObj
+	 * @param oldJsonObject
 	 *            the json obj
 	 * @return true, if successful
 	 */
-	private boolean checkValue(Object value, String key, JsonObject jsonObj) {
+	private boolean checkValue(Object value, String key, JsonObject oldJsonObject) {
 		if (value != null) {
-			Object oldValue = jsonObj.get(key);
+			Object oldValue = oldJsonObject.get(key);
 			if (oldValue instanceof JsonObject) {
 				// GLAUB ICH MAL
 				String oldId = (String) ((JsonObject) oldValue)

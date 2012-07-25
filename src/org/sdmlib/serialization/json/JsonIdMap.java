@@ -40,6 +40,8 @@ import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.UpdateListener;
 import org.sdmlib.serialization.event.creater.DateCreator;
+import org.sdmlib.serialization.event.creater.JsonArrayCreator;
+import org.sdmlib.serialization.event.creater.JsonObjectCreator;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -78,6 +80,8 @@ public class JsonIdMap extends IdMap{
 	public JsonIdMap() {
 		super();
 		this.addCreator(new DateCreator());
+		this.addCreator(new JsonObjectCreator());
+		this.addCreator(new JsonArrayCreator());
 	}
 
 	/**
@@ -140,12 +144,15 @@ public class JsonIdMap extends IdMap{
 						boolean aggregation = filter.isConvertable(this,
 								entity, property, value);
 						
-						if (value instanceof Collection<?>) {
+						SendableEntityCreator referenceCreator=getCreatorClass(value);
+						
+						if (value instanceof Collection<?>&&referenceCreator==null) {
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
 								if (containee != null) {
+									referenceCreator=getCreatorClass(containee);
 									subValues.put(parseObject(containee,
-											aggregation, filter, null, typSave));
+											aggregation, filter, null, referenceCreator, typSave));
 								}
 							}
 							jsonProp.put(property, subValues);
@@ -153,7 +160,7 @@ public class JsonIdMap extends IdMap{
 							jsonProp.put(
 									property,
 									parseObject(value, aggregation, filter,
-											null,typSave));
+											null, referenceCreator, typSave));
 						}
 					}
 				}
@@ -444,7 +451,8 @@ public class JsonIdMap extends IdMap{
 			for (String property : properties) {
 				Object value = prototyp.getValue(entity, property);
 				if(value!=null){
-					if (value instanceof Collection) {
+					SendableEntityCreator referenceCreator=getCreatorClass(value);
+					if (value instanceof Collection&&referenceCreator==null) {
 						Collection<?> list = ((Collection<?>) value);
 						if (list.size() > 0) {
 							JsonArray refArray = new JsonArray();
@@ -453,8 +461,9 @@ public class JsonIdMap extends IdMap{
 								if (containee != null && filter.isRegard(this, entity, property, containee)) {
 									boolean aggregation = filter.isConvertable(this, entity,
 											property, containee);
+									referenceCreator=getCreatorClass(containee);
 									refArray.put(parseObject(containee,
-											aggregation, filter, jsonArray, isTypSave()));
+											aggregation, filter, jsonArray, referenceCreator, isTypSave()));
 								}
 							}
 							if(refArray.size()>0){
@@ -467,7 +476,7 @@ public class JsonIdMap extends IdMap{
 						jsonProps.put(
 								property,
 								parseObject(value, aggregation, filter,
-										jsonArray, isTypSave()));
+										jsonArray, referenceCreator, isTypSave()));
 					}
 				}
 			}
@@ -488,8 +497,8 @@ public class JsonIdMap extends IdMap{
 	 * @return the object
 	 */
 	private Object parseObject(Object entity, boolean aggregation,
-			JsonFilter filter, JsonArray jsonArray, boolean typSave) {
-		SendableEntityCreator valueCreater = getCreatorClass(entity);
+			JsonFilter filter, JsonArray jsonArray, SendableEntityCreator valueCreater, boolean typSave) {
+//		SendableEntityCreator valueCreater = getCreatorClass(entity);
 		if (valueCreater != null) {
 			if (aggregation) {
 				String subId = this.getKey(entity);
@@ -684,13 +693,4 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
-
-   public void addCreator(LinkedHashSet<SendableEntityCreator> creatorSet)
-   {
-      for (SendableEntityCreator sendableEntityCreator : creatorSet)
-      {
-         addCreator(sendableEntityCreator);
-      }
-      
-   }
 }

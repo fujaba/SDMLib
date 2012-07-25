@@ -326,6 +326,12 @@ public class JsonArray extends EntityList{
 		return new JsonObject();
 	}
 
+    public boolean setAllValue(String value){
+    	clear();
+    	JsonTokener tokener = new JsonTokener(value);
+    	tokener.parseToEntity(this);
+    	return true;
+    }
 	/**
 	 * Get a new Instance of a JsonArray
 	 */

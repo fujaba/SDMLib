@@ -214,13 +214,9 @@ public class EntityUtil {
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 */
 	public static String valueToString(Object value, BaseEntity reference) {
-		return valueToString(value, 0, 0, false, reference);
+		return valueToString(value, false, reference);
 	}
 	
-	public static String valueToString(Object value, boolean simpleText, BaseEntity reference) {
-		return valueToString(value, 0, 0, simpleText, reference);
-	}
-
 
 	/**
 	 * Make a prettyprinted JSON text of an object value.
@@ -266,6 +262,41 @@ public class EntityUtil {
 		}
 		if (value.getClass().isArray()) {
 			return reference.getNewArray().initWithMap((Collection<?>)value).toString(indentFactor, intent);
+		}
+		if(simpleText){
+			return value.toString();
+		}
+		return quote(value.toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String valueToString(
+			Object value,
+			boolean simpleText,
+			BaseEntity reference) {
+		if (value == null || value.equals(null)) {
+			return "null";
+		}
+		if (value instanceof Number) {
+			return numberToString((Number) value);
+		}
+		if (value instanceof Boolean) {
+			return value.toString();
+		}
+		if (value instanceof Entity) {
+			return ((Entity)value).toString();
+		}
+		if (value instanceof EntityList) {
+			return ((EntityList)value).toString();
+		}
+		if (value instanceof Map) {
+			return reference.getNewObject().initWithMap((Map<String,Object>)value).toString();
+		}
+		if (value instanceof Collection) {
+			return reference.getNewArray().initWithMap((Collection<?>)value).toString();
+		}
+		if (value.getClass().isArray()) {
+			return reference.getNewArray().initWithMap((Collection<?>)value).toString();
 		}
 		if(simpleText){
 			return value.toString();

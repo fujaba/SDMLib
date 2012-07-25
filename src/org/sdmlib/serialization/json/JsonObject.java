@@ -227,9 +227,30 @@ public class JsonObject extends Entity{
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
     public String toString() {
-    	return toString(0,0);
+    	int length = this.size();
+        if (length == 0) {
+            return "{}";
+        }
+        Map<String, Object> map = getMap();
+        Iterator<String> keys = map.keySet().iterator();
+       
+        Object key= keys.next();
+        Object value=map.get(key);
+        StringBuilder sb = new StringBuilder();
+        sb = new StringBuilder("{");
+        sb.append(EntityUtil.quote(key.toString()));
+        sb.append(":");
+        sb.append(EntityUtil.valueToString(value, false, this));
+        while (keys.hasNext()) {
+            key = keys.next();
+            sb.append(",");
+            sb.append(EntityUtil.quote(key.toString()));
+            sb.append(":");
+            sb.append(EntityUtil.valueToString(map.get(key), false, this));
+        }
+        sb.append("}");
+        return sb.toString();
     }
-
 
     /**
      * Make a prettyprinted JSON text of this JsonObject.
@@ -299,6 +320,13 @@ public class JsonObject extends Entity{
         return sb.toString();
     }
     
+    public boolean setAllValue(String value){
+    	this.getMap().clear();
+    	JsonTokener tokener = new JsonTokener(value);
+    	tokener.parseToEntity(this);
+    	return true;
+    }
+
 	/**
 	 * Get a new Instance of JsonArray
 	 */

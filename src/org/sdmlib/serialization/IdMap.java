@@ -466,4 +466,11 @@ public class IdMap {
 		}
 		return null;
 	}
+   public void addCreator(Set<SendableEntityCreator> creatorSet)
+   {
+      for (SendableEntityCreator sendableEntityCreator : creatorSet)
+      {
+         addCreator(sendableEntityCreator);
+      }
+   }
 }
