@@ -250,7 +250,7 @@ public class YUMLIdParser extends IdMap{
 					if(!filter.isRegard(this, object, property, value)){
 						continue;
 					}
-					if(filter.isConvertable(this, object, property, value)){
+					if(!filter.isConvertable(this, object, property, value)){
 						continue;
 					}
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
