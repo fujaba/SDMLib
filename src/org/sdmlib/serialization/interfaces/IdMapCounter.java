@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Interface IdMapCounter.
  */
 public interface IdMapCounter {
-	
 	/**
 	 * Sets the prefix for The Id of Elements
 	 *
@@ -61,4 +60,16 @@ public interface IdMapCounter {
 	 * @param jsonId the json id
 	 */
 	public void readId(String jsonId);
+	
+	/**
+	 * @return if Id must seriasable
+	 */
+	public boolean isId();
+	
+	/**
+	 * @return the Prio Object for checking errors
+	 */
+	public Object getPrio();
+
+	public void setId(boolean value);
 }

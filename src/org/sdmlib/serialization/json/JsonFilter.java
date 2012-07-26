@@ -47,14 +47,9 @@ public class JsonFilter extends IdMapFilter{
 	/** The exclusive properties. */
 	private String[] exclusiveProperties;
 	
-	private boolean isId=true;
-	
 	/** The objects. */
 	private HashSet<String> objects = new HashSet<String>();
 	
-	/** The treesync. */
-	private boolean treesync=false;
-
 	/**
 	 * Instantiates a new json filter.
 	 */
@@ -142,7 +137,7 @@ public class JsonFilter extends IdMapFilter{
 				}
 			}
 		}
-		if(isTreesync()){
+		if(isManySerialization()){
 			if(!(value instanceof Collection<?>)){
 				if(map.getCreatorClass(value)!=null){
 					return false;
@@ -159,31 +154,5 @@ public class JsonFilter extends IdMapFilter{
 	 */
 	public String[] getObjects(){
 		return objects.toArray(new String[objects.size()]);
-	}
-
-	/**
-	 * Checks if is treesync.
-	 *
-	 * @return true, if is treesync
-	 */
-	public boolean isTreesync() {
-		return treesync;
-	}
-
-	/**
-	 * Sets the treesync.
-	 *
-	 * @param treesync the new treesync
-	 */
-	public void setTreesync(boolean treesync) {
-		this.treesync = treesync;
-	}
-
-	public boolean isId() {
-		return isId;
-	}
-
-	public void setId(boolean isId) {
-		this.isId = isId;
 	}
 }

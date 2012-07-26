@@ -40,6 +40,9 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class IdMap.
  */
 public class IdMap {
+	/** The Constant ID. */
+	public static final String ID="id";
+
 	/** The Constant REMOVE. */
 	public static final String REMOVE= "rem";
 	
@@ -61,24 +64,12 @@ public class IdMap {
 	/** The parent. */
 	protected IdMap parent;
 	
-	/** The is id. */
-	protected boolean isId = true;
-	
 	/** The counter. */
 	private IdMapCounter counter;
 	
 	/** The update listener. */
 	protected UpdateListener updateListener;
 	
-	/** The simple check. */
-	private boolean simpleCheck;
-	
-	/** The prio. */
-	private Object prio;
-	
-	/** The Constant ID. */
-	public static final String ID="id";
-
 	/**
 	 * Instantiates a new id map.
 	 */
@@ -170,7 +161,7 @@ public class IdMap {
 	 * @return the id
 	 */
 	public String getId(Object obj) {
-		if (!isId) {
+		if (!getCounter().isId()) {
 			return "";
 		}
 		if (parent != null) {
@@ -235,15 +226,6 @@ public class IdMap {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Checks if is id.
-	 *
-	 * @return true, if is id
-	 */
-	public boolean isId() {
-		return isId;
 	}
 
 	/**
@@ -391,44 +373,6 @@ public class IdMap {
 	   creators.put(className, creator);
 	}
 
-	
-	/**
-	 * Checks if is simple check.
-	 *
-	 * @return true, if is simple check
-	 */
-	public boolean isSimpleCheck() {
-		return simpleCheck;
-	}
-
-	/**
-	 * Sets the simple check.
-	 *
-	 * @param simpleCheck the simple check
-	 * @return true, if successful
-	 */
-	public boolean setSimpleCheck(boolean simpleCheck) {
-		this.simpleCheck = simpleCheck;
-		return simpleCheck;
-	}
-
-	/**
-	 * Gets the prio.
-	 *
-	 * @return the prio
-	 */
-	public Object getPrio() {
-		return prio;
-	}
-
-	/**
-	 * Sets the prio.
-	 *
-	 * @param prio the new prio
-	 */
-	public void setPrio(Object prio) {
-		this.prio = prio;
-	}
 	
 	/**
 	 * Start carbage collection.

@@ -28,9 +28,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
@@ -140,21 +141,23 @@ public class YUMLIdParser extends IdMap{
 
 		String id = parse(object, filter, typ);
 		// Links auflösen
-		ArrayList<String> keys = new ArrayList<String>();
-		keys.addAll(linkProperty.keySet());
-		if (keys.size() > 0) {
-			String result=getUMLText(typ);
+		Set<String> keySet = linkProperty.keySet();
+		if(keySet.size()>0){
+			Iterator<String> i = keySet.iterator();
 			
-			while (keys.size() > 0) {
-				result += ","+getUMLText(typ);
+			String key = i.next();
+			String result=getUMLText(key, typ);
+			
+			while (i.hasNext()) {
+				result += ","+getUMLText(i.next(), typ);
 			}
 			return result;
 		}
 		return getYUMLString(id, typ);
 	}
 	
-	private String getUMLText(int typ){
-		String key = keys.remove(0);
+	private String getUMLText(String key, int typ){
+		
 		String[] itemsId = key.split("-");
 		
 		String first = getYUMLString(itemsId[0], typ);
@@ -181,7 +184,6 @@ public class YUMLIdParser extends IdMap{
 			}
 			result += second;
 		}
-		keys.remove(itemsId[1] + "-" + itemsId[0]);
 		return result;
 	}
 

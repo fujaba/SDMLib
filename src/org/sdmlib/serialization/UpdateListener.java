@@ -211,8 +211,8 @@ public class UpdateListener implements PropertyChangeListener{
 			}
 			jsonObject.put(IdMap.UPDATE, child);
 		}
-		if (map.getPrio() != null) {
-			jsonObject.put(IdMap.PRIO, map.getPrio());
+		if (map.getCounter().getPrio() != null) {
+			jsonObject.put(IdMap.PRIO, map.getCounter().getPrio());
 		}
 
 		if (gc != null && garbageCollection != null) {
@@ -362,7 +362,7 @@ public class UpdateListener implements PropertyChangeListener{
 	 * @return true, if successful
 	 */
 	private boolean checkPrio(Object prio) {
-		Object myPrio = map.getPrio();
+		Object myPrio = map.getCounter().getPrio();
 		if (prio != null && myPrio != null) {
 			if (prio instanceof Integer && myPrio instanceof Integer) {
 				Integer ref = (Integer) myPrio;
