@@ -19,6 +19,17 @@ public class TownSet extends LinkedHashSet<Town>
       return result;
    }
 
+   public TownSet withTest(String value)
+   {
+      for (Town obj : this)
+      {
+         obj.withTest(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

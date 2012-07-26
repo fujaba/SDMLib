@@ -19,6 +19,17 @@ public class ContinentSet extends LinkedHashSet<Continent>
       return result;
    }
 
+   public ContinentSet withTest(String value)
+   {
+      for (Continent obj : this)
+      {
+         obj.withTest(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

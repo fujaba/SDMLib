@@ -19,6 +19,17 @@ public class StateSet extends LinkedHashSet<State>
       return result;
    }
 
+   public StateSet withTest(String value)
+   {
+      for (State obj : this)
+      {
+         obj.withTest(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

@@ -29,7 +29,8 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
 
 
 public class Role implements PropertyChangeInterface
@@ -219,6 +220,14 @@ public class Role implements PropertyChangeInterface
       
       getClazz().printModelSetFile(doGenerate);
 
+      // generate property in pattern object class
+      Parser patternObjectParser = getClazz().getOrCreateParserForPatternObjectFile(helperDir);
+      
+      insertGetterInPatternObjectFile(patternObjectParser, partnerRole);
+      insertSetterInPatternObjectFile(patternObjectParser, partnerRole);
+      
+      getClazz().printPatternObjectFile(doGenerate);
+
    }
    
    private void insertRemovalInRemoveYou(Parser parser, Role partnerRole)
@@ -315,6 +324,173 @@ public class Role implements PropertyChangeInterface
    }
 
 
+   private void insertGetterInPatternObjectFile(Parser parser, Role partnerRole)
+   {
+      insertHasNoParamInPatternObjectFile(parser, partnerRole);
+      insertHasWithParamInPatternObjectFile(parser, partnerRole);
+   }
+
+   private void insertHasNoParamInPatternObjectFile(Parser parser,
+         Role partnerRole)
+   {
+      String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public PatternObjectType hasName()\n" + 
+            "   {\n" + 
+            "      PatternObjectType result = new PatternObjectType();\n" + 
+            "      \n" + 
+            "      PatternLink patternLink = new PatternLink()\n" + 
+            "      .withTgt(result).withTgtRoleName(ModelClass.PROPERTY_NAME)\n" + 
+            "      .withSrc(this);\n" + 
+            "      \n" + 
+            "      this.getPattern().addToElements(patternLink);\n" + 
+            "      \n" + 
+            "      this.getPattern().addToElements(result);\n" + 
+            "      \n" + 
+            "      this.getPattern().findMatch();\n" + 
+            "      \n" + 
+            "      return result;\n" + 
+            "   }\n" +
+            "   \n");
+
+         getClazz().insertImport(parser, PatternLink.class.getName());
+         
+         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
+         String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
+            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setPatternObjectFileHasChanged(true);
+      }
+   }
+
+
+   private void insertHasWithParamInPatternObjectFile(Parser parser,
+         Role partnerRole)
+   {
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
+      String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+      
+      String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public ModelPOType hasName(PatternObjectType tgt)\n" + 
+            "   {\n" + 
+            "      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()\n" + 
+            "      .withTgt(tgt).withTgtRoleName(ModelClass.PROPERTY_NAME)\n" + 
+            "      .withSrc(this);\n" + 
+            "      \n" + 
+            "      this.getPattern().addToElements(patternLink);\n" + 
+            "      \n" + 
+            "      this.getPattern().findMatch();\n" + 
+            "      \n" + 
+            "      return this;\n" + 
+            "   }\n" +
+            "   \n");
+
+         getClazz().insertImport(parser, LinkConstraint.class.getName());
+         
+         String fullModelPOType = CGUtil.helperClassName(getClazz().getName(), "PO");
+         String modelPOType = getClazz().shortNameAndImport(fullModelPOType, parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
+            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+            "ModelPOType", modelPOType, 
+            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setPatternObjectFileHasChanged(true);
+      }
+   }
+
+
+   private void insertSetterInPatternObjectFile(Parser parser, Role partnerRole)
+   {
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
+      String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+      
+      String key = Parser.METHOD + ":with" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public ModelPOType withRoleName(PatternObjectType tgtPO)\n" + 
+            "   {\n" + 
+            "      if (this.getPattern().getHasMatch())\n" + 
+            "      {\n" + 
+            "         ((ModelClass) this.getCurrentMatch()).withRoleName((ParamType) tgtPO.getCurrentMatch());\n" + 
+            "      }\n" + 
+            "      return this;\n" + 
+            "   }\n" +
+            "   \n");
+
+         getClazz().insertImport(parser, LinkConstraint.class.getName());
+         
+         String fullModelPOType = CGUtil.helperClassName(getClazz().getName(), "PO");
+         String modelPOType = getClazz().shortNameAndImport(fullModelPOType, parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "ParamType", partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser),
+            "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
+            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+            "ModelPOType", modelPOType, 
+            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         getClazz().setPatternObjectFileHasChanged(true);
+         
+         if (partnerRole.getCard().equals(Role.MANY))
+         {
+            text = new StringBuilder(
+               "   public ModelPOType withoutRoleName(PatternObjectType tgtPO)\n" + 
+               "   {\n" + 
+               "      if (this.getPattern().getHasMatch())\n" + 
+               "      {\n" + 
+               "         ((ModelClass) this.getCurrentMatch()).withoutRoleName((ParamType) tgtPO.getCurrentMatch());\n" + 
+               "      }\n" + 
+               "      return this;\n" + 
+               "   }\n" +
+               "   \n");
+            
+            CGUtil.replaceAll(text, 
+               "PatternObjectType", patternObjectType,
+               "ParamType", partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser),
+               "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
+               "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+               "ModelPOType", modelPOType, 
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+            classEnd = parser.indexOf(Parser.CLASS_END);
+            
+            parser.getFileBody().insert(classEnd, text.toString());
+            getClazz().setPatternObjectFileHasChanged(true);
+         }
+      }
+   }
+
+   
    private void insertSetterInModelSetFile(Parser parser, Role partnerRole)
    {
       String targetType = CGUtil.shortClassName(partnerRole.getClazz().getName());

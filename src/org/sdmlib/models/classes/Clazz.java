@@ -30,10 +30,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.models.classes.creators.ClazzSet;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -453,6 +451,11 @@ public class Clazz implements PropertyChangeInterface
    
    public void insertImport(Parser myParser, String className)
    {
+      if ("String int double float boolean void".indexOf(className) >= 0)
+      {
+         return;
+      }
+      
       int pos = myParser.indexOf(Parser.IMPORT);
 
       String prefix = "";

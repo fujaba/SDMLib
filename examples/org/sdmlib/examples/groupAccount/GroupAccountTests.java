@@ -23,7 +23,6 @@ package org.sdmlib.examples.groupAccount;
    
 import org.junit.Assert;
 import org.junit.Test;
-import org.sdmlib.examples.groupAccount.creators.GroupAccountCreator;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -76,7 +75,7 @@ public class GroupAccountTests
       .withValue(6)
       .withParent(groupAccount);
 
-      JsonIdMap createIdMap = GroupAccountCreator.createIdMap("az42");
+      JsonIdMap createIdMap = org.sdmlib.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
       scenario.addObjectDiag(createIdMap, groupAccount);
       
       scenario.add("We will call updateBalances() to compute the correct balances.\n" +

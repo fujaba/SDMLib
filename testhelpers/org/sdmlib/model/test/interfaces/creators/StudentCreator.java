@@ -1,5 +1,6 @@
 package org.sdmlib.model.test.interfaces.creators;
 
+import org.sdmlib.model.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.test.interfaces.Student;

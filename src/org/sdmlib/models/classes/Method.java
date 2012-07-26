@@ -29,6 +29,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.utils.StrUtil;
 
 public class Method implements PropertyChangeInterface
@@ -220,10 +221,12 @@ public class Method implements PropertyChangeInterface
       //    insertCaseInGenericGetSet(parser);
 
       Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
-
       insertMethodInModelSet(clazz, modelSetParser);
+      clazz.printModelSetFile(doGenerate);
 
-      clazz.printFile(doGenerate);
+      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+      insertMethodInPatternObject(clazz, patternObjectParser);
+      clazz.printPatternObjectFile(doGenerate);
 
       return this;
 
@@ -337,6 +340,107 @@ public class Method implements PropertyChangeInterface
          clazz.setModelSetFileHasChanged(true);
       }
    }
+
+
+   private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
+   {
+      String signature = getSignature();
+
+      String key = Parser.METHOD + ":" + signature;
+
+      int pos = parser.indexOf(key);
+
+      SymTabEntry symTabEntry = parser.getSymTab().get(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder
+               (  "   " +
+                     "\n   //==========================================================================" +
+                     "\n   " +
+                     "\n   public returnType methodName(formalParameter)" +
+                     "\n   {" +
+                     "\n      if (this.getPattern().getHasMatch())\n" + 
+                       "      {\n" + 
+                       "         returnStart ((memberType) getCurrentMatch()).methodName(actualParameter);\n" + 
+                       "      }" +
+                     "\n      returnStat" +
+                     "\n   }" +
+                     "\n\n"
+                     );
+
+         String methodName = signature.substring(0, signature.indexOf("("));
+
+         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+
+         String formalParameter = "";
+         String actualParameter = "";
+         
+         String[] parameters = parameterSig.split("\\s*,\\s*");
+
+         if (!(parameters.length == 1 && parameters[0].isEmpty())) 
+         {
+            for (int i = 0; i < parameters.length; i++)
+            {
+               formalParameter += parameters[i] + " p" + i;
+               actualParameter += " p" + i;
+               
+               if (i + 1 < parameters.length)
+               {
+                  formalParameter += ", ";
+                  actualParameter += ", ";
+               }
+            }
+         }
+         
+         String returnStart = "";
+         String returnStat = "";
+         
+         String type = this.getReturnType();
+         if (type == null)
+         {
+            type = "void";
+         }
+         
+         String importType = type;
+
+         this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+
+         if ( ! "void".equals(type))
+         {
+            returnStart = "return";
+            if ("int double float".indexOf(type) >= 0)
+            {
+               returnStat = "      return 0;\n";
+            }
+            else if ("boolean".equals(type))
+            {
+               returnStat = "      return false;\\n";
+            }
+            else
+            {
+               returnStat = "      return null;\\n";
+            }
+         }
+         
+         CGUtil.replaceAll(text, 
+            "returnSetCreate\n      ", returnStart,
+            "returnStart", returnStart,
+            "      returnStat\n", returnStat,
+            "returnType", type,
+            "methodName", methodName,
+            "memberType", CGUtil.shortClassName(this.getClazz().getName()),
+            "formalParameter", formalParameter,
+            "actualParameter", actualParameter
+               );
+
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.getFileBody().insert(pos, text.toString());
+         clazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+   
 
    private void insertMethodDecl(Clazz clazz, Parser parser)
    {		

@@ -442,6 +442,10 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
       .withAttribute("roomNo", "String")
       .withAttribute("credits", "int");
+      
+      new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
+      
+      
 
       Association uniToRoom = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)

@@ -105,7 +105,7 @@ public class CGUtil
          while (pos >= 0)
          {
             text.replace(pos, pos + placeholder.length(), "<$<" + placeholder + ">$>");
-            pos = text.indexOf(placeholder, pos + placeholder.length());
+            pos = text.indexOf(placeholder, pos + placeholder.length()+6);
          }
       }
       
@@ -120,7 +120,7 @@ public class CGUtil
          while (pos >= 0)
          {
             text.replace(pos, pos + placeholder.length(), args[i+1]);
-            pos = text.indexOf(placeholder, pos + placeholder.length());
+            pos = text.indexOf(placeholder, pos + args[i+1].length());
          }
       }
       

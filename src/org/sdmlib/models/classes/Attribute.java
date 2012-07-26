@@ -28,11 +28,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class Attribute implements PropertyChangeInterface 
@@ -360,9 +357,11 @@ public class Attribute implements PropertyChangeInterface
 		}
 	}
 
-   private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) {
+   private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
+   {
+      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":has"
-            + StrUtil.upFirstChar(this.getName()) + "()";
+            + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
 
       if (pos < 0) {
@@ -385,7 +384,6 @@ public class Attribute implements PropertyChangeInterface
 
          ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
-         String attrType = ownerClazz.shortNameAndImport(getType(), parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
