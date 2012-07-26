@@ -3,6 +3,13 @@ package org.sdmlib.examples.groupAccount.creators;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.groupAccount.creators.GroupAccountPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.groupAccount.creators.PersonPO;
+import org.sdmlib.examples.groupAccount.GroupAccount;
+import org.sdmlib.examples.groupAccount.creators.ItemPO;
+import org.sdmlib.examples.groupAccount.Item;
 
 public class PersonPO extends PatternObject
 {
@@ -51,6 +58,94 @@ public class PersonPO extends PatternObject
       return this;
    }
    
+   public GroupAccountPO hasParent()
+   {
+      GroupAccountPO result = new GroupAccountPO();
+      
+      PatternLink patternLink = new PatternLink()
+      .withTgt(result).withTgtRoleName(Person.PROPERTY_PARENT)
+      .withSrc(this);
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().addToElements(result);
+      
+      this.getPattern().findMatch();
+      
+      return result;
+   }
+   
+   public PersonPO hasParent(GroupAccountPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Person.PROPERTY_PARENT)
+      .withSrc(this);
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO withParent(GroupAccountPO tgtPO)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) this.getCurrentMatch()).withParent((GroupAccount) tgtPO.getCurrentMatch());
+      }
+      return this;
+   }
+   
+   public ItemPO hasItems()
+   {
+      ItemPO result = new ItemPO();
+      
+      PatternLink patternLink = new PatternLink()
+      .withTgt(result).withTgtRoleName(Person.PROPERTY_ITEMS)
+      .withSrc(this);
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().addToElements(result);
+      
+      this.getPattern().findMatch();
+      
+      return result;
+   }
+   
+   public PersonPO hasItems(ItemPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Person.PROPERTY_ITEMS)
+      .withSrc(this);
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO withItems(ItemPO tgtPO)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) this.getCurrentMatch()).withItems((Item) tgtPO.getCurrentMatch());
+      }
+      return this;
+   }
+   
+   public PersonPO withoutItems(ItemPO tgtPO)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) this.getCurrentMatch()).withoutItems((Item) tgtPO.getCurrentMatch());
+      }
+      return this;
+   }
+   
 }
+
 
 
