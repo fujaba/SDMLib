@@ -136,10 +136,8 @@ public class JsonFilter extends IdMapFilter{
 				}
 			}
 		}
-		if(isManySerialization()&&isMany){
-			if(map.getCreatorClass(value)!=null){
-				return false;
-			}
+		if(!isManySerialization()&&isMany){
+			return false;
 		}
 		return !property.endsWith(JsonIdMap.REF_SUFFIX);
 	}
