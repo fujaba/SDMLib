@@ -239,7 +239,7 @@ public class EntityUtil {
 			int    intent,
 			boolean simpleText,
 			BaseEntity reference) {
-		if (value == null || value.equals(null)) {
+		if (value == null) {
 			return "null";
 		}
 		if (value instanceof Number) {
@@ -274,7 +274,7 @@ public class EntityUtil {
 			Object value,
 			boolean simpleText,
 			BaseEntity reference) {
-		if (value == null || value.equals(null)) {
+		if (value == null) {
 			return "null";
 		}
 		if (value instanceof Number) {

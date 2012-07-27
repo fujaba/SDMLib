@@ -132,27 +132,32 @@ public class JsonIdMap extends IdMap{
 						encoding = !value.equals(refValue);
 					}
 					if (encoding) {
-						if(!filter.isRegard(this, entity, property, value)){
-							continue;
-						}
 						SendableEntityCreator referenceCreator=getCreatorClass(value);
 						
 						if (value instanceof Collection<?>&&referenceCreator==null) {
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
 								if (containee != null) {
+									if(!filter.isRegard(this, entity, property, value, true)){
+										continue;
+									}
 									boolean aggregation = filter.isConvertable(this,
-											entity, property, containee);
+											entity, property, containee, true);
 
 									referenceCreator=getCreatorClass(containee);
 									subValues.put(parseObject(containee,
 											aggregation, filter, null, referenceCreator, typSave));
 								}
 							}
-							jsonProp.put(property, subValues);
+							if(subValues.size()>0){
+								jsonProp.put(property, subValues);
+							}
 						} else {
+							if(!filter.isRegard(this, entity, property, value, true)){
+								continue;
+							}
 							boolean aggregation = filter.isConvertable(this,
-									entity, property, value);
+									entity, property, value, false);
 							jsonProp.put(
 									property,
 									parseObject(value, aggregation, filter,
@@ -453,10 +458,9 @@ public class JsonIdMap extends IdMap{
 						if (list.size() > 0) {
 							JsonArray refArray = new JsonArray();
 							for (Object containee : list) {
-	
-								if (containee != null && filter.isRegard(this, entity, property, containee)) {
+								if (containee != null && filter.isRegard(this, entity, property, containee, true)) {
 									boolean aggregation = filter.isConvertable(this, entity,
-											property, containee);
+											property, containee, true);
 									referenceCreator=getCreatorClass(containee);
 									refArray.put(parseObject(containee,
 											aggregation, filter, jsonArray, referenceCreator, isTypSave()));
@@ -466,9 +470,9 @@ public class JsonIdMap extends IdMap{
 								jsonProps.put(property, refArray);
 							}
 						}
-					} else if (filter.isRegard(this, entity, property, value)){
+					} else if (filter.isRegard(this, entity, property, value, false)){
 						boolean aggregation = filter.isConvertable(this, entity,
-								property, value);
+								property, value, false);
 						jsonProps.put(
 								property,
 								parseObject(value, aggregation, filter,
@@ -689,4 +693,5 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
+
 }

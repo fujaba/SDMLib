@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.util.Collection;
 import java.util.HashSet;
 
 import org.sdmlib.serialization.IdMap;
@@ -123,8 +122,8 @@ public class JsonFilter extends IdMapFilter{
 	/* (non-Javadoc)
 	 * @see de.uni.kassel.peermessage.IdMapFilter#isConvertable(de.uni.kassel.peermessage.IdMap, java.lang.Object, java.lang.String, java.lang.Object)
 	 */
-	public boolean isConvertable(IdMap map, Object entity, String property, Object value) {
-		if (!super.isConvertable(map, entity, property, value)){
+	public boolean isConvertable(IdMap map, Object entity, String property, Object value, boolean isMany) {
+		if (!super.isConvertable(map, entity, property, value, isMany)){
 			return false;
 		}
 		if(property.endsWith(REF)){
@@ -137,11 +136,9 @@ public class JsonFilter extends IdMapFilter{
 				}
 			}
 		}
-		if(isManySerialization()){
-			if(!(value instanceof Collection<?>)){
-				if(map.getCreatorClass(value)!=null){
-					return false;
-				}
+		if(isManySerialization()&&isMany){
+			if(map.getCreatorClass(value)!=null){
+				return false;
 			}
 		}
 		return !property.endsWith(JsonIdMap.REF_SUFFIX);

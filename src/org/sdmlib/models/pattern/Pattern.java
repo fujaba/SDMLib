@@ -299,7 +299,7 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
 
          @Override
          public boolean isRegard(IdMap map, Object entity,
-               String property, Object value)
+               String property, Object value, boolean isMany)
          {
             if (value.getClass().equals(Pattern.class) || entity.getClass().equals(Pattern.class))
             {
@@ -307,7 +307,7 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
             }
             else
             {
-               return super.isRegard(map, entity, property, value);
+               return super.isRegard(map, entity, property, value, isMany);
             }
          }
          

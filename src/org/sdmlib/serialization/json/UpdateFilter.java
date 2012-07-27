@@ -1,4 +1,4 @@
-package org.sdmlib.serialization;
+package org.sdmlib.serialization.json;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -27,17 +27,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import org.sdmlib.serialization.json.JsonFilter;
+import org.sdmlib.serialization.IdMap;
 
 public class UpdateFilter extends JsonFilter
 {
-
-   @Override
    public boolean isConvertable(IdMap map, Object entity, String property,
-         Object value)
+         Object value, boolean isMany)
    {
       return map.getKey(value) == null;
-//      return super.isConvertable(map, entity, property, value);
    }
-
 }

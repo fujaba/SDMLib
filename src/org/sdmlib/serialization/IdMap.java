@@ -302,7 +302,7 @@ public class IdMap {
 							} else {
 								SendableEntityCreator childCreatorClass = getCreatorClass(item);
 								if (childCreatorClass != null) {
-									if(!filter.isConvertable(this, item, property, value)){
+									if(!filter.isConvertable(this, item, property, value, true)){
 										creatorClass.setValue(newObject, property, item);
 									}else{
 										int oldDeep=filter.setDeep(filter.getDeep()-1);
@@ -325,7 +325,7 @@ public class IdMap {
 					} else {
 						SendableEntityCreator childCreatorClass = getCreatorClass(value);
 						if (childCreatorClass != null) {
-							if(!filter.isConvertable(this, value, property, value)){
+							if(!filter.isConvertable(this, value, property, value, false)){
 								creatorClass.setValue(newObject, property, value);
 							}else{
 								int oldDeep=filter.setDeep(filter.getDeep()-1);

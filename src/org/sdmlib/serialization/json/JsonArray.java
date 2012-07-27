@@ -198,7 +198,7 @@ public class JsonArray extends EntityList{
 	 * @return this.
 	 */
 	public JsonArray put(Collection<?> value) {
-		put(new JsonArray(value));
+		super.put(new JsonArray(value));
 		return this;
 	}
 
@@ -216,7 +216,7 @@ public class JsonArray extends EntityList{
 	 */
 	public JsonArray put(int index, Collection<?> value)
 			throws RuntimeException {
-		put(index, new JsonArray(value));
+		super.put(index, new JsonArray(value));
 		return this;
 	}
 

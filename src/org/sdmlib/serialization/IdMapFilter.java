@@ -1,5 +1,6 @@
 package org.sdmlib.serialization;
 
+
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -60,14 +61,14 @@ public class IdMapFilter {
 	 * @param value the value
 	 * @return true, if is convertable
 	 */
-	public boolean isConvertable(IdMap map, Object entity, String property, Object value){
+	public boolean isConvertable(IdMap map, Object entity, String property, Object value, boolean isMany){
 		if (getDeep() == LASTDEEP){
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isRegard(IdMap map, Object entity, String property, Object value){
+	public boolean isRegard(IdMap map, Object entity, String property, Object value, boolean isMany){
 		return true;
 	}
 	
@@ -135,7 +136,7 @@ public class IdMapFilter {
 	 * @param simpleCheck the simple check
 	 * @return true, if successful
 	 */
-	public boolean setSerialization(boolean serialization) {
+	public boolean setFullSerialization(boolean serialization) {
 		this.fullSerialization = serialization;
 		return fullSerialization;
 	}

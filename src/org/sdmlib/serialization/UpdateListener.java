@@ -39,6 +39,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.json.UpdateFilter;
 
 /**
  * The listener interface for receiving update events.

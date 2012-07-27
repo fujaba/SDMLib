@@ -44,7 +44,6 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class ByteIdMap.
  */
 public class ByteIdMap extends IdMap{
-	
 	/** The SPLITTER. */
 	public static char SPLITTER = ' ';
 	/** The Constant CLASS-VALUE. */
@@ -441,9 +440,7 @@ public class ByteIdMap extends IdMap{
 		} else if (typValue == ByteIdMap.DATATYPE_DOUBLE) {
 			return in.getDouble();
 		} else if (typValue == ByteIdMap.DATATYPE_DATE) {
-			int value = in.getInt();
-			Date newValue = new Date(value);
-			return newValue;
+			return new Date(new Long(in.getInt()));
 		} else {
 			byte group=getTyp(typValue, ByteIdMap.DATATYPE_STRING);
 			if(group==ByteIdMap.DATATYPE_STRING||

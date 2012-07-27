@@ -502,16 +502,144 @@ public abstract class Entity extends BaseEntity{
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
 
-	public void setValue(String key, Object value){
-    	String myKey=key;
-    	if(key.indexOf('.')>0){
-    		myKey=key.substring(0, key.indexOf('.'));
-    		Object child=getMap().get(myKey);
-    		if(child instanceof Entity){
-    			((Entity)child).setValue(key.substring(key.indexOf('.')+1), value);
+	public Object getValue(String key){
+		int len=0;
+		int end=0;
+		int id=0;
+    	for(;len<key.length();len++){
+    		char temp=key.charAt(len);
+    		if(temp=='['){
+    			for(end=len+1;end<key.length();end++){
+    				temp=key.charAt(end);
+    				if(key.charAt(end)==']'){
+    					end++;
+    					break;
+    				}else if(temp>47&&temp<58&&id>=0){
+   						id=id*10+temp-48;
+    				}else if(temp=='L'){
+    					id=-2;
+    				}
+    			}
+    			if(end==key.length()){
+    				end=0;
+    			}
+    			break;
+    		}else if(temp=='.'){
+    			end=len;
+    			id=-1;
+    			break;
     		}
-    	}else{
-    		put(key, value);
     	}
-    }
+    	if(end==0&&len==key.length()){
+    		id=-1;
+    	}
+    	
+    	Object child = get(key.substring(0, len));
+    	if(child!=null){
+	    	if (end==0) {
+	    		if(id>=0||id==-2){
+	    			if(child instanceof EntityList){
+	    				EntityList list=(EntityList) child;
+	    				if(id==-2){
+	    					id=list.size()-1;
+	    				}
+	    				if(list.size()>=id){
+	    					return list.get(id);
+	    				}
+	    			}
+	    		}else{
+	    			return child;
+	    		}
+			}else{
+				if(id>=0||id==-2){
+					if(child instanceof EntityList){
+						EntityList list=(EntityList) child;
+	    				if(id==-2){
+	    					id=list.size()-1;
+	    				}
+	    				if(list.size()>=id){
+	    					return ((Entity)list.get(id)).getValue(key.substring(end+1));
+	    				}
+					}
+				}else{
+					return ((Entity)child).getValue(key.substring(end+1));
+				}
+			}
+    	}
+    	return null;
+	}
+	
+	public void setValue(String key, Object value){
+		int len=0;
+		int end=0;
+		int id=0;
+    	for(;len<key.length();len++){
+    		char temp=key.charAt(len);
+    		if(temp=='['){
+    			for(end=len+1;end<key.length();end++){
+    				temp=key.charAt(end);
+    				if(key.charAt(end)==']'){
+    					end++;
+    					break;
+    				}else if(temp>47&&temp<58&&id>=0){
+   						id=id*10+temp-48;
+    				}else if(temp=='L'){
+    					id=-2;
+    				}
+    			}
+    			if(end==key.length()){
+    				end=0;
+    			}
+    			break;
+    		}else if(temp=='.'){
+    			end=len;
+    			id=-1;
+    			break;
+    		}
+    	}
+    	if(end==0&&len==key.length()){
+    		id=-1;
+    	}
+
+    	Object child = get(key.substring(0, len));
+    	if(child!=null){
+	    	if (end==0) {
+	    		if(id>=0||id==-2){
+	    			if(child instanceof EntityList){
+	    				EntityList list=(EntityList) child;
+	    				if(id==-2){
+	    					id=list.size()-1;
+	    				}
+	    				if(list.size()>=id){
+	    					if(value==null){
+	    						list.remove(id);
+	    					}else{
+	    						list.set(id, value);
+	    					}
+	    				}
+	    			}
+	    		}else{
+	    			if(value==null){
+	    				remove(key.substring(0, len));
+	    			}else{
+	    				put(key.substring(0, len), value);
+	    			}
+	    		}
+			}else{
+				if(id>=0||id==-2){
+					if(child instanceof EntityList){
+						EntityList list=(EntityList) child;
+	    				if(id==-2){
+	    					id=list.size()-1;
+	    				}
+	    				if(list.size()>=id){
+	    					((Entity)list.get(id)).setValue(key.substring(end+1), value);
+	    				}
+					}
+				}else{
+					((Entity)child).setValue(key.substring(end+1), value);
+				}
+			}
+    	}
+	}
 }

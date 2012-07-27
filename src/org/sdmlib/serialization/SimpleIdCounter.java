@@ -66,11 +66,9 @@ public class SimpleIdCounter implements IdMapCounter{
 		// new object generate key and add to tables
 		// <session id>.<first char><running number>
 		if (obj == null) {
-			try {
-				throw new Exception("NullPointer: " + obj);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Exception e=new Exception("NullPointer: " + obj);
+			e.printStackTrace();
+			return "";
 		}
 		String className = obj.getClass().getName();
 		char firstChar = className.charAt(className.lastIndexOf(splitter) + 1);

@@ -291,7 +291,7 @@ public class ByteEntity extends Entity{
 	 */
 	@Override
 	public String toString() {
-		StringBuffer returnValue = new StringBuffer();
+		StringBuilder returnValue = new StringBuilder();
 		ByteBuffer byteBuffer = getBytes();
 		if(byteBuffer!=null){
 			for (int i = 0; i < byteBuffer.limit(); i++) {
@@ -610,7 +610,7 @@ public class ByteEntity extends Entity{
 					setValues(typ, buffer.getLong(), null);
 				}
 			}else{
-				// Zurueckformen nicht möglich da keine Infos vorliegen
+				// Zurueckformen nicht mï¿½glich da keine Infos vorliegen
 			}
 		}
 	}

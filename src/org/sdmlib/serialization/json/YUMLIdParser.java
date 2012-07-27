@@ -140,7 +140,7 @@ public class YUMLIdParser extends IdMap{
 		valueYUML.clear();
 
 		String id = parse(object, filter, typ);
-		// Links auflösen
+		// Links auflï¿½sen
 		Set<String> keySet = linkProperty.keySet();
 		if(keySet.size()>0){
 			Iterator<String> i = keySet.iterator();
@@ -251,10 +251,10 @@ public class YUMLIdParser extends IdMap{
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 					if (value instanceof Collection<?>) {
 						for (Object containee : ((Collection<?>) value)) {
-							if(!filter.isRegard(this, object, property, containee)){
+							if(!filter.isRegard(this, object, property, containee, true)){
 								continue;
 							}
-							if(!filter.isConvertable(this, object, property, containee)){
+							if(!filter.isConvertable(this, object, property, containee, true)){
 								continue;
 							}
 
@@ -265,10 +265,10 @@ public class YUMLIdParser extends IdMap{
 									.put(key, getCardinality("0..n", typ));
 						}
 					} else {
-						if(!filter.isRegard(this, object, property, value)){
+						if(!filter.isRegard(this, object, property, value, false)){
 							continue;
 						}
-						if(!filter.isConvertable(this, object, property, value)){
+						if(!filter.isConvertable(this, object, property, value, false)){
 							continue;
 						}
 						SendableEntityCreator valueCreater = getCreatorClass(value);
