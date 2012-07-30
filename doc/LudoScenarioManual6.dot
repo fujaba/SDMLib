@@ -11,18 +11,18 @@ f6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f6 :Fi
 f7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f7 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 p8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p8 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 p9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p9 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>name = "Sabine"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
-p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p10 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
-f11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f11 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "base"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
+p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p11 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
+f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "base"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 
 f3 -- f4 [headlabel = "next" taillabel = "prev"];
+f3 -- p11 [headlabel = "pawns" taillabel = "pos"];
 f3 -- p8 [headlabel = "pawns" taillabel = "pos"];
 f4 -- f5 [headlabel = "next" taillabel = "prev"];
 f5 -- f6 [headlabel = "next" taillabel = "prev"];
 f6 -- f7 [headlabel = "next" taillabel = "prev"];
-p10 -- f11 [headlabel = "pos" taillabel = "pawns"];
 p1 -- d2 [headlabel = "dice" taillabel = "player"];
-p1 -- f11 [headlabel = "base" taillabel = "baseowner"];
-p1 -- f3 [headlabel = "start" taillabel = "player"];
-p1 -- p10 [headlabel = "pawns" taillabel = "player"];
+p1 -- f10 [headlabel = "base" taillabel = "baseowner"];
+p1 -- f3 [headlabel = "start" taillabel = "starter"];
+p1 -- p11 [headlabel = "pawns" taillabel = "player"];
 p8 -- p9 [headlabel = "player" taillabel = "pawns"];
 }

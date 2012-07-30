@@ -9,7 +9,7 @@
       
       if (player.getDice() != null && player.getDice().getValue() == 6
             && p8.getPos() != null && "base".equals(p8.getPos().getKind())
-            && p8.getPos().getPlayer() == player)
+            && p8.getPos() == player.getBase())
       {
          Field startField = player.getStart();
          boolean hasOtherOwnPawn = false;

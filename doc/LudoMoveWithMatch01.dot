@@ -73,5 +73,5 @@ p2 -- f10 [headlabel = "pos" taillabel = "pawns"];
 p2 -- p3 [headlabel = "player" taillabel = "pawns"];
 p3 -- d4 [headlabel = "dice" taillabel = "player"];
 p3 -- f10 [headlabel = "base" taillabel = "baseowner"];
-p3 -- f5 [headlabel = "start" taillabel = "player"];
+p3 -- f5 [headlabel = "start" taillabel = "starter"];
 }
