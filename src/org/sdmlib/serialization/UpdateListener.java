@@ -273,7 +273,7 @@ public class UpdateListener implements PropertyChangeListener{
 									update.get(key));
 						} else {
 							// ERROR
-							if(map.checkPrio(masterObj, key, value, remove, update)){
+							if(!map.skipCollision(masterObj, key, value, remove, update)){
 								if (checkPrio(prio)) {
 									return setValue(creator, masterObj, key,
 											update.get(key));
@@ -287,7 +287,7 @@ public class UpdateListener implements PropertyChangeListener{
 								update.get(key));
 					} else {
 						// ERROR
-						if(map.checkPrio(masterObj, key, value, remove, update)){
+						if(!map.skipCollision(masterObj, key, value, remove, update)){
 							if (checkPrio(prio)) {
 								return setValue(creator, masterObj, key,
 										update.get(key));

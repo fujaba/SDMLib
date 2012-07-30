@@ -55,5 +55,5 @@ public interface MapUpdateListener {
 	
 	public boolean readMessages(String type, Object value, JsonObject props);
 	
-	public boolean checkPrio(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson);
+	public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson);
 }

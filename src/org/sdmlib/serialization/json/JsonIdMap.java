@@ -693,9 +693,9 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
-	public boolean checkPrio(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson){
+	public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson){
 		if(updatelistener!=null){
-			return updatelistener.checkPrio(masterObj, key, value, removeJson, updateJson);
+			return updatelistener.skipCollision(masterObj, key, value, removeJson, updateJson);
 		}
 		return true;
 	}
