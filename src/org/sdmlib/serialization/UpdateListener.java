@@ -273,9 +273,11 @@ public class UpdateListener implements PropertyChangeListener{
 									update.get(key));
 						} else {
 							// ERROR
-							if (checkPrio(prio)) {
-								return setValue(creator, masterObj, key,
-										update.get(key));
+							if(map.checkPrio(masterObj, key, value, remove, update)){
+								if (checkPrio(prio)) {
+									return setValue(creator, masterObj, key,
+											update.get(key));
+								}
 							}
 						}
 					} else if (creator.getValue(masterObj, key).equals(
@@ -285,9 +287,11 @@ public class UpdateListener implements PropertyChangeListener{
 								update.get(key));
 					} else {
 						// ERROR
-						if (checkPrio(prio)) {
-							return setValue(creator, masterObj, key,
-									update.get(key));
+						if(map.checkPrio(masterObj, key, value, remove, update)){
+							if (checkPrio(prio)) {
+								return setValue(creator, masterObj, key,
+										update.get(key));
+							}
 						}
 					}
 				}
