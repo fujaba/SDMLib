@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.examples.ludo.creators.FieldPO;
+import org.sdmlib.examples.ludo.creators.ModelPattern;
 import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
 import org.sdmlib.models.pattern.Pattern;
@@ -48,26 +49,21 @@ public class LudoScenario
       Player tom = new Player().withName("Tom").withColor("blue");
       Player sabine = new Player().withName("Sabine").withColor("red");
       
-      Dice dice = new Dice().withValue(6)
-            .withPlayer(tom);
+      Dice dice = tom.createDice().withValue(6);
       
-      Pawn p8 = new Pawn().withColor("blue")
-            .withPlayer(tom);
+      Pawn p2 = tom.createPawns().withColor("blue");
       
-      Field tomStartField = new Field().withColor("blue").withKind("start");
-      tom.withStart(tomStartField);
+      Field tomStartField = tom.createStart().withColor("blue").withKind("start");
       
       Field tmp = tomStartField;
       for (int i = 0; i < 4; i++)
       {
-         tmp = new Field().withPrev(tmp);
+         tmp = tmp.createNext();
       }
       
-      Field tomBase = new Field().withColor("blue").withKind("base").withPawns(p8);
-      tom.withBase(tomBase);
+      Field tomBase = tom.createBase().withColor("blue").withKind("base").withPawns(p2);
       
-      Pawn p9 = new Pawn().withColor("red")
-            .withPlayer(sabine)
+      Pawn p9 = sabine.createPawns().withColor("red")
             .withPos(tomStartField);
       
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("l1");
@@ -78,9 +74,9 @@ public class LudoScenario
       
       scenario.markCodeStart();
       // build move operation with SDM model transformations
-      Pattern p = new Pattern(CreatorCreator.getIdMap());
+      ModelPattern p = new ModelPattern();
       
-      PawnPO pawnPO = (PawnPO) p.bind(p8);
+      PawnPO pawnPO = (PawnPO) p.hasElementPawnPO(p2);
       
       PlayerPO playerPO = pawnPO.hasPlayer();
       
@@ -92,14 +88,15 @@ public class LudoScenario
       
       FieldPO startFieldPO = playerPO.hasStart();
       
-      PawnPO otherOwnPawnPO = startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
+      startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
       scenario.addCode("examples");
       
       // scenario.addObjectDiag(jsonIdMap, pawnPO);
       scenario.add(p.dumpDiagram("LudoMoveWithMatch01"));
       
       scenario.markCodeStart();
-      pawnPO.setPos(startFieldPO);
+      p.startCreate();
+      pawnPO.hasPos(startFieldPO);
       scenario.addCode("examples");
       
       //scenario.addObjectDiag(jsonIdMap, pawnPO);
@@ -159,7 +156,7 @@ public class LudoScenario
       
       if (player.getDice() != null && player.getDice().getValue() == 6
             && p8.getPos() != null && "base".equals(p8.getPos().getKind())
-            && p8.getPos().getPlayer() == player)
+            && p8.getPos() == player.getBase())
       {
          Field startField = player.getStart();
          boolean hasOtherOwnPawn = false;
@@ -194,6 +191,7 @@ public class LudoScenario
    private static final String BACKLOG = "backlog";
    private static final String BUG = "bug";
 }
+
 
 
 

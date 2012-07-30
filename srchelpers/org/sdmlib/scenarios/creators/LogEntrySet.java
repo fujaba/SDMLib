@@ -3,6 +3,7 @@ package org.sdmlib.scenarios.creators;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.scenarios.LogEntry;
+import org.sdmlib.scenarios.KanbanEntry;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry>
 {
@@ -19,5 +20,16 @@ public class LogEntrySet extends LinkedHashSet<LogEntry>
       
       return result;
    }
+   public LogEntrySet withKanbanEntry(KanbanEntry value)
+   {
+      for (LogEntry obj : this)
+      {
+         obj.withKanbanEntry(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

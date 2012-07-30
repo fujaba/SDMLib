@@ -98,6 +98,8 @@ public class LudoModel
       
       scenario.addImage(model.dumpClassDiag("LudoModel01"));
 
+      // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
+      
       model.generate("examples", "examplehelpers");
       
       ScenarioManager.get()
@@ -105,6 +107,7 @@ public class LudoModel
       .dumpHTML();
    }
 }
+
 
 
 

@@ -33,6 +33,19 @@ import org.sdmlib.scenarios.ScenarioManager;
 public class PatternModelCodeGen 
 {
    @Test
+   public void testTransformationsCodegen()
+   {
+      Scenario scenario = new Scenario("test", "TransformationsCodegen");
+      
+      scenario.add("Start situation: ",
+         BACKLOG, "zuendorf", "27.07.2012 13:27:59", 0, 0);
+      
+      ScenarioManager.get()
+      .add(scenario)
+      .dumpHTML();
+   }
+
+   @Test
    public void testPatternModelCodegen()
    {
       Scenario scenario = new Scenario("test", "PatternModelCodegen");
@@ -42,11 +55,12 @@ public class PatternModelCodeGen
       
       ClassModel model = new ClassModel();
       
-      Clazz patternElement = new Clazz("org.sdmlib.models.pattern.PatternElement");
+      Clazz patternElement = new Clazz("org.sdmlib.models.pattern.PatternElement")
+      .withAttribute("modifier", "String")
+      .withAttribute("hasMatch", "boolean", "false");
       
       Clazz pattern = new Clazz("org.sdmlib.models.pattern.Pattern")
       .withSuperClass(patternElement)
-      .withAttribute("hasMatch", "boolean")
       .withAttribute("currentNAC", "NegativeApplicationCondition");
       
       Clazz NegativeApplicationCondition = new Clazz("org.sdmlib.models.pattern.NegativeApplicationCondition")
@@ -105,6 +119,7 @@ public class PatternModelCodeGen
    private static final String BACKLOG = "backlog";
    private static final String BUG = "bug";
 }
+
 
 
 

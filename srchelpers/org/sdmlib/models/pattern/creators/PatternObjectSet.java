@@ -4,6 +4,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {
@@ -144,7 +147,53 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withModifier(String value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getHasMatch()
+   {
+      booleanList result = new booleanList();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getHasMatch());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withHasMatch(boolean value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
 

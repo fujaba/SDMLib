@@ -206,6 +206,13 @@ public class Ludo implements PropertyChangeInterface
          this.removeFromPlayers(value);
       }
    }
+   
+   public Player createPlayers()
+   {
+      Player value = new Player();
+      withPlayers(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -257,6 +264,13 @@ public class Ludo implements PropertyChangeInterface
    {
       setDice(value);
       return this;
+   } 
+   
+   public Dice createDice()
+   {
+      Dice value = new Dice();
+      withDice(value);
+      return value;
    } 
 
    
@@ -344,5 +358,12 @@ public class Ludo implements PropertyChangeInterface
          this.removeFromFields(value);
       }
    }
+   
+   public Field createFields()
+   {
+      Field value = new Field();
+      withFields(value);
+      return value;
+   } 
 }
 

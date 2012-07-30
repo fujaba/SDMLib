@@ -18,11 +18,10 @@ public class FieldCreator implements SendableEntityCreator
       Field.PROPERTY_PREV,
       Field.PROPERTY_LANDING,
       Field.PROPERTY_ENTRY,
-      Field.PROPERTY_PLAYER,
-      Field.PROPERTY_PAWNS,
       Field.PROPERTY_STARTER,
       Field.PROPERTY_BASEOWNER,
       Field.PROPERTY_LANDER,
+      Field.PROPERTY_PAWNS,
    };
    
    public String[] getProperties()
@@ -50,5 +49,4 @@ public class FieldCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
 

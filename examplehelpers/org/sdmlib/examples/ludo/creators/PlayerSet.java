@@ -24,6 +24,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       return result;
    }
 
+   public PlayerSet withColor(String value)
+   {
+      for (Player obj : this)
+      {
+         obj.withColor(value);
+      }
+      
+      return this;
+   }
+
    public StringList getName()
    {
       StringList result = new StringList();
@@ -34,6 +44,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       }
       
       return result;
+   }
+
+   public PlayerSet withName(String value)
+   {
+      for (Player obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
    }
 
    public intList getX()
@@ -48,6 +68,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       return result;
    }
 
+   public PlayerSet withX(int value)
+   {
+      for (Player obj : this)
+      {
+         obj.withX(value);
+      }
+      
+      return this;
+   }
+
    public intList getY()
    {
       intList result = new intList();
@@ -58,6 +88,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       }
       
       return result;
+   }
+
+   public PlayerSet withY(int value)
+   {
+      for (Player obj : this)
+      {
+         obj.withY(value);
+      }
+      
+      return this;
    }
 
    public LudoSet getGame()
@@ -71,6 +111,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withGame(Ludo value)
+   {
+      for (Player obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
    public PlayerSet getNext()
    {
       PlayerSet result = new PlayerSet();
@@ -82,6 +132,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withNext(Player value)
+   {
+      for (Player obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
+
    public PlayerSet getPrev()
    {
       PlayerSet result = new PlayerSet();
@@ -93,6 +153,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withPrev(Player value)
+   {
+      for (Player obj : this)
+      {
+         obj.withPrev(value);
+      }
+      
+      return this;
+   }
+
    public DiceSet getDice()
    {
       DiceSet result = new DiceSet();
@@ -104,6 +174,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withDice(Dice value)
+   {
+      for (Player obj : this)
+      {
+         obj.withDice(value);
+      }
+      
+      return this;
+   }
+
    public FieldSet getStart()
    {
       FieldSet result = new FieldSet();
@@ -115,17 +195,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
-   public PawnSet getPawns()
+   public PlayerSet withStart(Field value)
    {
-      PawnSet result = new PawnSet();
-      
       for (Player obj : this)
       {
-         result.addAll(obj.getPawns());
+         obj.withStart(value);
       }
       
-      return result;
+      return this;
    }
+
    public FieldSet getBase()
    {
       FieldSet result = new FieldSet();
@@ -137,6 +216,16 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+   public PlayerSet withBase(Field value)
+   {
+      for (Player obj : this)
+      {
+         obj.withBase(value);
+      }
+      
+      return this;
+   }
+
    public FieldSet getLanding()
    {
       FieldSet result = new FieldSet();
@@ -148,106 +237,6 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
-   public PlayerSet withColor(String value)
-   {
-      for (Player obj : this)
-      {
-         obj.withColor(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withName(String value)
-   {
-      for (Player obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withX(int value)
-   {
-      for (Player obj : this)
-      {
-         obj.withX(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withY(int value)
-   {
-      for (Player obj : this)
-      {
-         obj.withY(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withGame(Ludo value)
-   {
-      for (Player obj : this)
-      {
-         obj.withGame(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withNext(Player value)
-   {
-      for (Player obj : this)
-      {
-         obj.withNext(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withPrev(Player value)
-   {
-      for (Player obj : this)
-      {
-         obj.withPrev(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withDice(Dice value)
-   {
-      for (Player obj : this)
-      {
-         obj.withDice(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withStart(Field value)
-   {
-      for (Player obj : this)
-      {
-         obj.withStart(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withBase(Field value)
-   {
-      for (Player obj : this)
-      {
-         obj.withBase(value);
-      }
-      
-      return this;
-   }
-
    public PlayerSet withLanding(Field value)
    {
       for (Player obj : this)
@@ -258,6 +247,17 @@ public class PlayerSet extends LinkedHashSet<Player>
       return this;
    }
 
+   public PawnSet getPawns()
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Player obj : this)
+      {
+         result.addAll(obj.getPawns());
+      }
+      
+      return result;
+   }
    public PlayerSet withPawns(Pawn value)
    {
       for (Player obj : this)
@@ -279,6 +279,4 @@ public class PlayerSet extends LinkedHashSet<Player>
    }
 
 }
-
-
 

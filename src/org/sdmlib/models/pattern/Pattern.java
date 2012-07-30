@@ -21,24 +21,20 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.examples.ludo.creators.PawnPO;
-import org.sdmlib.models.pattern.creators.PatternElementSet;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.scenarios.JsonToImg;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
 
-public class Pattern extends PatternElement implements PropertyChangeInterface
+public class Pattern extends PatternElement
 {
+   public static final String CREATE = "create";
+   
    private JsonIdMap jsonIdMap;
    
    public JsonIdMap getJsonIdMap()
@@ -56,13 +52,33 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
    public Pattern(JsonIdMap createIdMap)
    {
       jsonIdMap = createIdMap;
+      setHasMatch(true);
    }
    
    public Pattern()
    {
-      // empty
    }
 
+   public Pattern startCreate()
+   {
+      this.setModifier(Pattern.CREATE);
+      return this;
+   }
+   
+   //==========================================================================
+   public int allMatches()
+   {
+      int result = 0;
+      
+      while (getHasMatch())
+      {
+         result++;
+         findMatch();
+      }
+      
+      return result;
+   }
+   
    public boolean findMatch()
    {
       boolean done = false; 
@@ -86,9 +102,9 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
          }
       }
       
-      hasMatch = i >= this.getElements().size();
+      setHasMatch( i >= this.getElements().size());
       
-      return hasMatch;
+      return getHasMatch();
    }
 
 
@@ -115,6 +131,11 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
       if (PROPERTY_CURRENTNAC.equalsIgnoreCase(attrName))
       {
          return getCurrentNAC();
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
       }
       
       return null;
@@ -149,21 +170,17 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
       return false;
    }
 
    
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
+  //==========================================================================
    
    public void removeYou()
    {
@@ -323,36 +340,8 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
    
    //==========================================================================
    
-   public static final String PROPERTY_HASMATCH = "hasMatch";
-   
-   private boolean hasMatch;
-
-   public boolean getHasMatch()
-   {
-      return this.hasMatch;
-   }
-   
-   public void setHasMatch(boolean value)
-   {
-      if (this.hasMatch != value)
-      {
-         boolean oldValue = this.hasMatch;
-         this.hasMatch = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HASMATCH, oldValue, value);
-      }
-   }
-   
-   public Pattern withHasMatch(boolean value)
-   {
-      setHasMatch(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
    public static final String PROPERTY_CURRENTNAC = "currentNAC";
-   
+
    private NegativeApplicationCondition currentNAC;
 
    public NegativeApplicationCondition getCurrentNAC()
@@ -374,6 +363,7 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
    {
       setCurrentNAC(value);
       return this;
-   } 
+   }
+
 }
 

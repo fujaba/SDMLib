@@ -40,6 +40,7 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.helloworld.creators.ModelPattern;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
@@ -53,7 +54,16 @@ public class ClassModel implements PropertyChangeInterface
 {
 	public static ClassModel classModel = null;
 
-	private Parser parser;
+	private Parser creatorCreatorParser;
+	
+	private Parser modelPatternParser;
+	
+	private boolean modelPatternFileHasChanged;
+	
+	public void setModelPatternFileHasChanged(boolean modelPatternFileHasChanged)
+   {
+      this.modelPatternFileHasChanged = modelPatternFileHasChanged;
+   }
 
 	private File javaFile;
 
@@ -63,7 +73,9 @@ public class ClassModel implements PropertyChangeInterface
 
 	private String creatorCreatorClassName;
 
-	public void setFileHasChanged(boolean fileHasChanged)
+	private String modelPatternClassName;
+
+   public void setFileHasChanged(boolean fileHasChanged)
 	{
 		this.fileHasChanged = fileHasChanged;
 	}
@@ -76,6 +88,7 @@ public class ClassModel implements PropertyChangeInterface
 	public ClassModel generate(String rootDir, String helpersDir)
 	{
 		generateCreatorCreatorClass(helpersDir);
+		generateModelPatternClass(helpersDir);
 		
 		for (Clazz clazz : getClasses())
 		{
@@ -91,18 +104,33 @@ public class ClassModel implements PropertyChangeInterface
 	}
 
 	private void generateCreatorCreatorClass(String rootDir)
+   {
+      // take first class to find package
+
+      getOrCreateCreatorCreatorParser(rootDir);
+
+      for (Clazz clazz : getClasses())
+      {
+         if (!clazz.isInterfaze()) 
+            clazz.insertCreatorClassInCreatorCreator(creatorCreatorParser);
+      }
+
+      printFile(fileHasChanged);
+   }
+
+   private void generateModelPatternClass(String rootDir)
 	{
 		// take first class to find package
 
-		getOrCreateParser(rootDir);
+		getOrCreateModelPatternParser(rootDir);
 
 		for (Clazz clazz : getClasses())
 		{
 			if (!clazz.isInterfaze()) 
-				clazz.insertCreatorClassInCreatorCreator(parser);
+				clazz.insertHasMethodsInModelPattern(modelPatternParser);
 		}
 
-		printFile(fileHasChanged);
+		printModelPatternFile(modelPatternFileHasChanged);
 	}
 
 	public void printFile(boolean really)
@@ -113,88 +141,167 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
+   public void printModelPatternFile(boolean really)
+   {
+      if (really)
+      {
+         File modelPatternFile = new File(modelPatternParser.getFileName());
+         CGUtil.printFile(modelPatternFile, modelPatternParser.getFileBody().toString());
+      }
+   }
+
 	public String getCreatorCreatorClassName() {
 		return creatorCreatorClassName;
 	}
 	   
-	public Parser getOrCreateParser(String rootDir)
+   public Parser getOrCreateCreatorCreatorParser(String rootDir)
+   {
+      if (!getClasses().isEmpty() && creatorCreatorParser == null)
+      {
+         // try to find existing file
+         Clazz firstClass = getClasses().iterator().next();
+
+         creatorCreatorClassName = firstClass.getName();
+
+         int pos = creatorCreatorClassName.lastIndexOf('.');
+
+         String packageName = creatorCreatorClassName.substring(0, pos) + ".creators";
+
+         creatorCreatorClassName = packageName + ".CreatorCreator";
+
+         String fileName = creatorCreatorClassName;
+
+         fileName = fileName.replaceAll("\\.", "/");
+
+         fileName = rootDir + "/" + fileName + ".java";
+
+         javaFile = new File(fileName);
+
+         // found old one?
+         if (javaFile.exists())
+         {
+            fileBody = CGUtil.readFile(javaFile);
+         }
+         else
+         {
+            fileBody = new StringBuilder();
+
+            StringBuilder text = 
+                  new StringBuilder(
+                     "package packageName;\n" + 
+                           "\n" + 
+                           "import java.util.LinkedHashSet;\n" + 
+                           "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" + 
+                           "import org.sdmlib.serialization.json.JsonIdMap;\n" +
+                           "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n" + 
+                           "\n" + 
+                           "public class className\n" + 
+                           "{\n" + 
+                           "   public static LinkedHashSet<SendableEntityCreator> creatorSet = null;\n" + 
+                           "   \n" +
+                           "   public static LinkedHashSet<SendableEntityCreator> getCreatorSet()\n" + 
+                           "   {\n" + 
+                           "      if (creatorSet == null)\n" + 
+                           "      {\n" + 
+                           "         creatorSet = new LinkedHashSet<SendableEntityCreator>();\n" + 
+                           "         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());\n" + 
+                           "      }\n" + 
+                           "      \n" + 
+                           "      return creatorSet;\n" + 
+                           "   }\n" + 
+                           "\n" + 
+                           "   public static JsonIdMap createIdMap(String sessionID)\n" + 
+                           "   {\n" + 
+                           "      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
+                           "      \n" + 
+                           "      jsonIdMap.addCreator(getCreatorSet());\n" + 
+                           "\n" + 
+                           "      return jsonIdMap;\n" + 
+                           "   }\n" + 
+                           "}\n");
+
+            CGUtil.replaceAll(text, "className", CGUtil.shortClassName(creatorCreatorClassName), "packageName", packageName);
+
+            fileBody.append(text.toString());
+
+            fileHasChanged = true;
+         }
+
+         creatorCreatorParser = new Parser().withFileName(fileName).withFileBody(fileBody);
+
+      }
+
+      return creatorCreatorParser;
+   }
+
+	public Parser getOrCreateModelPatternParser(String rootDir)
 	{
-		if (!getClasses().isEmpty() && parser == null)
+		if (!getClasses().isEmpty() && modelPatternParser == null)
 		{
 			// try to find existing file
 			Clazz firstClass = getClasses().iterator().next();
 
-			creatorCreatorClassName = firstClass.getName();
+			modelPatternClassName = firstClass.getName();
 
-			int pos = creatorCreatorClassName.lastIndexOf('.');
+			int pos = modelPatternClassName.lastIndexOf('.');
 
-			String packageName = creatorCreatorClassName.substring(0, pos) + ".creators";
+			String packageName = modelPatternClassName.substring(0, pos) + ".creators";
 
-			creatorCreatorClassName = packageName + ".CreatorCreator";
+			modelPatternClassName = packageName + ".ModelPattern";
 
-			String fileName = creatorCreatorClassName;
+			String fileName = modelPatternClassName;
 
 			fileName = fileName.replaceAll("\\.", "/");
 
 			fileName = rootDir + "/" + fileName + ".java";
 
-			javaFile = new File(fileName);
+			File mpJavaFile = new File(fileName);
 
 			// found old one?
-			if (javaFile.exists())
+			StringBuilder mpFileBody;
+			if (mpJavaFile.exists())
 			{
-				fileBody = CGUtil.readFile(javaFile);
+			   mpFileBody = CGUtil.readFile(mpJavaFile);
 			}
 			else
 			{
-				fileBody = new StringBuilder();
+			   mpFileBody = new StringBuilder();
 
 				StringBuilder text = 
 				      new StringBuilder(
 				         "package packageName;\n" + 
-				               "\n" + 
-				               "import java.util.LinkedHashSet;\n" + 
-				               "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" + 
-				               "import org.sdmlib.serialization.json.JsonIdMap;\n" +
-				               "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n" + 
-				               "\n" + 
-				               "public class className\n" + 
-				               "{\n" + 
-				               "   public static LinkedHashSet<SendableEntityCreator> creatorSet = null;\n" + 
-				               "   \n" +
-				               "   public static LinkedHashSet<SendableEntityCreator> getCreatorSet()\n" + 
-				               "   {\n" + 
-				               "      if (creatorSet == null)\n" + 
-				               "      {\n" + 
-				               "         creatorSet = new LinkedHashSet<SendableEntityCreator>();\n" + 
-                           "         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());\n" + 
-				               "      }\n" + 
-				               "      \n" + 
-				               "      return creatorSet;\n" + 
-				               "   }\n" + 
-				               "\n" + 
-				               "   public static JsonIdMap createIdMap(String sessionID)\n" + 
-				               "   {\n" + 
-				               "      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
-				               "      \n" + 
-				               "      jsonIdMap.addCreator(getCreatorSet());\n" + 
-				               "\n" + 
-				               "      return jsonIdMap;\n" + 
-				               "   }\n" + 
-				               "}\n");
+				         "\n" + 
+				         "import org.sdmlib.models.pattern.Pattern;\n" + 
+				         "\n" + 
+				         "public class ModelPattern extends Pattern\n" + 
+				         "{\n" + 
+				         "   public ModelPattern()\n" + 
+				         "   {\n" + 
+				         "      super(CreatorCreator.createIdMap(\"hg\"));\n" + 
+				         "   }\n" +
+				         "   \n" + 
+				         "   public ModelPattern startCreate()\n" + 
+				         "   {\n" + 
+				         "      super.startCreate();\n" + 
+				         "      return this;\n" + 
+				         "   }\n" + 
+				         "\n" +
+                     "}\n" + 
+                     "\n" );
 
-				CGUtil.replaceAll(text, "className", CGUtil.shortClassName(creatorCreatorClassName), "packageName", packageName);
+				CGUtil.replaceAll(text, 
+				   "packageName", packageName);
 
-				fileBody.append(text.toString());
+				mpFileBody.append(text.toString());
 
-				fileHasChanged = true;
+				modelPatternFileHasChanged = true;
 			}
 
-			parser = new Parser().withFileName(fileName).withFileBody(fileBody);
+			modelPatternParser = new Parser().withFileName(fileName).withFileBody(mpFileBody);
 
 		}
 
-		return parser;
+		return modelPatternParser;
 	}
 
 	// ==========================================================================
@@ -1202,7 +1309,7 @@ public class ClassModel implements PropertyChangeInterface
 		// parse the model creation file
 		Clazz modelCreationClass = getOrCreateClazz(className);
 
-		parser = modelCreationClass.getOrCreateParser(rootDir);
+		creatorCreatorParser = modelCreationClass.getOrCreateParser(rootDir);
 		
 		removeFromClasses(modelCreationClass);
 
@@ -1210,22 +1317,22 @@ public class ClassModel implements PropertyChangeInterface
 
 		rescanCode();
 		
-		SymTabEntry symTabEntry = parser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
+		SymTabEntry symTabEntry = creatorCreatorParser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
 		
 		if (symTabEntry == null) {
 			System.out.println("call method for model creation code not found");
 			return;
 		}
 		
-		signature = parser.getSignatureFor(symTabEntry);
+		signature = creatorCreatorParser.getSignatureFor(symTabEntry);
 
-		parser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
+		creatorCreatorParser.methodBodyIndexOf(Parser.METHOD_END, symTabEntry.getBodyStartPos());
 
 		@SuppressWarnings("unchecked")
-		LinkedHashMap<String, LocalVarTableEntry> localVarTable = (LinkedHashMap<String, LocalVarTableEntry>) parser.getLocalVarTable().clone();
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = (LinkedHashMap<String, LocalVarTableEntry>) creatorCreatorParser.getLocalVarTable().clone();
 		// insert code
-		int currentInsertPos = parser.methodCallIndexOf(Parser.NAME_TOKEN + ":model", symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-		currentInsertPos = parser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1, symTabEntry.getEndPos() - 1) + 1;
+		int currentInsertPos = creatorCreatorParser.methodCallIndexOf(Parser.NAME_TOKEN + ":model", symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+		currentInsertPos = creatorCreatorParser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1, symTabEntry.getEndPos() - 1) + 1;
 
 		currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, localVarTable, currentInsertPos);
 
@@ -1329,9 +1436,9 @@ public class ClassModel implements PropertyChangeInterface
 		if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClass")) 
 		{
 			String token = Parser.NAME_TOKEN + ":" + entry.getName();
-			int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+			int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 			token = Parser.NAME_TOKEN + ":;";
-			currentInsertPos = parser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+			currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
 			// set interface
 			currentInsertPos = insertCreationCode("\n			/*set superclass*/", currentInsertPos, modelCreationClass);
 			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass); 
@@ -1348,9 +1455,9 @@ public class ClassModel implements PropertyChangeInterface
 		else if (clazz.isInterfaze() && !isInterface(entry))
 		{
 			String token = Parser.NAME_TOKEN + ":" + entry.getName();
-			int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+			int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 			token = Parser.NAME_TOKEN + ":;";
-			currentInsertPos = parser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+			currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
 			// set interface
 			currentInsertPos = insertCreationCode("\n			/*set interface*/", currentInsertPos, modelCreationClass);
 			currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass); 
@@ -1370,9 +1477,9 @@ public class ClassModel implements PropertyChangeInterface
 //				writeToFile(modelCreationClass);
 				// find insert position
 				String token = Parser.NAME_TOKEN + ":" + entry.getName();
-				int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+				int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 				token = Parser.NAME_TOKEN + ":;";
-				currentInsertPos = parser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+				currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
 				// add attribut
 				currentInsertPos = insertCreationCode("\n			/*add interface*/", currentInsertPos, modelCreationClass);
 				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
@@ -1397,9 +1504,9 @@ public class ClassModel implements PropertyChangeInterface
 				writeToFile(modelCreationClass);
 				// find insert position
 				String token = Parser.NAME_TOKEN + ":" + entry.getName();
-				int methodCallStartPos = parser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+				int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 				token = Parser.NAME_TOKEN + ":;";
-				currentInsertPos = parser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+				currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
 				// add attribut
 				currentInsertPos = insertCreationCode("\n			/*add attribut*/", currentInsertPos, modelCreationClass);
 				currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
@@ -1455,7 +1562,7 @@ public class ClassModel implements PropertyChangeInterface
 
 	private int positionOfClazzDecl(String sourceClassName)
 	{
-		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = creatorCreatorParser.getLocalVarTable();
 		for (String localVarTableEntityName : localVarTable.keySet())
 		{
 			LocalVarTableEntry localVarTableEntry = localVarTable.get(localVarTableEntityName);
@@ -1478,21 +1585,21 @@ public class ClassModel implements PropertyChangeInterface
 	{
 		SymTabEntry symTabEntry;
 		rescanCode();
-		symTabEntry = parser.getSymTab().get(signature);
-		parser.parseMethodBody(symTabEntry);
+		symTabEntry = creatorCreatorParser.getSymTab().get(signature);
+		creatorCreatorParser.parseMethodBody(symTabEntry);
 		return symTabEntry;
 	}
 
 	private void rescanCode()
 	{
-		parser.indexOf(Parser.CLASS_END);
+		creatorCreatorParser.indexOf(Parser.CLASS_END);
 	}
 
 	private int tryToInsertAssoc(SymTabEntry symTabEntry, Role role, int currentInsertPos, Clazz modelCreationClass)
 	{
-		parser.parseMethodBody(symTabEntry);
+		creatorCreatorParser.parseMethodBody(symTabEntry);
 		boolean assocIsNew = true;
-		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = creatorCreatorParser.getLocalVarTable();
 
 		for (String string : localVarTable.keySet())
 		{
@@ -1615,9 +1722,9 @@ public class ClassModel implements PropertyChangeInterface
 
 	private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
 	{
-		parser.parseMethodBody(symTabEntry);
+		creatorCreatorParser.parseMethodBody(symTabEntry);
 		boolean methodIsNew = true;
-		LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = creatorCreatorParser.getLocalVarTable();
 
 		for (String string : localVarTable.keySet())
 		{
@@ -1877,8 +1984,8 @@ public class ClassModel implements PropertyChangeInterface
 
 	private int checkImport(String string, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
 	{
-		parser.indexOf(Parser.CLASS_END);
-		LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+		creatorCreatorParser.indexOf(Parser.CLASS_END);
+		LinkedHashMap<String, SymTabEntry> symTab = creatorCreatorParser.getSymTab();
 		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
 
 		for (String key : symTab.keySet())
@@ -1896,7 +2003,7 @@ public class ClassModel implements PropertyChangeInterface
 		if (!result.containsKey(string) && result.containsKey("ClassModel"))
 		{
 			String symTabEntryName = result.get("ClassModel");
-			int endOfImports = parser.getEndOfImports() + 1;
+			int endOfImports = creatorCreatorParser.getEndOfImports() + 1;
 			String importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + string + ";";
 			insertCreationCode(importString, endOfImports, modelCreationClass);
 			currentInsertPos += importString.length();
@@ -1995,7 +2102,7 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
 	
 	private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass )
 	{
-		parser.getFileBody().insert(insertPos, text.toString());
+		creatorCreatorParser.getFileBody().insert(insertPos, text.toString());
 		modelCreationClass.setFileHasChanged(true);
 		return insertPos + text.length();
 	}
@@ -2306,6 +2413,10 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
       
       // modelset file
       fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Set.java";
+      deleteFile(fileName);
+      
+      // model pattern file
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/ModelPattern.java";
       deleteFile(fileName);
       
       // CreatorCreator in that package

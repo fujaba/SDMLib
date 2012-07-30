@@ -145,7 +145,26 @@ public class PersonPO extends PatternObject
       return this;
    }
    
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public double getBalance()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getBalance();
+      }
+      return 0;
+   }
+   
 }
+
 
 
 

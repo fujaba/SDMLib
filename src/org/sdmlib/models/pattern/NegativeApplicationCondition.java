@@ -25,9 +25,12 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
-public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+public class NegativeApplicationCondition extends Pattern
 {
-
+   public NegativeApplicationCondition()
+   {
+      super();
+   }
    
    //==========================================================================
    
@@ -81,6 +84,11 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       {
          return getCurrentNAC();
       }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
       
       return null;
    }
@@ -102,17 +110,13 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          return true;
       }
 
-      return false;
-   }
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
+      return false;
    }
 
    

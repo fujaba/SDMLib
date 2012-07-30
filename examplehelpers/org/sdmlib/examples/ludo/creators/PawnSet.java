@@ -22,6 +22,16 @@ public class PawnSet extends LinkedHashSet<Pawn>
       return result;
    }
 
+   public PawnSet withColor(String value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withColor(value);
+      }
+      
+      return this;
+   }
+
    public intList getX()
    {
       intList result = new intList();
@@ -32,6 +42,16 @@ public class PawnSet extends LinkedHashSet<Pawn>
       }
       
       return result;
+   }
+
+   public PawnSet withX(int value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withX(value);
+      }
+      
+      return this;
    }
 
    public intList getY()
@@ -46,6 +66,16 @@ public class PawnSet extends LinkedHashSet<Pawn>
       return result;
    }
 
+   public PawnSet withY(int value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withY(value);
+      }
+      
+      return this;
+   }
+
    public PlayerSet getPlayer()
    {
       PlayerSet result = new PlayerSet();
@@ -57,6 +87,16 @@ public class PawnSet extends LinkedHashSet<Pawn>
       
       return result;
    }
+   public PawnSet withPlayer(Player value)
+   {
+      for (Pawn obj : this)
+      {
+         obj.withPlayer(value);
+      }
+      
+      return this;
+   }
+
    public FieldSet getPos()
    {
       FieldSet result = new FieldSet();
@@ -68,46 +108,6 @@ public class PawnSet extends LinkedHashSet<Pawn>
       
       return result;
    }
-   public PawnSet withColor(String value)
-   {
-      for (Pawn obj : this)
-      {
-         obj.withColor(value);
-      }
-      
-      return this;
-   }
-
-   public PawnSet withX(int value)
-   {
-      for (Pawn obj : this)
-      {
-         obj.withX(value);
-      }
-      
-      return this;
-   }
-
-   public PawnSet withY(int value)
-   {
-      for (Pawn obj : this)
-      {
-         obj.withY(value);
-      }
-      
-      return this;
-   }
-
-   public PawnSet withPlayer(Player value)
-   {
-      for (Pawn obj : this)
-      {
-         obj.withPlayer(value);
-      }
-      
-      return this;
-   }
-
    public PawnSet withPos(Field value)
    {
       for (Pawn obj : this)
@@ -119,5 +119,4 @@ public class PawnSet extends LinkedHashSet<Pawn>
    }
 
 }
-
 

@@ -17,6 +17,7 @@ public class LinkConstraintCreator implements SendableEntityCreator
          PatternLink.PROPERTY_SRC,
          PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT,
          PatternElement.PROPERTY_PATTERN, 
+         PatternElement.PROPERTY_MODIFIER,
    };
    
    public String[] getProperties()

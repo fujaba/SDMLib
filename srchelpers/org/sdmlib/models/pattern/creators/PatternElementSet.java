@@ -1,9 +1,11 @@
 package org.sdmlib.models.pattern.creators;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.PatternElement;
+
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class PatternElementSet extends ArrayList<PatternElement>
 {
@@ -28,6 +30,52 @@ public class PatternElementSet extends ArrayList<PatternElement>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet withModifier(String value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getHasMatch()
+   {
+      booleanList result = new booleanList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.getHasMatch());
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet withHasMatch(boolean value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 

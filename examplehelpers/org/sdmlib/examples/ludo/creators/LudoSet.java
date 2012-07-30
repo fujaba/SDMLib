@@ -19,28 +19,6 @@ public class LudoSet extends LinkedHashSet<Ludo>
       
       return result;
    }
-   public DiceSet getDice()
-   {
-      DiceSet result = new DiceSet();
-      
-      for (Ludo obj : this)
-      {
-         result.add(obj.getDice());
-      }
-      
-      return result;
-   }
-   public FieldSet getFields()
-   {
-      FieldSet result = new FieldSet();
-      
-      for (Ludo obj : this)
-      {
-         result.addAll(obj.getFields());
-      }
-      
-      return result;
-   }
    public LudoSet withPlayers(Player value)
    {
       for (Ludo obj : this)
@@ -61,6 +39,17 @@ public class LudoSet extends LinkedHashSet<Ludo>
       return this;
    }
 
+   public DiceSet getDice()
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Ludo obj : this)
+      {
+         result.add(obj.getDice());
+      }
+      
+      return result;
+   }
    public LudoSet withDice(Dice value)
    {
       for (Ludo obj : this)
@@ -71,6 +60,17 @@ public class LudoSet extends LinkedHashSet<Ludo>
       return this;
    }
 
+   public FieldSet getFields()
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Ludo obj : this)
+      {
+         result.addAll(obj.getFields());
+      }
+      
+      return result;
+   }
    public LudoSet withFields(Field value)
    {
       for (Ludo obj : this)
@@ -92,5 +92,4 @@ public class LudoSet extends LinkedHashSet<Ludo>
    }
 
 }
-
 

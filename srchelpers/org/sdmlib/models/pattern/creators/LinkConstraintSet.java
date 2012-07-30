@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
 {
@@ -52,6 +53,52 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet withModifier(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getHasMatch()
+   {
+      booleanList result = new booleanList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getHasMatch());
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet withHasMatch(boolean value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 

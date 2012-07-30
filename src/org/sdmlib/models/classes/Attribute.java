@@ -183,11 +183,8 @@ public class Attribute implements PropertyChangeInterface
          getClazz().printModelSetFile(doGenerate);
          
          Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+         insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
          insertGetterInPatternObjectClass(patternObjectParser, clazz);
-         insertSetterInPatternObjectClass(patternObjectParser, clazz);
-         getClazz().printPatternObjectFile(doGenerate);
-         
-         
       }
       return this;
    }
@@ -307,7 +304,8 @@ public class Attribute implements PropertyChangeInterface
 							+ "         result.add(obj.getName());\n"
 							+ "      }\n" + "      \n"
 							+ "      return result;\n" 
-							+ "   }\n" + "\n" + "");
+							+ "   }\n" 
+							+ "\n");
 
 			String fullModelSetType = getType();
 			String modelSetType = CGUtil.shortClassName(getType());
@@ -325,7 +323,7 @@ public class Attribute implements PropertyChangeInterface
 //				System.out.println("no set");
 			}
 			
-			if ("String int double long".indexOf(getType()) >= 0) {
+			if ("String int double long boolean".indexOf(getType()) >= 0) {
 				modelSetType = CGUtil.shortClassName(getType()) + "List";
 				fullModelSetType = "org.sdmlib.models.modelsets."
 						+ modelSetType;
@@ -357,7 +355,7 @@ public class Attribute implements PropertyChangeInterface
 		}
 	}
 
-   private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
+   private void insertHasMethodInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
       String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":has"
@@ -373,7 +371,8 @@ public class Attribute implements PropertyChangeInterface
                      "      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()\n" + 
                      "      .withAttrName(ModelClass.PROPERTY_NAME)\n" + 
                      "      .withTgtValue(value)\n" + 
-                     "      .withSrc(this)\n" + 
+                     "      .withSrc(this)\n" +
+                     "      .withModifier(this.getPattern().getModifier())\n" + 
                      "      .withPattern(this.getPattern());\n" + 
                      "      \n" + 
                      "      this.getPattern().findMatch();\n" + 
@@ -398,14 +397,13 @@ public class Attribute implements PropertyChangeInterface
       }
    }
 
-   private void insertSetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
+   private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
       String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       
       String attrNameUpFirstChar = StrUtil.upFirstChar(this.getName());
       
-      String key = Parser.METHOD + ":with"
-            + attrNameUpFirstChar + "(" + attrType + ")";
+      String key = Parser.METHOD + ":get" + attrNameUpFirstChar + "()";
       
       int pos = parser.indexOf(key);
 
@@ -413,20 +411,29 @@ public class Attribute implements PropertyChangeInterface
          // need to add property to string array
 
          StringBuilder text = new StringBuilder(
-                     "   public PatternObjectType withAttrName(AttrType value)\n" + 
+                     "   public AttrType getAttrName()\n" + 
                      "   {\n" + 
                      "      if (this.getPattern().getHasMatch())\n" + 
                      "      {\n" + 
-                     "         ((ModelClass) getCurrentMatch()).withAttrName(value);\n" + 
+                     "         return ((ModelClass) getCurrentMatch()).getAttrName();\n" + 
                      "      }\n" + 
-                     "      return this;\n" + 
+                     "      return nullValue;\n" + 
                      "   }\n" +
                      "   \n");
 
-         String patternObjectClassName = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
+         String nullValue = "null";
+         
+         if ("int long double float".indexOf(attrType) >= 0)
+         {
+            nullValue = "0";
+         }
+         else if ("boolean".equals(attrType))
+         {
+            nullValue = "false";
+         }
          
          CGUtil.replaceAll(text, 
-            "PatternObjectType", patternObjectClassName,
+            "nullValue", nullValue,
             "AttrName", StrUtil.upFirstChar(getName()), 
             "AttrType", attrType, 
             "ModelClass", ownerClazz.shortNameAndImport(ownerClazz.getName(), parser));
@@ -769,6 +776,16 @@ private void insertCaseInGenericGetSet(Parser parser)
             typePlaceholder = "(type) value";
             type = "Double.parseDouble(value.toString())";
          }
+         else if ("float".equals(type))
+         {
+            typePlaceholder = "(type) value";
+            type = "Float.parseFloat(value.toString())";
+         }
+         else if ("boolean".equals(type))
+         {
+           type = "Boolean";
+         }
+
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 

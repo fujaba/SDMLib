@@ -37,6 +37,29 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    @Override
    public boolean findNextMatch()
    {
+      if (Pattern.CREATE.equals(getModifier()))
+      {
+         if ( ! this.getPattern().getHasMatch())
+         {
+            return false;
+         }
+         
+         if (this.getHasMatch())
+         {
+            this.setHasMatch(false);
+            return false;
+         }
+         else
+         {
+            Object srcObj = this.getSrc().getCurrentMatch();
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            creatorClass.setValue(srcObj, this.getAttrName(), this.getTgtValue());
+            this.setHasMatch(true);
+            return true;
+         }
+      }
+      
+      // real search
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
@@ -47,7 +70,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, attrName);
             
-            if (value.equals(tgtValue))
+            if (value == null && tgtValue == null || value != null && value.equals(tgtValue))
             {
                return true;
             }
@@ -100,6 +123,16 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       {
          return getSrc();
       }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
+      }
       
       return null;
    }
@@ -130,6 +163,18 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
          setSrc((PatternObject) value);
+         return true;
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         setHasMatch((Boolean) value);
          return true;
       }
 

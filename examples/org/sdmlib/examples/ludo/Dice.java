@@ -40,6 +40,11 @@ public class Dice implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
+      if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
+      {
+         return getValue();
+      }
+
       if (PROPERTY_GAME.equalsIgnoreCase(attrName))
       {
          return getGame();
@@ -48,11 +53,6 @@ public class Dice implements PropertyChangeInterface
       if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
       {
          return getPlayer();
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
-      {
-         return getValue();
       }
       
       return null;
@@ -63,6 +63,12 @@ public class Dice implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      {
+         setValue(Integer.parseInt(value.toString()));
+         return true;
+      }
+
       if (PROPERTY_GAME.equalsIgnoreCase(attrName))
       {
          setGame((Ludo) value);
@@ -72,12 +78,6 @@ public class Dice implements PropertyChangeInterface
       if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
       {
          setPlayer((Player) value);
-         return true;
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
-      {
-         setValue(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -103,6 +103,34 @@ public class Dice implements PropertyChangeInterface
       setPlayer(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_VALUE = "value";
+   
+   private int value;
+
+   public int getValue()
+   {
+      return this.value;
+   }
+   
+   public void setValue(int value)
+   {
+      if (this.value != value)
+      {
+         int oldValue = this.value;
+         this.value = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+      }
+   }
+   
+   public Dice withValue(int value)
+   {
+      setValue(value);
+      return this;
+   } 
 
    
    /********************************************************************
@@ -154,6 +182,13 @@ public class Dice implements PropertyChangeInterface
    {
       setGame(value);
       return this;
+   } 
+   
+   public Ludo createGame()
+   {
+      Ludo value = new Ludo();
+      withGame(value);
+      return value;
    } 
 
    
@@ -207,33 +242,12 @@ public class Dice implements PropertyChangeInterface
       setPlayer(value);
       return this;
    } 
-
    
-   //==========================================================================
-   
-   public static final String PROPERTY_VALUE = "value";
-   
-   private int value;
-
-   public int getValue()
+   public Player createPlayer()
    {
-      return this.value;
-   }
-   
-   public void setValue(int value)
-   {
-      if (this.value != value)
-      {
-         int oldValue = this.value;
-         this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
-      }
-   }
-   
-   public Dice withValue(int value)
-   {
-      setValue(value);
-      return this;
+      Player value = new Player();
+      withPlayer(value);
+      return value;
    } 
 }
 

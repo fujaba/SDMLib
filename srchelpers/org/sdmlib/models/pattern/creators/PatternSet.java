@@ -6,6 +6,8 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {
@@ -84,7 +86,30 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (Pattern obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public PatternSet withModifier(String value)
+   {
+      for (Pattern obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

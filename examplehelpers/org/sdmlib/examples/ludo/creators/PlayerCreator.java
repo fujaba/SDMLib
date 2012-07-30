@@ -18,9 +18,9 @@ public class PlayerCreator implements SendableEntityCreator
       Player.PROPERTY_PREV,
       Player.PROPERTY_DICE,
       Player.PROPERTY_START,
-      Player.PROPERTY_PAWNS,
       Player.PROPERTY_BASE,
       Player.PROPERTY_LANDING,
+      Player.PROPERTY_PAWNS,
    };
    
    public String[] getProperties()
@@ -48,5 +48,4 @@ public class PlayerCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
 

@@ -1,8 +1,8 @@
 package org.sdmlib.examples.ludo.creators;
 
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Dice;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.LudoPO;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -13,51 +13,54 @@ import org.sdmlib.examples.ludo.Player;
 
 public class DicePO extends PatternObject
 {
-
-   public DicePO hasValue(int i)
+   public DicePO startNAC()
+   {
+      return (DicePO) super.startNAC();
+   }
+   
+   public DicePO endNAC()
+   {
+      return (DicePO) super.endNAC();
+   }
+   
+   public DicePO hasValue(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Dice.PROPERTY_VALUE)
-      .withTgtValue(i)
+      .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
       
       return this;
    }
-
-   public DicePO withValue(int value)
+   
+   public int getValue()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Dice) getCurrentMatch()).withValue(value);
+         return ((Dice) getCurrentMatch()).getValue();
       }
-      return this;
+      return 0;
    }
    
    public LudoPO hasGame()
    {
       LudoPO result = new LudoPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Dice.PROPERTY_GAME)
-      .withSrc(this);
+      super.hasLink(Dice.PROPERTY_GAME, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public DicePO hasGame(LudoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_GAME)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -66,37 +69,30 @@ public class DicePO extends PatternObject
       return this;
    }
    
-   public DicePO withGame(LudoPO tgtPO)
+   public Ludo getGame()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Dice) this.getCurrentMatch()).withGame((Ludo) tgtPO.getCurrentMatch());
+         return ((Dice) this.getCurrentMatch()).getGame();
       }
-      return this;
+      return null;
    }
    
    public PlayerPO hasPlayer()
    {
       PlayerPO result = new PlayerPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Dice.PROPERTY_PLAYER)
-      .withSrc(this);
+      super.hasLink(Dice.PROPERTY_PLAYER, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public DicePO hasPlayer(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_PLAYER)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -105,13 +101,13 @@ public class DicePO extends PatternObject
       return this;
    }
    
-   public DicePO withPlayer(PlayerPO tgtPO)
+   public Player getPlayer()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Dice) this.getCurrentMatch()).withPlayer((Player) tgtPO.getCurrentMatch());
+         return ((Dice) this.getCurrentMatch()).getPlayer();
       }
-      return this;
+      return null;
    }
    
 }

@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanSet;
+
 import java.util.List;
 import org.sdmlib.models.pattern.PatternObject;
 
@@ -107,7 +109,52 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet withModifier(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
+   public booleanSet getHasMatch()
+   {
+      booleanSet result = new booleanSet();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getHasMatch());
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet withHasMatch(boolean value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

@@ -25,16 +25,45 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
-public class PatternObject extends PatternElement implements PropertyChangeInterface
+public class PatternObject extends PatternElement
 {
    @Override
    public boolean findNextMatch()
    {
+      if (Pattern.CREATE.equals(getModifier()))
+      {
+         if ( ! this.getPattern().getHasMatch())
+         {
+            return false;
+         }
+         
+         if (this.getHasMatch())
+         {
+            // backward execution, backtrack and prepare for forward execution
+            this.setHasMatch(false);
+            return false;
+         }
+         else
+         {
+            // forward execution: create hostgraph object and bind it
+            String className = this.getClass().getName();
+            className = className.replace(".creators.", ".");
+            className = className.substring(0, className.length()-2);
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClasses(className);
+            Object sendableInstance = creatorClass.getSendableInstance(false);
+            this.setCurrentMatch(sendableInstance);
+            this.setHasMatch(true);
+            return true;
+         }
+      }
+      
       if (this.getCandidates() == null) 
       {
          return false;
@@ -60,8 +89,33 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
          return true;
       }
    }
+   
+   
+   public PatternObject startNAC()
+   {
+      NegativeApplicationCondition nac = new NegativeApplicationCondition();
+      
+      this.getPattern().addToElements(nac);
+
+      return this;
+   }
 
 
+   public PatternObject endNAC()
+   {
+      Pattern directPattern = this.getPattern();
+      if (directPattern instanceof NegativeApplicationCondition)
+      {
+         directPattern = directPattern.getPattern();
+      }
+      
+      directPattern.setCurrentNAC(null);
+      
+      directPattern.findMatch();
+      
+      return this;
+   }
+   
    //==========================================================================
 
    public Object get(String attrName)
@@ -97,6 +151,16 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       if (PROPERTY_ATTRCONSTRAINTS.equalsIgnoreCase(attrName))
       {
          return getAttrConstraints();
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
       }
 
       return super.get(attrName);
@@ -155,17 +219,13 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
          return true;
       }
 
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
       return super.set(attrName, value);
-   }
-
-
-   //==========================================================================
-
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
    }
 
 
@@ -491,6 +551,38 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       for (AttributeConstraint value : tmpSet)
       {
          this.removeFromAttrConstraints(value);
+      }
+   }
+
+   public void hasLink(String roleName, PatternObject result)
+   {
+      if (Pattern.CREATE.equals(this.getPattern().getModifier()))
+      {
+         this.getPattern().addToElements(result);
+         
+         this.getPattern().findMatch();
+         
+         LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+         .withTgt(result).withTgtRoleName(roleName)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+         
+         this.getPattern().addToElements(patternLink);
+         
+         this.getPattern().findMatch();
+      }
+      else
+      {
+         PatternLink patternLink = new PatternLink()
+         .withTgt(result).withTgtRoleName(roleName)
+         .withSrc(this);
+         patternLink.setModifier(this.getModifier());
+   
+         this.getPattern().addToElements(patternLink);
+   
+         this.getPattern().addToElements(result);
+   
+         this.getPattern().findMatch();
       }
    }
 }

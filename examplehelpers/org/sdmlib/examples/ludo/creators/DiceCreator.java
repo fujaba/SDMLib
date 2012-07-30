@@ -9,9 +9,9 @@ public class DiceCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
+      Dice.PROPERTY_VALUE,
       Dice.PROPERTY_GAME,
       Dice.PROPERTY_PLAYER,
-      Dice.PROPERTY_VALUE,
    };
    
    public String[] getProperties()
@@ -39,5 +39,4 @@ public class DiceCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-
 

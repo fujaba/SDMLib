@@ -18,6 +18,5 @@ public class PlayerPOCreator extends PatternObjectCreator
    {
       return ((PlayerPO) target).set(attrName, value);
    }
-   
 }
 

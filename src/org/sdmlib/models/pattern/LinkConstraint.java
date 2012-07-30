@@ -35,6 +35,29 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    @Override
    public boolean findNextMatch()
    {
+      if (Pattern.CREATE.equals(getModifier()))
+      {
+         if ( ! this.getPattern().getHasMatch())
+         {
+            return false;
+         }
+         
+         if (this.getHasMatch())
+         {
+            this.setHasMatch(false);
+            return false;
+         }
+         else
+         {
+            Object srcObj = this.getSrc().getCurrentMatch();
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch());
+            this.setHasMatch(true);
+            return true;
+         }
+      }
+      
+      // real search
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
@@ -88,6 +111,16 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       {
          return getHostGraphSrcObject();
       }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
+      }
       
       return super.get(attrName);
    }
@@ -106,6 +139,12 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
          setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
          return true;
       }
 

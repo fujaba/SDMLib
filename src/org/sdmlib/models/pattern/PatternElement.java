@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.utils.StrUtil;
 
 public class PatternElement implements PropertyChangeInterface
 {
@@ -45,6 +46,16 @@ public class PatternElement implements PropertyChangeInterface
       {
          return getPattern();
       }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
+      }
       
       return null;
    }
@@ -57,6 +68,18 @@ public class PatternElement implements PropertyChangeInterface
       if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
          setPattern((Pattern) value);
+         return true;
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         setHasMatch((Boolean) value);
          return true;
       }
 
@@ -142,6 +165,62 @@ public class PatternElement implements PropertyChangeInterface
    {
       // TODO Auto-generated method stub
       return false;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_MODIFIER = "modifier";
+   
+   private String modifier;
+
+   public String getModifier()
+   {
+      return this.modifier;
+   }
+   
+   public void setModifier(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.modifier, value))
+      {
+         String oldValue = this.modifier;
+         this.modifier = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODIFIER, oldValue, value);
+      }
+   }
+   
+   public PatternElement withModifier(String value)
+   {
+      setModifier(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_HASMATCH = "hasMatch";
+   
+   private boolean hasMatch = false;
+
+   public boolean getHasMatch()
+   {
+      return this.hasMatch;
+   }
+   
+   public void setHasMatch(boolean value)
+   {
+      if (this.hasMatch != value)
+      {
+         boolean oldValue = this.hasMatch;
+         this.hasMatch = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HASMATCH, oldValue, value);
+      }
+   }
+   
+   public PatternElement withHasMatch(boolean value)
+   {
+      setHasMatch(value);
+      return this;
    } 
 }
 

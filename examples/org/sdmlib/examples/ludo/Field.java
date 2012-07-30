@@ -45,22 +45,22 @@ public class Field implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
+      if (PROPERTY_COLOR.equalsIgnoreCase(attribute))
       {
          return getColor();
       }
 
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
+      if (PROPERTY_KIND.equalsIgnoreCase(attribute))
       {
          return getKind();
       }
 
-      if (PROPERTY_X.equalsIgnoreCase(attrName))
+      if (PROPERTY_X.equalsIgnoreCase(attribute))
       {
          return getX();
       }
 
-      if (PROPERTY_Y.equalsIgnoreCase(attrName))
+      if (PROPERTY_Y.equalsIgnoreCase(attribute))
       {
          return getY();
       }
@@ -90,16 +90,6 @@ public class Field implements PropertyChangeInterface
          return getEntry();
       }
 
-      if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
-      {
-         return getPlayer();
-      }
-
-      if (PROPERTY_PAWNS.equalsIgnoreCase(attrName))
-      {
-         return getPawns();
-      }
-
       if (PROPERTY_STARTER.equalsIgnoreCase(attrName))
       {
          return getStarter();
@@ -113,6 +103,11 @@ public class Field implements PropertyChangeInterface
       if (PROPERTY_LANDER.equalsIgnoreCase(attrName))
       {
          return getLander();
+      }
+
+      if (PROPERTY_PAWNS.equalsIgnoreCase(attrName))
+      {
+         return getPawns();
       }
       
       return null;
@@ -177,24 +172,6 @@ public class Field implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
-      {
-         setPlayer((Player) value);
-         return true;
-      }
-
-      if (PROPERTY_PAWNS.equalsIgnoreCase(attrName))
-      {
-         addToPawns((Pawn) value);
-         return true;
-      }
-      
-      if ((PROPERTY_PAWNS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromPawns((Pawn) value);
-         return true;
-      }
-
       if (PROPERTY_STARTER.equalsIgnoreCase(attrName))
       {
          setStarter((Player) value);
@@ -210,6 +187,18 @@ public class Field implements PropertyChangeInterface
       if (PROPERTY_LANDER.equalsIgnoreCase(attrName))
       {
          setLander((Player) value);
+         return true;
+      }
+
+      if (PROPERTY_PAWNS.equalsIgnoreCase(attrName))
+      {
+         addToPawns((Pawn) value);
+         return true;
+      }
+      
+      if ((PROPERTY_PAWNS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromPawns((Pawn) value);
          return true;
       }
 
@@ -236,11 +225,10 @@ public class Field implements PropertyChangeInterface
       setPrev(null);
       setLanding(null);
       setEntry(null);
-      setPlayer(null);
-      removeAllFromPawns();
       setStarter(null);
       setBaseowner(null);
       setLander(null);
+      removeAllFromPawns();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -410,6 +398,13 @@ public class Field implements PropertyChangeInterface
       setGame(value);
       return this;
    } 
+   
+   public Ludo createGame()
+   {
+      Ludo value = new Ludo();
+      withGame(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -461,6 +456,13 @@ public class Field implements PropertyChangeInterface
    {
       setNext(value);
       return this;
+   } 
+   
+   public Field createNext()
+   {
+      Field value = new Field();
+      withNext(value);
+      return value;
    } 
 
    
@@ -514,6 +516,13 @@ public class Field implements PropertyChangeInterface
       setPrev(value);
       return this;
    } 
+   
+   public Field createPrev()
+   {
+      Field value = new Field();
+      withPrev(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -565,6 +574,13 @@ public class Field implements PropertyChangeInterface
    {
       setLanding(value);
       return this;
+   } 
+   
+   public Field createLanding()
+   {
+      Field value = new Field();
+      withLanding(value);
+      return value;
    } 
 
    
@@ -618,57 +634,189 @@ public class Field implements PropertyChangeInterface
       setEntry(value);
       return this;
    } 
+   
+   public Field createEntry()
+   {
+      Field value = new Field();
+      withEntry(value);
+      return value;
+   } 
 
    
    /********************************************************************
     * <pre>
     *              one                       one
     * Field ----------------------------------- Player
-    *              start                   player
+    *              start                   starter
     * </pre>
     */
    
-   public static final String PROPERTY_PLAYER = "player";
+   public static final String PROPERTY_STARTER = "starter";
    
-   private Player player = null;
+   private Player starter = null;
    
-   public Player getPlayer()
+   public Player getStarter()
    {
-      return this.player;
+      return this.starter;
    }
    
-   public boolean setPlayer(Player value)
+   public boolean setStarter(Player value)
    {
       boolean changed = false;
       
-      if (this.player != value)
+      if (this.starter != value)
       {
-         Player oldValue = this.player;
+         Player oldValue = this.starter;
          
-         if (this.player != null)
+         if (this.starter != null)
          {
-            this.player = null;
+            this.starter = null;
             oldValue.setStart(null);
          }
          
-         this.player = value;
+         this.starter = value;
          
          if (value != null)
          {
             value.withStart(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTER, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
    
-   public Field withPlayer(Player value)
+   public Field withStarter(Player value)
    {
-      setPlayer(value);
+      setStarter(value);
       return this;
+   } 
+   
+   public Player createStarter()
+   {
+      Player value = new Player();
+      withStarter(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Field ----------------------------------- Player
+    *              base                   baseowner
+    * </pre>
+    */
+   
+   public static final String PROPERTY_BASEOWNER = "baseowner";
+   
+   private Player baseowner = null;
+   
+   public Player getBaseowner()
+   {
+      return this.baseowner;
+   }
+   
+   public boolean setBaseowner(Player value)
+   {
+      boolean changed = false;
+      
+      if (this.baseowner != value)
+      {
+         Player oldValue = this.baseowner;
+         
+         if (this.baseowner != null)
+         {
+            this.baseowner = null;
+            oldValue.setBase(null);
+         }
+         
+         this.baseowner = value;
+         
+         if (value != null)
+         {
+            value.withBase(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BASEOWNER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Field withBaseowner(Player value)
+   {
+      setBaseowner(value);
+      return this;
+   } 
+   
+   public Player createBaseowner()
+   {
+      Player value = new Player();
+      withBaseowner(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Field ----------------------------------- Player
+    *              landing                   lander
+    * </pre>
+    */
+   
+   public static final String PROPERTY_LANDER = "lander";
+   
+   private Player lander = null;
+   
+   public Player getLander()
+   {
+      return this.lander;
+   }
+   
+   public boolean setLander(Player value)
+   {
+      boolean changed = false;
+      
+      if (this.lander != value)
+      {
+         Player oldValue = this.lander;
+         
+         if (this.lander != null)
+         {
+            this.lander = null;
+            oldValue.setLanding(null);
+         }
+         
+         this.lander = value;
+         
+         if (value != null)
+         {
+            value.withLanding(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LANDER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Field withLander(Player value)
+   {
+      setLander(value);
+      return this;
+   } 
+   
+   public Player createLander()
+   {
+      Player value = new Player();
+      withLander(value);
+      return value;
    } 
 
    
@@ -756,161 +904,12 @@ public class Field implements PropertyChangeInterface
          this.removeFromPawns(value);
       }
    }
-
    
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Field ----------------------------------- Player
-    *              start                   starter
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STARTER = "starter";
-   
-   private Player starter = null;
-   
-   public Player getStarter()
+   public Pawn createPawns()
    {
-      return this.starter;
-   }
-   
-   public boolean setStarter(Player value)
-   {
-      boolean changed = false;
-      
-      if (this.starter != value)
-      {
-         Player oldValue = this.starter;
-         
-         if (this.starter != null)
-         {
-            this.starter = null;
-            oldValue.setStart(null);
-         }
-         
-         this.starter = value;
-         
-         if (value != null)
-         {
-            value.withStart(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Field withStarter(Player value)
-   {
-      setStarter(value);
-      return this;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Field ----------------------------------- Player
-    *              base                   baseowner
-    * </pre>
-    */
-   
-   public static final String PROPERTY_BASEOWNER = "baseowner";
-   
-   private Player baseowner = null;
-   
-   public Player getBaseowner()
-   {
-      return this.baseowner;
-   }
-   
-   public boolean setBaseowner(Player value)
-   {
-      boolean changed = false;
-      
-      if (this.baseowner != value)
-      {
-         Player oldValue = this.baseowner;
-         
-         if (this.baseowner != null)
-         {
-            this.baseowner = null;
-            oldValue.setBase(null);
-         }
-         
-         this.baseowner = value;
-         
-         if (value != null)
-         {
-            value.withBase(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BASEOWNER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Field withBaseowner(Player value)
-   {
-      setBaseowner(value);
-      return this;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Field ----------------------------------- Player
-    *              landing                   lander
-    * </pre>
-    */
-   
-   public static final String PROPERTY_LANDER = "lander";
-   
-   private Player lander = null;
-   
-   public Player getLander()
-   {
-      return this.lander;
-   }
-   
-   public boolean setLander(Player value)
-   {
-      boolean changed = false;
-      
-      if (this.lander != value)
-      {
-         Player oldValue = this.lander;
-         
-         if (this.lander != null)
-         {
-            this.lander = null;
-            oldValue.setLanding(null);
-         }
-         
-         this.lander = value;
-         
-         if (value != null)
-         {
-            value.withLanding(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LANDER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Field withLander(Player value)
-   {
-      setLander(value);
-      return this;
+      Pawn value = new Pawn();
+      withPawns(value);
+      return value;
    } 
 }
 

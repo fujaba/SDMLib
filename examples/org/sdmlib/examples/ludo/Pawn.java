@@ -21,17 +21,10 @@
    
 package org.sdmlib.examples.ludo;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.ludo.creators.CreatorCreator;
-import org.sdmlib.examples.ludo.creators.DicePO;
-import org.sdmlib.examples.ludo.creators.FieldPO;
-import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.creators.PawnSet;
-import org.sdmlib.examples.ludo.creators.PlayerPO;
 
 public class Pawn implements PropertyChangeInterface
 {
@@ -49,17 +42,17 @@ public class Pawn implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
+      if (PROPERTY_COLOR.equalsIgnoreCase(attribute))
       {
          return getColor();
       }
 
-      if (PROPERTY_X.equalsIgnoreCase(attrName))
+      if (PROPERTY_X.equalsIgnoreCase(attribute))
       {
          return getX();
       }
 
-      if (PROPERTY_Y.equalsIgnoreCase(attrName))
+      if (PROPERTY_Y.equalsIgnoreCase(attribute))
       {
          return getY();
       }
@@ -273,6 +266,13 @@ public class Pawn implements PropertyChangeInterface
       setPlayer(value);
       return this;
    } 
+   
+   public Player createPlayer()
+   {
+      Player value = new Player();
+      withPlayer(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -324,13 +324,13 @@ public class Pawn implements PropertyChangeInterface
    {
       setPos(value);
       return this;
-   }
-
-
-   public void move()
+   } 
+   
+   public Field createPos()
    {
-
-      
+      Field value = new Field();
+      withPos(value);
+      return value;
    } 
 }
 

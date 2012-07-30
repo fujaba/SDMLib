@@ -1,70 +1,30 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.Pawn;
-import org.sdmlib.examples.ludo.Player;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.LudoPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
+import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.creators.PawnPO;
+import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.creators.PawnSet;
 
 public class FieldPO extends PatternObject
 {
-
-   public FieldPO hasKind(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Field.PROPERTY_KIND)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public FieldPO withKind(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Field) getCurrentMatch()).withKind(value);
-      }
-      return this;
-   }
-
    public FieldPO startNAC()
    {
-      NegativeApplicationCondition nac = new NegativeApplicationCondition();
-      
-      this.getPattern().addToElements(nac);
-
-      return this;
+      return (FieldPO) super.startNAC();
    }
-
-   public PawnPO hasPawns()
+   
+   public FieldPO endNAC()
    {
-      PawnPO result = new PawnPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_PAWNS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }     
+      return (FieldPO) super.endNAC();
+   }
    
    public FieldPO hasColor(String value)
    {
@@ -72,6 +32,7 @@ public class FieldPO extends PatternObject
       .withAttrName(Field.PROPERTY_COLOR)
       .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
@@ -79,13 +40,36 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withColor(String value)
+   public String getColor()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) getCurrentMatch()).withColor(value);
+         return ((Field) getCurrentMatch()).getColor();
       }
+      return null;
+   }
+   
+   public FieldPO hasKind(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Field.PROPERTY_KIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
       return this;
+   }
+   
+   public String getKind()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Field) getCurrentMatch()).getKind();
+      }
+      return null;
    }
    
    public FieldPO hasX(int value)
@@ -94,6 +78,7 @@ public class FieldPO extends PatternObject
       .withAttrName(Field.PROPERTY_X)
       .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
@@ -101,13 +86,13 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withX(int value)
+   public int getX()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) getCurrentMatch()).withX(value);
+         return ((Field) getCurrentMatch()).getX();
       }
-      return this;
+      return 0;
    }
    
    public FieldPO hasY(int value)
@@ -116,6 +101,7 @@ public class FieldPO extends PatternObject
       .withAttrName(Field.PROPERTY_Y)
       .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
@@ -123,37 +109,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withY(int value)
+   public int getY()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) getCurrentMatch()).withY(value);
+         return ((Field) getCurrentMatch()).getY();
       }
-      return this;
+      return 0;
    }
    
    public LudoPO hasGame()
    {
       LudoPO result = new LudoPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_GAME)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_GAME, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasGame(LudoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_GAME)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -162,37 +141,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withGame(LudoPO tgtPO)
+   public Ludo getGame()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withGame((Ludo) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getGame();
       }
-      return this;
+      return null;
    }
    
    public FieldPO hasNext()
    {
       FieldPO result = new FieldPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_NEXT)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_NEXT, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasNext(FieldPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_NEXT)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -201,37 +173,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withNext(FieldPO tgtPO)
+   public Field getNext()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withNext((Field) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getNext();
       }
-      return this;
+      return null;
    }
    
    public FieldPO hasPrev()
    {
       FieldPO result = new FieldPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_PREV)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_PREV, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasPrev(FieldPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_PREV)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -240,37 +205,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withPrev(FieldPO tgtPO)
+   public Field getPrev()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withPrev((Field) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getPrev();
       }
-      return this;
+      return null;
    }
    
    public FieldPO hasLanding()
    {
       FieldPO result = new FieldPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_LANDING)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_LANDING, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasLanding(FieldPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_LANDING)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -279,37 +237,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withLanding(FieldPO tgtPO)
+   public Field getLanding()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withLanding((Field) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getLanding();
       }
-      return this;
+      return null;
    }
    
    public FieldPO hasEntry()
    {
       FieldPO result = new FieldPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_ENTRY)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_ENTRY, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasEntry(FieldPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_ENTRY)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -318,37 +269,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withEntry(FieldPO tgtPO)
+   public Field getEntry()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withEntry((Field) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getEntry();
       }
-      return this;
+      return null;
    }
    
    public PlayerPO hasStarter()
    {
       PlayerPO result = new PlayerPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_STARTER)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_STARTER, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasStarter(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_STARTER)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -357,37 +301,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withStarter(PlayerPO tgtPO)
+   public Player getStarter()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withStarter((Player) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getStarter();
       }
-      return this;
+      return null;
    }
    
    public PlayerPO hasBaseowner()
    {
       PlayerPO result = new PlayerPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_BASEOWNER)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_BASEOWNER, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasBaseowner(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_BASEOWNER)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -396,37 +333,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withBaseowner(PlayerPO tgtPO)
+   public Player getBaseowner()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withBaseowner((Player) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getBaseowner();
       }
-      return this;
+      return null;
    }
    
    public PlayerPO hasLander()
    {
       PlayerPO result = new PlayerPO();
+      result.setModifier(this.getPattern().getModifier());
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Field.PROPERTY_LANDER)
-      .withSrc(this);
+      super.hasLink(Field.PROPERTY_LANDER, result);
       
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
+      return result;   }
    
    public FieldPO hasLander(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_LANDER)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -435,20 +365,30 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withLander(PlayerPO tgtPO)
+   public Player getLander()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withLander((Player) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getLander();
       }
-      return this;
+      return null;
    }
+   
+   public PawnPO hasPawns()
+   {
+      PawnPO result = new PawnPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Field.PROPERTY_PAWNS, result);
+      
+      return result;   }
    
    public FieldPO hasPawns(PawnPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Field.PROPERTY_PAWNS)
-      .withSrc(this);
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
       
       this.getPattern().addToElements(patternLink);
       
@@ -457,22 +397,13 @@ public class FieldPO extends PatternObject
       return this;
    }
    
-   public FieldPO withPawns(PawnPO tgtPO)
+   public PawnSet getPawns()
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Field) this.getCurrentMatch()).withPawns((Pawn) tgtPO.getCurrentMatch());
+         return ((Field) this.getCurrentMatch()).getPawns();
       }
-      return this;
-   }
-   
-   public FieldPO withoutPawns(PawnPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Field) this.getCurrentMatch()).withoutPawns((Pawn) tgtPO.getCurrentMatch());
-      }
-      return this;
+      return null;
    }
    
 }

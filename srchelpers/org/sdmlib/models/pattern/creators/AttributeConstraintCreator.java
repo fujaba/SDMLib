@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class AttributeConstraintCreator implements SendableEntityCreator
 {
@@ -13,6 +14,7 @@ public class AttributeConstraintCreator implements SendableEntityCreator
       AttributeConstraint.PROPERTY_TGTVALUE,
       AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT,
       AttributeConstraint.PROPERTY_SRC,
+      PatternElement.PROPERTY_MODIFIER,
    };
    
    public String[] getProperties()

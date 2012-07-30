@@ -14,50 +14,6 @@ import org.sdmlib.examples.groupAccount.Person;
 public class ItemPO extends PatternObject
 {
 
-   public ItemPO hasDescription(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_DESCRIPTION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public ItemPO withDescription(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Item) getCurrentMatch()).withDescription(value);
-      }
-      return this;
-   }
-   
-   public ItemPO hasValue(double value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_VALUE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public ItemPO withValue(double value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Item) getCurrentMatch()).withValue(value);
-      }
-      return this;
-   }
-   
    public GroupAccountPO hasParent()
    {
       GroupAccountPO result = new GroupAccountPO();
@@ -136,7 +92,54 @@ public class ItemPO extends PatternObject
       return this;
    }
    
+   public ItemPO hasDescription(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_DESCRIPTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getDescription()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Item) getCurrentMatch()).getDescription();
+      }
+      return null;
+   }
+   
+   public ItemPO hasValue(double value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Item.PROPERTY_VALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public double getValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Item) getCurrentMatch()).getValue();
+      }
+      return 0;
+   }
+   
 }
+
 
 
 

@@ -18,6 +18,5 @@ public class FieldPOCreator extends PatternObjectCreator
    {
       return ((FieldPO) target).set(attrName, value);
    }
-   
 }
 

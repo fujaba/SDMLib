@@ -16,6 +16,7 @@ public class PatternObjectCreator implements SendableEntityCreator
       PatternObject.PROPERTY_CANDIDATES,
       PatternObject.PROPERTY_ATTRCONSTRAINTS,
       PatternElement.PROPERTY_PATTERN, 
+      PatternElement.PROPERTY_MODIFIER,
    };
    
    public String[] getProperties()

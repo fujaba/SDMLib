@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -51,7 +53,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withModifier(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

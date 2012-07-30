@@ -18,6 +18,5 @@ public class DicePOCreator extends PatternObjectCreator
    {
       return ((DicePO) target).set(attrName, value);
    }
-   
 }
 

@@ -542,5 +542,18 @@ public class Scenario
       objNo++;
       
       return "_" + objNo;
+   }
+
+   public Scenario with(String string)
+   {
+      this.add(string);
+      return this;
+   }
+
+   public void dumpHTML()
+   {
+      ScenarioManager.get()
+      .add(this)
+      .dumpHTML();
    }  
 }

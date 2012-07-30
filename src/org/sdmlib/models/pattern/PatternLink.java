@@ -97,6 +97,16 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       {
          return getHostGraphSrcObject();
       }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
+      }
       
       return super.get(attrName);
    }
@@ -133,6 +143,18 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
          setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         setHasMatch((Boolean) value);
          return true;
       }
 

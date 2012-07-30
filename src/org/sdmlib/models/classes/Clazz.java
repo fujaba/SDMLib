@@ -30,6 +30,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.creators.GreetingPO;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -459,7 +462,7 @@ public class Clazz implements PropertyChangeInterface
       int pos = myParser.indexOf(Parser.IMPORT);
 
       String prefix = "";
-      if (fileBody.indexOf(Parser.IMPORT, pos) < 0)
+      if (myParser.getFileBody().indexOf(Parser.IMPORT, pos) < 0)
       {
          prefix = "\n";
       }
@@ -470,7 +473,7 @@ public class Clazz implements PropertyChangeInterface
          myParser.getFileBody().insert(myParser.getEndOfImports() + 1, 
                prefix + "\nimport " + className + ";");
          
-         setFileHasChanged(true);
+         // setFileHasChanged(true);
       }
    }
 
@@ -1002,6 +1005,16 @@ public class Clazz implements PropertyChangeInterface
                   "\n" +
                   "public class patternObjectClassName extends PatternObject\n" +
                   "{\n" +
+                  "   public patternObjectClassName startNAC()\n" + 
+                  "   {\n" + 
+                  "      return (patternObjectClassName) super.startNAC();\n" + 
+                  "   }\n" + 
+                  "   \n" +
+                  "   public patternObjectClassName endNAC()\n" + 
+                  "   {\n" + 
+                  "      return (patternObjectClassName) super.endNAC();\n" + 
+                  "   }\n" + 
+                  "   \n" + 
                   "}\n");
             
             CGUtil.replaceAll(text, 
@@ -2002,6 +2015,58 @@ public class Clazz implements PropertyChangeInterface
    {
       getClassModel().turnRemoveCallToComment(testDir);
       getClassModel().removeAllCodeForClass(srcDir, helpersDir, this);
+   }
+
+   public void insertHasMethodsInModelPattern(Parser modelPatternParser)
+   {
+      String fullPOClassName = CGUtil.helperClassName(this.getName(), "PO");
+      
+      String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
+      
+      int pos = modelPatternParser.indexOf(Parser.METHOD + ":hasElement" + poClassName + "()");
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder (
+            "   public PatternObjectType hasElementPatternObjectType()\n" + 
+            "   {\n" + 
+            "      PatternObjectType value = new PatternObjectType();\n" + 
+            "      this.addToElements(value);\n" + 
+            "      value.setModifier(this.getModifier());\n" + 
+            "      \n" + 
+            "      this.findMatch();\n" + 
+            "      \n" + 
+            "      return value;\n" + 
+            "   }\n" + 
+            "   \n" +
+            "   public PatternObjectType hasElementPatternObjectType(ModelClass hostGraphObject)\n" + 
+            "   {\n" + 
+            "      PatternObjectType value = new PatternObjectType();\n" + 
+            "      this.addToElements(value);\n" + 
+            "      value.setModifier(this.getModifier());\n" + 
+            "      \n" + 
+            "      value.setCurrentMatch(hostGraphObject);\n" + 
+            "      \n" + 
+            "      this.findMatch();\n" + 
+            "      \n" + 
+            "      return value;\n" + 
+            "   } \n" + 
+            "\n" 
+               );
+
+         String modelClass = this.shortNameAndImport(this.getName(), modelPatternParser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", poClassName, 
+            "ModelClass", modelClass
+            );
+
+         pos = modelPatternParser.indexOf(Parser.CLASS_END);
+         
+         modelPatternParser.getFileBody().insert(pos, text.toString());
+         
+         getClassModel().setModelPatternFileHasChanged(true);
+      }
    }
 }
 

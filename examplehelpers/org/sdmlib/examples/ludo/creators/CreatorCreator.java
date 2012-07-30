@@ -38,18 +38,5 @@ public class CreatorCreator
 
       return jsonIdMap;
    }
-   
-   
-   private static JsonIdMap staticMap = null;
-   
-   public static JsonIdMap getIdMap() 
-   {
-      if (staticMap == null)
-      {
-         staticMap = createIdMap("p");
-      }
-      
-      return staticMap;
-   }
 }
 

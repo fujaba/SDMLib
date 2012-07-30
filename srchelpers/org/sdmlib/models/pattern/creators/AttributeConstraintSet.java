@@ -6,6 +6,7 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 {
@@ -96,6 +97,52 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       return this;
    }
 
+   public StringList getModifier()
+   {
+      StringList result = new StringList();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getModifier());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withModifier(String value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withModifier(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getHasMatch()
+   {
+      booleanList result = new booleanList();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getHasMatch());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withHasMatch(boolean value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withHasMatch(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
