@@ -372,6 +372,8 @@ public class UpdateListener implements PropertyChangeListener{
 				String ref = (String) myPrio;
 				return ref.compareTo((String) prio) > 0;
 			}
+		}else if(myPrio==null){
+			return true;
 		}
 		return false;
 	}
