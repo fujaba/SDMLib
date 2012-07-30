@@ -71,7 +71,7 @@ public class SimpleIdCounter implements IdMapCounter{
 			return "";
 		}
 		String className = obj.getClass().getName();
-		char firstChar = className.charAt(className.lastIndexOf(splitter) + 1);
+		char firstChar = className.charAt(className.lastIndexOf(".") + 1);
 		if (prefixId != null) {
 			key = prefixId + splitter + firstChar + number;
 		} else {
