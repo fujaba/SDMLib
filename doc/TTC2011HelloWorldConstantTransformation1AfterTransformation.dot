@@ -1,0 +1,11 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GreetingMessagePO</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
+g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "Hello World"</td></tr></table></td></tr></table>>];
+a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a3 :AttributeConstraint</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>attrName = "text"</td></tr><tr><td>tgtValue = "Hello World"</td></tr><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
+
+g1 -- a3 [headlabel = "attrConstraints" taillabel = "src"];
+g1 -- g2 [headlabel = "currentMatch" taillabel = ""];
+}

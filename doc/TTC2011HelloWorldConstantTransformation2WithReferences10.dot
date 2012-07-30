@@ -1,0 +1,11 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :Greeting</u></td></tr></table>>];
+g3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g3 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "Hello"</td></tr></table></td></tr></table>>];
+p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p4 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "TTC Participants"</td></tr></table></td></tr></table>>];
+
+g2 -- g3 [headlabel = "greetingMessage" taillabel = "greeting"];
+g2 -- p4 [headlabel = "person" taillabel = "greeting"];
+}

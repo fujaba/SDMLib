@@ -1,0 +1,32 @@
+<html>
+<body>
+<p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
+<pre>A constant transformation that creates a Greeting object structure with references</pre>
+<pre>Create class model and generate implementation:</pre>
+<img src='TTC2011HelloWorldConstantTransformation2ClassDiag.svg'><pre>The code that builds and runs the transformation / pattern looks like: </pre>
+<pre>      ModelPattern p = new ModelPattern().startCreate();
+      
+      GreetingPO greetingPO = p.hasElementGreetingPO();
+      
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
+      .hasText("Hello");
+      
+      PersonPO personPO = greetingPO.hasPerson()
+      .hasName("TTC Participants");
+</pre>
+<pre>At runtime the object structure for the pattern and for the hostgraph looks like: </pre>
+<img src='TTC2011HelloWorldConstantTransformation2AfterTransformation.svg'>
+<pre>For completeness just the host graph:</pre>
+<img src='TTC2011HelloWorldConstantTransformation2WithReferences10.svg'>
+<pre>For fairness, the java code that does this transformation looks like: </pre>
+<pre>      Greeting greeting = new Greeting();
+      
+      GreetingMessage greetingMessage = greeting.createGreetingMessage()
+      .withText("Hello");
+      
+      Person person = greeting.createPerson()
+      .withName("TTC Participants");
+</pre>
+
+</body>
+</html>

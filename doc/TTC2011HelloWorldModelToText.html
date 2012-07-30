@@ -1,0 +1,37 @@
+<html>
+<body>
+<p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
+<pre>For model to text transformation we provide a simple template mechanism. </pre>
+<pre>The model transformation that builds our object model looks like: </pre>
+<pre>      ModelPattern p = new ModelPattern().startCreate();
+      
+      GreetingPO greetingPO = p.hasElementGreetingPO();
+      
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
+      .hasText("Hello");
+      
+      PersonPO personPO = greetingPO.hasPerson()
+      .hasName("TTC Participants");
+</pre>
+<pre>The created object model looks like: </pre>
+<img src='TTC2011HelloWorldModelToText6.svg'>
+<pre>The model to text transfromation template mechanism is used like this: </pre>
+<pre>      StringBuilder text = new StringBuilder("message name");
+      
+      CGUtil.replaceAll(text, 
+         "message", greetingMessagePO.getText(),
+         "name", personPO.getName());
+      
+      System.out.println(text.toString());
+</pre>
+<pre>System.out: 
+Hello TTC Participants
+</pre>
+<pre>Alternatively, plain java code that does this model to text transformation looks like: </pre>
+<pre>      String result = greetingMessagePO.getText() + " " + personPO.getName();
+      
+      System.out.println(result);
+</pre>
+
+</body>
+</html>
