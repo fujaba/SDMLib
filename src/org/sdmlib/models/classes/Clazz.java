@@ -31,8 +31,11 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.creators.GreetingPO;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -1014,7 +1017,22 @@ public class Clazz implements PropertyChangeInterface
                   "   {\n" + 
                   "      return (patternObjectClassName) super.endNAC();\n" + 
                   "   }\n" + 
+                  "   \n" +
+                  "   public entitiyClassNameSet allMatches()\n" + 
+                  "   {\n" + 
+                  "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" + 
+                  "\n" + 
+                  "      while (this.getPattern().getHasMatch())\n" + 
+                  "      {\n" + 
+                  "         matches.add((entitiyClassName) this.getCurrentMatch());\n" + 
+                  "         \n" + 
+                  "         this.getPattern().findMatch();\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return matches;\n" + 
+                  "   }\n" + 
                   "   \n" + 
+                  "" + 
                   "}\n");
             
             CGUtil.replaceAll(text, 
@@ -1032,6 +1050,7 @@ public class Clazz implements PropertyChangeInterface
          .withFileName(fileName)
          .withFileBody(patternObjectFileBody);
 
+         this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
       }
       
       return patternObjectParser;
@@ -2043,7 +2062,7 @@ public class Clazz implements PropertyChangeInterface
             "   {\n" + 
             "      PatternObjectType value = new PatternObjectType();\n" + 
             "      this.addToElements(value);\n" + 
-            "      value.setModifier(this.getModifier());\n" + 
+            "      value.setModifier(Pattern.BOUND);\n" + 
             "      \n" + 
             "      value.setCurrentMatch(hostGraphObject);\n" + 
             "      \n" + 

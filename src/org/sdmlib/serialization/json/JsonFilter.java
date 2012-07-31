@@ -119,7 +119,21 @@ public class JsonFilter extends IdMapFilter{
 		return false;
 	}
 	
-	/* (non-Javadoc)
+	@Override
+   public boolean isRegard(IdMap map, Object entity, String property,
+         Object value, boolean isMany)
+   {
+	   if (getExcusiveProperties() != null) {
+         for (String prop : getExcusiveProperties()) {
+            if (property.equalsIgnoreCase(prop)) {
+               return false;
+            }
+         }
+      }
+	   return super.isRegard(map, entity, property, value, isMany);
+   }
+
+   /* (non-Javadoc)
 	 * @see de.uni.kassel.peermessage.IdMapFilter#isConvertable(de.uni.kassel.peermessage.IdMap, java.lang.Object, java.lang.String, java.lang.Object)
 	 */
 	public boolean isConvertable(IdMap map, Object entity, String property, Object value, boolean isMany) {

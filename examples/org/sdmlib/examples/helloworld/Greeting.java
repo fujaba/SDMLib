@@ -41,11 +41,6 @@ public class Greeting implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_TEXT.equalsIgnoreCase(attribute))
-      {
-         return getText();
-      }
-
       if (PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attrName))
       {
          return getGreetingMessage();
@@ -54,6 +49,11 @@ public class Greeting implements PropertyChangeInterface
       if (PROPERTY_PERSON.equalsIgnoreCase(attrName))
       {
          return getPerson();
+      }
+
+      if (PROPERTY_TEXT.equalsIgnoreCase(attribute))
+      {
+         return getText();
       }
       
       return null;
@@ -64,12 +64,6 @@ public class Greeting implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
-      {
-         setText((String) value);
-         return true;
-      }
-
       if (PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attrName))
       {
          setGreetingMessage((GreetingMessage) value);
@@ -79,6 +73,12 @@ public class Greeting implements PropertyChangeInterface
       if (PROPERTY_PERSON.equalsIgnoreCase(attrName))
       {
          setPerson((Person) value);
+         return true;
+      }
+
+      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         setText((String) value);
          return true;
       }
 
@@ -104,34 +104,6 @@ public class Greeting implements PropertyChangeInterface
       setPerson(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_TEXT = "text";
-   
-   private String text;
-
-   public String getText()
-   {
-      return this.text;
-   }
-   
-   public void setText(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.text, value))
-      {
-         String oldValue = this.text;
-         this.text = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
-      }
-   }
-   
-   public Greeting withText(String value)
-   {
-      setText(value);
-      return this;
-   } 
 
    
    /********************************************************************
@@ -249,6 +221,34 @@ public class Greeting implements PropertyChangeInterface
       Person value = new Person();
       withPerson(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public Greeting withText(String value)
+   {
+      setText(value);
+      return this;
    } 
 }
 

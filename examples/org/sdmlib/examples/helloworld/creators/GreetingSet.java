@@ -2,35 +2,13 @@ package org.sdmlib.examples.helloworld.creators;
 
 import java.util.LinkedHashSet;
 import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 
 public class GreetingSet extends LinkedHashSet<Greeting>
 {
-   public StringList getText()
-   {
-      StringList result = new StringList();
-      
-      for (Greeting obj : this)
-      {
-         result.add(obj.getText());
-      }
-      
-      return result;
-   }
-
-   public GreetingSet withText(String value)
-   {
-      for (Greeting obj : this)
-      {
-         obj.withText(value);
-      }
-      
-      return this;
-   }
-
    public GreetingMessageSet getGreetingMessage()
    {
       GreetingMessageSet result = new GreetingMessageSet();
@@ -68,6 +46,28 @@ public class GreetingSet extends LinkedHashSet<Greeting>
       for (Greeting obj : this)
       {
          obj.withPerson(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Greeting obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public GreetingSet withText(String value)
+   {
+      for (Greeting obj : this)
+      {
+         obj.withText(value);
       }
       
       return this;

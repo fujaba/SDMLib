@@ -3,15 +3,16 @@ package org.sdmlib.examples.helloworld.creators;
 import org.sdmlib.examples.helloworld.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.Edge;
 
-public class GreetingCreator implements SendableEntityCreator
+public class EdgeCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Greeting.PROPERTY_GREETINGMESSAGE,
-      Greeting.PROPERTY_PERSON,
-      Greeting.PROPERTY_TEXT,
+      Edge.PROPERTY_GRAPH,
+      Edge.PROPERTY_SRC,
+      Edge.PROPERTY_TGT,
+      Edge.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -21,17 +22,17 @@ public class GreetingCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Greeting();
+      return new Edge();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Greeting) target).get(attrName);
+      return ((Edge) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((Greeting) target).set(attrName, value);
+      return ((Edge) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

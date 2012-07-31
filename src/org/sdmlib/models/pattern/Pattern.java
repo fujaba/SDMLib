@@ -34,6 +34,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class Pattern extends PatternElement
 {
    public static final String CREATE = "create";
+   public static final String BOUND = "bound";
+
    
    private JsonIdMap jsonIdMap;
    

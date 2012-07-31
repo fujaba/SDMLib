@@ -72,11 +72,11 @@ public class ProjectBoard
       
       entry = kanbanBoard.findOrCreate("StudyRightObjectScenarios")
             .withParent(sprint1);
-      entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      // entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
       entry = kanbanBoard.findOrCreate("StudyRightReverseClassModel")
             .withParent(sprint1);
-      entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
+      // entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
       
       
@@ -86,15 +86,15 @@ public class ProjectBoard
       
       entry = kanbanBoard.findOrCreate("GroupAccountCodegen")
             .withParent(sprint1);
-      entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      // entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
       
       entry = kanbanBoard.findOrCreate("GroupAccountRuleRecognition")
             .withParent(sprint1);
-      entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
+      // entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
       
       entry = kanbanBoard.findOrCreate("TransformationsCodegen")
             .withParent(sprint1);
-      entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
+      // entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
       
       KanbanEntry sprint2 = kanbanBoard.findOrCreate("Sprint.002.Transformations")
             .withLastDeveloper("zuendorf")
@@ -103,20 +103,23 @@ public class ProjectBoard
       
       entry = kanbanBoard.findOrCreate("PatternModelCodeGen")
             .withParent(sprint2)
-            .linkToTest("test", "org.sdmlib.models.patterns.PatternModelCodeGen", entry.getName());
+      //      .linkToTest("test", "org.sdmlib.models.patterns.PatternModelCodeGen", entry.getName())
+            ;
       
       entry = kanbanBoard.findOrCreate("GenericObjectDiagram")
             .withParent(sprint1);
      
-      entry.linkToTest("test", "org.sdmlib.models.objects.GenericObjectsTest", entry.getName());
+      // entry.linkToTest("test", "org.sdmlib.models.objects.GenericObjectsTest", entry.getName());
       
       entry = kanbanBoard.findOrCreate("LudoModel")
             .withParent(sprint2)
-            .linkToTest("examples", "org.sdmlib.examples.ludo.LudoModel", entry.getName());
+      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoModel", entry.getName())
+            ;
 
       entry = kanbanBoard.findOrCreate("LudoScenario")
             .withParent(sprint2)
-            .linkToTest("examples", "org.sdmlib.examples.ludo.LudoScenario", entry.getName());
+      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoScenario", entry.getName())
+            ;
 
       man.dumpKanban();
    }

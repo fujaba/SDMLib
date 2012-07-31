@@ -391,7 +391,7 @@ public class Role implements PropertyChangeInterface
             "      \n" + 
             "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
             "      \n" + 
-            "      return result;" + 
+            "      return result;\n" + 
             "   }\n" +
             "   \n");
 

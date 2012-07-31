@@ -32,7 +32,7 @@ public class StringList extends ArrayList<String>
       return concat("");
    }
 
-   private String concat(String seperator)
+   public String concat(String seperator)
    {
       StringBuffer buf = new StringBuffer();
       
@@ -43,7 +43,7 @@ public class StringList extends ArrayList<String>
       
       if (this.size() > 0)
       {
-         buf.substring(0, buf.length() - seperator.length());
+         buf.replace(buf.length() - seperator.length(), buf.length(), "");
       }
       
       return buf.toString();

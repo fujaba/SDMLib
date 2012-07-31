@@ -63,6 +63,26 @@ public class PatternObject extends PatternElement
             return true;
          }
       }
+      else if (Pattern.BOUND.equals(getModifier()))
+      {
+         if ( ! this.getPattern().getHasMatch())
+         {
+            return false;
+         }
+         
+         if (this.getHasMatch())
+         {
+            // backward execution, backtrack and prepare for forward execution
+            this.setHasMatch(false);
+            return false;
+         }
+         else
+         {
+            this.setHasMatch(getCurrentMatch() != null);
+            
+            return this.getHasMatch();
+         }
+      }
       
       if (this.getCandidates() == null) 
       {
@@ -576,7 +596,7 @@ public class PatternObject extends PatternElement
          PatternLink patternLink = new PatternLink()
          .withTgt(result).withTgtRoleName(roleName)
          .withSrc(this);
-         patternLink.setModifier(this.getModifier());
+         patternLink.setModifier(this.getPattern().getModifier());
    
          this.getPattern().addToElements(patternLink);
    

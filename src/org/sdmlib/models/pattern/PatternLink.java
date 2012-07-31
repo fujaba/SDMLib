@@ -25,6 +25,9 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
@@ -43,7 +46,14 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
          {
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
-            this.getTgt().setCandidates(value);
+            if (value != null && value instanceof Collection)
+            {
+               this.getTgt().setCandidates(new LinkedHashSet((Collection)value));
+            }
+            else
+            {
+               this.getTgt().setCandidates(value);
+            }
             
             return true;
          }

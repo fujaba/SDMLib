@@ -45,6 +45,7 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 
@@ -73,6 +74,28 @@ public class Scenario
    
    public Scenario()
    {
+      
+   }
+   
+   public Scenario(String rootDir)
+   {
+     Exception e = new RuntimeException();
+     
+     StackTraceElement[] stackTrace = e.getStackTrace();
+     StackTraceElement callEntry = stackTrace[1];
+     javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
+      
+     String methodName = stackTrace[1].getMethodName();
+     
+     if (methodName.startsWith("test"))
+     {
+        methodName = methodName.substring(4);
+     }
+     
+     setName(methodName);
+      
+     steps.add(name);
+      
       
    }
    
@@ -247,6 +270,15 @@ public class Scenario
    public void addObjectDiag(JsonIdMap jsonIdMap, Object root)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+      
+      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
+      
+      steps.add(imgLink);
+   }
+
+   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, JsonFilter filter)
+   {
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);
       
       String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
       

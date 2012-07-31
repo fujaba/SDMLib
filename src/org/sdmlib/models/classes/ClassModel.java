@@ -392,7 +392,7 @@ public class ClassModel implements PropertyChangeInterface
 		for (Clazz clazz : this.getClasses())
 		{
 			StringBuilder modelClassText = new StringBuilder(
-			    "\n    className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
+			    "\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
 
 			if (clazz.isInterfaze())
 				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
@@ -412,7 +412,7 @@ public class ClassModel implements PropertyChangeInterface
 			if (clazz.getSuperClass() != null)
 			{
 
-				StringBuilder oneSuperClassText = new StringBuilder("\n    superClass ->  mClass [dir = \"back\" arrowtail = \"empty\"];");
+				StringBuilder oneSuperClassText = new StringBuilder("\n    _superClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
 
 				CGUtil.replaceAll(oneSuperClassText, "superClass", CGUtil.shortClassName(clazz.getSuperClass().getName())
 																			, "mClass", CGUtil.shortClassName(clazz.getName()));
@@ -428,7 +428,7 @@ public class ClassModel implements PropertyChangeInterface
       {	
 				if (interfaceClass.isInterfaze())
         {
-	        StringBuilder oneSuperClassText = new StringBuilder("\n    interfaceClass ->  mClass [dir = \"back\" arrowtail = \"empty\"];");
+	        StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
 	        
 	        CGUtil.replaceAll(oneSuperClassText, 
 	        									"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
@@ -442,7 +442,7 @@ public class ClassModel implements PropertyChangeInterface
 		// add associations
 		for (Association assoc : getAssociations())
 		{
-			StringBuilder oneAssocText = new StringBuilder("\n    sourceClass -> targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
+			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
 
 			CGUtil.replaceAll(oneAssocText, 
 			   "sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), 

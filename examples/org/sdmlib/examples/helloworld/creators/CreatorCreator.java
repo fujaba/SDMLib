@@ -14,12 +14,14 @@ public class CreatorCreator
       if (creatorSet == null)
       {
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GraphCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GraphPOCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.EdgeCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.EdgePOCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.NodeCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.NodePOCreator());
          creatorSet.add(new org.sdmlib.examples.helloworld.creators.GreetingCreator());
          creatorSet.add(new org.sdmlib.examples.helloworld.creators.GreetingPOCreator());
-         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GreetingMessageCreator());
-         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GreetingMessagePOCreator());
-         creatorSet.add(new org.sdmlib.examples.helloworld.creators.PersonCreator());
-         creatorSet.add(new org.sdmlib.examples.helloworld.creators.PersonPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
