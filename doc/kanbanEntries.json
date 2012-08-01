@@ -52,7 +52,8 @@
         {"id":"KE.K126"},
         {"id":"KE.K136"},
         {"id":"KE.K139"},
-        {"id":"KE.K143"}
+        {"id":"KE.K143"},
+        {"id":"KE.K145"}
       ]
     }
   },
@@ -468,6 +469,21 @@
         {"id":"KE.L144"}
       ],
       "name":"TTC2011HelloWorldModelToText",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K145",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L146"}
+      ],
+      "name":"TTC2011HelloWorldCountNumberOfNodes",
       "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
@@ -2157,6 +2173,19 @@
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K143"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L146",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"30.07.2012 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K145"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

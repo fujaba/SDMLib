@@ -9,8 +9,8 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 172)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-172 194,-172 194,5 -4,5"/>
-<!-- Greeting -->
-<g id="node1" class="node"><title>Greeting</title>
+<!-- _Greeting -->
+<g id="node1" class="node"><title>_Greeting</title>
 <polygon fill="none" stroke="black" points="79,-146 79,-163 120,-163 120,-146 79,-146"/>
 <text text-anchor="start" x="82.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Greeting</text>
 <polygon fill="none" stroke="black" points="79,-126 79,-146 120,-146 120,-126 79,-126"/>
@@ -18,8 +18,8 @@
 <polygon fill="none" stroke="black" points="79,-106 79,-126 120,-126 120,-106 79,-106"/>
 <text text-anchor="start" x="98" y="-114" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- GreetingMessage -->
-<g id="node2" class="node"><title>GreetingMessage</title>
+<!-- _GreetingMessage -->
+<g id="node2" class="node"><title>_GreetingMessage</title>
 <polygon fill="none" stroke="black" points="8,-44 8,-61 86,-61 86,-44 8,-44"/>
 <text text-anchor="start" x="11.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">GreetingMessage</text>
 <polygon fill="none" stroke="black" points="8,-24 8,-44 86,-44 86,-24 8,-24"/>
@@ -27,14 +27,14 @@
 <polygon fill="none" stroke="black" points="8,-4 8,-24 86,-24 86,-4 8,-4"/>
 <text text-anchor="start" x="45.5" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Greeting&#45;&gt;GreetingMessage -->
-<g id="edge2" class="edge"><title>Greeting&#45;&gt;GreetingMessage</title>
+<!-- _Greeting&#45;&gt;_GreetingMessage -->
+<g id="edge2" class="edge"><title>_Greeting&#45;&gt;_GreetingMessage</title>
 <path fill="none" stroke="black" d="M82.5469,-102.359C76.4769,-90.6864 69.6008,-77.4631 63.5246,-65.778"/>
 <text text-anchor="middle" x="71.4554" y="-69.3692" font-family="Times New Roman,serif" font-size="10.00">greetingMessage</text>
 <text text-anchor="middle" x="74.6161" y="-93.7682" font-family="Times New Roman,serif" font-size="10.00">greeting</text>
 </g>
-<!-- Person -->
-<g id="node3" class="node"><title>Person</title>
+<!-- _Person -->
+<g id="node3" class="node"><title>_Person</title>
 <polygon fill="none" stroke="black" points="121,-44 121,-61 182,-61 182,-44 121,-44"/>
 <text text-anchor="start" x="137.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
 <polygon fill="none" stroke="black" points="121,-24 121,-44 182,-44 182,-24 121,-24"/>
@@ -42,8 +42,8 @@
 <polygon fill="none" stroke="black" points="121,-4 121,-24 182,-24 182,-4 121,-4"/>
 <text text-anchor="start" x="150" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Greeting&#45;&gt;Person -->
-<g id="edge4" class="edge"><title>Greeting&#45;&gt;Person</title>
+<!-- _Greeting&#45;&gt;_Person -->
+<g id="edge4" class="edge"><title>_Greeting&#45;&gt;_Person</title>
 <path fill="none" stroke="black" d="M115.453,-102.359C121.523,-90.6864 128.399,-77.4631 134.475,-65.778"/>
 <text text-anchor="middle" x="134.044" y="-73.2687" font-family="Times New Roman,serif" font-size="10.00">person</text>
 <text text-anchor="middle" x="115.885" y="-89.8687" font-family="Times New Roman,serif" font-size="10.00">greeting</text>
