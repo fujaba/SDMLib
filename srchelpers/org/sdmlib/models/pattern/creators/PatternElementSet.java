@@ -6,6 +6,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import java.util.List;
 
 public class PatternElementSet extends ArrayList<PatternElement>
 {
@@ -74,7 +75,30 @@ public class PatternElementSet extends ArrayList<PatternElement>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet withName(String value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

@@ -56,6 +56,11 @@ public class PatternElement implements PropertyChangeInterface
       {
          return getHasMatch();
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return getName();
+      }
       
       return null;
    }
@@ -80,6 +85,12 @@ public class PatternElement implements PropertyChangeInterface
       if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
          setHasMatch((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
          return true;
       }
 
@@ -163,7 +174,6 @@ public class PatternElement implements PropertyChangeInterface
 
    public boolean findNextMatch()
    {
-      // TODO Auto-generated method stub
       return false;
    } 
 
@@ -220,6 +230,40 @@ public class PatternElement implements PropertyChangeInterface
    public PatternElement withHasMatch(boolean value)
    {
       setHasMatch(value);
+      return this;
+   }
+
+
+   public void resetSearch()
+   {
+      // please override
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public PatternElement withName(String value)
+   {
+      setName(value);
       return this;
    } 
 }

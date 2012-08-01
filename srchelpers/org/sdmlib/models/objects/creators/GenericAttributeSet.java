@@ -42,5 +42,36 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       
       return result;
    }
+   public GenericAttributeSet withName(String value)
+   {
+      for (GenericAttribute obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public GenericAttributeSet withValue(String value)
+   {
+      for (GenericAttribute obj : this)
+      {
+         obj.withValue(value);
+      }
+      
+      return this;
+   }
+
+   public GenericAttributeSet withOwner(GenericObject value)
+   {
+      for (GenericAttribute obj : this)
+      {
+         obj.withOwner(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

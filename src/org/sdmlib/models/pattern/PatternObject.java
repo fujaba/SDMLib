@@ -32,7 +32,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
-public class PatternObject extends PatternElement
+public class PatternObject extends PatternElement implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
@@ -84,7 +84,8 @@ public class PatternObject extends PatternElement
          }
       }
       
-      if (this.getCandidates() == null) 
+      if (this.getCandidates() == null 
+            || this.getCandidates() instanceof Collection && ((Collection) this.getCandidates()).isEmpty()) 
       {
          return false;
       }
@@ -111,6 +112,18 @@ public class PatternObject extends PatternElement
    }
    
    
+   
+   
+   @Override
+   public void resetSearch()
+   {
+      this.setCandidates(null);
+      this.setCurrentMatch(null);
+   }
+
+
+
+
    public PatternObject startNAC()
    {
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
@@ -183,6 +196,11 @@ public class PatternObject extends PatternElement
          return getHasMatch();
       }
 
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return getName();
+      }
+
       return super.get(attrName);
    }
 
@@ -242,6 +260,18 @@ public class PatternObject extends PatternElement
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
       {
          setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         setHasMatch((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
          return true;
       }
 
@@ -604,6 +634,16 @@ public class PatternObject extends PatternElement
    
          this.getPattern().findMatch();
       }
+   }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
    }
 }
 

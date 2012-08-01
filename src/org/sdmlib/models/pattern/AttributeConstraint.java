@@ -94,6 +94,13 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    }
 
 
+   @Override
+   public void resetSearch()
+   {
+      this.setHostGraphSrcObject(null);
+   }
+
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -132,6 +139,11 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
       {
          return getHasMatch();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return getName();
       }
       
       return null;
@@ -175,6 +187,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
          setHasMatch((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
          return true;
       }
 

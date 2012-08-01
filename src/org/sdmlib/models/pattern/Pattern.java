@@ -30,8 +30,10 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 
-public class Pattern extends PatternElement
+public class Pattern extends PatternElement implements PropertyChangeInterface
 {
    public static final String CREATE = "create";
    public static final String BOUND = "bound";
@@ -64,6 +66,17 @@ public class Pattern extends PatternElement
    public Pattern startCreate()
    {
       this.setModifier(Pattern.CREATE);
+      return this;
+   }
+   
+   public Pattern matchIsomorphic()
+   {
+      MatchIsomorphicConstraint isoConstraint = new MatchIsomorphicConstraint();
+      
+      this.addToElements(isoConstraint);
+      
+      this.findMatch();
+      
       return this;
    }
    
@@ -108,7 +121,21 @@ public class Pattern extends PatternElement
       
       return getHasMatch();
    }
+   
+   public boolean findNextMatch()
+   {
+      return findMatch();
+   } 
 
+
+
+   public void resetSearch()
+   {
+      for (PatternElement pe : this.getElements())
+      {
+         pe.resetSearch();
+      }
+   }
 
    public Object get(String attrName)
    {
@@ -138,6 +165,11 @@ public class Pattern extends PatternElement
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
       {
          return getModifier();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return getName();
       }
       
       return null;
@@ -175,6 +207,12 @@ public class Pattern extends PatternElement
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
       {
          setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
          return true;
       }
 
@@ -367,5 +405,15 @@ public class Pattern extends PatternElement
       return this;
    }
 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
 }
 

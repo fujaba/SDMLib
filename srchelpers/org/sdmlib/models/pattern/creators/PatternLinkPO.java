@@ -6,6 +6,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.PatternLinkPO;
+import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
 public class PatternLinkPO extends PatternObject
 {
@@ -175,6 +176,84 @@ public class PatternLinkPO extends PatternObject
       return this;
    }
    
+   public String getTgtRoleName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getTgtRoleName();
+      }
+      return null;
+   }
+   
+   public Object getHostGraphSrcObject()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getHostGraphSrcObject();
+      }
+      return null;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public PatternLinkPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PatternObject getTgt()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) this.getCurrentMatch()).getTgt();
+      }
+      return null;
+   }
+   
+   public PatternObject getSrc()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) this.getCurrentMatch()).getSrc();
+      }
+      return null;
+   }
+   
 }
+
 
 

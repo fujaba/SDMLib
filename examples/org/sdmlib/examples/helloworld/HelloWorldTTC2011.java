@@ -303,7 +303,7 @@ public class HelloWorldTTC2011
       //==========================================================================
       
       scenario.add("<hr/>");
-      scenario.add("Count nodes in graph direct: ");
+      scenario.add("<h2>Count nodes in graph direct: </h2>");
       
       scenario.markCodeStart();
       int noOfNodes = graph.getNodes().size();
@@ -355,7 +355,7 @@ public class HelloWorldTTC2011
       //==========================================================================
       
       scenario.add("<hr/>");
-      scenario.add("Retrieve set of looping edges per pattern and count its elements: ");
+      scenario.add("<h2>Retrieve set of looping edges per pattern and count its elements: </h2>");
       
       scenario.markCodeStart();
       p = new ModelPattern();
@@ -374,6 +374,184 @@ public class HelloWorldTTC2011
       scenario.addCode("examples");
       
       scenario.add("systemout: " + systemout);
+      
+      scenario.add("For comparison a Java solution: ");
+      
+      scenario.markCodeStart();
+      String sysout = "Looping Edges: ";
+      
+      int noOfLoopingEdges = 0;
+      
+      for (Edge edge : graph.getEdges())
+      {
+         if (edge.getSrc() != null && edge.getSrc() == edge.getTgt())
+         {
+            noOfLoopingEdges++;
+            
+            sysout += edge.getName() + ", ";
+         }
+      }
+      
+      sysout = sysout.substring(0, sysout.length() - 2) + " Number of looping edges: " + noOfLoopingEdges;
+      scenario.addCode("examples");
+      
+      scenario.add("sysout: " + sysout);
+      
+      
+      //==========================================================================
+      
+      scenario.add("<hr/>");
+      scenario.add("<h2>Retrieve isolated nodes and count them: </h2>");
+      
+      scenario.markCodeStart();
+      p = new ModelPattern();
+      
+      graphPO = p.hasElementGraphPO(graph);
+      
+      nodePO = graphPO.hasNodes();
+      
+      nodePO.startNAC().hasOutEdges().endNAC();
+      
+      nodePO.startNAC().hasInEdges().endNAC();
+
+      NodeSet isolatedNodes = nodePO.allMatches();
+      
+      systemout = "Isolated nodes: " + isolatedNodes.getName().concat(", ") + " Number of isolated nodes: " + isolatedNodes.size();
+      scenario.addCode("examples");
+      
+      scenario.add("systemout: " + systemout);
+      
+      
+      scenario.add("For comparison a Java solution: ");
+      
+      scenario.markCodeStart();
+      sysout = "Isolated nodes: ";
+      
+      int noOfIsolatedNodes = 0;
+      
+      for (Node isoNode : graph.getNodes())
+      {
+         if (isoNode.getOutEdges().size() == 0 
+               && isoNode.getInEdges().size() == 0)
+         {
+            noOfIsolatedNodes++;
+            
+            sysout += isoNode.getName() + ", ";
+         }
+      }
+      
+      sysout = sysout.substring(0, sysout.length() - 2) + " Number of isolated nodes: " + noOfIsolatedNodes;
+      scenario.addCode("examples");
+      
+      scenario.add("sysout: " + sysout);
+      
+      
+      //==========================================================================
+      
+      scenario.add("<hr/>");
+      scenario.add("<h2>Count circles of three nodes: </h2>");
+      
+      scenario.markCodeStart();
+      p = new ModelPattern();
+      
+      graphPO = p.hasElementGraphPO(graph);
+      
+      NodePO firstCircleNodePO = graphPO.hasNodes();
+      
+      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+      
+      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+      
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+      
+      p.matchIsomorphic();
+      
+      int noOfCircles = p.allMatches();
+      
+      systemout = "Circles found: " + noOfCircles;
+      scenario.addCode("examples");
+      
+      scenario.add("systemout: " + systemout);
+      
+      scenario.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
+      
+      scenario.markCodeStart();
+      p = new ModelPattern();
+      
+      graphPO = p.hasElementGraphPO(graph);
+      
+      firstCircleNodePO = graphPO.hasNodes();
+      
+      secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+      
+      thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+      
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+      
+      p.matchIsomorphic();
+      
+      systemout = "Circles found: \n";
+      noOfCircles = 0;
+      
+      while (p.getHasMatch())
+      {
+         systemout += firstCircleNodePO.getName() + " --> "
+               + secondCircleNodePO.getName() + " --> " 
+               + thirdCircleNodePO.getName() + " --> \n";
+         
+         noOfCircles++; 
+         
+         p.findNextMatch();
+      }
+      
+      systemout += "" + noOfCircles + " circles found";
+      scenario.addCode("examples");
+      
+      scenario.add("systemout: " + systemout);
+      
+      scenario.add("Just for comparison, a plain java implementation: ");
+      
+      scenario.markCodeStart();
+      noOfCircles = 0;
+      
+      sysout = "Circles found: \n";
+      
+      for (Node firstNode : graph.getNodes())
+      {
+         for (Edge firstEdge : firstNode.getOutEdges())
+         {
+            Node secondNode = firstEdge.getTgt();
+            
+            if (secondNode != null && secondNode != firstNode)
+            {
+               for (Edge secondEdge : secondNode.getOutEdges())
+               {
+                  Node thirdNode = secondEdge.getTgt();
+            
+                  if (thirdNode != null && thirdNode != secondNode && thirdNode != firstNode)
+                  {
+                     for (Edge thirdEdge : thirdNode.getOutEdges())
+                     {
+                        if (thirdEdge.getTgt() == firstNode)
+                        {
+                           // found match
+                           sysout += firstNode.getName() + " --> "
+                                 + secondNode.getName() + " --> " 
+                                 + thirdNode.getName() + " --> \n";
+                           
+                           noOfCircles++;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      
+      sysout += "" + noOfCircles + " circles found";
+      scenario.addCode("examples");
+      
+      scenario.add("sysout: " + sysout);
       
       scenario.dumpHTML();
    }

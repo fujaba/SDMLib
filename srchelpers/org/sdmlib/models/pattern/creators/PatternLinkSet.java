@@ -153,7 +153,30 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (PatternLink obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet withName(String value)
+   {
+      for (PatternLink obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

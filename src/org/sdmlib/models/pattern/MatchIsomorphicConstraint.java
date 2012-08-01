@@ -21,61 +21,60 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
-public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
 {
-   public NegativeApplicationCondition()
-   {
-      super();
-      setHasMatch(true);
-   }
-   
-   //==========================================================================
-   
-   @Override
-   public boolean findMatch()
-   {
-      // start matching only if nac is complete 
-      if (this.getPattern().getCurrentNAC() != null)
-      {
-         return true;
-      }
-      else
-      {
-         return super.findMatch();
-      }
-   }
-
-
    @Override
    public boolean findNextMatch()
    {
-      // start matching only if nac is complete 
-      if (this.getPattern().getCurrentNAC() != null)
+      if ( ! this.getPattern().getHasMatch())
       {
-         return true;
+         return false;
       }
-      else if (getHasMatch())
+      
+      if (this.getHasMatch())
       {
-         // last time this NAC has found a match and thus it was violated and has caused backtracking
-         // thus some earlier pattern elements have been rematched.
-         // check the NAC again
-         resetSearch();
-         boolean nacHasMatch = findMatch();
-         return ! nacHasMatch;
+         // backtracking
+         this.setHasMatch(false);
+         return false;
       }
       else
       {
-         // backtracking, the NAC has no alternative choice
+         // forward 
+         LinkedHashSet<Object> usedObjects = new LinkedHashSet<Object>();
+
+         for (PatternElement patElem : this.getPattern().getElements())
+         {
+            if (patElem instanceof PatternObject)
+            {
+               Object currentMatch = ((PatternObject) patElem).getCurrentMatch();
+               if (usedObjects.contains(currentMatch))
+               {
+                  return false;
+               }
+               else
+               {
+                  usedObjects.add(currentMatch);
+               }
+            }
+         }
+         
+         // no double match, match is isomorphic
          this.setHasMatch(true);
-         return false;
+         
+         return true;
       }
    }
 
-
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -86,19 +85,14 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_CURRENTNAC.equalsIgnoreCase(attrName))
-      {
-         return getCurrentNAC();
-      }
-
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
       {
          return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
+      {
+         return getHasMatch();
       }
 
       if (PROPERTY_NAME.equalsIgnoreCase(attribute))
@@ -114,21 +108,15 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_CURRENTNAC.equalsIgnoreCase(attrName))
-      {
-         setCurrentNAC((NegativeApplicationCondition) value);
-         return true;
-      }
-
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
       {
          setModifier((String) value);
+         return true;
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      {
+         setHasMatch((Boolean) value);
          return true;
       }
 
@@ -144,20 +132,20 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    //==========================================================================
    
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
-   }
-
-   
-   //==========================================================================
-   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      super.removeYou();
    }
 }
 

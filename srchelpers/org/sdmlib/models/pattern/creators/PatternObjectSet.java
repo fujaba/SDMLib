@@ -191,7 +191,30 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withName(String value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

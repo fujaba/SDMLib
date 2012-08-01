@@ -12,6 +12,7 @@ public class PatternElementCreator implements SendableEntityCreator
       PatternElement.PROPERTY_PATTERN,
       PatternElement.PROPERTY_MODIFIER,
       PatternElement.PROPERTY_HASMATCH,
+      PatternElement.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -39,6 +40,8 @@ public class PatternElementCreator implements SendableEntityCreator
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+
+
 
 
 

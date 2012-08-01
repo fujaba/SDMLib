@@ -75,7 +75,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withName(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

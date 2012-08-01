@@ -53,5 +53,46 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       
       return result;
    }
+   public GenericLinkSet withTgtLabel(String value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withTgtLabel(value);
+      }
+      
+      return this;
+   }
+
+   public GenericLinkSet withSrcLabel(String value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withSrcLabel(value);
+      }
+      
+      return this;
+   }
+
+   public GenericLinkSet withSrc(GenericObject value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withSrc(value);
+      }
+      
+      return this;
+   }
+
+   public GenericLinkSet withTgt(GenericObject value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withTgt(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

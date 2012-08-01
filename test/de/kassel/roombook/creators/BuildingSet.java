@@ -42,6 +42,37 @@ public class BuildingSet extends LinkedHashSet<Building>
       return result;
    }
 
+   public BuildingSet withName(String value)
+   {
+      for (Building obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public BuildingSet withHas(Floor value)
+   {
+      for (Building obj : this)
+      {
+         obj.withHas(value);
+      }
+      
+      return this;
+   }
+
+   public BuildingSet withoutHas(Floor value)
+   {
+      for (Building obj : this)
+      {
+         obj.withoutHas(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

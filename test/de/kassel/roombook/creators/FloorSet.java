@@ -55,6 +55,37 @@ public class FloorSet extends LinkedHashSet<Floor>
       return result;
    }
 
+   public FloorSet withLevel(int value)
+   {
+      for (Floor obj : this)
+      {
+         obj.withLevel(value);
+      }
+      
+      return this;
+   }
+
+   public FloorSet withName(String value)
+   {
+      for (Floor obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
+   public FloorSet withBuildings(Building value)
+   {
+      for (Floor obj : this)
+      {
+         obj.withBuildings(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

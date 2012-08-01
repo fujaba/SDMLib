@@ -57,7 +57,8 @@ public class PatternModelCodeGen
       
       Clazz patternElement = new Clazz("org.sdmlib.models.pattern.PatternElement")
       .withAttribute("modifier", "String")
-      .withAttribute("hasMatch", "boolean", "false");
+      .withAttribute("hasMatch", "boolean", "false")
+      .withAttribute("name", "String");
       
       Clazz pattern = new Clazz("org.sdmlib.models.pattern.Pattern")
       .withSuperClass(patternElement)
@@ -100,6 +101,10 @@ public class PatternModelCodeGen
       
       Clazz linkConstraint = new Clazz("org.sdmlib.models.pattern.LinkConstraint")
       .withSuperClass(patternLink);
+      
+      Clazz matchIsomorphicConstraint = new Clazz("org.sdmlib.models.pattern.MatchIsomorphicConstraint")
+      .withSuperClass(patternElement);
+      
       
       
       

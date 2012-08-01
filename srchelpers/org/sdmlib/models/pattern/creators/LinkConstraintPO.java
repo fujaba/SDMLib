@@ -3,6 +3,7 @@ package org.sdmlib.models.pattern.creators;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.creators.LinkConstraintSet;
 
 public class LinkConstraintPO extends PatternObject
 {
@@ -94,6 +95,66 @@ public class LinkConstraintPO extends PatternObject
       return this;
    }
    
+   public String getTgtRoleName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getTgtRoleName();
+      }
+      return null;
+   }
+   
+   public Object getHostGraphSrcObject()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getHostGraphSrcObject();
+      }
+      return null;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public LinkConstraintPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
 }
+
 
 

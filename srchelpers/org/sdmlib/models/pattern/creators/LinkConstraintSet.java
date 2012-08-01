@@ -97,7 +97,30 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet withName(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

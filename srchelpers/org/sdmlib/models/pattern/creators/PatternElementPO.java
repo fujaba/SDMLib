@@ -8,6 +8,7 @@ import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.PatternElementPO;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.creators.PatternElementSet;
 
 public class PatternElementPO extends PatternObject
 {
@@ -94,6 +95,57 @@ public class PatternElementPO extends PatternObject
       return this;
    }
    
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public PatternElementPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternElement.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+   
 }
+
 
 

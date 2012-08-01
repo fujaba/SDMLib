@@ -14,7 +14,6 @@ public class CreatorCreator
       if (creatorSet == null)
       {
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
-
          creatorSet.add(new org.sdmlib.models.pattern.creators.PatternElementCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.PatternElementPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.PatternCreator());
@@ -29,19 +28,21 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.pattern.creators.AttributeConstraintPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.LinkConstraintCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.LinkConstraintPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPOCreator());
+         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
       return creatorSet;
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(creatorSet);
-      
+      jsonIdMap.addCreator(getCreatorSet());
+
       return jsonIdMap;
    }
 }
-
 

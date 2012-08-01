@@ -6,6 +6,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
+import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
 public class AttributeConstraintPO extends PatternObject
 {
@@ -158,6 +159,84 @@ public class AttributeConstraintPO extends PatternObject
       return this;
    }
    
+   public String getAttrName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getAttrName();
+      }
+      return null;
+   }
+   
+   public Object getTgtValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getTgtValue();
+      }
+      return null;
+   }
+   
+   public Object getHostGraphSrcObject()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getHostGraphSrcObject();
+      }
+      return null;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public AttributeConstraintPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PatternObject getSrc()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) this.getCurrentMatch()).getSrc();
+      }
+      return null;
+   }
+   
 }
+
 
 

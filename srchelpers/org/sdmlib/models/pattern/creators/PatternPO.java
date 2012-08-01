@@ -9,6 +9,8 @@ import org.sdmlib.models.pattern.creators.PatternElementPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.creators.PatternElementSet;
 
 public class PatternPO extends PatternObject
 {
@@ -126,6 +128,66 @@ public class PatternPO extends PatternObject
       return this;
    }
    
+   public NegativeApplicationCondition getCurrentNAC()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getCurrentNAC();
+      }
+      return null;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public PatternPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PatternElementSet getElements()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getElements();
+      }
+      return null;
+   }
+   
 }
+
 
 

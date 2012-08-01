@@ -141,7 +141,30 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withName(String value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

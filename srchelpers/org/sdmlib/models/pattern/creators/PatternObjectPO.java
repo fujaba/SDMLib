@@ -8,6 +8,9 @@ import org.sdmlib.models.pattern.creators.PatternLinkPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
+import org.sdmlib.models.pattern.creators.PatternObjectSet;
+import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
 public class PatternObjectPO extends PatternObject
 {
@@ -243,6 +246,93 @@ public class PatternObjectPO extends PatternObject
       return this;
    }
    
+   public Object getCurrentMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getCurrentMatch();
+      }
+      return null;
+   }
+   
+   public Object getCandidates()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getCandidates();
+      }
+      return null;
+   }
+   
+   public String getModifier()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getModifier();
+      }
+      return null;
+   }
+   
+   public boolean getHasMatch()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getHasMatch();
+      }
+      return false;
+   }
+   
+   public PatternObjectPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PatternLinkSet getIncomming()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getIncomming();
+      }
+      return null;
+   }
+   
+   public PatternLinkSet getOutgoing()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getOutgoing();
+      }
+      return null;
+   }
+   
+   public AttributeConstraintSet getAttrConstraints()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getAttrConstraints();
+      }
+      return null;
+   }
+   
 }
+
 
 
