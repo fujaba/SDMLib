@@ -31,10 +31,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -303,12 +305,36 @@ public class UpdateListener implements PropertyChangeListener{
 				while (keys.hasNext()) {
 					String key = keys.next();
 					Object value = creator.getValue(masterObj, key);
-					if (checkValue(value, key, remove)) {
-						setValue(creator, masterObj, key,
-								creator.getValue(refObject, key));
-					} else if (checkPrio(prio)) {
-						setValue(creator, masterObj, key,
-								creator.getValue(refObject, key));
+					if(value instanceof Collection<?>){
+						JsonObject removeJsonObject=remove.getJsonObject(key);
+//						Collection<?> collection=(Collection<?>) value;
+//						Object removeObj = map.readJson(removeJsonObject);
+						setValue(creator, masterObj, key+IdMap.REMOVE, removeJsonObject);
+//						if(collection.contains(removeObj)){
+//							collection.
+//						}
+//						if (checkValue(value, key, remove)) {
+//							setValue(creator, masterObj, key,
+//									creator.getValue(refObject, key));
+//						} else if (checkPrio(prio)) {
+//							//RESET TO DEFAULTVALUE
+//							setValue(creator, masterObj, key,
+//									creator.getValue(refObject, key));
+//						}
+					}else{
+						if (checkValue(value, key, remove)) {
+							setValue(creator, masterObj, key,
+									creator.getValue(refObject, key));
+						} else if (checkPrio(prio)) {
+							//RESET TO DEFAULTVALUE
+							setValue(creator, masterObj, key,
+									creator.getValue(refObject, key));
+						}
+					}
+					Object removeJsonObject=remove.get(key);
+					if(removeJsonObject!=null && removeJsonObject instanceof JsonObject){
+						JsonObject json=(JsonObject) removeJsonObject;
+						map.sendReceiveMsg(MapUpdateListener.TYP_DELETE, map.readJson(json), json);
 					}
 				}
 				return true;

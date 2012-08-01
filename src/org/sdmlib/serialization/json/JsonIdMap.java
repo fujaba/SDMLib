@@ -288,6 +288,8 @@ public class JsonIdMap extends IdMap{
 			}
 		}else if(jsonObject.get(VALUE)!=null){
 			return jsonObject.get(VALUE);
+		}else if(jsonObject.get(ID)!=null){
+			result = getObject((String) jsonObject.get(ID));
 		}
 		return result;
 	}
