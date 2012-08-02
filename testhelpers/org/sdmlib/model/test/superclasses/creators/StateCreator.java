@@ -26,7 +26,7 @@ public class StateCreator implements SendableEntityCreator
       return ((State) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((State) target).set(attrName, value);
    }

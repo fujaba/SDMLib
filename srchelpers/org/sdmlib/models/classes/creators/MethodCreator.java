@@ -28,7 +28,7 @@ public class MethodCreator implements SendableEntityCreator
       return ((Method) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Method) target).set(attrName, value);
    }

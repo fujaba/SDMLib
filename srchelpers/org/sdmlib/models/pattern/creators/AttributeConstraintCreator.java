@@ -32,7 +32,7 @@ public class AttributeConstraintCreator implements SendableEntityCreator
       return ((AttributeConstraint) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((AttributeConstraint) target).set(attrName, value);
    }

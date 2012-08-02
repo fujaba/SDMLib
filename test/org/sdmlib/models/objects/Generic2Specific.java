@@ -76,7 +76,7 @@ public class Generic2Specific
                // transfer the attributes
                for (GenericAttribute genericAttribute : genericObject.getAttrs())
                {
-                  creatorClass.setValue(specObject, genericAttribute.getName(), genericAttribute.getValue());
+                  creatorClass.setValue(specObject, genericAttribute.getName(), genericAttribute.getValue(), "");
                }
             }
          }
@@ -99,13 +99,13 @@ public class Generic2Specific
          {
             // use set at source object
             SendableEntityCreator srcCreatorClass = jsonIdMap.getCreatorClass(specSrc);
-            srcCreatorClass.setValue(specSrc, genericLink.getTgtLabel(), specTgt);
+            srcCreatorClass.setValue(specSrc, genericLink.getTgtLabel(), specTgt, "");
          }
          else if (genericLink.getSrcLabel() != null)
          {
             // use set at target object
             SendableEntityCreator tgtCreatorClass = jsonIdMap.getCreatorClass(specTgt);
-            tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(), specSrc);
+            tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(), specSrc, "");
          }
       }
       return result;

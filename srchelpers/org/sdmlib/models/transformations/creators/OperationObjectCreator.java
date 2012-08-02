@@ -33,7 +33,7 @@ public class OperationObjectCreator implements SendableEntityCreator
       return ((OperationObject) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((OperationObject) target).set(attrName, value);
    }

@@ -28,7 +28,7 @@ public class PersonCreator implements SendableEntityCreator
       return ((Person) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Person) target).set(attrName, value);
    }

@@ -30,7 +30,7 @@ public class StatementCreator implements SendableEntityCreator
       return ((Statement) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Statement) target).set(attrName, value);
    }

@@ -28,7 +28,7 @@ public class LinkOpCreator implements SendableEntityCreator
       return ((LinkOp) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((LinkOp) target).set(attrName, value);
    }

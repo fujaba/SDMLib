@@ -29,7 +29,7 @@ public class FloorCreator implements SendableEntityCreator
       return ((Floor) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Floor) target).set(attrName, value);
    }

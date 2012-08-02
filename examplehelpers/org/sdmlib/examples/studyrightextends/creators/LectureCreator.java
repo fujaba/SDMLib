@@ -30,7 +30,7 @@ public class LectureCreator implements SendableEntityCreator
       return ((Lecture) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Lecture) target).set(attrName, value);
    }

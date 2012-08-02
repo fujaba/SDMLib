@@ -27,7 +27,7 @@ public class FemaleCreator implements SendableEntityCreator
       return ((Female) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Female) target).set(attrName, value);
    }

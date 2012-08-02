@@ -29,7 +29,7 @@ public class LudoCreator implements SendableEntityCreator
       return ((Ludo) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Ludo) target).set(attrName, value);
    }

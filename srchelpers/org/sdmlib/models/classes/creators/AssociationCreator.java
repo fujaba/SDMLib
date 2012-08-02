@@ -28,7 +28,7 @@ public class AssociationCreator implements SendableEntityCreator
       return ((Association) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Association) target).set(attrName, value);
    }

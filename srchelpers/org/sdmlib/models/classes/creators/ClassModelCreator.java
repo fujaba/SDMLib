@@ -27,7 +27,7 @@ public class ClassModelCreator implements SendableEntityCreator
       return ((ClassModel) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((ClassModel) target).set(attrName, value);
    }

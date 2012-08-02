@@ -30,7 +30,7 @@ public class NodeCreator implements SendableEntityCreator
       return ((Node) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Node) target).set(attrName, value);
    }

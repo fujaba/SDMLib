@@ -29,7 +29,7 @@ public class MatchIsomorphicConstraintCreator implements SendableEntityCreator
       return ((MatchIsomorphicConstraint) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((MatchIsomorphicConstraint) target).set(attrName, value);
    }

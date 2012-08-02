@@ -30,7 +30,7 @@ public class EdgeCreator implements SendableEntityCreator
       return ((Edge) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Edge) target).set(attrName, value);
    }

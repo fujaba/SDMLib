@@ -25,7 +25,7 @@ public class ReverseClassModelTestCreator implements SendableEntityCreator
       return ((ReverseClassModelTest) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((ReverseClassModelTest) target).set(attrName, value);
    }

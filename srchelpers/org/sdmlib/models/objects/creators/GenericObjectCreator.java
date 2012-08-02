@@ -30,7 +30,7 @@ public class GenericObjectCreator implements SendableEntityCreator
       return ((GenericObject) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((GenericObject) target).set(attrName, value);
    }

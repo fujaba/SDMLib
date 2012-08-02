@@ -29,7 +29,7 @@ public class GenericLinkCreator implements SendableEntityCreator
       return ((GenericLink) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((GenericLink) target).set(attrName, value);
    }

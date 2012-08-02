@@ -36,7 +36,7 @@ public class ClazzCreator implements SendableEntityCreator
       return ((Clazz) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Clazz) target).set(attrName, value);
    }

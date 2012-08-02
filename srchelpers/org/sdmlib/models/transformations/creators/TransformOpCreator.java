@@ -29,7 +29,7 @@ public class TransformOpCreator implements SendableEntityCreator
       return ((TransformOp) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((TransformOp) target).set(attrName, value);
    }

@@ -29,7 +29,7 @@ public class StudentCreator implements SendableEntityCreator
       return ((Student) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Student) target).set(attrName, value);
    }

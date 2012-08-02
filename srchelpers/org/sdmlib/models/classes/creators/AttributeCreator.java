@@ -27,7 +27,7 @@ public class AttributeCreator implements SendableEntityCreator
       return ((Attribute) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Attribute) target).set(attrName, value);
    }

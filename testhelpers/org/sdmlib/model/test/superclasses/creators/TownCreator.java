@@ -26,7 +26,7 @@ public class TownCreator implements SendableEntityCreator
       return ((Town) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Town) target).set(attrName, value);
    }

@@ -25,7 +25,7 @@ public class PlaceCreator implements SendableEntityCreator
       return ((Place) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Place) target).set(attrName, value);
    }

@@ -29,7 +29,7 @@ public class DiceCreator implements SendableEntityCreator
       return ((Dice) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Dice) target).set(attrName, value);
    }

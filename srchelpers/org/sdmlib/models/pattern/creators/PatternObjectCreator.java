@@ -34,7 +34,7 @@ public class PatternObjectCreator implements SendableEntityCreator
       return ((PatternObject) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((PatternObject) target).set(attrName, value);
    }

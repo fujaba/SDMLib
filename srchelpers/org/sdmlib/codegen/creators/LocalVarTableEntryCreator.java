@@ -31,7 +31,7 @@ public class LocalVarTableEntryCreator implements SendableEntityCreator
       return ((LocalVarTableEntry) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((LocalVarTableEntry) target).set(attrName, value);
    }

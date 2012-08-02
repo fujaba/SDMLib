@@ -29,7 +29,7 @@ public class ItemCreator implements SendableEntityCreator
       return ((Item) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Item) target).set(attrName, value);
    }

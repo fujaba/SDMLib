@@ -28,7 +28,7 @@ public class UniversityCreator implements SendableEntityCreator
       return ((University) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((University) target).set(attrName, value);
    }

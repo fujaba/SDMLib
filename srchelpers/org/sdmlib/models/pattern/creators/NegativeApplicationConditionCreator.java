@@ -29,7 +29,7 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
       return ((NegativeApplicationCondition) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((NegativeApplicationCondition) target).set(attrName, value);
    }

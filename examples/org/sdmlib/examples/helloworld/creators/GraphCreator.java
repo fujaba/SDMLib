@@ -1,9 +1,8 @@
 package org.sdmlib.examples.helloworld.creators;
 
-import org.sdmlib.examples.helloworld.creators.CreatorCreator;
+import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.helloworld.Graph;
 
 public class GraphCreator implements SendableEntityCreator
 {
@@ -28,7 +27,7 @@ public class GraphCreator implements SendableEntityCreator
       return ((Graph) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Graph) target).set(attrName, value);
    }

@@ -28,7 +28,7 @@ public class GreetingMessageCreator implements SendableEntityCreator
       return ((GreetingMessage) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((GreetingMessage) target).set(attrName, value);
    }

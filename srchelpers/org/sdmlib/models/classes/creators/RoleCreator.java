@@ -30,7 +30,7 @@ public class RoleCreator implements SendableEntityCreator
       return ((Role) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Role) target).set(attrName, value);
    }
