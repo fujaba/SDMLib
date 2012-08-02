@@ -72,7 +72,6 @@ public StringList getRoomNo()
 
    public void findPath(String path, int i)
    {
-      // TODO Auto-generated method stub
       for (Room room : this)
       {
          room.findPath(path, i);
