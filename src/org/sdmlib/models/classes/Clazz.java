@@ -856,7 +856,7 @@ public class Clazz implements PropertyChangeInterface
                   "      return ((entitiyClassName) target).get(attrName);\n" +
                   "   }\n" +
                   "   \n" +
-                  "   public boolean setValue(Object target, String attrName, Object value)\n" +
+                  "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                   "   {\n" +
                   "      return ((entitiyClassName) target).set(attrName, value);\n" +
                   "   }\n" +
