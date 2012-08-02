@@ -51,7 +51,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          {
             Object srcObj = this.getSrc().getCurrentMatch();
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
-            creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch());
+            creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             return true;
          }

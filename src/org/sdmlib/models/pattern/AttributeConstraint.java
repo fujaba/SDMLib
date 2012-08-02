@@ -53,7 +53,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
          {
             Object srcObj = this.getSrc().getCurrentMatch();
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
-            creatorClass.setValue(srcObj, this.getAttrName(), this.getTgtValue());
+            creatorClass.setValue(srcObj, this.getAttrName(), this.getTgtValue(), "");
             this.setHasMatch(true);
             return true;
          }
