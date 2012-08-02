@@ -28,6 +28,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 /**
@@ -88,9 +89,9 @@ public class ReferenceObject {
 	 * @return true, if successful
 	 */
 	public boolean execute(){
-		Object assoc = map.getObject(jsonId);
+		Object assoc = this.map.getObject(this.jsonId);
 		if(assoc!=null){
-			creator.setValue(entity, property, assoc);
+			this.creator.setValue(this.entity, this.property, assoc, MapUpdateListener.TYP_NEW);
 			return true;
 		}
 		return false;
@@ -102,7 +103,7 @@ public class ReferenceObject {
 	 * @return the creater
 	 */
 	public SendableEntityCreator getCreater(){
-		return creator;
+		return this.creator;
 	}
 	
 	/**
@@ -111,7 +112,7 @@ public class ReferenceObject {
 	 * @return the entity
 	 */
 	public Object getEntity(){
-		return entity;
+		return this.entity;
 	}
 	
 	/**
@@ -120,7 +121,7 @@ public class ReferenceObject {
 	 * @return the property
 	 */
 	public String getProperty() {
-		return property;
+		return this.property;
 	}
 	
 	/* (non-Javadoc)
@@ -128,6 +129,6 @@ public class ReferenceObject {
 	 */
 	@Override
 	public String toString() {
-		return property+":"+entity.getClass().getName();
+		return this.property+":"+this.entity.getClass().getName();
 	}
 }

@@ -123,10 +123,10 @@ public class ByteEntity extends Entity{
 	 * @return the children
 	 */
 	public ArrayList<ByteEntity> getChildren() {
-		if(children==null){
-			children=new ArrayList<ByteEntity>();
+		if(this.children==null){
+			this.children=new ArrayList<ByteEntity>();
 		}
-		return children;
+		return this.children;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class ByteEntity extends Entity{
 	 * @return the value
 	 */
 	public byte[] getValue() {
-		return values;
+		return this.values;
 	}
 
 	/**
@@ -154,15 +154,15 @@ public class ByteEntity extends Entity{
 	 */
 	public int cleanUp() {
 		int length=0;
-		if(children!=null){
-			ByteEntity[] valueList=children.toArray(new ByteEntity[children.size()]);
+		if(this.children!=null){
+			ByteEntity[] valueList=this.children.toArray(new ByteEntity[this.children.size()]);
 			boolean notLast=true;
 			for(int i=valueList.length-1;i>=0;i--){
 				int len=0;
 				if(notLast){
 					len=valueList[i].cleanUp();
 					if(len==1){
-						children.remove(valueList[i]);
+						this.children.remove(valueList[i]);
 						len=0;
 					}else{
 						// SET the LastEntity
@@ -214,8 +214,8 @@ public class ByteEntity extends Entity{
 		}else if(getTyp()==ByteIdMap.DATATYPE_CLAZZ){
 			len+=1;
 		}
-		if(values!=null){
-			len+=values.length;
+		if(this.values!=null){
+			len+=this.values.length;
 		}
 		return len;
 	}
@@ -226,7 +226,7 @@ public class ByteEntity extends Entity{
 	 * @return the length
 	 */
 	public int getLength() {
-		return len;
+		return this.len;
 	}
 	
 	/**
@@ -235,7 +235,7 @@ public class ByteEntity extends Entity{
 	 * @return true, if is len check
 	 */
 	public boolean isLenCheck() {
-		return isLenCheck;
+		return this.isLenCheck;
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class ByteEntity extends Entity{
 					setTyp(ref);
 				}
 			}else{
-				int size=len-1;
+				int size=this.len-1;
 				if (size > 32767) {
 					setTyp(getTyp(getTyp(), ByteIdMap.DATATYPE_STRINGBIG));
 				} else if (size > 250) {
@@ -310,6 +310,7 @@ public class ByteEntity extends Entity{
 	/*
 	 * @see de.uni.kassel.peermessage.Entity#toString(int)
 	 */
+	@Override
 	public String toString(int indentFactor) {
 		return toString();
 	}
@@ -317,6 +318,7 @@ public class ByteEntity extends Entity{
 	/*
 	 * @see de.uni.kassel.peermessage.Entity#toString(int, int)
 	 */
+	@Override
 	public String toString(int indentFactor, int intent) {
 		return  toString();
 	}
@@ -328,14 +330,14 @@ public class ByteEntity extends Entity{
 	 */
 	public ByteBuffer getBytes(){
 		int len=calcLength();
-		if(children!=null){
-			for(ByteEntity item : children){
+		if(this.children!=null){
+			for(ByteEntity item : this.children){
 				len+=item.getLength();
 			}
 		}
 		ByteBuffer message = ByteBuffer.allocate(len);
-		message.put(typ);
-		if(isLenCheck){
+		message.put(this.typ);
+		if(this.isLenCheck){
 			// Save the Len
 			if(getTyp()==getTyp(getTyp(), ByteIdMap.DATATYPE_STRINGSHORT)){
 				message.put((byte) (len-2+ByteIdMap.SPLITTER));
@@ -351,14 +353,14 @@ public class ByteEntity extends Entity{
 			}
 		}
 		if(getTyp()==ByteIdMap.DATATYPE_CLAZZ){
-			message.put((byte) (values.length));
+			message.put((byte) (this.values.length));
 		}
 
-		if(values!=null){
-			message.put(values);
+		if(this.values!=null){
+			message.put(this.values);
 		}
-		if(children!=null){
-			for(ByteEntity item : children){
+		if(this.children!=null){
+			for(ByteEntity item : this.children){
 				ByteBuffer child=item.getBytes();
 				child.flip();
 				message.put(child);
@@ -372,22 +374,22 @@ public class ByteEntity extends Entity{
 	 *
 	 * @param creator the creator
 	 * @param entity the entity
-	 * @param referenceObject the reference object
 	 * @param property the property
 	 * @param parent the parent
 	 */
 	public void addChild(SendableEntityCreator creator, Object entity,
-			Object referenceObject, String property, ByteIdMap parent) {
+			String property, ByteFilter filter) {
 		Object valueTyp = creator.getValue(entity, property);
 		if (valueTyp == null) {
 			getChildren().add(new ByteEntity(ByteIdMap.DATATYPE_NULL));
 		} else{
+			Object referenceObject=creator.getSendableInstance(true);
 			Object referenceTyp = creator.getValue(referenceObject,
 					property);
 			if (valueTyp.equals(referenceTyp)) {
 				getChildren().add(new ByteEntity(ByteIdMap.DATATYPE_NULL));
 			}else{
-				getChildren().add(encodingDataType(valueTyp, parent));
+				getChildren().add(encodingDataType(valueTyp, filter.getMap()));
 				
 			}
 		}
@@ -560,7 +562,7 @@ public class ByteEntity extends Entity{
 				this.isLenCheck=true;
 			}
 			buffer.flip();
-			values=buffer.array();
+			this.values=buffer.array();
 		}
 	}
 
@@ -570,7 +572,7 @@ public class ByteEntity extends Entity{
 	 * @return the typ
 	 */
 	public byte getTyp() {
-		return typ;
+		return this.typ;
 	}
 
 	/**
@@ -588,7 +590,7 @@ public class ByteEntity extends Entity{
 	 * @return true, if is dynamic
 	 */
 	public boolean isDynamic() {
-		return isDynamic;
+		return this.isDynamic;
 	}
 
 	/**
@@ -600,14 +602,14 @@ public class ByteEntity extends Entity{
 		boolean oldValue=this.isDynamic;
 		this.isDynamic = isDynamic;
 		if(oldValue!=this.isDynamic){
-			if(isDynamic&&values!=null){
-				ByteBuffer buffer=ByteBuffer.wrap(values);
-				if(typ==ByteIdMap.DATATYPE_SHORT){
-					setValues(typ, buffer.getShort(), null);
-				}else if(typ==ByteIdMap.DATATYPE_INTEGER){
-					setValues(typ, buffer.getInt(), null);
-				}else if(typ==ByteIdMap.DATATYPE_LONG){
-					setValues(typ, buffer.getLong(), null);
+			if(isDynamic&&this.values!=null){
+				ByteBuffer buffer=ByteBuffer.wrap(this.values);
+				if(this.typ==ByteIdMap.DATATYPE_SHORT){
+					setValues(this.typ, new Short(buffer.getShort()), null);
+				}else if(this.typ==ByteIdMap.DATATYPE_INTEGER){
+					setValues(this.typ, new Integer(buffer.getInt()), null);
+				}else if(this.typ==ByteIdMap.DATATYPE_LONG){
+					setValues(this.typ, new Long(buffer.getLong()), null);
 				}
 			}else{
 				// Zurueckformen nicht m�glich da keine Infos vorliegen

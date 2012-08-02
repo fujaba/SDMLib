@@ -82,7 +82,7 @@ public class CloneFilter extends IdMapFilter{
 	 * @return true, if successful
 	 */
 	public boolean hasObject(Object objects){
-		return assocs.containsKey(objects);
+		return this.assocs.containsKey(objects);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class CloneFilter extends IdMapFilter{
 	 * @return the object
 	 */
 	public Object getObject(Object objects){
-		return assocs.get(objects);
+		return this.assocs.get(objects);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class CloneFilter extends IdMapFilter{
 	 * @return the typ
 	 */
 	public int getTyp() {
-		return typ;
+		return this.typ;
 	}
 
 	/**

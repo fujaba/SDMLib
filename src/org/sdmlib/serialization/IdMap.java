@@ -33,8 +33,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.sdmlib.serialization.interfaces.IdMapCounter;
+import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.UpdateListener;
 
 /**
  * The Class IdMap.
@@ -74,9 +76,9 @@ public class IdMap {
 	 * Instantiates a new id map.
 	 */
 	public IdMap() {
-		keys = new HashMap<Object, String>();
-		values = new HashMap<String, Object>();
-		creators = new HashMap<String, SendableEntityCreator>();
+		this.keys = new HashMap<Object, String>();
+		this.values = new HashMap<String, Object>();
+		this.creators = new HashMap<String, SendableEntityCreator>();
 	}
 
 	/**
@@ -103,10 +105,10 @@ public class IdMap {
 	 * @return the counter
 	 */
 	public IdMapCounter getCounter() {
-		if (counter == null) {
-			counter = new SimpleIdCounter();
+		if (this.counter == null) {
+			this.counter = new SimpleIdCounter();
 		}
-		return counter;
+		return this.counter;
 	}
 
 	/**
@@ -135,10 +137,10 @@ public class IdMap {
 	 * @return the key
 	 */
 	public String getKey(Object obj) {
-		if (parent != null) {
-			return parent.getKey(obj);
+		if (this.parent != null) {
+			return this.parent.getKey(obj);
 		}
-		return keys.get(obj);
+		return this.keys.get(obj);
 	}
 
 	/**
@@ -148,10 +150,10 @@ public class IdMap {
 	 * @return the object
 	 */
 	public Object getObject(String key) {
-		if (parent != null) {
-			return parent.getObject(key);
+		if (this.parent != null) {
+			return this.parent.getObject(key);
 		}
-		return values.get(key);
+		return this.values.get(key);
 	}
 
 	/**
@@ -164,10 +166,10 @@ public class IdMap {
 		if (!getCounter().isId()) {
 			return "";
 		}
-		if (parent != null) {
-			return parent.getId(obj);
+		if (this.parent != null) {
+			return this.parent.getId(obj);
 		}
-		String key = keys.get(obj);
+		String key = this.keys.get(obj);
 		if (key == null) {
 			key = getCounter().getId(obj);
 			put(key, obj);
@@ -182,11 +184,11 @@ public class IdMap {
 	 * @param object the object
 	 */
 	public void put(String jsonId, Object object) {
-		if (parent != null) {
-			parent.put(jsonId, object);
+		if (this.parent != null) {
+			this.parent.put(jsonId, object);
 		} else {
-			values.put(jsonId, object);
-			keys.put(object, jsonId);
+			this.values.put(jsonId, object);
+			this.keys.put(object, jsonId);
 			addListener(object);
 		}
 	}
@@ -195,7 +197,7 @@ public class IdMap {
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
 		}
-		return updateListener;
+		return this.updateListener;
 	}
 	/**
 	 * @param check for add Listener to object 
@@ -216,13 +218,13 @@ public class IdMap {
 	 * @return true, if successful
 	 */
 	public boolean remove(Object oldValue) {
-		if (parent != null) {
-			return parent.remove(oldValue);
+		if (this.parent != null) {
+			return this.parent.remove(oldValue);
 		}
 		String key = getKey(oldValue);
 		if (key != null) {
-			keys.remove(oldValue);
-			values.remove(key);
+			this.keys.remove(oldValue);
+			this.values.remove(key);
 			return true;
 		}
 		return false;
@@ -234,10 +236,10 @@ public class IdMap {
 	 * @return the int
 	 */
 	public int size() {
-		if (parent != null) {
-			return parent.size();
+		if (this.parent != null) {
+			return this.parent.size();
 		}
-		return keys.size();
+		return this.keys.size();
 	}
 
 	/**
@@ -247,10 +249,10 @@ public class IdMap {
 	 * @return the creator classes
 	 */
 	public SendableEntityCreator getCreatorClasses(String className) {
-		if (parent != null) {
-			return parent.getCreatorClasses(className);
+		if (this.parent != null) {
+			return this.parent.getCreatorClasses(className);
 		}
-		return creators.get(className);
+		return this.creators.get(className);
 	}
 
 	/**
@@ -291,19 +293,19 @@ public class IdMap {
 			for (String property : properties) {
 				Object value = creatorClass.getValue(reference, property);
 				if(filter.getTyp()==CloneFilter.SIMPLE){
-					creatorClass.setValue(newObject, property, value);
+					creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
 				} else if (value instanceof Collection<?>) {
 					if(filter.getTyp()==CloneFilter.FULL){
 						Collection<?> list = (Collection<?>) value;
 						for (Object item : list) {
 							if(filter.hasObject(item)){
 								creatorClass.setValue(newObject, property,
-										filter.getObject(item));
+										filter.getObject(item), MapUpdateListener.TYP_NEW);
 							} else {
 								SendableEntityCreator childCreatorClass = getCreatorClass(item);
 								if (childCreatorClass != null) {
 									if(!filter.isConvertable(this, item, property, value, true)){
-										creatorClass.setValue(newObject, property, item);
+										creatorClass.setValue(newObject, property, item, MapUpdateListener.TYP_NEW);
 									}else{
 										int oldDeep=filter.setDeep(filter.getDeep()-1);
 										cloneObject(item, filter);
@@ -311,22 +313,22 @@ public class IdMap {
 									}
 								}else{
 									creatorClass.setValue(newObject, property,
-											item);
+											item, MapUpdateListener.TYP_NEW);
 								}
 							}
 						}
 					} else {
-						creatorClass.setValue(newObject, property, value);
+						creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
 					}
 				} else {
 					if(filter.hasObject(value)){
 						creatorClass.setValue(newObject, property,
-								filter.getObject(value));
+								filter.getObject(value), MapUpdateListener.TYP_NEW);
 					} else {
 						SendableEntityCreator childCreatorClass = getCreatorClass(value);
 						if (childCreatorClass != null) {
 							if(!filter.isConvertable(this, value, property, value, false)){
-								creatorClass.setValue(newObject, property, value);
+								creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
 							}else{
 								int oldDeep=filter.setDeep(filter.getDeep()-1);
 								cloneObject(value, filter);
@@ -334,7 +336,7 @@ public class IdMap {
 							}
 						}else{
 							creatorClass.setValue(newObject, property,
-									value);
+									value, MapUpdateListener.TYP_NEW);
 						}
 					}
 				}
@@ -350,16 +352,15 @@ public class IdMap {
 	 * @return true, if successful
 	 */
 	public boolean addCreator(SendableEntityCreator createrClass) {
-		if (parent != null) {
-			return parent.addCreator(createrClass);
-		} else {
-			Object reference = createrClass.getSendableInstance(true);
-			if(reference == null){
-				return false;
-			}
-			addCreator(reference.getClass().getName(), createrClass);
-			return true;
+		if (this.parent != null) {
+			return this.parent.addCreator(createrClass);
+		} 
+		Object reference = createrClass.getSendableInstance(true);
+		if(reference == null){
+			return false;
 		}
+		addCreator(reference.getClass().getName(), createrClass);
+		return true;
 	}
 	
 	/**
@@ -370,7 +371,7 @@ public class IdMap {
 	 */
 	public void addCreator(String className, SendableEntityCreator creator)
 	{
-	   creators.put(className, creator);
+	   this.creators.put(className, creator);
 	}
 
 	
@@ -383,7 +384,7 @@ public class IdMap {
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
 		}
-		updateListener.startGarbageColection(root);
+		this.updateListener.startGarbageColection(root);
 	}
 	
 	/**
@@ -395,10 +396,11 @@ public class IdMap {
 		if (this.updateListener == null) {
 			this.updateListener = new UpdateListener(this);
 		}
-		updateListener.garbageCollection(root);
+		this.updateListener.garbageCollection(root);
 	}
 	
 	public void garbageCollection(Set<String> classCounts) {
+		// Must be override
 	}
 	public Object startUpdateModell(String clazz){
 		SendableEntityCreator creator=getCreatorClasses(clazz);

@@ -38,7 +38,7 @@ import java.util.ListIterator;
 /**
  * The Class EntityList.
  */
-public abstract class EntityList extends BaseEntity{
+public abstract class EntityList extends BaseEntity implements List<Object>{
 	protected ArrayList<Object> values;
 
 	public EntityList(){
@@ -68,10 +68,10 @@ public abstract class EntityList extends BaseEntity{
 	 * The arrayList where the EntityList's properties are kept.
 	 */
 	public List<Object> getElements(){
-		if(values==null){
-			values=new ArrayList<Object>();
+		if(this.values==null){
+			this.values=new ArrayList<Object>();
 		}
-		return values;
+		return this.values;
 	}
 	/**
 	 * Get the object value associated with an index.
@@ -82,6 +82,7 @@ public abstract class EntityList extends BaseEntity{
 	 * @throws RuntimeException
 	 *             If there is no value for the index.
 	 */
+	@Override
 	public Object get(int index) throws RuntimeException {
 		Object object = getElements().get(index);
 		if (object == null) {
@@ -394,6 +395,7 @@ public abstract class EntityList extends BaseEntity{
 	 * @return The value that was associated with the index, or null if there
 	 *         was no value.
 	 */
+	@Override
 	public Object remove(int index) {
 		Object o = get(index);
 		getElements().remove(index);
@@ -401,6 +403,7 @@ public abstract class EntityList extends BaseEntity{
 	}
 	public abstract String toString(int indentFactor);
 	public abstract String toString(int indentFactor, int intent);
+	@Override
 	public abstract String toString();
 	
 
@@ -409,6 +412,7 @@ public abstract class EntityList extends BaseEntity{
 	 * 
 	 * @return The length (or size).
 	 */
+	@Override
 	public int size() {
 		return getElements().size();
 	}
@@ -418,82 +422,102 @@ public abstract class EntityList extends BaseEntity{
 	 * 
 	 * @return boolean of size
 	 */
+	@Override
 	public boolean isEmpty() {
 		return getElements().size()<1;
 	}
 
+	@Override
 	public boolean contains(Object o) {
 		return getElements().contains(o);
 	}
 
+	@Override
 	public Iterator<Object> iterator() {
 		return getElements().iterator();
 	}
 
+	@Override
 	public Object[] toArray() {
 		return getElements().toArray();
 	}
 
+	@Override
 	public <T> T[] toArray(T[] a) {
 		return getElements().toArray(a);
 	}
 
+	@Override
 	public boolean add(Object e) {
 		return getElements().add(e);
 	}
 
+	@Override
 	public boolean remove(Object o) {
 		return getElements().remove(o);
 	}
 
+	@Override
 	public boolean containsAll(Collection<?> c) {
 		return getElements().containsAll(c);
 	}
 
+	@Override
 	public boolean addAll(Collection<? extends Object> c) {
 		return getElements().addAll(c);
 	}
 
+	@Override
 	public boolean addAll(int index, Collection<? extends Object> c) {
 		return getElements().addAll(index, c);
 	}
 
+	@Override
 	public boolean removeAll(Collection<?> c) {
 		return getElements().removeAll(c);
 	}
 
+	@Override
 	public boolean retainAll(Collection<?> c) {
 		return getElements().retainAll(c);
 	}
 
+	@Override
 	public void clear() {
 		getElements().clear();
 	}
 
+	@Override
 	public Object set(int index, Object element) {
 		return getElements().set(index, element);
 	}
 
+	@Override
 	public void add(int index, Object element) {
 		getElements().add(index, element);
 	}
 
+	@Override
 	public int indexOf(Object o) {
 		return getElements().indexOf(o);
 	}
 
+	@Override
 	public int lastIndexOf(Object o) {
 		return getElements().lastIndexOf(o);
 	}
 
+	@Override
 	public ListIterator<Object> listIterator() {
 		return getElements().listIterator();
 	}
 
+	@Override
 	public ListIterator<Object> listIterator(int index) {
 		return getElements().listIterator(index);
 	}
 
+	@Override
 	public List<Object> subList(int fromIndex, int toIndex) {
 		return getElements().subList(fromIndex, toIndex);
 	}

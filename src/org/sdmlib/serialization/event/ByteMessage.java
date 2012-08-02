@@ -58,6 +58,7 @@ public class ByteMessage implements PeerMessage {
 	/*
 	 * Generic Getter for Attributes
 	 */
+	@Override
 	public Object get(String attrName) {
 		String attribute;
 		int pos = attrName.indexOf(".");
@@ -67,7 +68,7 @@ public class ByteMessage implements PeerMessage {
 			attribute = attrName;
 		}
 		if (attribute.equalsIgnoreCase(PROPERTY_VALUE)) {
-			return value;
+			return this.value;
 		}
 		return null;
 	}
@@ -75,6 +76,7 @@ public class ByteMessage implements PeerMessage {
 	/*
 	 * Generic Setter for Attributes
 	 */
+	@Override
 	public boolean set(String attribute, Object value) {
 		if (attribute.equalsIgnoreCase(PROPERTY_VALUE)) {
 			setValue((byte[]) value);
@@ -89,7 +91,7 @@ public class ByteMessage implements PeerMessage {
 	 * @return the value
 	 */
 	public byte[] getValue() {
-		return value;
+		return this.value;
 	}
 
 	/**

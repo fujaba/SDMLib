@@ -33,5 +33,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Id of the serialized elements
  */
 public interface NoIndexCreator {
-
+	// Nothing
 }

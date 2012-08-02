@@ -41,13 +41,15 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	/* 
 	 * return the Properties
 	 */
+	@Override
 	public String[] getProperties() {
-		return properties;
+		return this.properties;
 	}
 
 	/* 
 	 * Create new Instance of BasicMessage
 	 */
+	@Override
 	public Object getSendableInstance(boolean reference) {
 		return new BasicMessage();
 	}
@@ -55,6 +57,7 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	/* 
 	 * Get the EventTyp of BasicMessage (0x42)
 	 */
+	@Override
 	public byte getEventTyp() {
 		return 0x42;
 	}
@@ -62,6 +65,7 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	/*
 	 * Getter for BasicMessage
 	 */
+	@Override
 	public Object getValue(Object entity, String attribute) {
 		return ((BasicMessage) entity).get(attribute);
 	}
@@ -69,7 +73,8 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	/*
 	 * Setter for BasicMessage
 	 */
-	public boolean setValue(Object entity, String attribute, Object value) {
+	@Override
+	public boolean setValue(Object entity, String attribute, Object value, String typ) {
 		return ((BasicMessage) entity).set(attribute, value);
 	}
 }

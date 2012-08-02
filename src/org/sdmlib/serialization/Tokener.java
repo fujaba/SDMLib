@@ -65,7 +65,7 @@ public abstract class Tokener {
      * the next number or identifier.
      */
     public void back()  {
-        if (index <= 0) {
+        if (this.index <= 0) {
             throw new RuntimeException("Stepping back two steps is not supported");
         }
         this.index -= 1;
@@ -98,7 +98,7 @@ public abstract class Tokener {
      * @return true, if successful
      */
     public boolean isEnd() {
-    	return buffer.length()<=index;
+    	return this.buffer.length()<=this.index;
     }
 
 
@@ -109,16 +109,16 @@ public abstract class Tokener {
      */
     public char next()  {
     	char c;
-    	if(index>=buffer.length())
+    	if(this.index>=this.buffer.length())
         {
     		c=0;
         }else{
-        	c= buffer.charAt(index);
+        	c= this.buffer.charAt(this.index);
         }
     	this.index += 1;
     	char last = 0;
-    	if(index<buffer.length()){
-    		last=buffer.charAt(index-1);
+    	if(this.index<this.buffer.length()){
+    		last=this.buffer.charAt(this.index-1);
     	}
     	if (last == '\r') {
     		this.line += 1;
@@ -139,7 +139,7 @@ public abstract class Tokener {
      */
     public int nextPos()  {
     	next();
-    	return index;
+    	return this.index;
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class Tokener {
      */
      public String getNextString(int n)  {
     	 if (n == -1) {
-    		n=buffer.length()-index; 
+    		n=this.buffer.length()-this.index; 
     	 } else if (n == 0) {
              return "";
          }
@@ -176,7 +176,7 @@ public abstract class Tokener {
      * @return  A character, or 0 if there are no more characters.
      */
     public char nextClean()  {
-        for (;;) {
+        for(;;) {
             char c = next();
             if (c == 0 || c > ' ') {
                 return c;
@@ -198,7 +198,7 @@ public abstract class Tokener {
     public String nextString(char quote)  {
         char c;
         StringBuffer sb = new StringBuffer();
-        for (;;) {
+        for(;;) {
             c = next();
             switch (c) {
             case 0:
@@ -293,9 +293,9 @@ public abstract class Tokener {
      */
     public boolean stepPos(char... character) {
 		boolean exit = false;
-		while (index < buffer.length() && !exit) {
+		while (this.index < this.buffer.length() && !exit) {
 			for (char zeichen : character) {
-				if (buffer.charAt(index) == zeichen) {
+				if (this.buffer.charAt(this.index) == zeichen) {
 					exit = true;
 					break;
 				}
@@ -317,8 +317,8 @@ public abstract class Tokener {
 		boolean exit = false;
 		int strLen=searchString.length();
 		int z=0;
-		while (index < buffer.length() && !exit) {
-			if (buffer.charAt(index) == searchString.charAt(z)) {
+		while (this.index < this.buffer.length() && !exit) {
+			if (this.buffer.charAt(this.index) == searchString.charAt(z)) {
 					z++;
 					if(z>=strLen){
 						exit = true;
@@ -343,9 +343,9 @@ public abstract class Tokener {
 	 */
 	public boolean stepPosButNot(char not, char... character) {
 		boolean exit = false;
-		while (index < buffer.length() && !exit) {
+		while (this.index < this.buffer.length() && !exit) {
 			for (char zeichen : character) {
-				if (buffer.charAt(index) == zeichen&& buffer.charAt(index-1)!=not) {
+				if (this.buffer.charAt(this.index) == zeichen&& this.buffer.charAt(this.index-1)!=not) {
 					exit = true;
 					break;
 				}
@@ -373,7 +373,7 @@ public abstract class Tokener {
      * @return the index
      */
     public int getIndex(){
-    	return index;
+    	return this.index;
     }
     
     /**
@@ -382,7 +382,7 @@ public abstract class Tokener {
      * @return the length
      */
     public int getLength(){
-    	return buffer.length();
+    	return this.buffer.length();
     }
 
 
@@ -391,8 +391,9 @@ public abstract class Tokener {
      *
      * @return " at {index} [character {character} line {line}]"
      */
-    public String toString() {
-        return " at " + index + " [character " + this.character + " line " + 
+    @Override
+	public String toString() {
+        return " at " + this.index + " [character " + this.character + " line " + 
         	this.line + "]";
     }
     
@@ -403,7 +404,7 @@ public abstract class Tokener {
      * @return the char
      */
     public char charAt(int pos){
-    	return buffer.charAt(pos);
+    	return this.buffer.charAt(pos);
     }
     
     /**
@@ -412,8 +413,8 @@ public abstract class Tokener {
      * @return the current char
      */
     public char getCurrentChar(){
-    	if(index<buffer.length()){
-    		return buffer.charAt(index);
+    	if(this.index<this.buffer.length()){
+    		return this.buffer.charAt(this.index);
     	}
     	return 0;
     }
@@ -425,7 +426,7 @@ public abstract class Tokener {
      * @return the string
      */
     public String getPreviousString(int start){
-    	return buffer.substring(start, index);
+    	return this.buffer.substring(start, this.index);
     }
     
     /**
@@ -437,9 +438,9 @@ public abstract class Tokener {
      */
     public String substring(int start, int end){
     	if(end==-1){
-    		return buffer.substring(start);
+    		return this.buffer.substring(start);
     	}
-    	return buffer.substring(start, end);
+    	return this.buffer.substring(start, end);
     }
     
     /**
@@ -449,8 +450,8 @@ public abstract class Tokener {
      * @return true, if successful
      */
     public boolean checkValues(char... items){
-    	char current=buffer.charAt(index);
-    	for(char item : items){
+    	char current=this.buffer.charAt(this.index);
+    	for (char item : items){
     		if(current==item){
     			return false;
     		}

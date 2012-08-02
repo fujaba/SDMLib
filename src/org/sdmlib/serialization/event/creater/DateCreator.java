@@ -44,6 +44,7 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	/*
 	 * return the Properties
 	 */
+	@Override
 	public String[] getProperties() {
 		return new String[]{VALUE};
 	}
@@ -51,6 +52,7 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	/*
 	 * Create new Instance of Date
 	 */
+	@Override
 	public Object getSendableInstance(boolean reference) {
 		return new Date();
 	}
@@ -58,9 +60,10 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	/*
 	 * Getter for java.util.Date
 	 */
+	@Override
 	public Object getValue(Object entity, String attribute) {
 		if(VALUE.equals(attribute)){
-			return ((Date)entity).getTime();
+			return new Long(((Date)entity).getTime());
 		}
 		return null;
 	}
@@ -68,9 +71,10 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	/*
 	 * Setter for java.util.Date
 	 */
-	public boolean setValue(Object entity, String attribute, Object value) {
+	@Override
+	public boolean setValue(Object entity, String attribute, Object value, String typ) {
 		if(VALUE.equals(attribute)){
-			((Date)entity).setTime((Long) value);;
+			((Date)entity).setTime((Long) value);
 			return true;
 		}
 		return false;

@@ -58,8 +58,9 @@ public class BasicMessage implements PeerMessage {
 	}
 
 	/*
-	 * Generic Getter for Attributes
+	 * Generic Getter for Attribute
 	 */
+	@Override
 	public Object get(String attrName) {
 		String attribute;
 		int pos = attrName.indexOf(".");
@@ -77,6 +78,7 @@ public class BasicMessage implements PeerMessage {
 	/*
 	 * Generic Setter for Attribute
 	 */
+	@Override
 	public boolean set(String attribute, Object value) {
 		if (attribute.equalsIgnoreCase(PROPERTY_VALUE)) {
 			setValue((String) value);
@@ -91,7 +93,7 @@ public class BasicMessage implements PeerMessage {
 	 * @return the value
 	 */
 	public String getValue() {
-		return value;
+		return this.value;
 	}
 
 	/**

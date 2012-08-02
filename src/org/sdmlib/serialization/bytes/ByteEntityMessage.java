@@ -60,8 +60,9 @@ public class ByteEntityMessage extends ByteEntity{
 	/*
 	 * @see de.uni.kassel.peermessage.bytes.ByteEntity#setLenCheck(boolean)
 	 */
+	@Override
 	public boolean setLenCheck(boolean isLenCheck) {
-		if(!isFixed){
+		if(!this.isFixed){
 			this.isLenCheck = isLenCheck;
 			return true;
 		}
@@ -85,7 +86,7 @@ public class ByteEntityMessage extends ByteEntity{
 	 */
 	public void setMsgTyp(String className) {
 		this.typ=ByteIdMap.DATATYPE_CLAZZ;
-		values=className.getBytes();
+		this.values=className.getBytes();
 	}
 	
 	/**
@@ -95,7 +96,7 @@ public class ByteEntityMessage extends ByteEntity{
 	 */
 	public void setFullMsg(String message){
 		this.values=message.getBytes();
-		isFixed=true;
+		this.isFixed=true;
 	}
 	
 	/* 
@@ -103,15 +104,16 @@ public class ByteEntityMessage extends ByteEntity{
 	 */
 	@Override
 	public void addChild(SendableEntityCreator creator, Object entity,
-			Object referenceObject, String property, ByteIdMap parent) {
-		if(!isFixed){
-			super.addChild(creator, entity, referenceObject, property,parent);
+			String property, ByteFilter filter) {
+		if(!this.isFixed){
+			super.addChild(creator, entity, property, filter);
 		}
 	}
 	
 	/*
 	 * @see de.uni.kassel.peermessage.bytes.ByteEntity#getBytes()
 	 */
+	@Override
 	public ByteBuffer getBytes(){
 		ByteBuffer bytes = super.getBytes();
 		bytes.flip();

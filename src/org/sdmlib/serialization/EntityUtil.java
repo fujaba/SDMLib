@@ -164,11 +164,11 @@ public class EntityUtil {
 					Long myLong = new Long(string);
 					if (myLong.longValue() == myLong.intValue()) {
 						return new Integer(myLong.intValue());
-					} else {
-						return myLong;
 					}
+					return myLong;
 				}
 			}  catch (Exception ignore) {
+				// DO nothing
 			}
 		}
 		return string;
@@ -326,7 +326,6 @@ public class EntityUtil {
 
 			if (object instanceof Entity
 					|| object instanceof EntityList
-					|| object == null
 					|| object instanceof Byte || object instanceof Character
 					|| object instanceof Short || object instanceof Integer
 					|| object instanceof Long || object instanceof Boolean
@@ -348,6 +347,7 @@ public class EntityUtil {
                 return object.toString();
             }
         } catch(Exception exception) {
+        	// DO Nothing
         }
         return null; 
 	}

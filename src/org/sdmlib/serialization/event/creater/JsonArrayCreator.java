@@ -7,7 +7,7 @@ public class JsonArrayCreator implements SendableEntityCreator{
 	private final String[] properties= new String[]{"VALUE"};
 	@Override
 	public String[] getProperties() {
-		return properties;
+		return this.properties;
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class JsonArrayCreator implements SendableEntityCreator{
 	}
 
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value) {
+	public boolean setValue(Object entity, String attribute, Object value, String typ) {
 		return ((JsonArray)entity).setAllValue((String) value);
 	}
 

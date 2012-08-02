@@ -53,6 +53,7 @@ public class SimpleIdCounter implements IdMapCounter{
 	/** 
 	 * Set the Session Prefix for a Peer
 	 */
+	@Override
 	public void setPrefixId(String sessionId) {
 		this.prefixId = sessionId;
 	}
@@ -60,6 +61,7 @@ public class SimpleIdCounter implements IdMapCounter{
 	/** 
 	 * Get a new Id
 	 */
+	@Override
 	public String getId(Object obj) {
 		String key;
 
@@ -72,39 +74,41 @@ public class SimpleIdCounter implements IdMapCounter{
 		}
 		String className = obj.getClass().getName();
 		char firstChar = className.charAt(className.lastIndexOf(".") + 1);
-		if (prefixId != null) {
-			key = prefixId + splitter + firstChar + number;
+		if (this.prefixId != null) {
+			key = this.prefixId + this.splitter + firstChar + this.number;
 		} else {
-			key = "" + firstChar + number;
+			key = "" + firstChar + this.number;
 		}
-		number++;
+		this.number++;
 		return key;
 	}
 
 	/**
 	 * Read a Id from jsonString
 	 */
+	@Override
 	public void readId(String jsonId) {
 		// adjust number to be higher than read numbers
-		String[] split = jsonId.split("\\"+splitter);
+		String[] split = jsonId.split("\\"+this.splitter);
 
 		if (split.length != 2) {
 			throw new RuntimeException("jsonid " + jsonId
-					+ " should have one "+splitter+" in its middle");
+					+ " should have one "+this.splitter+" in its middle");
 		}
-		if (prefixId.equals(split[0])) {
+		if (this.prefixId.equals(split[0])) {
 			String oldNumber = split[1].substring(1);
 			long oldInt = Long.parseLong(oldNumber);
-			if (oldInt >= number) {
-				number = oldInt + 1;
+			if (oldInt >= this.number) {
+				this.number = oldInt + 1;
 			}
 		}
 	}
 
 	public char getSplitter() {
-		return splitter;
+		return this.splitter;
 	}
 
+	@Override
 	public void setSplitter(char splitter) {
 		this.splitter = splitter;
 	}
@@ -114,8 +118,9 @@ public class SimpleIdCounter implements IdMapCounter{
 	 *
 	 * @return the prio
 	 */
+	@Override
 	public Object getPrio() {
-		return prio;
+		return this.prio;
 	}
 
 	/**
@@ -132,8 +137,9 @@ public class SimpleIdCounter implements IdMapCounter{
 	 *
 	 * @return true, if is id
 	 */
+	@Override
 	public boolean isId() {
-		return isId;
+		return this.isId;
 	}
 
 	@Override

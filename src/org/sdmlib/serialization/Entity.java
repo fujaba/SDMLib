@@ -40,10 +40,10 @@ public abstract class Entity extends BaseEntity{
 	 */
 	private Map<String, Object> map;
 	protected Map<String, Object> getMap(){
-		if(map==null){
-			map=new LinkedHashMap<String, Object>();
+		if(this.map==null){
+			this.map=new LinkedHashMap<String, Object>();
 		}
-		return map;
+		return this.map;
 	}
 
 	/**
@@ -270,7 +270,7 @@ public abstract class Entity extends BaseEntity{
 		String[] names = new String[length];
 		int i = 0;
 		while (keys.hasNext()) {
-			names[i] = (String)keys.next();
+			names[i] = keys.next();
 			i += 1;
 		}
 		return names;
@@ -287,6 +287,8 @@ public abstract class Entity extends BaseEntity{
 		Object object = this.get(key);
 		if (object instanceof String) {
 			return (String)object;
+		}else if (object instanceof Entity) {
+			return object.toString();
 		}
 		throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] not a string.");
 	}
@@ -343,7 +345,7 @@ public abstract class Entity extends BaseEntity{
 	 * @return The number of keys in the Entity.
 	 */
 	public int size() {
-		if(map==null){
+		if(this.map==null){
 			return 0;
 		}
 		return this.map.size();
@@ -487,6 +489,7 @@ public abstract class Entity extends BaseEntity{
 	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 */
+	@Override
 	public abstract String toString();
 	/**
 	 * Make a prettyprinted Text of this Entity.

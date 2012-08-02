@@ -66,5 +66,5 @@ public interface SendableEntityCreator {
 	 * @param value the value
 	 * @return true, if successful
 	 */
-	public boolean setValue(Object entity, String attribute, Object value);
+	public boolean setValue(Object entity, String attribute, Object value, String type);
 }

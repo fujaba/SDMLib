@@ -101,7 +101,7 @@ public class IdMapFilter {
 	 * @return the deep
 	 */
 	public int getDeep() {
-		return deep;
+		return this.deep;
 	}
 	
 	/**
@@ -111,13 +111,13 @@ public class IdMapFilter {
 	 * @return the int
 	 */
 	public int setDeep(int value) {
-		int oldValue = deep;
+		int oldValue = this.deep;
 		if(value==DEEPER){
-			if (deep != ALLDEEP) {
-				deep = deep - 1;
+			if (this.deep != ALLDEEP) {
+				this.deep = this.deep - 1;
 			}
 		}else{
-			deep=value;
+			this.deep=value;
 		}
 		return oldValue;
 	}
@@ -127,7 +127,7 @@ public class IdMapFilter {
 	 * @return true, if is simple check
 	 */
 	public boolean isFullSerialization() {
-		return fullSerialization;
+		return this.fullSerialization;
 	}
 
 	/**
@@ -138,6 +138,6 @@ public class IdMapFilter {
 	 */
 	public boolean setFullSerialization(boolean serialization) {
 		this.fullSerialization = serialization;
-		return fullSerialization;
+		return this.fullSerialization;
 	}
 }
