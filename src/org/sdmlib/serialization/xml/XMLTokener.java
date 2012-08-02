@@ -43,6 +43,7 @@ public class XMLTokener extends Tokener{
      *
      * @return An object.
      */
+	@Override
 	public Object nextValue(BaseEntity creator) {
         char c = nextClean();
         
@@ -55,11 +56,14 @@ public class XMLTokener extends Tokener{
             Entity element = creator.getNewObject();
             parseToEntity(element);
             return element;
+		default:
+			break;
         }
     	back();
         return super.nextValue(creator);
     }
 	
+	@Override
 	public void parseToEntity(Entity entity) {
         char c;
         
@@ -127,7 +131,8 @@ public class XMLTokener extends Tokener{
         }		
 	}
 
+	@Override
 	public void parseToEntity(EntityList entityList) {
-		
+		// Do Nothing
 	}
 }

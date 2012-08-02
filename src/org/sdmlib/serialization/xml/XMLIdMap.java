@@ -38,6 +38,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
@@ -97,26 +98,27 @@ public class XMLIdMap extends IdMap {
 	 * Inits the.
 	 */
 	private void init(){
-		stopwords.add("?xml");
-		stopwords.add("!--");
-		stopwords.add("!DOCTYPE");
+		this.stopwords.add("?xml");
+		this.stopwords.add("!--");
+		this.stopwords.add("!DOCTYPE");
 		getCounter().setId(false);
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.sdmlib.serialization.IdMap#addCreator(org.sdmlib.serialization.interfaces.SendableEntityCreator)
 	 */
+	@Override
 	public boolean addCreator(SendableEntityCreator createrClass) {
 		boolean result=super.addCreator(createrClass);
-		if (decoderMap == null) {
-			decoderMap = new HashMap<String, XMLEntityCreator>();
+		if (this.decoderMap == null) {
+			this.decoderMap = new HashMap<String, XMLEntityCreator>();
 		}
 		if(createrClass instanceof XMLEntityCreator){
 			XMLEntityCreator xmlCreator=(XMLEntityCreator) createrClass;
-			if (decoderMap.containsKey(xmlCreator.getTag())) {
+			if (this.decoderMap.containsKey(xmlCreator.getTag())) {
 				return false;
 			}
-			decoderMap.put(xmlCreator.getTag(), xmlCreator);
+			this.decoderMap.put(xmlCreator.getTag(), xmlCreator);
 		}else{
 			return false;
 		}
@@ -130,10 +132,10 @@ public class XMLIdMap extends IdMap {
 	 * @return the creator decode class
 	 */
 	public XMLEntityCreator getCreatorDecodeClass(String tag) {
-		if(decoderMap==null){
+		if(this.decoderMap==null){
 			return null;
 		}
-		return decoderMap.get(tag);
+		return this.decoderMap.get(tag);
 	}
 
 	/**
@@ -289,48 +291,48 @@ public class XMLIdMap extends IdMap {
 		boolean empty=true;
 		
 		if(!newPrefix.equals("&")){
-			return value.stepPos(ITEMSTART);
+			return this.value.stepPos(ITEMSTART);
 		}
-		if (value.getCurrentChar() != ITEMSTART) {
-			value.next();
+		if (this.value.getCurrentChar() != ITEMSTART) {
+			this.value.next();
 		}
-		int start=value.getIndex();
+		int start=this.value.getIndex();
 		ArrayList<String> stack=new ArrayList<String>();
-		while (!value.isEnd() && !exit) {
-			if(value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)){
+		while (!this.value.isEnd() && !exit) {
+			if(this.value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)){
 				empty=false;
 			}
-			if (value.getCurrentChar() == ITEMSTART) {
+			if (this.value.getCurrentChar() == ITEMSTART) {
 				if(empty){
 					exit = true;
 					break;
 				}
-				String nextTag=value.getNextTag();
+				String nextTag=this.value.getNextTag();
 				if(nextTag.length()>0){
 					stack.add(nextTag);
 					continue;
 				}
-				if(value.getCurrentChar()==ENDTAG){
+				if(this.value.getCurrentChar()==ENDTAG){
 					if(stack.size()>0){
-						int temp=value.getIndex();
-						String endTag = value.getNextTag();
+						int temp=this.value.getIndex();
+						String endTag = this.value.getNextTag();
 						if(stack.get(stack.size()-1).equals(endTag)){
 							stack.remove(stack.size()-1);
 						}else{
 							stack.remove(stack.size()-1);
-							value.setIndex(temp-1);
+							this.value.setIndex(temp-1);
 							continue;
 						}
 						
 					}else{
-						value.back();
+						this.value.back();
 						exit = true;
 						break;
 					}
 				}
 			}
 			if (!exit) {
-				value.next();
+				this.value.next();
 			}
 		}
 		if(!empty&&exit){
@@ -341,7 +343,7 @@ public class XMLIdMap extends IdMap {
 			}
 			if(refObject!=null){
 				SendableEntityCreator parentCreator=refObject.getCreater();
-				parentCreator.setValue(refObject.getEntity(), newPrefix, value);
+				parentCreator.setValue(refObject.getEntity(), newPrefix, value, MapUpdateListener.TYP_NEW);
 			}
 		}
 		return exit;
@@ -361,11 +363,11 @@ public class XMLIdMap extends IdMap {
 			boolean plainvalue = false;
 			String newPrefix = "";
 			if (entityCreater == null) {
-				if(stack.size()==0){
+				if(this.stack.size()==0){
 					return null;
 				}
 				// Not found child creater
-				ReferenceObject referenceObject = stack.get(stack.size() - 1);
+				ReferenceObject referenceObject = this.stack.get(this.stack.size() - 1);
 				entityCreater = (XMLEntityCreator) referenceObject.getCreater();
 				String[] properties = entityCreater.getProperties();
 				prefix += tag;
@@ -389,7 +391,7 @@ public class XMLIdMap extends IdMap {
 				}
 			} else {
 				entity = entityCreater.getSendableInstance(false);
-				stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
+				this.stack.add(new ReferenceObject(entityCreater, tag, this.parent, entity));
 				newPrefix = XMLIdMap.ENTITYSPLITTER;
 				prefix="";
 			}
@@ -399,40 +401,40 @@ public class XMLIdMap extends IdMap {
 			}else{
 				if (!plainvalue) {
 					// Parse Attributes
-					while (!value.isEnd() && value.getCurrentChar() != ITEMEND) {
-						if (value.getCurrentChar() == ENDTAG) {
+					while (!this.value.isEnd() && this.value.getCurrentChar() != ITEMEND) {
+						if (this.value.getCurrentChar() == ENDTAG) {
 							break;
 						}
-						int start = value.nextPos();
-						if (value.getCurrentChar() != ENDTAG) {
-							if (value.stepPos('=')) {
-								String key = value.getPreviousString(start);
-								value.skip(2);
-								start = value.getIndex();
-								if (value.stepPosButNot('\\', '"')) {
+						int start = this.value.nextPos();
+						if (this.value.getCurrentChar() != ENDTAG) {
+							if (this.value.stepPos('=')) {
+								String key = this.value.getPreviousString(start);
+								this.value.skip(2);
+								start = this.value.getIndex();
+								if (this.value.stepPosButNot('\\', '"')) {
 									String value = this.value.getPreviousString(start);
 									this.value.next();
-									entityCreater.setValue(entity, prefix + key, value);
+									entityCreater.setValue(entity, prefix + key, value, MapUpdateListener.TYP_NEW);
 								}
 							}
 						}
 					}
 					
-					if(value.getCurrentChar()!=ENDTAG){
+					if(this.value.getCurrentChar()!=ENDTAG){
 						//Children
 						parseChildren(newPrefix, entity, tag);
 					}else{
-						value.next();
+						this.value.next();
 					}
 					return entity;
 				}
-				if(value.getCurrentChar()==ENDTAG){
-					value.next();
+				if(this.value.getCurrentChar()==ENDTAG){
+					this.value.next();
 				}else{
 					int start = this.value.nextPos();
 					this.value.stepPosButNot('\\', ITEMSTART);
 					String value= this.value.getPreviousString(start);
-					entityCreater.setValue(entity, prefix, value);
+					entityCreater.setValue(entity, prefix, value, MapUpdateListener.TYP_NEW);
 					this.value.stepPos(ITEMSTART);
 					this.value.stepPos(ITEMEND);
 				}
@@ -451,9 +453,9 @@ public class XMLIdMap extends IdMap {
 	 * @param tag the tag
 	 */
 	private void parseChildren(String newPrefix, Object entity, String tag){
-		while (!value.isEnd()) {
+		while (!this.value.isEnd()) {
 			if (stepEmptyPos(newPrefix, entity, tag)) {
-				String nextTag=value.getNextTag();
+				String nextTag=this.value.getNextTag();
 
 				if(nextTag.length()>0){
 					Object result = findTag(newPrefix, nextTag);
@@ -462,29 +464,29 @@ public class XMLIdMap extends IdMap {
 						ReferenceObject refObject=null;
 						if(result!=entity){
 							if("&".equals(newPrefix)){
-								refObject = stack.get(stack.size() - 2);
+								refObject = this.stack.get(this.stack.size() - 2);
 							}else{
-								refObject = stack.get(stack.size() - 1);
+								refObject = this.stack.get(this.stack.size() - 1);
 							}
 							if(refObject!=null){
 								SendableEntityCreator parentCreator=refObject.getCreater();
-								parentCreator.setValue(refObject.getEntity(), nextTag, result);
-								if(entity!=null&&stack.size()>0){
-									stack.remove(stack.size() - 1);
+								parentCreator.setValue(refObject.getEntity(), nextTag, result, MapUpdateListener.TYP_NEW);
+								if(entity!=null&&this.stack.size()>0){
+									this.stack.remove(this.stack.size() - 1);
 								}
 							}
 						}
 					}
 				}
-				if(value.isEnd()){
-					if(entity!=null&&stack.size()>0){
-						stack.remove(stack.size() - 1);
+				if(this.value.isEnd()){
+					if(entity!=null&&this.stack.size()>0){
+						this.stack.remove(this.stack.size() - 1);
 					}
-				}else if(value.getCurrentChar()==ENDTAG){
-					value.stepPos(ITEMEND);
+				}else if(this.value.getCurrentChar()==ENDTAG){
+					this.value.stepPos(ITEMEND);
 					break;
 				}
-				value.next();
+				this.value.next();
 			}
 		}
 	}
@@ -496,8 +498,8 @@ public class XMLIdMap extends IdMap {
 	 * @return the entity
 	 */
 	private String getEntity() {
-		String tag=value.getNextTag();
-		for(String stopword : stopwords){
+		String tag=this.value.getNextTag();
+		for(String stopword : this.stopwords){
 			if(tag.startsWith(stopword)){
 				return "";
 			}

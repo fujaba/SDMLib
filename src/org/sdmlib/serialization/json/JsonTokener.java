@@ -43,6 +43,7 @@ public class JsonTokener extends Tokener{
 		super(s);
 	}
 
+	@Override
 	public Object nextValue(BaseEntity creator) {
 		char c = nextClean();
 
@@ -60,6 +61,8 @@ public class JsonTokener extends Tokener{
 			EntityList elementList = creator.getNewArray();
 			this.parseToEntity(elementList);
 			return elementList;
+		default:
+			break;
 		}
 		back();
 		return super.nextValue(creator);
@@ -144,6 +147,7 @@ public class JsonTokener extends Tokener{
 		return parent;
 	}
 
+	@Override
 	public void parseToEntity(Entity entity) {
 		char c;
 		String key;
@@ -190,6 +194,7 @@ public class JsonTokener extends Tokener{
 		}
 	}
 
+	@Override
 	public void parseToEntity(EntityList entityList) {
 		if (nextClean() != '[') {
 			throw syntaxError("A JSONArray text must start with '['");

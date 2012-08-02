@@ -226,7 +226,8 @@ public class JsonObject extends Entity{
      *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
-    public String toString() {
+    @Override
+	public String toString() {
     	int length = this.size();
         if (length == 0) {
             return "{}";
@@ -263,11 +264,13 @@ public class JsonObject extends Entity{
      *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
-    public String toString(int indentFactor){
+    @Override
+	public String toString(int indentFactor){
     	return toString(indentFactor, 0);
     }
 
-    public String toString(int indentFactor, int indent) {
+    @Override
+	public String toString(int indentFactor, int indent) {
         int length = this.size();
         if (length == 0) {
             return "{}";

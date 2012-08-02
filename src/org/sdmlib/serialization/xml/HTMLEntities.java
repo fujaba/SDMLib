@@ -50,8 +50,8 @@ public class HTMLEntities {
 	}
 
 	private void addEntity(String value, int key) {
-		htmlentities_map.put(key, value);
-		unhtmlentities_map.put(value, key);
+		this.htmlentities_map.put(new Integer(key), value);
+		this.unhtmlentities_map.put(value, new Integer(key));
 	}
 
 	public void init() {
@@ -329,7 +329,7 @@ public class HTMLEntities {
 
 		for (int i = 0; i < str.length(); ++i) {
 			char ch = str.charAt(i);
-			String entity = htmlentities_map.get((int) ch); // get equivalent html entity
+			String entity = this.htmlentities_map.get(new Integer(ch)); // get equivalent html entity
 			if (entity == null) { // if entity has not been found
 				if (ch > 128) { // check if is an extended character
 					buf.append("&#" + ((int) ch) + ";"); // convert extended character
@@ -353,7 +353,6 @@ public class HTMLEntities {
 	 * @see #htmlentities(String)
 	 */
 	public String decode(String str) {
-
 		StringBuffer buf = new StringBuffer();
 
 		for (int i = 0; i < str.length(); ++i) {
@@ -372,13 +371,13 @@ public class HTMLEntities {
 				}
 				if (entity.charAt(1) == '#') {
 					if (entity.charAt(2) == 'x') {
-						iso = Integer.parseInt(entity.substring(3, entity.length() - 1), 16);
+						iso = Integer.valueOf(entity.substring(3, entity.length() - 1), 16);
 					} else {
 						iso = new Integer(entity.substring(2,
 								entity.length() - 1));
 					}
 				} else {
-					iso = unhtmlentities_map.get(entity);
+					iso = this.unhtmlentities_map.get(entity);
 				}
 				if (iso == null) {
 					buf.append(entity);
@@ -403,11 +402,11 @@ public class HTMLEntities {
 	 * @return string with replaced single quotes
 	 */
 	public static String htmlSingleQuotes(String str) {
-		str = str.replaceAll("[\']", "&rsquo;");
-		str = str.replaceAll("&#039;", "&rsquo;");
-		str = str.replaceAll("&#145;", "&rsquo;");
-		str = str.replaceAll("&#146;", "&rsquo;");
-		return str;
+		String s = str.replaceAll("[\']", "&rsquo;");
+		s = s.replaceAll("&#039;", "&rsquo;");
+		s = s.replaceAll("&#145;", "&rsquo;");
+		s = s.replaceAll("&#146;", "&rsquo;");
+		return s;
 	}
 
 	/**
@@ -429,10 +428,7 @@ public class HTMLEntities {
 	 * @return string with replaced double quotes
 	 */
 	public static String htmlDoubleQuotes(String str) {
-		str = str.replaceAll("[\"]", "&quot;");
-		str = str.replaceAll("&#147;", "&quot;");
-		str = str.replaceAll("&#148;", "&quot;");
-		return str;
+		return str.replaceAll("[\"]", "&quot;").replaceAll("&#147;", "&quot;").replaceAll("&#148;", "&quot;");
 	}
 
 	/**

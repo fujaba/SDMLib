@@ -256,6 +256,7 @@ public class JsonArray extends EntityList{
 	 * @return a printable, displayable, transmittable representation of the
 	 *         array.
 	 */
+	@Override
 	public String toString() {
 		try {
 			return '[' + join(",") + ']';
@@ -283,6 +284,7 @@ public class JsonArray extends EntityList{
 	/** 
 	 * Make a prettyprinted JSON text of this JSONArray.
 	 */
+	@Override
 	public String toString(int indentFactor, int indent) {
 		Iterator<Object> iterator = getElements().iterator();
 		if(!iterator.hasNext()){

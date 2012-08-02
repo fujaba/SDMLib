@@ -99,10 +99,10 @@ public class XMLEntity extends Entity{
 	 * @return the children
 	 */
 	public ArrayList<XMLEntity> getChildren() {
-		if(children==null){
-			children=new  ArrayList<XMLEntity>();
+		if(this.children==null){
+			this.children=new  ArrayList<XMLEntity>();
 		}
-		return children;
+		return this.children;
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class XMLEntity extends Entity{
 	 * @return the tag
 	 */
 	public String getTag() {
-		return tag;
+		return this.tag;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class XMLEntity extends Entity{
 	 * @return the value
 	 */
 	public String getValue() {
-		return value;
+		return this.value;
 	}
 
 	/**
@@ -226,18 +226,18 @@ public class XMLEntity extends Entity{
 			Entry<String, Object> attribute = i.next();
 			sb.append(" "+attribute.getKey()+"="+EntityUtil.quote((String)attribute.getValue()));
 		}
-		boolean hasChild=(children!=null&&children.size()>0);
-		if(value==null&&!hasChild){
+		boolean hasChild=(this.children!=null&&this.children.size()>0);
+		if(this.value==null&&!hasChild){
 			sb.append("/>");
 		}else{
 			sb.append(">");
 			// parse Children
-			if(children!=null){
-				for(XMLEntity child : children){
+			if(this.children!=null){
+				for(XMLEntity child : this.children){
 					sb.append(child.toString(indentFactor));
 				}
-			}else if(value!=null){
-				sb.append(value);
+			}else if(this.value!=null){
+				sb.append(this.value);
 			}
 			sb.append("</"+getTag()+">");
 		}

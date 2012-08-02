@@ -51,7 +51,7 @@ public class JsonSortedArray extends JsonArray{
 	 * Instantiates a new json sorted array.
 	 */
 	public JsonSortedArray(){
-		mySortArrayList=new TreeMap<Object, JsonObject>();
+		this.mySortArrayList=new TreeMap<Object, JsonObject>();
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class JsonSortedArray extends JsonArray{
 	 * @param property the property
 	 */
 	public JsonSortedArray(String property){
-		mySortArrayList=new TreeMap<Object, JsonObject>();
+		this.mySortArrayList=new TreeMap<Object, JsonObject>();
 		this.setSortProp(property);
 	}
 	
@@ -70,7 +70,7 @@ public class JsonSortedArray extends JsonArray{
 	 * @param comparator the comparator
 	 */
 	public JsonSortedArray(Comparator<Object> comparator){
-		mySortArrayList=new TreeMap<Object, JsonObject>(comparator);
+		this.mySortArrayList=new TreeMap<Object, JsonObject>(comparator);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class JsonSortedArray extends JsonArray{
 	 * @param property the property
 	 */
 	public JsonSortedArray(Comparator<Object> comparator, String property){
-		mySortArrayList=new TreeMap<Object, JsonObject>(comparator);
+		this.mySortArrayList=new TreeMap<Object, JsonObject>(comparator);
 		this.setSortProp(property);
 	}
 
@@ -92,10 +92,10 @@ public class JsonSortedArray extends JsonArray{
 	public void setSortProp(String property) {
 		if(property.startsWith(JsonIdMap.JSON_PROPS+".")){
 			this.sortProp=property.substring(JsonIdMap.JSON_PROPS.length()+1);
-			propSort=true;
+			this.propSort=true;
 		}else{
 			this.sortProp=property;
-			propSort=false;
+			this.propSort=false;
 		}
 	}
 	
@@ -106,13 +106,13 @@ public class JsonSortedArray extends JsonArray{
 	public JsonArray put(Object value) {
 		super.put(value);
 		JsonObject json=(JsonObject) value;
-		if(propSort){
+		if(this.propSort){
 			JsonObject props = (JsonObject) json.get(JsonIdMap.JSON_PROPS);
 			if(props!=null){
-				this.mySortArrayList.put(props.get(sortProp), json);
+				this.mySortArrayList.put(props.get(this.sortProp), json);
 			}
 		}else{
-			this.mySortArrayList.put(json.get(sortProp), json);
+			this.mySortArrayList.put(json.get(this.sortProp), json);
 		}
 		return this;
 	}
@@ -122,6 +122,6 @@ public class JsonSortedArray extends JsonArray{
 	 */
 	@Override
 	public List<Object> getElements() {
-		return new ArrayList<Object>(mySortArrayList.values());
+		return new ArrayList<Object>(this.mySortArrayList.values());
 	}
 }
