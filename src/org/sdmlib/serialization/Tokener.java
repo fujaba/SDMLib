@@ -1,5 +1,7 @@
 package org.sdmlib.serialization;
 
+import org.sdmlib.serialization.interfaces.BaseEntity;
+
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.

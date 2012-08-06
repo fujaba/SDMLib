@@ -31,11 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.sdmlib.serialization.BaseEntity;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.interfaces.BaseEntity;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a

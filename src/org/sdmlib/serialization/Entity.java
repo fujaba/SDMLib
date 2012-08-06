@@ -34,7 +34,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class Entity extends BaseEntity{
+import org.sdmlib.serialization.interfaces.BaseEntity;
+
+public abstract class Entity implements BaseEntity{
 	/**
 	 * The map where the Entity's properties are kept.
 	 */
@@ -291,6 +293,22 @@ public abstract class Entity extends BaseEntity{
 			return object.toString();
 		}
 		throw new RuntimeException("Entity["+EntityUtil.quote(key)+"] not a string.");
+	}
+	/**
+	 * Get the string associated with a key.
+	 *
+	 * @param key   		A key string.
+	 * @param defaultValue  A defaultValue string.
+	 * @return      		A string which is the value or defaultValue
+	 */
+	public String getString(String key, String defaultValue) {
+		Object object = this.get(key);
+		if (object instanceof String) {
+			return (String)object;
+		}else if (object instanceof Entity) {
+			return object.toString();
+		}
+		return defaultValue;
 	}
 
 	/**
@@ -556,6 +574,16 @@ public abstract class Entity extends BaseEntity{
 			}else{
 				if(id>=0||id==-2){
 					if(child instanceof EntityList){
+				    	if(end==len+2){
+				    		// Get List
+				    		EntityList result = getNewArray();
+				    		EntityList items=(EntityList) child;
+				    		for(int z=0;z<items.size();z++){
+				    			result.add(((Entity)items.get(z)).getValue(key.substring(end+1)));
+				    		}
+				    		return result;
+				    	}
+
 						EntityList list=(EntityList) child;
 	    				if(id==-2){
 	    					id=list.size()-1;

@@ -143,7 +143,7 @@ public class SimpleIdCounter implements IdMapCounter{
 	}
 
 	@Override
-	public void setId(boolean value) {
+	public void enableId(boolean value) {
 		this.isId=value;
 	}
 }

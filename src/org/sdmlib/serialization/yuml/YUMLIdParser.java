@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.json;
+package org.sdmlib.serialization.yuml;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.

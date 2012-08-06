@@ -31,6 +31,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.util.Collection;
 import java.util.Map;
 
+import org.sdmlib.serialization.interfaces.BaseEntity;
+
 public class EntityUtil {
 	/**
 	 * Produce a string from a Number.

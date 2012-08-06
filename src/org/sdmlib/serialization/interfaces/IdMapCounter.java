@@ -57,9 +57,9 @@ public interface IdMapCounter {
 	/**
 	 * Read id.
 	 *
-	 * @param jsonId the json id
+	 * @param id the last id from Message
 	 */
-	public void readId(String jsonId);
+	public void readId(String id);
 	
 	/**
 	 * @return if Id must seriasable
@@ -71,5 +71,8 @@ public interface IdMapCounter {
 	 */
 	public Object getPrio();
 
-	public void setId(boolean value);
+	/**
+	 * @param Enable or disable the ID generating
+	 */
+	public void enableId(boolean value);
 }

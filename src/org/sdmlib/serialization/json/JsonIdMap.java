@@ -58,9 +58,6 @@ public class JsonIdMap extends IdMap{
 	/** The Constant JSON_PROPS. */
 	public static final String JSON_PROPS = "prop";
 
-	/** The Constant REF_SUFFIX. */
-	public static final String REF_SUFFIX = "_ref";
-
 	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
 
@@ -654,48 +651,6 @@ public class JsonIdMap extends IdMap{
 		this.typSave = typSave;
 	}
 	
-	public ArrayList<Object> getTypList(SendableEntityCreator creator){
-		if(creator==null){
-			return null;
-		}
-		ArrayList<Object> result=new ArrayList<Object>();
-		String clazzName = creator.getSendableInstance(true).getClass().getName();
-		for(Object obj : this.values.values()){
-			if(obj!=null){
-				if(obj.getClass().getName().equals(clazzName)){
-					result.add(obj);
-				}
-			}
-		}
-		return result;
-	}
-	public boolean replaceObject(Object newObject){
-		String key = getKey(newObject);
-		if(key!=null){
-			return false;
-		}
-		if(!(newObject instanceof Comparable<?>)){
-			return false;
-		}
-		SendableEntityCreator creator=getCreatorClass(newObject);
-		if(creator==null){
-			return false;
-		}
-		boolean result=false;
-		ArrayList<Object> oldValues = getTypList(creator);
-		for(Object obj : oldValues){
-			@SuppressWarnings("unchecked")
-			Comparable<Object> oldValue=(Comparable<Object>) obj;
-			if(oldValue.compareTo(newObject)==0){
-				String oldKey=getKey(oldValue);
-				if(oldKey!=null){
-					remove(oldValue);
-					put(oldKey, newObject);
-				}
-			}
-		}
-		return result;
-	}
 	public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson){
 		if(this.updatelistener!=null){
 			return this.updatelistener.skipCollision(masterObj, key, value, removeJson, updateJson);

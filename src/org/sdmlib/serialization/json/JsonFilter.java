@@ -40,7 +40,7 @@ import org.sdmlib.serialization.IdMapFilter;
  */
 public class JsonFilter extends IdMapFilter{
 	/** The Constant REFERENCE. */
-	public static final String REF= "_ref";
+	public static final String REF_SUFFIX= "_ref";
 
 	
 	/** The exclusive properties. */
@@ -127,7 +127,7 @@ public class JsonFilter extends IdMapFilter{
 		if (!super.isConvertable(map, entity, property, value, isMany)){
 			return false;
 		}
-		if(property.endsWith(REF)){
+		if(property.endsWith(REF_SUFFIX)){
 			return false;
 		}
 		if (getExcusiveProperties() != null) {
@@ -140,7 +140,7 @@ public class JsonFilter extends IdMapFilter{
 		if(!isManySerialization()&&isMany){
 			return false;
 		}
-		return !property.endsWith(JsonIdMap.REF_SUFFIX);
+		return !property.endsWith(REF_SUFFIX);
 	}
 	
 	/**

@@ -407,9 +407,17 @@ public class UpdateListener implements PropertyChangeListener{
 	private boolean setValue(SendableEntityCreator creator, Object element,
 			String key, Object newValue, String typ) {
 		if (newValue instanceof JsonObject) {
-			creator.setValue(element, key, this.map.readJson((JsonObject) newValue), typ);
+			JsonObject json=(JsonObject) newValue;
+			SendableEntityCreator typeInfo = this.map.getCreatorClasses(json.getString(JsonIdMap.CLASS, ""));
+			if(typeInfo!=null){
+				// notify in readJson
+			}else{
+				this.map.sendReceiveMsg(typ, element, json);
+			}
+			creator.setValue(element, key, this.map.readJson(json), typ);
 		} else {
 			creator.setValue(element, key, newValue, typ);
+//			this.map.sendReceiveMsg(typ, element, newValue);
 		}
 		return true;
 	}

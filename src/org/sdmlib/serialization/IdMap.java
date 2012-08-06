@@ -28,8 +28,12 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.sdmlib.serialization.interfaces.IdMapCounter;
@@ -182,8 +186,9 @@ public class IdMap {
 	 *
 	 * @param jsonId the json id
 	 * @param object the object
+	 * @return 
 	 */
-	public void put(String jsonId, Object object) {
+	public Object put(String jsonId, Object object) {
 		if (this.parent != null) {
 			this.parent.put(jsonId, object);
 		} else {
@@ -191,6 +196,7 @@ public class IdMap {
 			this.keys.put(object, jsonId);
 			addListener(object);
 		}
+		return object;
 	}
 
 	public UpdateListener getUpdateListener(){
@@ -217,9 +223,9 @@ public class IdMap {
 	 * @param oldValue the old value
 	 * @return true, if successful
 	 */
-	public boolean remove(Object oldValue) {
+	public boolean removeObj(Object oldValue) {
 		if (this.parent != null) {
-			return this.parent.remove(oldValue);
+			return this.parent.removeObj(oldValue);
 		}
 		String key = getKey(oldValue);
 		if (key != null) {
@@ -412,6 +418,50 @@ public class IdMap {
 		}
 		return null;
 	}
+	
+	public ArrayList<Object> getTypList(SendableEntityCreator creator){
+		if(creator==null){
+			return null;
+		}
+		ArrayList<Object> result=new ArrayList<Object>();
+		String clazzName = creator.getSendableInstance(true).getClass().getName();
+		for(Object obj : this.values.values()){
+			if(obj!=null){
+				if(obj.getClass().getName().equals(clazzName)){
+					result.add(obj);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public boolean replaceObject(Object newObject){
+		String key = getKey(newObject);
+		if(key!=null){
+			return false;
+		}
+		if(!(newObject instanceof Comparable<?>)){
+			return false;
+		}
+		SendableEntityCreator creator=getCreatorClass(newObject);
+		if(creator==null){
+			return false;
+		}
+		boolean result=false;
+		ArrayList<Object> oldValues = getTypList(creator);
+		for(Object obj : oldValues){
+			@SuppressWarnings("unchecked")
+			Comparable<Object> oldValue=(Comparable<Object>) obj;
+			if(oldValue.compareTo(newObject)==0){
+				String oldKey=getKey(oldValue);
+				if(oldKey!=null){
+					remove(oldValue);
+					put(oldKey, newObject);
+				}
+			}
+		}
+		return result;
+	}
    public void addCreator(Set<SendableEntityCreator> creatorSet)
    {
       for (SendableEntityCreator sendableEntityCreator : creatorSet)
@@ -419,4 +469,80 @@ public class IdMap {
          addCreator(sendableEntityCreator);
       }
    }
+	
+	public boolean isEmpty() {
+		if (this.parent != null) {
+			return this.parent.isEmpty();
+		}
+		return this.values.size()<1;
+	}
+	
+	public boolean containsKey(Object key) {
+		if (this.parent != null) {
+			return this.parent.containsKey(key);
+		}
+		return this.keys.containsKey(key);
+	}
+	
+	public boolean containsValue(Object value) {
+		if (this.parent != null) {
+			return this.parent.containsValue(value);
+		}
+		return this.values.containsKey(value);
+	}
+	
+	public Object get(Object key) {
+		return getKey(key);
+	}
+	
+	public Object remove(Object oldValue) {
+		if(removeObj(oldValue)){
+			return oldValue;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void putAll(Map<? extends String, ? extends Object> map) {
+		if (this.parent != null) {
+			this.parent.putAll(map);
+			return;
+		}
+		this.clear();
+		Iterator<?> i = map.entrySet().iterator();
+		while(i.hasNext()){
+			Entry<String,Object> item = (java.util.Map.Entry<String, Object>) i.next();
+			put(item.getKey(), item.getValue());
+		}
+	}
+	
+	public void clear() {
+		if (this.parent != null) {
+			this.parent.clear();
+			return;
+		}		
+		this.values.clear();
+		this.keys.clear();
+	}
+	
+	public Set<String> keySet() {
+		if (this.parent != null) {
+			return this.parent.keySet();
+		}	
+		return values.keySet();
+	}
+	
+	public Collection<Object> values() {
+		if (this.parent != null) {
+			return this.parent.values();
+		}	
+		return values.values();
+	}
+	
+	public Set<java.util.Map.Entry<String, Object>> entrySet() {
+		if (this.parent != null) {
+			return this.parent.entrySet();
+		}
+		return values.entrySet();
+	}
 }

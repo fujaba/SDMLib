@@ -1,9 +1,9 @@
 package org.sdmlib.serialization.json;
 
-import org.sdmlib.serialization.BaseEntity;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
 /*

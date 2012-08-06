@@ -101,7 +101,7 @@ public class XMLIdMap extends IdMap {
 		this.stopwords.add("?xml");
 		this.stopwords.add("!--");
 		this.stopwords.add("!DOCTYPE");
-		getCounter().setId(false);
+		getCounter().enableId(false);
 	}
 	
 	/* (non-Javadoc)
