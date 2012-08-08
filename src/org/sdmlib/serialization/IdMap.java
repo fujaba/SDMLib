@@ -37,7 +37,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.sdmlib.serialization.interfaces.IdMapCounter;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.UpdateListener;
@@ -54,6 +53,9 @@ public class IdMap {
 	
 	/** The Constant UPDATE. */
 	public static final String UPDATE = "upd";
+	
+	/** The Constant NEW. */
+	public static final String NEW = "new";
 	
 	/** The Constant PRIO. */
 	public static final String PRIO = "prio";
@@ -299,19 +301,19 @@ public class IdMap {
 			for (String property : properties) {
 				Object value = creatorClass.getValue(reference, property);
 				if(filter.getTyp()==CloneFilter.SIMPLE){
-					creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
+					creatorClass.setValue(newObject, property, value, IdMap.NEW);
 				} else if (value instanceof Collection<?>) {
 					if(filter.getTyp()==CloneFilter.FULL){
 						Collection<?> list = (Collection<?>) value;
 						for (Object item : list) {
 							if(filter.hasObject(item)){
 								creatorClass.setValue(newObject, property,
-										filter.getObject(item), MapUpdateListener.TYP_NEW);
+										filter.getObject(item), IdMap.NEW);
 							} else {
 								SendableEntityCreator childCreatorClass = getCreatorClass(item);
 								if (childCreatorClass != null) {
 									if(!filter.isConvertable(this, item, property, value, true)){
-										creatorClass.setValue(newObject, property, item, MapUpdateListener.TYP_NEW);
+										creatorClass.setValue(newObject, property, item, IdMap.NEW);
 									}else{
 										int oldDeep=filter.setDeep(filter.getDeep()-1);
 										cloneObject(item, filter);
@@ -319,22 +321,22 @@ public class IdMap {
 									}
 								}else{
 									creatorClass.setValue(newObject, property,
-											item, MapUpdateListener.TYP_NEW);
+											item, IdMap.NEW);
 								}
 							}
 						}
 					} else {
-						creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
+						creatorClass.setValue(newObject, property, value, IdMap.NEW);
 					}
 				} else {
 					if(filter.hasObject(value)){
 						creatorClass.setValue(newObject, property,
-								filter.getObject(value), MapUpdateListener.TYP_NEW);
+								filter.getObject(value), IdMap.NEW);
 					} else {
 						SendableEntityCreator childCreatorClass = getCreatorClass(value);
 						if (childCreatorClass != null) {
 							if(!filter.isConvertable(this, value, property, value, false)){
-								creatorClass.setValue(newObject, property, value, MapUpdateListener.TYP_NEW);
+								creatorClass.setValue(newObject, property, value, IdMap.NEW);
 							}else{
 								int oldDeep=filter.setDeep(filter.getDeep()-1);
 								cloneObject(value, filter);
@@ -342,7 +344,7 @@ public class IdMap {
 							}
 						}else{
 							creatorClass.setValue(newObject, property,
-									value, MapUpdateListener.TYP_NEW);
+									value, IdMap.NEW);
 						}
 					}
 				}

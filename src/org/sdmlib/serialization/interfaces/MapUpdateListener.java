@@ -42,10 +42,6 @@ import org.sdmlib.serialization.json.JsonObject;
  * @see MapUpdateEvent
  */
 public interface MapUpdateListener {
-	public static final String TYP_NEW="new";
-	public static final String TYP_UPDATE="upd";
-	public static final String TYP_DELETE="del";
-	
 	/**
 	 * Send update msg.
 	 *

@@ -38,7 +38,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
@@ -343,7 +342,7 @@ public class XMLIdMap extends IdMap {
 			}
 			if(refObject!=null){
 				SendableEntityCreator parentCreator=refObject.getCreater();
-				parentCreator.setValue(refObject.getEntity(), newPrefix, value, MapUpdateListener.TYP_NEW);
+				parentCreator.setValue(refObject.getEntity(), newPrefix, value, IdMap.NEW);
 			}
 		}
 		return exit;
@@ -414,7 +413,7 @@ public class XMLIdMap extends IdMap {
 								if (this.value.stepPosButNot('\\', '"')) {
 									String value = this.value.getPreviousString(start);
 									this.value.next();
-									entityCreater.setValue(entity, prefix + key, value, MapUpdateListener.TYP_NEW);
+									entityCreater.setValue(entity, prefix + key, value, IdMap.NEW);
 								}
 							}
 						}
@@ -434,7 +433,7 @@ public class XMLIdMap extends IdMap {
 					int start = this.value.nextPos();
 					this.value.stepPosButNot('\\', ITEMSTART);
 					String value= this.value.getPreviousString(start);
-					entityCreater.setValue(entity, prefix, value, MapUpdateListener.TYP_NEW);
+					entityCreater.setValue(entity, prefix, value, IdMap.NEW);
 					this.value.stepPos(ITEMSTART);
 					this.value.stepPos(ITEMEND);
 				}
@@ -470,7 +469,7 @@ public class XMLIdMap extends IdMap {
 							}
 							if(refObject!=null){
 								SendableEntityCreator parentCreator=refObject.getCreater();
-								parentCreator.setValue(refObject.getEntity(), nextTag, result, MapUpdateListener.TYP_NEW);
+								parentCreator.setValue(refObject.getEntity(), nextTag, result, IdMap.NEW);
 								if(entity!=null&&this.stack.size()>0){
 									this.stack.remove(this.stack.size() - 1);
 								}

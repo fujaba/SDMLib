@@ -254,9 +254,8 @@ public class JsonIdMap extends IdMap{
 	private Object readJson(JsonObject jsonObject,
 			LinkedHashSet<ReferenceObject> refs) {
 		Object result = null;
-		Object className = jsonObject.get(CLASS);
-
-		SendableEntityCreator typeInfo = getCreatorClasses((String) className);
+		
+		SendableEntityCreator typeInfo = getJsonObjectCreator(jsonObject);
 
 		if (typeInfo != null) {
 			if (getCounter().isId()) {
@@ -267,9 +266,9 @@ public class JsonIdMap extends IdMap{
 			}
 			if (result == null) {
 				result = typeInfo.getSendableInstance(false);
-				sendReceiveMsg(MapUpdateListener.TYP_NEW, result, jsonObject);
+				sendReceiveMsg(NEW, result, jsonObject);
 			}else{
-				sendReceiveMsg(MapUpdateListener.TYP_UPDATE, result, jsonObject);
+				sendReceiveMsg(UPDATE, result, jsonObject);
 			}
 			if(typeInfo instanceof NoIndexCreator){
 				String[] properties = typeInfo.getProperties();
@@ -289,6 +288,27 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
+	
+	/**
+	 * @param jsonObject
+	 * @return the Creator for this JsonObject
+	 */
+	public SendableEntityCreator getJsonObjectCreator(JsonObject jsonObject) {
+		Object className = jsonObject.get(CLASS);
+		return getCreatorClasses((String) className);
+	}
+
+	/**
+	 * @param jsonObject
+	 * @return the props of theJsonObject 
+	 */
+	public JsonObject getJsonObjectProperties(JsonObject jsonObject) {
+		if(jsonObject.has(JSON_PROPS)){
+			return jsonObject.getJsonObject(JSON_PROPS);
+		}
+		return null;
+	}
+
 
 	/**
 	 * Read json.
@@ -310,8 +330,8 @@ public class JsonIdMap extends IdMap{
 
 			getCounter().readId(jsonId);
 		}
-		if (jsonObject.has(JSON_PROPS)) {
-			JsonObject jsonProp = (JsonObject) jsonObject.get(JSON_PROPS);
+		JsonObject jsonProp=getJsonObjectProperties(jsonObject);
+		if (jsonProp!=null) {
 			SendableEntityCreator prototyp = getCreatorClass(target);
 			String[] properties = prototyp.getProperties();
 			if (properties != null) {
@@ -351,10 +371,10 @@ public class JsonIdMap extends IdMap{
 									property, this, target));
 						} else {
 							creator.setValue(target, property,
-									readJson((JsonObject) kid), MapUpdateListener.TYP_NEW);
+									readJson((JsonObject) kid), NEW);
 						}
 					} else {
-						creator.setValue(target, property, kid, MapUpdateListener.TYP_NEW);
+						creator.setValue(target, property, kid, NEW);
 					}
 				}
 			} else {
@@ -369,10 +389,10 @@ public class JsonIdMap extends IdMap{
 								this, target));
 					}else{
 						creator.setValue(target, property,
-								readJson(child), MapUpdateListener.TYP_NEW);
+								readJson(child), NEW);
 					}
 				} else {
-					creator.setValue(target, property, value, MapUpdateListener.TYP_NEW);
+					creator.setValue(target, property, value, NEW);
 				}
 			}
 		}

@@ -34,11 +34,9 @@ import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.BasicMessage;
-import org.sdmlib.serialization.event.ByteMessage;
 import org.sdmlib.serialization.event.UnknownMessage;
 import org.sdmlib.serialization.event.creater.BasicMessageCreator;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 /**
@@ -390,7 +388,7 @@ public class ByteIdMap extends IdMap{
 		}
 		if (eventCreater == null) {
 			UnknownMessage e = new UnknownMessage();
-			e.set(ByteMessage.PROPERTY_VALUE, in.array());
+			e.set(UnknownMessage.PROPERTY_VALUE, in.array());
 			entity = e;
 		} else {
 			entity = eventCreater.getSendableInstance(false);
@@ -411,7 +409,7 @@ public class ByteIdMap extends IdMap{
 					}
 					Object value = getDecodeObject(typValue, in);
 					if (value != null) {
-						eventCreater.setValue(entity, property, value, MapUpdateListener.TYP_NEW);
+						eventCreater.setValue(entity, property, value, IdMap.NEW);
 					}
 				}
 			}

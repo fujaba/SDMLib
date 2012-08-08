@@ -37,7 +37,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 /**
@@ -269,26 +268,26 @@ public class UpdateListener implements PropertyChangeListener{
 						if (creator.getValue(refObject, key) == null) {
 							// Old Value is Standard
 							return setValue(creator, masterObj, key,
-									update.get(key), MapUpdateListener.TYP_NEW);
+									update.get(key), IdMap.NEW);
 						}
 						// ERROR
 						if(!this.map.skipCollision(masterObj, key, value, remove, update)){
 							if (checkPrio(prio)) {
 								return setValue(creator, masterObj, key,
-										update.get(key), MapUpdateListener.TYP_NEW);
+										update.get(key), IdMap.NEW);
 							}
 						}
 					} else if (creator.getValue(masterObj, key).equals(
 							creator.getValue(refObject, key))) {
 						// Old Value is standard
 						return setValue(creator, masterObj, key,
-								update.get(key), MapUpdateListener.TYP_NEW);
+								update.get(key), IdMap.NEW);
 					} else {
 						// ERROR
 						if(!this.map.skipCollision(masterObj, key, value, remove, update)){
 							if (checkPrio(prio)) {
 								return setValue(creator, masterObj, key,
-										update.get(key), MapUpdateListener.TYP_NEW);
+										update.get(key), IdMap.NEW);
 							}
 						}
 					}
@@ -303,21 +302,21 @@ public class UpdateListener implements PropertyChangeListener{
 					Object value = creator.getValue(masterObj, key);
 					if(value instanceof Collection<?>){
 						JsonObject removeJsonObject=remove.getJsonObject(key);
-						setValue(creator, masterObj, key+IdMap.REMOVE, removeJsonObject, MapUpdateListener.TYP_DELETE);
+						setValue(creator, masterObj, key+IdMap.REMOVE, removeJsonObject, IdMap.REMOVE);
 					}else{
 						if (checkValue(value, key, remove)) {
 							setValue(creator, masterObj, key,
-									creator.getValue(refObject, key), MapUpdateListener.TYP_DELETE);
+									creator.getValue(refObject, key), IdMap.REMOVE);
 						} else if (checkPrio(prio)) {
 							//RESET TO DEFAULTVALUE
 							setValue(creator, masterObj, key,
-									creator.getValue(refObject, key), MapUpdateListener.TYP_DELETE);
+									creator.getValue(refObject, key), IdMap.REMOVE);
 						}
 					}
 					Object removeJsonObject=remove.get(key);
 					if(removeJsonObject!=null && removeJsonObject instanceof JsonObject){
 						JsonObject json=(JsonObject) removeJsonObject;
-						this.map.sendReceiveMsg(MapUpdateListener.TYP_DELETE, this.map.readJson(json), json);
+						this.map.sendReceiveMsg(IdMap.REMOVE, this.map.readJson(json), json);
 					}
 				}
 				return true;
@@ -330,9 +329,9 @@ public class UpdateListener implements PropertyChangeListener{
 					Object value = creator.getValue(masterObj, key);
 
 					if (checkValue(value, key, remove)) {
-						setValue(creator, masterObj, key, update.get(key), MapUpdateListener.TYP_UPDATE);
+						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
 					} else if (checkPrio(prio)) {
-						setValue(creator, masterObj, key, update.get(key), MapUpdateListener.TYP_UPDATE);
+						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
 					}
 				}
 				return true;
