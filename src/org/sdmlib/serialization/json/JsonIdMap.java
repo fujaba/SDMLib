@@ -133,10 +133,7 @@ public class JsonIdMap extends IdMap{
 						if (value instanceof Collection<?>&&referenceCreator==null) {
 							JsonArray subValues = new JsonArray();
 							for (Object containee : ((Collection<?>) value)) {
-								if (containee != null) {
-									if(!filter.isRegard(this, entity, property, value, true)){
-										continue;
-									}
+								if (containee != null&&filter.isRegard(this, entity, property, containee, true)){
 									boolean aggregation = filter.isConvertable(this,
 											entity, property, containee, true);
 
