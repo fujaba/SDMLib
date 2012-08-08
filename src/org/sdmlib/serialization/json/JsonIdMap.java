@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,6 +59,8 @@ public class JsonIdMap extends IdMap{
 
 	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
+	
+	private Grammar grammar=new Grammar();
 
 	/** The updatelistener. */
 	private MapUpdateListener updatelistener;
@@ -98,7 +99,7 @@ public class JsonIdMap extends IdMap{
 		String id = "";
 		String className = entity.getClass().getName();
 
-		SendableEntityCreator prototyp = getCreatorClasses(className);
+		SendableEntityCreator prototyp = grammar.getObjectCreator(entity, this, className);
 		if (prototyp == null) {
 			return null;
 		}
@@ -160,25 +161,7 @@ public class JsonIdMap extends IdMap{
 				}
 			}
 		}
-		JsonObject jsonObject = new JsonObject();
-		if (prototyp instanceof NoIndexCreator) {
-			Iterator<String> keys = jsonProp.keys();
-			while (keys.hasNext()) {
-				String key = keys.next();
-				jsonObject.put(key, jsonProp.get(key));
-			}
-			jsonObject.put(CLASS, className);
-		} else {
-			if (getCounter().isId()&&filter.isId()) {
-				jsonObject.put(ID, id);
-			}
-			jsonObject.put(CLASS, className);
-
-			if (jsonProp.size() > 0) {
-				jsonObject.put(JSON_PROPS, jsonProp);
-			}
-		}
-		return jsonObject;
+		return grammar.getJsonObject(this, prototyp, className, id, jsonProp, filter);
 	}
 
 	/**
@@ -252,7 +235,7 @@ public class JsonIdMap extends IdMap{
 			LinkedHashSet<ReferenceObject> refs) {
 		Object result = null;
 		
-		SendableEntityCreator typeInfo = getJsonObjectCreator(jsonObject);
+		SendableEntityCreator typeInfo = grammar.getJsonObjectCreator(jsonObject, this);
 
 		if (typeInfo != null) {
 			if (getCounter().isId()) {
@@ -286,25 +269,7 @@ public class JsonIdMap extends IdMap{
 		return result;
 	}
 	
-	/**
-	 * @param jsonObject
-	 * @return the Creator for this JsonObject
-	 */
-	public SendableEntityCreator getJsonObjectCreator(JsonObject jsonObject) {
-		Object className = jsonObject.get(CLASS);
-		return getCreatorClasses((String) className);
-	}
 
-	/**
-	 * @param jsonObject
-	 * @return the props of theJsonObject 
-	 */
-	public JsonObject getJsonObjectProperties(JsonObject jsonObject) {
-		if(jsonObject.has(JSON_PROPS)){
-			return jsonObject.getJsonObject(JSON_PROPS);
-		}
-		return null;
-	}
 
 
 	/**
@@ -327,7 +292,7 @@ public class JsonIdMap extends IdMap{
 
 			getCounter().readId(jsonId);
 		}
-		JsonObject jsonProp=getJsonObjectProperties(jsonObject);
+		JsonObject jsonProp=grammar.getJsonObjectProperties(jsonObject);
 		if (jsonProp!=null) {
 			SendableEntityCreator prototyp = getCreatorClass(target);
 			String[] properties = prototyp.getProperties();
@@ -673,5 +638,8 @@ public class JsonIdMap extends IdMap{
 			return this.updatelistener.skipCollision(masterObj, key, value, removeJson, updateJson);
 		}
 		return true;
+	}
+	public void setGrammar(Grammar value){
+		this.grammar=value;
 	}
 }
