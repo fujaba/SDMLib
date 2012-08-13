@@ -36,5 +36,15 @@ public class FemaleCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Female) entity).removeYou();
+   }
 }
+
 

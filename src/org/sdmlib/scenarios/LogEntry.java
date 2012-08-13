@@ -40,7 +40,7 @@ public class LogEntry implements PropertyChangeInterface
       i = i + 1;
    }
    
-   public static final LinkedHashSet<LogEntry> EMPTY_SET = new LinkedHashSet<LogEntry>();
+   public static final LogEntrySet EMPTY_SET = new LogEntrySet();
 
    public static final String PROPERTY_DATE = "date";
 

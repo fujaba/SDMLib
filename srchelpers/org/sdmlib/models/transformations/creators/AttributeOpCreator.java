@@ -36,7 +36,17 @@ public class AttributeOpCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((AttributeOp) entity).removeYou();
+   }
 }
+
 
 
 

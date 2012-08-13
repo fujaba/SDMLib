@@ -13,6 +13,8 @@ import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
+import org.sdmlib.examples.helloworld.GraphComponent;
 
 public class ModelPattern extends Pattern
 {
@@ -171,7 +173,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public GraphComponentPO hasElementGraphComponentPO()
+   {
+      GraphComponentPO value = new GraphComponentPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public GraphComponentPO hasElementGraphComponentPO(GraphComponent hostGraphObject)
+   {
+      GraphComponentPO value = new GraphComponentPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

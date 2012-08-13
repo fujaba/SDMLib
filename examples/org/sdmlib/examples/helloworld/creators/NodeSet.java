@@ -114,5 +114,135 @@ public class NodeSet extends LinkedHashSet<Node>
       return this;
    }
 
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Node obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public NodeSet withText(String value)
+   {
+      for (Node obj : this)
+      {
+         obj.withText(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet getOrig()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.add(obj.getOrig());
+      }
+      
+      return result;
+   }
+   public NodeSet withOrig(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withOrig(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet getCopy()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.add(obj.getCopy());
+      }
+      
+      return result;
+   }
+   public NodeSet withCopy(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withCopy(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet getLinksTo()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.addAll(obj.getLinksTo());
+      }
+      
+      return result;
+   }
+   public NodeSet withLinksTo(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withLinksTo(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutLinksTo(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutLinksTo(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet getLinksFrom()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.addAll(obj.getLinksFrom());
+      }
+      
+      return result;
+   }
+   public NodeSet withLinksFrom(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withLinksFrom(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutLinksFrom(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutLinksFrom(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
+
 

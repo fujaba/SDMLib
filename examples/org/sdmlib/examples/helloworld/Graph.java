@@ -27,6 +27,7 @@ import org.sdmlib.examples.helloworld.creators.NodeSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 
 public class Graph implements PropertyChangeInterface
 {
@@ -52,6 +53,11 @@ public class Graph implements PropertyChangeInterface
       if (PROPERTY_EDGES.equalsIgnoreCase(attrName))
       {
          return getEdges();
+      }
+
+      if (PROPERTY_GCS.equalsIgnoreCase(attrName))
+      {
+         return getGcs();
       }
       
       return null;
@@ -86,6 +92,18 @@ public class Graph implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_GCS.equalsIgnoreCase(attrName))
+      {
+         addToGcs((GraphComponent) value);
+         return true;
+      }
+      
+      if ((PROPERTY_GCS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromGcs((GraphComponent) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -106,6 +124,7 @@ public class Graph implements PropertyChangeInterface
    {
       removeAllFromNodes();
       removeAllFromEdges();
+      removeAllFromGcs();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -292,6 +311,113 @@ public class Graph implements PropertyChangeInterface
    {
       Edge value = new Edge();
       withEdges(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Graph ----------------------------------- GraphComponent
+    *              parent                   gcs
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GCS = "gcs";
+   
+   private GraphComponentSet gcs = null;
+   
+   public GraphComponentSet getGcs()
+   {
+      if (this.gcs == null)
+      {
+         return GraphComponent.EMPTY_SET;
+      }
+   
+      return this.gcs;
+   }
+   
+   public boolean addToGcs(GraphComponent value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.gcs == null)
+         {
+            this.gcs = new GraphComponentSet();
+         }
+         
+         changed = this.gcs.add (value);
+         
+         if (changed)
+         {
+            value.withParent(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromGcs(GraphComponent value)
+   {
+      boolean changed = false;
+      
+      if ((this.gcs != null) && (value != null))
+      {
+         changed = this.gcs.remove (value);
+         
+         if (changed)
+         {
+            value.setParent(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Graph withGcs(GraphComponent value)
+   {
+      addToGcs(value);
+      return this;
+   } 
+   
+   public Graph withoutGcs(GraphComponent value)
+   {
+      removeFromGcs(value);
+      return this;
+   } 
+   
+   public void removeAllFromGcs()
+   {
+      LinkedHashSet<GraphComponent> tmpSet = new LinkedHashSet<GraphComponent>(this.getGcs());
+   
+      for (GraphComponent value : tmpSet)
+      {
+         this.removeFromGcs(value);
+      }
+   }
+   
+   public GraphComponent createGcs()
+   {
+      GraphComponent value = new GraphComponent();
+      withGcs(value);
+      return value;
+   } 
+
+   public Node createGcsNode()
+   {
+      Node value = new Node();
+      withGcs(value);
+      return value;
+   } 
+
+   public Edge createGcsEdge()
+   {
+      Edge value = new Edge();
+      withGcs(value);
       return value;
    } 
 }

@@ -3,6 +3,7 @@ package org.sdmlib.models.objects.creators;
 import java.util.LinkedHashSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.objects.GenericObject;
 
 public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
@@ -19,6 +20,16 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       return result;
    }
 
+   public GenericAttributeSet withName(String value)
+   {
+      for (GenericAttribute obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
    public StringList getValue()
    {
       StringList result = new StringList();
@@ -29,6 +40,16 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       }
       
       return result;
+   }
+
+   public GenericAttributeSet withValue(String value)
+   {
+      for (GenericAttribute obj : this)
+      {
+         obj.withValue(value);
+      }
+      
+      return this;
    }
 
    public GenericObjectSet getOwner()
@@ -42,26 +63,6 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       
       return result;
    }
-   public GenericAttributeSet withName(String value)
-   {
-      for (GenericAttribute obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public GenericAttributeSet withValue(String value)
-   {
-      for (GenericAttribute obj : this)
-      {
-         obj.withValue(value);
-      }
-      
-      return this;
-   }
-
    public GenericAttributeSet withOwner(GenericObject value)
    {
       for (GenericAttribute obj : this)
@@ -73,5 +74,4 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
    }
 
 }
-
 

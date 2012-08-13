@@ -42,5 +42,15 @@ public class SymTabEntryCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((SymTabEntry) entity).removeYou();
+   }
 }
+
 

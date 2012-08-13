@@ -41,6 +41,8 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.helloworld.creators.ModelPattern;
+import org.sdmlib.models.classes.creators.AssociationSet;
+import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
@@ -308,9 +310,9 @@ public class ClassModel implements PropertyChangeInterface
 
 	public static final String PROPERTY_CLASSES = "classes";
 
-	private LinkedHashSet<Clazz> classes;
+	private ClazzSet classes;
 
-	public LinkedHashSet<Clazz> getClasses()
+	public ClazzSet getClasses()
 	{
 		if (classes == null)
 		{
@@ -335,7 +337,7 @@ public class ClassModel implements PropertyChangeInterface
 	{
 		if (this.classes == null)
 		{
-			this.classes = new LinkedHashSet<Clazz>();
+			this.classes = new ClazzSet();
 		}
 
 		this.classes.add(value);
@@ -559,9 +561,9 @@ public class ClassModel implements PropertyChangeInterface
 
 	public static final String PROPERTY_ASSOCIATIONS = "associations";
 
-	private LinkedHashSet<Association> associations = null;
+	private AssociationSet associations = null;
 
-	public LinkedHashSet<Association> getAssociations()
+	public AssociationSet getAssociations()
 	{
 		if (this.associations == null)
 		{
@@ -579,7 +581,7 @@ public class ClassModel implements PropertyChangeInterface
 		{
 			if (this.associations == null)
 			{
-				this.associations = new LinkedHashSet<Association>();
+				this.associations = new AssociationSet();
 			}
 
 			changed = this.associations.add(value);

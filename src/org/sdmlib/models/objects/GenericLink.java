@@ -42,12 +42,12 @@ public class GenericLink implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_TGTLABEL.equalsIgnoreCase(attrName))
+      if (PROPERTY_TGTLABEL.equalsIgnoreCase(attribute))
       {
          return getTgtLabel();
       }
 
-      if (PROPERTY_SRCLABEL.equalsIgnoreCase(attrName))
+      if (PROPERTY_SRCLABEL.equalsIgnoreCase(attribute))
       {
          return getSrcLabel();
       }
@@ -60,6 +60,11 @@ public class GenericLink implements PropertyChangeInterface
       if (PROPERTY_TGT.equalsIgnoreCase(attrName))
       {
          return getTgt();
+      }
+
+      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      {
+         return getGraph();
       }
       
       return null;
@@ -94,13 +99,19 @@ public class GenericLink implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      {
+         setGraph((GenericGraph) value);
+         return true;
+      }
+
       return false;
    }
 
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -114,6 +125,7 @@ public class GenericLink implements PropertyChangeInterface
    {
       setSrc(null);
       setTgt(null);
+      setGraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -123,7 +135,7 @@ public class GenericLink implements PropertyChangeInterface
    public static final String PROPERTY_TGTLABEL = "tgtLabel";
    
    private String tgtLabel;
-   
+
    public String getTgtLabel()
    {
       return this.tgtLabel;
@@ -151,7 +163,7 @@ public class GenericLink implements PropertyChangeInterface
    public static final String PROPERTY_SRCLABEL = "srcLabel";
    
    private String srcLabel;
-   
+
    public String getSrcLabel()
    {
       return this.srcLabel;
@@ -227,6 +239,13 @@ public class GenericLink implements PropertyChangeInterface
       setSrc(value);
       return this;
    } 
+   
+   public GenericObject createSrc()
+   {
+      GenericObject value = new GenericObject();
+      withSrc(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -278,6 +297,72 @@ public class GenericLink implements PropertyChangeInterface
    {
       setTgt(value);
       return this;
+   } 
+   
+   public GenericObject createTgt()
+   {
+      GenericObject value = new GenericObject();
+      withTgt(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * GenericLink ----------------------------------- GenericGraph
+    *              links                   graph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GRAPH = "graph";
+   
+   private GenericGraph graph = null;
+   
+   public GenericGraph getGraph()
+   {
+      return this.graph;
+   }
+   
+   public boolean setGraph(GenericGraph value)
+   {
+      boolean changed = false;
+      
+      if (this.graph != value)
+      {
+         GenericGraph oldValue = this.graph;
+         
+         if (this.graph != null)
+         {
+            this.graph = null;
+            oldValue.withoutLinks(this);
+         }
+         
+         this.graph = value;
+         
+         if (value != null)
+         {
+            value.withLinks(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public GenericLink withGraph(GenericGraph value)
+   {
+      setGraph(value);
+      return this;
+   } 
+   
+   public GenericGraph createGraph()
+   {
+      GenericGraph value = new GenericGraph();
+      withGraph(value);
+      return value;
    } 
 }
 

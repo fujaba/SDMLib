@@ -235,9 +235,9 @@ public class StatementEntry implements PropertyChangeInterface
    
    public static final String PROPERTY_BODYSTATS = "bodyStats";
    
-   private LinkedHashSet<StatementEntry> bodyStats = null;
+   private StatementEntrySet bodyStats = null;
    
-   public LinkedHashSet<StatementEntry> getBodyStats()
+   public StatementEntrySet getBodyStats()
    {
       if (this.bodyStats == null)
       {
@@ -255,7 +255,7 @@ public class StatementEntry implements PropertyChangeInterface
       {
          if (this.bodyStats == null)
          {
-            this.bodyStats = new LinkedHashSet<StatementEntry>();
+            this.bodyStats = new StatementEntrySet();
          }
          
          changed = this.bodyStats.add (value);
@@ -311,7 +311,7 @@ public class StatementEntry implements PropertyChangeInterface
    }
 
    
-   public static final LinkedHashSet<StatementEntry> EMPTY_SET = new LinkedHashSet<StatementEntry>();
+   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet();
 
    
    /********************************************************************

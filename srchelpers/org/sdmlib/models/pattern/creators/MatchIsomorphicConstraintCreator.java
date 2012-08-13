@@ -38,5 +38,15 @@ public class MatchIsomorphicConstraintCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((MatchIsomorphicConstraint) entity).removeYou();
+   }
 }
+
 

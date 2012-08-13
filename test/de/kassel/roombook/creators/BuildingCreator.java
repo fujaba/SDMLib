@@ -37,6 +37,16 @@ public class BuildingCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Building) entity).removeYou();
+   }
 }
+
 
 

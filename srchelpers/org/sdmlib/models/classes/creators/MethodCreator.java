@@ -37,6 +37,16 @@ public class MethodCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Method) entity).removeYou();
+   }
 }
+
 
 

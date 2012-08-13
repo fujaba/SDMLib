@@ -152,6 +152,8 @@ public class GroupAccountTests
       
       // model.insertModelCreationCodeHere("examples");
       
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
       model.generate("examples", "examplehelpers");
       
       scenario.addImage(model.dumpClassDiag("GroupAccountClassDiag01"));

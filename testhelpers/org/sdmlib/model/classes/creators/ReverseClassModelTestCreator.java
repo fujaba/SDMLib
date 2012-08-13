@@ -34,5 +34,15 @@ public class ReverseClassModelTestCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((ReverseClassModelTest) entity).removeYou();
+   }
 }
+
 

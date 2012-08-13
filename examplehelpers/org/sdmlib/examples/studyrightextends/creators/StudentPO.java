@@ -8,6 +8,8 @@ import org.sdmlib.examples.studyrightextends.creators.LecturePO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.studyrightextends.creators.StudentPO;
 import org.sdmlib.examples.studyrightextends.Lecture;
+import org.sdmlib.examples.studyrightextends.creators.StudentSet;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 
 public class StudentPO extends PatternObject
 {
@@ -136,6 +138,34 @@ public class StudentPO extends PatternObject
       return this;
    }
    
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public int getMatrNo()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) getCurrentMatch()).getMatrNo();
+      }
+      return 0;
+   }
+   
+   public LectureSet getLecture()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) this.getCurrentMatch()).getLecture();
+      }
+      return null;
+   }
+   
 }
+
 
 

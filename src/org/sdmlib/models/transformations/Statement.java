@@ -24,6 +24,8 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -281,9 +283,9 @@ public class Statement implements PropertyChangeInterface
    
    public static final String PROPERTY_OPERATIONOBJECTS = "operationObjects";
    
-   private LinkedHashSet<OperationObject> operationObjects = null;
+   private OperationObjectSet operationObjects = null;
    
-   public LinkedHashSet<OperationObject> getOperationObjects()
+   public OperationObjectSet getOperationObjects()
    {
       if (this.operationObjects == null)
       {
@@ -301,7 +303,7 @@ public class Statement implements PropertyChangeInterface
       {
          if (this.operationObjects == null)
          {
-            this.operationObjects = new LinkedHashSet<OperationObject>();
+            this.operationObjects = new OperationObjectSet();
          }
          
          changed = this.operationObjects.add (value);
@@ -357,7 +359,7 @@ public class Statement implements PropertyChangeInterface
    }
 
    
-   public static final LinkedHashSet<Statement> EMPTY_SET = new LinkedHashSet<Statement>();
+   public static final StatementSet EMPTY_SET = new StatementSet();
 
    
    /********************************************************************

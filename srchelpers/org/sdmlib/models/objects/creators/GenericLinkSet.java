@@ -3,7 +3,9 @@ package org.sdmlib.models.objects.creators;
 import java.util.LinkedHashSet;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.GenericGraph;
 
 public class GenericLinkSet extends LinkedHashSet<GenericLink>
 {
@@ -19,6 +21,16 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       return result;
    }
 
+   public GenericLinkSet withTgtLabel(String value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withTgtLabel(value);
+      }
+      
+      return this;
+   }
+
    public StringList getSrcLabel()
    {
       StringList result = new StringList();
@@ -29,6 +41,16 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       }
       
       return result;
+   }
+
+   public GenericLinkSet withSrcLabel(String value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withSrcLabel(value);
+      }
+      
+      return this;
    }
 
    public GenericObjectSet getSrc()
@@ -42,6 +64,16 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       
       return result;
    }
+   public GenericLinkSet withSrc(GenericObject value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withSrc(value);
+      }
+      
+      return this;
+   }
+
    public GenericObjectSet getTgt()
    {
       GenericObjectSet result = new GenericObjectSet();
@@ -53,36 +85,6 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       
       return result;
    }
-   public GenericLinkSet withTgtLabel(String value)
-   {
-      for (GenericLink obj : this)
-      {
-         obj.withTgtLabel(value);
-      }
-      
-      return this;
-   }
-
-   public GenericLinkSet withSrcLabel(String value)
-   {
-      for (GenericLink obj : this)
-      {
-         obj.withSrcLabel(value);
-      }
-      
-      return this;
-   }
-
-   public GenericLinkSet withSrc(GenericObject value)
-   {
-      for (GenericLink obj : this)
-      {
-         obj.withSrc(value);
-      }
-      
-      return this;
-   }
-
    public GenericLinkSet withTgt(GenericObject value)
    {
       for (GenericLink obj : this)
@@ -93,6 +95,26 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       return this;
    }
 
-}
+   public GenericGraphSet getGraph()
+   {
+      GenericGraphSet result = new GenericGraphSet();
+      
+      for (GenericLink obj : this)
+      {
+         result.add(obj.getGraph());
+      }
+      
+      return result;
+   }
+   public GenericLinkSet withGraph(GenericGraph value)
+   {
+      for (GenericLink obj : this)
+      {
+         obj.withGraph(value);
+      }
+      
+      return this;
+   }
 
+}
 

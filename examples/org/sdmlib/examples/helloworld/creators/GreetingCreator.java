@@ -38,6 +38,16 @@ public class GreetingCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Greeting) entity).removeYou();
+   }
 }
+
 
 

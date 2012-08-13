@@ -17,6 +17,9 @@ public class PatternObjectCreator implements SendableEntityCreator
       PatternObject.PROPERTY_ATTRCONSTRAINTS,
       PatternElement.PROPERTY_PATTERN, 
       PatternElement.PROPERTY_MODIFIER,
+      PatternObject.PROPERTY_HASMATCH,
+      PatternObject.PROPERTY_NAME,
+      PatternObject.PROPERTY_DESTROYELEM,
    };
    
    public String[] getProperties()
@@ -43,7 +46,18 @@ public class PatternObjectCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((PatternObject) entity).removeYou();
+   }
 }
+
+
 
 
 

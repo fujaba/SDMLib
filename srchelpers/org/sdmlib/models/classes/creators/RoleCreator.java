@@ -39,6 +39,16 @@ public class RoleCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Role) entity).removeYou();
+   }
 }
+
 
 

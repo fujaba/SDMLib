@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.examples.helloworld.Edge;
+import org.sdmlib.examples.helloworld.GraphComponent;
 
 public class GraphSet extends LinkedHashSet<Graph>
 {
@@ -69,5 +70,37 @@ public class GraphSet extends LinkedHashSet<Graph>
       return this;
    }
 
+   public GraphComponentSet getGcs()
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (Graph obj : this)
+      {
+         result.addAll(obj.getGcs());
+      }
+      
+      return result;
+   }
+   public GraphSet withGcs(GraphComponent value)
+   {
+      for (Graph obj : this)
+      {
+         obj.withGcs(value);
+      }
+      
+      return this;
+   }
+
+   public GraphSet withoutGcs(GraphComponent value)
+   {
+      for (Graph obj : this)
+      {
+         obj.withoutGcs(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

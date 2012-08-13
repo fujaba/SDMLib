@@ -28,8 +28,9 @@ import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.helloworld.GraphComponent;
 
-public class Node implements PropertyChangeInterface
+public class Node extends GraphComponent implements PropertyChangeInterface
 {
 
    
@@ -63,6 +64,36 @@ public class Node implements PropertyChangeInterface
       if (PROPERTY_INEDGES.equalsIgnoreCase(attrName))
       {
          return getInEdges();
+      }
+
+      if (PROPERTY_TEXT.equalsIgnoreCase(attribute))
+      {
+         return getText();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
+
+      if (PROPERTY_ORIG.equalsIgnoreCase(attrName))
+      {
+         return getOrig();
+      }
+
+      if (PROPERTY_COPY.equalsIgnoreCase(attrName))
+      {
+         return getCopy();
+      }
+
+      if (PROPERTY_LINKSTO.equalsIgnoreCase(attrName))
+      {
+         return getLinksTo();
+      }
+
+      if (PROPERTY_LINKSFROM.equalsIgnoreCase(attrName))
+      {
+         return getLinksFrom();
       }
       
       return null;
@@ -109,6 +140,54 @@ public class Node implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         setText((String) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((Graph) value);
+         return true;
+      }
+
+      if (PROPERTY_ORIG.equalsIgnoreCase(attrName))
+      {
+         setOrig((Node) value);
+         return true;
+      }
+
+      if (PROPERTY_COPY.equalsIgnoreCase(attrName))
+      {
+         setCopy((Node) value);
+         return true;
+      }
+
+      if (PROPERTY_LINKSTO.equalsIgnoreCase(attrName))
+      {
+         addToLinksTo((Node) value);
+         return true;
+      }
+      
+      if ((PROPERTY_LINKSTO + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromLinksTo((Node) value);
+         return true;
+      }
+
+      if (PROPERTY_LINKSFROM.equalsIgnoreCase(attrName))
+      {
+         addToLinksFrom((Node) value);
+         return true;
+      }
+      
+      if ((PROPERTY_LINKSFROM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromLinksFrom((Node) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -130,6 +209,10 @@ public class Node implements PropertyChangeInterface
       setGraph(null);
       removeAllFromOutEdges();
       removeAllFromInEdges();
+      setOrig(null);
+      setCopy(null);
+      removeAllFromLinksTo();
+      removeAllFromLinksFrom();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -406,6 +489,338 @@ public class Node implements PropertyChangeInterface
    {
       Edge value = new Edge();
       withInEdges(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Node ----------------------------------- Node
+    *              copy                   orig
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ORIG = "orig";
+   
+   private Node orig = null;
+   
+   public Node getOrig()
+   {
+      return this.orig;
+   }
+   
+   public boolean setOrig(Node value)
+   {
+      boolean changed = false;
+      
+      if (this.orig != value)
+      {
+         Node oldValue = this.orig;
+         
+         if (this.orig != null)
+         {
+            this.orig = null;
+            oldValue.setCopy(null);
+         }
+         
+         this.orig = value;
+         
+         if (value != null)
+         {
+            value.withCopy(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ORIG, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Node withOrig(Node value)
+   {
+      setOrig(value);
+      return this;
+   } 
+   
+   public Node createOrig()
+   {
+      Node value = new Node();
+      withOrig(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Node ----------------------------------- Node
+    *              orig                   copy
+    * </pre>
+    */
+   
+   public static final String PROPERTY_COPY = "copy";
+   
+   private Node copy = null;
+   
+   public Node getCopy()
+   {
+      return this.copy;
+   }
+   
+   public boolean setCopy(Node value)
+   {
+      boolean changed = false;
+      
+      if (this.copy != value)
+      {
+         Node oldValue = this.copy;
+         
+         if (this.copy != null)
+         {
+            this.copy = null;
+            oldValue.setOrig(null);
+         }
+         
+         this.copy = value;
+         
+         if (value != null)
+         {
+            value.withOrig(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_COPY, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Node withCopy(Node value)
+   {
+      setCopy(value);
+      return this;
+   } 
+   
+   public Node createCopy()
+   {
+      Node value = new Node();
+      withCopy(value);
+      return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public Node withText(String value)
+   {
+      setText(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Node ----------------------------------- Node
+    *              linksFrom                   linksTo
+    * </pre>
+    */
+   
+   public static final String PROPERTY_LINKSTO = "linksTo";
+   
+   private NodeSet linksTo = null;
+   
+   public NodeSet getLinksTo()
+   {
+      if (this.linksTo == null)
+      {
+         return Node.EMPTY_SET;
+      }
+   
+      return this.linksTo;
+   }
+   
+   public boolean addToLinksTo(Node value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.linksTo == null)
+         {
+            this.linksTo = new NodeSet();
+         }
+         
+         changed = this.linksTo.add (value);
+         
+         if (changed)
+         {
+            value.withLinksFrom(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LINKSTO, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromLinksTo(Node value)
+   {
+      boolean changed = false;
+      
+      if ((this.linksTo != null) && (value != null))
+      {
+         changed = this.linksTo.remove (value);
+         
+         if (changed)
+         {
+            value.withoutLinksFrom(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LINKSTO, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Node withLinksTo(Node value)
+   {
+      addToLinksTo(value);
+      return this;
+   } 
+   
+   public Node withoutLinksTo(Node value)
+   {
+      removeFromLinksTo(value);
+      return this;
+   } 
+   
+   public void removeAllFromLinksTo()
+   {
+      LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getLinksTo());
+   
+      for (Node value : tmpSet)
+      {
+         this.removeFromLinksTo(value);
+      }
+   }
+   
+   public Node createLinksTo()
+   {
+      Node value = new Node();
+      withLinksTo(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Node ----------------------------------- Node
+    *              linksTo                   linksFrom
+    * </pre>
+    */
+   
+   public static final String PROPERTY_LINKSFROM = "linksFrom";
+   
+   private NodeSet linksFrom = null;
+   
+   public NodeSet getLinksFrom()
+   {
+      if (this.linksFrom == null)
+      {
+         return Node.EMPTY_SET;
+      }
+   
+      return this.linksFrom;
+   }
+   
+   public boolean addToLinksFrom(Node value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.linksFrom == null)
+         {
+            this.linksFrom = new NodeSet();
+         }
+         
+         changed = this.linksFrom.add (value);
+         
+         if (changed)
+         {
+            value.withLinksTo(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LINKSFROM, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromLinksFrom(Node value)
+   {
+      boolean changed = false;
+      
+      if ((this.linksFrom != null) && (value != null))
+      {
+         changed = this.linksFrom.remove (value);
+         
+         if (changed)
+         {
+            value.withoutLinksTo(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LINKSFROM, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Node withLinksFrom(Node value)
+   {
+      addToLinksFrom(value);
+      return this;
+   } 
+   
+   public Node withoutLinksFrom(Node value)
+   {
+      removeFromLinksFrom(value);
+      return this;
+   } 
+   
+   public void removeAllFromLinksFrom()
+   {
+      LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getLinksFrom());
+   
+      for (Node value : tmpSet)
+      {
+         this.removeFromLinksFrom(value);
+      }
+   }
+   
+   public Node createLinksFrom()
+   {
+      Node value = new Node();
+      withLinksFrom(value);
       return value;
    } 
 }

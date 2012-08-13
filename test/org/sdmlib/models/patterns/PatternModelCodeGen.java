@@ -33,19 +33,6 @@ import org.sdmlib.scenarios.ScenarioManager;
 public class PatternModelCodeGen 
 {
    @Test
-   public void testTransformationsCodegen()
-   {
-      Scenario scenario = new Scenario("test", "TransformationsCodegen");
-      
-      scenario.add("Start situation: ",
-         BACKLOG, "zuendorf", "27.07.2012 13:27:59", 0, 0);
-      
-      ScenarioManager.get()
-      .add(scenario)
-      .dumpHTML();
-   }
-
-   @Test
    public void testPatternModelCodegen()
    {
       Scenario scenario = new Scenario("test", "PatternModelCodegen");
@@ -105,7 +92,12 @@ public class PatternModelCodeGen
       Clazz matchIsomorphicConstraint = new Clazz("org.sdmlib.models.pattern.MatchIsomorphicConstraint")
       .withSuperClass(patternElement);
       
+      Clazz destroyObjectClazz = new Clazz("org.sdmlib.models.pattern.DestroyObjectElem")
+      .withSuperClass(patternElement);
       
+      new Association()
+      .withTarget(patternObject, "patternObject", Role.ONE)
+      .withSource(destroyObjectClazz, "destroyElem", Role.ONE);
       
       
       model.generate("src", "srchelpers");

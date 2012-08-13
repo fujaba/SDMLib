@@ -32,6 +32,7 @@ import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 
@@ -1214,7 +1215,7 @@ public class Role implements PropertyChangeInterface
 
 
    
-   public static final LinkedHashSet<Role> EMPTY_SET = new LinkedHashSet<Role>();
+   public static final RoleSet EMPTY_SET = new RoleSet();
 
    
    /********************************************************************

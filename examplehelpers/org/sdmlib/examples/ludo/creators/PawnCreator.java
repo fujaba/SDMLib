@@ -40,5 +40,15 @@ public class PawnCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Pawn) entity).removeYou();
+   }
 }
+
 

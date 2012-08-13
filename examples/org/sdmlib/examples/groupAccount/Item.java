@@ -21,11 +21,10 @@
    
 package org.sdmlib.examples.groupAccount;
 
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
 
 public class Item implements PropertyChangeInterface
 {
@@ -43,12 +42,12 @@ public class Item implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
+      if (PROPERTY_DESCRIPTION.equalsIgnoreCase(attribute))
       {
          return getDescription();
       }
 
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
       {
          return getValue();
       }
@@ -79,7 +78,7 @@ public class Item implements PropertyChangeInterface
 
       if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
-         setValue((Double) value);
+         setValue(Double.parseDouble(value.toString()));
          return true;
       }
 
@@ -101,7 +100,7 @@ public class Item implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -124,7 +123,7 @@ public class Item implements PropertyChangeInterface
    public static final String PROPERTY_DESCRIPTION = "description";
    
    private String description;
-   
+
    public String getDescription()
    {
       return this.description;
@@ -152,7 +151,7 @@ public class Item implements PropertyChangeInterface
    public static final String PROPERTY_VALUE = "value";
    
    private double value;
-   
+
    public double getValue()
    {
       return this.value;
@@ -175,6 +174,8 @@ public class Item implements PropertyChangeInterface
    } 
 
    
+   public static final ItemSet EMPTY_SET = new ItemSet();
+
    
    /********************************************************************
     * <pre>
@@ -225,6 +226,13 @@ public class Item implements PropertyChangeInterface
    {
       setParent(value);
       return this;
+   } 
+   
+   public GroupAccount createParent()
+   {
+      GroupAccount value = new GroupAccount();
+      withParent(value);
+      return value;
    } 
 
    
@@ -278,8 +286,12 @@ public class Item implements PropertyChangeInterface
       setBuyer(value);
       return this;
    } 
-
    
-   public static final ItemSet EMPTY_SET = new ItemSet();
+   public Person createBuyer()
+   {
+      Person value = new Person();
+      withBuyer(value);
+      return value;
+   } 
 }
 

@@ -11,6 +11,8 @@ import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
 import org.sdmlib.models.pattern.creators.PatternObjectSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
+import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
+import org.sdmlib.models.pattern.DestroyObjectElem;
 
 public class PatternObjectPO extends PatternObject
 {
@@ -332,7 +334,41 @@ public class PatternObjectPO extends PatternObject
       return null;
    }
    
+   public DestroyObjectElemPO hasDestroyElem()
+   {
+      DestroyObjectElemPO result = new DestroyObjectElemPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternObject.PROPERTY_DESTROYELEM, result);
+      
+      return result;
+   }
+   
+   public PatternObjectPO hasDestroyElem(DestroyObjectElemPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_DESTROYELEM)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public DestroyObjectElem getDestroyElem()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getDestroyElem();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

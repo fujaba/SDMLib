@@ -7,6 +7,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.pattern.DestroyObjectElem;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {
@@ -213,7 +214,29 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+   public DestroyObjectElemSet getDestroyElem()
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getDestroyElem());
+      }
+      
+      return result;
+   }
+   public PatternObjectSet withDestroyElem(DestroyObjectElem value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withDestroyElem(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

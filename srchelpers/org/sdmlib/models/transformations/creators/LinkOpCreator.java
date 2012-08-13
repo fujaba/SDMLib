@@ -11,6 +11,8 @@ public class LinkOpCreator implements SendableEntityCreator
       LinkOp.PROPERTY_SRCTEXT,
       LinkOp.PROPERTY_TGTTEXT,
       LinkOp.PROPERTY_TRANSFORMOP,
+      LinkOp.PROPERTY_SRC,
+      LinkOp.PROPERTY_TGT,
    };
    
    public String[] getProperties()
@@ -37,7 +39,17 @@ public class LinkOpCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((LinkOp) entity).removeYou();
+   }
 }
+
 
 
 

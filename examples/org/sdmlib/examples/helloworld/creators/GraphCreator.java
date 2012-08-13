@@ -10,6 +10,7 @@ public class GraphCreator implements SendableEntityCreator
    {
       Graph.PROPERTY_NODES,
       Graph.PROPERTY_EDGES,
+      Graph.PROPERTY_GCS,
    };
    
    public String[] getProperties()
@@ -36,5 +37,16 @@ public class GraphCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Graph) entity).removeYou();
+   }
 }
+
+
 

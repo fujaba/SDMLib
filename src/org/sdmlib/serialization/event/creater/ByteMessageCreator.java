@@ -78,4 +78,11 @@ public class ByteMessageCreator implements ByteEntityCreator {
 	public boolean setValue(Object entity, String attribute, Object value, String typ) {
 		return ((ByteMessage) entity).set(attribute, value);
 	}
+	
+   @Override
+   public void removeObject(Object entity)
+   {
+      // Intentionally left blank      
+   }
+
 }

@@ -30,6 +30,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.scenarios.creators.LogEntrySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -720,9 +721,9 @@ public class KanbanEntry implements PropertyChangeInterface
    
    public static final String PROPERTY_LOGENTRIES = "logEntries";
    
-   private LinkedHashSet<LogEntry> logEntries = null;
+   private LogEntrySet logEntries = null;
    
-   public LinkedHashSet<LogEntry> getLogEntries()
+   public LogEntrySet getLogEntries()
    {
       if (this.logEntries == null)
       {
@@ -740,7 +741,7 @@ public class KanbanEntry implements PropertyChangeInterface
       {
          if (this.logEntries == null)
          {
-            this.logEntries = new LinkedHashSet<LogEntry>();
+            this.logEntries = new LogEntrySet();
          }
          
          changed = this.logEntries.add (value);

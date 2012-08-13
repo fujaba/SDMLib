@@ -3,6 +3,7 @@ package org.sdmlib.examples.helloworld.creators;
 import org.sdmlib.examples.helloworld.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.examples.helloworld.Node;
 
 public class NodeCreator implements SendableEntityCreator
@@ -13,6 +14,11 @@ public class NodeCreator implements SendableEntityCreator
       Node.PROPERTY_GRAPH,
       Node.PROPERTY_OUTEDGES,
       Node.PROPERTY_INEDGES,
+      Node.PROPERTY_ORIG,
+      Node.PROPERTY_COPY,
+      GraphComponent.PROPERTY_TEXT,
+      Node.PROPERTY_LINKSTO,
+      Node.PROPERTY_LINKSFROM,
    };
    
    public String[] getProperties()
@@ -39,5 +45,18 @@ public class NodeCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Node) entity).removeYou();
+   }
 }
+
+
+
+
 

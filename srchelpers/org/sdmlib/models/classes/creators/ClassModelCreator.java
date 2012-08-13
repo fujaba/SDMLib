@@ -36,6 +36,16 @@ public class ClassModelCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((ClassModel) entity).removeYou();
+   }
 }
+
 
 

@@ -10,6 +10,8 @@ import org.sdmlib.examples.groupAccount.creators.PersonPO;
 import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.examples.groupAccount.creators.ItemPO;
 import org.sdmlib.examples.groupAccount.Item;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
 
 public class PersonPO extends PatternObject
 {
@@ -163,7 +165,26 @@ public class PersonPO extends PatternObject
       return 0;
    }
    
+   public GroupAccount getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+   
+   public ItemSet getItems()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) this.getCurrentMatch()).getItems();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

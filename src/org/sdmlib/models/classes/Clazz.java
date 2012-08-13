@@ -35,13 +35,17 @@ import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.creators.GreetingPO;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
+import org.sdmlib.models.classes.creators.AttributeSet;
+import org.sdmlib.models.classes.creators.ClazzSet;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Clazz implements PropertyChangeInterface
 {
-   public static final LinkedHashSet<Clazz> EMPTY_SET = new LinkedHashSet<Clazz>();
+   public static final ClazzSet EMPTY_SET = new ClazzSet();
 
    public static Clazz clazz = null;
    
@@ -188,6 +192,7 @@ public class Clazz implements PropertyChangeInterface
       {
       	// now generate the corresponding creator class
       	getOrCreateParserForCreatorClass(helpersDir);
+      	insertRemoveObjectInCreatorClass();
       }
       printCreatorFile(creatorFileHasChanged);
       
@@ -339,7 +344,38 @@ public class Clazz implements PropertyChangeInterface
      }
   }
 
-	private void insertRemoveYourMethod()
+   private void insertRemoveObjectInCreatorClass()
+   {
+      String searchString = Parser.METHOD + ":removeObject(Object)";
+      int pos = creatorParser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         // add removeObject method
+         pos = creatorParser.indexOf(Parser.CLASS_END);
+         
+         StringBuilder text = new StringBuilder
+         (     "\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   @Override\n" + 
+               "   public void removeObject(Object entity)\n" + 
+               "   {\n" + 
+               "      ((ModelClass) entity).removeYou();\n" + 
+               "   }" +
+               "\n"
+         );
+         
+         CGUtil.replaceAll(text,
+            "ModelClass",  CGUtil.shortClassName(this.getName()));
+
+         creatorParser.getFileBody().insert(pos, text.toString());
+         setCreatorFileHasChanged(true);
+      }
+   }
+
+
+   private void insertRemoveYourMethod()
    {
       String searchString = Parser.METHOD + ":removeYou()";
       int pos = parser.indexOf(searchString);
@@ -637,9 +673,9 @@ public class Clazz implements PropertyChangeInterface
    
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    
-   private LinkedHashSet<Attribute> attributes = null;
+   private AttributeSet attributes = null;
    
-   public LinkedHashSet<Attribute> getAttributes()
+   public AttributeSet getAttributes()
    {
       if (this.attributes == null)
       {
@@ -657,7 +693,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.attributes == null)
          {
-            this.attributes = new LinkedHashSet<Attribute>();
+            this.attributes = new AttributeSet();
          }
          
          changed = this.attributes.add (value);
@@ -1156,9 +1192,9 @@ public class Clazz implements PropertyChangeInterface
    
    public static final String PROPERTY_SOURCEROLES = "sourceRoles";
    
-   private LinkedHashSet<Role> sourceRoles = null;
+   private RoleSet sourceRoles = null;
    
-   public LinkedHashSet<Role> getSourceRoles()
+   public RoleSet getSourceRoles()
    {
       if (this.sourceRoles == null)
       {
@@ -1176,7 +1212,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.sourceRoles == null)
          {
-            this.sourceRoles = new LinkedHashSet<Role>();
+            this.sourceRoles = new RoleSet();
          }
          
          changed = this.sourceRoles.add (value);
@@ -1242,9 +1278,9 @@ public class Clazz implements PropertyChangeInterface
    
    public static final String PROPERTY_TARGETROLES = "targetRoles";
    
-   private LinkedHashSet<Role> targetRoles = null;
+   private RoleSet targetRoles = null;
    
-   public LinkedHashSet<Role> getTargetRoles()
+   public RoleSet getTargetRoles()
    {
       if (this.targetRoles == null)
       {
@@ -1262,7 +1298,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.targetRoles == null)
          {
-            this.targetRoles = new LinkedHashSet<Role>();
+            this.targetRoles = new RoleSet();
          }
          
          changed = this.targetRoles.add (value);
@@ -1328,9 +1364,9 @@ public class Clazz implements PropertyChangeInterface
    
    public static final String PROPERTY_METHODS = "methods";
    
-   private LinkedHashSet<Method> methods = null;
+   private MethodSet methods = null;
    
-   public LinkedHashSet<Method> getMethods()
+   public MethodSet getMethods()
    {
       if (this.methods == null)
       {
@@ -1348,7 +1384,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.methods == null)
          {
-            this.methods = new LinkedHashSet<Method>();
+            this.methods = new MethodSet();
          }
          
          changed = this.methods.add (value);
@@ -1740,9 +1776,9 @@ public class Clazz implements PropertyChangeInterface
    
    public static final String PROPERTY_KINDCLASSES = "kindClasses";
    
-   private LinkedHashSet<Clazz> kindClasses = null;
+   private ClazzSet kindClasses = null;
    
-   public LinkedHashSet<Clazz> getKindClasses()
+   public ClazzSet getKindClasses()
    {
       if (this.kindClasses == null)
       {
@@ -1760,7 +1796,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.kindClasses == null)
          {
-            this.kindClasses = new LinkedHashSet<Clazz>();
+            this.kindClasses = new ClazzSet();
          }
          
          changed = this.kindClasses.add (value);

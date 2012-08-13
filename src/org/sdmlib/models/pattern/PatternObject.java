@@ -149,6 +149,17 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       return this;
    }
    
+   public PatternObject destroy()
+   {
+      DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
+      .withPatternObject(this)
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    //==========================================================================
 
    public Object get(String attrName)
@@ -199,6 +210,11 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
+      }
+
+      if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
+      {
+         return getDestroyElem();
       }
 
       return super.get(attrName);
@@ -275,6 +291,12 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
          return true;
       }
 
+      if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
+      {
+         setDestroyElem((DestroyObjectElem) value);
+         return true;
+      }
+
       return super.set(attrName, value);
    }
 
@@ -286,6 +308,7 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       removeAllFromIncomming();
       removeAllFromOutgoing();
       removeAllFromAttrConstraints();
+      setDestroyElem(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -645,5 +668,64 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
    {
       return listeners;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * PatternObject ----------------------------------- DestroyObjectElem
+    *              patternObject                   destroyElem
+    * </pre>
+    */
+   
+   public static final String PROPERTY_DESTROYELEM = "destroyElem";
+   
+   private DestroyObjectElem destroyElem = null;
+   
+   public DestroyObjectElem getDestroyElem()
+   {
+      return this.destroyElem;
+   }
+   
+   public boolean setDestroyElem(DestroyObjectElem value)
+   {
+      boolean changed = false;
+      
+      if (this.destroyElem != value)
+      {
+         DestroyObjectElem oldValue = this.destroyElem;
+         
+         if (this.destroyElem != null)
+         {
+            this.destroyElem = null;
+            oldValue.setPatternObject(null);
+         }
+         
+         this.destroyElem = value;
+         
+         if (value != null)
+         {
+            value.withPatternObject(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DESTROYELEM, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public PatternObject withDestroyElem(DestroyObjectElem value)
+   {
+      setDestroyElem(value);
+      return this;
+   } 
+   
+   public DestroyObjectElem createDestroyElem()
+   {
+      DestroyObjectElem value = new DestroyObjectElem();
+      withDestroyElem(value);
+      return value;
+   } 
 }
 

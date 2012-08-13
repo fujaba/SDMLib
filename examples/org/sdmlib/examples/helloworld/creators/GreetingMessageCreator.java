@@ -37,5 +37,14 @@ public class GreetingMessageCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((GreetingMessage) entity).removeYou();
+   }
 }
+
 

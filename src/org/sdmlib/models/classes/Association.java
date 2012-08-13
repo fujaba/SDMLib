@@ -170,7 +170,7 @@ public class Association implements PropertyChangeInterface
    } 
 
    
-   public static final LinkedHashSet<Association> EMPTY_SET = new LinkedHashSet<Association>();
+   public static final AssociationSet EMPTY_SET = new AssociationSet();
 
    
    /********************************************************************

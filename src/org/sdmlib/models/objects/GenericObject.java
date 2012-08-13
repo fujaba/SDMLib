@@ -24,6 +24,8 @@ package org.sdmlib.models.objects;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -45,14 +47,19 @@ public class GenericObject implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
       }
 
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return getType();
+      }
+
+      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      {
+         return getGraph();
       }
 
       if (PROPERTY_ATTRS.equalsIgnoreCase(attrName))
@@ -87,6 +94,12 @@ public class GenericObject implements PropertyChangeInterface
       if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
          setType((String) value);
+         return true;
+      }
+
+      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      {
+         setGraph((GenericGraph) value);
          return true;
       }
 
@@ -132,7 +145,7 @@ public class GenericObject implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -144,6 +157,7 @@ public class GenericObject implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setGraph(null);
       removeAllFromAttrs();
       removeAllFromOutgoingLinks();
       removeAllFromIncommingLinks();
@@ -156,7 +170,7 @@ public class GenericObject implements PropertyChangeInterface
    public static final String PROPERTY_NAME = "name";
    
    private String name;
-   
+
    public String getName()
    {
       return this.name;
@@ -184,7 +198,7 @@ public class GenericObject implements PropertyChangeInterface
    public static final String PROPERTY_TYPE = "type";
    
    private String type;
-   
+
    public String getType()
    {
       return this.type;
@@ -204,6 +218,68 @@ public class GenericObject implements PropertyChangeInterface
    {
       setType(value);
       return this;
+   } 
+
+   
+   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * GenericObject ----------------------------------- GenericGraph
+    *              objects                   graph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GRAPH = "graph";
+   
+   private GenericGraph graph = null;
+   
+   public GenericGraph getGraph()
+   {
+      return this.graph;
+   }
+   
+   public boolean setGraph(GenericGraph value)
+   {
+      boolean changed = false;
+      
+      if (this.graph != value)
+      {
+         GenericGraph oldValue = this.graph;
+         
+         if (this.graph != null)
+         {
+            this.graph = null;
+            oldValue.withoutObjects(this);
+         }
+         
+         this.graph = value;
+         
+         if (value != null)
+         {
+            value.withObjects(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public GenericObject withGraph(GenericGraph value)
+   {
+      setGraph(value);
+      return this;
+   } 
+   
+   public GenericGraph createGraph()
+   {
+      GenericGraph value = new GenericGraph();
+      withGraph(value);
+      return value;
    } 
 
    
@@ -291,6 +367,13 @@ public class GenericObject implements PropertyChangeInterface
          this.removeFromAttrs(value);
       }
    }
+   
+   public GenericAttribute createAttrs()
+   {
+      GenericAttribute value = new GenericAttribute();
+      withAttrs(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -377,6 +460,13 @@ public class GenericObject implements PropertyChangeInterface
          this.removeFromOutgoingLinks(value);
       }
    }
+   
+   public GenericLink createOutgoingLinks()
+   {
+      GenericLink value = new GenericLink();
+      withOutgoingLinks(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -463,16 +553,22 @@ public class GenericObject implements PropertyChangeInterface
          this.removeFromIncommingLinks(value);
       }
    }
-
-
-   public GenericObject with(String attrName, String attrValue)
+   
+   public GenericLink createIncommingLinks()
    {
-      new GenericAttribute()
-      .withName(attrName)
-      .withValue(attrValue)
-      .withOwner(this);
+      GenericLink value = new GenericLink();
+      withIncommingLinks(value);
+      return value;
+   }
+
+
+   public GenericObject with(String name, String value)
+   {
+      this.createAttrs()
+      .withName(name)
+      .withValue(value);
       
       return this;
-   }
+   } 
 }
 

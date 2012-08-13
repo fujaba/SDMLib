@@ -15,6 +15,8 @@ public class AttributeConstraintCreator implements SendableEntityCreator
       AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT,
       AttributeConstraint.PROPERTY_SRC,
       PatternElement.PROPERTY_MODIFIER,
+      AttributeConstraint.PROPERTY_HASMATCH,
+      AttributeConstraint.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -41,5 +43,15 @@ public class AttributeConstraintCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((AttributeConstraint) entity).removeYou();
+   }
 }
+
 

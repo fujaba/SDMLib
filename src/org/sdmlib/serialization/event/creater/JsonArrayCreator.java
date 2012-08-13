@@ -25,4 +25,11 @@ public class JsonArrayCreator implements SendableEntityCreator{
 		return ((JsonArray)entity).setAllValue((String) value);
 	}
 
+   @Override
+   public void removeObject(Object entity)
+   {
+      // should call removeYou on entity, but JsonArray has no remove you 
+      
+   }
+
 }

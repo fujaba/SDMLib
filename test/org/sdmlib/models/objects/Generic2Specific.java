@@ -12,55 +12,25 @@ import de.kassel.roombook.Building;
 public class Generic2Specific
 {
 
-   public Object convert(JsonIdMap jsonIdMap, String packageName, GenericObject root)
+   public Object convert(JsonIdMap jsonIdMap, String packageName, GenericGraph graph)
    {
       Object result = null; 
       
-      // collect all objects and links
-      LinkedHashSet<GenericObject> allObjects = new LinkedHashSet<GenericObject>();
-      LinkedList<GenericObject> todoObjects = new LinkedList<GenericObject>();
-      
-      LinkedHashSet<GenericLink> allLinks = new LinkedHashSet<GenericLink>();
-      
-      todoObjects.add(root);
-      
-      while (! todoObjects.isEmpty())
-      {
-         GenericObject currentObject = todoObjects.pop();
-         allObjects.add(currentObject);
-
-         for (GenericLink currentLink : currentObject.getOutgoingLinks())
-         {
-            allLinks.add(currentLink);
-            
-            GenericObject neighbor = currentLink.getTgt();
-            if ( ! allObjects.contains(neighbor))
-            {
-               todoObjects.add(neighbor);
-            }
-         }
-
-         for (GenericLink currentLink : currentObject.getIncommingLinks())
-         {
-            allLinks.add(currentLink);
-            
-            GenericObject neighbor = currentLink.getSrc();
-            if ( ! allObjects.contains(neighbor))
-            {
-               todoObjects.add(neighbor);
-            }
-         }
-      }
-
       // now create specific objects
       LinkedHashMap<GenericObject, Object> gen2specObjTable = new LinkedHashMap<GenericObject, Object>();
-      for (GenericObject genericObject : allObjects)
+      
+      for (GenericObject genericObject : graph.getObjects())
       {
          String type = genericObject.getType();
          
          if (type != null)
          {
-            SendableEntityCreator creatorClass = jsonIdMap.getCreatorClasses(packageName + "." + type);
+            if (packageName != null)
+            {
+               type = packageName + "." + type;
+            }
+            
+            SendableEntityCreator creatorClass = jsonIdMap.getCreatorClasses(type);
             
             if (creatorClass != null)
             {
@@ -83,7 +53,7 @@ public class Generic2Specific
       }
       
       // now set up the links
-      for (GenericLink genericLink : allLinks)
+      for (GenericLink genericLink : graph.getLinks())
       {
          GenericObject genericSrc = genericLink.getSrc();
          Object specSrc = gen2specObjTable.get(genericSrc);
@@ -108,6 +78,7 @@ public class Generic2Specific
             tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(), specSrc, "");
          }
       }
+      
       return result;
    }
 

@@ -38,7 +38,17 @@ public class ItemCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Item) entity).removeYou();
+   }
 }
+
 
 
 

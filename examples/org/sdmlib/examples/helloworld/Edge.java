@@ -25,8 +25,9 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.helloworld.GraphComponent;
 
-public class Edge implements PropertyChangeInterface
+public class Edge extends GraphComponent implements PropertyChangeInterface
 {
 
    
@@ -61,6 +62,16 @@ public class Edge implements PropertyChangeInterface
       {
          return getName();
       }
+
+      if (PROPERTY_TEXT.equalsIgnoreCase(attribute))
+      {
+         return getText();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -91,6 +102,18 @@ public class Edge implements PropertyChangeInterface
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         setText((String) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((Graph) value);
          return true;
       }
 

@@ -4,6 +4,7 @@ import org.sdmlib.examples.helloworld.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.Edge;
+import org.sdmlib.examples.helloworld.GraphComponent;
 
 public class EdgeCreator implements SendableEntityCreator
 {
@@ -13,6 +14,7 @@ public class EdgeCreator implements SendableEntityCreator
       Edge.PROPERTY_SRC,
       Edge.PROPERTY_TGT,
       Edge.PROPERTY_NAME,
+      GraphComponent.PROPERTY_TEXT,
    };
    
    public String[] getProperties()
@@ -39,6 +41,16 @@ public class EdgeCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Edge) entity).removeYou();
+   }
 }
+
 
 

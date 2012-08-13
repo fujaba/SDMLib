@@ -1,6 +1,7 @@
 package org.sdmlib.models.objects.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternLink;
@@ -8,6 +9,9 @@ import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.models.objects.creators.GenericGraphPO;
+import org.sdmlib.models.objects.GenericGraph;
 
 public class GenericLinkPO extends PatternObject
 {
@@ -131,5 +135,66 @@ public class GenericLinkPO extends PatternObject
       return null;
    }
    
+   public GenericGraphPO hasGraph()
+   {
+      GenericGraphPO result = new GenericGraphPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(GenericLink.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+   
+   public GenericLinkPO hasGraph(GenericGraphPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(GenericLink.PROPERTY_GRAPH)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericGraph getGraph()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GenericLink) this.getCurrentMatch()).getGraph();
+      }
+      return null;
+   }
+
+   public GenericLinkPO startCreate()
+   {
+      this.getPattern().startCreate();
+      
+      return this;
+   }
+
+   public GenericLink getCurrentMatch()
+   {
+      return (GenericLink) super.getCurrentMatch();
+   }
+   
+   
+   public GenericLinkSet allMatches()
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      while (this.getPattern().getHasMatch())
+      {
+         result.add(this.getCurrentMatch());
+         
+         this.getPattern().findNextMatch();
+      }
+      
+      return result;
+   }
+   
 }
+
 

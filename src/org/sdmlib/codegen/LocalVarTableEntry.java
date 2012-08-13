@@ -259,7 +259,6 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    public ArrayList<ArrayList<String>> getInitSequence()
    {
       return this.initSequence;
-   
    }
    
    //==========================================================================

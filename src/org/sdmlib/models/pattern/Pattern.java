@@ -100,6 +100,14 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
       
       // start with the last element and go backward until a new choice is made, then go forward to propagate the new choice
       int i = this.getElements().size() - 1;
+      
+      if (restartSearchAtIndex0)
+      {
+         restartSearchAtIndex0 = false;
+         
+         i = 0;
+      }
+      
       PatternElement currentPE = null;
       while (i >= 0 && i < this.getElements().size())
       {
@@ -127,10 +135,12 @@ public class Pattern extends PatternElement implements PropertyChangeInterface
       return findMatch();
    } 
 
-
+   private boolean restartSearchAtIndex0 = false;
 
    public void resetSearch()
    {
+      restartSearchAtIndex0 = true;
+      
       for (PatternElement pe : this.getElements())
       {
          pe.resetSearch();

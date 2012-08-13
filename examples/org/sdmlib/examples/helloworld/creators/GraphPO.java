@@ -11,6 +11,10 @@ import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.examples.helloworld.creators.EdgePO;
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.GraphSet;
+import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
+import org.sdmlib.examples.helloworld.GraphComponent;
+import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 
 public class GraphPO extends PatternObject
 {
@@ -24,6 +28,14 @@ public class GraphPO extends PatternObject
       return (GraphPO) super.endNAC();
    }
    
+   
+   @Override
+   public Graph getCurrentMatch()
+   {
+      // TODO Auto-generated method stub
+      return (Graph) super.getCurrentMatch();
+   }
+
    public NodePO hasNodes()
    {
       NodePO result = new NodePO();
@@ -88,5 +100,59 @@ public class GraphPO extends PatternObject
       return null;
    }
    
+   public GraphComponentPO hasGcs()
+   {
+      GraphComponentPO result = new GraphComponentPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+   
+   public NodePO hasGcsNode()
+   {
+      NodePO result = new NodePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+   
+   public EdgePO hasGcsEdge()
+   {
+      EdgePO result = new EdgePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Graph.PROPERTY_GCS, result);
+      
+      return result;
+   }
+   
+   public GraphPO hasGcs(GraphComponentPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_GCS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GraphComponentSet getGcs()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Graph) this.getCurrentMatch()).getGcs();
+      }
+      return null;
+   }
+   
 }
+
 

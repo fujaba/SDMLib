@@ -8,6 +8,8 @@ import org.sdmlib.examples.studyrightextends.creators.RoomPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.studyrightextends.creators.UniversityPO;
 import org.sdmlib.examples.studyrightextends.Room;
+import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
 
 public class UniversityPO extends PatternObject
 {
@@ -81,6 +83,25 @@ public class UniversityPO extends PatternObject
       return this;
    }
    
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public RoomSet getRooms()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) this.getCurrentMatch()).getRooms();
+      }
+      return null;
+   }
+   
 }
+
 
 

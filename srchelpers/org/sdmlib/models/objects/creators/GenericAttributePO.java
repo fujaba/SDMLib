@@ -21,6 +21,32 @@ public class GenericAttributePO extends PatternObject
       return (GenericAttributePO) super.endNAC();
    }
    
+   public GenericAttributePO startCreate()
+   {
+      this.getPattern().startCreate();
+      
+      return this;
+   }
+   
+   public GenericAttribute getCurrentMatch()
+   {
+      return (GenericAttribute) super.getCurrentMatch();
+   }
+   
+   public GenericAttributeSet allMatches()
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      while (this.getPattern().getHasMatch())
+      {
+         result.add(this.getCurrentMatch());
+         
+         this.getPattern().findNextMatch();
+      }
+      
+      return result;
+   }
+   
    public GenericAttributePO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()

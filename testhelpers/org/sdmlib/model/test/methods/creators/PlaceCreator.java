@@ -34,5 +34,15 @@ public class PlaceCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Place) entity).removeYou();
+   }
 }
+
 

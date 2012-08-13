@@ -12,6 +12,9 @@ import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.objects.creators.GenericGraphPO;
+import org.sdmlib.models.objects.GenericGraph;
 
 public class GenericObjectPO extends PatternObject
 {
@@ -167,5 +170,57 @@ public class GenericObjectPO extends PatternObject
       return null;
    }
    
+   public GenericGraphPO hasGraph()
+   {
+      GenericGraphPO result = new GenericGraphPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(GenericObject.PROPERTY_GRAPH, result);
+      
+      return result;
+   }
+   
+   public GenericObjectPO hasGraph(GenericGraphPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(GenericObject.PROPERTY_GRAPH)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericGraph getGraph()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GenericObject) this.getCurrentMatch()).getGraph();
+      }
+      return null;
+   }
+   
+   public GenericObject getCurrentMatch()
+   {
+      return (GenericObject) super.getCurrentMatch();
+   }
+   
+   public GenericObjectSet allMatches()
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      while (this.getPattern().getHasMatch())
+      {
+         result.add(this.getCurrentMatch());
+         
+         this.getPattern().findNextMatch();
+      }
+      
+      return result;
+   }
 }
+
 

@@ -10,6 +10,9 @@ import org.sdmlib.examples.studyright.creators.UniversityPO;
 import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.creators.RoomPO;
 import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.UniversitySet;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.creators.RoomSet;
 
 public class UniversityPO extends PatternObject
 {
@@ -131,6 +134,34 @@ public class UniversityPO extends PatternObject
       return this;
    }
    
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public StudentSet getStudents()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) this.getCurrentMatch()).getStudents();
+      }
+      return null;
+   }
+   
+   public RoomSet getRooms()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((University) this.getCurrentMatch()).getRooms();
+      }
+      return null;
+   }
+   
 }
+
 
 

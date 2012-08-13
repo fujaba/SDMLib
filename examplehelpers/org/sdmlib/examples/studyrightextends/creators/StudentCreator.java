@@ -38,5 +38,15 @@ public class StudentCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Student) entity).removeYou();
+   }
 }
+
 

@@ -12,6 +12,9 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
    {
       NegativeApplicationCondition.PROPERTY_HASMATCH,
       Pattern.PROPERTY_ELEMENTS, 
+      NegativeApplicationCondition.PROPERTY_CURRENTNAC,
+      NegativeApplicationCondition.PROPERTY_MODIFIER,
+      NegativeApplicationCondition.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -38,5 +41,15 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((NegativeApplicationCondition) entity).removeYou();
+   }
 }
+
 

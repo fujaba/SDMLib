@@ -51,9 +51,15 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       ClassModel genericModel = new ClassModel();
       
+      Clazz genericGraph = new Clazz("org.sdmlib.models.objects.GenericGraph");
+      
       Clazz genericObjectClazz = new Clazz("org.sdmlib.models.objects.GenericObject")
       .withAttribute("name", "String")
       .withAttribute("type", "String");
+      
+      new Association()
+      .withTarget(genericObjectClazz, "objects", Role.MANY)
+      .withSource(genericGraph, "graph", Role.ONE);
       
       Clazz genericAttributeClazz = new Clazz("org.sdmlib.models.objects.GenericAttribute")
       .withAttribute("name", "String")
@@ -75,48 +81,55 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withSource("tgt", genericObjectClazz, Role.ONE)
       .withTarget("incommingLinks", genericLinkClazz, Role.MANY);
       
-      scenario.addImage(genericModel.dumpClassDiag("GenericObjectStructureClasses"));
+      new Association()
+      .withTarget(genericLinkClazz, "links", Role.MANY)
+      .withSource(genericGraph, "graph", Role.ONE);
       
+      scenario.addImage(genericModel.dumpClassDiag("GenericObjectStructureClasses"));
+     
+      // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
       genericModel.generate("src", "srchelpers");
       
       //====================================================================================================
       scenario.add("Step 2: We just build our example object structure with generic objects: ");
       
-      GenericObject building = new GenericObject()
+      GenericGraph graph = new GenericGraph();
+      
+      GenericObject building = graph.createObjects()
       .with("name", "WA73")
       .withName("WilliAllee")
       .withType("Building");
 
-      GenericObject wa13 = new GenericObject()
+      GenericObject wa13 = graph.createObjects()
       .with("name", "WA13")
       .with("level", "1")
       .withName("seFloor")
       .withType("Floor");
       
-      new GenericLink()
+      graph.createLinks()
       .withSrc(building)
       .withTgt(wa13)
       .withTgtLabel("has");
       
-      GenericObject wa03 = new GenericObject()
+      GenericObject wa03 = graph.createObjects()
       .with("name", "WA03")
       .with("level", "0")
       .withName("digitalFloor")
       .withType("Floor");
       
-      new GenericLink()
+      graph.createLinks()
       .withSrc(building)
       .withTgt(wa03)
       .withTgtLabel("has");
       
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("go");
-      scenario.addObjectDiag(jsonIdMap, building);
+      scenario.addObjectDiag(jsonIdMap, graph);
 
       //====================================================================================================
       scenario.add("Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: ");
       
-      scenario.addGenericObjectDiag("specificgenericobjectdiag", building);
+      scenario.addGenericObjectDiag("specificgenericobjectdiag", graph);
       
       //====================================================================================================
       scenario.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
@@ -158,12 +171,20 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       JsonIdMap createIdMap = de.kassel.roombook.creators.CreatorCreator.createIdMap("gen2spec");
       
-      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", building);
+      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", graph);
       
       scenario.addObjectDiag(createIdMap, specificBuilding);
+      
       scenario.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
          BUG, "zuendorf", "31.05.2012 15:22:42", 0, 0);
       
+      scenario.add("New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model ",
+         IMPLEMENTATION, "zuendorf", "05.08.2012 15:43:42", 4, 0);
+      
+      GenericGraph gengraph = new Specific2Generic().convert(de.kassel.roombook.creators.CreatorCreator.createIdMap("spec2gen"), specificBuilding);
+      
+      scenario.addObjectDiag(CreatorCreator.createIdMap("go"), gengraph);
+
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();

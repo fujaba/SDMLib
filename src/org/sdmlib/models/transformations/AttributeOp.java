@@ -24,6 +24,7 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.transformations.creators.AttributeOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
@@ -124,7 +125,7 @@ public class AttributeOp implements PropertyChangeInterface
    } 
 
    
-   public static final LinkedHashSet<AttributeOp> EMPTY_SET = new LinkedHashSet<AttributeOp>();
+   public static final AttributeOpSet EMPTY_SET = new AttributeOpSet();
 
    
    /********************************************************************

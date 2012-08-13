@@ -35,6 +35,16 @@ public class TownCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Town) entity).removeYou();
+   }
 }
+
 
 

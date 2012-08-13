@@ -7,6 +7,7 @@ import org.sdmlib.scenarios.creators.KanbanEntryPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.scenarios.creators.LogEntryPO;
 import org.sdmlib.scenarios.KanbanEntry;
+import org.sdmlib.scenarios.creators.LogEntrySet;
 
 public class LogEntryPO extends PatternObject
 {
@@ -49,5 +50,15 @@ public class LogEntryPO extends PatternObject
       return this;
    }
    
+   public KanbanEntry getKanbanEntry()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LogEntry) this.getCurrentMatch()).getKanbanEntry();
+      }
+      return null;
+   }
+   
 }
+
 

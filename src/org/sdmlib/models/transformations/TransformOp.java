@@ -35,6 +35,9 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.transformations.creators.LinkOpSet;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -189,9 +192,9 @@ public class TransformOp implements PropertyChangeInterface
    
    public static final String PROPERTY_OPOBJECTS = "opObjects";
    
-   private LinkedHashSet<OperationObject> opObjects = null;
+   private OperationObjectSet opObjects = null;
    
-   public LinkedHashSet<OperationObject> getOpObjects()
+   public OperationObjectSet getOpObjects()
    {
       if (this.opObjects == null)
       {
@@ -209,7 +212,7 @@ public class TransformOp implements PropertyChangeInterface
       {
          if (this.opObjects == null)
          {
-            this.opObjects = new LinkedHashSet<OperationObject>();
+            this.opObjects = new OperationObjectSet();
          }
          
          changed = this.opObjects.add (value);
@@ -275,9 +278,9 @@ public class TransformOp implements PropertyChangeInterface
    
    public static final String PROPERTY_STATEMENTS = "statements";
    
-   private LinkedHashSet<Statement> statements = null;
+   private StatementSet statements = null;
    
-   public LinkedHashSet<Statement> getStatements()
+   public StatementSet getStatements()
    {
       if (this.statements == null)
       {
@@ -295,7 +298,7 @@ public class TransformOp implements PropertyChangeInterface
       {
          if (this.statements == null)
          {
-            this.statements = new LinkedHashSet<Statement>();
+            this.statements = new StatementSet();
          }
          
          changed = this.statements.add (value);
@@ -657,13 +660,13 @@ public class TransformOp implements PropertyChangeInterface
    
    public static final String PROPERTY_LINKOPS = "linkOps";
    
-   private LinkedHashSet<LinkOp> linkOps = null;
+   private LinkOpSet linkOps = null;
 
    private OperationObject currentOpObj;
 
    private String currentType;
    
-   public LinkedHashSet<LinkOp> getLinkOps()
+   public LinkOpSet getLinkOps()
    {
       if (this.linkOps == null)
       {
@@ -681,7 +684,7 @@ public class TransformOp implements PropertyChangeInterface
       {
          if (this.linkOps == null)
          {
-            this.linkOps = new LinkedHashSet<LinkOp>();
+            this.linkOps = new LinkOpSet();
          }
          
          changed = this.linkOps.add (value);

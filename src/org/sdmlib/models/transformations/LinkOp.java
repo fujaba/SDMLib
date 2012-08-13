@@ -24,6 +24,7 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
@@ -187,7 +188,7 @@ public class LinkOp implements PropertyChangeInterface
    } 
 
    
-   public static final LinkedHashSet<LinkOp> EMPTY_SET = new LinkedHashSet<LinkOp>();
+   public static final LinkOpSet EMPTY_SET = new LinkOpSet();
 
    
    /********************************************************************

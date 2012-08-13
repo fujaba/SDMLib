@@ -42,7 +42,17 @@ public class OperationObjectCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((OperationObject) entity).removeYou();
+   }
 }
+
 
 
 

@@ -40,7 +40,19 @@ public class PatternCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Pattern) entity).removeYou();
+   }
 }
+
+
+
 
 
 

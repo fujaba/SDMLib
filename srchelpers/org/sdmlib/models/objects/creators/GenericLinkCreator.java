@@ -1,5 +1,6 @@
 package org.sdmlib.models.objects.creators;
 
+import org.sdmlib.models.objects.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericLink;
@@ -12,6 +13,7 @@ public class GenericLinkCreator implements SendableEntityCreator
       GenericLink.PROPERTY_SRCLABEL,
       GenericLink.PROPERTY_SRC,
       GenericLink.PROPERTY_TGT,
+      GenericLink.PROPERTY_GRAPH,
    };
    
    public String[] getProperties()
@@ -37,6 +39,15 @@ public class GenericLinkCreator implements SendableEntityCreator
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
+   }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((GenericLink) entity).removeYou();
    }
 }
 

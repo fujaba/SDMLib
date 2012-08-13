@@ -94,6 +94,29 @@ public class EdgeSet extends LinkedHashSet<Edge>
       return this;
    }
 
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Edge obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public EdgeSet withText(String value)
+   {
+      for (Edge obj : this)
+      {
+         obj.withText(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

@@ -16,6 +16,9 @@ public class PatternLinkCreator implements SendableEntityCreator
       PatternLink.PROPERTY_SRC,
       PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT,
       PatternElement.PROPERTY_PATTERN, 
+      PatternLink.PROPERTY_MODIFIER,
+      PatternLink.PROPERTY_HASMATCH,
+      PatternLink.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -42,7 +45,17 @@ public class PatternLinkCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((PatternLink) entity).removeYou();
+   }
 }
+
 
 
 

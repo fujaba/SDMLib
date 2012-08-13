@@ -39,7 +39,17 @@ public class StatementCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Statement) entity).removeYou();
+   }
 }
+
 
 
 

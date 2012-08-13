@@ -10,6 +10,8 @@ import org.sdmlib.examples.studyrightextends.creators.LecturePO;
 import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.creators.UniversityPO;
 import org.sdmlib.examples.studyrightextends.University;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 
 public class RoomPO extends PatternObject
 {
@@ -204,6 +206,52 @@ public class RoomPO extends PatternObject
       return this;
    }
    
+   public String getRoomNo()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) getCurrentMatch()).getRoomNo();
+      }
+      return null;
+   }
+   
+   public int getCredits()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) getCurrentMatch()).getCredits();
+      }
+      return 0;
+   }
+   
+   public RoomSet getNeighbors()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getNeighbors();
+      }
+      return null;
+   }
+   
+   public LectureSet getLecture()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getLecture();
+      }
+      return null;
+   }
+   
+   public University getUni()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getUni();
+      }
+      return null;
+   }
+   
 }
+
 
 

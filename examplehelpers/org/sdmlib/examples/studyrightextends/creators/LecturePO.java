@@ -12,6 +12,7 @@ import org.sdmlib.examples.studyrightextends.creators.ProfessorPO;
 import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.examples.studyrightextends.creators.StudentPO;
 import org.sdmlib.examples.studyrightextends.Student;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 
 public class LecturePO extends PatternObject
 {
@@ -154,6 +155,43 @@ public class LecturePO extends PatternObject
       return this;
    }
    
+   public String getTitle()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Lecture) getCurrentMatch()).getTitle();
+      }
+      return null;
+   }
+   
+   public Room getIn()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Lecture) this.getCurrentMatch()).getIn();
+      }
+      return null;
+   }
+   
+   public Professor getHas()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Lecture) this.getCurrentMatch()).getHas();
+      }
+      return null;
+   }
+   
+   public Student getListen()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Lecture) this.getCurrentMatch()).getListen();
+      }
+      return null;
+   }
+   
 }
+
 
 

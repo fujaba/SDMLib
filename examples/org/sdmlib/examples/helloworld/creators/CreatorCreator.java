@@ -26,6 +26,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.helloworld.creators.GreetingMessagePOCreator());
          creatorSet.add(new org.sdmlib.examples.helloworld.creators.PersonCreator());
          creatorSet.add(new org.sdmlib.examples.helloworld.creators.PersonPOCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GraphComponentCreator());
+         creatorSet.add(new org.sdmlib.examples.helloworld.creators.GraphComponentPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -41,6 +43,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

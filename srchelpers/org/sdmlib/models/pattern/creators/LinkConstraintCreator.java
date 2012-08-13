@@ -18,6 +18,8 @@ public class LinkConstraintCreator implements SendableEntityCreator
          PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT,
          PatternElement.PROPERTY_PATTERN, 
          PatternElement.PROPERTY_MODIFIER,
+      LinkConstraint.PROPERTY_HASMATCH,
+      LinkConstraint.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -44,5 +46,15 @@ public class LinkConstraintCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((LinkConstraint) entity).removeYou();
+   }
 }
+
 

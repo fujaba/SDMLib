@@ -42,12 +42,12 @@ public class GenericAttribute implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
       }
 
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
       {
          return getValue();
       }
@@ -89,7 +89,7 @@ public class GenericAttribute implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -111,7 +111,7 @@ public class GenericAttribute implements PropertyChangeInterface
    public static final String PROPERTY_NAME = "name";
    
    private String name;
-   
+
    public String getName()
    {
       return this.name;
@@ -139,7 +139,7 @@ public class GenericAttribute implements PropertyChangeInterface
    public static final String PROPERTY_VALUE = "value";
    
    private String value;
-   
+
    public String getValue()
    {
       return this.value;
@@ -214,6 +214,13 @@ public class GenericAttribute implements PropertyChangeInterface
    {
       setOwner(value);
       return this;
+   } 
+   
+   public GenericObject createOwner()
+   {
+      GenericObject value = new GenericObject();
+      withOwner(value);
+      return value;
    } 
 }
 

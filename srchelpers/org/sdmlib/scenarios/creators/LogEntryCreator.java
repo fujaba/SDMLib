@@ -42,7 +42,17 @@ public class LogEntryCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((LogEntry) entity).removeYou();
+   }
 }
+
 
 
 

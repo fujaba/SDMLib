@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.groupAccount;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.groupAccount.creators.ItemSet;
-import org.sdmlib.examples.groupAccount.creators.PersonSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Person implements PropertyChangeInterface
 {
@@ -46,12 +45,12 @@ public class Person implements PropertyChangeInterface
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
       }
 
-      if (PROPERTY_BALANCE.equalsIgnoreCase(attrName))
+      if (PROPERTY_BALANCE.equalsIgnoreCase(attribute))
       {
          return getBalance();
       }
@@ -82,7 +81,7 @@ public class Person implements PropertyChangeInterface
 
       if (PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
-         setBalance((Double) value);
+         setBalance(Double.parseDouble(value.toString()));
          return true;
       }
 
@@ -110,7 +109,7 @@ public class Person implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -133,7 +132,7 @@ public class Person implements PropertyChangeInterface
    public static final String PROPERTY_NAME = "name";
    
    private String name;
-   
+
    public String getName()
    {
       return this.name;
@@ -161,7 +160,7 @@ public class Person implements PropertyChangeInterface
    public static final String PROPERTY_BALANCE = "balance";
    
    private double balance;
-   
+
    public double getBalance()
    {
       return this.balance;
@@ -236,6 +235,13 @@ public class Person implements PropertyChangeInterface
    {
       setParent(value);
       return this;
+   } 
+   
+   public GroupAccount createParent()
+   {
+      GroupAccount value = new GroupAccount();
+      withParent(value);
+      return value;
    } 
 
    
@@ -323,5 +329,12 @@ public class Person implements PropertyChangeInterface
          this.removeFromItems(value);
       }
    }
+   
+   public Item createItems()
+   {
+      Item value = new Item();
+      withItems(value);
+      return value;
+   } 
 }
 

@@ -30,6 +30,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class Attribute implements PropertyChangeInterface 
@@ -37,7 +38,7 @@ public class Attribute implements PropertyChangeInterface
 	public static final String SIMPLE = "simple";
 	   public static final String COMPLEX = "complex";
 	
-   public static final LinkedHashSet<Attribute> EMPTY_SET = new LinkedHashSet<Attribute>();
+   public static final AttributeSet EMPTY_SET = new AttributeSet();
    
    public Attribute()
    {

@@ -11,34 +11,15 @@ public class HelloWorldTmp
    @Test
    public void testTmp()
    {
-ClassModel model = new ClassModel();
-      
-      Clazz graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
-      
-      Clazz edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge");
+      ClassModel model = new ClassModel();
 
-      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
-      .withAttribute("name", "String");
+      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node");
 
       new Association()
-      .withTarget(nodeClazz, "nodes", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "edges", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", Role.ONE)
-      .withSource(edgeClazz, "outEdges", Role.MANY);
+      .withTarget(nodeClazz, "copy", Role.ONE)
+      .withSource(nodeClazz, "orig", Role.ONE);
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Role.ONE)
-      .withSource(edgeClazz, "inEdges", Role.MANY);
-
-      // // model.removeAllGeneratedCode("examples", "examples", "examples");
-      
       model.generate("examples", "examples");
-      
+
    }
 }

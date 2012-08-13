@@ -64,7 +64,17 @@ public interface SendableEntityCreator {
 	 * @param entity the entity
 	 * @param attribute the attribute
 	 * @param value the value
+	 * @param type edit, update or remove operation
 	 * @return true, if successful
 	 */
 	public boolean setValue(Object entity, String attribute, Object value, String type);
+	
+	  /**
+    * Calls entity.removeYou().
+    *
+    * @param entity the entity to be deleted
+    */
+   public void removeObject(Object entity);
+
 }
+

@@ -71,10 +71,21 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          return true;
       }
    }
+   
+   
 
    
    //==========================================================================
    
+   @Override
+   public void resetSearch()
+   {
+      setHasMatch(false);
+   }
+
+
+
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');

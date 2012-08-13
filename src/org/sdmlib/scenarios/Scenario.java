@@ -42,6 +42,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.objects.GenericAttribute;
+import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonArray;
@@ -431,46 +432,13 @@ public class Scenario
 
    private int objNo;
    
-   public void addGenericObjectDiag(String diagramName, GenericObject root)
+   public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
       objNo = 0;
       
-      // collect all objects and links
+      // name all objects 
       LinkedHashMap<GenericObject, String> allObjects = new LinkedHashMap<GenericObject, String>();
-      LinkedList<GenericObject> todoObjects = new LinkedList<GenericObject>();
       
-      LinkedHashSet<GenericLink> allLinks = new LinkedHashSet<GenericLink>();
-      
-      todoObjects.add(root);
-      
-      while (! todoObjects.isEmpty())
-      {
-         GenericObject currentObject = todoObjects.pop();
-         allObjects.put(currentObject, findNameFor(currentObject));
-
-         for (GenericLink currentLink : currentObject.getOutgoingLinks())
-         {
-            allLinks.add(currentLink);
-            
-            GenericObject neighbor = currentLink.getTgt();
-            if ( ! allObjects.containsKey(neighbor))
-            {
-               todoObjects.add(neighbor);
-            }
-         }
-
-         for (GenericLink currentLink : currentObject.getIncommingLinks())
-         {
-            allLinks.add(currentLink);
-            
-            GenericObject neighbor = currentLink.getSrc();
-            if ( ! allObjects.containsKey(neighbor))
-            {
-               todoObjects.add(neighbor);
-            }
-         }
-      }
-
       // String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);      
       String link = "<img src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", diagramName + ".svg");
@@ -485,10 +453,12 @@ public class Scenario
             
       // list of nodes
       StringBuilder nodeBuilder = new StringBuilder();
-      for (GenericObject currentObject : allObjects.keySet())
+      for (GenericObject currentObject : graph.getObjects())
       {
          String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
         
+         allObjects.put(currentObject, findNameFor(currentObject));
+         
          nodeLine = nodeLine.replaceAll("<id>", allObjects.get(currentObject));
          
          String type = "_"; 
@@ -522,7 +492,7 @@ public class Scenario
       
       // now generate edges from edgeMap
       StringBuilder edgeBuilder = new StringBuilder();
-      for (GenericLink currentLink : allLinks)
+      for (GenericLink currentLink : graph.getLinks())
       {
          String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
          edgeLine = edgeLine.replaceFirst("<srcId>", allObjects.get(currentLink.getSrc()));
@@ -547,7 +517,6 @@ public class Scenario
       
       File docDir = new File("doc");
       docDir.mkdir();
-      BufferedWriter out; 
       String command = "";
       if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
          command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagramName;

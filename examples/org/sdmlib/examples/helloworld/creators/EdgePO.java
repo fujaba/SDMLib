@@ -38,6 +38,22 @@ public class EdgePO extends PatternObject
       return matches;
    }
    
+   
+   
+   @Override
+   public Edge getCurrentMatch()
+   {
+      return (Edge) super.getCurrentMatch();
+   }
+   
+
+   @Override
+   public EdgePO destroy()
+   {
+      super.destroy();
+      return this;
+   }
+
    public GraphPO hasGraph()
    {
       GraphPO result = new GraphPO();
@@ -160,6 +176,39 @@ public class EdgePO extends PatternObject
       return null;
    }
    
+   public EdgePO hasText(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Edge) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public EdgePO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Edge) getCurrentMatch()).withText(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

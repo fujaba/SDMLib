@@ -3,6 +3,7 @@ package org.sdmlib.model.test.superclasses.creators;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.test.superclasses.Continent;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.model.test.superclasses.creators.ContinentSet;
 
 public class ContinentPO extends PatternObject
 {
@@ -28,5 +29,15 @@ public class ContinentPO extends PatternObject
       return this;
    }
    
+   public String getTest()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Continent) getCurrentMatch()).getTest();
+      }
+      return null;
+   }
+   
 }
+
 

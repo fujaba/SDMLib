@@ -3,6 +3,8 @@ package org.sdmlib.models.objects.creators;
 import java.util.LinkedHashSet;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 
@@ -20,6 +22,16 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return result;
    }
 
+   public GenericObjectSet withName(String value)
+   {
+      for (GenericObject obj : this)
+      {
+         obj.withName(value);
+      }
+      
+      return this;
+   }
+
    public StringList getType()
    {
       StringList result = new StringList();
@@ -30,6 +42,37 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       }
       
       return result;
+   }
+
+   public GenericObjectSet withType(String value)
+   {
+      for (GenericObject obj : this)
+      {
+         obj.withType(value);
+      }
+      
+      return this;
+   }
+
+   public GenericGraphSet getGraph()
+   {
+      GenericGraphSet result = new GenericGraphSet();
+      
+      for (GenericObject obj : this)
+      {
+         result.add(obj.getGraph());
+      }
+      
+      return result;
+   }
+   public GenericObjectSet withGraph(GenericGraph value)
+   {
+      for (GenericObject obj : this)
+      {
+         obj.withGraph(value);
+      }
+      
+      return this;
    }
 
    public GenericAttributeSet getAttrs()
@@ -43,48 +86,6 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       
       return result;
    }
-   public GenericLinkSet getOutgoingLinks()
-   {
-      GenericLinkSet result = new GenericLinkSet();
-      
-      for (GenericObject obj : this)
-      {
-         result.addAll(obj.getOutgoingLinks());
-      }
-      
-      return result;
-   }
-   public GenericLinkSet getIncommingLinks()
-   {
-      GenericLinkSet result = new GenericLinkSet();
-      
-      for (GenericObject obj : this)
-      {
-         result.addAll(obj.getIncommingLinks());
-      }
-      
-      return result;
-   }
-   public GenericObjectSet withName(String value)
-   {
-      for (GenericObject obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public GenericObjectSet withType(String value)
-   {
-      for (GenericObject obj : this)
-      {
-         obj.withType(value);
-      }
-      
-      return this;
-   }
-
    public GenericObjectSet withAttrs(GenericAttribute value)
    {
       for (GenericObject obj : this)
@@ -105,6 +106,17 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+   public GenericLinkSet getOutgoingLinks()
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericObject obj : this)
+      {
+         result.addAll(obj.getOutgoingLinks());
+      }
+      
+      return result;
+   }
    public GenericObjectSet withOutgoingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
@@ -125,6 +137,17 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+   public GenericLinkSet getIncommingLinks()
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericObject obj : this)
+      {
+         result.addAll(obj.getIncommingLinks());
+      }
+      
+      return result;
+   }
    public GenericObjectSet withIncommingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
@@ -146,5 +169,4 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
    }
 
 }
-
 

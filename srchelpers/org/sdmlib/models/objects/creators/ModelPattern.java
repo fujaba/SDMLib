@@ -1,6 +1,8 @@
 package org.sdmlib.models.objects.creators;
 
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.objects.creators.GenericGraphPO;
+import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericAttributePO;
@@ -21,6 +23,30 @@ public class ModelPattern extends Pattern
       return this;
    }
 
+   public GenericGraphPO hasElementGenericGraphPO()
+   {
+      GenericGraphPO value = new GenericGraphPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public GenericGraphPO hasElementGenericGraphPO(GenericGraph hostGraphObject)
+   {
+      GenericGraphPO value = new GenericGraphPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
    public GenericObjectPO hasElementGenericObjectPO()
    {
       GenericObjectPO value = new GenericObjectPO();
@@ -36,7 +62,7 @@ public class ModelPattern extends Pattern
    {
       GenericObjectPO value = new GenericObjectPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -60,7 +86,7 @@ public class ModelPattern extends Pattern
    {
       GenericAttributePO value = new GenericAttributePO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -84,7 +110,7 @@ public class ModelPattern extends Pattern
    {
       GenericLinkPO value = new GenericLinkPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       

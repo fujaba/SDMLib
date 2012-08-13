@@ -39,7 +39,17 @@ public class RoomCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Room) entity).removeYou();
+   }
 }
+
 
 
 

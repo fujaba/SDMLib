@@ -11,6 +11,7 @@ import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.creators.EdgePO;
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
 
 public class NodePO extends PatternObject
 {
@@ -22,6 +23,11 @@ public class NodePO extends PatternObject
    public NodePO endNAC()
    {
       return (NodePO) super.endNAC();
+   }
+   
+   public Node getCurrentMatch()
+   {
+      return (Node) super.getCurrentMatch();
    }
    
    public NodePO hasName(String value)
@@ -157,5 +163,173 @@ public class NodePO extends PatternObject
       return matches;
    }
    
+   public NodePO hasText(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public NodePO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Node) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
+   public NodePO hasOrig()
+   {
+      NodePO result = new NodePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Node.PROPERTY_ORIG, result);
+      
+      return result;
+   }
+   
+   public NodePO hasOrig(NodePO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_ORIG)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Node getOrig()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getOrig();
+      }
+      return null;
+   }
+   
+   public NodePO hasCopy()
+   {
+      NodePO result = new NodePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Node.PROPERTY_COPY, result);
+      
+      return result;
+   }
+   
+   public NodePO hasCopy(NodePO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_COPY)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Node getCopy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getCopy();
+      }
+      return null;
+   }
+   
+   public NodePO hasLinksTo()
+   {
+      NodePO result = new NodePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Node.PROPERTY_LINKSTO, result);
+      
+      return result;
+   }
+   
+   public NodePO hasLinksTo(NodePO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_LINKSTO)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public NodeSet getLinksTo()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getLinksTo();
+      }
+      return null;
+   }
+   
+   public NodePO hasLinksFrom()
+   {
+      NodePO result = new NodePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Node.PROPERTY_LINKSFROM, result);
+      
+      return result;
+   }
+   
+   public NodePO hasLinksFrom(NodePO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_LINKSFROM)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public NodeSet getLinksFrom()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getLinksFrom();
+      }
+      return null;
+   }
+   
 }
+
+
+
+
 

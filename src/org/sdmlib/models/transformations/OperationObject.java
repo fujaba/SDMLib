@@ -24,6 +24,10 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.transformations.creators.AttributeOpSet;
+import org.sdmlib.models.transformations.creators.LinkOpSet;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -247,7 +251,7 @@ public class OperationObject implements PropertyChangeInterface
    } 
 
    
-   public static final LinkedHashSet<OperationObject> EMPTY_SET = new LinkedHashSet<OperationObject>();
+   public static final OperationObjectSet EMPTY_SET = new OperationObjectSet();
 
    
    /********************************************************************
@@ -312,9 +316,9 @@ public class OperationObject implements PropertyChangeInterface
    
    public static final String PROPERTY_STATEMENTS = "statements";
    
-   private LinkedHashSet<Statement> statements = null;
+   private StatementSet statements = null;
    
-   public LinkedHashSet<Statement> getStatements()
+   public StatementSet getStatements()
    {
       if (this.statements == null)
       {
@@ -332,7 +336,7 @@ public class OperationObject implements PropertyChangeInterface
       {
          if (this.statements == null)
          {
-            this.statements = new LinkedHashSet<Statement>();
+            this.statements = new StatementSet();
          }
          
          changed = this.statements.add (value);
@@ -426,9 +430,9 @@ public class OperationObject implements PropertyChangeInterface
    
    public static final String PROPERTY_ATTRIBUTEOPS = "attributeOps";
    
-   private LinkedHashSet<AttributeOp> attributeOps = null;
+   private AttributeOpSet attributeOps = null;
    
-   public LinkedHashSet<AttributeOp> getAttributeOps()
+   public AttributeOpSet getAttributeOps()
    {
       if (this.attributeOps == null)
       {
@@ -446,7 +450,7 @@ public class OperationObject implements PropertyChangeInterface
       {
          if (this.attributeOps == null)
          {
-            this.attributeOps = new LinkedHashSet<AttributeOp>();
+            this.attributeOps = new AttributeOpSet();
          }
          
          changed = this.attributeOps.add (value);
@@ -512,9 +516,9 @@ public class OperationObject implements PropertyChangeInterface
    
    public static final String PROPERTY_OUTGOINGS = "outgoings";
    
-   private LinkedHashSet<LinkOp> outgoings = null;
+   private LinkOpSet outgoings = null;
    
-   public LinkedHashSet<LinkOp> getOutgoings()
+   public LinkOpSet getOutgoings()
    {
       if (this.outgoings == null)
       {
@@ -532,7 +536,7 @@ public class OperationObject implements PropertyChangeInterface
       {
          if (this.outgoings == null)
          {
-            this.outgoings = new LinkedHashSet<LinkOp>();
+            this.outgoings = new LinkOpSet();
          }
          
          changed = this.outgoings.add (value);
@@ -598,9 +602,9 @@ public class OperationObject implements PropertyChangeInterface
    
    public static final String PROPERTY_INCOMINGS = "incomings";
    
-   private LinkedHashSet<LinkOp> incomings = null;
+   private LinkOpSet incomings = null;
    
-   public LinkedHashSet<LinkOp> getIncomings()
+   public LinkOpSet getIncomings()
    {
       if (this.incomings == null)
       {
@@ -618,7 +622,7 @@ public class OperationObject implements PropertyChangeInterface
       {
          if (this.incomings == null)
          {
-            this.incomings = new LinkedHashSet<LinkOp>();
+            this.incomings = new LinkOpSet();
          }
          
          changed = this.incomings.add (value);

@@ -38,5 +38,15 @@ public class LudoCreator implements SendableEntityCreator
    {
       return CreatorCreator.createIdMap(sessionID);
    }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Ludo) entity).removeYou();
+   }
 }
+
 

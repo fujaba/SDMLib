@@ -8,6 +8,7 @@ import org.sdmlib.examples.studyright.creators.ProfessorPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.studyright.creators.TopicPO;
 import org.sdmlib.examples.studyright.Professor;
+import org.sdmlib.examples.studyright.creators.TopicSet;
 
 public class TopicPO extends PatternObject
 {
@@ -72,6 +73,25 @@ public class TopicPO extends PatternObject
       return this;
    }
    
+   public String getTitle()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Topic) getCurrentMatch()).getTitle();
+      }
+      return null;
+   }
+   
+   public Professor getProf()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Topic) this.getCurrentMatch()).getProf();
+      }
+      return null;
+   }
+   
 }
+
 
 

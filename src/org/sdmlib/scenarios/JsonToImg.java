@@ -48,6 +48,31 @@ public class JsonToImg
       return theInstance;
    }
    
+   private JsonIdMap lastIdMap = null; 
+   
+   public void setLastIdMap(JsonIdMap lastIdMap)
+   {
+      this.lastIdMap = lastIdMap;
+   }
+   
+   public void dumpImage(String imgName, Object root)
+   {
+      JsonArray jsonArray = lastIdMap.toJsonArray(root);
+      
+      String imgLink = JsonToImg.get().toImg(imgName, jsonArray);
+      
+   }
+   
+   public void dumpImage(String imgName, JsonIdMap newIdMap, Object root)
+   {
+      lastIdMap = newIdMap; 
+      
+      JsonArray jsonArray = newIdMap.toJsonArray(root);
+      
+      String imgLink = JsonToImg.get().toImg(imgName, jsonArray);
+      
+   }
+   
    public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
       String link = "<img src='<imagename>'>\n";
