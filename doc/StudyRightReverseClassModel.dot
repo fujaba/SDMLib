@@ -4,18 +4,18 @@
     edge [fontsize = 10];
     
     
-    Professor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Professor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Topic [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Topic</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>title :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>roomNo :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findPath(String,int)</td></tr>  </table></td></tr> </table>>];
-    Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>matrNo :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Professor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Professor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Topic [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Topic</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>title :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>roomNo :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findPath(String,int)</td></tr>  </table></td></tr> </table>>];
+    _Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>matrNo :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
-    Professor -> Topic [headlabel = "topic" taillabel = "prof" arrowhead = "none" ];
-    Room -> Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
-    Room -> Student [headlabel = "students *" taillabel = "in" arrowhead = "none" ];
-    Room -> University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
-    Student -> University [headlabel = "uni" taillabel = "students *" arrowhead = "none" ];
+    _Professor -> _Topic [headlabel = "topic" taillabel = "prof" arrowhead = "none" ];
+    _Room -> _Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
+    _Room -> _Student [headlabel = "students *" taillabel = "in" arrowhead = "none" ];
+    _Room -> _University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
+    _Student -> _University [headlabel = "uni" taillabel = "students *" arrowhead = "none" ];
 }
 

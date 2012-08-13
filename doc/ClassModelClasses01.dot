@@ -4,28 +4,28 @@
     edge [fontsize = 10];
     
     
-    ClassModel [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>ClassModel</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Clazz [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Clazz</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>interfaze :Boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Attribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Attribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>initialization :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Method [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Method</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>signature :String</td></tr> <tr><td align='left'>returnType :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Association [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Association</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Role [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Role</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>card :String</td></tr> <tr><td align='left'>kind :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    SymTabEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>SymTabEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>memberName :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>startPos :int</td></tr> <tr><td align='left'>bodyStartPos :int</td></tr> <tr><td align='left'>endPos :int</td></tr> <tr><td align='left'>modifiers :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    LocalVarTableEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>LocalVarTableEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>startPos :int</td></tr> <tr><td align='left'>endPos :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    StatementEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>StatementEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>tokenList :ArrayList&#60;String&#62;</td></tr> <tr><td align='left'>assignTargetVarName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ClassModel [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>ClassModel</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Clazz [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Clazz</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>interfaze :Boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Attribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Attribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>initialization :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Method [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Method</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>signature :String</td></tr> <tr><td align='left'>returnType :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Association [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Association</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Role [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Role</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>card :String</td></tr> <tr><td align='left'>kind :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _SymTabEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>SymTabEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>memberName :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>startPos :int</td></tr> <tr><td align='left'>bodyStartPos :int</td></tr> <tr><td align='left'>endPos :int</td></tr> <tr><td align='left'>modifiers :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _LocalVarTableEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>LocalVarTableEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>startPos :int</td></tr> <tr><td align='left'>endPos :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _StatementEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>StatementEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>tokenList :ArrayList&#60;String&#62;</td></tr> <tr><td align='left'>assignTargetVarName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
-    ClassModel -> Clazz [headlabel = "classes *" taillabel = "classModel" arrowhead = "none" ];
-    Clazz -> Clazz [headlabel = "kindClasses *" taillabel = "superClass" arrowhead = "none" ];
-    Clazz -> Clazz [headlabel = "kindClassesAsInterface *" taillabel = "interfaces *" arrowhead = "none" ];
-    Clazz -> Attribute [headlabel = "attributes *" taillabel = "clazz" arrowhead = "none" ];
-    Clazz -> Method [headlabel = "methods *" taillabel = "clazz" arrowhead = "none" ];
-    ClassModel -> Association [headlabel = "associations *" taillabel = "model" arrowhead = "none" ];
-    Clazz -> Role [headlabel = "sourceRoles *" taillabel = "clazz" arrowhead = "none" ];
-    Clazz -> Role [headlabel = "targetRoles *" taillabel = "clazz" arrowhead = "none" ];
-    Association -> Role [headlabel = "source" taillabel = "assoc" arrowhead = "none" ];
-    Association -> Role [headlabel = "target" taillabel = "assoc" arrowhead = "none" ];
-    StatementEntry -> StatementEntry [headlabel = "bodyStats *" taillabel = "parent" arrowhead = "none" ];
+    _ClassModel -> _Clazz [headlabel = "classes *" taillabel = "classModel" arrowhead = "none" ];
+    _Clazz -> _Clazz [headlabel = "kindClasses *" taillabel = "superClass" arrowhead = "none" ];
+    _Clazz -> _Clazz [headlabel = "kindClassesAsInterface *" taillabel = "interfaces *" arrowhead = "none" ];
+    _Clazz -> _Attribute [headlabel = "attributes *" taillabel = "clazz" arrowhead = "none" ];
+    _Clazz -> _Method [headlabel = "methods *" taillabel = "clazz" arrowhead = "none" ];
+    _ClassModel -> _Association [headlabel = "associations *" taillabel = "model" arrowhead = "none" ];
+    _Clazz -> _Role [headlabel = "sourceRoles *" taillabel = "clazz" arrowhead = "none" ];
+    _Clazz -> _Role [headlabel = "targetRoles *" taillabel = "clazz" arrowhead = "none" ];
+    _Association -> _Role [headlabel = "source" taillabel = "assoc" arrowhead = "none" ];
+    _Association -> _Role [headlabel = "target" taillabel = "assoc" arrowhead = "none" ];
+    _StatementEntry -> _StatementEntry [headlabel = "bodyStats *" taillabel = "parent" arrowhead = "none" ];
 }
 

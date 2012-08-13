@@ -1,24 +1,24 @@
 
- graph ClassDiagram {
+ digraph ClassDiagram {
     node [shape = none, fontsize = 10]; 
     edge [fontsize = 10];
     
     
-    TransformOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>TransformOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    OperationObject [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>OperationObject</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>set :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    AttributeOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>AttributeOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    LinkOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>LinkOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>srcText :String</td></tr> <tr><td align='left'>tgtText :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    Statement [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Statement</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _TransformOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>TransformOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _OperationObject [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>OperationObject</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr> <tr><td align='left'>set :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _AttributeOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>AttributeOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _LinkOp [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>LinkOp</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>srcText :String</td></tr> <tr><td align='left'>tgtText :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Statement [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Statement</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
-    TransformOp -- OperationObject [headlabel = "opObjects" taillabel = "transformOp"];
-    OperationObject -- AttributeOp [headlabel = "attributeOps" taillabel = "operationObject"];
-    OperationObject -- LinkOp [headlabel = "outgoings" taillabel = "src"];
-    LinkOp -- OperationObject [headlabel = "tgt" taillabel = "incomings"];
-    TransformOp -- LinkOp [headlabel = "linkOps" taillabel = "transformOp"];
-    Statement -- Statement [headlabel = "next" taillabel = "prev"];
-    Statement -- OperationObject [headlabel = "operationObjects" taillabel = "statements"];
-    TransformOp -- Statement [headlabel = "statements" taillabel = "transformOp"];
+    _TransformOp -> _OperationObject [headlabel = "opObjects *" taillabel = "transformOp" arrowhead = "none" ];
+    _OperationObject -> _AttributeOp [headlabel = "attributeOps *" taillabel = "operationObject" arrowhead = "none" ];
+    _OperationObject -> _LinkOp [headlabel = "outgoings *" taillabel = "src" arrowhead = "none" ];
+    _LinkOp -> _OperationObject [headlabel = "tgt" taillabel = "incomings *" arrowhead = "none" ];
+    _TransformOp -> _LinkOp [headlabel = "linkOps *" taillabel = "transformOp" arrowhead = "none" ];
+    _Statement -> _Statement [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
+    _Statement -> _OperationObject [headlabel = "operationObjects *" taillabel = "statements *" arrowhead = "none" ];
+    _TransformOp -> _Statement [headlabel = "statements *" taillabel = "transformOp" arrowhead = "none" ];
 }
 

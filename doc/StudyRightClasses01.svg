@@ -9,8 +9,8 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 70)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-70 81,-70 81,5 -4,5"/>
-<!-- University -->
-<g id="node1" class="node"><title>University</title>
+<!-- _University -->
+<g id="node1" class="node"><title>_University</title>
 <polygon fill="none" stroke="black" points="8,-44 8,-61 69,-61 69,-44 8,-44"/>
 <text text-anchor="start" x="17" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 <polygon fill="none" stroke="black" points="8,-24 8,-44 69,-44 69,-24 8,-24"/>

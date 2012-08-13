@@ -1,0 +1,11 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+n16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n16 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "n8"</td></tr></table></td></tr></table>>];
+e17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e17 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e16"</td></tr></table></td></tr></table>>];
+e18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e18 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e17"</td></tr></table></td></tr></table>>];
+
+n16 -- e17 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n16 -- e18 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+}

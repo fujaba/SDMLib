@@ -1,0 +1,10 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+n30 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n30 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "n7"</td></tr></table></td></tr></table>>];
+n31 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n31 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "n7"</td></tr></table></td></tr></table>>];
+
+n30 -- g2 [headlabel = "graph" taillabel = ""];
+n30 -- n31 [headlabel = "copy" taillabel = "orig"];
+}

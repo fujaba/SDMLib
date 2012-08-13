@@ -1,0 +1,20 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+n32 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n32 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "n8"</td></tr></table></td></tr></table>>];
+e33 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e33 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e16"</td></tr></table></td></tr></table>>];
+e34 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e34 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e17"</td></tr></table></td></tr></table>>];
+n35 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n35 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "n8"</td></tr></table></td></tr></table>>];
+e36 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e36 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "e16"</td></tr></table></td></tr></table>>];
+e37 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e37 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "e17"</td></tr></table></td></tr></table>>];
+
+e33 -- g2 [headlabel = "graph" taillabel = ""];
+e34 -- g2 [headlabel = "graph" taillabel = ""];
+n32 -- e33 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n32 -- e34 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n32 -- g2 [headlabel = "graph" taillabel = ""];
+n32 -- n35 [headlabel = "copy" taillabel = "orig"];
+n35 -- e36 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n35 -- e37 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+}

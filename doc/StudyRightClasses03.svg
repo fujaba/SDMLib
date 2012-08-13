@@ -9,8 +9,8 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 186)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-186 81,-186 81,5 -4,5"/>
-<!-- University -->
-<g id="node1" class="node"><title>University</title>
+<!-- _University -->
+<g id="node1" class="node"><title>_University</title>
 <polygon fill="none" stroke="black" points="8,-160 8,-177 69,-177 69,-160 8,-160"/>
 <text text-anchor="start" x="17" y="-166.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 <polygon fill="none" stroke="black" points="8,-140 8,-160 69,-160 69,-140 8,-140"/>
@@ -18,8 +18,8 @@
 <polygon fill="none" stroke="black" points="8,-120 8,-140 69,-140 69,-120 8,-120"/>
 <text text-anchor="start" x="37" y="-128" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Student -->
-<g id="node2" class="node"><title>Student</title>
+<!-- _Student -->
+<g id="node2" class="node"><title>_Student</title>
 <polygon fill="none" stroke="black" points="8,-58 8,-75 69,-75 69,-58 8,-58"/>
 <text text-anchor="start" x="22.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 <polygon fill="none" stroke="black" points="8,-24 8,-58 69,-58 69,-24 8,-24"/>
@@ -28,8 +28,8 @@
 <polygon fill="none" stroke="black" points="8,-4 8,-24 69,-24 69,-4 8,-4"/>
 <text text-anchor="start" x="37" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- University&#45;&gt;Student -->
-<g id="edge2" class="edge"><title>University&#45;&gt;Student</title>
+<!-- _University&#45;&gt;_Student -->
+<g id="edge2" class="edge"><title>_University&#45;&gt;_Student</title>
 <path fill="none" stroke="black" d="M38,-116.475C38,-105.009 38,-91.9132 38,-79.8848"/>
 <text text-anchor="middle" x="42.2262" y="-86.4479" font-family="Times New Roman,serif" font-size="10.00">students *</text>
 <text text-anchor="middle" x="33.7738" y="-104.912" font-family="Times New Roman,serif" font-size="10.00">uni</text>

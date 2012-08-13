@@ -1,5 +1,5 @@
 
- graph TrafoOpDiagram {
+ digraph TrafoOpDiagram {
     node [shape = none, fontsize = 10]; 
     edge [fontsize = 10];
     
@@ -17,16 +17,16 @@
     setBalancemyCostsshare [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>setBalance(myCosts - share)</td></tr></table>>];
     
     
-    this -- items [headlabel = "get" taillabel = ""];
-    this -- persons [headlabel = "get" taillabel = ""];
-    persons -- person [headlabel = "foreach" taillabel = ""];
-    person -- personItems [headlabel = "get" taillabel = ""];
-    totalsum -- sharetotalsize [style = "dotted"];
-    items -- totalsum [style = "dotted"];
-    sharetotalsize -- myCostssum [style = "dotted"];
-    persons -- sharetotalsize [style = "dotted"];
-    myCostssum -- setBalancemyCostsshare [style = "dotted"];
-    personItems -- myCostssum [style = "dotted"];
-    person -- setBalancemyCostsshare [style = "dotted"];
+    this -> items [headlabel = "get" taillabel = "" arrowhead = "none" ];
+    this -> persons [headlabel = "get" taillabel = "" arrowhead = "none" ];
+    persons -> person [headlabel = "foreach" taillabel = "" arrowhead = "none" ];
+    person -> personItems [headlabel = "get" taillabel = "" arrowhead = "none" ];
+    totalsum -> sharetotalsize [style = "dotted", arrowhead = "vee"];
+    items -> totalsum [style = "dotted" arrowhead = "none"];
+    sharetotalsize -> myCostssum [style = "dotted", arrowhead = "vee"];
+    persons -> sharetotalsize [style = "dotted" arrowhead = "none"];
+    myCostssum -> setBalancemyCostsshare [style = "dotted", arrowhead = "vee"];
+    personItems -> myCostssum [style = "dotted" arrowhead = "none"];
+    person -> setBalancemyCostsshare [style = "dotted" arrowhead = "none"];
 }
 

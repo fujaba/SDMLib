@@ -9,8 +9,8 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 418)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-418 180,-418 180,5 -4,5"/>
-<!-- TransformOp -->
-<g id="node1" class="node"><title>TransformOp</title>
+<!-- _TransformOp -->
+<g id="node1" class="node"><title>_TransformOp</title>
 <polygon fill="none" stroke="black" points="62,-392 62,-409 123,-409 123,-392 62,-392"/>
 <text text-anchor="start" x="65.5" y="-398.5" font-family="Times New Roman,serif" font-size="10.00">TransformOp</text>
 <polygon fill="none" stroke="black" points="62,-372 62,-392 123,-392 123,-372 62,-372"/>
@@ -18,8 +18,8 @@
 <polygon fill="none" stroke="black" points="62,-352 62,-372 123,-372 123,-352 62,-352"/>
 <text text-anchor="start" x="91" y="-360" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- OperationObject -->
-<g id="node2" class="node"><title>OperationObject</title>
+<!-- _OperationObject -->
+<g id="node2" class="node"><title>_OperationObject</title>
 <polygon fill="none" stroke="black" points="55,-188 55,-205 129,-205 129,-188 55,-188"/>
 <text text-anchor="start" x="58.5" y="-194.5" font-family="Times New Roman,serif" font-size="10.00">OperationObject</text>
 <polygon fill="none" stroke="black" points="55,-140 55,-188 129,-188 129,-140 55,-140"/>
@@ -29,14 +29,14 @@
 <polygon fill="none" stroke="black" points="55,-120 55,-140 129,-140 129,-120 55,-120"/>
 <text text-anchor="start" x="90.5" y="-128" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- TransformOp&#45;&#45;OperationObject -->
-<g id="edge2" class="edge"><title>TransformOp&#45;&#45;OperationObject</title>
+<!-- _TransformOp&#45;&gt;_OperationObject -->
+<g id="edge2" class="edge"><title>_TransformOp&#45;&gt;_OperationObject</title>
 <path fill="none" stroke="black" d="M66.1699,-348.344C58.8181,-337.479 51.7834,-324.811 48,-312 39.6921,-283.868 40.8497,-274.448 48,-246 51.1112,-233.622 56.4923,-221.074 62.4462,-209.641"/>
-<text text-anchor="middle" x="62.0898" y="-217.134" font-family="Times New Roman,serif" font-size="10.00">opObjects</text>
+<text text-anchor="middle" x="62.0898" y="-217.134" font-family="Times New Roman,serif" font-size="10.00">opObjects *</text>
 <text text-anchor="middle" x="57.6426" y="-340.621" font-family="Times New Roman,serif" font-size="10.00">transformOp</text>
 </g>
-<!-- LinkOp -->
-<g id="node4" class="node"><title>LinkOp</title>
+<!-- _LinkOp -->
+<g id="node4" class="node"><title>_LinkOp</title>
 <polygon fill="none" stroke="black" points="99,-58 99,-75 168,-75 168,-58 99,-58"/>
 <text text-anchor="start" x="118.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">LinkOp</text>
 <polygon fill="none" stroke="black" points="99,-24 99,-58 168,-58 168,-24 99,-24"/>
@@ -45,14 +45,14 @@
 <polygon fill="none" stroke="black" points="99,-4 99,-24 168,-24 168,-4 99,-4"/>
 <text text-anchor="start" x="132" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- TransformOp&#45;&#45;LinkOp -->
-<g id="edge10" class="edge"><title>TransformOp&#45;&#45;LinkOp</title>
+<!-- _TransformOp&#45;&gt;_LinkOp -->
+<g id="edge10" class="edge"><title>_TransformOp&#45;&gt;_LinkOp</title>
 <path fill="none" stroke="black" d="M129.847,-348.216C139.6,-337.792 148.805,-325.407 154,-312 184.261,-233.896 162.463,-133.818 146.249,-79.7856"/>
-<text text-anchor="middle" x="152.789" y="-84.8502" font-family="Times New Roman,serif" font-size="10.00">linkOps</text>
+<text text-anchor="middle" x="152.789" y="-84.8502" font-family="Times New Roman,serif" font-size="10.00">linkOps *</text>
 <text text-anchor="middle" x="132.833" y="-336.173" font-family="Times New Roman,serif" font-size="10.00">transformOp</text>
 </g>
-<!-- Statement -->
-<g id="node5" class="node"><title>Statement</title>
+<!-- _Statement -->
+<g id="node5" class="node"><title>_Statement</title>
 <polygon fill="none" stroke="black" points="65,-290 65,-307 119,-307 119,-290 65,-290"/>
 <text text-anchor="start" x="72" y="-296.5" font-family="Times New Roman,serif" font-size="10.00">Statement</text>
 <polygon fill="none" stroke="black" points="65,-270 65,-290 119,-290 119,-270 65,-270"/>
@@ -60,14 +60,14 @@
 <polygon fill="none" stroke="black" points="65,-250 65,-270 119,-270 119,-250 65,-250"/>
 <text text-anchor="start" x="90.5" y="-258" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- TransformOp&#45;&#45;Statement -->
-<g id="edge16" class="edge"><title>TransformOp&#45;&#45;Statement</title>
+<!-- _TransformOp&#45;&gt;_Statement -->
+<g id="edge16" class="edge"><title>_TransformOp&#45;&gt;_Statement</title>
 <path fill="none" stroke="black" d="M92,-348.359C92,-336.686 92,-323.463 92,-311.778"/>
-<text text-anchor="middle" x="96.2262" y="-318.341" font-family="Times New Roman,serif" font-size="10.00">statements</text>
+<text text-anchor="middle" x="96.2262" y="-318.341" font-family="Times New Roman,serif" font-size="10.00">statements *</text>
 <text text-anchor="middle" x="87.7738" y="-336.796" font-family="Times New Roman,serif" font-size="10.00">transformOp</text>
 </g>
-<!-- AttributeOp -->
-<g id="node3" class="node"><title>AttributeOp</title>
+<!-- _AttributeOp -->
+<g id="node3" class="node"><title>_AttributeOp</title>
 <polygon fill="none" stroke="black" points="8,-51 8,-68 64,-68 64,-51 8,-51"/>
 <text text-anchor="start" x="11.5" y="-57.5" font-family="Times New Roman,serif" font-size="10.00">AttributeOp</text>
 <polygon fill="none" stroke="black" points="8,-31 8,-51 64,-51 64,-31 8,-31"/>
@@ -75,32 +75,32 @@
 <polygon fill="none" stroke="black" points="8,-11 8,-31 64,-31 64,-11 8,-11"/>
 <text text-anchor="start" x="34.5" y="-19" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- OperationObject&#45;&#45;AttributeOp -->
-<g id="edge4" class="edge"><title>OperationObject&#45;&#45;AttributeOp</title>
+<!-- _OperationObject&#45;&gt;_AttributeOp -->
+<g id="edge4" class="edge"><title>_OperationObject&#45;&gt;_AttributeOp</title>
 <path fill="none" stroke="black" d="M70.8288,-116.255C64.0767,-101.666 56.7603,-85.8571 50.5843,-72.5124"/>
-<text text-anchor="middle" x="58.2262" y="-76.4623" font-family="Times New Roman,serif" font-size="10.00">attributeOps</text>
+<text text-anchor="middle" x="58.2262" y="-76.4623" font-family="Times New Roman,serif" font-size="10.00">attributeOps *</text>
 <text text-anchor="middle" x="63.1869" y="-107.305" font-family="Times New Roman,serif" font-size="10.00">operationObject</text>
 </g>
-<!-- OperationObject&#45;&#45;LinkOp -->
-<g id="edge6" class="edge"><title>OperationObject&#45;&#45;LinkOp</title>
+<!-- _OperationObject&#45;&gt;_LinkOp -->
+<g id="edge6" class="edge"><title>_OperationObject&#45;&gt;_LinkOp</title>
 <path fill="none" stroke="black" d="M100.932,-116.255C104.712,-104.209 109.15,-91.3313 113.544,-79.6959"/>
-<text text-anchor="middle" x="114.327" y="-87.1652" font-family="Times New Roman,serif" font-size="10.00">outgoings</text>
+<text text-anchor="middle" x="114.327" y="-87.1652" font-family="Times New Roman,serif" font-size="10.00">outgoings *</text>
 <text text-anchor="middle" x="99.6424" y="-103.839" font-family="Times New Roman,serif" font-size="10.00">src</text>
 </g>
-<!-- LinkOp&#45;&#45;OperationObject -->
-<g id="edge8" class="edge"><title>LinkOp&#45;&#45;OperationObject</title>
+<!-- _LinkOp&#45;&gt;_OperationObject -->
+<g id="edge8" class="edge"><title>_LinkOp&#45;&gt;_OperationObject</title>
 <path fill="none" stroke="black" d="M126.232,-79.6959C122.741,-91.3313 118.453,-104.209 114.069,-116.255"/>
 <text text-anchor="middle" x="113.168" y="-103.796" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="127.643" y="-87.0959" font-family="Times New Roman,serif" font-size="10.00">incomings</text>
+<text text-anchor="middle" x="127.643" y="-87.0959" font-family="Times New Roman,serif" font-size="10.00">incomings *</text>
 </g>
-<!-- Statement&#45;&#45;OperationObject -->
-<g id="edge14" class="edge"><title>Statement&#45;&#45;OperationObject</title>
+<!-- _Statement&#45;&gt;_OperationObject -->
+<g id="edge14" class="edge"><title>_Statement&#45;&gt;_OperationObject</title>
 <path fill="none" stroke="black" d="M92,-246.245C92,-234.913 92,-221.913 92,-209.645"/>
-<text text-anchor="middle" x="96.2262" y="-216.208" font-family="Times New Roman,serif" font-size="10.00">operationObjects</text>
-<text text-anchor="middle" x="87.7738" y="-234.682" font-family="Times New Roman,serif" font-size="10.00">statements</text>
+<text text-anchor="middle" x="96.2262" y="-216.208" font-family="Times New Roman,serif" font-size="10.00">operationObjects *</text>
+<text text-anchor="middle" x="87.7738" y="-234.682" font-family="Times New Roman,serif" font-size="10.00">statements *</text>
 </g>
-<!-- Statement&#45;&#45;Statement -->
-<g id="edge12" class="edge"><title>Statement&#45;&#45;Statement</title>
+<!-- _Statement&#45;&gt;_Statement -->
+<g id="edge12" class="edge"><title>_Statement&#45;&gt;_Statement</title>
 <path fill="none" stroke="black" d="M127.168,-298.05C137.236,-297.303 145,-290.953 145,-279 145,-267.047 137.236,-260.697 127.168,-259.95"/>
 <text text-anchor="middle" x="136.709" y="-254.457" font-family="Times New Roman,serif" font-size="10.00">next</text>
 <text text-anchor="middle" x="135.594" y="-290.165" font-family="Times New Roman,serif" font-size="10.00">prev</text>

@@ -4,14 +4,17 @@
     edge [fontsize = 10];
     
     
-    GenericObject [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericObject</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    GenericAttribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericAttribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>value :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    GenericLink [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericLink</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>tgtLabel :String</td></tr> <tr><td align='left'>srcLabel :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GenericGraph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericGraph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GenericObject [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericObject</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>type :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GenericAttribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericAttribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>value :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GenericLink [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>GenericLink</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>tgtLabel :String</td></tr> <tr><td align='left'>srcLabel :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
-    GenericObject -> GenericAttribute [headlabel = "attrs *" taillabel = "owner" arrowhead = "none" ];
-    GenericObject -> GenericLink [headlabel = "outgoingLinks *" taillabel = "src" arrowhead = "none" ];
-    GenericObject -> GenericLink [headlabel = "incommingLinks *" taillabel = "tgt" arrowhead = "none" ];
+    _GenericGraph -> _GenericObject [headlabel = "objects *" taillabel = "graph" arrowhead = "none" ];
+    _GenericObject -> _GenericAttribute [headlabel = "attrs *" taillabel = "owner" arrowhead = "none" ];
+    _GenericObject -> _GenericLink [headlabel = "outgoingLinks *" taillabel = "src" arrowhead = "none" ];
+    _GenericObject -> _GenericLink [headlabel = "incommingLinks *" taillabel = "tgt" arrowhead = "none" ];
+    _GenericGraph -> _GenericLink [headlabel = "links *" taillabel = "graph" arrowhead = "none" ];
 }
 

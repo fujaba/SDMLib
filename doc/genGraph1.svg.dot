@@ -1,0 +1,41 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GenericGraph</u></td></tr></table>>];
+g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "g1.G1"</td></tr><tr><td>type = "org.sdmlib.examples.helloworld.Graph"</td></tr></table></td></tr></table>>];
+g3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g3 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "graph"</td></tr><tr><td>srcLabel = "nodes"</td></tr></table></td></tr></table>>];
+g4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g4 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "g1.N2"</td></tr><tr><td>type = "org.sdmlib.examples.helloworld.Node"</td></tr></table></td></tr></table>>];
+g5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g5 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "name"</td></tr><tr><td>value = "node1"</td></tr></table></td></tr></table>>];
+g6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g6 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "src"</td></tr><tr><td>srcLabel = "outEdges"</td></tr></table></td></tr></table>>];
+g7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g7 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "g1.E3"</td></tr><tr><td>type = "org.sdmlib.examples.helloworld.Edge"</td></tr></table></td></tr></table>>];
+g8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g8 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "name"</td></tr><tr><td>value = "edgeA"</td></tr></table></td></tr></table>>];
+g9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g9 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "graph"</td></tr><tr><td>srcLabel = "edges"</td></tr></table></td></tr></table>>];
+g10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g10 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "inEdges"</td></tr><tr><td>srcLabel = "tgt"</td></tr></table></td></tr></table>>];
+g11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g11 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "g1.N4"</td></tr><tr><td>type = "org.sdmlib.examples.helloworld.Node"</td></tr></table></td></tr></table>>];
+g12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g12 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "name"</td></tr><tr><td>value = "node2"</td></tr></table></td></tr></table>>];
+g13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g13 :GenericLink</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtLabel = "graph"</td></tr><tr><td>srcLabel = "nodes"</td></tr></table></td></tr></table>>];
+
+g10 -- g11 [headlabel = "src" taillabel = "outgoingLinks"];
+g11 -- g12 [headlabel = "attrs" taillabel = "owner"];
+g11 -- g13 [headlabel = "outgoingLinks" taillabel = "src"];
+g1 -- g10 [headlabel = "links" taillabel = "graph"];
+g1 -- g11 [headlabel = "objects" taillabel = "graph"];
+g1 -- g13 [headlabel = "links" taillabel = "graph"];
+g1 -- g2 [headlabel = "objects" taillabel = "graph"];
+g1 -- g3 [headlabel = "links" taillabel = "graph"];
+g1 -- g4 [headlabel = "objects" taillabel = "graph"];
+g1 -- g6 [headlabel = "links" taillabel = "graph"];
+g1 -- g7 [headlabel = "objects" taillabel = "graph"];
+g1 -- g9 [headlabel = "links" taillabel = "graph"];
+g2 -- g13 [headlabel = "incommingLinks" taillabel = "tgt"];
+g2 -- g3 [headlabel = "incommingLinks" taillabel = "tgt"];
+g2 -- g9 [headlabel = "incommingLinks" taillabel = "tgt"];
+g3 -- g4 [headlabel = "src" taillabel = "outgoingLinks"];
+g4 -- g5 [headlabel = "attrs" taillabel = "owner"];
+g4 -- g6 [headlabel = "incommingLinks" taillabel = "tgt"];
+g6 -- g7 [headlabel = "src" taillabel = "outgoingLinks"];
+g7 -- g10 [headlabel = "incommingLinks" taillabel = "tgt"];
+g7 -- g8 [headlabel = "attrs" taillabel = "owner"];
+g7 -- g9 [headlabel = "outgoingLinks" taillabel = "src"];
+}

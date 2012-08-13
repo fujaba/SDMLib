@@ -1,0 +1,37 @@
+<html>
+<body>
+<p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
+<hr/><pre>Delete node with name n1 and its incidemnt edges.</pre>
+<pre>Start graph:</pre>
+<img src='TTC2011DeleteNodeWithSpecificName5.svg'>
+<pre>Transformation:</pre>
+<pre>   private void deleteNodeWithNameN1(Graph graph)
+   {
+      // find node
+      NodePO nodeN1PO = new ModelPattern()
+      .hasElementGraphPO(graph)
+      .hasNodes()
+      .hasName("n1");
+      
+      // destroy all leaving edges
+      new ModelPattern()
+      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      .hasOutEdges()
+      .destroy()
+      .allMatches();
+
+      // destroy all incoming edges
+      new ModelPattern()
+      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      .hasInEdges()
+      .destroy()
+      .allMatches();
+      
+      // destroy the node
+      nodeN1PO.destroy();
+   }</pre>
+<pre>Result graph:</pre>
+<img src='TTC2011DeleteNodeWithSpecificName9.svg'>
+
+</body>
+</html>

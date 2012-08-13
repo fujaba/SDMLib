@@ -9,8 +9,8 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 302)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-302 267.567,-302 267.567,5 -4,5"/>
-<!-- Professor -->
-<g id="node1" class="node"><title>Professor</title>
+<!-- _Professor -->
+<g id="node1" class="node"><title>_Professor</title>
 <polygon fill="none" stroke="black" points="8,-269 8,-286 69,-286 69,-269 8,-269"/>
 <text text-anchor="start" x="19" y="-275.5" font-family="Times New Roman,serif" font-size="10.00">Professor</text>
 <polygon fill="none" stroke="black" points="8,-249 8,-269 69,-269 69,-249 8,-249"/>
@@ -18,8 +18,8 @@
 <polygon fill="none" stroke="black" points="8,-229 8,-249 69,-249 69,-229 8,-229"/>
 <text text-anchor="start" x="37" y="-237" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Topic -->
-<g id="node2" class="node"><title>Topic</title>
+<!-- _Topic -->
+<g id="node2" class="node"><title>_Topic</title>
 <polygon fill="none" stroke="black" points="11,-153 11,-170 66,-170 66,-153 11,-153"/>
 <text text-anchor="start" x="26.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">Topic</text>
 <polygon fill="none" stroke="black" points="11,-133 11,-153 66,-153 66,-133 11,-133"/>
@@ -27,14 +27,14 @@
 <polygon fill="none" stroke="black" points="11,-113 11,-133 66,-133 66,-113 11,-113"/>
 <text text-anchor="start" x="37" y="-121" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Professor&#45;&gt;Topic -->
-<g id="edge2" class="edge"><title>Professor&#45;&gt;Topic</title>
+<!-- _Professor&#45;&gt;_Topic -->
+<g id="edge2" class="edge"><title>_Professor&#45;&gt;_Topic</title>
 <path fill="none" stroke="black" d="M38,-225.245C38,-209.433 38,-190.373 38,-174.585"/>
 <text text-anchor="middle" x="42.2262" y="-181.148" font-family="Times New Roman,serif" font-size="10.00">topic</text>
 <text text-anchor="middle" x="33.7738" y="-213.682" font-family="Times New Roman,serif" font-size="10.00">prof</text>
 </g>
-<!-- Room -->
-<g id="node3" class="node"><title>Room</title>
+<!-- _Room -->
+<g id="node3" class="node"><title>_Room</title>
 <polygon fill="none" stroke="black" points="132,-276 132,-293 220,-293 220,-276 132,-276"/>
 <text text-anchor="start" x="164" y="-282.5" font-family="Times New Roman,serif" font-size="10.00">Room</text>
 <polygon fill="none" stroke="black" points="132,-242 132,-276 220,-276 220,-242 132,-242"/>
@@ -43,14 +43,14 @@
 <polygon fill="none" stroke="black" points="132,-222 132,-242 220,-242 220,-222 132,-222"/>
 <text text-anchor="start" x="137" y="-230" font-family="Times New Roman,serif" font-size="10.00">findPath(String,int)</text>
 </g>
-<!-- Room&#45;&gt;Room -->
-<g id="edge4" class="edge"><title>Room&#45;&gt;Room</title>
+<!-- _Room&#45;&gt;_Room -->
+<g id="edge4" class="edge"><title>_Room&#45;&gt;_Room</title>
 <path fill="none" stroke="black" d="M228.202,-278.853C238.592,-276.506 246,-269.555 246,-258 246,-246.445 238.592,-239.494 228.202,-237.147"/>
 <text text-anchor="middle" x="238.067" y="-233.009" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
 <text text-anchor="middle" x="235.799" y="-269.849" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
 </g>
-<!-- Student -->
-<g id="node4" class="node"><title>Student</title>
+<!-- _Student -->
+<g id="node4" class="node"><title>_Student</title>
 <polygon fill="none" stroke="black" points="108,-160 108,-177 169,-177 169,-160 108,-160"/>
 <text text-anchor="start" x="122.5" y="-166.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 <polygon fill="none" stroke="black" points="108,-126 108,-160 169,-160 169,-126 108,-126"/>
@@ -59,14 +59,14 @@
 <polygon fill="none" stroke="black" points="108,-106 108,-126 169,-126 169,-106 108,-106"/>
 <text text-anchor="start" x="137" y="-114" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Room&#45;&gt;Student -->
-<g id="edge6" class="edge"><title>Room&#45;&gt;Student</title>
+<!-- _Room&#45;&gt;_Student -->
+<g id="edge6" class="edge"><title>_Room&#45;&gt;_Student</title>
 <path fill="none" stroke="black" d="M163.135,-218.405C159.173,-206.519 154.813,-193.438 150.852,-181.555"/>
 <text text-anchor="middle" x="157.727" y="-186.317" font-family="Times New Roman,serif" font-size="10.00">students *</text>
 <text text-anchor="middle" x="156.26" y="-208.643" font-family="Times New Roman,serif" font-size="10.00">in</text>
 </g>
-<!-- University -->
-<g id="node5" class="node"><title>University</title>
+<!-- _University -->
+<g id="node5" class="node"><title>_University</title>
 <polygon fill="none" stroke="black" points="141,-44 141,-61 202,-61 202,-44 141,-44"/>
 <text text-anchor="start" x="150" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 <polygon fill="none" stroke="black" points="141,-24 141,-44 202,-44 202,-24 141,-24"/>
@@ -74,14 +74,14 @@
 <polygon fill="none" stroke="black" points="141,-4 141,-24 202,-24 202,-4 141,-4"/>
 <text text-anchor="start" x="170" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- Room&#45;&gt;University -->
-<g id="edge8" class="edge"><title>Room&#45;&gt;University</title>
+<!-- _Room&#45;&gt;_University -->
+<g id="edge8" class="edge"><title>_Room&#45;&gt;_University</title>
 <path fill="none" stroke="black" d="M181.651,-218.388C185.428,-186.984 189.029,-141.554 185,-102 183.778,-90.0089 181.375,-77.0099 178.899,-65.6201"/>
 <text text-anchor="middle" x="184.925" y="-71.1007" font-family="Times New Roman,serif" font-size="10.00">uni</text>
 <text text-anchor="middle" x="178.479" y="-206.405" font-family="Times New Roman,serif" font-size="10.00">rooms *</text>
 </g>
-<!-- Student&#45;&gt;University -->
-<g id="edge10" class="edge"><title>Student&#45;&gt;University</title>
+<!-- _Student&#45;&gt;_University -->
+<g id="edge10" class="edge"><title>_Student&#45;&gt;_University</title>
 <path fill="none" stroke="black" d="M149.914,-102.371C153.643,-90.2786 157.712,-77.0858 161.272,-65.5428"/>
 <text text-anchor="middle" x="162.639" y="-72.9489" font-family="Times New Roman,serif" font-size="10.00">uni</text>
 <text text-anchor="middle" x="148.546" y="-89.9645" font-family="Times New Roman,serif" font-size="10.00">students *</text>
