@@ -3,8 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="examples"/>
-	<classpathentry kind="src" path="examplehelpers"/>
 	<classpathentry kind="src" path="srchelpers"/>
+	<classpathentry kind="src" path="examplehelpers"/>
+	<classpathentry kind="src" path="testhelpers"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
