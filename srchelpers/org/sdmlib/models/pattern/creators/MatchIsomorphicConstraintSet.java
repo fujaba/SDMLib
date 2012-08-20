@@ -52,27 +52,51 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (MatchIsomorphicConstraint obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public MatchIsomorphicConstraintSet withName(String value)
+   public MatchIsomorphicConstraintSet withDoAllMatches(boolean value)
    {
       for (MatchIsomorphicConstraint obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet withPatternObjectName(String value)
+   {
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         obj.withPatternObjectName(value);
       }
       
       return this;
    }
 
 }
+
+
 

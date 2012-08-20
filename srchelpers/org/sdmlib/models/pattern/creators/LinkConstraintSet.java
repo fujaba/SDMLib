@@ -97,29 +97,53 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (LinkConstraint obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public LinkConstraintSet withName(String value)
+   public LinkConstraintSet withDoAllMatches(boolean value)
    {
       for (LinkConstraint obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (LinkConstraint obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet withPatternObjectName(String value)
+   {
+      for (LinkConstraint obj : this)
+      {
+         obj.withPatternObjectName(value);
       }
       
       return this;
    }
 
 }
+
+
 
 
 

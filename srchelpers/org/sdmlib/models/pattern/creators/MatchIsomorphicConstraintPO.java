@@ -77,10 +77,10 @@ public class MatchIsomorphicConstraintPO extends PatternObject
       return false;
    }
    
-   public MatchIsomorphicConstraintPO hasName(String value)
+   public MatchIsomorphicConstraintPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(MatchIsomorphicConstraint.PROPERTY_NAME)
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -91,14 +91,39 @@ public class MatchIsomorphicConstraintPO extends PatternObject
       return this;
    }
    
-   public String getName()
+   public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((MatchIsomorphicConstraint) getCurrentMatch()).getName();
+         return ((MatchIsomorphicConstraint) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public MatchIsomorphicConstraintPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((MatchIsomorphicConstraint) getCurrentMatch()).getPatternObjectName();
       }
       return null;
    }
    
 }
+
+
 

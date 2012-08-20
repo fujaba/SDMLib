@@ -141,29 +141,53 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (AttributeConstraint obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public AttributeConstraintSet withName(String value)
+   public AttributeConstraintSet withDoAllMatches(boolean value)
    {
       for (AttributeConstraint obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withPatternObjectName(String value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.withPatternObjectName(value);
       }
       
       return this;
    }
 
 }
+
+
 
 
 

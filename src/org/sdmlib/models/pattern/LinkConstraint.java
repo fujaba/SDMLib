@@ -123,9 +123,14 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          return getHasMatch();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
       {
-         return getName();
+         return getDoAllMatches();
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return getPatternObjectName();
       }
       
       return super.get(attrName);
@@ -160,9 +165,15 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
-         setName((String) value);
+         setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         setPatternObjectName((String) value);
          return true;
       }
 

@@ -27,6 +27,7 @@ import org.sdmlib.models.objects.creators.GenericAttributePO;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonArray;
@@ -75,6 +76,8 @@ public class HelloWorldTTC2011
       PatternObject greetingPO = p.hasElementGreetingPO()
                                   .hasText("Hello World");
       scenario.addCode("examples");
+      
+      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1", false));
       
       Assert.assertTrue("Constant transformation has no match", p.getHasMatch());
       
@@ -159,9 +162,13 @@ public class HelloWorldTTC2011
       .hasName("TTC Participants");
       scenario.addCode("examples");
       
+      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2", false));
+      
       Assert.assertTrue("Constant transformation has no match", p.getHasMatch());
       
       scenario.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
+      
+      // scenario.addObjectDiag(p.getJsonIdMap(), greetingPO);
       
       scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2AfterTransformation"));
       
@@ -216,8 +223,6 @@ public class HelloWorldTTC2011
       
       scenario.add("The model to text transfromation template mechanism is used like this: ");
       
-      scenario.recordSystemOut();
-      
       scenario.markCodeStart();
       StringBuilder text = new StringBuilder("message name");
       
@@ -225,19 +230,17 @@ public class HelloWorldTTC2011
          "message", greetingMessagePO.getText(),
          "name", personPO.getName());
       
-      System.out.println(text.toString());
+      systemout = text.toString();
       scenario.addCode("examples");
       
-      scenario.add("System.out: \n" + scenario.getSystemOut());
+      scenario.add("systemout: \n" + systemout);
       
       //==========================================================================
       
       scenario.add("Alternatively, plain java code that does this model to text transformation looks like: ");
       
       scenario.markCodeStart();
-      String result = greetingMessagePO.getText() + " " + personPO.getName();
-      
-      System.out.println(result);
+      systemout = greetingMessagePO.getText() + " " + personPO.getName();
       scenario.addCode("examples");
       
       scenario.dumpHTML();  
@@ -295,7 +298,7 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
       
       //==========================================================================
       
@@ -313,9 +316,15 @@ public class HelloWorldTTC2011
       
       scenario.add("Count nodes in graph per pattern: ");
       
-      ModelPattern p = countNodesPerPattern(graph);
+      countNodesPerPattern(graph);
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
+      
+      // scenario.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRule", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRuleWithMatch"));
       
       scenario.add("systemout: " + systemout);
       
@@ -327,6 +336,10 @@ public class HelloWorldTTC2011
       countNodesPerNodeSet(graph);
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSet", false));
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSetWithMatch"));
       
       scenario.add("systemout: " + systemout);
       
@@ -339,6 +352,10 @@ public class HelloWorldTTC2011
       countLoopingEdgesPerPattern(graph);
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPattern", false));
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPatternWithMatch"));
       
       scenario.add("systemout: " + systemout);
       
@@ -360,6 +377,10 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPattern", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPatternWithMatch", true));
+
       scenario.add("systemout: " + systemout);
       
       scenario.add("For comparison a Java solution: ");
@@ -380,6 +401,10 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPattern", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternWithMatch", true));
+
       scenario.add("systemout: " + systemout);
       
       scenario.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
@@ -388,6 +413,10 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatches", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatchesWithMatch", true));
+
       scenario.add("systemout: " + systemout);
       
       scenario.add("Just for comparison, a plain java implementation: ");
@@ -408,6 +437,10 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPattern", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPatternWithMatch", true));
+
       scenario.add("systemout: " + systemout);
       
       scenario.add("Count dangling edges in Java: ");
@@ -422,6 +455,20 @@ public class HelloWorldTTC2011
       
       
       scenario.dumpHTML();
+   }
+
+
+   private void sleep1000()
+   {
+      try
+      {
+         Thread.sleep(1000);
+      }
+      catch (InterruptedException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
    }
    
    
@@ -438,7 +485,7 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
       
       //==========================================================================
       
@@ -449,9 +496,14 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPattern", false));
+
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPatternWithMatch", true));
+
+      
       scenario.add("Result graph: ");
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
       
       scenario.add(systemout);
       
@@ -465,7 +517,7 @@ public class HelloWorldTTC2011
       
       scenario.add("Result graph: ");
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
       
       scenario.add(systemout);
       
@@ -579,20 +631,21 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      
       
       //==========================================================================
       
       scenario.add("<hr/>");
       scenario.add("<h2>Migrate per pattern: </h2>");
       
-      simpleMigrationPerPattern(graph);
+      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Scenario)"));
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph)"));
+      simpleMigrationPerPattern(graph, scenario);
       
       scenario.add("Result graph: ");
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
       
       scenario.add(systemout);
       
@@ -610,7 +663,8 @@ public class HelloWorldTTC2011
       
       scenario.add("Result graph: ");
       
-      dumpGraph(scenario);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      
       
       scenario.add(systemout);
 
@@ -654,9 +708,9 @@ public class HelloWorldTTC2011
 
       graph = createExampleGraph();
 
-      Graph tgtGraph = simpleMigrationByGenericGraph(graph);
-
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph)"));
+      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Scenario)"));
+      
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, scenario);
 
       scenario.add("Result graph: ");
 
@@ -689,20 +743,13 @@ public class HelloWorldTTC2011
       
       graph = createExampleGraph();
       
-      //      graph = new Graph();
-      //
-      //      Node node1 = graph.createNodes().withName("node1");
-      //      Node node2 = graph.createNodes().withName("node2");
-      //
-      //      Edge edgeA = graph.createEdges().withName("edgeA").withSrc(node1).withTgt(node2);
-      
       JsonIdMap createIdMap = CreatorCreator.createIdMap("eg");
       
       scenario.addObjectDiag(createIdMap, graph);
       
-      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph);
-
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph)"));
+      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Scenario)"));
+      
+      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, scenario);
 
       scenario.add("Result graph: ");
 
@@ -730,12 +777,12 @@ public class HelloWorldTTC2011
       
       scenario.addObjectDiag(createIdMap, graph);
       
-      deleteNodeWithNameN1(graph);
-
       scenario.add("Transformation:");
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
+      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph,Scenario)"));
 
+      deleteNodeWithNameN1(graph, scenario);
+      
       scenario.add("Result graph:");
       
       scenario.addObjectDiag(createIdMap, graph);
@@ -768,9 +815,18 @@ public class HelloWorldTTC2011
       
       scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "insertTransitiveEdges(Graph)"));
 
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdges", false));
+      
+      scenario.add("Transformation with matches:");
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdgesWithMatch", true));
+      
       scenario.add("We have inserted " + noOfMatches + " new transitive edges. Result graph:");
       
       scenario.addObjectDiag(createIdMap, graph);
+      
+      scenario.add("For comparison a Java solution: ");
+      
       
       
       scenario.dumpHTML();
@@ -781,7 +837,7 @@ public class HelloWorldTTC2011
    {
       ModelPattern p = new ModelPattern();
       
-      GraphPO graphPO = p.hasElementGraphPO(graph);
+      GraphPO graphPO = p.hasElementGraphPO(graph).withPatternObjectName("graphPO");
       
       EdgePO firstEdgePO = graphPO.hasEdges();
 
@@ -804,7 +860,7 @@ public class HelloWorldTTC2011
       return p.allMatches();
 }
 
-   private void deleteNodeWithNameN1(Graph graph)
+   private void deleteNodeWithNameN1(Graph graph, Scenario scenario)
    {
       // find node
       NodePO nodeN1PO = new ModelPattern()
@@ -819,6 +875,8 @@ public class HelloWorldTTC2011
       .destroy()
       .allMatches();
 
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_leavingEdges", false));
+      
       // destroy all incoming edges
       new ModelPattern()
       .hasElementNodePO(nodeN1PO.getCurrentMatch())
@@ -826,12 +884,16 @@ public class HelloWorldTTC2011
       .destroy()
       .allMatches();
       
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_incommingEdges", false));
+      
       // destroy the node
       nodeN1PO.destroy();
+      
+      scenario.add(nodeN1PO.getPattern().dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Scenario scenario)
    {
       GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
       
@@ -844,6 +906,8 @@ public class HelloWorldTTC2011
       .startCreate()
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
+      
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
       
       // replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -867,6 +931,8 @@ public class HelloWorldTTC2011
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      
       // destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
@@ -877,6 +943,7 @@ public class HelloWorldTTC2011
       
       danglingPO.allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
@@ -884,9 +951,11 @@ public class HelloWorldTTC2011
    }
    
    
-   private Graph simpleMigrationByGenericGraph(Graph origGraph)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Scenario scenario)
    {
       GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      
+      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -898,6 +967,8 @@ public class HelloWorldTTC2011
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+      
       // rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
@@ -907,6 +978,10 @@ public class HelloWorldTTC2011
       .hasTgtLabel(Node.PROPERTY_PARENT)
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
+      
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
+
+      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
@@ -1046,7 +1121,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private void simpleMigrationPerPattern(Graph graph)
+   private void simpleMigrationPerPattern(Graph graph, Scenario scenario)
    {
       //==========================================================================
       ModelPattern migrateGraph = new ModelPattern();
@@ -1057,6 +1132,7 @@ public class HelloWorldTTC2011
       
       GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
       
+      scenario.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
       
       //==========================================================================
       int noOfMatches = 0;
@@ -1086,6 +1162,8 @@ public class HelloWorldTTC2011
       
       systemout = "Number of migrated nodes: " + noOfMatches;
       
+      scenario.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
+      
       //==========================================================================
       noOfMatches = 0;
       
@@ -1101,11 +1179,14 @@ public class HelloWorldTTC2011
       
       EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
       
+      ModelPattern migrateSrcHalfLinkPattern = null;
+      ModelPattern migrateTgtHalfLinkPattern = null;
+      
       while (migrateEdgesPattern.getHasMatch())
       {
          tgtEdgePO.withText(srcEdgePO.getName());
       
-         ModelPattern migrateSrcHalfLinkPattern = new ModelPattern();
+         migrateSrcHalfLinkPattern = new ModelPattern();
          
          NodePO copySrcNodePO = migrateSrcHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
          .hasSrc()
@@ -1118,7 +1199,7 @@ public class HelloWorldTTC2011
          copyEdgePO.hasSrc(copySrcNodePO);
          
 
-         ModelPattern migrateTgtHalfLinkPattern = new ModelPattern();
+         migrateTgtHalfLinkPattern = new ModelPattern();
          
          NodePO copyTgtNodePO = migrateTgtHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
          .hasTgt()
@@ -1136,6 +1217,12 @@ public class HelloWorldTTC2011
       }
 
       systemout += "\nNumber of migrated Edges: " + noOfMatches;
+      
+      scenario.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
+      
+      scenario.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
+      
+      scenario.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
    }
 
 
@@ -1168,16 +1255,6 @@ public class HelloWorldTTC2011
    }
 
 
-   private void dumpGraph(Scenario scenario)
-   {
-      JsonIdMap idMap = CreatorCreator.createIdMap("hg");
-      scenario.addObjectDiag(idMap, n1, new JsonFilter(Node.PROPERTY_GRAPH));
-      scenario.addObjectDiag(idMap, n6, new JsonFilter(Node.PROPERTY_GRAPH));
-      scenario.addObjectDiag(idMap, n7, new JsonFilter(Node.PROPERTY_GRAPH));
-      scenario.addObjectDiag(idMap, n8, new JsonFilter(Node.PROPERTY_GRAPH));
-   }
-
-
    public void countNodesInJava(Graph graph)
    {
       int noOfNodes = graph.getNodes().size();
@@ -1186,7 +1263,7 @@ public class HelloWorldTTC2011
    }
    
    
-   public ModelPattern countNodesPerPattern(Graph graph)
+   public void countNodesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -1197,32 +1274,25 @@ public class HelloWorldTTC2011
       int noOfNodes = p.allMatches();
       
       systemout = "Number of nodes: " + noOfNodes;
-      
-      return p;
    }
    
 
    public void countNodesPerNodeSet(Graph graph)
    {
-      ModelPattern p = new ModelPattern();
+      NodeSet allMatches = new ModelPattern()
+      .hasElementGraphPO(graph)
+      .hasNodes()
+      .allMatches();
       
-      GraphPO graphPO = p.hasElementGraphPO(graph);
-      
-      NodePO nodePO = graphPO.hasNodes();
-      
-      NodeSet allMatches = nodePO.allMatches();
-      
-      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();
+      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();      
    }
    
 
-   public ModelPattern countLoopingEdgesPerPattern(Graph graph)
+   public void countLoopingEdgesPerPattern(Graph graph)
    {
-      ModelPattern p = new ModelPattern();
-      
-      GraphPO graphPO = p.hasElementGraphPO(graph);
-      
-      EdgePO edgesPO = graphPO.hasEdges();
+      EdgePO edgesPO = new ModelPattern()
+      .hasElementGraphPO(graph)
+      .hasEdges();
       
       NodePO srcPO = edgesPO.hasSrc();
       
@@ -1231,8 +1301,6 @@ public class HelloWorldTTC2011
       EdgeSet loopingEdges = edgesPO.allMatches();
       
       systemout = "Looping Edges: " + loopingEdges.getName().concat(", ") + " Number of looping edges: " + loopingEdges.size();
-
-      return p;
    }
    
 
@@ -1434,11 +1502,11 @@ public class HelloWorldTTC2011
          }
       }
       
-      systemout += systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
+      systemout = systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
    }
 
 
-   public ModelPattern reverseEdgesPerPattern(Graph graph)
+   public void reverseEdgesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -1455,8 +1523,6 @@ public class HelloWorldTTC2011
       edgesPO.hasTgt(srcPO);
       
       systemout = "Number of reversed edges: " + p.allMatches();
-      
-      return p;
    }
 
 

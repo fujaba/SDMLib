@@ -155,10 +155,19 @@ public class PatternPO extends PatternObject
       return false;
    }
    
-   public PatternPO hasName(String value)
+   public PatternElementSet getElements()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getElements();
+      }
+      return null;
+   }
+   
+   public PatternPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_NAME)
+      .withAttrName(Pattern.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -169,25 +178,41 @@ public class PatternPO extends PatternObject
       return this;
    }
    
-   public String getName()
+   public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Pattern) getCurrentMatch()).getName();
+         return ((Pattern) getCurrentMatch()).getDoAllMatches();
       }
-      return null;
+      return false;
    }
    
-   public PatternElementSet getElements()
+   public PatternPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Pattern) this.getCurrentMatch()).getElements();
+         return ((Pattern) getCurrentMatch()).getPatternObjectName();
       }
       return null;
    }
    
 }
+
+
 
 
 

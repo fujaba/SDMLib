@@ -12,7 +12,8 @@ public class PatternElementCreator implements SendableEntityCreator
       PatternElement.PROPERTY_PATTERN,
       PatternElement.PROPERTY_MODIFIER,
       PatternElement.PROPERTY_HASMATCH,
-      PatternElement.PROPERTY_NAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
+      PatternElement.PROPERTY_PATTERNOBJECTNAME,
    };
    
    public String[] getProperties()
@@ -49,6 +50,9 @@ public class PatternElementCreator implements SendableEntityCreator
       ((PatternElement) entity).removeYou();
    }
 }
+
+
+
 
 
 

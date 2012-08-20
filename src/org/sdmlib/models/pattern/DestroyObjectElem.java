@@ -93,14 +93,19 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
          return getHasMatch();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
       if (PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
       {
          return getPatternObject();
+      }
+
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return getDoAllMatches();
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return getPatternObjectName();
       }
       
       return null;
@@ -123,15 +128,21 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
       if (PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
       {
          setPatternObject((PatternObject) value);
+         return true;
+      }
+
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
+      {
+         setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         setPatternObjectName((String) value);
          return true;
       }
 

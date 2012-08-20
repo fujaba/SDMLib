@@ -106,9 +106,14 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          return getHasMatch();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
       {
-         return getName();
+         return getDoAllMatches();
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return getPatternObjectName();
       }
       
       return null;
@@ -131,9 +136,15 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
-         setName((String) value);
+         setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         setPatternObjectName((String) value);
          return true;
       }
 

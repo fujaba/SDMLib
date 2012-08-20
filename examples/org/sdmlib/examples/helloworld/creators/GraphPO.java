@@ -16,26 +16,8 @@ import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 
-public class GraphPO extends PatternObject
+public class GraphPO extends PatternObject<GraphPO, Graph>
 {
-   public GraphPO startNAC()
-   {
-      return (GraphPO) super.startNAC();
-   }
-   
-   public GraphPO endNAC()
-   {
-      return (GraphPO) super.endNAC();
-   }
-   
-   
-   @Override
-   public Graph getCurrentMatch()
-   {
-      // TODO Auto-generated method stub
-      return (Graph) super.getCurrentMatch();
-   }
-
    public NodePO hasNodes()
    {
       NodePO result = new NodePO();

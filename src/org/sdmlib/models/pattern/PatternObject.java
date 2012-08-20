@@ -25,14 +25,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
+import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
-public class PatternObject extends PatternElement implements PropertyChangeInterface
+public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
@@ -121,20 +120,25 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       this.setCurrentMatch(null);
    }
 
+   public POC startCreate()
+   {
+      this.getPattern().startCreate();
+      
+      return (POC) this;
+   }
 
 
-
-   public PatternObject startNAC()
+   public POC startNAC()
    {
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
       
       this.getPattern().addToElements(nac);
 
-      return this;
+      return (POC) this;
    }
 
 
-   public PatternObject endNAC()
+   public POC endNAC()
    {
       Pattern directPattern = this.getPattern();
       if (directPattern instanceof NegativeApplicationCondition)
@@ -146,10 +150,10 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       
       directPattern.findMatch();
       
-      return this;
+      return (POC) this;
    }
    
-   public PatternObject destroy()
+   public POC destroy()
    {
       DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
       .withPatternObject(this)
@@ -157,7 +161,7 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
       
       this.getPattern().findMatch();
       
-      return this;
+      return (POC) this;
    }
    
    //==========================================================================
@@ -207,14 +211,19 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
          return getHasMatch();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
       if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
       {
          return getDestroyElem();
+      }
+
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
+      {
+         return getDoAllMatches();
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return getPatternObjectName();
       }
 
       return super.get(attrName);
@@ -285,15 +294,21 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
       if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
       {
          setDestroyElem((DestroyObjectElem) value);
+         return true;
+      }
+
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
+      {
+         setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         setPatternObjectName((String) value);
          return true;
       }
 
@@ -320,9 +335,9 @@ public class PatternObject extends PatternElement implements PropertyChangeInter
 
    private Object currentMatch;
 
-   public Object getCurrentMatch()
+   public MC getCurrentMatch()
    {
-      return this.currentMatch;
+      return (MC) this.currentMatch;
    }
 
    public void setCurrentMatch(Object value)

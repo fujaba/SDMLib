@@ -26,7 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.utils.StrUtil;
 
-public class PatternElement implements PropertyChangeInterface
+public class PatternElement<PEC> implements PropertyChangeInterface
 {
 
    
@@ -57,9 +57,14 @@ public class PatternElement implements PropertyChangeInterface
          return getHasMatch();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
       {
-         return getName();
+         return getDoAllMatches();
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      {
+         return getPatternObjectName();
       }
       
       return null;
@@ -88,9 +93,15 @@ public class PatternElement implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
       {
-         setName((String) value);
+         setDoAllMatches((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      {
+         setPatternObjectName((String) value);
          return true;
       }
 
@@ -240,31 +251,60 @@ public class PatternElement implements PropertyChangeInterface
    } 
 
    
+
    //==========================================================================
    
-   public static final String PROPERTY_NAME = "name";
+   public static final String PROPERTY_DOALLMATCHES = "doAllMatches";
    
-   private String name;
+   private boolean doAllMatches;
 
-   public String getName()
+   public boolean getDoAllMatches()
    {
-      return this.name;
+      return this.doAllMatches;
    }
    
-   public void setName(String value)
+   public void setDoAllMatches(boolean value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (this.doAllMatches != value)
       {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         boolean oldValue = this.doAllMatches;
+         this.doAllMatches = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DOALLMATCHES, oldValue, value);
       }
    }
    
-   public PatternElement withName(String value)
+   public PatternElement withDoAllMatches(boolean value)
    {
-      setName(value);
+      setDoAllMatches(value);
       return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PATTERNOBJECTNAME = "patternObjectName";
+   
+   private String patternObjectName;
+
+   public String getPatternObjectName()
+   {
+      return this.patternObjectName;
+   }
+   
+   public void setPatternObjectName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.patternObjectName, value))
+      {
+         String oldValue = this.patternObjectName;
+         this.patternObjectName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PATTERNOBJECTNAME, oldValue, value);
+      }
+   }
+   
+   public PEC withPatternObjectName(String value)
+   {
+      setPatternObjectName(value);
+      return (PEC) this;
    } 
 }
 

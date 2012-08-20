@@ -18,7 +18,7 @@ public class PatternObjectCreator implements SendableEntityCreator
       PatternElement.PROPERTY_PATTERN, 
       PatternElement.PROPERTY_MODIFIER,
       PatternObject.PROPERTY_HASMATCH,
-      PatternObject.PROPERTY_NAME,
+      PatternObject.PROPERTY_PATTERNOBJECTNAME,
       PatternObject.PROPERTY_DESTROYELEM,
    };
    

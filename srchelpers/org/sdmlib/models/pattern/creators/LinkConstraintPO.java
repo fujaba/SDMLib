@@ -131,10 +131,10 @@ public class LinkConstraintPO extends PatternObject
       return false;
    }
    
-   public LinkConstraintPO hasName(String value)
+   public LinkConstraintPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LinkConstraint.PROPERTY_NAME)
+      .withAttrName(LinkConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -145,16 +145,41 @@ public class LinkConstraintPO extends PatternObject
       return this;
    }
    
-   public String getName()
+   public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((LinkConstraint) getCurrentMatch()).getName();
+         return ((LinkConstraint) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public LinkConstraintPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LinkConstraint.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LinkConstraint) getCurrentMatch()).getPatternObjectName();
       }
       return null;
    }
    
 }
+
+
 
 
 

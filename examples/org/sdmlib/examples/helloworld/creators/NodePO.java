@@ -13,23 +13,8 @@ import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
 
-public class NodePO extends PatternObject
+public class NodePO extends PatternObject<NodePO, Node>
 {
-   public NodePO startNAC()
-   {
-      return (NodePO) super.startNAC();
-   }
-   
-   public NodePO endNAC()
-   {
-      return (NodePO) super.endNAC();
-   }
-   
-   public Node getCurrentMatch()
-   {
-      return (Node) super.getCurrentMatch();
-   }
-   
    public NodePO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
@@ -46,6 +31,10 @@ public class NodePO extends PatternObject
    
    public String getName()
    {
+      if (this.getPattern() == null)
+      {
+         return null;
+      }
       if (this.getPattern().getHasMatch())
       {
          return ((Node) getCurrentMatch()).getName();
@@ -144,18 +133,20 @@ public class NodePO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Node) this.getCurrentMatch()).getInEdges();
+         return this.getCurrentMatch().getInEdges();
       }
       return null;
    }
 
    public NodeSet allMatches()
    {
+      setDoAllMatches(true);
+      
       NodeSet matches = new NodeSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Node) this.getCurrentMatch());
+         matches.add(this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }

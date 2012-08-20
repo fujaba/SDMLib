@@ -212,29 +212,6 @@ public class PatternLinkPO extends PatternObject
       return false;
    }
    
-   public PatternLinkPO hasName(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PatternLink.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PatternLink) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
    public PatternObject getTgt()
    {
       if (this.getPattern().getHasMatch())
@@ -253,7 +230,55 @@ public class PatternLinkPO extends PatternObject
       return null;
    }
    
+   public PatternLinkPO hasDoAllMatches(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getDoAllMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public PatternLinkPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternLink.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) getCurrentMatch()).getPatternObjectName();
+      }
+      return null;
+   }
+   
 }
+
+
 
 
 

@@ -8,6 +8,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {
@@ -108,29 +109,53 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (Pattern obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public PatternSet withName(String value)
+   public PatternSet withDoAllMatches(boolean value)
    {
       for (Pattern obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (Pattern obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public PatternSet withPatternObjectName(String value)
+   {
+      for (Pattern obj : this)
+      {
+         obj.withPatternObjectName(value);
       }
       
       return this;
    }
 
 }
+
+
 
 
 

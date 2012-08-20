@@ -11,7 +11,7 @@ public class DestroyObjectElemCreator implements SendableEntityCreator
    {
       DestroyObjectElem.PROPERTY_MODIFIER,
       DestroyObjectElem.PROPERTY_HASMATCH,
-      DestroyObjectElem.PROPERTY_NAME,
+      DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME,
       DestroyObjectElem.PROPERTY_PATTERNOBJECT,
    };
    

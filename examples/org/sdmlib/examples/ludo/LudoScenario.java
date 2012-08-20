@@ -42,7 +42,7 @@ public class LudoScenario
       Scenario scenario = new Scenario("examples", "LudoScenario");
       
       scenario.add("Start situation: ",
-         MODELING, "zuendorf", "15.07.2012 15:37:05", 0, 4);
+         MODELING, "zuendorf", "19.08.2012 22:59:05", 4, 0);
       
       // create a simple ludo scenario
       

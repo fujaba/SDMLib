@@ -15,8 +15,8 @@ public class AttributeConstraintCreator implements SendableEntityCreator
       AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT,
       AttributeConstraint.PROPERTY_SRC,
       PatternElement.PROPERTY_MODIFIER,
-      AttributeConstraint.PROPERTY_HASMATCH,
-      AttributeConstraint.PROPERTY_NAME,
+      PatternElement.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_HASMATCH,
    };
    
    public String[] getProperties()

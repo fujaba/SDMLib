@@ -293,6 +293,8 @@ public class Parser
       // skip name
       nextRealToken();
       
+      parseGenericTypeSpec();
+      
       // extends 
       if ("extends".equals(currentRealWord()))
       {
@@ -344,6 +346,17 @@ public class Parser
       }
       
       parseClassBody();     
+   }
+
+   private void parseGenericTypeSpec()
+   {
+      // genTypeSpec < T , T, ...>
+      if (currentRealKindEquals('<'))
+      {
+         skipTo('>');
+
+         nextRealToken();
+      }
    }
 
    private String parseClassType()
@@ -499,7 +512,7 @@ public class Parser
    }
 
 private void skipTo(char c) {
-	while (!currentRealKindEquals('{') && ! currentRealKindEquals(EOF)) {
+	while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
 		nextRealToken();
 	}
 }

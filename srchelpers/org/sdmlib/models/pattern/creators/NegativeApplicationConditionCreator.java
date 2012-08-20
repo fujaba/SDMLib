@@ -14,7 +14,7 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
       Pattern.PROPERTY_ELEMENTS, 
       NegativeApplicationCondition.PROPERTY_CURRENTNAC,
       NegativeApplicationCondition.PROPERTY_MODIFIER,
-      NegativeApplicationCondition.PROPERTY_NAME,
+      NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME,
    };
    
    public String[] getProperties()

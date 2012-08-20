@@ -18,7 +18,7 @@ public class PatternLinkCreator implements SendableEntityCreator
       PatternElement.PROPERTY_PATTERN, 
       PatternLink.PROPERTY_MODIFIER,
       PatternLink.PROPERTY_HASMATCH,
-      PatternLink.PROPERTY_NAME,
+      PatternLink.PROPERTY_PATTERNOBJECTNAME,
    };
    
    public String[] getProperties()

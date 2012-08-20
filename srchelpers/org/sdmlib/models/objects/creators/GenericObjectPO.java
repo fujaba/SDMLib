@@ -210,6 +210,8 @@ public class GenericObjectPO extends PatternObject
    
    public GenericObjectSet allMatches()
    {
+      this.setDoAllMatches(true); 
+      
       GenericObjectSet result = new GenericObjectSet();
       
       while (this.getPattern().getHasMatch())

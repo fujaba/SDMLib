@@ -13,18 +13,8 @@ import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericGraphPO;
 import org.sdmlib.models.objects.GenericGraph;
 
-public class GenericLinkPO extends PatternObject
+public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
-   public GenericLinkPO startNAC()
-   {
-      return (GenericLinkPO) super.startNAC();
-   }
-   
-   public GenericLinkPO endNAC()
-   {
-      return (GenericLinkPO) super.endNAC();
-   }
-   
    public GenericLinkPO hasTgtLabel(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
@@ -168,21 +158,10 @@ public class GenericLinkPO extends PatternObject
       return null;
    }
 
-   public GenericLinkPO startCreate()
-   {
-      this.getPattern().startCreate();
-      
-      return this;
-   }
-
-   public GenericLink getCurrentMatch()
-   {
-      return (GenericLink) super.getCurrentMatch();
-   }
-   
-   
    public GenericLinkSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       GenericLinkSet result = new GenericLinkSet();
       
       while (this.getPattern().getHasMatch())

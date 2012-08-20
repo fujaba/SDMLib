@@ -6,6 +6,7 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -75,29 +76,53 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (NegativeApplicationCondition obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public NegativeApplicationConditionSet withName(String value)
+   public NegativeApplicationConditionSet withDoAllMatches(boolean value)
    {
       for (NegativeApplicationCondition obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withPatternObjectName(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withPatternObjectName(value);
       }
       
       return this;
    }
 
 }
+
+
 
 
 

@@ -12,9 +12,13 @@ import org.sdmlib.models.objects.GenericLink;
 
 public class ModelPattern extends Pattern
 {
+   public static ModelPattern lastPattern = null; 
+   
    public ModelPattern()
    {
       super(CreatorCreator.createIdMap("hg"));
+      
+      lastPattern = this;
    }
    
    public ModelPattern startCreate()

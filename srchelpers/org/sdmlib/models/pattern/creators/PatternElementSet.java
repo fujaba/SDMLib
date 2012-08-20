@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import java.util.List;
@@ -75,29 +76,68 @@ public class PatternElementSet extends ArrayList<PatternElement>
       return this;
    }
 
-   public StringList getName()
+   public booleanList getDoAllMatches()
    {
-      StringList result = new StringList();
+      booleanList result = new booleanList();
       
       for (PatternElement obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getDoAllMatches());
       }
       
       return result;
    }
 
-   public PatternElementSet withName(String value)
+   public PatternElementSet withDoAllMatches(boolean value)
    {
       for (PatternElement obj : this)
       {
-         obj.withName(value);
+         obj.withDoAllMatches(value);
       }
       
       return this;
    }
 
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (PatternElement obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet withPatternObjectName(String value)
+   {
+      for (PatternElement obj : this)
+      {
+         obj.withPatternObjectName(value);
+      }
+      
+      return this;
+   }
+   
+   public PatternSet getContentOfTypePattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (PatternElement elem : this)
+      {
+         if (elem instanceof Pattern)
+         {
+            result.add((Pattern) elem);
+         }
+      }
+      
+      return result;
+   }
+
 }
+
+
 
 
 

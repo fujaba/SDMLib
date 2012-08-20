@@ -12,20 +12,12 @@ import org.sdmlib.examples.helloworld.creators.NodePO;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
-public class EdgePO extends PatternObject
+public class EdgePO extends PatternObject<EdgePO, Edge>
 {
-   public EdgePO startNAC()
-   {
-      return (EdgePO) super.startNAC();
-   }
-   
-   public EdgePO endNAC()
-   {
-      return (EdgePO) super.endNAC();
-   }
-   
    public EdgeSet allMatches()
    {
+      setDoAllMatches(true);
+      
       EdgeSet matches = new EdgeSet();
 
       while (this.getPattern().getHasMatch())
@@ -39,21 +31,6 @@ public class EdgePO extends PatternObject
    }
    
    
-   
-   @Override
-   public Edge getCurrentMatch()
-   {
-      return (Edge) super.getCurrentMatch();
-   }
-   
-
-   @Override
-   public EdgePO destroy()
-   {
-      super.destroy();
-      return this;
-   }
-
    public GraphPO hasGraph()
    {
       GraphPO result = new GraphPO();

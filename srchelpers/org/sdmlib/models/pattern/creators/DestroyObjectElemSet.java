@@ -53,28 +53,6 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       return this;
    }
 
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (DestroyObjectElem obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public DestroyObjectElemSet withName(String value)
-   {
-      for (DestroyObjectElem obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
    public PatternObjectSet getPatternObject()
    {
       PatternObjectSet result = new PatternObjectSet();
@@ -96,5 +74,51 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       return this;
    }
 
+   public booleanList getDoAllMatches()
+   {
+      booleanList result = new booleanList();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         result.add(obj.getDoAllMatches());
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet withDoAllMatches(boolean value)
+   {
+      for (DestroyObjectElem obj : this)
+      {
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet withPatternObjectName(String value)
+   {
+      for (DestroyObjectElem obj : this)
+      {
+         obj.withPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 

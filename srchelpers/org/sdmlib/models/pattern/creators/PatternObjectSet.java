@@ -192,28 +192,6 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (PatternObject obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public PatternObjectSet withName(String value)
-   {
-      for (PatternObject obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
    public DestroyObjectElemSet getDestroyElem()
    {
       DestroyObjectElemSet result = new DestroyObjectElemSet();
@@ -235,7 +213,53 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+   public booleanList getDoAllMatches()
+   {
+      booleanList result = new booleanList();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getDoAllMatches());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withDoAllMatches(boolean value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withDoAllMatches(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPatternObjectName()
+   {
+      StringList result = new StringList();
+      
+      for (PatternObject obj : this)
+      {
+         result.add(obj.getPatternObjectName());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withPatternObjectName(String value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withPatternObjectName(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
 

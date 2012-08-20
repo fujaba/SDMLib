@@ -100,10 +100,10 @@ public class NegativeApplicationConditionPO extends PatternObject
       return false;
    }
    
-   public NegativeApplicationConditionPO hasName(String value)
+   public NegativeApplicationConditionPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(NegativeApplicationCondition.PROPERTY_NAME)
+      .withAttrName(NegativeApplicationCondition.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -114,16 +114,41 @@ public class NegativeApplicationConditionPO extends PatternObject
       return this;
    }
    
-   public String getName()
+   public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((NegativeApplicationCondition) getCurrentMatch()).getName();
+         return ((NegativeApplicationCondition) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public NegativeApplicationConditionPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) getCurrentMatch()).getPatternObjectName();
       }
       return null;
    }
    
 }
+
+
 
 
 

@@ -284,29 +284,6 @@ public class PatternObjectPO extends PatternObject
       return false;
    }
    
-   public PatternObjectPO hasName(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PatternObject.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PatternObject) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
    public PatternLinkSet getIncomming()
    {
       if (this.getPattern().getHasMatch())
@@ -367,7 +344,55 @@ public class PatternObjectPO extends PatternObject
       return null;
    }
    
+   public PatternObjectPO hasDoAllMatches(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getDoAllMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public PatternObjectPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PatternObject.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) getCurrentMatch()).getPatternObjectName();
+      }
+      return null;
+   }
+   
 }
+
+
 
 
 

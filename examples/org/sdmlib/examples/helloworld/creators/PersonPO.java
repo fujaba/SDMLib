@@ -11,7 +11,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.examples.helloworld.Greeting;
 
-public class PersonPO extends PatternObject
+public class PersonPO extends PatternObject<PersonPO, Person>
 {
    public PatternObject hasGreeting()
    {
@@ -83,7 +83,7 @@ public class PersonPO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Person) getCurrentMatch()).withName(value);
+         getCurrentMatch().withName(value);
       }
       return this;
    }

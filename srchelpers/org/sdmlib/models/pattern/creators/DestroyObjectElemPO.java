@@ -81,29 +81,6 @@ public class DestroyObjectElemPO extends PatternObject
       return false;
    }
    
-   public DestroyObjectElemPO hasName(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(DestroyObjectElem.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((DestroyObjectElem) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
    public PatternObjectPO hasPatternObject()
    {
       PatternObjectPO result = new PatternObjectPO();
@@ -137,5 +114,53 @@ public class DestroyObjectElemPO extends PatternObject
       return null;
    }
    
+   public DestroyObjectElemPO hasDoAllMatches(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getDoAllMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((DestroyObjectElem) getCurrentMatch()).getDoAllMatches();
+      }
+      return false;
+   }
+   
+   public DestroyObjectElemPO hasPatternObjectName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPatternObjectName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((DestroyObjectElem) getCurrentMatch()).getPatternObjectName();
+      }
+      return null;
+   }
+   
 }
+
+
 

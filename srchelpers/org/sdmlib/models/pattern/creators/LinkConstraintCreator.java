@@ -19,7 +19,7 @@ public class LinkConstraintCreator implements SendableEntityCreator
          PatternElement.PROPERTY_PATTERN, 
          PatternElement.PROPERTY_MODIFIER,
       LinkConstraint.PROPERTY_HASMATCH,
-      LinkConstraint.PROPERTY_NAME,
+      LinkConstraint.PROPERTY_PATTERNOBJECTNAME,
    };
    
    public String[] getProperties()

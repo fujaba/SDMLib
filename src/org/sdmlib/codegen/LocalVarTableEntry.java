@@ -289,7 +289,7 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    } 
 
    
-   //==========================================================================
+  //==========================================================================
    
    public static final String PROPERTY_ENDPOS = "endPos";
    

@@ -45,14 +45,12 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    @Test
    public void testStudyRightReverseClassModel()
    {
-  	 
+
       Scenario scenario = new Scenario("examples", "StudyRightReverseClassModel");
 
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
-
-   
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.Professor")
       .withAttribute("name", "String");
@@ -61,85 +59,86 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withAttribute("title", "String");
 
       new Association()
-			.withSource("prof", professorClass, "one")
-			.withTarget("topic", topicClass, "one");
-   Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      .withSource("prof", professorClass, "one")
+      .withTarget("topic", topicClass, "one");
+      
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
       .withAttribute("roomNo", "String")
       .withAttribute("credits", "int");
 
       new Method()
-			.withClazz(roomClass)
-			.withSignature("findPath(String,int)");
+      .withClazz(roomClass)
+      .withSignature("findPath(String,int)");
 
       new Association()
-			.withSource("neighbors", roomClass, "many")
-			.withTarget("neighbors", roomClass, "many");
+      .withSource("neighbors", roomClass, "many")
+      .withTarget("neighbors", roomClass, "many");
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
       .withAttribute("name", "String")
       .withAttribute("matrNo", "int");
 
       new Association()
-			.withSource("in", roomClass, "one")
-			.withTarget("students", studentClass, "many");
+      .withSource("in", roomClass, "one")
+      .withTarget("students", studentClass, "many");
 
       Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightOneToOneAssoc()");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightOneToOneAssoc()");
 
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightReverseClassModel()");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightReverseClassModel()");
 
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightExtendsReverseClassModel()");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightExtendsReverseClassModel()");
 
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightObjectScenarios()");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightObjectScenarios()");
 
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightClassesCodeGen()");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightClassesCodeGen()");
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
       .withAttribute("name", "String");
 
       new Association()
-			.withSource("rooms", roomClass, "many")
-			.withTarget("uni", universityClass, "one");
+      .withSource("rooms", roomClass, "many")
+      .withTarget("uni", universityClass, "one");
 
       new Association()
-			.withSource("students", studentClass, "many")
-			.withTarget("uni", universityClass, "one");
+      .withSource("students", studentClass, "many")
+      .withTarget("uni", universityClass, "one");
 
 
-      
+
 
       model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyright");
-      
+
       model.insertModelCreationCodeHere("examples");
-      
+
       scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
 
       scenario.add("Bug: running the test multiple times inserts the code multiple times \n" +
-      		"Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
-      		"Hm, might be added to future work. ", DONE, "zuendorf", "19.05.2012 19:39:42", 1, 0);
+            "Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
+            "Hm, might be added to future work. ", DONE, "zuendorf", "19.05.2012 19:39:42", 1, 0);
 
-      
+
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();
    }
-   
+
    @Test
    public void testStudyRightExtendsReverseClassModel()
    {
-  	 
-  	  Scenario scenario = new Scenario("examples", "StudyRightExtendsReverseClassModel");
+
+      Scenario scenario = new Scenario("examples", "StudyRightExtendsReverseClassModel");
 
       scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
@@ -152,19 +151,19 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withInterfaze(true);
 
       new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition()")
-         .withReturnType("void");
+      .withClazz(personClass)
+      .withSignature("findMyPosition()")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String)")
-         .withReturnType("void");
+      .withClazz(personClass)
+      .withSignature("findMyPosition(String)")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String,int)")
-         .withReturnType("void");
+      .withClazz(personClass)
+      .withSignature("findMyPosition(String,int)")
+      .withReturnType("void");
 
       // commented as generated code does not work, interface should have an attr instead of attr access methods
       //      new Method()
@@ -187,70 +186,70 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withAttribute("credits", "int");
 
       new Method()
-			.withClazz(roomClass)
-			.withSignature("studentCount()")
-         .withReturnType("int");
+      .withClazz(roomClass)
+      .withSignature("studentCount()")
+      .withReturnType("int");
 
       new Association()
-			.withSource("neighbors", roomClass, "many")
-			.withTarget("neighbors", roomClass, "many");
+      .withSource("neighbors", roomClass, "many")
+      .withTarget("neighbors", roomClass, "many");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("in", roomClass, "one");
+      .withSource("lecture", lectureClass, "many")
+      .withTarget("in", roomClass, "one");
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
       .withAttribute("name", "String");
 
       new Association()
-			.withSource("rooms", roomClass, "many")
-			.withTarget("uni", universityClass, "one");
+      .withSource("rooms", roomClass, "many")
+      .withTarget("uni", universityClass, "one");
 
       Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightOneToOneAssoc()")
-         .withReturnType("void");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightOneToOneAssoc()")
+      .withReturnType("void");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightClassesCodeGen()")
-         .withReturnType("void");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightClassesCodeGen()")
+      .withReturnType("void");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightObjectScenarios()")
-         .withReturnType("void");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightObjectScenarios()")
+      .withReturnType("void");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightExtendsReverseClassModel()")
-         .withReturnType("void");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightExtendsReverseClassModel()")
+      .withReturnType("void");
       /* add method */
       new Method()
-			.withClazz(studyRightClassesCodeGenClass)
-			.withSignature("testStudyRightReverseClassModel()")
-         .withReturnType("void");
+      .withClazz(studyRightClassesCodeGenClass)
+      .withSignature("testStudyRightReverseClassModel()")
+      .withReturnType("void");
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
       .withInterfaces(personClass)
       .withAttribute("name", "String");
 
       new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition()")
-         .withReturnType("void");
+      .withClazz(femaleClass)
+      .withSignature("findMyPosition()")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String)")
-         .withReturnType("void");
+      .withClazz(femaleClass)
+      .withSignature("findMyPosition(String)")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String,int)")
-         .withReturnType("void");
+      .withClazz(femaleClass)
+      .withSignature("findMyPosition(String,int)")
+      .withReturnType("void");
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
       .withInterfaze(true)
@@ -261,42 +260,42 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withAttribute("PersNr", "int");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("has", professorClass, "one");
+      .withSource("lecture", lectureClass, "many")
+      .withTarget("has", professorClass, "one");
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
       .withInterfaces(maleClass)
       .withAttribute("name", "String")
       .withAttribute("matrNo", "int")
-			/*set superclass*/
+      /*set superclass*/
       .withSuperClass(femaleClass);
 
       new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition()")
-			.withReturnType("void");
+      .withClazz(studentClass)
+      .withSignature("findMyPosition()")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String)")
-         .withReturnType("void");
+      .withClazz(studentClass)
+      .withSignature("findMyPosition(String)")
+      .withReturnType("void");
 
       new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String,int)")
-         .withReturnType("void");
+      .withClazz(studentClass)
+      .withSignature("findMyPosition(String,int)")
+      .withReturnType("void");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("listen", studentClass, "one");
+      .withSource("lecture", lectureClass, "many")
+      .withTarget("listen", studentClass, "one");
 
 
       // model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
-      
+
       // model.insertModelCreationCodeHere("examples");
-      
+
       model.generate("examples", "examplehelpers");
-      
+
       scenario.addImage(model.dumpClassDiag("StudyRightExtendsReverseClassModel"));
 
       ScenarioManager.get()
@@ -350,7 +349,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withNeighbors(sportsRoom)
       .withNeighbors(artsRoom)
       .withUni(uni);
-      
+
       scenario.add("step 1: dump object diagram", 
          BACKLOG, "zuendorf joern alex", "21.05.2012 17:55:42", 1, 0);
 
@@ -364,32 +363,32 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.markCodeStart();
       int sum = albert.getUni().getRooms().getCredits().sum();
       scenario.addCode("examples");
-      
+
       scenario.add(
-            "      shall compute to 88\n" +
-            "      Path classes are generated.", 
-            DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
-      
+         "      shall compute to 88\n" +
+               "      Path classes are generated.", 
+               DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
+
       Assert.assertEquals("credits sum error", 88, sum);
 
       scenario.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-      		"e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-         BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
-   
-      scenario.add( "Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
+            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
+            BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
+
+      scenario.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
             "e.g.: room.getNeighbors().findPath(path, motivation); ", 
-         BACKLOG, "zuendorf", "21.05.2012 18:02:42", 0, 4);
+            DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
       // Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
 
       scenario.add("step 3: call ");
-      
+
       scenario.recordSystemOut();
-      
+
       scenario.markCodeStart();
       mathRoom.findPath("", 88);
       scenario.addCode("examples");
-      
+
       scenario.add("System.out: \n" + scenario.getSystemOut());
 
 
@@ -442,10 +441,10 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
       .withAttribute("roomNo", "String")
       .withAttribute("credits", "int");
-      
+
       new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
-      
-      
+
+
 
       Association uniToRoom = new Association()
       .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
@@ -467,7 +466,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Parser parser = studClass.getOrCreateParser("examples");
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       Assert.assertTrue("did not find method set(String,Object) in class student", pos >= 0);
@@ -539,7 +538,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.add("Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel", 
          IMPLEMENTATION, "zuendorf", "19.05.2012 19:59:42", 1, 0);
 
-      
+
       scenario.add("generic set now works for double. Perhabs boolean and other are still missing", 
          IMPLEMENTATION, "zuendorf", "19.05.2012 13:51:42", 1, 0);
 
@@ -547,7 +546,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       //============================================================
       scenario.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets", 
          DONE, "zuendorf", "20.05.2012 20:01:42", 2, 0);
-      
+
       scenario.add("next. compile University.java");
 
       String javaClassPath = System.getProperty("java.class.path");
@@ -568,33 +567,33 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .add(scenario)
       .dumpHTML();
    }
-   
+
    @Test
    public void testStudyRightOneToOneAssoc()
    {
       Scenario scenario = new Scenario("examples", "StudyRightOneToOneAssoc");
-      
-    //============================================================
+
+      //============================================================
       scenario.add("Add class Prof --gives-- Topic");
-      
+
       ClassModel model = new ClassModel();
-      
+
       Clazz profClass = new Clazz("org.sdmlib.examples.studyright.Professor")
       .withAttribute("name", "String");
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
       .withAttribute("title", "String");
-      
+
       new Association()
       .withSource("prof", profClass, Role.ONE)
       .withTarget("topic", topicClass, Role.ONE);
 
       scenario.addImage(model.dumpClassDiag("StudyRightOneToOneAssoc01"));
-      
+
       model.generate("examples", "examplehelpers");
 
       scenario.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
-      
+
       ScenarioManager.get()
       .add(scenario)
       .dumpHTML();

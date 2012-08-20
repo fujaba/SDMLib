@@ -156,7 +156,7 @@ public class ClassModelTest
          ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
       scenario.add("Generate PatternObject classes.", 
-         ProjectBoard.IMPLEMENTATION, "zuendorf", "20.07.2012 16:56:42", 1, 8);
+         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
 
       
       model.generate("src", "srcHelpers");

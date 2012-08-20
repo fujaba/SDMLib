@@ -11,7 +11,7 @@ public class MatchIsomorphicConstraintCreator implements SendableEntityCreator
    {
       MatchIsomorphicConstraint.PROPERTY_MODIFIER,
       MatchIsomorphicConstraint.PROPERTY_HASMATCH,
-      MatchIsomorphicConstraint.PROPERTY_NAME,
+      MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME,
    };
    
    public String[] getProperties()

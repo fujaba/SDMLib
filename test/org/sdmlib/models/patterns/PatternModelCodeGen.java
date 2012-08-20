@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -38,14 +39,15 @@ public class PatternModelCodeGen
       Scenario scenario = new Scenario("test", "PatternModelCodegen");
       
       scenario.add("Start situation: ",
-         MODELING, "zuendorf", "18.07.2012 15:30:28", 4, 4);
+         DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
       ClassModel model = new ClassModel();
       
       Clazz patternElement = new Clazz("org.sdmlib.models.pattern.PatternElement")
       .withAttribute("modifier", "String")
       .withAttribute("hasMatch", "boolean", "false")
-      .withAttribute("name", "String");
+      .withAttribute("patternObjectName", String.class.getSimpleName())
+      .withAttribute("doAllMatches", boolean.class.getName());
       
       Clazz pattern = new Clazz("org.sdmlib.models.pattern.Pattern")
       .withSuperClass(patternElement)

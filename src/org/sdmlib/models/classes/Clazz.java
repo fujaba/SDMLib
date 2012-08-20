@@ -1042,20 +1042,12 @@ public class Clazz implements PropertyChangeInterface
                   "import org.sdmlib.models.pattern.PatternObject;\n" +
                   "import fullEntityClassName;\n" +
                   "\n" +
-                  "public class patternObjectClassName extends PatternObject\n" +
+                  "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n" +
                   "{\n" +
-                  "   public patternObjectClassName startNAC()\n" + 
-                  "   {\n" + 
-                  "      return (patternObjectClassName) super.startNAC();\n" + 
-                  "   }\n" + 
-                  "   \n" +
-                  "   public patternObjectClassName endNAC()\n" + 
-                  "   {\n" + 
-                  "      return (patternObjectClassName) super.endNAC();\n" + 
-                  "   }\n" + 
-                  "   \n" +
                   "   public entitiyClassNameSet allMatches()\n" + 
                   "   {\n" + 
+                  "      this.setDoAllMatches(true);\n" + 
+                  "      \n" + 
                   "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" + 
                   "\n" + 
                   "      while (this.getPattern().getHasMatch())\n" + 

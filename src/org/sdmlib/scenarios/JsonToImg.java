@@ -86,6 +86,46 @@ public class JsonToImg
       		"<edges>" +
       		"}\n";
       
+      
+      StringBuilder nodeBuilder = new StringBuilder();
+      
+      StringBuilder edgeBuilder = new StringBuilder();
+      
+      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder);
+      
+      fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
+      
+      fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
+      
+      File docDir = new File("doc");
+      docDir.mkdir();
+      BufferedWriter out; 
+      String command = "";
+      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
+		   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + imgName;
+	   } else {
+		   command = "../SDMLib/tools/makeimage.bat " + imgName;
+	   }
+	   try {
+		   writeToFile(imgName, fileText);
+		   Process child = Runtime.getRuntime().exec(command);
+	   } catch (IOException e) {
+		   e.printStackTrace();
+	   }
+      
+		
+//		   BufferedWriter out;
+//
+//		   File dotFile = new File("doc/" + diagName + ".dot");
+//		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
+
+      // generate link
+      
+      return link;
+   }
+
+   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder)
+   {
       // collect all edges
       TreeMap<String, EdgeLabels> edgeMap = new TreeMap<String, EdgeLabels>();
       
@@ -99,7 +139,6 @@ public class JsonToImg
       }
       
       // list of nodes
-      StringBuilder nodeBuilder = new StringBuilder();
       for (int i = 0; i < objects.size(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
@@ -177,10 +216,7 @@ public class JsonToImg
          nodeBuilder.append(nodeLine);
       }
       
-      fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
-      
       // now generate edges from edgeMap
-      StringBuilder edgeBuilder = new StringBuilder();
       for (String keyPair : edgeMap.keySet())
       {
          String[] split = keyPair.split(":");
@@ -199,37 +235,9 @@ public class JsonToImg
          
          edgeBuilder.append(edgeLine);
       }
-      
-      fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
-      
-      File docDir = new File("doc");
-      docDir.mkdir();
-      BufferedWriter out; 
-      String command = "";
-      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-		   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + imgName;
-	   } else {
-		   command = "../SDMLib/tools/makeimage.bat " + imgName;
-	   }
-	   try {
-		   writeToFile(imgName, fileText);
-		   Process child = Runtime.getRuntime().exec(command);
-	   } catch (IOException e) {
-		   e.printStackTrace();
-	   }
-      
-		
-//		   BufferedWriter out;
-//
-//		   File dotFile = new File("doc/" + diagName + ".dot");
-//		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
-
-      // generate link
-      
-      return link;
    }
    
-   private void addToEdges(TreeMap<String, EdgeLabels> edgeMap, String srcId,
+   private static void addToEdges(TreeMap<String, EdgeLabels> edgeMap, String srcId,
          String tgtId, String label)
    {
       // is this edge already known?
@@ -258,7 +266,7 @@ public class JsonToImg
       
    }
 
-   class EdgeLabels
+   static class EdgeLabels
    {
       String headlabel = "";
       String taillabel = "";
@@ -273,12 +281,12 @@ public class JsonToImg
       out.close();
    }
    
-   private String lastPartLow(String dottedName)
+   private static String lastPartLow(String dottedName)
    {
       return lastPart(dottedName).toLowerCase();
    }
    
-   private String lastPart(String dottedName)
+   private static String lastPart(String dottedName)
    {
       int dotPos = dottedName.lastIndexOf('.');
       dottedName = dottedName.substring(dotPos+1);
