@@ -837,7 +837,7 @@ public class HelloWorldTTC2011
    {
       ModelPattern p = new ModelPattern();
       
-      GraphPO graphPO = p.hasElementGraphPO(graph).withPatternObjectName("graphPO");
+      GraphPO graphPO = p.hasElementGraphPO(graph).withPatternObjectName("graphPO2");
       
       EdgePO firstEdgePO = graphPO.hasEdges();
 

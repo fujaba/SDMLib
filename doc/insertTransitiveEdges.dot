@@ -2,7 +2,7 @@ graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
 
-graphPO [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> graphPO :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+graphPO2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> graphPO2 :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 e1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e1 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 e2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e2 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 n3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> n3 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
@@ -19,8 +19,8 @@ e7 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 e8 [label=<<table border='0' cellborder='1' cellspacing='0' color='green' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='green'>&laquo;create&raquo;</font></td></tr> <tr> <td align='center'> <font color='green'> e8 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='green'> <tr> <td>  </td></tr></table></td></tr></table>>];
 allMatches;
 
-graphPO -- e1 [headlabel = "edges" taillabel = "" color="black" fontcolor="black"];
-graphPO -- e2 [headlabel = "edges" taillabel = "" color="black" fontcolor="black"];
+graphPO2 -- e1 [headlabel = "edges" taillabel = "" color="black" fontcolor="black"];
+graphPO2 -- e2 [headlabel = "edges" taillabel = "" color="black" fontcolor="black"];
 e1 -- n3 [headlabel = "tgt" taillabel = "" color="black" fontcolor="black"];
 e2 -- n3 [headlabel = "src" taillabel = "" color="black" fontcolor="black"];
 e1 -- n4 [headlabel = "src" taillabel = "" color="black" fontcolor="black"];

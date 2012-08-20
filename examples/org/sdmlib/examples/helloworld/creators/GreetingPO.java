@@ -11,9 +11,9 @@ import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.examples.helloworld.Person;
 
-public class GreetingPO extends PatternObject
+public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
-   public PatternObject hasText(String value)
+   public GreetingPO hasText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Greeting.PROPERTY_TEXT)
@@ -27,7 +27,7 @@ public class GreetingPO extends PatternObject
       return this;
    }
    
-   public PatternObject withText(String value)
+   public GreetingPO withText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Greeting.PROPERTY_TEXT)
