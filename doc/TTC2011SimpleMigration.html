@@ -6,10 +6,7 @@
 <img src='TTC2011HelloWorldSimpleMigrationTargetClassDiag.svg'><hr/><pre>Migration extension:</pre>
 <img src='TTC2011HelloWorldSimpleMigrationExtensionClassDiag.svg'><hr/><pre>Create example source graph: </pre>
 <img src='TTC2011SimpleMigration13.svg'>
-<img src='TTC2011SimpleMigration14.svg'>
-<img src='TTC2011SimpleMigration15.svg'>
-<img src='TTC2011SimpleMigration16.svg'>
-<hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph)
+<hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Scenario scenario)
    {
       //==========================================================================
       ModelPattern migrateGraph = new ModelPattern();
@@ -20,6 +17,7 @@
       
       GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
       
+      scenario.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
       
       //==========================================================================
       int noOfMatches = 0;
@@ -49,6 +47,8 @@
       
       systemout = "Number of migrated nodes: " + noOfMatches;
       
+      scenario.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
+      
       //==========================================================================
       noOfMatches = 0;
       
@@ -64,11 +64,14 @@
       
       EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
       
+      ModelPattern migrateSrcHalfLinkPattern = null;
+      ModelPattern migrateTgtHalfLinkPattern = null;
+      
       while (migrateEdgesPattern.getHasMatch())
       {
          tgtEdgePO.withText(srcEdgePO.getName());
       
-         ModelPattern migrateSrcHalfLinkPattern = new ModelPattern();
+         migrateSrcHalfLinkPattern = new ModelPattern();
          
          NodePO copySrcNodePO = migrateSrcHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
          .hasSrc()
@@ -81,7 +84,7 @@
          copyEdgePO.hasSrc(copySrcNodePO);
          
 
-         ModelPattern migrateTgtHalfLinkPattern = new ModelPattern();
+         migrateTgtHalfLinkPattern = new ModelPattern();
          
          NodePO copyTgtNodePO = migrateTgtHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
          .hasTgt()
@@ -99,12 +102,20 @@
       }
 
       systemout += "nNumber of migrated Edges: " + noOfMatches;
+      
+      scenario.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
+      
+      scenario.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
+      
+      scenario.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
    }</pre>
+<img src='simpleMigrationPerPattern_migrateGraph.svg'>
+<img src='simpleMigrationPerPattern_migrateNodesPattern.svg'>
+<img src='simpleMigrationPerPattern_migrateEdgesPattern.svg'>
+<img src='simpleMigrationPerPattern_migrateSrcHalfLinkPattern.svg'>
+<img src='simpleMigrationPerPattern_migrateTgtHalfLinkPattern.svg'>
 <pre>Result graph: </pre>
-<img src='TTC2011SimpleMigration21.svg'>
-<img src='TTC2011SimpleMigration22.svg'>
 <img src='TTC2011SimpleMigration23.svg'>
-<img src='TTC2011SimpleMigration24.svg'>
 <pre>Number of migrated nodes: 8
 Number of migrated Edges: 10</pre>
 <hr/><h2>Migrate in Java: </h2><pre>   private void simpleMigrationInJava(Graph origGraph)
@@ -151,10 +162,7 @@ Number of migrated Edges: 10</pre>
       
    }</pre>
 <pre>Result graph: </pre>
-<img src='TTC2011SimpleMigration30.svg'>
-<img src='TTC2011SimpleMigration31.svg'>
-<img src='TTC2011SimpleMigration32.svg'>
-<img src='TTC2011SimpleMigration33.svg'>
+<img src='TTC2011SimpleMigration29.svg'>
 <pre>Number of migrated nodes: 8</pre>
 <hr/><h2>Migrate using Serialisation / Clone : </h2><pre>   private Graph simpleMigrationByCloning(Graph graph)
    {
@@ -178,7 +186,7 @@ Number of migrated Edges: 10</pre>
       return copyGraph;
    }</pre>
 <pre>Result graph: </pre>
-<img src='TTC2011SimpleMigration39.svg'>
+<img src='TTC2011SimpleMigration35.svg'>
 <hr/><h2>Migrate using JSON Array repräsentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
    {
       JsonIdMap idMap = CreatorCreator.createIdMap("hg");
@@ -242,10 +250,12 @@ Number of migrated Edges: 10</pre>
       return copyGraph;
    }</pre>
 <pre>Result graph: </pre>
-<img src='TTC2011SimpleMigration44.svg'>
-<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph)
+<img src='TTC2011SimpleMigration40.svg'>
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Scenario scenario)
    {
       GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      
+      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -256,6 +266,8 @@ Number of migrated Edges: 10</pre>
       .startCreate()
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
+      
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
       
       // rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -267,14 +279,22 @@ Number of migrated Edges: 10</pre>
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
+
+      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
       return tgtGraph;
    }</pre>
+<img src='TTC2011SimpleMigration44.svg'>
+<img src='simpleMigrationByGenericGraph_renameAttr.svg'>
+<img src='simpleMigrationByGenericGraph_renameLink.svg'>
+<img src='TTC2011SimpleMigration47.svg'>
 <pre>Result graph: </pre>
 <img src='TTC2011SimpleMigration49.svg'>
 <hr/><h2>Even more evolved graph model : </h2><img src='TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag.svg'><img src='TTC2011SimpleMigration53.svg'>
-<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph)
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Scenario scenario)
    {
       GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
       
@@ -287,6 +307,8 @@ Number of migrated Edges: 10</pre>
       .startCreate()
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
+      
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
       
       // replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -310,6 +332,8 @@ Number of migrated Edges: 10</pre>
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      
       // destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
@@ -320,13 +344,17 @@ Number of migrated Edges: 10</pre>
       
       danglingPO.allMatches();
       
+      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
       return tgtGraph;
    }</pre>
+<img src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
+<img src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges.svg'>
+<img src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges.svg'>
 <pre>Result graph: </pre>
-<img src='TTC2011SimpleMigration56.svg'>
+<img src='TTC2011SimpleMigration59.svg'>
 
 </body>
 </html>

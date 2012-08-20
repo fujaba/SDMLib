@@ -1,0 +1,16 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+e2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e2 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+n3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> n3 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+n4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> n4 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+allMatches;
+
+g1 -- e2 [headlabel = "edges" taillabel = "" color="black" fontcolor="black"];
+e2 -- n3 [headlabel = "src" taillabel = "" color="black" fontcolor="black"];
+e2 -- n4 [headlabel = "tgt" taillabel = "" color="black" fontcolor="black"];
+e2 -- n4 [headlabel = "src" taillabel = "" color="green" fontcolor="green"];
+e2 -- n3 [headlabel = "tgt" taillabel = "" color="green" fontcolor="green"];
+}

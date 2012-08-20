@@ -1,0 +1,13 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+n1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> n1 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+e2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e2 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+allMatches;
+d3 [label="destroy" fontcolor="red"]
+
+e2 -- allMatches [style="dotted"];
+e2 -- d3 [style="dotted" color="red" fontcolor="red"];
+n1 -- e2 [headlabel = "outEdges" taillabel = "" color="black" fontcolor="black"];
+}

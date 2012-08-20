@@ -3,10 +3,7 @@
 <p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldReverseEdges</a></p>
 <hr/><pre>create example graph: </pre>
 <img src='TTC2011HelloWorldReverseEdges4.svg'>
-<img src='TTC2011HelloWorldReverseEdges5.svg'>
-<img src='TTC2011HelloWorldReverseEdges6.svg'>
-<img src='TTC2011HelloWorldReverseEdges7.svg'>
-<hr/><h2>Reverse Edges per pattern: </h2><pre>   public ModelPattern reverseEdgesPerPattern(Graph graph)
+<hr/><h2>Reverse Edges per pattern: </h2><pre>   public void reverseEdgesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -23,14 +20,11 @@
       edgesPO.hasTgt(srcPO);
       
       systemout = "Number of reversed edges: " + p.allMatches();
-      
-      return p;
    }</pre>
+<img src='reverseEdgesPerPattern.svg'>
+<img src='reverseEdgesPerPatternWithMatch.svg'>
 <pre>Result graph: </pre>
-<img src='TTC2011HelloWorldReverseEdges12.svg'>
-<img src='TTC2011HelloWorldReverseEdges13.svg'>
-<img src='TTC2011HelloWorldReverseEdges14.svg'>
-<img src='TTC2011HelloWorldReverseEdges15.svg'>
+<img src='TTC2011HelloWorldReverseEdges11.svg'>
 <pre>Number of reversed edges: 8</pre>
 <h2>Reverse Edges (back) in Java: </h2>: <pre>   public void reverseEdgesInJava(Graph graph)
    {
@@ -52,10 +46,7 @@
       systemout = "Number of reversed edges: " + noOfMatches;
    }</pre>
 <pre>Result graph: </pre>
-<img src='TTC2011HelloWorldReverseEdges20.svg'>
-<img src='TTC2011HelloWorldReverseEdges21.svg'>
-<img src='TTC2011HelloWorldReverseEdges22.svg'>
-<img src='TTC2011HelloWorldReverseEdges23.svg'>
+<img src='TTC2011HelloWorldReverseEdges16.svg'>
 <pre>Number of reversed edges: 10</pre>
 
 </body>

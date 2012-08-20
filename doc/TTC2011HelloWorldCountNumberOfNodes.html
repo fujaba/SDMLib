@@ -4,9 +4,6 @@
 <hr/><pre>Simple Graph application classes: </pre>
 <img src='TTC2011HelloWorldSimpleGraphClassDiag.svg'><hr/><pre>create example graph: </pre>
 <img src='TTC2011HelloWorldCountNumberOfNodes7.svg'>
-<img src='TTC2011HelloWorldCountNumberOfNodes8.svg'>
-<img src='TTC2011HelloWorldCountNumberOfNodes9.svg'>
-<img src='TTC2011HelloWorldCountNumberOfNodes10.svg'>
 <hr/><h2>Count nodes in graph direct: </h2><pre>   public void countNodesInJava(Graph graph)
    {
       int noOfNodes = graph.getNodes().size();
@@ -15,7 +12,7 @@
    }</pre>
 <pre>systemout: Number of nodes: 8</pre>
 <pre>Count nodes in graph per pattern: </pre>
-<pre>   public ModelPattern countNodesPerPattern(Graph graph)
+<pre>   public void countNodesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -26,31 +23,28 @@
       int noOfNodes = p.allMatches();
       
       systemout = "Number of nodes: " + noOfNodes;
-      
-      return p;
    }</pre>
+<img src='countNodesPerPatternRule.svg'>
+<img src='countNodesPerPatternRuleWithMatch.svg'>
 <pre>systemout: Number of nodes: 8</pre>
 <pre>Retrieve set of matching nodes per pattern and count its elements: </pre>
 <pre>   public void countNodesPerNodeSet(Graph graph)
    {
-      ModelPattern p = new ModelPattern();
+      NodeSet allMatches = new ModelPattern()
+      .hasElementGraphPO(graph)
+      .hasNodes()
+      .allMatches();
       
-      GraphPO graphPO = p.hasElementGraphPO(graph);
-      
-      NodePO nodePO = graphPO.hasNodes();
-      
-      NodeSet allMatches = nodePO.allMatches();
-      
-      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();
+      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();      
    }</pre>
+<img src='countNodesPerNodeSet.svg'>
+<img src='countNodesPerNodeSetWithMatch.svg'>
 <pre>systemout: Nodes: n1, n2, n3, n4, n5, n6, n7, n8 Number of nodes: 8</pre>
-<hr/><h2>Retrieve set of looping edges per pattern and count its elements: </h2><pre>   public ModelPattern countLoopingEdgesPerPattern(Graph graph)
+<hr/><h2>Retrieve set of looping edges per pattern and count its elements: </h2><pre>   public void countLoopingEdgesPerPattern(Graph graph)
    {
-      ModelPattern p = new ModelPattern();
-      
-      GraphPO graphPO = p.hasElementGraphPO(graph);
-      
-      EdgePO edgesPO = graphPO.hasEdges();
+      EdgePO edgesPO = new ModelPattern()
+      .hasElementGraphPO(graph)
+      .hasEdges();
       
       NodePO srcPO = edgesPO.hasSrc();
       
@@ -59,9 +53,9 @@
       EdgeSet loopingEdges = edgesPO.allMatches();
       
       systemout = "Looping Edges: " + loopingEdges.getName().concat(", ") + " Number of looping edges: " + loopingEdges.size();
-
-      return p;
    }</pre>
+<img src='countLoopingEdgesPerPattern.svg'>
+<img src='countLoopingEdgesPerPatternWithMatch.svg'>
 <pre>systemout: Looping Edges: e16, e17 Number of looping edges: 2</pre>
 <pre>For comparison a Java solution: </pre>
 <pre>   public void countLoopingEdgesInJava(Graph graph)
@@ -101,6 +95,8 @@
       
       return p;
    }</pre>
+<img src='countIsolatedNodesPerPattern.svg'>
+<img src='countIsolatedNodesPerPatternWithMatch.svg'>
 <pre>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</pre>
 <pre>For comparison a Java solution: </pre>
 <pre>   public void countIsolatedNodesInJava(Graph graph)
@@ -145,6 +141,8 @@
       
       return p;
    }</pre>
+<img src='countCirclesOfThreeNodesPerPattern.svg'>
+<img src='countCirclesOfThreeNodesPerPatternWithMatch.svg'>
 <pre>systemout: Circles found: 6</pre>
 <pre>If you want to print the matched nodes for each circle, you need to iterate through the matches: </pre>
 <pre>   public ModelPattern countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
@@ -181,6 +179,8 @@
       
       return p;
    }</pre>
+<img src='countCirclesOfThreeNodesPerPatternReportMatches.svg'>
+<img src='countCirclesOfThreeNodesPerPatternReportMatchesWithMatch.svg'>
 <pre>systemout: Circles found: 
 n1 --> n2 --> n3 --> 
 n2 --> n3 --> n1 --> 
@@ -254,6 +254,8 @@ n5 --> n3 --> n4 -->
       
       return p;
    }</pre>
+<img src='countDanglingEdgesPerPattern.svg'>
+<img src='countDanglingEdgesPerPatternWithMatch.svg'>
 <pre>systemout: Dangling edges e18, e19 number: 2</pre>
 <pre>Count dangling edges in Java: </pre>
 <pre>   public void countDanglingEdgesInJava(Graph graph)
@@ -273,9 +275,9 @@ n5 --> n3 --> n4 -->
          }
       }
       
-      systemout += systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
+      systemout = systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
    }</pre>
-<pre>systemout: Dangling edges e18, e19, Dangling edges e18, e19 number: 2</pre>
+<pre>systemout: Dangling edges e18, e19 number: 2</pre>
 
 </body>
 </html>

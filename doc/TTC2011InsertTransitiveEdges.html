@@ -9,7 +9,7 @@
    {
       ModelPattern p = new ModelPattern();
       
-      GraphPO graphPO = p.hasElementGraphPO(graph);
+      GraphPO graphPO = p.hasElementGraphPO(graph).withPatternObjectName("graphPO");
       
       EdgePO firstEdgePO = graphPO.hasEdges();
 
@@ -31,8 +31,12 @@
       
       return p.allMatches();
 }</pre>
+<img src='insertTransitiveEdges.svg'>
+<pre>Transformation with matches:</pre>
+<img src='insertTransitiveEdgesWithMatch.svg'>
 <pre>We have inserted 8 new transitive edges. Result graph:</pre>
-<img src='TTC2011InsertTransitiveEdges9.svg'>
+<img src='TTC2011InsertTransitiveEdges12.svg'>
+<pre>For comparison a Java solution: </pre>
 
 </body>
 </html>

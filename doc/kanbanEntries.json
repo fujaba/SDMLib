@@ -37,13 +37,17 @@
         {"id":"KE.L127"},
         {"id":"KE.L130"},
         {"id":"KE.L151"},
-        {"id":"KE.L155"}
+        {"id":"KE.L155"},
+        {"id":"KE.L164"},
+        {"id":"KE.L166"},
+        {"id":"KE.L169"},
+        {"id":"KE.L172"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":24,
-      "hoursSpend":56,
+      "hoursRemaining":4,
+      "hoursSpend":152,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K11"},
@@ -94,13 +98,15 @@
         {"id":"KE.L105"},
         {"id":"KE.L131"},
         {"id":"KE.L152"},
-        {"id":"KE.L156"}
+        {"id":"KE.L156"},
+        {"id":"KE.L167"},
+        {"id":"KE.L173"}
       ],
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":16,
-      "hoursSpend":48,
+      "hoursRemaining":4,
+      "hoursSpend":60,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K10"},
@@ -168,13 +174,14 @@
         {"id":"KE.L49"},
         {"id":"KE.L50"},
         {"id":"KE.L63"},
-        {"id":"KE.L66"}
+        {"id":"KE.L66"},
+        {"id":"KE.L174"}
       ],
       "name":"StudyRightObjectScenarios",
-      "phase":"backlog",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":6,
-      "hoursSpend":2,
+      "hoursRemaining":2,
+      "hoursSpend":6,
       "parent":{"id":"KE.K2"},
       "files":"examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java"
     }
@@ -204,13 +211,14 @@
         {"id":"KE.L132"},
         {"id":"KE.L133"},
         {"id":"KE.L134"},
-        {"id":"KE.L135"}
+        {"id":"KE.L135"},
+        {"id":"KE.L168"}
       ],
       "name":"ClassModelCodeGen",
       "phase":"implementation",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":8,
-      "hoursSpend":4,
+      "hoursRemaining":0,
+      "hoursSpend":12,
       "parent":{"id":"KE.K2"}
     }
   },
@@ -367,13 +375,14 @@
         {"id":"KE.L108"},
         {"id":"KE.L111"},
         {"id":"KE.L114"},
-        {"id":"KE.L122"}
+        {"id":"KE.L122"},
+        {"id":"KE.L170"}
       ],
       "name":"Sprint.002.Transformations",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
-      "hoursSpend":2,
+      "hoursRemaining":0,
+      "hoursSpend":6,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K99"},
@@ -388,13 +397,14 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L115"}
+        {"id":"KE.L115"},
+        {"id":"KE.L171"}
       ],
       "name":"LudoScenario",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
-      "hoursSpend":0,
+      "hoursRemaining":0,
+      "hoursSpend":4,
       "parent":{"id":"KE.K103"},
       "files":"examples/org/sdmlib/examples/ludo/LudoScenario.java"
     }
@@ -418,13 +428,14 @@
       "logEntries":[
         {"id":"KE.L119"},
         {"id":"KE.L120"},
-        {"id":"KE.L125"}
+        {"id":"KE.L125"},
+        {"id":"KE.L165"}
       ],
       "name":"PatternModelCodegen",
-      "phase":"modeling",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
-      "hoursSpend":4,
+      "hoursRemaining":0,
+      "hoursSpend":84,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -692,7 +703,7 @@
       "date":"25.03.2012 21:37:46",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":6,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K5"},
       "developer":"zuendorf",
       "phase":"backlog",
@@ -1069,7 +1080,7 @@
       "date":"19.05.2012 20:40:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":6,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K5"},
       "developer":"zuendorf joern alex",
       "phase":"done",
@@ -1083,7 +1094,7 @@
       "date":"19.05.2012 20:42:42",
       "hoursSpend":0,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":6,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K5"},
       "developer":"zuendorf",
       "phase":"backlog",
@@ -1265,7 +1276,7 @@
       "date":"21.05.2012 17:55:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":6,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K5"},
       "developer":"zuendorf joern alex",
       "phase":"backlog",
@@ -2131,7 +2142,7 @@
       "date":"18.03.2012 23:35:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
       "phase":"implementation",
@@ -2145,7 +2156,7 @@
       "date":"19.03.2012 00:19:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
       "phase":"implementation",
@@ -2159,7 +2170,7 @@
       "date":"26.03.2012 22:54:42",
       "hoursSpend":1,
       "hoursRemainingInPhase":0,
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
       "phase":"implementation",
@@ -2436,6 +2447,160 @@
       "kanbanEntry":{"id":"KE.K162"},
       "developer":"zuendorf",
       "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L164",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:52:42",
+      "hoursSpend":80,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":20,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"PatternModelCodegen: Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L165",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:52:42",
+      "hoursSpend":80,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K117"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L166",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:52:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":12,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"PatternModelCodegen: Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L167",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 19:08:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id":"KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ClassModelCodeGen: Achieved: Generate PatternObject classes."
+    }
+  },
+  {
+    "id":"KE.L168",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 19:08:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K7"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: Generate PatternObject classes."
+    }
+  },
+  {
+    "id":"KE.L169",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:59:05",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.002.Transformations: LudoScenario: Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L170",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:59:05",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K103"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"LudoScenario: Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L171",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:59:05",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K104"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L172",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 23:04:42",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L173",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 23:04:42",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":{"id":"KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L174",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 23:04:42",
+      "hoursSpend":4,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K5"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
     }
   }
 ]

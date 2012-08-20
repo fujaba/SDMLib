@@ -2,26 +2,18 @@ graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
 
-g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GreetingPO</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
-g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :Greeting</u></td></tr></table>>];
-g3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g3 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "Hello"</td></tr></table></td></tr></table>>];
-p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p4 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "TTC Participants"</td></tr></table></td></tr></table>>];
-l5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>l5 :LinkConstraint</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtRoleName = "greetingMessage"</td></tr><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
-g6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g6 :GreetingMessagePO</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
-a7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a7 :AttributeConstraint</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>attrName = "text"</td></tr><tr><td>tgtValue = "Hello"</td></tr><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
-l8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>l8 :LinkConstraint</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>tgtRoleName = "person"</td></tr><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
-p9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p9 :PersonPO</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>modifier = "create"</td></tr><tr><td>name = "TTC Participants"</td></tr></table></td></tr></table>>];
-a10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a10 :AttributeConstraint</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>attrName = "name"</td></tr><tr><td>tgtValue = "TTC Participants"</td></tr><tr><td>modifier = "create"</td></tr></table></td></tr></table>>];
+g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='green' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='green'>&laquo;create&raquo;</font></td></tr> <tr> <td align='center'> <font color='green'> g1 :GreetingPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='green'> <tr> <td>  </td></tr></table></td></tr></table>>];
+g2 [label=<<table border='0' cellborder='1' cellspacing='0' color='green' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='green'>&laquo;create&raquo;</font></td></tr> <tr> <td align='center'> <font color='green'> g2 :GreetingMessagePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='green'> <tr><td><font color='green'> text := Hello </font></td></tr></table></td></tr></table>>];
+p3 [label=<<table border='0' cellborder='1' cellspacing='0' color='green' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='green'>&laquo;create&raquo;</font></td></tr> <tr> <td align='center'> <font color='green'> p3 :PersonPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='green'> <tr><td><font color='green'> name := TTC Participants </font></td></tr></table></td></tr></table>>];
+g4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g4 :Greeting</u></td></tr></table>>];
+g5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g5 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>text = "Hello"</td></tr></table></td></tr></table>>];
+p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "TTC Participants"</td></tr></table></td></tr></table>>];
 
-g1 -- g2 [headlabel = "currentMatch" taillabel = ""];
-g1 -- l5 [headlabel = "outgoing" taillabel = "src"];
-g1 -- l8 [headlabel = "outgoing" taillabel = "src"];
-g2 -- g3 [headlabel = "greetingMessage" taillabel = "greeting"];
-g2 -- p4 [headlabel = "person" taillabel = "greeting"];
-g6 -- a7 [headlabel = "attrConstraints" taillabel = "src"];
-g6 -- g3 [headlabel = "currentMatch" taillabel = ""];
-l5 -- g6 [headlabel = "tgt" taillabel = "incomming"];
-l8 -- p9 [headlabel = "tgt" taillabel = "incomming"];
-p9 -- a10 [headlabel = "attrConstraints" taillabel = "src"];
-p9 -- p4 [headlabel = "currentMatch" taillabel = ""];
+g1 -- g4 [headlabel = "match" style="dotted" color="green" fontcolor="green"];
+g2 -- g5 [headlabel = "match" style="dotted" color="green" fontcolor="green"];
+p3 -- p6 [headlabel = "match" style="dotted" color="green" fontcolor="green"];
+g1 -- g2 [headlabel = "greetingMessage" taillabel = "" color="green" fontcolor="green"];
+g1 -- p3 [headlabel = "person" taillabel = "" color="green" fontcolor="green"];
+g4 -- g5 [headlabel = "greetingMessage" taillabel = "greeting"];
+g4 -- p6 [headlabel = "person" taillabel = "greeting"];
 }
