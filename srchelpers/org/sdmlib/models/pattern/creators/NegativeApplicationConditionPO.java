@@ -1,5 +1,6 @@
 package org.sdmlib.models.pattern.creators;
 
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.AttributeConstraint;
@@ -7,24 +8,11 @@ import org.sdmlib.models.pattern.creators.NegativeApplicationConditionSet;
 
 public class NegativeApplicationConditionPO extends PatternObject
 {
-   public NegativeApplicationConditionPO hasCurrentNAC(NegativeApplicationCondition value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(NegativeApplicationCondition.PROPERTY_CURRENTNAC)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
    public NegativeApplicationConditionPO withCurrentNAC(NegativeApplicationCondition value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((NegativeApplicationCondition) getCurrentMatch()).withCurrentNAC(value);
+         ((NegativeApplicationCondition) getCurrentMatch()).withCurrentSubPattern(value);
       }
       return this;
    }
@@ -71,15 +59,6 @@ public class NegativeApplicationConditionPO extends PatternObject
          ((NegativeApplicationCondition) getCurrentMatch()).withHasMatch(value);
       }
       return this;
-   }
-   
-   public NegativeApplicationCondition getCurrentNAC()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((NegativeApplicationCondition) getCurrentMatch()).getCurrentNAC();
-      }
-      return null;
    }
    
    public String getModifier()
@@ -146,7 +125,31 @@ public class NegativeApplicationConditionPO extends PatternObject
       return null;
    }
    
+   public NegativeApplicationConditionPO hasCurrentSubPattern(Pattern value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(NegativeApplicationCondition.PROPERTY_CURRENTSUBPATTERN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Pattern getCurrentSubPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) getCurrentMatch()).getCurrentSubPattern();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

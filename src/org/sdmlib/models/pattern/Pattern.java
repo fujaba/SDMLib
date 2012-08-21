@@ -39,6 +39,7 @@ import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.models.pattern.Pattern;
 
 public class Pattern extends PatternElement<Pattern> implements PropertyChangeInterface
 {
@@ -176,11 +177,6 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
          return getHasMatch();
       }
 
-      if (PROPERTY_CURRENTNAC.equalsIgnoreCase(attrName))
-      {
-         return getCurrentNAC();
-      }
-
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
       {
          return getModifier();
@@ -194,6 +190,11 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
       {
          return getPatternObjectName();
+      }
+
+      if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
+      {
+         return getCurrentSubPattern();
       }
       
       return null;
@@ -222,12 +223,6 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
          return true;
       }
 
-      if (PROPERTY_CURRENTNAC.equalsIgnoreCase(attrName))
-      {
-         setCurrentNAC((NegativeApplicationCondition) value);
-         return true;
-      }
-
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
       {
          setModifier((String) value);
@@ -243,6 +238,12 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
       {
          setPatternObjectName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
+      {
+         setCurrentSubPattern((Pattern) value);
          return true;
       }
 
@@ -286,10 +287,10 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    {
       boolean changed = false;
       
-      if (currentNAC != null)
+      if (currentSubPattern != null)
       {
          // add element to nac
-         changed = currentNAC.addToElements(value);
+         changed = currentSubPattern.addToElements(value);
       }
       else
       {
@@ -308,10 +309,10 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
             }
 
-            if (value instanceof NegativeApplicationCondition)
+            if (value instanceof Pattern)
             {
-               this.setCurrentNAC((NegativeApplicationCondition) value);
-               ((NegativeApplicationCondition) value).setJsonIdMap(jsonIdMap);
+               this.setCurrentSubPattern((Pattern) value);
+               ((Pattern) value).setJsonIdMap(jsonIdMap);
             }
          }
       }
@@ -567,8 +568,16 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             if (patObject.getDoAllMatches())
             {
                // add an "allMatches" node and a link to the current patObject
-               nodeBuilder.append("allMatches;\n");
-               edgeBuilder.append("" + id + " -- allMatches [style=\"dotted\"];\n");
+               StringBuilder allMatchesBuilder = new StringBuilder(
+                  "allMatches_patElemId [label=allMatches];\n"
+                  );
+               
+               CGUtil.replaceAll(allMatchesBuilder, 
+                  "patElemId", id);
+               
+               nodeBuilder.append(allMatchesBuilder.toString());
+               
+               edgeBuilder.append("" + id + " -- allMatches_" + id + " [style=\"dotted\"];\n");
             }
             
             if (showMatch)
@@ -665,7 +674,29 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             nodeBuilder.append(nacBuilder.toString());
             
             // dump contained pattern objects
-            ((NegativeApplicationCondition)patElem).dumpPatternObjects(nodeBuilder, edgeBuilder, showMatch, matchedObjects);
+            nac.dumpPatternObjects(nodeBuilder, edgeBuilder, showMatch, matchedObjects);
+            
+            nodeBuilder.append("}\n\n");
+         }
+         else if (patElem instanceof OptionalSubPattern)
+         {
+            OptionalSubPattern optSubPattern = (OptionalSubPattern) patElem;
+            
+            // create nested subgraph
+            StringBuilder optSubBuilder = new StringBuilder(
+               "subgraph cluster_nacId \n" + 
+               "{\n" + 
+               "   label=<<table border='0' cellborder='0'><tr><td>optional nacId</td></tr></table>>;\n" + 
+               "   color=grey;\n" +
+               "\n");
+            
+            CGUtil.replaceAll(optSubBuilder, 
+               "nacId", nameForPatElem(optSubPattern));
+            
+            nodeBuilder.append(optSubBuilder.toString());
+            
+            // dump contained pattern objects
+            optSubPattern.dumpPatternObjects(nodeBuilder, edgeBuilder, showMatch, matchedObjects);
             
             nodeBuilder.append("}\n\n");
          }
@@ -735,40 +766,39 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    
    //==========================================================================
    
-   public static final String PROPERTY_CURRENTNAC = "currentNAC";
-
-   private NegativeApplicationCondition currentNAC;
-
-   public NegativeApplicationCondition getCurrentNAC()
-   {
-      return this.currentNAC;
-   }
-   
-   public void setCurrentNAC(NegativeApplicationCondition value)
-   {
-      if (this.currentNAC != value)
-      {
-         NegativeApplicationCondition oldValue = this.currentNAC;
-         this.currentNAC = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTNAC, oldValue, value);
-      }
-   }
-   
-   public Pattern withCurrentNAC(NegativeApplicationCondition value)
-   {
-      setCurrentNAC(value);
-      return this;
-   }
-
-
-   
-   //==========================================================================
-   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CURRENTSUBPATTERN = "currentSubPattern";
+      
+   private Pattern currentSubPattern;
+
+   public Pattern getCurrentSubPattern()
+   {
+      return this.currentSubPattern;
+   }
+   
+   public void setCurrentSubPattern(Pattern value)
+   {
+      if (this.currentSubPattern != value)
+      {
+         Pattern oldValue = this.currentSubPattern;
+         this.currentSubPattern = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTSUBPATTERN, oldValue, value);
+      }
+   }
+   
+   public Pattern withCurrentSubPattern(Pattern value)
+   {
+      setCurrentSubPattern(value);
+      return this;
+   } 
 }
 

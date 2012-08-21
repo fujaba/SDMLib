@@ -12,7 +12,7 @@ public class NegativeApplicationConditionCreator implements SendableEntityCreato
    {
       NegativeApplicationCondition.PROPERTY_HASMATCH,
       Pattern.PROPERTY_ELEMENTS, 
-      NegativeApplicationCondition.PROPERTY_CURRENTNAC,
+      Pattern.PROPERTY_CURRENTSUBPATTERN,
       NegativeApplicationCondition.PROPERTY_MODIFIER,
       NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME,
    };

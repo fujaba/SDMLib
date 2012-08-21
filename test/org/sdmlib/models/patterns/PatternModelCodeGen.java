@@ -51,10 +51,14 @@ public class PatternModelCodeGen
       
       Clazz pattern = new Clazz("org.sdmlib.models.pattern.Pattern")
       .withSuperClass(patternElement)
-      .withAttribute("currentNAC", "NegativeApplicationCondition");
+      .withAttribute("currentSubPattern", "Pattern");
       
       Clazz NegativeApplicationCondition = new Clazz("org.sdmlib.models.pattern.NegativeApplicationCondition")
       .withSuperClass(pattern);
+      
+      Clazz OptionalSubPattern = new Clazz("org.sdmlib.models.pattern.OptionalSubPattern")
+      .withSuperClass(pattern)
+      .withAttribute("matchForward", boolean.class.getSimpleName());
       
       new Association()
       .withTarget(patternElement, "elements", Role.MANY)

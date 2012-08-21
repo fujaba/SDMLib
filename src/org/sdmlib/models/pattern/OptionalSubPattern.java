@@ -25,57 +25,39 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
-public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+public class OptionalSubPattern extends Pattern implements PropertyChangeInterface
 {
-   public NegativeApplicationCondition()
-   {
-      super();
-      setHasMatch(true);
-   }
-   
-   //==========================================================================
-   
-   @Override
-   public boolean findMatch()
-   {
-      // start matching only if nac is complete 
-      if (this.getPattern().getCurrentSubPattern() != null)
-      {
-         return true;
-      }
-      else
-      {
-         return super.findMatch();
-      }
-   }
-
-
    @Override
    public boolean findNextMatch()
    {
-      // start matching only if nac is complete 
-      if (this.getPattern().getCurrentSubPattern() != null)
+      
+      if (matchForward)
       {
-         return true;
-      }
-      else if (getHasMatch())
-      {
-         // last time this NAC has found a match and thus it was violated and has caused backtracking
+         // last time this subpattern has run backward thus we run forward now
          // thus some earlier pattern elements have been rematched.
          // check the NAC again
          resetSearch();
+         
          boolean nacHasMatch = findMatch();
-         return ! nacHasMatch;
+         
+         // next time backtrack
+         setMatchForward(false);
+         
+         // optional sub pattern are always successful
+         return true;
       }
       else
       {
-         // backtracking, the NAC has no alternative choice
-         this.setHasMatch(true);
+         // backtracking, 
+         setMatchForward(true);
+         
          return false;
       }
    }
 
-
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -86,14 +68,19 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      {
+         return getModifier();
+      }
+
+      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
       {
          return getHasMatch();
       }
 
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
       {
-         return getModifier();
+         return getPatternObjectName();
       }
 
       if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
@@ -101,9 +88,9 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          return getDoAllMatches();
       }
 
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_MATCHFORWARD.equalsIgnoreCase(attribute))
       {
-         return getPatternObjectName();
+         return getMatchForward();
       }
 
       if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
@@ -119,15 +106,21 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      {
+         setModifier((String) value);
+         return true;
+      }
+
       if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
       {
          setHasMatch((Boolean) value);
          return true;
       }
 
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
+      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
       {
-         setModifier((String) value);
+         setPatternObjectName((String) value);
          return true;
       }
 
@@ -137,9 +130,9 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          return true;
       }
 
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_MATCHFORWARD.equalsIgnoreCase(attrName))
       {
-         setPatternObjectName((String) value);
+         setMatchForward((Boolean) value);
          return true;
       }
 
@@ -155,6 +148,16 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    //==========================================================================
    
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -164,11 +167,29 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   public static final String PROPERTY_MATCHFORWARD = "matchForward";
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   private boolean matchForward = true;
+
+   public boolean getMatchForward()
    {
-      return listeners;
+      return this.matchForward;
    }
+   
+   public void setMatchForward(boolean value)
+   {
+      if (this.matchForward != value)
+      {
+         boolean oldValue = this.matchForward;
+         this.matchForward = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHFORWARD, oldValue, value);
+      }
+   }
+   
+   public OptionalSubPattern withMatchForward(boolean value)
+   {
+      setMatchForward(value);
+      return this;
+   } 
 }
 

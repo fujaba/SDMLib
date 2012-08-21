@@ -18,6 +18,8 @@ import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPO;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.creators.OptionalSubPatternPO;
+import org.sdmlib.models.pattern.OptionalSubPattern;
 
 public class ModelPattern extends Pattern
 {
@@ -248,7 +250,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public OptionalSubPatternPO hasElementOptionalSubPatternPO()
+   {
+      OptionalSubPatternPO value = new OptionalSubPatternPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public OptionalSubPatternPO hasElementOptionalSubPatternPO(OptionalSubPattern hostGraphObject)
+   {
+      OptionalSubPatternPO value = new OptionalSubPatternPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

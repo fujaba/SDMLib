@@ -146,9 +146,31 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          directPattern = directPattern.getPattern();
       }
       
-      directPattern.setCurrentNAC(null);
+      directPattern.setCurrentSubPattern(null);
       
       directPattern.findMatch();
+      
+      return (POC) this;
+   }
+   
+   public POC startSubPattern()
+   {
+      OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
+      
+      this.getPattern().addToElements(optionalSubPattern);
+      
+      return (POC) this;
+   }
+   
+   public POC endSubPattern()
+   {
+      Pattern directPattern = this.getPattern();
+      if (directPattern instanceof OptionalSubPattern)
+      {
+         directPattern = directPattern.getPattern();
+      }
+      
+      directPattern.setCurrentSubPattern(null);
       
       return (POC) this;
    }

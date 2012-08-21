@@ -32,6 +32,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.DestroyObjectElemCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.DestroyObjectElemPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.OptionalSubPatternCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.OptionalSubPatternPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -47,5 +49,6 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 

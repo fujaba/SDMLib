@@ -35,18 +35,6 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return result;
    }
 
-   public NegativeApplicationConditionSet getCurrentNAC()
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (Pattern obj : this)
-      {
-         result.add(obj.getCurrentNAC());
-      }
-      
-      return result;
-   }
-
    public PatternSet withHasMatch(boolean value)
    {
       for (Pattern obj : this)
@@ -61,7 +49,7 @@ public class PatternSet extends LinkedHashSet<Pattern>
    {
       for (Pattern obj : this)
       {
-         obj.withCurrentNAC(value);
+         obj.withCurrentSubPattern(value);
       }
       
       return this;
@@ -153,7 +141,30 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
+   public PatternSet getCurrentSubPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         result.add(obj.getCurrentSubPattern());
+      }
+      
+      return result;
+   }
+
+   public PatternSet withCurrentSubPattern(Pattern value)
+   {
+      for (Pattern obj : this)
+      {
+         obj.withCurrentSubPattern(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

@@ -14,28 +14,6 @@ import org.sdmlib.models.pattern.creators.PatternElementSet;
 
 public class PatternPO extends PatternObject
 {
-   public PatternPO hasCurrentNAC(NegativeApplicationCondition value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Pattern.PROPERTY_CURRENTNAC)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public PatternPO withCurrentNAC(NegativeApplicationCondition value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Pattern) getCurrentMatch()).withCurrentNAC(value);
-      }
-      return this;
-   }
-   
    public PatternPO hasModifier(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
@@ -128,15 +106,6 @@ public class PatternPO extends PatternObject
       return this;
    }
    
-   public NegativeApplicationCondition getCurrentNAC()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Pattern) getCurrentMatch()).getCurrentNAC();
-      }
-      return null;
-   }
-   
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -210,7 +179,31 @@ public class PatternPO extends PatternObject
       return null;
    }
    
+   public PatternPO hasCurrentSubPattern(Pattern value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_CURRENTSUBPATTERN)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Pattern getCurrentSubPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getCurrentSubPattern();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.modelsets.booleanList;
@@ -17,18 +18,6 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getHasMatch());
-      }
-      
-      return result;
-   }
-
-   public NegativeApplicationConditionSet getCurrentNAC()
-   {
-      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
-      
-      for (NegativeApplicationCondition obj : this)
-      {
-         result.add(obj.getCurrentNAC());
       }
       
       return result;
@@ -48,7 +37,7 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
    {
       for (NegativeApplicationCondition obj : this)
       {
-         obj.withCurrentNAC(value);
+         obj.withCurrentSubPattern(value);
       }
       
       return this;
@@ -120,7 +109,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+   public PatternSet getCurrentSubPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getCurrentSubPattern());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withCurrentSubPattern(Pattern value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withCurrentSubPattern(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

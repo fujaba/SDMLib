@@ -3,18 +3,18 @@ package org.sdmlib.models.pattern.creators;
 import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.OptionalSubPattern;
 
-public class PatternCreator implements SendableEntityCreator
+public class OptionalSubPatternCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      Pattern.PROPERTY_ELEMENTS,
-      Pattern.PROPERTY_HASMATCH,
-      Pattern.PROPERTY_MODIFIER,
-      Pattern.PROPERTY_PATTERNOBJECTNAME,
-      Pattern.PROPERTY_DOALLMATCHES,
-      Pattern.PROPERTY_CURRENTSUBPATTERN,
+      OptionalSubPattern.PROPERTY_MODIFIER,
+      OptionalSubPattern.PROPERTY_HASMATCH,
+      OptionalSubPattern.PROPERTY_PATTERNOBJECTNAME,
+      OptionalSubPattern.PROPERTY_DOALLMATCHES,
+      OptionalSubPattern.PROPERTY_MATCHFORWARD,
+      OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN,
    };
    
    public String[] getProperties()
@@ -24,17 +24,17 @@ public class PatternCreator implements SendableEntityCreator
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Pattern();
+      return new OptionalSubPattern();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Pattern) target).get(attrName);
+      return ((OptionalSubPattern) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((Pattern) target).set(attrName, value);
+      return ((OptionalSubPattern) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -48,23 +48,8 @@ public class PatternCreator implements SendableEntityCreator
    @Override
    public void removeObject(Object entity)
    {
-      ((Pattern) entity).removeYou();
+      ((OptionalSubPattern) entity).removeYou();
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

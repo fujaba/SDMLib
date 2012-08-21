@@ -42,6 +42,7 @@ public class HelloWorldTTC2011
    private Node n6;
    private Node n7;
    private Node n8;
+   private Node n3;
 
 
    @Test
@@ -773,15 +774,20 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
+      // rename node n3 to make case more interesting
+      n3.withName("n1");
+      
       JsonIdMap createIdMap = CreatorCreator.createIdMap("sg");
       
       scenario.addObjectDiag(createIdMap, graph);
       
       scenario.add("Transformation:");
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph,Scenario)"));
+      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
 
-      deleteNodeWithNameN1(graph, scenario);
+      deleteNodeWithNameN1(graph);
+      
+      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
       
       scenario.add("Result graph:");
       
@@ -860,7 +866,7 @@ public class HelloWorldTTC2011
       return p.allMatches();
 }
 
-   private void deleteNodeWithNameN1(Graph graph, Scenario scenario)
+   private void deleteNodeWithNameN1(Graph graph)
    {
       // find node
       NodePO nodeN1PO = new ModelPattern()
@@ -869,27 +875,21 @@ public class HelloWorldTTC2011
       .hasName("n1");
       
       // destroy all leaving edges
-      new ModelPattern()
-      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      nodeN1PO.startSubPattern()
       .hasOutEdges()
       .destroy()
+      .endSubPattern()
       .allMatches();
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_leavingEdges", false));
-      
       // destroy all incoming edges
-      new ModelPattern()
-      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      nodeN1PO.startSubPattern()
       .hasInEdges()
       .destroy()
+      .endSubPattern()
       .allMatches();
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_incommingEdges", false));
-      
       // destroy the node
-      nodeN1PO.destroy();
-      
-      scenario.add(nodeN1PO.getPattern().dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
+      nodeN1PO.destroy().allMatches();
    }
 
 
@@ -920,6 +920,8 @@ public class HelloWorldTTC2011
       GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
       
       GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
+      
+      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
       
       edgePO.destroy(); 
       
@@ -1232,7 +1234,7 @@ public class HelloWorldTTC2011
       
       n1 = graph.createNodes().withName("n1");
       Node n2 = graph.createNodes().withName("n2");
-      Node n3 = graph.createNodes().withName("n3");
+      n3 = graph.createNodes().withName("n3");
       Node n4 = graph.createNodes().withName("n4");
       Node n5 = graph.createNodes().withName("n5");
       n6 = graph.createNodes().withName("n6");
