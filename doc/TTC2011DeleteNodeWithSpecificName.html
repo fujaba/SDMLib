@@ -5,7 +5,7 @@
 <pre>Start graph:</pre>
 <img src='TTC2011DeleteNodeWithSpecificName5.svg'>
 <pre>Transformation:</pre>
-<pre>   private void deleteNodeWithNameN1(Graph graph, Scenario scenario)
+<pre>   private void deleteNodeWithNameN1(Graph graph)
    {
       // find node
       NodePO nodeN1PO = new ModelPattern()
@@ -14,33 +14,25 @@
       .hasName("n1");
       
       // destroy all leaving edges
-      new ModelPattern()
-      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      nodeN1PO.startSubPattern()
       .hasOutEdges()
       .destroy()
+      .endSubPattern()
       .allMatches();
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_leavingEdges", false));
-      
       // destroy all incoming edges
-      new ModelPattern()
-      .hasElementNodePO(nodeN1PO.getCurrentMatch())
+      nodeN1PO.startSubPattern()
       .hasInEdges()
       .destroy()
+      .endSubPattern()
       .allMatches();
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_incommingEdges", false));
-      
       // destroy the node
-      nodeN1PO.destroy();
-      
-      scenario.add(nodeN1PO.getPattern().dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
+      nodeN1PO.destroy().allMatches();
    }</pre>
-<img src='deleteNodeWithNameN1_leavingEdges.svg'>
-<img src='deleteNodeWithNameN1_incommingEdges.svg'>
 <img src='deleteNodeWithNameN1_nodeN1.svg'>
 <pre>Result graph:</pre>
-<img src='TTC2011DeleteNodeWithSpecificName12.svg'>
+<img src='TTC2011DeleteNodeWithSpecificName10.svg'>
 
 </body>
 </html>

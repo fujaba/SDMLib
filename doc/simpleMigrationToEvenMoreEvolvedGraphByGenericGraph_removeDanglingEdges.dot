@@ -4,10 +4,10 @@ graph ObjectDiagram {
 
 g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GenericGraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 g2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g2 :GenericObjectPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> type == org.sdmlib.examples.helloworld.Edge </font></td></tr></table></td></tr></table>>];
-allMatches;
+allMatches_g2 [label=allMatches];
 d3 [label="destroy" fontcolor="red"]
 
-g2 -- allMatches [style="dotted"];
+g2 -- allMatches_g2 [style="dotted"];
 g2 -- d3 [style="dotted" color="red" fontcolor="red"];
 g1 -- g2 [headlabel = "objects" taillabel = "" color="black" fontcolor="black"];
 }

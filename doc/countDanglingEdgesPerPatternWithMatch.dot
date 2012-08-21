@@ -4,7 +4,7 @@ graph ObjectDiagram {
 
 g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 e2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e2 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
-allMatches;
+allMatches_e2 [label=allMatches];
 subgraph cluster_n3 
 {
    label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
@@ -35,7 +35,7 @@ e24 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e24 :
 e7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e7 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e17"</td></tr></table></td></tr></table>>];
 
 g1 -- g6 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
-e2 -- allMatches [style="dotted"];
+e2 -- allMatches_e2 [style="dotted"];
 e2 -- e7 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 n4 -- n8 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 n5 -- n8 [headlabel = "match" style="dotted" color="black" fontcolor="black"];

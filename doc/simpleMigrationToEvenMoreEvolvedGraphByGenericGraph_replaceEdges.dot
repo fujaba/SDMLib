@@ -6,17 +6,19 @@ g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 g2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g2 :GenericObjectPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> type == org.sdmlib.examples.helloworld.Edge </font></td></tr></table></td></tr></table>>];
 g3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g3 :GenericLinkPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> tgtLabel == src </font></td></tr></table></td></tr></table>>];
 g4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g4 :GenericLinkPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> tgtLabel == tgt </font></td></tr><tr><td><font color='green'> srcLabel := linksFrom </font></td></tr><tr><td><font color='green'> tgtLabel := linksTo </font></td></tr></table></td></tr></table>>];
-allMatches;
+allMatches_g4 [label=allMatches];
 g5 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g5 :GenericObjectPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
-d6 [label="destroy" fontcolor="red"]
+g6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> g6 :GenericObjectPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 d7 [label="destroy" fontcolor="red"]
+d8 [label="destroy" fontcolor="red"]
 
-g4 -- allMatches [style="dotted"];
-g2 -- d6 [style="dotted" color="red" fontcolor="red"];
-g3 -- d7 [style="dotted" color="red" fontcolor="red"];
+g4 -- allMatches_g4 [style="dotted"];
+g2 -- d7 [style="dotted" color="red" fontcolor="red"];
+g3 -- d8 [style="dotted" color="red" fontcolor="red"];
 g1 -- g2 [headlabel = "objects" taillabel = "" color="black" fontcolor="black"];
 g2 -- g3 [headlabel = "outgoingLinks" taillabel = "" color="black" fontcolor="black"];
 g2 -- g4 [headlabel = "outgoingLinks" taillabel = "" color="black" fontcolor="black"];
 g3 -- g5 [headlabel = "tgt" taillabel = "" color="black" fontcolor="black"];
+g4 -- g6 [headlabel = "tgt" taillabel = "" color="black" fontcolor="black"];
 g4 -- g5 [headlabel = "src" taillabel = "" color="green" fontcolor="green"];
 }
