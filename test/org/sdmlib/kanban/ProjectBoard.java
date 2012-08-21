@@ -158,9 +158,7 @@ public class ProjectBoard
       scenario.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
          DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
    
-      ScenarioManager.get()
-      .add(scenario)
-      .dumpHTML();
+      scenario.dumpHTML();
    }
 }
 
