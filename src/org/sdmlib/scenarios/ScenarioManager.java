@@ -146,7 +146,12 @@ public class ScenarioManager
       {
          if (entry.getSubentries().isEmpty())
          {
-            refColumnBody.append(refForFile(entry.getName()));
+            File htmlFile = new File("doc/" + entry.getName() + ".html");
+            
+            if (htmlFile.exists())
+            {
+               refColumnBody.append(refForFile(entry.getName()));
+            }
          }
       }
 		

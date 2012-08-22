@@ -364,6 +364,11 @@ public class KanbanEntry implements PropertyChangeInterface
       return result;
    }
 
+   public KanbanEntry linkToTest(String rootDir, String className) 
+   {
+      return linkToTest(rootDir, className, this.getName());
+   }
+   
    public KanbanEntry linkToTest(String rootDir, String className, String testName) 
    {
       int lastDotPos = className.lastIndexOf('.');
@@ -453,9 +458,7 @@ public class KanbanEntry implements PropertyChangeInterface
                      "\"" + ScenarioManager.get().dateParser.format(new Date(System.currentTimeMillis())) +  "\", " +
                      "0, 0);\n" +
                      "      \n" +
-                     "      ScenarioManager.get()\n" +
-                     "      .add(scenario)\n" +
-                     "      .dumpHTML();\n" +
+                     "      scenario.dumpHTML();\n" +
                      "   }\n\n";
 
          lastDotPos = fileBody.indexOf('{');

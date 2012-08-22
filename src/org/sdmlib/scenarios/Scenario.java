@@ -309,6 +309,15 @@ public class Scenario
       steps.add("<img src='" + imageFile + "'>");     
    }
 
+   /**
+    *  Example scenario.addToDo("ExtendScenarioByAddToDoMethod", BACKLOG, "zuendorf", "21.08.2012 15:57:42", 0, 1);
+    * @param string
+    * @param phase
+    * @param developer
+    * @param date
+    * @param hoursSpend
+    * @param hoursRemaining
+    */
    public void add(String string, String phase, String developer, String date, double hoursSpend, double hoursRemaining)
    {
       add(string);
@@ -320,6 +329,29 @@ public class Scenario
       .withHoursRemainingInTotal(hoursRemaining)
       .withComment("Achieved: " + string));
    }
+   
+   public KanbanEntry addToDo(String entryName, String phase, String developer,
+         String date, double hoursSpend, double hoursRemaining)
+   {
+      ScenarioManager man = ScenarioManager.get();
+      
+      KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
+
+      KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
+            .withLastDeveloper(developer)
+            .withPhase(phase)
+            .withParent(kanbanBoard);
+
+      LogEntry logEntry = todoEntry.findOrCreateLogEntry(date, phase)
+            .withPhase(phase)
+            .withHoursRemainingInTotal(hoursRemaining)
+            .withHoursSpend(hoursSpend);
+      
+      man.dumpKanban();
+      
+      return todoEntry;
+   }  
+
 
    private int codeStartLineNumber = -1;
 
@@ -556,5 +588,6 @@ public class Scenario
       ScenarioManager.get()
       .add(this)
       .dumpHTML();
-   }  
+   }
+
 }

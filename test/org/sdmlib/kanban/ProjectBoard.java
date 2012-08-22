@@ -33,6 +33,17 @@ import org.sdmlib.scenarios.ScenarioManager;
 
 public class ProjectBoard
 {
+   @Test
+   public void testExtendScenarioByAddToDoMethod()
+   {
+      Scenario scenario = new Scenario("test", "ExtendScenarioByAddToDoMethod");
+      
+      scenario.add("Start situation: ",
+         BACKLOG, "zuendorf", "21.08.2012 18:02:23", 0, 0);
+      
+      scenario.dumpHTML();
+   }
+
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
    public static final String DONE = "done";
@@ -125,6 +136,21 @@ public class ProjectBoard
    }
 
    @Test
+   public void testTodoEntries()
+   {
+      Scenario scenario = new Scenario("test");
+      
+      scenario.add("It should be possible to add todo entries to the kanban board without adding a scenario for them. "
+         , MODELING, "zuendorf", "21.08.2012 15:57:42", 0, 4);
+      
+      scenario.addToDo("ExtendScenarioByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
+      .linkToTest("test", this.getClass().getName());
+      
+      scenario.dumpHTML();
+   }
+   
+   
+   @Test
    public void testScenarioInfrastructure()
    {
       Scenario scenario = new Scenario("test", "ScenarioInfrastructure");
@@ -161,4 +187,6 @@ public class ProjectBoard
       scenario.dumpHTML();
    }
 }
+
+
 
