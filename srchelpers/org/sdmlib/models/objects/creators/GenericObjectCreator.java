@@ -15,6 +15,7 @@ public class GenericObjectCreator implements SendableEntityCreator
       GenericObject.PROPERTY_ATTRS,
       GenericObject.PROPERTY_OUTGOINGLINKS,
       GenericObject.PROPERTY_INCOMMINGLINKS,
+      GenericObject.PROPERTY_ICON,
    };
    
    public String[] getProperties()
@@ -51,5 +52,6 @@ public class GenericObjectCreator implements SendableEntityCreator
       ((GenericObject) entity).removeYou();
    }
 }
+
 
 

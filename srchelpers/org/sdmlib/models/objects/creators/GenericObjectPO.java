@@ -223,6 +223,30 @@ public class GenericObjectPO extends PatternObject
       
       return result;
    }
+   public GenericObjectPO hasIcon(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getIcon()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GenericObject) getCurrentMatch()).getIcon();
+      }
+      return null;
+   }
+   
 }
+
 
 

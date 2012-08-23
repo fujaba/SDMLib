@@ -168,5 +168,28 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+   public StringList getIcon()
+   {
+      StringList result = new StringList();
+      
+      for (GenericObject obj : this)
+      {
+         result.add(obj.getIcon());
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet withIcon(String value)
+   {
+      for (GenericObject obj : this)
+      {
+         obj.withIcon(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

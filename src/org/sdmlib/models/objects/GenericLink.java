@@ -242,8 +242,11 @@ public class GenericLink implements PropertyChangeInterface
    
    public GenericObject createSrc()
    {
-      GenericObject value = new GenericObject();
-      withSrc(value);
+      GenericObject value = new GenericObject()
+      .withGraph(this.getGraph());
+      
+      this.withSrc(value);
+      
       return value;
    } 
 
@@ -301,8 +304,11 @@ public class GenericLink implements PropertyChangeInterface
    
    public GenericObject createTgt()
    {
-      GenericObject value = new GenericObject();
-      withTgt(value);
+      GenericObject value = new GenericObject()
+      .withGraph(this.getGraph());
+      
+      this.withTgt(value);
+      
       return value;
    } 
 

@@ -390,7 +390,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       
       LinkedHashSet<Object> matchedObjects = new LinkedHashSet<Object>();
       
-      String imgLink = "<img src='<imagename>'>\n"
+      String imgLink = "<embed type=\"image/svg+xml\"src='<imagename>'>\n"
             .replaceFirst("<imagename>", diagramName + ".svg");
       
       // generate dot file
@@ -739,7 +739,9 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
          
          Process child = Runtime.getRuntime().exec(command);
          
-         int result = child.waitFor();
+         Thread.sleep(500);
+         
+         // int result = child.waitFor();
          
          // System.out.println("Graphviz for " + diagramName + " returns " + result);
       } 

@@ -75,7 +75,7 @@ public class JsonToImg
    
    public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
-      String link = "<img src='<imagename>'>\n";
+      String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", imgName + ".svg");
       
       // generate dot file

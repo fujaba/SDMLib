@@ -76,6 +76,11 @@ public class GenericObject implements PropertyChangeInterface
       {
          return getIncommingLinks();
       }
+
+      if (PROPERTY_ICON.equalsIgnoreCase(attribute))
+      {
+         return getIcon();
+      }
       
       return null;
    }
@@ -136,6 +141,12 @@ public class GenericObject implements PropertyChangeInterface
       if ((PROPERTY_INCOMMINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromIncommingLinks((GenericLink) value);
+         return true;
+      }
+
+      if (PROPERTY_ICON.equalsIgnoreCase(attrName))
+      {
+         setIcon((String) value);
          return true;
       }
 
@@ -463,8 +474,11 @@ public class GenericObject implements PropertyChangeInterface
    
    public GenericLink createOutgoingLinks()
    {
-      GenericLink value = new GenericLink();
-      withOutgoingLinks(value);
+      GenericLink value = new GenericLink()
+      .withGraph(this.getGraph());
+      
+      this.withOutgoingLinks(value);
+      
       return value;
    } 
 
@@ -556,8 +570,11 @@ public class GenericObject implements PropertyChangeInterface
    
    public GenericLink createIncommingLinks()
    {
-      GenericLink value = new GenericLink();
-      withIncommingLinks(value);
+      GenericLink value = new GenericLink()
+      .withGraph(this.getGraph());
+      
+      this.withIncommingLinks(value);
+      
       return value;
    }
 
@@ -568,6 +585,34 @@ public class GenericObject implements PropertyChangeInterface
       .withName(name)
       .withValue(value);
       
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ICON = "icon";
+   
+   private String icon;
+
+   public String getIcon()
+   {
+      return this.icon;
+   }
+   
+   public void setIcon(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.icon, value))
+      {
+         String oldValue = this.icon;
+         this.icon = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ICON, oldValue, value);
+      }
+   }
+   
+   public GenericObject withIcon(String value)
+   {
+      setIcon(value);
       return this;
    } 
 }

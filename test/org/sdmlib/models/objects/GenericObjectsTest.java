@@ -54,16 +54,17 @@ public class GenericObjectsTest implements PropertyChangeInterface
       Clazz genericGraph = new Clazz("org.sdmlib.models.objects.GenericGraph");
       
       Clazz genericObjectClazz = new Clazz("org.sdmlib.models.objects.GenericObject")
-      .withAttribute("name", "String")
-      .withAttribute("type", "String");
+      .withAttribute("name", String.class.getSimpleName())
+      .withAttribute("type", String.class.getSimpleName())
+      .withAttribute("icon", String.class.getSimpleName());
       
       new Association()
       .withTarget(genericObjectClazz, "objects", Role.MANY)
       .withSource(genericGraph, "graph", Role.ONE);
       
       Clazz genericAttributeClazz = new Clazz("org.sdmlib.models.objects.GenericAttribute")
-      .withAttribute("name", "String")
-      .withAttribute("value", "String");
+      .withAttribute("name", String.class.getSimpleName())
+      .withAttribute("value", String.class.getSimpleName());
       
       new Association()
       .withSource("owner", genericObjectClazz, Role.ONE)

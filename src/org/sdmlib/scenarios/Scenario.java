@@ -37,6 +37,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Vector;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
@@ -306,7 +307,7 @@ public class Scenario
 
    public void addImage(String imageFile)
    {
-      steps.add("<img src='" + imageFile + "'>");     
+      steps.add("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");     
    }
 
    /**
@@ -472,7 +473,7 @@ public class Scenario
       LinkedHashMap<GenericObject, String> allObjects = new LinkedHashMap<GenericObject, String>();
       
       // String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);      
-      String link = "<img src='<imagename>'>\n";
+      String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", diagramName + ".svg");
       
       // generate dot file
@@ -487,37 +488,58 @@ public class Scenario
       StringBuilder nodeBuilder = new StringBuilder();
       for (GenericObject currentObject : graph.getObjects())
       {
-         String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
+         
+         StringBuilder nodeLine = new StringBuilder(
+            "<id> [label=<<table border='0' cellborder='borderSize' cellspacing='0'> iconrow<tr> <td> <u><id> :<classname></u></td></tr>attrText</table>>];\n"
+            );
         
+         String borderSize = "1";
+         
          allObjects.put(currentObject, findNameFor(currentObject));
          
-         nodeLine = nodeLine.replaceAll("<id>", allObjects.get(currentObject));
+         String iconRow = "";
+         
+         if (currentObject.getIcon() != null)
+         {
+            iconRow = "<tr><td border='0'><img src=\"" + currentObject.getIcon() + "\"/></td></tr>";
+            borderSize = "0";
+         }
          
          String type = "_"; 
          if (currentObject.getType() != null)
          {
             type = currentObject.getType();
          }
-         nodeLine = nodeLine.replaceAll("<classname>", type);
          
          // go through attributes
-         String attrText = "<tr><td><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
+         String attrText = "<tr><td border='borderSize'><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
+         
+         attrText = attrText.replaceFirst("borderSize", borderSize);
          
          for (GenericAttribute attr : currentObject.getAttrs())
          {
             String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
             attrLine = attrLine.replaceFirst("<key>", attr.getName());
             attrLine = attrLine.replaceFirst("<value>", attr.getValue());
+            attrLine = attrLine.replaceFirst("borderSize", borderSize);
 
             attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
          }
          
-         if ( ! currentObject.getAttrs().isEmpty())
+         if ( currentObject.getAttrs().isEmpty())
          {
-            nodeLine = nodeLine.replaceFirst("</table>", attrText + "</table>");                  
+            attrText = "";
          }
          
-         nodeBuilder.append(nodeLine);
+         CGUtil.replaceAll(nodeLine, 
+            "iconrow", iconRow,
+            "<id>", allObjects.get(currentObject),
+            "<classname>", type, 
+            "attrText", attrText, 
+            "borderSize", borderSize
+            );
+         
+         nodeBuilder.append(nodeLine.toString());
       }
       
       fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
@@ -558,7 +580,8 @@ public class Scenario
       try {
          writeToFile(diagramName + ".dot", fileText);
          Process child = Runtime.getRuntime().exec(command);
-      } catch (IOException e) {
+         // child.waitFor();
+      } catch (Exception e) {
          e.printStackTrace();
       }
       
