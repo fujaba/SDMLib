@@ -220,17 +220,37 @@ public class IdMap {
 	}
 
 	/**
-	 * Removes the.
-	 *
-	 * @param oldValue the old value
-	 * @return true, if successful
+	 * Removes the Entity from List or Destroy them
+	 * @param oldValue
+	 * @param destroy
+	 * @param destroyAll
+	 * @return boolean if success
 	 */
-	public boolean removeObj(Object oldValue) {
+	public boolean removeObj(Object oldValue, boolean destroy) {
 		if (this.parent != null) {
-			return this.parent.removeObj(oldValue);
+			return this.parent.removeObj(oldValue, destroy);
 		}
 		String key = getKey(oldValue);
+		if(destroy){
+			SendableEntityCreator creator=getCreatorClass(oldValue);
+			if(creator!=null){
+				String[] props = creator.getProperties();
+				for(String prop : props){
+					Object reference = creator.getValue(oldValue, prop);
+					if(reference instanceof Collection<?>){
+						Collection<?> continee=(Collection<?>) reference;
+						Iterator<?> i = continee.iterator();
+						while(i.hasNext()){
+							creator.setValue(oldValue, prop, i.next(), IdMap.REMOVE);
+						}
+					}else{
+						creator.setValue(oldValue, prop, reference, IdMap.REMOVE);
+					}
+				}
+			}
+		}
 		if (key != null) {
+			
 			this.keys.remove(oldValue);
 			this.values.remove(key);
 			return true;
@@ -498,7 +518,7 @@ public class IdMap {
 	}
 	
 	public Object remove(Object oldValue) {
-		if(removeObj(oldValue)){
+		if(removeObj(oldValue, false)){
 			return oldValue;
 		}
 		return null;
