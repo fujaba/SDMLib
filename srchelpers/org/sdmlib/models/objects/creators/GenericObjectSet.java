@@ -190,6 +190,22 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+   public GenericObjectSet with(GenericObject... genObjects)
+   {
+      for (GenericObject genObj : genObjects)
+      {
+         this.add(genObj);
+      }
+      
+      return this;
+   }
+   public GenericObjectSet with(GenericObject genObj)
+   {
+      this.add(genObj);
+      
+      return this;
+   }
+
 }
 
 

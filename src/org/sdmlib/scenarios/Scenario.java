@@ -46,6 +46,7 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -463,9 +464,24 @@ public class Scenario
       return methodText;
    }
 
+   public void addGenericObjectDiag(GenericGraph graph)
+   {
+      this.addGenericObjectDiag(graph, GenericObject.EMPTY_SET);
+   }
+   
+   public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
+   {
+      this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.steps.size(), graph, hiddenObjects);
+   }
+   
    private int objNo;
    
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
+   {
+      this.addGenericObjectDiag(diagramName, graph, GenericObject.EMPTY_SET);
+   }
+   
+   public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       objNo = 0;
       
@@ -488,6 +504,11 @@ public class Scenario
       StringBuilder nodeBuilder = new StringBuilder();
       for (GenericObject currentObject : graph.getObjects())
       {
+         if (hiddenObjects.contains(currentObject))
+         {
+            continue;
+         }
+         
          
          StringBuilder nodeLine = new StringBuilder(
             "<id> [label=<<table border='0' cellborder='borderSize' cellspacing='0'> iconrow<tr> <td> <u><id> :<classname></u></td></tr>attrText</table>>];\n"
@@ -548,6 +569,11 @@ public class Scenario
       StringBuilder edgeBuilder = new StringBuilder();
       for (GenericLink currentLink : graph.getLinks())
       {
+         if (hiddenObjects.contains(currentLink.getSrc()) || hiddenObjects.contains(currentLink.getTgt()))
+         {
+            continue;
+         }
+         
          String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
          edgeLine = edgeLine.replaceFirst("<srcId>", allObjects.get(currentLink.getSrc()));
          edgeLine = edgeLine.replaceFirst("<tgtId>", allObjects.get(currentLink.getTgt()));
@@ -580,7 +606,7 @@ public class Scenario
       try {
          writeToFile(diagramName + ".dot", fileText);
          Process child = Runtime.getRuntime().exec(command);
-         // child.waitFor();
+         child.waitFor();
       } catch (Exception e) {
          e.printStackTrace();
       }

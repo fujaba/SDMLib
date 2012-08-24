@@ -579,6 +579,16 @@ public class GenericObject implements PropertyChangeInterface
    }
 
 
+   public GenericObject with(String... params)
+   {
+      for (int i = 0; i <= params.length - 2; i += 2)
+      {
+         this.with(params[i], params[i + 1]);
+      }
+      
+      return this;
+   }
+   
    public GenericObject with(String name, String value)
    {
       this.createAttrs()
@@ -614,6 +624,26 @@ public class GenericObject implements PropertyChangeInterface
    {
       setIcon(value);
       return this;
+   }
+
+
+   public GenericObject createSubElem(String string)
+   {
+      return this.createOutgoingLinks().withTgtLabel(string)
+            .createTgt();
+      
+   }
+
+
+   public GenericLink createOutgoingLinks(String tgtLabel, GenericObject tgt)
+   {
+      return this.createOutgoingLinks().withTgtLabel(tgtLabel).withTgt(tgt);
+   }
+
+
+   public GenericLink createOutgoingLinks(String srcLabel, String tgtLabel, GenericObject tgt)
+   {
+      return this.createOutgoingLinks().withSrcLabel(srcLabel).withTgtLabel(tgtLabel).withTgt(tgt);
    } 
 }
 
