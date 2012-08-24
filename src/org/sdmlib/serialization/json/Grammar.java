@@ -31,8 +31,8 @@ public class Grammar {
 	 * @param jsonObject
 	 * @return the Creator for this JsonObject
 	 */
-	public SendableEntityCreator getObjectCreator(Object modelItem, IdMap map, String className) {
-		return map.getCreatorClasses(className);
+	public SendableEntityCreator getObjectCreator(Object modelItem, IdMap map) {
+		return map.getCreatorClass(modelItem);
 	}
 
 	public JsonObject getJsonObject(IdMap map,

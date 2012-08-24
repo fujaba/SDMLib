@@ -99,7 +99,7 @@ public class JsonIdMap extends IdMap{
 		String id = "";
 		String className = entity.getClass().getName();
 
-		SendableEntityCreator prototyp = grammar.getObjectCreator(entity, this, className);
+		SendableEntityCreator prototyp = grammar.getObjectCreator(entity, this);
 		if (prototyp == null) {
 			return null;
 		}
@@ -294,7 +294,7 @@ public class JsonIdMap extends IdMap{
 		}
 		JsonObject jsonProp=grammar.getJsonObjectProperties(jsonObject);
 		if (jsonProp!=null) {
-			SendableEntityCreator prototyp = getCreatorClass(target);
+			SendableEntityCreator prototyp = grammar.getObjectCreator(target, this);
 			String[] properties = prototyp.getProperties();
 			if (properties != null) {
 				for (String property : properties) {
