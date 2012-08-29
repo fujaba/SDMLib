@@ -28,6 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -64,6 +66,8 @@ public class JsonIdMap extends IdMap{
 
 	/** The updatelistener. */
 	private MapUpdateListener updatelistener;
+	/** The updatelistener. */
+	private PropertyChangeListener updatePropertylistener;
 
 	
 	/** If this is true the IdMap save the Typ of primary datatypes. */
@@ -511,7 +515,20 @@ public class JsonIdMap extends IdMap{
 	 */
 	public void setUpdateMsgListener(MapUpdateListener listener) {
 		this.updatelistener = listener;
+		if(listener instanceof PropertyChangeListener){
+			this.updatePropertylistener=(PropertyChangeListener) listener;
+		}
 	}
+
+	public void setUpdateMsgListener(PropertyChangeListener listener) {
+		this.updatePropertylistener = listener;
+		if(listener instanceof MapUpdateListener){
+			this.updatelistener=(MapUpdateListener) listener;
+		}
+	}
+
+	
+	
 
 	/**
 	 * Send update msg.
@@ -519,9 +536,13 @@ public class JsonIdMap extends IdMap{
 	 * @param jsonObject the json object
 	 * @return true, if successful
 	 */
-	public boolean sendUpdateMsg(Object oldObj, Object newObject, JsonObject jsonObject) {
+	public boolean sendUpdateMsg(PropertyChangeEvent evt, JsonObject jsonObject) {
+		if(updatePropertylistener != null){
+			updatePropertylistener.propertyChange(evt);
+		}
+
 		if (this.updatelistener != null) {
-			return this.updatelistener.sendUpdateMsg(oldObj, newObject, jsonObject);
+			return this.updatelistener.sendUpdateMsg(evt.getOldValue(), evt.getNewValue(), jsonObject);
 		}
 		return true;
 	}
@@ -555,7 +576,7 @@ public class JsonIdMap extends IdMap{
 		}
 		JsonObject sendObj = new JsonObject();
 		sendObj.put(IdMap.UPDATE, children);
-		sendUpdateMsg(null, null, sendObj);
+		sendUpdateMsg(null, sendObj);
 	}
 
 	/**

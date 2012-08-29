@@ -232,7 +232,7 @@ public class UpdateListener implements PropertyChangeListener{
 		}
 
 		if (this.suspendIdList == null) {
-			this.map.sendUpdateMsg(oldValue, newValue, jsonObject);
+			this.map.sendUpdateMsg(evt, jsonObject);
 		}
 	}
 
