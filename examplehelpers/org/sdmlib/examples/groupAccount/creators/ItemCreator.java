@@ -1,10 +1,10 @@
 package org.sdmlib.examples.groupAccount.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.groupAccount.Item;
 
-public class ItemCreator implements SendableEntityCreator
+public class ItemCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

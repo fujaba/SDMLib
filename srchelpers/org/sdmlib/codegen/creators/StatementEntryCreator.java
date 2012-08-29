@@ -1,11 +1,11 @@
 package org.sdmlib.codegen.creators;
 
-import org.sdmlib.models.classes.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.models.classes.creators.CreatorCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StatementEntryCreator implements SendableEntityCreator
+public class StatementEntryCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

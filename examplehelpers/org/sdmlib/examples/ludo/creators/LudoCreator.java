@@ -1,11 +1,10 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class LudoCreator implements SendableEntityCreator
+public class LudoCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

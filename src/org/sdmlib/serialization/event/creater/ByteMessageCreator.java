@@ -79,7 +79,6 @@ public class ByteMessageCreator implements ByteEntityCreator {
 		return ((ByteMessage) entity).set(attribute, value);
 	}
 	
-   @Override
    public void removeObject(Object entity)
    {
       // Intentionally left blank      

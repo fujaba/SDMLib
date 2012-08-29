@@ -1,10 +1,10 @@
 package org.sdmlib.scenarios.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.scenarios.LogEntry;
 
-public class LogEntryCreator implements SendableEntityCreator
+public class LogEntryCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

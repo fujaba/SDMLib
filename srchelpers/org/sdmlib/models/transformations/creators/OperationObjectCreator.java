@@ -1,10 +1,10 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.transformations.OperationObject;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class OperationObjectCreator implements SendableEntityCreator
+public class OperationObjectCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

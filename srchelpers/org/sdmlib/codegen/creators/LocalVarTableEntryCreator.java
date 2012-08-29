@@ -1,11 +1,11 @@
 package org.sdmlib.codegen.creators;
 
 import org.sdmlib.models.classes.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.codegen.LocalVarTableEntry;
 
-public class LocalVarTableEntryCreator implements SendableEntityCreator
+public class LocalVarTableEntryCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

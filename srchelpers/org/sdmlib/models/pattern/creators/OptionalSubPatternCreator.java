@@ -1,11 +1,10 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class OptionalSubPatternCreator implements SendableEntityCreator
+public class OptionalSubPatternCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

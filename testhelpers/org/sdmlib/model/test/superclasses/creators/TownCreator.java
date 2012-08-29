@@ -1,10 +1,10 @@
 package org.sdmlib.model.test.superclasses.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.test.superclasses.Town;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class TownCreator implements SendableEntityCreator
+public class TownCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

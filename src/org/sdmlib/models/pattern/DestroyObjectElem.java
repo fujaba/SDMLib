@@ -22,6 +22,7 @@
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
@@ -51,7 +52,7 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
             
             Object currentMatch = this.getPatternObject().getCurrentMatch();
             
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
+            EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
             
             creatorClass.removeObject(currentMatch);
             

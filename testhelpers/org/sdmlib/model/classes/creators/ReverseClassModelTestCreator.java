@@ -1,10 +1,10 @@
 package org.sdmlib.model.classes.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.classes.ReverseClassModelTest;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class ReverseClassModelTestCreator implements SendableEntityCreator
+public class ReverseClassModelTestCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

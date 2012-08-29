@@ -1,11 +1,12 @@
 package org.sdmlib.examples.helloworld.creators;
 
 import org.sdmlib.examples.helloworld.creators.CreatorCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.Greeting;
 
-public class GreetingCreator implements SendableEntityCreator
+public class GreetingCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

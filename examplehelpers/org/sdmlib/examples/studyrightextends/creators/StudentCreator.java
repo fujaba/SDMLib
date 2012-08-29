@@ -1,11 +1,10 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyrightextends.Student;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StudentCreator implements SendableEntityCreator
+public class StudentCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -1,11 +1,11 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
+import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StudyRightClassesCodeGenCreator implements SendableEntityCreator
+public class StudyRightClassesCodeGenCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

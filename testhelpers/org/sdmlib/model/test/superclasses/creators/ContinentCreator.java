@@ -1,10 +1,11 @@
 package org.sdmlib.model.test.superclasses.creators;
 
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.test.superclasses.Continent;
 
-public class ContinentCreator implements SendableEntityCreator
+public class ContinentCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {

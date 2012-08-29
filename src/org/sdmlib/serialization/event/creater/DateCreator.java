@@ -80,10 +80,4 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 		return false;
 	}
 
-   @Override
-   public void removeObject(Object entity)
-   {
-      // TODO Auto-generated method stub
-      
-   }
 }

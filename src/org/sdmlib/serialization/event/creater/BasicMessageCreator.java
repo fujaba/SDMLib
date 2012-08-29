@@ -78,11 +78,4 @@ public class BasicMessageCreator implements ByteEntityCreator {
 		return ((BasicMessage) entity).set(attribute, value);
 	}
 	
-   @Override
-   public void removeObject(Object entity)
-   {
-      // TODO Auto-generated method stub
-      
-   }
-
 }

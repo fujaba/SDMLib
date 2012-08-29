@@ -1,10 +1,10 @@
 package org.sdmlib.model.test.methods.creators;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.test.methods.Place;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
-public class PlaceCreator implements SendableEntityCreator
+public class PlaceCreator implements EntityFactory
 {
    private final String[] properties = new String[]
    {
