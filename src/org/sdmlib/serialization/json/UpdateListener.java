@@ -302,7 +302,7 @@ public class UpdateListener implements PropertyChangeListener{
 					Object value = creator.getValue(masterObj, key);
 					if(value instanceof Collection<?>){
 						JsonObject removeJsonObject=remove.getJsonObject(key);
-						setValue(creator, masterObj, key+IdMap.REMOVE, removeJsonObject, IdMap.REMOVE);
+						setValue(creator, masterObj, key, removeJsonObject, IdMap.REMOVE);
 					}else{
 						if (checkValue(value, key, remove)) {
 							setValue(creator, masterObj, key,
