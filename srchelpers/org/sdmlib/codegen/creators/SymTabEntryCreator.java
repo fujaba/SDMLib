@@ -5,7 +5,7 @@ import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class SymTabEntryCreator implements EntityFactory
+public class SymTabEntryCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

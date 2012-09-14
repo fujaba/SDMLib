@@ -6,7 +6,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.Greeting;
 
-public class GreetingCreator implements EntityFactory
+public class GreetingCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

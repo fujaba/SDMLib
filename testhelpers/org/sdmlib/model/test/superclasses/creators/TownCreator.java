@@ -4,7 +4,7 @@ import org.sdmlib.model.test.superclasses.Town;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class TownCreator implements EntityFactory
+public class TownCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

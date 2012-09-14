@@ -4,7 +4,7 @@ import org.sdmlib.model.test.methods.Place;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class PlaceCreator implements EntityFactory
+public class PlaceCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

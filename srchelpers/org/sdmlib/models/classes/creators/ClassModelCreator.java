@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.classes.ClassModel;
 
-public class ClassModelCreator implements EntityFactory
+public class ClassModelCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

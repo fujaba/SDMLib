@@ -5,7 +5,7 @@ import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class NodeCreator implements EntityFactory
+public class NodeCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

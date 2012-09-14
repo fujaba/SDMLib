@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericObjectsTest;
 
-public class GenericObjectsTestCreator implements EntityFactory
+public class GenericObjectsTestCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

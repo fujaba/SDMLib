@@ -4,7 +4,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.transformations.LinkOp;
 
-public class LinkOpCreator implements EntityFactory
+public class LinkOpCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

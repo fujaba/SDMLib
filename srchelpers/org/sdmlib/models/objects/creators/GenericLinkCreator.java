@@ -6,7 +6,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericLink;
 
-public class GenericLinkCreator implements EntityFactory
+public class GenericLinkCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -4,7 +4,7 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class MethodCreator implements EntityFactory
+public class MethodCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

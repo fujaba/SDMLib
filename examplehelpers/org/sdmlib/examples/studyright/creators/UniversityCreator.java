@@ -4,7 +4,7 @@ import org.sdmlib.examples.studyright.University;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class UniversityCreator implements EntityFactory
+public class UniversityCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

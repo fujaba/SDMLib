@@ -6,7 +6,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.ludo.Field;
 
-public class FieldCreator implements EntityFactory
+public class FieldCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

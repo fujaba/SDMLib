@@ -4,7 +4,7 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class RoleCreator implements EntityFactory
+public class RoleCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -6,7 +6,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.GraphComponent;
 
-public class GraphComponentCreator implements EntityFactory
+public class GraphComponentCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

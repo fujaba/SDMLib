@@ -7,7 +7,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternElement;
 
-public class AttributeConstraintCreator implements EntityFactory
+public class AttributeConstraintCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

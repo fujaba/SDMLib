@@ -4,7 +4,7 @@ import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class PawnCreator implements EntityFactory
+public class PawnCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

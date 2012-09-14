@@ -4,7 +4,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.scenarios.KanbanEntry;
 
-public class KanbanEntryCreator implements EntityFactory
+public class KanbanEntryCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -7,7 +7,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.GraphComponent;
 
-public class EdgeCreator implements EntityFactory
+public class EdgeCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

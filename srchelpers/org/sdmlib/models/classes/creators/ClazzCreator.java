@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.classes.Clazz;
 
-public class ClazzCreator implements EntityFactory
+public class ClazzCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

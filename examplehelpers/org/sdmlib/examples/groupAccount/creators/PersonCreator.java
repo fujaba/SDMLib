@@ -4,7 +4,7 @@ import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class PersonCreator implements EntityFactory
+public class PersonCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -4,7 +4,7 @@ import org.sdmlib.model.test.superclasses.State;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StateCreator implements EntityFactory
+public class StateCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -8,7 +8,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 
-public class LinkConstraintCreator implements EntityFactory
+public class LinkConstraintCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

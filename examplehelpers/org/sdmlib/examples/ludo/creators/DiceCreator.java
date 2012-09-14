@@ -6,7 +6,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.ludo.Dice;
 
-public class DiceCreator implements EntityFactory
+public class DiceCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

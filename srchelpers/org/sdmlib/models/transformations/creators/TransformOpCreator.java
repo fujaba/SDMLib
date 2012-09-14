@@ -4,7 +4,7 @@ import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class TransformOpCreator implements EntityFactory
+public class TransformOpCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

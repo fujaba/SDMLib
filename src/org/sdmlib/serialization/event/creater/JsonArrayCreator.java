@@ -3,7 +3,7 @@ package org.sdmlib.serialization.event.creater;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonArray;
 
-public class JsonArrayCreator implements EntityFactory{
+public class JsonArrayCreator extends EntityFactory{
 	private final String[] properties= new String[]{"VALUE"};
 	@Override
 	public String[] getProperties() {

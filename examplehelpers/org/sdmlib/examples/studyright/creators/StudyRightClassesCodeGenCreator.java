@@ -5,7 +5,7 @@ import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StudyRightClassesCodeGenCreator implements EntityFactory
+public class StudyRightClassesCodeGenCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

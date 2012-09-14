@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import de.kassel.roombook.Building;
 
-public class BuildingCreator implements EntityFactory
+public class BuildingCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

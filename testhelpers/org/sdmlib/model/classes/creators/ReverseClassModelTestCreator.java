@@ -4,7 +4,7 @@ import org.sdmlib.model.classes.ReverseClassModelTest;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class ReverseClassModelTestCreator implements EntityFactory
+public class ReverseClassModelTestCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

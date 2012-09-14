@@ -4,7 +4,7 @@ import org.sdmlib.examples.studyright.Topic;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class TopicCreator implements EntityFactory
+public class TopicCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

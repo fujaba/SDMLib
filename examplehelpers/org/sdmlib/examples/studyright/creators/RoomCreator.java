@@ -4,7 +4,7 @@ import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class RoomCreator implements EntityFactory
+public class RoomCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

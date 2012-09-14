@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.test.superclasses.Continent;
 
-public class ContinentCreator implements EntityFactory
+public class ContinentCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

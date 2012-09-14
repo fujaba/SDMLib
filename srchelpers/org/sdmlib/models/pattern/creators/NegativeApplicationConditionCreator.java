@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class NegativeApplicationConditionCreator implements EntityFactory
+public class NegativeApplicationConditionCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -5,7 +5,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class PatternObjectCreator implements EntityFactory
+public class PatternObjectCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

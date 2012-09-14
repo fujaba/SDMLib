@@ -4,7 +4,7 @@ import org.sdmlib.models.transformations.Statement;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StatementCreator implements EntityFactory
+public class StatementCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

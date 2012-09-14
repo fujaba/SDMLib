@@ -5,7 +5,7 @@ import org.sdmlib.model.test.interfaces.Student;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class StudentCreator implements EntityFactory
+public class StudentCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

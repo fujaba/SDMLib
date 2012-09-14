@@ -4,7 +4,7 @@ import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class MatchIsomorphicConstraintCreator implements EntityFactory
+public class MatchIsomorphicConstraintCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

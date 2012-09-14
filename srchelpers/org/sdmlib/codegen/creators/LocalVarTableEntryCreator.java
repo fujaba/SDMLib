@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.codegen.LocalVarTableEntry;
 
-public class LocalVarTableEntryCreator implements EntityFactory
+public class LocalVarTableEntryCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

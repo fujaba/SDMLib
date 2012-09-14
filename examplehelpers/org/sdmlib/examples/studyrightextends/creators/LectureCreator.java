@@ -5,7 +5,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyrightextends.Lecture;
 
-public class LectureCreator implements EntityFactory
+public class LectureCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
