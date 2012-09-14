@@ -426,21 +426,21 @@ public class ClassModel implements PropertyChangeInterface
 		// add interface inheritance
 		for (Clazz clazz : this.getClasses())
 		{
-			for (Clazz interfaceClass : clazz.getInterfaces())
-      {	
-				if (interfaceClass.isInterfaze())
-        {
-	        StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
-	        
-	        CGUtil.replaceAll(oneSuperClassText, 
-	        									"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
-	        									"mClass", CGUtil.shortClassName(clazz.getName()));
-	        
-	        allAssocsText.append(oneSuperClassText.toString());
-        }
-			}
+		   for (Clazz interfaceClass : clazz.getInterfaces())
+		   {	
+		      if (interfaceClass.isInterfaze())
+		      {
+		         StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
+
+		         CGUtil.replaceAll(oneSuperClassText, 
+		            "interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
+		            "mClass", CGUtil.shortClassName(clazz.getName()));
+
+		         allAssocsText.append(oneSuperClassText.toString());
+		      }
+		   }
 		}
-		
+
 		// add associations
 		for (Association assoc : getAssociations())
 		{
@@ -479,9 +479,11 @@ public class ClassModel implements PropertyChangeInterface
 		}
 		try
 		{
-			Runtime.getRuntime().exec(command);
+			Process exec = Runtime.getRuntime().exec(command);
+			
+			exec.waitFor();
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

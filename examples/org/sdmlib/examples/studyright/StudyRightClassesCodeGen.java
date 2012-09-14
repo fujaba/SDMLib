@@ -38,8 +38,6 @@ import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-import com.sun.tools.javac.Main;
-
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
    @Test
@@ -548,21 +546,22 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets", 
          DONE, "zuendorf", "20.05.2012 20:01:42", 2, 0);
 
-      scenario.add("next. compile University.java");
-
-      String javaClassPath = System.getProperty("java.class.path");
-
-      String[] compArgs = new String[]
-            {
-            "-d", "bin",
-            "-sourcepath", "examples",
-            "-classpath", javaClassPath,
-            "examples/org/sdmlib/examples/studyright/University.java"
-            };
-
-      int compResult = Main.compile(compArgs);
-
-      Assert.assertEquals("compile did not work: ", 0, compResult);
+      // removed compile to get rid of tools.jar dependency. AZ
+      //      scenario.add("next. compile University.java");
+      //
+      //      String javaClassPath = System.getProperty("java.class.path");
+      //
+      //      String[] compArgs = new String[]
+      //            {
+      //            "-d", "bin",
+      //            "-sourcepath", "examples",
+      //            "-classpath", javaClassPath,
+      //            "examples/org/sdmlib/examples/studyright/University.java"
+      //            };
+      //
+      //      int compResult = Main.compile(compArgs);
+      //
+      //      Assert.assertEquals("compile did not work: ", 0, compResult);
 
       ScenarioManager.get()
       .add(scenario)

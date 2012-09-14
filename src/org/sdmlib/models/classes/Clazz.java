@@ -867,11 +867,11 @@ public class Clazz implements PropertyChangeInterface
                   "package packageName;\n" +
                   "\n" +
                   "import CreatorCreatorClass;\n" + 
-                  "import org.sdmlib.serialization.interfaces.SendableEntityCreator;\n" +
+                  "import org.sdmlib.serialization.interfaces.EntityFactory;\n" +
                   "import org.sdmlib.serialization.json.JsonIdMap;\n" +
                   "import fullEntityClassName;\n" +
                   "\n" +
-                  "public class creatorClassName implements SendableEntityCreator\n" +
+                  "public class creatorClassName implements EntityFactory\n" +
                   "{\n" +
                   "   private final String[] properties = new String[]\n" +
                   "   {\n" +
