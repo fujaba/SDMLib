@@ -333,7 +333,21 @@ public class ClassModel implements PropertyChangeInterface
       return this;
    }
 	
-	public void addToClasses(Clazz value)
+	public Clazz createClazz()
+	{
+	   Clazz clazz = new Clazz();
+	   this.addToClasses(clazz);
+	   return clazz;
+	}
+	
+	public Clazz createClazz(String name, String... attrNameTypePairs)
+   {
+      Clazz clazz = new Clazz(name, attrNameTypePairs);
+      this.addToClasses(clazz);
+      return clazz;
+   }
+   
+   public void addToClasses(Clazz value)
 	{
 		if (this.classes == null)
 		{

@@ -60,10 +60,32 @@ public class Clazz implements PropertyChangeInterface
       }
    }
    
-   public Clazz(String name)
+   public Clazz(String name, String... attrNameTypePairs)
    {
       this();
       setName(name);
+      
+      this.withAttributes(attrNameTypePairs);
+   }
+   
+   public Clazz createClassAndAssoc(String tgtClassName, String tgtRoleName, String tgtCard, String srcRoleName, String srcCard)
+   {
+      Clazz tgtClazz = new Clazz(tgtClassName);
+      
+      new Association()
+      .withTarget(tgtRoleName, tgtClazz, tgtCard)
+      .withSource(srcRoleName, this, srcCard);
+      
+      return tgtClazz;
+   }
+   
+   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, String tgtCard, String srcRoleName, String srcCard)
+   {      
+      new Association()
+      .withTarget(tgtRoleName, tgtClass, tgtCard)
+      .withSource(srcRoleName, this, srcCard);
+      
+      return tgtClass;
    }
 
    public static final String PROPERTY_NAME = "name";
@@ -1649,6 +1671,19 @@ public class Clazz implements PropertyChangeInterface
    public Clazz withAttribute(String name, String type, String initialization)
    {      
       this.withAttributes(new Attribute().withName(name).withType(type).withInitialization(initialization));
+      return this;
+   }
+
+   public Clazz withAttributes(String... attrNameTypePairs)
+   {  
+      if (attrNameTypePairs != null)
+      {
+         for (int i = 0; i+2 <= attrNameTypePairs.length; i += 2)
+         {
+            this.withAttribute(attrNameTypePairs[i], attrNameTypePairs[i+1]);
+         }
+      }
+      
       return this;
    }
 

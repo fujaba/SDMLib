@@ -26,75 +26,52 @@ public class LudoModel
       
       ClassModel model = new ClassModel();
             
-      Clazz ludo = new Clazz("org.sdmlib.examples.ludo.Ludo");
+      Clazz ludo = model.createClazz("org.sdmlib.examples.ludo.Ludo");
       
-      Clazz player = new Clazz("org.sdmlib.examples.ludo.Player")
-      .withAttribute("color", "String")
-      .withAttribute("name", "String")
-      .withAttribute("x", "int")
-      .withAttribute("y", "int");
+      Clazz player = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Player",
+         "players", Role.MANY,
+         "game", Role.ONE);
       
-      new Association()
-      .withTarget(player, "players", Role.MANY)
-      .withSource(ludo, "game", Role.ONE);
+      player.withAttributes(
+         "color", "String",
+         "name", "String",
+         "x", "int",
+         "y", "int");
       
-      new Association()
-      .withTarget(player, "next", Role.ONE)
-      .withSource(player, "prev", Role.ONE);
+      player.withAssoc(player, "next", Role.ONE, "prev", Role.ONE);
       
-      Clazz dice = new Clazz("org.sdmlib.examples.ludo.Dice")
-      .withAttribute("value", "int");
+      Clazz dice = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Dice", "dice", Role.ONE, "game", Role.ONE);
       
-      new Association()
-      .withTarget(dice, "dice", Role.ONE)
-      .withSource(ludo, "game", Role.ONE);
+      dice.withAttributes("value", "int");
       
-      new Association()
-      .withTarget(dice, "dice", Role.ONE)
-      .withSource(player, "player", Role.ONE);
+      dice.withAssoc(player, "dice", Role.ONE, "player", Role.ONE);
       
-      Clazz field = new Clazz("org.sdmlib.examples.ludo.Field")
-      .withAttribute("color", "String")
-      .withAttribute("kind", "String")
-      .withAttribute("x", "int")
-      .withAttribute("y", "int");
+      Clazz field = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Field", "fields", Role.MANY, "game", Role.ONE);
       
-      new Association()
-      .withTarget(field, "fields", Role.MANY)
-      .withSource(ludo, "game", Role.ONE);
+      field.withAttributes(
+         "color", "String",
+         "kind", "String",
+         "x", "int",
+         "y", "int");
+      
+      field.withAssoc(field, "next", Role.ONE, "prev", Role.ONE);
+      
+      field.withAssoc(field, "landing", Role.ONE, "entry", Role.ONE);
+      
+      player.withAssoc(field, "start", Role.ONE, "starter", Role.ONE);
+      
+      player.withAssoc(field, "base", Role.ONE, "baseowner", Role.ONE);
+      
+      player.withAssoc(field, "landing", Role.ONE, "lander", Role.ONE);
+      
+      Clazz pawn = player.createClassAndAssoc("org.sdmlib.examples.ludo.Pawn", "pawns", Role.MANY, "player", Role.ONE);
+         
+      pawn.withAttributes(   
+         "color", "String",
+         "x", "int",
+         "y", "int");
 
-      new Association()
-      .withTarget(field, "next", Role.ONE)
-      .withSource(field, "prev", Role.ONE);
-      
-      new Association()
-      .withTarget(field, "landing", Role.ONE)
-      .withSource(field, "entry", Role.ONE);
-      
-      new Association()
-      .withTarget(field, "start", Role.ONE)
-      .withSource(player, "starter", Role.ONE);
-
-      new Association()
-      .withTarget(field, "base", Role.ONE)
-      .withSource(player, "baseowner", Role.ONE);
-
-      new Association()
-      .withTarget(field, "landing", Role.ONE)
-      .withSource(player, "lander", Role.ONE);
-
-      Clazz pawn = new Clazz("org.sdmlib.examples.ludo.Pawn")
-      .withAttribute("color", "String")
-      .withAttribute("x", "int")
-      .withAttribute("y", "int");
-      
-      new Association()
-      .withTarget(pawn, "pawns", Role.MANY)
-      .withSource(player, "player", Role.ONE);
-
-      new Association()
-      .withTarget(field, "pos", Role.ONE)
-      .withSource(pawn, "pawns", Role.MANY);
+      pawn.withAssoc(field, "pos", Role.ONE, "pawns", Role.MANY);
       
       scenario.addImage(model.dumpClassDiag("LudoModel01"));
 
