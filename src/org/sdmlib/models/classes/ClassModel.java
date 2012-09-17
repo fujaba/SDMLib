@@ -2433,6 +2433,14 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
       fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Set.java";
       deleteFile(fileName);
       
+      // pattern object file
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "PO.java";
+      deleteFile(fileName);
+      
+      // pattern object creator file
+      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "POCreator.java";
+      deleteFile(fileName);
+      
       // model pattern file
       fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/ModelPattern.java";
       deleteFile(fileName);

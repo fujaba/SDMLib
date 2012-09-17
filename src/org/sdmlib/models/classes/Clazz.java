@@ -893,7 +893,7 @@ public class Clazz implements PropertyChangeInterface
                   "import org.sdmlib.serialization.json.JsonIdMap;\n" +
                   "import fullEntityClassName;\n" +
                   "\n" +
-                  "public class creatorClassName implements EntityFactory\n" +
+                  "public class creatorClassName extends EntityFactory\n" +
                   "{\n" +
                   "   private final String[] properties = new String[]\n" +
                   "   {\n" +

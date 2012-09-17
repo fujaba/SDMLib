@@ -14,7 +14,7 @@ public class PawnPOCreator extends PatternObjectCreator
       return ((PawnPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((PawnPO) target).set(attrName, value);
    }

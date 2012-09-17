@@ -2,6 +2,7 @@ package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Dice;
+import org.sdmlib.examples.ludo.creators.DiceSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.LudoPO;
@@ -11,16 +12,22 @@ import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
 import org.sdmlib.examples.ludo.Player;
 
-public class DicePO extends PatternObject
+public class DicePO extends PatternObject<DicePO, Dice>
 {
-   public DicePO startNAC()
+   public DiceSet allMatches()
    {
-      return (DicePO) super.startNAC();
-   }
-   
-   public DicePO endNAC()
-   {
-      return (DicePO) super.endNAC();
+      this.setDoAllMatches(true);
+      
+      DiceSet matches = new DiceSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Dice) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
    }
    
    public DicePO hasValue(int value)
@@ -53,7 +60,8 @@ public class DicePO extends PatternObject
       
       super.hasLink(Dice.PROPERTY_GAME, result);
       
-      return result;   }
+      return result;
+   }
    
    public DicePO hasGame(LudoPO tgt)
    {
@@ -85,7 +93,8 @@ public class DicePO extends PatternObject
       
       super.hasLink(Dice.PROPERTY_PLAYER, result);
       
-      return result;   }
+      return result;
+   }
    
    public DicePO hasPlayer(PlayerPO tgt)
    {

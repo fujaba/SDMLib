@@ -40,7 +40,7 @@ public class ModelPattern extends Pattern
    {
       LudoPO value = new LudoPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -64,7 +64,7 @@ public class ModelPattern extends Pattern
    {
       PlayerPO value = new PlayerPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -88,7 +88,7 @@ public class ModelPattern extends Pattern
    {
       DicePO value = new DicePO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -112,7 +112,7 @@ public class ModelPattern extends Pattern
    {
       FieldPO value = new FieldPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -136,7 +136,7 @@ public class ModelPattern extends Pattern
    {
       PawnPO value = new PawnPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       

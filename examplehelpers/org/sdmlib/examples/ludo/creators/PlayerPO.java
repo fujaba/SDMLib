@@ -2,6 +2,7 @@ package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.LudoPO;
@@ -16,16 +17,22 @@ import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.creators.PawnSet;
 
-public class PlayerPO extends PatternObject
+public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
-   public PlayerPO startNAC()
+   public PlayerSet allMatches()
    {
-      return (PlayerPO) super.startNAC();
-   }
-   
-   public PlayerPO endNAC()
-   {
-      return (PlayerPO) super.endNAC();
+      this.setDoAllMatches(true);
+      
+      PlayerSet matches = new PlayerSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Player) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
    }
    
    public PlayerPO hasColor(String value)
@@ -127,7 +134,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_GAME, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasGame(LudoPO tgt)
    {
@@ -159,7 +167,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_NEXT, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasNext(PlayerPO tgt)
    {
@@ -191,7 +200,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_PREV, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasPrev(PlayerPO tgt)
    {
@@ -223,7 +233,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_DICE, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasDice(DicePO tgt)
    {
@@ -255,7 +266,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_START, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasStart(FieldPO tgt)
    {
@@ -287,7 +299,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_BASE, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasBase(FieldPO tgt)
    {
@@ -319,7 +332,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_LANDING, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasLanding(FieldPO tgt)
    {
@@ -351,7 +365,8 @@ public class PlayerPO extends PatternObject
       
       super.hasLink(Player.PROPERTY_PAWNS, result);
       
-      return result;   }
+      return result;
+   }
    
    public PlayerPO hasPawns(PawnPO tgt)
    {

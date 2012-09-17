@@ -2,6 +2,7 @@ package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.creators.PawnSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
@@ -11,16 +12,22 @@ import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.Field;
 
-public class PawnPO extends PatternObject
+public class PawnPO extends PatternObject<PawnPO, Pawn>
 {
-   public PawnPO startNAC()
+   public PawnSet allMatches()
    {
-      return (PawnPO) super.startNAC();
-   }
-   
-   public PawnPO endNAC()
-   {
-      return (PawnPO) super.endNAC();
+      this.setDoAllMatches(true);
+      
+      PawnSet matches = new PawnSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Pawn) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
    }
    
    public PawnPO hasColor(String value)
@@ -99,7 +106,8 @@ public class PawnPO extends PatternObject
       
       super.hasLink(Pawn.PROPERTY_PLAYER, result);
       
-      return result;   }
+      return result;
+   }
    
    public PawnPO hasPlayer(PlayerPO tgt)
    {
@@ -131,7 +139,8 @@ public class PawnPO extends PatternObject
       
       super.hasLink(Pawn.PROPERTY_POS, result);
       
-      return result;   }
+      return result;
+   }
    
    public PawnPO hasPos(FieldPO tgt)
    {

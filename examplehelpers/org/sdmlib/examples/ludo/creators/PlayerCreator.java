@@ -1,8 +1,9 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.Player;
 
 public class PlayerCreator extends EntityFactory
 {
@@ -56,5 +57,4 @@ public class PlayerCreator extends EntityFactory
       ((Player) entity).removeYou();
    }
 }
-
 

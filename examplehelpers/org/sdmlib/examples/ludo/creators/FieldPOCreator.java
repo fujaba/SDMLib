@@ -14,7 +14,7 @@ public class FieldPOCreator extends PatternObjectCreator
       return ((FieldPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((FieldPO) target).set(attrName, value);
    }

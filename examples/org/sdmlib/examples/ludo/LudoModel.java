@@ -44,7 +44,7 @@ public class LudoModel
       
       dice.withAttributes("value", "int");
       
-      dice.withAssoc(player, "dice", Role.ONE, "player", Role.ONE);
+      player.withAssoc(dice, "dice", Role.ONE, "player", Role.ONE);
       
       Clazz field = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Field", "fields", Role.MANY, "game", Role.ONE);
       

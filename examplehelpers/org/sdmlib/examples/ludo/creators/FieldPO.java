@@ -2,6 +2,7 @@ package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.creators.FieldSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.LudoPO;
@@ -14,16 +15,22 @@ import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.creators.PawnSet;
 
-public class FieldPO extends PatternObject
+public class FieldPO extends PatternObject<FieldPO, Field>
 {
-   public FieldPO startNAC()
+   public FieldSet allMatches()
    {
-      return (FieldPO) super.startNAC();
-   }
-   
-   public FieldPO endNAC()
-   {
-      return (FieldPO) super.endNAC();
+      this.setDoAllMatches(true);
+      
+      FieldSet matches = new FieldSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Field) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
    }
    
    public FieldPO hasColor(String value)
@@ -125,7 +132,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_GAME, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasGame(LudoPO tgt)
    {
@@ -157,7 +165,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_NEXT, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasNext(FieldPO tgt)
    {
@@ -189,7 +198,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_PREV, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasPrev(FieldPO tgt)
    {
@@ -221,7 +231,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_LANDING, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasLanding(FieldPO tgt)
    {
@@ -253,7 +264,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_ENTRY, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasEntry(FieldPO tgt)
    {
@@ -285,7 +297,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_STARTER, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasStarter(PlayerPO tgt)
    {
@@ -317,7 +330,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_BASEOWNER, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasBaseowner(PlayerPO tgt)
    {
@@ -349,7 +363,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_LANDER, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasLander(PlayerPO tgt)
    {
@@ -381,7 +396,8 @@ public class FieldPO extends PatternObject
       
       super.hasLink(Field.PROPERTY_PAWNS, result);
       
-      return result;   }
+      return result;
+   }
    
    public FieldPO hasPawns(PawnPO tgt)
    {

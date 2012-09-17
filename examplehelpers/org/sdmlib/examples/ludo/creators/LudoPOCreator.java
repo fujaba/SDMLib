@@ -14,7 +14,7 @@ public class LudoPOCreator extends PatternObjectCreator
       return ((LudoPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((LudoPO) target).set(attrName, value);
    }

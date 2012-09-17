@@ -2,6 +2,7 @@ package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.creators.LudoSet;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -14,16 +15,22 @@ import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.Field;
 import org.sdmlib.examples.ludo.creators.FieldSet;
 
-public class LudoPO extends PatternObject
+public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
-   public LudoPO startNAC()
+   public LudoSet allMatches()
    {
-      return (LudoPO) super.startNAC();
-   }
-   
-   public LudoPO endNAC()
-   {
-      return (LudoPO) super.endNAC();
+      this.setDoAllMatches(true);
+      
+      LudoSet matches = new LudoSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Ludo) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
    }
    
    public PlayerPO hasPlayers()
@@ -33,7 +40,8 @@ public class LudoPO extends PatternObject
       
       super.hasLink(Ludo.PROPERTY_PLAYERS, result);
       
-      return result;   }
+      return result;
+   }
    
    public LudoPO hasPlayers(PlayerPO tgt)
    {
@@ -65,7 +73,8 @@ public class LudoPO extends PatternObject
       
       super.hasLink(Ludo.PROPERTY_DICE, result);
       
-      return result;   }
+      return result;
+   }
    
    public LudoPO hasDice(DicePO tgt)
    {
@@ -97,7 +106,8 @@ public class LudoPO extends PatternObject
       
       super.hasLink(Ludo.PROPERTY_FIELDS, result);
       
-      return result;   }
+      return result;
+   }
    
    public LudoPO hasFields(FieldPO tgt)
    {

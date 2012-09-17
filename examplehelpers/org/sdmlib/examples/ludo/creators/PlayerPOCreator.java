@@ -14,7 +14,7 @@ public class PlayerPOCreator extends PatternObjectCreator
       return ((PlayerPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((PlayerPO) target).set(attrName, value);
    }
