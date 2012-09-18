@@ -33,7 +33,6 @@ public class CGUtil
    {
       String primitiveTypes = "String long int char boolean byte float double";
       
-      
       if (type == null)  return false;
       
       return primitiveTypes.indexOf(type) >= 0;

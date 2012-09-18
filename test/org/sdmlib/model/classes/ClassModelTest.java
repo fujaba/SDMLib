@@ -46,7 +46,8 @@ public class ClassModelTest
 
       ClassModel model = new ClassModel();
       
-      Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel");
+      Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel",
+    		  "packageName", String.class.getSimpleName());
            
       Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz")
       .withAttribute("name", "String")

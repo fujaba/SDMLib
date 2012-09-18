@@ -86,6 +86,12 @@ public class ClassModel implements PropertyChangeInterface
 	{
 		classModel = this;
 	}
+	
+	public ClassModel(String packageName)
+	{
+		this();
+		withPackageName(packageName);
+	}
 
 	public ClassModel generate(String rootDir, String helpersDir)
 	{
@@ -1237,6 +1243,11 @@ public class ClassModel implements PropertyChangeInterface
 			return getAssociations();
 		}
 
+      if (PROPERTY_PACKAGENAME.equalsIgnoreCase(attribute))
+      {
+         return getPackageName();
+      }
+
 		return null;
 	}
 
@@ -1267,6 +1278,12 @@ public class ClassModel implements PropertyChangeInterface
 			removeFromAssociations((Association) value);
 			return true;
 		}
+
+      if (PROPERTY_PACKAGENAME.equalsIgnoreCase(attrName))
+      {
+         setPackageName((String) value);
+         return true;
+      }
 
 		return false;
 	}
@@ -2462,5 +2479,33 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
    }
 
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PACKAGENAME = "packageName";
+   
+   private String packageName;
+
+   public String getPackageName()
+   {
+      return this.packageName;
+   }
+   
+   public void setPackageName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.packageName, value))
+      {
+         String oldValue = this.packageName;
+         this.packageName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PACKAGENAME, oldValue, value);
+      }
+   }
+   
+   public ClassModel withPackageName(String value)
+   {
+      setPackageName(value);
+      return this;
+   } 
 }
 
