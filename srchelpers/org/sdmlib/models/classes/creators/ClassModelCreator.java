@@ -11,6 +11,7 @@ public class ClassModelCreator extends EntityFactory
    {
       ClassModel.PROPERTY_CLASSES,
       ClassModel.PROPERTY_ASSOCIATIONS,
+      ClassModel.PROPERTY_PACKAGENAME,
    };
    
    public String[] getProperties()
@@ -47,6 +48,7 @@ public class ClassModelCreator extends EntityFactory
       ((ClassModel) entity).removeYou();
    }
 }
+
 
 
 

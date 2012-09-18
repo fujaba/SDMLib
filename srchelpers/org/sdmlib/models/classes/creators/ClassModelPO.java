@@ -12,6 +12,7 @@ import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.classes.creators.AssociationPO;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.creators.AssociationSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class ClassModelPO extends PatternObject
 {
@@ -105,5 +106,29 @@ public class ClassModelPO extends PatternObject
       return null;
    }
    
+   public ClassModelPO hasPackageName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPackageName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ClassModel) getCurrentMatch()).getPackageName();
+      }
+      return null;
+   }
+   
 }
+
 

@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 
 public class ClassModelSet extends LinkedHashSet<ClassModel>
 {
@@ -69,5 +71,28 @@ public class ClassModelSet extends LinkedHashSet<ClassModel>
       return this;
    }
 
+   public StringList getPackageName()
+   {
+      StringList result = new StringList();
+      
+      for (ClassModel obj : this)
+      {
+         result.add(obj.getPackageName());
+      }
+      
+      return result;
+   }
+
+   public ClassModelSet withPackageName(String value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.withPackageName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
