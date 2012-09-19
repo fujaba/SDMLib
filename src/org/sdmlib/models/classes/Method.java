@@ -49,6 +49,7 @@ public class Method implements PropertyChangeInterface
 
    public void setSignature(String value)
    {
+	  value = value.replaceAll(" ", "");
       this.signature = value;
    }
 
