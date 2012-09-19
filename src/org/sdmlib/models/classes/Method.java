@@ -416,11 +416,11 @@ public class Method implements PropertyChangeInterface
             }
             else if ("boolean".equals(type))
             {
-               returnStat = "      return false;\\n";
+               returnStat = "      return false;\n";
             }
             else
             {
-               returnStat = "      return null;\\n";
+               returnStat = "      return null;\n";
             }
          }
          
@@ -484,7 +484,7 @@ public class Method implements PropertyChangeInterface
 
          CGUtil.replaceAll(text, 
             "modifiers", "public", 
-            "returnType", "void",
+            "returnType", returnType,
             "mehodName", methodName,
             "parameter", parameter
                );
@@ -507,7 +507,7 @@ public class Method implements PropertyChangeInterface
    
    public static final String PROPERTY_RETURNTYPE = "returnType";
    
-   private String returnType;
+   private String returnType = "void";
 
    public String getReturnType()
    {

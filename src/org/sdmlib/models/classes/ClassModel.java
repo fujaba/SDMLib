@@ -2402,7 +2402,7 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
                
                lineNo++;
                   
-               if (lineNo == codeLineNumber)
+               if (lineNo == codeLineNumber && line.indexOf("//") == -1)
                {
                   int pos = 0;
                   while (pos < line.length() && Character.isWhitespace(line.charAt(pos)))
