@@ -143,6 +143,12 @@ public class UpdateListener implements PropertyChangeListener{
 		String propertyName = evt.getPropertyName();
 		SendableEntityCreator creatorClass = this.map.getCreatorClass(source);
 
+		if (creatorClass == null)
+		{
+		   // this class is not supported, do nor replicate
+		   return;
+		}
+		
 		boolean done = false;
 		String gc = null;
 		for (String attrName : creatorClass.getProperties()) {

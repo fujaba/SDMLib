@@ -68,7 +68,8 @@
         {"id":"KE.K160"},
         {"id":"KE.K162"},
         {"id":"KE.K175"},
-        {"id":"KE.K179"}
+        {"id":"KE.K179"},
+        {"id":"KE.K185"}
       ]
     }
   },
@@ -621,6 +622,21 @@
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":2,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K185",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L186"}
+      ],
+      "name":"taskFlowModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -2748,6 +2764,19 @@
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L186",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"21.09.2012 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K185"},
+      "developer":"zuendorf",
+      "phase":"backlog"
     }
   }
 ]
