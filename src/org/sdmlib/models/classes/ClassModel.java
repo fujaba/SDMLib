@@ -92,6 +92,11 @@ public class ClassModel implements PropertyChangeInterface
 		this();
 		withPackageName(packageName);
 	}
+	
+	public ClassModel generate(String rootDir)
+	{
+	   return generate(rootDir, rootDir);
+	}
 
 	public ClassModel generate(String rootDir, String helpersDir)
 	{

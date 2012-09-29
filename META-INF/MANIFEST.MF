@@ -7,7 +7,8 @@ Bundle-ClassPath: SDMLib.jar,
  lib/jcommon-1.0.17.jar,
  lib/jfreechart-1.0.14.jar,
  lib/gwtx-1.5.2.jar,
- Java/jdk1.6.0_31/lib/tools.jar
+ Java/jdk1.6.0_31/lib/tools.jar,
+ swing2swt.jar
 Export-Package: com.googlecode.gwtx,
  com.googlecode.gwtx.java,
  com.googlecode.gwtx.java.beans.emul,
@@ -123,3 +124,6 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.serialization.xml,
  org.sdmlib.serialization.yuml,
  org.sdmlib.utils
+Require-Bundle: org.eclipse.swt;bundle-version="3.100.1",
+ org.eclipse.jface;bundle-version="3.8.101",
+ org.eclipse.core.runtime;bundle-version="3.8.0"

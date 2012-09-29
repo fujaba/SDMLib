@@ -333,13 +333,13 @@ public class UpdateListener implements PropertyChangeListener{
 					// CHECK WITH REMOVE key
 					Object value = creator.getValue(masterObj, key);
 
-					if (checkValue(value, key, remove)) {
-						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
-						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
-					} else if (checkPrio(prio)) {
-						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
-						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
-					}
+					// if (checkValue(value, key, remove)) {
+					setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
+					this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
+					//					} else if (checkPrio(prio)) {
+					//						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
+					//						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
+					//					}
 				}
 				return true;
 

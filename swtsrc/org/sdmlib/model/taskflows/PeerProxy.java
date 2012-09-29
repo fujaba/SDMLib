@@ -21,7 +21,9 @@
    
 package org.sdmlib.model.taskflows;
 
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -33,22 +35,33 @@ import org.sdmlib.utils.StrUtil;
 
 public class PeerProxy implements PropertyChangeInterface
 {
+   public PeerProxy ()
+   {
+      // blank
+   }
+   
+   public PeerProxy(String ip, int port, JsonIdMap map)
+   {
+      this.withIp(ip).withPort(port).withIdMap(map);
+   }
 
    public void transferTaskFlow(TaskFlow taskFlow)
    {
       try
       {
-         Socket socket = new Socket(ip, port);
-         OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
+         if (socket == null || ! socket.isConnected())
+         {
+            socket = new Socket(ip, port);
+            
+            out = new OutputStreamWriter(socket.getOutputStream());
+         }
          
          JsonArray jsonArray = idMap.toJsonArray(taskFlow); 
-         
-         JsonArray smallArray = new JsonArray();
-         smallArray.add(jsonArray.get(0));
-         
-         out.write(smallArray.toString()+"\n");
+                  
+         out.write(jsonArray.toString()+"\n");
          out.flush();
-         out.close();
+         
+         
       }
       catch (UnknownHostException e)
       {
@@ -61,6 +74,10 @@ public class PeerProxy implements PropertyChangeInterface
          e.printStackTrace();
       }
    }
+   
+   private Socket socket = null;
+   
+   private OutputStreamWriter out = null;
    
    //==========================================================================
    

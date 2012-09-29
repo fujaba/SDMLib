@@ -93,5 +93,29 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return null;
    }
    
+   public SocketThreadPO hasDefaultTargetThread(Object value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_DEFAULTTARGETTHREAD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Object getDefaultTargetThread()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SocketThread) getCurrentMatch()).getDefaultTargetThread();
+      }
+      return null;
+   }
+   
 }
+
 

@@ -42,6 +42,7 @@ import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -193,6 +194,12 @@ public class Clazz implements PropertyChangeInterface
 
    public Clazz generate(String rootDir, String helpersDir)
    {
+      if (isExternal())
+      {
+         // nothing to generate 
+         return this;
+      }
+      
       // first generate the class itself
       getOrCreateParser(rootDir);
                  
@@ -1538,6 +1545,11 @@ public class Clazz implements PropertyChangeInterface
       {
          return getInterfaces();
       }
+
+      if (PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
+      {
+         return isExternal();
+      }
       
       return null;
    }
@@ -1664,6 +1676,12 @@ public class Clazz implements PropertyChangeInterface
       if ((PROPERTY_INTERFACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromInterfaces((Clazz) value);
+         return true;
+      }
+
+      if (PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
+      {
+         setExternal((Boolean) value);
          return true;
       }
 
@@ -2158,5 +2176,38 @@ public class Clazz implements PropertyChangeInterface
          getClassModel().setModelPatternFileHasChanged(true);
       }
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_EXTERNAL = "external";
+   
+   private boolean external;
+
+   public boolean isExternal()
+   {
+      return this.external;
+   }
+   
+   public void setExternal(boolean value)
+   {
+      if (this.external != value)
+      {
+         boolean oldValue = this.external;
+         this.external = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_EXTERNAL, oldValue, value);
+      }
+   }
+   
+   public Clazz withExternal(boolean value)
+   {
+      setExternal(value);
+      return this;
+   }
+
+   public Method createMethods(String signature, String returnType)
+   {
+      return new Method(signature, returnType).withClazz(this);     
+   } 
 }
 

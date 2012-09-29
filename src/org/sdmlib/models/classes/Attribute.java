@@ -241,17 +241,18 @@ public class Attribute implements PropertyChangeInterface
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          CGUtil.replaceAll(text, 
-            "className", CGUtil.shortClassName(ownerClazz.getName()),
-            "PROPERTY_NAME", "PROPERTY_" + getName().toUpperCase()
+            "className", CGUtil.shortClassName(this.clazz.getName()),
+            "PROPERTY_NAME", propertyName
             );
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
-         getClazz().setCreatorFileHasChanged(true);
+         ownerClazz.insertImport(parser, getClazz().getName());
+         ownerClazz.setCreatorFileHasChanged(true);
       }
    }
    
    private void insertSetterInModelSetClass(Parser parser, Clazz ownerClazz) {
-      String attrType = CGUtil.shortClassName(getType());
+      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":with"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -282,7 +283,6 @@ public class Attribute implements PropertyChangeInterface
          ownerClazz.printFile(true);
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         // getClazz()
          ownerClazz.setModelSetFileHasChanged(true);         
       }
    }
@@ -314,7 +314,7 @@ public class Attribute implements PropertyChangeInterface
 			ArrayList<String> importClassesFromTypes = new ArrayList<String>();
 			
 			if (!getType().contains("<") && !getType().endsWith("Set")) {
-				fullModelSetType = getType() + "Set";
+				fullModelSetType = CGUtil.packageName(getType()) + ".creators." + CGUtil.shortClassName(getType())+ "Set";
 				modelSetType = CGUtil.shortClassName(getType()) + "Set";
 				String importForSet = checkSetImportFor(CGUtil.shortClassName(getType()));
 				if(importForSet != null)

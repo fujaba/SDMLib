@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class NegativeApplicationConditionCreator extends EntityFactory
 {
@@ -14,6 +15,7 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       Pattern.PROPERTY_CURRENTSUBPATTERN,
       NegativeApplicationCondition.PROPERTY_MODIFIER,
       NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
    };
    
    public String[] getProperties()
@@ -50,5 +52,6 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       ((NegativeApplicationCondition) entity).removeYou();
    }
 }
+
 
 

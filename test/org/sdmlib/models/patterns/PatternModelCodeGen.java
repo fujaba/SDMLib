@@ -30,6 +30,7 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
    
 public class PatternModelCodeGen 
 {
@@ -105,7 +106,10 @@ public class PatternModelCodeGen
       .withTarget(patternObject, "patternObject", Role.ONE)
       .withSource(destroyObjectClazz, "destroyElem", Role.ONE);
       
+      model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       
+      model.createClazz(SDMLibJsonIdMap.class.getName());
+
       model.generate("src", "srchelpers");
       
       scenario.addImage(model.dumpClassDiag("PatternModel01"));

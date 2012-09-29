@@ -52,6 +52,14 @@ public class Specific2Generic
          // TODO Auto-generated method stub
          return false;
       }
+
+      @Override
+      public boolean readMessageObj(Object element, String key, Object value,
+            String typ)
+      {
+         // TODO Auto-generated method stub
+         return false;
+      }
    }
 
    public GenericGraph convert(JsonIdMap idMap, Object root)

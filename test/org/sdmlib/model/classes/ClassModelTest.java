@@ -49,9 +49,10 @@ public class ClassModelTest
       Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel",
     		  "packageName", String.class.getSimpleName());
            
-      Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz")
-      .withAttribute("name", "String")
-      .withAttribute("interfaze", "Boolean", "false");
+      Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz",
+         "name", String.class.getSimpleName(),
+         "interfaze", boolean.class.getSimpleName(), 
+         "external", boolean.class.getSimpleName());
       
       new Association()
       .withSource("classModel", modelClass, Role.ONE, Role.AGGREGATION)

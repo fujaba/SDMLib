@@ -316,5 +316,49 @@ public class ClazzSet extends LinkedHashSet<Clazz>
       return this;
    }
 
+   public booleanSet getExternal()
+   {
+      booleanSet result = new booleanSet();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.isExternal());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withExternal(Boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withExternal(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withInterfaze(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withInterfaze(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withExternal(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withExternal(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 

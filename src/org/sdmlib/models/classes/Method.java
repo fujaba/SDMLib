@@ -34,8 +34,17 @@ import org.sdmlib.utils.StrUtil;
 
 public class Method implements PropertyChangeInterface
 {
+   public Method()
+   {
+      
+   }
    
-
+   public Method(String signature, String returnType)
+   {
+      this.setSignature(signature);
+      this.setReturnType(returnType);
+   }
+   
    //==========================================================================
 
    public static final String PROPERTY_SIGNATURE = "signature";

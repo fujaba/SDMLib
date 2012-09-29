@@ -669,4 +669,16 @@ public class JsonIdMap extends IdMap{
 	public void setGrammar(Grammar value){
 		this.grammar=value;
 	}
+
+   public void removeYou()
+   {
+      // TODO Auto-generated method stub
+      
+   }
+
+   public boolean set(String attrName, Object value2)
+   {
+      // TODO Auto-generated method stub
+      return false;
+   }
 }

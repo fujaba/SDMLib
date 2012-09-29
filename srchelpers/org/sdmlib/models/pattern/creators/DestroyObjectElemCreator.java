@@ -5,6 +5,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class DestroyObjectElemCreator extends EntityFactory
 {
@@ -14,6 +15,7 @@ public class DestroyObjectElemCreator extends EntityFactory
       DestroyObjectElem.PROPERTY_HASMATCH,
       DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME,
       DestroyObjectElem.PROPERTY_PATTERNOBJECT,
+      PatternElement.PROPERTY_DOALLMATCHES,
    };
    
    public String[] getProperties()
@@ -50,5 +52,6 @@ public class DestroyObjectElemCreator extends EntityFactory
       ((DestroyObjectElem) entity).removeYou();
    }
 }
+
 
 

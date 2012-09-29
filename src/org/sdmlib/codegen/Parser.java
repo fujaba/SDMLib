@@ -38,6 +38,8 @@ public class Parser
    
    public static final String INTERFACE = "interface";
 
+   public static final String ENUM = "enum";
+   
    public static final char COMMENT_START = 'c';
 
    public static final String PACKAGE = "package";
@@ -405,13 +407,23 @@ public class Parser
       {
          // parse nested class
          // throw new RuntimeException("class "  + className + " has nested class. " + " Can't parse it.");
-         System.err.println("class "  + fileName + " has nested class in line " + getLineIndexOf(currentRealToken.startPos) + "  Can't parse it. Skip it.");
+         // System.err.println("class "  + fileName + " has nested class in line " + getLineIndexOf(currentRealToken.startPos) + "  Can't parse it. Skip it.");
          while (!currentRealTokenEquals("{")) {
         	 nextRealToken();
          }
          skipBody();
          if (currentRealTokenEquals("}")) 
         	 return;
+         modifiers = parseModifiers();
+      }
+      else if (currentRealTokenEquals(ENUM))
+      {
+         // skip enum name { entry, ... }
+         skip(ENUM);
+         nextRealToken(); // name
+         skipBody();
+         if (currentRealTokenEquals("}")) 
+            return;
          modifiers = parseModifiers();
       }
       
@@ -594,22 +606,7 @@ private void skipBody() {
       
       if (currentRealKindEquals('<'))
       {
-         // <name, name, ...>
-         skip("<"); typeString.append('<');
-         
-         // skip first name
-         typeString.append(currentRealWord());
-         nextRealToken();
-         
-         while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
-         {
-            typeString.append(currentRealWord());
-            nextRealToken();
-         }
-         
-         // should be a < now
-         typeString.append(">");
-         skip(">");
+         parseGenericTypeDefPart(typeString);
       }
       
       if (currentRealKindEquals('['))
@@ -641,6 +638,33 @@ private void skipBody() {
       
       // phew
       return typeString.toString();
+   }
+
+   private void parseGenericTypeDefPart(StringBuilder typeString)
+   {
+      // <T, T, ...>
+      skip("<"); typeString.append('<');
+      
+      // skip first name
+      typeString.append(currentRealWord());
+      nextRealToken();
+      
+      while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
+      {
+         if (currentRealKindEquals('<'))
+         {
+            parseGenericTypeDefPart(typeString);
+         }
+         else
+         {
+            typeString.append(currentRealWord());
+            nextRealToken();
+         }
+      }
+      
+      // should be a < now
+      typeString.append(">");
+      skip(">");
    }
 
    private String parseFormalParamList()

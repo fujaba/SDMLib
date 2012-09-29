@@ -20,6 +20,10 @@ import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.creators.OptionalSubPatternPO;
 import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.serialization.json.creators.JsonIdMapPO;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class ModelPattern extends Pattern
 {
@@ -274,7 +278,57 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public JsonIdMapPO hasElementJsonIdMapPO()
+   {
+      JsonIdMapPO value = new JsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public JsonIdMapPO hasElementJsonIdMapPO(JsonIdMap hostGraphObject)
+   {
+      JsonIdMapPO value = new JsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public SDMLibJsonIdMapPO hasElementSDMLibJsonIdMapPO()
+   {
+      SDMLibJsonIdMapPO value = new SDMLibJsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public SDMLibJsonIdMapPO hasElementSDMLibJsonIdMapPO(SDMLibJsonIdMap hostGraphObject)
+   {
+      SDMLibJsonIdMapPO value = new SDMLibJsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
 
 
 

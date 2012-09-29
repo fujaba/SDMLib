@@ -21,11 +21,13 @@
    
 package org.sdmlib.model.taskflows;
 
+import org.eclipse.swt.widgets.Display;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -41,29 +43,21 @@ public class SocketThread extends Thread implements PropertyChangeInterface
    @Override
    public void run()
    {
+      this.setName("SocketThread");
       // open server socket
       try
       {
          ServerSocket serverSocket = new ServerSocket(port);
          
+         int i = 1;
+         
          while (true)
          {
             Socket connection = serverSocket.accept();
             
-            BufferedReader in = new BufferedReader(
-            new InputStreamReader(
-            connection.getInputStream()));
-            
-            String line = in.readLine();
-            
-            Object obj = idMap.readJson(new JsonArray(line));
-            
-            if (obj instanceof TaskFlow)
-            {
-               TaskFlow taskFlow = (TaskFlow) obj;
-               
-               taskFlow.run();
-            }
+            SocketReader socketReader = new SocketReader(connection);
+            socketReader.setName("SocketReader_" + i++);
+            socketReader.start();
          }
       }
       catch (IOException e)
@@ -72,6 +66,60 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          e.printStackTrace();
       }
      
+   }
+   
+   class SocketReader extends Thread
+   {
+      Socket connection;
+      
+      public SocketReader (Socket connection)
+      {
+         this.connection = connection;
+      }
+      
+      @Override
+      public void run()
+      {
+         try
+         {
+            InputStream byteIn = connection.getInputStream();
+            
+            InputStreamReader readerIn = new InputStreamReader(
+               byteIn);
+            BufferedReader in = new BufferedReader(
+
+               readerIn);
+
+            String line = "";
+
+            while (line != null)
+            {
+               line = in.readLine();
+
+               Object obj = idMap.readJson(new JsonArray(line));
+
+               if (obj instanceof TaskFlow)
+               {
+                  TaskFlow taskFlow = (TaskFlow) obj;
+
+                  if (defaultTargetThread != null && defaultTargetThread instanceof Display)
+                  {
+                     ((Display) defaultTargetThread).asyncExec(taskFlow);
+                  }
+                  else
+                  {
+                     taskFlow.run();
+                  }
+               }
+            }
+         }
+         catch (IOException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+      
    }
 
 
@@ -99,6 +147,11 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       {
          return getIdMap();
       }
+
+      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attribute))
+      {
+         return getDefaultTargetThread();
+      }
       
       return null;
    }
@@ -123,6 +176,12 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
          setIdMap((org.sdmlib.serialization.json.JsonIdMap) value);
+         return true;
+      }
+
+      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attrName))
+      {
+         setDefaultTargetThread((Object) value);
          return true;
       }
 
@@ -228,6 +287,34 @@ public class SocketThread extends Thread implements PropertyChangeInterface
    public SocketThread withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
    {
       setIdMap(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_DEFAULTTARGETTHREAD = "defaultTargetThread";
+   
+   private Object defaultTargetThread;
+
+   public Object getDefaultTargetThread()
+   {
+      return this.defaultTargetThread;
+   }
+   
+   public void setDefaultTargetThread(Object value)
+   {
+      if (this.defaultTargetThread != value)
+      {
+         Object oldValue = this.defaultTargetThread;
+         this.defaultTargetThread = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEFAULTTARGETTHREAD, oldValue, value);
+      }
+   }
+   
+   public SocketThread withDefaultTargetThread(Object value)
+   {
+      setDefaultTargetThread(value);
       return this;
    } 
 }

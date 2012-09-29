@@ -259,24 +259,9 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    public ArrayList<ArrayList<String>> getInitSequence()
    {
       return this.initSequence;
-   
    }
    
-   public void setInitSequence(ArrayList<ArrayList<String>> value)
-   {
-      if (this.initSequence != value)
-      {
-         ArrayList<ArrayList<String>> oldValue = this.initSequence;
-         this.initSequence = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INITSEQUENCE, oldValue, value);
-      }
-   }
    
-   public LocalVarTableEntry withInitSequence(ArrayList<ArrayList<String>> value)
-   {
-      setInitSequence(value);
-      return this;
-   }
    
    //==========================================================================
    
@@ -306,7 +291,7 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    } 
 
    
-  //==========================================================================
+   //==========================================================================
    
    public static final String PROPERTY_ENDPOS = "endPos";
    
@@ -331,6 +316,23 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    {
       setEndPos(value);
       return this;
+   } 
+
+   public void setInitSequence(ArrayList<ArrayList<String>> value)
+   {
+      if (this.initSequence != value)
+      {
+         ArrayList<ArrayList<String>> oldValue = this.initSequence;
+         this.initSequence = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INITSEQUENCE, oldValue, value);
+      }
    }
+   
+   public LocalVarTableEntry withInitSequence(ArrayList<ArrayList<String>> value)
+   {
+      setInitSequence(value);
+      return this;
+   }
+
 }
 

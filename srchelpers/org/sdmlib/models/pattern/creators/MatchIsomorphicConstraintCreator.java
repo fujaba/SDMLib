@@ -3,6 +3,7 @@ package org.sdmlib.models.pattern.creators;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class MatchIsomorphicConstraintCreator extends EntityFactory
 {
@@ -11,6 +12,7 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       MatchIsomorphicConstraint.PROPERTY_MODIFIER,
       MatchIsomorphicConstraint.PROPERTY_HASMATCH,
       MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
    };
    
    public String[] getProperties()
@@ -47,5 +49,6 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       ((MatchIsomorphicConstraint) entity).removeYou();
    }
 }
+
 
 

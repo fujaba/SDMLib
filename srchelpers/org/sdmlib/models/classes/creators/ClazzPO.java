@@ -388,5 +388,58 @@ public class ClazzPO extends PatternObject
       return null;
    }
    
+   public ClazzPO hasExternal(Boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_EXTERNAL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Boolean getExternal()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) getCurrentMatch()).isExternal();
+      }
+      return null;
+   }
+   
+   public ClazzPO hasInterfaze(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_INTERFAZE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ClazzPO hasExternal(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_EXTERNAL)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
+
 

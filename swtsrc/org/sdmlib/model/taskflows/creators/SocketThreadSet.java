@@ -2,6 +2,7 @@ package org.sdmlib.model.taskflows.creators;
 
 import java.util.LinkedHashSet;
 import org.sdmlib.model.taskflows.SocketThread;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.modelsets.intList;
@@ -76,6 +77,29 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       return result;
    }
 
+   public ObjectSet getDefaultTargetThread()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (SocketThread obj : this)
+      {
+         result.add(obj.getDefaultTargetThread());
+      }
+      
+      return result;
+   }
+
+   public SocketThreadSet withDefaultTargetThread(Object value)
+   {
+      for (SocketThread obj : this)
+      {
+         obj.withDefaultTargetThread(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

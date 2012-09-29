@@ -18,6 +18,7 @@ public class PatternLinkCreator extends EntityFactory
       PatternLink.PROPERTY_MODIFIER,
       PatternLink.PROPERTY_HASMATCH,
       PatternLink.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
    };
    
    public String[] getProperties()
@@ -54,6 +55,7 @@ public class PatternLinkCreator extends EntityFactory
       ((PatternLink) entity).removeYou();
    }
 }
+
 
 
 

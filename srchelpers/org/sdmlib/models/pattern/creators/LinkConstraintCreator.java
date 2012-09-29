@@ -21,6 +21,7 @@ public class LinkConstraintCreator extends EntityFactory
          PatternElement.PROPERTY_MODIFIER,
       LinkConstraint.PROPERTY_HASMATCH,
       LinkConstraint.PROPERTY_PATTERNOBJECTNAME,
+      PatternElement.PROPERTY_DOALLMATCHES,
    };
    
    public String[] getProperties()
@@ -57,5 +58,6 @@ public class LinkConstraintCreator extends EntityFactory
       ((LinkConstraint) entity).removeYou();
    }
 }
+
 
 

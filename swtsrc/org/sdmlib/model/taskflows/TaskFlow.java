@@ -30,10 +30,27 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import com.sun.corba.se.pept.transport.Selector;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {
+   public void switchTo(PeerProxy peer)
+   {
+      taskNo++;
+      
+      peer.transferTaskFlow(this);
+   }
+   
+   public void switchToThisAnd(PeerProxy peer)
+   {
+      taskNo++;
+      
+      peer.transferTaskFlow(this);
+      
+      this.run();
+   }
+   
    public void switchTo(PeerProxySet peers)
    {
       taskNo++;
@@ -49,6 +66,13 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       taskNo++;
       
       display.asyncExec(this);
+   }
+   
+   public void switchTo(Timer timer)
+   {
+      taskNo++;
+      
+      timer.schedule(this, 0);
    }
 
    //==========================================================================

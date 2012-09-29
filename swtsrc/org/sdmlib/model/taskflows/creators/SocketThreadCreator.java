@@ -12,6 +12,7 @@ public class SocketThreadCreator extends EntityFactory
       SocketThread.PROPERTY_IP,
       SocketThread.PROPERTY_PORT,
       SocketThread.PROPERTY_IDMAP,
+      SocketThread.PROPERTY_DEFAULTTARGETTHREAD,
    };
    
    public String[] getProperties()
@@ -48,4 +49,5 @@ public class SocketThreadCreator extends EntityFactory
       ((SocketThread) entity).removeYou();
    }
 }
+
 
