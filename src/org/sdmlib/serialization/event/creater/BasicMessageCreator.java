@@ -77,5 +77,4 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	public boolean setValue(Object entity, String attribute, Object value, String typ) {
 		return ((BasicMessage) entity).set(attribute, value);
 	}
-	
 }

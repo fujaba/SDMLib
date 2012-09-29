@@ -148,7 +148,6 @@ public class UpdateListener implements PropertyChangeListener{
 		   // this class is not supported, do nor replicate
 		   return;
 		}
-		
 		boolean done = false;
 		String gc = null;
 		for (String attrName : creatorClass.getProperties()) {
@@ -338,6 +337,7 @@ public class UpdateListener implements PropertyChangeListener{
 						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
 					} else if (checkPrio(prio)) {
 						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
+						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
 					}
 				}
 				return true;
@@ -417,9 +417,15 @@ public class UpdateListener implements PropertyChangeListener{
 			if(typeInfo!=null){
 				// notify in readJson
 			}else{
-				this.map.sendReceiveMsg(typ, element, json);
+				if(!this.map.sendReceiveMsg(typ, element, json)){
+					return false;
+				}
 			}
-			creator.setValue(element, key, this.map.readJson(json), typ);
+			Object readJson = this.map.readJson(json);
+			if(readJson!=null){
+				creator.setValue(element, key, readJson, typ);
+				this.map.sendReceiveObj(element, key, readJson, typ);
+			}
 		} else {
 			creator.setValue(element, key, newValue, typ);
 //			this.map.sendReceiveMsg(typ, element, newValue);

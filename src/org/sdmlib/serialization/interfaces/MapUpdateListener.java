@@ -53,4 +53,6 @@ public interface MapUpdateListener {
 	public boolean readMessages(String type, Object value, JsonObject props);
 	
 	public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson);
+
+	public boolean readMessageObj(Object element, String key, Object value, String typ);
 }

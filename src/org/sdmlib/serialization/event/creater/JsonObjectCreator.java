@@ -25,11 +25,4 @@ public class JsonObjectCreator extends EntityFactory{
 		return ((JsonObject)entity).setAllValue((String) value);
 	}
 
-   @Override
-   public void removeObject(Object entity)
-   {
-      // should call removeYou on entity, but JsonObject has no remove you 
-      
-   }
-
 }

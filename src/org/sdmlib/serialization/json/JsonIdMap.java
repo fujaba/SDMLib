@@ -238,7 +238,6 @@ public class JsonIdMap extends IdMap{
 	private Object readJson(JsonObject jsonObject,
 			LinkedHashSet<ReferenceObject> refs) {
 		Object result = null;
-		
 		SendableEntityCreator typeInfo = grammar.getJsonObjectCreator(jsonObject, this);
 
 		if (typeInfo != null) {
@@ -531,7 +530,7 @@ public class JsonIdMap extends IdMap{
 	
 
 	/**
-	 * Send update msg.
+	 * Send update msg from PropertyChange MapUpdater 
 	 *
 	 * @param jsonObject the json object
 	 * @return true, if successful
@@ -550,6 +549,13 @@ public class JsonIdMap extends IdMap{
 	public boolean sendReceiveMsg(String type, Object value, JsonObject props){
 		if (this.updatelistener != null) {
 			return this.updatelistener.readMessages(type, value, props);
+		}
+		return true;
+	}
+	public boolean sendReceiveObj(Object element, String key, Object value,
+			String typ) {
+		if (this.updatelistener != null) {
+			return this.updatelistener.readMessageObj(element, key, value, typ);
 		}
 		return true;
 	}
