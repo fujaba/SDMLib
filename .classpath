@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="src" path="examples"/>
 	<classpathentry kind="src" path="srchelpers"/>
-	<classpathentry kind="src" path="examplehelpers"/>
 	<classpathentry kind="src" path="testhelpers"/>
+	<classpathentry kind="src" path="examplehelpers"/>
+	<classpathentry kind="src" path="examples"/>
 	<classpathentry kind="src" path="swtsrc"/>
+	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
-	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
-	<classpathentry kind="lib" path="lib/gwtx-1.5.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

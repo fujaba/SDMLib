@@ -23,13 +23,11 @@ package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.classes.creators.MethodSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.groupAccount.GroupAccount;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class Method implements PropertyChangeInterface

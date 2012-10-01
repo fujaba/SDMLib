@@ -30,19 +30,12 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.examples.helloworld.Node;
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
-import org.sdmlib.examples.helloworld.creators.GreetingPO;
-import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
 
 public class Clazz implements PropertyChangeInterface
 {

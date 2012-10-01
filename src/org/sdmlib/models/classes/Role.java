@@ -26,15 +26,12 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 
 public class Role implements PropertyChangeInterface
