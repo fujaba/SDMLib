@@ -98,10 +98,16 @@ public class SocketThread extends Thread implements PropertyChangeInterface
 
                Object obj = idMap.readJson(new JsonArray(line));
 
+               if (obj instanceof FetchFileFlow)
+               {
+                  FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
+                  fetchFileFlow.setOut(connection.getOutputStream());
+               }
+               
                if (obj instanceof TaskFlow)
                {
                   TaskFlow taskFlow = (TaskFlow) obj;
-
+                  
                   if (defaultTargetThread != null && defaultTargetThread instanceof Display)
                   {
                      ((Display) defaultTargetThread).asyncExec(taskFlow);
@@ -115,8 +121,7 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          }
          catch (IOException e)
          {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Socket has been closed");
          }
       }
       

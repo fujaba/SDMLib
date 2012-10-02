@@ -159,7 +159,14 @@ public class CGUtil
    {
       int pos = name.lastIndexOf('.');
       
-      return name.substring(0, pos);
+      if (pos >= 0)
+      {
+         return name.substring(0, pos);
+      }
+      else
+      {
+         return "";
+      }
    }
 
    public static String helperClassName(String modelClassName, String suffix)

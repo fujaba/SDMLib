@@ -8,6 +8,7 @@ import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.creators.JsonIdMapSet;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class SocketThreadSet extends LinkedHashSet<SocketThread>
 {
@@ -99,7 +100,18 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       return this;
    }
 
+   public SocketThreadSet withIdMap(SDMLibJsonIdMap value)
+   {
+      for (SocketThread obj : this)
+      {
+         obj.withIdMap(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

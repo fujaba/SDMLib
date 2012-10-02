@@ -62,8 +62,8 @@
 </g>
 <!-- _PatternElement&#45;&gt;_PatternLink -->
 <g id="edge10" class="edge"><title>_PatternElement&#45;&gt;_PatternLink</title>
-<path fill="none" stroke="black" d="M498.064,-278.788C553.516,-262.937 629.854,-238.781 694,-210 699.068,-207.726 704.227,-205.214 709.357,-202.572"/>
-<polygon fill="none" stroke="black" points="496.975,-275.458 488.308,-281.552 498.884,-282.193 496.975,-275.458"/>
+<path fill="none" stroke="black" d="M497.963,-246.052C581.326,-213.496 613.449,-239.771 694,-210 699.657,-207.909 705.375,-205.426 711.012,-202.712"/>
+<polygon fill="none" stroke="black" points="496.581,-242.836 488.642,-249.851 499.223,-249.318 496.581,-242.836"/>
 </g>
 <!-- _AttributeConstraint -->
 <g id="node7" class="node"><title>_AttributeConstraint</title>
@@ -92,8 +92,8 @@
 </g>
 <!-- _PatternElement&#45;&gt;_MatchIsomorphicConstraint -->
 <g id="edge16" class="edge"><title>_PatternElement&#45;&gt;_MatchIsomorphicConstraint</title>
-<path fill="none" stroke="black" d="M496.736,-247.259C521.915,-229.828 549.239,-210.912 571.47,-195.521"/>
-<polygon fill="none" stroke="black" points="494.52,-244.537 488.29,-253.107 498.504,-250.292 494.52,-244.537"/>
+<path fill="none" stroke="black" d="M496.742,-246.179C496.828,-246.119 496.914,-246.06 497,-246 521.14,-229.225 548.16,-210.735 570.44,-195.567"/>
+<polygon fill="none" stroke="black" points="494.821,-243.252 488.618,-251.842 498.823,-248.995 494.821,-243.252"/>
 </g>
 <!-- _DestroyObjectElem -->
 <g id="node10" class="node"><title>_DestroyObjectElem</title>
@@ -180,6 +180,24 @@
 <path fill="none" stroke="black" d="M321.689,-130.297C328.564,-125.195 335.834,-120.213 343,-116 381.408,-93.4185 427.892,-73.9929 463.584,-60.5726"/>
 <text text-anchor="middle" x="456.624" y="-65.2528" font-family="Times New Roman,serif" font-size="10.00">patternObject</text>
 <text text-anchor="middle" x="326.483" y="-119.021" font-family="Times New Roman,serif" font-size="10.00">destroyElem</text>
+</g>
+<!-- _JsonIdMap -->
+<g id="node11" class="node"><title>_JsonIdMap</title>
+<polygon fill="none" stroke="black" points="515,-311 515,-328 568,-328 568,-311 515,-311"/>
+<text text-anchor="start" x="518.5" y="-317.5" font-family="Times New Roman,serif" font-size="10.00">JsonIdMap</text>
+<polygon fill="none" stroke="black" points="515,-291 515,-311 568,-311 568,-291 515,-291"/>
+<text text-anchor="start" x="540" y="-299" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="515,-271 515,-291 568,-291 568,-271 515,-271"/>
+<text text-anchor="start" x="540" y="-279" font-family="Times New Roman,serif" font-size="10.00"> </text>
+</g>
+<!-- _SDMLibJsonIdMap -->
+<g id="node12" class="node"><title>_SDMLibJsonIdMap</title>
+<polygon fill="none" stroke="black" points="602,-311 602,-328 689,-328 689,-311 602,-311"/>
+<text text-anchor="start" x="605.5" y="-317.5" font-family="Times New Roman,serif" font-size="10.00">SDMLibJsonIdMap</text>
+<polygon fill="none" stroke="black" points="602,-291 602,-311 689,-311 689,-291 602,-291"/>
+<text text-anchor="start" x="644" y="-299" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="602,-271 602,-291 689,-291 689,-271 602,-271"/>
+<text text-anchor="start" x="644" y="-279" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 </g>
 </svg>

@@ -18,15 +18,16 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.EvePOCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.AdamCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.AdamPOCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowPOCreator());
+         // creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowCreator());
+         // creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowPOCreator());
          creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapCreator());
          creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapPOCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyPOCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowPOCreator());
-         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
+         creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
+         // creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
       return creatorSet;

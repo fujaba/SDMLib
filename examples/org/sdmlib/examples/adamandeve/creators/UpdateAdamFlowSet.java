@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.modelsets.longList;
 import java.util.List;
 import org.sdmlib.models.modelsets.intList;
@@ -56,7 +57,7 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       return this;
    }
 
-   public UpdateAdamFlowSet withIdMap(JsonIdMap value)
+   public UpdateAdamFlowSet withIdMap(SDMLibJsonIdMap value)
    {
       for (UpdateAdamFlow obj : this)
       {

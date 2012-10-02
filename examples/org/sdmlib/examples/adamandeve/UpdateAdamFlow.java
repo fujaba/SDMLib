@@ -21,10 +21,14 @@
    
 package org.sdmlib.examples.adamandeve;
 
+import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import org.sdmlib.model.taskflows.FetchFileFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 
@@ -34,7 +38,8 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    {
       StartAtEve, 
       AdamCheckJar,
-      EveSendNewJar,
+      InformEve,
+      AdamIsUpToDate,
    }
    
 
@@ -78,8 +83,40 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
          if (adamJarAtAdamSiteLastModified < adamJarAtEveSiteLastModified)
          {
             // need to update Adam.jar at Adam site
-            // new FetchFileFlow();
+            new FetchFileFlow()
+            .withFileServer(eve)
+            .withIdMap(idMap)
+            .withFileName("Adam.jar")
+            .run();
+            
+            // store task for restart
+            taskNo++;
+            JsonArray jsonArray = idMap.toJsonArray(this);
+            
+            try
+            {
+              FileWriter out = new FileWriter("bootTask.json");
+              out.write(jsonArray.toString(3));
+              out.close();
+            }
+            catch (IOException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+            
+            // kill myself to trigger reboot
+            System.exit(0);
          }
+         break;
+         
+      case InformEve:
+         // we are uptodate, inform eve
+         switchTo(eve);
+         break;
+         
+      case AdamIsUpToDate:
+         System.out.println("Adam is up to date");
          break;
          
       default:
@@ -135,7 +172,7 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    {
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.JsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -189,24 +226,24 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.json.JsonIdMap idMap;
+   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.json.JsonIdMap getIdMap()
+   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.json.JsonIdMap value)
+   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
-         org.sdmlib.serialization.json.JsonIdMap oldValue = this.idMap;
+         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
    
-   public UpdateAdamFlow withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
+   public UpdateAdamFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;

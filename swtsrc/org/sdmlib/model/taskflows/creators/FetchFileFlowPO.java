@@ -1,23 +1,23 @@
 package org.sdmlib.model.taskflows.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.creators.SocketThreadSet;
+import org.sdmlib.model.taskflows.FetchFileFlow;
+import org.sdmlib.model.taskflows.creators.FetchFileFlowSet;
+import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
-public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
+public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlow>
 {
-   public SocketThreadSet allMatches()
+   public FetchFileFlowSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      SocketThreadSet matches = new SocketThreadSet();
+      FetchFileFlowSet matches = new FetchFileFlowSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((SocketThread) this.getCurrentMatch());
+         matches.add((FetchFileFlow) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -25,10 +25,21 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return matches;
    }
    
-   public SocketThreadPO hasIp(String value)
+   
+   //==========================================================================
+   
+   public void run()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((FetchFileFlow) getCurrentMatch()).run();
+      }
+   }
+
+   public FetchFileFlowPO hasFileServer(PeerProxy value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SocketThread.PROPERTY_IP)
+      .withAttrName(FetchFileFlow.PROPERTY_FILESERVER)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -39,19 +50,19 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return this;
    }
    
-   public String getIp()
+   public PeerProxy getFileServer()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((SocketThread) getCurrentMatch()).getIp();
+         return ((FetchFileFlow) getCurrentMatch()).getFileServer();
       }
       return null;
    }
    
-   public SocketThreadPO hasPort(int value)
+   public FetchFileFlowPO hasIdMap(SDMLibJsonIdMap value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withAttrName(FetchFileFlow.PROPERTY_IDMAP)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -62,76 +73,61 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return this;
    }
    
-   public int getPort()
+   public SDMLibJsonIdMap getIdMap()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((SocketThread) getCurrentMatch()).getPort();
+         return ((FetchFileFlow) getCurrentMatch()).getIdMap();
+      }
+      return null;
+   }
+   
+   public FetchFileFlowPO hasFileName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getFileName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((FetchFileFlow) getCurrentMatch()).getFileName();
+      }
+      return null;
+   }
+   
+   public FetchFileFlowPO hasTaskNo(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getTaskNo()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((FetchFileFlow) getCurrentMatch()).getTaskNo();
       }
       return 0;
    }
    
-   public SocketThreadPO hasIdMap(JsonIdMap value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SocketThread.PROPERTY_IDMAP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public JsonIdMap getIdMap()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SocketThread) getCurrentMatch()).getIdMap();
-      }
-      return null;
-   }
-   
-   public SocketThreadPO hasDefaultTargetThread(Object value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SocketThread.PROPERTY_DEFAULTTARGETTHREAD)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public Object getDefaultTargetThread()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SocketThread) getCurrentMatch()).getDefaultTargetThread();
-      }
-      return null;
-   }
-   
-   public SocketThreadPO hasIdMap(SDMLibJsonIdMap value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SocketThread.PROPERTY_IDMAP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
 }
-
 
 

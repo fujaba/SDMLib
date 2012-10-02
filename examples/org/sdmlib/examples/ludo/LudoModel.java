@@ -33,7 +33,7 @@ public class LudoModel
          "game", Role.ONE);
       
       player.withAttributes(
-         "color", "String",
+         "color", String.class.getSimpleName(),
          "name", "String",
          "x", "int",
          "y", "int");

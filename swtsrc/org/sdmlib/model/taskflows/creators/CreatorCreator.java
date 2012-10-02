@@ -20,6 +20,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyPOCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.SocketThreadCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.SocketThreadPOCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.FetchFileFlowCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.FetchFileFlowPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -35,6 +37,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

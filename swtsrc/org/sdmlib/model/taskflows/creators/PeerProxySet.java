@@ -7,6 +7,7 @@ import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.creators.JsonIdMapSet;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class PeerProxySet extends LinkedHashSet<PeerProxy>
 {
@@ -77,6 +78,17 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       return result;
    }
 
+   public PeerProxySet withIdMap(SDMLibJsonIdMap value)
+   {
+      for (PeerProxy obj : this)
+      {
+         obj.withIdMap(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

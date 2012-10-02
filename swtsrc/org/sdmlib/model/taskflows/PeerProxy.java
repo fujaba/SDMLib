@@ -77,6 +77,11 @@ public class PeerProxy implements PropertyChangeInterface
    
    private Socket socket = null;
    
+   public Socket getSocket()
+   {
+      return socket;
+   }
+   
    private OutputStreamWriter out = null;
    
    //==========================================================================

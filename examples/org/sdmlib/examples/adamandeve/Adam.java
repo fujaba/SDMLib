@@ -23,9 +23,15 @@ package org.sdmlib.examples.adamandeve;
 
 import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
 import org.sdmlib.model.taskflows.SocketThread;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Adam implements PropertyChangeInterface
 {
@@ -44,6 +50,35 @@ public class Adam implements PropertyChangeInterface
       .start();
       
       System.out.println("Adam has started.");
+      
+      // look for boot task
+      try
+      {
+         BufferedReader in = new BufferedReader(new FileReader("bootTask.json"));
+         
+         StringBuilder buf = new StringBuilder();
+         
+         String line = "";
+         while (line != null)
+         {
+            buf.append(line);
+            line = in.readLine();
+         }
+         
+         in.close();
+         
+         JsonArray jsonArray = new JsonArray(buf.toString());
+         
+         Object obj = idMap.readJson(jsonArray);
+         
+         new File("bootTask.json").delete();
+         
+         ((TaskFlow) obj).run();
+      }
+      catch (Exception e)
+      {
+         // just fine, no reboot task available
+      }
    }
 
    

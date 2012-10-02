@@ -5,6 +5,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class TaskFlowModel 
 {
@@ -20,13 +21,20 @@ public class TaskFlowModel
       model.createClazz("PeerProxy", 
          "ip", "String", 
          "port", "int", 
-         "idMap", JsonIdMap.class.getName());
+         "idMap", SDMLibJsonIdMap.class.getName());
       
       model.createClazz("SocketThread", 
          "ip", "String", 
          "port", "int", 
-         "idMap", JsonIdMap.class.getName(),
+         "idMap", SDMLibJsonIdMap.class.getName(),
          "defaultTargetThread", "Object");
+      
+      model.createClazz("FetchFileFlow",
+         "fileServer", PeerProxy.class.getName(),
+         "idMap", SDMLibJsonIdMap.class.getName(), 
+         "fileName", String.class.getSimpleName())
+         .withSuperClass(taskFlowClass)
+         .createMethods("run()", "void");
       
       scenario.addImage(model.dumpClassDiag("taskflowmodeldiag"));
       

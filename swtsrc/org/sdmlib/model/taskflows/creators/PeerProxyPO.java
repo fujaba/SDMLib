@@ -6,6 +6,7 @@ import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
 {
@@ -108,7 +109,22 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       return this;
    }
    
+   public PeerProxyPO hasIdMap(SDMLibJsonIdMap value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 
 
