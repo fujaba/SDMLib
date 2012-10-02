@@ -491,7 +491,11 @@ public class ClassModel implements PropertyChangeInterface
 		// generate image
 		String command = "";
 
-		if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+		if ((System.getProperty("os.name").toLowerCase()).contains("linux"))
+		{
+			command = "../SDMLib/tools/Graphviz/linux/makeimage.sh " + diagName;
+		}
+		else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
 		{
 			command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
 		}
@@ -502,8 +506,15 @@ public class ClassModel implements PropertyChangeInterface
 		try
 		{
 			Process exec = Runtime.getRuntime().exec(command);
-			
 			exec.waitFor();
+			int exitValue = exec.exitValue();
+			if (exitValue != 0 ) {
+				System.err.println("Something is wrong with Graphviz. May missing executable");
+				if ((System.getProperty("os.name").toLowerCase()).contains("linux"))
+				{
+					System.err.println("You have to install graphviz, try \'sudo apt-get install graphviz\'");
+				}
+			}
 		}
 		catch (Exception e)
 		{
