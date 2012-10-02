@@ -7,6 +7,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class AdamAndEveModel
 {
@@ -25,17 +26,17 @@ public class AdamAndEveModel
          "taskNo", "int")
          .withExternal(true);
       
-      model.createClazz(JsonIdMap.class.getName()).withExternal(true);
+      model.createClazz(SDMLibJsonIdMap.class.getName()).withExternal(true);
       
       model.createClazz(PeerProxy.class.getName(), 
          "ip", "String", 
          "port", "int", 
-         "idMap", JsonIdMap.class.getName()).withExternal(true);
+         "idMap", SDMLibJsonIdMap.class.getName()).withExternal(true);
       
       model.createClazz("UpdateAdamFlow",
          "adam", PeerProxy.class.getName(),
          "eve", PeerProxy.class.getName(),
-         "idMap", JsonIdMap.class.getName(), 
+         "idMap", SDMLibJsonIdMap.class.getName(), 
          "adamJarAtEveSiteLastModified", long.class.getSimpleName())
          .withSuperClass(taskFlowClazz)
          .createMethods("run()", "void");

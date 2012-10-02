@@ -19,73 +19,48 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.adamandeve;
+package org.sdmlib.model.taskflows;
 
-import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
-import org.sdmlib.model.taskflows.SDMTimer;
-import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
-public class Adam implements PropertyChangeInterface
+public class SDMTimer extends Timer implements PropertyChangeInterface
 {
-
-   /**
-    * @param args
-    */
-   public static void main(String[] args)
+   public SDMTimer(String name)
    {
-      JsonIdMap idMap = CreatorCreator.createIdMap("adam");
-      
-      idMap.put("json.idmap", idMap); // oh oh
-      
-      // SDMTimer sdmThread = new SDMTimer("ModelThread");
-      
-      new SocketThread().withIdMap(idMap)
-      .withPort(4242)
-      .start();
-      
-      System.out.println("Adam has started.");
-      
-      // look for boot task
-      try
-      {
-         BufferedReader in = new BufferedReader(new FileReader("bootTask.json"));
-         
-         StringBuilder buf = new StringBuilder();
-         
-         String line = "";
-         while (line != null)
-         {
-            buf.append(line);
-            line = in.readLine();
-         }
-         
-         in.close();
-         
-         JsonArray jsonArray = new JsonArray(buf.toString());
-         
-         Object obj = idMap.readJson(jsonArray);
-         
-         new File("bootTask.json").delete();
-         
-         ((TaskFlow) obj).run();
-      }
-      catch (Exception e)
-      {
-         // just fine, no reboot task available
-      }
+      super(name);
    }
-
    
-
+   public SDMTimer()
+   {
+      
+   }
+   
+   private long lastScheduleTime = 0;
+   //==========================================================================
+   
+   public void schedule(TimerTask task)
+   {
+      long now = System.currentTimeMillis();
+      long delay = 0;
+      
+      if (now <= lastScheduleTime)
+      {
+         // this milli second has already been used. Use next free to achieve stable schedule
+         delay = lastScheduleTime - now + 1;
+         lastScheduleTime++;
+      }
+      else
+      {
+         delay = 0;
+         lastScheduleTime = now;
+      }
+      
+      super.schedule(task, delay);
+   }
 
    
    //==========================================================================
@@ -127,6 +102,8 @@ public class Adam implements PropertyChangeInterface
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      // super.removeYou();
    }
+
 }
 

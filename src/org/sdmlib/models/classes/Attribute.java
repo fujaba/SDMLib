@@ -163,10 +163,14 @@ public class Attribute implements PropertyChangeInterface
       // get parser from class
       Parser parser = clazz.getOrCreateParser(rootDir);
       if(  ! fromSuperClass)   
-    	  insertAttrDeclPlusAccessors(clazz, parser);
+      {
+         insertAttrDeclPlusAccessors(clazz, parser);
+      }
       
       if ( !clazz.isInterfaze())
-      	insertCaseInGenericGetSet(parser);
+      {
+         insertCaseInGenericGetSet(parser);
+      }
       
       clazz.printFile(doGenerate);
 

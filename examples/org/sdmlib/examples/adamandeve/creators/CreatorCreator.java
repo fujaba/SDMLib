@@ -26,6 +26,10 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyPOCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowCreator());
          creatorSet.add(new org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowPOCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowPOCreator());
+         creatorSet.add(new org.sdmlib.serialization.json.creators.SDMLibJsonIdMapCreator());
+         creatorSet.add(new org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPOCreator());
          creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
          // creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
@@ -42,4 +46,6 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
 

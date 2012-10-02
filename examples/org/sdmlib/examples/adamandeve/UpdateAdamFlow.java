@@ -31,6 +31,7 @@ import java.io.IOException;
 import org.sdmlib.model.taskflows.FetchFileFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.PeerProxySet;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
 {
@@ -54,6 +55,12 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
          // prepare PeerProxy for Adam
          withAdam(new PeerProxy("localhost", 4242, getIdMap()));
          withEve(new PeerProxy("localhost", 8484, getIdMap()));
+         
+         PeerProxySet peerProxySet = new PeerProxySet()
+         .with(eve)
+         .with(adam);
+         
+         System.out.println("Proxies: " + peerProxySet);
          
          // what is the modification data of Adam.jar?
          File adamJarFile = new File("Adam.jar");
@@ -117,6 +124,7 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
          
       case AdamIsUpToDate:
          System.out.println("Adam is up to date");
+         System.exit(0);
          break;
          
       default:

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project SDMLib with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/PeerToPeerChat.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="org.sdmlib.examples.chats.PeerToPeerChat"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ junit.jar org.hamcrest.core_1.1.0.v20090501071000.jar jcommon-1.0.17.jar jfreechart-1.0.14.jar gwtx-1.5.2.jar org.eclipse.swt_3.100.1.v4234d.jar org.eclipse.swt.win32.win32.x86_64_3.100.1.v4234d.jar org.eclipse.jface_3.8.101.v20120817-083647.jar org.eclipse.core.commands_3.6.1.v20120814-150512.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/bin"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins\org.junit_4.10.0.v4_10_0_v20120426-0900" includes="junit.jar"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins" includes="org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+            <zipfileset dir="C:\Users\zuendorf\eclipseworkspaces\indigo\SDMLib\lib" includes="jcommon-1.0.17.jar"/>
+            <zipfileset dir="C:\Users\zuendorf\eclipseworkspaces\indigo\SDMLib\lib" includes="jfreechart-1.0.14.jar"/>
+            <zipfileset dir="C:\Users\zuendorf\eclipseworkspaces\indigo\SDMLib\lib" includes="gwtx-1.5.2.jar"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins" includes="org.eclipse.swt_3.100.1.v4234d.jar"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins" includes="org.eclipse.swt.win32.win32.x86_64_3.100.1.v4234d.jar"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins" includes="org.eclipse.jface_3.8.101.v20120817-083647.jar"/>
+            <zipfileset dir="C:\ProgrammeAlbert\eclipsejuno4.2.1\plugins" includes="org.eclipse.core.commands_3.6.1.v20120814-150512.jar"/>
+        </jar>
+    </target>
+</project>

@@ -112,6 +112,10 @@ public class SocketThread extends Thread implements PropertyChangeInterface
                   {
                      ((Display) defaultTargetThread).asyncExec(taskFlow);
                   }
+                  else if (defaultTargetThread != null && defaultTargetThread instanceof SDMTimer)
+                  {
+                     ((SDMTimer) defaultTargetThread).schedule(taskFlow);
+                  }
                   else
                   {
                      taskFlow.run();

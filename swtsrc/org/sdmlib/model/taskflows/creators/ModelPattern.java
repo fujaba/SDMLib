@@ -9,6 +9,9 @@ import org.sdmlib.model.taskflows.creators.SocketThreadPO;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.creators.FetchFileFlowPO;
 import org.sdmlib.model.taskflows.FetchFileFlow;
+import java.util.Timer;
+import org.sdmlib.model.taskflows.creators.SDMTimerPO;
+import org.sdmlib.model.taskflows.SDMTimer;
 
 public class ModelPattern extends Pattern
 {
@@ -119,7 +122,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public SDMTimerPO hasElementSDMTimerPO()
+   {
+      SDMTimerPO value = new SDMTimerPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public SDMTimerPO hasElementSDMTimerPO(SDMTimer hostGraphObject)
+   {
+      SDMTimerPO value = new SDMTimerPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

@@ -6,6 +6,7 @@ import org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowSet;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdamFlow>
 {
@@ -151,5 +152,20 @@ public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdam
       return 0;
    }
    
+   public UpdateAdamFlowPO hasIdMap(SDMLibJsonIdMap value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 

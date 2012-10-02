@@ -242,5 +242,10 @@ public class PeerProxy implements PropertyChangeInterface
       setIdMap(value);
       return this;
    } 
+   
+   public String toString()
+   {
+      return "" + ip + ":" + port;
+   }
 }
 

@@ -10,6 +10,7 @@ import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.creators.JsonIdMapSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
 {
@@ -135,7 +136,35 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       return result;
    }
 
+   
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (UpdateAdamFlow elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public UpdateAdamFlowSet with(UpdateAdamFlow value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public UpdateAdamFlowSet without(UpdateAdamFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 package org.sdmlib.model.taskflows.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
@@ -22,6 +23,10 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.model.taskflows.creators.SocketThreadPOCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.FetchFileFlowCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.FetchFileFlowPOCreator());
+         // creatorSet.add(new java.util.creators.TimerCreator());
+         // creatorSet.add(new java.util.creators.TimerPOCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.SDMTimerCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.SDMTimerPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -37,6 +42,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

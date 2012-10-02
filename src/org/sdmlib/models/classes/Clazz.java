@@ -30,10 +30,13 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -1028,12 +1031,82 @@ public class Clazz implements PropertyChangeInterface
          .withFileName(fileName)
          .withFileBody(modelSetFileBody);
 
+         insertLicense(modelSetParser);
+         
+         insertSetToString(modelSetParser);
+         
+         insertSetWithWithout(modelSetParser);
       }
       
       return modelSetParser;
    }
 
    
+   private void insertSetWithWithout(Parser parser)
+   {
+      String searchString = Parser.METHOD + ":with()";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n\n" + 
+            "   public ModelTypeSet with(ModelType value)\n" + 
+            "   {\n" + 
+            "      this.add(value);\n" + 
+            "      return this;\n" + 
+            "   }\n" + 
+            "   \n" + 
+            "   public ModelTypeSet without(ModelType value)\n" + 
+            "   {\n" + 
+            "      this.remove(value);\n" + 
+            "      return this;\n" + 
+            "   }\n" 
+            );
+         
+         CGUtil.replaceAll(text, 
+            "ModelType", CGUtil.shortClassName(this.getName()));
+         
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(pos, text.toString());
+         setModelSetFileHasChanged(true);
+      }
+   }
+
+   private void insertSetToString(Parser parser)
+   {
+      String searchString = Parser.METHOD + ":toString()";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n\n" + 
+            "   public String toString()\n" + 
+            "   {\n" + 
+            "      StringList stringList = new StringList();\n" + 
+            "      \n" + 
+            "      for (ModelType elem : this)\n" + 
+            "      {\n" + 
+            "         stringList.add(elem.toString());\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      return \"(\" + stringList.concat(\", \") + \")\";\n" + 
+            "   }\n"
+            );
+         
+         CGUtil.replaceAll(text, 
+            "ModelType", CGUtil.shortClassName(this.getName()));
+         
+         insertImport(parser, StringList.class.getName());
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(pos, text.toString());
+         setModelSetFileHasChanged(true);
+      }
+   }
+
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
       if (patternObjectParser == null)

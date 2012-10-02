@@ -13,6 +13,8 @@ import org.sdmlib.model.taskflows.creators.PeerProxyPO;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowPO;
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class ModelPattern extends Pattern
 {
@@ -171,6 +173,31 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public SDMLibJsonIdMapPO hasElementSDMLibJsonIdMapPO()
+   {
+      SDMLibJsonIdMapPO value = new SDMLibJsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public SDMLibJsonIdMapPO hasElementSDMLibJsonIdMapPO(SDMLibJsonIdMap hostGraphObject)
+   {
+      SDMLibJsonIdMapPO value = new SDMLibJsonIdMapPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 

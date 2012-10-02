@@ -8,9 +8,12 @@
     _PeerProxy [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>PeerProxy</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>ip :String</td></tr> <tr><td align='left'>port :int</td></tr> <tr><td align='left'>idMap :SDMLibJsonIdMap</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SocketThread [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>SocketThread</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>ip :String</td></tr> <tr><td align='left'>port :int</td></tr> <tr><td align='left'>idMap :SDMLibJsonIdMap</td></tr> <tr><td align='left'>defaultTargetThread :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _FetchFileFlow [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>FetchFileFlow</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>fileServer :PeerProxy</td></tr> <tr><td align='left'>idMap :SDMLibJsonIdMap</td></tr> <tr><td align='left'>fileName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>run()</td></tr>  </table></td></tr> </table>>];
+    _Timer [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Timer</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _SDMTimer [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>SDMTimer</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>schedule(TimerTask)</td></tr>  </table></td></tr> </table>>];
     
     
     
     _TaskFlow ->  _FetchFileFlow [dir = "back" arrowtail = "empty"];
+    _Timer ->  _SDMTimer [dir = "back" arrowtail = "empty"];
 }
 
