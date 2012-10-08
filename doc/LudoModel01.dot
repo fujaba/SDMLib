@@ -25,4 +25,3 @@
     _Player -> _Pawn [headlabel = "pawns" taillabel = "player" arrowhead = "none" ];
     _Pawn -> _Field [headlabel = "pos" taillabel = "pawns" arrowhead = "none" ];
 }
-
