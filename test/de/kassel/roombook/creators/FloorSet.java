@@ -5,6 +5,7 @@ import de.kassel.roombook.Floor;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import de.kassel.roombook.Building;
+import java.util.List;
 
 public class FloorSet extends LinkedHashSet<Floor>
 {
@@ -85,7 +86,98 @@ public class FloorSet extends LinkedHashSet<Floor>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Floor elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public FloorSet with(Floor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FloorSet without(Floor value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public FloorSet with(Floor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FloorSet without(Floor value)
+   {
+      this.remove(value);
+      return this;
+   }
+   public StringList getGuest()
+   {
+      StringList result = new StringList();
+      
+      for (Floor obj : this)
+      {
+         result.add(obj.getGuest());
+      }
+      
+      return result;
+   }
+
+   public FloorSet withGuest(String value)
+   {
+      for (Floor obj : this)
+      {
+         obj.withGuest(value);
+      }
+      
+      return this;
+   }
+
+
+
+   public FloorSet with(Floor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FloorSet without(Floor value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public FloorSet with(Floor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FloorSet without(Floor value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
 
 
 

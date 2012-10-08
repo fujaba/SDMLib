@@ -24,11 +24,11 @@ public class LudoModel
       scenario.add("Start situation: ",
          MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
             
-      Clazz ludo = model.createClazz("org.sdmlib.examples.ludo.Ludo");
+      Clazz ludo = model.createClazz("Ludo");
       
-      Clazz player = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Player",
+      Clazz player = ludo.createClassAndAssoc("Player",
          "players", Role.MANY,
          "game", Role.ONE);
       
@@ -40,13 +40,13 @@ public class LudoModel
       
       player.withAssoc(player, "next", Role.ONE, "prev", Role.ONE);
       
-      Clazz dice = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Dice", "dice", Role.ONE, "game", Role.ONE);
+      Clazz dice = ludo.createClassAndAssoc("Dice", "dice", Role.ONE, "game", Role.ONE);
       
       dice.withAttributes("value", "int");
       
       player.withAssoc(dice, "dice", Role.ONE, "player", Role.ONE);
       
-      Clazz field = ludo.createClassAndAssoc("org.sdmlib.examples.ludo.Field", "fields", Role.MANY, "game", Role.ONE);
+      Clazz field = ludo.createClassAndAssoc("Field", "fields", Role.MANY, "game", Role.ONE);
       
       field.withAttributes(
          "color", "String",
@@ -64,7 +64,7 @@ public class LudoModel
       
       player.withAssoc(field, "landing", Role.ONE, "lander", Role.ONE);
       
-      Clazz pawn = player.createClassAndAssoc("org.sdmlib.examples.ludo.Pawn", "pawns", Role.MANY, "player", Role.ONE);
+      Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", Role.MANY, "player", Role.ONE);
          
       pawn.withAttributes(   
          "color", "String",

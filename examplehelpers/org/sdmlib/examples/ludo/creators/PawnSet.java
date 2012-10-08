@@ -118,5 +118,32 @@ public class PawnSet extends LinkedHashSet<Pawn>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Pawn elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public PawnSet with(Pawn value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PawnSet without(Pawn value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

@@ -206,6 +206,89 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (GenericObject elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
+
 
 

@@ -116,5 +116,88 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (GenericLink elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
+
 

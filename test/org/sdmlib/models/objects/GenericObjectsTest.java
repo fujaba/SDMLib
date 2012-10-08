@@ -116,6 +116,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       GenericObject wa03 = graph.createObjects()
       .with("name", "WA03")
       .with("level", "0")
+      .with("guest","Ulrich")
       .withName("digitalFloor")
       .withType("Floor");
       
@@ -151,7 +152,9 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       Clazz floorClass = new Clazz("de.kassel.roombook.Floor")
       .withAttribute("level", "int")
-		.withAttribute("name", "String"); // changed attr type to int
+		.withAttribute("name", "String")
+			/*add attribut*/
+      .withAttribute("guest", "String"); // changed attr type to int
 		
       new Association()
 			.withSource("buildings", buildingClass, Role.ONE) // changed cardinality to ONE

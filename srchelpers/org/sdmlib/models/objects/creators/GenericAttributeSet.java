@@ -73,5 +73,88 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (GenericAttribute elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public GenericAttributeSet with(GenericAttribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericAttributeSet without(GenericAttribute value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericAttributeSet with(GenericAttribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericAttributeSet without(GenericAttribute value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericAttributeSet with(GenericAttribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericAttributeSet without(GenericAttribute value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericAttributeSet with(GenericAttribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericAttributeSet without(GenericAttribute value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericAttributeSet with(GenericAttribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericAttributeSet without(GenericAttribute value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
+
 

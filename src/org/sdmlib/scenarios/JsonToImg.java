@@ -100,18 +100,23 @@ public class JsonToImg
       File docDir = new File("doc");
       docDir.mkdir();
       BufferedWriter out; 
-      String command = "";
-      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-		   command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + imgName;
-	   } else {
-		   command = "../SDMLib/tools/makeimage.bat " + imgName;
-	   }
-	   try {
-		   writeToFile(imgName, fileText);
-		   Process child = Runtime.getRuntime().exec(command);
-	   } catch (IOException e) {
-		   e.printStackTrace();
-	   }
+      String[] command = null;
+      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
+     	  command = new String [] {"../SDMLib/tools/makeimage.bat", imgName};
+      }
+      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
+    	  command = new String [] {"../SDMLib/tools/Graphviz/osx_lion/makeimage.command", imgName};
+      }
+      else { // let's assume it's linux'ish (works also for mac)
+    	  command = new String [] {"dot","doc/"+imgName+".dot","-Tsvg","-o","doc/"+imgName+".svg"};
+      }
+      try {
+    	  writeToFile(imgName, fileText);
+    	  Process child = Runtime.getRuntime().exec(command);
+    	  child.waitFor();
+      } catch (Exception e) {
+    	  e.printStackTrace();
+      }
       
 		
 //		   BufferedWriter out;

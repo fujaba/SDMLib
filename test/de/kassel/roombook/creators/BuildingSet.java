@@ -72,7 +72,76 @@ public class BuildingSet extends LinkedHashSet<Building>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Building elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public BuildingSet with(Building value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public BuildingSet with(Building value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public BuildingSet with(Building value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public BuildingSet with(Building value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
 
 
 

@@ -298,5 +298,32 @@ public class FieldSet extends LinkedHashSet<Field>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Field elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public FieldSet with(Field value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FieldSet without(Field value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

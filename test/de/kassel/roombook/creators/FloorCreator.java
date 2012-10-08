@@ -13,6 +13,7 @@ public class FloorCreator extends EntityFactory
       Floor.PROPERTY_LEVEL,
       Floor.PROPERTY_BUILDINGS,
       Floor.PROPERTY_NAME,
+      Floor.PROPERTY_GUEST,
    };
    
    public String[] getProperties()
@@ -49,6 +50,7 @@ public class FloorCreator extends EntityFactory
       ((Floor) entity).removeYou();
    }
 }
+
 
 
 

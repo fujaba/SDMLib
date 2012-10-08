@@ -5,6 +5,7 @@ import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.Dice;
 import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.models.modelsets.StringList;
 
 public class LudoSet extends LinkedHashSet<Ludo>
 {
@@ -91,5 +92,32 @@ public class LudoSet extends LinkedHashSet<Ludo>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Ludo elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public LudoSet with(Ludo value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public LudoSet without(Ludo value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

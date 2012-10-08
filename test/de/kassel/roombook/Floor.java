@@ -61,6 +61,11 @@ public class Floor implements PropertyChangeInterface
       {
          return getName();
       }
+
+      if (PROPERTY_GUEST.equalsIgnoreCase(attribute))
+      {
+         return getGuest();
+      }
       
       return null;
    }
@@ -91,6 +96,12 @@ public class Floor implements PropertyChangeInterface
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_GUEST.equalsIgnoreCase(attrName))
+      {
+         setGuest((String) value);
          return true;
       }
 
@@ -252,6 +263,34 @@ public class Floor implements PropertyChangeInterface
    public Floor withName(String value)
    {
       setName(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_GUEST = "guest";
+   
+   private String guest;
+
+   public String getGuest()
+   {
+      return this.guest;
+   }
+   
+   public void setGuest(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.guest, value))
+      {
+         String oldValue = this.guest;
+         this.guest = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GUEST, oldValue, value);
+      }
+   }
+   
+   public Floor withGuest(String value)
+   {
+      setGuest(value);
       return this;
    } 
 }

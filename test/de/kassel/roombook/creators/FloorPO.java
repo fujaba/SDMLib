@@ -8,6 +8,7 @@ import de.kassel.roombook.creators.BuildingPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import de.kassel.roombook.creators.FloorPO;
 import de.kassel.roombook.Building;
+import de.kassel.roombook.creators.FloorSet;
 
 public class FloorPO extends PatternObject
 {
@@ -99,5 +100,29 @@ public class FloorPO extends PatternObject
       return null;
    }
    
+   public FloorPO hasGuest(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Floor.PROPERTY_GUEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getGuest()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Floor) getCurrentMatch()).getGuest();
+      }
+      return null;
+   }
+   
 }
+
 

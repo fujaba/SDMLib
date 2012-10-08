@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.modelsets.StringList;
 
 public class GenericGraphSet extends LinkedHashSet<GenericGraph>
 {
@@ -69,5 +70,88 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (GenericGraph elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
+
+
+
 

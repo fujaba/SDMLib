@@ -278,5 +278,32 @@ public class PlayerSet extends LinkedHashSet<Player>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Player elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public PlayerSet with(Player value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PlayerSet without(Player value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

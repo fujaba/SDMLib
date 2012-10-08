@@ -40,7 +40,11 @@ import org.sdmlib.utils.PropertyChangeInterface;
 
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
-   @Test
+   private static final String INT = int.class.getSimpleName();
+private static final String STRING = String.class.getSimpleName();
+
+
+@Test
    public void testStudyRightReverseClassModel()
    {
 
@@ -51,18 +55,18 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.Professor")
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
-      .withAttribute("title", "String");
+      .withAttribute("title", STRING);
 
       new Association()
       .withSource("prof", professorClass, "one")
       .withTarget("topic", topicClass, "one");
       
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
+      .withAttribute("roomNo", STRING)
+      .withAttribute("credits", INT);
 
       new Method()
       .withClazz(roomClass)
@@ -73,8 +77,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withTarget("neighbors", roomClass, "many");
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
+      .withAttribute("name", STRING)
+      .withAttribute("matrNo", INT);
 
       new Association()
       .withSource("in", roomClass, "one")
@@ -103,7 +107,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSignature("testStudyRightClassesCodeGen()");
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       new Association()
       .withSource("rooms", roomClass, "many")
@@ -143,7 +147,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz lectureClass = new Clazz("org.sdmlib.examples.studyrightextends.Lecture")
-      .withAttribute("Title", "String");
+      .withAttribute("Title", STRING);
 
       Clazz personClass = new Clazz("org.sdmlib.examples.studyrightextends.Person")
       .withInterfaze(true);
@@ -180,13 +184,13 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       //         .withReturnType("Person");
 
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
+      .withAttribute("roomNo", STRING)
+      .withAttribute("credits", INT);
 
       new Method()
       .withClazz(roomClass)
       .withSignature("studentCount()")
-      .withReturnType("int");
+      .withReturnType(INT);
 
       new Association()
       .withSource("neighbors", roomClass, "many")
@@ -197,7 +201,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withTarget("in", roomClass, "one");
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       new Association()
       .withSource("rooms", roomClass, "many")
@@ -232,7 +236,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
       .withInterfaces(personClass)
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       new Method()
       .withClazz(femaleClass)
@@ -255,7 +259,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyrightextends.Professor")
       .withSuperClass(femaleClass)
-      .withAttribute("PersNr", "int");
+      .withAttribute("PersNr", INT);
 
       new Association()
       .withSource("lecture", lectureClass, "many")
@@ -263,8 +267,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
       .withInterfaces(maleClass)
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int")
+      .withAttribute("name", STRING)
+      .withAttribute("matrNo", INT)
       /*set superclass*/
       .withSuperClass(femaleClass);
 
@@ -409,7 +413,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz uniClass = new Clazz("org.sdmlib.examples.studyright.University")
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
 
@@ -419,8 +423,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Clazz studClass = new Clazz("org.sdmlib.examples.studyright.Student")
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
+      .withAttribute("name", STRING)
+      .withAttribute("matrNo", INT);
 
       scenario.addImage(model.dumpClassDiag("StudyRightClasses02"));
 
@@ -439,8 +443,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       scenario.add("4. add uni --> room");
 
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
+      .withAttribute("roomNo", STRING)
+      .withAttribute("credits", INT);
 
       new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
 
@@ -579,10 +583,10 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz profClass = new Clazz("org.sdmlib.examples.studyright.Professor")
-      .withAttribute("name", "String");
+      .withAttribute("name", STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
-      .withAttribute("title", "String");
+      .withAttribute("title", STRING);
 
       new Association()
       .withSource("prof", profClass, Role.ONE)

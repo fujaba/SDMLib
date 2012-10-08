@@ -6,6 +6,7 @@ import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.models.modelsets.StringList;
 
 public class DiceSet extends LinkedHashSet<Dice>
 {
@@ -73,5 +74,32 @@ public class DiceSet extends LinkedHashSet<Dice>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Dice elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public DiceSet with(Dice value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public DiceSet without(Dice value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
