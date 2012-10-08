@@ -53,6 +53,33 @@ public StringList getName()
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Professor elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public ProfessorSet with(Professor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ProfessorSet without(Professor value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

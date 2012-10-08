@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-84 176,-84 176,5 -4,5"/>
 <!-- _University -->
 <g id="node1" class="node"><title>_University</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/University.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-51 8,-68 69,-68 69,-51 8,-51"/>
 <text text-anchor="start" x="17" y="-57.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-31 8,-51 69,-51 69,-31 8,-31"/>
 <text text-anchor="start" x="13" y="-39" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <polygon fill="none" stroke="black" points="8,-11 8,-31 69,-31 69,-11 8,-11"/>
@@ -20,8 +22,10 @@
 </g>
 <!-- _Student -->
 <g id="node2" class="node"><title>_Student</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="103,-58 103,-75 164,-75 164,-58 103,-58"/>
 <text text-anchor="start" x="117.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
+</a>
 <polygon fill="none" stroke="black" points="103,-24 103,-58 164,-58 164,-24 103,-24"/>
 <text text-anchor="start" x="108" y="-46" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <text text-anchor="start" x="108" y="-32" font-family="Times New Roman,serif" font-size="10.00">matrNo :int</text>

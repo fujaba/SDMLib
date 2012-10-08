@@ -147,6 +147,33 @@ public StringList getRoomNo()
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Room elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public RoomSet with(Room value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public RoomSet without(Room value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

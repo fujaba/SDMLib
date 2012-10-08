@@ -51,6 +51,33 @@ public class TopicSet extends LinkedHashSet<Topic>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Topic elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public TopicSet with(Topic value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public TopicSet without(Topic value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

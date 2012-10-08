@@ -47,6 +47,33 @@ public class PersonSet extends LinkedHashSet<Person>
 
    
  
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Person elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public PersonSet with(Person value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

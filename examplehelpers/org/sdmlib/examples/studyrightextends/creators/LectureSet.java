@@ -95,7 +95,34 @@ public class LectureSet extends LinkedHashSet<Lecture>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Lecture elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public LectureSet with(Lecture value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public LectureSet without(Lecture value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

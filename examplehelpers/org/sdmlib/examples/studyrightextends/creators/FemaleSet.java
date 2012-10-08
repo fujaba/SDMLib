@@ -66,6 +66,33 @@ public class FemaleSet extends LinkedHashSet<Female>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Female elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public FemaleSet with(Female value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FemaleSet without(Female value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

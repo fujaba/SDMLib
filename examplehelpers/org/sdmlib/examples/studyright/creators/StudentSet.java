@@ -97,6 +97,33 @@ public StringList getName()
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Student elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public StudentSet with(Student value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public StudentSet without(Student value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

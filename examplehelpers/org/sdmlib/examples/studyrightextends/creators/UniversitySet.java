@@ -61,6 +61,33 @@ public class UniversitySet extends LinkedHashSet<University>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (University elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public UniversitySet with(University value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public UniversitySet without(University value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
