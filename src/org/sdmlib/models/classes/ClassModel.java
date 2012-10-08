@@ -513,7 +513,7 @@ public class ClassModel implements PropertyChangeInterface
 			exec.waitFor();
 			int exitValue = exec.exitValue();
 			if (exitValue != 0 ) {
-				System.err.println("Something is wrong with Graphviz. May missing executable");
+				System.err.println("Something is wrong with Graphviz (exit code: "+exitValue+"). May missing executable");
 				if ((System.getProperty("os.name").toLowerCase()).contains("linux"))
 				{
 					System.err.println("You have to install graphviz, try \'sudo apt-get install graphviz\'");
