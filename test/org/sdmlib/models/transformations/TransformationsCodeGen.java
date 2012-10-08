@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -51,51 +52,50 @@ public class TransformationsCodeGen
       .withAttribute("set", "boolean");
       
       new Association()
-      .withSource("transformOp", transformOpClass, Role.ONE)
-      .withTarget("opObjects", operationObjectClass, Role.MANY);
+      .withSource("transformOp", transformOpClass, R.ONE)
+      .withTarget("opObjects", operationObjectClass, R.MANY);
       
       Clazz attributeOpClass = new Clazz("org.sdmlib.models.transformations.AttributeOp")
       .withAttribute("text", "String");
       
       new Association()
-      .withSource("operationObject", operationObjectClass, Role.ONE)
-      .withTarget("attributeOps", attributeOpClass, Role.MANY);
+      .withSource("operationObject", operationObjectClass, R.ONE)
+      .withTarget("attributeOps", attributeOpClass, R.MANY);
 
       Clazz linkOpClass = new Clazz("org.sdmlib.models.transformations.LinkOp")
       .withAttribute("srcText", "String")
       .withAttribute("tgtText", "String");
 
       new Association()
-      .withSource("src", operationObjectClass, Role.ONE)
-      .withTarget("outgoings", linkOpClass, Role.MANY);
+      .withSource("src", operationObjectClass, R.ONE)
+      .withTarget("outgoings", linkOpClass, R.MANY);
       
       new Association()
-      .withSource("incomings", linkOpClass, Role.MANY)
-      .withTarget("tgt", operationObjectClass, Role.ONE);
+      .withSource("incomings", linkOpClass, R.MANY)
+      .withTarget("tgt", operationObjectClass, R.ONE);
       
       new Association()
-      .withSource("transformOp", transformOpClass, Role.ONE)
-      .withTarget("linkOps", linkOpClass, Role.MANY);
+      .withSource("transformOp", transformOpClass, R.ONE)
+      .withTarget("linkOps", linkOpClass, R.MANY);
       
       
       Clazz statementClass = new Clazz("org.sdmlib.models.transformations.Statement")
       .withAttribute("text", "String");
 
       new Association()
-      .withSource("prev", statementClass, Role.ONE)
-      .withTarget("next", statementClass, Role.ONE);
+      .withSource("prev", statementClass, R.ONE)
+      .withTarget("next", statementClass, R.ONE);
       
       new Association()
-      .withSource("statements", statementClass, Role.MANY)
-      .withTarget("operationObjects", operationObjectClass, Role.MANY);
+      .withSource("statements", statementClass, R.MANY)
+      .withTarget("operationObjects", operationObjectClass, R.MANY);
 
       new Association()
-      .withSource("transformOp", transformOpClass, Role.ONE)
-      .withTarget("statements", statementClass, Role.MANY);
+      .withSource("transformOp", transformOpClass, R.ONE)
+      .withTarget("statements", statementClass, R.MANY);
       
       
-      scenario.addImage(model.dumpClassDiag("TransformationClasses01"));
-      
+      scenario.addImage(model.dumpClassDiag("src", "TransformationClasses01"));
       
       model.generate("src", "srchelpers");
       

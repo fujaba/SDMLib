@@ -315,17 +315,27 @@ public class Attribute implements PropertyChangeInterface
 			String fullModelSetType = getType();
 			String modelSetType = CGUtil.shortClassName(getType());
 			
+			String add = "add";
+			
 			ArrayList<String> importClassesFromTypes = new ArrayList<String>();
 			
-			if (!getType().contains("<") && !getType().endsWith("Set")) {
+			if (!getType().contains("<") && !getType().endsWith("Set")) 
+			{
 				fullModelSetType = CGUtil.packageName(getType()) + ".creators." + CGUtil.shortClassName(getType())+ "Set";
 				modelSetType = CGUtil.shortClassName(getType()) + "Set";
 				String importForSet = checkSetImportFor(CGUtil.shortClassName(getType()));
 				if(importForSet != null)
-					importClassesFromTypes.add(importForSet);
+				{
+				   importClassesFromTypes.add(importForSet);
+				}
+				else if ( ! fullModelSetType.startsWith("."))
+				{
+				   importClassesFromTypes.add(fullModelSetType);
+				}
 			}
-			else {
-//				System.out.println("no set");
+			else 
+			{
+			   add = "addAll";
 			}
 			
 			if ("String int double long boolean".indexOf(getType()) >= 0) {
@@ -339,8 +349,9 @@ public class Attribute implements PropertyChangeInterface
 			
 			CGUtil.replaceAll(text, "ContentType",
 					CGUtil.shortClassName(ownerClazz.getName()),
-					"ModelSetType", modelSetType, "Name",
-					StrUtil.upFirstChar(getName()));
+					"ModelSetType", modelSetType, 
+					"Name", StrUtil.upFirstChar(getName()), 
+					"add", add);
 
 			importClassesFromTypes.addAll(checkImportClassesFromType(fullModelSetType));
 			

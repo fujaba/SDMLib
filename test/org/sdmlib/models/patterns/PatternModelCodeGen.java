@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
@@ -62,8 +63,8 @@ public class PatternModelCodeGen
       .withAttribute("matchForward", boolean.class.getSimpleName());
       
       new Association()
-      .withTarget(patternElement, "elements", Role.MANY)
-      .withSource(pattern, "pattern", Role.ONE);
+      .withTarget(patternElement, "elements", R.MANY)
+      .withSource(pattern, "pattern", R.ONE);
       
       Clazz patternObject = new Clazz("org.sdmlib.models.pattern.PatternObject")
       .withSuperClass(patternElement)
@@ -76,12 +77,12 @@ public class PatternModelCodeGen
       .withAttribute("hostGraphSrcObject", "Object");
       
       new Association()
-      .withTarget(patternObject, "tgt", Role.ONE)
-      .withSource(patternLink, "incomming", Role.MANY);
+      .withTarget(patternObject, "tgt", R.ONE)
+      .withSource(patternLink, "incomming", R.MANY);
       
       new Association()
-      .withTarget(patternObject, "src", Role.ONE)
-      .withSource(patternLink, "outgoing", Role.MANY);
+      .withTarget(patternObject, "src", R.ONE)
+      .withSource(patternLink, "outgoing", R.MANY);
       
       Clazz attrConstraint = new Clazz("org.sdmlib.models.pattern.AttributeConstraint")
       .withSuperClass(patternElement)
@@ -90,8 +91,8 @@ public class PatternModelCodeGen
       .withAttribute("hostGraphSrcObject", "Object");
       
       new Association()
-      .withTarget(patternObject, "src", Role.ONE)
-      .withSource(attrConstraint, "attrConstraints", Role.MANY);
+      .withTarget(patternObject, "src", R.ONE)
+      .withSource(attrConstraint, "attrConstraints", R.MANY);
       
       Clazz linkConstraint = new Clazz("org.sdmlib.models.pattern.LinkConstraint")
       .withSuperClass(patternLink);
@@ -103,8 +104,8 @@ public class PatternModelCodeGen
       .withSuperClass(patternElement);
       
       new Association()
-      .withTarget(patternObject, "patternObject", Role.ONE)
-      .withSource(destroyObjectClazz, "destroyElem", Role.ONE);
+      .withTarget(patternObject, "patternObject", R.ONE)
+      .withSource(destroyObjectClazz, "destroyElem", R.ONE);
       
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       
@@ -112,7 +113,7 @@ public class PatternModelCodeGen
 
       model.generate("src", "srchelpers");
       
-      scenario.addImage(model.dumpClassDiag("PatternModel01"));
+      scenario.addImage(model.dumpClassDiag("src", "PatternModel01"));
            
       ScenarioManager.get()
       .add(scenario)

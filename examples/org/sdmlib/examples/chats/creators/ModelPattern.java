@@ -1,5 +1,6 @@
 package org.sdmlib.examples.chats.creators;
 
+import org.sdmlib.examples.chats.CSChatMessageFlow;
 import org.sdmlib.examples.chats.ChatMessageFlow;
 import org.sdmlib.examples.chats.ClearDrawingFlow;
 import org.sdmlib.examples.chats.DrawPointFlow;
@@ -15,6 +16,23 @@ import org.sdmlib.examples.chats.creators.ChatMessageFlowPO;
 import org.sdmlib.examples.chats.creators.DrawPointFlowPO;
 import org.sdmlib.examples.chats.creators.ClearDrawingFlowPO;
 import org.sdmlib.examples.chats.creators.PeerToPeerChatArgsPO;
+import org.sdmlib.examples.chats.creators.CSChatMessageFlowPO;
+import org.sdmlib.examples.chats.creators.ChatServerPO;
+import org.sdmlib.examples.chats.ChatServer;
+import org.sdmlib.examples.chats.creators.ClientLoginFlowPO;
+import org.sdmlib.examples.chats.ClientLoginFlow;
+import org.sdmlib.examples.chats.creators.CSDrawPointFlowPO;
+import org.sdmlib.examples.chats.CSDrawPointFlow;
+import org.sdmlib.examples.chats.creators.CSClearDrawingFlowPO;
+import org.sdmlib.examples.chats.CSClearDrawingFlow;
+import org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPO;
+import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
+import org.sdmlib.examples.chats.creators.CSClientTaskPO;
+import org.sdmlib.examples.chats.CSClientTask;
+import org.sdmlib.examples.chats.creators.CTDrawPointPO;
+import org.sdmlib.examples.chats.CTDrawPoint;
+import org.sdmlib.examples.chats.creators.CTClearDrawingPO;
+import org.sdmlib.examples.chats.CTClearDrawing;
 
 public class ModelPattern extends Pattern
 {
@@ -197,7 +215,229 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public CSChatMessageFlowPO hasElementCSChatMessageFlowPO()
+   {
+      CSChatMessageFlowPO value = new CSChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CSChatMessageFlowPO hasElementCSChatMessageFlowPO(CSChatMessageFlow hostGraphObject)
+   {
+      CSChatMessageFlowPO value = new CSChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public ChatServerPO hasElementChatServerPO()
+   {
+      ChatServerPO value = new ChatServerPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ChatServerPO hasElementChatServerPO(ChatServer hostGraphObject)
+   {
+      ChatServerPO value = new ChatServerPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public ClientLoginFlowPO hasElementClientLoginFlowPO()
+   {
+      ClientLoginFlowPO value = new ClientLoginFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ClientLoginFlowPO hasElementClientLoginFlowPO(ClientLoginFlow hostGraphObject)
+   {
+      ClientLoginFlowPO value = new ClientLoginFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CSDrawPointFlowPO hasElementCSDrawPointFlowPO()
+   {
+      CSDrawPointFlowPO value = new CSDrawPointFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CSDrawPointFlowPO hasElementCSDrawPointFlowPO(CSDrawPointFlow hostGraphObject)
+   {
+      CSDrawPointFlowPO value = new CSDrawPointFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CSClearDrawingFlowPO hasElementCSClearDrawingFlowPO()
+   {
+      CSClearDrawingFlowPO value = new CSClearDrawingFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CSClearDrawingFlowPO hasElementCSClearDrawingFlowPO(CSClearDrawingFlow hostGraphObject)
+   {
+      CSClearDrawingFlowPO value = new CSClearDrawingFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CSVisitAllClientsFlowPO hasElementCSVisitAllClientsFlowPO()
+   {
+      CSVisitAllClientsFlowPO value = new CSVisitAllClientsFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CSVisitAllClientsFlowPO hasElementCSVisitAllClientsFlowPO(CSVisitAllClientsFlow hostGraphObject)
+   {
+      CSVisitAllClientsFlowPO value = new CSVisitAllClientsFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CSClientTaskPO hasElementCSClientTaskPO()
+   {
+      CSClientTaskPO value = new CSClientTaskPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CSClientTaskPO hasElementCSClientTaskPO(CSClientTask hostGraphObject)
+   {
+      CSClientTaskPO value = new CSClientTaskPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CTDrawPointPO hasElementCTDrawPointPO()
+   {
+      CTDrawPointPO value = new CTDrawPointPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CTDrawPointPO hasElementCTDrawPointPO(CTDrawPoint hostGraphObject)
+   {
+      CTDrawPointPO value = new CTDrawPointPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CTClearDrawingPO hasElementCTClearDrawingPO()
+   {
+      CTClearDrawingPO value = new CTClearDrawingPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CTClearDrawingPO hasElementCTClearDrawingPO(CTClearDrawing hostGraphObject)
+   {
+      CTClearDrawingPO value = new CTClearDrawingPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
+
+
+
+
 
 
 

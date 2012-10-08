@@ -29,7 +29,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
 	
 	@Override
-	public boolean addListener(Object object) {
+	public boolean addListener(Object object) 
+	{
 		if(super.addListener(object)){
 			return true;
 		}

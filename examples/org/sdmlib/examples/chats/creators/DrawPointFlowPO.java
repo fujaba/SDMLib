@@ -5,6 +5,7 @@ import org.sdmlib.examples.chats.DrawPointFlow;
 import org.sdmlib.examples.chats.creators.DrawPointFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.chats.PeerToPeerChat;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class DrawPointFlowPO extends PatternObject<DrawPointFlowPO, DrawPointFlow>
 {
@@ -195,7 +196,31 @@ public class DrawPointFlowPO extends PatternObject<DrawPointFlowPO, DrawPointFlo
       return 0;
    }
    
+   public DrawPointFlowPO hasIdMap(SDMLibJsonIdMap value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DrawPointFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SDMLibJsonIdMap getIdMap()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((DrawPointFlow) getCurrentMatch()).getIdMap();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

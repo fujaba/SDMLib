@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.objects.creators.CreatorCreator;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -59,34 +60,34 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withAttribute("icon", String.class.getSimpleName());
       
       new Association()
-      .withTarget(genericObjectClazz, "objects", Role.MANY)
-      .withSource(genericGraph, "graph", Role.ONE);
+      .withTarget(genericObjectClazz, "objects", R.MANY)
+      .withSource(genericGraph, "graph", R.ONE);
       
       Clazz genericAttributeClazz = new Clazz("org.sdmlib.models.objects.GenericAttribute")
       .withAttribute("name", String.class.getSimpleName())
       .withAttribute("value", String.class.getSimpleName());
       
       new Association()
-      .withSource("owner", genericObjectClazz, Role.ONE)
-      .withTarget("attrs", genericAttributeClazz, Role.MANY);
+      .withSource("owner", genericObjectClazz, R.ONE)
+      .withTarget("attrs", genericAttributeClazz, R.MANY);
       
       Clazz genericLinkClazz = new Clazz("org.sdmlib.models.objects.GenericLink")
       .withAttribute("tgtLabel", "String")
       .withAttribute("srcLabel", "String");
       
       new Association()
-      .withSource("src", genericObjectClazz, Role.ONE)
-      .withTarget("outgoingLinks", genericLinkClazz, Role.MANY);
+      .withSource("src", genericObjectClazz, R.ONE)
+      .withTarget("outgoingLinks", genericLinkClazz, R.MANY);
       
       new Association()
-      .withSource("tgt", genericObjectClazz, Role.ONE)
-      .withTarget("incommingLinks", genericLinkClazz, Role.MANY);
+      .withSource("tgt", genericObjectClazz, R.ONE)
+      .withTarget("incommingLinks", genericLinkClazz, R.MANY);
       
       new Association()
-      .withTarget(genericLinkClazz, "links", Role.MANY)
-      .withSource(genericGraph, "graph", Role.ONE);
+      .withTarget(genericLinkClazz, "links", R.MANY)
+      .withSource(genericGraph, "graph", R.ONE);
       
-      scenario.addImage(genericModel.dumpClassDiag("GenericObjectStructureClasses"));
+      scenario.addImage(genericModel.dumpClassDiag("src", "GenericObjectStructureClasses"));
      
       // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
@@ -138,7 +139,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       ClassModel learnedModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
       
-      scenario.addImage(learnedModel.dumpClassDiag("DerivedFromGenericObjectsClassDiag"));
+      scenario.addImage(learnedModel.dumpClassDiag("test", "DerivedFromGenericObjectsClassDiag"));
       
       //====================================================================================================
       scenario.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
@@ -157,13 +158,13 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withAttribute("guest", "String"); // changed attr type to int
 		
       new Association()
-			.withSource("buildings", buildingClass, Role.ONE) // changed cardinality to ONE
-			.withTarget("has", floorClass, "many");
+			.withSource("buildings", buildingClass, R.ONE) // changed cardinality to ONE
+			.withTarget("has", floorClass, R.MANY);
 
       learnedModel.insertModelCreationCodeHere("test");
       scenario.addCode("test");
       
-      scenario.addImage(model.dumpClassDiag("ManuallyImprovedLearnedClassDiag"));
+      scenario.addImage(model.dumpClassDiag("test", "ManuallyImprovedLearnedClassDiag"));
       
       //====================================================================================================
       scenario.add("Step 6: generate code from the learned class diagram ");

@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 
 
@@ -36,51 +37,51 @@ public class Association implements PropertyChangeInterface
       ClassModel.classModel.addToAssociations(this);
    }
    
-   public Association withSource(Clazz sourceClass, String roleName, String card)
+   public Association withSource(Clazz sourceClass, String roleName, R card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
    
-   public Association withSource(String roleName, Clazz sourceClass, String card)
+   public Association withSource(String roleName, Clazz sourceClass, R card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
 
 
-   public Association withSource(String roleName, Clazz sourceClass, String card,
+   public Association withSource(String roleName, Clazz sourceClass, R card,
       String kind)
    {
       setSource(new Role()
       .withName(roleName)
       .withClazz(sourceClass)
-      .withCard(card)
+      .withCard(card.toString())
       .withKind(kind));
       
       return this;
    }
 
-   public Association withTarget(Clazz targetClass, String roleName, String card)
+   public Association withTarget(Clazz targetClass, String roleName, R card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
    
-   public Association withTarget(String roleName, Clazz targetClass, String card)
+   public Association withTarget(String roleName, Clazz targetClass, R card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
 
 
-   public Association withTarget(String roleName, Clazz targetClass, String card,
+   public Association withTarget(String roleName, Clazz targetClass, R card,
       String kind)
    {
       setTarget(new Role()
       .withName(roleName)
       .withClazz(targetClass)
-      .withCard(card)
+      .withCard(card.toString())
       .withKind(kind));
       
       return this;

@@ -199,13 +199,6 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       
       return this;
    }
-   public GenericObjectSet with(GenericObject genObj)
-   {
-      this.add(genObj);
-      
-      return this;
-   }
-
 
 
    public String toString()
@@ -221,69 +214,6 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
    }
 
 
-   public GenericObjectSet with(GenericObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectSet without(GenericObject value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectSet with(GenericObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectSet without(GenericObject value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectSet with(GenericObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectSet without(GenericObject value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectSet with(GenericObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectSet without(GenericObject value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectSet with(GenericObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectSet without(GenericObject value)
-   {
-      this.remove(value);
-      return this;
-   }
 }
 
 

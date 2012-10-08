@@ -32,6 +32,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.classes.creators.MethodSet;
@@ -73,7 +74,7 @@ public class Clazz implements PropertyChangeInterface
       this.withAttributes(attrNameTypePairs);
    }
    
-   public Clazz createClassAndAssoc(String tgtClassName, String tgtRoleName, String tgtCard, String srcRoleName, String srcCard)
+   public Clazz createClassAndAssoc(String tgtClassName, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
    {
       Clazz tgtClazz = new Clazz(tgtClassName);
       
@@ -84,7 +85,7 @@ public class Clazz implements PropertyChangeInterface
       return tgtClazz;
    }
    
-   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, String tgtCard, String srcRoleName, String srcCard)
+   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
    {      
       new Association()
       .withTarget(tgtRoleName, tgtClass, tgtCard)
@@ -1044,7 +1045,7 @@ public class Clazz implements PropertyChangeInterface
    
    private void insertSetWithWithout(Parser parser)
    {
-      String searchString = Parser.METHOD + ":with()";
+      String searchString = Parser.METHOD + ":with(" + CGUtil.shortClassName(this.getName()) + ")";
       int pos = parser.indexOf(searchString);
       
       if (pos < 0)

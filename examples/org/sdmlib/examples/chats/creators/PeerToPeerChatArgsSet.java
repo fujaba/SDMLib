@@ -96,5 +96,33 @@ public class PeerToPeerChatArgsSet extends LinkedHashSet<PeerToPeerChatArgs>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (PeerToPeerChatArgs elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public PeerToPeerChatArgsSet with(PeerToPeerChatArgs value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PeerToPeerChatArgsSet without(PeerToPeerChatArgs value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
 

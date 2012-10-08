@@ -34,9 +34,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
 import org.sdmlib.examples.chats.creators.CreatorCreator;
 import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.model.taskflows.SDMThread;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -59,11 +61,20 @@ import org.eclipse.swt.widgets.Canvas;
 
 public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 {
+   public static final String MY_GUI = "my.gui";
+   public static final String ID_MAP = "id.map";
+   private static Object chatMode;
    private Text allMessages;
    private Text newMessageText;
    private Label nameLabel;
    private Label ipLabel;
    private Label portLabel;
+   
+   enum ChatMode {
+      OneToOne, 
+      ClientServer, 
+      PeerToPeer
+   }
 
    /**
     * Launch the application.
@@ -73,11 +84,11 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
    {
       try
       {
-         JsonIdMap idMap = CreatorCreator.createIdMap("args");;
+         idMap = CreatorCreator.createIdMap("args");
          
          Display display = Display.getDefault();
          PeerToPeerChat gui = new PeerToPeerChat();
-         
+          
          PeerToPeerChatArgs peerArgs = null;
          
          File argsFile = new File ("peerToPeer.config");
@@ -102,12 +113,25 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          
          if (args.length >= 4)
          {
+            // something like Albert 4242 localhost 5353
             peerArgs = new PeerToPeerChatArgs()
             .withUserName(args[0])
             .withLocalPort(Integer.parseInt(args[1]))
             .withPeerIp(args[2])
             .withPeerPort(Integer.parseInt(args[3]));
+            chatMode = ChatMode.OneToOne;
+         } 
+         else if (args.length == 3)
+         {
+            // only server ip and port
+            peerArgs.withPeerIp(args[0]);
+            peerArgs.withPeerPort(Integer.parseInt(args[1]));
+            peerArgs.withLocalPort(Integer.parseInt(args[2]));
+            chatMode = ChatMode.ClientServer;
+            
          }
+         
+         
          
          FileWriter out = new FileWriter(argsFile);
          out.write(idMap.toJsonObject(peerArgs).toString(3));
@@ -118,7 +142,8 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          gui.getPortLabel().setText(" " + peerArgs.getLocalPort());
 
          idMap = CreatorCreator.createIdMap(peerArgs.getUserName());
-         idMap.put("my.gui", gui);
+         idMap.put(ID_MAP, idMap);
+         idMap.put(MY_GUI, gui);
          
          PeerProxy peer = new PeerProxy()
          .withIp(peerArgs.getPeerIp())
@@ -135,6 +160,17 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          
          gui.open();
          gui.layout();
+         
+
+         if (chatMode == ChatMode.ClientServer)
+         {
+            new ClientLoginFlow()
+            .withIdMap((SDMLibJsonIdMap) idMap)
+            .withServer(peer)
+            .withClientIP(InetAddress.getLocalHost().getHostAddress())
+            .withClientPort(peerArgs.getLocalPort())
+            .run();
+         }
          while (!gui.isDisposed())
          {
             if (!display.readAndDispatch())
@@ -239,8 +275,19 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
       btnClearDrawing = new Button(composite, SWT.NONE);
       btnClearDrawing.addSelectionListener(new SelectionAdapter() {
          @Override
-         public void widgetSelected(SelectionEvent e) {
-            new ClearDrawingFlow().withGui(PeerToPeerChat.this).run();
+         public void widgetSelected(SelectionEvent e) 
+         {
+            if (chatMode == ChatMode.OneToOne)
+            {
+               new ClearDrawingFlow().withGui(PeerToPeerChat.this).run();
+            }
+            else
+            {
+               new CTClearDrawing()
+               .createParent()
+               .withIdMap((SDMLibJsonIdMap) idMap)
+               .run();
+            }
          }
       });
       btnClearDrawing.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -266,9 +313,18 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          @Override
          public void widgetSelected(SelectionEvent e) 
          {
-            new ChatMessageFlow()
-            .withGui(PeerToPeerChat.this)
-            .run();
+            if (chatMode == ChatMode.OneToOne)
+            {
+               new ChatMessageFlow()
+               .withGui(PeerToPeerChat.this)
+               .run();
+            }
+            else
+            {
+               new CSChatMessageFlow()
+               .withIdMap((SDMLibJsonIdMap) idMap)
+               .run();
+            }
          }
       });
       btnSend.setText("Send");
@@ -303,14 +359,33 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          {
             if (mouseDown)
             {
-               new DrawPointFlow()
-               .withGui(PeerToPeerChat.this)
-               .withX(e.x)
-               .withY(e.y)
-               .withR(currentColor.getRed())
-               .withG(currentColor.getGreen())
-               .withB(currentColor.getBlue())
-               .run();
+               if (chatMode == ChatMode.OneToOne)
+               {
+                  new DrawPointFlow()
+                  .withGui(PeerToPeerChat.this)
+                  .withX(e.x)
+                  .withY(e.y)
+                  .withR(currentColor.getRed())
+                  .withG(currentColor.getGreen())
+                  .withB(currentColor.getBlue())
+                  .run();
+               }
+               else
+               {
+                  CTDrawPoint ctDrawPoint = new CTDrawPoint()
+                  .withIdMap((SDMLibJsonIdMap) idMap)
+                  .withX(e.x)
+                  .withY(e.y)
+                  .withR(currentColor.getRed())
+                  .withG(currentColor.getGreen())
+                  .withB(currentColor.getBlue());
+                  
+                  ctDrawPoint.createParent()
+                  .withIdMap((SDMLibJsonIdMap) idMap)
+                  .run();
+                  
+                  
+               }
             }
             
          }
@@ -438,6 +513,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
    private Canvas canvas;
    private Composite composite;
    private Button btnClearDrawing;
+   private static JsonIdMap idMap;
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {

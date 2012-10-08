@@ -33,6 +33,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -61,8 +62,8 @@ private static final String STRING = String.class.getSimpleName();
       .withAttribute("title", STRING);
 
       new Association()
-      .withSource("prof", professorClass, "one")
-      .withTarget("topic", topicClass, "one");
+      .withSource("prof", professorClass, R.ONE)
+      .withTarget("topic", topicClass, R.ONE);
       
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
       .withAttribute("roomNo", STRING)
@@ -73,16 +74,16 @@ private static final String STRING = String.class.getSimpleName();
       .withSignature("findPath(String,int)");
 
       new Association()
-      .withSource("neighbors", roomClass, "many")
-      .withTarget("neighbors", roomClass, "many");
+      .withSource("neighbors", roomClass, R.MANY)
+      .withTarget("neighbors", roomClass, R.MANY);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
       new Association()
-      .withSource("in", roomClass, "one")
-      .withTarget("students", studentClass, "many");
+      .withSource("in", roomClass, R.ONE)
+      .withTarget("students", studentClass, R.MANY);
 
       Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
       /* add method */
@@ -110,12 +111,12 @@ private static final String STRING = String.class.getSimpleName();
       .withAttribute("name", STRING);
 
       new Association()
-      .withSource("rooms", roomClass, "many")
-      .withTarget("uni", universityClass, "one");
+      .withSource("rooms", roomClass, R.MANY)
+      .withTarget("uni", universityClass, R.ONE);
 
       new Association()
-      .withSource("students", studentClass, "many")
-      .withTarget("uni", universityClass, "one");
+      .withSource("students", studentClass, R.MANY)
+      .withTarget("uni", universityClass, R.ONE);
 
 
 
@@ -124,7 +125,7 @@ private static final String STRING = String.class.getSimpleName();
 
       model.insertModelCreationCodeHere("examples");
 
-      scenario.addImage(model.dumpClassDiag("StudyRightReverseClassModel"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightReverseClassModel"));
 
       scenario.add("Bug: running the test multiple times inserts the code multiple times \n" +
             "Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
@@ -193,19 +194,19 @@ private static final String STRING = String.class.getSimpleName();
       .withReturnType(INT);
 
       new Association()
-      .withSource("neighbors", roomClass, "many")
-      .withTarget("neighbors", roomClass, "many");
+      .withSource("neighbors", roomClass, R.MANY)
+      .withTarget("neighbors", roomClass, R.MANY);
 
       new Association()
-      .withSource("lecture", lectureClass, "many")
-      .withTarget("in", roomClass, "one");
+      .withSource("lecture", lectureClass, R.MANY)
+      .withTarget("in", roomClass, R.ONE);
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
       .withAttribute("name", STRING);
 
       new Association()
-      .withSource("rooms", roomClass, "many")
-      .withTarget("uni", universityClass, "one");
+      .withSource("rooms", roomClass, R.MANY)
+      .withTarget("uni", universityClass, R.ONE);
 
       Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
       /* add method */
@@ -262,8 +263,8 @@ private static final String STRING = String.class.getSimpleName();
       .withAttribute("PersNr", INT);
 
       new Association()
-      .withSource("lecture", lectureClass, "many")
-      .withTarget("has", professorClass, "one");
+      .withSource("lecture", lectureClass, R.MANY)
+      .withTarget("has", professorClass, R.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
       .withInterfaces(maleClass)
@@ -288,8 +289,8 @@ private static final String STRING = String.class.getSimpleName();
       .withReturnType("void");
 
       new Association()
-      .withSource("lecture", lectureClass, "many")
-      .withTarget("listen", studentClass, "one");
+      .withSource("lecture", lectureClass, R.MANY)
+      .withTarget("listen", studentClass, R.ONE);
 
 
       // model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
@@ -298,7 +299,7 @@ private static final String STRING = String.class.getSimpleName();
 
       model.generate("examples", "examplehelpers");
 
-      scenario.addImage(model.dumpClassDiag("StudyRightExtendsReverseClassModel"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
 
       ScenarioManager.get()
       .add(scenario)
@@ -415,7 +416,7 @@ private static final String STRING = String.class.getSimpleName();
       Clazz uniClass = new Clazz("org.sdmlib.examples.studyright.University")
       .withAttribute("name", STRING);
 
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses01"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses01"));
 
 
       //============================================================
@@ -426,17 +427,17 @@ private static final String STRING = String.class.getSimpleName();
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses02"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses02"));
 
 
       //============================================================
       scenario.add("3. add uni --> stud assoc");
 
       Association uniToStud = new Association()
-      .withSource("uni", uniClass, Role.ONE)
-      .withTarget("students", studClass, Role.MANY); 
+      .withSource("uni", uniClass, R.ONE)
+      .withTarget("students", studClass, R.MANY); 
 
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses03"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses03"));
 
 
       //============================================================
@@ -449,17 +450,17 @@ private static final String STRING = String.class.getSimpleName();
       new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
 
       Association uniToRoom = new Association()
-      .withSource("uni", uniClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("rooms", roomClass, Role.MANY); 
+      .withSource("uni", uniClass, R.ONE, Role.AGGREGATION)
+      .withTarget("rooms", roomClass, R.MANY); 
 
-      Association doors = new Association().withSource("neighbors", roomClass, Role.MANY)
-            .withTarget("neighbors", roomClass, Role.MANY);
+      Association doors = new Association().withSource("neighbors", roomClass, R.MANY)
+            .withTarget("neighbors", roomClass, R.MANY);
 
       Association studsInRoom = new Association()
-      .withSource("students", studClass, Role.MANY)
-      .withTarget("in", roomClass, Role.ONE);
+      .withSource("students", studClass, R.MANY)
+      .withTarget("in", roomClass, R.ONE);
 
-      scenario.addImage(model.dumpClassDiag("StudyRightClasses04"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
 
       
       //============================================================
@@ -589,10 +590,10 @@ private static final String STRING = String.class.getSimpleName();
       .withAttribute("title", STRING);
 
       new Association()
-      .withSource("prof", profClass, Role.ONE)
-      .withTarget("topic", topicClass, Role.ONE);
+      .withSource("prof", profClass, R.ONE)
+      .withTarget("topic", topicClass, R.ONE);
 
-      scenario.addImage(model.dumpClassDiag("StudyRightOneToOneAssoc01"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightOneToOneAssoc01"));
 
       model.generate("examples", "examplehelpers");
 

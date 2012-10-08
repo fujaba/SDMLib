@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.KanbanEntry;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
@@ -172,10 +173,10 @@ public class ProjectBoard
       Clazz logEntryClass = new Clazz("org.sdmlib.scenarios.LogEntry");
       
       new Association()
-      .withSource("kanbanEntry", kanbanEntryClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("logEntries", logEntryClass, Role.MANY);
+      .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
+      .withTarget("logEntries", logEntryClass, R.MANY);
       
-      scenario.addImage(model.dumpClassDiag("ScenarioClasses.001"));
+      scenario.addImage(model.dumpClassDiag("src", "ScenarioClasses.001"));
       model.generate("src", "srchelpers");
 
       scenario.add(" Editing the log entries works now fine as part of the add method. " , 

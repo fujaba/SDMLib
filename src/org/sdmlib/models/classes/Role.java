@@ -36,11 +36,22 @@ import org.sdmlib.utils.StrUtil;
 
 public class Role implements PropertyChangeInterface
 {
-   public static final String ONE = "one";
-   public static final String MANY = "many";
+   // public static final String ONE = "one";
+   // public static final String MANY = "many";
    public static final String VANILLA = "vanilla";
    public static final String AGGREGATION = "aggregation";
    
+   public enum R 
+   {
+      ONE, MANY;
+      
+      @Override
+      public String toString()
+      {
+         return super.toString().toLowerCase();
+      }
+      
+   }
    
    //==========================================================================
    
@@ -92,7 +103,7 @@ public class Role implements PropertyChangeInterface
    
    public static final String PROPERTY_CARD = "card";
    
-   private String card= MANY;
+   private String card= R.MANY.toString();
    
    public String getCard()
    {
@@ -167,7 +178,7 @@ public class Role implements PropertyChangeInterface
          // add attribute declaration in class file
          StringBuilder text = new StringBuilder();
          
-         if (StrUtil.stringEquals(partnerRole.getCard(), MANY))
+         if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
          {
             generateToManyRole(partnerRole, text);
             getClazz().insertImport(LinkedHashSet.class.getName());
@@ -182,14 +193,14 @@ public class Role implements PropertyChangeInterface
          getClazz().setFileHasChanged(true);
       }
       
-      if (StrUtil.stringEquals(partnerRole.getCard(), MANY))
+      if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
       {
          generateEmptySetInPartnerClass(rootDir, partnerRole, doGenerate);
       }
 
       insertCaseInGenericGet(myParser, partnerRole, rootDir);
 
-      if (StrUtil.stringEquals(partnerRole.getCard(), MANY))
+      if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
       {
          insertCaseInGenericSetToMany(myParser, partnerRole, rootDir);
       }
@@ -247,7 +258,7 @@ public class Role implements PropertyChangeInterface
       // OK, found method, parse its body to find if that handles me. 
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      if (partnerRole.getCard().equals(Role.MANY))
+      if (partnerRole.getCard().equals(R.MANY.toString()))
       {
          removeCall = "removeAllFrom" + StrUtil.upFirstChar(partnerRole.getName());
          fullRemoveCall = removeCall + "();\n      ";
@@ -302,7 +313,7 @@ public class Role implements PropertyChangeInterface
          
          String adderCall = "result.add";
          
-         if (partnerRole.getCard().equals(Role.MANY))
+         if (partnerRole.getCard().equals(R.MANY.toString()))
          {
             adderCall = "result.addAll";
          }
@@ -353,7 +364,7 @@ public class Role implements PropertyChangeInterface
          
          String targetType = partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser);
          
-         if (partnerRole.getCard().equals(Role.MANY))
+         if (partnerRole.getCard().equals(R.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
             targetType = partnerRole.getClazz().shortNameAndImport(fullTargetType, parser);
@@ -497,7 +508,7 @@ public class Role implements PropertyChangeInterface
          getClazz().insertImport(parser, partnerRole.getClazz().getName());
       }
       
-      if (partnerRole.getCard().equals(Role.MANY))
+      if (partnerRole.getCard().equals(R.MANY.toString()))
       {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
@@ -1094,7 +1105,7 @@ public class Role implements PropertyChangeInterface
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(getName()) + "(null)";
       
-      if (getCard().equals(MANY))
+      if (getCard().equals(R.MANY.toString()))
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(getName()) + "(this)";
       }
@@ -1191,7 +1202,7 @@ public class Role implements PropertyChangeInterface
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(getName()) + "(null)";
       
-      if (getCard().equals(MANY))
+      if (getCard().equals(R.MANY.toString()))
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(getName()) + "(this)";
       }

@@ -43,7 +43,7 @@ public class AdamAndEveModel
       
       model.generate("examples");
 
-      scenario.addImage(model.dumpClassDiag("AdamAndEveModel"));
+      scenario.addImage(model.dumpClassDiag("examples", "AdamAndEveModel"));
 
       scenario.dumpHTML();
    }

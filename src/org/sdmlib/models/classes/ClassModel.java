@@ -39,6 +39,7 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.objects.GenericAttribute;
@@ -393,7 +394,7 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
-	public String dumpClassDiag(String diagName)
+	public String dumpClassDiag(String rootdir, String diagName)
 	{
 		// generate dot file
 		StringBuilder dotFileText = new StringBuilder(
@@ -416,13 +417,16 @@ public class ClassModel implements PropertyChangeInterface
 		for (Clazz clazz : this.getClasses())
 		{
 			StringBuilder modelClassText = new StringBuilder(
-			    "\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>className</td> </tr> attrCompartment methodCompartment </table>>];");
+			    "\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF=\"classfilename\">className</td> </tr> attrCompartment methodCompartment </table>>];");
 
 			if (clazz.isInterfaze())
 				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
 			
-			CGUtil.replaceAll(modelClassText, "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()), "attrCompartment", dumpAttributes(clazz), "methodCompartment",
-			    dumpMethods(clazz));
+			CGUtil.replaceAll(modelClassText, 
+			   "className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
+			   "classfilename", "../" + rootdir + "/" + clazz.getName().replaceAll("\\.", "/") + ".java", 
+			   "attrCompartment", dumpAttributes(clazz), 
+			   "methodCompartment", dumpMethods(clazz));
 
 			modelClassesText.append(modelClassText.toString());
 		}
@@ -528,7 +532,7 @@ public class ClassModel implements PropertyChangeInterface
    {
       String result = role.getName();
       
-      if (role.getCard().equals(Role.MANY))
+      if (role.getCard().equals(R.MANY))
       {
          result = result + " *";
       }
@@ -737,7 +741,7 @@ public class ClassModel implements PropertyChangeInterface
 			if (Attribute.COMPLEX.equals(attributes.get(symTabEntry)))
 			{
 
-				String card = findRoleCard(partnerTypeName);
+				R card = findRoleCard(partnerTypeName);
 				String partnerClassName = findPartnerClassName(partnerTypeName);
 				Clazz partnerClass = findPartnerClass(partnerTypeName);
 				String setterPrefix = findSetterPrefix(partnerTypeName);
@@ -815,7 +819,7 @@ public class ClassModel implements PropertyChangeInterface
 		return null;
 	}
 
-	private void handleAssoc(Clazz clazz, String rootDir, String memberName, String card, String partnerClassName, Clazz partnerClass, String qName)
+	private void handleAssoc(Clazz clazz, String rootDir, String memberName, R card, String partnerClassName, Clazz partnerClass, String qName)
 	{
 		String partnerAttrName = qName.substring("value.with".length());
 		partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
@@ -826,7 +830,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		if (attributePosition > -1)
 		{
-			String partnerCard = findRoleCard(partnerParser, searchString);
+			R partnerCard = findRoleCard(partnerParser, searchString);
 			tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
 		}
 	}
@@ -1037,7 +1041,7 @@ public class ClassModel implements PropertyChangeInterface
 		return "set";
 	}
 
-	private String findRoleCard(Parser partnerParser, String searchString)
+	private R findRoleCard(Parser partnerParser, String searchString)
 	{
 		String partnerTypeName;
 		SymTabEntry partnerSymTabEntry = partnerParser.getSymTab().get(searchString);
@@ -1046,15 +1050,15 @@ public class ClassModel implements PropertyChangeInterface
 		return findRoleCard(partnerTypeName);
 	}
 
-	private String findRoleCard(String partnerTypeName)
+	private R findRoleCard(String partnerTypeName)
 	{
-		String partnerCard = Role.ONE;
+		R partnerCard = R.ONE;
 		int _openAngleBracket = partnerTypeName.indexOf("<");
 		int _closeAngleBracket = partnerTypeName.indexOf(">");
 		if (_openAngleBracket > -1 && _closeAngleBracket > _openAngleBracket)
 		{
 			// partner to many
-			partnerCard = Role.MANY;
+			partnerCard = R.MANY;
 		}
 		else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
 		{
@@ -1064,7 +1068,7 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
 				{
-					partnerCard = Role.MANY;
+					partnerCard = R.MANY;
 					break;
 				}
 			}
@@ -1072,11 +1076,11 @@ public class ClassModel implements PropertyChangeInterface
 		return partnerCard;
 	}
 
-	private void tryToCreateAssoc(Clazz clazz, String memberName, String card, String partnerClassName, Clazz partnerClass, String partnerAttrName, String partnerCard)
+	private void tryToCreateAssoc(Clazz clazz, String memberName, R card, String partnerClassName, Clazz partnerClass, String partnerAttrName, R partnerCard)
 	{
-		Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard);
+		Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard.toString());
 
-		Role targetRole = new Role().withName(memberName).withClazz(partnerClass).withCard(card);
+		Role targetRole = new Role().withName(memberName).withClazz(partnerClass).withCard(card.toString());
 
 		if (!assocWithRolesExists(sourceRole, targetRole))
 		{
@@ -2345,8 +2349,8 @@ private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classTy
          {
             // need to create a new one
             currentAssoc = new Association()
-            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Role.MANY)
-            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Role.MANY)
+            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), R.MANY)
+            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.MANY)
             .withModel(this);
          }
       }

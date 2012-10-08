@@ -19,58 +19,6 @@ public class GenericObjectsTestSet extends LinkedHashSet<GenericObjectsTest>
       
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-   public GenericObjectsTestSet with(GenericObjectsTest value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectsTestSet without(GenericObjectsTest value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectsTestSet with(GenericObjectsTest value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectsTestSet without(GenericObjectsTest value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectsTestSet with(GenericObjectsTest value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectsTestSet without(GenericObjectsTest value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericObjectsTestSet with(GenericObjectsTest value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericObjectsTestSet without(GenericObjectsTest value)
-   {
-      this.remove(value);
-      return this;
-   }
 }
 
 

@@ -5,6 +5,7 @@ import org.sdmlib.examples.chats.ClearDrawingFlow;
 import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import org.sdmlib.models.modelsets.StringList;
 
 public class ClearDrawingFlowSet extends LinkedHashSet<ClearDrawingFlow>
 {
@@ -64,5 +65,33 @@ public class ClearDrawingFlowSet extends LinkedHashSet<ClearDrawingFlow>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (ClearDrawingFlow elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public ClearDrawingFlowSet with(ClearDrawingFlow value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ClearDrawingFlowSet without(ClearDrawingFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
+
 

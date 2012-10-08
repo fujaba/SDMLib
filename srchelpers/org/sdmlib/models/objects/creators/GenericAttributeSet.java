@@ -88,69 +88,6 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
    }
 
 
-   public GenericAttributeSet with(GenericAttribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericAttributeSet without(GenericAttribute value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericAttributeSet with(GenericAttribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericAttributeSet without(GenericAttribute value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericAttributeSet with(GenericAttribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericAttributeSet without(GenericAttribute value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericAttributeSet with(GenericAttribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericAttributeSet without(GenericAttribute value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public GenericAttributeSet with(GenericAttribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericAttributeSet without(GenericAttribute value)
-   {
-      this.remove(value);
-      return this;
-   }
 }
 
 

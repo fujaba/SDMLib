@@ -16,6 +16,7 @@ public class DrawPointFlowCreator extends EntityFactory
       TaskFlow.PROPERTY_TASKNO,
       DrawPointFlow.PROPERTY_R,
       DrawPointFlow.PROPERTY_B,
+      DrawPointFlow.PROPERTY_IDMAP,
    };
    
    public String[] getProperties()
@@ -52,6 +53,7 @@ public class DrawPointFlowCreator extends EntityFactory
       ((DrawPointFlow) entity).removeYou();
    }
 }
+
 
 
 

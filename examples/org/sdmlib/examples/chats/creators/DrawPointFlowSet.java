@@ -5,6 +5,9 @@ import org.sdmlib.examples.chats.DrawPointFlow;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.examples.chats.PeerToPeerChat;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class DrawPointFlowSet extends LinkedHashSet<DrawPointFlow>
 {
@@ -173,7 +176,58 @@ public class DrawPointFlowSet extends LinkedHashSet<DrawPointFlow>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (DrawPointFlow elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public DrawPointFlowSet with(DrawPointFlow value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public DrawPointFlowSet without(DrawPointFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
+   public SDMLibJsonIdMapSet getIdMap()
+   {
+      SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
+      
+      for (DrawPointFlow obj : this)
+      {
+         result.add(obj.getIdMap());
+      }
+      
+      return result;
+   }
+
+   public DrawPointFlowSet withIdMap(SDMLibJsonIdMap value)
+   {
+      for (DrawPointFlow obj : this)
+      {
+         obj.withIdMap(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
 
 
 

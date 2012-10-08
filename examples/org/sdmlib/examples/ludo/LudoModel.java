@@ -5,6 +5,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 
@@ -29,8 +30,8 @@ public class LudoModel
       Clazz ludo = model.createClazz("Ludo");
       
       Clazz player = ludo.createClassAndAssoc("Player",
-         "players", Role.MANY,
-         "game", Role.ONE);
+         "players", R.MANY,
+         "game", R.ONE);
       
       player.withAttributes(
          "color", String.class.getSimpleName(),
@@ -38,15 +39,15 @@ public class LudoModel
          "x", "int",
          "y", "int");
       
-      player.withAssoc(player, "next", Role.ONE, "prev", Role.ONE);
+      player.withAssoc(player, "next", R.ONE, "prev", R.ONE);
       
-      Clazz dice = ludo.createClassAndAssoc("Dice", "dice", Role.ONE, "game", Role.ONE);
+      Clazz dice = ludo.createClassAndAssoc("Dice", "dice", R.ONE, "game", R.ONE);
       
       dice.withAttributes("value", "int");
       
-      player.withAssoc(dice, "dice", Role.ONE, "player", Role.ONE);
+      player.withAssoc(dice, "dice", R.ONE, "player", R.ONE);
       
-      Clazz field = ludo.createClassAndAssoc("Field", "fields", Role.MANY, "game", Role.ONE);
+      Clazz field = ludo.createClassAndAssoc("Field", "fields", R.MANY, "game", R.ONE);
       
       field.withAttributes(
          "color", "String",
@@ -54,26 +55,26 @@ public class LudoModel
          "x", "int",
          "y", "int");
       
-      field.withAssoc(field, "next", Role.ONE, "prev", Role.ONE);
+      field.withAssoc(field, "next", R.ONE, "prev", R.ONE);
       
-      field.withAssoc(field, "landing", Role.ONE, "entry", Role.ONE);
+      field.withAssoc(field, "landing", R.ONE, "entry", R.ONE);
       
-      player.withAssoc(field, "start", Role.ONE, "starter", Role.ONE);
+      player.withAssoc(field, "start", R.ONE, "starter", R.ONE);
       
-      player.withAssoc(field, "base", Role.ONE, "baseowner", Role.ONE);
+      player.withAssoc(field, "base", R.ONE, "baseowner", R.ONE);
       
-      player.withAssoc(field, "landing", Role.ONE, "lander", Role.ONE);
+      player.withAssoc(field, "landing", R.ONE, "lander", R.ONE);
       
-      Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", Role.MANY, "player", Role.ONE);
+      Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", R.MANY, "player", R.ONE);
          
       pawn.withAttributes(   
          "color", "String",
          "x", "int",
          "y", "int");
 
-      pawn.withAssoc(field, "pos", Role.ONE, "pawns", Role.MANY);
+      pawn.withAssoc(field, "pos", R.ONE, "pawns", R.MANY);
       
-      scenario.addImage(model.dumpClassDiag("LudoModel01"));
+      scenario.addImage(model.dumpClassDiag("examples", "LudoModel01"));
 
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
       

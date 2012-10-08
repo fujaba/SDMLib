@@ -27,6 +27,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -133,20 +134,20 @@ public class GroupAccountTests
       .withAttribute("balance", "double");
       
       new Association()
-      .withSource("parent", groupAccountClass, Role.ONE)
-      .withTarget("persons", personClass, Role.MANY);
+      .withSource("parent", groupAccountClass, R.ONE)
+      .withTarget("persons", personClass, R.MANY);
 
       Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item")
       .withAttribute("description", "String")
       .withAttribute("value", "double");
       
       new Association()
-      .withSource("parent", groupAccountClass, Role.ONE)
-      .withTarget("items", itemClass, Role.MANY);
+      .withSource("parent", groupAccountClass, R.ONE)
+      .withTarget("items", itemClass, R.MANY);
       
       new Association()
-      .withSource("buyer", personClass, Role.ONE)
-      .withTarget("items", itemClass, Role.MANY);
+      .withSource("buyer", personClass, R.ONE)
+      .withTarget("items", itemClass, R.MANY);
 
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
       
@@ -156,7 +157,7 @@ public class GroupAccountTests
       
       model.generate("examples", "examplehelpers");
       
-      scenario.addImage(model.dumpClassDiag("GroupAccountClassDiag01"));
+      scenario.addImage(model.dumpClassDiag("examples", "GroupAccountClassDiag01"));
 
       scenario.add("Resolved Bug: creatorcreator class is no longer growing on each run. ",
          DONE, "zuendorf", "24.05.2012 00:16:18", 1, 0);

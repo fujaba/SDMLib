@@ -22,6 +22,7 @@
 package org.sdmlib.examples.adamandeve;
 
 import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
+import org.sdmlib.model.taskflows.SDMThread;
 import org.sdmlib.model.taskflows.SDMTimer;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.TaskFlow;
@@ -46,9 +47,11 @@ public class Adam implements PropertyChangeInterface
       
       idMap.put("json.idmap", idMap); // oh oh
       
-      // SDMTimer sdmThread = new SDMTimer("ModelThread");
+      SDMThread sdmThread = new SDMThread("ModelThread");
+      sdmThread.start();
       
       new SocketThread().withIdMap(idMap)
+      .withDefaultTargetThread(sdmThread)
       .withPort(4242)
       .start();
       

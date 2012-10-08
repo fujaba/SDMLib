@@ -20,6 +20,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
@@ -65,7 +66,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldConstantTransformation1ClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
       
       
       //==========================================================================
@@ -134,18 +135,18 @@ public class HelloWorldTTC2011
       .withAttribute("name", "String");
       
       new Association()
-      .withTarget(greetingMessageClazz, "greetingMessage", Role.ONE)
-      .withSource(greetingClazz, "greeting", Role.ONE);
+      .withTarget(greetingMessageClazz, "greetingMessage", R.ONE)
+      .withSource(greetingClazz, "greeting", R.ONE);
       
       new Association()
-      .withTarget(personClazz, "person", Role.ONE)
-      .withSource(greetingClazz, "greeting", Role.ONE);
+      .withTarget(personClazz, "person", R.ONE)
+      .withSource(greetingClazz, "greeting", R.ONE);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldConstantTransformation2ClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
       
       
       //==========================================================================
@@ -270,26 +271,26 @@ public class HelloWorldTTC2011
       .withAttribute("name", "String");
 
       new Association()
-      .withTarget(nodeClazz, "nodes", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
+      .withTarget(nodeClazz, "nodes", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
       
       new Association()
-      .withTarget(edgeClazz, "edges", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
+      .withTarget(edgeClazz, "edges", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", Role.ONE)
-      .withSource(edgeClazz, "outEdges", Role.MANY);
+      .withTarget(nodeClazz, "src", R.ONE)
+      .withSource(edgeClazz, "outEdges", R.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", Role.ONE)
-      .withSource(edgeClazz, "inEdges", Role.MANY);
+      .withTarget(nodeClazz, "tgt", R.ONE)
+      .withSource(edgeClazz, "inEdges", R.MANY);
 
       // // model.removeAllGeneratedCode("examples", "examples", "examples");
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldSimpleGraphClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
       
       
       //==========================================================================
@@ -548,26 +549,26 @@ public class HelloWorldTTC2011
       .withAttribute("name", "String");
 
       new Association()
-      .withTarget(nodeClazz, "nodes", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
+      .withTarget(nodeClazz, "nodes", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
       
       new Association()
-      .withTarget(edgeClazz, "edges", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
+      .withTarget(edgeClazz, "edges", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", Role.ONE)
-      .withSource(edgeClazz, "outEdges", Role.MANY);
+      .withTarget(nodeClazz, "src", R.ONE)
+      .withSource(edgeClazz, "outEdges", R.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", Role.ONE)
-      .withSource(edgeClazz, "inEdges", Role.MANY);
+      .withTarget(nodeClazz, "tgt", R.ONE)
+      .withSource(edgeClazz, "inEdges", R.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
       
       
       //==========================================================================
@@ -589,22 +590,22 @@ public class HelloWorldTTC2011
       .withSuperClass(graphComponentClazz);
 
       new Association()
-      .withTarget(graphComponentClazz, "gcs", Role.MANY)
-      .withSource(graphClazz, "parent", Role.ONE);
+      .withTarget(graphComponentClazz, "gcs", R.MANY)
+      .withSource(graphClazz, "parent", R.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", Role.ONE)
-      .withSource(edgeClazz, "outEdges", Role.MANY);
+      .withTarget(nodeClazz, "src", R.ONE)
+      .withSource(edgeClazz, "outEdges", R.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", Role.ONE)
-      .withSource(edgeClazz, "inEdges", Role.MANY);
+      .withTarget(nodeClazz, "tgt", R.ONE)
+      .withSource(edgeClazz, "inEdges", R.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
       
       
       //==========================================================================
@@ -617,12 +618,12 @@ public class HelloWorldTTC2011
       nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node");
 
       new Association()
-      .withTarget(nodeClazz, "copy", Role.ONE)
-      .withSource(nodeClazz, "orig", Role.ONE);
+      .withTarget(nodeClazz, "copy", R.ONE)
+      .withSource(nodeClazz, "orig", R.ONE);
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
       
 
       //==========================================================================
@@ -731,16 +732,16 @@ public class HelloWorldTTC2011
       .withAttribute("text", "String");
 
       new Association()
-      .withTarget(nodeClazz, "nodes", Role.MANY)
-      .withSource(graphClazz, "graph", Role.ONE);
+      .withTarget(nodeClazz, "nodes", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "linksTo", Role.MANY)
-      .withSource(nodeClazz, "linksFrom", Role.MANY);
+      .withTarget(nodeClazz, "linksTo", R.MANY)
+      .withSource(nodeClazz, "linksFrom", R.MANY);
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
+      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
       
       graph = createExampleGraph();
       

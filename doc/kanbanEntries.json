@@ -44,12 +44,13 @@
         {"id":"KE.L172"},
         {"id":"KE.L177"},
         {"id":"KE.L180"},
-        {"id":"KE.L182"}
+        {"id":"KE.L182"},
+        {"id":"KE.L192"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":8,
+      "hoursRemaining":16,
       "hoursSpend":154,
       "subentries":[
         {"id":"KE.K2"},
@@ -71,7 +72,8 @@
         {"id":"KE.K179"},
         {"id":"KE.K185"},
         {"id":"KE.K187"},
-        {"id":"KE.K189"}
+        {"id":"KE.K189"},
+        {"id":"KE.K191"}
       ]
     }
   },
@@ -668,6 +670,21 @@
       "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K191",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L193"}
+      ],
+      "name":"we should build attr.remove",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":8,
       "hoursSpend":0,
       "parent":{"id":"KE.K1"}
     }
@@ -2833,6 +2850,33 @@
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K189"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L192",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.10.2012 12:50:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":16,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"we should build attr.remove: null"
+    }
+  },
+  {
+    "id":"KE.L193",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.10.2012 12:50:42",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id":"KE.K191"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

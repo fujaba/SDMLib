@@ -32,6 +32,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -51,7 +52,7 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       model.updateFromCode("examples", "examples test", "org.sdmlib.examples.studyrightextends");
 //      model.insertModelCreationCodeHere("test");
-      scenario.addImage(model.dumpClassDiag("StudyRightExtendsReverseClassModel"));
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
 
       ScenarioManager.get()
       .add(scenario)
@@ -91,15 +92,15 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 			.withSignature("studentCount()");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("in", roomClass, "one");
+			.withSource("lecture", lectureClass, R.MANY)
+			.withTarget("in", roomClass, R.ONE);
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
       .withAttribute("name", "String");
 
       new Association()
-			.withSource("rooms", roomClass, "many")
-			.withTarget("uni", universityClass, "one");
+			.withSource("rooms", roomClass, R.MANY)
+			.withTarget("uni", universityClass, R.ONE);
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
       .withInterfaces(personClass)
@@ -126,8 +127,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
       .withAttribute("PersNr", "int");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("has", professorClass, "one");
+			.withSource("lecture", lectureClass, R.MANY)
+			.withTarget("has", professorClass, R.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
       .withSuperClass(femaleClass)
@@ -149,8 +150,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 			.withSignature("findMyPosition(String,int)");
 
       new Association()
-			.withSource("lecture", lectureClass, "many")
-			.withTarget("listen", studentClass, "one");
+			.withSource("lecture", lectureClass, R.MANY)
+			.withTarget("listen", studentClass, R.ONE);
       
       model.generate("examples", "examplehelpers");
    }

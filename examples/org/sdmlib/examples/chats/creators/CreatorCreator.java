@@ -29,6 +29,24 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyPOCreator());
          creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSChatMessageFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSChatMessageFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.ChatServerCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.ChatServerPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.ClientLoginFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.ClientLoginFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSDrawPointFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSDrawPointFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSClearDrawingFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSClearDrawingFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSClientTaskCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CSClientTaskPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CTDrawPointCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CTDrawPointPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -44,6 +62,12 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
+
+
+
+
 
 
 

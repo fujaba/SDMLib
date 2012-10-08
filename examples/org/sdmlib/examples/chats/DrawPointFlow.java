@@ -100,6 +100,11 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
       {
          return getB();
       }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attribute))
+      {
+         return getIdMap();
+      }
       
       return null;
    }
@@ -148,6 +153,12 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
       if (PROPERTY_B.equalsIgnoreCase(attrName))
       {
          setB(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -339,6 +350,34 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
    public DrawPointFlow withB(int value)
    {
       setB(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_IDMAP = "idMap";
+   
+   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
+
+   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
+   {
+      return this.idMap;
+   }
+   
+   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   {
+      if (this.idMap != value)
+      {
+         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
+         this.idMap = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
+      }
+   }
+   
+   public DrawPointFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   {
+      setIdMap(value);
       return this;
    } 
 }

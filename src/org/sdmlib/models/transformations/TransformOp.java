@@ -35,6 +35,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.creators.StatementSet;
@@ -454,7 +455,7 @@ public class TransformOp implements PropertyChangeInterface
                if ( ! CGUtil.isPrimitiveType(entry.getType()))
                {
                   // loop with object variable, add OperationObj for it
-                  getOrCreateOperationObject(entry.getName(), opObjTable, Role.ONE, usedOpObjectNames);
+                  getOrCreateOperationObject(entry.getName(), opObjTable, R.ONE.toString(), usedOpObjectNames);
                   
                   OperationObject loopVarOpObj = currentOpObj;
                   
@@ -524,7 +525,7 @@ public class TransformOp implements PropertyChangeInterface
             currentType = typeTable.get(varName);
             if (currentType != null && ! CGUtil.isPrimitiveType(currentType))
             {
-               navigationPath = getOrCreateOperationObject(varName, opObjTable, Role.ONE, usedOpObjectNames);
+               navigationPath = getOrCreateOperationObject(varName, opObjTable, R.ONE.toString(), usedOpObjectNames);
                
                lastGraphicalElementName = varName;
             }
@@ -609,7 +610,7 @@ public class TransformOp implements PropertyChangeInterface
       {
          currentOpObj = new OperationObject()
          .withName(findNewName(usedOpObjectNames, opObjName))
-         .withSet(Role.MANY.equals(card))
+         .withSet(R.MANY.toString().equals(card))
          .withTransformOp(this);
          
          opObjTable.put(varName, currentOpObj);

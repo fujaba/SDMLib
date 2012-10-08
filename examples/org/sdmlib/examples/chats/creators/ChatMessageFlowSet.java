@@ -90,7 +90,37 @@ public class ChatMessageFlowSet extends LinkedHashSet<ChatMessageFlow>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (ChatMessageFlow elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public ChatMessageFlowSet with(ChatMessageFlow value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ChatMessageFlowSet without(ChatMessageFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
 }
+
+
 
 
 

@@ -95,31 +95,20 @@ public class SocketThread extends Thread implements PropertyChangeInterface
             while (line != null)
             {
                line = in.readLine();
-
-               Object obj = idMap.readJson(new JsonArray(line));
-
-               if (obj instanceof FetchFileFlow)
-               {
-                  FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
-                  fetchFileFlow.setOut(connection.getOutputStream());
-               }
                
-               if (obj instanceof TaskFlow)
+               SDMTaskWrap sdmTaskWrap = new SDMTaskWrap(line);
+               
+               if (defaultTargetThread != null && defaultTargetThread instanceof Display)
                {
-                  TaskFlow taskFlow = (TaskFlow) obj;
-                  
-                  if (defaultTargetThread != null && defaultTargetThread instanceof Display)
-                  {
-                     ((Display) defaultTargetThread).asyncExec(taskFlow);
-                  }
-                  else if (defaultTargetThread != null && defaultTargetThread instanceof SDMTimer)
-                  {
-                     ((SDMTimer) defaultTargetThread).schedule(taskFlow);
-                  }
-                  else
-                  {
-                     taskFlow.run();
-                  }
+                  ((Display) defaultTargetThread).asyncExec(sdmTaskWrap);
+               }
+               else if (defaultTargetThread != null && defaultTargetThread instanceof SDMThread)
+               {
+                  ((SDMThread) defaultTargetThread).enqueueTask(sdmTaskWrap);
+               }
+               else
+               {
+                  sdmTaskWrap.run();
                }
             }
          }
@@ -129,7 +118,39 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          }
       }
       
+      class SDMTaskWrap implements Runnable
+      {
+         private String line;
+         public SDMTaskWrap(String line)
+         {
+            this.line = line;
+         }
+
+         @Override
+         public void run()
+         {
+            Object obj = idMap.readJson(new JsonArray(line));
+
+            if (obj instanceof FetchFileFlow)
+            {
+               FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
+               try
+               {
+                  fetchFileFlow.setOut(connection.getOutputStream());
+               }
+               catch (IOException e)
+               {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+               }
+            }
+            
+            ((Runnable) obj).run();
+         }
+         
+      }
    }
+   
 
 
    public Object get(String attrName)

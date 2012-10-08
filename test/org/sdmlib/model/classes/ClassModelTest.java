@@ -27,6 +27,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 
@@ -55,23 +56,23 @@ public class ClassModelTest
          "external", boolean.class.getSimpleName());
       
       new Association()
-      .withSource("classModel", modelClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("classes", clazzClass, Role.MANY);
+      .withSource("classModel", modelClass, R.ONE, Role.AGGREGATION)
+      .withTarget("classes", clazzClass, R.MANY);
       
       new Association()
-      .withSource("superClass", clazzClass, Role.ONE)
-      .withTarget("kindClasses", clazzClass, Role.MANY);
+      .withSource("superClass", clazzClass, R.ONE)
+      .withTarget("kindClasses", clazzClass, R.MANY);
       
       new Association()
-      .withSource("interfaces", clazzClass, Role.MANY)
-      .withTarget("kindClassesAsInterface", clazzClass, Role.MANY);     
+      .withSource("interfaces", clazzClass, R.MANY)
+      .withTarget("kindClassesAsInterface", clazzClass, R.MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
       .withAttribute("initialization", "String");
       
       new Association()
-      .withSource("clazz", clazzClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("attributes", attributeClass, Role.MANY);
+      .withSource("clazz", clazzClass, R.ONE, Role.AGGREGATION)
+      .withTarget("attributes", attributeClass, R.MANY);
       
       
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
@@ -79,37 +80,37 @@ public class ClassModelTest
       .withAttribute("returnType", "String");     
       
       new Association()
-      .withSource("clazz", clazzClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("methods", methodClass, Role.MANY);
+      .withSource("clazz", clazzClass, R.ONE, Role.AGGREGATION)
+      .withTarget("methods", methodClass, R.MANY);
       
       
       Clazz associationClass = new Clazz("org.sdmlib.models.classes.Association");
       
       new Association()
-      .withSource("model", modelClass, Role.ONE, Role.AGGREGATION)
-      .withTarget("associations", associationClass, Role.MANY);
+      .withSource("model", modelClass, R.ONE, Role.AGGREGATION)
+      .withTarget("associations", associationClass, R.MANY);
       
       
-      Clazz roleClass = new Clazz("org.sdmlib.models.classes.Role")
+      Clazz roleClass = new Clazz("org.sdmlib.models.classRole")
       .withAttribute("name", "String")
       .withAttribute("card", "String", "MANY")
       .withAttribute("kind", "String", "VANILLA");
       
       new Association()
-      .withSource("clazz", clazzClass, Role.ONE)
-      .withTarget("sourceRoles", roleClass, Role.MANY);
+      .withSource("clazz", clazzClass, R.ONE)
+      .withTarget("sourceRoles", roleClass, R.MANY);
       
       new Association()
-      .withSource("clazz", clazzClass, Role.ONE)
-      .withTarget("targetRoles", roleClass, Role.MANY);
+      .withSource("clazz", clazzClass, R.ONE)
+      .withTarget("targetRoles", roleClass, R.MANY);
 
       new Association()
-      .withSource("assoc", associationClass, Role.ONE)
-      .withTarget("source", roleClass, Role.ONE);
+      .withSource("assoc", associationClass, R.ONE)
+      .withTarget("source", roleClass, R.ONE);
 
       new Association()
-      .withSource("assoc", associationClass, Role.ONE)
-      .withTarget("target", roleClass, Role.ONE);
+      .withSource("assoc", associationClass, R.ONE)
+      .withTarget("target", roleClass, R.ONE);
 
       //      //=======================================================================
       //      Clazz codeGenUtilClass = new Clazz()
@@ -142,14 +143,14 @@ public class ClassModelTest
       .withAttribute("assignTargetVarName", "String");
       
       new Association()
-      .withSource("parent", statementEntry, Role.ONE)
-      .withTarget("bodyStats", statementEntry, Role.MANY);
+      .withSource("parent", statementEntry, R.ONE)
+      .withTarget("bodyStats", statementEntry, R.MANY);
       
       
       scenario.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
       
-      scenario.addImage(model.dumpClassDiag("ClassModelClasses01"));
+      scenario.addImage(model.dumpClassDiag("src", "ClassModelClasses01"));
       
       scenario.add("Generate generic get and set and removeYou.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);

@@ -5,19 +5,18 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 
 public class HelloWorldTmp
 {
    @Test
    public void testTmp()
    {
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld");
 
-      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node");
+      Clazz nodeClazz = model.createClazz("Node");
 
-      new Association()
-      .withTarget(nodeClazz, "copy", Role.ONE)
-      .withSource(nodeClazz, "orig", Role.ONE);
+      nodeClazz.withAssoc(nodeClazz, "copy", R.ONE, "orig", R.ONE);
 
       model.generate("examples", "examples");
 

@@ -55,6 +55,13 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Scenario 
 {
+   public static final String MODELING = "modeling";
+   public static final String ACTIVE = "active";
+   public static final String DONE = "done";
+   public static final String IMPLEMENTATION = "implementation";
+   public static final String BACKLOG = "backlog";
+   
+
    private String name;
 
    private String javaTestFileName; 
