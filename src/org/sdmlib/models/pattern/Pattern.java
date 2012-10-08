@@ -31,6 +31,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.JsonToImg;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -516,11 +517,11 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             if (Pattern.CREATE.equals(patObject.getModifier()))
             {
                color = "green";
-               modifier = "<tr> <td border='0' align='right'><font color='green'>&laquo;create&raquo;</font></td></tr>";
+               modifier = "<tr> <td border='0' align='right'><font color='green'>&#171;create&#187;</font></td></tr>";
             }
             else if (Pattern.BOUND.equals(patObject.getModifier()))
             {
-               modifier = "<tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr>";
+               modifier = "<tr> <td border='0' align='right'><font color='black'>&#171;bound&#187;</font></td></tr>";
             }
             
             CGUtil.replaceAll(nodeLine, 
@@ -550,13 +551,16 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
                      color = "green";
                   }
                   
+                  Object tgtValue = attrConstr.getTgtValue();
                   CGUtil.replaceAll(oneAttrLine, 
-                     "attrName", attrConstr.getAttrName(),
-                     "black", color, 
-                     "Op", op,
-                     "value", "" + attrConstr.getTgtValue()
-                        );
-                  
+                		  "attrName", attrConstr.getAttrName(),
+                		  "black", color, 
+                		  "Op", op,
+                		  "value", "" + (tgtValue instanceof String ?
+                				  			"\"" + tgtValue + "\"" :
+                				  			tgtValue)
+                		  );
+
                   allAttrLines.append(oneAttrLine.toString());
                }
                
@@ -723,47 +727,8 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       
       docDir.mkdir();
       
-      String command = "";
+      CallDot.callDot(diagramName, fileText);
       
-      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) 
-      {
-         command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagramName;
-      } 
-      else 
-      {
-         command = "../SDMLib/tools/makeimage.bat " + diagramName;
-      }
-      
-      try {
-         writeToFile(diagramName + ".dot", fileText);
-         
-         Process child = Runtime.getRuntime().exec(command);
-         
-         Thread.sleep(500);
-         
-         // int result = child.waitFor();
-         
-         // System.out.println("Graphviz for " + diagramName + " returns " + result);
-      } 
-      catch (Exception e) 
-      {
-         e.printStackTrace();
-      }
-   }
-   
-   private void writeToFile(String imgName, String fileText)
-   {
-      try
-      {
-         BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
-
-         out.write(fileText);
-         out.close();
-      }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-      }
    }
    
    //==========================================================================

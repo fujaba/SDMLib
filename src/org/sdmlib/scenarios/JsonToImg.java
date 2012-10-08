@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Z�ndorf
+   Copyright (c) 2012 Albert Zündorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -97,37 +97,13 @@ public class JsonToImg
       
       fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
       
-      File docDir = new File("doc");
-      docDir.mkdir();
-      BufferedWriter out; 
-      String[] command = null;
-      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
-     	  command = new String [] {"../SDMLib/tools/makeimage.bat", imgName};
-      }
-      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-    	  command = new String [] {"../SDMLib/tools/Graphviz/osx_lion/makeimage.command", imgName};
-      }
-      else { // let's assume it's linux'ish (works also for mac)
-    	  command = new String [] {"dot","doc/"+imgName+".dot","-Tsvg","-o","doc/"+imgName+".svg"};
-      }
-      try {
-    	  writeToFile(imgName, fileText);
-    	  Process child = Runtime.getRuntime().exec(command);
-    	  child.waitFor();
-      } catch (Exception e) {
-    	  e.printStackTrace();
-      }
-      
-		
-//		   BufferedWriter out;
-//
-//		   File dotFile = new File("doc/" + diagName + ".dot");
-//		   ScenarioManager.get().printFile(dotFile, dotFileText.toString());
+      CallDot.callDot(imgName, fileText);
 
       // generate link
       
       return link;
    }
+
 
    public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder)
    {
@@ -275,15 +251,6 @@ public class JsonToImg
    {
       String headlabel = "";
       String taillabel = "";
-   }
-
-   private void writeToFile(String imgName, String fileText) throws IOException
-   {
-      BufferedWriter out;
-      out = new BufferedWriter(new FileWriter("doc/" + imgName + ".dot"));
-
-      out.write(fileText);
-      out.close();
    }
    
    private static String lastPartLow(String dottedName)

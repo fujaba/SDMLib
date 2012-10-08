@@ -39,6 +39,7 @@ import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.creators.StatementSet;
+import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -860,32 +861,7 @@ public class TransformOp implements PropertyChangeInterface
             "links", allLinksText.toString());
 
       // write dot file 
-      File docDir = new File("doc");
-      docDir.mkdir();
-
-
-      File dotFile = new File("doc/" + diagName + ".dot");
-      ScenarioManager.get().printFile(dotFile, dotFileText.toString());
-
-      // generate image
-      String command = "";
-      
-      if ((System.getProperty("os.name").toLowerCase()).contains("mac")) 
-      {
-         command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
-      } 
-      else 
-      {
-         command = "../SDMLib/tools/makeimage.bat " + diagName;
-      }
-      try 
-      {
-         Runtime.getRuntime().exec(command);
-      } 
-      catch (IOException e) 
-      {
-         e.printStackTrace();
-      }
+      CallDot.callDot(diagName, dotFileText.toString());
 
       return diagName + ".svg";   }
 }

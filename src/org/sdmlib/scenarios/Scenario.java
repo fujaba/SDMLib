@@ -602,26 +602,9 @@ public class Scenario
       
       fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
       
-      File docDir = new File("doc");
-      docDir.mkdir();
-      String[] command = null;
-      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
-     	  command = new String [] {"../SDMLib/tools/makeimage.bat", diagramName};
-      }
-      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-    	  command = new String [] {"../SDMLib/tools/Graphviz/osx_lion/makeimage.command", diagramName};
-      }
-      else { // let's assume it's linux'ish (works also for mac)
-    	  command = new String [] {"dot","doc/"+diagramName+".dot","-Tsvg","-o","doc/"+diagramName+".svg"};
-      }
-      try {
-         writeToFile(diagramName + ".dot", fileText);
-         Process child = Runtime.getRuntime().exec(command);
-         child.waitFor();
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      
+      CallDot.callDot(diagramName,fileText);
+
+
       steps.add(link);
    }
 

@@ -45,6 +45,7 @@ import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -484,46 +485,7 @@ public class ClassModel implements PropertyChangeInterface
 		CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
 
 		// write dot file
-		File docDir = new File("doc");
-		docDir.mkdir();
-
-		// BufferedWriter out;
-
-		File dotFile = new File("doc/" + diagName + ".dot");
-		ScenarioManager.get().printFile(dotFile, dotFileText.toString());
-
-		// generate image
-		String command = "";
-
-		if ((System.getProperty("os.name").toLowerCase()).contains("linux"))
-		{
-			command = "../SDMLib/tools/Graphviz/linux/makeimage.sh " + diagName;
-		}
-		else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
-		{
-			command = "../SDMLib/tools/Graphviz/osx_lion/makeimage.command " + diagName;
-		}
-		else
-		{
-			command = "../SDMLib/tools/makeimage.bat " + diagName;
-		}
-		try
-		{
-			Process exec = Runtime.getRuntime().exec(command);
-			exec.waitFor();
-			int exitValue = exec.exitValue();
-			if (exitValue != 0 ) {
-				System.err.println("Something is wrong with Graphviz (exit code: "+exitValue+"). May missing executable");
-				if ((System.getProperty("os.name").toLowerCase()).contains("linux"))
-				{
-					System.err.println("You have to install graphviz, try \'sudo apt-get install graphviz\'");
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		CallDot.callDot(diagName, dotFileText.toString());
 
 		return diagName + ".svg";
 	}
