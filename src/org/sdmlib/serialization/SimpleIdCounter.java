@@ -89,14 +89,21 @@ public class SimpleIdCounter implements IdMapCounter{
 	@Override
 	public void readId(String jsonId) {
 		// adjust number to be higher than read numbers
-		String[] split = jsonId.split("\\"+this.splitter);
-
-		if (split.length != 2) {
-			throw new RuntimeException("jsonid " + jsonId
-					+ " should have one "+this.splitter+" in its middle");
+		String key=null;
+		if(prefixId!=null){
+			String[] split = jsonId.split("\\"+this.splitter);
+			if (split.length != 2) {
+				throw new RuntimeException("jsonid " + jsonId
+						+ " should have one "+this.splitter+" in its middle");
+			}
+			if (this.prefixId.equals(split[0])) {
+				key=split[1];
+			}
+		}else{
+			key=jsonId;
 		}
-		if (this.prefixId.equals(split[0])) {
-			String oldNumber = split[1].substring(1);
+		if(key!=null){
+			String oldNumber = key.substring(1);
 			long oldInt = Long.parseLong(oldNumber);
 			if (oldInt >= this.number) {
 				this.number = oldInt + 1;
