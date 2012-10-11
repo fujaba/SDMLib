@@ -524,17 +524,16 @@ public class IdMap {
 		return null;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void putAll(Map<? extends String, ? extends Object> map) {
 		if (this.parent != null) {
 			this.parent.putAll(map);
 			return;
 		}
 		this.clear();
-		Iterator<?> i = map.entrySet().iterator();
-		while(i.hasNext()){
-			Entry<String,Object> item = (java.util.Map.Entry<String, Object>) i.next();
-			put(item.getKey(), item.getValue());
+		
+		for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
+			java.util.Map.Entry<?,?> mapEntity = (Entry<?, ?>) i.next();
+			put(""+mapEntity.getKey(), mapEntity.getValue());
 		}
 	}
 	

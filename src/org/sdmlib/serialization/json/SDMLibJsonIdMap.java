@@ -57,14 +57,14 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-      
+//      int pos = attrName.indexOf('.');
+//      String attribute = attrName;
+//      
+//      if (pos > 0)
+//      {
+//         attribute = attrName.substring(0, pos);
+//      }
+//      
       return null;
    }
 

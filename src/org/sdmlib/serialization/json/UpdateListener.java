@@ -30,9 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -261,56 +258,65 @@ public class UpdateListener implements PropertyChangeListener{
 		String id = updateMessage.getString(JsonIdMap.ID);
 		JsonObject remove = (JsonObject) updateMessage.get(JsonIdMap.REMOVE);
 		JsonObject update = (JsonObject) updateMessage.get(JsonIdMap.UPDATE);
-		
 		Object prio = updateMessage.get(JsonIdMap.PRIO);
 		Object masterObj = this.map.getObject(id);
-		if (masterObj != null) 
-		{
+		if (masterObj != null) {
 			SendableEntityCreator creator = this.map.getCreatorClass(masterObj);
-			if (remove == null) 
-			{
+			if (remove == null) {
 				// create Message
 				Object refObject = creator.getSendableInstance(true);
 				Iterator<String> keys = update.keys();
-				while (keys.hasNext()) 
-				{
+				while (keys.hasNext()) {
 					String key = keys.next();
 					Object value = creator.getValue(masterObj, key);
-					boolean flag = setValue(creator, masterObj, key,
-               		update.get(key), IdMap.NEW);
-               
-					return flag;
-					
+					if (value == null) {
+						if (creator.getValue(refObject, key) == null) {
+							// Old Value is Standard
+							return setValue(creator, masterObj, key,
+									update.get(key), IdMap.NEW);
+						}
+						// ERROR
+						if(!this.map.skipCollision(masterObj, key, value, remove, update)){
+							if (checkPrio(prio)) {
+								return setValue(creator, masterObj, key,
+										update.get(key), IdMap.NEW);
+							}
+						}
+					} else if (creator.getValue(masterObj, key).equals(
+							creator.getValue(refObject, key))) {
+						// Old Value is standard
+						return setValue(creator, masterObj, key,
+								update.get(key), IdMap.NEW);
+					} else {
+						// ERROR
+						if(!this.map.skipCollision(masterObj, key, value, remove, update)){
+							if (checkPrio(prio)) {
+								return setValue(creator, masterObj, key,
+										update.get(key), IdMap.NEW);
+							}
+						}
+					}
 				}
 				return true;
-			} 
-			else if (update == null) 
-			{
+			} else if (update == null) {
 				// delete Message
 				Object refObject = creator.getSendableInstance(true);
 				Iterator<String> keys = remove.keys();
-				while (keys.hasNext()) 
-				{
+				while (keys.hasNext()) {
 					String key = keys.next();
 					Object value = creator.getValue(masterObj, key);
-					if(value instanceof Collection<?>)
-					{
+					if(value instanceof Collection<?>){
 						JsonObject removeJsonObject=remove.getJsonObject(key);
 						setValue(creator, masterObj, key, removeJsonObject, IdMap.REMOVE);
-					}
-					else
-					{
-						// if (checkValue(value, key, remove)) 
-						// {
+					}else{
+						if (checkValue(value, key, remove)) {
 							setValue(creator, masterObj, key,
 									creator.getValue(refObject, key), IdMap.REMOVE);
-						// } 
-						// else if (checkPrio(prio)) 
-						// {
-						// 	//RESET TO DEFAULTVALUE
-						// 	setValue(creator, masterObj, key,
-						// 			creator.getValue(refObject, key), IdMap.REMOVE);
-						// }
+						} else if (checkPrio(prio)) {
+							//RESET TO DEFAULTVALUE
+							setValue(creator, masterObj, key,
+									creator.getValue(refObject, key), IdMap.REMOVE);
+						}
 					}
 					Object removeJsonObject=remove.get(key);
 					if(removeJsonObject!=null && removeJsonObject instanceof JsonObject){
@@ -327,13 +333,13 @@ public class UpdateListener implements PropertyChangeListener{
 					// CHECK WITH REMOVE key
 					Object value = creator.getValue(masterObj, key);
 
-					// if (checkValue(value, key, remove)) {
-					setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
-					this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
-					//					} else if (checkPrio(prio)) {
-					//						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
-					//						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
-					//					}
+					if (checkValue(value, key, remove)) {
+						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
+						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
+					} else if (checkPrio(prio)) {
+						setValue(creator, masterObj, key, update.get(key), IdMap.UPDATE);
+						this.map.sendReceiveObj(masterObj, key, update.get(key), IdMap.UPDATE);
+					}
 				}
 				return true;
 

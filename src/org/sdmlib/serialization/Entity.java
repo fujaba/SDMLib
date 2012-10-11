@@ -71,7 +71,7 @@ public abstract class Entity implements BaseEntity{
 				Entry<String, Object> e = i.next();
 				Object value = e.getValue();
 				if (value != null) {
-					this.put(e.getKey(), EntityUtil.wrap(value, this));
+					this.put(EntityUtil.wrap(e.getKey(), this).toString(), EntityUtil.wrap(value, this));
 				}
 			}
 		}
