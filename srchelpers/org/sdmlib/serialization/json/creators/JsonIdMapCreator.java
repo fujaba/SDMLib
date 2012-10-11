@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class JsonIdMapCreator extends EntityFactory
 {
@@ -28,7 +29,7 @@ public class JsonIdMapCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((JsonIdMap) target).set(attrName, value);
+      return ((SDMLibJsonIdMap) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -42,7 +43,7 @@ public class JsonIdMapCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((JsonIdMap) entity).removeYou();
+      ((SDMLibJsonIdMap) entity).removeYou();
    }
 }
 
