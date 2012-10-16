@@ -1011,9 +1011,10 @@ public class Clazz implements PropertyChangeInterface
                   "package packageName;\n" +
                   "\n" +
                   "import java.util.LinkedHashSet;\n" +
+                  "import org.sdmlib.models.modelsets.ModelSet;\n" +
                   "import fullEntityClassName;\n" +
                   "\n" +
-                  "public class modelSetClassName extends LinkedHashSet<entitiyClassName>\n" +
+                  "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements ModelSet\n" +
                   "{\n" +
                   "}\n");
             
@@ -1035,6 +1036,8 @@ public class Clazz implements PropertyChangeInterface
          insertLicense(modelSetParser);
          
          insertSetToString(modelSetParser);
+         
+         insertSetEntryType(modelSetParser);
          
          insertSetWithWithout(modelSetParser);
       }
@@ -1108,6 +1111,30 @@ public class Clazz implements PropertyChangeInterface
       }
    }
 
+   private void insertSetEntryType(Parser parser)
+   {
+      String searchString = Parser.METHOD + ":getEntryType()";
+      int pos = parser.indexOf(searchString);
+      
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "\n\n" + 
+            "   public String getEntryType()\n" + 
+            "   {\n" + 
+            "      return \"ModelType\";\n" + 
+            "   }\n"
+            );
+         
+         CGUtil.replaceAll(text,"ModelType", this.getName());
+         
+         pos = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(pos, text.toString());
+         setModelSetFileHasChanged(true);
+      }
+   }
+   
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
       if (patternObjectParser == null)
