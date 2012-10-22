@@ -40,7 +40,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
    
    public void run(  )
    {
-      switch (TaskNames.values()[taskNo])
+      switch (to(TaskNames.values(), taskNo))
       {
       case HandelClick:
          PeerToPeerChat gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
@@ -58,11 +58,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          chatServer.setAllMessages(msg + "\n");
          
          // resend to all clients
-         for (PeerProxy peer : chatServer.getAllPeers())
-         {
-            switchTo(peer);
-            taskNo--;
-         }
+         switchTo(chatServer.getAllPeers());
          break;
       
       case ClientHandelMessage:
@@ -84,13 +80,8 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          {
             // got all acknowledges
             msg = "OK";
-            for (PeerProxy peer : chatServer.getAllPeers())
-            {
-               switchTo(peer);
-               taskNo--;
-            } 
+            switchTo(chatServer.getAllPeers());
          }
-         taskNo++;
          break;
          
       case ClientReceiveRoger:

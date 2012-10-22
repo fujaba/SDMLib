@@ -1540,6 +1540,11 @@ public class Clazz implements PropertyChangeInterface
       return changed;   
    }
    
+   public Clazz withMethods(String signature, String returnType)
+   {
+      return withMethods(new Method(signature, returnType));
+   } 
+   
    public Clazz withMethods(Method value)
    {
       addToMethods(value);

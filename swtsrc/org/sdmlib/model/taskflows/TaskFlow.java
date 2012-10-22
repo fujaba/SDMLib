@@ -35,6 +35,12 @@ import java.util.TimerTask;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {
+   public <T extends Enum> T to(T[] values, int step)
+   {
+      getPropertyChangeSupport().firePropertyChange("STAGE_REACHED", null, values[step].toString());
+      return values[step];
+   }
+   
    public void switchTo(PeerProxy peer)
    {
       taskNo++;

@@ -145,19 +145,9 @@ public class JsonToImg
             {
                Object value = jsonObject.get(key);
                
-               if (value instanceof String)
+               if (value instanceof Number || value instanceof Enum)
                {
-                  addAttrText = true;
-
-                  // add attribute line
-                  String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
-                  attrLine = attrLine.replaceFirst("<key>", key);
-                  attrLine = attrLine.replaceFirst("<value>", value.toString());
-
-                  attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
-               }
-               else if (value instanceof Integer || value instanceof Double)
-               {
+                  // dump without quotes 
                   addAttrText = true;
                   
                   // add attribute line
@@ -185,6 +175,17 @@ public class JsonToImg
                      tgtId = lastPartLow(tgtId);
                      addToEdges(edgeMap, jsonId, tgtId, key);
                   }
+               }
+               else 
+               {
+                  addAttrText = true;
+
+                  // add attribute line
+                  String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
+                  attrLine = attrLine.replaceFirst("<key>", key);
+                  attrLine = attrLine.replaceFirst("<value>", value.toString());
+
+                  attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
                }
             }
          }
