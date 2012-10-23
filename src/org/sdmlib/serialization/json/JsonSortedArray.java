@@ -30,9 +30,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import org.sdmlib.serialization.EntityList;
 
 /**
  * The Class JsonSortedArray.
@@ -40,6 +43,7 @@ import java.util.TreeMap;
 public class JsonSortedArray extends JsonArray{
 	/** The my sort array list. */
 	private SortedMap<Object, JsonObject> mySortArrayList;
+	private ArrayList<JsonObject> unsorted;
 			
 	/** The sort prop. */
 	private String sortProp=JsonIdMap.ID;
@@ -103,18 +107,39 @@ public class JsonSortedArray extends JsonArray{
 	 * Save a JsonObject to the Array
 	 */
 	@Override
-	public JsonArray put(Object value) {
+	public EntityList put(Object value) {
 		super.put(value);
-		JsonObject json=(JsonObject) value;
+		addToTree((JsonObject) value);
+		return this;
+	}
+	private void addToTree(JsonObject value){
 		if(this.propSort){
+			JsonObject props = (JsonObject) value.get(JsonIdMap.JSON_PROPS);
+			if(props!=null){
+				this.mySortArrayList.put(props.get(this.sortProp), value);
+			}else{
+				if(unsorted==null){
+					unsorted=new ArrayList<JsonObject>();
+				}
+				unsorted.add(value);
+			}
+		}else{
+			this.mySortArrayList.put(value.get(this.sortProp), value);
+		}
+	}
+
+	public void finishUnsorted(){
+		if(unsorted==null){
+			return;
+		}
+		for(Iterator<JsonObject> i = unsorted.iterator();i.hasNext();){
+			JsonObject json=i.next();
 			JsonObject props = (JsonObject) json.get(JsonIdMap.JSON_PROPS);
 			if(props!=null){
 				this.mySortArrayList.put(props.get(this.sortProp), json);
+				i.remove();
 			}
-		}else{
-			this.mySortArrayList.put(json.get(this.sortProp), json);
 		}
-		return this;
 	}
 	
 	/**

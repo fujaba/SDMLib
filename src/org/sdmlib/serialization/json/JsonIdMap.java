@@ -482,6 +482,7 @@ public class JsonIdMap extends IdMap{
 		JsonSortedArray jsonArray = new JsonSortedArray();
 		jsonArray.setSortProp(property);
 		toJsonArray(object, jsonArray, new JsonFilter());
+		jsonArray.finishUnsorted();
 		return jsonArray;
 	}
 
