@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Map.Entry;
 
-import org.sdmlib.serialization.event.JsonEntry;
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
@@ -43,7 +43,7 @@ public class JsonEntryCreator implements SendableEntityCreator, NoIndexCreator{
 	}
 
 	public Object getSendableInstance(boolean prototyp) {
-		return new JsonEntry();
+		return new MapEntry();
 	}
 
 	public Object getValue(Object entity, String attribute) {
@@ -58,7 +58,7 @@ public class JsonEntryCreator implements SendableEntityCreator, NoIndexCreator{
 
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
-		JsonEntry entry=(JsonEntry) entity;
+		MapEntry entry=(MapEntry) entity;
 		if(PROPERTY_KEY.equalsIgnoreCase(attribute)){
 			entry.setKey(value);
 			return true;

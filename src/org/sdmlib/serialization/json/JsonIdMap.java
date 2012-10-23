@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -43,7 +42,7 @@ import java.util.Set;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
-import org.sdmlib.serialization.event.JsonEntry;
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.creater.DateCreator;
 import org.sdmlib.serialization.event.creater.JsonArrayCreator;
 import org.sdmlib.serialization.event.creater.JsonObjectCreator;
@@ -166,7 +165,7 @@ public class JsonIdMap extends IdMap{
 							// Maps
 							JsonArray subValues = new JsonArray();
 							Map<?, ?> map=(Map<?, ?>) value;
-							String packageName = JsonEntry.class.getName();
+							String packageName = MapEntry.class.getName();
 							for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
 								Entry<?,?> mapEntry = (Entry<?, ?>) i.next();
 								JsonObject item=toJsonObject(mapEntry, filter, packageName);
@@ -427,13 +426,11 @@ public class JsonIdMap extends IdMap{
 							String key = i.next();
 							Object entryValue= json.get(key);
 							if(entryValue instanceof JsonObject){
-								creator.setValue(target, property,
-										new AbstractMap.SimpleEntry<String, Object>(key, readJson((JsonObject) entryValue)),NEW);
+								creator.setValue(target, property, new MapEntry(key, readJson((JsonObject) entryValue)), NEW);
 							}else if(entryValue instanceof JsonArray){
-								creator.setValue(target, property,
-										new AbstractMap.SimpleEntry<String, Object>(key, readJson((JsonArray) entryValue)),NEW);
+								creator.setValue(target, property, new MapEntry(key, readJson((JsonArray) entryValue)), NEW);
 							}else{
-								creator.setValue(target, property,new AbstractMap.SimpleEntry<String, Object>(key, entryValue),NEW);
+								creator.setValue(target, property, new MapEntry(key, entryValue), NEW);
 							}
 						}
 					}else if (className == null && jsonId != null) {

@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.nio.ByteBuffer;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +38,7 @@ import java.util.Map.Entry;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.BasicMessage;
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.UnknownMessage;
 import org.sdmlib.serialization.event.creater.BasicMessageCreator;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
@@ -476,14 +476,14 @@ public class ByteIdMap extends IdMap{
 				} else if (group == ByteIdMap.DATATYPE_MAP) {
 					ByteBuffer child=ByteBuffer.wrap(values);
 //					HashMap<Object, Object> map = new HashMap<Object, Object>();
-					AbstractMap.SimpleEntry<Object, Object> entry=null;
+					MapEntry entry=null;
 					while (child.remaining() > 0) {
 						byte subType = child.get();
 						Object key = getDecodeObject(subType, child);
 						if (key != null) {
 							subType = child.get();
 							Object value = getDecodeObject(subType, child);
-							entry=new AbstractMap.SimpleEntry<Object, Object>(key, value);
+							entry=new MapEntry(key, value);
 						}
 					}
 					return entry;
