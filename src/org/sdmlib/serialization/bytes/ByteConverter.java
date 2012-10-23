@@ -1,6 +1,4 @@
-package org.sdmlib.serialization.interfaces;
-
-import org.sdmlib.serialization.EntityList;
+package org.sdmlib.serialization.bytes;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -18,7 +16,7 @@ modification, are permitted provided that the following conditions are met:
 4. Neither the name of contributors may be used to endorse or promote products
    derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+THIS SOFTWARE 'Json Id Serialisierung Map' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
@@ -29,40 +27,19 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import java.nio.ByteBuffer;
 
-/**
- * The Class BaseEntity.
- */
-public interface BaseEntity {
-	public static final String CRLF="\r\n";
-	public abstract EntityList getNewArray();
-	public abstract BaseEntity getNewObject();
+import org.sdmlib.serialization.interfaces.ByteItem;
+
+public abstract class ByteConverter {
+	public String toString(ByteItem item){
+		return toString(item.getBytes(false));
+	}
+	public String toString(ByteBuffer value){
+		return toString(value.array(), value.limit());
+	}
 	
-	/**
-	 * Make a Text of this Entity. For compactness, no whitespace
-	 * is added. If this would not result in a syntactically correct Text,
-	 * then null will be returned instead.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 *
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-	 */
-	@Override
-	public abstract String toString();
-	/**
-	 * Make a prettyprinted Text of this Entity.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 * @param indentFactor The number of spaces to add to each level of
-	 *  indentation.
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-	 */
-	public abstract String toString(int indentFactor);
-	public abstract String toString(int indentFactor, int intent);
+	public abstract String toString(byte[] values, int size);
+	
+	public abstract  byte[] decode(String value);
 }

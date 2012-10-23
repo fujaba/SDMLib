@@ -298,7 +298,7 @@ public class XMLIdMap extends IdMap {
 		int start=this.value.getIndex();
 		ArrayList<String> stack=new ArrayList<String>();
 		while (!this.value.isEnd() && !exit) {
-			if(this.value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)){
+			if(!this.value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)){
 				empty=false;
 			}
 			if (this.value.getCurrentChar() == ITEMSTART) {
@@ -373,10 +373,12 @@ public class XMLIdMap extends IdMap {
 
 				for (String prop : properties) {
 					if (prop.equalsIgnoreCase(prefix)) {
+						// It is a Attribute
 						entity = referenceObject.getEntity();
 						plainvalue = true;
 						break;
 					} else if (prop.startsWith(prefix)) {
+						// it is a Child
 						entity = referenceObject.getEntity();
 						break;
 					}
@@ -395,8 +397,10 @@ public class XMLIdMap extends IdMap {
 				prefix="";
 			}
 			if(entity==null){
-				//Children
-				parseChildren(prefix + XMLIdMap.ENTITYSPLITTER, entity, tag);
+				if(tag.equals("!--")){
+					// skip Comments
+					this.value.stepPos('>');
+				}
 			}else{
 				if (!plainvalue) {
 					// Parse Attributes

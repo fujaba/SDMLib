@@ -53,8 +53,10 @@ public class JsonTokener extends Tokener{
 			return nextString(c);
 		case '{':
 			back();
-			Entity element = creator.getNewObject();
-			this.parseToEntity(element);
+			BaseEntity element = creator.getNewObject();
+			if(element instanceof Entity){
+				this.parseToEntity((Entity)element);
+			}
 			return element;
 		case '[':
 			back();

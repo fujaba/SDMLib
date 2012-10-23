@@ -1,6 +1,7 @@
-package org.sdmlib.serialization.interfaces;
+package org.sdmlib.serialization.bytes;
 
-import org.sdmlib.serialization.EntityList;
+import java.nio.ByteBuffer;
+
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -18,7 +19,7 @@ modification, are permitted provided that the following conditions are met:
 4. Neither the name of contributors may be used to endorse or promote products
    derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+THIS SOFTWARE 'Json Id Serialisierung Map' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
@@ -29,40 +30,49 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+public class ByteConverterHTTP extends ByteConverter{
 
-/**
- * The Class BaseEntity.
- */
-public interface BaseEntity {
-	public static final String CRLF="\r\n";
-	public abstract EntityList getNewArray();
-	public abstract BaseEntity getNewObject();
-	
+	@Override
+	public String toString(byte[] values, int size) {
+		StringBuilder returnValue=new StringBuilder();
+		
+		if(values!=null){
+			for (int i = 0; i < size; i++) {
+				byte value = values[i];
+				if (value <= 32 || value == 127) {
+					returnValue.append(ByteIdMap.SPLITTER);
+					returnValue.append((char) (value + ByteIdMap.SPLITTER + 1));
+				} else {
+					returnValue.append((char) value);
+				}
+			}
+		}
+		return returnValue.toString();
+	}
+
 	/**
-	 * Make a Text of this Entity. For compactness, no whitespace
-	 * is added. If this would not result in a syntactically correct Text,
-	 * then null will be returned instead.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
+	 * Decode http.
 	 *
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
+	 * @param bytes the bytes
+	 * @return the object
+	 * @throws RuntimeException the runtime exception
 	 */
 	@Override
-	public abstract String toString();
-	/**
-	 * Make a prettyprinted Text of this Entity.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 * @param indentFactor The number of spaces to add to each level of
-	 *  indentation.
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-	 */
-	public abstract String toString(int indentFactor);
-	public abstract String toString(int indentFactor, int intent);
+	public byte[] decode(String value) {
+		int len = value.length();
+		ByteBuffer buffer = ByteBuffer.allocate(len);
+		for (int i = 0; i < len; i++) {
+			int c = value.charAt(i);
+			if (c == ByteIdMap.SPLITTER) {
+				c = value.charAt(++i);
+				buffer.put((byte) (c - ByteIdMap.SPLITTER - 1));
+			} else {
+				buffer.put((byte) c);
+			}
+		}
+		buffer.flip();
+		byte[] returnValue=new byte[buffer.limit()];
+		buffer.get(returnValue);
+		return returnValue;
+	}
 }

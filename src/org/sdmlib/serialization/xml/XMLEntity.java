@@ -209,7 +209,7 @@ public class XMLEntity extends Entity{
 	 * @return the string
 	 */
 	public String toString(int indentFactor, int intent, boolean header) {
-		StringBuffer sb=new StringBuffer();
+		StringBuilder sb=new StringBuilder();
 		if(header){
 			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		}

@@ -157,6 +157,31 @@ public abstract class Tokener {
     		n=this.buffer.length()-this.index; 
     	 } else if (n == 0) {
              return "";
+         }else if(this.index+n>this.buffer.length()){
+        	 n=this.buffer.length()-this.index;
+         }
+
+         char[] chars = new char[n];
+         int pos = 0;
+
+         while (pos < n) {
+             chars[pos] = this.buffer.charAt(this.index+pos++);
+         }
+         return new String(chars);
+     }
+    /**
+     * Get the next n characters.
+     *
+     * @param n     The number of characters to take.
+     * @return      A string of n characters.
+     *   Substring bounds error if there are not
+     *   n characters remaining in the source string.
+     */
+     public String skipPos(int n)  {
+    	 if (n == -1) {
+    		n=this.buffer.length()-this.index; 
+    	 } else if (n == 0) {
+             return "";
          }
 
          char[] chars = new char[n];
@@ -199,7 +224,7 @@ public abstract class Tokener {
      */
     public String nextString(char quote)  {
         char c;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(;;) {
             c = next();
             switch (c) {
@@ -226,7 +251,7 @@ public abstract class Tokener {
                     sb.append('\r');
                     break;
                 case 'u':
-                    sb.append((char)Integer.parseInt(getNextString(4), 16));
+                    sb.append((char)Integer.parseInt(skipPos(4), 16));
                     break;
                 case '"':
                 case '\'':
@@ -257,7 +282,7 @@ public abstract class Tokener {
      */
     public Object nextValue(BaseEntity creator) {
     	char c = nextClean();
-	    StringBuffer sb = new StringBuffer();
+    	StringBuilder sb = new StringBuilder();
 	    while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
 	        sb.append(c);
 	        c = next();
@@ -455,10 +480,10 @@ public abstract class Tokener {
     	char current=this.buffer.charAt(this.index);
     	for (char item : items){
     		if(current==item){
-    			return false;
+    			return true;
     		}
     	}
-    	return true;
+    	return false;
     }
 
     public String getNextTag(){

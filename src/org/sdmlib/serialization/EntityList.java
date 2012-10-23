@@ -208,7 +208,7 @@ public abstract class EntityList implements BaseEntity, List<Object>{
 	 */
 	public String join(String separator) throws RuntimeException {
 		List<Object> elements = getElements();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < elements.size(); i += 1) {
 			if (i > 0) {

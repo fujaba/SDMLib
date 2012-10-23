@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.sdmlib.serialization.IdMap;
@@ -167,7 +168,7 @@ public class JsonIdMap extends IdMap{
 							Map<?, ?> map=(Map<?, ?>) value;
 							String packageName = JsonEntry.class.getName();
 							for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
-								java.util.Map.Entry<?,?> mapEntry = (java.util.Map.Entry<?, ?>) i.next();
+								Entry<?,?> mapEntry = (Entry<?, ?>) i.next();
 								JsonObject item=toJsonObject(mapEntry, filter, packageName);
 								if(item!=null){
 									subValues.add(item);
@@ -246,8 +247,18 @@ public class JsonIdMap extends IdMap{
 	 * @return the object
 	 */
 	public Object readJson(JsonObject jsonObject) {
+		return readJson(jsonObject, true);
+	}
+	
+	/**
+	 * Read json.
+	 *
+	 * @param jsonObject the json object
+	 * @return the object
+	 */
+	public Object readJson(JsonObject jsonObject, boolean readId) {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
-		Object mainItem = readJson(jsonObject, refs);
+		Object mainItem = readJson(jsonObject, refs, readId);
 		for (ReferenceObject ref : refs) {
 			ref.execute();
 		}
@@ -264,6 +275,7 @@ public class JsonIdMap extends IdMap{
 	public Object readJson(Object target, JsonObject jsonObject) {
 		return readJson(target, jsonObject, true);
 	}
+	
 	public Object readJson(Object target, JsonObject jsonObject, boolean readId) {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
 		Object mainItem = readJson(target, jsonObject, refs, readId);
@@ -272,7 +284,7 @@ public class JsonIdMap extends IdMap{
 		}
 		return mainItem;
 	}
-
+	
 	/**
 	 * Read json.
 	 *
@@ -282,6 +294,19 @@ public class JsonIdMap extends IdMap{
 	 */
 	private Object readJson(JsonObject jsonObject,
 			LinkedHashSet<ReferenceObject> refs) {
+		return readJson(jsonObject, refs, true);
+	}
+
+	/**
+	 * Read json.
+	 *
+	 * @param jsonObject the json object
+	 * @param refs the refs
+	 * @param readId for read the id from JsonObject
+	 * @return the object
+	 */
+	private Object readJson(JsonObject jsonObject,
+			LinkedHashSet<ReferenceObject> refs, boolean readId) {
 		Object result = null;
 		SendableEntityCreator typeInfo = grammar.getJsonObjectCreator(jsonObject, this);
 
@@ -307,7 +332,7 @@ public class JsonIdMap extends IdMap{
 					}
 				}
 			}else{
-				readJson(result, jsonObject, refs, true);
+				readJson(result, jsonObject, refs, readId);
 			}
 		}else if(jsonObject.get(VALUE)!=null){
 			return jsonObject.get(VALUE);
@@ -599,11 +624,11 @@ public class JsonIdMap extends IdMap{
 	 * @return true, if successful
 	 */
 	public boolean sendUpdateMsg(PropertyChangeEvent evt, JsonObject jsonObject) {
-		if(updatePropertylistener != null){
+		if(updatePropertylistener != null && evt!=null){
 			updatePropertylistener.propertyChange(evt);
 		}
 
-		if (this.updatelistener != null) {
+		if (this.updatelistener != null && evt!=null) {
 			return this.updatelistener.sendUpdateMsg(evt.getOldValue(), evt.getNewValue(), jsonObject);
 		}
 		return true;

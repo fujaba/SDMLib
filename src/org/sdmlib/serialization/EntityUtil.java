@@ -78,7 +78,7 @@ public class EntityUtil {
 		String       hhhh;
 		int          i;
 		int          len = string.length();
-		StringBuffer sb = new StringBuffer(len + 4);
+		StringBuilder sb = new StringBuilder(len + 4);
 
 		sb.append('"');
 		for (i = 0; i < len; i += 1) {
@@ -234,7 +234,6 @@ public class EntityUtil {
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 * @throws JSONException If the object contains an invalid number.
 	 */
-	@SuppressWarnings("unchecked")
 	public static String valueToString(
 			Object value,
 			int    indentFactor,
@@ -257,7 +256,9 @@ public class EntityUtil {
 			return ((EntityList)value).toString(indentFactor, intent);
 		}
 		if (value instanceof Map) {
-			return reference.getNewObject().initWithMap((Map<String,Object>)value).toString(indentFactor, intent);
+			Entity entity=(Entity) reference.getNewObject();
+			entity.initWithMap(value);
+			return entity.toString(indentFactor, intent);
 		}
 		if (value instanceof Collection) {
 			return reference.getNewArray().initWithMap((Collection<?>)value).toString(indentFactor, intent);
@@ -271,7 +272,6 @@ public class EntityUtil {
 		return quote(value.toString());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static String valueToString(
 			Object value,
 			boolean simpleText,
@@ -292,7 +292,9 @@ public class EntityUtil {
 			return ((EntityList)value).toString();
 		}
 		if (value instanceof Map) {
-			return reference.getNewObject().initWithMap((Map<String,Object>)value).toString();
+			Entity entity=(Entity) reference.getNewObject();
+			entity.initWithMap(value);
+			return entity.toString();
 		}
 		if (value instanceof Collection) {
 			return reference.getNewArray().initWithMap((Collection<?>)value).toString();
@@ -319,7 +321,6 @@ public class EntityUtil {
 	 * @param object The object to wrap
 	 * @return The wrapped value
 	 */
-	@SuppressWarnings("unchecked")
 	public static Object wrap(Object object, BaseEntity reference) {
 		try {
 			if (object == null) {
@@ -343,7 +344,9 @@ public class EntityUtil {
 				return reference.getNewArray().initWithMap((Collection<?>) object);
 			}
 			if (object instanceof Map) {
-				return reference.getNewObject().initWithMap((Map<String,Object>)object);
+				Entity entity=(Entity) reference.getNewObject();
+				entity.initWithMap(object);
+				return entity;
 			}
 			if (object.getClass().getName().startsWith("java.") || object.getClass().getName().startsWith("javax.")) {
                 return object.toString();

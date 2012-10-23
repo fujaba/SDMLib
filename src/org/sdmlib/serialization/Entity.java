@@ -41,6 +41,7 @@ public abstract class Entity implements BaseEntity{
 	 * The map where the Entity's properties are kept.
 	 */
 	private Map<String, Object> map;
+
 	protected Map<String, Object> getMap(){
 		if(this.map==null){
 			this.map=new LinkedHashMap<String, Object>();
@@ -64,14 +65,27 @@ public abstract class Entity implements BaseEntity{
 		initWithMap(map);
 	}
 	public Entity initWithMap(Map<String, Object> map){
-		getMap();
 		if (map != null) {
+			getMap();
 			Iterator<Entry<String, Object>> i = map.entrySet().iterator();
 			while (i.hasNext()) {
 				Entry<String, Object> e = i.next();
 				Object value = e.getValue();
 				if (value != null) {
 					this.put(EntityUtil.wrap(e.getKey(), this).toString(), EntityUtil.wrap(value, this));
+				}
+			}
+		}
+		return this;
+	}
+	public Entity initWithMap(Object value){
+		if (value != null&&value instanceof Map<?,?>) {
+			Map<?, ?> map=(Map<?, ?>) value;
+			for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
+				java.util.Map.Entry<?,?> mapEntry = (Entry<?, ?>) i.next();
+				Object item = mapEntry.getValue();
+				if (item != null) {
+					this.put(EntityUtil.wrap(mapEntry.getKey(), this).toString(), EntityUtil.wrap(item, this));
 				}
 			}
 		}
@@ -459,7 +473,8 @@ public abstract class Entity implements BaseEntity{
 	 * @return      this.
 	 */
 	public Entity put(String key, Map<String, Object> value)  {
-		this.put(key, getNewObject().initWithMap(value));
+		this.put(key, getNewObject());
+		this.initWithMap(value);
 		return this;
 	}
 
@@ -494,34 +509,6 @@ public abstract class Entity implements BaseEntity{
 	public Object remove(String key) {
 		return getMap().remove(key);
 	}
-
-	/**
-	 * Make a Text of this Entity. For compactness, no whitespace
-	 * is added. If this would not result in a syntactically correct Text,
-	 * then null will be returned instead.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 *
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-	 */
-	@Override
-	public abstract String toString();
-	/**
-	 * Make a prettyprinted Text of this Entity.
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 * @param indentFactor The number of spaces to add to each level of
-	 *  indentation.
-	 * @return a printable, displayable, portable, transmittable
-	 *  representation of the object, beginning
-	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-	 */
-	public abstract String toString(int indentFactor);
-	public abstract String toString(int indentFactor, int intent);
 
 	public Object getValue(String key){
 		int len=0;
