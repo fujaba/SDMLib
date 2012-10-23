@@ -1,0 +1,17 @@
+ digraph ClassDiagram {
+    graph[rankdir = "LR"];
+    
+    subgraph cluster1 {
+    	style=filled;
+		color=lightgrey;
+    	A -> B -> C;
+    	label = "process #1";
+    }
+    
+    subgraph cluster2 {
+    	D -> E;
+    	label = "process #2";
+    }
+   
+    B -> D;
+}

@@ -33,7 +33,7 @@ import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class JsonEntryCreator implements SendableEntityCreator, NoIndexCreator{
+public class MapEntryCreator implements SendableEntityCreator, NoIndexCreator{
 	public static final String PROPERTY_KEY="key";
 	public static final String PROPERTY_VALUE="value";
 	private final String[] properties=new String[]{PROPERTY_KEY, PROPERTY_VALUE};

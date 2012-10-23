@@ -53,9 +53,15 @@ public class SimpleIdCounter implements IdMapCounter{
 	/** 
 	 * Set the Session Prefix for a Peer
 	 */
-	@Override
-	public void setPrefixId(String sessionId) {
-		this.prefixId = sessionId;
+	public void setPrefixId(String value) {
+		this.prefixId = value;
+	}
+
+	/** 
+	 * Set the Session Prefix for a Peer
+	 */
+	public String getPrefixId() {
+		return this.prefixId;
 	}
 
 	/** 

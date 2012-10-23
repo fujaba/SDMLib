@@ -120,10 +120,19 @@ public class IdMap {
 	/**
 	 * Sets the session id.
 	 *
-	 * @param sessionId the new session id
+	 * @param value the new session id
 	 */
-	public void setSessionId(String sessionId) {
-		getCounter().setPrefixId(sessionId);
+	public void setSessionId(String value) {
+		getCounter().setPrefixId(value);
+	}
+	
+	/**
+	 * Get the current Session Id
+	 * @return sessionid as String
+	 */
+	public String getSessionId()
+	{
+		return getCounter().getPrefixId();
 	}
 	
 	/**

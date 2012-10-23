@@ -40,7 +40,7 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
    
    public void run(  )
    {
-      switch (TaskNames.values()[taskNo])
+      switch (to(TaskNames.values(), taskNo))
       {
       case Start:
          switchTo(server);

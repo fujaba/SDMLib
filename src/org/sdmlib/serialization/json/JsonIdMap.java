@@ -66,7 +66,7 @@ public class JsonIdMap extends IdMap{
 	/** The Constant MAINITEM. */
 	public static final String MAINITEM = "main";
 	
-	private Grammar grammar=new Grammar();
+	protected Grammar grammar=new Grammar();
 
 	/** The updatelistener. */
 	private MapUpdateListener updatelistener;
@@ -340,9 +340,6 @@ public class JsonIdMap extends IdMap{
 		}
 		return result;
 	}
-	
-
-
 
 	/**
 	 * Read json.
@@ -566,7 +563,6 @@ public class JsonIdMap extends IdMap{
 	 */
 	private Object parseObject(Object entity, boolean aggregation,
 			JsonFilter filter, JsonArray jsonArray, SendableEntityCreator valueCreater, boolean typSave) {
-//		SendableEntityCreator valueCreater = getCreatorClass(entity);
 		if (valueCreater != null) {
 			if (aggregation) {
 				String subId = this.getKey(entity);
@@ -610,9 +606,6 @@ public class JsonIdMap extends IdMap{
 			this.updatelistener=(MapUpdateListener) listener;
 		}
 	}
-
-	
-	
 
 	/**
 	 * Send update msg from PropertyChange MapUpdater 
