@@ -91,7 +91,7 @@ public class Clazz implements PropertyChangeInterface
       .withTarget(tgtRoleName, tgtClass, tgtCard)
       .withSource(srcRoleName, this, srcCard);
       
-      return tgtClass;
+      return this;
    }
 
    public static final String PROPERTY_NAME = "name";

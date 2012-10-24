@@ -27,6 +27,13 @@ public class CreatorCreator
          // creatorSet.add(new java.util.creators.TimerPOCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.SDMTimerCreator());
          creatorSet.add(new org.sdmlib.model.taskflows.creators.SDMTimerPOCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.LoggerCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.LoggerPOCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.LogEntryCreator());
+         creatorSet.add(new org.sdmlib.model.taskflows.creators.LogEntryPOCreator());
+
+         creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapCreator());
+         
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -42,6 +49,10 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
+
+
 
 
 

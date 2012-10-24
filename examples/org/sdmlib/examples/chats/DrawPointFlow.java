@@ -34,6 +34,11 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
       HandelMouseMove, HandelMouseMoveMessage
    }
    
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+
    //==========================================================================
    
    public void run(  )
@@ -353,32 +358,5 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
       return this;
    } 
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public DrawPointFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }
 

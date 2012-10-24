@@ -21,8 +21,6 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.ChatMessageFlow.TaskNames;
-import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
@@ -35,15 +33,20 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
       HandelClick, ServerHandelMessage, ClientHandelMessage, ServerReceiveRoger, ClientReceiveRoger,
    }
    
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+   
    int noOfRogers = 0;
    //==========================================================================
    
    public void run(  )
    {
-      switch (to(TaskNames.values(), taskNo))
+      switch (TaskNames.values()[taskNo])
       {
       case HandelClick:
-         PeerToPeerChat gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
+         PeerToPeerChat gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          msg =  ": " + gui.getNewMessageText().getText();
          
          gui.getNewMessageText().setText("");
@@ -52,7 +55,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          break;
 
       case ServerHandelMessage:
-         ChatServer chatServer = (ChatServer) idMap.getObject(ChatServer.CHAT_SERVER);
+         ChatServer chatServer = (ChatServer) getIdMap().getObject(ChatServer.CHAT_SERVER);
          
          // append message to local buffer
          chatServer.setAllMessages(msg + "\n");
@@ -62,7 +65,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          break;
       
       case ClientHandelMessage:
-         gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
+         gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          if (gui == null)
          {
             System.out.println("Should not happen");
@@ -73,7 +76,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          break;
          
       case ServerReceiveRoger:
-         chatServer = (ChatServer) idMap.getObject(ChatServer.CHAT_SERVER);
+         chatServer = (ChatServer) getIdMap().getObject(ChatServer.CHAT_SERVER);
          noOfRogers++;
          
          if (noOfRogers >= chatServer.getAllPeers().size())
@@ -199,32 +202,5 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
       return this;
    } 
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public CSChatMessageFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }
 

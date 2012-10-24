@@ -34,6 +34,11 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
       HandelClick, ServerHandelMessage, ClientHandelMessage, 
    }
    
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+   
    //==========================================================================
    
    public void run(  )
@@ -330,33 +335,6 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
       setB(value);
       return this;
    } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public CSDrawPointFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
+ 
 }
 

@@ -113,7 +113,14 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       return "(" + stringList.concat(", ") + ")";
    }
 
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.model.taskflows.PeerProxy";
+   }
 }
+
 
 
 

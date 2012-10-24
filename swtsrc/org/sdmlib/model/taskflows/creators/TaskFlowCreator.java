@@ -10,6 +10,8 @@ public class TaskFlowCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_LOGGER,
    };
    
    public String[] getProperties()
@@ -46,6 +48,8 @@ public class TaskFlowCreator extends EntityFactory
       ((TaskFlow) entity).removeYou();
    }
 }
+
+
 
 
 

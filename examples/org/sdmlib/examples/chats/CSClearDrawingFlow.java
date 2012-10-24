@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.CSDrawPointFlow.TaskNames;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -33,6 +32,11 @@ public class CSClearDrawingFlow extends TaskFlow implements PropertyChangeInterf
    {
       HandelClick, ServerHandelMessage, ClientHandelMessage, 
    }
+   
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
    
    //==========================================================================
    
@@ -134,32 +138,5 @@ public class CSClearDrawingFlow extends TaskFlow implements PropertyChangeInterf
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public CSClearDrawingFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }
 

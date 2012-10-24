@@ -33,6 +33,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Button;
 import org.sdmlib.examples.chats.creators.CreatorCreator;
+import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SDMThread;
 import org.sdmlib.model.taskflows.SocketThread;
@@ -164,12 +165,13 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 
          if (chatMode == ChatMode.ClientServer)
          {
-            new ClientLoginFlow()
-            .withIdMap((SDMLibJsonIdMap) idMap)
-            .withServer(peer)
-            .withClientIP(InetAddress.getLocalHost().getHostAddress())
-            .withClientPort(peerArgs.getLocalPort())
-            .run();
+        	 new Logger().withTargetTaskFlow(
+        			 new ClientLoginFlow()
+        			 .withServer(peer)
+        			 .withClientIP(InetAddress.getLocalHost().getHostAddress())
+        			 .withClientPort(peerArgs.getLocalPort())
+        			 .withIdMap((SDMLibJsonIdMap) idMap))
+        			 .run();
          }
          while (!gui.isDisposed())
          {
@@ -372,13 +374,13 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
                }
                else
                {
-                  CTDrawPoint ctDrawPoint = new CTDrawPoint()
-                  .withIdMap((SDMLibJsonIdMap) idMap)
+                  CTDrawPoint ctDrawPoint = (CTDrawPoint) new CTDrawPoint()
                   .withX(e.x)
                   .withY(e.y)
                   .withR(currentColor.getRed())
                   .withG(currentColor.getGreen())
-                  .withB(currentColor.getBlue());
+                  .withB(currentColor.getBlue())
+                  .withIdMap((SDMLibJsonIdMap) idMap);
                   
                   ctDrawPoint.createParent()
                   .withIdMap((SDMLibJsonIdMap) idMap)

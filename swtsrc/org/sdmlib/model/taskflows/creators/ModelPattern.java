@@ -12,6 +12,10 @@ import org.sdmlib.model.taskflows.FetchFileFlow;
 import java.util.Timer;
 import org.sdmlib.model.taskflows.creators.SDMTimerPO;
 import org.sdmlib.model.taskflows.SDMTimer;
+import org.sdmlib.model.taskflows.creators.LoggerPO;
+import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.model.taskflows.creators.LogEntryPO;
+import org.sdmlib.model.taskflows.LogEntry;
 
 public class ModelPattern extends Pattern
 {
@@ -146,7 +150,59 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public LoggerPO hasElementLoggerPO()
+   {
+      LoggerPO value = new LoggerPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public LoggerPO hasElementLoggerPO(Logger hostGraphObject)
+   {
+      LoggerPO value = new LoggerPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public LogEntryPO hasElementLogEntryPO()
+   {
+      LogEntryPO value = new LogEntryPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public LogEntryPO hasElementLogEntryPO(LogEntry hostGraphObject)
+   {
+      LogEntryPO value = new LogEntryPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
+
+
 
 
 

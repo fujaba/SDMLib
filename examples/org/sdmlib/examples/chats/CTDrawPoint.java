@@ -27,6 +27,10 @@ import java.beans.PropertyChangeSupport;
 
 public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
 {
+	public String getCurrentTaskName()
+	{
+		return "Start";
+	}
 
    @Override
    public void run()
@@ -300,32 +304,5 @@ public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
       return this;
    } 
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public CTDrawPoint withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }
 

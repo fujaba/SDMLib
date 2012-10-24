@@ -64,8 +64,7 @@ public class PeerToPeerChatModel
       
       
       model.createClazz("CSChatMessageFlow", 
-         "msg", String.class.getSimpleName(),
-         "idMap", SDMLibJsonIdMap.class.getName())
+         "msg", String.class.getSimpleName())
          .withSuperClass(taskFlowClazz)
          .createMethods("run()", "void");
       
@@ -74,7 +73,6 @@ public class PeerToPeerChatModel
          "allPeers", PeerProxySet.class.getName());
       
       model.createClazz(ClientLoginFlow.class.getName(), 
-         "idMap", SDMLibJsonIdMap.class.getName(), 
          "server", PeerProxy.class.getName(), 
          "clientIP", STRING, 
          "clientPort", INT, 
@@ -87,19 +85,16 @@ public class PeerToPeerChatModel
          "y", INT,
          "r", INT, 
          "g", INT, 
-         "b", INT,
-         "idMap", SDMLibJsonIdMap.class.getName())
+         "b", INT)
          .withSuperClass(taskFlowClazz)
          .createMethods("run()", "void");
 
-      model.createClazz("CSClearDrawingFlow", 
-         "idMap", SDMLibJsonIdMap.class.getName())
+      model.createClazz("CSClearDrawingFlow")
          .withSuperClass(taskFlowClazz)
          .createMethods("run()", "void");
       
-      Clazz visitAllClientsFlow = model.createClazz("CSVisitAllClientsFlow", 
-         "idMap", SDMLibJsonIdMap.class.getName())
-         .withSuperClass(taskFlowClazz); 
+      Clazz visitAllClientsFlow = model.createClazz("CSVisitAllClientsFlow")
+         .withSuperClass(taskFlowClazz);
    
       visitAllClientsFlow.createMethods("run()", "void");
       
@@ -111,13 +106,11 @@ public class PeerToPeerChatModel
          "y", INT,
          "r", INT, 
          "g", INT, 
-         "b", INT,
-         "idMap", SDMLibJsonIdMap.class.getName()
-         ).withSuperClass(clientTask);
+         "b", INT)
+         .withSuperClass(clientTask);
       
-      model.createClazz("CTClearDrawing", 
-         "idMap", SDMLibJsonIdMap.class.getName()
-         ).withSuperClass(clientTask);
+      model.createClazz("CTClearDrawing")
+      .withSuperClass(clientTask);
       
       scenario.addToDo("we should build attr.remove", Scenario.BACKLOG, "zuendorf", "04.10.2012 12:50:42", 0, 8);
       

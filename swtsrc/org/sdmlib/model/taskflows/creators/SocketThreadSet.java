@@ -110,7 +110,40 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (SocketThread elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.model.taskflows.SocketThread";
+   }
+
+
+   public SocketThreadSet with(SocketThread value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public SocketThreadSet without(SocketThread value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

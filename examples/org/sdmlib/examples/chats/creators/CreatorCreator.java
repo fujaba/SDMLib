@@ -18,17 +18,12 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.chats.creators.PeerToPeerChatPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.ChatMessageFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.ChatMessageFlowPOCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.TaskFlowPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.DrawPointFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.DrawPointFlowPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.ClearDrawingFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.ClearDrawingFlowPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.PeerToPeerChatArgsCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.PeerToPeerChatArgsPOCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyCreator());
-         creatorSet.add(new org.sdmlib.model.taskflows.creators.PeerProxyPOCreator());
-         creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CSChatMessageFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CSChatMessageFlowPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.ChatServerCreator());
@@ -47,7 +42,7 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTDrawPointPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingPOCreator());
-         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
+         creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
       }
       
       return creatorSet;

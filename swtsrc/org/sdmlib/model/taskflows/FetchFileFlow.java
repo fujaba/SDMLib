@@ -40,7 +40,13 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
       StartAtClient, 
       StartAtFileServer, 
    }
-      //==========================================================================
+ 
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+
+   //==========================================================================
    
    public void run(  )
    {

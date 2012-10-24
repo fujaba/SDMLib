@@ -111,6 +111,39 @@ public class FetchFileFlowSet extends LinkedHashSet<FetchFileFlow>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (FetchFileFlow elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.model.taskflows.FetchFileFlow";
+   }
+
+
+   public FetchFileFlowSet with(FetchFileFlow value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FetchFileFlowSet without(FetchFileFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

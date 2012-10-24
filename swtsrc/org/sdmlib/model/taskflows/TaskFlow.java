@@ -27,34 +27,44 @@ import org.eclipse.swt.widgets.Display;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-import com.sun.corba.se.pept.transport.Selector;
-
 import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {
-   public <T extends Enum> T to(T[] values, int step)
-   {
-      getPropertyChangeSupport().firePropertyChange("STAGE_REACHED", null, values[step].toString());
-      return values[step];
-   }
-   
-   public void switchTo(PeerProxy peer)
+	public abstract String getCurrentTaskName();
+	
+	public void switchTo(PeerProxy peer)
    {
       taskNo++;
       
-      peer.transferTaskFlow(this);
+      if(getLogger() != null)
+      {
+    	  peer.transferTaskFlow(getLogger());
+      }
+      else
+      {
+		peer.transferTaskFlow(this);
+      }
    }
    
    public void switchToThisAnd(PeerProxy peer)
    {
       taskNo++;
       
-      peer.transferTaskFlow(this);
-      
-      this.run();
+      if(getLogger() != null)
+      {
+    	  peer.transferTaskFlow(getLogger());
+    	  
+    	  getLogger().run();
+      }
+      else
+      {
+		peer.transferTaskFlow(this);
+		
+		this.run();
+      }
    }
    
    public void switchTo(PeerProxySet peers)
@@ -63,7 +73,14 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       
       for (PeerProxy peer : peers)
       {
-         peer.transferTaskFlow(this);
+    	  if(getLogger() != null)
+          {
+        	  peer.transferTaskFlow(getLogger());
+          }
+          else
+          {
+    		peer.transferTaskFlow(this);
+          }
       }
    }
    
@@ -102,6 +119,16 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       {
          return getTaskNo();
       }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attribute))
+      {
+         return getIdMap();
+      }
+
+      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      {
+         return getLogger();
+      }
       
       return null;
    }
@@ -123,6 +150,18 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
          return true;
       }
 
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         return true;
+      }
+
+      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      {
+         setLogger((Logger) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -141,6 +180,7 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    
    public void removeYou()
    {
+      setLogger(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -158,8 +198,33 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       run();
    }
 
+   //==========================================================================
    
+   public static final String PROPERTY_IDMAP = "idMap";
+   
+   protected org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
 
+   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
+   {
+      return this.idMap;
+   }
+   
+   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   {
+      if (this.idMap != value)
+      {
+         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
+         this.idMap = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
+      }
+   }
+   
+   public TaskFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   {
+      setIdMap(value);
+      return this;
+   }
+   
    
    //==========================================================================
    
@@ -186,6 +251,65 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    {
       setTaskNo(value);
       return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * TaskFlow ----------------------------------- Logger
+    *              targetTaskFlow                   logger
+    * </pre>
+    */
+   
+   public static final String PROPERTY_LOGGER = "logger";
+   
+   private Logger logger = null;
+   
+   public Logger getLogger()
+   {
+      return this.logger;
+   }
+   
+   public boolean setLogger(Logger value)
+   {
+      boolean changed = false;
+      
+      if (this.logger != value)
+      {
+         Logger oldValue = this.logger;
+         
+         if (this.logger != null)
+         {
+            this.logger = null;
+            oldValue.setTargetTaskFlow(null);
+         }
+         
+         this.logger = value;
+         
+         if (value != null)
+         {
+            value.withTargetTaskFlow(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGGER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public TaskFlow withLogger(Logger value)
+   {
+      setLogger(value);
+      return this;
+   } 
+   
+   public Logger createLogger()
+   {
+      Logger value = new Logger();
+      withLogger(value);
+      return value;
    } 
 }
 

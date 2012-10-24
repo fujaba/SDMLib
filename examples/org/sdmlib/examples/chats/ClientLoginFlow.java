@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.CSChatMessageFlow.TaskNames;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -30,17 +29,21 @@ import org.sdmlib.utils.StrUtil;
 
 public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
 {
-   enum TaskNames
-   {
-      Start, ServerLogin, ClientHandelAllMessages
-   }
+	enum TaskNames
+	{
+	   Start, ServerLogin, ClientHandelAllMessages
+	}
    
-
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+   
    //==========================================================================
    
    public void run(  )
    {
-      switch (to(TaskNames.values(), taskNo))
+      switch (TaskNames.values()[taskNo])
       {
       case Start:
          switchTo(server);
@@ -48,9 +51,9 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
 
       case ServerLogin:
          // add client to peer list
-         PeerProxy clientProxy = new PeerProxy().withIp(clientIP).withPort(clientPort).withIdMap(idMap);
+         PeerProxy clientProxy = new PeerProxy().withIp(clientIP).withPort(clientPort).withIdMap(getIdMap());
          
-         ChatServer chatServer = (ChatServer) idMap.getObject(ChatServer.CHAT_SERVER);
+         ChatServer chatServer = (ChatServer) getIdMap().getObject(ChatServer.CHAT_SERVER);
          
          chatServer.getAllPeers().add(clientProxy);
          
@@ -60,7 +63,7 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
          break;
       
       case ClientHandelAllMessages:
-         PeerToPeerChat gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
+         PeerToPeerChat gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          gui.getAllMessages().setText(allMessagesText);
          
          System.out.println("Login successfull:");
@@ -184,35 +187,7 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public ClientLoginFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
-
-   
+  
    //==========================================================================
    
    public static final String PROPERTY_SERVER = "server";

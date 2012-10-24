@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.DrawPointFlow.TaskNames;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
@@ -33,9 +32,14 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
       HandelClearButtonClick, ClearImage
    }
    
+	public String getCurrentTaskName()
+	{
+		return TaskNames.values()[taskNo].toString();
+	}
+   
    //==========================================================================
    
-   public void run(  )
+   public void run()
    {
       switch (TaskNames.values()[taskNo])
       {

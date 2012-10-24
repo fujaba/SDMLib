@@ -37,6 +37,12 @@ public class CTClearDrawing extends CSClientTask implements PropertyChangeInterf
       
    } 
 
+	public String getCurrentTaskName()
+	{
+		return "Empty";
+	}
+
+
    //==========================================================================
    
    public Object get(String attrName)
