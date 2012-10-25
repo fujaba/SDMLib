@@ -403,7 +403,11 @@ public class XMLIdMap extends IdMap {
 				
 				while (!this.value.isEnd() && myStack.size()>0) {
 					if(this.value.getCurrentChar()==ENDTAG){
-						myStack.remove(this.stack.size() - 1);
+						String nextTag=this.value.getNextTag();
+						if(nextTag.length()<1||myStack.get(myStack.size() - 1).equalsIgnoreCase(nextTag)){
+							myStack.remove(myStack.size() - 1);
+							continue;
+						}
 					}
 					if(this.value.getCurrentChar()==ITEMSTART){
 						String nextTag=getEntity();
@@ -414,45 +418,6 @@ public class XMLIdMap extends IdMap {
 					}
 					this.value.next();
 				}
-//					if (this.value.getCurrentChar() == ITEMSTART) {
-//						String nextTag=this.value.getNextTag();
-//						if(nextTag.length()>0){
-//							stack.add(nextTag);
-//							continue;
-//						}
-//						if(this.value.getCurrentChar()==ENDTAG){
-//							if(stack.size()>0){
-//								int temp=this.value.getIndex();
-//								String endTag = this.value.getNextTag();
-//								if(stack.get(stack.size()-1).equals(endTag)){
-//									stack.remove(stack.size()-1);
-//								}else{
-//									stack.remove(stack.size()-1);
-//									this.value.setIndex(temp-1);
-//									continue;
-//								}
-//								
-//							}else{
-//								this.value.back();
-//								exit = true;
-//								break;
-//							}
-//						}
-//					}
-//					if (!exit) {
-//						this.value.next();
-//					}
-//				this.value.stepPos('/', '>');
-//				
-//				
-//				//FIXME
-//				if(tag.equals("!--")){
-//					// skip Comments
-//					this.value.stepPos('>');
-//				if(tag.equals("!--")){
-//					// skip Comments
-//					this.value.stepPos('>');
-//				}
 			}else{
 				if (!plainvalue) {
 					// Parse Attributes
