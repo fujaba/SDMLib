@@ -41,6 +41,7 @@ import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.UnknownMessage;
 import org.sdmlib.serialization.event.creater.BasicMessageCreator;
+import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -324,23 +325,30 @@ public class ByteIdMap extends IdMap{
 	 *
 	 * @param value the value
 	 * @return the object
-	 * @throws RuntimeException the runtime exception
 	 */
-	public Object decode(String value) throws RuntimeException {
+	public Object decode(String value) {
 		return decode(value, new ByteConverterHTTP());
 	}
-	public Object decode(String value, ByteConverter converter) throws RuntimeException {
+	
+	/**
+	 * Decode.
+	 *
+	 * @param value the value
+	 * @param ByteConverter the Converter for bytes to String
+	 * @return the object
+	 */
+	public Object decode(String value, ByteConverter converter) {
 		byte[] decodeBytes = converter.decode(value);
 		return decode(decodeBytes);
 	}
+
 	/**
 	 * Decode.
 	 *
 	 * @param value the value
 	 * @return the object
-	 * @throws RuntimeException the runtime exception
 	 */
-	public Object decode(Object value) throws RuntimeException {
+	public Object decode(Object value) {
 		if (value instanceof ByteBuffer) {
 			return decode((ByteBuffer) value);
 		} else if (value instanceof byte[]) {
@@ -354,16 +362,22 @@ public class ByteIdMap extends IdMap{
 	 *
 	 * @param in the in
 	 * @return the object
-	 * @throws RuntimeException the runtime exception
 	 */
-	public Object decode(ByteBuffer in) throws RuntimeException {
+	public Object decode(ByteBuffer in) {
 		if (in.remaining() < 1)
-			throw new RuntimeException("DecodeExpeption - Remaining:" + in.remaining());
+			throw new TextParsingException("DecodeExpeption - Remaining:" + in.remaining(), in.remaining());
 
 		byte typ = in.get();
 		return decodeClazz(typ, in);
 	}
-	public Object decodeClazz(byte typ, ByteBuffer in) throws RuntimeException {
+	/**
+	 * Decode.
+	 * 
+	 * @param typ of message
+	 * @param in the in
+	 * @return the object
+	 */
+	public Object decodeClazz(byte typ, ByteBuffer in) {
 		Object entity = null;
 
 		SendableEntityCreator eventCreater=null;
@@ -390,7 +404,7 @@ public class ByteIdMap extends IdMap{
 						int len = in.getInt();
 						if (len > 0) {
 							if (in.remaining() != len)
-								throw new RuntimeException("DecodeExpeption - Remaining:" + in.remaining() + "!="+len);
+								throw new TextParsingException("DecodeExpeption - Remaining:" + in.remaining() + "!="+len, len);
 						}
 						typValue = in.get();
 					}

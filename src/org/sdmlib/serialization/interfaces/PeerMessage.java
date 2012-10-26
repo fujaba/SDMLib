@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Interface PeerMessage.
  */
 public interface PeerMessage {
-	
 	/**
 	 * Gets the Datatype of a value.
 	 *

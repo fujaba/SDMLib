@@ -3,6 +3,7 @@ package org.sdmlib.serialization.json;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
@@ -155,13 +156,13 @@ public class JsonTokener extends Tokener{
 		String key;
 
 		if (nextClean() != '{') {
-			throw syntaxError("A JsonObject text must begin with '{'");
+			throw new TextParsingException("A JsonObject text must begin with '{'", this);
 		}
 		for (;;) {
 			c = nextClean();
 			switch (c) {
 			case 0:
-				throw syntaxError("A JsonObject text must end with '}'");
+				throw new TextParsingException("A JsonObject text must end with '}'", this);
 			case '}':
 				return;
 			default:
@@ -175,7 +176,7 @@ public class JsonTokener extends Tokener{
 					back();
 				}
 			} else if (c != ':') {
-				throw syntaxError("Expected a ':' after a key");
+				throw new TextParsingException("Expected a ':' after a key", this);
 			}
 			entity.put(key, nextValue(entity));
 
@@ -191,7 +192,7 @@ public class JsonTokener extends Tokener{
 			case '}':
 				return;
 			default:
-				throw syntaxError("Expected a ',' or '}' got a " + nextClean());
+				throw new TextParsingException("Expected a ',' or '}' got a " + nextClean(), this);
 			}
 		}
 	}
@@ -199,7 +200,7 @@ public class JsonTokener extends Tokener{
 	@Override
 	public void parseToEntity(EntityList entityList) {
 		if (nextClean() != '[') {
-			throw syntaxError("A JSONArray text must start with '['");
+			throw new TextParsingException("A JSONArray text must start with '['", this);
 		}
 		if (nextClean() != ']') {
 			back();
@@ -222,7 +223,7 @@ public class JsonTokener extends Tokener{
 				case ']':
 					return;
 				default:
-					throw syntaxError("Expected a ',' or ']'");
+					throw new TextParsingException("Expected a ',' or ']'", this);
 				}
 			}
 		}

@@ -30,6 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 
 public class XMLTokener extends Tokener{
@@ -70,10 +71,10 @@ public class XMLTokener extends Tokener{
         char c;
         
         if (nextClean() != '<') {
-            throw syntaxError("A XML text must begin with '<'");
+            throw new TextParsingException("A XML text must begin with '<'", this);
         }
         if(!(entity instanceof XMLEntity)){
-        	throw syntaxError("Parse only XMLEntity");
+        	throw new TextParsingException("Parse only XMLEntity", this);
         }
         XMLEntity xmlEntity=(XMLEntity) entity;
         StringBuilder sb = new StringBuilder();
@@ -103,7 +104,7 @@ public class XMLTokener extends Tokener{
             	}
         	}else if(c=='<'){
             	if(next()=='/'){
-            		stepPos('>');
+            		stepPos(">", false, false);
             		next();
             		lExit=true;
             	}else{

@@ -1,7 +1,4 @@
-package org.sdmlib.serialization.bytes;
-
-import java.nio.ByteBuffer;
-
+package org.sdmlib.serialization.event;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -30,48 +27,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-public class ByteConverterHTTP extends ByteConverter{
+import java.util.LinkedHashSet;
 
-	@Override
-	public String toString(byte[] values, int size) {
-		StringBuilder returnValue=new StringBuilder();
-		
-		if(values!=null){
-			for (int i = 0; i < size; i++) {
-				byte value = values[i];
-				if (value <= 32 || value == 127) {
-					returnValue.append(ByteIdMap.SPLITTER);
-					returnValue.append((char) (value + ByteIdMap.SPLITTER + 1));
-				} else {
-					returnValue.append((char) value);
-				}
-			}
-		}
-		return returnValue.toString();
-	}
-
-	/**
-	 * Decode http.
-	 *
-	 * @param bytes the bytes
-	 * @return the object
-	 */
-	@Override
-	public byte[] decode(String value) {
-		int len = value.length();
-		ByteBuffer buffer = ByteBuffer.allocate(len);
-		for (int i = 0; i < len; i++) {
-			int c = value.charAt(i);
-			if (c == ByteIdMap.SPLITTER) {
-				c = value.charAt(++i);
-				buffer.put((byte) (c - ByteIdMap.SPLITTER - 1));
-			} else {
-				buffer.put((byte) c);
-			}
-		}
-		buffer.flip();
-		byte[] returnValue=new byte[buffer.limit()];
-		buffer.get(returnValue);
-		return returnValue;
-	}
+public class MapSet extends LinkedHashSet<Object>{
+	private static final long serialVersionUID = 1L;
 }

@@ -46,6 +46,7 @@ import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.creater.DateCreator;
 import org.sdmlib.serialization.event.creater.JsonArrayCreator;
 import org.sdmlib.serialization.event.creater.JsonObjectCreator;
+import org.sdmlib.serialization.event.creater.MapEntryCreator;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -84,6 +85,7 @@ public class JsonIdMap extends IdMap{
 		this.addCreator(new DateCreator());
 		this.addCreator(new JsonObjectCreator());
 		this.addCreator(new JsonArrayCreator());
+		this.addCreator(new MapEntryCreator());
 	}
 
 	/**
