@@ -27,9 +27,9 @@ import java.beans.PropertyChangeSupport;
 
 public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
 {
-	public String getCurrentTaskName()
+	public Object[] getTaskNames()
 	{
-		return "Start";
+		return null;
 	}
 
    @Override

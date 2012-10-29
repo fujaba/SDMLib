@@ -26,6 +26,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
@@ -33,17 +35,24 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 	@Override
 	public void run() 
 	{
-		// add yourself as listener if not yet done ?
 		createEntries()
 		.withNodeName(targetTaskFlow.getIdMap().getSessionId())
-		.withTaskName(targetTaskFlow.getCurrentTaskName());
+		.withTaskName(targetTaskFlow.getTaskNames()[targetTaskFlow.getTaskNo()].toString());
+		
+		boolean lastAction = targetTaskFlow.getTaskNo() >= targetTaskFlow.getTaskNames().length;
 		
 		targetTaskFlow.run();
-	} 
+		
+		if (lastAction)
+		{
+			JsonArray jsonArray = targetTaskFlow.getIdMap().toJsonArray(this);
+			//dump file
+		}
+	}
 
-	public String getCurrentTaskName()
+	public Object[] getTaskNames()
 	{
-		return "DoLogging";
+		return null;
 	}
 
 

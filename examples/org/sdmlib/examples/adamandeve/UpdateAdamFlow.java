@@ -43,9 +43,9 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
       AdamIsUpToDate,
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
 
 

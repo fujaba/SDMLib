@@ -32,9 +32,9 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
       HandelClearButtonClick, ClearImage
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
    
    //==========================================================================

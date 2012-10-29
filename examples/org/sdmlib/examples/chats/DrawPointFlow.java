@@ -25,7 +25,6 @@ import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.examples.chats.PeerToPeerChat;
-import org.sdmlib.examples.chats.ChatMessageFlow.TaskNames;
 
 public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
 {
@@ -34,9 +33,9 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
       HandelMouseMove, HandelMouseMoveMessage
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
 
    //==========================================================================

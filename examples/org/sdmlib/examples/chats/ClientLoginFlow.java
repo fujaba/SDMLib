@@ -29,14 +29,14 @@ import org.sdmlib.utils.StrUtil;
 
 public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
 {
-	enum TaskNames
+	enum TaskNames 
 	{
 	   Start, ServerLogin, ClientHandelAllMessages
 	}
    
-	public String getCurrentTaskName()
+	public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
    
    //==========================================================================

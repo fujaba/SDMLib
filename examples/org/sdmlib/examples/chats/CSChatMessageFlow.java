@@ -33,9 +33,9 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
       HandelClick, ServerHandelMessage, ClientHandelMessage, ServerReceiveRoger, ClientReceiveRoger,
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
    
    int noOfRogers = 0;

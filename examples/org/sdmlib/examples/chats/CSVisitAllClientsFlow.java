@@ -33,9 +33,9 @@ public class CSVisitAllClientsFlow extends TaskFlow implements PropertyChangeInt
       HandelClick, ServerHandelMessage, ClientHandelMessage, 
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
    
    //==========================================================================

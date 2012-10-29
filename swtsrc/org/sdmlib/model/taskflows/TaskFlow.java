@@ -33,7 +33,7 @@ import java.util.TimerTask;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {
-	public abstract String getCurrentTaskName();
+	public abstract Object[] getTaskNames();
 	
 	public void switchTo(PeerProxy peer)
    {

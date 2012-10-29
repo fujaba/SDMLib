@@ -34,9 +34,9 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
       HandelClick, ServerHandelMessage, ClientHandelMessage, 
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
    
    //==========================================================================

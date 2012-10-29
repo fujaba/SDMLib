@@ -34,9 +34,9 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
       HandelClick, HandelMessage
    }
    
-	public String getCurrentTaskName()
+   public Object[] getTaskNames()
 	{
-		return TaskNames.values()[taskNo].toString();
+		return TaskNames.values();
 	}
 
 
