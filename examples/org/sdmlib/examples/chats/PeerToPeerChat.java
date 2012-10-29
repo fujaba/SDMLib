@@ -112,7 +112,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             peerArgs = (PeerToPeerChatArgs) idMap.readJson(jsonObject);
          }
          
-         if (args.length >= 4)
+         if (args.length == 4)
          {
             // something like Albert 4242 localhost 5353
             peerArgs = new PeerToPeerChatArgs()
@@ -122,12 +122,13 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             .withPeerPort(Integer.parseInt(args[3]));
             chatMode = ChatMode.OneToOne;
          } 
-         else if (args.length == 3)
+         else if (args.length == 5)
          {
             // only server ip and port
             peerArgs.withPeerIp(args[0]);
             peerArgs.withPeerPort(Integer.parseInt(args[1]));
             peerArgs.withLocalPort(Integer.parseInt(args[2]));
+            peerArgs.withUserName(args[4]);
             chatMode = ChatMode.ClientServer;
             
          }
@@ -323,8 +324,9 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             }
             else
             {
+            	new Logger().withTargetTaskFlow(
                new CSChatMessageFlow()
-               .withIdMap((SDMLibJsonIdMap) idMap)
+               .withIdMap((SDMLibJsonIdMap) idMap))
                .run();
             }
          }

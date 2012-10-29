@@ -690,7 +690,7 @@ public class ScenarioManager
 	
 	
 
-	public void printFile(File file, String text)
+	public static void printFile(File file, String text)
 	{
 		try {
 		   File parentFile = file.getParentFile();
@@ -706,7 +706,7 @@ public class ScenarioManager
 		}
 	}
 	
-	public String readFile(File file)
+	public static String readFile(File file)
 	{
       StringBuilder result = new StringBuilder();
 	   try

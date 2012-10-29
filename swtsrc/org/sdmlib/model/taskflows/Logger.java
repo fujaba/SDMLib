@@ -21,12 +21,19 @@
    
 package org.sdmlib.model.taskflows;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeSupport;
+import java.io.File;
+
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.scenarios.CallDot;
+import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -39,15 +46,99 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 		.withNodeName(targetTaskFlow.getIdMap().getSessionId())
 		.withTaskName(targetTaskFlow.getTaskNames()[targetTaskFlow.getTaskNo()].toString());
 		
-		boolean lastAction = targetTaskFlow.getTaskNo() >= targetTaskFlow.getTaskNames().length;
+		boolean lastAction = targetTaskFlow.getTaskNo() + 1 >= targetTaskFlow.getTaskNames().length;
 		
 		targetTaskFlow.run();
 		
 		if (lastAction)
 		{
 			JsonArray jsonArray = targetTaskFlow.getIdMap().toJsonArray(this);
-			//dump file
+			
+			//dump json file
+			ScenarioManager.printFile(new File("doc/Logger.json"), jsonArray.toString(3));
+			
+			dumpDiagram();
 		}
+	}
+
+	private void dumpDiagram() 
+	{
+		// 
+		StringBuilder text = new StringBuilder(
+                " digraph TaskFlowDiagram {\n" + 
+                "    graph[rankdir = \"LR\"];\n" + 
+                "    \n" + 
+                "swimlanes \n" +
+                "    \n"  +
+                "links\n"  +
+                "}");
+                    
+		
+		StringBuilder swimlanes = dumpSwimlanes();
+		
+		StringBuilder linksText = new StringBuilder();
+		
+		LogEntry previousEntry = null;
+		for (LogEntry entry : this.getEntries())
+		{
+			if (previousEntry != null)
+			{
+				linksText.append("    " + previousEntry.getNodeName() + "_" + previousEntry.getTaskName() + " -> " + entry.getNodeName() + "_" + entry.getTaskName() + "; \n");
+			}
+			
+			previousEntry = entry;
+		}
+		
+		CGUtil.replaceAll(text,  
+				"swimlanes", swimlanes.toString(),
+				"links", linksText.toString());
+		
+		
+		
+		// ScenarioManager.printFile(new File("doc/Logger.dot"), text.toString());
+		
+		CallDot.callDot(targetTaskFlow.getClass().getSimpleName(), text.toString());
+	}
+
+	private StringBuilder dumpSwimlanes() {
+		StringBuilder swimlanes = new StringBuilder();
+		
+		LinkedHashSet<String> nodeNames = new LinkedHashSet<String>(this.getEntries().getNodeName());
+		for(String nodeName : nodeNames)
+		{
+			// add one lane
+			StringBuilder laneText = new StringBuilder(
+					"    subgraph clusterLaneName {\n" + 
+					"    	style=filled;\n" + 
+					"		color=lightgrey;\n" + 
+					"innerTasks\n" + 
+					"    	label = \"LaneName\";\n" + 
+					"    }\n"
+					);
+
+			StringBuilder innerTasksText = new StringBuilder();
+			
+			LinkedHashSet<String> taskNames = new LinkedHashSet<String>();
+			for (LogEntry entry : this.getEntries())
+			{
+				if (nodeName.equals(entry.getNodeName()))
+				{
+					taskNames.add(entry.getTaskName());
+				}
+			}
+			
+			for (String taskName : taskNames)
+			{
+				innerTasksText.append("       " + nodeName+ "_" + taskName + ";\n");
+			}
+			
+			CGUtil.replaceAll(laneText, 
+					"LaneName", nodeName, 
+					"innerTasks", innerTasksText.toString());
+		
+			swimlanes.append(laneText.toString());
+		}
+		return swimlanes;
 	}
 
 	public Object[] getTaskNames()
