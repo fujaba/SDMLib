@@ -122,6 +122,73 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       return this;
    }
    
+   public LogEntryPO hasChildren()
+   {
+      LogEntryPO result = new LogEntryPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(LogEntry.PROPERTY_CHILDREN, result);
+      
+      return result;
+   }
+   
+   public LogEntryPO hasChildren(LogEntryPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(LogEntry.PROPERTY_CHILDREN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntrySet getChildren()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LogEntry) this.getCurrentMatch()).getChildren();
+      }
+      return null;
+   }
+   
+   public LogEntryPO hasParent()
+   {
+      LogEntryPO result = new LogEntryPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(LogEntry.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+   
+   public LogEntryPO hasParent(LogEntryPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(LogEntry.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntry getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((LogEntry) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+   
 }
+
 
 

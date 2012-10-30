@@ -440,7 +440,7 @@ public class TransformOp implements PropertyChangeInterface
 
                   currentStatText = new StringBuilder().append(entry.getName() + " = ");
 
-                  handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+                  handleStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
                      currentStat, currentStatText, statEntry);
                   
                   currentStat.setText(currentStatText.toString());
@@ -468,7 +468,7 @@ public class TransformOp implements PropertyChangeInterface
                   
                   currentStatText = new StringBuilder();
 
-                  handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+                  handleStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
                      currentStat, currentStatText, statEntry);
                   
                   // now append loop var opObj
@@ -496,7 +496,7 @@ public class TransformOp implements PropertyChangeInterface
 
             currentStatText = new StringBuilder();
 
-            handelStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
+            handleStatementTokens(usedOpObjectNames, opObjTable, model, typeTable,
                currentStat, currentStatText, statEntry);
                   
             currentStat.setText(currentStatText.toString());
@@ -506,7 +506,7 @@ public class TransformOp implements PropertyChangeInterface
    }
 
 
-   private void handelStatementTokens(LinkedHashSet<String> usedOpObjectNames,
+   private void handleStatementTokens(LinkedHashSet<String> usedOpObjectNames,
          LinkedHashMap<String, OperationObject> opObjTable, ClassModel model, LinkedHashMap<String, String> typeTable,
          Statement currentStat, StringBuilder currentStatText,
          StatementEntry statEntry)

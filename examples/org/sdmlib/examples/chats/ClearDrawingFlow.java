@@ -29,7 +29,7 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
 {
    enum TaskNames
    {
-      HandelClearButtonClick, ClearImage
+      HandleClearButtonClick, ClearImage
    }
    
    public Object[] getTaskNames()
@@ -43,7 +43,7 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelClearButtonClick:
+      case HandleClearButtonClick:
          switchToThisAnd(gui.getPeer());
          break;
 

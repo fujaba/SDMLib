@@ -30,7 +30,7 @@ public class CSClearDrawingFlow extends TaskFlow implements PropertyChangeInterf
 {
    enum TaskNames
    {
-      HandelClick, ServerHandelMessage, ClientHandelMessage, 
+      HandleClick, ServerHandleMessage, ClientHandleMessage, 
    }
    
    public Object[] getTaskNames()
@@ -44,13 +44,13 @@ public class CSClearDrawingFlow extends TaskFlow implements PropertyChangeInterf
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelClick:
+      case HandleClick:
          PeerToPeerChat gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
          
          switchTo(gui.getPeer());
          break;
 
-      case ServerHandelMessage:
+      case ServerHandleMessage:
          ChatServer chatServer = (ChatServer) idMap.getObject(ChatServer.CHAT_SERVER);
          
          // resend to all clients
@@ -61,7 +61,7 @@ public class CSClearDrawingFlow extends TaskFlow implements PropertyChangeInterf
          }
          break;
       
-      case ClientHandelMessage:
+      case ClientHandleMessage:
          gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
         
          gui.clearImage();

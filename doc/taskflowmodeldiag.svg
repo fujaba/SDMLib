@@ -106,6 +106,12 @@
 <text text-anchor="middle" x="187.226" y="-86.483" font-family="Times New Roman,serif" font-size="10.00">entries</text>
 <text text-anchor="middle" x="178.774" y="-118.646" font-family="Times New Roman,serif" font-size="10.00">logger</text>
 </g>
+<!-- _LogEntry&#45;&gt;_LogEntry -->
+<g id="edge12" class="edge"><title>_LogEntry&#45;&gt;_LogEntry</title>
+<path fill="none" stroke="black" d="M232.377,-62.0708C242.628,-59.7476 250,-52.3906 250,-40 250,-27.6094 242.628,-20.2524 232.377,-17.9292"/>
+<text text-anchor="middle" x="242.25" y="-13.8409" font-family="Times New Roman,serif" font-size="10.00">children</text>
+<text text-anchor="middle" x="239.94" y="-53.0285" font-family="Times New Roman,serif" font-size="10.00">parent</text>
+</g>
 <!-- _Timer -->
 <g id="node7" class="node"><title>_Timer</title>
 <a xlink:href="../swtsrc/java/util/Timer.java" xlink:title="&lt;TABLE&gt;">

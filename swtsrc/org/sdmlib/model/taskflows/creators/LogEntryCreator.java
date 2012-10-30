@@ -12,6 +12,8 @@ public class LogEntryCreator extends EntityFactory
       LogEntry.PROPERTY_NODENAME,
       LogEntry.PROPERTY_TASKNAME,
       LogEntry.PROPERTY_LOGGER,
+      LogEntry.PROPERTY_CHILDREN,
+      LogEntry.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -48,4 +50,5 @@ public class LogEntryCreator extends EntityFactory
       ((LogEntry) entity).removeYou();
    }
 }
+
 

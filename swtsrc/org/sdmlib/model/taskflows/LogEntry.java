@@ -25,6 +25,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class LogEntry implements PropertyChangeInterface
 {
@@ -56,6 +58,16 @@ public class LogEntry implements PropertyChangeInterface
       {
          return getLogger();
       }
+
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         return getChildren();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -83,6 +95,24 @@ public class LogEntry implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         addToChildren((LogEntry) value);
+         return true;
+      }
+      
+      if ((PROPERTY_CHILDREN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromChildren((LogEntry) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((LogEntry) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -102,6 +132,8 @@ public class LogEntry implements PropertyChangeInterface
    public void removeYou()
    {
       setLogger(null);
+      removeAllFromChildren();
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -220,6 +252,158 @@ public class LogEntry implements PropertyChangeInterface
    {
       Logger value = new Logger();
       withLogger(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * LogEntry ----------------------------------- LogEntry
+    *              parent                   children
+    * </pre>
+    */
+   
+   public static final String PROPERTY_CHILDREN = "children";
+   
+   private LogEntrySet children = null;
+   
+   public LogEntrySet getChildren()
+   {
+      if (this.children == null)
+      {
+         return LogEntry.EMPTY_SET;
+      }
+   
+      return this.children;
+   }
+   
+   public boolean addToChildren(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.children == null)
+         {
+            this.children = new LogEntrySet();
+         }
+         
+         changed = this.children.add (value);
+         
+         if (changed)
+         {
+            value.withParent(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromChildren(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if ((this.children != null) && (value != null))
+      {
+         changed = this.children.remove (value);
+         
+         if (changed)
+         {
+            value.setParent(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public LogEntry withChildren(LogEntry value)
+   {
+      addToChildren(value);
+      return this;
+   } 
+   
+   public LogEntry withoutChildren(LogEntry value)
+   {
+      removeFromChildren(value);
+      return this;
+   } 
+   
+   public void removeAllFromChildren()
+   {
+      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(this.getChildren());
+   
+      for (LogEntry value : tmpSet)
+      {
+         this.removeFromChildren(value);
+      }
+   }
+   
+   public LogEntry createChildren()
+   {
+      LogEntry value = new LogEntry();
+      withChildren(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * LogEntry ----------------------------------- LogEntry
+    *              children                   parent
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PARENT = "parent";
+   
+   private LogEntry parent = null;
+   
+   public LogEntry getParent()
+   {
+      return this.parent;
+   }
+   
+   public boolean setParent(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if (this.parent != value)
+      {
+         LogEntry oldValue = this.parent;
+         
+         if (this.parent != null)
+         {
+            this.parent = null;
+            oldValue.withoutChildren(this);
+         }
+         
+         this.parent = value;
+         
+         if (value != null)
+         {
+            value.withChildren(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public LogEntry withParent(LogEntry value)
+   {
+      setParent(value);
+      return this;
+   } 
+   
+   public LogEntry createParent()
+   {
+      LogEntry value = new LogEntry();
+      withParent(value);
       return value;
    } 
 }

@@ -107,6 +107,59 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements ModelSet
       return this;
    }
 
+   public LogEntrySet getChildren()
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         result.addAll(obj.getChildren());
+      }
+      
+      return result;
+   }
+   public LogEntrySet withChildren(LogEntry value)
+   {
+      for (LogEntry obj : this)
+      {
+         obj.withChildren(value);
+      }
+      
+      return this;
+   }
+
+   public LogEntrySet withoutChildren(LogEntry value)
+   {
+      for (LogEntry obj : this)
+      {
+         obj.withoutChildren(value);
+      }
+      
+      return this;
+   }
+
+   public LogEntrySet getParent()
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (LogEntry obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+   public LogEntrySet withParent(LogEntry value)
+   {
+      for (LogEntry obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

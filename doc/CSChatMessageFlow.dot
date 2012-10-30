@@ -1,16 +1,16 @@
  digraph TaskFlowDiagram {
-    graph[rankdir = "LR"];
     
-    subgraph clustertobi {
+    subgraph clusternina {
+    	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       tobi_HandelClick;
-       tobi_ClientHandelMessage;
-       tobi_ClientReceiveRoger;
+       nina_HandelClick;
+       nina_ClientHandelMessage;
 
-    	label = "tobi";
+    	label = "nina";
     }
     subgraph clusterchatServer {
+    	rankdir="LR";
     	style=filled;
 		color=lightgrey;
        chatServer_ServerHandelMessage;
@@ -18,20 +18,22 @@
 
     	label = "chatServer";
     }
-    subgraph clusternina {
+    subgraph clustertobi {
+    	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       nina_ClientHandelMessage;
+       tobi_ClientHandelMessage;
+       tobi_ClientReceiveRoger;
 
-    	label = "nina";
+    	label = "tobi";
     }
  
     
-    tobi_HandelClick -> chatServer_ServerHandelMessage; 
+    nina_HandelClick -> chatServer_ServerHandelMessage; 
     chatServer_ServerHandelMessage -> tobi_ClientHandelMessage; 
-    tobi_ClientHandelMessage -> chatServer_ServerReceiveRoger; 
-    chatServer_ServerReceiveRoger -> nina_ClientHandelMessage; 
+    chatServer_ServerHandelMessage -> nina_ClientHandelMessage; 
     nina_ClientHandelMessage -> chatServer_ServerReceiveRoger; 
+    tobi_ClientHandelMessage -> chatServer_ServerReceiveRoger; 
     chatServer_ServerReceiveRoger -> tobi_ClientReceiveRoger; 
 
 }

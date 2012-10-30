@@ -21,30 +21,44 @@
    
 package org.sdmlib.model.taskflows;
 
-import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
-
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-
-import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import org.sdmlib.model.taskflows.creators.LoggerSet;
 import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
 	@Override
 	public void run() 
 	{
-		createEntries()
+		LogEntry previousEntry = null;
+		
+		if (!getEntries().isEmpty())
+		{
+			Iterator<LogEntry> entryIt = getEntries().iterator();
+			while(entryIt.hasNext())
+			{
+					previousEntry = entryIt.next();
+			}
+		}
+		
+		LogEntry newEntry = createEntries()
 		.withNodeName(targetTaskFlow.getIdMap().getSessionId())
 		.withTaskName(targetTaskFlow.getTaskNames()[targetTaskFlow.getTaskNo()].toString());
+		
+		if(previousEntry != null)
+		{
+			newEntry.withParent(previousEntry);
+		}
 		
 		boolean lastAction = targetTaskFlow.getTaskNo() + 1 >= targetTaskFlow.getTaskNames().length;
 		
@@ -66,7 +80,6 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 		// 
 		StringBuilder text = new StringBuilder(
                 " digraph TaskFlowDiagram {\n" + 
-                "    graph[rankdir = \"LR\"];\n" + 
                 "    \n" + 
                 "swimlanes \n" +
                 "    \n"  +
@@ -78,22 +91,18 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 		
 		StringBuilder linksText = new StringBuilder();
 		
-		LogEntry previousEntry = null;
 		for (LogEntry entry : this.getEntries())
 		{
+			LogEntry previousEntry = entry.getParent();
 			if (previousEntry != null)
 			{
 				linksText.append("    " + previousEntry.getNodeName() + "_" + previousEntry.getTaskName() + " -> " + entry.getNodeName() + "_" + entry.getTaskName() + "; \n");
 			}
-			
-			previousEntry = entry;
 		}
 		
 		CGUtil.replaceAll(text,  
 				"swimlanes", swimlanes.toString(),
 				"links", linksText.toString());
-		
-		
 		
 		// ScenarioManager.printFile(new File("doc/Logger.dot"), text.toString());
 		
@@ -108,7 +117,8 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 		{
 			// add one lane
 			StringBuilder laneText = new StringBuilder(
-					"    subgraph clusterLaneName {\n" + 
+					"    subgraph clusterLaneName {\n" +
+					"    	rankdir=\"LR\";\n" + 
 					"    	style=filled;\n" + 
 					"		color=lightgrey;\n" + 
 					"innerTasks\n" + 
@@ -178,6 +188,16 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       {
          return getTargetTaskFlow();
       }
+
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         return getChildren();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -217,6 +237,24 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         addToChildren((Logger) value);
+         return true;
+      }
+      
+      if ((PROPERTY_CHILDREN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromChildren((Logger) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((Logger) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -237,6 +275,8 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
    {
       removeAllFromEntries();
       setTargetTaskFlow(null);
+      removeAllFromChildren();
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -388,5 +428,159 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return this;
    } 
    
-}
 
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Logger ----------------------------------- Logger
+    *              parent                   children
+    * </pre>
+    */
+   
+   public static final String PROPERTY_CHILDREN = "children";
+   
+   private LoggerSet children = null;
+   
+   public LoggerSet getChildren()
+   {
+      if (this.children == null)
+      {
+         return Logger.EMPTY_SET;
+      }
+   
+      return this.children;
+   }
+   
+   public boolean addToChildren(Logger value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.children == null)
+         {
+            this.children = new LoggerSet();
+         }
+         
+         changed = this.children.add (value);
+         
+         if (changed)
+         {
+            value.withParent(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromChildren(Logger value)
+   {
+      boolean changed = false;
+      
+      if ((this.children != null) && (value != null))
+      {
+         changed = this.children.remove (value);
+         
+         if (changed)
+         {
+            value.setParent(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Logger withChildren(Logger value)
+   {
+      addToChildren(value);
+      return this;
+   } 
+   
+   public Logger withoutChildren(Logger value)
+   {
+      removeFromChildren(value);
+      return this;
+   } 
+   
+   public void removeAllFromChildren()
+   {
+      LinkedHashSet<Logger> tmpSet = new LinkedHashSet<Logger>(this.getChildren());
+   
+      for (Logger value : tmpSet)
+      {
+         this.removeFromChildren(value);
+      }
+   }
+   
+   public Logger createChildren()
+   {
+      Logger value = new Logger();
+      withChildren(value);
+      return value;
+   } 
+
+   
+   public static final LoggerSet EMPTY_SET = new LoggerSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Logger ----------------------------------- Logger
+    *              children                   parent
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PARENT = "parent";
+   
+   private Logger parent = null;
+   
+   public Logger getParent()
+   {
+      return this.parent;
+   }
+   
+   public boolean setParent(Logger value)
+   {
+      boolean changed = false;
+      
+      if (this.parent != value)
+      {
+         Logger oldValue = this.parent;
+         
+         if (this.parent != null)
+         {
+            this.parent = null;
+            oldValue.withoutChildren(this);
+         }
+         
+         this.parent = value;
+         
+         if (value != null)
+         {
+            value.withChildren(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Logger withParent(Logger value)
+   {
+      setParent(value);
+      return this;
+   } 
+   
+   public Logger createParent()
+   {
+      Logger value = new Logger();
+      withParent(value);
+      return value;
+   } 
+}

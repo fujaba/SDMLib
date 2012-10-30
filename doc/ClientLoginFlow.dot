@@ -1,24 +1,25 @@
  digraph TaskFlowDiagram {
-    graph[rankdir = "LR"];
     
     subgraph clustertobi {
+    	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       Start;
-       ClientHandelAllMessages;
+       tobi_Start;
+       tobi_ClientHandelAllMessages;
 
     	label = "tobi";
     }
     subgraph clusterchatServer {
+    	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       ServerLogin;
+       chatServer_ServerLogin;
 
     	label = "chatServer";
     }
  
     
-    Start -> ServerLogin; 
-    ServerLogin -> ClientHandelAllMessages; 
+    tobi_Start -> chatServer_ServerLogin; 
+    chatServer_ServerLogin -> tobi_ClientHandelAllMessages; 
 
 }

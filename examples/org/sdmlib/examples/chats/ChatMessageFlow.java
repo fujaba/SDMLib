@@ -31,7 +31,7 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames
    {
-      HandelClick, HandelMessage
+      HandleClick, HandleMessage
    }
    
    public Object[] getTaskNames()
@@ -48,7 +48,7 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelClick:
+      case HandleClick:
          msg = gui.getNameLabel().getText() + ": " + gui.getNewMessageText().getText();
          
          gui.getNewMessageText().setText("");
@@ -56,7 +56,7 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
          switchToThisAnd(gui.getPeer());
          break;
 
-      case HandelMessage:
+      case HandleMessage:
          gui.getAllMessages().append(msg + "\n");
          break;
          

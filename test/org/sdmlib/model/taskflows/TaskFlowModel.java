@@ -48,6 +48,7 @@ public class TaskFlowModel
     	 .withSuperClass(taskFlowClass)
     	 .withAssoc(taskFlowClass, "targetTaskFlow", ONE, "logger", ONE);
       Clazz logEntryClass = loggerClazz.createClassAndAssoc("LogEntry", "entries", MANY, "logger", ONE);
+      logEntryClass.withAssoc(logEntryClass, "children", MANY, "parent", ONE);
       logEntryClass.withAttributes(
     		  "nodeName", STRING,
     		  "taskName", STRING);

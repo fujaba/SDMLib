@@ -30,7 +30,7 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames
    {
-      HandelMouseMove, HandelMouseMoveMessage
+      HandleMouseMove, HandleMouseMoveMessage
    }
    
    public Object[] getTaskNames()
@@ -44,11 +44,11 @@ public class DrawPointFlow extends TaskFlow implements PropertyChangeInterface
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelMouseMove:
+      case HandleMouseMove:
          switchToThisAnd(gui.getPeer());
          break;
 
-      case HandelMouseMoveMessage:
+      case HandleMouseMoveMessage:
          gui.paintPoint(x, y, r, g, b);
          break;
          

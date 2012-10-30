@@ -30,7 +30,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
 {
    enum TaskNames
    {
-      HandelClick, ServerHandelMessage, ClientHandelMessage, ServerReceiveRoger, ClientReceiveRoger,
+      HandleClick, ServerHandleMessage, ClientHandleMessage, ServerReceiveRoger, ClientReceiveRoger,
    }
    
    public Object[] getTaskNames()
@@ -45,7 +45,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelClick:
+      case HandleClick:
          PeerToPeerChat gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          msg =  ": " + gui.getNewMessageText().getText();
          
@@ -54,7 +54,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          switchTo(gui.getPeer());
          break;
 
-      case ServerHandelMessage:
+      case ServerHandleMessage:
          ChatServer chatServer = (ChatServer) getIdMap().getObject(ChatServer.CHAT_SERVER);
          
          // append message to local buffer
@@ -64,7 +64,7 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          switchTo(chatServer.getAllPeers());
          break;
       
-      case ClientHandelMessage:
+      case ClientHandleMessage:
          gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          if (gui == null)
          {

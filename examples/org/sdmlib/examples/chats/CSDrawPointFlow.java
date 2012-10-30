@@ -31,7 +31,7 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames
    {
-      HandelClick, ServerHandelMessage, ClientHandelMessage, 
+      HandleClick, ServerHandleMessage, ClientHandleMessage, 
    }
    
    public Object[] getTaskNames()
@@ -45,13 +45,13 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
    {
       switch (TaskNames.values()[taskNo])
       {
-      case HandelClick:
+      case HandleClick:
          PeerToPeerChat gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
          
          switchTo(gui.getPeer());
          break;
 
-      case ServerHandelMessage:
+      case ServerHandleMessage:
          ChatServer chatServer = (ChatServer) idMap.getObject(ChatServer.CHAT_SERVER);
          
          // resend to all clients
@@ -62,7 +62,7 @@ public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
          }
          break;
       
-      case ClientHandelMessage:
+      case ClientHandleMessage:
          gui = (PeerToPeerChat) idMap.getObject(PeerToPeerChat.MY_GUI);
          
          gui.paintPoint(x, y, r, g, b);

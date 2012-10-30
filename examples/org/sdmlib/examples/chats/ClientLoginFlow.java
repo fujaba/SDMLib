@@ -31,7 +31,7 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
 {
 	enum TaskNames 
 	{
-	   Start, ServerLogin, ClientHandelAllMessages
+	   Start, ServerLogin, ClientHandleAllMessages
 	}
    
 	public Object[] getTaskNames()
@@ -62,7 +62,7 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
          switchTo(clientProxy);
          break;
       
-      case ClientHandelAllMessages:
+      case ClientHandleAllMessages:
          PeerToPeerChat gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI);
          gui.getAllMessages().setText(allMessagesText);
          
