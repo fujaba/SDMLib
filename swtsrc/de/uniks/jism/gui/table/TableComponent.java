@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -48,8 +47,7 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	private boolean isToolTip;
 	private Composite tableComposite;
 	private TableSyncronizer tableSyncronizer;
-	private PopupDialog window;
-	private PeerMessage list;
+	protected PeerMessage list;
 	private String property;
 
 	public TableComponent(Composite parent, int style) {
@@ -158,6 +156,21 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	public void redraw(){
 		
 	}
+	
+	public void refresh(PeerMessage object){
+		ArrayList<String> refreshColumns=new ArrayList<String>();
+		for(TableColumnView tableColumnView : columns){
+			refreshColumns.add(tableColumnView.getColumn().getAttrName());
+		}
+		if(fixedElements!=null){
+			fixedElements.update(object, refreshColumns.toArray(new String[refreshColumns.size()]));
+		}
+		if(tableViewer!=null){
+			tableViewer.update(object, refreshColumns.toArray(new String[refreshColumns.size()]));
+		}
+
+		
+	}
 	public void refresh(){
 		if(fixedElements!=null){
 			fixedElements.refresh();
@@ -169,7 +182,7 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 			for(Iterator<?> i=listItems.iterator(); i.hasNext();){
 				Object item = i.next();
 				if(item instanceof PeerMessage){
-					propertyChange(list, property, null, item);
+					propertyChange(new PropertyChangeEvent(list, property, null, item));
 				}
 			}
 		}
@@ -192,7 +205,7 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 		}
 		this.list=blanko;
 		this.property=property;
-//FIXME		tableViewer.setInput(input)
+//		tableViewer.setInput(item);
 //FIXME		talkListTalksObserveSet = BeansObservables.observeSet(
 //				Realm.getDefault(), updater.getSearchResults(),
 //				updater.getProperty());
@@ -222,26 +235,35 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt!=null){
-			propertyChange(evt.getSource(), evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
-		}
-	}
-	public void propertyChange(Object source, String propertyName, Object oldValue, Object newValue) {
-		if(list.equals(source)){
-			if(propertyName.equals(property)){
-				if(oldValue==null&&newValue!=null){
-					if(fixedElements!=null){
-						fixedElements.add(newValue);
+			if(list.equals(evt.getSource())){
+				if(evt.getPropertyName().equals(property)){
+					if(evt.getOldValue()==null&&evt.getNewValue()!=null){
+						//ADD a new Item
+						if(fixedElements!=null){
+							fixedElements.add(evt.getNewValue());
+						}
+						if(tableViewer!=null){
+							tableViewer.add(evt.getNewValue());
+						}
+					}else if(evt.getOldValue()!=null&&evt.getNewValue()==null){
+						if(fixedElements!=null){
+							fixedElements.remove(evt.getOldValue());
+						}
+						if(tableViewer!=null){
+							tableViewer.remove(evt.getOldValue());
+						}
 					}
-					if(tableViewer!=null){
-						tableViewer.add(newValue);
-					}
+				}
+			}else{
+				// Must be an update
+				if(fixedElements!=null){
+					fixedElements.update(evt.getSource(), new String[]{evt.getPropertyName()});
+				}
+				if(tableViewer!=null){
+					tableViewer.update(evt.getSource(), new String[]{evt.getPropertyName()});
 				}
 			}
 		}
-//		getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
-//FIXME SEARCH		if(updater!=null){
-//			updater.propertyChange(evt);
-//		}
 	}
 
 	@Override
@@ -302,20 +324,8 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 		    }
     	}
 	}
-	public void setPopUpWindow(PopupDialog window){
-		if(this.window!=null){
-			this.window.close();
-			this.window=null;
-		}
-		this.window=window;
-	}
 
 	public Table getTable(){
 		return table;
-	}
-
-	public void setElementValue(PeerMessage element, String editColumn,
-			Object object, Object value) {
-		element.set(editColumn, value);
 	}
 }

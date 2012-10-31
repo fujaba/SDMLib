@@ -1,5 +1,6 @@
 package de.uniks.jism.gui.table;
 
+import java.beans.PropertyChangeEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,6 +58,8 @@ public class TableCellEditingSupport extends EditingSupport {
 
 	protected void setValue(Object element, Object value) {
 		PeerMessage msg = (PeerMessage) element;
-		this.owner.setElementValue(msg, editColumn, msg.get(editColumn), value);
+		Object oldValue = msg.get(editColumn);
+		msg.set(editColumn, value);
+		this.owner.propertyChange(new PropertyChangeEvent(msg, editColumn, oldValue, value));
 	}
 }

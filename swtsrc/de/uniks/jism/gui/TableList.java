@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.utils.PropertyChangeClient;
 
@@ -42,6 +43,12 @@ public class TableList implements PeerMessage, PropertyChangeClient {
 			if (value instanceof PeerMessage) {
 				PeerMessage entry = (PeerMessage) value;
 				addToItems(entry);
+				return true;
+			}
+		}else if ((PROPERTY_ITEMS+IdMap.REMOVE).equalsIgnoreCase(attrName)) {
+			if (value instanceof PeerMessage) {
+				PeerMessage entry = (PeerMessage) value;
+				removeFromItems(entry);
 				return true;
 			}
 		}

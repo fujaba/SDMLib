@@ -14,7 +14,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class SearchResultUpdater  implements PropertyChangeListener, ModifyListener
+public class SearchResultUpdater implements ModifyListener
 {
    private String lastSearchCriteria = "####";
    private Display myDisplay;
@@ -64,25 +64,7 @@ public class SearchResultUpdater  implements PropertyChangeListener, ModifyListe
       this.columnTitle = columnTitle;
       this.tableViewerColumn=tableViewerColumn;
    }
-   @Override
-   public void propertyChange(PropertyChangeEvent evt)
-   {
-		   String searchCriteria = searchText.getText();
-           // if search did not change do nothing
-           if (searchCriteria == null && lastSearchCriteria == null)  return; // <========= sudden death
-           
-           searchCriteria = searchCriteria.trim().toLowerCase();
-           if (searchCriteria.equals(lastSearchCriteria))   return; // <========= sudden death
-           if (myDisplay == null) return; // <=========================sudden death
-           
-           myDisplay.syncExec(new Runnable()
-           {
-     		@Override
-              public void run(){
-     			refreshContent();
-     		}
-           });
-   }
+
    public void refreshContent(){
 		String searchCriteria = searchText.getText().trim().toLowerCase();
 
@@ -174,9 +156,26 @@ public class SearchResultUpdater  implements PropertyChangeListener, ModifyListe
    }
 
    @Override
-   public void modifyText(ModifyEvent arg0)
+   public void modifyText(ModifyEvent event)
    {
-      propertyChange(null);         
+	   refresh();
+   }
+   public void refresh(){
+	   String searchCriteria = searchText.getText();
+       // if search did not change do nothing
+       if (searchCriteria == null && lastSearchCriteria == null)  return; // <========= sudden death
+       
+       searchCriteria = searchCriteria.trim().toLowerCase();
+       if (searchCriteria.equals(lastSearchCriteria))   return; // <========= sudden death
+       if (myDisplay == null) return; // <=========================sudden death
+       
+       myDisplay.syncExec(new Runnable()
+       {
+ 		@Override
+          public void run(){
+ 			refreshContent();
+ 		}
+       });
    }
 
 	public String getProperty() {

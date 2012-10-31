@@ -33,9 +33,9 @@ public class SearchTableComponent extends TableComponent {
 		
 		Label lblSearch = new Label(northComponents, SWT.NONE);
 		lblSearch.setText("Search:");
-		searchText = new Text(northComponents, SWT.BORDER | SWT.SEARCH|SWT.ICON_SEARCH);
+		searchText = new Text(northComponents, SWT.BORDER | SWT.ICON_SEARCH | SWT.SEARCH);
+		
 		searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		searchText.setMessage("enter searchtext");
 		super.createContent();
 	}
 
@@ -63,13 +63,10 @@ public class SearchTableComponent extends TableComponent {
 
 		if (updater == null) {
 			updater = new SearchResultUpdater(this.searchText, item, property, blanko, searchProperties);
-			updater.propertyChange(null);
+			updater.refresh();
+			searchText.addModifyListener(updater);
 		}
 		return result;
-	}
-
-	public Text getSearchField() {
-		return searchText;
 	}
 
 	public SearchResultUpdater getUpdater() {
