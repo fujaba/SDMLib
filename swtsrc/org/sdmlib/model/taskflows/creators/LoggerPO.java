@@ -13,6 +13,7 @@ import org.sdmlib.model.taskflows.creators.LoggerPO;
 import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.model.taskflows.PeerProxy;
 
 public class LoggerPO extends PatternObject<LoggerPO, Logger>
 {
@@ -144,6 +145,30 @@ public class LoggerPO extends PatternObject<LoggerPO, Logger>
       return null;
    }
    
+   public LoggerPO hasStartPeer(PeerProxy value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_STARTPEER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PeerProxy getStartPeer()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Logger) getCurrentMatch()).getStartPeer();
+      }
+      return null;
+   }
+   
 }
+
 
 

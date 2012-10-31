@@ -37,41 +37,56 @@ import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
+	enum TaskNames 
+	{
+	   Start, Collect
+	}
+	
 	@Override
 	public void run() 
 	{
-		LogEntry previousEntry = null;
-		
-		if (!getEntries().isEmpty())
+		switch (TaskNames.values()[taskNo])
 		{
-			Iterator<LogEntry> entryIt = getEntries().iterator();
-			while(entryIt.hasNext())
+		case Start:
+			LogEntry previousEntry = null;
+
+			if (!getEntries().isEmpty())
 			{
+				Iterator<LogEntry> entryIt = getEntries().iterator();
+				while(entryIt.hasNext())
+				{
 					previousEntry = entryIt.next();
+				}
 			}
-		}
-		
-		LogEntry newEntry = createEntries()
-		.withNodeName(targetTaskFlow.getIdMap().getSessionId())
-		.withTaskName(targetTaskFlow.getTaskNames()[targetTaskFlow.getTaskNo()].toString());
-		
-		if(previousEntry != null)
-		{
-			newEntry.withParent(previousEntry);
-		}
-		
-		boolean lastAction = targetTaskFlow.getTaskNo() + 1 >= targetTaskFlow.getTaskNames().length;
-		
-		targetTaskFlow.run();
-		
-		if (lastAction)
-		{
+
+			LogEntry newEntry = createEntries()
+					.withNodeName(targetTaskFlow.getIdMap().getSessionId())
+					.withTaskName(targetTaskFlow.getTaskNames()[targetTaskFlow.getTaskNo()].toString());
+
+			if(previousEntry != null)
+			{
+				newEntry.withParent(previousEntry);
+			}
+
+			boolean lastAction = targetTaskFlow.getTaskNo() + 1 >= targetTaskFlow.getTaskNames().length;
+
+			targetTaskFlow.run();
+
+			if (lastAction)
+			{
+				switchTo(startPeer);
+			}
+			break;
+		case Collect:
 			JsonArray jsonArray = targetTaskFlow.getIdMap().toJsonArray(this);
-			
+
 			//dump json file
 			ScenarioManager.printFile(new File("doc/Logger.json"), jsonArray.toString(3));
-			
+
 			dumpDiagram();
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -81,27 +96,18 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 		StringBuilder text = new StringBuilder(
                 " digraph TaskFlowDiagram {\n" + 
                 "    \n" + 
-                "swimlanes \n" +
-                "    \n"  +
+                "swimlanes\n" +
+                "    \n" +
                 "links\n"  +
                 "}");
                     
 		
-		StringBuilder swimlanes = dumpSwimlanes();
+		StringBuilder swimlanesText = dumpSwimlanes();
 		
-		StringBuilder linksText = new StringBuilder();
-		
-		for (LogEntry entry : this.getEntries())
-		{
-			LogEntry previousEntry = entry.getParent();
-			if (previousEntry != null)
-			{
-				linksText.append("    " + previousEntry.getNodeName() + "_" + previousEntry.getTaskName() + " -> " + entry.getNodeName() + "_" + entry.getTaskName() + "; \n");
-			}
-		}
+		StringBuilder linksText = dumpLinks();
 		
 		CGUtil.replaceAll(text,  
-				"swimlanes", swimlanes.toString(),
+				"swimlanes", swimlanesText.toString(),
 				"links", linksText.toString());
 		
 		// ScenarioManager.printFile(new File("doc/Logger.dot"), text.toString());
@@ -110,7 +116,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 	}
 
 	private StringBuilder dumpSwimlanes() {
-		StringBuilder swimlanes = new StringBuilder();
+		StringBuilder swimlanesText = new StringBuilder();
 		
 		LinkedHashSet<String> nodeNames = new LinkedHashSet<String>(this.getEntries().getNodeName());
 		for(String nodeName : nodeNames)
@@ -118,37 +124,63 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 			// add one lane
 			StringBuilder laneText = new StringBuilder(
 					"    subgraph clusterLaneName {\n" +
-					"    	rankdir=\"LR\";\n" + 
+					"    	rankdir=\"LR\";\n" +
 					"    	style=filled;\n" + 
 					"		color=lightgrey;\n" + 
 					"innerTasks\n" + 
 					"    	label = \"LaneName\";\n" + 
-					"    }\n"
+					"    }\n"+
+					"    \n"
 					);
 
-			StringBuilder innerTasksText = new StringBuilder();
-			
-			LinkedHashSet<String> taskNames = new LinkedHashSet<String>();
-			for (LogEntry entry : this.getEntries())
-			{
-				if (nodeName.equals(entry.getNodeName()))
-				{
-					taskNames.add(entry.getTaskName());
-				}
-			}
-			
-			for (String taskName : taskNames)
-			{
-				innerTasksText.append("       " + nodeName+ "_" + taskName + ";\n");
-			}
+			StringBuilder innerTasksText = dumpInnerTasks(nodeName);
 			
 			CGUtil.replaceAll(laneText, 
 					"LaneName", nodeName, 
 					"innerTasks", innerTasksText.toString());
 		
-			swimlanes.append(laneText.toString());
+			swimlanesText.append(laneText.toString());
 		}
-		return swimlanes;
+		return swimlanesText;
+	}
+
+	private StringBuilder dumpInnerTasks(String nodeName) {
+		StringBuilder innerTasksText = new StringBuilder();
+		
+		LinkedHashSet<String> taskNames = new LinkedHashSet<String>();
+		for (LogEntry entry : this.getEntries())
+		{
+			if (nodeName.equals(entry.getNodeName()))
+			{
+				taskNames.add(entry.getTaskName());
+			}
+		}
+		
+		for (String taskName : taskNames)
+		{
+			innerTasksText.append("        " + nodeName+ "_" + taskName + "[label=\"" + taskName + "\"];\n");
+		}
+		
+		return innerTasksText;
+	}
+	
+	private StringBuilder dumpLinks() {
+		StringBuilder linksText = new StringBuilder();
+
+		for (LogEntry entry : this.getEntries())
+		{
+			LogEntry previousEntry = entry.getParent();
+			if (previousEntry != null)
+			{
+				linksText.append("    " +
+				previousEntry.getNodeName() + "_" + previousEntry.getTaskName() +
+				" -> " +
+				entry.getNodeName() + "_" + entry.getTaskName() +
+				"; \n");
+			}
+		}
+		
+		return linksText;
 	}
 
 	public Object[] getTaskNames()
@@ -197,6 +229,11 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          return getParent();
+      }
+
+      if (PROPERTY_STARTPEER.equalsIgnoreCase(attribute))
+      {
+         return getStartPeer();
       }
       
       return null;
@@ -252,6 +289,12 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          setParent((Logger) value);
+         return true;
+      }
+
+      if (PROPERTY_STARTPEER.equalsIgnoreCase(attrName))
+      {
+         setStartPeer((org.sdmlib.model.taskflows.PeerProxy) value);
          return true;
       }
 
@@ -583,4 +626,33 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STARTPEER = "startPeer";
+   
+   private org.sdmlib.model.taskflows.PeerProxy startPeer;
+
+   public org.sdmlib.model.taskflows.PeerProxy getStartPeer()
+   {
+      return this.startPeer;
+   }
+   
+   public void setStartPeer(org.sdmlib.model.taskflows.PeerProxy value)
+   {
+      if (this.startPeer != value)
+      {
+         org.sdmlib.model.taskflows.PeerProxy oldValue = this.startPeer;
+         this.startPeer = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPEER, oldValue, value);
+      }
+   }
+   
+   public Logger withStartPeer(org.sdmlib.model.taskflows.PeerProxy value)
+   {
+      setStartPeer(value);
+      return this;
+   } 
 }
+

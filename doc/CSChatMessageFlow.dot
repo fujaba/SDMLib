@@ -2,38 +2,46 @@
     
     subgraph clusternina {
     	rankdir="LR";
+    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
-       nina_HandelClick;
-       nina_ClientHandelMessage;
+        nina_HandleClick[label="HandleClick"];
+        nina_ClientHandleMessage[label="ClientHandleMessage"];
+        nina_ClientReceiveRoger[label="ClientReceiveRoger"];
 
     	label = "nina";
     }
+    
     subgraph clusterchatServer {
     	rankdir="LR";
+    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
-       chatServer_ServerHandelMessage;
-       chatServer_ServerReceiveRoger;
+        chatServer_ServerHandleMessage[label="ServerHandleMessage"];
+        chatServer_ServerReceiveRoger[label="ServerReceiveRoger"];
 
     	label = "chatServer";
     }
+    
     subgraph clustertobi {
     	rankdir="LR";
+    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
-       tobi_ClientHandelMessage;
-       tobi_ClientReceiveRoger;
+        tobi_ClientHandleMessage[label="ClientHandleMessage"];
+        tobi_ClientReceiveRoger[label="ClientReceiveRoger"];
 
     	label = "tobi";
     }
- 
     
-    nina_HandelClick -> chatServer_ServerHandelMessage; 
-    chatServer_ServerHandelMessage -> tobi_ClientHandelMessage; 
-    chatServer_ServerHandelMessage -> nina_ClientHandelMessage; 
-    nina_ClientHandelMessage -> chatServer_ServerReceiveRoger; 
-    tobi_ClientHandelMessage -> chatServer_ServerReceiveRoger; 
+
+    
+    nina_HandleClick -> chatServer_ServerHandleMessage; 
+    chatServer_ServerHandleMessage -> nina_ClientHandleMessage; 
+    nina_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
+    chatServer_ServerHandleMessage -> tobi_ClientHandleMessage; 
+    tobi_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
+    chatServer_ServerReceiveRoger -> nina_ClientReceiveRoger; 
     chatServer_ServerReceiveRoger -> tobi_ClientReceiveRoger; 
 
 }

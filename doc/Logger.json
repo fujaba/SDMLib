@@ -1,108 +1,121 @@
 [
    {
-      "id":"nina.L6",
+      "id":"nina.L25",
       "class":"org.sdmlib.model.taskflows.Logger",
       "prop":{
-         "taskNo":0,
+         "taskNo":1,
          "entries":[
-            {"id":"nina.L7"},
-            {"id":"chatServer.L3"},
-            {"id":"tobi.L6"},
-            {"id":"nina.L9"},
-            {"id":"chatServer.L4"},
-            {"id":"chatServer.L5"},
-            {"id":"tobi.L7"}
+            {"id":"nina.L26"},
+            {"id":"chatServer.L18"},
+            {"id":"nina.L29"},
+            {"id":"chatServer.L19"},
+            {"id":"tobi.L29"},
+            {"id":"chatServer.L20"},
+            {"id":"nina.L30"},
+            {"id":"tobi.L30"}
          ],
-         "targetTaskFlow":{"id":"nina.C8"}
+         "targetTaskFlow":{"id":"nina.C27"},
+         "startPeer":{"id":"nina.P28"}
       }
    },
    {
-      "id":"nina.L7",
+      "id":"nina.L26",
       "class":"org.sdmlib.model.taskflows.LogEntry",
       "prop":{
          "nodeName":"nina",
-         "taskName":"HandelClick",
-         "logger":{"id":"nina.L6"},
+         "taskName":"HandleClick",
+         "logger":{"id":"nina.L25"},
          "children":[
-            {"id":"chatServer.L3"}
+            {"id":"chatServer.L18"}
          ]
       }
    },
    {
-      "id":"chatServer.L3",
+      "id":"chatServer.L18",
       "class":"org.sdmlib.model.taskflows.LogEntry",
       "prop":{
          "nodeName":"chatServer",
-         "taskName":"ServerHandelMessage",
-         "logger":{"id":"nina.L6"},
+         "taskName":"ServerHandleMessage",
+         "logger":{"id":"nina.L25"},
          "children":[
-            {"id":"tobi.L6"},
-            {"id":"nina.L9"}
+            {"id":"nina.L29"},
+            {"id":"tobi.L29"}
          ],
-         "parent":{"id":"nina.L7"}
+         "parent":{"id":"nina.L26"}
       }
    },
    {
-      "id":"tobi.L6",
+      "id":"nina.L29",
       "class":"org.sdmlib.model.taskflows.LogEntry",
       "prop":{
-         "nodeName":"tobi",
-         "taskName":"ClientHandelMessage",
-         "logger":{"id":"nina.L6"},
+         "nodeName":"nina",
+         "taskName":"ClientHandleMessage",
+         "logger":{"id":"nina.L25"},
          "children":[
-            {"id":"chatServer.L5"}
+            {"id":"chatServer.L19"}
          ],
-         "parent":{"id":"chatServer.L3"}
+         "parent":{"id":"chatServer.L18"}
       }
    },
    {
-      "id":"chatServer.L5",
+      "id":"chatServer.L19",
       "class":"org.sdmlib.model.taskflows.LogEntry",
       "prop":{
          "nodeName":"chatServer",
          "taskName":"ServerReceiveRoger",
-         "logger":{"id":"nina.L6"},
-         "children":[
-            {"id":"tobi.L7"}
-         ],
-         "parent":{"id":"tobi.L6"}
+         "logger":{"id":"nina.L25"},
+         "parent":{"id":"nina.L29"}
       }
    },
    {
-      "id":"tobi.L7",
+      "id":"tobi.L29",
+      "class":"org.sdmlib.model.taskflows.LogEntry",
+      "prop":{
+         "nodeName":"tobi",
+         "taskName":"ClientHandleMessage",
+         "logger":{"id":"nina.L25"},
+         "children":[
+            {"id":"chatServer.L20"}
+         ],
+         "parent":{"id":"chatServer.L18"}
+      }
+   },
+   {
+      "id":"chatServer.L20",
+      "class":"org.sdmlib.model.taskflows.LogEntry",
+      "prop":{
+         "nodeName":"chatServer",
+         "taskName":"ServerReceiveRoger",
+         "logger":{"id":"nina.L25"},
+         "children":[
+            {"id":"nina.L30"},
+            {"id":"tobi.L30"}
+         ],
+         "parent":{"id":"tobi.L29"}
+      }
+   },
+   {
+      "id":"nina.L30",
+      "class":"org.sdmlib.model.taskflows.LogEntry",
+      "prop":{
+         "nodeName":"nina",
+         "taskName":"ClientReceiveRoger",
+         "logger":{"id":"nina.L25"},
+         "parent":{"id":"chatServer.L20"}
+      }
+   },
+   {
+      "id":"tobi.L30",
       "class":"org.sdmlib.model.taskflows.LogEntry",
       "prop":{
          "nodeName":"tobi",
          "taskName":"ClientReceiveRoger",
-         "logger":{"id":"nina.L6"},
-         "parent":{"id":"chatServer.L5"}
+         "logger":{"id":"nina.L25"},
+         "parent":{"id":"chatServer.L20"}
       }
    },
    {
-      "id":"nina.L9",
-      "class":"org.sdmlib.model.taskflows.LogEntry",
-      "prop":{
-         "nodeName":"nina",
-         "taskName":"ClientHandelMessage",
-         "logger":{"id":"nina.L6"},
-         "children":[
-            {"id":"chatServer.L4"}
-         ],
-         "parent":{"id":"chatServer.L3"}
-      }
-   },
-   {
-      "id":"chatServer.L4",
-      "class":"org.sdmlib.model.taskflows.LogEntry",
-      "prop":{
-         "nodeName":"chatServer",
-         "taskName":"ServerReceiveRoger",
-         "logger":{"id":"nina.L6"},
-         "parent":{"id":"nina.L9"}
-      }
-   },
-   {
-      "id":"nina.C8",
+      "id":"nina.C27",
       "class":"org.sdmlib.examples.chats.CSChatMessageFlow",
       "prop":{
          "taskNo":4,
@@ -113,5 +126,14 @@
    {
       "id":"id.map",
       "class":"org.sdmlib.serialization.json.SDMLibJsonIdMap"
+   },
+   {
+      "id":"nina.P28",
+      "class":"org.sdmlib.model.taskflows.PeerProxy",
+      "prop":{
+         "ip":"10.1.1.158",
+         "port":9998,
+         "idMap":{"id":"id.map"}
+      }
    }
 ]

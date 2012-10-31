@@ -49,6 +49,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -65,6 +66,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
    public static final String MY_GUI = "my.gui";
    public static final String ID_MAP = "id.map";
    private static Object chatMode;
+   private static PeerToPeerChatArgs peerArgs;
    private Text allMessages;
    private Text newMessageText;
    private Label nameLabel;
@@ -90,7 +92,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
          Display display = Display.getDefault();
          PeerToPeerChat gui = new PeerToPeerChat();
           
-         PeerToPeerChatArgs peerArgs = null;
+         peerArgs = null;
          
          File argsFile = new File ("peerToPeer.config");
          
@@ -172,6 +174,10 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
         			 .withClientIP(InetAddress.getLocalHost().getHostAddress())
         			 .withClientPort(peerArgs.getLocalPort())
         			 .withIdMap((SDMLibJsonIdMap) idMap))
+        			 .withStartPeer(new PeerProxy()
+            			.withIp(InetAddress.getLocalHost().getHostAddress())
+            			.withPort(peerArgs.getLocalPort())
+            			.withIdMap(idMap))
         			 .run();
          }
          while (!gui.isDisposed())
@@ -324,10 +330,18 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             }
             else
             {
-            	new Logger().withTargetTaskFlow(
-               new CSChatMessageFlow()
-               .withIdMap((SDMLibJsonIdMap) idMap))
-               .run();
+            	try {
+					new Logger().withTargetTaskFlow(
+            new CSChatMessageFlow()
+            .withIdMap((SDMLibJsonIdMap) idMap))
+            .withStartPeer(new PeerProxy()
+            			.withIp(InetAddress.getLocalHost().getHostAddress())
+            			.withPort(peerArgs.getLocalPort())
+            			.withIdMap(idMap))
+            .run();
+				} catch (UnknownHostException e1) {
+					e1.printStackTrace();
+				}
             }
          }
       });

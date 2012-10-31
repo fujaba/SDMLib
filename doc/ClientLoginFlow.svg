@@ -32,13 +32,13 @@
 <path fill="none" stroke="black" d="M302.99,-101.143C284.874,-88.9147 258.907,-71.3874 238.256,-57.4475"/>
 <polygon fill="black" stroke="black" points="240.015,-54.4126 229.769,-51.7188 236.099,-60.2145 240.015,-54.4126"/>
 </g>
-<!-- tobi_ClientHandelAllMessages -->
-<g id="node3" class="node"><title>tobi_ClientHandelAllMessages</title>
+<!-- tobi_ClientHandleAllMessages -->
+<g id="node3" class="node"><title>tobi_ClientHandleAllMessages</title>
 <ellipse fill="none" stroke="black" cx="138" cy="-117" rx="122.284" ry="18"/>
-<text text-anchor="middle" x="138" y="-113.3" font-family="Times New Roman,serif" font-size="14.00">tobi_ClientHandelAllMessages</text>
+<text text-anchor="middle" x="138" y="-113.3" font-family="Times New Roman,serif" font-size="14.00">tobi_ClientHandleAllMessages</text>
 </g>
-<!-- chatServer_ServerLogin&#45;&gt;tobi_ClientHandelAllMessages -->
-<g id="edge6" class="edge"><title>chatServer_ServerLogin&#45;&gt;tobi_ClientHandelAllMessages</title>
+<!-- chatServer_ServerLogin&#45;&gt;tobi_ClientHandleAllMessages -->
+<g id="edge6" class="edge"><title>chatServer_ServerLogin&#45;&gt;tobi_ClientHandleAllMessages</title>
 <path fill="none" stroke="black" d="M191.041,-51.8755C181.706,-63.1611 169.259,-78.2098 158.768,-90.8926"/>
 <polygon fill="black" stroke="black" points="155.886,-88.8856 152.209,-98.822 161.28,-93.3472 155.886,-88.8856"/>
 </g>

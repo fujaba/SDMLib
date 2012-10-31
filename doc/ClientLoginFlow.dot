@@ -4,22 +4,24 @@
     	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       tobi_Start;
-       tobi_ClientHandelAllMessages;
+        tobi_Start;
+        tobi_ClientHandleAllMessages;
 
     	label = "tobi";
     }
+    
     subgraph clusterchatServer {
     	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-       chatServer_ServerLogin;
+        chatServer_ServerLogin;
 
     	label = "chatServer";
     }
- 
+    
+
     
     tobi_Start -> chatServer_ServerLogin; 
-    chatServer_ServerLogin -> tobi_ClientHandelAllMessages; 
+    chatServer_ServerLogin -> tobi_ClientHandleAllMessages; 
 
 }

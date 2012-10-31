@@ -44,9 +44,11 @@ public class TaskFlowModel
          .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
       
-      Clazz loggerClazz = model.createClazz("Logger")
+      Clazz loggerClazz = model.createClazz("Logger",
+    	 "startPeer", PeerProxy.class.getName())
     	 .withSuperClass(taskFlowClass)
     	 .withAssoc(taskFlowClass, "targetTaskFlow", ONE, "logger", ONE);
+      
       Clazz logEntryClass = loggerClazz.createClassAndAssoc("LogEntry", "entries", MANY, "logger", ONE);
       logEntryClass.withAssoc(logEntryClass, "children", MANY, "parent", ONE);
       logEntryClass.withAttributes(

@@ -11,6 +11,8 @@ import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.model.taskflows.LogEntry;
+import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.PeerProxy;
 
 public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
 {
@@ -143,6 +145,29 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       return this;
    }
 
+   public PeerProxySet getStartPeer()
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getStartPeer());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withStartPeer(PeerProxy value)
+   {
+      for (Logger obj : this)
+      {
+         obj.withStartPeer(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

@@ -14,6 +14,7 @@ public class LoggerCreator extends EntityFactory
       TaskFlow.PROPERTY_IDMAP,
       Logger.PROPERTY_ENTRIES,
       Logger.PROPERTY_TARGETTASKFLOW,
+      Logger.PROPERTY_STARTPEER,
    };
    
    public String[] getProperties()
@@ -50,5 +51,6 @@ public class LoggerCreator extends EntityFactory
       ((Logger) entity).removeYou();
    }
 }
+
 
 
