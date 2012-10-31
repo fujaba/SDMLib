@@ -38,6 +38,7 @@ public class Dice implements PropertyChangeInterface
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
+         attrName= attrName.substring(pos+1);
       }
 
       if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
@@ -45,12 +46,16 @@ public class Dice implements PropertyChangeInterface
          return getValue();
       }
 
-      if (PROPERTY_GAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_GAME.equalsIgnoreCase(attribute))
       {
-         return getGame();
+         Ludo value=getGame();
+         if(value!=null&&pos>0){
+           return value.get(attrName); 
+         }
+         return value;
       }
 
-      if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
+      if (PROPERTY_PLAYER.equalsIgnoreCase(attribute))
       {
          return getPlayer();
       }
