@@ -1,15 +1,11 @@
 package de.uniks.jism.gui.table;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.Realm;
-import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.set.IObservableSet;
-import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
-import org.eclipse.jface.databinding.viewers.ObservableSetContentProvider;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
@@ -22,13 +18,10 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -36,19 +29,18 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.utils.PropertyChangeClient;
 
 import swing2swt.layout.BorderLayout;
 import de.uniks.jism.gui.TableList;
 
-public class TableComponent extends Composite implements Listener{
+public class TableComponent extends Composite implements Listener, PropertyChangeListener{
 
 	private Text searchText;
 	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	private TableViewer tableViewer;
 	private Table table;
-	private SearchResultUpdater updater;
 	private Menu headerMenu;
-	private Composite northComponents;
 	private Cursor defaultCursor=new Cursor(Display.getDefault(),SWT.CURSOR_ARROW);
 	private Cursor handCursor=new Cursor(Display.getDefault(), SWT.CURSOR_HAND);
 	private TableItem activeItem;
@@ -57,24 +49,16 @@ public class TableComponent extends Composite implements Listener{
 	private Composite tableComposite;
 	private TableSyncronizer tableSyncronizer;
 	private PopupDialog window;
-	private Composite firstNorth;
+	private PeerMessage list;
+	private String property;
 
 	public TableComponent(Composite parent, int style) {
 		super(parent, style);
-		setLayout(new BorderLayout(0, 0));
-
-		northComponents = new Composite(this, SWT.FILL);
-		northComponents.setLayoutData(BorderLayout.NORTH);
-		northComponents.setLayout(new GridLayout(3,false));
 		
-		firstNorth=new Composite(northComponents, SWT.NONE);
-		firstNorth.setLayout(new RowLayout(SWT.HORIZONTAL));
-		
-		Label lblSearch = new Label(northComponents, SWT.NONE);
-		lblSearch.setText("Search:");
-		searchText = new Text(northComponents, SWT.BORDER);
-		searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-
+		createContent();
+	}
+	
+	public void createContent(){
 		tableComposite = new Composite(this, SWT.NONE | SWT.FILL);
 		tableComposite.setLayoutData(BorderLayout.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
@@ -92,6 +76,8 @@ public class TableComponent extends Composite implements Listener{
 		table.addListener(SWT.MouseMove, this);
 		table.addListener(SWT.MouseUp, this);
 		table.addListener(SWT.MouseExit, this);
+		
+		setLayout(new BorderLayout(0, 0));
 	}
 
 	public void addFixedColumn(Column column){
@@ -105,7 +91,6 @@ public class TableComponent extends Composite implements Listener{
 			tableSyncronizer = new TableSyncronizer(this, fixedElements.getTable(), table);
 			table.addMouseWheelListener(tableSyncronizer);
 			table.addListener(SWT.Selection, tableSyncronizer);
-//			table.addListener(SWT.MouseDown, tableSyncronizer);
 			table.getVerticalBar().addListener(SWT.Selection, tableSyncronizer);
 		}
 		TableColumnView newColumn = new TableColumnView(this, fixedElements, column);
@@ -118,7 +103,6 @@ public class TableComponent extends Composite implements Listener{
 			}
 		}
 	}
-	
 	
 	public void setKeyListener(KeyListener listener) {
 		searchText.addKeyListener(listener);
@@ -141,12 +125,7 @@ public class TableComponent extends Composite implements Listener{
 		}
 	}
 
-	public DataBindingContext finish(Class<?> clazz, TableViewer viewer) {
-		DataBindingContext bindingContext = new DataBindingContext();
-
-		ObservableSetContentProvider setContentProvider = new ObservableSetContentProvider();
-		viewer.setContentProvider(setContentProvider);
-
+	public boolean finish(TableViewer viewer) {
 		ArrayList<String> items = new ArrayList<String>();
 		for (TableColumnView view : columns) {
 			if(view.getViewer()==viewer){
@@ -158,17 +137,12 @@ public class TableComponent extends Composite implements Listener{
 			}
 		}
 
-		IObservableMap[] observeMaps = BeansObservables.observeMaps(
-				setContentProvider.getKnownElements(), clazz,
-				items.toArray(new String[items.size()]));
-		viewer.setLabelProvider(new ObservableMapLabelProvider(observeMaps));
-
 		for (TableColumnView view : columns) {
 			Column columnConfig = view.getColumn();
-			if(columnConfig.getRegEx()!=null||columnConfig.getAltAttribute()!=null){
+//			if(columnConfig.getRegEx()!=null||columnConfig.getAltAttribute()!=null){
 				view.getTableViewerColumn().setLabelProvider(
 						new TableCellLabelProvider(columnConfig));
-			}
+//			}
 		}
 
 
@@ -177,54 +151,53 @@ public class TableComponent extends Composite implements Listener{
 			view.addLabelProvider();
 		}
 
-
-
-		// DataBinding
-		refreshNorthLayout();
-		return bindingContext;
-	}
-	public void refreshNorthLayout(){
-		if(firstNorth!=null){
-			if(firstNorth.getChildren().length<1){
-				firstNorth.setVisible(false);
-				firstNorth.dispose();
-				firstNorth=null;
-			}
-		}
-		northComponents.setLayout(new GridLayout(northComponents.getChildren().length, false));
-	}
-
-	public DataBindingContext finishDataBinding(TableList item, Class<?> itemClazz, String searchProperties) {
-		return finishDataBinding(item, itemClazz, TableList.PROPERTY_ITEMS, new TableList(), searchProperties);
+		return true;
 	}
 	
-	public DataBindingContext finishDataBinding(PeerMessage item,
-			Class<?> itemClazz, String property, PeerMessage blanko, String searchProperties) {
+	@Override
+	public void redraw(){
+		
+	}
+	public void refresh(){
+		if(fixedElements!=null){
+			fixedElements.refresh();
+		}
+		tableViewer.refresh();
+		Object listValue = list.get(property);
+		if(listValue instanceof Collection<?>){
+			Collection<?> listItems=(Collection<?>) listValue;
+			for(Iterator<?> i=listItems.iterator(); i.hasNext();){
+				Object item = i.next();
+				if(item instanceof PeerMessage){
+					propertyChange(list, property, null, item);
+				}
+			}
+		}
+	}
+
+	public boolean finishDataBinding(TableList item, String searchProperties) {
+		return finishDataBinding(item, TableList.PROPERTY_ITEMS, new TableList(), searchProperties);
+	}
+	
+	public boolean finishDataBinding(PeerMessage item,	String property, PeerMessage blanko, String searchProperties) {
 
 		if(fixedElements!=null){
-			finish(itemClazz, fixedElements);
+			finish(fixedElements);
 		}
-		DataBindingContext bindingContext = finish(itemClazz, tableViewer);
-		if (updater == null) {
-			updater = new SearchResultUpdater(this.searchText, item, property, blanko, searchProperties);
-			updater.propertyChange(null);
-		}
-		IObservableSet talkListTalksObserveSet;
-		
-		if(fixedElements!=null){
-			talkListTalksObserveSet = BeansObservables.observeSet(
-					Realm.getDefault(), updater.getSearchResults(),
-					updater.getProperty());
-			fixedElements.setInput(talkListTalksObserveSet);
-		}
-		
-		talkListTalksObserveSet = BeansObservables.observeSet(
-				Realm.getDefault(), updater.getSearchResults(),
-				updater.getProperty());
-		tableViewer.setInput(talkListTalksObserveSet);
 
-		// DataBinding
-		return bindingContext;
+		finish(tableViewer);
+		
+		if(blanko instanceof PropertyChangeClient){
+			((PropertyChangeClient) blanko).addPropertyChangeListener(this);	
+		}
+		this.list=blanko;
+		this.property=property;
+//FIXME		tableViewer.setInput(input)
+//FIXME		talkListTalksObserveSet = BeansObservables.observeSet(
+//				Realm.getDefault(), updater.getSearchResults(),
+//				updater.getProperty());
+//		tableViewer.setInput(talkListTalksObserveSet);
+		return true;
 	}
 
 	public TableViewer getTableViewer() {
@@ -233,15 +206,6 @@ public class TableComponent extends Composite implements Listener{
 
 	public Text getSearchField() {
 		return searchText;
-	}
-
-	public SearchResultUpdater getUpdater() {
-		return updater;
-	}
-
-	public void setUpdater(SearchResultUpdater updater) {
-		this.updater = updater;
-		searchText.addModifyListener(updater);
 	}
 
 	// The createMenuItem method add per column a
@@ -256,14 +220,28 @@ public class TableComponent extends Composite implements Listener{
 		itemName.addListener(SWT.Selection, new MenueItem(itemName, column));
 	}
 
-	public Composite getNorth() {
-		return northComponents;
-	}
-
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(updater!=null){
-			updater.propertyChange(evt);
+		if(evt!=null){
+			propertyChange(evt.getSource(), evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
 		}
+	}
+	public void propertyChange(Object source, String propertyName, Object oldValue, Object newValue) {
+		if(list.equals(source)){
+			if(propertyName.equals(property)){
+				if(oldValue==null&&newValue!=null){
+					if(fixedElements!=null){
+						fixedElements.add(newValue);
+					}
+					if(tableViewer!=null){
+						tableViewer.add(newValue);
+					}
+				}
+			}
+		}
+//		getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
+//FIXME SEARCH		if(updater!=null){
+//			updater.propertyChange(evt);
+//		}
 	}
 
 	@Override
@@ -332,9 +310,6 @@ public class TableComponent extends Composite implements Listener{
 		this.window=window;
 	}
 
-	public Composite getFirstNorth() {
-		return firstNorth;
-	}
 	public Table getTable(){
 		return table;
 	}

@@ -7,8 +7,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.utils.PropertyChangeClient;
 
-public class TableList implements PeerMessage {
+public class TableList implements PeerMessage, PropertyChangeClient {
 	public static final String PROPERTY_ITEMS = "items";
 
 	private LinkedHashSet<PeerMessage> items;
@@ -120,5 +121,16 @@ public class TableList implements PeerMessage {
 
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		getPropertyChangeSupport().removePropertyChangeListener(listener);
+	}
+	
+	public void removePropertyChangeListener(String name,
+			PropertyChangeListener listener) {
+		getPropertyChangeSupport().removePropertyChangeListener(name, listener);		
+	}
+
+	public void addPropertyChangeListener(String name,
+			PropertyChangeListener listener) {
+		getPropertyChangeSupport().addPropertyChangeListener(name, listener);
+	
 	}
 }

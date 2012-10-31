@@ -26,11 +26,15 @@ public class TableCellLabelProvider extends CellLabelProvider {
 		}else if(column.getRegEx()!=null){
 			//FIND PROPERTY
 			column.updateTableViewer(cell);
+		}else{
+			Object value=((PeerMessage)cell.getElement()).get(column.getAttrName());
+			if(value==null){
+				value="";
+			}
+			cell.setText(value.toString());
 		}
-		
-		
-//		System.out.println(arg0.getColumnIndex());
 	}
+	
 	private String getDateFormat(long value){
 		if(value==0){
 			return "";
