@@ -1,23 +1,32 @@
 package de.uniks.jism.gui.table;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.TableColumn;
 
-public class MenueItem implements Listener{
-	private MenuItem itemName;
+public class TableCellMenuItem implements Listener{
 	private TableColumnView column;
-	public MenueItem(MenuItem itemName, TableColumnView column){
-		this.itemName = itemName;
+	private MenuItem menuItem;
+	private TableComponent owner;
+	public TableCellMenuItem(Menu parent, TableColumnView column, TableComponent owner){
 		this.column = column;
+		this.owner=owner;
+		menuItem=new MenuItem(parent, SWT.CHECK);
+		
+		Column columnConfig = column.getColumn();
+		menuItem.setText(columnConfig.getLabel());
+		menuItem.setSelection(columnConfig.isVisible());
+		menuItem.addListener(SWT.Selection, this);
 		
 	}
 	@Override
-	public void handleEvent(Event arg0) {
+	public void handleEvent(Event event) {
 		Column columnConfig = column.getColumn();
 		TableColumn tableColumn = column.getTableViewerColumn().getColumn();
-		if (itemName.getSelection()) {
+		if (menuItem.getSelection()) {
 			tableColumn.setWidth(columnConfig.getWidth());
 			tableColumn.setResizable(columnConfig.isResizable());
 			columnConfig.setVisible(true);
@@ -27,7 +36,7 @@ public class MenueItem implements Listener{
 			tableColumn.setWidth(0);
 			tableColumn.setResizable(false);
 			columnConfig.setVisible(false);
-		}		
+		}
+		owner.onResizeColumn(tableColumn);
 	}
-
 }

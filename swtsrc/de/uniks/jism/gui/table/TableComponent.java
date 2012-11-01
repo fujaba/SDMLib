@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.interfaces.PeerMessage;
@@ -39,7 +40,6 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	private TableViewer tableViewer;
 	private Table table;
-	private Menu headerMenu;
 	private Cursor defaultCursor=new Cursor(Display.getDefault(),SWT.CURSOR_ARROW);
 	private Cursor handCursor=new Cursor(Display.getDefault(), SWT.CURSOR_HAND);
 	private TableItem activeItem;
@@ -49,6 +49,8 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	private TableSyncronizer tableSyncronizer;
 	protected PeerMessage list;
 	private String property;
+	private Menu mnuColumns;
+	public static final  String EMPTYCOLUMN="empty";
 
 	public TableComponent(Composite parent, int style) {
 		super(parent, style);
@@ -67,7 +69,13 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 
-		headerMenu = new Menu(getShell(), SWT.POP_UP);
+		Menu headerMenu = new Menu(getShell(), SWT.POP_UP);
+		MenuItem columnsMenue=new MenuItem(headerMenu, SWT.CASCADE);
+		columnsMenue.setText("Columns");
+		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
+		columnsMenue.setMenu(mnuColumns);
+		
+		
 		table.setMenu(headerMenu);
 		
 		
@@ -79,10 +87,25 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	}
 
 	public void addFixedColumn(Column column){
-		if(fixedElements==null){
+		setVisibleFixedColumns(true);
+		TableColumnView newColumn = new TableColumnView(this, fixedElements, column);
+		this.columns.add(newColumn);
+		new TableCellMenuItem(mnuColumns, newColumn, this);
+		if(column.getAltAttribute()!=null){
+			if(!isToolTip){
+				isToolTip=true;
+				ColumnViewerToolTipSupport.enableFor(fixedElements,ToolTip.NO_RECREATE);
+			}
+		}
+	}
+	
+	public void setVisibleFixedColumns(boolean visible){
+		if(fixedElements!=null&&!visible){
+			fixedElements.getTable().dispose();
+			fixedElements=null;
+		}else if(fixedElements==null&&visible){
 			fixedElements = new TableViewer(tableComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI | SWT.NO_SCROLL| SWT.FILL);
 			Table table_fixedElements=fixedElements.getTable();
-			table_fixedElements.setLayoutData(BorderLayout.CENTER);
 			table_fixedElements.setLayoutData(BorderLayout.WEST);
 			table_fixedElements.setHeaderVisible(true);
 			table_fixedElements.setLinesVisible(true);
@@ -90,15 +113,6 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 			table.addMouseWheelListener(tableSyncronizer);
 			table.addListener(SWT.Selection, tableSyncronizer);
 			table.getVerticalBar().addListener(SWT.Selection, tableSyncronizer);
-		}
-		TableColumnView newColumn = new TableColumnView(this, fixedElements, column);
-		this.columns.add(newColumn);
-		createMenuItem(headerMenu, newColumn);
-		if(column.getAltAttribute()!=null){
-			if(!isToolTip){
-				isToolTip=true;
-				ColumnViewerToolTipSupport.enableFor(fixedElements,ToolTip.NO_RECREATE);
-			}
 		}
 	}
 	
@@ -114,7 +128,8 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 	public void addColumn(Column column) {
 		TableColumnView newColumn = new TableColumnView(this, tableViewer, column);
 		this.columns.add(newColumn);
-		createMenuItem(headerMenu, newColumn);
+		new TableCellMenuItem(mnuColumns, newColumn, this);
+		
 		if(column.getAltAttribute()!=null){
 			if(!isToolTip){
 				isToolTip=true;
@@ -130,7 +145,7 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 				if(view.getColumn().getAttrName()!=null){
 					items.add(view.getColumn().getAttrName());
 				}else if(view.getColumn().getItem()!=null){
-					items.add("empty");
+					items.add(EMPTYCOLUMN);
 				}
 			}
 		}
@@ -150,11 +165,6 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 		}
 
 		return true;
-	}
-	
-	@Override
-	public void redraw(){
-		
 	}
 	
 	public void refresh(PeerMessage object){
@@ -221,17 +231,6 @@ public class TableComponent extends Composite implements Listener, PropertyChang
 		return searchText;
 	}
 
-	// The createMenuItem method add per column a
-	// new MenuItem to the menu
-	private void createMenuItem(Menu parent, TableColumnView column) {
-		final MenuItem itemName = new MenuItem(parent, SWT.CHECK);
-		
-		Column columnConfig = column.getColumn();
-		itemName.setText(columnConfig.getLabel());
-		itemName.setSelection(columnConfig.isVisible());
-		
-		itemName.addListener(SWT.Selection, new MenueItem(itemName, column));
-	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt!=null){
@@ -325,7 +324,41 @@ public class TableComponent extends Composite implements Listener, PropertyChang
     	}
 	}
 
+	public int getTableItemCount(){
+		return table.getItemCount();
+	}
+	
 	public Table getTable(){
 		return table;
+	}
+	
+	public void onResizeColumn(TableColumn column){
+		for(TableColumnView item : columns){
+			if(item.getTableColumn()==column){
+				if(item.getViewer()==fixedElements){
+					int size=0;
+					for (TableColumnView view : columns) {
+						if(view.getViewer()==fixedElements){
+							if(view.getColumn().isVisible()){
+								size+=view.getColumn().getWidth();
+							}
+						}
+					}
+					if(size==0){
+//						fixedElements.getTable().setSize(0, fixedElements.getTable().getSize().y);
+//						Rectangle bounds = fixedElements.getTable().getBounds();
+//						fixedElements.getTable().setBounds(0, bounds.y, bounds.width, bounds.height);
+//						fixedElements.getTable().setVisible(false);
+						
+					}
+//FIXME					if(size==0){
+//						setVisibleFixedColumns(false);
+//					}else{
+//						setVisibleFixedColumns(true);
+//					}
+					tableComposite.layout();
+				}
+			}
+		}
 	}
 }
