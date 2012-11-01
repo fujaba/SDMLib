@@ -1649,6 +1649,11 @@ public class Clazz implements PropertyChangeInterface
       {
          return isExternal();
       }
+
+      if (PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
+      {
+         return getWrapped();
+      }
       
       return null;
    }
@@ -1781,6 +1786,12 @@ public class Clazz implements PropertyChangeInterface
       if (PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
       {
          setExternal((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_WRAPPED.equalsIgnoreCase(attrName))
+      {
+         setWrapped((Boolean) value);
          return true;
       }
 
@@ -2307,6 +2318,34 @@ public class Clazz implements PropertyChangeInterface
    public Method createMethods(String signature, String returnType)
    {
       return new Method(signature, returnType).withClazz(this);     
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_WRAPPED = "wrapped";
+   
+   private boolean wrapped;
+
+   public boolean getWrapped()
+   {
+      return this.wrapped;
+   }
+   
+   public void setWrapped(boolean value)
+   {
+      if (this.wrapped != value)
+      {
+         boolean oldValue = this.wrapped;
+         this.wrapped = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_WRAPPED, oldValue, value);
+      }
+   }
+   
+   public Clazz withWrapped(boolean value)
+   {
+      setWrapped(value);
+      return this;
    } 
 }
 

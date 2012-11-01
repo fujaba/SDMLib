@@ -35,7 +35,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-public class KanbanEntry implements PropertyChangeInterface
+public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
 {
    public static final String PROPERTY_NAME = "name";
 
@@ -797,6 +797,17 @@ public class KanbanEntry implements PropertyChangeInterface
       {
          this.removeFromLogEntries(value);
       }
+   }
+
+   @Override
+   public int compareTo(KanbanEntry o)
+   {
+      if (this.getName() != null)
+      {
+         return this.getName().compareTo(o.getName());
+      }
+      
+      return 0;
    }
 }
 

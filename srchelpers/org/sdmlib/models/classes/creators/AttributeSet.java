@@ -51,5 +51,38 @@ public class AttributeSet extends LinkedHashSet<Attribute>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Attribute elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Attribute";
+   }
+
+
+   public AttributeSet with(Attribute value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public AttributeSet without(Attribute value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

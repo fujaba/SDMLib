@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.StringList;
 
 public class AssociationSet extends LinkedHashSet<Association>
 {
@@ -70,5 +71,38 @@ public class AssociationSet extends LinkedHashSet<Association>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Association elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Association";
+   }
+
+
+   public AssociationSet with(Association value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public AssociationSet without(Association value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

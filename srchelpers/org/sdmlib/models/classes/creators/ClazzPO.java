@@ -439,7 +439,31 @@ public class ClazzPO extends PatternObject
       return this;
    }
    
+   public ClazzPO hasWrapped(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_WRAPPED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getWrapped()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) getCurrentMatch()).getWrapped();
+      }
+      return false;
+   }
+   
 }
+
 
 
 

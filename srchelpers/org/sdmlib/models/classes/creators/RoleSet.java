@@ -117,5 +117,38 @@ public class RoleSet extends LinkedHashSet<Role>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Role elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Role";
+   }
+
+
+   public RoleSet with(Role value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public RoleSet without(Role value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

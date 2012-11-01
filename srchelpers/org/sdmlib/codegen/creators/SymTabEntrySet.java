@@ -162,5 +162,38 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (SymTabEntry elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.codegen.SymTabEntry";
+   }
+
+
+   public SymTabEntrySet with(SymTabEntry value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public SymTabEntrySet without(SymTabEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

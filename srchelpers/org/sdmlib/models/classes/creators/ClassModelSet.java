@@ -93,6 +93,39 @@ public class ClassModelSet extends LinkedHashSet<ClassModel>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (ClassModel elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.ClassModel";
+   }
+
+
+   public ClassModelSet with(ClassModel value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ClassModelSet without(ClassModel value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

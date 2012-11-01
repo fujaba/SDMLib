@@ -73,5 +73,38 @@ public class MethodSet extends LinkedHashSet<Method>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Method elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Method";
+   }
+
+
+   public MethodSet with(Method value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public MethodSet without(Method value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

@@ -10,6 +10,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class ClazzSet extends LinkedHashSet<Clazz>
 {
@@ -358,7 +359,62 @@ public class ClazzSet extends LinkedHashSet<Clazz>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Clazz elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.classes.Clazz";
+   }
+
+
+   public ClazzSet with(Clazz value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ClazzSet without(Clazz value)
+   {
+      this.remove(value);
+      return this;
+   }
+   public booleanList getWrapped()
+   {
+      booleanList result = new booleanList();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.getWrapped());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withWrapped(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withWrapped(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

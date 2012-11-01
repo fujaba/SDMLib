@@ -27,12 +27,14 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Role.R;
+import static org.sdmlib.models.classes.Role.R.*;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 
 public class ClassModelTest
 {
+   private static final String BOOLEAN = "boolean";
+
    @Test
    public void testClassModelCodeGen()
    {
@@ -53,26 +55,27 @@ public class ClassModelTest
       Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz",
          "name", String.class.getSimpleName(),
          "interfaze", boolean.class.getSimpleName(), 
-         "external", boolean.class.getSimpleName());
+         "external", boolean.class.getSimpleName(), 
+         "wrapped", BOOLEAN);
       
       new Association()
-      .withSource("classModel", modelClass, R.ONE, Role.AGGREGATION)
-      .withTarget("classes", clazzClass, R.MANY);
+      .withSource("classModel", modelClass, ONE, Role.AGGREGATION)
+      .withTarget("classes", clazzClass, MANY);
       
       new Association()
-      .withSource("superClass", clazzClass, R.ONE)
-      .withTarget("kindClasses", clazzClass, R.MANY);
+      .withSource("superClass", clazzClass, ONE)
+      .withTarget("kindClasses", clazzClass, MANY);
       
       new Association()
-      .withSource("interfaces", clazzClass, R.MANY)
-      .withTarget("kindClassesAsInterface", clazzClass, R.MANY);     
+      .withSource("interfaces", clazzClass, MANY)
+      .withTarget("kindClassesAsInterface", clazzClass, MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
       .withAttribute("initialization", "String");
       
       new Association()
-      .withSource("clazz", clazzClass, R.ONE, Role.AGGREGATION)
-      .withTarget("attributes", attributeClass, R.MANY);
+      .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
+      .withTarget("attributes", attributeClass, MANY);
       
       
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
@@ -80,37 +83,37 @@ public class ClassModelTest
       .withAttribute("returnType", "String");     
       
       new Association()
-      .withSource("clazz", clazzClass, R.ONE, Role.AGGREGATION)
-      .withTarget("methods", methodClass, R.MANY);
+      .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
+      .withTarget("methods", methodClass, MANY);
       
       
       Clazz associationClass = new Clazz("org.sdmlib.models.classes.Association");
       
       new Association()
-      .withSource("model", modelClass, R.ONE, Role.AGGREGATION)
-      .withTarget("associations", associationClass, R.MANY);
+      .withSource("model", modelClass, ONE, Role.AGGREGATION)
+      .withTarget("associations", associationClass, MANY);
       
       
-      Clazz roleClass = new Clazz("org.sdmlib.models.classRole")
+      Clazz roleClass = new Clazz("org.sdmlib.models.classes.Role")
       .withAttribute("name", "String")
       .withAttribute("card", "String", "MANY")
       .withAttribute("kind", "String", "VANILLA");
       
       new Association()
-      .withSource("clazz", clazzClass, R.ONE)
-      .withTarget("sourceRoles", roleClass, R.MANY);
+      .withSource("clazz", clazzClass, ONE)
+      .withTarget("sourceRoles", roleClass, MANY);
       
       new Association()
-      .withSource("clazz", clazzClass, R.ONE)
-      .withTarget("targetRoles", roleClass, R.MANY);
+      .withSource("clazz", clazzClass, ONE)
+      .withTarget("targetRoles", roleClass, MANY);
 
       new Association()
-      .withSource("assoc", associationClass, R.ONE)
-      .withTarget("source", roleClass, R.ONE);
+      .withSource("assoc", associationClass, ONE)
+      .withTarget("source", roleClass, ONE);
 
       new Association()
-      .withSource("assoc", associationClass, R.ONE)
-      .withTarget("target", roleClass, R.ONE);
+      .withSource("assoc", associationClass, ONE)
+      .withTarget("target", roleClass, ONE);
 
       //      //=======================================================================
       //      Clazz codeGenUtilClass = new Clazz()
@@ -143,8 +146,8 @@ public class ClassModelTest
       .withAttribute("assignTargetVarName", "String");
       
       new Association()
-      .withSource("parent", statementEntry, R.ONE)
-      .withTarget("bodyStats", statementEntry, R.MANY);
+      .withSource("parent", statementEntry, ONE)
+      .withTarget("bodyStats", statementEntry, MANY);
       
       
       scenario.add("Basic bootstrap done.", 

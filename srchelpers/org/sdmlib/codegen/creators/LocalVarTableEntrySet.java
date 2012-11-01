@@ -96,5 +96,38 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (LocalVarTableEntry elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.codegen.LocalVarTableEntry";
+   }
+
+
+   public LocalVarTableEntrySet with(LocalVarTableEntry value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public LocalVarTableEntrySet without(LocalVarTableEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 

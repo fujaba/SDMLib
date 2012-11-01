@@ -126,5 +126,38 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (StatementEntry elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.codegen.StatementEntry";
+   }
+
+
+   public StatementEntrySet with(StatementEntry value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public StatementEntrySet without(StatementEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
