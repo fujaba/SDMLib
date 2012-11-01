@@ -191,6 +191,7 @@ public class Scenario
       
       // generate the html text
 		String htmlText = "<html>\n" +
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
             "<body>\n" +
             "<p>Scenario <a href='testfilename' type='text/x-java'>scenarioName</a></p>\n" +
             "$text\n" +

@@ -214,7 +214,27 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
    }
 
 
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericObject";
+   }
+
+
+   public GenericObjectSet with(GenericObject value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectSet without(GenericObject value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

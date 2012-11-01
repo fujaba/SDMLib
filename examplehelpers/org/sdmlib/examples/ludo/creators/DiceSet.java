@@ -100,6 +100,13 @@ public class DiceSet extends LinkedHashSet<Dice>
       this.remove(value);
       return this;
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Dice";
+   }
 }
+
 
 

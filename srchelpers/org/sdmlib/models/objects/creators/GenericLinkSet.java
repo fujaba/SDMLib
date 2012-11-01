@@ -131,7 +131,27 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
    }
 
 
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericLink";
+   }
+
+
+   public GenericLinkSet with(GenericLink value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericLinkSet without(GenericLink value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

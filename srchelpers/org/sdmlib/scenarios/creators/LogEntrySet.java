@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.KanbanEntry;
+import org.sdmlib.models.modelsets.StringList;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry>
 {
@@ -30,6 +31,39 @@ public class LogEntrySet extends LinkedHashSet<LogEntry>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (LogEntry elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.scenarios.LogEntry";
+   }
+
+
+   public LogEntrySet with(LogEntry value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public LogEntrySet without(LogEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 

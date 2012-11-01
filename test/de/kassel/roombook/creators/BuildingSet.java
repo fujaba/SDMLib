@@ -85,7 +85,27 @@ public class BuildingSet extends LinkedHashSet<Building>
       
       return "(" + stringList.concat(", ") + ")";
    }
+
+
+   public String getEntryType()
+   {
+      return "de.kassel.roombook.Building";
+   }
+
+
+   public BuildingSet with(Building value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

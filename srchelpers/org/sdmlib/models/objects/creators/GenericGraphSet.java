@@ -83,7 +83,27 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       
       return "(" + stringList.concat(", ") + ")";
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericGraph";
+   }
+
+
+   public GenericGraphSet with(GenericGraph value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericGraphSet without(GenericGraph value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

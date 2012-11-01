@@ -324,6 +324,13 @@ public class FieldSet extends LinkedHashSet<Field>
       this.remove(value);
       return this;
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Field";
+   }
 }
+
 
 

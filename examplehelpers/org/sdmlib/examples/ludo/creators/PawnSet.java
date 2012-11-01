@@ -144,6 +144,13 @@ public class PawnSet extends LinkedHashSet<Pawn>
       this.remove(value);
       return this;
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Pawn";
+   }
 }
+
 
 

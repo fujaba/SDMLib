@@ -123,7 +123,7 @@ public class ClassModel implements PropertyChangeInterface
 
       for (Clazz clazz : getClasses())
       {
-         if (!clazz.isInterfaze()) 
+         if (!clazz.isInterfaze() && ! clazz.isExternal()) 
             clazz.insertCreatorClassInCreatorCreator(creatorCreatorParser);
       }
 
@@ -138,7 +138,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		for (Clazz clazz : getClasses())
 		{
-			if (!clazz.isInterfaze()) 
+			if (!clazz.isInterfaze() && ! clazz.isExternal()) 
 				clazz.insertHasMethodsInModelPattern(modelPatternParser);
 		}
 

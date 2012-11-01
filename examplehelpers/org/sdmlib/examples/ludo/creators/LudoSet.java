@@ -118,6 +118,13 @@ public class LudoSet extends LinkedHashSet<Ludo>
       this.remove(value);
       return this;
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Ludo";
+   }
 }
+
 
 

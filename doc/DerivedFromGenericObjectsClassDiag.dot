@@ -4,11 +4,10 @@
     edge [fontsize = 10];
     
     
-    _Building [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Building</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Floor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td>Floor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>level :String</td></tr> <tr><td align='left'>guest :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Building [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../test/de/kassel/roombook/Building.java">Building</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Floor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../test/de/kassel/roombook/Floor.java">Floor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>level :String</td></tr> <tr><td align='left'>guest :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
-    _Building -> _Floor [headlabel = "has *" taillabel = "buildings *" arrowhead = "none" ];
+    _Building -> _Floor [headlabel = "has" taillabel = "buildings" arrowhead = "none" ];
 }
-

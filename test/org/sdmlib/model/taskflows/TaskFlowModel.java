@@ -65,6 +65,10 @@ public class TaskFlowModel
       
       model.generate("swtsrc", "swtsrc"); 
       
+      scenario.addToDo("WrapExistingClasses", "backlog", "zuendorf", "01.11.2012 14:42:42", 0, 6);
+      
+      scenario.addToDo("SortIndex", "backlog", "zuendorf", "01.11.2012 14:43:42", 0, 2);
+      
       scenario.dumpHTML();
    }
   

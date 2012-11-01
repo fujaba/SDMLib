@@ -1,21 +1,13 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.model.taskflows.creators.PeerProxyPO;
-import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.creators.SocketThreadPO;
-import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.creators.FetchFileFlowPO;
 import org.sdmlib.model.taskflows.FetchFileFlow;
-import java.util.Timer;
-import org.sdmlib.model.taskflows.creators.SDMTimerPO;
-import org.sdmlib.model.taskflows.SDMTimer;
-import org.sdmlib.model.taskflows.creators.LoggerPO;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.creators.LogEntryPO;
 import org.sdmlib.model.taskflows.LogEntry;
+import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.model.taskflows.SDMTimer;
+import org.sdmlib.model.taskflows.SocketThread;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

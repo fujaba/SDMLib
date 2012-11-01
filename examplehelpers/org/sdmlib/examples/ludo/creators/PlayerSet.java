@@ -304,6 +304,13 @@ public class PlayerSet extends LinkedHashSet<Player>
       this.remove(value);
       return this;
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Player";
+   }
 }
+
 
 

@@ -13,6 +13,7 @@ g8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g8 :Ge
 g9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g9 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "spec2gen.F3"</td></tr><tr><td>type = "de.kassel.roombook.Floor"</td></tr></table></td></tr></table>>];
 g10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g10 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "level"</td></tr><tr><td>value = "0"</td></tr></table></td></tr></table>>];
 g11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g11 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "name"</td></tr><tr><td>value = "WA03"</td></tr></table></td></tr></table>>];
+g12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g12 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "guest"</td></tr><tr><td>value = "Ulrich"</td></tr></table></td></tr></table>>];
 
 g1 -- g2 [headlabel = "objects" taillabel = "graph"];
 g1 -- g4 [headlabel = "links" taillabel = "graph"];
@@ -28,4 +29,5 @@ g5 -- g7 [headlabel = "attrs" taillabel = "owner"];
 g8 -- g9 [headlabel = "tgt" taillabel = "incommingLinks"];
 g9 -- g10 [headlabel = "attrs" taillabel = "owner"];
 g9 -- g11 [headlabel = "attrs" taillabel = "owner"];
+g9 -- g12 [headlabel = "attrs" taillabel = "owner"];
 }

@@ -11,6 +11,8 @@ import org.sdmlib.scenarios.ScenarioManager;
 
 public class LudoModel
 {
+   private static final String INT = "int";
+   private static final String STRING = "String";
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
    public static final String DONE = "done";
@@ -22,8 +24,8 @@ public class LudoModel
    {
       Scenario scenario = new Scenario("examples", "LudoModel");
       
-      scenario.add("Start situation: ",
-         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
+      //      scenario.add("The model: ",
+      //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
             
@@ -35,25 +37,25 @@ public class LudoModel
       
       player.withAttributes(
          "color", String.class.getSimpleName(),
-         "name", "String",
-         "x", "int",
-         "y", "int");
+         "name", STRING,
+         "x", INT,
+         "y", INT);
       
       player.withAssoc(player, "next", R.ONE, "prev", R.ONE);
       
       Clazz dice = ludo.createClassAndAssoc("Dice", "dice", R.ONE, "game", R.ONE);
       
-      dice.withAttributes("value", "int");
+      dice.withAttributes("value", INT);
       
       player.withAssoc(dice, "dice", R.ONE, "player", R.ONE);
       
       Clazz field = ludo.createClassAndAssoc("Field", "fields", R.MANY, "game", R.ONE);
       
       field.withAttributes(
-         "color", "String",
-         "kind", "String",
-         "x", "int",
-         "y", "int");
+         "color", STRING,
+         "kind", STRING,
+         "x", INT,
+         "y", INT);
       
       field.withAssoc(field, "next", R.ONE, "prev", R.ONE);
       
@@ -68,9 +70,9 @@ public class LudoModel
       Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", R.MANY, "player", R.ONE);
          
       pawn.withAttributes(   
-         "color", "String",
-         "x", "int",
-         "y", "int");
+         "color", STRING,
+         "x", INT,
+         "y", INT);
 
       pawn.withAssoc(field, "pos", R.ONE, "pawns", R.MANY);
       

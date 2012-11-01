@@ -19,7 +19,27 @@ public class GenericObjectsTestSet extends LinkedHashSet<GenericObjectsTest>
       
       return "(" + stringList.concat(", ") + ")";
    }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.objects.GenericObjectsTest";
+   }
+
+
+   public GenericObjectsTestSet with(GenericObjectsTest value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public GenericObjectsTestSet without(GenericObjectsTest value)
+   {
+      this.remove(value);
+      return this;
+   }
 }
+
 
 
 

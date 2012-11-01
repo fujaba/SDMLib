@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zï¿½ndorf
+   Copyright (c) 2012 Albert Zündorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -40,7 +40,7 @@ public class ProjectBoard
       Scenario scenario = new Scenario("test", "ExtendScenarioByAddToDoMethod");
       
       scenario.add("Start situation: ",
-         BACKLOG, "zuendorf", "21.08.2012 18:02:23", 0, 0);
+         DONE, "zuendorf", "01.11.2012 12:33:42", 1, 0);
       
       scenario.dumpHTML();
    }
