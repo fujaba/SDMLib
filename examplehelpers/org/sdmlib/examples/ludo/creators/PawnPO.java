@@ -44,38 +44,6 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
       return this;
    }
    
-   public String getColor()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Pawn) getCurrentMatch()).getColor();
-      }
-      return null;
-   }
-   
-   public PawnPO hasX(int value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Pawn.PROPERTY_X)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public int getX()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Pawn) getCurrentMatch()).getX();
-      }
-      return 0;
-   }
-   
    public PawnPO hasY(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
@@ -165,5 +133,57 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
       return null;
    }
    
+   public String getColor()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pawn) getCurrentMatch()).getColor();
+      }
+      return null;
+   }
+   
+   public PawnPO withColor(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pawn) getCurrentMatch()).setColor(value);
+      }
+      return this;
+   }
+   
+   public PawnPO hasX(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pawn.PROPERTY_X)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getX()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pawn) getCurrentMatch()).getX();
+      }
+      return 0;
+   }
+   
+   public PawnPO withX(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pawn) getCurrentMatch()).setX(value);
+      }
+      return this;
+   }
+   
 }
+
+
 

@@ -24,6 +24,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.ludo.creators.FieldPOCreator());
          creatorSet.add(new org.sdmlib.examples.ludo.creators.PawnCreator());
          creatorSet.add(new org.sdmlib.examples.ludo.creators.PawnPOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PointCreator());
+         creatorSet.add(new org.sdmlib.examples.ludo.creators.PointPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -39,4 +41,5 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 

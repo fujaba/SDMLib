@@ -1,5 +1,7 @@
 package org.sdmlib.examples.ludo;
 
+import java.awt.Point;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
@@ -30,6 +32,11 @@ public class LudoModel
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
             
       Clazz ludo = model.createClazz("Ludo");
+      
+      Clazz point = model.createClazz(Point.class.getName(),
+         "x", INT,
+         "y", INT
+         ).withWrapped(true);
       
       Clazz player = ludo.createClassAndAssoc("Player",
          "players", R.MANY,

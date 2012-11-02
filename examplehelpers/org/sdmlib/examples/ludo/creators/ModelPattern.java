@@ -11,6 +11,8 @@ import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.Field;
 import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.creators.PointPO;
+import java.awt.Point;
 
 public class ModelPattern extends Pattern
 {
@@ -145,6 +147,31 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public PointPO hasElementPointPO()
+   {
+      PointPO value = new PointPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PointPO hasElementPointPO(Point hostGraphObject)
+   {
+      PointPO value = new PointPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 

@@ -1375,8 +1375,8 @@ private void skipBody() {
 	        skip(';');
 	     }
 	     else if (currentRealKindEquals('v')
-           && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '='))
-      {
+	           && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '='))
+	     {
 	        // local var decl with simple type
 	        parseLocalVarDeclDetails();
 	     }
@@ -1397,6 +1397,10 @@ private void skipBody() {
 	     {
 	       checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
 	       skip(';');
+	     }
+	     else if (currentRealKindEquals('('))
+	     {
+	        parseBracketExpressionDetails();
 	     }
 	     else
 	     {
