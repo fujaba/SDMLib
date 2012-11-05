@@ -16,6 +16,7 @@ import org.sdmlib.examples.ludo.Field;
 import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.creators.PawnSet;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -391,5 +392,39 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
    
+   public PlayerPO hasEnumColor(LudoColor value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_ENUMCOLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LudoColor getEnumColor()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) getCurrentMatch()).getEnumColor();
+      }
+      return null;
+   }
+   
+   public PlayerPO withEnumColor(LudoColor value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Player) getCurrentMatch()).setEnumColor(value);
+      }
+      return this;
+   }
+   
 }
+
+
 

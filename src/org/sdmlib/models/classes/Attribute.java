@@ -518,6 +518,29 @@ public class Attribute implements PropertyChangeInterface
             importClassesFromTypes.add(fullModelSetType);
             importClassesFromTypes.add("java.util.List");
          }
+         else
+         {
+            // check for enum types
+            try
+            {
+               String innerClassName = CGUtil.packageName(getType()) + "$" + CGUtil.shortClassName(getType()); 
+               Class<?> forName = Class.forName(innerClassName);
+               
+               if (forName.isEnum())
+               {
+                  // use an ArrayList<Enum> as ModelSetType
+                  modelSetType = "ArrayList<ElemType>".replaceAll("ElemType", CGUtil.shortClassName(getType()));
+                  importClassesFromTypes.remove(importClassesFromTypes.size()-1);
+                  importClassesFromTypes.add("java.util.ArrayList");
+               }
+            }
+            catch (ClassNotFoundException e)
+            {
+               // did not find class on class path. Thus, it probably still needs to be generated. Ignore 
+               // e.printStackTrace();
+            }
+         }
+            
 
 
          CGUtil.replaceAll(text, "ContentType",

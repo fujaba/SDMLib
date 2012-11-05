@@ -28,6 +28,7 @@ import org.sdmlib.examples.ludo.creators.PlayerSet;
 import org.sdmlib.examples.ludo.creators.PawnSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 
 public class Player implements PropertyChangeInterface
 {
@@ -104,7 +105,12 @@ public class Player implements PropertyChangeInterface
       {
          return getPawns();
       }
-      
+
+      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attribute))
+      {
+         return getEnumColor();
+      }
+
       return null;
    }
 
@@ -188,6 +194,12 @@ public class Player implements PropertyChangeInterface
       if ((PROPERTY_PAWNS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPawns((Pawn) value);
+         return true;
+      }
+
+      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attrName))
+      {
+         setEnumColor((org.sdmlib.examples.ludo.LudoModel.LudoColor) value);
          return true;
       }
 
@@ -839,6 +851,34 @@ public class Player implements PropertyChangeInterface
       Pawn value = new Pawn();
       withPawns(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ENUMCOLOR = "enumColor";
+   
+   private org.sdmlib.examples.ludo.LudoModel.LudoColor enumColor;
+
+   public org.sdmlib.examples.ludo.LudoModel.LudoColor getEnumColor()
+   {
+      return this.enumColor;
+   }
+   
+   public void setEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   {
+      if (this.enumColor != value)
+      {
+         org.sdmlib.examples.ludo.LudoModel.LudoColor oldValue = this.enumColor;
+         this.enumColor = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMCOLOR, oldValue, value);
+      }
+   }
+   
+   public Player withEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   {
+      setEnumColor(value);
+      return this;
    } 
 }
 

@@ -22,6 +22,7 @@
 package org.sdmlib.examples.ludo;
    
 import org.junit.Test;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.examples.ludo.creators.FieldPO;
@@ -32,6 +33,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
    
 public class LudoScenario 
@@ -44,10 +46,22 @@ public class LudoScenario
       scenario.add("Start situation: ",
          MODELING, "zuendorf", "19.08.2012 22:59:05", 4, 0);
       
+      JsonIdMap jsonIdMap = CreatorCreator.createIdMap("l1");
+      
       // create a simple ludo scenario
       
-      Player tom = new Player().withName("Tom").withColor("blue");
-      Player sabine = new Player().withName("Sabine").withColor("red");
+      Player tom = new Player().withName("Tom").withColor("blue").withEnumColor(LudoColor.blue);
+      
+      JsonArray jsonArray = jsonIdMap.toJsonArray(tom);
+      
+      System.out.println(jsonArray.toString(3));
+      
+      
+      Player sabine = new Player().withName("Sabine").withColor("red").withEnumColor(LudoColor.red);
+      
+      JsonIdMap jsonIdMapClone = CreatorCreator.createIdMap("l2");
+
+      Object clone = jsonIdMap.readJson(jsonArray);
       
       Dice dice = tom.createDice().withValue(6);
       
@@ -66,7 +80,6 @@ public class LudoScenario
       Pawn p9 = sabine.createPawns().withColor("red")
             .withPos(tomStartField);
       
-      JsonIdMap jsonIdMap = CreatorCreator.createIdMap("l1");
       
       scenario.addObjectDiag(jsonIdMap, tom);
       

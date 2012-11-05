@@ -140,7 +140,7 @@ public class ScenarioManager
 		
 		refColumnBody.append("<br>");
 		
-		TreeSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);
+		TreeSet<KanbanEntry> allEntries = new TreeSet<KanbanEntry>(collectEntriesFromTree(kanbanBoard));
 		
 		for (KanbanEntry entry : allEntries)
       {
@@ -316,7 +316,7 @@ public class ScenarioManager
 		printFile(file, text);
 		
 		// collect subentries from tree structure
-		TreeSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
+		LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
 		
 		for (KanbanEntry kanbanEntry : allEntries)
       {
@@ -377,7 +377,7 @@ public class ScenarioManager
 		dumpBoardForKanbanEntry(kanbanBoard, kanbanBoard.getName()+"kanban");
 	}
 
-   private void dumpTimeLinesFor(TreeSet<KanbanEntry> allEntries)
+   private void dumpTimeLinesFor(LinkedHashSet<KanbanEntry> allEntries)
    {
       // for each entry, collect log entries ordered by time stamps
       for (KanbanEntry kanbanEntry : allEntries)
@@ -411,7 +411,7 @@ public class ScenarioManager
 
    private void dumpBoardForKanbanEntry(KanbanEntry rootEntry, String boardName)
    {
-      TreeSet<KanbanEntry> allEntries = collectEntriesFromTree(rootEntry);
+      LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(rootEntry);
 
       // generate the kanban board
 		String buf = "<html>\n<body>\n<table border='3' frame='box'>\n<headerRow>\n<tableBody></table>\n</body>\n</html>";
@@ -612,10 +612,10 @@ public class ScenarioManager
       
    }
 
-   private TreeSet<KanbanEntry> collectEntriesFromTree(KanbanEntry rootEntry)
+   private LinkedHashSet<KanbanEntry> collectEntriesFromTree(KanbanEntry rootEntry)
    {
       // collect subentries from tree structure
-      TreeSet<KanbanEntry> allEntries = new TreeSet<KanbanEntry>();
+      LinkedHashSet<KanbanEntry> allEntries = new LinkedHashSet<KanbanEntry>();
       LinkedList<KanbanEntry> todo = new LinkedList<KanbanEntry>();
       todo.add(rootEntry);
       

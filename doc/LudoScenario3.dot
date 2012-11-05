@@ -2,7 +2,7 @@ graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
 
-p1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p1 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>name = "Tom"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
+p1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p1 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>name = "Tom"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr><tr><td>enumColor = blue</td></tr></table></td></tr></table>>];
 d2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>d2 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>value = 6</td></tr></table></td></tr></table>>];
 f3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f3 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "start"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 f4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f4 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
@@ -10,7 +10,7 @@ f5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f5 :Fi
 f6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f6 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 f7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f7 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 p8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p8 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
-p9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p9 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>name = "Sabine"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
+p9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p9 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>name = "Sabine"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr><tr><td>enumColor = red</td></tr></table></td></tr></table>>];
 f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "base"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p11 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>x = 0</td></tr><tr><td>y = 0</td></tr></table></td></tr></table>>];
 

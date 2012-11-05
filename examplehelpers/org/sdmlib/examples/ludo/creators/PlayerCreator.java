@@ -21,6 +21,7 @@ public class PlayerCreator extends EntityFactory
       Player.PROPERTY_BASE,
       Player.PROPERTY_LANDING,
       Player.PROPERTY_PAWNS,
+      Player.PROPERTY_ENUMCOLOR,
    };
    
    public String[] getProperties()
@@ -57,4 +58,6 @@ public class PlayerCreator extends EntityFactory
       ((Player) entity).removeYou();
    }
 }
+
+
 
