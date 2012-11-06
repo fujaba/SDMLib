@@ -86,6 +86,7 @@ public class TableComponent extends Composite implements Listener,
 
 	protected TableList list;
 	protected PeerMessage source;
+	protected int additionKey;
 	
 	
 	public static final String EMPTYCOLUMN = "empty";
@@ -101,15 +102,12 @@ public class TableComponent extends Composite implements Listener,
 		tableComposite.setLayoutData(BorderLayout.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
 
-		tableViewer = new TableViewer(tableComposite, SWT.BORDER
-				| SWT.FULL_SELECTION | SWT.FILL | SWT.MULTI);
-		
+		tableViewer = new TableViewer(tableComposite, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
 		
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-//		table.addListener(SWT.Selection, new TableSelectionListener(tableViewer));
-//		tableViewer.setLabelProvider(new TableLabelProvider(tableViewer));
+		tableViewer.setLabelProvider(new TableLabelProvider());
 		
 		Menu headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
@@ -117,11 +115,12 @@ public class TableComponent extends Composite implements Listener,
 		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
 		columnsMenue.setMenu(mnuColumns);
 
-//		table.setMenu(headerMenu);
+		table.setMenu(headerMenu);
 
-//		table.addListener(SWT.MouseMove, this);
-//		table.addListener(SWT.MouseUp, this);
-//		table.addListener(SWT.MouseExit, this);
+		table.addListener(SWT.KeyDown, this);
+		table.addListener(SWT.MouseMove, this);
+		table.addListener(SWT.MouseUp, this);
+		table.addListener(SWT.MouseExit, this);
 
 		setLayout(new BorderLayout(0, 0));
 		
@@ -341,62 +340,85 @@ public class TableComponent extends Composite implements Listener,
 		Point pt = new Point(event.x, event.y);
 
 		TableItem currentItem = tableViewer.getTable().getItem(pt);
-		if (SWT.MouseUp == event.type) {
-			ViewerCell cell = getTableViewer().getCell(pt);
-			if (cell != null) {
-				int columnIndex = cell.getColumnIndex();
-				int offset = 0;
-				if (fixedTableViewerLeft != null) {
-					offset = fixedTableViewerLeft.getTable().getColumnCount();
-				}
-				TableColumnView tableColumnView = columns.get(columnIndex
-						+ offset);
-				if (tableColumnView != null) {
-					Composite parent = this;
-					int x = event.x;
-					int y = event.y;
-					while (parent != null) {
-						x += parent.getBounds().x;
-						y += parent.getBounds().y;
-						parent = parent.getParent();
+		if(SWT.MouseMove == event.type | SWT.MouseUp == event.type | SWT.MouseExit == event.type){
+			if (SWT.MouseUp == event.type) {
+				ViewerCell cell = getTableViewer().getCell(pt);
+				if (cell != null) {
+					int columnIndex = cell.getColumnIndex();
+					int offset = 0;
+					if (fixedTableViewerLeft != null) {
+						offset = fixedTableViewerLeft.getTable().getColumnCount();
 					}
-					tableColumnView.getColumn().setSelection(this, currentItem, x, y);
+					TableColumnView tableColumnView = columns.get(columnIndex
+							+ offset);
+					if (tableColumnView != null) {
+						Composite parent = this;
+						int x = event.x;
+						int y = event.y;
+						while (parent != null) {
+							x += parent.getBounds().x;
+							y += parent.getBounds().y;
+							parent = parent.getParent();
+						}
+						tableColumnView.getColumn().setSelection(this, currentItem, x, y);
+					}
+					// setSelection(currentItem, cell, columnIndex);
 				}
-				// setSelection(currentItem, cell, columnIndex);
 			}
-		}
-		if (currentItem == null || currentItem.isDisposed()) {
-			tableViewer.getTable().setCursor(defaultCursor);
-		} else {
-			boolean activ = false;
-			for (int i = 0; i < columns.size(); i++) {
-				TableColumnView tableViewerColumn = columns.get(i);
-				Rectangle positem = currentItem.getBounds(i);
-				if (positem != null) {
-					if (event.x > positem.x
-							&& event.x < (positem.x + positem.width)) {
-						if (tableViewerColumn.getColumn().isEditingSupport()) {
-							this.activeItem = currentItem;
-							activ = true;
-							TableColumnLabelProvider activeCell = tableViewerColumn
-									.getTableProvider();
-							Color color = activeCell.getForgroundColorActiv();
-							if (color != null) {
-								this.activeItem.setForeground(i, color);
+			if (currentItem == null || currentItem.isDisposed()) {
+				tableViewer.getTable().setCursor(defaultCursor);
+			} else {
+				boolean activ = false;
+				for (int i = 0; i < columns.size(); i++) {
+					TableColumnView tableViewerColumn = columns.get(i);
+					Rectangle positem = currentItem.getBounds(i);
+					if (positem != null) {
+						if (event.x > positem.x
+								&& event.x < (positem.x + positem.width)) {
+							if (tableViewerColumn.getColumn().isEditingSupport()) {
+								this.activeItem = currentItem;
+								activ = true;
+								TableColumnLabelProvider activeCell = tableViewerColumn
+										.getTableProvider();
+								Color color = activeCell.getForgroundColorActiv();
+								if (color != null) {
+									this.activeItem.setForeground(i, color);
+								}
+								color = activeCell.getBackgroundColorActiv();
+								if (color != null) {
+									this.activeItem.setBackground(i, color);
+								}
+								tableViewer.getTable().setCursor(handCursor);
 							}
-							color = activeCell.getBackgroundColorActiv();
-							if (color != null) {
-								this.activeItem.setBackground(i, color);
-							}
-							tableViewer.getTable().setCursor(handCursor);
 						}
 					}
 				}
+				if (!activ) {
+					tableViewer.getTable().setCursor(defaultCursor);
+				}
 			}
-			if (!activ) {
-				tableViewer.getTable().setCursor(defaultCursor);
+		}else if (SWT.KeyDown == event.type) {
+			if (event.keyCode == SWT.CTRL || (event.stateMask & SWT.CONTROL) != 0){
+				this.additionKey = SWT.CTRL;
+				if(event.keyCode=='a'){
+					// Select all
+					TableComponent.this.selectAll();
+				}
+			}else if(event.keyCode == SWT.SHIFT || (event.stateMask & SWT.SHIFT) != 0) {
+				this.additionKey = SWT.ALT;
+			} else {
+				this.additionKey = 0;
 			}
 		}
+	}
+	
+	protected void selectAll() {
+		int count=tableViewer.getTable().getItemCount();
+		int[] array=new int[count];
+		for(int i=0;i<count;i++){
+			array[i]=i;
+		}
+		tableViewer.getTable().setSelection(array);
 	}
 
 	public int getTableItemCount() {

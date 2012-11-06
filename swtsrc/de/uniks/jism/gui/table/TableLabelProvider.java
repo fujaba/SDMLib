@@ -2,16 +2,11 @@ package de.uniks.jism.gui.table;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.graphics.Image;
 
 public class TableLabelProvider implements ITableLabelProvider {
-	//FIXME
-	private TableViewer tableViewer;
 
-	public TableLabelProvider(TableViewer tableViewer) {
-		this.tableViewer = tableViewer;
-		
+	public TableLabelProvider() {
 	}
 
 	@Override
@@ -40,5 +35,4 @@ public class TableLabelProvider implements ITableLabelProvider {
 	public String getColumnText(Object element, int columnIndex) {
 		return null;
 	}
-
 }

@@ -41,6 +41,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class TableCellEditingSupport extends EditingSupport {
+	
 	private TableComponent owner;
 	private Column column;
 
@@ -60,6 +61,19 @@ public class TableCellEditingSupport extends EditingSupport {
 	}
 
 	protected CellEditor getCellEditor(Object element) {
+		if(column.getAttrName()!=null){
+			Object value = ((PeerMessage)element).get(column.getAttrName());
+			if(value instanceof String){
+				try{
+					Integer.valueOf((String)value);
+					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
+				}catch(Exception e){
+					
+				}
+			}else if(value instanceof Integer){
+				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
+			}
+		}
 		return new TextCellEditor(((TableViewer) getViewer()).getTable());
 	}
 
