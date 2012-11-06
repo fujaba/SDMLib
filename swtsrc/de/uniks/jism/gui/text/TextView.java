@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
@@ -37,12 +36,12 @@ public class TextView extends TabItem{
 
 	private TextComponente textComponente;
 
-	public TextView(TabFolder parent, Shell shell, String label) {
+	public TextView(TabFolder parent, String label) {
 		super(parent, SWT.NONE);
 
 		setText(label);
 
-		textComponente=new TextComponente(parent, shell, SWT.V_SCROLL | SWT.MULTI);
+		textComponente=new TextComponente(parent, SWT.V_SCROLL | SWT.MULTI);
 		setControl(textComponente);
 	}
 	public void setTextComponent(String text)

@@ -28,6 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.beans.PropertyChangeEvent;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -82,15 +84,15 @@ public class SearchTableComponent extends TableComponent {
 				firstNorth.dispose();
 				firstNorth=null;
 			}
+			northComponents.setLayout(new GridLayout(northComponents.getChildren().length, false));
 		}
-		northComponents.setLayout(new GridLayout(northComponents.getChildren().length, false));
 	}
 	
-	public boolean finishDataBinding(PeerMessage item,	String property, PeerMessage blanko, String searchProperties) {
-		boolean result=super.finishDataBinding(item, property, blanko, searchProperties);
+	public boolean finishDataBinding(PeerMessage item,	String property, String searchProperties) {
+		boolean result=super.finishDataBinding(item, property, searchProperties);
 
 		if (updater == null) {
-			updater = new SearchResultUpdater(this.searchText, item, property, blanko, searchProperties);
+			updater = new SearchResultUpdater(this.searchText, item, property, this.list, searchProperties);
 			updater.refresh();
 			searchText.addModifyListener(updater);
 		}
@@ -112,5 +114,16 @@ public class SearchTableComponent extends TableComponent {
 
 	public Composite getFirstNorth() {
 		return firstNorth;
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		super.propertyChange(evt);
+		
+		if (evt != null && source.equals(evt.getSource())) {
+			if(updater!=null&&evt.getNewValue()!=null){
+				updater.addNewItem((PeerMessage) evt.getNewValue());
+			}
+		}
 	}
 }

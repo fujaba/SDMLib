@@ -90,6 +90,16 @@ public class SearchResultUpdater implements ModifyListener
       this.columnTitle = columnTitle;
       this.tableViewerColumn=tableViewerColumn;
    }
+   
+   public void addNewItem(PeerMessage item){
+	   String[] split = lastSearchCriteria.split(" ");
+	   Collection<?> resultList = (Collection<?>) searchResult.get(property);
+	   if (!resultList.contains(item)) {
+			if (matchesSearchCriteria((PeerMessage) item, split)) {
+				getSearchResults().set(property, item);
+			}
+		}
+   }
 
    public void refreshContent(){
 		String searchCriteria = searchText.getText().trim().toLowerCase();

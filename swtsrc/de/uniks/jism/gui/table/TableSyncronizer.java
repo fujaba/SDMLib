@@ -36,22 +36,22 @@ import org.eclipse.swt.widgets.Table;
 
 public class TableSyncronizer implements MouseWheelListener, Listener{
 	private Table left;
-	private Table right;
+	private Table middle;
 
 	public TableSyncronizer(TableComponent owner, Table left, Table right){
 		this.left = left;
-		this.right = right;
+		this.middle = right;
 	}
 	
 	public void mouseScrolled(MouseEvent arg0) {
-		left.setTopIndex(right.getTopIndex());
-		right.setTopIndex(left.getTopIndex());
+		left.setTopIndex(middle.getTopIndex());
+		middle.setTopIndex(left.getTopIndex());
 	}
 
 	@Override
 	public void handleEvent(Event event) {
-		left.setSelection(right.getSelectionIndices());
-		left.setTopIndex(right.getTopIndex());
-		right.setTopIndex(left.getTopIndex());
+		left.setSelection(middle.getSelectionIndices());
+		left.setTopIndex(middle.getTopIndex());
+		middle.setTopIndex(left.getTopIndex());
 	}
 }

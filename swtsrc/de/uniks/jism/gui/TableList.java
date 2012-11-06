@@ -31,25 +31,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.TreeSet;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.utils.PropertyChangeClient;
 
-public class TableList implements PeerMessage, PropertyChangeClient {
-	public static final String PROPERTY_ITEMS = "items";
+import de.uniks.jism.gui.table.TableListComparator;
 
-	private LinkedHashSet<PeerMessage> items;
+public class TableList extends TreeSet<PeerMessage> implements PeerMessage, PropertyChangeClient {
+	private static final long serialVersionUID = 1L;
+	public static final String PROPERTY_ITEMS = "items";
+	private TableListComparator comparator;
 
 	public TableList(){
-		
+		super(new TableListComparator());
+		Comparator<? super PeerMessage> tc = this.comparator();
+		if(tc instanceof TableListComparator){
+			comparator=(TableListComparator) tc;
+		}		
 	}
 	public TableList(Collection<? extends PeerMessage> items){
+		super(new TableListComparator());
+		Comparator<? super PeerMessage> tc = this.comparator();
+		if(tc instanceof TableListComparator){
+			comparator=(TableListComparator) tc;
+		}		
 		addAll(items);
 	}
 	public TableList(Iterator<? extends PeerMessage> items){
+		super(new TableListComparator());
+		Comparator<? super PeerMessage> tc = this.comparator();
+		if(tc instanceof TableListComparator){
+			comparator=(TableListComparator) tc;
+		}		
+
 		addAll(items);
 	}
 	
@@ -70,52 +89,43 @@ public class TableList implements PeerMessage, PropertyChangeClient {
 		if (PROPERTY_ITEMS.equalsIgnoreCase(attrName)) {
 			if (value instanceof PeerMessage) {
 				PeerMessage entry = (PeerMessage) value;
-				addToItems(entry);
+				add(entry);
 				return true;
 			}
 		}else if ((PROPERTY_ITEMS+IdMap.REMOVE).equalsIgnoreCase(attrName)) {
 			if (value instanceof PeerMessage) {
 				PeerMessage entry = (PeerMessage) value;
-				removeFromItems(entry);
+				remove(entry);
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public LinkedHashSet<PeerMessage> getItems() {
-		if (items == null) {
-			this.items = new LinkedHashSet<PeerMessage>();
-		}
-		return items;
+	public TreeSet<PeerMessage> getItems() {
+		return this;
 	}
+	
 
 	public void setItems(LinkedHashSet<PeerMessage> items) {
-		this.items = items;
+		addAll(items);
 	}
 
-	public boolean addToItems(PeerMessage value){
-		if (this.items == null) 
+	@Override
+	public boolean add(PeerMessage value){
+		if (!contains(value)) 
 		{
-			this.items = new LinkedHashSet<PeerMessage>();
-		}
-		
-		if (!this.items.contains(value)) 
-		{
-			this.items.add(value);
+			super.add(value);
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean removeFromItems(PeerMessage value) {
-		if (this.items == null) {
-			return true;
-		}
-
-		if (this.items.contains(value)) {
-			this.items.remove(value);
+	@Override
+	public boolean remove(Object value) {
+		if (contains(value)) {
+			super.remove(value);
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value,null);
 			return true;
 		}
@@ -126,7 +136,7 @@ public class TableList implements PeerMessage, PropertyChangeClient {
 		while(list.hasNext()){
 			PeerMessage item = list.next();
 			if(item!=null){
-				if(!addToItems(item)){
+				if(!add(item)){
 					return false;
 				}	
 			}
@@ -135,7 +145,16 @@ public class TableList implements PeerMessage, PropertyChangeClient {
 	}
 	public boolean addAll(Collection<? extends PeerMessage> list){
 		for(PeerMessage item : list){
-			if(!addToItems(item)){
+			if(!add(item)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean addAll(TableList list){
+		for(PeerMessage item : list.getItems()){
+			if(!add(item)){
 				return false;
 			}
 		}
@@ -167,5 +186,38 @@ public class TableList implements PeerMessage, PropertyChangeClient {
 			PropertyChangeListener listener) {
 		getPropertyChangeSupport().addPropertyChangeListener(name, listener);
 	
+	}
+	public boolean removeAllFromItems() {
+		for(Iterator<PeerMessage> i=iterator();i.hasNext();){
+			PeerMessage item = i.next();
+			if(!remove(item)){
+				return false;
+			}
+			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, item, null);
+		}
+		return true;
+	}
+	
+	public void setSort(String field, int direction) {
+		comparator.setColumn(field);
+		comparator.setDirection(direction);
+	}
+	
+	public void setSort(String field) {
+		comparator.setColumn(field);
+	}
+	
+	public int compare(Object o1, Object o2) {
+		return comparator.compare(o1, o2);
+	}
+	
+	public int changeDirection(){
+		int direction = comparator.getDirection();
+		if (direction == TableListComparator.ASC) {
+			return comparator.setDirection(TableListComparator.DESC);
+		} else if (direction == TableListComparator.DESC) {
+			return comparator.setDirection(TableListComparator.ASC);
+		}
+		return direction;
 	}
 }

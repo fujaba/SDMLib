@@ -35,129 +35,67 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+
+import de.uniks.jism.gui.TableList;
 
 public class ColumnViewerSorter extends ViewerComparator {
-	public static final int ASC = 1;
-	public static final int NONE = 0;
-	public static final int DESC = -1;
-	private int direction = 0;
 	private TableColumnView view;
-	private Column column;
+	private TableComponent tableComponent;
+	private Column columnConfig;
 
-	public ColumnViewerSorter(TableColumnView tableView, Column column){
+	public ColumnViewerSorter(TableColumnView tableView, TableComponent tableComponent, Column columnConfig){
 		super();
-		this.column =column;
+		this.tableComponent = tableComponent;
 		this.view = tableView;
+		this.columnConfig = columnConfig;
 		TableViewerColumn tableViewerColumn = tableView.getTableViewerColumn();
-		tableViewerColumn.getColumn().addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				refreshDirection();
-			}
-		});
+		if(tableViewerColumn!=null){
+			tableViewerColumn.getColumn().addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					refreshDirection();
+				}
+			});
+		}
 	}
 
 	public void refreshDirection(){
 		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
 		if (tableViewerColumn.getViewer().getComparator() != null) {
 			if (tableViewerColumn.getViewer().getComparator() == ColumnViewerSorter.this) {
-				int tdirection = ColumnViewerSorter.this.direction;
-				if (tdirection == ASC) {
-					setSorter(ColumnViewerSorter.this, DESC);
-				} else if (tdirection == DESC) {
-					setSorter(ColumnViewerSorter.this, NONE);
-				}
+				TableList list = tableComponent.getList();
+				int newDirection=list.changeDirection();
+				setSorter(newDirection);
 			} else {
-				setSorter(ColumnViewerSorter.this, ASC);
+				setSorter(TableListComparator.ASC);
 			}
 		} else {
-			setSorter(ColumnViewerSorter.this, ASC);
+			setSorter(TableListComparator.ASC);
 		}
-		
 	}
-	public void setSorter(ColumnViewerSorter sorter, int direction) {
+
+	public void setSorter(int direction) {
 		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
 		TableColumn column = tableViewerColumn.getColumn();
-		if (direction == NONE) {
-			column.getParent().setSortColumn(null);
-			column.getParent().setSortDirection(SWT.NONE);
-			tableViewerColumn.getViewer().setComparator(null);
+		TableList list=tableComponent.getList();
+		list.setSort(columnConfig.getAttrName(), direction);
+		column.getParent().setSortColumn(column);
+
+		if (direction == TableListComparator.ASC) {
+			column.getParent().setSortDirection(SWT.DOWN);
 		} else {
-			column.getParent().setSortColumn(column);
-			sorter.direction = direction;
-
-			if (direction == ASC) {
-				column.getParent().setSortDirection(SWT.DOWN);
-			} else {
-				column.getParent().setSortDirection(SWT.UP);
-			}
-
-			if (tableViewerColumn.getViewer().getComparator() == sorter) {
-				tableViewerColumn.getViewer().refresh();
-			} else {
-				tableViewerColumn.getViewer().setComparator(sorter);
-			}
+			column.getParent().setSortDirection(SWT.UP);
 		}
+
+		if (tableViewerColumn.getViewer().getComparator() == this) {
+//				tableViewerColumn.getViewer().refresh();
+		} else {
+			tableViewerColumn.getViewer().setComparator(this);
+		}
+		tableComponent.refresh();
 	}
 	
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		return direction * doCompare(viewer, e1, e2);
-	}
-	
-	public void setInitSort(TableColumn column, int direction){
-		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
-		TableColumn newColumn = tableViewerColumn.getColumn();
-		newColumn.getParent().setSortColumn(column);
-		newColumn.getParent().setSortDirection(direction);
-	}
-	public void setDirection(int direction){
-		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
-		TableColumn newColumn = tableViewerColumn.getColumn();
-
-		this.direction=direction;
-		if (direction == ASC) {
-			newColumn.getParent().setSortDirection(SWT.DOWN);
-		} else {
-			newColumn.getParent().setSortDirection(SWT.UP);
-		}
-	}
-			
-	protected int doCompare(Viewer viewer, Object e1, Object e2) {
-		PeerMessage p1 = (PeerMessage) e1;
-		PeerMessage p2 = (PeerMessage) e2;
-		String attrName = column.getAttrName();
-		if(p1.get(attrName) instanceof String){
-			String valueA=(String) p1.get(attrName);
-			String valueB=(String) p2.get(attrName);
-			if(valueA!=null){
-				return valueA.compareToIgnoreCase(valueB);
-			}else{
-				return -1;
-			}
-		}else if(p1.get(attrName) instanceof Integer){
-			Integer valueA=(Integer) p1.get(attrName);
-			Integer valueB=(Integer) p2.get(attrName);
-			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
-			}
-		}else if(p1.get(attrName) instanceof Long){
-			Long valueA=(Long) p1.get(attrName);
-			Long valueB=(Long) p2.get(attrName);
-			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
-			}		}else if(p1.get(attrName) instanceof Boolean){
-			Boolean valueA=(Boolean) p1.get(attrName);
-			Boolean valueB=(Boolean) p2.get(attrName);
-			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
-			}
-		}
-		return 0;	
+		TableList value=tableComponent.getList();
+		return value.compare(e1, e2);
 	}
 }

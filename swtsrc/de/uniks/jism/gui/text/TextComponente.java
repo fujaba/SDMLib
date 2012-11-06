@@ -52,25 +52,22 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import de.uniks.jism.gui.GUIElement;
-
 import swing2swt.layout.BorderLayout;
+import de.uniks.jism.gui.GUIElement;
 
 public class TextComponente extends Composite implements GUIElement{
 	private Text searchText;
 	private StyledText textarea;
 	private Label lblSize;
 	private String keyword;
-	private Shell parentShell;
 	private String filename;
-
-	public TextComponente(Composite parent, Shell parentShell, int style) {
+	private Composite parent;
+	public TextComponente(Composite parent,int style) {
 		super(parent, SWT.NONE);
 		setLayout(new BorderLayout(0, 0));
-		this.parentShell=parentShell;
+		this.parent=parent;
 		
 		Composite composite = new Composite(this, SWT.NONE);
 		composite.setLayout(new BorderLayout(0, 0));
@@ -293,7 +290,7 @@ public class TextComponente extends Composite implements GUIElement{
 		  textarea.selectAll();
 	  }
 	  private void saveFileAs() {
-		  FileDialog dlg = new FileDialog(parentShell);
+		  FileDialog dlg = new FileDialog(parent.getShell());
 		    if (filename != null) {
 		      dlg.setFileName(filename);
 		    }

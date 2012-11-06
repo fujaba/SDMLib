@@ -39,10 +39,10 @@ import org.eclipse.swt.widgets.TableColumn;
 public class TableColumnView implements ControlListener {
 	private TableViewerColumn tableViewerColumn;
 	private Column column;
-	private TableLabelProvider tableLabelProvider;
+	private TableColumnLabelProvider tableLabelProvider;
 	private TableComponent owner;
 	private Menu mnuColumns;
-	private ColumnViewerSorter columnViewerSorter;
+	protected ColumnViewerSorter columnViewerSorter;
 	private TableCellMenuItem tableCellMenuItem;
 
 	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns) {
@@ -60,13 +60,10 @@ public class TableColumnView implements ControlListener {
 		if(tableViewerColumn==null&&visible){
 			TableViewer tv=getTableViewer();
 			tableViewerColumn = new TableViewerColumn(tv, SWT.NONE);
-			if(columnViewerSorter==null){
-				columnViewerSorter = new ColumnViewerSorter(this, column);
-			}
 			if(tableCellMenuItem==null){
 				tableCellMenuItem = new TableCellMenuItem(this, mnuColumns);
 			}
-			
+			columnViewerSorter = new ColumnViewerSorter(this, owner, column);
 			// RegExpression
 			if(column.getEditColumn()!=null){
 				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column));
@@ -74,7 +71,7 @@ public class TableColumnView implements ControlListener {
 				tableViewerColumn.setEditingSupport(column.getEditingSupport());
 			}
 			if(column.getCellValue()!=null){
-				this.tableLabelProvider=new TableLabelProvider(column);
+				this.tableLabelProvider=new TableColumnLabelProvider(column);
 				tableViewerColumn.setLabelProvider(tableLabelProvider);
 			}
 			TableColumn tableColumn = tableViewerColumn.getColumn();
@@ -102,7 +99,7 @@ public class TableColumnView implements ControlListener {
 		return tableViewerColumn;
 	}
 
-	public TableLabelProvider getTableProvider(){
+	public TableColumnLabelProvider getTableProvider(){
 		return tableLabelProvider;
 	}
 	

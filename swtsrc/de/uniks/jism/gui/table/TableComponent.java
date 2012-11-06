@@ -57,8 +57,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
-import org.sdmlib.utils.PropertyChangeClient;
 
 import swing2swt.layout.BorderLayout;
 import de.uniks.jism.gui.TableList;
@@ -81,9 +81,13 @@ public class TableComponent extends Composite implements Listener,
 	private boolean isToolTip;
 	private Composite tableComposite;
 	private TableSyncronizer tableSyncronizer;
-	protected PeerMessage list;
 	private String property;
 	private Menu mnuColumns;
+
+	protected TableList list;
+	protected PeerMessage source;
+	
+	
 	public static final String EMPTYCOLUMN = "empty";
 
 	public TableComponent(Composite parent, int style) {
@@ -98,24 +102,30 @@ public class TableComponent extends Composite implements Listener,
 		tableComposite.setLayout(new BorderLayout(0, 0));
 
 		tableViewer = new TableViewer(tableComposite, SWT.BORDER
-				| SWT.FULL_SELECTION | SWT.FILL);
+				| SWT.FULL_SELECTION | SWT.FILL | SWT.MULTI);
+		
+		
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-
+//		table.addListener(SWT.Selection, new TableSelectionListener(tableViewer));
+//		tableViewer.setLabelProvider(new TableLabelProvider(tableViewer));
+		
 		Menu headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
 		columnsMenue.setText("Columns");
 		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
 		columnsMenue.setMenu(mnuColumns);
 
-		table.setMenu(headerMenu);
+//		table.setMenu(headerMenu);
 
-		table.addListener(SWT.MouseMove, this);
-		table.addListener(SWT.MouseUp, this);
-		table.addListener(SWT.MouseExit, this);
+//		table.addListener(SWT.MouseMove, this);
+//		table.addListener(SWT.MouseUp, this);
+//		table.addListener(SWT.MouseExit, this);
 
 		setLayout(new BorderLayout(0, 0));
+		
+		
 	}
 
 	public void addColumn(Column column) {
@@ -126,8 +136,10 @@ public class TableComponent extends Composite implements Listener,
 		if (column.getAltAttribute() != null) {
 			if (!isToolTip) {
 				isToolTip = true;
-				ColumnViewerToolTipSupport.enableFor(fixedTableViewerLeft,
-						ToolTip.NO_RECREATE);
+				if(fixedTableViewerLeft!=null){
+					ColumnViewerToolTipSupport.enableFor(fixedTableViewerLeft,
+							ToolTip.NO_RECREATE);
+				}
 			}
 		}
 	}
@@ -161,8 +173,10 @@ public class TableComponent extends Composite implements Listener,
 					fixedTableViewerLeft.getTable(), tableViewer.getTable());
 			tableViewer.getTable().addMouseWheelListener(tableSyncronizer);
 			tableViewer.getTable().addListener(SWT.Selection, tableSyncronizer);
+			if(tableViewer.getTable().getVerticalBar()!=null){
 			tableViewer.getTable().getVerticalBar()
 					.addListener(SWT.Selection, tableSyncronizer);
+			}
 			for (TableColumnView item : columns) {
 				if (item.getColumn().getBrowserId() == FIXEDBROWSERLEFT) {
 					item.setVisible(true);
@@ -237,29 +251,44 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	public boolean finishDataBinding(TableList item, String searchProperties) {
-		return finishDataBinding(item, TableList.PROPERTY_ITEMS,
-				new TableList(), searchProperties);
+		return finishDataBinding(item, TableList.PROPERTY_ITEMS, searchProperties);
 	}
 
 	public boolean finishDataBinding(PeerMessage item, String property,
-			PeerMessage blanko, String searchProperties) {
+			String searchProperties) {
 
 		if (fixedTableViewerLeft != null) {
 			finish(fixedTableViewerLeft, FIXEDBROWSERLEFT);
 		}
 
 		finish(tableViewer, BROWSER);
-
-		if (blanko instanceof PropertyChangeClient) {
-			((PropertyChangeClient) blanko).addPropertyChangeListener(this);
-		}
-		this.list = blanko;
+		
+		this.list = new TableList();
+		this.list.addPropertyChangeListener(this);
+		
+		this.source=item;
 		this.property = property;
-		// tableViewer.setInput(item);
-		// FIXME talkListTalksObserveSet = BeansObservables.observeSet(
-		// Realm.getDefault(), updater.getSearchResults(),
-		// updater.getProperty());
-		// tableViewer.setInput(talkListTalksObserveSet);
+		
+		new UpdateSearchList(this, source);
+		
+//		tableViewer.setContentProvider(new IStructuredContentProvider() {
+//			
+//			@Override
+//			public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
+//				
+//			}
+//			
+//			@Override
+//			public void dispose() {
+//				
+//			}
+//
+//			@Override
+//			public Object[] getElements(Object inputElement) {
+//				return new Object[]{};
+//			}
+//		});
+//		tableViewer.setInput(list);
 		return true;
 	}
 
@@ -293,7 +322,7 @@ public class TableComponent extends Composite implements Listener,
 						}
 					}
 				}
-			} else {
+			}else{
 				// Must be an update
 				if (fixedTableViewerLeft != null) {
 					fixedTableViewerLeft.update(evt.getSource(),
@@ -331,8 +360,7 @@ public class TableComponent extends Composite implements Listener,
 						y += parent.getBounds().y;
 						parent = parent.getParent();
 					}
-					tableColumnView.getColumn().setSelection(this, currentItem,
-							x, y);
+					tableColumnView.getColumn().setSelection(this, currentItem, x, y);
 				}
 				// setSelection(currentItem, cell, columnIndex);
 			}
@@ -350,7 +378,7 @@ public class TableComponent extends Composite implements Listener,
 						if (tableViewerColumn.getColumn().isEditingSupport()) {
 							this.activeItem = currentItem;
 							activ = true;
-							TableLabelProvider activeCell = tableViewerColumn
+							TableColumnLabelProvider activeCell = tableViewerColumn
 									.getTableProvider();
 							Color color = activeCell.getForgroundColorActiv();
 							if (color != null) {
@@ -412,5 +440,21 @@ public class TableComponent extends Composite implements Listener,
 				setVisibleFixedColumns(true);
 			}
 		}
+	}
+	
+	public void removeSelectionItems() {
+		TableItem[] selectionItems = getTable().getSelection();
+		
+		if (selectionItems.length > 0) {
+			for (TableItem tableItem : selectionItems) {
+				PeerMessage item = (PeerMessage) tableItem.getData();
+				list.set(property+IdMap.REMOVE, item);
+				source.set(property+IdMap.REMOVE, item);
+			}
+		}
+	}
+
+	public TableList getList() {
+		return list;
 	}
 }
