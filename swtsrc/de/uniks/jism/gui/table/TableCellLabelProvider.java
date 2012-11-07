@@ -53,7 +53,9 @@ public class TableCellLabelProvider extends CellLabelProvider {
 			}
 		}else if(column.getRegEx()!=null){
 			//FIND PROPERTY
-			column.updateTableViewer(cell);
+			if(column instanceof ColumnNotification){
+				((ColumnNotification)column).updateTableViewer(cell);
+			}
 		}else{
 			Object value=((PeerMessage)cell.getElement()).get(column.getAttrName());
 			if(value==null){

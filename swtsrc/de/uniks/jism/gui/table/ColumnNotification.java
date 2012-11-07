@@ -1,4 +1,9 @@
 package de.uniks.jism.gui.table;
+
+import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.swt.widgets.TableItem;
+
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -27,24 +32,25 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import org.sdmlib.serialization.interfaces.PeerMessage;
-import org.sdmlib.utils.PropertyChangeClient;
-
-public class UpdateSearchList implements PropertyChangeListener {
-	private TableComponent tableComponent;
-
-	public UpdateSearchList(TableComponent tableComponent, PeerMessage list){
-		this.tableComponent = tableComponent;
-		if (list instanceof PropertyChangeClient) {
-			((PropertyChangeClient) list).addPropertyChangeListener(this);
-		}
+public class ColumnNotification extends Column{
+	private EditingSupport editingsupport;
+	
+	public void updateTableViewer(ViewerCell cell){
+		
 	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		tableComponent.propertyChange(evt);
+	
+	public void setEditingSupport(EditingSupport value) {
+		this.editingsupport=value;
+	}
+	public EditingSupport getEditingSupport() {
+		return this.editingsupport;
+	}
+	
+	public boolean isEditingSupport() {
+		return editingsupport!=null;
+	}
+	
+	public void setSelection(TableComponent tableComponent, TableItem item, int x, int y){
+		super.setSelection(x, y);
 	}
 }

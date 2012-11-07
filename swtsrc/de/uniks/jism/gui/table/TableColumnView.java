@@ -67,8 +67,10 @@ public class TableColumnView implements ControlListener {
 			// RegExpression
 			if(column.getEditColumn()!=null){
 				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column));
-			}else if(column.getEditingSupport()!=null){
-				tableViewerColumn.setEditingSupport(column.getEditingSupport());
+			}else if(column.isEditingSupport()){
+				if(column instanceof ColumnNotification){
+					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport());
+				}
 			}
 			if(column.getCellValue()!=null){
 				this.tableLabelProvider=new TableColumnLabelProvider(column);

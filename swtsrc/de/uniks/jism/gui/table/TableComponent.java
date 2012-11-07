@@ -144,7 +144,10 @@ public class TableComponent extends Composite implements Listener,
 	}
 	
 	public void removeColumn(Column column) {
-		for(TableColumnView item : this.columns){
+		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
+		for(TableColumnView item : array){
+//		for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
+//			TableColumnView item = i.next();
 			if(item.getColumn().equals(column)){
 				removeColumn(item);
 			}
@@ -375,7 +378,13 @@ public class TableComponent extends Composite implements Listener,
 							y += parent.getBounds().y;
 							parent = parent.getParent();
 						}
-						tableColumnView.getColumn().setSelection(this, currentItem, x, y);
+						Column column = tableColumnView.getColumn();
+						if(column instanceof ColumnNotification){
+							((ColumnNotification)column).setSelection(this, currentItem, x, y);
+						}else{
+							column.setSelection(x, y);
+						}
+						
 					}
 					// setSelection(currentItem, cell, columnIndex);
 				}

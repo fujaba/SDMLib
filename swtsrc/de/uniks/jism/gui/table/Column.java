@@ -28,9 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.swt.widgets.TableItem;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class Column {
@@ -45,7 +42,6 @@ public class Column {
 	private String forgroundColorActiv=null;
 	private String backgroundColorActiv=null;
 	private String cellValue=null;
-	private EditingSupport editingsupport;
 	private boolean isResizable=true;
 	private int textalignment=-1;
 	private boolean isVisible=true;
@@ -89,10 +85,6 @@ public class Column {
 		this.regEx=regEx;
 	}
 	
-	public void updateTableViewer(ViewerCell cell){
-		
-	}
-
 	/**
 	 * @return the label
 	 */
@@ -212,17 +204,6 @@ public class Column {
 		this.textalignment=alignment;
 	}
 
-	public void setEditingSupport(EditingSupport value) {
-		this.editingsupport=value;
-	}
-	public EditingSupport getEditingSupport() {
-		return this.editingsupport;
-	}
-	
-	public boolean isEditingSupport() {
-		return editingsupport!=null;
-	}
-
 	public boolean isResizable() {
 		return isResizable;
 	}
@@ -260,11 +241,9 @@ public class Column {
 	public PeerMessage getItem() {
 		return item;
 	}
-	
-	public void setSelection(TableComponent tableComponent, TableItem item, int x, int y){
+	public void setSelection(int x, int y){
 		
 	}
-
 	public boolean isMovable() {
 		return isMovable;
 	}
@@ -279,6 +258,9 @@ public class Column {
 
 	public void setBrowserId(int browserId) {
 		this.browserId = browserId;
+	}
+	public boolean isEditingSupport() {
+		return false;
 	}
 	
 }
