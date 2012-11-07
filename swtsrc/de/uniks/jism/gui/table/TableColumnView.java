@@ -91,6 +91,10 @@ public class TableColumnView implements ControlListener {
 		}
 	}
 	
+	public void disposeColumn(){
+		setVisible(false);
+	}
+	
 	public Column getColumn() {
 		return column;
 	}

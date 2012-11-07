@@ -142,6 +142,21 @@ public class TableComponent extends Composite implements Listener,
 			}
 		}
 	}
+	
+	public void removeColumn(Column column) {
+		for(TableColumnView item : this.columns){
+			if(item.getColumn().equals(column)){
+				removeColumn(item);
+			}
+		}
+	}
+	
+	
+	public void removeColumn(TableColumnView column) {
+		if(this.columns.remove(column)){
+			column.disposeColumn();
+		}
+	}
 
 	public TableViewer getBrowserView(int browser) {
 		if (browser == FIXEDBROWSERLEFT) {
