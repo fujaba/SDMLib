@@ -28,6 +28,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableListCreator implements SendableEntityCreator{
@@ -50,6 +51,9 @@ public class TableListCreator implements SendableEntityCreator{
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
+		if(IdMap.REMOVE.equalsIgnoreCase(type)){
+			attribute+=IdMap.REMOVE;
+		}
 		return ((TableList)entity).set(attribute, value);
 	}
 }

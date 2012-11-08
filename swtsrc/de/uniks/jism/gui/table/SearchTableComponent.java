@@ -38,7 +38,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.IdMap;
 
 import swing2swt.layout.BorderLayout;
 
@@ -49,8 +49,8 @@ public class SearchTableComponent extends TableComponent {
 	private Composite northComponents;
 	private Composite firstNorth;
 
-	public SearchTableComponent(Composite parent, int style) {
-		super(parent, style);
+	public SearchTableComponent(Composite parent, int style, IdMap map) {
+		super(parent, style, map);
 	}
 	
 	public void createContent(){
@@ -88,11 +88,11 @@ public class SearchTableComponent extends TableComponent {
 		}
 	}
 	
-	public boolean finishDataBinding(PeerMessage item,	String property, String searchProperties) {
+	public boolean finishDataBinding(Object item, String property, String searchProperties) {
 		boolean result=super.finishDataBinding(item, property, searchProperties);
 
 		if (updater == null) {
-			updater = new SearchResultUpdater(this.searchText, item, property, this.list, searchProperties);
+			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, map, this.list);
 			updater.refresh();
 			searchText.addModifyListener(updater);
 		}
@@ -122,7 +122,7 @@ public class SearchTableComponent extends TableComponent {
 		
 		if (evt != null && source.equals(evt.getSource())) {
 			if(updater!=null&&evt.getNewValue()!=null){
-				updater.addNewItem((PeerMessage) evt.getNewValue());
+				updater.addNewItem(evt.getNewValue());
 			}
 		}
 	}

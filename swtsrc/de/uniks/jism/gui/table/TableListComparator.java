@@ -29,7 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
 
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableListComparator implements Comparator<Object>{
 	public static final int ASC = 1;
@@ -37,6 +38,7 @@ public class TableListComparator implements Comparator<Object>{
 
 	private int direction = 1;
 	private String column;
+	private IdMap map;
 	public TableListComparator()
 	{
 	}
@@ -47,51 +49,62 @@ public class TableListComparator implements Comparator<Object>{
 	}
 	
 	public int compareValue(Object o1, Object o2) {
-		PeerMessage p1 = (PeerMessage) o1;
-		PeerMessage p2 = (PeerMessage) o2;
-		if(column==null){
-			if(p1.equals(p2)){
+		SendableEntityCreator c1=null;
+		if(column!=null&&map!=null){
+			c1=map.getCreatorClass(o1);
+			SendableEntityCreator c2=map.getCreatorClass(o2);
+			if(c1!=c2){
+				c2=null;
+			}
+		}
+		if(c1==null){
+			if(o1.equals(o2)){
 				return 0;
 			}
-			if(p1.hashCode()<p2.hashCode()){
+			if(o1.hashCode()<o2.hashCode()){
 				return 1;
 			}
 			return -1;
 		}
-		
-		if(p1.get(column) instanceof String){
-			String valueA=(String) p1.get(column);
-			String valueB=(String) p2.get(column);
+		Object v1=c1.getValue(o1, column);
+		if(v1 instanceof String){
+			String valueA=(String) v1;
+			String valueB=(String) c1.getValue(o2, column); 
 			if(valueA!=null){
-				return valueA.compareToIgnoreCase(valueB);
-			}else{
-				return -1;
+				if(valueB!=null){
+					return valueA.compareTo(valueB);
+				}
+				return 1;
 			}
-		}else if(p1.get(column) instanceof Integer){
-			Integer valueA=(Integer) p1.get(column);
-			Integer valueB=(Integer) p2.get(column);
+		}else if(v1 instanceof Integer){
+			Integer valueA=(Integer) v1;
+			Integer valueB=(Integer) c1.getValue(o2, column);
 			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
+				if(valueB!=null){
+					return valueA.compareTo(valueB);
+				}
+				return 1;
 			}
-		}else if(p1.get(column) instanceof Long){
-			Long valueA=(Long) p1.get(column);
-			Long valueB=(Long) p2.get(column);
+		}else if(v1 instanceof Long){
+			Long valueA=(Long) v1;
+			Long valueB=(Long) c1.getValue(o2, column);
 			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
-			}		}else if(p1.get(column) instanceof Boolean){
-			Boolean valueA=(Boolean) p1.get(column);
-			Boolean valueB=(Boolean) p2.get(column);
+				if(valueB!=null){
+					return valueA.compareTo(valueB);
+				}
+				return 1;
+			}
+		}else if(v1 instanceof Boolean){
+			Boolean valueA=(Boolean) v1;
+			Boolean valueB=(Boolean) c1.getValue(o2, column);
 			if(valueA!=null){
-				return valueA.compareTo(valueB);
-			}else{
-				return -1;
+				if(valueB!=null){
+					return valueA.compareTo(valueB);
+				}
+				return 1;
 			}
 		}
-		return 0;
+		return -1;
 	}
 
 	public int getDirection() {
@@ -109,5 +122,9 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setColumn(String column) {
 		this.column = column;
+	}
+
+	public void setIdMap(IdMap value) {
+		this.map=value;
 	}
 }

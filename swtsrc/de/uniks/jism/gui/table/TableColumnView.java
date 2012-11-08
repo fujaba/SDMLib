@@ -35,6 +35,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableColumn;
+import org.sdmlib.serialization.IdMap;
 
 public class TableColumnView implements ControlListener {
 	private TableViewerColumn tableViewerColumn;
@@ -44,11 +45,13 @@ public class TableColumnView implements ControlListener {
 	private Menu mnuColumns;
 	protected ColumnViewerSorter columnViewerSorter;
 	private TableCellMenuItem tableCellMenuItem;
+	private IdMap map;
 
-	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns) {
+	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns, IdMap map) {
 		this.owner=tableComponent;
 		this.mnuColumns=mnuColumns;
 		this.column=column;
+		this.map=map;
 
 		setVisible(true);
 	}
@@ -66,7 +69,7 @@ public class TableColumnView implements ControlListener {
 			columnViewerSorter = new ColumnViewerSorter(this, owner, column);
 			// RegExpression
 			if(column.getEditColumn()!=null){
-				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column));
+				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column, map));
 			}else if(column.isEditingSupport()){
 				if(column instanceof ColumnNotification){
 					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport());

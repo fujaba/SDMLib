@@ -58,10 +58,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 import swing2swt.layout.BorderLayout;
 import de.uniks.jism.gui.TableList;
+import de.uniks.jism.gui.TableListCreator;
 
 public class TableComponent extends Composite implements Listener,
 		PropertyChangeListener {
@@ -85,14 +86,19 @@ public class TableComponent extends Composite implements Listener,
 	private Menu mnuColumns;
 
 	protected TableList list;
-	protected PeerMessage source;
+	protected Object source;
+	protected SendableEntityCreator sourceCreator;
 	protected int additionKey;
+	protected IdMap map;
 	
 	
 	public static final String EMPTYCOLUMN = "empty";
 
-	public TableComponent(Composite parent, int style) {
+	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
+		
+		this.map=map;
+		this.map.addCreator(new TableListCreator());
 
 		createContent();
 	}
@@ -131,7 +137,7 @@ public class TableComponent extends Composite implements Listener,
 		if (column.getBrowserId() == FIXEDBROWSERLEFT) {
 			setVisibleFixedColumns(true);
 		}
-		this.columns.add(new TableColumnView(this, column, mnuColumns));
+		this.columns.add(new TableColumnView(this, column, mnuColumns, map));
 		if (column.getAltAttribute() != null) {
 			if (!isToolTip) {
 				isToolTip = true;
@@ -232,15 +238,13 @@ public class TableComponent extends Composite implements Listener,
 
 		for (TableColumnView view : columns) {
 			Column columnConfig = view.getColumn();
-			// if(columnConfig.getRegEx()!=null||columnConfig.getAltAttribute()!=null){
 			view.getTableViewerColumn().setLabelProvider(
-					new TableCellLabelProvider(columnConfig));
-			// }
+					new TableCellLabelProvider(columnConfig, map));
 		}
 		return true;
 	}
 
-	public void refresh(PeerMessage object) {
+	public void refresh(Object object) {
 		ArrayList<String> refreshColumns = new ArrayList<String>();
 		for (TableColumnView tableColumnView : columns) {
 			refreshColumns.add(tableColumnView.getColumn().getAttrName());
@@ -267,12 +271,8 @@ public class TableComponent extends Composite implements Listener,
 				Collection<?> listItems = (Collection<?>) listValue;
 				Object[] array = listItems.toArray(new Object[listItems.size()]);
 				for(int z=0;z<array.length;z++){
-	//			for (Iterator<?> i = listItems.iterator(); i.hasNext();) {
-					Object item = array[z];
-					if (item instanceof PeerMessage) {
-						propertyChange(new PropertyChangeEvent(list, property,
-								null, item));
-					}
+					propertyChange(new PropertyChangeEvent(list, property,
+							null, array[z]));
 				}
 			}
 		}
@@ -282,9 +282,13 @@ public class TableComponent extends Composite implements Listener,
 		return finishDataBinding(item, TableList.PROPERTY_ITEMS, searchProperties);
 	}
 
-	public boolean finishDataBinding(PeerMessage item, String property,
+	public boolean finishDataBinding(Object item, String property,
 			String searchProperties) {
 
+		this.source=item;
+		this.sourceCreator=map.getCreatorClass(source);
+
+		
 		if (fixedTableViewerLeft != null) {
 			finish(fixedTableViewerLeft, FIXEDBROWSERLEFT);
 		}
@@ -293,8 +297,8 @@ public class TableComponent extends Composite implements Listener,
 		
 		this.list = new TableList();
 		this.list.addPropertyChangeListener(this);
+		this.list.setIdMap(map);
 		
-		this.source=item;
 		this.property = property;
 		
 		new UpdateSearchList(this, source);
@@ -493,9 +497,9 @@ public class TableComponent extends Composite implements Listener,
 		
 		if (selectionItems.length > 0) {
 			for (TableItem tableItem : selectionItems) {
-				PeerMessage item = (PeerMessage) tableItem.getData();
+				Object item = (Object) tableItem.getData();
 				list.set(property+IdMap.REMOVE, item);
-				source.set(property+IdMap.REMOVE, item);
+				sourceCreator.setValue(source, property, item, IdMap.REMOVE);
 			}
 		}
 	}

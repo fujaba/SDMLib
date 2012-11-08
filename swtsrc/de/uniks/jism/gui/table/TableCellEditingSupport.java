@@ -38,22 +38,26 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableCellEditingSupport extends EditingSupport {
 	
 	private TableComponent owner;
 	private Column column;
+	private IdMap map;
 
 	public TableCellEditingSupport(ColumnViewer viewer) {
 		super(viewer);
 	}
 
 	public TableCellEditingSupport(TableComponent owner,
-			TableViewer tableViewer, Column column) {
+			TableViewer tableViewer, Column column, IdMap map) {
 		super(tableViewer);
 		this.column=column;
 		this.owner = owner;
+		this.map = map;
+		
 	}
 
 	protected boolean canEdit(Object arg0) {
@@ -62,7 +66,11 @@ public class TableCellEditingSupport extends EditingSupport {
 
 	protected CellEditor getCellEditor(Object element) {
 		if(column.getAttrName()!=null){
-			Object value = ((PeerMessage)element).get(column.getAttrName());
+			SendableEntityCreator creatorClass = map.getCreatorClass(element);
+			Object value=null;
+			if(creatorClass!=null){
+				value = creatorClass.getValue(element, column.getAttrName());
+			}
 			if(value instanceof String){
 				try{
 					Integer.valueOf((String)value);
@@ -78,7 +86,12 @@ public class TableCellEditingSupport extends EditingSupport {
 	}
 
 	protected Object getValue(Object element) {
-		Object value = ((PeerMessage) element).get(column.getEditColumn());
+		Object value=null;
+		SendableEntityCreator creatorClass = map.getCreatorClass(element);
+		if(creatorClass!=null){
+			value = creatorClass.getValue(element, column.getAttrName());
+		}
+
 		if (Column.DATE.equalsIgnoreCase(column.getRegEx())) {
 			return getDateFormat((Long) value);
 		}
@@ -97,9 +110,11 @@ public class TableCellEditingSupport extends EditingSupport {
 	}
 
 	protected void setValue(Object element, Object value) {
-		PeerMessage msg = (PeerMessage) element;
-		Object oldValue = msg.get(column.getEditColumn());
-		msg.set(column.getEditColumn(), value);
-		this.owner.propertyChange(new PropertyChangeEvent(msg, column.getEditColumn(), oldValue, value));
+		SendableEntityCreator creatorClass = map.getCreatorClass(element);
+		if(creatorClass!=null){
+			Object oldValue = creatorClass.getValue(element, column.getEditColumn());
+			creatorClass.setValue(element, column.getEditColumn(), value, IdMap.NEW);
+			this.owner.propertyChange(new PropertyChangeEvent(element, column.getEditColumn(), oldValue, value));
+		}
 	}
 }

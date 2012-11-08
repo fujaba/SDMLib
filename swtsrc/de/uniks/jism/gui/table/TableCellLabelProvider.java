@@ -35,21 +35,27 @@ import java.util.Date;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Point;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableCellLabelProvider extends CellLabelProvider {
 	private Column column;
+	private IdMap map;
 
-	public TableCellLabelProvider(Column column){
+	public TableCellLabelProvider(Column column,IdMap map){
 		this.column = column;
+		this.map=map;
 	}
 	
 	@Override
 	public void update(ViewerCell cell) {
+		SendableEntityCreator creatorClass = map.getCreatorClass(cell.getElement());
 		if(Column.DATE.equalsIgnoreCase(column.getRegEx())){
-			Object value=((PeerMessage)cell.getElement()).get(column.getAttrName());
-			if(value!=null){
-				cell.setText(getDateFormat((Long) value));
+			if(creatorClass!=null){
+				Object value=creatorClass.getValue(cell.getElement(), column.getAttrName());
+				if(value!=null){
+					cell.setText(getDateFormat((Long) value));
+				}
 			}
 		}else if(column.getRegEx()!=null){
 			//FIND PROPERTY
@@ -57,11 +63,13 @@ public class TableCellLabelProvider extends CellLabelProvider {
 				((ColumnNotification)column).updateTableViewer(cell);
 			}
 		}else{
-			Object value=((PeerMessage)cell.getElement()).get(column.getAttrName());
-			if(value==null){
-				value="";
+			if(creatorClass!=null){
+				Object value=creatorClass.getValue(cell.getElement(), column.getAttrName());
+				if(value==null){
+					value="";
+				}
+				cell.setText(value.toString());
 			}
-			cell.setText(value.toString());
 		}
 	}
 	
@@ -74,14 +82,16 @@ public class TableCellLabelProvider extends CellLabelProvider {
 	}
 	
 	public String getToolTipText(Object element) {
-	
-		if(element instanceof PeerMessage&&column.getAltAttribute()!=null){
-			PeerMessage item=(PeerMessage) element;
-			String text=""+item.get(column.getAltAttribute());
-			if(text.equals("")){
-				return null;
+		if(column.getAltAttribute()!=null){
+			SendableEntityCreator creatorClass = map.getCreatorClass(element);
+			if(creatorClass!=null){
+				String text=""+creatorClass.getValue(element, column.getAltAttribute());
+				if(text.equals("")){
+					return null;
+				}
+				return text;
 			}
-			return text;
+			
 		}
 		return "";
 	}

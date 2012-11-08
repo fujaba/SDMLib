@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class Column {
 	public static final String DATE="%DATE%";
@@ -47,7 +46,7 @@ public class Column {
 	private boolean isVisible=true;
 	private boolean isMovable=true;
 	private String altAttribute;
-	private PeerMessage item;
+	private Object item;
 	private int browserId=TableComponent.BROWSER;
 	
 	public Column(){
@@ -235,10 +234,10 @@ public class Column {
 		return altAttribute;
 	}
 
-	public void setItem(PeerMessage item) {
+	public void setItem(Object item) {
 		this.item=item;
 	}
-	public PeerMessage getItem() {
+	public Object getItem() {
 		return item;
 	}
 	public void setSelection(int x, int y){

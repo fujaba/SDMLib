@@ -42,34 +42,39 @@ import org.sdmlib.utils.PropertyChangeClient;
 
 import de.uniks.jism.gui.table.TableListComparator;
 
-public class TableList extends TreeSet<PeerMessage> implements PeerMessage, PropertyChangeClient {
+public class TableList extends TreeSet<Object> implements PeerMessage, PropertyChangeClient {
 	private static final long serialVersionUID = 1L;
 	public static final String PROPERTY_ITEMS = "items";
 	private TableListComparator comparator;
 
 	public TableList(){
 		super(new TableListComparator());
-		Comparator<? super PeerMessage> tc = this.comparator();
+		Comparator<? super Object> tc = this.comparator();
 		if(tc instanceof TableListComparator){
 			comparator=(TableListComparator) tc;
 		}		
 	}
-	public TableList(Collection<? extends PeerMessage> items){
+	public TableList(Collection<? extends Object> items){
 		super(new TableListComparator());
-		Comparator<? super PeerMessage> tc = this.comparator();
+		Comparator<? super Object> tc = this.comparator();
 		if(tc instanceof TableListComparator){
 			comparator=(TableListComparator) tc;
 		}		
 		addAll(items);
 	}
-	public TableList(Iterator<? extends PeerMessage> items){
+	public TableList(Iterator<? extends Object> items){
 		super(new TableListComparator());
-		Comparator<? super PeerMessage> tc = this.comparator();
+		Comparator<? super Object> tc = this.comparator();
 		if(tc instanceof TableListComparator){
 			comparator=(TableListComparator) tc;
 		}		
 
 		addAll(items);
+	}
+	public void setIdMap(IdMap map){
+		if(this.comparator!=null){
+			comparator.setIdMap(map);
+		}
 	}
 	
 	public Object get(String attrName) {
@@ -87,32 +92,26 @@ public class TableList extends TreeSet<PeerMessage> implements PeerMessage, Prop
 
 	public boolean set(String attrName, Object value) {
 		if (PROPERTY_ITEMS.equalsIgnoreCase(attrName)) {
-			if (value instanceof PeerMessage) {
-				PeerMessage entry = (PeerMessage) value;
-				add(entry);
-				return true;
-			}
+			add(value);
+			return true;
 		}else if ((PROPERTY_ITEMS+IdMap.REMOVE).equalsIgnoreCase(attrName)) {
-			if (value instanceof PeerMessage) {
-				PeerMessage entry = (PeerMessage) value;
-				remove(entry);
-				return true;
-			}
+			remove(value);
+			return true;
 		}
 		return false;
 	}
 
-	public TreeSet<PeerMessage> getItems() {
+	public TreeSet<Object> getItems() {
 		return this;
 	}
 	
 
-	public void setItems(LinkedHashSet<PeerMessage> items) {
+	public void setItems(LinkedHashSet<Object> items) {
 		addAll(items);
 	}
 
 	@Override
-	public boolean add(PeerMessage value){
+	public boolean add(Object value){
 		if (!contains(value)) 
 		{
 			super.add(value);
@@ -132,9 +131,9 @@ public class TableList extends TreeSet<PeerMessage> implements PeerMessage, Prop
 		return false;
 	}
 	
-	public boolean addAll(Iterator<? extends PeerMessage> list){
+	public boolean addAll(Iterator<? extends Object> list){
 		while(list.hasNext()){
-			PeerMessage item = list.next();
+			Object item = list.next();
 			if(item!=null){
 				if(!add(item)){
 					return false;
@@ -143,8 +142,8 @@ public class TableList extends TreeSet<PeerMessage> implements PeerMessage, Prop
 		}
 		return true;
 	}
-	public boolean addAll(Collection<? extends PeerMessage> list){
-		for(PeerMessage item : list){
+	public boolean addAll(Collection<? extends Object> list){
+		for(Object item : list){
 			if(!add(item)){
 				return false;
 			}
@@ -153,7 +152,7 @@ public class TableList extends TreeSet<PeerMessage> implements PeerMessage, Prop
 	}
 
 	public boolean addAll(TableList list){
-		for(PeerMessage item : list.getItems()){
+		for(Object item : list.getItems()){
 			if(!add(item)){
 				return false;
 			}
@@ -188,8 +187,8 @@ public class TableList extends TreeSet<PeerMessage> implements PeerMessage, Prop
 	
 	}
 	public boolean removeAllFromItems() {
-		for(Iterator<PeerMessage> i=iterator();i.hasNext();){
-			PeerMessage item = i.next();
+		for(Iterator<Object> i=iterator();i.hasNext();){
+			Object item = i.next();
 			if(!remove(item)){
 				return false;
 			}

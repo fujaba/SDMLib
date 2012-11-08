@@ -36,7 +36,7 @@ import org.sdmlib.utils.PropertyChangeClient;
 public class UpdateSearchList implements PropertyChangeListener {
 	private TableComponent tableComponent;
 
-	public UpdateSearchList(TableComponent tableComponent, PeerMessage list){
+	public UpdateSearchList(TableComponent tableComponent, Object list){
 		this.tableComponent = tableComponent;
 		if (list instanceof PropertyChangeClient) {
 			((PropertyChangeClient) list).addPropertyChangeListener(this);

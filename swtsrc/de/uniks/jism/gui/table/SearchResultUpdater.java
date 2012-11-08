@@ -37,8 +37,9 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
+import de.uniks.jism.gui.TableList;
 
 public class SearchResultUpdater implements ModifyListener
 {
@@ -47,40 +48,33 @@ public class SearchResultUpdater implements ModifyListener
 	private Text searchText;
 	private TableViewerColumn tableViewerColumn;
 	private String columnTitle;
-	private PeerMessage searchResult;
+	private TableList searchResult;
 	private String property;
-	private PeerMessage searchIn;
+	private Object searchIn;
 	private ArrayList<String> searchProperties = new ArrayList<String>();
+	private SendableEntityCreator searchInCreator;
+	private IdMap map;
 
-	public SearchResultUpdater(Text searchField, PeerMessage searchList,
-			String property, PeerMessage blanko, String searchProperties) {
+	public SearchResultUpdater(Text searchField, Object searchList,
+			String property, String searchProperties, IdMap map, TableList blanko) {
 		init(Display.getDefault(), searchField, searchList, property,
 				searchProperties);
-
 		this.searchResult = blanko;
+		this.searchInCreator = map.getCreatorClass(searchList);
+		this.map=map;
 	}
 
-	public SearchResultUpdater(Text searchField, PeerMessage searchList,
-			String property, IdMap map, String searchProperties) {
+	public SearchResultUpdater(Text searchField, Object searchList,
+			String property, String searchProperties, IdMap map) {
 		init(Display.getDefault(), searchField, searchList, property,
 				searchProperties);
 
-		SendableEntityCreator creatorClass = map.getCreatorClass(searchList);
-		this.searchResult = (PeerMessage) creatorClass
-				.getSendableInstance(false);
+		this.searchInCreator = map.getCreatorClass(searchList);
+		this.searchResult = new TableList();
+		this.map=map;
 	}
 
-	public SearchResultUpdater(Display display, Text searchField,
-			PeerMessage searchList, String property, IdMap map,
-			String searchProperties) {
-		init(display, searchField, searchList, property, searchProperties);
-
-		SendableEntityCreator creatorClass = map.getCreatorClass(searchList);
-		this.searchResult = (PeerMessage) creatorClass
-				.getSendableInstance(false);
-	}
-
-	public void init(Display display, Text searchField, PeerMessage searchList,
+	public void init(Display display, Text searchField, Object searchList,
 			String property, String searchProperties) {
 		this.myDisplay = display;
 		this.searchText = searchField;
@@ -99,11 +93,12 @@ public class SearchResultUpdater implements ModifyListener
 		this.tableViewerColumn = tableViewerColumn;
 	}
 
-	public void addNewItem(PeerMessage item) {
+	public void addNewItem(Object item) {
 		String[] split = lastSearchCriteria.split(" ");
-		Collection<?> resultList = (Collection<?>) searchResult.get(property);
+		
+		Collection<?> resultList = (Collection<?>) searchInCreator.getValue(searchResult, property);
 		if (!resultList.contains(item)) {
-			if (matchesSearchCriteria((PeerMessage) item, split)) {
+			if (matchesSearchCriteria(item, split)) {
 				getSearchResults().set(property, item);
 			}
 		}
@@ -122,7 +117,7 @@ public class SearchResultUpdater implements ModifyListener
 
 		// compare root.talklist and searchresults
 		Collection<?> resultList = (Collection<?>) searchResult.get(property);
-		Collection<?> sourceList = (Collection<?>) searchIn.get(property);
+		Collection<?> sourceList = (Collection<?>) searchInCreator.getValue(searchIn, property);
 		System.out.println("SEARCH IN :" + Thread.currentThread().getName()
 				+ "-" + resultList.toString());
 		Object[] list = resultList.toArray();
@@ -135,7 +130,7 @@ public class SearchResultUpdater implements ModifyListener
 			}
 
 			// does it still match the search criteria?
-			if (!matchesSearchCriteria((PeerMessage) list[i], split)) {
+			if (!matchesSearchCriteria(list[i], split)) {
 				getSearchResults().set(property + IdMap.REMOVE, list[i]);
 				continue;
 			}
@@ -143,7 +138,7 @@ public class SearchResultUpdater implements ModifyListener
 		// and now the other way round
 		for (Object child : sourceList) {
 			if (!resultList.contains(child)) {
-				if (matchesSearchCriteria((PeerMessage) child, split)) {
+				if (matchesSearchCriteria(child, split)) {
 					getSearchResults().set(property, child);
 				}
 			}
@@ -154,11 +149,15 @@ public class SearchResultUpdater implements ModifyListener
 		}
 	}
 
-	private boolean matchesSearchCriteria(PeerMessage item, String[] split) {
+	private boolean matchesSearchCriteria(Object item, String[] split) {
 		String fullText = "";
+		SendableEntityCreator creatorClass = map.getCreatorClass(item);
 		// SEARCH FOR #ID:3
 		for (String property : searchProperties) {
-			fullText += " " + item.get(property).toString().toLowerCase();
+			Object value = creatorClass.getValue(item, property);
+			if(value!=null){
+				fullText += " " + value.toString().toLowerCase();
+			}
 		}
 		fullText = fullText.trim();
 
@@ -171,7 +170,7 @@ public class SearchResultUpdater implements ModifyListener
 
 					if (searchProperties.contains(propString)) {
 						String value = word.substring(pos + 1);
-						String itemValue = item.get(word.substring(1))
+						String itemValue = creatorClass.getValue(item, word.substring(1))
 								.toString().toLowerCase();
 						// Search for simple Property
 						if (itemValue.indexOf(value) < 0) {
@@ -192,11 +191,11 @@ public class SearchResultUpdater implements ModifyListener
 		return matches;
 	}
 
-	public PeerMessage getSearchResults() {
+	public TableList getSearchResults() {
 		return searchResult;
 	}
 
-	public PeerMessage getSearchList() {
+	public Object getSearchList() {
 		return searchIn;
 	}
 
