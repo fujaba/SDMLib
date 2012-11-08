@@ -261,16 +261,18 @@ public class TableComponent extends Composite implements Listener,
 			fixedTableViewerLeft.refresh();
 		}
 		tableViewer.refresh();
-		Object listValue = list.get(property);
-		if (listValue instanceof Collection<?>) {
-			Collection<?> listItems = (Collection<?>) listValue;
-			Object[] array = listItems.toArray(new Object[listItems.size()]);
-			for(int z=0;z<array.length;z++){
-//			for (Iterator<?> i = listItems.iterator(); i.hasNext();) {
-				Object item = array[z];
-				if (item instanceof PeerMessage) {
-					propertyChange(new PropertyChangeEvent(list, property,
-							null, item));
+		if(list!=null){
+			Object listValue = list.get(property);
+			if (listValue instanceof Collection<?>) {
+				Collection<?> listItems = (Collection<?>) listValue;
+				Object[] array = listItems.toArray(new Object[listItems.size()]);
+				for(int z=0;z<array.length;z++){
+	//			for (Iterator<?> i = listItems.iterator(); i.hasNext();) {
+					Object item = array[z];
+					if (item instanceof PeerMessage) {
+						propertyChange(new PropertyChangeEvent(list, property,
+								null, item));
+					}
 				}
 			}
 		}
