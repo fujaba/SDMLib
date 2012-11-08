@@ -146,14 +146,21 @@ public class TableComponent extends Composite implements Listener,
 	public void removeColumn(Column column) {
 		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
 		for(TableColumnView item : array){
-//		for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
-//			TableColumnView item = i.next();
 			if(item.getColumn().equals(column)){
 				removeColumn(item);
 			}
 		}
 	}
 	
+	public TableColumnView getColumn(Column column) {
+		for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
+			TableColumnView item = i.next();
+			if(item.getColumn().equals(column)){
+				return item;
+			}
+		}
+		return null;
+	}
 	
 	public void removeColumn(TableColumnView column) {
 		if(this.columns.remove(column)){
@@ -287,25 +294,6 @@ public class TableComponent extends Composite implements Listener,
 		this.property = property;
 		
 		new UpdateSearchList(this, source);
-		
-//		tableViewer.setContentProvider(new IStructuredContentProvider() {
-//			
-//			@Override
-//			public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
-//				
-//			}
-//			
-//			@Override
-//			public void dispose() {
-//				
-//			}
-//
-//			@Override
-//			public Object[] getElements(Object inputElement) {
-//				return new Object[]{};
-//			}
-//		});
-//		tableViewer.setInput(list);
 		return true;
 	}
 
@@ -337,6 +325,14 @@ public class TableComponent extends Composite implements Listener,
 						if (tableViewer != null) {
 							tableViewer.remove(evt.getOldValue());
 						}
+					}
+				}
+			}else if(source.equals(evt.getSource())){
+				if (evt.getPropertyName().equals(property)) {
+					if (evt.getOldValue() != null
+							&& evt.getNewValue() == null) {
+						list.set(property+IdMap.REMOVE, evt.getOldValue());
+
 					}
 				}
 			}else{

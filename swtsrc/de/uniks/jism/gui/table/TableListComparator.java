@@ -53,7 +53,10 @@ public class TableListComparator implements Comparator<Object>{
 			if(p1.equals(p2)){
 				return 0;
 			}
-			return 1;
+			if(p1.hashCode()<p2.hashCode()){
+				return 1;
+			}
+			return -1;
 		}
 		
 		if(p1.get(column) instanceof String){
