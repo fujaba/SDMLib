@@ -88,12 +88,14 @@ public class ColumnViewerSorter extends ViewerComparator {
 
 		if (tableViewerColumn.getViewer().getComparator() == this) {
 //				tableViewerColumn.getViewer().refresh();
+//			tableComponent.refresh();
 		} else {
 			tableViewerColumn.getViewer().setComparator(this);
 		}
 		tableComponent.refresh();
 	}
 	
+
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		TableList value=tableComponent.getList();
 		return value.compare(e1, e2);
