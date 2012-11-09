@@ -259,6 +259,9 @@ public class JsonArray extends EntityList{
 	@Override
 	public String toString() {
 		try {
+			if (!isVisible()) {
+				return "[" + getElements().size() + " Items]";
+			}
 			return '[' + join(",") + ']';
 		} catch (Exception e) {
 			return null;
@@ -289,6 +292,10 @@ public class JsonArray extends EntityList{
 		Iterator<Object> iterator = getElements().iterator();
 		if(!iterator.hasNext()){
 			return "[]";
+		}
+
+		if (!isVisible()) {
+			return "[" + getElements().size() + " Items]";
 		}
 
 		StringBuilder sb = new StringBuilder();

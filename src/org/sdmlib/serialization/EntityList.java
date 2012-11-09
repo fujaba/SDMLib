@@ -42,6 +42,7 @@ import org.sdmlib.serialization.interfaces.BaseEntity;
  */
 public abstract class EntityList implements BaseEntity, List<Object>{
 	protected ArrayList<Object> values;
+	private boolean visible=true;
 
 	public EntityList(){
 		
@@ -522,5 +523,13 @@ public abstract class EntityList implements BaseEntity, List<Object>{
 	@Override
 	public List<Object> subList(int fromIndex, int toIndex) {
 		return getElements().subList(fromIndex, toIndex);
+	}
+	
+	@Override
+	public void setVisible(boolean value) {
+		this.visible=value;
+	}
+	public boolean isVisible(){
+		return visible;
 	}
 }

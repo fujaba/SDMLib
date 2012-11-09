@@ -35,8 +35,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface BaseEntity {
 	public static final String CRLF="\r\n";
-	public abstract EntityList getNewArray();
-	public abstract BaseEntity getNewObject();
+	public EntityList getNewArray();
+	public BaseEntity getNewObject();
 	
 	/**
 	 * Make a Text of this Entity. For compactness, no whitespace
@@ -51,7 +51,7 @@ public interface BaseEntity {
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 */
 	@Override
-	public abstract String toString();
+	public String toString();
 	/**
 	 * Make a prettyprinted Text of this Entity.
 	 * <p>
@@ -63,6 +63,9 @@ public interface BaseEntity {
 	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 */
-	public abstract String toString(int indentFactor);
-	public abstract String toString(int indentFactor, int intent);
+	public String toString(int indentFactor);
+	public String toString(int indentFactor, int intent);
+	
+	public void setVisible(boolean value);
+	public boolean isVisible();
 }

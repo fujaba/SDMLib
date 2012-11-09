@@ -48,6 +48,7 @@ public class ByteEntity implements BaseEntity, ByteItem{
 	
 	/** The values. */
 	protected byte[] values;
+	private boolean visible;
 	
 	/**
 	 * Instantiates a new byte entity.
@@ -301,5 +302,13 @@ public class ByteEntity implements BaseEntity, ByteItem{
 			this.typ = ByteUtil.getTyp(getTyp(), size);
 		}
 		return true;
+	}
+
+	public void setVisible(boolean value) {
+		this.visible=value;
+	}
+
+	public boolean isVisible() {
+		return visible;
 	}
 }

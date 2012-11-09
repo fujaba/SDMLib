@@ -233,6 +233,11 @@ public class JsonObject extends Entity{
             return "{}";
         }
         Map<String, Object> map = getMap();
+
+        if(!isVisible()){
+        	return "{Item with "+map.size()+" values}";
+        }
+        
         Iterator<String> keys = map.keySet().iterator();
        
         Object key= keys.next();
@@ -277,6 +282,11 @@ public class JsonObject extends Entity{
         }
 
         Map<String, Object> map = getMap();
+        
+        if(!isVisible()){
+        	return "{"+map.size()+" values}";
+        }
+        
         Iterator<String> keys = map.keySet().iterator();
        
         int newindent = indent + indentFactor;

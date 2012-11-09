@@ -41,6 +41,7 @@ public abstract class Entity implements BaseEntity{
 	 * The map where the Entity's properties are kept.
 	 */
 	private Map<String, Object> map;
+	private boolean visible=true;
 
 	protected Map<String, Object> getMap(){
 		if(this.map==null){
@@ -658,6 +659,16 @@ public abstract class Entity implements BaseEntity{
 					((Entity)child).setValue(key.substring(end+1), value);
 				}
 			}
+    	}else{
+    		put(key.substring(0, len), value);
     	}
+	}
+	
+	@Override
+	public void setVisible(boolean value) {
+		this.visible=value;
+	}
+	public boolean isVisible(){
+		return visible;
 	}
 }
