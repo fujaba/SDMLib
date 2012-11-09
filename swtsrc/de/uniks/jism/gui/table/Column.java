@@ -264,5 +264,4 @@ public class Column {
 	public boolean isEditingSupport() {
 		return false;
 	}
-	
 }

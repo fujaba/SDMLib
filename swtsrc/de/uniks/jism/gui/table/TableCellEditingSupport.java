@@ -41,7 +41,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableCellEditingSupport extends EditingSupport {
-	
 	protected TableComponent owner;
 	protected Column column;
 	protected IdMap map;

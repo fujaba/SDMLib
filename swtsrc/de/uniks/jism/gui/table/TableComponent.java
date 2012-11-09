@@ -536,7 +536,6 @@ public class TableComponent extends Composite implements Listener,
 				table.setSortDirection(SWT.UP);
 			}
 			if (viewer.getComparator() != sorter) {
-//				tableViewerColumn.getViewer().setComparator(this);
 				viewer.setComparator(sorter);
 			}
 		}else{
