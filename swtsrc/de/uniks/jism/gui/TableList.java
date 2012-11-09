@@ -40,6 +40,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.utils.PropertyChangeClient;
 
+import de.uniks.jism.gui.table.CellValueCreator;
 import de.uniks.jism.gui.table.TableListComparator;
 
 public class TableList extends TreeSet<Object> implements PeerMessage, PropertyChangeClient {
@@ -197,9 +198,10 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		return true;
 	}
 	
-	public void setSort(String field, int direction) {
+	public void setSort(String field, int direction, CellValueCreator cellValueCreator) {
 		comparator.setColumn(field);
 		comparator.setDirection(direction);
+		comparator.setCellCreator(cellValueCreator);
 	}
 	
 	public void setSort(String field) {

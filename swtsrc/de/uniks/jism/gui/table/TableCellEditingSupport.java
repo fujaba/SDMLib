@@ -71,14 +71,7 @@ public class TableCellEditingSupport extends EditingSupport {
 			if(creatorClass!=null){
 				value = creatorClass.getValue(element, column.getAttrName());
 			}
-			if(value instanceof String){
-				try{
-					Integer.valueOf((String)value);
-					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
-				}catch(Exception e){
-					
-				}
-			}else if(value instanceof Integer){
+			 if(value instanceof Integer){
 				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
 			}
 		}

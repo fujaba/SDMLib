@@ -218,6 +218,9 @@ public class Column {
 	public void setTextalignment(int textalignment) {
 		this.textalignment = textalignment;
 	}
+	public CellValueCreator getCellValueCreator(){
+		return new CellValueCreator();
+	}
 
 	public boolean isVisible() {
 		return isVisible;

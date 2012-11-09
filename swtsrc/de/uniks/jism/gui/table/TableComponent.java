@@ -350,8 +350,12 @@ public class TableComponent extends Composite implements Listener,
 							new String[] { evt.getPropertyName() });
 				}
 				if (tableViewer != null) {
+					//FIXME
 					tableViewer.update(evt.getSource(),
 							new String[] { evt.getPropertyName() });
+					refresh();
+//					propertyChange(new PropertyChangeEvent(list, property,
+//							null, evt.getSource()));
 				}
 			}
 		}

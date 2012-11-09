@@ -39,6 +39,7 @@ public class TableListComparator implements Comparator<Object>{
 	private int direction = 1;
 	private String column;
 	private IdMap map;
+	private CellValueCreator cellCreator=new CellValueCreator();
 	public TableListComparator()
 	{
 	}
@@ -54,7 +55,7 @@ public class TableListComparator implements Comparator<Object>{
 			c1=map.getCreatorClass(o1);
 			SendableEntityCreator c2=map.getCreatorClass(o2);
 			if(c1!=c2){
-				c2=null;
+				c1=null;
 			}
 		}
 		if(c1==null){
@@ -66,10 +67,11 @@ public class TableListComparator implements Comparator<Object>{
 			}
 			return -1;
 		}
-		Object v1=c1.getValue(o1, column);
+		
+		Object v1=cellCreator.getCellValue(o1, c1, column);
 		if(v1 instanceof String){
 			String valueA=(String) v1;
-			String valueB=(String) c1.getValue(o2, column); 
+			String valueB=(String) cellCreator.getCellValue(o2, c1, column); 
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -78,7 +80,7 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}else if(v1 instanceof Integer){
 			Integer valueA=(Integer) v1;
-			Integer valueB=(Integer) c1.getValue(o2, column);
+			Integer valueB=(Integer) cellCreator.getCellValue(o2, c1, column); 
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -87,7 +89,7 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}else if(v1 instanceof Long){
 			Long valueA=(Long) v1;
-			Long valueB=(Long) c1.getValue(o2, column);
+			Long valueB=(Long) cellCreator.getCellValue(o2, c1, column); 
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -96,7 +98,7 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}else if(v1 instanceof Boolean){
 			Boolean valueA=(Boolean) v1;
-			Boolean valueB=(Boolean) c1.getValue(o2, column);
+			Boolean valueB=(Boolean) cellCreator.getCellValue(o2, c1, column);
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -126,5 +128,13 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setIdMap(IdMap value) {
 		this.map=value;
+	}
+
+	public CellValueCreator getCellCreator() {
+		return cellCreator;
+	}
+
+	public void setCellCreator(CellValueCreator cellCreator) {
+		this.cellCreator = cellCreator;
 	}
 }

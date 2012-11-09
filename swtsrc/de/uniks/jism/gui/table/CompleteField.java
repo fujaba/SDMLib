@@ -53,12 +53,13 @@ public class CompleteField  extends PopupDialog implements Listener {
 	protected static final int HEIGHTINFOFIELD = 20;
 	protected Collection<?> collection;
 	protected Control control;
-	private Label lblImage;
+	protected Label lblTop;
 	protected Composite composite;
 	private Image image;
 	protected boolean closeWhenMouseExit=false;
 	private Timer timer=new Timer();
 	private TimerTask timerTask=null;
+	protected String labelText="New Label";
 
 	/**
 	 * @wbp.parser.constructor
@@ -69,7 +70,6 @@ public class CompleteField  extends PopupDialog implements Listener {
 				false, false, null, "infotextplaceholder");
 
 		this.control = control;
-
 		this.collection = collection;
 	}
 
@@ -84,15 +84,21 @@ public class CompleteField  extends PopupDialog implements Listener {
 		composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new BorderLayout());
 		
-		lblImage = new Label(composite, SWT.NONE);
-		lblImage.setText("New Label");
+		lblTop = new Label(composite, SWT.NONE);
+		lblTop.setText(labelText);
 		
 		
-		addListeners(lblImage);
-	
+		addListeners(lblTop);
 		return composite;
 
 	}
+	public void open(String infoText, int x, int y){
+		super.open();
+		setBounds(x, y, 100, 100);
+		this.setInfoText(infoText);
+	}
+	
+	
 	public void open(String file, String infoText, int x, int y){
 		super.open();
 
@@ -108,8 +114,8 @@ public class CompleteField  extends PopupDialog implements Listener {
 		}
 		if(stream!=null){
 			image = new Image (myDisplay, stream);
-			if(lblImage!=null){
-				lblImage.setImage(image);
+			if(lblTop!=null){
+				lblTop.setImage(image);
 			}
 			setBounds(x, y, image.getBounds().width, image.getBounds().height+HEIGHTINFOFIELD);
 		}else{
@@ -117,6 +123,11 @@ public class CompleteField  extends PopupDialog implements Listener {
 			return;
 		}
 		this.setInfoText(infoText);
+	}
+	
+	
+	public void setLabelText(String value){
+		this.labelText=value;
 	}
 	
 	public void setBounds(int x, int y, int width, int height){

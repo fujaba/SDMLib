@@ -77,7 +77,7 @@ public class ColumnViewerSorter extends ViewerComparator {
 		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
 		TableColumn column = tableViewerColumn.getColumn();
 		TableList list=tableComponent.getList();
-		list.setSort(columnConfig.getAttrName(), direction);
+		list.setSort(columnConfig.getAttrName(), direction, columnConfig.getCellValueCreator());
 		column.getParent().setSortColumn(column);
 
 		if (direction == TableListComparator.ASC) {
