@@ -72,7 +72,7 @@ public class TableColumnView implements ControlListener {
 				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column, map));
 			}else if(column.isEditingSupport()){
 				if(column instanceof ColumnNotification){
-					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport());
+					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column, map));
 				}
 			}
 			if(column.getCellValue()!=null){
