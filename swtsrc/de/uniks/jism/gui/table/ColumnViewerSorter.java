@@ -31,7 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
@@ -78,20 +77,7 @@ public class ColumnViewerSorter extends ViewerComparator {
 		TableColumn column = tableViewerColumn.getColumn();
 		TableList list=tableComponent.getList();
 		list.setSort(columnConfig.getAttrName(), direction, columnConfig.getCellValueCreator());
-		column.getParent().setSortColumn(column);
-
-		if (direction == TableListComparator.ASC) {
-			column.getParent().setSortDirection(SWT.DOWN);
-		} else {
-			column.getParent().setSortDirection(SWT.UP);
-		}
-
-		if (tableViewerColumn.getViewer().getComparator() == this) {
-//				tableViewerColumn.getViewer().refresh();
-		} else {
-			tableViewerColumn.getViewer().setComparator(this);
-		}
-		tableComponent.refresh();
+		this.tableComponent.setSorting(column, direction, this);
 	}
 	
 	public int compare(Viewer viewer, Object e1, Object e2) {

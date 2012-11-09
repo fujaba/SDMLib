@@ -516,4 +516,35 @@ public class TableComponent extends Composite implements Listener,
 	public IdMap getIdMap() {
 		return map;
 	}
+
+	public void setSorting(TableColumn  column, int direction, ColumnViewerSorter sorter) {
+		if(fixedTableViewerLeft!=null){
+			setSorting(column, direction, fixedTableViewerLeft, sorter);
+		}
+		setSorting(column, direction, tableViewer, sorter);
+
+		refresh();
+	}
+	
+	private void setSorting(TableColumn  column, int direction, TableViewer viewer, ColumnViewerSorter sorter){
+		Table table=viewer.getTable();
+		if(column.getParent()==table){
+			table.setSortColumn(column);
+			if (direction == TableListComparator.ASC) {
+				table.setSortDirection(SWT.DOWN);
+			} else {
+				table.setSortDirection(SWT.UP);
+			}
+			if (viewer.getComparator() != sorter) {
+//				tableViewerColumn.getViewer().setComparator(this);
+				viewer.setComparator(sorter);
+			}
+		}else{
+			table.setSortColumn(null);
+			table.setSortDirection(SWT.NONE);
+			if (viewer.getComparator() != sorter) {
+				viewer.setComparator(sorter);
+			}
+		}
+	}
 }
