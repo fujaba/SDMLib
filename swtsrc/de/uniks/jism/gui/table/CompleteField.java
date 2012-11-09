@@ -56,7 +56,7 @@ public class CompleteField  extends PopupDialog implements Listener {
 	protected Label lblTop;
 	protected Composite composite;
 	private Image image;
-	protected boolean closeWhenMouseExit=false;
+	protected boolean closeWhenMouseExit=true;
 	private Timer timer=new Timer();
 	private TimerTask timerTask=null;
 	protected String labelText="New Label";
