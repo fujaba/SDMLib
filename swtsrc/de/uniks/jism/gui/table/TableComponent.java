@@ -249,13 +249,23 @@ public class TableComponent extends Composite implements Listener,
 		for (TableColumnView tableColumnView : columns) {
 			refreshColumns.add(tableColumnView.getColumn().getAttrName());
 		}
+		refresh(object, refreshColumns.toArray(new String[refreshColumns.size()]));
+	}
+	public void refresh(Object object, String[] columns) {
+//		if(!(object instanceof TableItem)){
+//			TableItem[] children = tableViewer.getTable().getItems();
+//			for(TableItem row : children) {
+//				if(row.getData()==object){
+//					object=row;
+//					break;
+//				}
+//			}
+//		}
 		if (fixedTableViewerLeft != null) {
-			fixedTableViewerLeft.update(object,
-					refreshColumns.toArray(new String[refreshColumns.size()]));
+			fixedTableViewerLeft.update(object, columns);
 		}
 		if (tableViewer != null) {
-			tableViewer.update(object,
-					refreshColumns.toArray(new String[refreshColumns.size()]));
+			tableViewer.update(object, columns);
 		}
 
 	}
@@ -345,18 +355,7 @@ public class TableComponent extends Composite implements Listener,
 				}
 			}else{
 				// Must be an update
-				if (fixedTableViewerLeft != null) {
-					fixedTableViewerLeft.update(evt.getSource(),
-							new String[] { evt.getPropertyName() });
-				}
-				if (tableViewer != null) {
-					//FIXME
-					tableViewer.update(evt.getSource(),
-							new String[] { evt.getPropertyName() });
-					refresh();
-//					propertyChange(new PropertyChangeEvent(list, property,
-//							null, evt.getSource()));
-				}
+				refresh(evt.getSource(), new String[] { evt.getPropertyName() });
 			}
 		}
 	}
@@ -512,5 +511,9 @@ public class TableComponent extends Composite implements Listener,
 
 	public TableList getList() {
 		return list;
+	}
+
+	public IdMap getIdMap() {
+		return map;
 	}
 }

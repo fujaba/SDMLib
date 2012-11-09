@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.utils.PropertyChangeClient;
 
 public class UpdateSearchList implements PropertyChangeListener {

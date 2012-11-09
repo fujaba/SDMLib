@@ -34,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -43,13 +42,9 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableCellEditingSupport extends EditingSupport {
 	
-	private TableComponent owner;
-	private Column column;
-	private IdMap map;
-
-	public TableCellEditingSupport(ColumnViewer viewer) {
-		super(viewer);
-	}
+	protected TableComponent owner;
+	protected Column column;
+	protected IdMap map;
 
 	public TableCellEditingSupport(TableComponent owner,
 			TableViewer tableViewer, Column column, IdMap map) {
@@ -57,7 +52,13 @@ public class TableCellEditingSupport extends EditingSupport {
 		this.column=column;
 		this.owner = owner;
 		this.map = map;
-		
+	}
+
+	public TableCellEditingSupport(TableComponent owner, Column column) {
+		super(owner.getBrowserView(column.getBrowserId()));
+		this.column=column;
+		this.owner = owner;
+		this.map=owner.getIdMap();
 	}
 
 	protected boolean canEdit(Object arg0) {
@@ -94,7 +95,7 @@ public class TableCellEditingSupport extends EditingSupport {
 		return value;
 	}
 
-	private String getDateFormat(long value) {
+	protected String getDateFormat(long value) {
 		if (value == 0) {
 			return "";
 		}

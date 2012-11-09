@@ -92,7 +92,7 @@ public class SearchTableComponent extends TableComponent {
 		boolean result=super.finishDataBinding(item, property, searchProperties);
 
 		if (updater == null) {
-			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, map, this.list);
+			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, getIdMap(), this.list);
 			updater.refresh();
 			searchText.addModifyListener(updater);
 		}

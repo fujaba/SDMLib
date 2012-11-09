@@ -46,7 +46,7 @@ public class TableLabelProvider implements ITableLabelProvider {
 
 	@Override
 	public boolean isLabelProperty(Object element, String property) {
-		return false;
+		return true;
 	}
 
 	@Override
