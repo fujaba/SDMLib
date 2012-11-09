@@ -51,7 +51,7 @@ public class TableListComparator implements Comparator<Object>{
 	
 	public int compareValue(Object o1, Object o2) {
 		SendableEntityCreator c1=null;
-		if(column!=null&&map!=null){
+		if(map!=null){
 			c1=map.getCreatorClass(o1);
 			SendableEntityCreator c2=map.getCreatorClass(o2);
 			if(c1!=c2){
@@ -69,9 +69,11 @@ public class TableListComparator implements Comparator<Object>{
 		}
 		
 		Object v1=cellCreator.getCellValue(o1, c1, column);
+		Object v2=cellCreator.getCellValue(o2, c1, column);
+
 		if(v1 instanceof String){
 			String valueA=(String) v1;
-			String valueB=(String) cellCreator.getCellValue(o2, c1, column); 
+			String valueB=(String) v2;
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -80,7 +82,7 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}else if(v1 instanceof Integer){
 			Integer valueA=(Integer) v1;
-			Integer valueB=(Integer) cellCreator.getCellValue(o2, c1, column); 
+			Integer valueB=(Integer) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);
@@ -89,7 +91,7 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}else if(v1 instanceof Long){
 			Long valueA=(Long) v1;
-			Long valueB=(Long) cellCreator.getCellValue(o2, c1, column); 
+			Long valueB=(Long) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
 					return valueA.compareTo(valueB);

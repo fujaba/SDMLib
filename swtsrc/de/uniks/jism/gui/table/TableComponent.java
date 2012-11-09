@@ -412,13 +412,15 @@ public class TableComponent extends Composite implements Listener,
 								activ = true;
 								TableColumnLabelProvider activeCell = tableViewerColumn
 										.getTableProvider();
-								Color color = activeCell.getForgroundColorActiv();
-								if (color != null) {
-									this.activeItem.setForeground(i, color);
-								}
-								color = activeCell.getBackgroundColorActiv();
-								if (color != null) {
-									this.activeItem.setBackground(i, color);
+								if(activeCell!=null){
+									Color color = activeCell.getForgroundColorActiv();
+									if (color != null) {
+										this.activeItem.setForeground(i, color);
+									}
+									color = activeCell.getBackgroundColorActiv();
+									if (color != null) {
+										this.activeItem.setBackground(i, color);
+									}
 								}
 								tableViewer.getTable().setCursor(handCursor);
 							}
