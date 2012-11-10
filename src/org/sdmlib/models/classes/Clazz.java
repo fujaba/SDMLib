@@ -625,14 +625,6 @@ public class Clazz implements PropertyChangeInterface
                      "\n   " +
                      "\n   public Object get(String attrName)" +
                      "\n   {" +
-                     "\n      int pos = attrName.indexOf('.');" +
-                     "\n      String attribute = attrName;" +
-                     "\n      " +
-                     "\n      if (pos > 0)" +
-                     "\n      {" +
-                     "\n         attribute = attrName.substring(0, pos);" +
-                     "\n      }" +
-                     "\n      " +
                      "\n      return null;" +
                      "\n   }" +
                      "\n"

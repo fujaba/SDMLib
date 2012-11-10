@@ -73,6 +73,16 @@ public class StatementEntry implements PropertyChangeInterface
          return getParent();
       }
 
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         return getStartPos();
+      }
+
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         return getEndPos();
+      }
+
       return null;
    }
 
@@ -114,6 +124,18 @@ public class StatementEntry implements PropertyChangeInterface
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          setParent((StatementEntry) value);
+         return true;
+      }
+
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         setStartPos(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         setEndPos(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -362,6 +384,74 @@ public class StatementEntry implements PropertyChangeInterface
    public StatementEntry withParent(StatementEntry value)
    {
       setParent(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STARTPOS = "startPos";
+   
+   private int startPos;
+
+   public int getStartPos()
+   {
+      return this.startPos;
+   }
+   
+   public void setStartPos(int value)
+   {
+      if (this.startPos != value)
+      {
+         int oldValue = this.startPos;
+         this.startPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPOS, oldValue, value);
+      }
+   }
+   
+   public StatementEntry withStartPos(int value)
+   {
+      setStartPos(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ENDPOS = "endPos";
+   
+   private int endPos;
+
+   public int getEndPos()
+   {
+      return this.endPos;
+   }
+   
+   public void setEndPos(int value)
+   {
+      if (this.endPos != value)
+      {
+         int oldValue = this.endPos;
+         this.endPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENDPOS, oldValue, value);
+      }
+   }
+   
+   public StatementEntry withEndPos(int value)
+   {
+      setEndPos(value);
+      return this;
+   }
+
+   public StatementEntry withToken(Token token)
+   {
+      return withToken(token.text.toString(), token.endPos);
+   } 
+
+   public StatementEntry withToken(String qualifiedName, int endPos)
+   {
+      this.getTokenList().add(qualifiedName);
+      this.setEndPos(endPos);
       return this;
    } 
 }

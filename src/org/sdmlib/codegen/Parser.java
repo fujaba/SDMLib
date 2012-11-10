@@ -91,6 +91,11 @@ public class Parser
    
    private StatementEntry currentStatement = null; 
    
+   public StatementEntry getCurrentStatement()
+   {
+      return currentStatement;
+   }
+   
    public StatementEntry getStatementList()
    {
       return currentParentStatement;
@@ -1280,6 +1285,7 @@ private void skipBody() {
    {
       currentStatement = new StatementEntry()
       .withKind("simple")
+      .withStartPos(currentRealToken.startPos)
       .withParent(currentParentStatement);
       
       parseExpressionDetails();
@@ -1332,7 +1338,7 @@ private void skipBody() {
       
       if (currentStatement != null)
       {
-         currentStatement.getTokenList().add(string);
+         currentStatement.withToken(string, currentRealToken.endPos);
       }
    }
 
@@ -1346,7 +1352,7 @@ private void skipBody() {
 	     {
 	    	 lastIfStart = startPos;
          
-         currentStatement = new StatementEntry().withKind("if").withParent(currentParentStatement);
+         currentStatement = new StatementEntry().withKind("if").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
          
          readToken("if");
          
@@ -1359,12 +1365,12 @@ private void skipBody() {
 	     }
 	     else if (currentRealTokenEquals("for"))
        {
-          currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement);
+          currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
           parseForLoopDetails();
        }
 	     else if (currentRealTokenEquals("return"))
 	     {
-	    	 currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement);
+	    	 currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
 	    	 
 	        lastReturnStart = startPos;
 	        
@@ -1438,6 +1444,7 @@ private void skipBody() {
         currentStatement = new StatementEntry()
         .withKind("assign")
         .withAssignTargetVarName(varName)
+        .withStartPos(currentRealToken.startPos)
         .withParent(currentParentStatement);
 				
          skip('=');
@@ -1551,7 +1558,7 @@ private void skipBody() {
          String type = parseTypeRef();
          
          methodCallElements.add("new " + type);
-         currentStatement.getTokenList().add(type);
+         currentStatement.withToken(type, currentRealToken.endPos);
      
          readToken('(');
          
@@ -1576,7 +1583,7 @@ private void skipBody() {
       {
       	// its a word, might be a method name
       	String qualifiedName = parseQualifiedName();
-      	currentStatement.getTokenList().add(qualifiedName);
+      	currentStatement.withToken(qualifiedName, currentRealToken.endPos);
       	
          if (currentRealKindEquals('('))
       	{
@@ -1634,7 +1641,7 @@ private void skipBody() {
             String qualifiedName = parseQualifiedName();
             
             methodBodyQualifiedNames.put(qualifiedName, currentRealToken.startPos);
-            currentStatement.getTokenList().add(qualifiedName);
+            currentStatement.withToken(qualifiedName, currentRealToken.endPos);
          }
          else
          {
@@ -1662,7 +1669,7 @@ private void skipBody() {
             String qualifiedName = parseQualifiedName();
             
             methodBodyQualifiedNames.put(qualifiedName, currentRealToken.startPos);
-            currentStatement.getTokenList().add(qualifiedName);
+            currentStatement.withToken(qualifiedName, currentRealToken.endPos);
          }
          else
          {            
@@ -1677,7 +1684,7 @@ private void skipBody() {
    {
       if (currentStatement != null)
       {
-         currentStatement.getTokenList().add(currentRealWord());
+         currentStatement.withToken(currentRealToken);
       }
       nextRealToken();
    }
@@ -1688,7 +1695,7 @@ private void skipBody() {
       
       if (currentStatement != null)
       {
-         currentStatement.getTokenList().add("" + c);
+         currentStatement.withToken("" + c, currentRealToken.endPos);
       }
    }
 

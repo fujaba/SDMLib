@@ -35,8 +35,10 @@ import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
    
-public class LudoScenario 
+public class LudoScenario implements PropertyChangeInterface 
 {
    @Test
    public void testLudoScenario()
@@ -203,8 +205,39 @@ public class LudoScenario
    private static final String IMPLEMENTATION = "implementation";
    private static final String BACKLOG = "backlog";
    private static final String BUG = "bug";
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
-
-
-
 

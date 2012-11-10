@@ -36,6 +36,10 @@ import org.sdmlib.utils.StrUtil;
 
 public class Role implements PropertyChangeInterface
 {
+   public String toString()
+   {
+      return "" + name + " " + card;
+   }
    // public static final String ONE = "one";
    // public static final String MANY = "many";
    public static final String VANILLA = "vanilla";

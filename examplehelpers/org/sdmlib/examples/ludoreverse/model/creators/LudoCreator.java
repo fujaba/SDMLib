@@ -1,21 +1,17 @@
-package org.sdmlib.codegen.creators;
+package org.sdmlib.examples.ludoreverse.model.creators;
 
-import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.models.classes.creators.CreatorCreator;
+import org.sdmlib.examples.ludoreverse.model.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludoreverse.model.Ludo;
 
-public class StatementEntryCreator extends EntityFactory
+public class LudoCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      StatementEntry.PROPERTY_KIND,
-      StatementEntry.PROPERTY_TOKENLIST,
-      StatementEntry.PROPERTY_ASSIGNTARGETVARNAME,
-      StatementEntry.PROPERTY_BODYSTATS,
-      StatementEntry.PROPERTY_PARENT,
-      StatementEntry.PROPERTY_STARTPOS,
-      StatementEntry.PROPERTY_ENDPOS,
+      Ludo.PROPERTY_STYLE,
+      Ludo.PROPERTY_AGE,
+      Ludo.PROPERTY_PLAYERS,
    };
    
    public String[] getProperties()
@@ -25,17 +21,17 @@ public class StatementEntryCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new StatementEntry();
+      return new Ludo();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((StatementEntry) target).get(attrName);
+      return ((Ludo) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((StatementEntry) target).set(attrName, value);
+      return ((Ludo) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -49,7 +45,7 @@ public class StatementEntryCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((StatementEntry) entity).removeYou();
+      ((Ludo) entity).removeYou();
    }
 }
 

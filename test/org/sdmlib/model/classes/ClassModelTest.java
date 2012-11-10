@@ -33,6 +33,8 @@ import org.sdmlib.scenarios.ScenarioManager;
 
 public class ClassModelTest
 {
+   private static final String STRING = "String";
+   private static final String INT = "int";
    private static final String BOOLEAN = "boolean";
 
    @Test
@@ -71,7 +73,7 @@ public class ClassModelTest
       .withTarget("kindClassesAsInterface", clazzClass, MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
-      .withAttribute("initialization", "String");
+      .withAttribute("initialization", STRING);
       
       new Association()
       .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
@@ -79,8 +81,8 @@ public class ClassModelTest
       
       
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
-      .withAttribute("signature", "String")
-      .withAttribute("returnType", "String");     
+      .withAttribute("signature", STRING)
+      .withAttribute("returnType", STRING);     
       
       new Association()
       .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
@@ -95,9 +97,9 @@ public class ClassModelTest
       
       
       Clazz roleClass = new Clazz("org.sdmlib.models.classes.Role")
-      .withAttribute("name", "String")
-      .withAttribute("card", "String", "MANY")
-      .withAttribute("kind", "String", "VANILLA");
+      .withAttribute("name", STRING)
+      .withAttribute("card", STRING, "MANY")
+      .withAttribute("kind", STRING, "VANILLA");
       
       new Association()
       .withSource("clazz", clazzClass, ONE)
@@ -124,26 +126,29 @@ public class ClassModelTest
       //      .withName("org.sdmlib.codegen.Parser");
       
       Clazz symTabEntryClass = new Clazz("org.sdmlib.codegen.SymTabEntry")
-      .withAttribute("kind", "String")
-      .withAttribute("memberName", "String")
-      .withAttribute("type", "String")
-      .withAttribute("startPos", "int")
-      .withAttribute("bodyStartPos", "int")
-      .withAttribute("endPos", "int")
-      .withAttribute("modifiers", "String");
+      .withAttribute("kind", STRING)
+      .withAttribute("memberName", STRING)
+      .withAttribute("type", STRING)
+      .withAttribute("startPos", INT)
+      .withAttribute("bodyStartPos", INT)
+      .withAttribute("endPos", INT)
+      .withAttribute("modifiers", STRING);
       
       Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
-      .withAttribute("name", "String")
-      .withAttribute("type", "String")
-      .withAttribute("startPos", "int")
-      .withAttribute("endPos", "int");
+      .withAttribute("name", STRING)
+      .withAttribute("type", STRING)
+      .withAttribute("startPos", INT)
+      .withAttribute("endPos", INT);
       // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
       
       
       Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
-      .withAttribute("kind", "String")
-      .withAttribute("tokenList", "ArrayList<String>")
-      .withAttribute("assignTargetVarName", "String");
+      .withAttributes(
+         "kind", STRING,
+         "tokenList", "ArrayList<String>", 
+         "assignTargetVarName", STRING, 
+         "startPos", INT, 
+         "endPos", INT);
       
       new Association()
       .withSource("parent", statementEntry, ONE)

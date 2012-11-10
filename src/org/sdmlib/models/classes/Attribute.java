@@ -1062,7 +1062,7 @@ public class Attribute implements PropertyChangeInterface
          }
 
          StringBuilder text = new StringBuilder
-               (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attribute))" +
+               (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
                      "\n         return getPropertyName();" +
                      "\n      }" +
@@ -1187,6 +1187,11 @@ public class Attribute implements PropertyChangeInterface
    }
 
 
+   public String toString()
+   {
+      return "" + name + " : " + type;
+   }
+   
    //==========================================================================
 
    public void removeYou()

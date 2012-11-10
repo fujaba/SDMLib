@@ -171,5 +171,70 @@ public class StatementEntryPO extends PatternObject
       return null;
    }
    
+   public StatementEntryPO hasStartPos(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(StatementEntry.PROPERTY_STARTPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getStartPos()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((StatementEntry) getCurrentMatch()).getStartPos();
+      }
+      return 0;
+   }
+   
+   public StatementEntryPO withStartPos(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((StatementEntry) getCurrentMatch()).setStartPos(value);
+      }
+      return this;
+   }
+   
+   public StatementEntryPO hasEndPos(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(StatementEntry.PROPERTY_ENDPOS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getEndPos()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((StatementEntry) getCurrentMatch()).getEndPos();
+      }
+      return 0;
+   }
+   
+   public StatementEntryPO withEndPos(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((StatementEntry) getCurrentMatch()).setEndPos(value);
+      }
+      return this;
+   }
+   
 }
+
 

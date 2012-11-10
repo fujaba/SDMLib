@@ -13,6 +13,8 @@ import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.creators.PointPO;
 import java.awt.Point;
+import org.sdmlib.examples.ludo.creators.LudoScenarioPO;
+import org.sdmlib.examples.ludo.LudoScenario;
 
 public class ModelPattern extends Pattern
 {
@@ -171,7 +173,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public LudoScenarioPO hasElementLudoScenarioPO()
+   {
+      LudoScenarioPO value = new LudoScenarioPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public LudoScenarioPO hasElementLudoScenarioPO(LudoScenario hostGraphObject)
+   {
+      LudoScenarioPO value = new LudoScenarioPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

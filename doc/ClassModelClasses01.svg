@@ -175,15 +175,17 @@
 <!-- _StatementEntry -->
 <g id="node9" class="node"><title>_StatementEntry</title>
 <a xlink:href="../src/org/sdmlib/codegen/StatementEntry.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="565,-374 565,-391 694,-391 694,-374 565,-374"/>
-<text text-anchor="start" x="598.5" y="-380.5" font-family="Times New Roman,serif" font-size="10.00">StatementEntry</text>
+<polygon fill="none" stroke="black" points="565,-388 565,-405 694,-405 694,-388 565,-388"/>
+<text text-anchor="start" x="598.5" y="-394.5" font-family="Times New Roman,serif" font-size="10.00">StatementEntry</text>
 </a>
-<polygon fill="none" stroke="black" points="565,-326 565,-374 694,-374 694,-326 565,-326"/>
-<text text-anchor="start" x="570" y="-362" font-family="Times New Roman,serif" font-size="10.00">kind :String</text>
-<text text-anchor="start" x="570" y="-348" font-family="Times New Roman,serif" font-size="10.00">tokenList :ArrayList&lt;String&gt;</text>
-<text text-anchor="start" x="570" y="-334" font-family="Times New Roman,serif" font-size="10.00">assignTargetVarName :String</text>
-<polygon fill="none" stroke="black" points="565,-306 565,-326 694,-326 694,-306 565,-306"/>
-<text text-anchor="start" x="628" y="-314" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="565,-312 565,-388 694,-388 694,-312 565,-312"/>
+<text text-anchor="start" x="570" y="-376" font-family="Times New Roman,serif" font-size="10.00">kind :String</text>
+<text text-anchor="start" x="570" y="-362" font-family="Times New Roman,serif" font-size="10.00">tokenList :ArrayList&lt;String&gt;</text>
+<text text-anchor="start" x="570" y="-348" font-family="Times New Roman,serif" font-size="10.00">assignTargetVarName :String</text>
+<text text-anchor="start" x="570" y="-334" font-family="Times New Roman,serif" font-size="10.00">startPos :int</text>
+<text text-anchor="start" x="570" y="-320" font-family="Times New Roman,serif" font-size="10.00">endPos :int</text>
+<polygon fill="none" stroke="black" points="565,-292 565,-312 694,-312 694,-292 565,-292"/>
+<text text-anchor="start" x="628" y="-300" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- _StatementEntry&#45;&gt;_StatementEntry -->
 <g id="edge22" class="edge"><title>_StatementEntry&#45;&gt;_StatementEntry</title>

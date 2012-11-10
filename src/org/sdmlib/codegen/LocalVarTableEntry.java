@@ -29,7 +29,10 @@ import org.sdmlib.utils.StrUtil;
 
 public class LocalVarTableEntry implements PropertyChangeInterface
 {
-
+   public String toString()
+   {
+      return "" + name + " : " + type;
+   }
    
    //==========================================================================
    
