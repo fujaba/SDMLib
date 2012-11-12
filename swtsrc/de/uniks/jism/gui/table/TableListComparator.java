@@ -70,6 +70,15 @@ public class TableListComparator implements Comparator<Object>{
 		
 		Object v1=cellCreator.getCellValue(o1, c1, column);
 		Object v2=cellCreator.getCellValue(o2, c1, column);
+		if(v1==null&&v2==null){
+			if(o1.equals(o2)){
+				return 0;
+			}
+			if(o1.hashCode()<o2.hashCode()){
+				return 1;
+			}
+			return -1;
+		}
 
 		if(v1 instanceof String){
 			String valueA=(String) v1;

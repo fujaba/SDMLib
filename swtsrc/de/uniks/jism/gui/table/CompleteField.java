@@ -57,9 +57,9 @@ public class CompleteField  extends PopupDialog implements Listener {
 	protected Composite composite;
 	private Image image;
 	protected boolean closeWhenMouseExit=true;
-	private Timer timer=new Timer();
 	private TimerTask timerTask=null;
 	protected String labelText="New Label";
+	private Timer timer;
 
 	/**
 	 * @wbp.parser.constructor
@@ -139,9 +139,14 @@ public class CompleteField  extends PopupDialog implements Listener {
 		parent.addListener(SWT.MouseEnter, this);
 //		parent.addListener(SWT.MouseHover, this);
 	}
-	
+	public Timer getTimer(){
+		if(timer==null){
+			timer=new Timer();
+		}
+		return timer;
+	}
 	public void enableTimer(int timeout){
-		timer.schedule(new TimerTask() {
+		getTimer().schedule(new TimerTask() {
 			
 			@Override
 			public void run() {
@@ -173,7 +178,7 @@ public class CompleteField  extends PopupDialog implements Listener {
 							runTask();
 						}
 					};
-					timer.schedule(timerTask, 500);
+					getTimer().schedule(timerTask, 500);
 				}
 			}
 		}else if(event.type==SWT.MouseEnter){

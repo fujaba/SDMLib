@@ -131,6 +131,7 @@ public class TableComponent extends Composite implements Listener,
 		setLayout(new BorderLayout(0, 0));
 		
 		
+		
 	}
 
 	public void addColumn(Column column) {

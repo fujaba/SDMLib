@@ -118,8 +118,8 @@ public class SearchResultUpdater implements ModifyListener
 		// compare root.talklist and searchresults
 		Collection<?> resultList = (Collection<?>) searchResult.get(property);
 		Collection<?> sourceList = (Collection<?>) searchInCreator.getValue(searchIn, property);
-		System.out.println("SEARCH IN :" + Thread.currentThread().getName()
-				+ "-" + resultList.toString());
+//		System.out.println("SEARCH IN :" + Thread.currentThread().getName()
+//				+ "-" + resultList.toString());
 		Object[] list = resultList.toArray();
 		for (int i = 0; i < list.length; i++) {
 			// is this still in root.talklist?
