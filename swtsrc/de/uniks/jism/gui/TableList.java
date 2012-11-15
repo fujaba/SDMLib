@@ -47,6 +47,7 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	private static final long serialVersionUID = 1L;
 	public static final String PROPERTY_ITEMS = "items";
 	private TableListComparator comparator;
+	//FIXME ADD DEFAULT VALUE=TIMESTAMP
 
 	public TableList(){
 		super(new TableListComparator());

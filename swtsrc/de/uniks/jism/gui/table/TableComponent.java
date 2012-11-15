@@ -236,12 +236,6 @@ public class TableComponent extends Composite implements Listener,
 				}
 			}
 		}
-
-		for (TableColumnView view : columns) {
-			Column columnConfig = view.getColumn();
-			view.getTableViewerColumn().setLabelProvider(
-					new TableCellLabelProvider(columnConfig, map));
-		}
 		return true;
 	}
 
@@ -517,7 +511,23 @@ public class TableComponent extends Composite implements Listener,
 	public IdMap getIdMap() {
 		return map;
 	}
-
+	public void setSorting(String column, int direction) {
+		for(TableColumnView columnView : columns){
+			String value = columnView.getColumn().getAttrName();
+			if(value==null){
+				value = columnView.getColumn().getCellValue();
+			}
+			if(value==null){
+				value = columnView.getColumn().getLabel();
+			}
+			if(value!=null){
+				if(value.equalsIgnoreCase(column)){
+					setSorting(columnView.getTableColumn(), direction, columnView.getColumnSorter());
+					break;
+				}
+			}
+		}
+	}
 	public void setSorting(TableColumn  column, int direction, ColumnViewerSorter sorter) {
 		if(fixedTableViewerLeft!=null){
 			setSorting(column, direction, fixedTableViewerLeft, sorter);

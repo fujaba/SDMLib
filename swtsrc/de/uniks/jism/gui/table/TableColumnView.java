@@ -75,10 +75,9 @@ public class TableColumnView implements ControlListener {
 					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column, map));
 				}
 			}
-			if(column.getCellValue()!=null){
-				this.tableLabelProvider=new TableColumnLabelProvider(column);
-				tableViewerColumn.setLabelProvider(tableLabelProvider);
-			}
+			this.tableLabelProvider=new TableColumnLabelProvider(column, map);
+			tableViewerColumn.setLabelProvider(tableLabelProvider);
+
 			TableColumn tableColumn = tableViewerColumn.getColumn();
 			tableColumn.setMoveable(column.isMovable());
 			tableColumn.setWidth(column.getWidth());
@@ -133,4 +132,8 @@ public class TableColumnView implements ControlListener {
 	public void onVisibleColumn(Column columnConfig, boolean value) {
 		this.owner.onVisibleColumn(columnConfig, value);
 	}
+	public ColumnViewerSorter getColumnSorter(){
+		return columnViewerSorter;
+	}
+	
 }

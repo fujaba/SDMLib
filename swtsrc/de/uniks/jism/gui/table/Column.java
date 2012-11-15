@@ -48,6 +48,7 @@ public class Column {
 	private String altAttribute;
 	private Object item;
 	private int browserId=TableComponent.BROWSER;
+	private String font;
 	
 	public Column(){
 		
@@ -263,5 +264,13 @@ public class Column {
 	}
 	public boolean isEditingSupport() {
 		return false;
+	}
+
+	public String getFont() {
+		return font;
+	}
+
+	public void setFont(String font) {
+		this.font = font;
 	}
 }

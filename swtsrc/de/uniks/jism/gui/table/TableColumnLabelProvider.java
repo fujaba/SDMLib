@@ -28,22 +28,32 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableColumnLabelProvider extends ColumnLabelProvider{
 	private Color backgroundColor=null;
 	private Color forgroundColor=null;
 	private Color forgroundColorActiv=null;
-	private Font font=new Font(Display.getDefault(), "Comic Sans MS", 12, SWT.NONE);
+	private Font font=null;
 	private Color backgroundColorActiv=null;
 	private Column column;
+	private IdMap map;
 
-	public TableColumnLabelProvider(Column column){
+	public TableColumnLabelProvider(Column column, IdMap map){
+		this.map=map;
 		if(column.getBackgroundColor()!=null){
 			setBackgroundColor(column.getBackgroundColor());
 		}
@@ -51,27 +61,61 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 			setForgroundColor(column.getForgroundColor());
 		}
 		this.column=column;
-		
-//		tableLabelProvider.setBackgroundColor("D4D4D4");
-//		tableLabelProvider.setForgoundColor("00A18F");
-//		explorerColumnViewer.setLabelProvider(this.cellListener.addCellListener(tableLabelProvider));
-//
 	}
-    @Override
+
+	@Override
     public Color getBackground(Object element) {
         return getBackgroundColor();
     }
     @Override
     public String getText(Object element) {
-    	return column.getCellValue();
+    	if(column.getCellValue()!=null){
+    		return column.getCellValue();	
+    	}
+		SendableEntityCreator creatorClass = map.getCreatorClass(element);
+		if(Column.DATE.equalsIgnoreCase(column.getRegEx())){
+			if(creatorClass!=null){
+				Object value=creatorClass.getValue(element, column.getAttrName());
+				if(value!=null){
+					return getDateFormat((Long) value);
+				}
+			}
+		}else if(column.getRegEx()!=null){
+			
+		}else{
+			if(creatorClass!=null){
+				Object value=creatorClass.getValue(element, column.getAttrName());
+				if(value!=null){
+					return ""+value;
+				}
+			}
+		}
+    	return "";
     }
+    @Override
+    public void update(ViewerCell cell) {
+    	super.update(cell);
+    	//FIND PROPERTY
+		if(column instanceof ColumnNotification){
+			((ColumnNotification)column).updateTableViewer(cell);
+		}
+    }
+    
     @Override
     public Color getForeground(Object element) {
         return forgroundColor;
     }
     @Override
     public Font getFont(Object element) {
-    	return font;
+    	if(font!=null){
+    		return font;
+    	}
+    	if(this.column.getFont()!=null){
+    		String[] fontParam = this.column.getFont().split(":");
+    		font=new Font(Display.getDefault(), fontParam[0], Integer.valueOf(fontParam[1]), SWT.NONE);
+    		return font;
+    	}
+    	return super.getFont(element);
     }
 
 	public void setBackgroundColor(String backgroundColor) {
@@ -120,5 +164,45 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 
 	public Color getForgroundColorActiv() {
 		return forgroundColorActiv;
+	}
+	private String getDateFormat(long value){
+		if(value==0){
+			return "";
+		}
+		DateFormat formatter = new SimpleDateFormat("dd.MM.yy - HH:mm:ss");
+		return formatter.format(new Date(value));
+	}
+	
+	public String getToolTipText(Object element) {
+		if (column.getAltAttribute() != null) {
+			SendableEntityCreator creatorClass = map.getCreatorClass(element);
+			if (creatorClass != null) {
+				String text = ""
+						+ creatorClass.getValue(element,
+								column.getAltAttribute());
+				if (text.equals("")) {
+					return null;
+				}
+				return text;
+			}
+
+		}
+		return "";
+	}
+	
+	
+	@Override
+	public Point getToolTipShift(Object object) {
+		return new Point(5, 5);
+	}
+	
+	@Override
+	public int getToolTipDisplayDelayTime(Object object) {
+		return 2000;
+	}
+
+	@Override
+	public int getToolTipTimeDisplayed(Object object) {
+		return 8000;
 	}
 }
