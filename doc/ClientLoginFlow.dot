@@ -1,27 +1,27 @@
  digraph TaskFlowDiagram {
     
-    subgraph clustertobi {
+    subgraph clusterNina {
     	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-        tobi_Start;
-        tobi_ClientHandleAllMessages;
+        Nina_Start[label="Start"];
+        Nina_ClientHandleAllMessages[label="ClientHandleAllMessages"];
 
-    	label = "tobi";
+    	label = "Nina";
     }
     
     subgraph clusterchatServer {
     	rankdir="LR";
     	style=filled;
 		color=lightgrey;
-        chatServer_ServerLogin;
+        chatServer_ServerLogin[label="ServerLogin"];
 
     	label = "chatServer";
     }
     
 
     
-    tobi_Start -> chatServer_ServerLogin; 
-    chatServer_ServerLogin -> tobi_ClientHandleAllMessages; 
+    Nina_Start -> chatServer_ServerLogin; 
+    chatServer_ServerLogin -> Nina_ClientHandleAllMessages; 
 
 }

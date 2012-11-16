@@ -174,17 +174,20 @@ public class ClassModel implements PropertyChangeInterface
    {
       if (!getClasses().isEmpty() && creatorCreatorParser == null)
       {
-         // try to find existing file
-         Clazz firstClass = getClasses().iterator().next();
-
-         creatorCreatorClassName = firstClass.getName();
-
-         int pos = creatorCreatorClassName.lastIndexOf('.');
-
-         String packageName = creatorCreatorClassName.substring(0, pos) + ".creators";
-
-         creatorCreatorClassName = packageName + ".CreatorCreator";
-
+         if (this.getPackageName() != null)
+         {
+            creatorCreatorClassName = this.getPackageName() + ".creators.CreatorCreator";
+         }
+         else
+         {
+            // try to find existing file
+            Clazz firstClass = getClasses().iterator().next();
+            creatorCreatorClassName = firstClass.getName();
+            int pos = creatorCreatorClassName.lastIndexOf('.');
+            packageName = creatorCreatorClassName.substring(0, pos)
+               + ".creators";
+            creatorCreatorClassName = packageName + ".CreatorCreator";
+         }
          String fileName = creatorCreatorClassName;
 
          fileName = fileName.replaceAll("\\.", "/");
@@ -255,15 +258,22 @@ public class ClassModel implements PropertyChangeInterface
       if (!getClasses().isEmpty() && modelPatternParser == null)
       {
          // try to find existing file
-         Clazz firstClass = getClasses().iterator().next();
+         if (this.getPackageName() != null)
+         {
+            modelPatternClassName = this.getPackageName() + ".creators.ModelPattern";
+         }
+         else
+         {
+            Clazz firstClass = getClasses().iterator().next();
 
-         modelPatternClassName = firstClass.getName();
+            modelPatternClassName = firstClass.getName();
 
-         int pos = modelPatternClassName.lastIndexOf('.');
+            int pos = modelPatternClassName.lastIndexOf('.');
 
-         String packageName = modelPatternClassName.substring(0, pos) + ".creators";
+            packageName = modelPatternClassName.substring(0, pos) + ".creators";
 
-         modelPatternClassName = packageName + ".ModelPattern";
+            modelPatternClassName = packageName + ".ModelPattern";
+         }
 
          String fileName = modelPatternClassName;
 

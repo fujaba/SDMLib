@@ -1,20 +1,18 @@
  digraph TaskFlowDiagram {
     
-    subgraph clusternina {
+    subgraph clusterAlbert {
     	rankdir="LR";
-    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
-        nina_HandleClick[label="HandleClick"];
-        nina_ClientHandleMessage[label="ClientHandleMessage"];
-        nina_ClientReceiveRoger[label="ClientReceiveRoger"];
+        Albert_HandleClick[label="HandleClick"];
+        Albert_ClientHandleMessage[label="ClientHandleMessage"];
+        Albert_ClientReceiveRoger[label="ClientReceiveRoger"];
 
-    	label = "nina";
+    	label = "Albert";
     }
     
     subgraph clusterchatServer {
     	rankdir="LR";
-    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
         chatServer_ServerHandleMessage[label="ServerHandleMessage"];
@@ -23,25 +21,24 @@
     	label = "chatServer";
     }
     
-    subgraph clustertobi {
+    subgraph clusterNina {
     	rankdir="LR";
-    	labelpos=bottom;
     	style=filled;
 		color=lightgrey;
-        tobi_ClientHandleMessage[label="ClientHandleMessage"];
-        tobi_ClientReceiveRoger[label="ClientReceiveRoger"];
+        Nina_ClientHandleMessage[label="ClientHandleMessage"];
+        Nina_ClientReceiveRoger[label="ClientReceiveRoger"];
 
-    	label = "tobi";
+    	label = "Nina";
     }
     
 
     
-    nina_HandleClick -> chatServer_ServerHandleMessage; 
-    chatServer_ServerHandleMessage -> nina_ClientHandleMessage; 
-    nina_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
-    chatServer_ServerHandleMessage -> tobi_ClientHandleMessage; 
-    tobi_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
-    chatServer_ServerReceiveRoger -> nina_ClientReceiveRoger; 
-    chatServer_ServerReceiveRoger -> tobi_ClientReceiveRoger; 
+    Albert_HandleClick -> chatServer_ServerHandleMessage; 
+    chatServer_ServerHandleMessage -> Nina_ClientHandleMessage; 
+    chatServer_ServerHandleMessage -> Albert_ClientHandleMessage; 
+    Albert_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
+    Nina_ClientHandleMessage -> chatServer_ServerReceiveRoger; 
+    chatServer_ServerReceiveRoger -> Nina_ClientReceiveRoger; 
+    chatServer_ServerReceiveRoger -> Albert_ClientReceiveRoger; 
 
 }

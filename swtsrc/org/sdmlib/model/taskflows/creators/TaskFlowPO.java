@@ -78,20 +78,20 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
       return null;
    }
    
-   public LoggerPO hasLogger()
+   public TaskFlowPO hasSubFlow()
    {
-      LoggerPO result = new LoggerPO();
+      TaskFlowPO result = new TaskFlowPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(TaskFlow.PROPERTY_LOGGER, result);
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
       
       return result;
    }
    
-   public TaskFlowPO hasLogger(LoggerPO tgt)
+   public TaskFlowPO hasSubFlow(TaskFlowPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_LOGGER)
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -102,15 +102,50 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
       return this;
    }
    
-   public Logger getLogger()
+   public TaskFlow getSubFlow()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((TaskFlow) this.getCurrentMatch()).getLogger();
+         return ((TaskFlow) this.getCurrentMatch()).getSubFlow();
       }
       return null;
    }
+   
+   public TaskFlowPO hasParent()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+   
+   public TaskFlowPO hasParent(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public TaskFlow getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

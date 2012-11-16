@@ -26,6 +26,8 @@ public class TaskFlowModel
          "taskNo", "int",
          "idMap", SDMLibJsonIdMap.class.getName());
       
+      taskFlowClass.withAssoc(taskFlowClass, "subFlow", ONE, "parent", ONE);
+      
       model.createClazz("PeerProxy", 
          "ip", STRING, 
          "port", "int", 
@@ -46,8 +48,7 @@ public class TaskFlowModel
       
       Clazz loggerClazz = model.createClazz("Logger",
     	 "startPeer", PeerProxy.class.getName())
-    	 .withSuperClass(taskFlowClass)
-    	 .withAssoc(taskFlowClass, "targetTaskFlow", ONE, "logger", ONE);
+    	 .withSuperClass(taskFlowClass);
       
       Clazz logEntryClass = loggerClazz.createClassAndAssoc("LogEntry", "entries", MANY, "logger", ONE);
       logEntryClass.withAssoc(logEntryClass, "children", MANY, "parent", ONE);

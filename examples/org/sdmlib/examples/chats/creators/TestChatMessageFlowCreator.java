@@ -1,18 +1,19 @@
-package org.sdmlib.model.taskflows.creators;
+package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.model.taskflows.creators.CreatorCreator;
+import org.sdmlib.examples.chats.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.chats.TestChatMessageFlow;
 import org.sdmlib.model.taskflows.TaskFlow;
 
-public class TaskFlowCreator extends EntityFactory
+public class TestChatMessageFlowCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
+      TestChatMessageFlow.PROPERTY_MSG,
       TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_SUBFLOW, 
       TaskFlow.PROPERTY_IDMAP,
-      TaskFlow.PROPERTY_SUBFLOW,
-      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -22,17 +23,17 @@ public class TaskFlowCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new TestChatMessageFlow();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((TaskFlow) target).get(attrName);
+      return ((TestChatMessageFlow) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((TaskFlow) target).set(attrName, value);
+      return ((TestChatMessageFlow) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -46,12 +47,7 @@ public class TaskFlowCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((TaskFlow) entity).removeYou();
+      ((TestChatMessageFlow) entity).removeYou();
    }
 }
-
-
-
-
-
 

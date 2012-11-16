@@ -60,6 +60,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.DisposeEvent;
 
 public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 {
@@ -168,12 +170,12 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 
          if (chatMode == ChatMode.ClientServer)
          {
-        	 new Logger().withTargetTaskFlow(
+        	 ((Logger) new Logger().withSubFlow(
         			 new ClientLoginFlow()
         			 .withServer(peer)
         			 .withClientIP(InetAddress.getLocalHost().getHostAddress())
         			 .withClientPort(peerArgs.getLocalPort())
-        			 .withIdMap((SDMLibJsonIdMap) idMap))
+        			 .withIdMap((SDMLibJsonIdMap) idMap)))
         			 .withStartPeer(new PeerProxy()
             			.withIp(InetAddress.getLocalHost().getHostAddress())
             			.withPort(peerArgs.getLocalPort())
@@ -187,6 +189,8 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
                display.sleep();
             }
          }
+         
+         System.exit(0);
       }
       catch (Exception e)
       {
@@ -247,6 +251,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
    public PeerToPeerChat()
    {
       super(Display.getDefault(), SWT.SHELL_TRIM);
+      
       setLayout(new GridLayout(2, false));
       
       chatColumn = new Composite(this, SWT.NONE);
@@ -330,23 +335,23 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             }
             else
             {
-            	try {
-					new Logger().withTargetTaskFlow(
-            new CSChatMessageFlow()
-            .withIdMap((SDMLibJsonIdMap) idMap))
-            .withStartPeer(new PeerProxy()
-            			.withIp(InetAddress.getLocalHost().getHostAddress())
-            			.withPort(peerArgs.getLocalPort())
-            			.withIdMap(idMap))
-            .run();
-				} catch (UnknownHostException e1) {
-					e1.printStackTrace();
-				}
+               try {
+                  ((Logger) new Logger().withSubFlow(
+                     new CSChatMessageFlow()
+                     .withIdMap((SDMLibJsonIdMap) idMap)))
+                     .withStartPeer(new PeerProxy()
+                     .withIp(InetAddress.getLocalHost().getHostAddress())
+                     .withPort(peerArgs.getLocalPort())
+                     .withIdMap(idMap))
+                     .run();
+               } catch (UnknownHostException e1) {
+                  e1.printStackTrace();
+               }
             }
          }
       });
       btnSend.setText("Send");
-      
+
       whiteboard = new Composite(this, SWT.NONE);
       whiteboard.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
       whiteboard.setLayout(new GridLayout(1, false));

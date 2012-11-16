@@ -81,7 +81,8 @@
         {"id":"KE.K189"},
         {"id":"KE.K191"},
         {"id":"KE.K198"},
-        {"id":"KE.K201"}
+        {"id":"KE.K201"},
+        {"id":"KE.K207"}
       ]
     }
   },
@@ -727,6 +728,21 @@
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":1,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K207",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L208"}
+      ],
+      "name":"PeerToServerChatScenario",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -3069,6 +3085,19 @@
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K198"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L208",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.11.2012 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K207"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

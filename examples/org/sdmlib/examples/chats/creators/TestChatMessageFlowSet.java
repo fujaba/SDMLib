@@ -19,49 +19,24 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.model.taskflows.creators;
+package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
+import org.sdmlib.models.modelsets.ModelSet;
+import org.sdmlib.examples.chats.TestChatMessageFlow;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.LogEntry;
+import java.util.List;
+import org.sdmlib.models.modelsets.intList;
 
-public class TaskFlowSet extends LinkedHashSet<TaskFlow>
+public class TestChatMessageFlowSet extends LinkedHashSet<TestChatMessageFlow> implements ModelSet
 {
-   public intList getTaskNo()
-   {
-      intList result = new intList();
-      
-      for (TaskFlow obj : this)
-      {
-         result.add(obj.getTaskNo());
-      }
-      
-      return result;
-   }
-
-   public TaskFlowSet withTaskNo(int value)
-   {
-      for (TaskFlow obj : this)
-      {
-         obj.withTaskNo(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (TaskFlow elem : this)
+      for (TestChatMessageFlow elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -72,89 +47,89 @@ public class TaskFlowSet extends LinkedHashSet<TaskFlow>
 
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.TaskFlow";
+      return "org.sdmlib.examples.chats.TestChatMessageFlow";
    }
 
 
-   public TaskFlowSet with(TaskFlow value)
+   public TestChatMessageFlowSet with(TestChatMessageFlow value)
    {
       this.add(value);
       return this;
    }
    
-   public TaskFlowSet without(TaskFlow value)
+   public TestChatMessageFlowSet without(TestChatMessageFlow value)
    {
       this.remove(value);
       return this;
    }
-   public SDMLibJsonIdMapSet getIdMap()
+   
+   //==========================================================================
+   
+   public TestChatMessageFlowSet run()
    {
-      SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
-      
-      for (TaskFlow obj : this)
+      for (TestChatMessageFlow obj : this)
       {
-         result.add(obj.getIdMap());
+         obj.run();
+      }
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public LinkedHashSet<Object> getTaskNames()
+   {
+      LinkedHashSet<Object> result = new LinkedHashSet<Object>();
+      for (TestChatMessageFlow obj : this)
+      {
+         result.add(obj.getTaskNames());
+      }
+      return result;
+   }
+
+   public StringList getMsg()
+   {
+      StringList result = new StringList();
+      
+      for (TestChatMessageFlow obj : this)
+      {
+         result.add(obj.getMsg());
       }
       
       return result;
    }
 
-   public TaskFlowSet withIdMap(SDMLibJsonIdMap value)
+   public TestChatMessageFlowSet withMsg(String value)
    {
-      for (TaskFlow obj : this)
+      for (TestChatMessageFlow obj : this)
       {
-         obj.withIdMap(value);
+         obj.withMsg(value);
       }
       
       return this;
    }
 
-   public TaskFlowSet getSubFlow()
+   public intList getTaskNo()
    {
-      TaskFlowSet result = new TaskFlowSet();
+      intList result = new intList();
       
-      for (TaskFlow obj : this)
+      for (TestChatMessageFlow obj : this)
       {
-         result.add(obj.getSubFlow());
+         result.add(obj.getTaskNo());
       }
       
       return result;
-   }
-   public TaskFlowSet withSubFlow(TaskFlow value)
-   {
-      for (TaskFlow obj : this)
-      {
-         obj.withSubFlow(value);
-      }
-      
-      return this;
    }
 
-   public TaskFlowSet getParent()
+   public TestChatMessageFlowSet withTaskNo(int value)
    {
-      TaskFlowSet result = new TaskFlowSet();
-      
-      for (TaskFlow obj : this)
+      for (TestChatMessageFlow obj : this)
       {
-         result.add(obj.getParent());
-      }
-      
-      return result;
-   }
-   public TaskFlowSet withParent(TaskFlow value)
-   {
-      for (TaskFlow obj : this)
-      {
-         obj.withParent(value);
+         obj.withTaskNo(value);
       }
       
       return this;
    }
 
 }
-
-
-
-
-
 

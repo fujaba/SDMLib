@@ -42,6 +42,9 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTDrawPointPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.CTClearDrawingPOCreator());
+         
+         creatorSet.add(new org.sdmlib.examples.chats.creators.TestChatMessageFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.TestChatMessageFlowPOCreator());
          creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
       }
       
@@ -57,6 +60,9 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
+
 
 
 

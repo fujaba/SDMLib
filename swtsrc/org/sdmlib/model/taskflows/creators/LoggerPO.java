@@ -112,39 +112,6 @@ public class LoggerPO extends PatternObject<LoggerPO, Logger>
       return null;
    }
    
-   public TaskFlowPO hasTargetTaskFlow()
-   {
-      TaskFlowPO result = new TaskFlowPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Logger.PROPERTY_TARGETTASKFLOW, result);
-      
-      return result;
-   }
-   
-   public LoggerPO hasTargetTaskFlow(TaskFlowPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Logger.PROPERTY_TARGETTASKFLOW)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public TaskFlow getTargetTaskFlow()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Logger) this.getCurrentMatch()).getTargetTaskFlow();
-      }
-      return null;
-   }
-   
    public LoggerPO hasStartPeer(PeerProxy value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()

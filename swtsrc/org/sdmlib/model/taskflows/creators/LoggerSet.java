@@ -124,27 +124,6 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       return this;
    }
 
-   public TaskFlowSet getTargetTaskFlow()
-   {
-      TaskFlowSet result = new TaskFlowSet();
-      
-      for (Logger obj : this)
-      {
-         result.add(obj.getTargetTaskFlow());
-      }
-      
-      return result;
-   }
-   public LoggerSet withTargetTaskFlow(TaskFlow value)
-   {
-      for (Logger obj : this)
-      {
-         obj.withTargetTaskFlow(value);
-      }
-      
-      return this;
-   }
-
    public PeerProxySet getStartPeer()
    {
       PeerProxySet result = new PeerProxySet();

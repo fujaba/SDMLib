@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
+import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
@@ -300,6 +301,10 @@ public class Method implements PropertyChangeInterface
          {
             type = "void";
          }
+         if (type.endsWith("[]"))
+         {
+            type = type.substring(0, type.length() - 2);
+         }
          String importType = type;
          if ("void".equals(type))
          {
@@ -311,6 +316,11 @@ public class Method implements PropertyChangeInterface
             {
                type = type + "List";
                importType = "org.sdmlib.models.modelsets." + type;
+            }
+            else if ("Object".indexOf(type) >= 0)
+            {
+               type = "LinkedHashSet<Object>";
+               importType = LinkedHashSet.class.getName();
             }
             else
             {
@@ -409,10 +419,16 @@ public class Method implements PropertyChangeInterface
          {
             type = "void";
          }
-         
+         if (type.endsWith("[]"))
+         {
+            type = type.substring(0, type.length() - 2);
+         }
          String importType = type;
 
-         this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+         if ( ! ("Object".indexOf(type) >= 0))
+         {
+            this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+         }
 
          if ( ! "void".equals(type))
          {

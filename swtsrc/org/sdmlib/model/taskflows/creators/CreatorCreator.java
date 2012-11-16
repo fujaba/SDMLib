@@ -31,6 +31,7 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.model.taskflows.creators.LogEntryPOCreator());
 
          creatorSet.add(new org.sdmlib.serialization.json.creators.JsonIdMapCreator());
+         creatorSet.add(new org.sdmlib.serialization.json.creators.SDMLibJsonIdMapCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       

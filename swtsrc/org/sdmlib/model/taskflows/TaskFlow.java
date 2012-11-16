@@ -39,32 +39,16 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    {
       taskNo++;
       
-      if(getLogger() != null)
-      {
-    	  peer.transferTaskFlow(getLogger());
-      }
-      else
-      {
-		peer.transferTaskFlow(this);
-      }
+      peer.transferTaskFlow(getRootParent());
    }
    
    public void switchToThisAnd(PeerProxy peer)
    {
       taskNo++;
       
-      if(getLogger() != null)
-      {
-    	  peer.transferTaskFlow(getLogger());
-    	  
-    	  getLogger().run();
-      }
-      else
-      {
-		peer.transferTaskFlow(this);
+      peer.transferTaskFlow(getRootParent());
 		
 		this.run();
-      }
    }
    
    public void switchTo(PeerProxySet peers)
@@ -73,14 +57,7 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       
       for (PeerProxy peer : peers)
       {
-    	  if(getLogger() != null)
-          {
-        	  peer.transferTaskFlow(getLogger());
-          }
-          else
-          {
-    		peer.transferTaskFlow(this);
-          }
+         peer.transferTaskFlow(getRootParent());
       }
    }
    
@@ -125,9 +102,14 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
          return getIdMap();
       }
 
-      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
       {
-         return getLogger();
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
       }
       
       return null;
@@ -156,9 +138,15 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
          return true;
       }
 
-      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
       {
-         setLogger((Logger) value);
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
          return true;
       }
 
@@ -180,7 +168,8 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    
    public void removeYou()
    {
-      setLogger(null);
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -257,59 +246,132 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    /********************************************************************
     * <pre>
     *              one                       one
-    * TaskFlow ----------------------------------- Logger
-    *              targetTaskFlow                   logger
+    * TaskFlow ----------------------------------- TaskFlow
+    *              parent                   subFlow
     * </pre>
     */
    
-   public static final String PROPERTY_LOGGER = "logger";
+   public static final String PROPERTY_SUBFLOW = "subFlow";
    
-   private Logger logger = null;
+   private TaskFlow subFlow = null;
    
-   public Logger getLogger()
+   public TaskFlow getSubFlow()
    {
-      return this.logger;
+      return this.subFlow;
    }
    
-   public boolean setLogger(Logger value)
+   public boolean setSubFlow(TaskFlow value)
    {
       boolean changed = false;
       
-      if (this.logger != value)
+      if (this.subFlow != value)
       {
-         Logger oldValue = this.logger;
+         TaskFlow oldValue = this.subFlow;
          
-         if (this.logger != null)
+         if (this.subFlow != null)
          {
-            this.logger = null;
-            oldValue.setTargetTaskFlow(null);
+            this.subFlow = null;
+            oldValue.setParent(null);
          }
          
-         this.logger = value;
+         this.subFlow = value;
          
          if (value != null)
          {
-            value.withTargetTaskFlow(this);
+            value.withParent(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGGER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBFLOW, oldValue, value);
          changed = true;
       }
       
       return changed;
    }
    
-   public TaskFlow withLogger(Logger value)
+   public TaskFlow withSubFlow(TaskFlow value)
    {
-      setLogger(value);
+      setSubFlow(value);
       return this;
    } 
    
-   public Logger createLogger()
+   public TaskFlow createSubFlow()
    {
-      Logger value = new Logger();
-      withLogger(value);
-      return value;
+      return null;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * TaskFlow ----------------------------------- TaskFlow
+    *              subFlow                   parent
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PARENT = "parent";
+   
+   private TaskFlow parent = null;
+   
+   public TaskFlow getRootParent()
+   {
+      TaskFlow root = this;
+      
+      while (root.getParent() != null)
+      {
+         root = root.getParent();
+      }
+      
+      return root;
+   }
+   
+   public TaskFlow getParent()
+   {
+      return this.parent;
+   }
+   
+   public boolean setParent(TaskFlow value)
+   {
+      boolean changed = false;
+      
+      if (this.parent != value)
+      {
+         TaskFlow oldValue = this.parent;
+         
+         if (this.parent != null)
+         {
+            this.parent = null;
+            oldValue.setSubFlow(null);
+         }
+         
+         this.parent = value;
+         
+         if (value != null)
+         {
+            value.withSubFlow(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public TaskFlow withParent(TaskFlow value)
+   {
+      setParent(value);
+      return this;
+   } 
+   
+   public TaskFlow createParent()
+   {
+      return null;
+   }
+
+   public boolean isDone()
+   {
+      // TODO Auto-generated method stub
+      return false;
    } 
 }
 

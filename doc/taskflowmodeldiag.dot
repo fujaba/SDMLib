@@ -18,7 +18,7 @@
     _TaskFlow ->  _FetchFileFlow [dir = "back" arrowtail = "empty"];
     _TaskFlow ->  _Logger [dir = "back" arrowtail = "empty"];
     _Timer ->  _SDMTimer [dir = "back" arrowtail = "empty"];
-    _Logger -> _TaskFlow [headlabel = "targetTaskFlow" taillabel = "logger" arrowhead = "none" ];
+    _TaskFlow -> _TaskFlow [headlabel = "subFlow" taillabel = "parent" arrowhead = "none" ];
     _Logger -> _LogEntry [headlabel = "entries" taillabel = "logger" arrowhead = "none" ];
     _LogEntry -> _LogEntry [headlabel = "children" taillabel = "parent" arrowhead = "none" ];
 }

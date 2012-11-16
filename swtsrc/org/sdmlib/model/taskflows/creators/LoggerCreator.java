@@ -12,8 +12,8 @@ public class LoggerCreator extends EntityFactory
    {
       TaskFlow.PROPERTY_TASKNO,
       TaskFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
       Logger.PROPERTY_ENTRIES,
-      Logger.PROPERTY_TARGETTASKFLOW,
       Logger.PROPERTY_STARTPEER,
    };
    

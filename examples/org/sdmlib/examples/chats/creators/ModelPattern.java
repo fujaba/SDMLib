@@ -33,6 +33,8 @@ import org.sdmlib.examples.chats.creators.CTDrawPointPO;
 import org.sdmlib.examples.chats.CTDrawPoint;
 import org.sdmlib.examples.chats.creators.CTClearDrawingPO;
 import org.sdmlib.examples.chats.CTClearDrawing;
+import org.sdmlib.examples.chats.creators.TestChatMessageFlowPO;
+import org.sdmlib.examples.chats.TestChatMessageFlow;
 
 public class ModelPattern extends Pattern
 {
@@ -431,7 +433,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public TestChatMessageFlowPO hasElementTestChatMessageFlowPO()
+   {
+      TestChatMessageFlowPO value = new TestChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public TestChatMessageFlowPO hasElementTestChatMessageFlowPO(TestChatMessageFlow hostGraphObject)
+   {
+      TestChatMessageFlowPO value = new TestChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 
