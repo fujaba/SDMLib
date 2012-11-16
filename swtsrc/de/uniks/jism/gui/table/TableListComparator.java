@@ -28,6 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -35,13 +37,22 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 public class TableListComparator implements Comparator<Object>{
 	public static final int ASC = 1;
 	public static final int DESC = -1;
+	public static String TIMESTAMP="%TIMESTAMP%";
+	public static String HASHCODE="%HASHCODE%";
+	private HashMap<Object, Long> values=new HashMap<Object, Long>();
 
-	private int direction = 1;
-	private String column;
+	private int direction = ASC;
+	private String column=TIMESTAMP;
 	private IdMap map;
 	private CellValueCreator cellCreator=new CellValueCreator();
+
 	public TableListComparator()
 	{
+	}
+	public TableListComparator(String column, int direction)
+	{
+		this.column=column;
+		this.direction=direction;
 	}
 	
 	@Override
@@ -59,25 +70,13 @@ public class TableListComparator implements Comparator<Object>{
 			}
 		}
 		if(c1==null){
-			if(o1.equals(o2)){
-				return 0;
-			}
-			if(o1.hashCode()<o2.hashCode()){
-				return 1;
-			}
-			return -1;
+			return checkIntern(o1,o2);
 		}
 		
 		Object v1=cellCreator.getCellValue(o1, c1, column);
 		Object v2=cellCreator.getCellValue(o2, c1, column);
 		if(v1==null&&v2==null){
-			if(o1.equals(o2)){
-				return 0;
-			}
-			if(o1.hashCode()<o2.hashCode()){
-				return 1;
-			}
-			return -1;
+			return checkIntern(o1,o2);
 		}
 
 		if(v1 instanceof String){
@@ -119,6 +118,28 @@ public class TableListComparator implements Comparator<Object>{
 		}
 		return -1;
 	}
+	
+	private int checkIntern(Object o1, Object o2){
+		// SAME OBJECT MUST BE 0
+		if(o1.equals(o2)){
+			return 0;
+		}
+
+		// TIMESTAMP
+		if(TIMESTAMP.equalsIgnoreCase(column)){
+			Long v1 = values.get(o1);
+			Long v2 = values.get(o2);
+			if(v1!=null&&v2!=null){
+				return (int) (v1-v2);
+			}
+		}
+			
+		//HASHCODE
+		if(o1.hashCode()<o2.hashCode()){
+			return 1;
+		}
+		return -1;
+	}
 
 	public int getDirection() {
 		return direction;
@@ -147,5 +168,11 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setCellCreator(CellValueCreator cellCreator) {
 		this.cellCreator = cellCreator;
+	}
+	public void addIndexValue(Object value){
+		values.put(value, new Date().getTime());
+	}
+	public void removeIndexValue(Object value){
+		values.remove(value);
 	}
 }

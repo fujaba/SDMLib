@@ -129,9 +129,6 @@ public class TableComponent extends Composite implements Listener,
 		table.addListener(SWT.MouseExit, this);
 
 		setLayout(new BorderLayout(0, 0));
-		
-		
-		
 	}
 
 	public void addColumn(Column column) {
@@ -213,6 +210,13 @@ public class TableComponent extends Composite implements Listener,
 					item.setVisible(true);
 				}
 			}
+		}
+	}
+	
+	public void createFromCreator(SendableEntityCreator creator){
+		String[] properties = creator.getProperties();
+		for(String property : properties){
+			addColumn(new Column(property));
 		}
 	}
 

@@ -47,30 +47,21 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	private static final long serialVersionUID = 1L;
 	public static final String PROPERTY_ITEMS = "items";
 	private TableListComparator comparator;
-	//FIXME ADD DEFAULT VALUE=TIMESTAMP
-
+	
 	public TableList(){
 		super(new TableListComparator());
 		Comparator<? super Object> tc = this.comparator();
 		if(tc instanceof TableListComparator){
 			comparator=(TableListComparator) tc;
-		}		
+		}
 	}
+
 	public TableList(Collection<? extends Object> items){
-		super(new TableListComparator());
-		Comparator<? super Object> tc = this.comparator();
-		if(tc instanceof TableListComparator){
-			comparator=(TableListComparator) tc;
-		}		
+		this();
 		addAll(items);
 	}
 	public TableList(Iterator<? extends Object> items){
-		super(new TableListComparator());
-		Comparator<? super Object> tc = this.comparator();
-		if(tc instanceof TableListComparator){
-			comparator=(TableListComparator) tc;
-		}		
-
+		this();		
 		addAll(items);
 	}
 	public void setIdMap(IdMap map){
@@ -117,6 +108,9 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		if (!contains(value)) 
 		{
 			super.add(value);
+			if(comparator!=null){
+				comparator.addIndexValue(value);
+			}
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
 			return true;
 		}
@@ -127,10 +121,37 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	public boolean remove(Object value) {
 		if (contains(value)) {
 			super.remove(value);
+			if(comparator!=null){
+				comparator.removeIndexValue(value);
+			}
+
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value,null);
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void clear() {
+		removeAll(iterator());
+	}
+	
+	@Override
+	public boolean removeAll(Collection<?> list) {
+		Iterator<?> i=list.iterator();
+		return removeAll(i);
+	}
+	
+	public boolean removeAll(Iterator<?> i) {
+		while(i.hasNext()){
+			Object item = i.next();
+			if(item!=null){
+				if(!remove(item)){
+					return false;
+				}	
+			}
+		}
+		return true;
 	}
 	
 	public boolean addAll(Iterator<? extends Object> list){

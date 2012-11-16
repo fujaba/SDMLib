@@ -53,7 +53,11 @@ public class Column {
 	public Column(){
 		
 	}
-	
+	public Column(String value){
+		this.label=value;
+		this.attrName=value;
+	}
+
 	public Column(String label, int width){
 		this.label=label;
 		this.width=width;

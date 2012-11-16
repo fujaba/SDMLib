@@ -122,7 +122,10 @@ public class TableColumnView implements ControlListener {
 	}
 
 	public TableColumn getTableColumn() {
-		return  tableViewerColumn.getColumn();
+		if(tableViewerColumn!=null){
+			return  tableViewerColumn.getColumn();
+		}
+		return null;
 	}
 
 	public void onResizeColumn(TableColumn tableColumn){
