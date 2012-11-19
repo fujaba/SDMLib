@@ -126,9 +126,9 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.serialization.yuml,
  org.sdmlib.utils
 Require-Bundle: org.eclipse.swt,
- org.eclipse.jface;bundle-version="3.8.101",
- org.eclipse.jface.databinding;bundle-version="1.6.0",
- org.eclipse.jface.text;bundle-version="3.8.1",
- org.eclipse.core.databinding;bundle-version="1.4.1",
- org.eclipse.core.databinding.beans;bundle-version="1.2.200"
+ org.eclipse.jface,
+ org.eclipse.jface.databinding,
+ org.eclipse.jface.text,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.beans
 
