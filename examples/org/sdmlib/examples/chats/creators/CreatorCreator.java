@@ -45,6 +45,8 @@ public class CreatorCreator
          
          creatorSet.add(new org.sdmlib.examples.chats.creators.TestChatMessageFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.TestChatMessageFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPOCreator());
          creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
       }
       
@@ -60,6 +62,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

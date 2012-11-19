@@ -80,6 +80,11 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
       {
          return getTaskNo();
       }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         return getIdMap();
+      }
       
       return null;
    }
@@ -98,6 +103,12 @@ public class ClearDrawingFlow extends TaskFlow implements PropertyChangeInterfac
       if (PROPERTY_TASKNO.equalsIgnoreCase(attrName))
       {
          setTaskNo(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 

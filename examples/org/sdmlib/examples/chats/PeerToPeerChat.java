@@ -37,6 +37,7 @@ import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SDMThread;
 import org.sdmlib.model.taskflows.SocketThread;
+import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
@@ -50,6 +51,7 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.TreeSet;
 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -78,9 +80,15 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
    enum ChatMode {
       OneToOne, 
       ClientServer, 
-      PeerToPeer
+      PeerToPeerNetwork
    }
 
+   private TreeSet<PeerProxy> proxies = new TreeSet<PeerProxy>();
+   
+   public TreeSet<PeerProxy> getProxies()
+   {
+      return proxies;
+   }
    /**
     * Launch the application.
     * @param args
@@ -126,7 +134,7 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             .withPeerPort(Integer.parseInt(args[3]));
             chatMode = ChatMode.OneToOne;
          } 
-         else if (args.length == 5)
+         else if (args.length == 5 && args[3].equals("cs"))
          {
             // only server ip and port
             peerArgs.withPeerIp(args[0]);
@@ -134,7 +142,22 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             peerArgs.withLocalPort(Integer.parseInt(args[2]));
             peerArgs.withUserName(args[4]);
             chatMode = ChatMode.ClientServer;
-            
+         }
+         else if (args.length == 3)
+         {
+            peerArgs.withLocalPort(Integer.parseInt(args[0]));
+            peerArgs.withUserName(args[1]);
+            peerArgs.withPeerPort(0);
+            chatMode = ChatMode.PeerToPeerNetwork;
+         }
+         else if (args.length == 5 && args[3].equals("p2p"))
+         {
+            // only first peer ip and port
+            peerArgs.withPeerIp(args[0]);
+            peerArgs.withPeerPort(Integer.parseInt(args[1]));
+            peerArgs.withLocalPort(Integer.parseInt(args[2]));
+            peerArgs.withUserName(args[4]);
+            chatMode = ChatMode.PeerToPeerNetwork;            
          }
          
          
@@ -170,18 +193,26 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 
          if (chatMode == ChatMode.ClientServer)
          {
-        	 ((Logger) new Logger().withSubFlow(
-        			 new ClientLoginFlow()
-        			 .withServer(peer)
-        			 .withClientIP(InetAddress.getLocalHost().getHostAddress())
-        			 .withClientPort(peerArgs.getLocalPort())
-        			 .withIdMap((SDMLibJsonIdMap) idMap)))
-        			 .withStartPeer(new PeerProxy()
-            			.withIp(InetAddress.getLocalHost().getHostAddress())
-            			.withPort(peerArgs.getLocalPort())
-            			.withIdMap(idMap))
-        			 .run();
+            new ClientLoginFlow().withServer(peer).withClientIP(InetAddress.getLocalHost().getHostAddress())
+            .withClientPort(peerArgs.getLocalPort())
+            .withIdMap((SDMLibJsonIdMap) idMap)
+            .run();
          }
+
+         else if (chatMode == ChatMode.PeerToPeerNetwork)
+         {
+            if (peerArgs.getPeerPort() != 0)
+            {
+               String localHost = InetAddress.getLocalHost().getHostName();
+               // login to first peer
+               new P2PNetworkLoginFlow()
+               .withClientName(peerArgs.getUserName())
+               .withFirstPeer(new PeerProxy(peerArgs.getPeerIp(), peerArgs.getPeerPort(), idMap))
+               .withClientPeer(new PeerProxy(localHost, peerArgs.getLocalPort(), idMap));
+            }
+         }
+         
+         
          while (!gui.isDisposed())
          {
             if (!display.readAndDispatch())

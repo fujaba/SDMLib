@@ -39,7 +39,7 @@
 <!-- _Ludo&#45;&gt;_Player -->
 <g id="edge2" class="edge"><title>_Ludo&#45;&gt;_Player</title>
 <path fill="none" stroke="black" d="M115,-453.486C115,-440.494 115,-424.916 115,-409.612"/>
-<text text-anchor="middle" x="119.226" y="-416.175" font-family="Times New Roman,serif" font-size="10.00">players</text>
+<text text-anchor="middle" x="119.226" y="-416.175" font-family="Times New Roman,serif" font-size="10.00">players *</text>
 <text text-anchor="middle" x="110.774" y="-441.923" font-family="Times New Roman,serif" font-size="10.00">game</text>
 </g>
 <!-- _Dice -->
@@ -76,7 +76,7 @@
 <!-- _Ludo&#45;&gt;_Field -->
 <g id="edge10" class="edge"><title>_Ludo&#45;&gt;_Field</title>
 <path fill="none" stroke="black" d="M142.337,-454.183C145.187,-451.339 148.102,-448.566 151,-446 171.502,-427.848 185.508,-432.58 201,-410 245.703,-344.844 235.918,-316.372 246,-238 251.331,-196.564 265.552,-180.92 246,-144 226.57,-107.309 184.484,-82.9377 153.23,-69.1177"/>
-<text text-anchor="middle" x="163.23" y="-66.5804" font-family="Times New Roman,serif" font-size="10.00">fields</text>
+<text text-anchor="middle" x="163.23" y="-66.5804" font-family="Times New Roman,serif" font-size="10.00">fields *</text>
 <text text-anchor="middle" x="145.789" y="-442.298" font-family="Times New Roman,serif" font-size="10.00">game</text>
 </g>
 <!-- _Point -->
@@ -137,7 +137,7 @@
 <!-- _Player&#45;&gt;_Pawn -->
 <g id="edge22" class="edge"><title>_Player&#45;&gt;_Pawn</title>
 <path fill="none" stroke="black" d="M152.578,-274.344C159.567,-261.947 166.721,-249.256 173.255,-237.667"/>
-<text text-anchor="middle" x="172.486" y="-245.137" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
+<text text-anchor="middle" x="172.486" y="-245.137" font-family="Times New Roman,serif" font-size="10.00">pawns *</text>
 <text text-anchor="middle" x="153.347" y="-261.874" font-family="Times New Roman,serif" font-size="10.00">player</text>
 </g>
 <!-- _Field&#45;&gt;_Field -->
@@ -156,7 +156,7 @@
 <g id="edge24" class="edge"><title>_Pawn&#45;&gt;_Field</title>
 <path fill="none" stroke="black" d="M170.561,-144.295C163.232,-132.515 155.285,-119.743 147.755,-107.642"/>
 <text text-anchor="middle" x="156.131" y="-110.604" font-family="Times New Roman,serif" font-size="10.00">pos</text>
-<text text-anchor="middle" x="162.185" y="-136.333" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
+<text text-anchor="middle" x="162.185" y="-136.333" font-family="Times New Roman,serif" font-size="10.00">pawns *</text>
 </g>
 <!-- _LudoScenario -->
 <g id="node7" class="node"><title>_LudoScenario</title>

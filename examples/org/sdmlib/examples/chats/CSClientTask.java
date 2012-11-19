@@ -48,6 +48,11 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
       {
          return getParent();
       }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         return getIdMap();
+      }
       
       return null;
    }
@@ -66,6 +71,12 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          setParent((CSVisitAllClientsFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 

@@ -35,6 +35,8 @@ import org.sdmlib.examples.chats.creators.CTClearDrawingPO;
 import org.sdmlib.examples.chats.CTClearDrawing;
 import org.sdmlib.examples.chats.creators.TestChatMessageFlowPO;
 import org.sdmlib.examples.chats.TestChatMessageFlow;
+import org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPO;
+import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
 
 public class ModelPattern extends Pattern
 {
@@ -457,7 +459,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public P2PNetworkLoginFlowPO hasElementP2PNetworkLoginFlowPO()
+   {
+      P2PNetworkLoginFlowPO value = new P2PNetworkLoginFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public P2PNetworkLoginFlowPO hasElementP2PNetworkLoginFlowPO(P2PNetworkLoginFlow hostGraphObject)
+   {
+      P2PNetworkLoginFlowPO value = new P2PNetworkLoginFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

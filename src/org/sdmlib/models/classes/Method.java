@@ -480,7 +480,10 @@ public class Method implements PropertyChangeInterface
                (  "\n   " +
                      "\n   //==========================================================================" +
                      "\n   " +
-                     "\n   modifiers returnType mehodName( parameter )\n   {\n   }" +
+                     "\n   modifiers returnType mehodName( parameter )\n" +
+                     "   {\n" +
+                     "      returnClause\n" +
+                     "   }" +
                      "\n"
                      );
 
@@ -504,12 +507,28 @@ public class Method implements PropertyChangeInterface
                   parameter += ", ";
             }
          }
+         
+         String returnClause = "";
+         
+         if ("int float double".indexOf(returnType) >= 0)
+         {
+            returnClause = "return 0;";
+         }
+         else if ("void".indexOf(returnType) >= 0)
+         {
+            returnClause = "";
+         }
+         else 
+         {
+            returnClause = "return null;";
+         }
 
          CGUtil.replaceAll(text, 
             "modifiers", "public", 
             "returnType", returnType,
             "mehodName", methodName,
-            "parameter", parameter
+            "parameter", parameter, 
+            "returnClause", returnClause
                );
 
          pos = parser.indexOf(Parser.CLASS_END);

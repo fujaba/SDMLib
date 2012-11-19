@@ -1,5 +1,7 @@
 package org.sdmlib.examples.chats;
 
+import static org.sdmlib.models.classes.Role.R.ONE;
+
 import org.junit.Test;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
@@ -28,26 +30,29 @@ public class PeerToPeerChatModel
 
       Clazz peerToPeerChatClass = model.createClazz(PEER_TO_PEER_CHAT);
 
-      Clazz taskFlowClazz = model.createClazz(TaskFlow.class.getName(), 
-         "taskNo", INT)
+      Clazz taskFlowClass = model.createClazz(TaskFlow.class.getName(), 
+         "taskNo", INT,
+         "idMap", SDMLibJsonIdMap.class.getName())
          .withExternal(true);
+      
+      taskFlowClass.withAssoc(taskFlowClass, "subFlow", ONE, "parent", ONE);
 
       model.createClazz("ChatMessageFlow", 
          "msg", String.class.getSimpleName(),
          "gui", PEER_TO_PEER_CHAT)
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
 
       model.createClazz("DrawPointFlow",
          "x", INT, "y", INT,
          "r", INT, "g", INT, "b", INT,
          "gui", PEER_TO_PEER_CHAT)
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
 
       model.createClazz(ClearDrawingFlow.class.getName(), 
          "gui", PEER_TO_PEER_CHAT)
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
       
       model.createClazz("PeerToPeerChatArgs", 
@@ -65,7 +70,7 @@ public class PeerToPeerChatModel
       
       model.createClazz("CSChatMessageFlow", 
          "msg", String.class.getSimpleName())
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
       
       model.createClazz("ChatServer", 
@@ -77,7 +82,7 @@ public class PeerToPeerChatModel
          "clientIP", STRING, 
          "clientPort", INT, 
          "allMessagesText", STRING)
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
       
       model.createClazz("CSDrawPointFlow",
@@ -86,20 +91,20 @@ public class PeerToPeerChatModel
          "r", INT, 
          "g", INT, 
          "b", INT)
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
 
       model.createClazz("CSClearDrawingFlow")
-         .withSuperClass(taskFlowClazz)
+         .withSuperClass(taskFlowClass)
          .createMethods("run()", "void");
       
       Clazz visitAllClientsFlow = model.createClazz("CSVisitAllClientsFlow")
-         .withSuperClass(taskFlowClazz);
+         .withSuperClass(taskFlowClass);
    
       visitAllClientsFlow.createMethods("run()", "void");
       
       Clazz clientTask = visitAllClientsFlow.createClassAndAssoc("CSClientTask", "tgtTask", R.ONE, "parent", R.ONE)
-            .withSuperClass(taskFlowClazz);
+            .withSuperClass(taskFlowClass);
       
       model.createClazz("CTDrawPoint",
          "x", INT, 
@@ -111,6 +116,15 @@ public class PeerToPeerChatModel
       
       model.createClazz("CTClearDrawing")
       .withSuperClass(clientTask);
+      
+      model.createClazz("P2PNetworkLoginFlow", 
+         "firstPeer", PeerProxy.class.getName(), 
+         "clientPeer", PeerProxy.class.getName(),
+         "clientName", STRING,
+         "peerList", PeerProxySet.class.getName())
+         .withSuperClass(taskFlowClass)
+         .withMethods("run()", "void")
+         .withMethods("getTaskNames()", "Object[]");
       
       scenario.addToDo("we should build attr.remove", Scenario.BACKLOG, "zuendorf", "04.10.2012 12:50:42", 0, 8);
       

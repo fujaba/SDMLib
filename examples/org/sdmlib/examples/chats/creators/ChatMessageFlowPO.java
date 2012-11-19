@@ -6,6 +6,7 @@ import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.examples.chats.creators.ChatMessageFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class ChatMessageFlowPO extends PatternObject<ChatMessageFlowPO, ChatMessageFlow>
 {
@@ -105,7 +106,40 @@ public class ChatMessageFlowPO extends PatternObject<ChatMessageFlowPO, ChatMess
       return 0;
    }
    
+   public ChatMessageFlowPO hasIdMap(SDMLibJsonIdMap value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ChatMessageFlow.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SDMLibJsonIdMap getIdMap()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ChatMessageFlow) getCurrentMatch()).getIdMap();
+      }
+      return null;
+   }
+   
+   public ChatMessageFlowPO withIdMap(SDMLibJsonIdMap value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ChatMessageFlow) getCurrentMatch()).setIdMap(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

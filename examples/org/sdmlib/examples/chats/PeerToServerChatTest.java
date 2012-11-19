@@ -19,7 +19,7 @@ import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
-public class PeerToPeerChatScenario
+public class PeerToServerChatTest
 {
    
    @Test 

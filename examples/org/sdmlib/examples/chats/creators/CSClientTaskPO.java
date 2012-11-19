@@ -9,6 +9,7 @@ import org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.chats.creators.CSClientTaskPO;
 import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class CSClientTaskPO extends PatternObject<CSClientTaskPO, CSClientTask>
 {
@@ -84,5 +85,38 @@ public class CSClientTaskPO extends PatternObject<CSClientTaskPO, CSClientTask>
       return null;
    }
    
+   public CSClientTaskPO hasIdMap(SDMLibJsonIdMap value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(CSClientTask.PROPERTY_IDMAP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SDMLibJsonIdMap getIdMap()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((CSClientTask) getCurrentMatch()).getIdMap();
+      }
+      return null;
+   }
+   
+   public CSClientTaskPO withIdMap(SDMLibJsonIdMap value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((CSClientTask) getCurrentMatch()).setIdMap(value);
+      }
+      return this;
+   }
+   
 }
+
 

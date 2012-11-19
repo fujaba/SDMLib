@@ -15,16 +15,16 @@
     
     
     
-    _Ludo -> _Player [headlabel = "players" taillabel = "game" arrowhead = "none" ];
+    _Ludo -> _Player [headlabel = "players *" taillabel = "game" arrowhead = "none" ];
     _Player -> _Player [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
     _Ludo -> _Dice [headlabel = "dice" taillabel = "game" arrowhead = "none" ];
     _Player -> _Dice [headlabel = "dice" taillabel = "player" arrowhead = "none" ];
-    _Ludo -> _Field [headlabel = "fields" taillabel = "game" arrowhead = "none" ];
+    _Ludo -> _Field [headlabel = "fields *" taillabel = "game" arrowhead = "none" ];
     _Field -> _Field [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
     _Field -> _Field [headlabel = "landing" taillabel = "entry" arrowhead = "none" ];
     _Player -> _Field [headlabel = "start" taillabel = "starter" arrowhead = "none" ];
     _Player -> _Field [headlabel = "base" taillabel = "baseowner" arrowhead = "none" ];
     _Player -> _Field [headlabel = "landing" taillabel = "lander" arrowhead = "none" ];
-    _Player -> _Pawn [headlabel = "pawns" taillabel = "player" arrowhead = "none" ];
-    _Pawn -> _Field [headlabel = "pos" taillabel = "pawns" arrowhead = "none" ];
+    _Player -> _Pawn [headlabel = "pawns *" taillabel = "player" arrowhead = "none" ];
+    _Pawn -> _Field [headlabel = "pos" taillabel = "pawns *" arrowhead = "none" ];
 }

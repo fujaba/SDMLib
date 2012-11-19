@@ -22,14 +22,17 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.chats.CSDrawPointFlow;
+import org.sdmlib.models.modelsets.ModelSet;
+import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
-public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
+public class P2PNetworkLoginFlowSet extends LinkedHashSet<P2PNetworkLoginFlow> implements ModelSet
 {
 
 
@@ -37,7 +40,7 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
    {
       StringList stringList = new StringList();
       
-      for (CSDrawPointFlow elem : this)
+      for (P2PNetworkLoginFlow elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -46,13 +49,19 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
    }
 
 
-   public CSDrawPointFlowSet with(CSDrawPointFlow value)
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.chats.P2PNetworkLoginFlow";
+   }
+
+
+   public P2PNetworkLoginFlowSet with(P2PNetworkLoginFlow value)
    {
       this.add(value);
       return this;
    }
    
-   public CSDrawPointFlowSet without(CSDrawPointFlow value)
+   public P2PNetworkLoginFlowSet without(P2PNetworkLoginFlow value)
    {
       this.remove(value);
       return this;
@@ -60,142 +69,89 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
    
    //==========================================================================
    
-   public CSDrawPointFlowSet run()
+   public P2PNetworkLoginFlowSet run()
    {
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
          obj.run();
       }
       return this;
    }
 
-   public intList getX()
+   
+   //==========================================================================
+   
+   public LinkedHashSet<Object> getTaskNames()
    {
-      intList result = new intList();
-      
-      for (CSDrawPointFlow obj : this)
+      LinkedHashSet<Object> result = new LinkedHashSet<Object>();
+      for (P2PNetworkLoginFlow obj : this)
       {
-         result.add(obj.getX());
+         result.add(obj.getTaskNames());
+      }
+      return result;
+   }
+
+   public PeerProxySet getFirstPeer()
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getFirstPeer());
       }
       
       return result;
    }
 
-   public CSDrawPointFlowSet withX(int value)
+   public P2PNetworkLoginFlowSet withFirstPeer(PeerProxy value)
    {
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
-         obj.withX(value);
+         obj.withFirstPeer(value);
       }
       
       return this;
    }
 
-   public intList getY()
+   public StringList getClientName()
    {
-      intList result = new intList();
+      StringList result = new StringList();
       
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
-         result.add(obj.getY());
+         result.add(obj.getClientName());
       }
       
       return result;
    }
 
-   public CSDrawPointFlowSet withY(int value)
+   public P2PNetworkLoginFlowSet withClientName(String value)
    {
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
-         obj.withY(value);
+         obj.withClientName(value);
       }
       
       return this;
    }
 
-   public intList getR()
+   public PeerProxySet getPeerList()
    {
-      intList result = new intList();
+      PeerProxySet result = new PeerProxySet();
       
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
-         result.add(obj.getR());
+         result.addAll(obj.getPeerList());
       }
       
       return result;
    }
 
-   public CSDrawPointFlowSet withR(int value)
+   public P2PNetworkLoginFlowSet withPeerList(PeerProxySet value)
    {
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
-         obj.withR(value);
-      }
-      
-      return this;
-   }
-
-   public intList getG()
-   {
-      intList result = new intList();
-      
-      for (CSDrawPointFlow obj : this)
-      {
-         result.add(obj.getG());
-      }
-      
-      return result;
-   }
-
-   public CSDrawPointFlowSet withG(int value)
-   {
-      for (CSDrawPointFlow obj : this)
-      {
-         obj.withG(value);
-      }
-      
-      return this;
-   }
-
-   public intList getB()
-   {
-      intList result = new intList();
-      
-      for (CSDrawPointFlow obj : this)
-      {
-         result.add(obj.getB());
-      }
-      
-      return result;
-   }
-
-   public CSDrawPointFlowSet withB(int value)
-   {
-      for (CSDrawPointFlow obj : this)
-      {
-         obj.withB(value);
-      }
-      
-      return this;
-   }
-
-   public SDMLibJsonIdMapSet getIdMap()
-   {
-      SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
-      
-      for (CSDrawPointFlow obj : this)
-      {
-         result.add(obj.getIdMap());
-      }
-      
-      return result;
-   }
-
-   public CSDrawPointFlowSet withIdMap(SDMLibJsonIdMap value)
-   {
-      for (CSDrawPointFlow obj : this)
-      {
-         obj.withIdMap(value);
+         obj.withPeerList(value);
       }
       
       return this;
@@ -205,7 +161,7 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
    {
       intList result = new intList();
       
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
          result.add(obj.getTaskNo());
       }
@@ -213,9 +169,9 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
       return result;
    }
 
-   public CSDrawPointFlowSet withTaskNo(int value)
+   public P2PNetworkLoginFlowSet withTaskNo(int value)
    {
-      for (CSDrawPointFlow obj : this)
+      for (P2PNetworkLoginFlow obj : this)
       {
          obj.withTaskNo(value);
       }
@@ -223,12 +179,50 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
       return this;
    }
 
-
-
-   public String getEntryType()
+   public SDMLibJsonIdMapSet getIdMap()
    {
-      return "org.sdmlib.examples.chats.CSDrawPointFlow";
+      SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getIdMap());
+      }
+      
+      return result;
    }
+
+   public P2PNetworkLoginFlowSet withIdMap(SDMLibJsonIdMap value)
+   {
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         obj.withIdMap(value);
+      }
+      
+      return this;
+   }
+
+   public PeerProxySet getClientPeer()
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getClientPeer());
+      }
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowSet withClientPeer(PeerProxy value)
+   {
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         obj.withClientPeer(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

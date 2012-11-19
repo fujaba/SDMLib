@@ -94,6 +94,11 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
          return getTaskNo();
       }
 
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         return getIdMap();
+      }
+
       return super.get(attrName);
    }
 
@@ -117,6 +122,12 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
       if (PROPERTY_TASKNO.equalsIgnoreCase(attrName))
       {
          setTaskNo(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 

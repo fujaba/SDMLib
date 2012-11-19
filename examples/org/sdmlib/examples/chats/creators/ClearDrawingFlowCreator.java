@@ -12,6 +12,7 @@ public class ClearDrawingFlowCreator extends EntityFactory
    {
       ClearDrawingFlow.PROPERTY_GUI,
       TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_IDMAP,
    };
    
    public String[] getProperties()
@@ -48,4 +49,5 @@ public class ClearDrawingFlowCreator extends EntityFactory
       ((ClearDrawingFlow) entity).removeYou();
    }
 }
+
 

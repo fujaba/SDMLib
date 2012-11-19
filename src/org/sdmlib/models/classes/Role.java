@@ -173,6 +173,11 @@ public class Role implements PropertyChangeInterface
 
    public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
    {
+      if (getClazz().isExternal())
+      {
+         return;
+      }
+      
       Parser myParser = getClazz().getOrCreateParser(rootDir);
       
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRole.getName());

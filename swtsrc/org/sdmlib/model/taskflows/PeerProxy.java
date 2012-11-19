@@ -33,7 +33,7 @@ import java.net.UnknownHostException;
 
 import org.sdmlib.utils.StrUtil;
 
-public class PeerProxy implements PropertyChangeInterface
+public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
    public PeerProxy ()
    {
@@ -43,6 +43,7 @@ public class PeerProxy implements PropertyChangeInterface
    public PeerProxy(String ip, int port, JsonIdMap map)
    {
       this.withIp(ip).withPort(port).withIdMap(map);
+      map.put(ip + "." + port, this);
    }
 
    public void transferTaskFlow(TaskFlow taskFlow)
@@ -246,6 +247,27 @@ public class PeerProxy implements PropertyChangeInterface
    public String toString()
    {
       return "" + ip + ":" + port;
+   }
+
+   @Override
+   public int compareTo(PeerProxy o)
+   {
+      int result = this.getIp().compareTo(o.getIp());
+      if (result == 0)
+      {
+         if (this.getPort() > o.getPort())
+         {
+            return 1;
+         }
+         
+         if (this.getPort() < o.getPort())
+         {
+            return -1;
+         }
+         
+         return 0;
+      }
+      return result;
    }
 }
 

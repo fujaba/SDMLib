@@ -1,19 +1,21 @@
 package org.sdmlib.examples.chats.creators;
 
 import org.sdmlib.examples.chats.creators.CreatorCreator;
-import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.chats.ChatMessageFlow;
+import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
+import org.sdmlib.model.taskflows.TaskFlow;
 
-public class ChatMessageFlowCreator extends EntityFactory
+public class P2PNetworkLoginFlowCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ChatMessageFlow.PROPERTY_MSG,
-      ChatMessageFlow.PROPERTY_GUI,
+      P2PNetworkLoginFlow.PROPERTY_FIRSTPEER,
+      P2PNetworkLoginFlow.PROPERTY_CLIENTNAME,
+      P2PNetworkLoginFlow.PROPERTY_PEERLIST,
       TaskFlow.PROPERTY_TASKNO,
       TaskFlow.PROPERTY_IDMAP,
+      P2PNetworkLoginFlow.PROPERTY_CLIENTPEER,
    };
    
    public String[] getProperties()
@@ -23,17 +25,17 @@ public class ChatMessageFlowCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new ChatMessageFlow();
+      return new P2PNetworkLoginFlow();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((ChatMessageFlow) target).get(attrName);
+      return ((P2PNetworkLoginFlow) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((ChatMessageFlow) target).set(attrName, value);
+      return ((P2PNetworkLoginFlow) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -47,9 +49,8 @@ public class ChatMessageFlowCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ChatMessageFlow) entity).removeYou();
+      ((P2PNetworkLoginFlow) entity).removeYou();
    }
 }
-
 
 

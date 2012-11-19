@@ -508,7 +508,7 @@ public class ClassModel implements PropertyChangeInterface
    {
       String result = role.getName();
 
-      if (role.getCard().equals(R.MANY))
+      if (role.getCard().equals(R.MANY.toString()))
       {
          result = result + " *";
       }
