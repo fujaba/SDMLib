@@ -174,9 +174,11 @@ public class ClassModel implements PropertyChangeInterface
    {
       if (!getClasses().isEmpty() && creatorCreatorParser == null)
       {
+    	 String packageName = this.getPackageName();
          if (this.getPackageName() != null)
          {
-            creatorCreatorClassName = this.getPackageName() + ".creators.CreatorCreator";
+        	packageName = packageName + ".creators";
+            creatorCreatorClassName = packageName + ".CreatorCreator";
          }
          else
          {
@@ -258,9 +260,11 @@ public class ClassModel implements PropertyChangeInterface
       if (!getClasses().isEmpty() && modelPatternParser == null)
       {
          // try to find existing file
+    	 String packageName = this.getPackageName();
          if (this.getPackageName() != null)
          {
-            modelPatternClassName = this.getPackageName() + ".creators.ModelPattern";
+        	packageName = packageName + ".creators";
+            modelPatternClassName = packageName + ".ModelPattern";
          }
          else
          {
