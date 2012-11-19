@@ -30,6 +30,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -277,6 +278,29 @@ public class Scenario
    {
       steps.add(string);      
    }
+
+   public void addObjectDiag(Object root) 
+   {
+   	// derive creator class from root and create idMap
+   	String className = root.getClass().getName();
+   	String packageName = CGUtil.packageName(className) + ".creators";
+   	className = packageName + ".CreatorCreator";
+   	
+   	try 
+   	{
+   		Class<?> creatorClass = Class.forName(className);
+   		Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+   	
+   		Object idMap = method.invoke(null, "debug");
+   	
+   		addObjectDiag((JsonIdMap) idMap, root);
+   	}
+   	catch (Exception e)
+   	{
+   		e.printStackTrace();
+   	}
+   }
+
 
    public void addObjectDiag(JsonIdMap jsonIdMap, Object root)
    {
