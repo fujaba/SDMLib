@@ -157,10 +157,12 @@ public class TableComponent extends Composite implements Listener,
 	}
 	
 	public TableColumnView getColumn(Column column) {
-		for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
-			TableColumnView item = i.next();
-			if(item.getColumn().equals(column)){
-				return item;
+		if(column!=null){
+			for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
+				TableColumnView item = i.next();
+				if(item.getColumn().equals(column)){
+					return item;
+				}
 			}
 		}
 		return null;

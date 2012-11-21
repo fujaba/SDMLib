@@ -36,12 +36,12 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 public class TableListComparator implements Comparator<Object>{
 	public static final int ASC = 1;
 	public static final int DESC = -1;
-	public static String TIMESTAMP="%TIMESTAMP%";
+	public static String IDMAP="%idmap%";
 	public static String HASHCODE="%HASHCODE%";
 	private HashMap<Object, Long> values=new HashMap<Object, Long>();
 
 	private int direction = ASC;
-	private String column=TIMESTAMP;
+	private String column=IDMAP;
 	private IdMap map;
 	private CellValueCreator cellCreator=new CellValueCreator();
 	private long counter=0;
@@ -121,24 +121,25 @@ public class TableListComparator implements Comparator<Object>{
 	
 	private int checkIntern(Object o1, Object o2){
 		// SAME OBJECT MUST BE 0
+		if(o1==null){
+			if(o2==null){
+				return 0;
+			}
+			return -1;
+		}else if(o2==null){
+			return 1;
+		}
+		
 		if(o1.equals(o2)){
 			return 0;
 		}
 
-		// TIMESTAMP
-//FIXME		if(TIMESTAMP.equalsIgnoreCase(column)){
-//			Long v1 = values.get(o1);
-//			Long v2 = values.get(o2);
-//			if(v1!=null&&v2!=null){
-//				if(v1<v2){
-//					return -1;
-//				}else{
-//					return 1;
-//				}
-////				return (int) (v1-v2);
-//			}
-//		}
-			
+		// KEY IN IDMAP
+		if(IDMAP.equalsIgnoreCase(column)&&map!=null){
+			String v1=map.getId(o1);
+			String v2=map.getId(o2);
+			return v1.compareTo(v2);
+		}
 		//HASHCODE
 		if(o1.hashCode()<o2.hashCode()){
 			return 1;

@@ -31,10 +31,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -46,8 +46,7 @@ public class SearchResultUpdater implements ModifyListener
 	private String lastSearchCriteria = "####";
 	private Display myDisplay;
 	private Text searchText;
-	private TableViewerColumn tableViewerColumn;
-	private String columnTitle;
+	private TableColumnView tableColumnView;
 	private TableList searchResult;
 	private String property;
 	private Object searchIn;
@@ -88,10 +87,8 @@ public class SearchResultUpdater implements ModifyListener
 		}
 	}
 
-	public void setTableViewColumn(String columnTitle,
-			TableViewerColumn tableViewerColumn) {
-		this.columnTitle = columnTitle;
-		this.tableViewerColumn = tableViewerColumn;
+	public void setTableViewColumn(TableColumnView tableColumnView) {
+		this.tableColumnView = tableColumnView;
 	}
 
 	public void addNewItem(Object item) {
@@ -122,8 +119,6 @@ public class SearchResultUpdater implements ModifyListener
 
 		// compare root.talklist and searchresults
 		Collection<?> sourceList = (Collection<?>) searchInCreator.getValue(searchIn, property);
-//		System.out.println("SEARCH IN :" + Thread.currentThread().getName()
-//				+ "-" + resultList.toString());
 		Object[] list = searchResult.toArray(new Object[searchResult.size()]);
 		for (int i = 0; i < list.length; i++) {
 			// is this still in root.talklist?
@@ -153,9 +148,11 @@ public class SearchResultUpdater implements ModifyListener
 				}
 			}
 		}
-		if (tableViewerColumn != null) {
-			tableViewerColumn.getColumn().setText(
-					columnTitle + " (" + searchResult.size() + ")");
+		if (tableColumnView != null) {
+			TableColumn tableColumn = tableColumnView.getTableColumn();
+			if(tableColumn!=null){
+				tableColumn.setText(tableColumnView.getColumn().getLabel()+ " (" + searchResult.size() + ")");
+			}
 		}
 		
 		System.out.println("COUNT OF CONTENT: "+searchResult.size());

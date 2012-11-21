@@ -127,4 +127,13 @@ public class SearchTableComponent extends TableComponent {
 			}
 		}
 	}
+	public boolean setTableCountField(Column column){
+		TableColumnView viewer = getColumn(column);
+		if(viewer!=null){
+			updater.setTableViewColumn(viewer);
+			return true;
+		}
+		return false;
+	}
+
 }
