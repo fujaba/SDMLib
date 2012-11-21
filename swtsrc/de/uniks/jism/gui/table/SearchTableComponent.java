@@ -93,6 +93,7 @@ public class SearchTableComponent extends TableComponent {
 
 		if (updater == null) {
 			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, getIdMap(), this.list);
+			updater.setOwner(this);
 			updater.refresh();
 			searchText.addModifyListener(updater);
 		}

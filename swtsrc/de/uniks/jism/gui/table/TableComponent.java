@@ -285,6 +285,7 @@ public class TableComponent extends Composite implements Listener,
 				}
 			}
 		}
+		System.out.println("TABLEVIEWER COUNT: "+tableViewer.getTable().getItemCount());
 	}
 
 	public boolean finishDataBinding(TableList item, String searchProperties) {

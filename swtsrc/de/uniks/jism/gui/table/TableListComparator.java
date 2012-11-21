@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
@@ -45,6 +44,7 @@ public class TableListComparator implements Comparator<Object>{
 	private String column=TIMESTAMP;
 	private IdMap map;
 	private CellValueCreator cellCreator=new CellValueCreator();
+	private long counter=0;
 
 	public TableListComparator()
 	{
@@ -126,13 +126,18 @@ public class TableListComparator implements Comparator<Object>{
 		}
 
 		// TIMESTAMP
-		if(TIMESTAMP.equalsIgnoreCase(column)){
-			Long v1 = values.get(o1);
-			Long v2 = values.get(o2);
-			if(v1!=null&&v2!=null){
-				return (int) (v1-v2);
-			}
-		}
+//FIXME		if(TIMESTAMP.equalsIgnoreCase(column)){
+//			Long v1 = values.get(o1);
+//			Long v2 = values.get(o2);
+//			if(v1!=null&&v2!=null){
+//				if(v1<v2){
+//					return -1;
+//				}else{
+//					return 1;
+//				}
+////				return (int) (v1-v2);
+//			}
+//		}
 			
 		//HASHCODE
 		if(o1.hashCode()<o2.hashCode()){
@@ -170,7 +175,7 @@ public class TableListComparator implements Comparator<Object>{
 		this.cellCreator = cellCreator;
 	}
 	public void addIndexValue(Object value){
-		values.put(value, new Date().getTime());
+		values.put(value, counter++);
 	}
 	public void removeIndexValue(Object value){
 		values.remove(value);

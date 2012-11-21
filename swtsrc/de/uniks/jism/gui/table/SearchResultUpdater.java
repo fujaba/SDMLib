@@ -54,6 +54,7 @@ public class SearchResultUpdater implements ModifyListener
 	private ArrayList<String> searchProperties = new ArrayList<String>();
 	private SendableEntityCreator searchInCreator;
 	private IdMap map;
+	private SearchTableComponent owner;
 
 	public SearchResultUpdater(Text searchField, Object searchList,
 			String property, String searchProperties, IdMap map, TableList blanko) {
@@ -99,16 +100,20 @@ public class SearchResultUpdater implements ModifyListener
 		Collection<?> resultList = (Collection<?>) searchInCreator.getValue(searchResult, property);
 		if (!resultList.contains(item)) {
 			if (matchesSearchCriteria(item, split)) {
-				getSearchResults().set(property, item);
+				searchResult.add(item);
 			}
 		}
 	}
 
 	public void refreshContent() {
 		String searchCriteria = searchText.getText().trim().toLowerCase();
-
+		
 		// new search
 		lastSearchCriteria = searchCriteria;
+		
+		System.out.println("NEW SEARCH: "+lastSearchCriteria);
+		System.out.println("");
+		System.out.println("");
 
 		String[] split = new String[] {};
 		if (searchCriteria != null) {
@@ -116,37 +121,45 @@ public class SearchResultUpdater implements ModifyListener
 		}
 
 		// compare root.talklist and searchresults
-		Collection<?> resultList = (Collection<?>) searchResult.get(property);
 		Collection<?> sourceList = (Collection<?>) searchInCreator.getValue(searchIn, property);
 //		System.out.println("SEARCH IN :" + Thread.currentThread().getName()
 //				+ "-" + resultList.toString());
-		Object[] list = resultList.toArray();
+		Object[] list = searchResult.toArray(new Object[searchResult.size()]);
 		for (int i = 0; i < list.length; i++) {
 			// is this still in root.talklist?
 
 			if (!sourceList.contains(list[i])) {
-				getSearchResults().set(property + IdMap.REMOVE, list[i]);
+				searchResult.remove(list[i]);
 				continue;
 			}
 
 			// does it still match the search criteria?
 			if (!matchesSearchCriteria(list[i], split)) {
-				getSearchResults().set(property + IdMap.REMOVE, list[i]);
-				continue;
+				//FIXME
+				System.out.print("REMOVE child "+searchResult.size()+":"+ list[i]);
+				if(!searchResult.contains(list[i])){
+					System.out.println("ERROR");
+				}
+				searchResult.remove(list[i]);
+				System.out.println(" NEW COUNT: "+searchResult.size());
 			}
 		}
 		// and now the other way round
 		for (Object child : sourceList) {
-			if (!resultList.contains(child)) {
+			if (!searchResult.contains(child)) {
 				if (matchesSearchCriteria(child, split)) {
-					getSearchResults().set(property, child);
+					System.out.println("ADD child:"+child);
+					searchResult.add(child);
 				}
 			}
 		}
 		if (tableViewerColumn != null) {
 			tableViewerColumn.getColumn().setText(
-					columnTitle + " (" + resultList.size() + ")");
+					columnTitle + " (" + searchResult.size() + ")");
 		}
+		
+		System.out.println("COUNT OF CONTENT: "+searchResult.size());
+		owner.refresh();
 	}
 
 	private boolean matchesSearchCriteria(Object item, String[] split) {
@@ -181,9 +194,12 @@ public class SearchResultUpdater implements ModifyListener
 					if (fullText.indexOf(word.substring(1)) >= 0) {
 						return false;
 					}
-				} else if (fullText.indexOf(word) < 0) {
-					// no this search word is not found in full text
-					return false;
+				} else{
+					System.out.println("Search: "+fullText.indexOf(word)+":"+word+" in "+fullText+"");
+					if (fullText.indexOf(word) < 0) {
+						// no this search word is not found in full text
+						return false;
+					}
 				}
 			}
 		}
@@ -226,5 +242,9 @@ public class SearchResultUpdater implements ModifyListener
 
 	public String getProperty() {
 		return property;
+	}
+
+	public void setOwner(SearchTableComponent searchTableComponent) {
+		this.owner=searchTableComponent;
 	}
 }

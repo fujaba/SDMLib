@@ -120,7 +120,7 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	@Override
 	public boolean remove(Object value) {
 		if (contains(value)) {
-			super.remove(value);
+			System.out.print(" REM: "+super.remove(value));
 			if(comparator!=null){
 				comparator.removeIndexValue(value);
 			}
