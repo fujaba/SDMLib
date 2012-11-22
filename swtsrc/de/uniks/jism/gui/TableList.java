@@ -108,9 +108,7 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		if (!contains(value)) 
 		{
 			super.add(value);
-			if(comparator!=null){
-				comparator.addIndexValue(value);
-			}
+
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
 			return true;
 		}
@@ -120,10 +118,7 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	@Override
 	public boolean remove(Object value) {
 		if (contains(value)) {
-			System.out.print(" REM: "+super.remove(value));
-			if(comparator!=null){
-				comparator.removeIndexValue(value);
-			}
+			super.remove(value);
 
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value,null);
 			return true;

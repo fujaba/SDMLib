@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
-import java.util.HashMap;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -38,13 +37,11 @@ public class TableListComparator implements Comparator<Object>{
 	public static final int DESC = -1;
 	public static String IDMAP="%idmap%";
 	public static String HASHCODE="%HASHCODE%";
-	private HashMap<Object, Long> values=new HashMap<Object, Long>();
 
 	private int direction = ASC;
 	private String column=IDMAP;
 	private IdMap map;
 	private CellValueCreator cellCreator=new CellValueCreator();
-	private long counter=0;
 
 	public TableListComparator()
 	{
@@ -121,13 +118,11 @@ public class TableListComparator implements Comparator<Object>{
 	
 	private int checkIntern(Object o1, Object o2){
 		// SAME OBJECT MUST BE 0
-		if(o1==null){
-			if(o2==null){
+		if(o2==null){
+			if(o1==null){
 				return 0;
 			}
 			return -1;
-		}else if(o2==null){
-			return 1;
 		}
 		
 		if(o1.equals(o2)){
@@ -174,11 +169,5 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setCellCreator(CellValueCreator cellCreator) {
 		this.cellCreator = cellCreator;
-	}
-	public void addIndexValue(Object value){
-		values.put(value, counter++);
-	}
-	public void removeIndexValue(Object value){
-		values.remove(value);
 	}
 }

@@ -108,10 +108,6 @@ public class SearchResultUpdater implements ModifyListener
 		// new search
 		lastSearchCriteria = searchCriteria;
 		
-		System.out.println("NEW SEARCH: "+lastSearchCriteria);
-		System.out.println("");
-		System.out.println("");
-
 		String[] split = new String[] {};
 		if (searchCriteria != null) {
 			split = searchCriteria.split(" ");
@@ -131,19 +127,18 @@ public class SearchResultUpdater implements ModifyListener
 			// does it still match the search criteria?
 			if (!matchesSearchCriteria(list[i], split)) {
 				//FIXME
-				System.out.print("REMOVE child "+searchResult.size()+":"+ list[i]);
-				if(!searchResult.contains(list[i])){
-					System.out.println("ERROR");
-				}
+//				System.out.print("REMOVE child "+searchResult.size()+":"+ list[i]);
+//				if(!searchResult.contains(list[i])){
+//					System.out.println("ERROR");
+//				}
 				searchResult.remove(list[i]);
-				System.out.println(" NEW COUNT: "+searchResult.size());
+//				System.out.println(" NEW COUNT: "+searchResult.size());
 			}
 		}
 		// and now the other way round
 		for (Object child : sourceList) {
 			if (!searchResult.contains(child)) {
 				if (matchesSearchCriteria(child, split)) {
-					System.out.println("ADD child:"+child);
 					searchResult.add(child);
 				}
 			}
@@ -192,7 +187,6 @@ public class SearchResultUpdater implements ModifyListener
 						return false;
 					}
 				} else{
-					System.out.println("Search: "+fullText.indexOf(word)+":"+word+" in "+fullText+"");
 					if (fullText.indexOf(word) < 0) {
 						// no this search word is not found in full text
 						return false;
