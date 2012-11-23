@@ -549,9 +549,9 @@ public class TableComponent extends Composite implements Listener,
 		if(column.getParent()==table){
 			table.setSortColumn(column);
 			if (direction == TableListComparator.ASC) {
-				table.setSortDirection(SWT.DOWN);
-			} else {
 				table.setSortDirection(SWT.UP);
+			} else {
+				table.setSortDirection(SWT.DOWN);
 			}
 			if (viewer.getComparator() != sorter) {
 				viewer.setComparator(sorter);

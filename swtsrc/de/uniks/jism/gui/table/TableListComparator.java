@@ -33,8 +33,8 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableListComparator implements Comparator<Object>{
-	public static final int ASC = 1;
-	public static final int DESC = -1;
+	public static final int ASC = -1;
+	public static final int DESC = 1;
 	public static String IDMAP="%idmap%";
 	public static String HASHCODE="%HASHCODE%";
 
@@ -81,7 +81,7 @@ public class TableListComparator implements Comparator<Object>{
 			String valueB=(String) v2;
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueA.compareTo(valueB);
+					return valueB.compareTo(valueA);
 				}
 				return 1;
 			}
@@ -90,7 +90,7 @@ public class TableListComparator implements Comparator<Object>{
 			Integer valueB=(Integer) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueA.compareTo(valueB);
+					return valueB.compareTo(valueA);
 				}
 				return 1;
 			}
@@ -99,7 +99,7 @@ public class TableListComparator implements Comparator<Object>{
 			Long valueB=(Long) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueA.compareTo(valueB);
+					return valueB.compareTo(valueA);
 				}
 				return 1;
 			}
@@ -108,7 +108,7 @@ public class TableListComparator implements Comparator<Object>{
 			Boolean valueB=(Boolean) cellCreator.getCellValue(o2, c1, column);
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueA.compareTo(valueB);
+					return valueB.compareTo(valueA);
 				}
 				return 1;
 			}
