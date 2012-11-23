@@ -2424,7 +2424,7 @@ public class Clazz implements PropertyChangeInterface
 
    private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
    
-   public void withConstant(String name, int i)
+   public Clazz withConstant(String name, int i)
    {
       StringBuilder decl = new StringBuilder(
          "   public static int string = number;\n"
@@ -2433,9 +2433,11 @@ public class Clazz implements PropertyChangeInterface
       CGUtil.replaceAll(decl, "string", name, "number", "" + i);
       
       constantDecls.put(name, decl.toString());
+      
+      return this;
    }
 
-   public void withConstant(String name, String value)
+   public Clazz withConstant(String name, String value)
    {
       StringBuilder decl = new StringBuilder(
          "   public static String name = \"value\";\n"
@@ -2444,9 +2446,11 @@ public class Clazz implements PropertyChangeInterface
       CGUtil.replaceAll(decl, "name", name, "value", value);
       
       constantDecls.put(name, decl.toString());
+      
+      return this;
    }
 
-   public void withRunningConstants(String... names)
+   public Clazz withRunningConstants(String... names)
    {
       int i = 0;
       for (String string : names)
@@ -2454,6 +2458,8 @@ public class Clazz implements PropertyChangeInterface
          withConstant(string, i);
          i++;
       }
+      
+      return this;
    } 
 }
 
