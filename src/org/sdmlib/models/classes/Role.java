@@ -55,6 +55,10 @@ public class Role implements PropertyChangeInterface
          return super.toString().toLowerCase();
       }
       
+      public static final String DOUBLE = "double";
+      public static final String STRING = "String";
+      
+      
    }
    
    //==========================================================================

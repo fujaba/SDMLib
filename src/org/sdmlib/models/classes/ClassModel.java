@@ -96,6 +96,11 @@ public class ClassModel implements PropertyChangeInterface
       withPackageName(packageName);
    }
 
+   public ClassModel generate()
+   {
+      return generate("src");
+   }
+
    public ClassModel generate(String rootDir)
    {
       return generate(rootDir, rootDir);
@@ -413,6 +418,11 @@ public class ClassModel implements PropertyChangeInterface
       }
    }
 
+   public String dumpClassDiag(String diagName)
+   {
+      return dumpClassDiag("src", diagName);
+   }
+   
    public String dumpClassDiag(String rootdir, String diagName)
    {
       // generate dot file

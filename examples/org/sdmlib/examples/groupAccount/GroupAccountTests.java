@@ -27,7 +27,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Role.R;
+import static org.sdmlib.models.classes.Role.R.*;
 import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
@@ -39,16 +39,15 @@ public class GroupAccountTests
    @Test
    public void testGroupAccountRuleRecognition()
    {
-      Scenario scenario = new Scenario("examples", "GroupAccountRuleRecognition");
+      Scenario scenario = new Scenario("examples");
       
       scenario.add("Start situation: classes have been generated. Now create some example object structure",
          MODELING, "zuendorf", "04.04.2012 00:26:59", 0, 0);
       
       GroupAccount groupAccount = new GroupAccount();
       
-      Person albert = new Person()
-      .withName("Albert")
-      .withParent(groupAccount);
+      Person albert = groupAccount.createPersons()
+      .withName("Albert");
       
       Person nina = new Person()
       .withName("Nina")
@@ -102,52 +101,41 @@ public class GroupAccountTests
 
       scenario.addObjectDiag(createIdMap, groupAccount);
       
-      ScenarioManager.get()
-      .add(scenario)
-      .dumpHTML();
+      scenario.dumpHTML();
    }
 
    @Test
    public void testGroupAccountCodegen()
    {
-      Scenario scenario = new Scenario("examples", "GroupAccountCodegen");
+      Scenario scenario = new Scenario("examples");
       
       scenario.add("Start situation: Nothing here yet. Generated classes",
          DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
       
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.groupAccount");
       
-      Clazz groupAccountClass = new Clazz("org.sdmlib.examples.groupAccount.GroupAccount");
-      /* add method */
-      new Method()
-			.withClazz(groupAccountClass)
-			.withSignature("initAccounts(double,String)")
-			.withReturnType("double");
-      /* add method */
-      new Method()
-			.withClazz(groupAccountClass)
-			.withSignature("updateBalances()")
-			.withReturnType("void");
+      Clazz groupAccountClass = new Clazz("GroupAccount")
+      .withMethods("initAccounts(double,String)", DOUBLE)
+      .withMethods("updateBalances()", "void");
       
-      Clazz personClass = new Clazz("org.sdmlib.examples.groupAccount.Person")
-      .withAttribute("name", "String")
-      .withAttribute("balance", "double");
+      Clazz personClass = new Clazz(
+         "Person",
+         "name", STRING,
+         "balance", DOUBLE);
       
-      new Association()
-      .withSource("parent", groupAccountClass, R.ONE)
-      .withTarget("persons", personClass, R.MANY);
-
-      Clazz itemClass = new Clazz("org.sdmlib.examples.groupAccount.Item")
-      .withAttribute("description", "String")
-      .withAttribute("value", "double");
+      groupAccountClass.withAssoc(personClass, "persons", MANY, "parent", ONE);
+      
+      Clazz itemClass = new Clazz("Item", 
+         "description", STRING, 
+         "value", DOUBLE);
       
       new Association()
-      .withSource("parent", groupAccountClass, R.ONE)
-      .withTarget("items", itemClass, R.MANY);
+      .withSource("parent", groupAccountClass, ONE)
+      .withTarget("items", itemClass, MANY);
       
       new Association()
-      .withSource("buyer", personClass, R.ONE)
-      .withTarget("items", itemClass, R.MANY);
+      .withSource("buyer", personClass, ONE)
+      .withTarget("items", itemClass, MANY);
 
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
       

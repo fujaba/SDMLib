@@ -286,19 +286,23 @@ public class Scenario
    	String packageName = CGUtil.packageName(className) + ".creators";
    	className = packageName + ".CreatorCreator";
    	
+   	Object idMap = null;
    	try 
    	{
    		Class<?> creatorClass = Class.forName(className);
    		Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
    	
-   		Object idMap = method.invoke(null, "debug");
+   		idMap = method.invoke(null, "debug");
    	
-   		addObjectDiag((JsonIdMap) idMap, root);
    	}
    	catch (Exception e)
    	{
-   		e.printStackTrace();
+   		// cannot find creator creator class, use generic idMap instead;
+   	   idMap = new GenericIdMap();
    	}
+
+      addObjectDiag((JsonIdMap) idMap, root);
+
    }
 
 
