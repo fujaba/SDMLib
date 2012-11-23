@@ -1,16 +1,21 @@
 package org.sdmlib.examples.groupAccount;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.sdmlib.examples.groupAccount.creators.CreatorCreator;
+import org.sdmlib.examples.groupAccount.creators.ItemCreator;
 import org.sdmlib.examples.groupAccount.creators.PersonCreator;
 
 import de.uniks.jism.gui.table.SearchTableComponent;
 import de.uniks.jism.gui.table.TableComponent;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class GroupAccountGUI extends Shell
 {
@@ -60,9 +65,36 @@ public class GroupAccountGUI extends Shell
       
       personTable.createFromCreator(new PersonCreator(), true);
       
+      Button button = new Button(personTable.getNorth(), SWT.NONE);
+      button.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            new Person().withParent(groupAccount);
+         }
+      });
+      button.setText("Add");
+      
       personTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_PERSONS, "name,balance");
       
       personTable.refresh();
+      
+      
+      SearchTableComponent itemsTable = new SearchTableComponent(sashForm, SWT.NONE, CreatorCreator.createIdMap("gui"));
+      
+      itemsTable.createFromCreator(new ItemCreator(), true);
+      
+      Button button2 = new Button(itemsTable.getNorth(), SWT.NONE);
+      button2.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) {
+            new Item().withParent(groupAccount);
+         }
+      });
+      button2.setText("Add");
+      
+      itemsTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_ITEMS, "text,amount");
+      
+      
       
       createContents();
    }
