@@ -218,7 +218,7 @@ public class TableComponent extends Composite implements Listener,
 	public void createFromCreator(SendableEntityCreator creator){
 		String[] properties = creator.getProperties();
 		for(String property : properties){
-			addColumn(new Column(property));
+         addColumn(new Column(property, 100, property, true));
 		}
 	}
 

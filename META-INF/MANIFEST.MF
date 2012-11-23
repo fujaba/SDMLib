@@ -130,5 +130,6 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.jface.databinding,
  org.eclipse.jface.text,
  org.eclipse.core.databinding,
- org.eclipse.core.databinding.beans
+ org.eclipse.core.databinding.beans,
+ org.eclipse.core.runtime;bundle-version="3.8.0"
 
