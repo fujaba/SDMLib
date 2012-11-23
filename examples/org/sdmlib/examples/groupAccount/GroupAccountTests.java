@@ -118,6 +118,10 @@ public class GroupAccountTests
       .withMethods("initAccounts(double,String)", DOUBLE)
       .withMethods("updateBalances()", "void");
       
+      groupAccountClass.withRunningConstants("RED", "YELLOW", "GREEN");
+      groupAccountClass.withConstant("NORTH", "north");
+      groupAccountClass.withConstant("CARD", 3);
+      
       Clazz personClass = new Clazz(
          "Person",
          "name", STRING,

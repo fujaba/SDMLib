@@ -25,6 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
@@ -206,6 +207,8 @@ public class Clazz implements PropertyChangeInterface
 
          insertInterfaces();
 
+         insertConstants();
+         
          if ( !isInterfaze() )
          {
             insertGenericGetSet();
@@ -249,6 +252,28 @@ public class Clazz implements PropertyChangeInterface
       printPatternObjectCreatorFile(patternObjectCreatorFileHasChanged);
 
       return this;
+   }
+
+   private void insertConstants()
+   {
+      if (constantDecls.size() == 0)
+      {
+         return;
+      }
+
+      for (String constName : constantDecls.keySet())
+      {
+         int endOfClass = parser.indexOf(Parser.CLASS_END);
+         String string = Parser.ATTRIBUTE+":" + constName;      
+         SymTabEntry symTabEntry = parser.getSymTab().get(string);
+
+         if (symTabEntry == null)
+         {
+            parser.getFileBody().insert(endOfClass, constantDecls.get(constName));
+
+            setFileHasChanged(true);
+         }
+      }
    }
 
    private void generateAttributes(String rootDir, String helpersDir) 
@@ -2395,6 +2420,40 @@ public class Clazz implements PropertyChangeInterface
    {
       setWrapped(value);
       return this;
+   }
+
+   private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
+   
+   public void withConstant(String name, int i)
+   {
+      StringBuilder decl = new StringBuilder(
+         "   public static int string = number;\n"
+         );
+      
+      CGUtil.replaceAll(decl, "string", name, "number", "" + i);
+      
+      constantDecls.put(name, decl.toString());
+   }
+
+   public void withConstant(String name, String value)
+   {
+      StringBuilder decl = new StringBuilder(
+         "   public static String name = \"value\";\n"
+         );
+      
+      CGUtil.replaceAll(decl, "name", name, "value", value);
+      
+      constantDecls.put(name, decl.toString());
+   }
+
+   public void withRunningConstants(String... names)
+   {
+      int i = 0;
+      for (String string : names)
+      {
+         withConstant(string, i);
+         i++;
+      }
    } 
 }
 

@@ -319,5 +319,10 @@ public class GroupAccount implements PropertyChangeInterface
       withItems(value);
       return value;
    } 
+   public static int CARD = 3;
+   public static int RED = 0;
+   public static int YELLOW = 1;
+   public static int GREEN = 2;
+   public static String NORTH = "north";
 }
 

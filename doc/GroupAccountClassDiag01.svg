@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-316 157,-316 157,5 -4,5"/>
 <!-- _GroupAccount -->
 <g id="node1" class="node"><title>_GroupAccount</title>
+<a xlink:href="../examples/org/sdmlib/examples/groupAccount/GroupAccount.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="20,-290 20,-307 144,-307 144,-290 20,-290"/>
 <text text-anchor="start" x="51.5" y="-296.5" font-family="Times New Roman,serif" font-size="10.00">GroupAccount</text>
+</a>
 <polygon fill="none" stroke="black" points="20,-270 20,-290 144,-290 144,-270 20,-270"/>
 <text text-anchor="start" x="80.5" y="-278" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="20,-236 20,-270 144,-270 144,-236 20,-236"/>
@@ -21,8 +23,10 @@
 </g>
 <!-- _Person -->
 <g id="node2" class="node"><title>_Person</title>
+<a xlink:href="../examples/org/sdmlib/examples/groupAccount/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-174 8,-191 83,-191 83,-174 8,-174"/>
 <text text-anchor="start" x="31.5" y="-180.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-140 8,-174 83,-174 83,-140 8,-140"/>
 <text text-anchor="start" x="13" y="-162" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <text text-anchor="start" x="13" y="-148" font-family="Times New Roman,serif" font-size="10.00">balance :double</text>
@@ -37,8 +41,10 @@
 </g>
 <!-- _Item -->
 <g id="node3" class="node"><title>_Item</title>
+<a xlink:href="../examples/org/sdmlib/examples/groupAccount/Item.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="40,-58 40,-75 125,-75 125,-58 40,-58"/>
 <text text-anchor="start" x="73.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">Item</text>
+</a>
 <polygon fill="none" stroke="black" points="40,-24 40,-58 125,-58 125,-24 40,-24"/>
 <text text-anchor="start" x="45" y="-46" font-family="Times New Roman,serif" font-size="10.00">description :String</text>
 <text text-anchor="start" x="45" y="-32" font-family="Times New Roman,serif" font-size="10.00">value :double</text>
