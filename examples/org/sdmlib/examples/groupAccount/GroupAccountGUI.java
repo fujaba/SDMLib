@@ -58,7 +58,7 @@ public class GroupAccountGUI extends Shell
       
       SearchTableComponent personTable = new SearchTableComponent(sashForm, SWT.NONE, CreatorCreator.createIdMap("gui"));
       
-      personTable.createFromCreator(new PersonCreator());
+      personTable.createFromCreator(new PersonCreator(), true);
       
       personTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_PERSONS, "name,balance");
       

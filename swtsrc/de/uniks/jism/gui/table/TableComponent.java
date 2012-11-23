@@ -218,7 +218,13 @@ public class TableComponent extends Composite implements Listener,
 	public void createFromCreator(SendableEntityCreator creator){
 		String[] properties = creator.getProperties();
 		for(String property : properties){
-         addColumn(new Column(property, 100, property, true));
+			addColumn(new Column(property));
+		}
+	}
+	public void createFromCreator(SendableEntityCreator creator, boolean edit){
+		String[] properties = creator.getProperties();
+		for(String property : properties){
+			addColumn(new Column(property, edit));
 		}
 	}
 
@@ -277,7 +283,7 @@ public class TableComponent extends Composite implements Listener,
 		}
 		tableViewer.refresh();
 		if(list!=null){
-			Object listValue = list.get(property);
+			Object listValue = list.getItems();
 			if (listValue instanceof Collection<?>) {
 				Collection<?> listItems = (Collection<?>) listValue;
 				Object[] array = listItems.toArray(new Object[listItems.size()]);

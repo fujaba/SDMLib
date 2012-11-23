@@ -57,6 +57,14 @@ public class Column {
 		this.label=value;
 		this.attrName=value;
 	}
+	
+	public Column(String value, boolean edit){
+		this.label=value;
+		this.attrName=value;
+		if(edit){
+			this.editColumn=attrName;
+		}
+	}
 
 	public Column(String label, int width){
 		this.label=label;
