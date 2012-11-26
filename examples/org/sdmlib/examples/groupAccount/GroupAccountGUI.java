@@ -61,18 +61,31 @@ public class GroupAccountGUI extends Shell
       
       sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
       
-      SearchTableComponent personTable = new SearchTableComponent(sashForm, SWT.NONE, CreatorCreator.createIdMap("gui"));
+      final SearchTableComponent personTable = new SearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
       
-      personTable.createFromCreator(new PersonCreator(), true);
-      
-      Button button = new Button(personTable.getNorth(), SWT.NONE);
-      button.addSelectionListener(new SelectionAdapter() {
+      Button addButton = new Button(personTable.getNorth(), SWT.NONE);
+      addButton.addSelectionListener(new SelectionAdapter() {
          @Override
          public void widgetSelected(SelectionEvent e) {
             new Person().withParent(groupAccount);
          }
       });
-      button.setText("Add");
+      addButton.setText("Add");
+      
+      Button delButton = new Button(personTable.getNorth(), SWT.NONE);
+      delButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) 
+         {
+            Person person = (Person) personTable
+                  .getTable()
+                  .getSelection()[0]
+                        .getData();
+            
+            person.removeYou();
+         }
+      });
+      delButton.setText("Del");
       
       personTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_PERSONS, "name,balance");
       

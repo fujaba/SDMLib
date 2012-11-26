@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.beans.PropertyChangeEvent;
+import java.lang.reflect.Method;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -38,7 +39,12 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.examples.groupAccount.creators.PersonCreator;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
+import de.uniks.jism.gui.TableListCreator;
 
 import swing2swt.layout.BorderLayout;
 
@@ -49,6 +55,57 @@ public class SearchTableComponent extends TableComponent {
 	private Composite northComponents;
 	private Composite firstNorth;
 
+   public SearchTableComponent(Composite parent, Object root, String property) 
+   {
+      super(parent, SWT.NONE);
+      
+      // derive map from root,
+      String rootClassName = root.getClass().getName();
+      
+      String creatorCreatorClassName = CGUtil.packageName(rootClassName);
+      
+      creatorCreatorClassName = creatorCreatorClassName + ".creators.CreatorCreator";
+      
+      try
+      {
+         Class<?> creatorClass = Class.forName(creatorCreatorClassName);
+         
+         Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+         
+         Object obj = method.invoke(null, "gui");
+         
+         this.map = (IdMap) obj;
+         
+         this.map.addCreator(new TableListCreator());
+         
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      
+      createContent();
+
+      SendableEntityCreator creatorClass = this.map.getCreatorClass(root);
+      
+      Object value = creatorClass.getValue(root, property);
+      
+      String entryTypeName = value.getClass().getName();
+      
+      entryTypeName = entryTypeName.substring(0, entryTypeName.length() - 3);
+      
+      String packageName = CGUtil.packageName(entryTypeName);
+      packageName = CGUtil.packageName(packageName);
+
+      entryTypeName = CGUtil.shortClassName(entryTypeName);
+      
+      creatorClass = this.map.getCreatorClasses(packageName + "." + entryTypeName);
+      
+      this.createFromCreator(creatorClass, true);
+      
+      
+   }
+   
 	public SearchTableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style, map);
 	}

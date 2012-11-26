@@ -97,13 +97,21 @@ public class TableComponent extends Composite implements Listener,
 	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
 		
-		this.map=map;
-		this.map.addCreator(new TableListCreator());
+		if (map != null)
+		{
+		   this.map=map;
+		   this.map.addCreator(new TableListCreator());
+		}
 
 		createContent();
 	}
 
-	public void createContent() {
+	public TableComponent(Composite parent, int style)
+   {
+	   super(parent, style);
+   }
+
+   public void createContent() {
 		tableComposite = new Composite(this, SWT.NONE | SWT.FILL);
 		tableComposite.setLayoutData(BorderLayout.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
