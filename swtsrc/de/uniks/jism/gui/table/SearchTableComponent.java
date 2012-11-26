@@ -30,23 +30,27 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.beans.PropertyChangeEvent;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.examples.groupAccount.creators.PersonCreator;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-import de.uniks.jism.gui.TableListCreator;
-
 import swing2swt.layout.BorderLayout;
+import de.uniks.jism.gui.TableListCreator;
 
 public class SearchTableComponent extends TableComponent {
 
@@ -55,7 +59,7 @@ public class SearchTableComponent extends TableComponent {
 	private Composite northComponents;
 	private Composite firstNorth;
 
-   public SearchTableComponent(Composite parent, Object root, String property) 
+   public SearchTableComponent(Composite parent, final Object root, final String property) 
    {
       super(parent, SWT.NONE);
       
@@ -86,9 +90,9 @@ public class SearchTableComponent extends TableComponent {
       
       createContent();
 
-      SendableEntityCreator creatorClass = this.map.getCreatorClass(root);
+      final SendableEntityCreator rootCreatorClass = this.map.getCreatorClass(root);
       
-      Object value = creatorClass.getValue(root, property);
+      Object value = rootCreatorClass.getValue(root, property);
       
       String entryTypeName = value.getClass().getName();
       
@@ -99,9 +103,43 @@ public class SearchTableComponent extends TableComponent {
 
       entryTypeName = CGUtil.shortClassName(entryTypeName);
       
-      creatorClass = this.map.getCreatorClasses(packageName + "." + entryTypeName);
+      final SendableEntityCreator entityCreatorClass = this.map.getCreatorClasses(packageName + "." + entryTypeName);
       
-      this.createFromCreator(creatorClass, true);
+      this.createFromCreator(entityCreatorClass, true);
+      
+      Button addButton = new Button(this.getNorth(), SWT.NONE);
+      addButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) 
+         {
+            Object entityObj = entityCreatorClass.getSendableInstance(false);
+            
+            rootCreatorClass.setValue(root, property, entityObj, null);
+         }
+      });
+      addButton.setText("Add");
+      
+      Button delButton = new Button(this.getNorth(), SWT.NONE);
+      delButton.addSelectionListener(new SelectionAdapter() {
+         @Override
+         public void widgetSelected(SelectionEvent e) 
+         {
+            Object entityObj = SearchTableComponent.this
+                  .getTable()
+                  .getSelection()[0]
+                        .getData();
+            
+            ((EntityFactory) entityCreatorClass).removeObject(entityObj);
+         }
+      });
+      delButton.setText("Del");
+      
+      StringList propList = new StringList();
+      propList.addAll(Arrays.asList(entityCreatorClass.getProperties()));
+      
+      this.finishDataBinding(root, property, propList.concat(","));
+      
+      this.refresh();
       
       
    }

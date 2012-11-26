@@ -27,6 +27,8 @@ import org.sdmlib.utils.StrUtil;
 import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Person implements PropertyChangeInterface
@@ -336,5 +338,15 @@ public class Person implements PropertyChangeInterface
       withItems(value);
       return value;
    } 
+   
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      
+      _.append(" ").append(this.getBalance());
+      return _.substring(1);
+   }
 }
 

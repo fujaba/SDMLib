@@ -293,5 +293,13 @@ public class Item implements PropertyChangeInterface
       withBuyer(value);
       return value;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getDescription());
+      _.append(" ").append(this.getValue());
+      return _.substring(1);
+   }}
 

@@ -173,6 +173,8 @@ public class Attribute implements PropertyChangeInterface
          if ( !clazz.isInterfaze())
          {
             insertCaseInGenericGetSet(parser);
+            
+            insertCaseInToString(parser);
          }
 
          clazz.printFile(doGenerate);
@@ -1085,7 +1087,66 @@ public class Attribute implements PropertyChangeInterface
    }
 
 
-   //==========================================================================
+   private void insertCaseInToString(Parser parser)
+   {
+      if ("String int double float".indexOf(CGUtil.shortClassName(getType())) < 0)
+      {
+         // only standard types contribute to toString()
+         return;
+      }
+      
+      // do we have a toString() method?
+      int pos = parser.indexOf(Parser.METHOD + ":toString()");
+
+      if (pos < 0)
+      {
+         // insert empty toString()
+         StringBuilder text = new StringBuilder(  
+            "\n" +
+            "   public String toString()\n" + 
+            "   {\n" + 
+            "      StringBuilder _ = new StringBuilder();\n" + 
+            "      \n" + 
+            "      return _.substring(1);\n" + 
+            "   }" 
+               );
+         
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.getFileBody().insert(pos, text.toString());
+         
+         getClazz().setFileHasChanged(true);
+         
+         pos = parser.indexOf(Parser.METHOD + ":toString()");
+      }
+
+      // OK, found method, parse its body to find if that handles me. 
+      int methodBodyStartPos = parser.getMethodBodyStartPos();
+
+      pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+      
+      int attrPos = parser.getFileBody().indexOf("get" + StrUtil.upFirstChar(this.getName()), methodBodyStartPos);
+      
+      if ( attrPos < 0 || attrPos > pos)
+      {         
+         // need to add attr to text
+         int returnPos = parser.getFileBody().indexOf("return", methodBodyStartPos);
+         
+         StringBuilder text = new StringBuilder(  
+            "_.append(\" \").append(this.getName());\n      " 
+               );
+
+         CGUtil.replaceAll(text, 
+            "Name", StrUtil.upFirstChar(getName())
+               );
+
+         parser.getFileBody().insert(returnPos, text.toString());
+         getClazz().setFileHasChanged(true);
+      }
+   }
+
+
+     //==========================================================================
 
    public static final String PROPERTY_INITIALIZATION = "initialization";
 

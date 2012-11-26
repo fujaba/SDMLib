@@ -63,51 +63,8 @@ public class GroupAccountGUI extends Shell
       
       final SearchTableComponent personTable = new SearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
       
-      Button addButton = new Button(personTable.getNorth(), SWT.NONE);
-      addButton.addSelectionListener(new SelectionAdapter() {
-         @Override
-         public void widgetSelected(SelectionEvent e) {
-            new Person().withParent(groupAccount);
-         }
-      });
-      addButton.setText("Add");
       
-      Button delButton = new Button(personTable.getNorth(), SWT.NONE);
-      delButton.addSelectionListener(new SelectionAdapter() {
-         @Override
-         public void widgetSelected(SelectionEvent e) 
-         {
-            Person person = (Person) personTable
-                  .getTable()
-                  .getSelection()[0]
-                        .getData();
-            
-            person.removeYou();
-         }
-      });
-      delButton.setText("Del");
-      
-      personTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_PERSONS, "name,balance");
-      
-      personTable.refresh();
-      
-      
-      SearchTableComponent itemsTable = new SearchTableComponent(sashForm, SWT.NONE, CreatorCreator.createIdMap("gui"));
-      
-      itemsTable.createFromCreator(new ItemCreator(), true);
-      
-      Button button2 = new Button(itemsTable.getNorth(), SWT.NONE);
-      button2.addSelectionListener(new SelectionAdapter() {
-         @Override
-         public void widgetSelected(SelectionEvent e) {
-            new Item().withParent(groupAccount);
-         }
-      });
-      button2.setText("Add");
-      
-      itemsTable.finishDataBinding(groupAccount, GroupAccount.PROPERTY_ITEMS, "text,amount");
-      
-      
+      SearchTableComponent itemsTable = new SearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_ITEMS);
       
       createContents();
    }
