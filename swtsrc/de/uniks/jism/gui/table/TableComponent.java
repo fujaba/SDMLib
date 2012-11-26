@@ -216,15 +216,17 @@ public class TableComponent extends Composite implements Listener,
 	}
 	
 	public void createFromCreator(SendableEntityCreator creator){
-		String[] properties = creator.getProperties();
-		for(String property : properties){
-			addColumn(new Column(property));
-		}
+		createFromCreator(creator, false);
+		
 	}
 	public void createFromCreator(SendableEntityCreator creator, boolean edit){
 		String[] properties = creator.getProperties();
+		Object prototyp = creator.getSendableInstance(true);
 		for(String property : properties){
-			addColumn(new Column(property, edit));
+			Object value = creator.getValue(prototyp, property);
+			if(!(value instanceof Collection<?>)){
+				addColumn(new Column(property, edit));
+			}
 		}
 	}
 
@@ -288,7 +290,7 @@ public class TableComponent extends Composite implements Listener,
 				Collection<?> listItems = (Collection<?>) listValue;
 				Object[] array = listItems.toArray(new Object[listItems.size()]);
 				for(int z=0;z<array.length;z++){
-					propertyChange(new PropertyChangeEvent(list, property,
+					propertyChange(new PropertyChangeEvent(list, TableList.PROPERTY_ITEMS,
 							null, array[z]));
 				}
 			}
@@ -300,6 +302,9 @@ public class TableComponent extends Composite implements Listener,
 		return finishDataBinding(item, TableList.PROPERTY_ITEMS, searchProperties);
 	}
 
+	public boolean finishDataBinding(Object item, String property) {
+		return finishDataBinding(item, property,null);
+	}
 	public boolean finishDataBinding(Object item, String property,
 			String searchProperties) {
 
@@ -334,7 +339,7 @@ public class TableComponent extends Composite implements Listener,
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt != null) {
 			if (list.equals(evt.getSource())) {
-				if (evt.getPropertyName().equals(property)) {
+				if (evt.getPropertyName().equals(TableList.PROPERTY_ITEMS)) {
 					if (evt.getOldValue() == null && evt.getNewValue() != null) {
 						// ADD a new Item
 						if (fixedTableViewerLeft != null) {

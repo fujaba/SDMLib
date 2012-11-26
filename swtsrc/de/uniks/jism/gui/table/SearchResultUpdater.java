@@ -81,9 +81,11 @@ public class SearchResultUpdater implements ModifyListener
 		this.searchIn = searchList;
 
 		this.property = property;
-		String[] properties = searchProperties.split(",");
-		for (String item : properties) {
-			this.searchProperties.add(item);
+		if(searchProperties!=null){
+			String[] properties = searchProperties.split(",");
+			for (String item : properties) {
+				this.searchProperties.add(item);
+			}
 		}
 	}
 
@@ -94,7 +96,7 @@ public class SearchResultUpdater implements ModifyListener
 	public void addNewItem(Object item) {
 		String[] split = lastSearchCriteria.split(" ");
 		
-		Collection<?> resultList = (Collection<?>) searchInCreator.getValue(searchResult, property);
+		Collection<?> resultList = searchResult.getItems();
 		if (!resultList.contains(item)) {
 			if (matchesSearchCriteria(item, split)) {
 				searchResult.add(item);

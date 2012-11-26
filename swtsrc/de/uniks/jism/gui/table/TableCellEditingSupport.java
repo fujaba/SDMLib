@@ -73,6 +73,8 @@ public class TableCellEditingSupport extends EditingSupport {
 			}
 			 if(value instanceof Integer){
 				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
+			}else if(value instanceof Double){
+				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###.##", NumberCellEditor.FORMAT_DOUBLE);
 			}
 		}
 		return new TextCellEditor(((TableViewer) getViewer()).getTable());

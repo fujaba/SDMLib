@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class UpdateSearchList implements PropertyChangeListener {
 	private TableComponent tableComponent;
@@ -39,6 +40,8 @@ public class UpdateSearchList implements PropertyChangeListener {
 		this.tableComponent = tableComponent;
 		if (list instanceof PropertyChangeClient) {
 			((PropertyChangeClient) list).addPropertyChangeListener(this);
+		}else if(list instanceof PropertyChangeInterface){
+			((PropertyChangeInterface) list).getPropertyChangeSupport().addPropertyChangeListener(this);
 		}
 	}
 
