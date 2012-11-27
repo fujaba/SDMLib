@@ -11,6 +11,7 @@ import org.sdmlib.examples.groupAccount.creators.CreatorCreator;
 import org.sdmlib.examples.groupAccount.creators.ItemCreator;
 import org.sdmlib.examples.groupAccount.creators.PersonCreator;
 
+import de.uniks.jism.gui.table.SDMLibSearchTableComponent;
 import de.uniks.jism.gui.table.SearchTableComponent;
 import de.uniks.jism.gui.table.TableComponent;
 import org.eclipse.swt.widgets.Label;
@@ -61,10 +62,13 @@ public class GroupAccountGUI extends Shell
       
       sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
       
-      final SearchTableComponent personTable = new SearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
       
       
-      SearchTableComponent itemsTable = new SearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_ITEMS);
+      
+      final SearchTableComponent personTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
+      
+      
+      SearchTableComponent itemsTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_ITEMS);
       
       createContents();
    }

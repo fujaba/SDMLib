@@ -1,6 +1,7 @@
-package de.uniks.jism.gui.table;
+package de.uniks.jism.gui.table.celledit;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -11,20 +12,30 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class EditField {
+	public static final int FORMAT_INTEGER=1;
+	public static final int FORMAT_DOUBLE = 2;
+	public static final int FORMAT_COMBOX=3;
+
 	protected Spinner spinner;
 	protected Text text;
+	protected Combo combo;
 	private int format;
-	private NumberCellEditor owner;
+	private CellEditorElement owner;
 	private Composite parent;
 	private String numberFormat;
+	private ArrayList<Object> list;
+	private IdMap map;
 	
-	public EditField(NumberCellEditor owner, Composite parent){
+	public EditField(CellEditorElement owner, Composite parent){
 		this.owner=owner;
 		this.parent=parent;
 		
@@ -39,6 +50,11 @@ public class EditField {
 			text.dispose();
 		}
 		text = null;
+		
+		if(combo!=null&& !combo.isDisposed()) {
+			combo.dispose();
+		}
+		combo = null;
 	}
 	public int getFormat() {
 		return format;
@@ -50,6 +66,9 @@ public class EditField {
 		}
 		if (text != null && !text.isDisposed()) {
 			return text;
+		}
+		if(combo!=null&& !combo.isDisposed()) {
+			return combo;
 		}
 		return null;
 	}
@@ -88,13 +107,28 @@ public class EditField {
 			text.setText(""+value);
 //			text.setSelection(""+value);
 		}
+		if(combo!=null&& !combo.isDisposed()) {
+			SendableEntityCreator creatorClass = this.map.getCreatorClass(value);
+			if(creatorClass!=null){
+				this.list = this.map.getTypList(creatorClass);
+				for(Object item : list){
+					combo.add(item.toString());
+				}
+				combo.setText(""+value);
+			}
+		}
 	}
 	public void createControl(String numberFormat, int format) {
 		this.numberFormat=numberFormat;
+		createControl(format); 
+	}
+	public void createControl(int format) {
 		this.format=format;
 		Control control=null;
-		if(format==NumberCellEditor.FORMAT_INTEGER){
+		if(format==FORMAT_INTEGER){
 			spinner = new Spinner(parent, SWT.BORDER);
+			spinner.setMaximum(Integer.MAX_VALUE);
+			spinner.setMinimum(Integer.MIN_VALUE);
 			control=spinner;
 			
 			spinner.addSelectionListener(new SelectionAdapter() {
@@ -103,9 +137,12 @@ public class EditField {
 	            }
 	        });
 			
-		}else if(format==NumberCellEditor.FORMAT_DOUBLE){
+		}else if(format==FORMAT_DOUBLE){
 			text=new Text(parent, SWT.BORDER);
 			control=text;
+		}else if(format==FORMAT_COMBOX){
+			combo=new Combo(parent, SWT.BORDER);
+			control=combo;
 		}
 		if(control!=null){
 			control.addKeyListener(new KeyAdapter() {
@@ -152,21 +189,36 @@ public class EditField {
 		owner.onFocusLost();
 	}
 	public Object getText() {
-		if(format==NumberCellEditor.FORMAT_DOUBLE){
+		if(format==FORMAT_DOUBLE){
 			return text.getText().replaceAll(",",".");
 		}
-		return spinner.getText();
+		if(format==FORMAT_INTEGER){
+			return spinner.getText();
+		}
+		if(format==FORMAT_COMBOX){
+			return combo.getText();
+		}
+		return "";
 	}
 	public Object convertFromString(String value) throws ParseException{
 		if((value==null)||(value.trim().equals(""))) return null;
-		if(format==NumberCellEditor.FORMAT_INTEGER){
+		if(format==FORMAT_INTEGER){
 			return Integer.valueOf(value.toString());
-		}else if(format==NumberCellEditor.FORMAT_DOUBLE){
+		}else if(format==FORMAT_DOUBLE){
 			return Double.valueOf(value.toString());
+		}else if(format==FORMAT_COMBOX){
+			return value.toString();
 		}
 		return value;
 	}
 	public String getNumberFormat() {
 		return numberFormat;
+	}
+	public void createControl(int format, IdMap map) {
+		this.map=map;
+		createControl(format);
+	}
+	public ArrayList<Object> getList() {
+		return list;
 	}
 }

@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.table;
+package de.uniks.jism.gui.table.celledit;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -33,9 +33,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-public class NumberCellEditor extends TextCellEditor {
-	public static final int FORMAT_INTEGER=1;
-	public static final int FORMAT_DOUBLE = 2;
+public class NumberCellEditor extends TextCellEditor implements CellEditorElement {
 	protected EditField editField;
 	
 	public NumberCellEditor(String numberFormat, int format) {

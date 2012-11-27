@@ -40,6 +40,10 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+import de.uniks.jism.gui.table.celledit.DropDownCellEditor;
+import de.uniks.jism.gui.table.celledit.EditField;
+import de.uniks.jism.gui.table.celledit.NumberCellEditor;
+
 public class TableCellEditingSupport extends EditingSupport {
 	protected TableComponent owner;
 	protected Column column;
@@ -71,10 +75,16 @@ public class TableCellEditingSupport extends EditingSupport {
 			if(creatorClass!=null){
 				value = creatorClass.getValue(element, column.getAttrName());
 			}
-			 if(value instanceof Integer){
-				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", NumberCellEditor.FORMAT_INTEGER);
-			}else if(value instanceof Double){
-				return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###.##", NumberCellEditor.FORMAT_DOUBLE);
+			if(value!=null){
+				SendableEntityCreator itemCreatorClass = map.getCreatorClass(value);
+				if(itemCreatorClass!=null){
+					return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map);
+				}
+				else if(value instanceof Integer){
+					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", EditField.FORMAT_INTEGER);
+				}else if(value instanceof Double){
+					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###.##", EditField.FORMAT_DOUBLE);
+				}
 			}
 		}
 		return new TextCellEditor(((TableViewer) getViewer()).getTable());
