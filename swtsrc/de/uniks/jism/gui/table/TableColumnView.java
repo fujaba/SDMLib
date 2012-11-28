@@ -91,6 +91,8 @@ public class TableColumnView implements ControlListener {
 			
 		}else if(tableViewerColumn!=null&&!visible){
 			tableViewerColumn.setEditingSupport(null);
+			TableColumn tableColumn = tableViewerColumn.getColumn();
+			tableColumn.dispose();
 			tableViewerColumn = null;
 		}
 	}

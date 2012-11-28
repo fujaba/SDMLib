@@ -66,8 +66,10 @@ import de.uniks.jism.gui.TableListCreator;
 
 public class TableComponent extends Composite implements Listener,
 		PropertyChangeListener {
+	public static final int ALL = 0;
 	public static final int FIXEDBROWSERLEFT = 1;
 	public static final int BROWSER = 2;
+	public static final int FIXEDBROWSERRIGHT = 3;
 	private Text searchText;
 	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	private Cursor defaultCursor = new Cursor(Display.getDefault(),
@@ -164,6 +166,18 @@ public class TableComponent extends Composite implements Listener,
 		}
 	}
 	
+	
+	public void clearColumns(int browser){
+		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
+		
+		for(TableColumnView item : array){
+			if(browser==ALL||browser==item.getColumn().getBrowserId()){
+				removeColumn(item);
+			}
+		}
+		refresh();
+	}
+	
 	public TableColumnView getColumn(Column column) {
 		if(column!=null){
 			for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
@@ -179,6 +193,7 @@ public class TableComponent extends Composite implements Listener,
 	public void removeColumn(TableColumnView column) {
 		if(this.columns.remove(column)){
 			column.disposeColumn();
+			onResizeColumn(column);
 		}
 	}
 
@@ -189,7 +204,7 @@ public class TableComponent extends Composite implements Listener,
 			return tableViewer;
 		}
 	}
-
+	
 	public void setVisibleFixedColumns(boolean visible) {
 		if (fixedTableViewerLeft != null && !visible) {
 			for (TableColumnView item : columns) {
@@ -287,6 +302,8 @@ public class TableComponent extends Composite implements Listener,
 
 	}
 
+	
+	
 	public void refresh() {
 		if (fixedTableViewerLeft != null) {
 			fixedTableViewerLeft.refresh();
@@ -394,6 +411,9 @@ public class TableComponent extends Composite implements Listener,
 					int offset = 0;
 					if (fixedTableViewerLeft != null) {
 						offset = fixedTableViewerLeft.getTable().getColumnCount();
+					}
+					if(columnIndex + offset>columns.size()){
+						return;
 					}
 					TableColumnView tableColumnView = columns.get(columnIndex
 							+ offset);
