@@ -38,6 +38,7 @@ import java.util.Iterator;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
@@ -95,6 +96,7 @@ public class TableComponent extends Composite implements Listener,
 	
 	
 	public static final String EMPTYCOLUMN = "empty";
+	protected TableFilterView tableFilterView;
 
 	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
@@ -117,13 +119,23 @@ public class TableComponent extends Composite implements Listener,
 		tableComposite = new Composite(this, SWT.NONE | SWT.FILL);
 		tableComposite.setLayoutData(BorderLayout.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
+		
+		this.list = new TableList();
+		this.list.addPropertyChangeListener(this);
+		this.list.setIdMap(map);
+		
 
 		tableViewer = new TableViewer(tableComposite, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
+		tableViewer.setLabelProvider(new TableLabelProvider());
+		tableFilterView = new TableFilterView(this, map);
+		tableViewer.setFilters(new ViewerFilter[] {tableFilterView});
+		tableViewer.setContentProvider(new TableContentProvider(list));
+		//FIXME
+		
 		
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		tableViewer.setLabelProvider(new TableLabelProvider());
 		
 		Menu headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
@@ -248,7 +260,10 @@ public class TableComponent extends Composite implements Listener,
 		for(String property : properties){
 			Object value = creator.getValue(prototyp, property);
 			if(!(value instanceof Collection<?>)){
-				addColumn(new Column(property, edit));
+				System.out.println(property);
+				Column column = new Column(property, edit);
+				column.setGetDropDownListFromMap(true);
+				addColumn(column);
 			}
 		}
 	}
@@ -302,7 +317,13 @@ public class TableComponent extends Composite implements Listener,
 
 	}
 
-	
+	public void addNewItem(Object item) {
+		if (!list.contains(item)) {
+			if (tableFilterView.matchesSearchCriteria(item)) {
+				list.add(item);
+			}
+		}
+	}
 	
 	public void refresh() {
 		if (fixedTableViewerLeft != null) {
@@ -322,7 +343,12 @@ public class TableComponent extends Composite implements Listener,
 		}
 		System.out.println("TABLEVIEWER COUNT: "+tableViewer.getTable().getItemCount());
 	}
-
+	public void refreshViewer() {
+		if (fixedTableViewerLeft != null) {
+			fixedTableViewerLeft.refresh();
+		}
+		tableViewer.refresh();
+	}
 	public boolean finishDataBinding(TableList item, String searchProperties) {
 		return finishDataBinding(item, TableList.PROPERTY_ITEMS, searchProperties);
 	}
@@ -343,14 +369,23 @@ public class TableComponent extends Composite implements Listener,
 
 		finish(tableViewer, BROWSER);
 		
-		this.list = new TableList();
-		this.list.addPropertyChangeListener(this);
-		this.list.setIdMap(map);
+		//Copy all Elements to TableList
+		Collection<?> collection=(Collection<?>) sourceCreator.getValue(item, property);
+		for(Iterator<?> i=collection.iterator();i.hasNext();){
+			Object child = i.next();
+			this.list.add(child);
+		}
+		
+		//FIXME TABLEVIEWER
+		tableViewer.setInput(list);
 		
 		this.property = property;
 		
 		new UpdateSearchList(this, source);
 		return true;
+	}
+	public String getProperty(){
+		return property;
 	}
 
 	public TableViewer getTableViewer() {

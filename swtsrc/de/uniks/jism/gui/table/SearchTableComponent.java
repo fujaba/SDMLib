@@ -45,7 +45,7 @@ import de.uniks.jism.gui.layout.BorderLayout;
 public class SearchTableComponent extends TableComponent {
 
 	private Text searchText;
-	private SearchResultUpdater updater;
+//	private SearchResultUpdatCer updater;
 	private Composite northComponents;
 	private Composite firstNorth;
    
@@ -94,24 +94,35 @@ public class SearchTableComponent extends TableComponent {
 	
 	public boolean finishDataBinding(Object item, String property, String searchProperties) {
 		boolean result=super.finishDataBinding(item, property, searchProperties);
-
-		if (updater == null) {
-			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, getIdMap(), this.list);
-			updater.setOwner(this);
-			updater.refresh();
-			searchText.addModifyListener(updater);
+		if(tableFilterView!=null){
+			tableFilterView.setSearchProperties(searchProperties);
+			tableFilterView.setSearchText(searchText);
+			searchText.addModifyListener(tableFilterView);
+			tableFilterView.refresh();
 		}
 		return result;
 	}
-
-	public SearchResultUpdater getUpdater() {
-		return updater;
-	}
-
-	public void setUpdater(SearchResultUpdater updater) {
-		this.updater = updater;
-		searchText.addModifyListener(updater);
-	}
+	
+//FIXME	public boolean finishDataBinding(Object item, String property, String searchProperties) {
+//		boolean result=super.finishDataBinding(item, property, searchProperties);
+//
+//		if (updater == null) {
+//			updater = new SearchResultUpdater(this.searchText, item, property, searchProperties, getIdMap(), this.list);
+//			updater.setOwner(this);
+//			updater.refresh();
+//			searchText.addModifyListener(updater);
+//		}
+//		return result;
+//	}
+//
+//	public SearchResultUpdater getUpdater() {
+//		return updater;
+//	}
+//
+//	public void setUpdater(SearchResultUpdater updater) {
+//		this.updater = updater;
+//		searchText.addModifyListener(updater);
+//	}
 
 	public Composite getNorth() {
 		return northComponents;
@@ -125,18 +136,20 @@ public class SearchTableComponent extends TableComponent {
 	public void propertyChange(PropertyChangeEvent evt) {
 		super.propertyChange(evt);
 		
-		if (evt != null && source.equals(evt.getSource())) {
-			if(updater!=null&&evt.getNewValue()!=null){
-				updater.addNewItem(evt.getNewValue());
-			}
+		if (evt != null && source.equals(evt.getSource()) && getProperty().equals(evt.getPropertyName())) {
+			addNewItem(evt.getNewValue());
 		}
+//			if(updater!=null&&evt.getNewValue()!=null){
+//				updater.addNewItem(evt.getNewValue());
+//			}
+//		}
 	}
 	public boolean setTableCountField(Column column){
-		TableColumnView viewer = getColumn(column);
-		if(viewer!=null){
-			updater.setTableViewColumn(viewer);
-			return true;
-		}
+//		TableColumnView viewer = getColumn(column);
+//		if(viewer!=null){
+//			updater.setTableViewColumn(viewer);
+//			return true;
+//		}
 		return false;
 	}
 

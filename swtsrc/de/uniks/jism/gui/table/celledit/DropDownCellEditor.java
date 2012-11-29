@@ -7,23 +7,27 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class DropDownCellEditor extends ComboBoxCellEditor implements CellEditorElement{
 	private EditField editField;
+	private SendableEntityCreator creator;
 	public DropDownCellEditor (){
 		
 	}
 
-	public DropDownCellEditor(Table table, IdMap map) {
+	public DropDownCellEditor(Table table, IdMap map, SendableEntityCreator creator) {
 		super(table, new String[]{});
+		this.creator = creator;
 		init(map);
 	}
 	public void init(IdMap map) {
-		this.editField.createControl(EditField.FORMAT_COMBOX, map);
+		this.editField.createControl(EditField.FORMAT_COMBOX, map, creator);		
 	}
 	protected Control createControl(Composite parent) {
 		Control comboBox = super.createControl(parent);
 		editField=new EditField(this, parent);
+		editField.setEditField(comboBox);
         return comboBox;
     }
 	
@@ -56,5 +60,10 @@ public class DropDownCellEditor extends ComboBoxCellEditor implements CellEditor
 	public void onFocusLost() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Object getEditorValue() {
+		return editField.getValue();
 	}
 }

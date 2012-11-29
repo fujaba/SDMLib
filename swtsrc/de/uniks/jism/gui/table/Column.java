@@ -49,6 +49,7 @@ public class Column {
 	private Object item;
 	private int browserId=TableComponent.BROWSER;
 	private String font;
+	private boolean getDropDownListFromMap=false;
 	
 	public Column(){
 		
@@ -284,5 +285,11 @@ public class Column {
 
 	public void setFont(String font) {
 		this.font = font;
+	}
+	public boolean isGetDropDownListFromMap() {
+		return getDropDownListFromMap;
+	}
+	public void setGetDropDownListFromMap(boolean getDropDownListFromMap) {
+		this.getDropDownListFromMap = getDropDownListFromMap;
 	}
 }

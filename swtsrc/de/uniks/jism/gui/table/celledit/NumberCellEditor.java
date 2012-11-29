@@ -32,6 +32,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Text;
 
 public class NumberCellEditor extends TextCellEditor implements CellEditorElement {
 	protected EditField editField;
@@ -87,7 +88,9 @@ public class NumberCellEditor extends TextCellEditor implements CellEditorElemen
 	}
 	
 	protected Control createControl(Composite parent) {
+		Text text=(Text) super.createControl(parent);
 		editField=new EditField(this, parent);
+		editField.setEditField(text);
         return text;
     }
 	
@@ -133,5 +136,10 @@ public class NumberCellEditor extends TextCellEditor implements CellEditorElemen
 	}
 	public void onFocusLost(){
 		focusLost();
+	}
+
+	@Override
+	public Object getEditorValue() {
+		return getValue();
 	}
 }

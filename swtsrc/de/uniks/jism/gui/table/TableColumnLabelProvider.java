@@ -86,7 +86,7 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 			if(creatorClass!=null){
 				Object value=creatorClass.getValue(element, column.getAttrName());
 				if(value!=null){
-					return ""+value;
+					return value.toString();
 				}
 			}
 		}

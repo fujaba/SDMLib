@@ -301,6 +301,16 @@ public class IdMap {
 	public SendableEntityCreator getCreatorClass(Object reference) {
 		return getCreatorClasses(reference.getClass().getName());
 	}
+	public SendableEntityCreator getCreatorClassName(String clazz) {
+		clazz="."+clazz;
+		for(Iterator<Entry<String, SendableEntityCreator>> i = this.creators.entrySet().iterator();i.hasNext();){
+			Entry<String, SendableEntityCreator> entry = i.next();
+			if(entry.getKey().endsWith(clazz)){
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Clone object.

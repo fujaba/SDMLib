@@ -7,4 +7,5 @@ public interface CellEditorElement {
 	public void defaultSelection(SelectionEvent event);
 	public void keyRelease(KeyEvent event);
 	public void onFocusLost();
+	public Object getEditorValue();
 }

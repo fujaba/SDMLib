@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.beans.PropertyChangeEvent;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,9 +38,11 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+import de.uniks.jism.gui.table.celledit.CellEditorElement;
 import de.uniks.jism.gui.table.celledit.DropDownCellEditor;
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.NumberCellEditor;
@@ -67,6 +70,20 @@ public class TableCellEditingSupport extends EditingSupport {
 	protected boolean canEdit(Object arg0) {
 		return column.getEditColumn() != null;
 	}
+	
+	@Override
+	protected void saveCellEditorValue(CellEditor cellEditor, ViewerCell cell) {
+		Object value = null;
+		if(cellEditor instanceof CellEditorElement){
+			value=((CellEditorElement)cellEditor).getEditorValue();
+			setValue(cell.getElement(), value);
+		}else{
+			value = cellEditor.getValue();
+		}
+		if(value!=null){
+			setValue(cell.getElement(), value);
+		}
+	}
 
 	protected CellEditor getCellEditor(Object element) {
 		if(column.getAttrName()!=null){
@@ -75,10 +92,28 @@ public class TableCellEditingSupport extends EditingSupport {
 			if(creatorClass!=null){
 				value = creatorClass.getValue(element, column.getAttrName());
 			}
+			if(value==null && column.isGetDropDownListFromMap()){
+				// Check column
+				String attrName = column.getAttrName();
+				Class<?> classDef=element.getClass();
+		         
+		         try {
+					Method method = classDef.getDeclaredMethod("get"+getFirstUpperCase(attrName));
+					
+					SendableEntityCreator creatorClassName = map.getCreatorClasses(method.getReturnType().getName());
+					if(creatorClassName!=null){
+						return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map, creatorClassName);
+					}
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				}
+			}
 			if(value!=null){
-				SendableEntityCreator itemCreatorClass = map.getCreatorClass(value);
-				if(itemCreatorClass!=null){
-					return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map);
+				SendableEntityCreator creatorClassName = map.getCreatorClass(value);
+				if(creatorClassName!=null){
+					return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map, creatorClassName);
 				}
 				else if(value instanceof Integer){
 					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", EditField.FORMAT_INTEGER);
@@ -88,6 +123,18 @@ public class TableCellEditingSupport extends EditingSupport {
 			}
 		}
 		return new TextCellEditor(((TableViewer) getViewer()).getTable());
+	}
+	
+	public String getFirstUpperCase(String text){
+
+		final StringBuilder result = new StringBuilder(text.length());
+		String[] words = text.split("\\s");
+		for(int i=0,l=words.length;i<l;++i) {
+		  if(i>0) result.append(" ");      
+		  result.append(Character.toUpperCase(words[i].charAt(0)))
+		        .append(words[i].substring(1));
+		}
+		return result.toString();
 	}
 
 	protected Object getValue(Object element) {
