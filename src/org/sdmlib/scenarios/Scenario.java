@@ -85,7 +85,24 @@ public class Scenario
    
    public Scenario()
    {
+      Exception e = new RuntimeException();
       
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      javaTestFileName = "../src/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
+       
+      String methodName = stackTrace[1].getMethodName();
+      
+      if (methodName.startsWith("test"))
+      {
+         methodName = methodName.substring(4);
+      }
+      
+      setName(methodName);
+       
+      steps.add(name);
+       
+       
    }
    
    public Scenario(String rootDir)
