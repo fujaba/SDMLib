@@ -16,6 +16,12 @@ public class CreatorCreator
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
          creatorSet.add(new org.sdmlib.model.classes.test.creators.NoPropertiesCreator());
          creatorSet.add(new org.sdmlib.model.classes.test.creators.NoPropertiesPOCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.ParentCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.ParentPOCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.UncleCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.UnclePOCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.KidCreator());
+         creatorSet.add(new org.sdmlib.model.classes.test.creators.KidPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       

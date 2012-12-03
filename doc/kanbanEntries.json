@@ -51,13 +51,14 @@
         {"id":"KE.L199"},
         {"id":"KE.L202"},
         {"id":"KE.L204"},
-        {"id":"KE.L205"}
+        {"id":"KE.L205"},
+        {"id":"KE.L211"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":16,
-      "hoursSpend":163,
+      "hoursSpend":164,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K11"},
@@ -752,13 +753,14 @@
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
       "logEntries":[
-        {"id":"KE.L210"}
+        {"id":"KE.L210"},
+        {"id":"KE.L212"}
       ],
       "name":"EmptyClass",
-      "phase":"backlog",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
-      "hoursSpend":0,
+      "hoursSpend":1,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -3129,6 +3131,34 @@
       "kanbanEntry":{"id":"KE.K209"},
       "developer":"zuendorf",
       "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L211",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"30.11.2012 22:55:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":16,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"EmptyClass: Achieved: Simple object without properties creates object diagram,  now"
+    }
+  },
+  {
+    "id":"KE.L212",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"30.11.2012 22:55:42",
+      "hoursSpend":1,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K209"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Simple object without properties creates object diagram,  now"
     }
   }
 ]

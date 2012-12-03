@@ -79,32 +79,32 @@ public class ClazzSet extends LinkedHashSet<Clazz>
       return this;
    }
 
-   public ClazzSet getKindClasses()
+   public ClazzSet getKidClasses()
    {
       ClazzSet result = new ClazzSet();
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getKindClasses());
+         result.addAll(obj.getKidClasses());
       }
       
       return result;
    }
-   public ClazzSet withKindClasses(Clazz value)
+   public ClazzSet withKidClasses(Clazz value)
    {
       for (Clazz obj : this)
       {
-         obj.withKindClasses(value);
+         obj.withKidClasses(value);
       }
       
       return this;
    }
 
-   public ClazzSet withoutKindClasses(Clazz value)
+   public ClazzSet withoutKidClasses(Clazz value)
    {
       for (Clazz obj : this)
       {
-         obj.withoutKindClasses(value);
+         obj.withoutKidClasses(value);
       }
       
       return this;
@@ -146,7 +146,7 @@ public class ClazzSet extends LinkedHashSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withKindClassesAsInterface(value);
+         obj.withKidClassesAsInterface(value);
       }
       
       return this;
@@ -156,7 +156,7 @@ public class ClazzSet extends LinkedHashSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutKindClassesAsInterface(value);
+         obj.withoutKidClassesAsInterface(value);
       }
       
       return this;

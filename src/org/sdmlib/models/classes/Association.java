@@ -97,13 +97,26 @@ public class Association implements PropertyChangeInterface
    
    public Association generate(String rootDir, String helperDir, boolean doGenerate)
    {
-  	 // check if no interface
+      // check if no interface
       if (!getSource().getClazz().isInterfaze() && !getTarget().getClazz().isInterfaze())
       {
 	      // open source class and get or insert role implementation
 	      getSource().generate(rootDir, helperDir, getTarget(), doGenerate);
+	      // also for subclasses
+	      for (Clazz kidClass : getSource().getClazz()
+	            .getKidClassesClosure())
+         {
+            getSource().generate(kidClass, rootDir, helperDir, getTarget(), doGenerate, true);
+         }
+	      
 	      // open target class and get or insert role implementation
 	      getTarget().generate(rootDir, helperDir, getSource(), doGenerate);
+	      // also for subclasses
+         for (Clazz kidClass : getTarget().getClazz()
+               .getKidClassesClosure())
+         {
+            getSource().generate(kidClass, rootDir, helperDir, getSource(), doGenerate, true);
+         }
       }
       else
       {

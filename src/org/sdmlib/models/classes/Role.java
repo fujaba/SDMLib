@@ -178,91 +178,100 @@ public class Role implements PropertyChangeInterface
 
    public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
    {
-      if (getClazz().isExternal())
+      generate(getClazz(), rootDir, helperDir, partnerRole, doGenerate, false);
+   }
+   
+   
+   public void generate(Clazz clazz, String rootDir, String helperDir, Role partnerRole, boolean doGenerate, boolean fromSuperClass)
+   {
+      if (clazz.isExternal())
       {
          return;
       }
       
-      Parser myParser = getClazz().getOrCreateParser(rootDir);
+      Parser myParser = clazz.getOrCreateParser(rootDir);
       
-      int pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRole.getName());
-      
-      if (pos < 0)
+      if ( ! fromSuperClass)
       {
-         // add attribute declaration in class file
-         StringBuilder text = new StringBuilder();
-         
+         int pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRole.getName());
+
+         if (pos < 0)
+         {
+            // add attribute declaration in class file
+            StringBuilder text = new StringBuilder();
+
+            if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
+            {
+               generateToManyRole(partnerRole, text);
+               clazz.insertImport(LinkedHashSet.class.getName());
+            }
+            else
+            {
+               generateToOneRole(partnerRole, text);
+            }
+
+            pos = myParser.indexOf(Parser.CLASS_END);
+            myParser.getFileBody().insert(pos, text.toString());
+            clazz.setFileHasChanged(true);
+         }
+
          if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
          {
-            generateToManyRole(partnerRole, text);
-            getClazz().insertImport(LinkedHashSet.class.getName());
+            generateEmptySetInPartnerClass(rootDir, partnerRole, doGenerate);
          }
-         else
-         {
-            generateToOneRole(partnerRole, text);
-         }
-
-         pos = myParser.indexOf(Parser.CLASS_END);
-         myParser.getFileBody().insert(pos, text.toString());
-         getClazz().setFileHasChanged(true);
       }
       
-      if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
-      {
-         generateEmptySetInPartnerClass(rootDir, partnerRole, doGenerate);
-      }
-
-      insertCaseInGenericGet(myParser, partnerRole, rootDir);
+      insertCaseInGenericGet(clazz, myParser, partnerRole, rootDir);
 
       if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
       {
-         insertCaseInGenericSetToMany(myParser, partnerRole, rootDir);
+         insertCaseInGenericSetToMany(clazz, myParser, partnerRole, rootDir);
       }
       else
       {
-         insertCaseInGenericSetToOne(myParser, partnerRole, rootDir);
+         insertCaseInGenericSetToOne(clazz, myParser, partnerRole, rootDir);
       }
       
-      insertRemovalInRemoveYou(myParser, partnerRole);
+      insertRemovalInRemoveYou(clazz, myParser, partnerRole);
       
-      getClazz().printFile(doGenerate);
+      clazz.printFile(doGenerate);
       
       
       // generate property in creator class
 		if (!clazz.isInterfaze())
 		{
-			Parser creatorParser = getClazz().getOrCreateParserForCreatorClass(helperDir);
+			Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helperDir);
 
-			insertPropertyInCreatorClass(creatorParser, partnerRole);
+			insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
-			getClazz().printCreatorFile(doGenerate);
+			clazz.printCreatorFile(doGenerate);
 		}
       
       // generate property in model set class
-      Parser modelSetParser = getClazz().getOrCreateParserForModelSetFile(helperDir);
+      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helperDir);
       
       insertGetterInModelSetFile(modelSetParser, partnerRole);
       insertSetterInModelSetFile(modelSetParser, partnerRole);
       
-      getClazz().printModelSetFile(doGenerate);
+      clazz.printModelSetFile(doGenerate);
 
       // generate property in pattern object class
-      Parser patternObjectParser = getClazz().getOrCreateParserForPatternObjectFile(helperDir);
+      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helperDir);
       
-      insertGetterInPatternObjectFile(patternObjectParser, partnerRole);
+      insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
       
-      getClazz().printPatternObjectFile(doGenerate);
+      clazz.printPatternObjectFile(doGenerate);
 
    }
    
-   private void insertRemovalInRemoveYou(Parser parser, Role partnerRole)
+   private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {
       int pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
       if (pos < 0)
       {
          // ups, did not find generic set method. 
-         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + getClazz().getName() 
+         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName() 
             + ": \nDid not find method removeYou(). Should have been generated by my clazz. " 
             + "\nCould not add required code fragment there. :( ");
 
@@ -289,7 +298,7 @@ public class Role implements PropertyChangeInterface
          
          if (pos < 0)
          {
-            System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + getClazz().getName() 
+            System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName() 
                + ": \nDid not find getPropertyChangeSupport call in method removeYou(). Should have been generated by my clazz. " 
                + "\nCould not add required code fragment there. :( ");
 
@@ -297,7 +306,7 @@ public class Role implements PropertyChangeInterface
          }
          
          parser.getFileBody().insert(pos, fullRemoveCall);
-         getClazz().setFileHasChanged(true);
+         clazz.setFileHasChanged(true);
       }
    }
 
@@ -342,21 +351,21 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setModelSetFileHasChanged(true);
+         clazz.setModelSetFileHasChanged(true);
          
-         getClazz().insertImport(parser, partnerRole.getClazz().getName());
+         clazz.insertImport(parser, partnerRole.getClazz().getName());
       }
    }
 
 
-   private void insertGetterInPatternObjectFile(Parser parser, Role partnerRole)
+   private void insertGetterInPatternObjectFile(Clazz clazz, Parser parser, Role partnerRole)
    {
-      insertHasNoParamInPatternObjectFile(parser, partnerRole);
-      insertHasWithParamInPatternObjectFile(parser, partnerRole);
-      insertGetInPatternObjectFile(parser, partnerRole);
+      insertHasNoParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertHasWithParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertGetInPatternObjectFile(clazz, parser, partnerRole);
    }
 
-   private void insertGetInPatternObjectFile(Parser parser, Role partnerRole)
+   private void insertGetInPatternObjectFile(Clazz clazz, Parser parser, Role partnerRole)
    {
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -374,7 +383,7 @@ public class Role implements PropertyChangeInterface
             "   }\n" +
             "   \n");
 
-         getClazz().insertImport(parser, PatternLink.class.getName());
+         clazz.insertImport(parser, PatternLink.class.getName());
          
          String targetType = partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser);
          
@@ -393,12 +402,12 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setPatternObjectFileHasChanged(true);
+         clazz.setPatternObjectFileHasChanged(true);
       }
    }
 
 
-   private void insertHasNoParamInPatternObjectFile(Parser parser,
+   private void insertHasNoParamInPatternObjectFile(Clazz clazz, Parser parser,
          Role partnerRole)
    {
       String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
@@ -418,7 +427,7 @@ public class Role implements PropertyChangeInterface
             "   }\n" +
             "   \n");
 
-         getClazz().insertImport(parser, PatternLink.class.getName());
+         clazz.insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
          String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
@@ -432,12 +441,12 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setPatternObjectFileHasChanged(true);
+         clazz.setPatternObjectFileHasChanged(true);
       }
    }
 
 
-   private void insertHasWithParamInPatternObjectFile(Parser parser,
+   private void insertHasWithParamInPatternObjectFile(Clazz clazz, Parser parser,
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
@@ -464,10 +473,10 @@ public class Role implements PropertyChangeInterface
             "   }\n" +
             "   \n");
 
-         getClazz().insertImport(parser, LinkConstraint.class.getName());
+         clazz.insertImport(parser, LinkConstraint.class.getName());
          
-         String fullModelPOType = CGUtil.helperClassName(getClazz().getName(), "PO");
-         String modelPOType = getClazz().shortNameAndImport(fullModelPOType, parser);
+         String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
+         String modelPOType = clazz.shortNameAndImport(fullModelPOType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
@@ -479,7 +488,7 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setPatternObjectFileHasChanged(true);
+         clazz.setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -517,9 +526,9 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         getClazz().setModelSetFileHasChanged(true);
+         clazz.setModelSetFileHasChanged(true);
          
-         getClazz().insertImport(parser, partnerRole.getClazz().getName());
+         clazz.insertImport(parser, partnerRole.getClazz().getName());
       }
       
       if (partnerRole.getCard().equals(R.MANY.toString()))
@@ -553,15 +562,15 @@ public class Role implements PropertyChangeInterface
             int classEnd = parser.indexOf(Parser.CLASS_END);
             
             parser.getFileBody().insert(classEnd, text.toString());
-            getClazz().setModelSetFileHasChanged(true);
+            clazz.setModelSetFileHasChanged(true);
             
-            getClazz().insertImport(parser, partnerRole.getClazz().getName());
+            clazz.insertImport(parser, partnerRole.getClazz().getName());
          }
       }
    }
 
 
-   private void insertPropertyInCreatorClass(Parser parser, Role partnerRole)
+   private void insertPropertyInCreatorClass(Clazz clazz, Parser parser, Role partnerRole)
    {
       String key = Parser.ATTRIBUTE + ":properties";
       int pos = parser.indexOf(key);
@@ -569,7 +578,7 @@ public class Role implements PropertyChangeInterface
       if (pos < 0)
       {
          // ups, did not find generic get method. 
-         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for creator class for " + getClazz().getName() 
+         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for creator class for " + clazz.getName() 
             + ": \nDid not find properties field. Should have been generated by my clazz. " 
             + "\nCould not add required code fragment there. :( ");
 
@@ -595,21 +604,21 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
-         getClazz().setCreatorFileHasChanged(true);
+         clazz.setCreatorFileHasChanged(true);
       }
    }
 
 
    
    
-   private void insertCaseInGenericSetToMany(Parser parser, Role partnerRole, String rootDir)
+   private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {   
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       if (pos < 0)
       {
          // ups, did not find generic set method. 
-         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + getClazz().getName() 
+         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName() 
             + ": \nDid not find method set(String,Object). Should have been generated by my clazz. " 
             + "\nCould not add required code fragment there. :( ");
 
@@ -648,7 +657,7 @@ public class Role implements PropertyChangeInterface
                );
 
          String typePlaceholder = "type";
-         String type = CGUtil.shortClassName(partnerRole.getClazz().getName());
+         String type = CGUtil.shortClassName(partnerRole.clazz.getName());
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
@@ -658,14 +667,9 @@ public class Role implements PropertyChangeInterface
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          
-         getClazz().insertImport(JsonIdMap.class.getName());
+         clazz.insertImport(JsonIdMap.class.getName());
          
-         getClazz().setFileHasChanged(true);
-         
-         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-         for (Clazz clazz : kindClasses) {
-        	 createInKindClassesSetToMany(clazz, partnerRole, rootDir);
-		}
+         clazz.setFileHasChanged(true);
       }
    }
 
@@ -730,23 +734,17 @@ public class Role implements PropertyChangeInterface
 	         clazz.insertImport(JsonIdMap.class.getName());
 	         
 	         clazz.setFileHasChanged(true);
-	         
-	         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-	         for (Clazz kindClazz : kindClasses) {
-	        	  createInKindClassesGet(kindClazz, partnerRole, rootDir);
-			 }
-	
 	      }
    }
 
-   private void insertCaseInGenericSetToOne(Parser parser, Role partnerRole, String rootDir)
+   private void insertCaseInGenericSetToOne(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       if (pos < 0)
       {
          // ups, did not find generic set method. 
-         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + getClazz().getName() 
+         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName() 
             + ": \nDid not find method set(String,Object). Should have been generated by my clazz. " 
             + "\nCould not add required code fragment there. :( ");
 
@@ -788,84 +786,19 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
-         
-         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-         for (Clazz clazz : kindClasses) {
-        	 createInKindClassesSetToOne(clazz, partnerRole, rootDir);
-		}
+         clazz.setFileHasChanged(true);
       }
    }
 
 
-   private void createInKindClassesSetToOne(Clazz clazz, Role partnerRole,
-		String rootDir) {
-	   Parser parser = clazz.getOrCreateParser(rootDir);
-	   int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
-
-	      if (pos < 0)
-	      {
-	         // ups, did not find generic set method. 
-	         System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName() 
-	            + ": \nDid not find method set(String,Object). Should have been generated by my clazz. " 
-	            + "\nCould not add required code fragment there. :( ");
-
-	         return;
-	      }
-
-	      // OK, found method, parse its body to find if that handles me. 
-	      int methodBodyStartPos = parser.getMethodBodyStartPos();
-	      
-	      pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
-
-	      if (pos < 0)
-	      {         
-	         // need to add if block to generic set method
-	         parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-	         
-	         int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
-	         if (lastIfEndPos - 2  < 0)
-	         {
-	            lastIfEndPos = methodBodyStartPos + 1;
-	         }
-	         
-	         StringBuilder text = new StringBuilder
-	            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
-	               "\n      {" +
-	               "\n         setPropertyName((type) value);" +
-	               "\n         return true;" +
-	               "\n      }" +
-	               "\n" 
-	               );
-
-	         String typePlaceholder = "type";
-	         String type = CGUtil.shortClassName(partnerRole.getClazz().getName());
-
-	         CGUtil.replaceAll(text, 
-	            typePlaceholder, type, 
-	            "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
-	            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
-	            );
-
-	         parser.getFileBody().insert(lastIfEndPos, text.toString());
-	         clazz.setFileHasChanged(true);
-	         
-	         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-	         for (Clazz kindClazz : kindClasses) {
-	        	  createInKindClassesGet(kindClazz, partnerRole, rootDir);
-			 }
-	      }
-	
-   }
-
-   private void insertCaseInGenericGet(Parser parser, Role partnerRole, String rootDir)
+   private void insertCaseInGenericGet(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
       int pos = parser.indexOf(Parser.METHOD + ":get(String)");
 
       if (pos < 0)
       {
          // ups, did not find generic get method. 
-         System.err.println("Warning: SDMLib codgen for role" + partnerRole.getName() + " in class " + getClazz().getName() 
+         System.err.println("Warning: SDMLib codgen for role" + partnerRole.getName() + " in class " + clazz.getName() 
             + ": \nDid not find method get(String). Should have been generated by the clazz. " 
             + "\nCould not add required code fragment there. :( ");
 
@@ -902,73 +835,11 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
-         
-         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-         for (Clazz clazz : kindClasses) {
-        	  createInKindClassesGet(clazz, partnerRole, rootDir);
-		}
+         clazz.setFileHasChanged(true);         
       }
    }
 
    
-
-
-   private void createInKindClassesGet(Clazz clazz, Role partnerRole, String rootDir) {
-	  
-	      Parser parser = clazz.getOrCreateParser(rootDir);
-	   	  int pos = parser.indexOf(Parser.METHOD + ":get(String)");
-
-	      if (pos < 0)
-	      {
-	         // ups, did not find generic get method. 
-	         System.err.println("Warning: SDMLib codgen for role" + partnerRole.getName() + " in class " + getClazz().getName() 
-	            + ": \nDid not find method get(String). Should have been generated by the clazz. " 
-	            + "\nCould not add required code fragment there. :( ");
-
-	         return;
-	      }
-
-	      // OK, found method, parse its body to find if that handles me. 
-	      int methodBodyStartPos = parser.getMethodBodyStartPos();
-	      
-	      pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
-
-	      if (pos < 0)
-	      {         
-	         // need to add if block to generic get method
-	         parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-	         
-	         int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
-	         if (lastIfEndPos - 2  < 0)
-	         {
-	            lastIfEndPos = methodBodyStartPos + 1;
-	         }
-	         
-	         StringBuilder text = new StringBuilder
-	            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
-	               "\n      {" +
-	               "\n         return getPropertyName();" +
-	               "\n      }" +
-	               "\n" 
-	               );
-
-	         CGUtil.replaceAll(text, 
-	            "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
-	            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
-	            );
-
-	         parser.getFileBody().insert(lastIfEndPos, text.toString());
-	         getClazz().setFileHasChanged(true);
-	         
-	         LinkedHashSet<Clazz> kindClasses = clazz.getKindClasses();
-	         for (Clazz kindClazz : kindClasses) {
-	        	  createInKindClassesGet(kindClazz, partnerRole, rootDir);
-			 }
-	      }
-	
-	}
-
 	private void generateEmptySetInPartnerClass(String rootDir, Role partnerRole, boolean doGenerate)
    {
       // generate EMPTY_SET in partner class

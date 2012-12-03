@@ -124,20 +124,20 @@ public class ClazzPO extends PatternObject
       return null;
    }
    
-   public ClazzPO hasKindClasses()
+   public ClazzPO hasKidClasses()
    {
       ClazzPO result = new ClazzPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(Clazz.PROPERTY_KINDCLASSES, result);
+      super.hasLink(Clazz.PROPERTY_KIDCLASSES, result);
       
       return result;
    }
    
-   public ClazzPO hasKindClasses(ClazzPO tgt)
+   public ClazzPO hasKidClasses(ClazzPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KINDCLASSES)
+      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSES)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -148,11 +148,11 @@ public class ClazzPO extends PatternObject
       return this;
    }
    
-   public ClazzSet getKindClasses()
+   public ClazzSet getKidClasses()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClazzSet) this.getCurrentMatch()).getKindClasses();
+         return ((ClazzSet) this.getCurrentMatch()).getKidClasses();
       }
       return null;
    }
@@ -195,7 +195,7 @@ public class ClazzPO extends PatternObject
       ClazzPO result = new ClazzPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(Clazz.PROPERTY_KINDCLASSESASINTERFACE, result);
+      super.hasLink(Clazz.PROPERTY_KIDCLASSESASINTERFACE, result);
       
       return result;
    }
@@ -203,7 +203,7 @@ public class ClazzPO extends PatternObject
    public ClazzPO hasKindClassesAsInterface(ClazzPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KINDCLASSESASINTERFACE)
+      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSESASINTERFACE)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       

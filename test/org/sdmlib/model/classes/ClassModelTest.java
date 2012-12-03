@@ -66,11 +66,11 @@ public class ClassModelTest
       
       new Association()
       .withSource("superClass", clazzClass, ONE)
-      .withTarget("kindClasses", clazzClass, MANY);
+      .withTarget("kidClasses", clazzClass, MANY);
       
       new Association()
       .withSource("interfaces", clazzClass, MANY)
-      .withTarget("kindClassesAsInterface", clazzClass, MANY);     
+      .withTarget("kidClassesAsInterface", clazzClass, MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
       .withAttribute("initialization", STRING);

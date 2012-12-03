@@ -130,7 +130,7 @@ public class Clazz implements PropertyChangeInterface
    public Clazz withSuperClass(Clazz superClass)
    {
       setSuperClass(superClass);
-      superClass.addToKindClasses(this);
+      superClass.addToKidClasses(this);
       return this;
    }
 
@@ -1682,9 +1682,9 @@ public class Clazz implements PropertyChangeInterface
          return getTargetRoles();
       }
 
-      if (PROPERTY_KINDCLASSES.equalsIgnoreCase(attrName))
+      if (PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
       {
-         return getKindClasses();
+         return getKidClasses();
       }
 
       if (PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
@@ -1697,7 +1697,7 @@ public class Clazz implements PropertyChangeInterface
          return isInterfaze();
       }
 
-      if (PROPERTY_KINDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
+      if (PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
       {
          return getKindClassesAsInterface();
       }
@@ -1797,15 +1797,15 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_KINDCLASSES.equalsIgnoreCase(attrName))
+      if (PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
       {
-         addToKindClasses((Clazz) value);
+         addToKidClasses((Clazz) value);
          return true;
       }
 
-      if ((PROPERTY_KINDCLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_KIDCLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         removeFromKindClasses((Clazz) value);
+         removeFromKidClasses((Clazz) value);
          return true;
       }
 
@@ -1821,15 +1821,15 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_KINDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
+      if (PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
       {
-         addToKindClassesAsInterface((Clazz) value);
+         addToKidClassesAsInterface((Clazz) value);
          return true;
       }
 
-      if ((PROPERTY_KINDCLASSESASINTERFACE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_KIDCLASSESASINTERFACE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         removeFromKindClassesAsInterface((Clazz) value);
+         removeFromKidClassesAsInterface((Clazz) value);
          return true;
       }
 
@@ -1985,9 +1985,9 @@ public class Clazz implements PropertyChangeInterface
       removeAllFromMethods();
       removeAllFromSourceRoles();
       removeAllFromTargetRoles();
-      removeAllFromKindClasses();
+      removeAllFromKidClasses();
       setSuperClass(null);
-      removeAllFromKindClassesAsInterface();
+      removeAllFromKidClassesAsInterface();
       removeAllFromInterfaces();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -2002,84 +2002,84 @@ public class Clazz implements PropertyChangeInterface
     * <pre>
     *              one                       many
     * Clazz ----------------------------------- Clazz
-    *              superClass                   kindClasses
+    *              superClass                   kidClasses
     * </pre>
     */
 
-   public static final String PROPERTY_KINDCLASSES = "kindClasses";
+   public static final String PROPERTY_KIDCLASSES = "kidClasses";
 
-   private ClazzSet kindClasses = null;
+   private ClazzSet kidClasses = null;
 
-   public ClazzSet getKindClasses()
+   public ClazzSet getKidClasses()
    {
-      if (this.kindClasses == null)
+      if (this.kidClasses == null)
       {
          return Clazz.EMPTY_SET;
       }
 
-      return this.kindClasses;
+      return this.kidClasses;
    }
 
-   public boolean addToKindClasses(Clazz value)
+   public boolean addToKidClasses(Clazz value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.kindClasses == null)
+         if (this.kidClasses == null)
          {
-            this.kindClasses = new ClazzSet();
+            this.kidClasses = new ClazzSet();
          }
 
-         changed = this.kindClasses.add (value);
+         changed = this.kidClasses.add (value);
 
          if (changed)
          {
             value.withSuperClass(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSES, null, value);
          }
       }
 
       return changed;   
    }
 
-   public boolean removeFromKindClasses(Clazz value)
+   public boolean removeFromKidClasses(Clazz value)
    {
       boolean changed = false;
 
-      if ((this.kindClasses != null) && (value != null))
+      if ((this.kidClasses != null) && (value != null))
       {
-         changed = this.kindClasses.remove (value);
+         changed = this.kidClasses.remove (value);
 
          if (changed)
          {
             value.setSuperClass(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSES, value, null);
          }
       }
 
       return changed;   
    }
 
-   public Clazz withKindClasses(Clazz value)
+   public Clazz withKidClasses(Clazz value)
    {
-      addToKindClasses(value);
+      addToKidClasses(value);
       return this;
    } 
 
-   public Clazz withoutKindClasses(Clazz value)
+   public Clazz withoutKidClasses(Clazz value)
    {
-      removeFromKindClasses(value);
+      removeFromKidClasses(value);
       return this;
    } 
 
-   public void removeAllFromKindClasses()
+   public void removeAllFromKidClasses()
    {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKindClasses());
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidClasses());
 
       for (Clazz value : tmpSet)
       {
-         this.removeFromKindClasses(value);
+         this.removeFromKidClasses(value);
       }
    }
 
@@ -2120,80 +2120,80 @@ public class Clazz implements PropertyChangeInterface
     * </pre>
     */
 
-   public static final String PROPERTY_KINDCLASSESASINTERFACE = "kindClassesAsInterface";
+   public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
 
-   private LinkedHashSet<Clazz> kindClassesAsInterface = null;
+   private LinkedHashSet<Clazz> kidClassesAsInterface = null;
 
    public LinkedHashSet<Clazz> getKindClassesAsInterface()
    {
-      if (this.kindClassesAsInterface == null)
+      if (this.kidClassesAsInterface == null)
       {
          return Clazz.EMPTY_SET;
       }
 
-      return this.kindClassesAsInterface;
+      return this.kidClassesAsInterface;
    }
 
-   public boolean addToKindClassesAsInterface(Clazz value)
+   public boolean addToKidClassesAsInterface(Clazz value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.kindClassesAsInterface == null)
+         if (this.kidClassesAsInterface == null)
          {
-            this.kindClassesAsInterface = new LinkedHashSet<Clazz>();
+            this.kidClassesAsInterface = new LinkedHashSet<Clazz>();
          }
 
-         changed = this.kindClassesAsInterface.add (value);
+         changed = this.kidClassesAsInterface.add (value);
 
          if (changed)
          {
             value.withInterfaces(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSESASINTERFACE, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSESASINTERFACE, null, value);
          }
       }
 
       return changed;   
    }
 
-   public boolean removeFromKindClassesAsInterface(Clazz value)
+   public boolean removeFromKidClassesAsInterface(Clazz value)
    {
       boolean changed = false;
 
-      if ((this.kindClassesAsInterface != null) && (value != null))
+      if ((this.kidClassesAsInterface != null) && (value != null))
       {
-         changed = this.kindClassesAsInterface.remove (value);
+         changed = this.kidClassesAsInterface.remove (value);
 
          if (changed)
          {
             value.withoutInterfaces(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KINDCLASSESASINTERFACE, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSESASINTERFACE, value, null);
          }
       }
 
       return changed;   
    }
 
-   public Clazz withKindClassesAsInterface(Clazz value)
+   public Clazz withKidClassesAsInterface(Clazz value)
    {
-      addToKindClassesAsInterface(value);
+      addToKidClassesAsInterface(value);
       return this;
    } 
 
-   public Clazz withoutKindClassesAsInterface(Clazz value)
+   public Clazz withoutKidClassesAsInterface(Clazz value)
    {
-      removeFromKindClassesAsInterface(value);
+      removeFromKidClassesAsInterface(value);
       return this;
    } 
 
-   public void removeAllFromKindClassesAsInterface()
+   public void removeAllFromKidClassesAsInterface()
    {
       LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getInterfaces());
 
       for (Clazz value : tmpSet)
       {
-         this.removeFromKindClassesAsInterface(value);
+         this.removeFromKidClassesAsInterface(value);
       }
    }
 
@@ -2234,7 +2234,7 @@ public class Clazz implements PropertyChangeInterface
 
          if (changed)
          {
-            value.withKindClassesAsInterface(this);
+            value.withKidClassesAsInterface(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, null, value);
          }
       }
@@ -2252,7 +2252,7 @@ public class Clazz implements PropertyChangeInterface
 
          if (changed)
          {
-            value.withoutKindClassesAsInterface(this);
+            value.withoutKidClassesAsInterface(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, value, null);
          }
       }
@@ -2263,7 +2263,7 @@ public class Clazz implements PropertyChangeInterface
    public Clazz withInterfaces(Clazz value)
    {
       addToInterfaces(value);
-      value.addToKindClassesAsInterface(this);
+      value.addToKidClassesAsInterface(this);
       return this;
    } 
 
@@ -2460,6 +2460,24 @@ public class Clazz implements PropertyChangeInterface
       }
       
       return this;
+   }
+
+   public ClazzSet getKidClassesClosure()
+   {
+      ClazzSet result = this.getKidClasses();
+      
+      int oldSize = 0;
+      
+      int newSize = result.size();
+      
+      while (newSize > oldSize)
+      {
+         result.addAll(result.getKidClasses());
+         oldSize = newSize;
+         newSize = result.size();
+      }
+      
+      return result;
    } 
 }
 
