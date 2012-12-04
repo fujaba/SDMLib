@@ -770,7 +770,15 @@ public class ClassModel implements PropertyChangeInterface
             {
                if (qualifiedName.startsWith("value.with"))
                {
-                  handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName);
+                  handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.with".length()));
+               }
+               else if (qualifiedName.startsWith("value.set"))
+               {
+                  handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.set".length()));
+               }
+               else if (qualifiedName.startsWith("value.addTo"))
+               {
+                  handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.addTo".length()));
                }
             }
          }
@@ -809,9 +817,8 @@ public class ClassModel implements PropertyChangeInterface
       return null;
    }
 
-   private void handleAssoc(Clazz clazz, String rootDir, String memberName, R card, String partnerClassName, Clazz partnerClass, String qName)
+   private void handleAssoc(Clazz clazz, String rootDir, String memberName, R card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
    {
-      String partnerAttrName = qName.substring("value.with".length());
       partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
       Parser partnerParser = partnerClass.getOrCreateParser(rootDir); 
       String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
