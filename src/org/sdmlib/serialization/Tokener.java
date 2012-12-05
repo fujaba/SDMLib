@@ -460,38 +460,44 @@ public abstract class Tokener {
     }
     
     /**
-     * Substring.
-     *
-     * @param start the start
-     * @param end the end
-     * @return the string
+     * @param positions first is start Position,  second is Endposition
+     * 
+     * start>0	StartPosition
+     * end>0	EndPosition
+     * 
+     * Start -Max - MAX Relativ Position from this.index
+     * end=0		Is this index or start
+     * 
+     * @return substring from buffer
      */
-    public String substring(int start, int end){
-    	if(end==-1){
-    		return this.buffer.substring(start);
+    public String substring(int... positions){
+    	int start=positions[0],end=-1;
+    	if(positions.length<2){
+    		if(start>0){
+	    		// END IS END OF BUFFER (Exclude)
+	    		end=buffer.length();
+    		}
+    	}else{
+    		end=positions[1];
     	}
-    	return this.buffer.substring(start, end);
-    }
-    
-    
-    public String substringRelative(int start, int end, boolean realtive){
-    	//FIXME
-    	if(!realtive){
-        	if(end==-1){
-        		return this.buffer.substring(start);
-        	}
-        	return this.buffer.substring(start, end);
-    	}
-		if (end == -1) {
-			end = this.buffer.length() - this.index;
-		} else if (this.index + end < 0 || end == 0) {
-			return "";
-		} else if (this.index + end > this.buffer.length()) {
-			end = this.buffer.length() - this.index;
+		if(end<1){
+			if(start<0){
+				end=this.index;
+				start=this.index+start;
+			}else{
+				end=start;
+				start=this.index;
+			}
 		}
+    	if ( start <= 0 || end <= 0 ) {
+    		return "";
+    	}
+    	else if (this.index + end > this.buffer.length()) {
+ 			end = this.buffer.length();
+ 		}
 
-		return this.buffer.substring(start, end);
-	}
+ 		return this.buffer.substring(start, end);
+    }
     
     /**
      * Check values.

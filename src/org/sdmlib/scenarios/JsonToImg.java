@@ -132,8 +132,11 @@ public class JsonToImg
          nodeLine = nodeLine.replaceAll("<classname>", className);
          
          // go through attributes
-         
-         jsonObject = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+         if(jsonObject.has(JsonIdMap.JSON_PROPS)){
+        	 jsonObject = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+         }else{
+        	 jsonObject=new JsonObject();
+         }
          
          String attrText = "<tr><td><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
          boolean addAttrText = false;

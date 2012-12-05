@@ -207,16 +207,11 @@ public class JsonObject extends Entity{
      */
     public JsonObject getJsonObject(String key) {
         Object object = this.get(key);
-        if (object instanceof JsonObject) 
-        {
+        if (object instanceof JsonObject) {
             return (JsonObject)object;
         }
-        else 
-        {
-           return new JsonObject();
-        }
-        //        throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-        //                "] is not a JsonObject.");
+        throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
+                "] is not a JsonObject.");
     }
 
     /**
