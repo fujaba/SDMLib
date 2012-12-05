@@ -100,4 +100,10 @@ public class SDMLibSearchTableComponent extends SearchTableComponent{
 	      
 	      this.finishDataBinding(root, property, propList.concat(","));
 	   }
+
+	 @Override
+	 public void addUpdateListener(Object list){
+		 new SDMLibUpdateSearchList(this, list);
+	 }
+
 }

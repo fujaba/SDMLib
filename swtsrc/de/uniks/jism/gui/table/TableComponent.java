@@ -381,9 +381,14 @@ public class TableComponent extends Composite implements Listener,
 		
 		this.property = property;
 		
-		new UpdateSearchList(this, source);
+		addUpdateListener(source);
 		return true;
 	}
+
+	public void addUpdateListener(Object list){
+		new UpdateSearchList(this, list);
+	}
+
 	public String getProperty(){
 		return property;
 	}

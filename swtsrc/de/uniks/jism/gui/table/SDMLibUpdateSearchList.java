@@ -27,25 +27,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.utils.PropertyChangeInterface;
 
-public class UpdateSearchList implements PropertyChangeListener {
-	protected TableComponent tableComponent;
-	protected boolean isListener;
-
-	public UpdateSearchList(TableComponent tableComponent, Object list){
-		this.tableComponent = tableComponent;
-		if (list instanceof PropertyChangeClient) {
-			((PropertyChangeClient) list).addPropertyChangeListener(this);
-			isListener=true;
+public class SDMLibUpdateSearchList extends UpdateSearchList{
+	public SDMLibUpdateSearchList(TableComponent tableComponent, Object list){
+		super(tableComponent, list);
+		if(!isListener){
+			if(list instanceof PropertyChangeInterface){
+				((PropertyChangeInterface) list).getPropertyChangeSupport().addPropertyChangeListener(this);
+				isListener=true;
+			}
 		}
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		tableComponent.propertyChange(evt);
 	}
 }
