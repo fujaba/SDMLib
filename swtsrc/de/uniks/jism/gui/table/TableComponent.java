@@ -1,5 +1,4 @@
 package de.uniks.jism.gui.table;
-
 /*
  Copyright (c) 2012, Stefan Lindel
  All rights reserved.
@@ -177,7 +176,10 @@ public class TableComponent extends Composite implements Listener,
 			}
 		}
 	}
-	
+
+	public boolean setTableCountField(Column column){
+		return tableFilterView.setTableCountField(column);
+	}
 	
 	public void clearColumns(int browser){
 		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
