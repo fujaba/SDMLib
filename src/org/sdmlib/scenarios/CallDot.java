@@ -34,8 +34,13 @@ public class CallDot {
 	      }
 	      try {
 	    	  writeToFile(imgName, dotContent);
-	    	  Process child = Runtime.getRuntime().exec(command);
-	    	  child.waitFor();
+	    	  ProcessBuilder processBuilder =  new ProcessBuilder(command);
+	    	  processBuilder.redirectErrorStream(true);
+	    	  Process child = processBuilder.start();
+	    	  int returnValue = child.waitFor();
+	    	  if (returnValue != 0 ) {
+				System.err.println("execute dot failed");
+	    	  }
 	      } catch (Exception e) {
 	    	  e.printStackTrace();
 	      }
