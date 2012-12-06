@@ -1,4 +1,5 @@
 package de.uniks.jism.gui.table;
+
 /*
  Copyright (c) 2012, Stefan Lindel
  All rights reserved.
@@ -40,7 +41,6 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Point;
@@ -56,21 +56,16 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-import swing2swt.layout.BorderLayout;
+import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
+import de.uniks.jism.gui.layout.BorderLayout;
 
 public class TableComponent extends Composite implements Listener,
 		PropertyChangeListener {
-	public static final int ALL = 0;
-	public static final int FIXEDBROWSERLEFT = 1;
-	public static final int BROWSER = 2;
-	public static final int FIXEDBROWSERRIGHT = 3;
-	private Text searchText;
 	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	private Cursor defaultCursor = new Cursor(Display.getDefault(),
 			SWT.CURSOR_ARROW);
@@ -92,56 +87,60 @@ public class TableComponent extends Composite implements Listener,
 	protected SendableEntityCreator sourceCreator;
 	protected int additionKey;
 	protected IdMap map;
-	
-	
-	public static final String EMPTYCOLUMN = "empty";
 	protected TableFilterView tableFilterView;
+	private Menu headerMenu;
 
 	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
-		
-		if (map != null)
-		{
-		   this.map=map;
-		   this.map.addCreator(new TableListCreator());
+
+		if (map != null) {
+			this.map = map;
+			this.map.addCreator(new TableListCreator());
 		}
 
 		createContent();
 	}
 
-	public TableComponent(Composite parent, int style)
-   {
-	   super(parent, style);
-   }
+	public TableComponent(Composite parent, int style) {
+		super(parent, style);
+	}
 
-   public void createContent() {
+	public void createContent() {
 		tableComposite = new Composite(this, SWT.NONE | SWT.FILL);
-		tableComposite.setLayoutData(BorderLayout.CENTER);
+		tableComposite.setLayoutData(GUIPosition.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
-		
+
 		this.list = new TableList();
 		this.list.addPropertyChangeListener(this);
 		this.list.setIdMap(map);
-		
 
-		tableViewer = new TableViewer(tableComposite, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
-		tableViewer.setLabelProvider(new TableLabelProvider());
 		tableFilterView = new TableFilterView(this, map);
-		tableViewer.setFilters(new ViewerFilter[] {tableFilterView});
-		tableViewer.setContentProvider(new TableContentProvider(list));
-		//FIXME
-		
-		
-		Table table = tableViewer.getTable();
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
-		
-		Menu headerMenu = new Menu(getShell(), SWT.POP_UP);
+
+		headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
 		columnsMenue.setText("Columns");
 		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
 		columnsMenue.setMenu(mnuColumns);
 
+		tableViewer = createBrowser(GUIPosition.CENTER);
+
+		setLayout(new BorderLayout(0, 0));
+	}
+
+	protected TableViewer createBrowser(String browserId) {
+		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION;
+		if (!browserId.equals(GUIPosition.CENTER)) {
+			flags = flags | SWT.NO_SCROLL | SWT.FILL;
+		}
+		TableViewer tableViewer = new TableViewer(tableComposite, flags);
+		tableViewer.setLabelProvider(new TableLabelProvider());
+		tableViewer.setFilters(new ViewerFilter[] { tableFilterView });
+
+		tableViewer.setContentProvider(new TableContentProvider(list));
+
+		Table table = tableViewer.getTable();
+		table.setLinesVisible(true);
+		table.setHeaderVisible(true);
 		table.setMenu(headerMenu);
 
 		table.addListener(SWT.KeyDown, this);
@@ -149,80 +148,86 @@ public class TableComponent extends Composite implements Listener,
 		table.addListener(SWT.MouseUp, this);
 		table.addListener(SWT.MouseExit, this);
 
-		setLayout(new BorderLayout(0, 0));
+		table.setLayoutData(browserId);
+
+		return tableViewer;
 	}
 
 	public void addColumn(Column column) {
-		if (column.getBrowserId() == FIXEDBROWSERLEFT) {
+		if (column.getBrowserId().equals(GUIPosition.WEST)) {
 			setVisibleFixedColumns(true);
 		}
 		this.columns.add(new TableColumnView(this, column, mnuColumns, map));
 		if (column.getAltAttribute() != null) {
 			if (!isToolTip) {
 				isToolTip = true;
-				if(fixedTableViewerLeft!=null){
+				if (fixedTableViewerLeft != null) {
 					ColumnViewerToolTipSupport.enableFor(fixedTableViewerLeft,
 							ToolTip.NO_RECREATE);
 				}
 			}
 		}
 	}
-	
+
 	public void removeColumn(Column column) {
-		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
-		for(TableColumnView item : array){
-			if(item.getColumn().equals(column)){
+		TableColumnView[] array = this.columns
+				.toArray(new TableColumnView[this.columns.size()]);
+		for (TableColumnView item : array) {
+			if (item.getColumn().equals(column)) {
 				removeColumn(item);
 			}
 		}
 	}
 
-	public boolean setTableCountField(Column column){
-		return tableFilterView.setTableCountField(column);
+	public boolean setCounterField(Column column) {
+		return tableFilterView.setCounterField(column);
 	}
-	
-	public void clearColumns(int browser){
-		TableColumnView[] array = this.columns.toArray(new TableColumnView[this.columns.size()]);
-		
-		for(TableColumnView item : array){
-			if(browser==ALL||browser==item.getColumn().getBrowserId()){
+
+	public void clearColumns(String browser) {
+		TableColumnView[] array = this.columns
+				.toArray(new TableColumnView[this.columns.size()]);
+
+		for (TableColumnView item : array) {
+			if (browser.equals(GUIPosition.ALL)
+					|| browser.equals(item.getColumn().getBrowserId())) {
 				removeColumn(item);
 			}
 		}
 		refresh();
 	}
-	
+
 	public TableColumnView getColumn(Column column) {
-		if(column!=null){
-			for(Iterator<TableColumnView> i=this.columns.iterator();i.hasNext();){
+		if (column != null) {
+			for (Iterator<TableColumnView> i = this.columns.iterator(); i
+					.hasNext();) {
 				TableColumnView item = i.next();
-				if(item.getColumn().equals(column)){
+				if (item.getColumn().equals(column)) {
 					return item;
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	public void removeColumn(TableColumnView column) {
-		if(this.columns.remove(column)){
+		if (this.columns.remove(column)) {
 			column.disposeColumn();
 			onResizeColumn(column);
 		}
 	}
 
-	public TableViewer getBrowserView(int browser) {
-		if (browser == FIXEDBROWSERLEFT) {
+	public TableViewer getBrowserView(String browserId) {
+		if (browserId.equals(GUIPosition.WEST)) {
 			return fixedTableViewerLeft;
 		} else {
 			return tableViewer;
 		}
 	}
-	
+
 	public void setVisibleFixedColumns(boolean visible) {
 		if (fixedTableViewerLeft != null && !visible) {
 			for (TableColumnView item : columns) {
-				if (item.getColumn().getBrowserId() == FIXEDBROWSERLEFT) {
+				if (item.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 					item.setVisible(false);
 				}
 			}
@@ -230,48 +235,39 @@ public class TableComponent extends Composite implements Listener,
 			fixedTableViewerLeft.getTable().dispose();
 			fixedTableViewerLeft = null;
 		} else if (fixedTableViewerLeft == null && visible) {
-			fixedTableViewerLeft = new TableViewer(tableComposite, SWT.BORDER
-					| SWT.FULL_SELECTION | SWT.MULTI | SWT.NO_SCROLL | SWT.FILL);
-			Table table_fixedElements = fixedTableViewerLeft.getTable();
-			table_fixedElements.setLayoutData(BorderLayout.WEST);
-			table_fixedElements.setHeaderVisible(true);
-			table_fixedElements.setLinesVisible(true);
+			fixedTableViewerLeft = createBrowser(GUIPosition.WEST);
+
 			tableSyncronizer = new TableSyncronizer(this,
 					fixedTableViewerLeft.getTable(), tableViewer.getTable());
 			tableViewer.getTable().addMouseWheelListener(tableSyncronizer);
 			tableViewer.getTable().addListener(SWT.Selection, tableSyncronizer);
-			if(tableViewer.getTable().getVerticalBar()!=null){
-			tableViewer.getTable().getVerticalBar()
-					.addListener(SWT.Selection, tableSyncronizer);
+			if (tableViewer.getTable().getVerticalBar() != null) {
+				tableViewer.getTable().getVerticalBar()
+						.addListener(SWT.Selection, tableSyncronizer);
 			}
+
 			for (TableColumnView item : columns) {
-				if (item.getColumn().getBrowserId() == FIXEDBROWSERLEFT) {
+				if (item.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 					item.setVisible(true);
 				}
 			}
 		}
 	}
-	
-	public void createFromCreator(SendableEntityCreator creator){
+
+	public void createFromCreator(SendableEntityCreator creator) {
 		createFromCreator(creator, false);
-		
-	}
-	public void createFromCreator(SendableEntityCreator creator, boolean edit){
-		String[] properties = creator.getProperties();
-		Object prototyp = creator.getSendableInstance(true);
-		for(String property : properties){
-			Object value = creator.getValue(prototyp, property);
-			if(!(value instanceof Collection<?>)){
-				System.out.println(property);
-				Column column = new Column(property, edit);
-				column.setGetDropDownListFromMap(true);
-				addColumn(column);
-			}
-		}
+
 	}
 
-	public void setKeyListener(KeyListener listener) {
-		searchText.addKeyListener(listener);
+	public void createFromCreator(SendableEntityCreator creator, boolean edit) {
+		String[] properties = creator.getProperties();
+		Object prototyp = creator.getSendableInstance(true);
+		for (String property : properties) {
+			Object value = creator.getValue(prototyp, property);
+			if (!(value instanceof Collection<?>)) {
+				addColumn(new Column(property, edit, true));
+			}
+		}
 	}
 
 	public void addControl(Control control) {
@@ -279,37 +275,16 @@ public class TableComponent extends Composite implements Listener,
 				3, 1));
 	}
 
-	public boolean finish(TableViewer viewer, int browserid) {
-		ArrayList<String> items = new ArrayList<String>();
-		for (TableColumnView view : columns) {
-			if (view.getColumn().getBrowserId() == browserid) {
-				if (view.getColumn().getAttrName() != null) {
-					items.add(view.getColumn().getAttrName());
-				} else if (view.getColumn().getItem() != null) {
-					items.add(EMPTYCOLUMN);
-				}
-			}
-		}
-		return true;
-	}
-
 	public void refresh(Object object) {
 		ArrayList<String> refreshColumns = new ArrayList<String>();
 		for (TableColumnView tableColumnView : columns) {
 			refreshColumns.add(tableColumnView.getColumn().getAttrName());
 		}
-		refresh(object, refreshColumns.toArray(new String[refreshColumns.size()]));
+		refresh(object,
+				refreshColumns.toArray(new String[refreshColumns.size()]));
 	}
+
 	public void refresh(Object object, String[] columns) {
-//		if(!(object instanceof TableItem)){
-//			TableItem[] children = tableViewer.getTable().getItems();
-//			for(TableItem row : children) {
-//				if(row.getData()==object){
-//					object=row;
-//					break;
-//				}
-//			}
-//		}
 		if (fixedTableViewerLeft != null) {
 			fixedTableViewerLeft.update(object, columns);
 		}
@@ -319,88 +294,88 @@ public class TableComponent extends Composite implements Listener,
 
 	}
 
-	public void addNewItem(Object item) {
+	public void addItem(Object item) {
 		if (!list.contains(item)) {
 			if (tableFilterView.matchesSearchCriteria(item)) {
 				list.add(item);
+				tableFilterView.refreshCounter();
 			}
 		}
 	}
-	
+
+	public void removeItem(Object item) {
+		if (list.contains(item)) {
+			list.set(property + IdMap.REMOVE, item);
+			sourceCreator.setValue(source, property, item, IdMap.REMOVE);
+			tableFilterView.refreshCounter();
+		}
+	}
+
 	public void refresh() {
 		if (fixedTableViewerLeft != null) {
 			fixedTableViewerLeft.refresh();
 		}
 		tableViewer.refresh();
-		if(list!=null){
+		if (list != null) {
 			Object listValue = list.getItems();
 			if (listValue instanceof Collection<?>) {
 				Collection<?> listItems = (Collection<?>) listValue;
-				Object[] array = listItems.toArray(new Object[listItems.size()]);
-				for(int z=0;z<array.length;z++){
-					propertyChange(new PropertyChangeEvent(list, TableList.PROPERTY_ITEMS,
-							null, array[z]));
+				Object[] array = listItems
+						.toArray(new Object[listItems.size()]);
+				for (int z = 0; z < array.length; z++) {
+					propertyChange(new PropertyChangeEvent(list,
+							TableList.PROPERTY_ITEMS, null, array[z]));
 				}
 			}
 		}
-		System.out.println("TABLEVIEWER COUNT: "+tableViewer.getTable().getItemCount());
+		this.tableFilterView.refreshCounter();
 	}
+
 	public void refreshViewer() {
 		if (fixedTableViewerLeft != null) {
 			fixedTableViewerLeft.refresh();
 		}
 		tableViewer.refresh();
+
 	}
-	public boolean finishDataBinding(TableList item, String searchProperties) {
-		return finishDataBinding(item, TableList.PROPERTY_ITEMS, searchProperties);
+
+	public boolean finishDataBinding(TableList item) {
+		return finishDataBinding(item, TableList.PROPERTY_ITEMS);
 	}
 
 	public boolean finishDataBinding(Object item, String property) {
-		return finishDataBinding(item, property,null);
-	}
-	public boolean finishDataBinding(Object item, String property,
-			String searchProperties) {
 
-		this.source=item;
-		this.sourceCreator=map.getCreatorClass(source);
-
-		
-		if (fixedTableViewerLeft != null) {
-			finish(fixedTableViewerLeft, FIXEDBROWSERLEFT);
-		}
-
-		finish(tableViewer, BROWSER);
-		
-		//Copy all Elements to TableList
-		Collection<?> collection=(Collection<?>) sourceCreator.getValue(item, property);
-		for(Iterator<?> i=collection.iterator();i.hasNext();){
-			Object child = i.next();
-			this.list.add(child);
-		}
-		
-		//FIXME TABLEVIEWER
-		tableViewer.setInput(list);
-		
+		this.source = item;
+		this.sourceCreator = map.getCreatorClass(source);
 		this.property = property;
-		
+
+		// Copy all Elements to TableList
+		Collection<?> collection = (Collection<?>) sourceCreator.getValue(item,
+				property);
+		if(collection!=null){
+			for (Iterator<?> i = collection.iterator(); i.hasNext();) {
+				addItem(i.next());
+			}
+		}
 		addUpdateListener(source);
 		return true;
 	}
 
-	public void addUpdateListener(Object list){
+	public void setSearchProperties(String... searchProperties) {
+		tableFilterView.setSearchProperties(searchProperties);
+		tableFilterView.refresh();
+	}
+
+	public void addUpdateListener(Object list) {
 		new UpdateSearchList(this, list);
 	}
 
-	public String getProperty(){
+	public String getProperty() {
 		return property;
 	}
 
 	public TableViewer getTableViewer() {
 		return tableViewer;
-	}
-
-	public Text getSearchField() {
-		return searchText;
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -425,15 +400,14 @@ public class TableComponent extends Composite implements Listener,
 						}
 					}
 				}
-			}else if(source.equals(evt.getSource())){
+			} else if (source.equals(evt.getSource())) {
 				if (evt.getPropertyName().equals(property)) {
-					if (evt.getOldValue() != null
-							&& evt.getNewValue() == null) {
-						list.set(property+IdMap.REMOVE, evt.getOldValue());
+					if (evt.getOldValue() != null && evt.getNewValue() == null) {
+						list.set(property + IdMap.REMOVE, evt.getOldValue());
 
 					}
 				}
-			}else{
+			} else {
 				// Must be an update
 				refresh(evt.getSource(), new String[] { evt.getPropertyName() });
 			}
@@ -445,16 +419,18 @@ public class TableComponent extends Composite implements Listener,
 		Point pt = new Point(event.x, event.y);
 
 		TableItem currentItem = tableViewer.getTable().getItem(pt);
-		if(SWT.MouseMove == event.type | SWT.MouseUp == event.type | SWT.MouseExit == event.type){
+		if (SWT.MouseMove == event.type | SWT.MouseUp == event.type
+				| SWT.MouseExit == event.type) {
 			if (SWT.MouseUp == event.type) {
 				ViewerCell cell = getTableViewer().getCell(pt);
 				if (cell != null) {
 					int columnIndex = cell.getColumnIndex();
 					int offset = 0;
 					if (fixedTableViewerLeft != null) {
-						offset = fixedTableViewerLeft.getTable().getColumnCount();
+						offset = fixedTableViewerLeft.getTable()
+								.getColumnCount();
 					}
-					if(columnIndex + offset>columns.size()){
+					if (columnIndex + offset > columns.size()) {
 						return;
 					}
 					TableColumnView tableColumnView = columns.get(columnIndex
@@ -469,12 +445,13 @@ public class TableComponent extends Composite implements Listener,
 							parent = parent.getParent();
 						}
 						Column column = tableColumnView.getColumn();
-						if(column instanceof ColumnNotification){
-							((ColumnNotification)column).setSelection(this, currentItem, x, y);
-						}else{
+						if (column instanceof ColumnNotification) {
+							((ColumnNotification) column).setSelection(this,
+									currentItem, x, y);
+						} else {
 							column.setSelection(x, y);
 						}
-						
+
 					}
 					// setSelection(currentItem, cell, columnIndex);
 				}
@@ -489,17 +466,20 @@ public class TableComponent extends Composite implements Listener,
 					if (positem != null) {
 						if (event.x > positem.x
 								&& event.x < (positem.x + positem.width)) {
-							if (tableViewerColumn.getColumn().isEditingSupport()) {
+							if (tableViewerColumn.getColumn()
+									.isEditingSupport()) {
 								this.activeItem = currentItem;
 								activ = true;
 								TableColumnLabelProvider activeCell = tableViewerColumn
 										.getTableProvider();
-								if(activeCell!=null){
-									Color color = activeCell.getForgroundColorActiv();
+								if (activeCell != null) {
+									Color color = activeCell
+											.getForgroundColorActiv();
 									if (color != null) {
 										this.activeItem.setForeground(i, color);
 									}
-									color = activeCell.getBackgroundColorActiv();
+									color = activeCell
+											.getBackgroundColorActiv();
 									if (color != null) {
 										this.activeItem.setBackground(i, color);
 									}
@@ -513,26 +493,28 @@ public class TableComponent extends Composite implements Listener,
 					tableViewer.getTable().setCursor(defaultCursor);
 				}
 			}
-		}else if (SWT.KeyDown == event.type) {
-			if (event.keyCode == SWT.CTRL || (event.stateMask & SWT.CONTROL) != 0){
+		} else if (SWT.KeyDown == event.type) {
+			if (event.keyCode == SWT.CTRL
+					|| (event.stateMask & SWT.CONTROL) != 0) {
 				this.additionKey = SWT.CTRL;
-				if(event.keyCode=='a'){
+				if (event.keyCode == 'a') {
 					// Select all
 					TableComponent.this.selectAll();
 				}
-			}else if(event.keyCode == SWT.SHIFT || (event.stateMask & SWT.SHIFT) != 0) {
+			} else if (event.keyCode == SWT.SHIFT
+					|| (event.stateMask & SWT.SHIFT) != 0) {
 				this.additionKey = SWT.ALT;
 			} else {
 				this.additionKey = 0;
 			}
 		}
 	}
-	
+
 	protected void selectAll() {
-		int count=tableViewer.getTable().getItemCount();
-		int[] array=new int[count];
-		for(int i=0;i<count;i++){
-			array[i]=i;
+		int count = tableViewer.getTable().getItemCount();
+		int[] array = new int[count];
+		for (int i = 0; i < count; i++) {
+			array[i] = i;
 		}
 		tableViewer.getTable().setSelection(array);
 	}
@@ -548,16 +530,16 @@ public class TableComponent extends Composite implements Listener,
 	public void onResizeColumn(TableColumn column) {
 		for (TableColumnView item : columns) {
 			if (item.getTableColumn() == column) {
-				 onResizeColumn(item);
+				onResizeColumn(item);
 			}
 		}
 	}
 
 	public void onResizeColumn(TableColumnView item) {
-		if (item.getColumn().getBrowserId() == FIXEDBROWSERLEFT) {
+		if (item.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 			int size = 0;
 			for (TableColumnView view : columns) {
-				if (view.getColumn().getBrowserId() == FIXEDBROWSERLEFT) {
+				if (view.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 					if (view.getColumn().isVisible()) {
 						size += view.getColumn().getWidth();
 					}
@@ -573,21 +555,19 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	public void onVisibleColumn(Column column, boolean value) {
-		if(column.getBrowserId()==FIXEDBROWSERLEFT){
-			if(value){
+		if (column.getBrowserId().equals(GUIPosition.WEST)) {
+			if (value) {
 				setVisibleFixedColumns(true);
 			}
 		}
 	}
-	
+
 	public void removeSelectionItems() {
 		TableItem[] selectionItems = getTable().getSelection();
-		
+
 		if (selectionItems.length > 0) {
 			for (TableItem tableItem : selectionItems) {
-				Object item = (Object) tableItem.getData();
-				list.set(property+IdMap.REMOVE, item);
-				sourceCreator.setValue(source, property, item, IdMap.REMOVE);
+				removeItem((Object) tableItem.getData());
 			}
 		}
 	}
@@ -599,35 +579,40 @@ public class TableComponent extends Composite implements Listener,
 	public IdMap getIdMap() {
 		return map;
 	}
+
 	public void setSorting(String column, int direction) {
-		for(TableColumnView columnView : columns){
+		for (TableColumnView columnView : columns) {
 			String value = columnView.getColumn().getAttrName();
-			if(value==null){
+			if (value == null) {
 				value = columnView.getColumn().getCellValue();
 			}
-			if(value==null){
+			if (value == null) {
 				value = columnView.getColumn().getLabel();
 			}
-			if(value!=null){
-				if(value.equalsIgnoreCase(column)){
-					setSorting(columnView.getTableColumn(), direction, columnView.getColumnSorter());
+			if (value != null) {
+				if (value.equalsIgnoreCase(column)) {
+					setSorting(columnView.getTableColumn(), direction,
+							columnView.getColumnSorter());
 					break;
 				}
 			}
 		}
 	}
-	public void setSorting(TableColumn  column, int direction, ColumnViewerSorter sorter) {
-		if(fixedTableViewerLeft!=null){
+
+	public void setSorting(TableColumn column, int direction,
+			ColumnViewerSorter sorter) {
+		if (fixedTableViewerLeft != null) {
 			setSorting(column, direction, fixedTableViewerLeft, sorter);
 		}
 		setSorting(column, direction, tableViewer, sorter);
 
 		refresh();
 	}
-	
-	private void setSorting(TableColumn  column, int direction, TableViewer viewer, ColumnViewerSorter sorter){
-		Table table=viewer.getTable();
-		if(column.getParent()==table){
+
+	private void setSorting(TableColumn column, int direction,
+			TableViewer viewer, ColumnViewerSorter sorter) {
+		Table table = viewer.getTable();
+		if (column.getParent() == table) {
 			table.setSortColumn(column);
 			if (direction == TableListComparator.ASC) {
 				table.setSortDirection(SWT.UP);
@@ -637,7 +622,7 @@ public class TableComponent extends Composite implements Listener,
 			if (viewer.getComparator() != sorter) {
 				viewer.setComparator(sorter);
 			}
-		}else{
+		} else {
 			table.setSortColumn(null);
 			table.setSortDirection(SWT.NONE);
 			if (viewer.getComparator() != sorter) {

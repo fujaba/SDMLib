@@ -123,6 +123,8 @@ public class TableListComparator implements Comparator<Object>{
 				return 0;
 			}
 			return -1;
+		}else if(o1==null){
+			return -1;
 		}
 		
 		if(o1.equals(o2)){

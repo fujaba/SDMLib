@@ -13,6 +13,7 @@ import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 
+import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.text.TextComponente;
 
@@ -29,7 +30,7 @@ public class EntryEditor extends Composite{
 		SashForm form=new SashForm(this, SWT.NONE);
 		
 		tree = new Tree(form, SWT.BORDER | SWT.RESIZE);
-		tree.setLayoutData(BorderLayout.WEST);
+		tree.setLayoutData(GUIPosition.WEST);
 		tree.addListener(SWT.Expand, new Listener() {
 			@Override
 			public void handleEvent(Event event) {

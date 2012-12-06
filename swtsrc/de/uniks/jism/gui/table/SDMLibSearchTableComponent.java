@@ -97,8 +97,8 @@ public class SDMLibSearchTableComponent extends SearchTableComponent{
 	      
 	      StringList propList = new StringList();
 	      propList.addAll(Arrays.asList(entityCreatorClass.getProperties()));
-	      
-	      this.finishDataBinding(root, property, propList.concat(","));
+	      setSearchProperties(propList.concat(","));
+	      this.finishDataBinding(root, property);
 	   }
 
 	 @Override

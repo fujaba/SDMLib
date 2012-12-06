@@ -32,16 +32,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.*;
 
+import de.uniks.jism.gui.GUIPosition;
+
 /**
  * Port of AWT BorderLayout to SWT.
  * @author Yannick Saillet
  */
 public class BorderLayout extends AWTLayout {
-  public final static String CENTER = "Center";
-  public final static String EAST = "East";
-  public final static String NORTH = "North";
-  public final static String SOUTH = "South";
-  public final static String WEST = "West";
 
   //-----------------------
 
@@ -151,40 +148,46 @@ public class BorderLayout extends AWTLayout {
       //if (!children[i].getVisible())
       //  continue;
       Object layoutData = children[i].getLayoutData();
-      if (NORTH.equals(layoutData))
+      if (GUIPosition.NORTH.equals(layoutData))
         northChild = children[i];
-      else if (SOUTH.equals(layoutData))
+      else if (GUIPosition.SOUTH.equals(layoutData))
         southChild = children[i];
-      else if (EAST.equals(layoutData))
+      else if (GUIPosition.EAST.equals(layoutData))
         eastChild = children[i];
-      else if (WEST.equals(layoutData))
+      else if (GUIPosition.WEST.equals(layoutData))
         westChild = children[i];
       else
         centerChild = children[i];
     }
   }
-/**
- * @return Returns the hgap.
- */
-public int getHgap() {
-	return hgap;
-}
-/**
- * @param hgap The hgap to set.
- */
-public void setHgap(int hgap) {
-	this.hgap = hgap;
-}
-/**
- * @return Returns the vgap.
- */
-public int getVgap() {
-	return vgap;
-}
-/**
- * @param vgap The vgap to set.
- */
-public void setVgap(int vgap) {
-	this.vgap = vgap;
-}
+
+	/**
+	 * @return Returns the hgap.
+	 */
+	public int getHgap() {
+		return hgap;
+	}
+
+	/**
+	 * @param hgap
+	 *            The hgap to set.
+	 */
+	public void setHgap(int hgap) {
+		this.hgap = hgap;
+	}
+
+	/**
+	 * @return Returns the vgap.
+	 */
+	public int getVgap() {
+		return vgap;
+	}
+
+	/**
+	 * @param vgap
+	 *            The vgap to set.
+	 */
+	public void setVgap(int vgap) {
+		this.vgap = vgap;
+	}
 }

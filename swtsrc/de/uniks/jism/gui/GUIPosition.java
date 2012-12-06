@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.table;
+package de.uniks.jism.gui;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -6,15 +6,15 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 1. Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
+   notice, this list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright
-notice, this list of conditions and the following disclaimer in the
-documentation and/or other materials provided with the distribution.
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
 3. All advertising materials mentioning features or use of this software
-must display the following acknowledgement:
-This product includes software developed by Stefan Lindel.
+   must display the following acknowledgement:
+   This product includes software developed by Stefan Lindel.
 4. Neither the name of contributors may be used to endorse or promote products
-derived from this software without specific prior written permission.
+   derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -28,33 +28,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.Viewer;
-
-import de.uniks.jism.gui.TableList;
-
-public class TableContentProvider implements IStructuredContentProvider{
-
-	private TableList list;
-
-	public TableContentProvider(TableList list) {
-		this.list=list;
-	}
-
-	@Override
-	public void dispose() {
-		
-	}
-
-	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-	}
-
-	@Override
-	public Object[] getElements(Object inputElement) {
-		if(list!=null){
-			return list.toArray(new Object[list.size()]);
-		}
-		return new Object[]{};
-	}
+public interface GUIPosition {
+	  public final static String CENTER = "Center";
+	  public final static String EAST = "East";
+	  public final static String NORTH = "North";
+	  public final static String SOUTH = "South";
+	  public final static String WEST = "West";
+	  public final static String ALL = "All";
 }

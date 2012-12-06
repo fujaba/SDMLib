@@ -52,11 +52,10 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		this.map=map;
 	}
 	
-	public void setSearchProperties(String searchProperties){
+	public void setSearchProperties(String... searchProperties){
 		if(searchProperties!=null){
 			this.searchProperties.clear();
-			String[] properties = searchProperties.split(",");
-			for (String item : properties) {
+			for (String item : searchProperties) {
 				this.searchProperties.add(item);
 			}
 		}
@@ -74,13 +73,15 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		String fullText = "";
 		SendableEntityCreator creatorClass = map.getCreatorClass(item);
 		// SEARCH FOR #ID:3
-		for (String property : searchProperties) {
-			Object value = creatorClass.getValue(item, property);
-			if(value!=null){
-				fullText += " " + value.toString().toLowerCase();
+		if(creatorClass!=null){
+			for (String property : searchProperties) {
+				Object value = creatorClass.getValue(item, property);
+				if(value!=null){
+					fullText += " " + value.toString().toLowerCase();
+				}
 			}
+			fullText = fullText.trim();
 		}
-		fullText = fullText.trim();
 
 		Boolean matches = true;
 		for (String word : lastSearchCriteriaItems) {
@@ -139,7 +140,7 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		component.refreshViewer();
 		refreshCounter();
 	}
-	private void refreshCounter(){
+	public void refreshCounter(){
 		if(updateField!=null){
 			TableColumnView column = component.getColumn(updateField);
 			if(column!=null){
@@ -151,7 +152,7 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		this.searchText = searchText;
 	}
 
-	public boolean setTableCountField(Column column) {
+	public boolean setCounterField(Column column) {
 		this.updateField=column;
 		refreshCounter();
 		return true;

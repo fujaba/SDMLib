@@ -47,7 +47,7 @@ public class Column {
 	private boolean isMovable=true;
 	private String altAttribute;
 	private Object item;
-	private int browserId=TableComponent.BROWSER;
+	private String browserId="Center";
 	private String font;
 	private boolean getDropDownListFromMap=false;
 	
@@ -59,12 +59,13 @@ public class Column {
 		this.attrName=value;
 	}
 	
-	public Column(String value, boolean edit){
+	public Column(String value, boolean edit, boolean createDropDownListFromMap){
 		this.label=value;
 		this.attrName=value;
 		if(edit){
 			this.editColumn=attrName;
 		}
+		this.getDropDownListFromMap=createDropDownListFromMap;
 	}
 
 	public Column(String label, int width){
@@ -268,11 +269,11 @@ public class Column {
 		this.isMovable = isMovable;
 	}
 
-	public int getBrowserId() {
+	public String getBrowserId() {
 		return browserId;
 	}
 
-	public void setBrowserId(int browserId) {
+	public void setBrowserId(String browserId) {
 		this.browserId = browserId;
 	}
 	public boolean isEditingSupport() {

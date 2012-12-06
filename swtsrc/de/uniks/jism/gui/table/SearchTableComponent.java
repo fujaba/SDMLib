@@ -30,8 +30,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import java.beans.PropertyChangeEvent;
 
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
 
-import de.uniks.jism.gui.layout.BorderLayout;
+import de.uniks.jism.gui.GUIPosition;
 
 public class SearchTableComponent extends TableComponent {
 
@@ -58,8 +58,10 @@ public class SearchTableComponent extends TableComponent {
 
 	public void createContent(){
 		northComponents = new Composite(this, SWT.FILL);
-		northComponents.setLayoutData(BorderLayout.NORTH);
+		northComponents.setLayoutData(GUIPosition.NORTH);
 		northComponents.setLayout(new GridLayout(3,false));
+		
+		super.createContent();
 		
 		firstNorth=new Composite(northComponents, SWT.NONE);
 		firstNorth.setLayout(new RowLayout(SWT.HORIZONTAL));
@@ -69,17 +71,12 @@ public class SearchTableComponent extends TableComponent {
 		searchText = new Text(northComponents, SWT.BORDER | SWT.ICON_SEARCH | SWT.SEARCH);
 		
 		searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		super.createContent();
+		
+		
+		tableFilterView.setSearchText(searchText);
+		searchText.addModifyListener(tableFilterView);
 	}
 
-	public boolean finish(TableViewer viewer, int browserid) {
-		boolean result=super.finish(viewer, browserid);
-		// DataBinding
-		refreshNorthLayout();
-		return result;
-	}
-	
-	
 	public void refreshNorthLayout(){
 		if(firstNorth!=null){
 			if(firstNorth.getChildren().length<1){
@@ -91,14 +88,10 @@ public class SearchTableComponent extends TableComponent {
 		}
 	}
 	
-	public boolean finishDataBinding(Object item, String property, String searchProperties) {
-		boolean result=super.finishDataBinding(item, property, searchProperties);
-		if(tableFilterView!=null){
-			tableFilterView.setSearchProperties(searchProperties);
-			tableFilterView.setSearchText(searchText);
-			searchText.addModifyListener(tableFilterView);
-			tableFilterView.refresh();
-		}
+	public boolean finishDataBinding(Object item, String property) {
+		boolean result=super.finishDataBinding(item, property);
+		refreshNorthLayout();
+		
 		return result;
 	}
 	
@@ -116,8 +109,25 @@ public class SearchTableComponent extends TableComponent {
 		
 		if (evt != null && source.equals(evt.getSource()) ){
 			if(getProperty()!=null && getProperty().equals(evt.getPropertyName())) {
-				addNewItem(evt.getNewValue());
+				if(evt.getNewValue()==null){
+					if(evt.getOldValue()!=null){
+						//REMOVE ENTRY
+						removeItem(evt.getOldValue());
+
+					}
+				}else if(evt.getOldValue()==null){
+					// add Item
+					addItem(evt.getNewValue());
+				}
 			}
 		}
+	}
+	
+	public void setKeyListener(KeyListener listener) {
+		searchText.addKeyListener(listener);
+	}
+	
+	public Text getSearchField() {
+		return searchText;
 	}
 }

@@ -299,8 +299,12 @@ public class IdMap {
 	 * @return the creator class
 	 */
 	public SendableEntityCreator getCreatorClass(Object reference) {
+		if(reference==null){
+			return null;
+		}
 		return getCreatorClasses(reference.getClass().getName());
 	}
+
 	public SendableEntityCreator getCreatorClassName(String clazz) {
 		clazz="."+clazz;
 		for(Iterator<Entry<String, SendableEntityCreator>> i = this.creators.entrySet().iterator();i.hasNext();){
