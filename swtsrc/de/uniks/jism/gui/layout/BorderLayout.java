@@ -39,127 +39,118 @@ import de.uniks.jism.gui.GUIPosition;
  * @author Yannick Saillet
  */
 public class BorderLayout extends AWTLayout {
+	private int hgap, vgap;
+	private Control centerChild, eastChild, northChild, southChild, westChild;
 
-  //-----------------------
+	public BorderLayout() {
+		super();
+	}
 
-  private int hgap, vgap;
-  private Control centerChild, eastChild, northChild, southChild, westChild;
+	public BorderLayout(int hgap, int vgap) {
+		this.hgap = hgap;
+		this.vgap = vgap;
+	}
 
-  public BorderLayout() {
-    super();
-  }
+	protected Point computeSize(Composite composite, int wHint, int hHint,
+			boolean flushCache) {
+		readLayoutData(composite);
+		Point size = new Point(0, 0);
 
-  public BorderLayout(int hgap, int vgap) {
-    this.hgap = hgap;
-    this.vgap = vgap;
-  }
+		Point preferredSize;
+		if (northChild != null) {
+			preferredSize = getPreferredSize(northChild, wHint, SWT.DEFAULT,
+					flushCache);
+			size.y += preferredSize.y + vgap;
+		}
+		if (southChild != null) {
+			preferredSize = getPreferredSize(southChild, wHint, SWT.DEFAULT,
+					flushCache);
+			size.y += preferredSize.y + vgap;
+		}
+		if (westChild != null) {
+			preferredSize = getPreferredSize(westChild, SWT.DEFAULT, hHint,
+					flushCache);
+			size.x += preferredSize.x + hgap;
+		}
+		if (eastChild != null) {
+			preferredSize = getPreferredSize(eastChild, SWT.DEFAULT, hHint,
+					flushCache);
+			size.x += preferredSize.x + hgap;
+		}
+		if (centerChild != null) {
+			preferredSize = getPreferredSize(centerChild, wHint, hHint,
+					flushCache);
+			size.x += preferredSize.x;
+			size.y += preferredSize.y;
+		}
+		return size;
+	}
 
-  protected Point computeSize(
-    Composite composite,
-    int wHint,
-    int hHint,
-    boolean flushCache) {
-    readLayoutData(composite);
-    Point size = new Point(0, 0);
+	protected void layout(Composite composite, boolean flushCache) {
+		readLayoutData(composite);
+		Rectangle clientArea = composite.getClientArea();
+		int top = clientArea.y;
+		int bottom = clientArea.y + clientArea.height;
+		int left = clientArea.x;
+		int right = clientArea.x + clientArea.width;
 
-    Point preferredSize;
-    if (northChild != null) {
-      preferredSize =
-        getPreferredSize(northChild, wHint, SWT.DEFAULT, flushCache);
-      size.y += preferredSize.y + vgap;
-    }
-    if (southChild != null) {
-      preferredSize =
-        getPreferredSize(southChild, wHint, SWT.DEFAULT, flushCache);
-      size.y += preferredSize.y + vgap;
-    }
-    if (westChild != null) {
-      preferredSize =
-        getPreferredSize(westChild, SWT.DEFAULT, hHint, flushCache);
-      size.x += preferredSize.x + hgap;
-    }
-    if (eastChild != null) {
-      preferredSize =
-        getPreferredSize(eastChild, SWT.DEFAULT, hHint, flushCache);
-      size.x += preferredSize.x + hgap;
-    }
-    if (centerChild != null) {
-      preferredSize = getPreferredSize(centerChild, wHint, hHint, flushCache);
-      size.x += preferredSize.x;
-      size.y += preferredSize.y;
-    }
-    return size;
-  }
+		Point preferredSize;
+		if (northChild != null) {
+			preferredSize = getPreferredSize(northChild, clientArea.width,
+					SWT.DEFAULT, flushCache);
+			northChild.setBounds(left, top, right - left, preferredSize.y);
+			top += preferredSize.y + vgap;
+		}
+		if (southChild != null) {
+			preferredSize = getPreferredSize(southChild, clientArea.width,
+					SWT.DEFAULT, flushCache);
+			southChild.setBounds(left, bottom - preferredSize.y, right - left,
+					preferredSize.y);
+			bottom -= preferredSize.y + vgap;
+		}
+		if (westChild != null) {
+			preferredSize = getPreferredSize(westChild, SWT.DEFAULT, bottom
+					- top, flushCache);
+			westChild.setBounds(left, top, preferredSize.x, bottom - top);
+			left += preferredSize.x + hgap;
+		}
+		if (eastChild != null) {
+			preferredSize = getPreferredSize(eastChild, SWT.DEFAULT, bottom
+					- top, flushCache);
+			eastChild.setBounds(right - preferredSize.x, top, preferredSize.x,
+					bottom - top);
+			right -= preferredSize.x + hgap;
+		}
+		if (centerChild != null) {
+			centerChild.setBounds(left, top, right - left, bottom - top);
+		}
+	}
 
-  protected void layout(Composite composite, boolean flushCache) {
-    readLayoutData(composite);
-    Rectangle clientArea = composite.getClientArea();
-    int top = clientArea.y;
-    int bottom = clientArea.y + clientArea.height;
-    int left = clientArea.x;
-    int right = clientArea.x + clientArea.width;
-
-    Point preferredSize;
-    if (northChild != null) {
-      preferredSize =
-        getPreferredSize(northChild, clientArea.width, SWT.DEFAULT, flushCache);
-      northChild.setBounds(left, top, right - left, preferredSize.y);
-      top += preferredSize.y + vgap;
-    }
-    if (southChild != null) {
-      preferredSize =
-        getPreferredSize(southChild, clientArea.width, SWT.DEFAULT, flushCache);
-      southChild.setBounds(
-        left,
-        bottom - preferredSize.y,
-        right - left,
-        preferredSize.y);
-      bottom -= preferredSize.y + vgap;
-    }
-    if (westChild != null) {
-      preferredSize =
-        getPreferredSize(westChild, SWT.DEFAULT, bottom - top, flushCache);
-      westChild.setBounds(left, top, preferredSize.x, bottom - top);
-      left += preferredSize.x + hgap;
-    }
-    if (eastChild != null) {
-      preferredSize =
-        getPreferredSize(eastChild, SWT.DEFAULT, bottom - top, flushCache);
-      eastChild.setBounds(
-        right - preferredSize.x,
-        top,
-        preferredSize.x,
-        bottom - top);
-      right -= preferredSize.x + hgap;
-    }
-    if (centerChild != null) {
-      centerChild.setBounds(left, top, right - left, bottom - top);
-    }
-  }
-
-  /**
-   * Read the layout data of the children of a composite.
-   * @param composite the parent composite
-   */
-  private void readLayoutData(Composite composite) {
-    northChild = southChild = eastChild = westChild = centerChild = null;
-    Control[] children = composite.getChildren();
-    for (int i = 0; i < children.length; i++) {
-      //if (!children[i].getVisible())
-      //  continue;
-      Object layoutData = children[i].getLayoutData();
-      if (GUIPosition.NORTH.equals(layoutData))
-        northChild = children[i];
-      else if (GUIPosition.SOUTH.equals(layoutData))
-        southChild = children[i];
-      else if (GUIPosition.EAST.equals(layoutData))
-        eastChild = children[i];
-      else if (GUIPosition.WEST.equals(layoutData))
-        westChild = children[i];
-      else
-        centerChild = children[i];
-    }
-  }
+	/**
+	 * Read the layout data of the children of a composite.
+	 * 
+	 * @param composite
+	 *            the parent composite
+	 */
+	private void readLayoutData(Composite composite) {
+		northChild = southChild = eastChild = westChild = centerChild = null;
+		Control[] children = composite.getChildren();
+		for (int i = 0; i < children.length; i++) {
+			// if (!children[i].getVisible())
+			// continue;
+			Object layoutData = children[i].getLayoutData();
+			if (GUIPosition.NORTH.equals(layoutData))
+				northChild = children[i];
+			else if (GUIPosition.SOUTH.equals(layoutData))
+				southChild = children[i];
+			else if (GUIPosition.EAST.equals(layoutData))
+				eastChild = children[i];
+			else if (GUIPosition.WEST.equals(layoutData))
+				westChild = children[i];
+			else
+				centerChild = children[i];
+		}
+	}
 
 	/**
 	 * @return Returns the hgap.

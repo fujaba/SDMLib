@@ -34,7 +34,6 @@ import org.eclipse.jface.viewers.Viewer;
 import de.uniks.jism.gui.TableList;
 
 public class TableContentProvider implements IStructuredContentProvider{
-
 	private TableList list;
 
 	public TableContentProvider(TableList list) {

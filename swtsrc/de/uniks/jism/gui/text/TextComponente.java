@@ -54,8 +54,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
 
-import swing2swt.layout.BorderLayout;
 import de.uniks.jism.gui.GUIElement;
+import de.uniks.jism.gui.GUIPosition;
+import de.uniks.jism.gui.layout.BorderLayout;
 
 public class TextComponente extends Composite implements GUIElement{
 	private Text searchText;
@@ -146,11 +147,11 @@ public class TextComponente extends Composite implements GUIElement{
 		
 		
 		Composite composite_1 = new Composite(this, SWT.NONE);
-		composite_1.setLayoutData(BorderLayout.SOUTH);
+		composite_1.setLayoutData(GUIPosition.SOUTH);
 		composite_1.setLayout(new BorderLayout(0, 0));
 		
 		Label lblSearch = new Label(composite_1, SWT.SHADOW_IN);
-		lblSearch.setLayoutData(BorderLayout.WEST);
+		lblSearch.setLayoutData(GUIPosition.WEST);
 		FormData fd_lblSearch = new FormData();
 		fd_lblSearch.top = new FormAttachment(0, 8);
 		fd_lblSearch.left = new FormAttachment(0, 5);
@@ -177,7 +178,7 @@ public class TextComponente extends Composite implements GUIElement{
 		searchText.setLayoutData(fd_text_1);
 		
 		lblSize = new Label(composite_1, SWT.SHADOW_IN);
-		lblSize.setLayoutData(BorderLayout.EAST);
+		lblSize.setLayoutData(GUIPosition.EAST);
 		FormData fd_lblSize = new FormData();
 		fd_lblSize.top = new FormAttachment(0, 8);
 		fd_lblSize.left = new FormAttachment(0, 200);
