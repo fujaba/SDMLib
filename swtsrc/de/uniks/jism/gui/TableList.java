@@ -205,8 +205,8 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	
 	}
 	public boolean removeAllFromItems() {
-		for(Iterator<Object> i=iterator();i.hasNext();){
-			Object item = i.next();
+		Object[] array = toArray(new Object[size()]);
+		for(Object item : array){
 			if(!remove(item)){
 				return false;
 			}

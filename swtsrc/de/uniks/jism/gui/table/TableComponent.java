@@ -136,8 +136,6 @@ public class TableComponent extends Composite implements Listener,
 		tableViewer.setLabelProvider(new TableLabelProvider());
 		tableViewer.setFilters(new ViewerFilter[] { tableFilterView });
 
-		tableViewer.setContentProvider(new TableContentProvider(list));
-
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
@@ -392,10 +390,10 @@ public class TableComponent extends Composite implements Listener,
 						}
 					} else if (evt.getOldValue() != null
 							&& evt.getNewValue() == null) {
-						if (fixedTableViewerLeft != null) {
+						if (fixedTableViewerLeft != null && !fixedTableViewerLeft.getTable().isDisposed()) {
 							fixedTableViewerLeft.remove(evt.getOldValue());
 						}
-						if (tableViewer != null) {
+						if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
 							tableViewer.remove(evt.getOldValue());
 						}
 					}
@@ -430,7 +428,7 @@ public class TableComponent extends Composite implements Listener,
 						offset = fixedTableViewerLeft.getTable()
 								.getColumnCount();
 					}
-					if (columnIndex + offset > columns.size()) {
+					if (columnIndex + offset >= columns.size()) {
 						return;
 					}
 					TableColumnView tableColumnView = columns.get(columnIndex
