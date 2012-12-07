@@ -49,9 +49,8 @@ public class GroupAccountTests
       Person albert = groupAccount.createPersons()
       .withName("Albert");
       
-      Person nina = new Person()
-      .withName("Nina")
-      .withParent(groupAccount);
+      Person nina = groupAccount.createPersons()
+      .withName("Nina");
       
       Person artjom = new Person()
       .withName("Artjom")
@@ -75,8 +74,8 @@ public class GroupAccountTests
       .withValue(6)
       .withParent(groupAccount);
 
-      JsonIdMap createIdMap = org.sdmlib.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
-      scenario.addObjectDiag(createIdMap, groupAccount);
+      // JsonIdMap createIdMap = org.sdmlib.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
+      scenario.addObjectDiag(groupAccount);
       
       scenario.add("We will call updateBalances() to compute the correct balances.\n" +
       		"Therefore, show updateBalances() first as code and then as a graphical model transformation operation diagram.",
@@ -99,7 +98,7 @@ public class GroupAccountTests
       
       Assert.assertEquals("Wrong balance for Albert:", 5, albert.getBalance(), 0.0001);
 
-      scenario.addObjectDiag(createIdMap, groupAccount);
+      scenario.addObjectDiag(groupAccount);
       
       scenario.dumpHTML();
    }
@@ -133,9 +132,7 @@ public class GroupAccountTests
          "description", STRING, 
          "value", DOUBLE);
       
-      new Association()
-      .withSource("parent", groupAccountClass, ONE)
-      .withTarget("items", itemClass, MANY);
+      groupAccountClass.withAssoc(itemClass, "items", MANY, "parent", ONE);
       
       new Association()
       .withSource("buyer", personClass, ONE)
