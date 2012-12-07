@@ -11,4 +11,3 @@
     
     _Professor -> _Topic [headlabel = "topic" taillabel = "prof" arrowhead = "none" ];
 }
-

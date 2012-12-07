@@ -304,5 +304,12 @@ public class Lecture implements PropertyChangeInterface
       setListen(value);
       return this;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTitle());
+      return _.substring(1);
+   }}
 

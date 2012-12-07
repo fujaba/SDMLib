@@ -362,7 +362,7 @@ private static final String STRING = String.class.getSimpleName();
       JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
       scenario.addObjectDiag(idMap, uni);
 
-      Assert.assertEquals("false number of students:" , 2, uni.getStudents().size()); 
+      scenario.assertEquals("Number of students: " , 2, uni.getStudents().size()); 
 
       scenario.add("step 2: add support for path navigation\n      call ");
 
@@ -385,7 +385,7 @@ private static final String STRING = String.class.getSimpleName();
             "e.g.: room.getNeighbors().findPath(path, motivation); ", 
             DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
-      // Assert.assertEquals("wrong number of neighbors for Albert", 2, any.size());
+      // scenario.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
 
       scenario.add("step 3: call ");
 
@@ -474,11 +474,11 @@ private static final String STRING = String.class.getSimpleName();
 
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
-      Assert.assertTrue("did not find method set(String,Object) in class student", pos >= 0);
+      scenario.assertTrue("found method set(String,Object) in class student", pos >= 0);
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":set(String,Object)");
 
-      Assert.assertNotNull("did not find symtab entry for method set(String,Object)", symTabEntry);
+      scenario.assertNotNull("found symtab entry for method set(String,Object) ", symTabEntry);
 
       String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 
@@ -491,11 +491,11 @@ private static final String STRING = String.class.getSimpleName();
 
       pos = parser.indexOf(Parser.METHOD + ":get(String)");
 
-      Assert.assertTrue("did not find method get(String) in class student", pos >= 0);
+      scenario.assertTrue("found method get(String) in class student", pos >= 0);
 
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":get(String)");
 
-      Assert.assertNotNull("did not find symtab entry for method get(String)", symTabEntry);
+      scenario.assertNotNull("found symtab entry for method get(String) ", symTabEntry);
 
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 
@@ -528,11 +528,11 @@ private static final String STRING = String.class.getSimpleName();
 
       pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
-      Assert.assertTrue("did not find method removeYou) in class student", pos >= 0);
+      scenario.assertTrue("found method removeYou) in class student", pos >= 0);
 
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":removeYou()");
 
-      Assert.assertNotNull("did not find symtab entry for method removeYou()", symTabEntry);
+      scenario.assertNotNull("found symtab entry for method removeYou() ", symTabEntry);
 
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 

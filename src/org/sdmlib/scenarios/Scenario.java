@@ -38,6 +38,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Vector;
 
+import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
@@ -296,6 +297,12 @@ public class Scenario
       steps.add(string);      
    }
 
+   public void addText(String string)
+   {
+      steps.add(string);      
+   }
+
+   
    public void addObjectDiag(Object root) 
    {
    	// derive creator class from root and create idMap
@@ -677,6 +684,30 @@ public class Scenario
       ScenarioManager.get()
       .add(this)
       .dumpHTML();
+   }
+
+   public void assertEquals(String message, double expected, double actual, double delta)
+   {
+      this.add("Check: " + message + expected); 
+      Assert.assertEquals("FAILED: " + message, expected, actual, delta);
+   }
+
+   public void assertTrue(String message, boolean condition)
+   {
+      this.add("Check: " + message); 
+      Assert.assertTrue("FAILED: " + message, condition);
+   }
+
+   public void assertEquals(String message, int expected, int actual)
+   {
+      this.add("Check: " + message + expected); 
+      Assert.assertEquals("FAILED: " + message, expected, actual);
+   }
+
+   public void assertNotNull(String message, Object obj)
+   {
+      this.add("Check: " + message + obj); 
+      Assert.assertNotNull("FAILED: " + message, obj);
    }
 
 }

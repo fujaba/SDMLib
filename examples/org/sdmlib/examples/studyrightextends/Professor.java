@@ -226,5 +226,13 @@ public class Professor extends Female implements PropertyChangeInterface
          this.removeFromLecture(value);
       }
    }
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getPersNr());
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }}
 

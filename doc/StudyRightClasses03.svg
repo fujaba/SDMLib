@@ -35,7 +35,7 @@
 <!-- _University&#45;&gt;_Student -->
 <g id="edge2" class="edge"><title>_University&#45;&gt;_Student</title>
 <path fill="none" stroke="black" d="M38,-116.475C38,-105.009 38,-91.9132 38,-79.8848"/>
-<text text-anchor="middle" x="42.2262" y="-86.4479" font-family="Times New Roman,serif" font-size="10.00">students</text>
+<text text-anchor="middle" x="42.2262" y="-86.4479" font-family="Times New Roman,serif" font-size="10.00">students *</text>
 <text text-anchor="middle" x="33.7738" y="-104.912" font-family="Times New Roman,serif" font-size="10.00">uni</text>
 </g>
 </g>

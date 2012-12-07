@@ -130,5 +130,12 @@ public class Female implements Person, PropertyChangeInterface
       setName(value);
       return this;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }}
 

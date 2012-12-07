@@ -81,7 +81,7 @@ public class HelloWorldTTC2011
       
       scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1", false));
       
-      Assert.assertTrue("Constant transformation has no match", p.getHasMatch());
+      scenario.assertTrue("Constant transformation has match", p.getHasMatch());
       
       scenario.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       
@@ -166,7 +166,7 @@ public class HelloWorldTTC2011
       
       scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2", false));
       
-      Assert.assertTrue("Constant transformation has no match", p.getHasMatch());
+      scenario.assertTrue("Constant transformation has match", p.getHasMatch());
       
       scenario.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       

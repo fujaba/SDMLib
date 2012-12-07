@@ -36,7 +36,7 @@
 <g id="edge14" class="edge"><title>_Lecture&#45;&gt;_Room</title>
 <path fill="none" stroke="black" d="M88.4016,-260.348C80.0979,-241.021 69.421,-216.169 60.618,-195.68"/>
 <text text-anchor="middle" x="68.0786" y="-199.839" font-family="Times New Roman,serif" font-size="10.00">in</text>
-<text text-anchor="middle" x="80.941" y="-251.19" font-family="Times New Roman,serif" font-size="10.00">lecture</text>
+<text text-anchor="middle" x="80.941" y="-251.19" font-family="Times New Roman,serif" font-size="10.00">lecture *</text>
 </g>
 <!-- _Professor -->
 <g id="node8" class="node"><title>_Professor</title>
@@ -53,7 +53,7 @@
 <g id="edge18" class="edge"><title>_Lecture&#45;&gt;_Professor</title>
 <path fill="none" stroke="black" d="M115.598,-260.348C124.84,-238.839 137.02,-210.487 146.286,-188.921"/>
 <text text-anchor="middle" x="146.591" y="-196.416" font-family="Times New Roman,serif" font-size="10.00">has</text>
-<text text-anchor="middle" x="115.293" y="-247.853" font-family="Times New Roman,serif" font-size="10.00">lecture</text>
+<text text-anchor="middle" x="115.293" y="-247.853" font-family="Times New Roman,serif" font-size="10.00">lecture *</text>
 </g>
 <!-- _Student -->
 <g id="node9" class="node"><title>_Student</title>
@@ -73,7 +73,7 @@
 <g id="edge20" class="edge"><title>_Lecture&#45;&gt;_Student</title>
 <path fill="none" stroke="black" d="M131.82,-260.358C137.039,-255.358 142.548,-250.394 148,-246 171.037,-227.433 179.416,-226.465 204,-210 207.074,-207.941 210.209,-205.824 213.37,-203.677"/>
 <text text-anchor="middle" x="208.246" y="-209.765" font-family="Times New Roman,serif" font-size="10.00">listen</text>
-<text text-anchor="middle" x="135.47" y="-248.548" font-family="Times New Roman,serif" font-size="10.00">lecture</text>
+<text text-anchor="middle" x="135.47" y="-248.548" font-family="Times New Roman,serif" font-size="10.00">lecture *</text>
 </g>
 <!-- _Person -->
 <g id="node2" class="node"><title>_Person</title>
@@ -125,8 +125,8 @@
 <!-- _Room&#45;&gt;_Room -->
 <g id="edge12" class="edge"><title>_Room&#45;&gt;_Room</title>
 <path fill="none" stroke="black" d="M88.3058,-178.371C98.5067,-176.443 106,-168.986 106,-156 106,-143.014 98.5067,-135.557 88.3058,-133.629"/>
-<text text-anchor="middle" x="98.1237" y="-129.229" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
-<text text-anchor="middle" x="96.0721" y="-169.571" font-family="Times New Roman,serif" font-size="10.00">neighbors</text>
+<text text-anchor="middle" x="98.1237" y="-129.229" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
+<text text-anchor="middle" x="96.0721" y="-169.571" font-family="Times New Roman,serif" font-size="10.00">neighbors *</text>
 </g>
 <!-- _University -->
 <g id="node4" class="node"><title>_University</title>
@@ -143,7 +143,7 @@
 <g id="edge16" class="edge"><title>_Room&#45;&gt;_University</title>
 <path fill="none" stroke="black" d="M44,-116.382C44,-100.06 44,-81.2813 44,-65.779"/>
 <text text-anchor="middle" x="48.2262" y="-72.342" font-family="Times New Roman,serif" font-size="10.00">uni</text>
-<text text-anchor="middle" x="39.7738" y="-104.819" font-family="Times New Roman,serif" font-size="10.00">rooms</text>
+<text text-anchor="middle" x="39.7738" y="-104.819" font-family="Times New Roman,serif" font-size="10.00">rooms *</text>
 </g>
 <!-- _StudyRightClassesCodeGen -->
 <g id="node5" class="node"><title>_StudyRightClassesCodeGen</title>

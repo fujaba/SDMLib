@@ -279,5 +279,13 @@ public class Student implements PropertyChangeInterface
       setIn(value);
       return this;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getMatrNo());
+      return _.substring(1);
+   }}
 

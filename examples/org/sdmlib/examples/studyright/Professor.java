@@ -172,5 +172,12 @@ public class Professor implements PropertyChangeInterface
       setTopic(value);
       return this;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }}
 

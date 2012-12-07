@@ -441,5 +441,13 @@ public class Room implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getRoomNo());
+      _.append(" ").append(this.getCredits());
+      return _.substring(1);
+   }}
 

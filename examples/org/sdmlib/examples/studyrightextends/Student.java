@@ -277,5 +277,13 @@ public class Student extends Female implements Male, PropertyChangeInterface
          this.removeFromLecture(value);
       }
    }
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getMatrNo());
+      return _.substring(1);
+   }}
 

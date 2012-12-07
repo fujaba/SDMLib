@@ -1,4 +1,5 @@
 <html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Scenario <a href='../examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 <pre>1. generate class University</pre>
@@ -6,6 +7,8 @@
 <embed type="image/svg+xml" src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
 <embed type="image/svg+xml" src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
 <embed type="image/svg+xml" src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes and assocs</pre>
+<pre>Check: found method set(String,Object) in class student</pre>
+<pre>Check: found symtab entry for method set(String,Object) method:set(String,Object):boolean</pre>
 <pre>   public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -35,6 +38,8 @@
       return false;
    }</pre>
 <pre>6. generate generic get for attributes and assocs</pre>
+<pre>Check: found method get(String) in class student</pre>
+<pre>Check: found symtab entry for method get(String) method:get(String):Object</pre>
 <pre>   public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
@@ -76,6 +81,8 @@ import org.sdmlib.examples.studyright.creators.StudentSet;</pre>
 <pre>9. generate property change support</pre>
 <pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
 <pre>10. generate removeYou method</pre>
+<pre>Check: found method removeYou) in class student</pre>
+<pre>Check: found symtab entry for method removeYou() method:removeYou():void</pre>
 <pre>   public void removeYou()
    {
       setUni(null);

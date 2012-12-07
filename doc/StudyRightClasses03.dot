@@ -9,6 +9,5 @@
     
     
     
-    _University -> _Student [headlabel = "students" taillabel = "uni" arrowhead = "none" ];
+    _University -> _Student [headlabel = "students *" taillabel = "uni" arrowhead = "none" ];
 }
-

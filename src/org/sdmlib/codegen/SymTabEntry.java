@@ -28,7 +28,10 @@ import org.sdmlib.utils.StrUtil;
 
 public class SymTabEntry implements PropertyChangeInterface 
 {   
-
+   public String toString()
+   {
+      return "" + type;
+   }
    
    //==========================================================================
    
@@ -69,84 +72,6 @@ public class SymTabEntry implements PropertyChangeInterface
          return getKind();
       }
 
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         return getModifiers();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         return getEndPos();
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getBodyStartPos();
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         return getMemberName();
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         return getKind();
-      }
-
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         return getKind();
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         return getMemberName();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getBodyStartPos();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         return getEndPos();
-      }
-
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         return getModifiers();
-      }
-      
       return null;
    }
 
@@ -194,90 +119,6 @@ public class SymTabEntry implements PropertyChangeInterface
       if (PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
          setKind((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         setModifiers((String) value);
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         setBodyStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         setMemberName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         setKind((String) value);
-         return true;
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         setKind((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         setMemberName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         setBodyStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         setModifiers((String) value);
          return true;
       }
 

@@ -13,9 +13,8 @@
     
     
     _Professor -> _Topic [headlabel = "topic" taillabel = "prof" arrowhead = "none" ];
-    _Room -> _Room [headlabel = "neighbors" taillabel = "neighbors" arrowhead = "none" ];
-    _Room -> _Student [headlabel = "students" taillabel = "in" arrowhead = "none" ];
-    _Room -> _University [headlabel = "uni" taillabel = "rooms" arrowhead = "none" ];
-    _Student -> _University [headlabel = "uni" taillabel = "students" arrowhead = "none" ];
+    _Room -> _Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
+    _Room -> _Student [headlabel = "students *" taillabel = "in" arrowhead = "none" ];
+    _Room -> _University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
+    _Student -> _University [headlabel = "uni" taillabel = "students *" arrowhead = "none" ];
 }
-
