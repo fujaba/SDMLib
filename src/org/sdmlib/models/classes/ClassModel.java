@@ -750,8 +750,13 @@ public class ClassModel implements PropertyChangeInterface
             Clazz partnerClass = findPartnerClass(partnerTypeName);
             String setterPrefix = findSetterPrefix(partnerTypeName);
 
+            String name = StrUtil.upFirstChar(memberName);
+            
+            Method addToMethod = findMethod(clazz, setterPrefix + name + "(" + partnerClassName + ")");
+
             // type is unknown
-            if (partnerClass == null) {
+            if (partnerClass == null || addToMethod == null) 
+            {
                new Attribute()
                .withName(memberName)
                .withType(partnerTypeName)
@@ -759,12 +764,6 @@ public class ClassModel implements PropertyChangeInterface
                continue;
             }
 
-            String name = StrUtil.upFirstChar(memberName);
-
-            Method addToMethod = findMethod(clazz, setterPrefix + name + "(" + partnerClassName + ")");
-
-            if (addToMethod == null)
-               continue;
 
             SymTabEntry addToSymTabEntry = symTab.get(Parser.METHOD + ":" + addToMethod.getSignature());
 
@@ -780,21 +779,37 @@ public class ClassModel implements PropertyChangeInterface
                methodBodyQualifiedNames.add(key);
             }
 
+            boolean done = false;
             for (String qualifiedName : methodBodyQualifiedNames)
             {
                if (qualifiedName.startsWith("value.with"))
                {
                   handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.with".length()));
+                  done = true; 
+                  break;
                }
                else if (qualifiedName.startsWith("value.set"))
                {
                   handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.set".length()));
+                  done = true; 
+                  break;
                }
                else if (qualifiedName.startsWith("value.addTo"))
                {
                   handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.addTo".length()));
+                  done = true; 
+                  break;
                }
             }
+            if ( ! done)
+            {
+               // did not find reverse role, add as attribute
+               new Attribute()
+               .withName(memberName)
+               .withType(partnerTypeName)
+               .withClazz(clazz);
+            }
+
          }
          // remove getter with setter or addTo removeFrom removeAllFrom without
       }
