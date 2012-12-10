@@ -90,6 +90,11 @@ public class TableComponent extends Composite implements Listener,
 	protected TableFilterView tableFilterView;
 	private Menu headerMenu;
 
+	public IdMap getMap()
+   {
+      return map;
+   }
+	
 	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
 

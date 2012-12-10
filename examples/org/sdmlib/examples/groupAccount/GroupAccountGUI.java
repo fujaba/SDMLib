@@ -1,5 +1,8 @@
 package org.sdmlib.examples.groupAccount;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -10,6 +13,8 @@ import org.eclipse.swt.layout.GridData;
 import org.sdmlib.examples.groupAccount.creators.CreatorCreator;
 import org.sdmlib.examples.groupAccount.creators.ItemCreator;
 import org.sdmlib.examples.groupAccount.creators.PersonCreator;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 import de.uniks.jism.gui.table.SDMLibSearchTableComponent;
 import de.uniks.jism.gui.table.SearchTableComponent;
@@ -59,16 +64,21 @@ public class GroupAccountGUI extends Shell
       
       SashForm sashForm = new SashForm(this, SWT.NONE);
       
-      
       sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
       
-      
-      
-      
-      final SearchTableComponent personTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
-      
+      SearchTableComponent personTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_PERSONS);
       
       SearchTableComponent itemsTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_ITEMS);
+      
+      JsonIdMap map = (JsonIdMap) itemsTable.getMap();
+      map.setUpdateMsgListener(new PropertyChangeListener()
+      {
+         @Override
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            groupAccount.updateBalances();
+         }
+      });
       
       createContents();
    }
