@@ -41,6 +41,7 @@ import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -813,6 +814,12 @@ public class Clazz implements PropertyChangeInterface
 
 
    Parser parser = null;
+   
+   public void setParser(Parser parser)
+	{
+		this.parser = parser;
+	}
+   
    Parser creatorParser = null;
 
    private File javaFile;
@@ -1699,7 +1706,7 @@ public class Clazz implements PropertyChangeInterface
 
       if (PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
       {
-         return getKindClassesAsInterface();
+         return getKidClassesAsInterface();
       }
 
       if (PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
@@ -1715,6 +1722,11 @@ public class Clazz implements PropertyChangeInterface
       if (PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
       {
          return getWrapped();
+      }
+
+      if (PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
+      {
+         return getFilePath();
       }
 
       return null;
@@ -1857,6 +1869,12 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
+      {
+         setFilePath((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -1992,12 +2010,8 @@ public class Clazz implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   public String toString()
-   {
-      return "["+getName()+"]";
-   }
 
-
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -2124,7 +2138,7 @@ public class Clazz implements PropertyChangeInterface
 
    private LinkedHashSet<Clazz> kidClassesAsInterface = null;
 
-   public LinkedHashSet<Clazz> getKindClassesAsInterface()
+   public LinkedHashSet<Clazz> getKidClassesAsInterface()
    {
       if (this.kidClassesAsInterface == null)
       {
@@ -2479,5 +2493,41 @@ public class Clazz implements PropertyChangeInterface
       
       return result;
    } 
-}
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_FILEPATH = "filePath";
+   
+   private String filePath;
+
+   public String getFilePath()
+   {
+      return this.filePath;
+   }
+   
+   public void setFilePath(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.filePath, value))
+      {
+         String oldValue = this.filePath;
+         this.filePath = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FILEPATH, oldValue, value);
+      }
+   }
+   
+   public Clazz withFilePath(String value)
+   {
+      setFilePath(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      // _.append(" ").append(this.getFilePath());
+      return _.substring(1);
+   }}
 

@@ -571,5 +571,15 @@ public class Method implements PropertyChangeInterface
       setReturnType(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSignature());
+      _.append(" ").append(this.getReturnType());
+      return _.substring(1);
+   }
+   
 }
 

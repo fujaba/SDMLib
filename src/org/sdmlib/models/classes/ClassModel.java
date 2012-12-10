@@ -108,6 +108,7 @@ public class ClassModel implements PropertyChangeInterface
 
    public ClassModel generate(String rootDir, String helpersDir)
    {
+   	resetParsers();
       generateCreatorCreatorClass(helpersDir);
       generateModelPatternClass(helpersDir);
 
@@ -124,7 +125,15 @@ public class ClassModel implements PropertyChangeInterface
       return this;
    }
 
-   private void generateCreatorCreatorClass(String rootDir)
+   private void resetParsers()
+	{
+		for (Clazz c : getClasses())
+		{
+			c.setParser(null);
+		}
+	}
+
+	private void generateCreatorCreatorClass(String rootDir)
    {
       // take first class to find package
 
@@ -667,7 +676,12 @@ public class ClassModel implements PropertyChangeInterface
       }
    }
 
-   public void updateFromCode(String rootDir, String includePathes, String packages)
+   public void updateFromCode(String noLongerUsed, String includePathes, String packages)
+   {
+   	updateFromCode(includePathes, packages);
+   }
+   
+   public void updateFromCode(String includePathes, String packages)
    {
       // find java files
       String binDir = getClass().getClassLoader().getResource(".").getPath();
@@ -687,7 +701,7 @@ public class ClassModel implements PropertyChangeInterface
          // parse each java file
          for (Clazz clazz : getClasses())
          {
-            handleMember(clazz, rootDir);
+            handleMember(clazz, clazz.getFilePath());
          }
       }
 
@@ -1001,32 +1015,48 @@ public class ClassModel implements PropertyChangeInterface
 
    private void addJavaFilesToClasses(String packageString, File srcFolder, ArrayList<File> javaFiles)
    {
+   	String[] packages = packageString.split("\\s+"); 
+      
       for (File file : javaFiles)
       {
          String filePath = file.getAbsolutePath();
          filePath = filePath.replace(srcFolder.getPath(), "");
-         filePath = filePath.replace(File.separatorChar, '.');
-         String[] packages = packageString.split("\\s+"); 
+         filePath = filePath.replace(File.separatorChar, '.').substring(1);
+         filePath = filePath.substring(0, filePath.length() - 5);
          addClassToClasses(filePath, packages);	
       }
    }
 
-   private void addClassToClasses(String filePath, String[] packages) {
-      for (String pAckage : packages) {
-         if (filePath.contains(pAckage)) {
-            int indexOfPackage = filePath.lastIndexOf(pAckage, filePath.length() - 1);					
-            filePath = filePath.substring(indexOfPackage, filePath.length() - 5);
-            if (!classExists(filePath))
-            {
-               Clazz clazz = new Clazz(filePath);
-               classes.add(clazz);
-            }
-            return;
-         }
-      }
+   private void addClassToClasses(String filePath, String[] packages) 
+   {
+   	// split off source folder
+   	int pos = filePath.indexOf('.');
+   	String rootDir = filePath.substring(0, pos);
+   	filePath = filePath.substring(pos + 1);
+   	if (commonPrefix(filePath, packages))
+   	{
+   		if (!classExists(filePath))
+   		{
+   			Clazz clazz = new Clazz(filePath).withFilePath(rootDir);
+   			classes.add(clazz);
+   		}
+   		return;
+   	}
    }
 
-   private String findSetterPrefix(String partnerTypeName)
+   private boolean commonPrefix(String filePath, String[] packages)
+	{
+		for (String p : packages)
+		{
+			if (filePath.startsWith(p))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private String findSetterPrefix(String partnerTypeName)
    {
       int openAngleBracket = partnerTypeName.indexOf("<");
       int closeAngleBracket = partnerTypeName.indexOf(">");
@@ -2687,5 +2717,12 @@ public class ClassModel implements PropertyChangeInterface
       setPackageName(value);
       return this;
    } 
-}
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getPackageName());
+      return _.substring(1);
+   }}
 

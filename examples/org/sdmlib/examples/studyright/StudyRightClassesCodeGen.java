@@ -122,7 +122,7 @@ private static final String STRING = String.class.getSimpleName();
 
 
 
-      model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyright");
+      model.updateFromCode("examples test src", "org.sdmlib.examples.studyright");
 
       model.insertModelCreationCodeHere("examples");
 

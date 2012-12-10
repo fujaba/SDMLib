@@ -462,7 +462,73 @@ public class ClazzPO extends PatternObject
       return false;
    }
    
+   public ClazzPO hasFilePath(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_FILEPATH)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getFilePath()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) getCurrentMatch()).getFilePath();
+      }
+      return null;
+   }
+   
+   public ClazzPO withFilePath(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Clazz) getCurrentMatch()).setFilePath(value);
+      }
+      return this;
+   }
+   
+   public ClazzPO hasKidClassesAsInterface()
+   {
+      ClazzPO result = new ClazzPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Clazz.PROPERTY_KIDCLASSESASINTERFACE, result);
+      
+      return result;
+   }
+   
+   public ClazzPO hasKidClassesAsInterface(ClazzPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSESASINTERFACE)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ClazzSet getKidClassesAsInterface()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ClazzSet) this.getCurrentMatch()).getKidClassesAsInterface();
+      }
+      return null;
+   }
+   
 }
+
 
 
 

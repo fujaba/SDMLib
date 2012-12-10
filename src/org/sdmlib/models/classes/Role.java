@@ -38,6 +38,10 @@ public class Role implements PropertyChangeInterface
 {
    public String toString()
    {
+   	//   	StringBuilder _ = new StringBuilder();
+   	//   	_.append(" ").append(this.getName());
+   	//      _.append(" ").append(this.getCard());
+   	//      _.append(" ").append(this.getKind());
       return "" + name + " " + card;
    }
    // public static final String ONE = "one";

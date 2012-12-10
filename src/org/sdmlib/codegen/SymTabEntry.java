@@ -308,5 +308,6 @@ public class SymTabEntry implements PropertyChangeInterface
       setModifiers(value);
       return this;
    } 
+
 }
 

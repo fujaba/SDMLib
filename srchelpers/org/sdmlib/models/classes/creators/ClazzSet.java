@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2012 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.classes.creators;
 
 import java.util.LinkedHashSet;
@@ -137,7 +158,7 @@ public class ClazzSet extends LinkedHashSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getKindClassesAsInterface());
+         result.addAll(obj.getKidClassesAsInterface());
       }
       
       return result;
@@ -413,7 +434,61 @@ public class ClazzSet extends LinkedHashSet<Clazz>
       return this;
    }
 
+   public StringList getFilePath()
+   {
+      StringList result = new StringList();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.getFilePath());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withFilePath(String value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withFilePath(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet getKidClassesAsInterface()
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         result.addAll(obj.getKidClassesAsInterface());
+      }
+      
+      return result;
+   }
+   public ClazzSet withKidClassesAsInterface(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withKidClassesAsInterface(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withoutKidClassesAsInterface(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withoutKidClassesAsInterface(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

@@ -5,7 +5,7 @@
     
     
     _ClassModel [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/ClassModel.java">ClassModel</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>packageName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Clazz [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/Clazz.java">Clazz</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>interfaze :boolean</td></tr> <tr><td align='left'>external :boolean</td></tr> <tr><td align='left'>wrapped :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Clazz [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/Clazz.java">Clazz</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>interfaze :boolean</td></tr> <tr><td align='left'>external :boolean</td></tr> <tr><td align='left'>wrapped :boolean</td></tr> <tr><td align='left'>filePath :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Attribute [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/Attribute.java">Attribute</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>initialization :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Method [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/Method.java">Method</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>signature :String</td></tr> <tr><td align='left'>returnType :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Association [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/classes/Association.java">Association</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
@@ -16,15 +16,15 @@
     
     
     
-    _ClassModel -> _Clazz [headlabel = "classes" taillabel = "classModel" arrowhead = "none" ];
-    _Clazz -> _Clazz [headlabel = "kindClasses" taillabel = "superClass" arrowhead = "none" ];
-    _Clazz -> _Clazz [headlabel = "kindClassesAsInterface" taillabel = "interfaces" arrowhead = "none" ];
-    _Clazz -> _Attribute [headlabel = "attributes" taillabel = "clazz" arrowhead = "none" ];
-    _Clazz -> _Method [headlabel = "methods" taillabel = "clazz" arrowhead = "none" ];
-    _ClassModel -> _Association [headlabel = "associations" taillabel = "model" arrowhead = "none" ];
-    _Clazz -> _Role [headlabel = "sourceRoles" taillabel = "clazz" arrowhead = "none" ];
-    _Clazz -> _Role [headlabel = "targetRoles" taillabel = "clazz" arrowhead = "none" ];
+    _ClassModel -> _Clazz [headlabel = "classes *" taillabel = "classModel" arrowhead = "none" ];
+    _Clazz -> _Clazz [headlabel = "kidClasses *" taillabel = "superClass" arrowhead = "none" ];
+    _Clazz -> _Clazz [headlabel = "kidClassesAsInterface *" taillabel = "interfaces *" arrowhead = "none" ];
+    _Clazz -> _Attribute [headlabel = "attributes *" taillabel = "clazz" arrowhead = "none" ];
+    _Clazz -> _Method [headlabel = "methods *" taillabel = "clazz" arrowhead = "none" ];
+    _ClassModel -> _Association [headlabel = "associations *" taillabel = "model" arrowhead = "none" ];
+    _Clazz -> _Role [headlabel = "sourceRoles *" taillabel = "clazz" arrowhead = "none" ];
+    _Clazz -> _Role [headlabel = "targetRoles *" taillabel = "clazz" arrowhead = "none" ];
     _Association -> _Role [headlabel = "source" taillabel = "assoc" arrowhead = "none" ];
     _Association -> _Role [headlabel = "target" taillabel = "assoc" arrowhead = "none" ];
-    _StatementEntry -> _StatementEntry [headlabel = "bodyStats" taillabel = "parent" arrowhead = "none" ];
+    _StatementEntry -> _StatementEntry [headlabel = "bodyStats *" taillabel = "parent" arrowhead = "none" ];
 }

@@ -22,6 +22,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_TARGETROLES,
       Clazz.PROPERTY_EXTERNAL,
       Clazz.PROPERTY_WRAPPED,
+      Clazz.PROPERTY_FILEPATH,
    };
    
    public String[] getProperties()
@@ -58,6 +59,7 @@ public class ClazzCreator extends EntityFactory
       ((Clazz) entity).removeYou();
    }
 }
+
 
 
 

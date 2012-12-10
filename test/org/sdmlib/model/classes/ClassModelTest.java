@@ -58,7 +58,8 @@ public class ClassModelTest
          "name", String.class.getSimpleName(),
          "interfaze", boolean.class.getSimpleName(), 
          "external", boolean.class.getSimpleName(), 
-         "wrapped", BOOLEAN);
+         "wrapped", BOOLEAN, 
+         "filePath", STRING);
       
       new Association()
       .withSource("classModel", modelClass, ONE, Role.AGGREGATION)

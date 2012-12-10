@@ -1108,7 +1108,7 @@ public class Attribute implements PropertyChangeInterface
             "      StringBuilder _ = new StringBuilder();\n" + 
             "      \n" + 
             "      return _.substring(1);\n" + 
-            "   }" 
+            "   }\n\n" 
                );
          
          pos = parser.indexOf(Parser.CLASS_END);
@@ -1250,6 +1250,8 @@ public class Attribute implements PropertyChangeInterface
 
    public String toString()
    {
+   	// StringBuilder _ = new StringBuilder();
+   	// _.append(" ").append(this.getInitialization());
       return "" + name + " : " + type;
    }
    
