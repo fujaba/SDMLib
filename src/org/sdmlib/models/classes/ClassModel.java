@@ -519,6 +519,29 @@ public class ClassModel implements PropertyChangeInterface
          allAssocsText.append(oneAssocText.toString());
       }
 
+      // add assocs for complex attributes
+      for (Attribute attr : getClasses().getAttributes())
+      {
+         
+         if (CGUtil.isPrimitiveType(attr.getType()))
+         {
+            continue;
+         }
+         
+         R tgtCard = findRoleCard(attr.getType());
+         String tgtClassName = findPartnerClassName(attr.getType());
+         
+         StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
+
+            CGUtil.replaceAll(oneAssocText, 
+               "sourceClass", CGUtil.shortClassName(attr.getClazz().getName()), 
+               "targetClass", tgtClassName, 
+               "sourceRole", "", 
+               "targetRole", attr.getName());
+
+            allAssocsText.append(oneAssocText.toString());
+      }
+      
       CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
 
       // write dot file
