@@ -1070,10 +1070,9 @@ public class Clazz implements PropertyChangeInterface
                "package packageName;\n" +
                      "\n" +
                      "import java.util.LinkedHashSet;\n" +
-                     "import org.sdmlib.models.modelsets.ModelSet;\n" +
                      "import fullEntityClassName;\n" +
                      "\n" +
-                     "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements ModelSet\n" +
+                     "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements org.sdmlib.models.modelsets.ModelSet\n" +
                      "{\n" +
                   "}\n");
 

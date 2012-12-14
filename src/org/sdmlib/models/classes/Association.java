@@ -32,6 +32,20 @@ import org.sdmlib.models.classes.creators.AssociationSet;
 
 public class Association implements PropertyChangeInterface
 {
+   public String toString()
+   {
+      String text = "role is missing";
+      try
+      {
+         text = CGUtil.shortClassName(source.getClazz().getName()) + "|" + source.getName() + " -- " + target.getName() + "|" + CGUtil.shortClassName(target.getClazz().getName());
+      }
+      catch (Exception e)
+      {
+         // intentionally empty
+      }
+      return  text;
+   }
+   
    public Association()
    {
       ClassModel.classModel.addToAssociations(this);
@@ -115,7 +129,7 @@ public class Association implements PropertyChangeInterface
          for (Clazz kidClass : getTarget().getClazz()
                .getKidClassesClosure())
          {
-            getSource().generate(kidClass, rootDir, helperDir, getSource(), doGenerate, true);
+            getTarget().generate(kidClass, rootDir, helperDir, getSource(), doGenerate, true);
          }
       }
       else
