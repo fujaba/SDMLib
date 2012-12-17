@@ -17,39 +17,48 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 import de.uniks.jism.gui.TableListCreator;
 
-public class SDMLibSearchTableComponent extends SearchTableComponent{
-	 public SDMLibSearchTableComponent(Composite parent, final Object root, final String property) 
-	   {
+public class SDMLibSearchTableComponent extends SearchTableComponent
+{
+   public SDMLibSearchTableComponent(Composite parent, final Object root, final String property) 
+   {
+      this(parent, root, property, null);
+   }
+   
+   public SDMLibSearchTableComponent(Composite parent, final Object root, final String property, JsonIdMap map) 
+	 {
 	      super(parent, SWT.NONE);
 	      
-	      // derive map from root,
-	      String rootClassName = root.getClass().getName();
+	      this.map = map;
 	      
-	      String creatorCreatorClassName = CGUtil.packageName(rootClassName);
-	      
-	      creatorCreatorClassName = creatorCreatorClassName + ".creators.CreatorCreator";
-	      
-	      try
-	      {
-	         Class<?> creatorClass = Class.forName(creatorCreatorClassName);
-	         
-	         Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-	         
-	         Object obj = method.invoke(null, "gui");
-	         
-	         this.map = (IdMap) obj;
-	         this.map.addCreator(new TableListCreator());
+	      if (this.map == null)
+         {
+            // derive map from root,
+            String rootClassName = root.getClass().getName();
+            String creatorCreatorClassName = CGUtil.packageName(rootClassName);
+            creatorCreatorClassName = creatorCreatorClassName
+               + ".creators.CreatorCreator";
+            try
+            {
+               Class<?> creatorClass = Class.forName(creatorCreatorClassName);
 
-	         JsonIdMap myMap=(JsonIdMap) map;
-	         myMap.toJsonObject(root);
-	         
-	      }
-	      catch (Exception e)
-	      {
-	         e.printStackTrace();
-	      }
-	      
-	      createContent();
+               Method method = creatorClass.getDeclaredMethod("createIdMap",
+                  String.class);
+
+               Object obj = method.invoke(null, "gui");
+
+               this.map = (IdMap) obj;
+               this.map.addCreator(new TableListCreator());
+
+               JsonIdMap myMap = (JsonIdMap) map;
+               myMap.toJsonObject(root);
+
+            }
+            catch (Exception e)
+            {
+               e.printStackTrace();
+            }
+         }
+         createContent();
 
 	      final SendableEntityCreator rootCreatorClass = this.map.getCreatorClass(root);
 	      

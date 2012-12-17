@@ -384,8 +384,7 @@ public class Role implements PropertyChangeInterface
             "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n" + 
             "      }\n" + 
             "      return null;\n" + 
-            "   }\n" +
-            "   \n");
+            "   }\n\n");
 
          clazz.insertImport(parser, PatternLink.class.getName());
          
@@ -428,8 +427,7 @@ public class Role implements PropertyChangeInterface
             "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
             "      \n" + 
             "      return result;\n" + 
-            "   }\n" +
-            "   \n");
+            "   }\n\n");
 
          clazz.insertImport(parser, PatternLink.class.getName());
          
@@ -474,8 +472,7 @@ public class Role implements PropertyChangeInterface
             "      this.getPattern().findMatch();\n" + 
             "      \n" + 
             "      return this;\n" + 
-            "   }\n" +
-            "   \n");
+            "   }\n\n");
 
          clazz.insertImport(parser, LinkConstraint.class.getName());
          
