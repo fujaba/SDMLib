@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.table;
+package de.uniks.jism.gui;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -31,6 +31,8 @@ import java.util.Comparator;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
+import de.uniks.jism.gui.table.CellValueCreator;
 
 public class TableListComparator implements Comparator<Object>{
 	public static final int ASC = -1;
@@ -81,7 +83,11 @@ public class TableListComparator implements Comparator<Object>{
 			String valueB=(String) v2;
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueB.compareTo(valueA);
+					int value = valueB.compareTo(valueA);
+					
+					if(value<1){
+						return -1;
+					}
 				}
 				return 1;
 			}
@@ -90,7 +96,11 @@ public class TableListComparator implements Comparator<Object>{
 			Integer valueB=(Integer) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueB.compareTo(valueA);
+					int value = valueB.compareTo(valueA);
+					
+					if(value<1){
+						return -1;
+					}
 				}
 				return 1;
 			}
@@ -99,7 +109,11 @@ public class TableListComparator implements Comparator<Object>{
 			Long valueB=(Long) v2; 
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueB.compareTo(valueA);
+					int value = valueB.compareTo(valueA);
+					
+					if(value<1){
+						return -1;
+					}
 				}
 				return 1;
 			}
@@ -108,7 +122,11 @@ public class TableListComparator implements Comparator<Object>{
 			Boolean valueB=(Boolean) cellCreator.getCellValue(o2, c1, column);
 			if(valueA!=null){
 				if(valueB!=null){
-					return valueB.compareTo(valueA);
+					int value = valueB.compareTo(valueA);
+					
+					if(value<1){
+						return -1;
+					}
 				}
 				return 1;
 			}
@@ -163,6 +181,9 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setIdMap(IdMap value) {
 		this.map=value;
+	}
+	public IdMap getMap(){
+		return map;
 	}
 
 	public CellValueCreator getCellCreator() {

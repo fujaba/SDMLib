@@ -61,6 +61,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
+import de.uniks.jism.gui.TableListComparator;
 import de.uniks.jism.gui.TableListCreator;
 import de.uniks.jism.gui.layout.BorderLayout;
 
@@ -604,6 +605,7 @@ public class TableComponent extends Composite implements Listener,
 
 	public void setSorting(TableColumn column, int direction,
 			ColumnViewerSorter sorter) {
+		
 		if (fixedTableViewerLeft != null) {
 			setSorting(column, direction, fixedTableViewerLeft, sorter);
 		}

@@ -36,6 +36,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 
 import de.uniks.jism.gui.TableList;
+import de.uniks.jism.gui.TableListComparator;
 
 public class ColumnViewerSorter extends ViewerComparator {
 	private TableColumnView view;

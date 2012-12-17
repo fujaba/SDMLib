@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -37,6 +38,8 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
+import de.uniks.jism.gui.TableList;
 
 public class TableFilterView extends ViewerFilter implements ModifyListener{
 	private Text searchText;
@@ -61,6 +64,19 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		}
 	}
 	
+	@Override
+	public Object[] filter(Viewer viewer, Object parent, Object[] elements) {
+		TableList list = component.getList();
+		ArrayList<Object> items=new ArrayList<Object>();
+		for(Iterator<Object> i=list.iterator();i.hasNext();){
+			Object item = i.next();
+			if(matchesSearchCriteria(item)){
+				items.add(item);
+			}
+		}
+		return items.toArray(new Object[items.size()]);
+//		return super.filter(viewer, parent, elements);
+	}
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		return matchesSearchCriteria(element);

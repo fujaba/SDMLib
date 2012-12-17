@@ -35,6 +35,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -162,6 +163,15 @@ public class EditField {
 			spinner.addSelectionListener(new SelectionAdapter() {
 	            public void widgetDefaultSelected(SelectionEvent e) {
 	            	defaultSelection(e);
+	            }
+	        });
+			spinner.addKeyListener(new KeyAdapter() {
+	            // hook key pressed - see PR 14201  
+	            public void keyPressed(KeyEvent e) {
+	            	if(e.keyCode==SWT.ESC){
+	            		onFocusLost();
+	            		e.doit = false;
+	            	}
 	            }
 	        });
 		}

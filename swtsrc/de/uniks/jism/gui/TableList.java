@@ -31,29 +31,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
-import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeClient;
 
 import de.uniks.jism.gui.table.CellValueCreator;
-import de.uniks.jism.gui.table.TableListComparator;
 
-public class TableList extends TreeSet<Object> implements PeerMessage, PropertyChangeClient {
-	private static final long serialVersionUID = 1L;
+public class TableList implements Collection<Object>, PeerMessage, PropertyChangeClient {
 	public static final String PROPERTY_ITEMS = "items";
-	private TableListComparator comparator;
+	protected TableListComparator comparator;
+	protected TreeSet<Object> list;
+	protected HashSet<Object> index;
+	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
 	
 	public TableList(){
-		super(new TableListComparator());
-		Comparator<? super Object> tc = this.comparator();
-		if(tc instanceof TableListComparator){
-			comparator=(TableListComparator) tc;
-		}
+		comparator=new TableListComparator();
 	}
 
 	public TableList(Collection<? extends Object> items){
@@ -64,6 +63,16 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		this();		
 		addAll(items);
 	}
+	private TreeSet<Object> getItemSet(boolean always){
+		if(list==null||always){
+			list=new TreeSet<Object>(comparator);
+		}
+		if(index==null){
+			index=new HashSet<Object>();
+		}
+		return list;
+	}
+	
 	public void setIdMap(IdMap map){
 		if(this.comparator!=null){
 			comparator.setIdMap(map);
@@ -95,7 +104,7 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	}
 
 	public TreeSet<Object> getItems() {
-		return this;
+		return list;
 	}
 	
 
@@ -107,8 +116,10 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	public boolean add(Object value){
 		if (!contains(value)) 
 		{
-			super.add(value);
-
+			
+			getItemSet(false).add(value);
+			index.add(value);
+	
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
 			return true;
 		}
@@ -118,7 +129,8 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 	@Override
 	public boolean remove(Object value) {
 		if (contains(value)) {
-			super.remove(value);
+			getItemSet(false).remove(value);
+			index.remove(value);
 
 			getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value,null);
 			return true;
@@ -178,7 +190,6 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		return true;
 	}
 
-	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
 	public PropertyChangeSupport getPropertyChangeSupport() {
 		return listeners;
@@ -219,10 +230,24 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 		comparator.setColumn(field);
 		comparator.setDirection(direction);
 		comparator.setCellCreator(cellValueCreator);
+		refreshSort();
 	}
+	
+	public void refreshSort(){
+		TreeSet<Object> oldValue = list;
+		
+		list = getItemSet(true);
+		int size = oldValue.size();
+		Object[] array = oldValue.toArray(new Object[size]);
+		for(int i=0;i<size;i++){
+			list.add(array[i]);
+		}
+	}
+		
 	
 	public void setSort(String field) {
 		comparator.setColumn(field);
+		refreshSort();
 	}
 	
 	public int compare(Object o1, Object o2) {
@@ -237,5 +262,104 @@ public class TableList extends TreeSet<Object> implements PeerMessage, PropertyC
 			return comparator.setDirection(TableListComparator.ASC);
 		}
 		return direction;
+	}
+
+	@Override
+	public boolean contains(Object item) {
+		if(list!=null&&index!=null){
+			return index.contains(item);
+		}
+		return false;
+	}
+	
+	public boolean containsIntern(Object item) {
+		if(list!=null){
+			return new HashSet<Object>(list).contains(item);
+		}
+		return false;
+	}
+	
+	public Object[] getSortedIndex(){
+		IdMap map = comparator.getMap();
+		Iterator<Object> iterator = iterator();
+		SendableEntityCreator creator = null; 
+		if(iterator.hasNext()){
+			creator = map.getCreatorClass(iterator.next());
+		}
+		String column = comparator.getColumn();
+		if(creator != null &&  column != null){
+			Object[] returnValues=new Object[list.size()];
+			CellValueCreator cellCreator = comparator.getCellCreator();
+			if(comparator.getDirection()==TableListComparator.ASC){
+				int pos=0;
+				for(Iterator<Object> i = iterator();i.hasNext();){
+					Object item = i.next();
+					returnValues[pos++] = cellCreator.getCellValue(item, creator, column);
+				}
+			}else{
+				int pos=list.size()-1;
+				for(Iterator<Object> i = iterator();i.hasNext();){
+					Object item = i.next();
+					returnValues[pos--] = cellCreator.getCellValue(item, creator, column);
+				}
+			}
+			return returnValues;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public int size() {
+		if(list!=null){
+			return list.size();
+		}
+		return 0;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		if(list!=null){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Iterator<Object> iterator() {
+		return getItemSet(false).iterator();
+	}
+	
+
+	@Override
+	public Object[] toArray() {
+		if(list!=null){
+			return list.toArray();
+		}
+		return null;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		if(list!=null){
+			return list.toArray(a);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		if(list!=null){
+			return list.containsAll(c);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(Collection<?> c) {
+		if(list!=null){
+			return list.retainAll(c);
+		}
+		return false;
 	}
 }
