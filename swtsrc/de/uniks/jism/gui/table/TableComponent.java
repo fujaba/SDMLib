@@ -320,18 +320,6 @@ public class TableComponent extends Composite implements Listener,
 			fixedTableViewerLeft.refresh();
 		}
 		tableViewer.refresh();
-		if (list != null) {
-			Object listValue = list.getItems();
-			if (listValue instanceof Collection<?>) {
-				Collection<?> listItems = (Collection<?>) listValue;
-				Object[] array = listItems
-						.toArray(new Object[listItems.size()]);
-				for (int z = 0; z < array.length; z++) {
-					propertyChange(new PropertyChangeEvent(list,
-							TableList.PROPERTY_ITEMS, null, array[z]));
-				}
-			}
-		}
 		this.tableFilterView.refreshCounter();
 	}
 
@@ -610,8 +598,6 @@ public class TableComponent extends Composite implements Listener,
 			setSorting(column, direction, fixedTableViewerLeft, sorter);
 		}
 		setSorting(column, direction, tableViewer, sorter);
-
-		refresh();
 	}
 
 	private void setSorting(TableColumn column, int direction,
@@ -624,15 +610,15 @@ public class TableComponent extends Composite implements Listener,
 			} else {
 				table.setSortDirection(SWT.DOWN);
 			}
-			if (viewer.getComparator() != sorter) {
-				viewer.setComparator(sorter);
-			}
+			
 		} else {
 			table.setSortColumn(null);
 			table.setSortDirection(SWT.NONE);
-			if (viewer.getComparator() != sorter) {
-				viewer.setComparator(sorter);
-			}
+		}
+		if (viewer.getComparator() != sorter) {
+			viewer.setComparator(sorter);
+		}else{
+			refresh();
 		}
 	}
 }

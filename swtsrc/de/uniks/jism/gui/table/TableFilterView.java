@@ -49,6 +49,7 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 	private IdMap map;
 	private String[] lastSearchCriteriaItems;
 	private Column updateField;
+	protected boolean lastSearchDetails;
 	
 	public TableFilterView(TableComponent component, IdMap map){
 		this.component=component;
@@ -75,17 +76,9 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 			}
 		}
 		return items.toArray(new Object[items.size()]);
-//		return super.filter(viewer, parent, elements);
 	}
-	@Override
-	public boolean select(Viewer viewer, Object parentElement, Object element) {
-		return matchesSearchCriteria(element);
-	}
-	
+		
 	public boolean matchesSearchCriteria(Object item) {
-		if(lastSearchCriteriaItems==null){
-			return false;
-		}
 		String fullText = "";
 		SendableEntityCreator creatorClass = map.getCreatorClass(item);
 		// SEARCH FOR #ID:3
@@ -148,6 +141,7 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		if (searchCriteria == null && lastSearchCriteria == null)
 			return; // <========= sudden death
 
+		lastSearchDetails = searchCriteria.contains(lastSearchCriteria);
 		lastSearchCriteria=searchCriteria;
 		lastSearchCriteriaItems = new String[] {};
 		if (searchCriteria != null) {
@@ -156,6 +150,12 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 		component.refreshViewer();
 		refreshCounter();
 	}
+	
+	@Override
+	public boolean select(Viewer viewer, Object parentElement, Object element) {
+		return matchesSearchCriteria(element);
+	}
+	
 	public void refreshCounter(){
 		if(updateField!=null){
 			TableColumnView column = component.getColumn(updateField);
