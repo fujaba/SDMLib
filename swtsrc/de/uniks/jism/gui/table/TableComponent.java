@@ -151,6 +151,7 @@ public class TableComponent extends Composite implements Listener,
 		table.addListener(SWT.MouseMove, this);
 		table.addListener(SWT.MouseUp, this);
 		table.addListener(SWT.MouseExit, this);
+		table.addListener(SWT.SELECTED, this);
 
 		table.setLayoutData(browserId);
 
@@ -406,6 +407,11 @@ public class TableComponent extends Composite implements Listener,
 		}
 	}
 
+	protected void onSelection(Table table, TableItem[] tableItems) {
+		
+	}
+	
+
 	@Override
 	public void handleEvent(Event event) {
 		Point pt = new Point(event.x, event.y);
@@ -446,6 +452,10 @@ public class TableComponent extends Composite implements Listener,
 
 					}
 					// setSelection(currentItem, cell, columnIndex);
+				}else{
+					// Deselect All
+					selectNone();
+					onSelection(getTable(), getTable().getSelection());
 				}
 			}
 			if (currentItem == null || currentItem.isDisposed()) {
@@ -499,10 +509,18 @@ public class TableComponent extends Composite implements Listener,
 			} else {
 				this.additionKey = 0;
 			}
+		} else if(SWT.SELECTED == event.type){
+			// Notifiy Selection
+			Table table = (Table) event.widget;
+			onSelection(table, table.getSelection());
 		}
 	}
 
-	protected void selectAll() {
+	public void selectNone(){
+		tableViewer.getTable().setSelection(new int[0]);
+	}
+	
+	public void selectAll() {
 		int count = tableViewer.getTable().getItemCount();
 		int[] array = new int[count];
 		for (int i = 0; i < count; i++) {
@@ -518,6 +536,17 @@ public class TableComponent extends Composite implements Listener,
 	public Table getTable() {
 		return tableViewer.getTable();
 	}
+	
+	public ArrayList<Object> getSelectionItems() {
+		ArrayList<Object> selecteditems=new ArrayList<Object>();
+		for(TableItem item : getTable().getSelection()){
+			if(item.getData() != null){
+				selecteditems.add(item.getData());
+			}
+		}
+		return selecteditems;
+	}
+
 
 	public void onResizeColumn(TableColumn column) {
 		for (TableColumnView item : columns) {

@@ -139,6 +139,5 @@ public class TableColumnView implements ControlListener {
 	}
 	public ColumnViewerSorter getColumnSorter(){
 		return columnViewerSorter;
-	}
-	
+	}	
 }

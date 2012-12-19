@@ -39,6 +39,7 @@ import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.swt.widgets.Composite;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
@@ -122,7 +123,15 @@ public class TableCellEditingSupport extends EditingSupport {
 				}
 			}
 		}
-		return new TextCellEditor(((TableViewer) getViewer()).getTable());
+		return getDefaultEditor();
+	}
+	
+	protected CellEditor getDefaultEditor(){
+		return new TextCellEditor(getDefaultOwner());
+	}
+	
+	protected Composite getDefaultOwner(){
+		return ((TableViewer) getViewer()).getTable();
 	}
 	
 	public String getFirstUpperCase(String text){
