@@ -60,8 +60,8 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 import de.uniks.jism.gui.GUIPosition;
+import de.uniks.jism.gui.SortingDirection;
 import de.uniks.jism.gui.TableList;
-import de.uniks.jism.gui.TableListComparator;
 import de.uniks.jism.gui.TableListCreator;
 import de.uniks.jism.gui.layout.BorderLayout;
 
@@ -133,7 +133,7 @@ public class TableComponent extends Composite implements Listener,
 		setLayout(new BorderLayout(0, 0));
 	}
 
-	protected TableViewer createBrowser(String browserId) {
+	protected TableViewer createBrowser(GUIPosition browserId) {
 		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION;
 		if (!browserId.equals(GUIPosition.CENTER)) {
 			flags = flags | SWT.NO_SCROLL | SWT.FILL;
@@ -188,7 +188,7 @@ public class TableComponent extends Composite implements Listener,
 		return tableFilterView.setCounterField(column);
 	}
 
-	public void clearColumns(String browser) {
+	public void clearColumns(GUIPosition browser) {
 		TableColumnView[] array = this.columns
 				.toArray(new TableColumnView[this.columns.size()]);
 
@@ -221,7 +221,7 @@ public class TableComponent extends Composite implements Listener,
 		}
 	}
 
-	public TableViewer getBrowserView(String browserId) {
+	public TableViewer getBrowserView(GUIPosition browserId) {
 		if (browserId.equals(GUIPosition.WEST)) {
 			return fixedTableViewerLeft;
 		} else {
@@ -347,7 +347,9 @@ public class TableComponent extends Composite implements Listener,
 				property);
 		if(collection!=null){
 			for (Iterator<?> i = collection.iterator(); i.hasNext();) {
-				addItem(i.next());
+				Object next = i.next();
+				System.out.println(next);
+				addItem(next);
 			}
 		}
 		addUpdateListener(source);
@@ -601,7 +603,7 @@ public class TableComponent extends Composite implements Listener,
 		return map;
 	}
 
-	public void setSorting(String column, int direction) {
+	public void setSorting(String column, SortingDirection direction) {
 		for (TableColumnView columnView : columns) {
 			String value = columnView.getColumn().getAttrName();
 			if (value == null) {
@@ -612,6 +614,7 @@ public class TableComponent extends Composite implements Listener,
 			}
 			if (value != null) {
 				if (value.equalsIgnoreCase(column)) {
+					list.setSort(value, direction);
 					setSorting(columnView.getTableColumn(), direction,
 							columnView.getColumnSorter());
 					break;
@@ -620,7 +623,7 @@ public class TableComponent extends Composite implements Listener,
 		}
 	}
 
-	public void setSorting(TableColumn column, int direction,
+	public void setSorting(TableColumn column, SortingDirection direction,
 			ColumnViewerSorter sorter) {
 		
 		if (fixedTableViewerLeft != null) {
@@ -629,12 +632,12 @@ public class TableComponent extends Composite implements Listener,
 		setSorting(column, direction, tableViewer, sorter);
 	}
 
-	private void setSorting(TableColumn column, int direction,
+	private void setSorting(TableColumn column, SortingDirection direction,
 			TableViewer viewer, ColumnViewerSorter sorter) {
 		Table table = viewer.getTable();
 		if (column.getParent() == table) {
 			table.setSortColumn(column);
-			if (direction == TableListComparator.ASC) {
+			if (direction == SortingDirection.ASC) {
 				table.setSortDirection(SWT.UP);
 			} else {
 				table.setSortDirection(SWT.DOWN);
@@ -646,8 +649,7 @@ public class TableComponent extends Composite implements Listener,
 		}
 		if (viewer.getComparator() != sorter) {
 			viewer.setComparator(sorter);
-		}else{
-			refresh();
 		}
+		refresh();
 	}
 }

@@ -28,18 +28,29 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public enum GUIPosition {
-	CENTER("Center"), EAST("East"), NORTH("North"), SOUTH("South"), WEST("West"), ALL("All");
-	private String value;
+public enum SortingDirection {
+	ASC(1), DESC(-1);
 	
-	GUIPosition(String value) {
-		this.setValue(value);
-    }
-	  
-	  public String getValue() {
-		return value;
+	private int direction;
+
+	SortingDirection(int direction){
+		this.setDirection(direction);
 	}
-	public void setValue(String value) {
-		this.value = value;
+
+	public int getDirection() {
+		return direction;
 	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	public SortingDirection changeDirection(){
+		if (direction == SortingDirection.ASC.getDirection()) {
+			return SortingDirection.DESC;
+		} else if (direction == SortingDirection.DESC.getDirection()) {
+			return SortingDirection.ASC;
+		}
+		return SortingDirection.ASC;
+	}
+
 }

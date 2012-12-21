@@ -35,12 +35,10 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import de.uniks.jism.gui.table.CellValueCreator;
 
 public class TableListComparator implements Comparator<Object>{
-	public static final int ASC = -1;
-	public static final int DESC = 1;
 	public static String IDMAP="%idmap%";
 	public static String HASHCODE="%HASHCODE%";
 
-	private int direction = ASC;
+	private SortingDirection direction = SortingDirection.ASC;
 	private String column=IDMAP;
 	private IdMap map;
 	private CellValueCreator cellCreator=new CellValueCreator();
@@ -48,7 +46,7 @@ public class TableListComparator implements Comparator<Object>{
 	public TableListComparator()
 	{
 	}
-	public TableListComparator(String column, int direction)
+	public TableListComparator(String column, SortingDirection direction)
 	{
 		this.column=column;
 		this.direction=direction;
@@ -56,7 +54,7 @@ public class TableListComparator implements Comparator<Object>{
 	
 	@Override
 	public int compare(Object o1, Object o2) {
-		return direction*compareValue(o1, o2);
+		return direction.getDirection()*compareValue(o2, o1);
 	}
 	
 	public int compareValue(Object o1, Object o2) {
@@ -162,11 +160,11 @@ public class TableListComparator implements Comparator<Object>{
 		return -1;
 	}
 
-	public int getDirection() {
+	public SortingDirection getDirection() {
 		return direction;
 	}
 
-	public int setDirection(int direction) {
+	public SortingDirection setDirection(SortingDirection direction) {
 		this.direction = direction;
 		return direction;
 	}
@@ -192,5 +190,9 @@ public class TableListComparator implements Comparator<Object>{
 
 	public void setCellCreator(CellValueCreator cellCreator) {
 		this.cellCreator = cellCreator;
+	}
+	public SortingDirection changeDirection(){
+		this.direction = direction.changeDirection();
+		return direction;
 	}
 }

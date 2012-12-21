@@ -226,13 +226,18 @@ public class TableList implements Collection<Object>, PeerMessage, PropertyChang
 		return true;
 	}
 	
-	public void setSort(String field, int direction, CellValueCreator cellValueCreator) {
+	public void setSort(String field, SortingDirection direction, CellValueCreator cellValueCreator) {
 		comparator.setColumn(field);
 		comparator.setDirection(direction);
 		comparator.setCellCreator(cellValueCreator);
 		refreshSort();
 	}
-	
+	public void setSort(String field, SortingDirection direction) {
+		comparator.setColumn(field);
+		comparator.setDirection(direction);
+		refreshSort();
+	}
+
 	public void refreshSort(){
 		TreeSet<Object> oldValue = list;
 		
@@ -254,14 +259,8 @@ public class TableList implements Collection<Object>, PeerMessage, PropertyChang
 		return comparator.compare(o1, o2);
 	}
 	
-	public int changeDirection(){
-		int direction = comparator.getDirection();
-		if (direction == TableListComparator.ASC) {
-			return comparator.setDirection(TableListComparator.DESC);
-		} else if (direction == TableListComparator.DESC) {
-			return comparator.setDirection(TableListComparator.ASC);
-		}
-		return direction;
+	public SortingDirection changeDirection(){
+		return comparator.changeDirection();
 	}
 
 	@Override
@@ -290,7 +289,7 @@ public class TableList implements Collection<Object>, PeerMessage, PropertyChang
 		if(creator != null &&  column != null){
 			Object[] returnValues=new Object[list.size()];
 			CellValueCreator cellCreator = comparator.getCellCreator();
-			if(comparator.getDirection()==TableListComparator.ASC){
+			if(comparator.getDirection()==SortingDirection.ASC){
 				int pos=0;
 				for(Iterator<Object> i = iterator();i.hasNext();){
 					Object item = i.next();

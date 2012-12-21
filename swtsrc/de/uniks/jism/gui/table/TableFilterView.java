@@ -79,6 +79,9 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 	}
 		
 	public boolean matchesSearchCriteria(Object item) {
+		if(lastSearchCriteriaItems==null){
+			return true;
+		}
 		String fullText = "";
 		SendableEntityCreator creatorClass = map.getCreatorClass(item);
 		// SEARCH FOR #ID:3

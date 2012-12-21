@@ -35,8 +35,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 
+import de.uniks.jism.gui.SortingDirection;
 import de.uniks.jism.gui.TableList;
-import de.uniks.jism.gui.TableListComparator;
 
 public class ColumnViewerSorter extends ViewerComparator {
 	private TableColumnView view;
@@ -63,17 +63,17 @@ public class ColumnViewerSorter extends ViewerComparator {
 		if (tableViewerColumn.getViewer().getComparator() != null) {
 			if (tableViewerColumn.getViewer().getComparator() == ColumnViewerSorter.this) {
 				TableList list = tableComponent.getList();
-				int newDirection=list.changeDirection();
+				SortingDirection newDirection=list.changeDirection();
 				setSorter(newDirection);
 			} else {
-				setSorter(TableListComparator.ASC);
+				setSorter(SortingDirection.ASC);
 			}
 		} else {
-			setSorter(TableListComparator.ASC);
+			setSorter(SortingDirection.DESC);
 		}
 	}
 
-	public void setSorter(int direction) {
+	public void setSorter(SortingDirection direction) {
 		TableViewerColumn tableViewerColumn = view.getTableViewerColumn();
 		TableColumn column = tableViewerColumn.getColumn();
 		TableList list=tableComponent.getList();

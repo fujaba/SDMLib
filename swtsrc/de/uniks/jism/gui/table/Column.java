@@ -1,4 +1,6 @@
 package de.uniks.jism.gui.table;
+
+import de.uniks.jism.gui.GUIPosition;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -47,7 +49,7 @@ public class Column {
 	private boolean isMovable=true;
 	private String altAttribute;
 	private Object item;
-	private String browserId="Center";
+	private GUIPosition browserId=GUIPosition.CENTER;
 	private String font;
 	private boolean getDropDownListFromMap=false;
 	
@@ -269,11 +271,11 @@ public class Column {
 		this.isMovable = isMovable;
 	}
 
-	public String getBrowserId() {
+	public GUIPosition getBrowserId() {
 		return browserId;
 	}
 
-	public void setBrowserId(String browserId) {
+	public void setBrowserId(GUIPosition browserId) {
 		this.browserId = browserId;
 	}
 	public boolean isEditingSupport() {
