@@ -347,9 +347,7 @@ public class TableComponent extends Composite implements Listener,
 				property);
 		if(collection!=null){
 			for (Iterator<?> i = collection.iterator(); i.hasNext();) {
-				Object next = i.next();
-				System.out.println(next);
-				addItem(next);
+				addItem(i.next());
 			}
 		}
 		addUpdateListener(source);

@@ -51,8 +51,9 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 	private Color backgroundColorActiv=null;
 	private Column column;
 	private IdMap map;
+	private TableColumnView owner;
 
-	public TableColumnLabelProvider(Column column, IdMap map){
+	public TableColumnLabelProvider(Column column, IdMap map, TableColumnView owner){
 		this.map=map;
 		if(column.getBackgroundColor()!=null){
 			setBackgroundColor(column.getBackgroundColor());
@@ -61,6 +62,7 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 			setForgroundColor(column.getForgroundColor());
 		}
 		this.column=column;
+		this.owner=owner;
 	}
 
 	@Override
@@ -68,7 +70,14 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
         return getBackgroundColor();
     }
     @Override
-    public String getText(Object element) {
+	public String getText(Object element) {
+		String value = getTextValue(element);
+
+		owner.onNewText(value, 10);
+		return value;
+	}
+    
+    public String getTextValue(Object element) {
     	if(column.getCellValue()!=null){
     		return column.getCellValue();	
     	}

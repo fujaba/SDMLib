@@ -33,6 +33,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableColumn;
 import org.sdmlib.serialization.IdMap;
@@ -46,6 +48,7 @@ public class TableColumnView implements ControlListener {
 	protected ColumnViewerSorter columnViewerSorter;
 	private TableCellMenuItem tableCellMenuItem;
 	private IdMap map;
+	public static final int BorderCell=10;
 
 	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns, IdMap map) {
 		this.owner=tableComponent;
@@ -75,13 +78,14 @@ public class TableColumnView implements ControlListener {
 					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column, map));
 				}
 			}
-			this.tableLabelProvider=new TableColumnLabelProvider(column, map);
+			this.tableLabelProvider=new TableColumnLabelProvider(column, map, this);
 			tableViewerColumn.setLabelProvider(tableLabelProvider);
 
 			TableColumn tableColumn = tableViewerColumn.getColumn();
 			tableColumn.setMoveable(column.isMovable());
 			tableColumn.setWidth(column.getWidth());
 			tableColumn.setText(column.getLabel());
+			onNewText(column.getLabel(), 12);
 			tableColumn.setResizable(column.isResizable());
 			tableColumn.addControlListener(this);
 
@@ -139,5 +143,21 @@ public class TableColumnView implements ControlListener {
 	}
 	public ColumnViewerSorter getColumnSorter(){
 		return columnViewerSorter;
+	}
+
+	public void onNewText(String value, int borderCell) {
+		if(column.isAutoWidth()){
+        	GC gc = new GC(this.owner);
+        	Point size = gc.textExtent(value);
+        	int newWidth = size.x+borderCell;
+        	if(column instanceof ColumnNotification){
+        		if(((ColumnNotification)column).setNewWidth(column.getWidth(), newWidth)){
+        			column.setWidth(newWidth);
+        		}
+        	}else if(newWidth>column.getWidth()){
+        		column.setWidth(newWidth);
+        	}
+        	tableViewerColumn.getColumn().setWidth(column.getWidth());
+        }		
 	}	
 }

@@ -47,6 +47,7 @@ public class Column {
 	private int textalignment=-1;
 	private boolean isVisible=true;
 	private boolean isMovable=true;
+	private boolean autoWidth;
 	private String altAttribute;
 	private Object item;
 	private GUIPosition browserId=GUIPosition.CENTER;
@@ -294,5 +295,11 @@ public class Column {
 	}
 	public void setGetDropDownListFromMap(boolean getDropDownListFromMap) {
 		this.getDropDownListFromMap = getDropDownListFromMap;
+	}
+	public boolean isAutoWidth() {
+		return autoWidth;
+	}
+	public void setAutoWidth(boolean autoWidth) {
+		this.autoWidth = autoWidth;
 	}
 }

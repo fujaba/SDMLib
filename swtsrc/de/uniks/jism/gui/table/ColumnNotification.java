@@ -78,4 +78,7 @@ public class ColumnNotification extends Column{
 	public void setSelection(TableComponent tableComponent, TableItem item, int x, int y){
 		super.setSelection(x, y);
 	}
+	public boolean setNewWidth(int oldValue, int newValue) {
+		return newValue>oldValue;
+	}
 }
