@@ -29,6 +29,8 @@ import java.util.List;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class ClearDrawingFlowSet extends LinkedHashSet<ClearDrawingFlow>
 {
@@ -142,7 +144,52 @@ public class ClearDrawingFlowSet extends LinkedHashSet<ClearDrawingFlow>
       return this;
    }
 
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ClearDrawingFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public ClearDrawingFlowSet withSubFlow(TaskFlow value)
+   {
+      for (ClearDrawingFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ClearDrawingFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public ClearDrawingFlowSet withParent(TaskFlow value)
+   {
+      for (ClearDrawingFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

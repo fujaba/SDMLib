@@ -150,6 +150,16 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
             peerArgs.withPeerPort(0);
             chatMode = ChatMode.PeerToPeerNetwork;
          }
+         else if (args.length == 2)
+         {
+            peerArgs.withLocalPort(Integer.parseInt(args[0]));
+            peerArgs.withUserName(args[1]);
+            peerArgs.withPeerPort(0);
+            chatMode = ChatMode.PeerToPeerNetwork;
+            
+            // I am first, I open the session
+            gui.getAllMessages().setText("Session started by " + peerArgs.getUserName() + "\n");
+         }
          else if (args.length == 5 && args[3].equals("p2p"))
          {
             // only first peer ip and port
@@ -201,15 +211,22 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 
          else if (chatMode == ChatMode.PeerToPeerNetwork)
          {
+            String localHost = InetAddress.getLocalHost().getHostAddress();
+            PeerProxy localProxy = new PeerProxy(localHost, peerArgs.getLocalPort(), idMap);
+            gui.setPeer(localProxy);
+            gui.getProxies().add(localProxy);
+
             if (peerArgs.getPeerPort() != 0)
             {
-               String localHost = InetAddress.getLocalHost().getHostName();
                // login to first peer
                new P2PNetworkLoginFlow()
                .withClientName(peerArgs.getUserName())
                .withFirstPeer(new PeerProxy(peerArgs.getPeerIp(), peerArgs.getPeerPort(), idMap))
-               .withClientPeer(new PeerProxy(localHost, peerArgs.getLocalPort(), idMap));
+               .withClientPeer(localProxy)
+               .withIdMap((SDMLibJsonIdMap) idMap)
+               .run();
             }
+            // else nothing to be done, I am the first peer and just wait for the others to show up
          }
          
          
@@ -301,11 +318,15 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
       nameLabel.setText("Name");
       
       ipLabel = new Label(peerInfoRow, SWT.CENTER);
-      ipLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
+      GridData gd_ipLabel = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
+      gd_ipLabel.widthHint = 80;
+      ipLabel.setLayoutData(gd_ipLabel);
       ipLabel.setText("IP");
       
       portLabel = new Label(peerInfoRow, SWT.CENTER);
-      portLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
+      GridData gd_port = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
+      gd_port.widthHint = 60;
+      portLabel.setLayoutData(gd_port);
       portLabel.setText("port");
       
       composite = new Composite(chatColumn, SWT.NONE);
@@ -363,6 +384,10 @@ public class PeerToPeerChat extends Shell implements PropertyChangeInterface
                new ChatMessageFlow()
                .withGui(PeerToPeerChat.this)
                .run();
+            }
+            else if (chatMode == ChatMode.PeerToPeerNetwork)
+            {
+               new P2PChatMessageFlow().withIdMap((SDMLibJsonIdMap) idMap).run();
             }
             else
             {

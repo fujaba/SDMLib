@@ -27,9 +27,11 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import org.sdmlib.model.taskflows.TaskFlow;
 
 public class ClientLoginFlowSet extends LinkedHashSet<ClientLoginFlow>
 {
@@ -209,7 +211,52 @@ public class ClientLoginFlowSet extends LinkedHashSet<ClientLoginFlow>
    {
       return "org.sdmlib.examples.chats.ClientLoginFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ClientLoginFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public ClientLoginFlowSet withSubFlow(TaskFlow value)
+   {
+      for (ClientLoginFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ClientLoginFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public ClientLoginFlowSet withParent(TaskFlow value)
+   {
+      for (ClientLoginFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

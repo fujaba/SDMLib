@@ -121,11 +121,18 @@ public class PeerToPeerChatModel
          "firstPeer", PeerProxy.class.getName(), 
          "clientPeer", PeerProxy.class.getName(),
          "clientName", STRING,
+         "allMessages", STRING,
          "peerList", PeerProxySet.class.getName())
          .withSuperClass(taskFlowClass)
          .withMethods("run()", "void")
          .withMethods("getTaskNames()", "Object[]");
       
+      model.createClazz("P2PChatMessageFlow", 
+         "msg", STRING, 
+         "pos", INT)
+         .withSuperClass(taskFlowClass)
+         .createMethods("run()", "void");
+         
       scenario.addToDo("we should build attr.remove", Scenario.BACKLOG, "zuendorf", "04.10.2012 12:50:42", 0, 8);
       
       model.generate("examples");

@@ -37,6 +37,8 @@ import org.sdmlib.examples.chats.creators.TestChatMessageFlowPO;
 import org.sdmlib.examples.chats.TestChatMessageFlow;
 import org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPO;
 import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
+import org.sdmlib.examples.chats.creators.P2PChatMessageFlowPO;
+import org.sdmlib.examples.chats.P2PChatMessageFlow;
 
 public class ModelPattern extends Pattern
 {
@@ -483,7 +485,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public P2PChatMessageFlowPO hasElementP2PChatMessageFlowPO()
+   {
+      P2PChatMessageFlowPO value = new P2PChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public P2PChatMessageFlowPO hasElementP2PChatMessageFlowPO(P2PChatMessageFlow hostGraphObject)
+   {
+      P2PChatMessageFlowPO value = new P2PChatMessageFlowPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

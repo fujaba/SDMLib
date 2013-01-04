@@ -93,7 +93,13 @@ public class TestChatMessageFlow extends TaskFlow implements PropertyChangeInter
 
    }
 
+   private PeerProxy testTarget = null;
 
+   public TestChatMessageFlow withTestTarget(PeerProxy target)
+   {
+      this.testTarget = target; 
+      return this;
+   }
 
    //==========================================================================
 

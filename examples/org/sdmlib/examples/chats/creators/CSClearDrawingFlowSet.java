@@ -28,6 +28,8 @@ import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class CSClearDrawingFlowSet extends LinkedHashSet<CSClearDrawingFlow>
 {
@@ -119,6 +121,51 @@ public class CSClearDrawingFlowSet extends LinkedHashSet<CSClearDrawingFlow>
    {
       return "org.sdmlib.examples.chats.CSClearDrawingFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSClearDrawingFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CSClearDrawingFlowSet withSubFlow(TaskFlow value)
+   {
+      for (CSClearDrawingFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSClearDrawingFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public CSClearDrawingFlowSet withParent(TaskFlow value)
+   {
+      for (CSClearDrawingFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

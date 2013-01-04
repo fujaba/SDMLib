@@ -6,6 +6,11 @@ import org.sdmlib.examples.chats.creators.DrawPointFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.chats.creators.DrawPointFlowPO;
 
 public class DrawPointFlowPO extends PatternObject<DrawPointFlowPO, DrawPointFlow>
 {
@@ -219,7 +224,74 @@ public class DrawPointFlowPO extends PatternObject<DrawPointFlowPO, DrawPointFlo
       return null;
    }
    
+   public TaskFlowPO hasSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public DrawPointFlowPO hasSubFlow(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getSubFlow()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getSubFlow();
+      }
+      return null;
+   }
+
+   public TaskFlowPO hasParent()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public DrawPointFlowPO hasParent(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+
 }
+
 
 
 

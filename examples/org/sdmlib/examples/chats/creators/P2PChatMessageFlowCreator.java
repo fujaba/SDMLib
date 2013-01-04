@@ -3,15 +3,17 @@ package org.sdmlib.examples.chats.creators;
 import org.sdmlib.examples.chats.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.chats.CTClearDrawing;
+import org.sdmlib.examples.chats.P2PChatMessageFlow;
 import org.sdmlib.model.taskflows.TaskFlow;
 
-public class CTClearDrawingCreator extends EntityFactory
+public class P2PChatMessageFlowCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
+      P2PChatMessageFlow.PROPERTY_MSG,
+      P2PChatMessageFlow.PROPERTY_POS,
       TaskFlow.PROPERTY_TASKNO,
-      CTClearDrawing.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_IDMAP,
       TaskFlow.PROPERTY_SUBFLOW,
       TaskFlow.PROPERTY_PARENT,
    };
@@ -23,17 +25,17 @@ public class CTClearDrawingCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new CTClearDrawing();
+      return new P2PChatMessageFlow();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((CTClearDrawing) target).get(attrName);
+      return ((P2PChatMessageFlow) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((CTClearDrawing) target).set(attrName, value);
+      return ((P2PChatMessageFlow) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -47,9 +49,7 @@ public class CTClearDrawingCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((CTClearDrawing) entity).removeYou();
+      ((P2PChatMessageFlow) entity).removeYou();
    }
 }
-
-
 

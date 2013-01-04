@@ -16,6 +16,8 @@ public class ClientLoginFlowCreator extends EntityFactory
       ClientLoginFlow.PROPERTY_CLIENTIP,
       ClientLoginFlow.PROPERTY_CLIENTPORT,
       ClientLoginFlow.PROPERTY_ALLMESSAGESTEXT,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -52,6 +54,7 @@ public class ClientLoginFlowCreator extends EntityFactory
       ((ClientLoginFlow) entity).removeYou();
    }
 }
+
 
 
 

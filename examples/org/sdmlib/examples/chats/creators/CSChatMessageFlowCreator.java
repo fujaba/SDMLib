@@ -13,6 +13,8 @@ public class CSChatMessageFlowCreator extends EntityFactory
       TaskFlow.PROPERTY_TASKNO,
       CSChatMessageFlow.PROPERTY_MSG,
       CSChatMessageFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -49,6 +51,7 @@ public class CSChatMessageFlowCreator extends EntityFactory
       ((CSChatMessageFlow) entity).removeYou();
    }
 }
+
 
 
 

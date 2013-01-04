@@ -22,6 +22,7 @@
 package org.sdmlib.examples.chats;
 
 import org.sdmlib.examples.chats.CSClientTask;
+import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
@@ -91,6 +92,16 @@ public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
       {
          return getIdMap();
       }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -142,6 +153,18 @@ public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -160,6 +183,8 @@ public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -303,6 +328,20 @@ public class CTDrawPoint extends CSClientTask implements PropertyChangeInterface
       setB(value);
       return this;
    } 
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      _.append(" ").append(this.getR());
+      _.append(" ").append(this.getG());
+      _.append(" ").append(this.getB());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
 
 }
 

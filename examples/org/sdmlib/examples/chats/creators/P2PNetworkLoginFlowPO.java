@@ -7,6 +7,11 @@ import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPO;
 
 public class P2PNetworkLoginFlowPO extends PatternObject<P2PNetworkLoginFlowPO, P2PNetworkLoginFlow>
 {
@@ -241,6 +246,105 @@ public class P2PNetworkLoginFlowPO extends PatternObject<P2PNetworkLoginFlowPO, 
       return this;
    }
    
+   public P2PNetworkLoginFlowPO hasAllMessages(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(P2PNetworkLoginFlow.PROPERTY_ALLMESSAGES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getAllMessages()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((P2PNetworkLoginFlow) getCurrentMatch()).getAllMessages();
+      }
+      return null;
+   }
+   
+   public P2PNetworkLoginFlowPO withAllMessages(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((P2PNetworkLoginFlow) getCurrentMatch()).setAllMessages(value);
+      }
+      return this;
+   }
+   
+   public TaskFlowPO hasSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowPO hasSubFlow(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getSubFlow()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getSubFlow();
+      }
+      return null;
+   }
+
+   public TaskFlowPO hasParent()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowPO hasParent(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+
 }
+
 
 

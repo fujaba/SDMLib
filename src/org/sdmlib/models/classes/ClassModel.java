@@ -530,6 +530,7 @@ public class ClassModel implements PropertyChangeInterface
          
          R tgtCard = findRoleCard(attr.getType());
          String tgtClassName = findPartnerClassName(attr.getType());
+         tgtClassName = CGUtil.shortClassName(tgtClassName);
          
          StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
 

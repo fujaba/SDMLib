@@ -172,5 +172,14 @@ public class ChatServer implements PropertyChangeInterface
       setAllPeers(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getAllMessages());
+      return _.substring(1);
+   }
+
 }
 

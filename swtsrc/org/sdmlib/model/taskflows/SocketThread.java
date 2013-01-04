@@ -129,23 +129,32 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          @Override
          public void run()
          {
-            Object obj = idMap.readJson(new JsonArray(line));
-
-            if (obj instanceof FetchFileFlow)
+            try
             {
-               FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
-               try
+               Object obj = idMap.readJson(
+                  new JsonArray(line));
+
+               if (obj instanceof FetchFileFlow)
                {
-                  fetchFileFlow.setOut(connection.getOutputStream());
+                  FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
+                  try
+                  {
+                     fetchFileFlow.setOut(connection.getOutputStream());
+                  }
+                  catch (IOException e)
+                  {
+                     // TODO Auto-generated catch block
+                     e.printStackTrace();
+                  }
                }
-               catch (IOException e)
-               {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-               }
+               
+               ((Runnable) obj).run();
             }
-            
-            ((Runnable) obj).run();
+            catch (Exception e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
          }
          
       }

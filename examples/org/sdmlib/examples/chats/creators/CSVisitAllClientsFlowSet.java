@@ -29,6 +29,8 @@ import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.examples.chats.CSClientTask;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class CSVisitAllClientsFlowSet extends LinkedHashSet<CSVisitAllClientsFlow>
 {
@@ -141,6 +143,51 @@ public class CSVisitAllClientsFlowSet extends LinkedHashSet<CSVisitAllClientsFlo
    {
       return "org.sdmlib.examples.chats.CSVisitAllClientsFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSVisitAllClientsFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CSVisitAllClientsFlowSet withSubFlow(TaskFlow value)
+   {
+      for (CSVisitAllClientsFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSVisitAllClientsFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public CSVisitAllClientsFlowSet withParent(TaskFlow value)
+   {
+      for (CSVisitAllClientsFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

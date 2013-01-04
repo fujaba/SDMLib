@@ -1,28 +1,27 @@
 package org.sdmlib.examples.chats.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.chats.ClientLoginFlow;
-import org.sdmlib.examples.chats.creators.ClientLoginFlowSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.examples.chats.P2PChatMessageFlow;
+import org.sdmlib.examples.chats.creators.P2PChatMessageFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.model.taskflows.creators.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.chats.creators.ClientLoginFlowPO;
+import org.sdmlib.examples.chats.creators.P2PChatMessageFlowPO;
 
-public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLoginFlow>
+public class P2PChatMessageFlowPO extends PatternObject<P2PChatMessageFlowPO, P2PChatMessageFlow>
 {
-   public ClientLoginFlowSet allMatches()
+   public P2PChatMessageFlowSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      ClientLoginFlowSet matches = new ClientLoginFlowSet();
+      P2PChatMessageFlowSet matches = new P2PChatMessageFlowSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((ClientLoginFlow) this.getCurrentMatch());
+         matches.add((P2PChatMessageFlow) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -37,14 +36,14 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
    {
       if (this.getPattern().getHasMatch())
       {
-          ((ClientLoginFlow) getCurrentMatch()).run();
+          ((P2PChatMessageFlow) getCurrentMatch()).run();
       }
    }
 
-   public ClientLoginFlowPO hasIdMap(SDMLibJsonIdMap value)
+   public P2PChatMessageFlowPO hasMsg(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_IDMAP)
+      .withAttrName(P2PChatMessageFlow.PROPERTY_MSG)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -55,19 +54,28 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
       return this;
    }
    
-   public SDMLibJsonIdMap getIdMap()
+   public String getMsg()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClientLoginFlow) getCurrentMatch()).getIdMap();
+         return ((P2PChatMessageFlow) getCurrentMatch()).getMsg();
       }
       return null;
    }
    
-   public ClientLoginFlowPO hasServer(PeerProxy value)
+   public P2PChatMessageFlowPO withMsg(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((P2PChatMessageFlow) getCurrentMatch()).setMsg(value);
+      }
+      return this;
+   }
+   
+   public P2PChatMessageFlowPO hasPos(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_SERVER)
+      .withAttrName(P2PChatMessageFlow.PROPERTY_POS)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -78,19 +86,28 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
       return this;
    }
    
-   public PeerProxy getServer()
+   public int getPos()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClientLoginFlow) getCurrentMatch()).getServer();
+         return ((P2PChatMessageFlow) getCurrentMatch()).getPos();
       }
-      return null;
+      return 0;
    }
    
-   public ClientLoginFlowPO hasTaskNo(int value)
+   public P2PChatMessageFlowPO withPos(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((P2PChatMessageFlow) getCurrentMatch()).setPos(value);
+      }
+      return this;
+   }
+   
+   public P2PChatMessageFlowPO hasTaskNo(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_TASKNO)
+      .withAttrName(P2PChatMessageFlow.PROPERTY_TASKNO)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -105,15 +122,24 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClientLoginFlow) getCurrentMatch()).getTaskNo();
+         return ((P2PChatMessageFlow) getCurrentMatch()).getTaskNo();
       }
       return 0;
    }
    
-   public ClientLoginFlowPO hasClientIP(String value)
+   public P2PChatMessageFlowPO withTaskNo(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((P2PChatMessageFlow) getCurrentMatch()).setTaskNo(value);
+      }
+      return this;
+   }
+   
+   public P2PChatMessageFlowPO hasIdMap(SDMLibJsonIdMap value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_CLIENTIP)
+      .withAttrName(P2PChatMessageFlow.PROPERTY_IDMAP)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -124,59 +150,22 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
       return this;
    }
    
-   public String getClientIP()
+   public SDMLibJsonIdMap getIdMap()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClientLoginFlow) getCurrentMatch()).getClientIP();
+         return ((P2PChatMessageFlow) getCurrentMatch()).getIdMap();
       }
       return null;
    }
    
-   public ClientLoginFlowPO hasClientPort(int value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_CLIENTPORT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public int getClientPort()
+   public P2PChatMessageFlowPO withIdMap(SDMLibJsonIdMap value)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClientLoginFlow) getCurrentMatch()).getClientPort();
+         ((P2PChatMessageFlow) getCurrentMatch()).setIdMap(value);
       }
-      return 0;
-   }
-   
-   public ClientLoginFlowPO hasAllMessagesText(String value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ClientLoginFlow.PROPERTY_ALLMESSAGESTEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
       return this;
-   }
-   
-   public String getAllMessagesText()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ClientLoginFlow) getCurrentMatch()).getAllMessagesText();
-      }
-      return null;
    }
    
    public TaskFlowPO hasSubFlow()
@@ -189,7 +178,7 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
       return result;
    }
 
-   public ClientLoginFlowPO hasSubFlow(TaskFlowPO tgt)
+   public P2PChatMessageFlowPO hasSubFlow(TaskFlowPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
@@ -222,7 +211,7 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
       return result;
    }
 
-   public ClientLoginFlowPO hasParent(TaskFlowPO tgt)
+   public P2PChatMessageFlowPO hasParent(TaskFlowPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
@@ -246,7 +235,4 @@ public class ClientLoginFlowPO extends PatternObject<ClientLoginFlowPO, ClientLo
    }
 
 }
-
-
-
 

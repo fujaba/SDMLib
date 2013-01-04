@@ -29,6 +29,8 @@ import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class DrawPointFlowSet extends LinkedHashSet<DrawPointFlow>
 {
@@ -251,7 +253,52 @@ public class DrawPointFlowSet extends LinkedHashSet<DrawPointFlow>
    {
       return "org.sdmlib.examples.chats.DrawPointFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (DrawPointFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public DrawPointFlowSet withSubFlow(TaskFlow value)
+   {
+      for (DrawPointFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (DrawPointFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public DrawPointFlowSet withParent(TaskFlow value)
+   {
+      for (DrawPointFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

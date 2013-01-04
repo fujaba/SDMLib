@@ -62,9 +62,19 @@ public class PeerToServerChatTest
       .withIdMap(idMap)
       .start();
       
-      TestChatMessageFlow testChatMessageFlow = (TestChatMessageFlow) new TestChatMessageFlow()
-      .withMsg("Hello World")
-      .withIdMap((SDMLibJsonIdMap) idMap);
+      TestChatMessageFlow testChatMessageFlow = null;
+      try
+      {
+         testChatMessageFlow = (TestChatMessageFlow) new TestChatMessageFlow()
+         .withTestTarget(new PeerProxy(InetAddress.getLocalHost().getHostAddress(), 11113, idMap))
+         .withMsg("Hello World")
+         .withIdMap((SDMLibJsonIdMap) idMap);
+      }
+      catch (UnknownHostException e1)
+      {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+      }
 
       testChatMessageFlow.run();
 

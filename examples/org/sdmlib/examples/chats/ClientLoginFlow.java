@@ -120,6 +120,16 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
       {
          return getAllMessagesText();
       }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -165,6 +175,18 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -183,6 +205,8 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -298,5 +322,17 @@ public class ClientLoginFlow extends TaskFlow implements PropertyChangeInterface
       setAllMessagesText(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getClientIP());
+      _.append(" ").append(this.getClientPort());
+      _.append(" ").append(this.getAllMessagesText());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
 }
 

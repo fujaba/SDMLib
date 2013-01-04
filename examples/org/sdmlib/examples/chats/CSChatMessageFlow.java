@@ -125,6 +125,16 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
       {
          return getIdMap();
       }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -152,6 +162,18 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -170,6 +192,8 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
    
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -201,6 +225,16 @@ public class CSChatMessageFlow extends TaskFlow implements PropertyChangeInterfa
       setMsg(value);
       return this;
    } 
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getMsg());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
 
 }
 

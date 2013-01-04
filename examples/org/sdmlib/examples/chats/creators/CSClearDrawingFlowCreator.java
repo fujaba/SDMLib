@@ -12,6 +12,8 @@ public class CSClearDrawingFlowCreator extends EntityFactory
    {
       CSClearDrawingFlow.PROPERTY_IDMAP,
       TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -48,4 +50,5 @@ public class CSClearDrawingFlowCreator extends EntityFactory
       ((CSClearDrawingFlow) entity).removeYou();
    }
 }
+
 

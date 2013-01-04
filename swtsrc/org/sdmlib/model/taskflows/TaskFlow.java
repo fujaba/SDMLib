@@ -30,6 +30,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeSet;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {
@@ -73,6 +74,45 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       taskNo++;
       
       timer.schedule(this, 0);
+   }
+
+   //==========================================================================
+   
+   public void switchTo(int targetAction, PeerProxy peer,
+         TreeSet<PeerProxy> proxies)
+   {
+      // visit all peers in perfect shuffle mode
+      taskNo = targetAction;
+      
+      // find the number of myself in the proxies
+      int i = 0;
+      for (PeerProxy peerProxy : proxies)
+      {
+         if (peerProxy.equals(peer))
+         {
+            // found myself
+            break;
+         }
+         i++;
+      }
+      
+      if (i == proxies.size())
+      {
+         // no good, I should be in that list
+         throw new RuntimeException("no good, I should be in that list");
+      }
+      
+      // send myself to 3 * i + 1 and the next two
+      PeerProxy[] peerArray = proxies.toArray(new PeerProxy[] {});
+      
+      int tgt = (3 * i + 1) % proxies.size();
+      peerArray[tgt].transferTaskFlow(getRootParent());
+      
+      tgt = (tgt + 1) % proxies.size();
+      peerArray[tgt].transferTaskFlow(getRootParent());
+      
+      tgt = (tgt + 1) % proxies.size();
+      peerArray[tgt].transferTaskFlow(getRootParent());
    }
 
    //==========================================================================

@@ -20,7 +20,8 @@
     _CSClientTask [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/CSClientTask.java">CSClientTask</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _CTDrawPoint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/CTDrawPoint.java">CTDrawPoint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>x :int</td></tr> <tr><td align='left'>y :int</td></tr> <tr><td align='left'>r :int</td></tr> <tr><td align='left'>g :int</td></tr> <tr><td align='left'>b :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _CTClearDrawing [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/CTClearDrawing.java">CTClearDrawing</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _P2PNetworkLoginFlow [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/P2PNetworkLoginFlow.java">P2PNetworkLoginFlow</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>firstPeer :PeerProxy</td></tr> <tr><td align='left'>clientPeer :PeerProxy</td></tr> <tr><td align='left'>clientName :String</td></tr> <tr><td align='left'>peerList :PeerProxySet</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>run()</td></tr> <tr><td align='left'>getTaskNames()</td></tr>  </table></td></tr> </table>>];
+    _P2PNetworkLoginFlow [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/P2PNetworkLoginFlow.java">P2PNetworkLoginFlow</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>firstPeer :PeerProxy</td></tr> <tr><td align='left'>clientPeer :PeerProxy</td></tr> <tr><td align='left'>clientName :String</td></tr> <tr><td align='left'>allMessages :String</td></tr> <tr><td align='left'>peerList :PeerProxySet</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>run()</td></tr> <tr><td align='left'>getTaskNames()</td></tr>  </table></td></tr> </table>>];
+    _P2PChatMessageFlow [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/chats/P2PChatMessageFlow.java">P2PChatMessageFlow</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>msg :String</td></tr> <tr><td align='left'>pos :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>run()</td></tr>  </table></td></tr> </table>>];
     
     
     
@@ -36,6 +37,17 @@
     _CSClientTask ->  _CTDrawPoint [dir = "back" arrowtail = "empty"];
     _CSClientTask ->  _CTClearDrawing [dir = "back" arrowtail = "empty"];
     _TaskFlow ->  _P2PNetworkLoginFlow [dir = "back" arrowtail = "empty"];
+    _TaskFlow ->  _P2PChatMessageFlow [dir = "back" arrowtail = "empty"];
     _TaskFlow -> _TaskFlow [headlabel = "subFlow" taillabel = "parent" arrowhead = "none" ];
     _CSVisitAllClientsFlow -> _CSClientTask [headlabel = "tgtTask" taillabel = "parent" arrowhead = "none" ];
+    _TaskFlow -> _SDMLibJsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _ChatMessageFlow -> _PeerToPeerChat [headlabel = "gui" taillabel = "" arrowhead = "vee" ];
+    _DrawPointFlow -> _PeerToPeerChat [headlabel = "gui" taillabel = "" arrowhead = "vee" ];
+    _ClearDrawingFlow -> _PeerToPeerChat [headlabel = "gui" taillabel = "" arrowhead = "vee" ];
+    _PeerProxy -> _JsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _ChatServer -> _PeerProxy [headlabel = "allPeers" taillabel = "" arrowhead = "vee" ];
+    _ClientLoginFlow -> _PeerProxy [headlabel = "server" taillabel = "" arrowhead = "vee" ];
+    _P2PNetworkLoginFlow -> _PeerProxy [headlabel = "firstPeer" taillabel = "" arrowhead = "vee" ];
+    _P2PNetworkLoginFlow -> _PeerProxy [headlabel = "clientPeer" taillabel = "" arrowhead = "vee" ];
+    _P2PNetworkLoginFlow -> _PeerProxy [headlabel = "peerList" taillabel = "" arrowhead = "vee" ];
 }

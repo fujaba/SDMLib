@@ -84,7 +84,8 @@
         {"id":"KE.K198"},
         {"id":"KE.K201"},
         {"id":"KE.K207"},
-        {"id":"KE.K209"}
+        {"id":"KE.K209"},
+        {"id":"KE.K213"}
       ]
     }
   },
@@ -761,6 +762,21 @@
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":1,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K213",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L214"}
+      ],
+      "name":"PeerToPeerNetworkChatScenario",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -3159,6 +3175,19 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Simple object without properties creates object diagram,  now"
+    }
+  },
+  {
+    "id":"KE.L214",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"02.01.2013 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K213"},
+      "developer":"zuendorf",
+      "phase":"backlog"
     }
   }
 ]

@@ -13,6 +13,7 @@ public class CSClientTaskCreator extends EntityFactory
       TaskFlow.PROPERTY_TASKNO,
       CSClientTask.PROPERTY_PARENT,
       TaskFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
    };
    
    public String[] getProperties()
@@ -49,5 +50,6 @@ public class CSClientTaskCreator extends EntityFactory
       ((CSClientTask) entity).removeYou();
    }
 }
+
 
 

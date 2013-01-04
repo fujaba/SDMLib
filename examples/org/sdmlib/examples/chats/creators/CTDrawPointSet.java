@@ -28,6 +28,9 @@ import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
+import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
 
 public class CTDrawPointSet extends LinkedHashSet<CTDrawPoint>
 {
@@ -217,7 +220,62 @@ public class CTDrawPointSet extends LinkedHashSet<CTDrawPoint>
    {
       return "org.sdmlib.examples.chats.CTDrawPoint";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CTDrawPoint obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CTDrawPointSet withSubFlow(TaskFlow value)
+   {
+      for (CTDrawPoint obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CTDrawPoint obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public CTDrawPointSet withParent(TaskFlow value)
+   {
+      for (CTDrawPoint obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
+   public CTDrawPointSet withParent(CSVisitAllClientsFlow value)
+   {
+      for (CTDrawPoint obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

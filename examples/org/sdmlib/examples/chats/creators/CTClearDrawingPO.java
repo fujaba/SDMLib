@@ -5,6 +5,13 @@ import org.sdmlib.examples.chats.CTClearDrawing;
 import org.sdmlib.examples.chats.creators.CTClearDrawingSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.chats.creators.CTClearDrawingPO;
+import org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPO;
+import org.sdmlib.examples.chats.CSClientTask;
 
 public class CTClearDrawingPO extends PatternObject<CTClearDrawingPO, CTClearDrawing>
 {
@@ -70,6 +77,87 @@ public class CTClearDrawingPO extends PatternObject<CTClearDrawingPO, CTClearDra
       return null;
    }
    
+   public TaskFlowPO hasSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public CTClearDrawingPO hasSubFlow(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getSubFlow()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getSubFlow();
+      }
+      return null;
+   }
+
+   public TaskFlowPO hasParent()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public CTClearDrawingPO hasParent(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+
+   public CTClearDrawingPO hasParent(CSVisitAllClientsFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(CSClientTask.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
 }
+
 
 

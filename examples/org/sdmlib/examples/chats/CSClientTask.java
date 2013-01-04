@@ -53,6 +53,11 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
       {
          return getIdMap();
       }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
       
       return null;
    }
@@ -80,6 +85,12 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -99,6 +110,7 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
    public void removeYou()
    {
       setParent(null);
+      setSubFlow(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -162,6 +174,15 @@ public abstract class CSClientTask extends TaskFlow implements PropertyChangeInt
       return value;
    }
 
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
 
 }
 

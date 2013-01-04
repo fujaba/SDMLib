@@ -99,6 +99,16 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
          return getIdMap();
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
+
       return super.get(attrName);
    }
 
@@ -131,6 +141,18 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return super.set(attrName, value);
    }
 
@@ -149,6 +171,8 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -206,6 +230,16 @@ public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
    {
       setGui(value);
       return this;
+   }
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getMsg());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
    }
 
 }

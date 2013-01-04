@@ -26,11 +26,13 @@ import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
 
 public class P2PNetworkLoginFlowSet extends LinkedHashSet<P2PNetworkLoginFlow> implements ModelSet
 {
@@ -223,6 +225,73 @@ public class P2PNetworkLoginFlowSet extends LinkedHashSet<P2PNetworkLoginFlow> i
       return this;
    }
 
+   public StringList getAllMessages()
+   {
+      StringList result = new StringList();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getAllMessages());
+      }
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowSet withAllMessages(String value)
+   {
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         obj.withAllMessages(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowSet withSubFlow(TaskFlow value)
+   {
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public P2PNetworkLoginFlowSet withParent(TaskFlow value)
+   {
+      for (P2PNetworkLoginFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

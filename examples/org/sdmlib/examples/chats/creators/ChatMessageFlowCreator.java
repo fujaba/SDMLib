@@ -14,6 +14,8 @@ public class ChatMessageFlowCreator extends EntityFactory
       ChatMessageFlow.PROPERTY_GUI,
       TaskFlow.PROPERTY_TASKNO,
       TaskFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -50,6 +52,7 @@ public class ChatMessageFlowCreator extends EntityFactory
       ((ChatMessageFlow) entity).removeYou();
    }
 }
+
 
 
 

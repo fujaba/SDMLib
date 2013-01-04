@@ -13,6 +13,8 @@ public class CSVisitAllClientsFlowCreator extends EntityFactory
       CSVisitAllClientsFlow.PROPERTY_IDMAP,
       TaskFlow.PROPERTY_TASKNO,
       CSVisitAllClientsFlow.PROPERTY_TGTTASK,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -49,4 +51,5 @@ public class CSVisitAllClientsFlowCreator extends EntityFactory
       ((CSVisitAllClientsFlow) entity).removeYou();
    }
 }
+
 

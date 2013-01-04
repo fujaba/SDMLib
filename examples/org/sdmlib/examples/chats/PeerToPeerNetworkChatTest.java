@@ -46,26 +46,26 @@ public class PeerToPeerNetworkChatTest
       Scenario scenario = new Scenario("examples");
              
       // Albert's client will serve as first peer
-      runJava("10113", PeerToPeerChat.class.getName(), "11113 Albert");
+      runJava("10113", PeerToPeerChat.class.getName(), "11123 Albert");
 
       // now Nina's client
-      runJava("10114", PeerToPeerChat.class.getName(), "localhost 11113 11114 p2p Nina");
+      runJava("10114", PeerToPeerChat.class.getName(), "localhost 11123 11124 p2p Nina");
       
-//      JsonIdMap idMap = CreatorCreator.createIdMap("test");
-//      idMap.put("id.map", idMap);
-//      
-//      new SocketThread()
-//      .withPort(42424)
-//      .withIdMap(idMap)
-//      .start();
-//      
-//      TestChatMessageFlow testChatMessageFlow = (TestChatMessageFlow) new TestChatMessageFlow()
-//      .withMsg("Hello World")
-//      .withIdMap((SDMLibJsonIdMap) idMap);
-//
-//      testChatMessageFlow.run();
-//
-//
+      JsonIdMap idMap = CreatorCreator.createIdMap("test");
+      idMap.put("id.map", idMap);
+      
+      new SocketThread()
+      .withPort(42424)
+      .withIdMap(idMap)
+      .start();
+      
+      TestChatMessageFlow testChatMessageFlow = (TestChatMessageFlow) new TestChatMessageFlow()
+      .withMsg("Hello World")
+      .withIdMap((SDMLibJsonIdMap) idMap);
+
+      testChatMessageFlow.run();
+
+
 //      while (testChatMessageFlow.getTaskNo() + 1 < testChatMessageFlow.getTaskNames().length)
 //      {
 //         synchronized (idMap)
@@ -109,7 +109,7 @@ public class PeerToPeerNetworkChatTest
    private void runJava(String debugPort, String mainClass, String args)
    {
       StringBuilder command = new StringBuilder(
-         "java -Xdebug -Xrunjdwp:transport=dt_socket,address=debugPort,server=y,suspend=n " +
+         "java -Xdebug -Xrunjdwp:transport=dt_socket,address=debugPort,server=y,suspend=y " +
          "-classpath myclasspath main args"
             );
 

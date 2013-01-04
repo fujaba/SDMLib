@@ -16,6 +16,9 @@ public class P2PNetworkLoginFlowCreator extends EntityFactory
       TaskFlow.PROPERTY_TASKNO,
       TaskFlow.PROPERTY_IDMAP,
       P2PNetworkLoginFlow.PROPERTY_CLIENTPEER,
+      P2PNetworkLoginFlow.PROPERTY_ALLMESSAGES,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -52,5 +55,6 @@ public class P2PNetworkLoginFlowCreator extends EntityFactory
       ((P2PNetworkLoginFlow) entity).removeYou();
    }
 }
+
 
 

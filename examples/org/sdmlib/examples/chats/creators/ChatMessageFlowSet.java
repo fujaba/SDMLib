@@ -27,11 +27,13 @@ import org.sdmlib.examples.chats.ChatMessageFlow;
 import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
 
 public class ChatMessageFlowSet extends LinkedHashSet<ChatMessageFlow>
 {
@@ -169,7 +171,52 @@ public class ChatMessageFlowSet extends LinkedHashSet<ChatMessageFlow>
       return this;
    }
 
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ChatMessageFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public ChatMessageFlowSet withSubFlow(TaskFlow value)
+   {
+      for (ChatMessageFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (ChatMessageFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public ChatMessageFlowSet withParent(TaskFlow value)
+   {
+      for (ChatMessageFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class CSChatMessageFlowSet extends LinkedHashSet<CSChatMessageFlow>
 {
@@ -142,7 +144,52 @@ public class CSChatMessageFlowSet extends LinkedHashSet<CSChatMessageFlow>
    {
       return "org.sdmlib.examples.chats.CSChatMessageFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSChatMessageFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CSChatMessageFlowSet withSubFlow(TaskFlow value)
+   {
+      for (CSChatMessageFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSChatMessageFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public CSChatMessageFlowSet withParent(TaskFlow value)
+   {
+      for (CSChatMessageFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

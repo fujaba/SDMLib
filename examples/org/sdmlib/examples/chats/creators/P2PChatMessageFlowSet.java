@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,17 +22,16 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.chats.CTClearDrawing;
+import org.sdmlib.examples.chats.P2PChatMessageFlow;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.TaskFlowSet;
-import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
 
-public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
+public class P2PChatMessageFlowSet extends LinkedHashSet<P2PChatMessageFlow> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -40,7 +39,7 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
    {
       StringList stringList = new StringList();
       
-      for (CTClearDrawing elem : this)
+      for (P2PChatMessageFlow elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -49,22 +48,84 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
    }
 
 
-   public CTClearDrawingSet with(CTClearDrawing value)
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.chats.P2PChatMessageFlow";
+   }
+
+
+   public P2PChatMessageFlowSet with(P2PChatMessageFlow value)
    {
       this.add(value);
       return this;
    }
    
-   public CTClearDrawingSet without(CTClearDrawing value)
+   public P2PChatMessageFlowSet without(P2PChatMessageFlow value)
    {
       this.remove(value);
       return this;
    }
+   
+   //==========================================================================
+   
+   public P2PChatMessageFlowSet run()
+   {
+      for (P2PChatMessageFlow obj : this)
+      {
+         obj.run();
+      }
+      return this;
+   }
+
+   public StringList getMsg()
+   {
+      StringList result = new StringList();
+      
+      for (P2PChatMessageFlow obj : this)
+      {
+         result.add(obj.getMsg());
+      }
+      
+      return result;
+   }
+
+   public P2PChatMessageFlowSet withMsg(String value)
+   {
+      for (P2PChatMessageFlow obj : this)
+      {
+         obj.withMsg(value);
+      }
+      
+      return this;
+   }
+
+   public intList getPos()
+   {
+      intList result = new intList();
+      
+      for (P2PChatMessageFlow obj : this)
+      {
+         result.add(obj.getPos());
+      }
+      
+      return result;
+   }
+
+   public P2PChatMessageFlowSet withPos(int value)
+   {
+      for (P2PChatMessageFlow obj : this)
+      {
+         obj.withPos(value);
+      }
+      
+      return this;
+   }
+
    public intList getTaskNo()
    {
       intList result = new intList();
       
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          result.add(obj.getTaskNo());
       }
@@ -72,9 +133,9 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
       return result;
    }
 
-   public CTClearDrawingSet withTaskNo(int value)
+   public P2PChatMessageFlowSet withTaskNo(int value)
    {
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          obj.withTaskNo(value);
       }
@@ -86,7 +147,7 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
    {
       SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
       
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          result.add(obj.getIdMap());
       }
@@ -94,9 +155,9 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
       return result;
    }
 
-   public CTClearDrawingSet withIdMap(SDMLibJsonIdMap value)
+   public P2PChatMessageFlowSet withIdMap(SDMLibJsonIdMap value)
    {
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          obj.withIdMap(value);
       }
@@ -104,27 +165,9 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
       return this;
    }
 
-
-
-   public String getEntryType()
+   public P2PChatMessageFlowSet withSubFlow(TaskFlow value)
    {
-      return "org.sdmlib.examples.chats.CTClearDrawing";
-   }
-   public TaskFlowSet getSubFlow()
-   {
-      TaskFlowSet result = new TaskFlowSet();
-      
-      for (CTClearDrawing obj : this)
-      {
-         result.add(obj.getSubFlow());
-      }
-      
-      return result;
-   }
-
-   public CTClearDrawingSet withSubFlow(TaskFlow value)
-   {
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          obj.withSubFlow(value);
       }
@@ -136,7 +179,7 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
    {
       TaskFlowSet result = new TaskFlowSet();
       
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          result.add(obj.getParent());
       }
@@ -144,9 +187,9 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
       return result;
    }
 
-   public CTClearDrawingSet withParent(TaskFlow value)
+   public P2PChatMessageFlowSet withParent(TaskFlow value)
    {
-      for (CTClearDrawing obj : this)
+      for (P2PChatMessageFlow obj : this)
       {
          obj.withParent(value);
       }
@@ -154,18 +197,19 @@ public class CTClearDrawingSet extends LinkedHashSet<CTClearDrawing>
       return this;
    }
 
-   public CTClearDrawingSet withParent(CSVisitAllClientsFlow value)
+   public TaskFlowSet getSubFlow()
    {
-      for (CTClearDrawing obj : this)
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (P2PChatMessageFlow obj : this)
       {
-         obj.withParent(value);
+         result.add(obj.getSubFlow());
       }
       
-      return this;
+      return result;
    }
 
 }
-
 
 
 

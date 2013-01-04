@@ -10,6 +10,8 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.chats.creators.CSClientTaskPO;
 import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.model.taskflows.TaskFlow;
 
 public class CSClientTaskPO extends PatternObject<CSClientTaskPO, CSClientTask>
 {
@@ -117,6 +119,54 @@ public class CSClientTaskPO extends PatternObject<CSClientTaskPO, CSClientTask>
       return this;
    }
    
+   public TaskFlowPO hasSubFlow()
+   {
+      TaskFlowPO result = new TaskFlowPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(TaskFlow.PROPERTY_SUBFLOW, result);
+      
+      return result;
+   }
+
+   public CSClientTaskPO hasSubFlow(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_SUBFLOW)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TaskFlow getSubFlow()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TaskFlow) this.getCurrentMatch()).getSubFlow();
+      }
+      return null;
+   }
+
+   public CSClientTaskPO hasParent(TaskFlowPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(TaskFlow.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
 }
+
 
 

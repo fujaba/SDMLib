@@ -225,5 +225,17 @@ public class PeerToPeerChatArgs implements PropertyChangeInterface
       setPeerPort(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getUserName());
+      _.append(" ").append(this.getLocalPort());
+      _.append(" ").append(this.getPeerIp());
+      _.append(" ").append(this.getPeerPort());
+      return _.substring(1);
+   }
+
 }
 

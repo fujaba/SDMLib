@@ -335,7 +335,7 @@ public class Role implements PropertyChangeInterface
             "   }\n\n"
             );
 
-         String fullModelSetType = partnerRole.getClazz().getName() + "Set";
+         String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
          String modelSetType = CGUtil.shortClassName(fullModelSetType);
          
          String adderCall = "result.add";
@@ -357,7 +357,7 @@ public class Role implements PropertyChangeInterface
          parser.getFileBody().insert(classEnd, text.toString());
          tgtClass.setModelSetFileHasChanged(true);
          
-         tgtClass.insertImport(parser, partnerRole.getClazz().getName());
+         tgtClass.insertImport(parser, fullModelSetType);
       }
    }
 

@@ -29,6 +29,8 @@ import java.util.List;
 import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class CSClientTaskSet extends LinkedHashSet<CSClientTask>
 {
@@ -129,6 +131,39 @@ public class CSClientTaskSet extends LinkedHashSet<CSClientTask>
       return this;
    }
 
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSClientTask obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CSClientTaskSet withSubFlow(TaskFlow value)
+   {
+      for (CSClientTask obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public CSClientTaskSet withParent(TaskFlow value)
+   {
+      for (CSClientTask obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

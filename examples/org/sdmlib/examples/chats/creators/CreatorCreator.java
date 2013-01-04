@@ -47,6 +47,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.chats.creators.TestChatMessageFlowPOCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowCreator());
          creatorSet.add(new org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPOCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.P2PChatMessageFlowCreator());
+         creatorSet.add(new org.sdmlib.examples.chats.creators.P2PChatMessageFlowPOCreator());
          creatorSet.addAll(new org.sdmlib.model.taskflows.creators.CreatorCreator().getCreatorSet());
       }
       
@@ -62,6 +64,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

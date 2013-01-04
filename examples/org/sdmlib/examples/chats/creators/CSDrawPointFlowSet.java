@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 
 public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
 {
@@ -229,6 +231,51 @@ public class CSDrawPointFlowSet extends LinkedHashSet<CSDrawPointFlow>
    {
       return "org.sdmlib.examples.chats.CSDrawPointFlow";
    }
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSDrawPointFlow obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public CSDrawPointFlowSet withSubFlow(TaskFlow value)
+   {
+      for (CSDrawPointFlow obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (CSDrawPointFlow obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public CSDrawPointFlowSet withParent(TaskFlow value)
+   {
+      for (CSDrawPointFlow obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

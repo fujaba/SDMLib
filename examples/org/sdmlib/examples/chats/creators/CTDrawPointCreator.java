@@ -17,6 +17,8 @@ public class CTDrawPointCreator extends EntityFactory
       CTDrawPoint.PROPERTY_G,
       CTDrawPoint.PROPERTY_B,
       CTDrawPoint.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -53,5 +55,6 @@ public class CTDrawPointCreator extends EntityFactory
       ((CTDrawPoint) entity).removeYou();
    }
 }
+
 
 

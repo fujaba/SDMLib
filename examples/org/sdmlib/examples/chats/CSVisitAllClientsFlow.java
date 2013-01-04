@@ -98,6 +98,16 @@ public class CSVisitAllClientsFlow extends TaskFlow implements PropertyChangeInt
       {
          return getTgtTask();
       }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
       
       return null;
    }
@@ -125,6 +135,18 @@ public class CSVisitAllClientsFlow extends TaskFlow implements PropertyChangeInt
          return true;
       }
 
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -144,6 +166,8 @@ public class CSVisitAllClientsFlow extends TaskFlow implements PropertyChangeInt
    public void removeYou()
    {
       setTgtTask(null);
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -213,5 +237,14 @@ public class CSVisitAllClientsFlow extends TaskFlow implements PropertyChangeInt
       withTgtTask(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
 }
 

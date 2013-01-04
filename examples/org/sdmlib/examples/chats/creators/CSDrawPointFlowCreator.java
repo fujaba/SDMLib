@@ -17,6 +17,8 @@ public class CSDrawPointFlowCreator extends EntityFactory
       CSDrawPointFlow.PROPERTY_B,
       CSDrawPointFlow.PROPERTY_IDMAP,
       TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_SUBFLOW,
+      TaskFlow.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -53,4 +55,5 @@ public class CSDrawPointFlowCreator extends EntityFactory
       ((CSDrawPointFlow) entity).removeYou();
    }
 }
+
 

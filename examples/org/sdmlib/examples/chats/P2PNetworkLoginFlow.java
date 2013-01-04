@@ -28,13 +28,15 @@ import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.util.TreeSet;
+
 import org.sdmlib.utils.StrUtil;
 
 public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInterface
 {   
    enum TaskNames 
    {
-      Start, AtFirstPeer, AtOtherPeer
+      Start, AtFirstPeer, BackToStartPeer, AtOtherPeer
    }
 
    @Override
@@ -54,15 +56,51 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
          break;
 
       case AtFirstPeer:
-         // add myself to list of all peers
+         // access first peer data
+         @SuppressWarnings("unused")
          PeerToPeerChat gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI); 
          
-         // get list of all peers 
-         
          // get current state
+         allMessages = gui.getAllMessages().getText();
+         
+         // add myself to list of all peers
+         gui.getProxies().add(getClientPeer());
+         
+         // get list of all peers 
+         this.getPeerList().addAll(gui.getProxies());
+         
+         // send data home to start peer
+         switchTo(getClientPeer());
          
          // multi hop visit all peers to introduce myself
+         switchTo(TaskNames.AtOtherPeer.ordinal(), gui.getPeer(), gui.getProxies());
          
+         break;
+         
+      case BackToStartPeer:
+         // store list of peers
+         gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI); 
+         
+         gui.getProxies().addAll(this.getPeerList());
+         
+         // store messages
+         gui.getAllMessages().setText(this.getAllMessages());
+         
+         // that's it
+         
+         break;
+         
+      case AtOtherPeer:
+         gui = (PeerToPeerChat) getIdMap().getObject(PeerToPeerChat.MY_GUI); 
+         
+         // if I already know that peer, do nothing
+         if ( ! gui.getProxies().contains(this.getClientPeer()))
+         {
+            // new peer. Add it and spread the word.
+            gui.getProxies().addAll(this.getPeerList());
+            
+            switchTo(TaskNames.AtOtherPeer.ordinal(), gui.getPeer(), gui.getProxies());
+         }
          break;
          
       default:
@@ -71,8 +109,6 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
 
    }
    
-   
-   //==========================================================================
    
    public Object get(String attrName)
    {
@@ -106,6 +142,21 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
          return getClientPeer();
       }
 
+      if (PROPERTY_ALLMESSAGES.equalsIgnoreCase(attrName))
+      {
+         return getAllMessages();
+      }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return getSubFlow();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
+
       return null;
    }
 
@@ -128,7 +179,14 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
 
       if (PROPERTY_PEERLIST.equalsIgnoreCase(attrName))
       {
-         setPeerList((org.sdmlib.model.taskflows.creators.PeerProxySet) value);
+         if (value instanceof PeerProxy)
+         {
+            getPeerList().add((PeerProxy) value);
+         }
+         else
+         {
+            setPeerList((org.sdmlib.model.taskflows.creators.PeerProxySet) value);
+         }
          return true;
       }
 
@@ -150,6 +208,24 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
          return true;
       }
 
+      if (PROPERTY_ALLMESSAGES.equalsIgnoreCase(attrName))
+      {
+         setAllMessages((String) value);
+         return true;
+      }
+
+      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((TaskFlow) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -168,6 +244,8 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
    
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -237,6 +315,10 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
 
    public org.sdmlib.model.taskflows.creators.PeerProxySet getPeerList()
    {
+      if (this.peerList == null)
+      {
+         this.peerList = new org.sdmlib.model.taskflows.creators.PeerProxySet();
+      }
       return this.peerList;
    }
    
@@ -282,6 +364,45 @@ public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInter
    public P2PNetworkLoginFlow withClientPeer(org.sdmlib.model.taskflows.PeerProxy value)
    {
       setClientPeer(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getClientName());
+      _.append(" ").append(this.getAllMessages());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ALLMESSAGES = "allMessages";
+   
+   private String allMessages;
+
+   public String getAllMessages()
+   {
+      return this.allMessages;
+   }
+   
+   public void setAllMessages(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.allMessages, value))
+      {
+         String oldValue = this.allMessages;
+         this.allMessages = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ALLMESSAGES, oldValue, value);
+      }
+   }
+   
+   public P2PNetworkLoginFlow withAllMessages(String value)
+   {
+      setAllMessages(value);
       return this;
    } 
 }

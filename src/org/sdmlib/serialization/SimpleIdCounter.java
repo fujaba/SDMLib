@@ -93,27 +93,39 @@ public class SimpleIdCounter implements IdMapCounter{
 	 * Read a Id from jsonString
 	 */
 	@Override
-	public void readId(String jsonId) {
+	public void readId(String jsonId) 
+	{
 		// adjust number to be higher than read numbers
 		String key=null;
-		if(prefixId!=null){
+		
+		if (prefixId != null)
+		{
 			String[] split = jsonId.split("\\"+this.splitter);
-			if (split.length != 2) {
-				throw new RuntimeException("jsonid " + jsonId
-						+ " should have one "+this.splitter+" in its middle");
-			}
-			if (this.prefixId.equals(split[0])) {
-				key=split[1];
-			}
-		}else{
+			
+			key=split[split.length -1];
+		}
+		else
+		{
 			key=jsonId;
 		}
-		if(key!=null){
-			String oldNumber = key.substring(1);
-			long oldInt = Long.parseLong(oldNumber);
-			if (oldInt >= this.number) {
-				this.number = oldInt + 1;
-			}
+		
+		if(key!=null)
+		{
+			try
+         {
+            String oldNumber = key.substring(1);
+            long oldInt = Long.parseLong(oldNumber);
+            if (oldInt >= this.number) 
+            {
+            	this.number = oldInt + 1;
+            }
+         }
+         catch (Exception e)
+         {
+            // this id does not end with a number, thus it is set by the user
+            // so we do not try to keep track of the highest number used so far. 
+            // This means, do nothing
+         }
 		}
 	}
 
