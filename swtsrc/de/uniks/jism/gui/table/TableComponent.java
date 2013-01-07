@@ -650,4 +650,7 @@ public class TableComponent extends Composite implements Listener,
 		}
 		refresh();
 	}
+	public void clear() {
+		this.list.clear();
+	}
 }
