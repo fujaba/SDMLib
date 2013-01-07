@@ -78,6 +78,8 @@ public class IdMap {
 	/** The update listener. */
 	protected UpdateListener updateListener;
 	
+	protected ArrayList<TypList> typList;
+	
 	/**
 	 * Instantiates a new id map.
 	 */
@@ -206,8 +208,26 @@ public class IdMap {
 			this.values.put(jsonId, object);
 			this.keys.put(object, jsonId);
 			addListener(object);
+			addTypList(object);
 		}
 		return object;
+	}
+	
+	private void addTypList(Object object){
+		if(this.typList!=null){
+			for(TypList list : this.typList){
+				if(list.getProperty().isInstance(object)){
+					list.addObject(object);
+				}
+			}
+		}
+	}
+	
+	public void addToTypList(TypList typList){
+		if(typList==null){
+			this.typList = new ArrayList<TypList>();
+		}
+		this.typList.add(typList);
 	}
 
 	public UpdateListener getUpdateListener(){
@@ -259,9 +279,15 @@ public class IdMap {
 			}
 		}
 		if (key != null) {
-			
 			this.keys.remove(oldValue);
 			this.values.remove(key);
+			if(this.typList!=null){
+				for(TypList list : this.typList){
+					if(list.getProperty().isInstance(oldValue)){
+						list.removeObject(oldValue);
+					}
+				}
+			}
 			return true;
 		}
 		return false;
