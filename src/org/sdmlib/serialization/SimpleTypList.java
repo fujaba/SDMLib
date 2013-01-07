@@ -30,15 +30,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.util.HashSet;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.TypList;
 
-public class TypList {
+public class SimpleTypList implements TypList{
 	private HashSet<Object> values=new HashSet<Object>();
 	private Class<?> property;
 
-	public TypList(Class<?> property){
+	public SimpleTypList(Class<?> property){
 		this.property = property;
 	}
-	public TypList(SendableEntityCreator creator){
+	public SimpleTypList(SendableEntityCreator creator){
 		this.property = creator.getSendableInstance(true).getClass();
 	}
 	
@@ -50,14 +51,6 @@ public class TypList {
 		return values;
 	}
 
-	public void setValues(HashSet<Object> values) {
-		this.values = values;
-	}
-
-	public Class<?> getProperty() {
-		return property;
-	}
-
 	public boolean addObject(Object obj) {
 		if(isInstance(obj)){
 			this.values.add(obj);
@@ -66,7 +59,11 @@ public class TypList {
 		return false;
 	}
 
-	public void removeObject(Object object) {
-		this.values.remove(object);
+	public boolean removeObject(Object obj) {
+		if(isInstance(obj)){
+			this.values.remove(obj);
+			return true;
+		}
+		return false;
 	}
 }

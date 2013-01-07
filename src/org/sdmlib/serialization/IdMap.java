@@ -39,6 +39,7 @@ import java.util.Set;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.TypList;
 import org.sdmlib.serialization.json.UpdateListener;
 
 /**
@@ -281,9 +282,7 @@ public class IdMap {
 			this.values.remove(key);
 			if(this.typList!=null){
 				for(TypList list : this.typList){
-					if(list.getProperty().isInstance(oldValue)){
-						list.removeObject(oldValue);
-					}
+					list.removeObject(oldValue);
 				}
 			}
 			return true;
