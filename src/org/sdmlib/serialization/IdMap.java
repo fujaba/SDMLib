@@ -216,9 +216,7 @@ public class IdMap {
 	private void addTypList(Object object){
 		if(this.typList!=null){
 			for(TypList list : this.typList){
-				if(list.getProperty().isInstance(object)){
-					list.addObject(object);
-				}
+				list.addObject(object);
 			}
 		}
 	}

@@ -29,12 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.HashSet;
 
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
 public class TypList {
 	private HashSet<Object> values=new HashSet<Object>();
 	private Class<?> property;
 
 	public TypList(Class<?> property){
 		this.property = property;
+	}
+	public TypList(SendableEntityCreator creator){
+		this.property = creator.getSendableInstance(true).getClass();
+	}
+	
+	public boolean isInstance(Object obj){
+		return this.property.isInstance(obj);
 	}
 	
 	public HashSet<Object> getValues() {
@@ -49,8 +58,12 @@ public class TypList {
 		return property;
 	}
 
-	public void addObject(Object object) {
-		this.values.add(object);
+	public boolean addObject(Object obj) {
+		if(isInstance(obj)){
+			this.values.add(obj);
+			return true;
+		}
+		return false;
 	}
 
 	public void removeObject(Object object) {
