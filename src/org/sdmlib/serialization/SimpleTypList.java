@@ -44,7 +44,7 @@ public class SimpleTypList implements TypList{
 	}
 	
 	public boolean isInstance(Object obj){
-		return property==obj.getClass();
+		return property.equals(obj.getClass());
 	}
 	
 	public HashSet<Object> getValues() {
