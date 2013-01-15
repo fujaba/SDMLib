@@ -136,7 +136,7 @@ public class TableComponent extends Composite implements Listener,
 	protected TableViewer createBrowser(GUIPosition browserId) {
 		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION;
 		if (!browserId.equals(GUIPosition.CENTER)) {
-			flags = flags | SWT.NO_SCROLL | SWT.FILL;
+			flags = flags | SWT.NO_SCROLL ;
 		}
 		TableViewer tableViewer = new TableViewer(tableComposite, flags);
 		tableViewer.setLabelProvider(new TableLabelProvider());
@@ -239,6 +239,7 @@ public class TableComponent extends Composite implements Listener,
 
 			fixedTableViewerLeft.getTable().dispose();
 			fixedTableViewerLeft = null;
+			tableSyncronizer.dispose();
 		} else if (fixedTableViewerLeft == null && visible) {
 			fixedTableViewerLeft = createBrowser(GUIPosition.WEST);
 
@@ -250,7 +251,10 @@ public class TableComponent extends Composite implements Listener,
 				tableViewer.getTable().getVerticalBar()
 						.addListener(SWT.Selection, tableSyncronizer);
 			}
-
+			fixedTableViewerLeft.getTable().addListener(SWT.Selection, tableSyncronizer);
+			
+			
+			
 			for (TableColumnView item : columns) {
 				if (item.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 					item.setVisible(true);

@@ -49,6 +49,7 @@ public class TableColumnView implements ControlListener {
 	private TableCellMenuItem tableCellMenuItem;
 	private IdMap map;
 	public static final int BorderCell=10;
+	private String oldTextWidth=null;
 
 	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns, IdMap map) {
 		this.owner=tableComponent;
@@ -147,17 +148,22 @@ public class TableColumnView implements ControlListener {
 
 	public void onNewText(String value, int borderCell) {
 		if(column.isAutoWidth()){
-        	GC gc = new GC(this.owner);
-        	Point size = gc.textExtent(value);
-        	int newWidth = size.x+borderCell;
-        	if(column instanceof ColumnNotification){
-        		if(((ColumnNotification)column).setNewWidth(column.getWidth(), newWidth)){
-        			column.setWidth(newWidth);
-        		}
-        	}else if(newWidth>column.getWidth()){
-        		column.setWidth(newWidth);
-        	}
-        	tableViewerColumn.getColumn().setWidth(column.getWidth());
-        }		
+			if(value != null){
+				if(oldTextWidth==null || !value.equals(oldTextWidth)){
+					oldTextWidth = value;
+		        	GC gc = new GC(this.owner);
+		        	Point size = gc.textExtent(value);
+		        	int newWidth = size.x+borderCell;
+		        	if(column instanceof ColumnNotification){
+		        		if(((ColumnNotification)column).setNewWidth(column.getWidth(), newWidth)){
+		        			column.setWidth(newWidth);
+		        		}
+		        	}else if(newWidth>column.getWidth()){
+		        		column.setWidth(newWidth);
+		        	}
+		        	tableViewerColumn.getColumn().setWidth(column.getWidth());
+		        }		
+			}
+		}
 	}	
 }

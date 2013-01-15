@@ -44,14 +44,31 @@ public class TableSyncronizer implements MouseWheelListener, Listener{
 	}
 	
 	public void mouseScrolled(MouseEvent arg0) {
+		if(left==null || middle == null){
+			return;
+		}
 		left.setTopIndex(middle.getTopIndex());
 		middle.setTopIndex(left.getTopIndex());
 	}
 
 	@Override
 	public void handleEvent(Event event) {
-		left.setSelection(middle.getSelectionIndices());
-		left.setTopIndex(middle.getTopIndex());
-		middle.setTopIndex(left.getTopIndex());
+		if(left==null || middle == null){
+			return;
+		}
+		if(event.widget==middle){
+			left.setSelection(middle.getSelectionIndices());
+			left.setTopIndex(middle.getTopIndex());
+			middle.setTopIndex(left.getTopIndex());
+		}else if(event.widget==left){
+			middle.setSelection(left.getSelectionIndices());
+			middle.setTopIndex(left.getTopIndex());
+			left.setTopIndex(middle.getTopIndex());
+		}
+	}
+
+	public void dispose() {
+		left = null;
+		middle = null;
 	}
 }
