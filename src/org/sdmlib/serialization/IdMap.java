@@ -62,10 +62,10 @@ public class IdMap {
 	public static final String PRIO = "prio";
 	
 	/** The keys. */
-	protected HashMap<Object, String> keys;
+	protected Map<Object,String> keys;
 	
 	/** The values. */
-	protected HashMap<String, Object> values;
+	protected Map<String, Object> values;
 	
 	/** The creators. */
 	protected HashMap<String, SendableEntityCreator> creators;
