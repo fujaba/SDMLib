@@ -37,19 +37,23 @@ import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.event.StyleFormat;
 
 /**
  * The Class XMLEntity.
  */
 public class XMLEntity extends Entity{
 	/** The children. */
-	private ArrayList<XMLEntity> children;
+	protected ArrayList<XMLEntity> children;
+	
+	/** StyleFormat */
+	private StyleFormat style;
 	
 	/** The tag. */
-	private String tag;
+	protected String tag;
 	
 	/** The value. */
-	private String value;
+	protected String value;
 	
 	/**
 	 * Instantiates a new xML entity.
@@ -227,20 +231,38 @@ public class XMLEntity extends Entity{
 			sb.append(" "+attribute.getKey()+"="+EntityUtil.quote((String)attribute.getValue()));
 		}
 		boolean hasChild=(this.children!=null&&this.children.size()>0);
-		if(this.value==null&&!hasChild){
+		boolean hasStyle=this.style!=null;
+		
+		
+		if(this.value==null&&!hasChild && !hasStyle){
 			sb.append("/>");
 		}else{
 			sb.append(">");
 			// parse Children
-			if(this.children!=null){
+			if(hasStyle){
+				sb.append(style.getStartTag());
+			}
+			if(hasChild){
 				for(XMLEntity child : this.children){
 					sb.append(child.toString(indentFactor));
 				}
 			}else if(this.value!=null){
 				sb.append(this.value);
 			}
+			if(hasStyle){
+				sb.append(style.getEndTag());
+			}
+
 			sb.append("</"+getTag()+">");
 		}
 		return sb.toString();
+	}
+
+	public StyleFormat getStyle() {
+		return style;
+	}
+
+	public void setStyle(StyleFormat style) {
+		this.style = style;
 	}
 }

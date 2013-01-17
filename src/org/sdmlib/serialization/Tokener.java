@@ -213,54 +213,58 @@ public abstract class Tokener {
      *      <code>'</code>&nbsp;<small>(single quote)</small>.
      * @return      A String.
      */
-    public String nextString(char quote)  {
-        char c;
+    public String nextString(char quote, boolean allowCRLF)  {
         StringBuilder sb = new StringBuilder();
-        for(;;) {
-            c = next();
-            switch (c) {
-            case 0:
-            case '\n':
-            case '\r':
-                throw new TextParsingException("Unterminated string", this);
-            case '\\':
-                c = next();
-                switch (c) {
-                case 'b':
-                    sb.append('\b');
-                    break;
-                case 't':
-                    sb.append('\t');
-                    break;
-                case 'n':
-                    sb.append('\n');
-                    break;
-                case 'f':
-                    sb.append('\f');
-                    break;
-                case 'r':
-                    sb.append('\r');
-                    break;
-                case 'u':
-                    sb.append((char)Integer.parseInt(skipPos(4), 16));
-                    break;
-                case '"':
-                case '\'':
-                case '\\':
-                case '/':
-                	sb.append(c);
-                	break;
-                default:
-                    throw new TextParsingException("Illegal escape.", this);
-                }
-                break;
-            default:
-                if (c == quote) {
-                    return sb.toString();
-                }
-                sb.append(c);
-            }
+        char c=getCurrentChar();
+        while(c!=0 &&c != quote){
+        	c = next();
+         	switch (c) {
+        	case 0:
+        	case '\n':
+        	case '\r':
+        		if(!allowCRLF){
+        			throw new TextParsingException("Unterminated string", this);
+        		}
+        		break;
+        	case '\\':
+        		c = next();
+        		switch (c) {
+        		case 'b':
+        			sb.append('\b');
+        			break;
+        		case 't':
+        			sb.append('\t');
+        			break;
+        		case 'n':
+        			sb.append('\n');
+        			break;
+        		case 'f':
+        			sb.append('\f');
+        			break;
+        		case 'r':
+        			sb.append('\r');
+        			break;
+        		case 'u':
+        			sb.append((char)Integer.parseInt(skipPos(4), 16));
+        			break;
+        		case '"':
+        		case '\'':
+        		case '\\':
+        		case '/':
+        			sb.append(c);
+        			c=1;
+        			break;
+        		default:
+        			throw new TextParsingException("Illegal escape.", this);
+        		}
+        		break;
+        	default:
+        		if(c!=quote){
+        			sb.append(c);
+        		}
+        	}
         }
+    	return sb.toString();
     }
     
 	 /**
@@ -516,7 +520,7 @@ public abstract class Tokener {
     }
 
     public String getNextTag(){
-    	next();
+    	nextClean();
     	int startTag=this.index;
 		if(stepPos(" >//<", false, true)){
 			return getPreviousString(startTag);	

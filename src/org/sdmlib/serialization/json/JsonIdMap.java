@@ -43,10 +43,10 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.event.MapEntry;
-import org.sdmlib.serialization.event.creater.DateCreator;
-import org.sdmlib.serialization.event.creater.JsonArrayCreator;
-import org.sdmlib.serialization.event.creater.JsonObjectCreator;
-import org.sdmlib.serialization.event.creater.MapEntryCreator;
+import org.sdmlib.serialization.event.creator.DateCreator;
+import org.sdmlib.serialization.event.creator.JsonArrayCreator;
+import org.sdmlib.serialization.event.creator.JsonObjectCreator;
+import org.sdmlib.serialization.event.creator.MapEntryCreator;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -259,6 +259,14 @@ public class JsonIdMap extends IdMap{
 	 */
 	public Object readJson(JsonObject jsonObject, boolean readId) {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
+		if(jsonObject.has(UPDATE) || jsonObject.has(REMOVE)){
+			// Must be an update
+			if(executeUpdateMsg(jsonObject)){
+				String id = jsonObject.getString(JsonIdMap.ID);
+				return getObject(id);
+			}
+			return null;
+		}
 		Object mainItem = readJson(jsonObject, refs, readId);
 		for (ReferenceObject ref : refs) {
 			ref.execute();

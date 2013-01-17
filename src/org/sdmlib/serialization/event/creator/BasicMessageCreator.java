@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.event.creater;
+package org.sdmlib.serialization.event.creator;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.

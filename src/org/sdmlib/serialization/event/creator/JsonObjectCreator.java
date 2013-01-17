@@ -1,9 +1,9 @@
-package org.sdmlib.serialization.event.creater;
+package org.sdmlib.serialization.event.creator;
 
 import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonObject;
 
-public class JsonArrayCreator extends EntityFactory{
+public class JsonObjectCreator extends EntityFactory{
 	private final String[] properties= new String[]{"VALUE"};
 	@Override
 	public String[] getProperties() {
@@ -12,7 +12,7 @@ public class JsonArrayCreator extends EntityFactory{
 
 	@Override
 	public Object getSendableInstance(boolean prototyp) {
-		return new JsonArray();
+		return new JsonObject();
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class JsonArrayCreator extends EntityFactory{
 
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value, String typ) {
-		return ((JsonArray)entity).setAllValue((String) value);
+		return ((JsonObject)entity).setAllValue((String) value);
 	}
 
 }

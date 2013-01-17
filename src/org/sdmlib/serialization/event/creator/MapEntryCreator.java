@@ -1,5 +1,4 @@
-package org.sdmlib.serialization.event.creater;
-
+package org.sdmlib.serialization.event.creator;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -17,7 +16,7 @@ modification, are permitted provided that the following conditions are met:
 4. Neither the name of contributors may be used to endorse or promote products
    derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+THIS SOFTWARE 'Json Id Serialisierung Map' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
@@ -28,55 +27,59 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.util.Date;
+import java.util.Map.Entry;
 
+import org.sdmlib.serialization.event.MapEntry;
+import org.sdmlib.serialization.event.MapSet;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-/**
- * The Class DateCreator.
- */
-public class DateCreator implements SendableEntityCreator, NoIndexCreator{
+public class MapEntryCreator implements SendableEntityCreator, NoIndexCreator{
+	public static final String PROPERTY_KEY="key";
+	public static final String PROPERTY_VALUE="value";
+	private final String[] properties=new String[]{PROPERTY_KEY, PROPERTY_VALUE};
 	
-	/** The Constant VALUE. */
-	public static final String VALUE="value";
-	
-	/*
-	 * return the Properties
-	 */
-	@Override
 	public String[] getProperties() {
-		return new String[]{VALUE};
+		return properties;
 	}
 
-	/*
-	 * Create new Instance of Date
-	 */
-	@Override
-	public Object getSendableInstance(boolean reference) {
-		return new Date();
+	public Object getSendableInstance(boolean prototyp) {
+		return new MapEntry();
 	}
 
-	/*
-	 * Getter for java.util.Date
-	 */
-	@Override
 	public Object getValue(Object entity, String attribute) {
-		if(VALUE.equals(attribute)){
-			return new Long(((Date)entity).getTime());
+		Entry<?,?> obj=((Entry<?,?>)entity);
+		if(PROPERTY_KEY.equalsIgnoreCase(attribute)){
+			return obj.getKey();
+		}else if(PROPERTY_VALUE.equalsIgnoreCase(attribute)){
+			return obj.getValue();
 		}
 		return null;
 	}
 
-	/*
-	 * Setter for java.util.Date
-	 */
-	@Override
-	public boolean setValue(Object entity, String attribute, Object value, String typ) {
-		if(VALUE.equals(attribute)){
-			((Date)entity).setTime((Long) value);
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type) {
+		MapEntry entry=(MapEntry) entity;
+		if(PROPERTY_KEY.equalsIgnoreCase(attribute)){
+			entry.setKey(value);
+			return true;
+		}else if(PROPERTY_VALUE.equalsIgnoreCase(attribute)){
+			if(value instanceof Entry<?,?>){
+				Object map = entry.getValue();
+				if(map==null){
+					map=new MapSet();
+				}
+				if(map instanceof MapSet){
+					((MapSet)map).add(value);
+				}
+				entry.setValue(map);
+			}else{
+				entry.setValue(value);	
+			}
+			
 			return true;
 		}
 		return false;
 	}
+
 }

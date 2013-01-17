@@ -53,6 +53,27 @@ public class ReferenceObject {
 	/**
 	 * Instantiates a new reference object.
 	 *
+	 * @param property the property
+	 */
+	public ReferenceObject(String property){
+		this.property=property;
+	}
+
+	/**
+	 * Instantiates a new reference object.
+	 *
+	 * @param property the property
+	 * @param entity the entity
+	 */
+	public ReferenceObject(String property, Entity entity){
+		this.property=property;
+		this.entity=entity;
+	}
+
+	
+	/**
+	 * Instantiates a new reference object.
+	 *
 	 * @param creator the creator
 	 * @param property the property
 	 * @param map the map
@@ -128,6 +149,9 @@ public class ReferenceObject {
 	 */
 	@Override
 	public String toString() {
+		if(entity==null){
+			return property;
+		}
 		return this.property+":"+this.entity.getClass().getName();
 	}
 }

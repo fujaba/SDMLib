@@ -62,7 +62,7 @@ public class IdMap {
 	public static final String PRIO = "prio";
 	
 	/** The keys. */
-	protected Map<Object,String> keys;
+	protected Map<Object, String> keys;
 	
 	/** The values. */
 	protected Map<String, Object> values;

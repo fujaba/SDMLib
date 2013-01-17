@@ -37,31 +37,18 @@ import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
-import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
 
 /**
  * The Class XMLIdMap.
  */
-public class XMLIdMap extends IdMap {
+public class XMLIdMap extends XMLSimpleIdMap {
 	/** The Constant ENTITYSPLITTER. */
 	public static final String ENTITYSPLITTER = "&";
 	
 	/** The Constant ATTRIBUTEVALUE. */
 	public static final String ATTRIBUTEVALUE = "?";
-	
-	/** The Constant ENDTAG. */
-	public static final char ENDTAG='/';
-	
-	/** The Constant ITEMEND. */
-	public static final char ITEMEND='>';
-	
-	/** The Constant ITEMSTART. */
-	public static final char ITEMSTART='<';
-	
-	/** The Constant SPACE. */
-	public static final char SPACE=' ';
 	
 	/** The decoder map. */
 	private HashMap<String, XMLEntityCreator> decoderMap;
@@ -72,34 +59,12 @@ public class XMLIdMap extends IdMap {
 	/** The stopwords. */
 	private HashSet<String> stopwords=new HashSet<String>();
 	
-	/** The value. */
-	private Tokener value;
-
-	/**
-	 * Instantiates a new xML id map.
-	 */
-	public XMLIdMap() {
-		super();
-		init();
-	}
-	
-	/**
-	 * Instantiates a new xML id map.
-	 *
-	 * @param parent the parent
-	 */
-	public XMLIdMap(IdMap parent){
-		super(parent);
-		init();
-	}
-	
 	/**
 	 * Inits the.
 	 */
-	private void init(){
-		this.stopwords.add("?xml");
-		this.stopwords.add("!--");
-		this.stopwords.add("!DOCTYPE");
+	@Override
+	protected void init(){
+		super.init();
 		getCounter().enableId(false);
 	}
 	
@@ -267,7 +232,7 @@ public class XMLIdMap extends IdMap {
 		this.stack.clear();
 		while (!this.value.isEnd()) {
 			if (this.value.stepPos(""+ITEMSTART, false, false)) {
-				String tag=getEntity();
+				XMLEntity tag=getEntity();
 				result = findTag("", tag);
 			}
 			if (result != null && !(result instanceof String)) {
@@ -355,10 +320,12 @@ public class XMLIdMap extends IdMap {
 	 * @param tag the tag
 	 * @return the object
 	 */
-	private Object findTag(String prefix, String tag){
+	private Object findTag(String prefix, XMLEntity item){
+		String tag=item.getTag();
+		Object entity = null;
+
 		if (tag.length() > 0) {
 			XMLEntityCreator entityCreater = getCreatorDecodeClass(tag);
-			Object entity = null;
 			boolean plainvalue = false;
 			String newPrefix = "";
 			if (entityCreater == null) {
@@ -410,9 +377,9 @@ public class XMLIdMap extends IdMap {
 						}
 					}
 					if(this.value.getCurrentChar()==ITEMSTART){
-						String nextTag=getEntity();
-						if(nextTag.length()>0){
-							myStack.add(nextTag);
+						XMLEntity nextTag=getEntity();
+						if(nextTag!=null && nextTag.getTag().length()>0){
+							myStack.add(nextTag.getTag());
 						}
 						continue;
 					}
@@ -477,9 +444,9 @@ public class XMLIdMap extends IdMap {
 	private void parseChildren(String newPrefix, Object entity, String tag){
 		while (!this.value.isEnd()) {
 			if (stepEmptyPos(newPrefix, entity, tag)) {
-				String nextTag=getEntity();
+				XMLEntity nextTag=getEntity();
 
-				if(nextTag.length()>0){
+				if(nextTag != null ){
 					Object result = findTag(newPrefix, nextTag);
 		
 					if(result!=null){
@@ -492,7 +459,7 @@ public class XMLIdMap extends IdMap {
 							}
 							if(refObject!=null){
 								SendableEntityCreator parentCreator=refObject.getCreater();
-								parentCreator.setValue(refObject.getEntity(), nextTag, result, IdMap.NEW);
+								parentCreator.setValue(refObject.getEntity(), nextTag.getTag(), result, IdMap.NEW);
 								if(entity!=null&&this.stack.size()>0){
 									this.stack.remove(this.stack.size() - 1);
 								}
@@ -511,28 +478,6 @@ public class XMLIdMap extends IdMap {
 				this.value.next();
 			}
 		}
-	}
-	
-	/**
-	 * Gets the entity.
-	 *
-	 * @param start the start
-	 * @return the entity
-	 */
-	private String getEntity() {
-		String tag=null;
-		do{
-			tag=this.value.getNextTag();
-			for(String stopword : this.stopwords){
-				if(tag.startsWith(stopword)){
-					this.value.stepPos(">", false, false);
-					this.value.stepPos("<", false, false);
-					tag=null;
-					break;
-				}
-			}
-		}while(tag==null);
-		return tag;
 	}
 	
 	/**

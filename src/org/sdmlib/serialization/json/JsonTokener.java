@@ -51,7 +51,7 @@ public class JsonTokener extends Tokener{
 		switch (c) {
 		case '"':
 		case '\'':
-			return nextString(c);
+			return nextString(c, false);
 		case '{':
 			back();
 			BaseEntity element = creator.getNewObject();

@@ -40,7 +40,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.UnknownMessage;
-import org.sdmlib.serialization.event.creater.BasicMessageCreator;
+import org.sdmlib.serialization.event.creator.BasicMessageCreator;
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 import org.sdmlib.serialization.interfaces.ByteItem;

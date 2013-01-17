@@ -51,7 +51,7 @@ public class XMLTokener extends Tokener{
         switch (c) {
         case '"':
         case '\'':
-            return nextString(c);
+            return nextString(c, false);
         case '<':
             back();
             BaseEntity element = creator.getNewObject();
@@ -98,7 +98,7 @@ public class XMLTokener extends Tokener{
                 		parseToEntity(child);
                 		xmlEntity.addChild(child);
             		}else{
-            			xmlEntity.setValue(nextString('<'));
+            			xmlEntity.setValue(nextString('<', false));
             			back();
             		}
             	}
