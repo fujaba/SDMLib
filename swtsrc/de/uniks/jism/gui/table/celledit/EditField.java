@@ -239,6 +239,9 @@ public class EditField {
 				return null;
 			}
 			CCombo combo=(CCombo) control;
+			if(combo.getSelectionIndex()<0){
+				return null;
+			}
 			return list.get(combo.getSelectionIndex());
 		}
 		return null;
