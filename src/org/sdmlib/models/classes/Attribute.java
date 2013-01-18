@@ -444,7 +444,7 @@ public class Attribute implements PropertyChangeInterface
                   + "   {\n"
                   + "      for (ContentType obj : this)\n"
                   + "      {\n"
-                  + "         obj.withName(value);\n"
+                  + "         obj.setName(value);\n"
                   + "      }\n" + "      \n"
                   + "      return this;\n" 
                   + "   }\n" 
@@ -684,11 +684,18 @@ public class Attribute implements PropertyChangeInterface
       Clazz attributClass = getClazz();
       String packageNameFromFindClass = CGUtil.packageName(findClass.getName());
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getName());
-      if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) {
+      if (findClass.getWrapped())
+      {
+         return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getName()) + "Set";
+      }
+      else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
+      {
          return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getName()) + "Set";
       }
       else 
+      {
          return null;
+      }
    }
 
    private ArrayList<String> checkImportClassesFromType(String modelSetType) {
