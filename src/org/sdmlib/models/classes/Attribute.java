@@ -513,7 +513,7 @@ public class Attribute implements PropertyChangeInterface
             add = "addAll";
          }
 
-         if ("String int double long boolean".indexOf(getType()) >= 0) {
+         if ("String int float double long boolean".indexOf(getType()) >= 0) {
             modelSetType = CGUtil.shortClassName(getType()) + "List";
             fullModelSetType = "org.sdmlib.models.modelsets."
                   + modelSetType;
