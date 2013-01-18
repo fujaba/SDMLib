@@ -45,7 +45,7 @@ import org.sdmlib.serialization.json.UpdateListener;
 /**
  * The Class IdMap.
  */
-public class IdMap {
+public class IdMap extends AbstractIdMap{
 	/** The Constant ID. */
 	public static final String ID="id";
 
@@ -67,27 +67,24 @@ public class IdMap {
 	/** The values. */
 	protected Map<String, Object> values;
 	
-	/** The creators. */
-	protected HashMap<String, SendableEntityCreator> creators;
-	
-	/** The parent. */
-	protected IdMap parent;
-	
 	/** The counter. */
 	private IdMapCounter counter;
 	
 	/** The update listener. */
 	protected UpdateListener updateListener;
 	
+	/** The parent. */
+	protected IdMap parent;
+
 	protected ArrayList<TypList> typList;
 	
 	/**
 	 * Instantiates a new id map.
 	 */
 	public IdMap() {
+		super();
 		this.keys = new HashMap<Object, String>();
 		this.values = new HashMap<String, Object>();
-		this.creators = new HashMap<String, SendableEntityCreator>();
 	}
 
 	/**
@@ -228,13 +225,7 @@ public class IdMap {
 		}
 		this.typList.add(typList);
 	}
-
-	public UpdateListener getUpdateListener(){
-		if (this.updateListener == null) {
-			this.updateListener = new UpdateListener(this);
-		}
-		return this.updateListener;
-	}
+	
 	/**
 	 * @param check for add Listener to object 
 	 * @return success of adding
@@ -245,6 +236,13 @@ public class IdMap {
 					IdMap.UPDATE, getUpdateListener());
 		}
 		return false;
+	}
+	
+	public UpdateListener getUpdateListener(){
+		if (this.updateListener == null) {
+			this.updateListener = new UpdateListener(this);
+		}
+		return this.updateListener;
 	}
 
 	/**
@@ -312,43 +310,10 @@ public class IdMap {
 		if (this.parent != null) {
 			return this.parent.getCreatorClasses(className);
 		}
-		return this.creators.get(className);
+		return super.getCreatorClasses(className);
 	}
 
-	/**
-	 * Gets the creator class.
-	 *
-	 * @param reference the reference
-	 * @return the creator class
-	 */
-	public SendableEntityCreator getCreatorClass(Object reference) {
-		if(reference==null){
-			return null;
-		}
-		return getCreatorClasses(reference.getClass().getName());
-	}
 
-	public SendableEntityCreator getCreatorClassName(String clazz) {
-		clazz="."+clazz;
-		for(Iterator<Entry<String, SendableEntityCreator>> i = this.creators.entrySet().iterator();i.hasNext();){
-			Entry<String, SendableEntityCreator> entry = i.next();
-			if(entry.getKey().endsWith(clazz)){
-				return entry.getValue();
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Clone object.
-	 *
-	 * @param reference the reference
-	 * @return the object
-	 */
-	public Object cloneObject(Object reference) {
-		return cloneObject(reference, new CloneFilter(CloneFilter.SIMPLE));
-	}
-	
 	/**
 	 * Clone object.
 	 *
@@ -419,6 +384,17 @@ public class IdMap {
 		return newObject;
 	}
 
+
+	@Override
+	public void addCreator(String className, SendableEntityCreator creator) {
+		if (this.parent != null) {
+			this.parent.addCreator(className, creator);
+			return;
+		}
+		super.addCreator(className, creator);
+	}
+	
+
 	/**
 	 * Adds the creator.
 	 *
@@ -429,25 +405,8 @@ public class IdMap {
 		if (this.parent != null) {
 			return this.parent.addCreator(createrClass);
 		} 
-		Object reference = createrClass.getSendableInstance(true);
-		if(reference == null){
-			return false;
-		}
-		addCreator(reference.getClass().getName(), createrClass);
-		return true;
+		return super.addCreator(createrClass);
 	}
-	
-	/**
-	 * add a Creator to list
-	 *
-	 * @param className the class name
-	 * @param creator the creator
-	 */
-	public void addCreator(String className, SendableEntityCreator creator)
-	{
-	   this.creators.put(className, creator);
-	}
-
 	
 	/**
 	 * Start carbage collection.
@@ -532,13 +491,6 @@ public class IdMap {
 		}
 		return result;
 	}
-   public void addCreator(Set<SendableEntityCreator> creatorSet)
-   {
-      for (SendableEntityCreator sendableEntityCreator : creatorSet)
-      {
-         addCreator(sendableEntityCreator);
-      }
-   }
 	
 	public boolean isEmpty() {
 		if (this.parent != null) {

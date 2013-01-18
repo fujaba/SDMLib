@@ -211,11 +211,16 @@ public abstract class Tokener {
      * @param quote The quoting character, either
      *      <code>"</code>&nbsp;<small>(double quote)</small> or
      *      <code>'</code>&nbsp;<small>(single quote)</small>.
+     * @param quote allowCRLF
      * @return      A String.
      */
-    public String nextString(char quote, boolean allowCRLF)  {
+    public String nextString(char quote, boolean allowCRLF )  {
         StringBuilder sb = new StringBuilder();
         char c=getCurrentChar();
+        if(c == quote){
+        	next();
+        	return "";
+        }
         while(c!=0 &&c != quote){
         	c = next();
          	switch (c) {
