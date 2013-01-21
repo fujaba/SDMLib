@@ -412,7 +412,7 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	protected void onSelection(Table table, TableItem[] tableItems) {
-		
+		System.out.println("Selection");
 	}
 	
 
@@ -455,7 +455,7 @@ public class TableComponent extends Composite implements Listener,
 						}
 
 					}
-					// setSelection(currentItem, cell, columnIndex);
+					onSelection(getTable(), getTable().getSelection());
 				}else{
 					// Deselect All
 					selectNone();
