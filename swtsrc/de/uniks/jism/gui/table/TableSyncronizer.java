@@ -57,14 +57,18 @@ public class TableSyncronizer implements MouseWheelListener, Listener{
 			return;
 		}
 		if(event.widget==middle){
-			left.setSelection(middle.getSelectionIndices());
-			left.setTopIndex(middle.getTopIndex());
-			middle.setTopIndex(left.getTopIndex());
+			refreshMiddle();
 		}else if(event.widget==left){
 			middle.setSelection(left.getSelectionIndices());
 			middle.setTopIndex(left.getTopIndex());
 			left.setTopIndex(middle.getTopIndex());
 		}
+	}
+	
+	public void refreshMiddle(){
+		left.setSelection(middle.getSelectionIndices());
+		left.setTopIndex(middle.getTopIndex());
+		middle.setTopIndex(left.getTopIndex());
 	}
 
 	public void dispose() {

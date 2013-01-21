@@ -41,6 +41,8 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Point;
@@ -53,6 +55,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -134,7 +137,7 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	protected TableViewer createBrowser(GUIPosition browserId) {
-		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION;
+		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION ;
 		if (!browserId.equals(GUIPosition.CENTER)) {
 			flags = flags | SWT.NO_SCROLL ;
 		}
@@ -152,12 +155,34 @@ public class TableComponent extends Composite implements Listener,
 		table.addListener(SWT.MouseUp, this);
 		table.addListener(SWT.MouseExit, this);
 		table.addListener(SWT.SELECTED, this);
-
+		ScrollBar verticalScrollBar = table.getVerticalBar();
+		if(verticalScrollBar!=null){
+			verticalScrollBar.addSelectionListener(new SelectionListener()
+			{
+				public void widgetDefaultSelected(SelectionEvent event)
+				{				
+				}
+	
+				public void widgetSelected(SelectionEvent event)
+				{
+					// listen for drag events in the scrollbar
+					// if the user scrolls away from the bottom, stop auto scrolling
+					// if the user scrolls back to the bottom, resume auto scrolling
+					if(event.detail!=SWT.DRAG)return;
+					refreshPosition();
+				}
+			});
+		}
 		table.setLayoutData(browserId);
+
 
 		return tableViewer;
 	}
-
+	public void refreshPosition(){
+		if(tableSyncronizer!=null){
+			tableSyncronizer.refreshMiddle();
+		}
+	}
 	public void addColumn(Column column) {
 		if (column.getBrowserId().equals(GUIPosition.WEST)) {
 			setVisibleFixedColumns(true);
@@ -412,7 +437,6 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	protected void onSelection(Table table, TableItem[] tableItems) {
-		System.out.println("Selection");
 	}
 	
 
@@ -421,6 +445,7 @@ public class TableComponent extends Composite implements Listener,
 		Point pt = new Point(event.x, event.y);
 
 		TableItem currentItem = tableViewer.getTable().getItem(pt);
+		
 		if (SWT.MouseMove == event.type | SWT.MouseUp == event.type
 				| SWT.MouseExit == event.type) {
 			if (SWT.MouseUp == event.type) {
@@ -522,6 +547,7 @@ public class TableComponent extends Composite implements Listener,
 
 	public void selectNone(){
 		tableViewer.getTable().setSelection(new int[0]);
+		refreshPosition();
 	}
 	
 	public void selectAll() {
@@ -531,6 +557,7 @@ public class TableComponent extends Composite implements Listener,
 			array[i] = i;
 		}
 		tableViewer.getTable().setSelection(array);
+		refreshPosition();
 	}
 
 	public int getTableItemCount() {
