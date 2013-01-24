@@ -453,9 +453,11 @@ public class TableComponent extends Composite implements Listener,
 				if (cell != null) {
 					int columnIndex = cell.getColumnIndex();
 					int offset = 0;
+					if(event.widget == tableViewer.getTable()){
 					if (fixedTableViewerLeft != null) {
 						offset = fixedTableViewerLeft.getTable()
 								.getColumnCount();
+					}
 					}
 					if (columnIndex + offset >= columns.size()) {
 						return;

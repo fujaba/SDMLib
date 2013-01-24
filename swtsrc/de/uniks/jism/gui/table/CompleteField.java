@@ -38,12 +38,14 @@ import java.util.TimerTask;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
 import swing2swt.layout.BorderLayout;
@@ -97,6 +99,7 @@ public class CompleteField  extends PopupDialog implements Listener {
 		setBounds(x, y, 100, 100);
 		this.setInfoText(infoText);
 	}
+	
 	
 	
 	public void open(String file, String infoText, int x, int y){
@@ -187,5 +190,36 @@ public class CompleteField  extends PopupDialog implements Listener {
 				timerTask=null;
 			}
 		}
+	}
+
+	public void checkBounds() {
+		Shell shell = this.getShell();
+		Rectangle bounds = shell.getBounds();
+
+		// get current monitor
+		Monitor[] monitors = Display.getDefault().getMonitors();
+		Monitor currentMonitor = monitors[0]; 
+		for (int i = 0; i < monitors.length; i++) {
+			if (monitors[i].getBounds().intersects(bounds)) {
+				currentMonitor = monitors[i];
+			}
+		}
+	
+		// check bounds
+		int maxX = bounds.x + bounds.width;
+		int maxY = bounds.y + bounds.height;
+		int maxXMon = currentMonitor.getBounds().x+ currentMonitor.getBounds().width;
+		int maxYMon = currentMonitor.getBounds().y+ currentMonitor.getBounds().height;
+
+		if( maxX >maxXMon ) {
+			bounds.x = maxXMon - bounds.width;
+		}
+		
+		if( maxY >maxYMon ) {
+			bounds.y = maxYMon - bounds.height;
+		}
+		
+		shell.setBounds(bounds);
+		shell.redraw();
 	}
 }
