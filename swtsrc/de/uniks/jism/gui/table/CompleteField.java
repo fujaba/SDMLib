@@ -48,7 +48,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
-import swing2swt.layout.BorderLayout;
+import de.uniks.jism.gui.layout.BorderLayout;
+
 
 public class CompleteField  extends PopupDialog implements Listener {
 	protected static final int POPUP_OFFSET = 3;
