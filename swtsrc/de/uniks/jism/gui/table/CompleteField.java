@@ -50,7 +50,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import de.uniks.jism.gui.layout.BorderLayout;
 
-
 public class CompleteField  extends PopupDialog implements Listener {
 	protected static final int POPUP_OFFSET = 3;
 	protected static final int HEIGHTINFOFIELD = 20;
@@ -106,36 +105,39 @@ public class CompleteField  extends PopupDialog implements Listener {
 	public void open(String file, String infoText, int x, int y){
 		super.open();
 
-		Display myDisplay=Display.getDefault();
 		FileInputStream stream=null;
 		try {
 			File fileInput = new File(file);
-			if(fileInput.exists()){
-				stream = new FileInputStream(fileInput);
-			}
+			stream = new FileInputStream(fileInput);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			onFileNotFound(file);
 		}
-		if(stream!=null){
-			image = new Image (myDisplay, stream);
-			if(lblTop!=null){
-				lblTop.setImage(image);
-			}
-			setBounds(x, y, image.getBounds().width, image.getBounds().height+HEIGHTINFOFIELD);
-		}else{
+		if(stream==null){
 			this.close();
 			return;
 		}
+	
+
+		Display myDisplay=Display.getCurrent();
+		image = new Image (myDisplay, stream);
+		if(lblTop!=null){
+			lblTop.setImage(image);
+		}
+		setBounds(x, y, image.getBounds().width, image.getBounds().height+HEIGHTINFOFIELD);
 		this.setInfoText(infoText);
 	}
 	
+	protected void onFileNotFound(String fileName){
+		
+	}
 	
 	public void setLabelText(String value){
 		this.labelText=value;
 	}
 	
 	public void setBounds(int x, int y, int width, int height){
-		this.getShell().setBounds(x, y, width, height);
+		Rectangle rectangle = checkBounds(x, y, width, height);
+		this.getShell().setBounds(rectangle);
 	}
 	
 	protected void addListeners(Control parent) {
@@ -192,19 +194,25 @@ public class CompleteField  extends PopupDialog implements Listener {
 			}
 		}
 	}
+	
+	protected void setCenter(int x, int y, int width, int height){
+		Rectangle bounds = new Rectangle(x, y, width, height);
 
-	public void checkBounds() {
-		Shell shell = this.getShell();
-		Rectangle bounds = shell.getBounds();
+		Monitor currentMonitor = getCurrentMonitor(bounds);
+		
+		bounds.x = currentMonitor.getBounds().width/2-width/2 + currentMonitor.getBounds().x;
+		bounds.y = currentMonitor.getBounds().height/2-height/2 + currentMonitor.getBounds().y;
+		this.getShell().setBounds(bounds);
+	}
+	
+	
+	
+	
+	protected Rectangle checkBounds(int x, int y, int width, int height) {
+		Rectangle bounds = new Rectangle(x, y, width, height);
 
 		// get current monitor
-		Monitor[] monitors = Display.getDefault().getMonitors();
-		Monitor currentMonitor = monitors[0]; 
-		for (int i = 0; i < monitors.length; i++) {
-			if (monitors[i].getBounds().intersects(bounds)) {
-				currentMonitor = monitors[i];
-			}
-		}
+		Monitor currentMonitor = getCurrentMonitor(bounds);
 	
 		// check bounds
 		int maxX = bounds.x + bounds.width;
@@ -219,8 +227,17 @@ public class CompleteField  extends PopupDialog implements Listener {
 		if( maxY >maxYMon ) {
 			bounds.y = maxYMon - bounds.height;
 		}
-		
-		shell.setBounds(bounds);
-		shell.redraw();
+		return bounds;
+	}
+
+	protected Monitor getCurrentMonitor(Rectangle bounds) {
+		Monitor[] monitors = Display.getDefault().getMonitors();
+		Monitor currentMonitor = monitors[0]; 
+		for (int i = 0; i < monitors.length; i++) {
+			if (monitors[i].getBounds().intersects(bounds)) {
+				currentMonitor = monitors[i];
+			}
+		}
+		return currentMonitor;
 	}
 }

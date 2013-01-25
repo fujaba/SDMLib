@@ -139,6 +139,15 @@ public class BorderLayout extends AWTLayout {
 			// if (!children[i].getVisible())
 			// continue;
 			Object layoutData = children[i].getLayoutData();
+			if(layoutData instanceof String){
+				String oldValue = (String) layoutData;
+				for(GUIPosition test : GUIPosition.values()){
+					if(test.getValue().equals(oldValue)){
+						layoutData = test;
+						break;
+					}
+				}
+			}
 			if (GUIPosition.NORTH.equals(layoutData))
 				northChild = children[i];
 			else if (GUIPosition.SOUTH.equals(layoutData))
