@@ -505,7 +505,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             PatternObject patObject = (PatternObject) patElem;
             
             StringBuilder nodeLine = new StringBuilder 
-                  ("<id> [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> " +
+                  ("<id> [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> " +
                   		"<modifier> <tr> <td align='center'> <font color='black'> <id> :<classname> </font></td></tr> " +
                   		"<tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];\n");
             
