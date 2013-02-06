@@ -184,5 +184,15 @@ public class TestChatMessageFlow extends TaskFlow implements PropertyChangeInter
       setMsg(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getMsg());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
 }
 
