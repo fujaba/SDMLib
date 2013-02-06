@@ -21,6 +21,12 @@ public class ModelPattern extends Pattern
       return this;
    }
 
+   public ModelPattern startDestroy()
+   {
+      super.startDestroy();
+      return this;
+   }
+
    public BuildingPO hasElementBuildingPO()
    {
       BuildingPO value = new BuildingPO();

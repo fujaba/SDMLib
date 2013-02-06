@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -89,6 +90,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return false;
       }
       
+      boolean resultStat = false;
       if (this.getCandidates() instanceof Collection)
       {
          for (Object obj : (Collection) this.getCandidates())
@@ -97,7 +99,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             
             ((Collection) this.getCandidates()).remove(obj);
             
-            return true;
+            resultStat = true;
+            
+            break;
          }
          return false;
       }
@@ -106,8 +110,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          this.setCurrentMatch(this.getCandidates());
          this.setCandidates(null);
          
-         return true;
+         resultStat = true;
       }
+      
+      if (Pattern.DESTROY.equals(getModifier()) && this.getCurrentMatch() != null)
+      {
+      	Object currentMatch = this.getCurrentMatch();
+         
+         EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
+         
+         creatorClass.removeObject(currentMatch);
+      }
+      
+      return resultStat;
    }
    
    
@@ -123,6 +138,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    public POC startCreate()
    {
       this.getPattern().startCreate();
+      
+      return (POC) this;
+   }
+
+
+   public POC startDestroy()
+   {
+      this.getPattern().startDestroy();
       
       return (POC) this;
    }

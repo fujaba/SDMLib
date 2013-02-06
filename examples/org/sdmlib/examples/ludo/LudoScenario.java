@@ -110,6 +110,9 @@ public class LudoScenario implements PropertyChangeInterface
       scenario.add(p.dumpDiagram("LudoMoveWithMatch01"));
       
       scenario.markCodeStart();
+      p.startDestroy();
+      pawnPO.hasPos(baseField);
+      
       p.startCreate();
       pawnPO.hasPos(startFieldPO);
       scenario.addCode("examples");

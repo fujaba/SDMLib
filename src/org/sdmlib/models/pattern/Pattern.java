@@ -45,6 +45,7 @@ import org.sdmlib.models.pattern.Pattern;
 public class Pattern extends PatternElement<Pattern> implements PropertyChangeInterface
 {
    public static final String CREATE = "create";
+   public static final String DESTROY = "destroy";
    public static final String BOUND = "bound";
 
    
@@ -75,6 +76,12 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    public Pattern startCreate()
    {
       this.setModifier(Pattern.CREATE);
+      return this;
+   }
+   
+   public Pattern startDestroy()
+   {
+      this.setModifier(Pattern.DESTROY);
       return this;
    }
    

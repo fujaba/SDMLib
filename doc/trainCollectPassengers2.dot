@@ -1,0 +1,23 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+t1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>t1 :Train</u></td></tr></table>>];
+s2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s2 :Station</u></td></tr></table>>];
+s3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s3 :Station</u></td></tr></table>>];
+s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s4 :Station</u></td></tr></table>>];
+s5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s5 :Station</u></td></tr></table>>];
+p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p6 :Person</u></td></tr></table>>];
+p7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p7 :Person</u></td></tr></table>>];
+p8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p8 :Person</u></td></tr></table>>];
+s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s9 :SignalFlag</u></td></tr></table>>];
+
+s2 -- p6 [headlabel = "people" taillabel = "station"];
+s2 -- p7 [headlabel = "people" taillabel = "station"];
+s2 -- p8 [headlabel = "people" taillabel = "station"];
+s2 -- s3 [headlabel = "next" taillabel = "prev"];
+s2 -- s9 [headlabel = "flag" taillabel = "station"];
+s3 -- s4 [headlabel = "next" taillabel = "prev"];
+s4 -- s5 [headlabel = "next" taillabel = "prev"];
+t1 -- s2 [headlabel = "station" taillabel = "trains"];
+}

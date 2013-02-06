@@ -23,8 +23,10 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 
 public class LinkConstraint extends PatternLink implements PropertyChangeInterface
 {
@@ -56,6 +58,40 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             return true;
          }
       }
+      else if (Pattern.DESTROY.equals(getModifier()))
+      {
+         if ( ! this.getPattern().getHasMatch())
+         {
+            return false;
+         }
+         
+         if (this.getHasMatch())
+         {
+            this.setHasMatch(false);
+            return false;
+         }
+         else
+         {
+            Object srcObj = this.getSrc().getCurrentMatch();
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            Object value = creatorClass.getValue(srcObj, this.getTgtRoleName());
+            if (value == null)
+            {
+            	// do nothing
+            }
+            else if (value instanceof Collection)
+            {
+            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + JsonIdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
+            }
+            else
+            {
+            	creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
+            }
+            this.setHasMatch(true);
+            return true;
+         }
+      }
+      	
       
       // real search
       if (this.getHostGraphSrcObject() == null)
