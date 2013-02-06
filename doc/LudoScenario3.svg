@@ -30,142 +30,142 @@
 <text text-anchor="start" x="13.5" y="-473" font-family="Times New Roman,serif" font-size="10.00">value = 6</text>
 </g>
 <!-- p1&#45;&#45;d2 -->
-<g id="edge14" class="edge"><title>p1&#45;&#45;d2</title>
+<g id="edge16" class="edge"><title>p1&#45;&#45;d2</title>
 <path fill="none" stroke="black" d="M125.81,-574.365C108.741,-560.133 89.7023,-543.712 73,-528 65.9377,-521.357 58.5339,-513.794 51.9915,-506.884"/>
 <text text-anchor="middle" x="61.2984" y="-508.042" font-family="Times New Roman,serif" font-size="10.00">dice</text>
 <text text-anchor="middle" x="116.148" y="-569.288" font-family="Times New Roman,serif" font-size="10.00">player</text>
 </g>
-<!-- f3 -->
-<g id="node3" class="node"><title>f3</title>
+<!-- f4 -->
+<g id="node3" class="node"><title>f4</title>
 <polygon fill="none" stroke="black" points="90,-506 90,-523 158,-523 158,-506 90,-506"/>
 <text text-anchor="start" x="106.5" y="-512.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="109.5" y="-512.5" font-family="Times New Roman,serif" font-size="10.00">f3 :Field</text>
+<text text-anchor="start" x="109.5" y="-512.5" font-family="Times New Roman,serif" font-size="10.00">f4 :Field</text>
 <polygon fill="none" stroke="black" points="90,-444 90,-506 158,-506 158,-444 90,-444"/>
 <text text-anchor="start" x="95.5" y="-494" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="96.5" y="-480" font-family="Times New Roman,serif" font-size="10.00">kind = &quot;start&quot;</text>
 <text text-anchor="start" x="114.5" y="-466" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="114" y="-452" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- p1&#45;&#45;f3 -->
-<g id="edge18" class="edge"><title>p1&#45;&#45;f3</title>
+<!-- p1&#45;&#45;f4 -->
+<g id="edge18" class="edge"><title>p1&#45;&#45;f4</title>
 <path fill="none" stroke="black" d="M155.428,-564.494C150.653,-552.415 145.584,-539.594 140.942,-527.854"/>
 <text text-anchor="middle" x="148.205" y="-532.229" font-family="Times New Roman,serif" font-size="10.00">start</text>
 <text text-anchor="middle" x="148.166" y="-555.12" font-family="Times New Roman,serif" font-size="10.00">starter</text>
 </g>
-<!-- f10 -->
-<g id="node10" class="node"><title>f10</title>
+<!-- f9 -->
+<g id="node10" class="node"><title>f9</title>
 <polygon fill="none" stroke="black" points="192,-506 192,-523 260,-523 260,-506 192,-506"/>
-<text text-anchor="start" x="206" y="-512.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="209" y="-512.5" font-family="Times New Roman,serif" font-size="10.00">f10 :Field</text>
+<text text-anchor="start" x="208.5" y="-512.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="211.5" y="-512.5" font-family="Times New Roman,serif" font-size="10.00">f9 :Field</text>
 <polygon fill="none" stroke="black" points="192,-444 192,-506 260,-506 260,-444 192,-444"/>
 <text text-anchor="start" x="197.5" y="-494" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="198.5" y="-480" font-family="Times New Roman,serif" font-size="10.00">kind = &quot;base&quot;</text>
 <text text-anchor="start" x="216.5" y="-466" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="216" y="-452" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- p1&#45;&#45;f10 -->
-<g id="edge16" class="edge"><title>p1&#45;&#45;f10</title>
+<!-- p1&#45;&#45;f9 -->
+<g id="edge20" class="edge"><title>p1&#45;&#45;f9</title>
 <path fill="none" stroke="black" d="M194.572,-564.494C199.347,-552.415 204.416,-539.594 209.058,-527.854"/>
 <text text-anchor="middle" x="209.656" y="-535.336" font-family="Times New Roman,serif" font-size="10.00">base</text>
 <text text-anchor="middle" x="193.974" y="-552.012" font-family="Times New Roman,serif" font-size="10.00">baseowner</text>
 </g>
-<!-- p11 -->
-<g id="node11" class="node"><title>p11</title>
+<!-- p3 -->
+<g id="node11" class="node"><title>p3</title>
 <polygon fill="none" stroke="black" points="227,-382 227,-399 295,-399 295,-382 227,-382"/>
-<text text-anchor="start" x="239" y="-388.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="242" y="-388.5" font-family="Times New Roman,serif" font-size="10.00">p11 :Pawn</text>
+<text text-anchor="start" x="241" y="-388.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="244" y="-388.5" font-family="Times New Roman,serif" font-size="10.00">p3 :Pawn</text>
 <polygon fill="none" stroke="black" points="227,-334 227,-382 295,-382 295,-334 227,-334"/>
 <text text-anchor="start" x="232.5" y="-370" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="251.5" y="-356" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="251" y="-342" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- p1&#45;&#45;p11 -->
-<g id="edge20" class="edge"><title>p1&#45;&#45;p11</title>
+<!-- p1&#45;&#45;p3 -->
+<g id="edge22" class="edge"><title>p1&#45;&#45;p3</title>
 <path fill="none" stroke="black" d="M224.059,-586.075C244.425,-571.618 265.869,-551.945 277,-528 295.417,-488.382 285.337,-437.408 274.719,-403.768"/>
 <text text-anchor="middle" x="281.349" y="-408.754" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
 <text text-anchor="middle" x="228.871" y="-574.809" font-family="Times New Roman,serif" font-size="10.00">player</text>
 </g>
-<!-- f4 -->
-<g id="node4" class="node"><title>f4</title>
+<!-- f5 -->
+<g id="node4" class="node"><title>f5</title>
 <polygon fill="none" stroke="black" points="14,-375 14,-392 56,-392 56,-375 14,-375"/>
 <text text-anchor="start" x="17.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="20.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00">f4 :Field</text>
+<text text-anchor="start" x="20.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00">f5 :Field</text>
 <polygon fill="none" stroke="black" points="14,-341 14,-375 56,-375 56,-341 14,-341"/>
 <text text-anchor="start" x="25.5" y="-363" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="25" y="-349" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- f3&#45;&#45;f4 -->
-<g id="edge4" class="edge"><title>f3&#45;&#45;f4</title>
+<!-- f4&#45;&#45;f5 -->
+<g id="edge2" class="edge"><title>f4&#45;&#45;f5</title>
 <path fill="none" stroke="black" d="M90.8597,-440.178C79.5915,-425.618 67.2819,-409.713 57.0929,-396.547"/>
 <text text-anchor="middle" x="65.982" y="-398.628" font-family="Times New Roman,serif" font-size="10.00">next</text>
 <text text-anchor="middle" x="81.9706" y="-433.097" font-family="Times New Roman,serif" font-size="10.00">prev</text>
 </g>
-<!-- p8 -->
-<g id="node8" class="node"><title>p8</title>
+<!-- p10 -->
+<g id="node8" class="node"><title>p10</title>
 <polygon fill="none" stroke="black" points="94,-382 94,-399 157,-399 157,-382 94,-382"/>
-<text text-anchor="start" x="105.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="108.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00">p8 :Pawn</text>
+<text text-anchor="start" x="103.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="106.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00">p10 :Pawn</text>
 <polygon fill="none" stroke="black" points="94,-334 94,-382 157,-382 157,-334 94,-334"/>
 <text text-anchor="start" x="99.5" y="-370" font-family="Times New Roman,serif" font-size="10.00">color = &quot;red&quot;</text>
 <text text-anchor="start" x="116" y="-356" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="115.5" y="-342" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- f3&#45;&#45;p8 -->
-<g id="edge6" class="edge"><title>f3&#45;&#45;p8</title>
+<!-- f4&#45;&#45;p10 -->
+<g id="edge4" class="edge"><title>f4&#45;&#45;p10</title>
 <path fill="none" stroke="black" d="M124.372,-440.178C124.477,-428.173 124.589,-415.252 124.69,-403.707"/>
 <text text-anchor="middle" x="128.837" y="-410.307" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
 <text text-anchor="middle" x="120.225" y="-428.579" font-family="Times New Roman,serif" font-size="10.00">pos</text>
 </g>
-<!-- f5 -->
-<g id="node5" class="node"><title>f5</title>
+<!-- f6 -->
+<g id="node5" class="node"><title>f6</title>
 <polygon fill="none" stroke="black" points="12,-251 12,-268 54,-268 54,-251 12,-251"/>
 <text text-anchor="start" x="15.5" y="-257.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="18.5" y="-257.5" font-family="Times New Roman,serif" font-size="10.00">f5 :Field</text>
+<text text-anchor="start" x="18.5" y="-257.5" font-family="Times New Roman,serif" font-size="10.00">f6 :Field</text>
 <polygon fill="none" stroke="black" points="12,-217 12,-251 54,-251 54,-217 12,-217"/>
 <text text-anchor="start" x="23.5" y="-239" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="23" y="-225" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- f4&#45;&#45;f5 -->
-<g id="edge8" class="edge"><title>f4&#45;&#45;f5</title>
+<!-- f5&#45;&#45;f6 -->
+<g id="edge6" class="edge"><title>f5&#45;&#45;f6</title>
 <path fill="none" stroke="black" d="M34.5311,-337.396C34.2124,-317.958 33.7924,-292.337 33.4729,-272.847"/>
 <text text-anchor="middle" x="37.8471" y="-279.34" font-family="Times New Roman,serif" font-size="10.00">next</text>
 <text text-anchor="middle" x="30.1569" y="-325.904" font-family="Times New Roman,serif" font-size="10.00">prev</text>
 </g>
-<!-- f6 -->
-<g id="node6" class="node"><title>f6</title>
+<!-- f7 -->
+<g id="node6" class="node"><title>f7</title>
 <polygon fill="none" stroke="black" points="12,-134 12,-151 54,-151 54,-134 12,-134"/>
 <text text-anchor="start" x="15.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="18.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">f6 :Field</text>
+<text text-anchor="start" x="18.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">f7 :Field</text>
 <polygon fill="none" stroke="black" points="12,-100 12,-134 54,-134 54,-100 12,-100"/>
 <text text-anchor="start" x="23.5" y="-122" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="23" y="-108" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- f5&#45;&#45;f6 -->
-<g id="edge10" class="edge"><title>f5&#45;&#45;f6</title>
+<!-- f6&#45;&#45;f7 -->
+<g id="edge8" class="edge"><title>f6&#45;&#45;f7</title>
 <path fill="none" stroke="black" d="M33,-213.277C33,-195.714 33,-173.324 33,-155.755"/>
 <text text-anchor="middle" x="37.2262" y="-162.318" font-family="Times New Roman,serif" font-size="10.00">next</text>
 <text text-anchor="middle" x="28.7738" y="-201.714" font-family="Times New Roman,serif" font-size="10.00">prev</text>
 </g>
-<!-- f7 -->
-<g id="node7" class="node"><title>f7</title>
+<!-- f8 -->
+<g id="node7" class="node"><title>f8</title>
 <polygon fill="none" stroke="black" points="12,-38 12,-55 54,-55 54,-38 12,-38"/>
 <text text-anchor="start" x="15.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="18.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">f7 :Field</text>
+<text text-anchor="start" x="18.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">f8 :Field</text>
 <polygon fill="none" stroke="black" points="12,-4 12,-38 54,-38 54,-4 12,-4"/>
 <text text-anchor="start" x="23.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="23" y="-12" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 </g>
-<!-- f6&#45;&#45;f7 -->
-<g id="edge12" class="edge"><title>f6&#45;&#45;f7</title>
+<!-- f7&#45;&#45;f8 -->
+<g id="edge10" class="edge"><title>f7&#45;&#45;f8</title>
 <path fill="none" stroke="black" d="M33,-96.2861C33,-84.624 33,-71.1822 33,-59.538"/>
 <text text-anchor="middle" x="37.2262" y="-66.1011" font-family="Times New Roman,serif" font-size="10.00">next</text>
 <text text-anchor="middle" x="28.7738" y="-84.7231" font-family="Times New Roman,serif" font-size="10.00">prev</text>
 </g>
-<!-- p9 -->
-<g id="node9" class="node"><title>p9</title>
+<!-- p11 -->
+<g id="node9" class="node"><title>p11</title>
 <polygon fill="none" stroke="black" points="88,-272 88,-289 166,-289 166,-272 88,-272"/>
-<text text-anchor="start" x="105.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="108.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00">p9 :Player</text>
+<text text-anchor="start" x="103.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="106.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00">p11 :Player</text>
 <polygon fill="none" stroke="black" points="88,-196 88,-272 166,-272 166,-196 88,-196"/>
 <text text-anchor="start" x="101" y="-260" font-family="Times New Roman,serif" font-size="10.00">color = &quot;red&quot;</text>
 <text text-anchor="start" x="93.5" y="-246" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Sabine&quot;</text>
@@ -173,14 +173,14 @@
 <text text-anchor="start" x="117" y="-218" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
 <text text-anchor="start" x="93.5" y="-204" font-family="Times New Roman,serif" font-size="10.00">enumColor = red</text>
 </g>
-<!-- p8&#45;&#45;p9 -->
-<g id="edge22" class="edge"><title>p8&#45;&#45;p9</title>
+<!-- p10&#45;&#45;p11 -->
+<g id="edge14" class="edge"><title>p10&#45;&#45;p11</title>
 <path fill="none" stroke="black" d="M125.584,-330.385C125.771,-318.991 125.981,-306.159 126.181,-293.94"/>
 <text text-anchor="middle" x="130.258" y="-300.571" font-family="Times New Roman,serif" font-size="10.00">player</text>
 <text text-anchor="middle" x="121.507" y="-318.753" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
 </g>
-<!-- f10&#45;&#45;p11 -->
-<g id="edge2" class="edge"><title>f10&#45;&#45;p11</title>
+<!-- f9&#45;&#45;p3 -->
+<g id="edge12" class="edge"><title>f9&#45;&#45;p3</title>
 <path fill="none" stroke="black" d="M239.033,-440.178C242.687,-428.173 246.619,-415.252 250.133,-403.707"/>
 <text text-anchor="middle" x="251.537" y="-411.108" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
 <text text-anchor="middle" x="237.628" y="-427.777" font-family="Times New Roman,serif" font-size="10.00">pos</text>

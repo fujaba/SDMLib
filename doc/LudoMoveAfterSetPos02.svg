@@ -16,55 +16,55 @@
 </g>
 <!-- p1 -->
 <g id="node1" class="node"><title>p1</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="178.275,-822.5 178.275,-873.5 241.275,-873.5 241.275,-822.5 178.275,-822.5"/>
-<text text-anchor="start" x="202.775" y="-863.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
-<polygon fill="none" stroke="black" points="178.775,-842 178.775,-858 241.775,-858 241.775,-842 178.775,-842"/>
-<text text-anchor="start" x="182.275" y="-848" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="185.275" y="-848" font-family="Times New Roman,serif" font-size="10.00"> p1 :PawnPO </text>
-<polygon fill="none" stroke="black" points="178.775,-822 178.775,-842 241.775,-842 241.775,-822 178.775,-822"/>
-<text text-anchor="start" x="207.775" y="-830" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="190.275,-822.5 190.275,-873.5 241.275,-873.5 241.275,-822.5 190.275,-822.5"/>
+<text text-anchor="start" x="211.775" y="-863.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
+<polygon fill="none" stroke="black" points="190.775,-842 190.775,-858 241.775,-858 241.775,-842 190.775,-842"/>
+<text text-anchor="start" x="194.275" y="-848" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="197.275" y="-848" font-family="Times New Roman,serif" font-size="10.00"> p1 :PawnPO </text>
+<polygon fill="none" stroke="black" points="190.775,-822 190.775,-842 241.775,-842 241.775,-822 190.775,-822"/>
+<text text-anchor="start" x="213.775" y="-830" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- p3 -->
 <g id="node2" class="node"><title>p3</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="215.775,-726.5 215.775,-763.5 281.775,-763.5 281.775,-726.5 215.775,-726.5"/>
-<polygon fill="none" stroke="black" points="215.775,-746 215.775,-763 281.775,-763 281.775,-746 215.775,-746"/>
-<text text-anchor="start" x="219.275" y="-752.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="222.275" y="-752.5" font-family="Times New Roman,serif" font-size="10.00"> p3 :PlayerPO </text>
-<polygon fill="none" stroke="black" points="215.775,-726 215.775,-746 281.775,-746 281.775,-726 215.775,-726"/>
-<text text-anchor="start" x="246.275" y="-734" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="223.775,-726.5 223.775,-763.5 285.775,-763.5 285.775,-726.5 223.775,-726.5"/>
+<polygon fill="none" stroke="black" points="223.775,-746 223.775,-763 285.775,-763 285.775,-746 223.775,-746"/>
+<text text-anchor="start" x="227.275" y="-752.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="230.275" y="-752.5" font-family="Times New Roman,serif" font-size="10.00"> p3 :PlayerPO </text>
+<polygon fill="none" stroke="black" points="223.775,-726 223.775,-746 285.775,-746 285.775,-726 223.775,-726"/>
+<text text-anchor="start" x="252.275" y="-734" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- p1&#45;&#45;p3 -->
 <g id="edge15" class="edge"><title>p1&#45;&#45;p3</title>
-<path fill="none" stroke="black" d="M220.846,-818.328C227.062,-802.231 234.692,-782.471 240.405,-767.675"/>
-<text text-anchor="middle" x="241.083" y="-775.152" font-family="Times New Roman,serif" font-size="10.00">player</text>
+<path fill="none" stroke="black" d="M226.846,-818.328C233.062,-802.231 240.692,-782.471 246.405,-767.675"/>
+<text text-anchor="middle" x="247.083" y="-775.152" font-family="Times New Roman,serif" font-size="10.00">player</text>
 </g>
 <!-- f7 -->
 <g id="node4" class="node"><title>f7</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="314.775,-602.5 314.775,-639.5 380.775,-639.5 380.775,-602.5 314.775,-602.5"/>
-<polygon fill="none" stroke="black" points="314.775,-622 314.775,-639 380.775,-639 380.775,-622 314.775,-622"/>
-<text text-anchor="start" x="323.775" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="326.775" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> f7 :FieldPO </text>
-<polygon fill="none" stroke="black" points="314.775,-602 314.775,-622 380.775,-622 380.775,-602 314.775,-602"/>
-<text text-anchor="start" x="320.275" y="-610" font-family="Times New Roman,serif" font-size="10.00"> kind == &quot;base&quot; </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="322.775,-602.5 322.775,-639.5 388.775,-639.5 388.775,-602.5 322.775,-602.5"/>
+<polygon fill="none" stroke="black" points="322.775,-622 322.775,-639 388.775,-639 388.775,-622 322.775,-622"/>
+<text text-anchor="start" x="331.775" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="334.775" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> f7 :FieldPO </text>
+<polygon fill="none" stroke="black" points="322.775,-602 322.775,-622 388.775,-622 388.775,-602 322.775,-602"/>
+<text text-anchor="start" x="328.275" y="-610" font-family="Times New Roman,serif" font-size="10.00"> kind == &quot;base&quot; </text>
 </g>
 <!-- p1&#45;&#45;f7 -->
 <g id="edge19" class="edge"><title>p1&#45;&#45;f7</title>
-<path fill="none" stroke="black" d="M249.419,-825.88C266.759,-814.864 286.015,-799.926 298.775,-782 329.435,-738.924 341.267,-676.228 345.545,-643.581"/>
-<text text-anchor="middle" x="348.446" y="-650.65" font-family="Times New Roman,serif" font-size="10.00">pos</text>
+<path fill="none" stroke="black" d="M249.12,-828.917C267.254,-817.574 288.774,-801.425 302.775,-782 333.914,-738.795 347.565,-676.153 352.855,-643.548"/>
+<text text-anchor="middle" x="355.468" y="-650.701" font-family="Times New Roman,serif" font-size="10.00">pos</text>
 </g>
 <!-- f9 -->
 <g id="node5" class="node"><title>f9</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="144.275,-602.5 144.275,-639.5 191.275,-639.5 191.275,-602.5 144.275,-602.5"/>
-<polygon fill="none" stroke="black" points="144.775,-622 144.775,-639 191.775,-639 191.775,-622 144.775,-622"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="144.275,-602.5 144.275,-639.5 199.275,-639.5 199.275,-602.5 144.275,-602.5"/>
+<polygon fill="none" stroke="black" points="144.775,-622 144.775,-639 199.775,-639 199.775,-622 144.775,-622"/>
 <text text-anchor="start" x="148.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="151.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> f9 :FieldPO </text>
-<polygon fill="none" stroke="black" points="144.775,-602 144.775,-622 191.775,-622 191.775,-602 144.775,-602"/>
-<text text-anchor="start" x="165.775" y="-610" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
+<polygon fill="none" stroke="black" points="144.775,-602 144.775,-622 199.775,-622 199.775,-602 144.775,-602"/>
+<text text-anchor="start" x="169.775" y="-610" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- p1&#45;&#45;f9 -->
 <g id="edge29" class="edge"><title>p1&#45;&#45;f9</title>
-<path fill="none" stroke="green" d="M204.37,-818.046C195.84,-772.35 179.446,-684.526 171.838,-643.768"/>
-<text text-anchor="middle" x="177.656" y="-649.402" font-family="Times New Roman,serif" font-size="10.00" fill="green">pos</text>
+<path fill="none" stroke="green" d="M210.113,-818.046C201.177,-772.35 184.002,-684.526 176.032,-643.768"/>
+<text text-anchor="middle" x="181.919" y="-649.351" font-family="Times New Roman,serif" font-size="10.00" fill="green">pos</text>
 </g>
 <!-- p2 -->
 <g id="node8" class="node"><title>p2</title>
@@ -78,32 +78,32 @@
 </g>
 <!-- p1&#45;&#45;p2 -->
 <g id="edge3" class="edge"><title>p1&#45;&#45;p2</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M170.499,-818.866C151.92,-805.558 129.716,-789.653 110.799,-776.102"/>
-<text text-anchor="middle" x="120.628" y="-775.444" font-family="Times New Roman,serif" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M182.418,-824.082C161.241,-809.531 133.65,-790.574 110.958,-774.983"/>
+<text text-anchor="middle" x="120.821" y="-774.132" font-family="Times New Roman,serif" font-size="10.00">match</text>
 </g>
 <!-- d5 -->
 <g id="node3" class="node"><title>d5</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="225.275,-602.5 225.275,-639.5 280.275,-639.5 280.275,-602.5 225.275,-602.5"/>
-<polygon fill="none" stroke="black" points="225.775,-622 225.775,-639 280.775,-639 280.775,-622 225.775,-622"/>
-<text text-anchor="start" x="229.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="232.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> d5 :DicePO </text>
-<polygon fill="none" stroke="black" points="225.775,-602 225.775,-622 280.775,-622 280.775,-602 225.775,-602"/>
-<text text-anchor="start" x="232.775" y="-610" font-family="Times New Roman,serif" font-size="10.00"> value == 6 </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="233.275,-602.5 233.275,-639.5 288.275,-639.5 288.275,-602.5 233.275,-602.5"/>
+<polygon fill="none" stroke="black" points="233.775,-622 233.775,-639 288.775,-639 288.775,-622 233.775,-622"/>
+<text text-anchor="start" x="237.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="240.275" y="-628.5" font-family="Times New Roman,serif" font-size="10.00"> d5 :DicePO </text>
+<polygon fill="none" stroke="black" points="233.775,-602 233.775,-622 288.775,-622 288.775,-602 233.775,-602"/>
+<text text-anchor="start" x="240.775" y="-610" font-family="Times New Roman,serif" font-size="10.00"> value == 6 </text>
 </g>
 <!-- p3&#45;&#45;d5 -->
 <g id="edge17" class="edge"><title>p3&#45;&#45;d5</title>
-<path fill="none" stroke="black" d="M249.481,-722.47C250.207,-700.306 251.334,-665.96 252.063,-643.725"/>
-<text text-anchor="middle" x="255.989" y="-650.422" font-family="Times New Roman,serif" font-size="10.00">dice</text>
+<path fill="none" stroke="black" d="M255.834,-722.47C256.924,-700.306 258.613,-665.96 259.706,-643.725"/>
+<text text-anchor="middle" x="263.482" y="-650.485" font-family="Times New Roman,serif" font-size="10.00">dice</text>
 </g>
 <!-- p3&#45;&#45;f7 -->
 <g id="edge21" class="edge"><title>p3&#45;&#45;f7</title>
-<path fill="none" stroke="black" d="M266.246,-722.47C284.231,-700.306 312.102,-665.96 330.145,-643.725"/>
-<text text-anchor="middle" x="327.716" y="-650.926" font-family="Times New Roman,serif" font-size="10.00">base</text>
+<path fill="none" stroke="black" d="M272.599,-722.47C290.948,-700.306 319.382,-665.96 337.789,-643.725"/>
+<text text-anchor="middle" x="335.265" y="-650.902" font-family="Times New Roman,serif" font-size="10.00">base</text>
 </g>
 <!-- p3&#45;&#45;f9 -->
 <g id="edge23" class="edge"><title>p3&#45;&#45;f9</title>
-<path fill="none" stroke="black" d="M234.48,-722.47C219.765,-700.306 196.962,-665.96 182.199,-643.725"/>
-<text text-anchor="middle" x="190.733" y="-646.438" font-family="Times New Roman,serif" font-size="10.00">start</text>
+<path fill="none" stroke="black" d="M240.127,-722.47C225.049,-700.306 201.682,-665.96 186.555,-643.725"/>
+<text text-anchor="middle" x="195.147" y="-646.342" font-family="Times New Roman,serif" font-size="10.00">start</text>
 </g>
 <!-- p4 -->
 <g id="node9" class="node"><title>p4</title>
@@ -119,8 +119,8 @@
 </g>
 <!-- p3&#45;&#45;p4 -->
 <g id="edge5" class="edge"><title>p3&#45;&#45;p4</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M208.084,-722.388C183.808,-708.913 152.753,-690.637 126.775,-672 123.858,-669.908 120.912,-667.7 117.974,-665.426"/>
-<text text-anchor="middle" x="127.731" y="-665.117" font-family="Times New Roman,serif" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M215.763,-724.65C189.762,-711.135 155.263,-691.992 126.775,-672 123.837,-669.938 120.873,-667.755 117.922,-665.499"/>
+<text text-anchor="middle" x="127.693" y="-665.128" font-family="Times New Roman,serif" font-size="10.00">match</text>
 </g>
 <!-- d6 -->
 <g id="node10" class="node"><title>d6</title>
@@ -132,8 +132,8 @@
 </g>
 <!-- d5&#45;&#45;d6 -->
 <g id="edge7" class="edge"><title>d5&#45;&#45;d6</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M232.816,-598.365C220.826,-585.165 206.925,-569.443 201.775,-562 189.538,-544.315 178.262,-522.558 170.645,-506.688"/>
-<text text-anchor="middle" x="178.405" y="-510.495" font-family="Times New Roman,serif" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M243.743,-598.13C235.843,-588.806 225.957,-578.21 215.775,-570 210.196,-565.502 206.766,-567.143 201.775,-562 186.375,-546.133 175.205,-523.32 168.449,-506.644"/>
+<text text-anchor="middle" x="175.84" y="-510.88" font-family="Times New Roman,serif" font-size="10.00">match</text>
 </g>
 <!-- f8 -->
 <g id="node18" class="node"><title>f8</title>
@@ -148,12 +148,12 @@
 </g>
 <!-- f7&#45;&#45;f8 -->
 <g id="edge9" class="edge"><title>f7&#45;&#45;f8</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M328.544,-598.281C319.446,-587.634 308.656,-574.449 299.775,-562 292.043,-551.163 284.265,-539.033 277.322,-527.665"/>
-<text text-anchor="middle" x="285.666" y="-530.677" font-family="Times New Roman,serif" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M332.757,-598.461C322.132,-587.96 309.703,-574.847 299.775,-562 291.539,-551.343 283.532,-539.156 276.53,-527.67"/>
+<text text-anchor="middle" x="284.877" y="-530.678" font-family="Times New Roman,serif" font-size="10.00">match</text>
 </g>
 <!-- p12 -->
 <g id="node7" class="node"><title>p12</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="321.275,-465.5 321.275,-502.5 384.275,-502.5 384.275,-465.5 321.275,-465.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="321.275,-465.5 321.275,-502.5 384.275,-502.5 384.275,-465.5 321.275,-465.5"/>
 <polygon fill="none" stroke="black" points="321.775,-485 321.775,-502 384.775,-502 384.775,-485 321.775,-485"/>
 <text text-anchor="start" x="325.275" y="-491.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="328.275" y="-491.5" font-family="Times New Roman,serif" font-size="10.00"> p12 :PawnPO </text>
@@ -162,8 +162,8 @@
 </g>
 <!-- f9&#45;&#45;p12 -->
 <g id="edge25" class="edge"><title>f9&#45;&#45;p12</title>
-<path fill="none" stroke="black" d="M179.331,-598.466C186.147,-588.007 195.793,-576.353 207.775,-570 227.666,-559.453 289.763,-574.061 308.775,-562 328.536,-549.463 340.343,-524.668 346.674,-506.591"/>
-<text text-anchor="middle" x="347.505" y="-514.057" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
+<path fill="none" stroke="black" d="M184.969,-598.469C192.598,-588.011 203.181,-576.357 215.775,-570 234.292,-560.652 291.297,-573.171 308.775,-562 328.494,-549.396 340.308,-524.614 346.653,-506.558"/>
+<text text-anchor="middle" x="347.475" y="-514.025" font-family="Times New Roman,serif" font-size="10.00">pawns</text>
 </g>
 <!-- f10 -->
 <g id="node11" class="node"><title>f10</title>
@@ -178,13 +178,13 @@
 </g>
 <!-- f9&#45;&#45;f10 -->
 <g id="edge11" class="edge"><title>f9&#45;&#45;f10</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M150.367,-598.464C143.133,-589.595 134.611,-579.251 126.775,-570 123.721,-566.395 122.641,-565.756 119.775,-562 111.506,-551.166 103.106,-539.037 95.5727,-527.669"/>
-<text text-anchor="middle" x="104.114" y="-530.37" font-family="Times New Roman,serif" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M152.348,-598.479C138.215,-582.799 121.294,-563.966 119.775,-562 111.441,-551.216 103.018,-539.104 95.4853,-527.736"/>
+<text text-anchor="middle" x="104.027" y="-530.435" font-family="Times New Roman,serif" font-size="10.00">match</text>
 </g>
 <!-- p12&#45;&#45;p3 -->
 <g id="edge27" class="edge"><title>p12&#45;&#45;p3</title>
-<path fill="none" stroke="black" d="M367.864,-506.61C391.442,-543.303 431.05,-618.964 397.775,-672 374.337,-709.357 325.436,-727.801 290.035,-736.582"/>
-<text text-anchor="middle" x="297.701" y="-727.661" font-family="Times New Roman,serif" font-size="10.00">player</text>
+<path fill="none" stroke="black" d="M371.167,-506.776C383.635,-523.035 399.027,-546.426 405.775,-570 418.249,-613.583 429.968,-633.662 405.775,-672 381.364,-710.684 329.834,-729.022 293.795,-737.406"/>
+<text text-anchor="middle" x="301.554" y="-728.598" font-family="Times New Roman,serif" font-size="10.00">player</text>
 </g>
 <!-- p13 -->
 <g id="node16" class="node"><title>p13</title>
