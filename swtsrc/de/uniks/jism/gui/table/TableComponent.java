@@ -77,8 +77,8 @@ public class TableComponent extends Composite implements Listener,
 			SWT.CURSOR_HAND);
 	private TableItem activeItem;
 
-	private TableViewer tableViewer;
-	private TableViewer fixedTableViewerLeft;
+	protected TableViewerComponent tableViewer;
+	protected TableViewerComponent fixedTableViewerLeft;
 
 	private boolean isToolTip;
 	private Composite tableComposite;
@@ -136,15 +136,15 @@ public class TableComponent extends Composite implements Listener,
 		setLayout(new BorderLayout(0, 0));
 	}
 
-	protected TableViewer createBrowser(GUIPosition browserId) {
+	protected TableViewerComponent createBrowser(GUIPosition browserId) {
 		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION ;
 		if (!browserId.equals(GUIPosition.CENTER)) {
 			flags = flags | SWT.NO_SCROLL ;
 		}
-		TableViewer tableViewer = new TableViewer(tableComposite, flags);
+		TableViewerComponent tableViewer = new TableViewerComponent(tableComposite, flags);
 		tableViewer.setLabelProvider(new TableLabelProvider());
 		tableViewer.setFilters(new ViewerFilter[] { tableFilterView });
-
+		
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
@@ -532,7 +532,7 @@ public class TableComponent extends Composite implements Listener,
 				this.additionKey = SWT.CTRL;
 				if (event.keyCode == 'a') {
 					// Select all
-					TableComponent.this.selectAll();
+					TableComponent.this.selectChange();
 				}
 			} else if (event.keyCode == SWT.SHIFT
 					|| (event.stateMask & SWT.SHIFT) != 0) {
@@ -544,6 +544,13 @@ public class TableComponent extends Composite implements Listener,
 			// Notifiy Selection
 			Table table = (Table) event.widget;
 			onSelection(table, table.getSelection());
+		}
+	}
+	public void selectChange(){
+		if(getSelectionItems().size()==this.getTableItemCount()){
+			this.selectNone();
+		}else{
+			this.selectAll();
 		}
 	}
 
