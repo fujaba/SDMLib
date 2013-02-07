@@ -435,6 +435,10 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             {
                color = "green";
             }
+            else if (Pattern.DESTROY.equals(patLink.getModifier()))
+            {
+               color = "red";
+            }
             
             StringBuilder oneEdgeLine = new StringBuilder(
                "<srcId> -- <tgtId> [headlabel = \"headText\" taillabel = \"tailText\" color=\"black\" fontcolor=\"black\"];\n"

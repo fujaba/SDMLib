@@ -19,12 +19,13 @@ t2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>t2 :Tr
 s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s4 :Station</u></td></tr></table>>];
 s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s9 :Station</u></td></tr></table>>];
 s10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s10 :Station</u></td></tr></table>>];
-s11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s11 :Station</u></td></tr></table>>];
+p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p11 :Person</u></td></tr></table>>];
 p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p12 :Person</u></td></tr></table>>];
-p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p13 :Person</u></td></tr></table>>];
-p14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p14 :Person</u></td></tr></table>>];
+s13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s13 :SignalFlag</u></td></tr></table>>];
+s14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s14 :Station</u></td></tr></table>>];
 p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p15 :Person</u></td></tr></table>>];
 p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p16 :Person</u></td></tr></table>>];
+p17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p17 :Person</u></td></tr></table>>];
 
 t1 -- t2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 s3 -- s4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
@@ -34,13 +35,14 @@ t1 -- s3 [headlabel = "station" taillabel = "" color="black" fontcolor="black"];
 s3 -- s5 [headlabel = "flag" taillabel = "" color="black" fontcolor="black"];
 s3 -- p8 [headlabel = "people" taillabel = "" color="red" fontcolor="red"];
 p8 -- t1 [headlabel = "train" taillabel = "" color="green" fontcolor="green"];
-s10 -- s11 [headlabel = "prev" taillabel = "next"];
-s4 -- s9 [headlabel = "prev" taillabel = "next"];
-s9 -- s10 [headlabel = "prev" taillabel = "next"];
-t2 -- p12 [headlabel = "passengers" taillabel = "train"];
-t2 -- p13 [headlabel = "passengers" taillabel = "train"];
-t2 -- p14 [headlabel = "passengers" taillabel = "train"];
+s4 -- s14 [headlabel = "prev" taillabel = "next"];
+s4 -- s9 [headlabel = "next" taillabel = "prev"];
+s9 -- p11 [headlabel = "people" taillabel = "station"];
+s9 -- p12 [headlabel = "people" taillabel = "station"];
+s9 -- s10 [headlabel = "next" taillabel = "prev"];
+s9 -- s13 [headlabel = "flag" taillabel = "station"];
 t2 -- p15 [headlabel = "passengers" taillabel = "train"];
 t2 -- p16 [headlabel = "passengers" taillabel = "train"];
+t2 -- p17 [headlabel = "passengers" taillabel = "train"];
 t2 -- s4 [headlabel = "station" taillabel = "trains"];
 }

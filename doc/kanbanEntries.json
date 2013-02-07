@@ -52,13 +52,14 @@
         {"id":"KE.L202"},
         {"id":"KE.L204"},
         {"id":"KE.L205"},
-        {"id":"KE.L211"}
+        {"id":"KE.L211"},
+        {"id":"KE.L218"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":16,
-      "hoursSpend":164,
+      "hoursSpend":167,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K11"},
@@ -85,7 +86,9 @@
         {"id":"KE.K201"},
         {"id":"KE.K207"},
         {"id":"KE.K209"},
-        {"id":"KE.K213"}
+        {"id":"KE.K213"},
+        {"id":"KE.K215"},
+        {"id":"KE.K217"}
       ]
     }
   },
@@ -777,6 +780,37 @@
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":0,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K215",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L216"}
+      ],
+      "name":"trainCollectPassengers",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K217",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L219"},
+        {"id":"KE.L220"}
+      ],
+      "name":"TrainModel",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":3,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -3188,6 +3222,60 @@
       "kanbanEntry":{"id":"KE.K213"},
       "developer":"zuendorf",
       "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L216",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"07.02.2013 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K215"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L218",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"07.02.2013 16:20:42",
+      "hoursSpend":3,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":16,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"TrainModel: Achieved: Example model for testing destroy with model patterns: "
+    }
+  },
+  {
+    "id":"KE.L219",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"07.02.2013 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K217"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L220",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"07.02.2013 16:20:42",
+      "hoursSpend":3,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K217"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Example model for testing destroy with model patterns: "
     }
   }
 ]

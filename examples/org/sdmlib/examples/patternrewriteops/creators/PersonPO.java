@@ -23,7 +23,8 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       {
          matches.add((Person) this.getCurrentMatch());
          
-         this.getPattern().findMatch();
+         this.getPattern()
+         .findMatch();
       }
       
       return matches;

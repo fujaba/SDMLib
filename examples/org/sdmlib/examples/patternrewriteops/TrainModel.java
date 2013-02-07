@@ -15,7 +15,7 @@ public class TrainModel
       Scenario scenario = new Scenario("examples", "TrainModel");
       
       scenario.add("Example model for testing destroy with model patterns: ",
-      		Scenario.MODELING, "zuendorf", "01.02.2013 15:10:42", 1, 4);
+      		Scenario.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops");
             

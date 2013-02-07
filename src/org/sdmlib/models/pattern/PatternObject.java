@@ -87,6 +87,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       if (this.getCandidates() == null 
             || this.getCandidates() instanceof Collection && ((Collection) this.getCandidates()).isEmpty()) 
       {
+         this.setHasMatch(false);
          return false;
       }
       
@@ -98,17 +99,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             this.setCurrentMatch(obj);
             
             ((Collection) this.getCandidates()).remove(obj);
-            
+
+            this.setHasMatch(true);
+
             resultStat = true;
             
             break;
          }
-         return false;
       }
       else
       {
          this.setCurrentMatch(this.getCandidates());
          this.setCandidates(null);
+         this.setHasMatch(true);
          
          resultStat = true;
       }
@@ -204,7 +207,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       .withPatternObject(this)
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      this.getPattern()
+      .findMatch();
       
       return (POC) this;
    }
@@ -715,7 +719,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    
          this.getPattern().addToElements(result);
    
-         this.getPattern().findMatch();
+         this.getPattern()
+         .findMatch();
       }
    }
 

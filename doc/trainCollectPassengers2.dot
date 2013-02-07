@@ -9,15 +9,21 @@ s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s4 :St
 s5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s5 :Station</u></td></tr></table>>];
 p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p6 :Person</u></td></tr></table>>];
 p7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p7 :Person</u></td></tr></table>>];
-p8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p8 :Person</u></td></tr></table>>];
-s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s9 :SignalFlag</u></td></tr></table>>];
+s8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s8 :SignalFlag</u></td></tr></table>>];
+p9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p9 :Person</u></td></tr></table>>];
+p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p10 :Person</u></td></tr></table>>];
+p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p11 :Person</u></td></tr></table>>];
+s12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s12 :SignalFlag</u></td></tr></table>>];
 
-s2 -- p6 [headlabel = "people" taillabel = "station"];
-s2 -- p7 [headlabel = "people" taillabel = "station"];
-s2 -- p8 [headlabel = "people" taillabel = "station"];
+s2 -- p10 [headlabel = "people" taillabel = "station"];
+s2 -- p11 [headlabel = "people" taillabel = "station"];
+s2 -- p9 [headlabel = "people" taillabel = "station"];
+s2 -- s12 [headlabel = "flag" taillabel = "station"];
 s2 -- s3 [headlabel = "next" taillabel = "prev"];
-s2 -- s9 [headlabel = "flag" taillabel = "station"];
 s3 -- s4 [headlabel = "next" taillabel = "prev"];
+s4 -- p6 [headlabel = "people" taillabel = "station"];
+s4 -- p7 [headlabel = "people" taillabel = "station"];
 s4 -- s5 [headlabel = "next" taillabel = "prev"];
+s4 -- s8 [headlabel = "flag" taillabel = "station"];
 t1 -- s2 [headlabel = "station" taillabel = "trains"];
 }

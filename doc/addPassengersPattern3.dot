@@ -5,42 +5,44 @@ graph ObjectDiagram {
 t1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> <tr> <td border='0' align='right'><font color='black'>&#171;bound&#187;</font></td></tr> <tr> <td align='center'> <font color='black'> t1 :TrainPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 s3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> s3 :StationPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 s5 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> s5 :SignalFlagPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
-d6 [label="destroy" fontcolor="red"]
-subgraph cluster_o7 
+d7 [label="destroy" fontcolor="red"]
+subgraph cluster_o8 
 {
-   label=<<table border='0' cellborder='0'><tr><td>optional o7</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td>optional o8</td></tr></table>>;
    color=grey;
 
-p8 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> p8 :PersonPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
-allMatches_p8 [label=allMatches];
+p9 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> p9 :PersonPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+allMatches_p9 [label=allMatches];
 }
 
 t2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>t2 :Train</u></td></tr></table>>];
 s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s4 :Station</u></td></tr></table>>];
-s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s9 :Station</u></td></tr></table>>];
-s10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s10 :Station</u></td></tr></table>>];
 s11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s11 :Station</u></td></tr></table>>];
-p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p12 :Person</u></td></tr></table>>];
-p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p13 :Person</u></td></tr></table>>];
+s12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s12 :Station</u></td></tr></table>>];
+s13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s13 :Station</u></td></tr></table>>];
 p14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p14 :Person</u></td></tr></table>>];
 p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p15 :Person</u></td></tr></table>>];
 p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p16 :Person</u></td></tr></table>>];
+p17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p17 :Person</u></td></tr></table>>];
+p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p10 :Person</u></td></tr></table>>];
 
 t1 -- t2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 s3 -- s4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
-s5 -- d6 [style="dotted" color="red" fontcolor="red"];
-p8 -- allMatches_p8 [style="dotted"];
+s5 -- s6 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+s5 -- d7 [style="dotted" color="red" fontcolor="red"];
+p9 -- allMatches_p9 [style="dotted"];
+p9 -- p10 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 t1 -- s3 [headlabel = "station" taillabel = "" color="black" fontcolor="black"];
 s3 -- s5 [headlabel = "flag" taillabel = "" color="black" fontcolor="black"];
-s3 -- p8 [headlabel = "people" taillabel = "" color="red" fontcolor="red"];
-p8 -- t1 [headlabel = "train" taillabel = "" color="green" fontcolor="green"];
-s10 -- s11 [headlabel = "prev" taillabel = "next"];
-s4 -- s9 [headlabel = "prev" taillabel = "next"];
-s9 -- s10 [headlabel = "prev" taillabel = "next"];
-t2 -- p12 [headlabel = "passengers" taillabel = "train"];
-t2 -- p13 [headlabel = "passengers" taillabel = "train"];
+s3 -- p9 [headlabel = "people" taillabel = "" color="red" fontcolor="red"];
+p9 -- t1 [headlabel = "train" taillabel = "" color="green" fontcolor="green"];
+s12 -- s13 [headlabel = "prev" taillabel = "next"];
+s4 -- s11 [headlabel = "next" taillabel = "prev"];
+s4 -- s12 [headlabel = "prev" taillabel = "next"];
+t2 -- p10 [headlabel = "passengers" taillabel = "train"];
 t2 -- p14 [headlabel = "passengers" taillabel = "train"];
 t2 -- p15 [headlabel = "passengers" taillabel = "train"];
 t2 -- p16 [headlabel = "passengers" taillabel = "train"];
+t2 -- p17 [headlabel = "passengers" taillabel = "train"];
 t2 -- s4 [headlabel = "station" taillabel = "trains"];
 }
