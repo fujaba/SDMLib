@@ -11,7 +11,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Association;
 
-public class LudoReverseModelCompilerDemo
+public class LudoReverseModel
 {
    private static final String INT = "int";
    private static final String STRING = "String";
