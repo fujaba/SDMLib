@@ -222,5 +222,15 @@ public class Player implements PropertyChangeInterface
       setColor(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getColor());
+      return _.substring(1);
+   }
+
 }
 

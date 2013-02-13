@@ -11,7 +11,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Association;
 
-public class LudoReverseModel
+public class LudoReverseModelCompilerDemo
 {
    private static final String INT = "int";
    private static final String STRING = "String";
@@ -50,15 +50,23 @@ public class LudoReverseModel
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
-      Clazz ludo = model.createClazz("Ludo",
-         "style", "String",
-         "age", "int");
+      Clazz ludoClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Ludo")
+      .withAttribute("style", "String")
+      .withAttribute("age", "int");
 
-      Clazz playerClass = ludo.createClassAndAssoc("Player", "players", MANY, "game", ONE);
+      new Method()
+			.withClazz(ludoClass)
+			.withSignature("toString()");
 
-      playerClass.withAttributes(
-         "name", "String",
-         "color", "String");
+      Clazz playerClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Player")
+      .withAttribute("name", "String")
+      .withAttribute("color", "String");
+
+      new Method()
+			.withClazz(playerClass)
+			.withSignature("toString()");
+
+      ludoClass.withAssoc(playerClass, "players", MANY, "game", ONE);
 
       model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludoreverse.model");
 

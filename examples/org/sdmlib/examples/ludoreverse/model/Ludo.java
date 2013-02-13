@@ -261,5 +261,15 @@ public class Ludo implements PropertyChangeInterface
       withPlayers(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getStyle());
+      _.append(" ").append(this.getAge());
+      return _.substring(1);
+   }
+
 }
 

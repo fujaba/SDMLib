@@ -18,6 +18,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.ludoreverse.model.creators.LudoPOCreator());
          creatorSet.add(new org.sdmlib.examples.ludoreverse.model.creators.PlayerCreator());
          creatorSet.add(new org.sdmlib.examples.ludoreverse.model.creators.PlayerPOCreator());
+         creatorSet.add(new org.sdmlib.examples.ludoreverse.model.creators.PointCreator());
+         creatorSet.add(new org.sdmlib.examples.ludoreverse.model.creators.PointPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -33,5 +35,6 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
