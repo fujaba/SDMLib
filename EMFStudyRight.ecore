@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="EmfstudyrightPackage" nsURI="http:///org.sdmlib.examples.emfstudyright.ecore" nsPrefix="emfstudyright">
+  <eClassifiers xsi:type="ecore:EClass" name="University"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Student"/>
+</ecore:EPackage>

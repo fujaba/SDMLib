@@ -53,13 +53,14 @@
         {"id":"KE.L204"},
         {"id":"KE.L205"},
         {"id":"KE.L211"},
-        {"id":"KE.L218"}
+        {"id":"KE.L218"},
+        {"id":"KE.L222"}
       ],
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":16,
-      "hoursSpend":167,
+      "hoursSpend":175,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K11"},
@@ -88,7 +89,8 @@
         {"id":"KE.K209"},
         {"id":"KE.K213"},
         {"id":"KE.K215"},
-        {"id":"KE.K217"}
+        {"id":"KE.K217"},
+        {"id":"KE.K221"}
       ]
     }
   },
@@ -811,6 +813,22 @@
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
       "hoursSpend":3,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K221",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L223"},
+        {"id":"KE.L224"}
+      ],
+      "name":"EMFStudyRightClasses",
+      "phase":"modeling",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":8,
       "parent":{"id":"KE.K1"}
     }
   },
@@ -3276,6 +3294,47 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Example model for testing destroy with model patterns: "
+    }
+  },
+  {
+    "id":"KE.L222",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"08.02.2013 14:53:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":16,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"EMFStudyRightClasses: Achieved: We build some example classes and then turn them into an Ecore model "
+    }
+  },
+  {
+    "id":"KE.L223",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"08.02.2013 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K221"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L224",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"08.02.2013 14:53:42",
+      "hoursSpend":8,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K221"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: We build some example classes and then turn them into an Ecore model "
     }
   }
 ]

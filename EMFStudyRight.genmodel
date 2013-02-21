@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    copyrightText="" modelDirectory="/SDMLib/emfsrc" modelName="EMFStudyRight"
+    copyrightFields="false">
+  <foreignModel>./EMFStudyRight.ecore</foreignModel>
+  <genPackages prefix="emfstudyrightgenmodel" basePackage="org.sdmlib.examples.emfstudyright"
+      disposableProviderFactory="true" ecorePackage="EMFStudyRight.ecore#/">
+    <genClasses ecoreClass="EMFStudyRight.ecore#//University"/>
+    <genClasses ecoreClass="EMFStudyRight.ecore#//Student"/>
+  </genPackages>
+</genmodel:GenModel>
