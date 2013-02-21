@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="examples"/>
@@ -8,31 +10,9 @@
 	<classpathentry kind="src" path="testhelpers"/>
 	<classpathentry kind="src" path="swtsrc"/>
 	<classpathentry kind="src" path="emfsrc"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
-	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
-	<classpathentry kind="lib" path="lib/gwtx-1.5.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry exported="true" kind="var" path="ECLIPSE_CORE_RUNTIME">
-		<attributes>
-			<attribute name="plugin_id" value="org.eclipse.core.runtime"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="var" path="ECLIPSE_CORE_RESOURCES">
-		<attributes>
-			<attribute name="plugin_id" value="org.eclipse.core.resources"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="var" path="EMF_COMMON">
-		<attributes>
-			<attribute name="plugin_id" value="org.eclipse.emf.common"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="var" path="EMF_ECORE">
-		<attributes>
-			<attribute name="plugin_id" value="org.eclipse.emf.ecore"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
