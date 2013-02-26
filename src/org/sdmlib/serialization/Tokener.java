@@ -2,6 +2,8 @@ package org.sdmlib.serialization;
 
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 /*
 Copyright (c) 2012, Stefan Lindel
@@ -280,7 +282,7 @@ public abstract class Tokener {
      * Accumulate characters until we reach the end of the text or a
      * formatting character.
      */
-    public Object nextValue(BaseEntity creator) {
+    public Object nextValue(JSIMEntity creator) {
     	char c = nextClean();
     	StringBuilder sb = new StringBuilder();
 	    while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
@@ -312,56 +314,56 @@ public abstract class Tokener {
     	return true;
     }
     
-    /**
-     * Skip.
-     *
-     * @param search the The String of searchelements
-     * @param notSearch the String of elements with is not in string
-     * @param order the if the order of search element importent
-     * @return true, if successful
-     */
-    public boolean stepPos2(String search, String notSearch, boolean order, boolean notEscape){
-    	char[] character=search.toCharArray();
-    	char[] characterNot=notSearch.toCharArray();
-    	int z=0;
-    	int strLen=character.length;
-    	int len=this.buffer.length();
-    	char lastChar=0;
-    	if(this.index>0){
-    		lastChar=this.buffer.charAt(this.index-1);
-    	}
-		while ( this.index < len ) {
-			boolean loop=false;
-			char currentChar = getCurrentChar();
-			for (char zeichen : characterNot) {
-				if (currentChar == zeichen){
-					loop=true;
-					break;
-				}
-			}
-			if(!loop){
-				if(order){
-					if (currentChar == character[z]) {
-						z++;
-						if(z>=strLen){
-							return true;
-						}
-					}else{
-						z=0;
-					}
-				}else{
-					for (char zeichen : character) {
-						if (currentChar == zeichen && (!notEscape || lastChar!='\\')) {
-							return true;
-						}
-					}
-				}
-			}
-			lastChar=currentChar;
-			next();
-		}
-		return false;
-    }
+//    /**
+//     * Skip.
+//     *
+//     * @param search the The String of searchelements
+//     * @param notSearch the String of elements with is not in string
+//     * @param order the if the order of search element importent
+//     * @return true, if successful
+//     */
+//    public boolean stepPos2(String search, String notSearch, boolean order, boolean notEscape){
+//    	char[] character=search.toCharArray();
+//    	char[] characterNot=notSearch.toCharArray();
+//    	int z=0;
+//    	int strLen=character.length;
+//    	int len=this.buffer.length();
+//    	char lastChar=0;
+//    	if(this.index>0){
+//    		lastChar=this.buffer.charAt(this.index-1);
+//    	}
+//		while ( this.index < len ) {
+//			boolean loop=false;
+//			char currentChar = getCurrentChar();
+//			for (char zeichen : characterNot) {
+//				if (currentChar == zeichen){
+//					loop=true;
+//					break;
+//				}
+//			}
+//			if(!loop){
+//				if(order){
+//					if (currentChar == character[z]) {
+//						z++;
+//						if(z>=strLen){
+//							return true;
+//						}
+//					}else{
+//						z=0;
+//					}
+//				}else{
+//					for (char zeichen : character) {
+//						if (currentChar == zeichen && (!notEscape || lastChar!='\\')) {
+//							return true;
+//						}
+//					}
+//				}
+//			}
+//			lastChar=currentChar;
+//			next();
+//		}
+//		return false;
+//    }
 
     /**
      * Skip.
@@ -377,7 +379,7 @@ public abstract class Tokener {
     	int strLen=character.length;
     	int len=this.buffer.length();
     	char lastChar=0;
-    	if(this.index>0){
+    	if(this.index>0&&this.index<len){
     		lastChar=this.buffer.charAt(this.index-1);
     	}
 		while ( this.index < len ) {
@@ -457,54 +459,50 @@ public abstract class Tokener {
     	}
     	return 0;
     }
-    
-    /**
-     * Previous.
-     *
-     * @param start the start
-     * @return the string
-     */
-    public String getPreviousString(int start){
-    	return this.buffer.substring(start, this.index);
-    }
-    
+       
     /**
      * @param positions first is start Position,  second is Endposition
      * 
-     * start>0	StartPosition
-     * end>0	EndPosition
+     * Absolut fix Start and End
+     * start>0		StartPosition
+     * end>Start	EndPosition
      * 
-     * Start -Max - MAX Relativ Position from this.index
-     * end=0		Is this index or start
+     * Absolut from fix Position
+     * Start>0 		Position
+     * end NULL		To End
+     * end -1		To this.index
+     * 
+     * Relativ from indexPosition
+     * Start 	Position from this.index + (-Start)
+     * End = 0		current Position
      * 
      * @return substring from buffer
      */
     public String substring(int... positions){
     	int start=positions[0],end=-1;
     	if(positions.length<2){
-    		if(start>0){
-	    		// END IS END OF BUFFER (Exclude)
-	    		end=buffer.length();
-    		}
+    		// END IS END OF BUFFER (Exclude)
+    		end=buffer.length();
     	}else{
     		end=positions[1];
     	}
-		if(end<1){
+    	if(end==-1){
+    		end=this.index;
+    	}else if(end==0){
 			if(start<0){
 				end=this.index;
-				start=this.index+start;
+				start=this.index+start;	
 			}else{
-				end=start;
+				end=this.index+start;
+				if (this.index + end > this.buffer.length()) {
+					end = this.buffer.length();
+				}
 				start=this.index;
 			}
 		}
-    	if ( start <= 0 || end <= 0 ) {
+    	if ( start < 0 || end <= 0 || start>end ) {
     		return "";
-    	}
-    	else if (this.index + end > this.buffer.length()) {
- 			end = this.buffer.length();
  		}
-
  		return this.buffer.substring(start, end);
     }
     
@@ -528,7 +526,7 @@ public abstract class Tokener {
     	nextClean();
     	int startTag=this.index;
 		if(stepPos(" >//<", false, true)){
-			return getPreviousString(startTag);	
+			return this.buffer.substring(startTag, this.index);	
 		}
 		return "";
     }
@@ -543,6 +541,6 @@ public abstract class Tokener {
 		this.index=index;
 	}
 	
-	public abstract void parseToEntity(Entity entity);
-	public abstract void parseToEntity(EntityList entityList);
+	public abstract void parseToEntity(BaseEntity entity);
+	public abstract void parseToEntity(BaseEntityList entityList);
 }

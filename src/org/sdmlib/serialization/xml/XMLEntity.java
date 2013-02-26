@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,24 +38,22 @@ import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.event.StyleFormat;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
 
 /**
  * The Class XMLEntity.
  */
-public class XMLEntity extends Entity{
+public class XMLEntity extends Entity implements BaseEntityList {
 	/** The children. */
 	protected ArrayList<XMLEntity> children;
-	
-	/** StyleFormat */
-	private StyleFormat style;
 	
 	/** The tag. */
 	protected String tag;
 	
 	/** The value. */
 	protected String value;
-	
+
 	/**
 	 * Instantiates a new xML entity.
 	 */
@@ -78,7 +77,7 @@ public class XMLEntity extends Entity{
      */
     public XMLEntity(Tokener tokener) {
         this();
-        tokener.parseToEntity(this);
+        tokener.parseToEntity((BaseEntity)this);
     }
 
 	/* (non-Javadoc)
@@ -182,18 +181,7 @@ public class XMLEntity extends Entity{
 	 */
 	@Override
 	public String toString(int indentFactor) {
-		return toString(indentFactor, 0, false);
-	}
-	
-	/**
-	 * To string.
-	 *
-	 * @param indentFactor the indent factor
-	 * @param header the header
-	 * @return the string
-	 */
-	public String toString(int indentFactor, boolean header) {
-		return toString(indentFactor, 0, header);
+		return toString(indentFactor, 0);
 	}
 	
 	/* (non-Javadoc)
@@ -201,22 +189,7 @@ public class XMLEntity extends Entity{
 	 */
 	@Override
 	public String toString(int indentFactor, int intent) {
-		return toString(indentFactor, intent, false);
-	}
-
-	/**
-	 * To string.
-	 *
-	 * @param indentFactor the indent factor
-	 * @param intent the intent
-	 * @param header the header
-	 * @return the string
-	 */
-	public String toString(int indentFactor, int intent, boolean header) {
 		StringBuilder sb=new StringBuilder();
-		if(header){
-			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-		}
 		if(indentFactor>0){
 			sb.append("\n");
 		}
@@ -230,39 +203,51 @@ public class XMLEntity extends Entity{
 			Entry<String, Object> attribute = i.next();
 			sb.append(" "+attribute.getKey()+"="+EntityUtil.quote((String)attribute.getValue()));
 		}
+		
 		boolean hasChild=(this.children!=null&&this.children.size()>0);
-		boolean hasStyle=this.style!=null;
-		
-		
-		if(this.value==null&&!hasChild && !hasStyle){
+		if(this.value==null&&!hasChild){
 			sb.append("/>");
 		}else{
 			sb.append(">");
-			// parse Children
-			if(hasStyle){
-				sb.append(style.getStartTag());
-			}
-			if(hasChild){
-				for(XMLEntity child : this.children){
-					sb.append(child.toString(indentFactor));
-				}
-			}else if(this.value!=null){
-				sb.append(this.value);
-			}
-			if(hasStyle){
-				sb.append(style.getEndTag());
-			}
-
+			sb.append(toStringValue(indentFactor));
 			sb.append("</"+getTag()+">");
 		}
 		return sb.toString();
 	}
-
-	public StyleFormat getStyle() {
-		return style;
+	
+	protected String toStringValue(int indentFactor){
+		StringBuilder sb=new StringBuilder();
+		
+		// parse Children
+		if(this.children!=null&&this.children.size()>0){
+			for(XMLEntity child : this.children){
+				sb.append(child.toString(indentFactor));
+			}
+		}else if(this.value!=null){
+			sb.append(this.value);
+		}
+		return sb.toString();
 	}
 
-	public void setStyle(StyleFormat style) {
-		this.style = style;
+	public BaseEntityList initWithMap(Collection<?> value) {
+		for(Iterator<?>i=value.iterator();i.hasNext();){
+			children.add((XMLEntity) i.next());
+		}
+		return this;
+	}
+
+	public BaseEntityList put(Object value) {
+		children.add((XMLEntity) value);
+		return this;
+	}
+
+	@Override
+	public boolean add(Object value) {
+		return children.add((XMLEntity) value);
+	}
+
+	@Override
+	public Object get(int index) {
+		return children.get(index);
 	}
 }

@@ -32,8 +32,8 @@ import java.nio.ByteBuffer;
 import org.sdmlib.serialization.interfaces.ByteItem;
 
 public abstract class ByteConverter {
-	public String toString(ByteItem item){
-		return toString(item.getBytes(false));
+	public String toString(ByteItem item, boolean dynamic){
+		return toString(item.getBytes(dynamic));
 	}
 	public String toString(ByteBuffer value){
 		return toString(value.array(), value.limit());

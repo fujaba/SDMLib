@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.sdmlib.serialization.IdMap;
 
 public class TableColumnView implements ControlListener {
+	public static final int BorderCell=10;
 	private TableViewerColumn tableViewerColumn;
 	private Column column;
 	private TableColumnLabelProvider tableLabelProvider;
@@ -47,15 +48,12 @@ public class TableColumnView implements ControlListener {
 	private Menu mnuColumns;
 	protected ColumnViewerSorter columnViewerSorter;
 	private TableCellMenuItem tableCellMenuItem;
-	private IdMap map;
-	public static final int BorderCell=10;
 	private String oldTextWidth=null;
 
-	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns, IdMap map) {
+	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns) {
 		this.owner=tableComponent;
 		this.mnuColumns=mnuColumns;
 		this.column=column;
-		this.map=map;
 
 		setVisible(true);
 	}
@@ -73,19 +71,19 @@ public class TableColumnView implements ControlListener {
 			columnViewerSorter = new ColumnViewerSorter(this, owner, column);
 			// RegExpression
 			if(column.getEditColumn()!=null){
-				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column, map));
+				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column));
 			}else if(column.isEditingSupport()){
 				if(column instanceof ColumnNotification){
-					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column, map));
+					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column));
 				}
 			}
-			this.tableLabelProvider=new TableColumnLabelProvider(column, map, this);
+			this.tableLabelProvider=new TableColumnLabelProvider(column, this);
 			tableViewerColumn.setLabelProvider(tableLabelProvider);
 
 			TableColumn tableColumn = tableViewerColumn.getColumn();
 			tableColumn.setMoveable(column.isMovable());
 			tableColumn.setWidth(column.getWidth());
-			tableColumn.setText(column.getLabel());
+			tableColumn.setText(""+column.getLabel());
 			onNewText(column.getLabel(), 12);
 			tableColumn.setResizable(column.isResizable());
 			tableColumn.addControlListener(this);
@@ -100,6 +98,10 @@ public class TableColumnView implements ControlListener {
 			tableColumn.dispose();
 			tableViewerColumn = null;
 		}
+	}
+	
+	public IdMap getMap(){
+		return owner.getMap();
 	}
 	
 	public void disposeColumn(){

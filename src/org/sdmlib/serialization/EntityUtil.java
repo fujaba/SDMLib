@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import java.util.Collection;
 import java.util.Map;
 
-import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class EntityUtil {
 	/**
@@ -215,7 +215,7 @@ public class EntityUtil {
 	 *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
 	 *  with <code>}</code>&nbsp;<small>(right brace)</small>.
 	 */
-	public static String valueToString(Object value, BaseEntity reference) {
+	public static String valueToString(Object value, JSIMEntity reference) {
 		return valueToString(value, false, reference);
 	}
 	
@@ -239,7 +239,7 @@ public class EntityUtil {
 			int    indentFactor,
 			int    intent,
 			boolean simpleText,
-			BaseEntity reference) {
+			JSIMEntity reference) {
 		if (value == null) {
 			return "null";
 		}
@@ -275,7 +275,7 @@ public class EntityUtil {
 	public static String valueToString(
 			Object value,
 			boolean simpleText,
-			BaseEntity reference) {
+			JSIMEntity reference) {
 		if (value == null) {
 			return "null";
 		}
@@ -321,7 +321,7 @@ public class EntityUtil {
 	 * @param object The object to wrap
 	 * @return The wrapped value
 	 */
-	public static Object wrap(Object object, BaseEntity reference) {
+	public static Object wrap(Object object, JSIMEntity reference) {
 		try {
 			if (object == null) {
 				return null;

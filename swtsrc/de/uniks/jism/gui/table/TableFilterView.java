@@ -46,14 +46,12 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 	private String lastSearchCriteria = "####";
 	private TableComponent component;
 	private ArrayList<String> searchProperties = new ArrayList<String>();
-	private IdMap map;
 	private String[] lastSearchCriteriaItems;
 	private Column updateField;
 	protected boolean lastSearchDetails;
 	
 	public TableFilterView(TableComponent component, IdMap map){
 		this.component=component;
-		this.map=map;
 	}
 	
 	public void setSearchProperties(String... searchProperties){
@@ -83,7 +81,7 @@ public class TableFilterView extends ViewerFilter implements ModifyListener{
 			return true;
 		}
 		String fullText = "";
-		SendableEntityCreator creatorClass = map.getCreatorClass(item);
+		SendableEntityCreator creatorClass = component.getMap().getCreatorClass(item);
 		// SEARCH FOR #ID:3
 		if(creatorClass!=null){
 			for (String property : searchProperties) {

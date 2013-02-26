@@ -41,6 +41,7 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -66,6 +67,7 @@ import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.SortingDirection;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
+import de.uniks.jism.gui.TextItems;
 import de.uniks.jism.gui.layout.BorderLayout;
 
 public class TableComponent extends Composite implements Listener,
@@ -93,6 +95,7 @@ public class TableComponent extends Composite implements Listener,
 	protected IdMap map;
 	protected TableFilterView tableFilterView;
 	private Menu headerMenu;
+	private SashForm sashForm;
 
 	public IdMap getMap()
    {
@@ -107,15 +110,15 @@ public class TableComponent extends Composite implements Listener,
 			this.map.addCreator(new TableListCreator());
 		}
 
-		createContent();
+		createContent(this);
 	}
 
 	public TableComponent(Composite parent, int style) {
 		super(parent, style);
 	}
-
-	public void createContent() {
-		tableComposite = new Composite(this, SWT.NONE | SWT.FILL);
+	
+	public void createContent(Composite owner) {
+		tableComposite = new Composite(owner, SWT.NONE | SWT.FILL);
 		tableComposite.setLayoutData(GUIPosition.CENTER);
 		tableComposite.setLayout(new BorderLayout(0, 0));
 
@@ -132,7 +135,6 @@ public class TableComponent extends Composite implements Listener,
 		columnsMenue.setMenu(mnuColumns);
 
 		tableViewer = createBrowser(GUIPosition.CENTER);
-
 		setLayout(new BorderLayout(0, 0));
 	}
 
@@ -187,7 +189,7 @@ public class TableComponent extends Composite implements Listener,
 		if (column.getBrowserId().equals(GUIPosition.WEST)) {
 			setVisibleFixedColumns(true);
 		}
-		this.columns.add(new TableColumnView(this, column, mnuColumns, map));
+		this.columns.add(new TableColumnView(this, column, mnuColumns));
 		if (column.getAltAttribute() != null) {
 			if (!isToolTip) {
 				isToolTip = true;
@@ -361,15 +363,24 @@ public class TableComponent extends Composite implements Listener,
 
 	}
 
+	public boolean finishDataBinding(IdMap map, TableList item) {
+		this.map = map;
+		return finishDataBinding(item);
+	}
 	public boolean finishDataBinding(TableList item) {
 		return finishDataBinding(item, TableList.PROPERTY_ITEMS);
 	}
 
 	public boolean finishDataBinding(Object item, String property) {
-
+		if(map==null){
+			return true;
+		}
 		this.source = item;
 		this.sourceCreator = map.getCreatorClass(source);
 		this.property = property;
+		if(sourceCreator==null){
+			return false;
+		}
 
 		// Copy all Elements to TableList
 		Collection<?> collection = (Collection<?>) sourceCreator.getValue(item,
@@ -640,6 +651,10 @@ public class TableComponent extends Composite implements Listener,
 	public IdMap getIdMap() {
 		return map;
 	}
+	
+	public int getColumnsSize(){
+		return columns.size();
+	}
 
 	public void setSorting(String column, SortingDirection direction) {
 		for (TableColumnView columnView : columns) {
@@ -693,4 +708,35 @@ public class TableComponent extends Composite implements Listener,
 	public void clear() {
 		this.list.clear();
 	}
+
+	
+	public Object getTableComponent(){
+		
+		if(tableComposite==null){
+			sashForm = new SashForm(this, SWT.NONE);
+
+			createContent(sashForm);
+			sashForm.setMaximizedControl(tableComposite);
+		}
+		return sashForm;
+	}
+	
+	public void clearColumns(){
+		TableColumnView[] array = this.columns
+				.toArray(new TableColumnView[this.columns.size()]);
+		for (TableColumnView item : array) {
+			removeColumn(item);
+		}
+	}
+	
+	protected String getText(String label){
+		if(this.map!=null){
+			SendableEntityCreator textItemClazz = map.getCreatorClasses(TextItems.class.getName());
+			if(textItemClazz != null){
+				return((TextItems)textItemClazz).getText(label);
+			}
+		}
+		return label;
+	}
 }
+	

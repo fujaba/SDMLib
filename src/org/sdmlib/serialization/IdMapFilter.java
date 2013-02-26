@@ -77,7 +77,7 @@ public class IdMapFilter {
 	 * @return boolean
 	 */
 	public boolean isId(){
-		return true;
+		return isId;
 	}
 	
 	public void setId(boolean isId) {
@@ -92,8 +92,6 @@ public class IdMapFilter {
 	public boolean isManySerialization() {
 		return true;
 	}
-
-
 	
 	/**
 	 * Gets the deep.

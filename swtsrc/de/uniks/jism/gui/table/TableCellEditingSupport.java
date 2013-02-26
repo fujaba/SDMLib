@@ -29,8 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.beans.PropertyChangeEvent;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,32 +40,32 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+import de.uniks.jism.gui.table.celledit.CellDateEditor;
+import de.uniks.jism.gui.table.celledit.CellDropDownEditor;
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
-import de.uniks.jism.gui.table.celledit.DropDownCellEditor;
+import de.uniks.jism.gui.table.celledit.CellNumberEditor;
 import de.uniks.jism.gui.table.celledit.EditField;
-import de.uniks.jism.gui.table.celledit.NumberCellEditor;
+import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class TableCellEditingSupport extends EditingSupport {
 	protected TableComponent owner;
 	protected Column column;
-	protected IdMap map;
 
 	public TableCellEditingSupport(TableComponent owner,
-			TableViewer tableViewer, Column column, IdMap map) {
+			TableViewer tableViewer, Column column) {
 		super(tableViewer);
 		this.column=column;
 		this.owner = owner;
-		this.map = map;
 	}
 
 	public TableCellEditingSupport(TableComponent owner, Column column) {
 		super(owner.getBrowserView(column.getBrowserId()));
 		this.column=column;
 		this.owner = owner;
-		this.map=owner.getIdMap();
 	}
 
 	protected boolean canEdit(Object arg0) {
@@ -76,8 +76,11 @@ public class TableCellEditingSupport extends EditingSupport {
 	protected void saveCellEditorValue(CellEditor cellEditor, ViewerCell cell) {
 		Object value = null;
 		if(cellEditor instanceof CellEditorElement){
-			value=((CellEditorElement)cellEditor).getEditorValue();
-			setValue(cell.getElement(), value);
+			try {
+				value=((CellEditorElement)cellEditor).getEditorValue(true);
+				setValue(cell.getElement(), value);
+			} catch (ParseException e) {
+			}
 		}else{
 			value = cellEditor.getValue();
 		}
@@ -87,41 +90,17 @@ public class TableCellEditingSupport extends EditingSupport {
 	}
 
 	protected CellEditor getCellEditor(Object element) {
-		if(column.getAttrName()!=null){
-			SendableEntityCreator creatorClass = map.getCreatorClass(element);
-			Object value=null;
-			if(creatorClass!=null){
-				value = creatorClass.getValue(element, column.getAttrName());
-			}
-			if(value==null && column.isGetDropDownListFromMap()){
-				// Check column
-				String attrName = column.getAttrName();
-				Class<?> classDef=element.getClass();
-		         
-		         try {
-					Method method = classDef.getDeclaredMethod("get"+getFirstUpperCase(attrName));
-					
-					SendableEntityCreator creatorClassName = map.getCreatorClasses(method.getReturnType().getName());
-					if(creatorClassName!=null){
-						return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map, creatorClassName);
-					}
-				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				}
-			}
-			if(value!=null){
-				SendableEntityCreator creatorClassName = map.getCreatorClass(value);
-				if(creatorClassName!=null){
-					return new DropDownCellEditor(((TableViewer) getViewer()).getTable(), this.map, creatorClassName);
-				}
-				else if(value instanceof Integer){
-					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###", EditField.FORMAT_INTEGER);
-				}else if(value instanceof Double){
-					return new NumberCellEditor(((TableViewer) getViewer()).getTable(), "###.##", EditField.FORMAT_DOUBLE);
-				}
-			}
+		IdMap map = owner.getIdMap();
+		EditField editField=new EditField().init(element, map, column);
+		Table table = ((TableViewer) getViewer()).getTable();
+		if(editField.getFormat()==EditFields.INTEGER){
+			return new CellNumberEditor(table, editField);
+		}else if(editField.getFormat()==EditFields.DOUBLE){
+			return new CellNumberEditor(table, editField);
+		}else if(editField.getFormat()==EditFields.COMBOBOX){
+			return new CellDropDownEditor(table, editField);
+		}else if(editField.getFormat()==EditFields.DATE){
+			return new CellDateEditor(table, editField);
 		}
 		return getDefaultEditor();
 	}
@@ -134,20 +113,10 @@ public class TableCellEditingSupport extends EditingSupport {
 		return ((TableViewer) getViewer()).getTable();
 	}
 	
-	public String getFirstUpperCase(String text){
-
-		final StringBuilder result = new StringBuilder(text.length());
-		String[] words = text.split("\\s");
-		for(int i=0,l=words.length;i<l;++i) {
-		  if(i>0) result.append(" ");      
-		  result.append(Character.toUpperCase(words[i].charAt(0)))
-		        .append(words[i].substring(1));
-		}
-		return result.toString();
-	}
 
 	protected Object getValue(Object element) {
 		Object value=null;
+		IdMap map = owner.getIdMap();
 		SendableEntityCreator creatorClass = map.getCreatorClass(element);
 		if(creatorClass!=null){
 			value = creatorClass.getValue(element, column.getAttrName());
@@ -171,6 +140,7 @@ public class TableCellEditingSupport extends EditingSupport {
 	}
 
 	protected void setValue(Object element, Object value) {
+		IdMap map = owner.getIdMap();
 		SendableEntityCreator creatorClass = map.getCreatorClass(element);
 		if(creatorClass!=null){
 			Object oldValue = creatorClass.getValue(element, column.getEditColumn());

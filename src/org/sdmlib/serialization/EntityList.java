@@ -34,13 +34,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
 
 
 /**
  * The Class EntityList.
  */
-public abstract class EntityList implements BaseEntity, List<Object>{
+public abstract class EntityList implements BaseEntityList, List<Object>{
 	protected ArrayList<Object> values;
 	private boolean visible=true;
 

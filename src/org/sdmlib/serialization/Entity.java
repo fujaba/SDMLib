@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
 
 public abstract class Entity implements BaseEntity{
 	/**
@@ -391,12 +392,12 @@ public abstract class Entity implements BaseEntity{
 	 * is empty.
 	 */
 	public EntityList names() {
-		EntityList ja = getNewArray();
+		BaseEntityList ja = getNewArray();
 		Iterator<String> keys = this.keys();
 		while (keys.hasNext()) {
 			ja.put(keys.next());
 		}
-		return ja.size() == 0 ? null : ja;
+		return ja.size() == 0 ? null : (EntityList) ja;
 	}
 
 	
@@ -488,7 +489,7 @@ public abstract class Entity implements BaseEntity{
 	 *  types: Boolean, Double, Integer, EntityList, Entity, Long or String object.
 	 * @return this.
 	 */
-	public Entity put(String key, Object value) {
+	public void put(String key, Object value) {
 		if (key == null) {
 			throw new RuntimeException("Null key.");
 		}
@@ -498,7 +499,6 @@ public abstract class Entity implements BaseEntity{
 		} else {
 			this.remove(key);
 		}
-		return this;
 	}
 
 	/**
@@ -564,8 +564,8 @@ public abstract class Entity implements BaseEntity{
 					if(child instanceof EntityList){
 				    	if(end==len+2){
 				    		// Get List
-				    		EntityList result = getNewArray();
-				    		EntityList items=(EntityList) child;
+				    		BaseEntityList result = getNewArray();
+				    		BaseEntityList items=(BaseEntityList) child;
 				    		for(int z=0;z<items.size();z++){
 				    			result.add(((Entity)items.get(z)).getValue(key.substring(end+1)));
 				    		}

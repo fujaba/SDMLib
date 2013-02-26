@@ -25,8 +25,8 @@ SOFTWARE.
 import java.nio.ByteBuffer;
 
 import org.sdmlib.serialization.EntityList;
-import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.ByteItem;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class ByteList extends EntityList implements ByteItem {
 	/** The children of the ByteEntity. */
@@ -38,13 +38,13 @@ public class ByteList extends EntityList implements ByteItem {
 	}
 
 	@Override
-	public BaseEntity getNewObject() {
+	public JSIMEntity getNewObject() {
 		return new ByteEntity();
 	}
 
 	@Override
 	public String toString(int indentFactor) {
-		return toString();
+		return toString(null);
 	}
 
 	@Override
@@ -57,11 +57,25 @@ public class ByteList extends EntityList implements ByteItem {
 		return toString(null);
 	}
 	
+	/**
+	 * Convert the bytes to a String
+	 * @param converter Grammar
+	 * @return converted bytes as String
+	 */
 	public String toString(ByteConverter converter){
+		return toString(converter, false);
+	}
+	/**
+	 * Convert the bytes to a String
+	 * @param converter Grammar
+	 * @param dynamic if byte is dynamic
+	 * @return converted bytes as String
+	 */
+	public String toString(ByteConverter converter, boolean dynamic){
 		if(converter==null){
 			converter=new ByteConverterHTTP();
 		}
-		return converter.toString(this);
+		return converter.toString(this, dynamic);
 	}
 
 	public ByteBuffer getBytes(boolean isDynamic) {

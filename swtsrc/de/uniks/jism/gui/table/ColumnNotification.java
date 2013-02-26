@@ -4,7 +4,6 @@ import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.widgets.TableItem;
-import org.sdmlib.serialization.IdMap;
 
 /*
 Copyright (c) 2012, Stefan Lindel
@@ -67,7 +66,7 @@ public class ColumnNotification extends Column{
 	public void setEditingSupport(EditingSupport value) {
 		this.editingsupport=value;
 	}
-	public EditingSupport getEditingSupport(TableComponent owner, TableViewer tableViewer, Column column, IdMap map) {
+	public EditingSupport getEditingSupport(TableComponent owner, TableViewer tableViewer, Column column) {
 		return this.editingsupport;
 	}
 	

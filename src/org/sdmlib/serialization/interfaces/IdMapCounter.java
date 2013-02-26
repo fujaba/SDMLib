@@ -43,12 +43,19 @@ public interface IdMapCounter {
 	 * @return the current sessionid
 	 */
 	public String getPrefixId();
+	
 	/**
 	 * Sets the splitter for The session id
 	 *
 	 * @param Character the new splitter character for the session id
 	 */
 	public void setSplitter(char splitter);
+	
+	/**
+	 * @return the current splitterString
+	 */
+	public char getSplitter();
+	
 	
 	/**
 	 * Gets the id.

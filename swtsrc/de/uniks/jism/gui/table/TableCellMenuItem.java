@@ -41,11 +41,13 @@ public class TableCellMenuItem implements Listener{
 	
 	public TableCellMenuItem(TableColumnView column, Menu parent){
 		this.column=column;
-		menuItem=new MenuItem(parent, SWT.CHECK);
 		Column columnConfig = column.getColumn();
-		menuItem.setText(columnConfig.getLabel());
-		menuItem.setSelection(columnConfig.isVisible());
-		menuItem.addListener(SWT.Selection, this);
+		if(columnConfig!=null){
+			menuItem=new MenuItem(parent, SWT.CHECK);
+			menuItem.setText(""+columnConfig.getLabel());
+			menuItem.setSelection(columnConfig.isVisible());
+			menuItem.addListener(SWT.Selection, this);
+		}
 	}
 	
 	@Override

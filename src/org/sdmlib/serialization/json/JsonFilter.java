@@ -131,9 +131,15 @@ public class JsonFilter extends IdMapFilter{
 			return false;
 		}
 		if (getExcusiveProperties() != null) {
+			String sessionIdMap = map.getPrefixSession();
 			for (String prop : getExcusiveProperties()) {
 				if (property.equalsIgnoreCase(prop)) {
 					return false;
+				}else if(prop.startsWith(""+sessionIdMap)){
+					String key = map.getKey(value);
+					if(prop.equals(key)){
+						return false;
+					}
 				}
 			}
 		}

@@ -255,8 +255,8 @@ public class ByteIdMap extends IdMap{
 			}
 		}
 		return msg;
-		
 	}
+	
 	public ByteItem encodeValue(Object value, ByteFilter filter) {
 		ByteEntity msgEntity = new ByteEntity();
 		if(msgEntity.setValues(value)){

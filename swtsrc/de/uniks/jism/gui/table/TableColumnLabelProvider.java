@@ -40,7 +40,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableColumnLabelProvider extends ColumnLabelProvider{
@@ -50,11 +49,9 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 	private Font font=null;
 	private Color backgroundColorActiv=null;
 	private Column column;
-	private IdMap map;
 	private TableColumnView owner;
 
-	public TableColumnLabelProvider(Column column, IdMap map, TableColumnView owner){
-		this.map=map;
+	public TableColumnLabelProvider(Column column, TableColumnView owner){
 		if(column.getBackgroundColor()!=null){
 			setBackgroundColor(column.getBackgroundColor());
 		}
@@ -81,7 +78,7 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
     	if(column.getCellValue()!=null){
     		return column.getCellValue();	
     	}
-		SendableEntityCreator creatorClass = map.getCreatorClass(element);
+		SendableEntityCreator creatorClass = owner.getMap().getCreatorClass(element);
 		if(Column.DATE.equalsIgnoreCase(column.getRegEx())){
 			if(creatorClass!=null){
 				Object value=creatorClass.getValue(element, column.getAttrName());
@@ -184,7 +181,7 @@ public class TableColumnLabelProvider extends ColumnLabelProvider{
 	
 	public String getToolTipText(Object element) {
 		if (column.getAltAttribute() != null) {
-			SendableEntityCreator creatorClass = map.getCreatorClass(element);
+			SendableEntityCreator creatorClass = owner.getMap().getCreatorClass(element);
 			if (creatorClass != null) {
 				String text = ""
 						+ creatorClass.getValue(element,

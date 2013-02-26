@@ -60,8 +60,6 @@ public class SDMLibSearchTableComponent extends SearchTableComponent
                e.printStackTrace();
             }
          }
-         createContent();
-
 	      final SendableEntityCreator rootCreatorClass = this.map.getCreatorClass(root);
 	      
 	      Object value = rootCreatorClass.getValue(root, property);

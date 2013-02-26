@@ -34,6 +34,7 @@ import org.sdmlib.serialization.bytes.ByteConverter;
 public interface ByteItem {
 	public String toString();
 	public String toString(ByteConverter converter);
+	public String toString(ByteConverter converter, boolean isDynamic);
 	public ByteBuffer getBytes(boolean isDynamic);
 	public int calcLength(boolean isDynamic);
 }

@@ -1,6 +1,6 @@
-package de.uniks.jism.gui.table.celledit;
+package de.uniks.jism.gui;
 /*
-Copyright (c) 2012, Stefan Lindel
+Copyright (c) 2013, Stefan Lindel
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -28,70 +28,58 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Table;
-import org.sdmlib.serialization.IdMap;
+import java.util.TreeMap;
+
+import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class DropDownCellEditor extends ComboBoxCellEditor implements CellEditorElement{
-	private EditField editField;
-	private SendableEntityCreator creator;
-	public DropDownCellEditor (){
-		
+
+public class TextItems implements SendableEntityCreator, PeerMessage {
+	public static final String PROPERTY_VALUE="value";
+	private TreeMap<String, String> values=new TreeMap<String, String>();
+	@Override
+	public Object getValue(Object entity, String attribute) {
+		return ((TextItems)entity).get(attribute);
 	}
 
-	public DropDownCellEditor(Table table, IdMap map, SendableEntityCreator creator) {
-		super(table, new String[]{});
-		this.creator = creator;
-		init(map);
+	@Override
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type) {
+		return ((TextItems)entity).set(attribute, value);
 	}
-	public void init(IdMap map) {
-		this.editField.createControl(EditField.FORMAT_COMBOX, map, creator);		
-	}
-	protected Control createControl(Composite parent) {
-		Control comboBox = super.createControl(parent);
-		editField=new EditField(this, parent);
-		editField.setEditField(comboBox);
-        return comboBox;
-    }
+	
 	
 	@Override
-	protected Object doGetValue() {
-		return editField.getText();
+	public Object get(String attribute) {
+		if(values.containsKey(attribute)){
+			return values.get(attribute);
+		}
+		return attribute;
+	}
+	
+	public String getText(String label){
+		if(values.containsKey(label)){
+			return values.get(label);
+		}
+		return label;		
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.TextCellEditor#doSetValue(java.lang.Object)
-	 */
 	@Override
-	protected void doSetValue(Object value) {
-		editField.doSetValue(value);
-	}
-
-	@Override
-	public void defaultSelection(SelectionEvent event) {
+	public boolean set(String attribute, Object value) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
-	public void keyRelease(KeyEvent event) {
+	public String[] getProperties() {
+		return new String[]{PROPERTY_VALUE};
+	}
+
+	@Override
+	public Object getSendableInstance(boolean prototyp) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-	@Override
-	public void onFocusLost() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public Object getEditorValue() {
-		return editField.getValue();
-	}
 }

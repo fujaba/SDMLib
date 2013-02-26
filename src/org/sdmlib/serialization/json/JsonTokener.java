@@ -1,10 +1,11 @@
 package org.sdmlib.serialization.json;
 
 import org.sdmlib.serialization.Entity;
-import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
 /*
@@ -45,7 +46,7 @@ public class JsonTokener extends Tokener{
 	}
 
 	@Override
-	public Object nextValue(BaseEntity creator) {
+	public Object nextValue(JSIMEntity creator) {
 		char c = nextClean();
 
 		switch (c) {
@@ -54,14 +55,14 @@ public class JsonTokener extends Tokener{
 			return nextString(c, false);
 		case '{':
 			back();
-			BaseEntity element = creator.getNewObject();
+			JSIMEntity element = creator.getNewObject();
 			if(element instanceof Entity){
 				this.parseToEntity((Entity)element);
 			}
 			return element;
 		case '[':
 			back();
-			EntityList elementList = creator.getNewArray();
+			BaseEntityList elementList = creator.getNewArray();
 			this.parseToEntity(elementList);
 			return elementList;
 		default:
@@ -151,7 +152,7 @@ public class JsonTokener extends Tokener{
 	}
 
 	@Override
-	public void parseToEntity(Entity entity) {
+	public void parseToEntity(BaseEntity entity) {
 		char c;
 		String key;
 
@@ -200,7 +201,7 @@ public class JsonTokener extends Tokener{
 	}
 
 	@Override
-	public void parseToEntity(EntityList entityList) {
+	public void parseToEntity(BaseEntityList entityList) {
 		if (nextClean() != '[') {
 			throw new TextParsingException("A JSONArray text must start with '['", this);
 		}

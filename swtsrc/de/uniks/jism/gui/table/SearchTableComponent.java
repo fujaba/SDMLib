@@ -55,25 +55,30 @@ public class SearchTableComponent extends TableComponent {
 		super(parent, style);
 	}
 
-	public void createContent(){
-		northComponents = new Composite(this, SWT.FILL);
-		northComponents.setLayoutData(GUIPosition.NORTH);
-		northComponents.setLayout(new GridLayout(3,false));
+	public void createContent(Composite owner){
+		boolean isInit=northComponents!=null;
+		if(!isInit){
+			northComponents = new Composite(this, SWT.FILL);
+			northComponents.setLayoutData(GUIPosition.NORTH);
+			northComponents.setLayout(new GridLayout(3,false));
+		}
 		
-		super.createContent();
-		
-		firstNorth=new Composite(northComponents, SWT.NONE);
-		firstNorth.setLayout(new RowLayout(SWT.HORIZONTAL));
-		
-		Label lblSearch = new Label(northComponents, SWT.NONE);
-		lblSearch.setText("Search:");
-		searchText = new Text(northComponents, SWT.BORDER | SWT.ICON_SEARCH | SWT.SEARCH);
-		
-		searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
-		
-		tableFilterView.setSearchText(searchText);
-		searchText.addModifyListener(tableFilterView);
+		super.createContent(owner);
+		if(!isInit){
+			firstNorth=new Composite(northComponents, SWT.NONE);
+			firstNorth.setLayout(new RowLayout(SWT.HORIZONTAL));
+			
+			Label lblSearch = new Label(northComponents, SWT.NONE);
+			
+			lblSearch.setText(getText("Search")+":");
+			searchText = new Text(northComponents, SWT.BORDER | SWT.ICON_SEARCH | SWT.SEARCH);
+			
+			searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+			
+			
+			tableFilterView.setSearchText(searchText);
+			searchText.addModifyListener(tableFilterView);
+		}
 	}
 
 	public void refreshNorthLayout(){

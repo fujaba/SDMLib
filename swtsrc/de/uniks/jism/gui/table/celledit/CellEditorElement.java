@@ -28,6 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.text.ParseException;
+
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -35,5 +37,5 @@ public interface CellEditorElement {
 	public void defaultSelection(SelectionEvent event);
 	public void keyRelease(KeyEvent event);
 	public void onFocusLost();
-	public Object getEditorValue();
+	public Object getEditorValue(boolean convert) throws ParseException;
 }

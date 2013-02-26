@@ -232,7 +232,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		this.stack.clear();
 		while (!this.value.isEnd()) {
 			if (this.value.stepPos(""+ITEMSTART, false, false)) {
-				XMLEntity tag=getEntity();
+				XMLEntity tag=getEntity(null);
 				result = findTag("", tag);
 			}
 			if (result != null && !(result instanceof String)) {
@@ -300,7 +300,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 			}
 		}
 		if(!empty&&exit){
-			String value=this.value.getPreviousString(start);
+			String value=this.value.substring(start, -1);
 			ReferenceObject refObject=null;
 			if("&".equals(newPrefix)){
 				refObject = this.stack.get(this.stack.size() - 1);
@@ -377,7 +377,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 						}
 					}
 					if(this.value.getCurrentChar()==ITEMSTART){
-						XMLEntity nextTag=getEntity();
+						XMLEntity nextTag=getEntity(null);
 						if(nextTag!=null && nextTag.getTag().length()>0){
 							myStack.add(nextTag.getTag());
 						}
@@ -396,11 +396,11 @@ public class XMLIdMap extends XMLSimpleIdMap {
 						int start = this.value.getIndex();
 						if (this.value.getCurrentChar() != ENDTAG) {
 							if (this.value.stepPos("=", false, false)) {
-								String key = this.value.getPreviousString(start);
+								String key = this.value.substring(start, -1);
 								this.value.skip(2);
 								start = this.value.getIndex();
 								if (this.value.stepPos("\"", false, true)) {
-									String value = this.value.getPreviousString(start);
+									String value = this.value.substring(start, -1);
 									this.value.next();
 									entityCreater.setValue(entity, prefix + key, value, IdMap.NEW);
 								}
@@ -422,7 +422,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 					this.value.next();
 					int start = this.value.getIndex();
 					this.value.stepPos(""+ITEMSTART, false, true);
-					String value= this.value.getPreviousString(start);
+					String value= this.value.substring(start, -1);
 					entityCreater.setValue(entity, prefix, value, IdMap.NEW);
 					this.value.stepPos(""+ITEMSTART, false, false);
 					this.value.stepPos(""+ITEMEND, false, false);
@@ -444,7 +444,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	private void parseChildren(String newPrefix, Object entity, String tag){
 		while (!this.value.isEnd()) {
 			if (stepEmptyPos(newPrefix, entity, tag)) {
-				XMLEntity nextTag=getEntity();
+				XMLEntity nextTag=getEntity(null);
 
 				if(nextTag != null ){
 					Object result = findTag(newPrefix, nextTag);

@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
-import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.layout.BorderLayout;
@@ -53,10 +53,10 @@ public class EntryEditor extends Composite{
 	}
 	
 
-	public void setEntry(BaseEntity entry){
+	public void setEntry(JSIMEntity entry){
 		setEntry(entry, null);
 	}
-	public void setEntry(BaseEntity entry, String idField){
+	public void setEntry(JSIMEntity entry, String idField){
 		if(entry instanceof Entity){
 			setEntity(null, (Entity)entry, null);
 			textComponente.setText(entry.toString(2));

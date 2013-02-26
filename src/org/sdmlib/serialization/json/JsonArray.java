@@ -35,7 +35,8 @@ import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
@@ -142,7 +143,7 @@ public class JsonArray extends EntityList{
 	 * 
 	 * @param Array of Elements.
 	 */
-	public JsonArray(BaseEntity... values) {
+	public JsonArray(JSIMEntity... values) {
 		for(int i=0;i<values.length;i++){
 			put(EntityUtil.wrap(values[i], this));
 		}
@@ -197,7 +198,7 @@ public class JsonArray extends EntityList{
 	 *            A Collection value.
 	 * @return this.
 	 */
-	public JsonArray put(Collection<?> value) {
+	public BaseEntityList put(Collection<?> value) {
 		super.put(new JsonArray(value));
 		return this;
 	}

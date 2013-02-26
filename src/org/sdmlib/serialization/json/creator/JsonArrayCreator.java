@@ -1,9 +1,6 @@
-package org.sdmlib.serialization.event.creator;
-import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.event.StyleFormat;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+package org.sdmlib.serialization.json.creator;
 /*
-Copyright (c) 2013, Stefan Lindel
+Copyright (c) 2012, Stefan Lindel
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -30,46 +27,30 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import org.sdmlib.serialization.interfaces.NoIndexCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonArray;
 
-public class StyleFormatCreator implements SendableEntityCreator {
-	/** The properties. */
-	private final String[] properties = new String[] { StyleFormat.PROPERTY_FONTFAMILY,  StyleFormat.PROPERTY_FONTSIZE,  StyleFormat.PROPERTY_BOLD,  StyleFormat.PROPERTY_ITALIC };
+public class JsonArrayCreator implements SendableEntityCreator, NoIndexCreator{
+	private final String[] properties= new String[]{"VALUE"};
 	@Override
 	public String[] getProperties() {
-		return properties;
+		return this.properties;
 	}
 
 	@Override
 	public Object getSendableInstance(boolean prototyp) {
-		return new StyleFormat();
+		return new JsonArray();
 	}
 
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		return ((StyleFormat)entity).get(attribute);
+		return entity.toString();
 	}
 
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value,
-			String type) {
-		return ((StyleFormat)entity).set(attribute, value);
+	public boolean setValue(Object entity, String attribute, Object value, String typ) {
+		return ((JsonArray)entity).setAllValue((String) value);
 	}
 
-	public StyleFormat getNewFormat(StyleFormat format, String tag, Tokener value) {
-		if("b".equalsIgnoreCase(tag)){
-			if(!format.isBold()){
-				StyleFormat newFormat = clone(format);
-				newFormat.setBold(true);
-				return newFormat;
-			}
-		}
-		return null;
-	}
-	public StyleFormat clone(StyleFormat format){
-		StyleFormat newFormat = (StyleFormat) getSendableInstance(false);
-		for(String property : getProperties()){
-			newFormat.set(property, format.get(property));
-		}
-		return newFormat;
-	}
 }

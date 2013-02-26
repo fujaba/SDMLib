@@ -28,10 +28,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import org.sdmlib.serialization.Entity;
-import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class XMLTokener extends Tokener{
 
@@ -45,7 +46,7 @@ public class XMLTokener extends Tokener{
      * @return An object.
      */
 	@Override
-	public Object nextValue(BaseEntity creator) {
+	public Object nextValue(JSIMEntity creator) {
         char c = nextClean();
         
         switch (c) {
@@ -54,7 +55,7 @@ public class XMLTokener extends Tokener{
             return nextString(c, false);
         case '<':
             back();
-            BaseEntity element = creator.getNewObject();
+            JSIMEntity element = creator.getNewObject();
             if(element instanceof Entity){
             	parseToEntity((Entity)element);
             }
@@ -67,7 +68,7 @@ public class XMLTokener extends Tokener{
     }
 	
 	@Override
-	public void parseToEntity(Entity entity) {
+	public void parseToEntity(BaseEntity entity) {
         char c;
         
         if (nextClean() != '<') {
@@ -95,7 +96,7 @@ public class XMLTokener extends Tokener{
             	if(getCurrentChar()>' '||nextClean()>' '){
             		if(getCurrentChar()=='<'){
                 		child = (XMLEntity) xmlEntity.getNewObject();
-                		parseToEntity(child);
+                		parseToEntity((BaseEntity)child);
                 		xmlEntity.addChild(child);
             		}else{
             			xmlEntity.setValue(nextString('<', false));
@@ -111,7 +112,7 @@ public class XMLTokener extends Tokener{
             		back();
             		back();
             		child = (XMLEntity) xmlEntity.getNewObject();
-            		parseToEntity(child);
+            		parseToEntity((BaseEntity)child);
             		xmlEntity.addChild(child);
             	}
             }else if(c=='/'){
@@ -135,7 +136,7 @@ public class XMLTokener extends Tokener{
 	}
 
 	@Override
-	public void parseToEntity(EntityList entityList) {
+	public void parseToEntity(BaseEntityList entityList) {
 		// Do Nothing
 	}
 }
