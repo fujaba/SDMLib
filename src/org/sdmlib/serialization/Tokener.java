@@ -285,7 +285,7 @@ public abstract class Tokener {
     public Object nextValue(JSIMEntity creator) {
     	char c = nextClean();
     	StringBuilder sb = new StringBuilder();
-	    while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
+	    while (c >= ' ' && ",]}/\\\"[{;=#".indexOf(c) < 0) {
 	        sb.append(c);
 	        c = next();
 	    }

@@ -47,6 +47,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       scenario.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
          DONE, "zuendorf", "28.05.2012 23:51:42", 4, 0);
       
+      
       scenario.add("Step 1: We build a generic class model for object structures: ");
 
       ClassModel genericModel = new ClassModel();
@@ -92,6 +93,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
      
       genericModel.generate("src", "srchelpers");
       
+      
       //====================================================================================================
       scenario.add("Step 2: We just build our example object structure with generic objects: ");
       
@@ -128,10 +130,12 @@ public class GenericObjectsTest implements PropertyChangeInterface
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("go");
       scenario.addObjectDiag(jsonIdMap, graph);
 
+      
       //====================================================================================================
       scenario.add("Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: ");
       
       scenario.addGenericObjectDiag("specificgenericobjectdiag", graph);
+      
       
       //====================================================================================================
       scenario.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
@@ -185,7 +189,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
       scenario.add("New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model ",
          IMPLEMENTATION, "zuendorf", "05.08.2012 15:43:42", 4, 0);
       
-      GenericGraph gengraph = new Specific2Generic().convert(de.kassel.roombook.creators.CreatorCreator.createIdMap("spec2gen"), specificBuilding);
+      GenericGraph gengraph = new Specific2Generic()
+      .convert(de.kassel.roombook.creators.CreatorCreator.createIdMap("spec2gen"), specificBuilding);
       
       scenario.addObjectDiag(CreatorCreator.createIdMap("go"), gengraph);
 

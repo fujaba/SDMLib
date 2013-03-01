@@ -14,6 +14,7 @@ public class EdgeCreator extends EntityFactory
       Edge.PROPERTY_TGT,
       Edge.PROPERTY_NAME,
       GraphComponent.PROPERTY_TEXT,
+      GraphComponent.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -50,6 +51,7 @@ public class EdgeCreator extends EntityFactory
       ((Edge) entity).removeYou();
    }
 }
+
 
 
 

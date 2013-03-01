@@ -29,6 +29,11 @@ public class EntityFactory implements SendableEntityCreator
       return null;
    }
 
+   public Object create()
+   {
+      return getSendableInstance(false);
+   }
+   
    @Override
    public Object getValue(Object entity, String attribute)
    {
@@ -40,6 +45,5 @@ public class EntityFactory implements SendableEntityCreator
          String type)
    {
       return false;
-   }
-   
+   }   
 }

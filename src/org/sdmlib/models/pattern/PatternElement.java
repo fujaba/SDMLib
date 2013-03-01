@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -182,6 +183,18 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       setPattern(value);
       return this;
    }
+   
+   public Pattern getTopPattern()
+   {
+      PatternElement result = this;
+      
+      while (result.getPattern() != null)
+      {
+         result = result.getPattern();
+      }
+      
+      return (Pattern) result;
+   }
 
 
    public boolean findNextMatch()
@@ -307,5 +320,30 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       setPatternObjectName(value);
       return (PEC) this;
    } 
+   
+   
+   public String valueSetString(Object value)
+   {
+      StringList valueList = new StringList();
+      for (Object elem : (Iterable) value)
+      {
+         valueList.add(getTopPattern().getJsonIdMap().getId(elem));
+      }
+      String valueSet = "{" + valueList.concat(", ") + "}";
+      return valueSet;
+   }
+
+
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

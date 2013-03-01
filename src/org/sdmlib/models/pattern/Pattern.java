@@ -24,9 +24,12 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.JsonToImg;
@@ -40,7 +43,6 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";
    public static final String BOUND = "bound";
-
    
    private JsonIdMap jsonIdMap;
    
@@ -69,6 +71,12 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    public Pattern startCreate()
    {
       this.setModifier(Pattern.CREATE);
+      return this;
+   }
+   
+   public Pattern endCreate()
+   {
+      this.setModifier(null);
       return this;
    }
    
@@ -152,6 +160,8 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    {
       restartSearchAtIndex0 = true;
       
+      setHasMatch(true);
+      
       for (PatternElement pe : this.getElements())
       {
          pe.resetSearch();
@@ -196,6 +206,21 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
       {
          return getCurrentSubPattern();
+      }
+
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         return getDebugMode();
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
+
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         return getTrace();
       }
       
       return null;
@@ -248,6 +273,24 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
          return true;
       }
 
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         setDebugMode(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         setTrace((StringBuilder) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -257,6 +300,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    public void removeYou()
    {
       removeAllFromElements();
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -308,6 +352,11 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
 
                value.withPattern(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
+               
+               if (value instanceof PatternObject || value instanceof Pattern)
+               {
+                  getTopPattern().incrementPatternObjectCount();
+               }
             }
 
             if (value instanceof Pattern)
@@ -466,7 +515,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       {
          JsonArray jsonArray = jsonIdMap.toJsonArray(matchedObjects.iterator().next()); 
       
-         JsonToImg.fillNodeAndEdgeBuilders(jsonArray, nodeBuilder, edgeBuilder);
+         JsonToImg.fillNodeAndEdgeBuilders(jsonArray, nodeBuilder, edgeBuilder, false);
       }
       
       fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
@@ -771,5 +820,128 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       setCurrentSubPattern(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_DEBUGMODE = "debugMode";
+   
+   private int debugMode;
+
+   public int getDebugMode()
+   {
+      return this.debugMode;
+   }
+   
+   public void setDebugMode(int value)
+   {
+      if (this.debugMode != value)
+      {
+         int oldValue = this.debugMode;
+         this.debugMode = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEBUGMODE, oldValue, value);
+         
+         if (value >= R.DEBUG_ON)
+         {
+            setTrace(new StringBuilder());
+         }
+      }
+   }
+   
+   public Pattern withDebugMode(int value)
+   {
+      setDebugMode(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getDebugMode());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   private int patternObjectCount = 0;
+   
+   public int getPatternObjectCount()
+   {
+      return patternObjectCount;
+   }
+   
+   public void incrementPatternObjectCount()
+   {
+      patternObjectCount++;
+   }
+   private LinkedHashSet<String> variablesAlreadyInTrace;
+   
+   public LinkedHashSet<String> getVariablesAlreadyInTrace()
+   {
+      if (variablesAlreadyInTrace == null)
+      {
+         variablesAlreadyInTrace = new LinkedHashSet<String>();
+      }
+      return variablesAlreadyInTrace;
+   }
+   
+   public static final String PROPERTY_TRACE = "trace";
+   
+   private StringBuilder trace;
+
+   public StringBuilder getTrace()
+   {
+      return this.trace;
+   }
+   
+   public void setTrace(StringBuilder value)
+   {
+      if (this.trace != value)
+      {
+         StringBuilder oldValue = this.trace;
+         this.trace = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TRACE, oldValue, value);
+      }
+   }
+   
+   public Pattern withTrace(StringBuilder value)
+   {
+      setTrace(value);
+      return this;
+   } 
+   
+   int traceLength = 0;
+   
+   public Pattern addLogMsg(String msg)
+   {
+      if (debugMode >= R.DEBUG_ON)
+      {
+         if (trace == null)
+         {
+            trace = new StringBuilder();
+            traceLength = 0;
+         }
+         
+         traceLength++;
+         String line = ""  + traceLength + ": " + msg + "\n";
+         trace.append(line);
+      
+         if (debugMode >= R.TRACE_ON)
+         {
+            System.out.print(line);
+         }
+         
+         if (traceLength >= 200)
+         {
+            boolean stop = true;
+         }
+      }
+      
+      return this;
+   }
 }
 

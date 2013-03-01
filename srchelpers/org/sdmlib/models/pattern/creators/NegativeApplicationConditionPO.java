@@ -4,6 +4,13 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.creators.PatternElementPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.creators.NegativeApplicationConditionPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.models.pattern.creators.PatternPO;
 
 public class NegativeApplicationConditionPO extends PatternObject
 {
@@ -147,7 +154,139 @@ public class NegativeApplicationConditionPO extends PatternObject
       return null;
    }
    
+   public NegativeApplicationConditionPO hasDebugMode(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(NegativeApplicationCondition.PROPERTY_DEBUGMODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getDebugMode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) getCurrentMatch()).getDebugMode();
+      }
+      return 0;
+   }
+   
+   public NegativeApplicationConditionPO withDebugMode(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((NegativeApplicationCondition) getCurrentMatch()).setDebugMode(value);
+      }
+      return this;
+   }
+   
+   public PatternElementPO hasElements()
+   {
+      PatternElementPO result = new PatternElementPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Pattern.PROPERTY_ELEMENTS, result);
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionPO hasElements(PatternElementPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_ELEMENTS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public PatternElementSet getElements()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getElements();
+      }
+      return null;
+   }
+
+   public PatternPO hasPattern()
+   {
+      PatternPO result = new PatternPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionPO hasPattern(PatternPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+
+   public NegativeApplicationConditionPO hasTrace(StringBuilder value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(NegativeApplicationCondition.PROPERTY_TRACE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public StringBuilder getTrace()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) getCurrentMatch()).getTrace();
+      }
+      return null;
+   }
+   
+   public NegativeApplicationConditionPO withTrace(StringBuilder value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((NegativeApplicationCondition) getCurrentMatch()).setTrace(value);
+      }
+      return this;
+   }
+   
 }
+
+
 
 
 

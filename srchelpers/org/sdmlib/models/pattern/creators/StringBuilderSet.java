@@ -19,66 +19,21 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.helloworld.creators;
+package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.examples.helloworld.GreetingMessage;
+import java.lang.StringBuilder;
 import org.sdmlib.models.modelsets.StringList;
 
-public class GreetingMessageSet extends LinkedHashSet<GreetingMessage>
+public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getText()
-   {
-      StringList result = new StringList();
-      
-      for (GreetingMessage obj : this)
-      {
-         result.add(obj.getText());
-      }
-      
-      return result;
-   }
-
-   public GreetingMessageSet withText(String value)
-   {
-      for (GreetingMessage obj : this)
-      {
-         obj.withText(value);
-      }
-      
-      return this;
-   }
-
-   public GreetingSet getGreeting()
-   {
-      GreetingSet result = new GreetingSet();
-      
-      for (GreetingMessage obj : this)
-      {
-         result.add(obj.getGreeting());
-      }
-      
-      return result;
-   }
-   public GreetingMessageSet withGreeting(Greeting value)
-   {
-      for (GreetingMessage obj : this)
-      {
-         obj.withGreeting(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (GreetingMessage elem : this)
+      for (StringBuilder elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -89,21 +44,20 @@ public class GreetingMessageSet extends LinkedHashSet<GreetingMessage>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.GreetingMessage";
+      return "java.lang.StringBuilder";
    }
 
 
-   public GreetingMessageSet with(GreetingMessage value)
+   public StringBuilderSet with(StringBuilder value)
    {
       this.add(value);
       return this;
    }
    
-   public GreetingMessageSet without(GreetingMessage value)
+   public StringBuilderSet without(StringBuilder value)
    {
       this.remove(value);
       return this;
    }
 }
-
 

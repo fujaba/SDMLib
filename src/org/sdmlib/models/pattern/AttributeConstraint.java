@@ -97,6 +97,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    @Override
    public void resetSearch()
    {
+      this.setHasMatch(false);
       this.setHostGraphSrcObject(null);
    }
 
@@ -149,6 +150,11 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
       {
          return getPatternObjectName();
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
       }
       
       return null;
@@ -207,6 +213,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -226,6 +238,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    public void removeYou()
    {
       setSrc(null);
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -369,5 +382,16 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
 
    
    public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet();
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getAttrName());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

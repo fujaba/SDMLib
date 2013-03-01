@@ -107,6 +107,11 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
       {
          return getPatternObjectName();
       }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
       
       return null;
    }
@@ -146,6 +151,12 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -165,6 +176,7 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
    public void removeYou()
    {
       setPatternObject(null);
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -227,5 +239,15 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
       withPatternObject(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

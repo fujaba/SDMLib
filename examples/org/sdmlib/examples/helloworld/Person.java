@@ -180,5 +180,14 @@ public class Person implements PropertyChangeInterface
       withGreeting(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
+
 }
 

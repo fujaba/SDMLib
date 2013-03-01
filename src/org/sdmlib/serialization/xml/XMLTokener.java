@@ -80,7 +80,7 @@ public class XMLTokener extends Tokener{
         XMLEntity xmlEntity=(XMLEntity) entity;
         StringBuilder sb = new StringBuilder();
         c = nextClean();
-        while (c >= ' ' && ",:]>/\\\"<;=# ".indexOf(c) < 0) {
+        while (c >= ' ' && ",]>/\\\"<;=# ".indexOf(c) < 0) {
             sb.append(c);
             c = next();
         }
@@ -93,8 +93,9 @@ public class XMLTokener extends Tokener{
             if(c==0){
         		lExit=true;
             }else if(c=='>'){
-            	if(getCurrentChar()>' '||nextClean()>' '){
-            		if(getCurrentChar()=='<'){
+            	if(nextClean()>' '){
+            		back();
+            	   if(getCurrentChar()=='<'){
                 		child = (XMLEntity) xmlEntity.getNewObject();
                 		parseToEntity((BaseEntity)child);
                 		xmlEntity.addChild(child);
@@ -119,21 +120,22 @@ public class XMLTokener extends Tokener{
             	next();
             	lExit=true;
             }else{
-                back();
-                String key = nextValue(xmlEntity).toString();
-                if(key!=null){
-                	// The key is followed by ':'. We will also tolerate '=' or '=>'.
-		            c = nextClean();
-		            if (c == '=') {
-		                if (next() != '>') {
-		                    back();
-		                }
-		            }
-		            xmlEntity.put(key, nextValue(xmlEntity));
-	            }
+            back();
+            String key = nextValue(xmlEntity).toString();
+            if(key!=null){
+               // The key is followed by ':'. We will also tolerate '=' or '=>'.
+               c = nextClean();
+               if (c == '=') {
+                  if (next() != '>') {
+                     back();
+                  }
+               }
+               Object nv = nextValue(xmlEntity);
+               xmlEntity.put(key, nv);
             }
-        }		
-	}
+         }
+      }		
+   }
 
 	@Override
 	public void parseToEntity(BaseEntityList entityList) {

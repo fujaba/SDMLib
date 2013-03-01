@@ -20,6 +20,7 @@ public class PatternObjectCreator extends EntityFactory
       PatternObject.PROPERTY_PATTERNOBJECTNAME,
       PatternObject.PROPERTY_DESTROYELEM,
       PatternElement.PROPERTY_DOALLMATCHES,
+      PatternObject.PROPERTY_PONAME,
    };
    
    public String[] getProperties()
@@ -56,6 +57,7 @@ public class PatternObjectCreator extends EntityFactory
       ((PatternObject) entity).removeYou();
    }
 }
+
 
 
 

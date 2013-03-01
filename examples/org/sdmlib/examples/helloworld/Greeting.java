@@ -251,5 +251,14 @@ public class Greeting implements PropertyChangeInterface
       setText(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 

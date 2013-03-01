@@ -645,5 +645,16 @@ public class GenericObject implements PropertyChangeInterface
    {
       return this.createOutgoingLinks().withSrcLabel(srcLabel).withTgtLabel(tgtLabel).withTgt(tgt);
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getType());
+      _.append(" ").append(this.getIcon());
+      return _.substring(1);
+   }
+
 }
 

@@ -18,6 +18,7 @@ public class NodeCreator extends EntityFactory
       GraphComponent.PROPERTY_TEXT,
       Node.PROPERTY_LINKSTO,
       Node.PROPERTY_LINKSFROM,
+      GraphComponent.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -54,6 +55,7 @@ public class NodeCreator extends EntityFactory
       ((Node) entity).removeYou();
    }
 }
+
 
 
 

@@ -149,11 +149,13 @@ public class Specific2Generic
 
          if (multi)
          {
-            creatorClass.setValue(specObj, attrName, specTgtObject, JsonIdMap.REMOVE);
+            creatorClass.setValue(specObj, attrName + JsonIdMap.REMOVE, specTgtObject, "");
+            creatorClass.setValue(specObj, attrName, specTgtObject, "");
          }
          else
          {
             creatorClass.setValue(specObj, attrName, null, null);
+            creatorClass.setValue(specObj, attrName, specTgtObject, null);
          }
          
          if (changeListener.firstPropName.compareTo(attrName) <= 0)

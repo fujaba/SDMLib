@@ -87,7 +87,7 @@ public class HelloWorldTTC2011
       
       scenario.add("For completeness just the host graph:");
 
-      scenario.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      scenario.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
       
       int noOfMatches = p.allMatches();
       
@@ -295,7 +295,7 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph, true);
       
       //==========================================================================
       
@@ -891,7 +891,8 @@ public class HelloWorldTTC2011
 
    private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Scenario scenario)
    {
-      GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -951,7 +952,8 @@ public class HelloWorldTTC2011
    
    private Graph simpleMigrationByGenericGraph(Graph origGraph, Scenario scenario)
    {
-      GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
       scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       

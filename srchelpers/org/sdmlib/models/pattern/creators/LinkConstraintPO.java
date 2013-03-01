@@ -3,6 +3,12 @@ package org.sdmlib.models.pattern.creators;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.creators.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.LinkConstraintPO;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.creators.PatternObjectPO;
 
 public class LinkConstraintPO extends PatternObject
 {
@@ -176,7 +182,107 @@ public class LinkConstraintPO extends PatternObject
       return null;
    }
    
+   public PatternPO hasPattern()
+   {
+      PatternPO result = new PatternPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public LinkConstraintPO hasPattern(PatternPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+
+   public PatternObjectPO hasTgt()
+   {
+      PatternObjectPO result = new PatternObjectPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternLink.PROPERTY_TGT, result);
+      
+      return result;
+   }
+
+   public LinkConstraintPO hasTgt(PatternObjectPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternLink.PROPERTY_TGT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public PatternObject getTgt()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) this.getCurrentMatch()).getTgt();
+      }
+      return null;
+   }
+
+   public PatternObjectPO hasSrc()
+   {
+      PatternObjectPO result = new PatternObjectPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternLink.PROPERTY_SRC, result);
+      
+      return result;
+   }
+
+   public LinkConstraintPO hasSrc(PatternObjectPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternLink.PROPERTY_SRC)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public PatternObject getSrc()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternLink) this.getCurrentMatch()).getSrc();
+      }
+      return null;
+   }
+
 }
+
 
 
 

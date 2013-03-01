@@ -25,12 +25,15 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
@@ -60,6 +63,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);
             this.setHasMatch(true);
+            
+            if (this.getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            {
+               String shortClassName = CGUtil.shortClassName(className);
+               
+               this.getTopPattern().addLogMsg("" + getLHSPatternObjectName() + " = new " + shortClassName + "(); // " + getPattern().getJsonIdMap().getId(sendableInstance));
+            }
+
             return true;
          }
       }
@@ -104,6 +115,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
             resultStat = true;
             
+            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            {
+               String tgtVar = getLHSPatternObjectName();
+               getTopPattern().addLogMsg(tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
+                  + getTopPattern().getJsonIdMap().getId(obj) + " " + obj + " <- " + valueSetString(this.getCandidates()));
+            }
+            
             break;
          }
       }
@@ -131,6 +149,25 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    
    
    
+   public String getLHSPatternObjectName()
+   {
+      String lhsName = getPatternObjectName();
+      if (getPattern() != null)
+      {
+         LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();
+         if ( ! variablesAlreadyInTrace.contains(lhsName))
+         {
+            variablesAlreadyInTrace.add(lhsName);
+            lhsName = this.getCurrentMatch().getClass().getSimpleName() + " " + lhsName;
+         }
+      }
+      
+      return lhsName;
+   }
+
+
+
+
    @Override
    public void resetSearch()
    {
@@ -141,6 +178,14 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    public POC startCreate()
    {
       this.getPattern().startCreate();
+      
+      return (POC) this;
+   }
+
+
+   public POC endCreate()
+   {
+      this.getPattern().endCreate();
       
       return (POC) this;
    }
@@ -184,6 +229,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
       
       this.getPattern().addToElements(optionalSubPattern);
+      
+      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      {
+         optionalSubPattern.setPatternObjectName("o" + getTopPattern().getPatternObjectCount());
+      }
       
       return (POC) this;
    }
@@ -275,6 +325,16 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return getPatternObjectName();
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
+
+      if (PROPERTY_PONAME.equalsIgnoreCase(attrName))
+      {
+         return getPoName();
+      }
+
       return super.get(attrName);
    }
 
@@ -361,6 +421,18 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
+      if (PROPERTY_PONAME.equalsIgnoreCase(attrName))
+      {
+         setPoName((String) value);
+         return true;
+      }
+
       return super.set(attrName, value);
    }
 
@@ -373,6 +445,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       removeAllFromOutgoing();
       removeAllFromAttrConstraints();
       setDestroyElem(null);
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -791,6 +864,45 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       DestroyObjectElem value = new DestroyObjectElem();
       withDestroyElem(value);
       return value;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getPoName());
+      return _.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PONAME = "poName";
+   
+   private String poName;
+
+   public String getPoName()
+   {
+      return this.poName;
+   }
+   
+   public void setPoName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.poName, value))
+      {
+         String oldValue = this.poName;
+         this.poName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PONAME, oldValue, value);
+      }
+   }
+   
+   public PatternObject withPoName(String value)
+   {
+      setPoName(value);
+      return this;
    } 
 }
 

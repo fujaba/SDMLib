@@ -371,5 +371,15 @@ public class GenericLink implements PropertyChangeInterface
       withGraph(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTgtLabel());
+      _.append(" ").append(this.getSrcLabel());
+      return _.substring(1);
+   }
+
 }
 

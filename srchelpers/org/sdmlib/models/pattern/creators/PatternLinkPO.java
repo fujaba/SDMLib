@@ -4,6 +4,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.PatternPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PatternLinkPO extends PatternObject
 {
@@ -273,7 +276,41 @@ public class PatternLinkPO extends PatternObject
       return null;
    }
    
+   public PatternPO hasPattern()
+   {
+      PatternPO result = new PatternPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public PatternLinkPO hasPattern(PatternPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+
 }
+
 
 
 

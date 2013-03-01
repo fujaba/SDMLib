@@ -4,6 +4,7 @@ import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
@@ -180,7 +181,41 @@ public class EdgePO extends PatternObject<EdgePO, Edge>
       return this;
    }
    
+   public GraphPO hasParent()
+   {
+      GraphPO result = new GraphPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
+
+   public EdgePO hasParent(GraphPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(GraphComponent.PROPERTY_PARENT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Graph getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GraphComponent) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+
 }
+
 
 
 

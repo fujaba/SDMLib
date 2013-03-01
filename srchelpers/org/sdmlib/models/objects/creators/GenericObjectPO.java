@@ -6,18 +6,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
-public class GenericObjectPO extends PatternObject
+public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
-   public GenericObjectPO startNAC()
-   {
-      return (GenericObjectPO) super.startNAC();
-   }
-   
-   public GenericObjectPO endNAC()
-   {
-      return (GenericObjectPO) super.endNAC();
-   }
-   
    public GenericObjectPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
@@ -191,11 +181,6 @@ public class GenericObjectPO extends PatternObject
          return ((GenericObject) this.getCurrentMatch()).getGraph();
       }
       return null;
-   }
-   
-   public GenericObject getCurrentMatch()
-   {
-      return (GenericObject) super.getCurrentMatch();
    }
    
    public GenericObjectSet allMatches()

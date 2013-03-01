@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2013 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
@@ -7,6 +28,10 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.PatternSet;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -130,7 +155,139 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (NegativeApplicationCondition elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.pattern.NegativeApplicationCondition";
+   }
+
+
+   public NegativeApplicationConditionSet with(NegativeApplicationCondition value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public NegativeApplicationConditionSet without(NegativeApplicationCondition value)
+   {
+      this.remove(value);
+      return this;
+   }
+   public intList getDebugMode()
+   {
+      intList result = new intList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getDebugMode());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withDebugMode(int value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setDebugMode(value);
+      }
+      
+      return this;
+   }
+
+   public PatternElementSet getElements()
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.addAll(obj.getElements());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withElements(PatternElement value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withElements(value);
+      }
+      
+      return this;
+   }
+
+   public NegativeApplicationConditionSet withoutElements(PatternElement value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withoutElements(value);
+      }
+      
+      return this;
+   }
+
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withPattern(Pattern value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
+   }
+
+   public StringBuilderSet getTrace()
+   {
+      StringBuilderSet result = new StringBuilderSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getTrace());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withTrace(StringBuilder value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setTrace(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
 

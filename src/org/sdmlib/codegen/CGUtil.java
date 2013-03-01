@@ -54,6 +54,13 @@ public class CGUtil
       }
    }
    
+   public static StringBuilder readFile(String fileName)
+   {
+      File file = new File(fileName);
+      StringBuilder stringBuilder = readFile(file);
+      return stringBuilder;
+   }
+   
    public static StringBuilder readFile(File file)
    {
       StringBuilder result = new StringBuilder();
@@ -192,6 +199,28 @@ public class CGUtil
       }
       
       return result.toString();
+   }
+
+   public static String baseClassName(String typeName, String suffix)
+   {
+      if (typeName.endsWith(suffix))
+      {
+         String className = CGUtil.shortClassName(typeName);
+         
+         String baseClassName = className.substring(0, className.length() - suffix.length());
+         
+         
+         String packageName = packageName(typeName);
+         
+         if (packageName.endsWith(".creators"))
+         {
+            packageName = packageName(packageName);
+            
+            return packageName + "." + baseClassName;
+         }
+         
+      }
+      return null;
    }
 
 }

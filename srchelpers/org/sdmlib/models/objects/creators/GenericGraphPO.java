@@ -4,18 +4,8 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
-public class GenericGraphPO extends PatternObject
+public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
 {
-   public GenericGraphPO startNAC()
-   {
-      return (GenericGraphPO) super.startNAC();
-   }
-   
-   public GenericGraphPO endNAC()
-   {
-      return (GenericGraphPO) super.endNAC();
-   }
-   
    public GenericGraphSet allMatches()
    {
       GenericGraphSet matches = new GenericGraphSet();

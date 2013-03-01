@@ -21,7 +21,12 @@
    
 package org.sdmlib.models.pattern;
 
+
+import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -35,10 +40,28 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
       {
          // last time this subpattern has run backward thus we run forward now
          // thus some earlier pattern elements have been rematched.
-         // check the NAC again
+         // check the subpattern / NAC again
          resetSearch();
          
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            getTopPattern().addLogMsg("// (re)startSubPattern " + getPatternObjectName() + ";");
+         }
+         
          boolean nacHasMatch = findMatch();
+         
+         if (getDoAllMatches())
+         {
+            while (getHasMatch())
+            {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  getTopPattern().addLogMsg("// " + getPatternObjectName() + " allMatches?");
+               }
+               
+               findMatch();
+            }
+         }
          
          // next time backtrack
          setMatchForward(false);
@@ -97,6 +120,21 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
       {
          return getCurrentSubPattern();
       }
+
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         return getDebugMode();
+      }
+
+      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         return getElements();
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
       
       return null;
    }
@@ -142,6 +180,30 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
          return true;
       }
 
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         setDebugMode(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         addToElements((PatternElement) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromElements((PatternElement) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -160,6 +222,8 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
    
    public void removeYou()
    {
+      removeAllFromElements();
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -191,5 +255,16 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
       setMatchForward(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getDebugMode());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

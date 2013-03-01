@@ -337,6 +337,15 @@ public class Scenario
       steps.add(imgLink);
    }
 
+   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
+   {
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+      
+      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, omitRoot);
+      
+      steps.add(imgLink);
+   }
+
    public void addObjectDiag(JsonIdMap jsonIdMap, Object root, JsonFilter filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);

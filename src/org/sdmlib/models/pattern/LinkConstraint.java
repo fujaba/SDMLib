@@ -21,12 +21,19 @@
    
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.pattern.PatternLink;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
+
+import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 
 public class LinkConstraint extends PatternLink implements PropertyChangeInterface
 {
@@ -55,6 +62,13 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
+            
+            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            {
+               getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
+                  + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
+            }
+
             return true;
          }
       }
@@ -168,6 +182,21 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       {
          return getPatternObjectName();
       }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
+
+      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         return getTgt();
+      }
+
+      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         return getSrc();
+      }
       
       return super.get(attrName);
    }
@@ -213,6 +242,24 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
+      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         setTgt((PatternObject) value);
+         return true;
+      }
+
+      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         setSrc((PatternObject) value);
+         return true;
+      }
+
       return super.set(attrName, value);
    }
 
@@ -231,8 +278,22 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    
    public void removeYou()
    {
+      setPattern(null);
+      setTgt(null);
+      setSrc(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTgtRoleName());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

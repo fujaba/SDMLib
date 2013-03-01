@@ -22,6 +22,7 @@
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -110,6 +111,21 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       {
          return getCurrentSubPattern();
       }
+
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         return getDebugMode();
+      }
+
+      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         return getElements();
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
       
       return null;
    }
@@ -149,6 +165,30 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          return true;
       }
 
+      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
+      {
+         setDebugMode(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         addToElements((PatternElement) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromElements((PatternElement) value);
+         return true;
+      }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -157,6 +197,8 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    
    public void removeYou()
    {
+      removeAllFromElements();
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -170,5 +212,16 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    {
       return listeners;
    }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getDebugMode());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

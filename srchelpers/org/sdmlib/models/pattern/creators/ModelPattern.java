@@ -15,6 +15,8 @@ import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.serialization.json.creators.JsonIdMapPO;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
 
+import java.lang.StringBuilder;
+
 public class ModelPattern extends Pattern
 {
    public ModelPattern()
@@ -316,7 +318,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public StringBuilderPO hasElementStringBuilderPO()
+   {
+      StringBuilderPO value = new StringBuilderPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public StringBuilderPO hasElementStringBuilderPO(StringBuilder hostGraphObject)
+   {
+      StringBuilderPO value = new StringBuilderPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

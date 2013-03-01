@@ -1,9 +1,34 @@
+/*
+   Copyright (c) 2013 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 
@@ -141,6 +166,138 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (OptionalSubPattern elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.models.pattern.OptionalSubPattern";
+   }
+
+
+   public OptionalSubPatternSet with(OptionalSubPattern value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public OptionalSubPatternSet without(OptionalSubPattern value)
+   {
+      this.remove(value);
+      return this;
+   }
+   public intList getDebugMode()
+   {
+      intList result = new intList();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         result.add(obj.getDebugMode());
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet withDebugMode(int value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.setDebugMode(value);
+      }
+      
+      return this;
+   }
+
+   public PatternElementSet getElements()
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         result.addAll(obj.getElements());
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet withElements(PatternElement value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.withElements(value);
+      }
+      
+      return this;
+   }
+
+   public OptionalSubPatternSet withoutElements(PatternElement value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.withoutElements(value);
+      }
+      
+      return this;
+   }
+
+   public PatternSet getPattern()
+   {
+      PatternSet result = new PatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         result.add(obj.getPattern());
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet withPattern(Pattern value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.withPattern(value);
+      }
+      
+      return this;
+   }
+
+   public StringBuilderSet getTrace()
+   {
+      StringBuilderSet result = new StringBuilderSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         result.add(obj.getTrace());
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet withTrace(StringBuilder value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.setTrace(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 

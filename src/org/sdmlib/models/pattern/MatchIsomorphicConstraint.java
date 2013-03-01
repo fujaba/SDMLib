@@ -113,6 +113,11 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       {
          return getPatternObjectName();
       }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
       
       return null;
    }
@@ -146,6 +151,12 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -164,8 +175,19 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
    
    public void removeYou()
    {
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

@@ -213,6 +213,7 @@ public class Node extends GraphComponent implements PropertyChangeInterface
       setCopy(null);
       removeAllFromLinksTo();
       removeAllFromLinksFrom();
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -823,5 +824,15 @@ public class Node extends GraphComponent implements PropertyChangeInterface
       withLinksFrom(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 

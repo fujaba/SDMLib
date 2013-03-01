@@ -13,6 +13,7 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       MatchIsomorphicConstraint.PROPERTY_HASMATCH,
       MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME,
       PatternElement.PROPERTY_DOALLMATCHES,
+      PatternElement.PROPERTY_PATTERN,
    };
    
    public String[] getProperties()
@@ -49,6 +50,7 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       ((MatchIsomorphicConstraint) entity).removeYou();
    }
 }
+
 
 
 

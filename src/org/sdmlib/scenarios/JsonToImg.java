@@ -21,9 +21,11 @@
 
 package org.sdmlib.scenarios;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -71,6 +73,11 @@ public class JsonToImg
    
    public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
+      return toImg(imgName, objects, false);
+   }
+   
+   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot)
+   {
       String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", imgName + ".svg");
       
@@ -87,11 +94,11 @@ public class JsonToImg
       
       StringBuilder edgeBuilder = new StringBuilder();
       
-      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder);
+      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder, omitRoot);
       
-      fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
+      fileText = fileText.replaceFirst("<nodes>", Matcher.quoteReplacement(nodeBuilder.toString()));
       
-      fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
+      fileText = fileText.replaceFirst("<edges>", Matcher.quoteReplacement(edgeBuilder.toString()));
       
       CallDot.callDot(imgName, fileText);
 
@@ -101,8 +108,9 @@ public class JsonToImg
    }
 
 
-   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder)
+   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder, boolean omitRoot)
    {
+      String omittedId = "";
       // collect all edges
       TreeMap<String, EdgeLabels> edgeMap = new TreeMap<String, EdgeLabels>();
       
@@ -112,20 +120,45 @@ public class JsonToImg
       {
          JsonObject jsonObject = objects.getJSONObject(i);
          String jsonId = jsonObject.getString(JsonIdMap.ID);
-         knownIds.add(jsonId);
+         
+         if (omitRoot  && i == 0)
+         {
+            omittedId = jsonId;
+         }
+         else
+         {
+            knownIds.add(jsonId);
+         }
       }
       
       // list of nodes
       for (int i = 0; i < objects.size(); i++)
       {
+         if (i == 0 && omitRoot)
+         {
+            continue;
+         }
+         
          JsonObject jsonObject = objects.getJSONObject(i);
-         String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
+         String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <optionalImage><tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
         
+         String imageName = jsonObject.getString(JsonIdMap.CLASS) + ".svg";
+         File imageFile = new File("doc/" + imageName);
+         if (imageFile.exists())
+         {
+            nodeLine = nodeLine.replaceFirst("<optionalImage>", "<tr><td border='0'><IMG src=\"" + imageName + "\" /></td></tr>");
+
+         }
+         else
+         {
+            nodeLine = nodeLine.replaceFirst("<optionalImage>", "");
+         }
+         
          String jsonId = lastPartLow(jsonObject.getString(JsonIdMap.ID));
-         nodeLine = nodeLine.replaceAll("<id>", jsonId);
+         nodeLine = nodeLine.replaceAll("<id>", Matcher.quoteReplacement(jsonId));
          
          String className = lastPart(jsonObject.getString(JsonIdMap.CLASS));
-         nodeLine = nodeLine.replaceAll("<classname>", className);
+         nodeLine = nodeLine.replaceAll("<classname>", Matcher.quoteReplacement(className));
          
          // go through attributes
          if(jsonObject.has(JsonIdMap.JSON_PROPS)){
@@ -151,17 +184,20 @@ public class JsonToImg
                   
                   // add attribute line
                   String attrLine = "<tr><td><key> = <value></td></tr>";
-                  attrLine = attrLine.replaceFirst("<key>", key);
-                  attrLine = attrLine.replaceFirst("<value>", value.toString());
+                  attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(key));
+                  attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(value.toString()));
                   
-                  attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
+                  attrText = attrText.replaceFirst("</table>", Matcher.quoteReplacement(attrLine + "</table>"));
                }
                else if (value instanceof JsonObject)
                {
                   JsonObject tgtJsonObject = (JsonObject) value;
                   String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
-                  tgtId = lastPartLow(tgtId);
-                  addToEdges(edgeMap, jsonId, tgtId, key);
+                  if ( ! omittedId.equals(tgtId))
+                  {
+                     tgtId = lastPartLow(tgtId);
+                     addToEdges(edgeMap, jsonId, tgtId, key);
+                  }
                }
                else if (value instanceof JsonArray)
                {
@@ -171,8 +207,11 @@ public class JsonToImg
                   {
                      JsonObject tgtJsonObject = jsonArray.getJSONObject(j);
                      String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
-                     tgtId = lastPartLow(tgtId);
-                     addToEdges(edgeMap, jsonId, tgtId, key);
+                     if ( ! omittedId.equals(tgtId))
+                     {
+                        tgtId = lastPartLow(tgtId);
+                        addToEdges(edgeMap, jsonId, tgtId, key);
+                     }
                   }
                }
                else 
@@ -181,17 +220,17 @@ public class JsonToImg
 
                   // add attribute line
                   String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
-                  attrLine = attrLine.replaceFirst("<key>", key);
-                  attrLine = attrLine.replaceFirst("<value>", value.toString());
+                  attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(key));
+                  attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(value.toString()));
 
-                  attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
+                  attrText = attrText.replaceFirst("</table>", Matcher.quoteReplacement(attrLine + "</table>"));
                }
             }
          }
          
          if (addAttrText)
          {
-            nodeLine = nodeLine.replaceFirst("</table>", attrText + "</table>");                  
+            nodeLine = nodeLine.replaceFirst("</table>", Matcher.quoteReplacement(attrText + "</table>"));                  
          }
          
          nodeBuilder.append(nodeLine);
@@ -204,15 +243,15 @@ public class JsonToImg
          EdgeLabels edgeLabels = edgeMap.get(keyPair);
          
          String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
-         edgeLine = edgeLine.replaceFirst("<srcId>", split[0]);
-         edgeLine = edgeLine.replaceFirst("<tgtId>", split[1]);
-         edgeLine = edgeLine.replaceFirst("<headlabel>", edgeLabels.headlabel);
+         edgeLine = edgeLine.replaceFirst("<srcId>", Matcher.quoteReplacement(split[0]));
+         edgeLine = edgeLine.replaceFirst("<tgtId>", Matcher.quoteReplacement(split[1]));
+         edgeLine = edgeLine.replaceFirst("<headlabel>", Matcher.quoteReplacement(edgeLabels.headlabel));
          String taillabel = edgeLabels.taillabel;
          if (taillabel.startsWith("_"))
          {
             taillabel = taillabel.substring(1);
          }
-         edgeLine = edgeLine.replaceFirst("<taillabel>", taillabel);
+         edgeLine = edgeLine.replaceFirst("<taillabel>", Matcher.quoteReplacement(taillabel));
          
          edgeBuilder.append(edgeLine);
       }

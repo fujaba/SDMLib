@@ -40,22 +40,26 @@ public class PatternModelCodeGen
       scenario.add("Start situation: ",
          DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.models.pattern");
       
-      Clazz patternElement = new Clazz("org.sdmlib.models.pattern.PatternElement")
+      Clazz patternElement = new Clazz("PatternElement")
       .withAttribute("modifier", "String")
       .withAttribute("hasMatch", "boolean", "false")
       .withAttribute("patternObjectName", String.class.getSimpleName())
       .withAttribute("doAllMatches", boolean.class.getName());
       
-      Clazz pattern = new Clazz("org.sdmlib.models.pattern.Pattern")
-      .withSuperClass(patternElement)
-      .withAttribute("currentSubPattern", "Pattern");
+      Clazz pattern = new Clazz("Pattern",
+         "currentSubPattern", "Pattern",
+         "debugMode", R.INT, 
+         "trace", "StringBuilder")
+      .withSuperClass(patternElement);
       
-      Clazz NegativeApplicationCondition = new Clazz("org.sdmlib.models.pattern.NegativeApplicationCondition")
+      Clazz stringBuilderClazz = new Clazz(StringBuilder.class.getName()).withWrapped(true);
+      
+      Clazz NegativeApplicationCondition = new Clazz("NegativeApplicationCondition")
       .withSuperClass(pattern);
       
-      Clazz OptionalSubPattern = new Clazz("org.sdmlib.models.pattern.OptionalSubPattern")
+      Clazz OptionalSubPattern = new Clazz("OptionalSubPattern")
       .withSuperClass(pattern)
       .withAttribute("matchForward", boolean.class.getSimpleName());
       
@@ -63,12 +67,12 @@ public class PatternModelCodeGen
       .withTarget(patternElement, "elements", R.MANY)
       .withSource(pattern, "pattern", R.ONE);
       
-      Clazz patternObject = new Clazz("org.sdmlib.models.pattern.PatternObject")
+      Clazz patternObject = new Clazz("PatternObject")
       .withSuperClass(patternElement)
-      .withAttribute("currentMatch", "Object")
-      .withAttribute("candidates", "Object");
+      .withAttributes("currentMatch", "Object", 
+         "candidates", "Object");
       
-      Clazz patternLink = new Clazz("org.sdmlib.models.pattern.PatternLink")
+      Clazz patternLink = new Clazz("PatternLink")
       .withSuperClass(patternElement)
       .withAttribute("tgtRoleName", "String")
       .withAttribute("hostGraphSrcObject", "Object");
@@ -81,7 +85,7 @@ public class PatternModelCodeGen
       .withTarget(patternObject, "src", R.ONE)
       .withSource(patternLink, "outgoing", R.MANY);
       
-      Clazz attrConstraint = new Clazz("org.sdmlib.models.pattern.AttributeConstraint")
+      Clazz attrConstraint = new Clazz("AttributeConstraint")
       .withSuperClass(patternElement)
       .withAttribute("attrName", "String")
       .withAttribute("tgtValue", "Object")
@@ -91,14 +95,19 @@ public class PatternModelCodeGen
       .withTarget(patternObject, "src", R.ONE)
       .withSource(attrConstraint, "attrConstraints", R.MANY);
       
-      Clazz linkConstraint = new Clazz("org.sdmlib.models.pattern.LinkConstraint")
+      Clazz linkConstraint = new Clazz("LinkConstraint")
       .withSuperClass(patternLink);
       
-      Clazz matchIsomorphicConstraint = new Clazz("org.sdmlib.models.pattern.MatchIsomorphicConstraint")
+      Clazz matchIsomorphicConstraint = new Clazz("MatchIsomorphicConstraint")
       .withSuperClass(patternElement);
       
-      Clazz destroyObjectClazz = new Clazz("org.sdmlib.models.pattern.DestroyObjectElem")
+      Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
       .withSuperClass(patternElement);
+      
+      //      Clazz allMatchesElemClazz = new Clazz("allMatchesElem", 
+      //         "tgt", PatternObject.class.getSimpleName(), 
+      //         "resultSet", "LinkedHashSet<Object>")
+      //      .withSuperClass(patternElement);
       
       new Association()
       .withTarget(patternObject, "patternObject", R.ONE)

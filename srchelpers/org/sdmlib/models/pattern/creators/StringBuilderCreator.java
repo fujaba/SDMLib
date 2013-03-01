@@ -1,20 +1,14 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.lang.StringBuilder;
 
-public class DestroyObjectElemCreator extends EntityFactory
+public class StringBuilderCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      DestroyObjectElem.PROPERTY_MODIFIER,
-      DestroyObjectElem.PROPERTY_HASMATCH,
-      DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME,
-      DestroyObjectElem.PROPERTY_PATTERNOBJECT,
-      PatternElement.PROPERTY_DOALLMATCHES,
-      PatternElement.PROPERTY_PATTERN,
    };
    
    public String[] getProperties()
@@ -24,17 +18,17 @@ public class DestroyObjectElemCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new DestroyObjectElem();
+      return new StringBuilder();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((DestroyObjectElem) target).get(attrName);
+      return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((DestroyObjectElem) target).set(attrName, value);
+      return false;
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -48,10 +42,7 @@ public class DestroyObjectElemCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((DestroyObjectElem) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }
-
-
-
 

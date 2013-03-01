@@ -3,6 +3,8 @@ package org.sdmlib.models.pattern.creators;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
 
 public class OptionalSubPatternCreator extends EntityFactory
 {
@@ -14,6 +16,10 @@ public class OptionalSubPatternCreator extends EntityFactory
       OptionalSubPattern.PROPERTY_DOALLMATCHES,
       OptionalSubPattern.PROPERTY_MATCHFORWARD,
       OptionalSubPattern.PROPERTY_CURRENTSUBPATTERN,
+      Pattern.PROPERTY_DEBUGMODE,
+      Pattern.PROPERTY_ELEMENTS,
+      PatternElement.PROPERTY_PATTERN,
+      Pattern.PROPERTY_TRACE,
    };
    
    public String[] getProperties()
@@ -50,5 +56,7 @@ public class OptionalSubPatternCreator extends EntityFactory
       ((OptionalSubPattern) entity).removeYou();
    }
 }
+
+
 
 

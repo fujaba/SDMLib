@@ -197,7 +197,106 @@ public class PatternPO extends PatternObject
       return null;
    }
    
+   public PatternPO hasDebugMode(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_DEBUGMODE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getDebugMode()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getDebugMode();
+      }
+      return 0;
+   }
+   
+   public PatternPO withDebugMode(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setDebugMode(value);
+      }
+      return this;
+   }
+   
+   public PatternPO hasPattern()
+   {
+      PatternPO result = new PatternPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternElement.PROPERTY_PATTERN, result);
+      
+      return result;
+   }
+
+   public PatternPO hasPattern(PatternPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Pattern getPattern()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternElement) this.getCurrentMatch()).getPattern();
+      }
+      return null;
+   }
+
+   public PatternPO hasTrace(StringBuilder value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Pattern.PROPERTY_TRACE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public StringBuilder getTrace()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) getCurrentMatch()).getTrace();
+      }
+      return null;
+   }
+   
+   public PatternPO withTrace(StringBuilder value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Pattern) getCurrentMatch()).setTrace(value);
+      }
+      return this;
+   }
+   
 }
+
+
 
 
 

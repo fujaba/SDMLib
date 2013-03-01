@@ -293,5 +293,16 @@ public class Floor implements PropertyChangeInterface
       setGuest(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getLevel());
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getGuest());
+      return _.substring(1);
+   }
+
 }
 

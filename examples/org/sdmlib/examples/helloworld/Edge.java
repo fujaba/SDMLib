@@ -138,6 +138,7 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       setGraph(null);
       setSrc(null);
       setTgt(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -348,5 +349,15 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       setName(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 

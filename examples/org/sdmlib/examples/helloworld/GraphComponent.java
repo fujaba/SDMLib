@@ -212,5 +212,14 @@ public class GraphComponent implements PropertyChangeInterface
       // TODO Auto-generated method stub
       
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 

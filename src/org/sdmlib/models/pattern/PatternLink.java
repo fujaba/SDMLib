@@ -21,6 +21,11 @@
    
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -48,10 +53,41 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             if (value != null && value instanceof Collection)
             {
                this.getTgt().setCandidates(new LinkedHashSet((Collection)value));
+               
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  // add set of candidates to trace
+                  String setVarName = this.getTgt().getPatternObjectName() + "Candidates";
+                  LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();
+                  if ( ! variablesAlreadyInTrace.contains(setVarName))
+                  {
+                     variablesAlreadyInTrace.add(setVarName);
+                     setVarName = value.getClass().getSimpleName() + " " + setVarName;
+                  }
+                  
+                  getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
+                     + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + valueSetString(value));
+               }
             }
             else
             {
                this.getTgt().setCandidates(value);
+
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  String setVarName = this.getTgt().getPatternObjectName();
+                  LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();
+                  if ( ! variablesAlreadyInTrace.contains(setVarName))
+                  {
+                     variablesAlreadyInTrace.add(setVarName);
+                     setVarName = value.getClass().getSimpleName() + " " + setVarName;
+                  }
+                  
+                  getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
+                     + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + getTopPattern().getJsonIdMap().getId(value) + " " + value);
+               }
+               
+
             }
             
             return true;
@@ -134,6 +170,11 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       {
          return getPatternObjectName();
       }
+
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return getPattern();
+      }
       
       return super.get(attrName);
    }
@@ -197,6 +238,12 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
          return true;
       }
 
+      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         setPattern((Pattern) value);
+         return true;
+      }
+
       return super.set(attrName, value);
    }
 
@@ -217,6 +264,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
    {
       setTgt(null);
       setSrc(null);
+      setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -411,5 +459,16 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       setHostGraphSrcObject(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTgtRoleName());
+      _.append(" ").append(this.getModifier());
+      _.append(" ").append(this.getPatternObjectName());
+      return _.substring(1);
+   }
+
 }
 

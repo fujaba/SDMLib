@@ -62,8 +62,10 @@ public class Role implements PropertyChangeInterface
       public static final String INT = "int";
       public static final String DOUBLE = "double";
       public static final String STRING = "String";
+      public static final String BOOLEAN = "boolean";
       
-      
+      public static final int DEBUG_ON = 1;
+      public static final int TRACE_ON = 2;
    }
    
    //==========================================================================
