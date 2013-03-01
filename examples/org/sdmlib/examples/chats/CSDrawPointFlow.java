@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.CSChatMessageFlow.TaskNames;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public class CSDrawPointFlow extends TaskFlow implements PropertyChangeInterface
 {

@@ -1,8 +1,8 @@
 package org.sdmlib.examples.groupAccount.creators;
 
+import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.groupAccount.Item;
 
 public class ItemCreator extends EntityFactory
 {

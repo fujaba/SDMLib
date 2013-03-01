@@ -1,7 +1,6 @@
 package org.sdmlib.models.pattern.creators;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;

@@ -21,9 +21,6 @@
    
 package org.sdmlib.model.taskflows;
 
-import org.eclipse.swt.widgets.Display;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +29,9 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.eclipse.swt.widgets.Display;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class SocketThread extends Thread implements PropertyChangeInterface

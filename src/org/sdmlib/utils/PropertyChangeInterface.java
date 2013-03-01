@@ -46,7 +46,7 @@
  */
 package org.sdmlib.utils;
 
-import java.beans.*;
+import java.beans.PropertyChangeSupport;
 
 public interface PropertyChangeInterface
 {

@@ -1,9 +1,8 @@
 package org.sdmlib.models.classes.creators;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class ClazzCreator extends EntityFactory
 {

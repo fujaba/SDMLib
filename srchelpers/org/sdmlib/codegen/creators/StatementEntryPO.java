@@ -2,13 +2,10 @@ package org.sdmlib.codegen.creators;
 
 import java.util.ArrayList;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.codegen.creators.StatementEntrySet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.codegen.creators.StatementEntryPO;
 import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StatementEntryPO extends PatternObject
 {

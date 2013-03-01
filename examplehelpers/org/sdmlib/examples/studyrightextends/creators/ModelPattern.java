@@ -1,20 +1,14 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.studyrightextends.creators.LecturePO;
-import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.examples.studyrightextends.creators.RoomPO;
-import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.creators.UniversityPO;
-import org.sdmlib.examples.studyrightextends.University;
-import org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenPO;
 import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
-import org.sdmlib.examples.studyrightextends.creators.FemalePO;
+import org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenPO;
 import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.examples.studyrightextends.creators.ProfessorPO;
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Professor;
-import org.sdmlib.examples.studyrightextends.creators.StudentPO;
+import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.Student;
+import org.sdmlib.examples.studyrightextends.University;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

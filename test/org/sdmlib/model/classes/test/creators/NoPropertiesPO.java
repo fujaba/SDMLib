@@ -1,8 +1,7 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.classes.test.NoProperties;
-import org.sdmlib.model.classes.test.creators.NoPropertiesSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class NoPropertiesPO extends PatternObject<NoPropertiesPO, NoProperties>
 {

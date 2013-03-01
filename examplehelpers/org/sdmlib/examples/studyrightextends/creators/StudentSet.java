@@ -23,14 +23,11 @@ package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyrightextends.Lecture;
-
-import org.sdmlib.examples.studyrightextends.creators.PersonSet;
 
 public class StudentSet extends LinkedHashSet<Student>
 {

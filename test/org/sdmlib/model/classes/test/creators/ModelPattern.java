@@ -1,14 +1,10 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.model.classes.test.creators.NoPropertiesPO;
-import org.sdmlib.model.classes.test.NoProperties;
-import org.sdmlib.model.classes.test.creators.ParentPO;
-import org.sdmlib.model.classes.test.Parent;
-import org.sdmlib.model.classes.test.creators.UnclePO;
-import org.sdmlib.model.classes.test.Uncle;
-import org.sdmlib.model.classes.test.creators.KidPO;
 import org.sdmlib.model.classes.test.Kid;
+import org.sdmlib.model.classes.test.NoProperties;
+import org.sdmlib.model.classes.test.Parent;
+import org.sdmlib.model.classes.test.Uncle;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

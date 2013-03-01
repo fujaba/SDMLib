@@ -1,20 +1,13 @@
 package org.sdmlib.examples.helloworld.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.helloworld.creators.GraphPO;
-import org.sdmlib.examples.helloworld.Graph;
-import org.sdmlib.examples.helloworld.creators.EdgePO;
 import org.sdmlib.examples.helloworld.Edge;
-import org.sdmlib.examples.helloworld.creators.NodePO;
-import org.sdmlib.examples.helloworld.Node;
-import org.sdmlib.examples.helloworld.creators.GreetingPO;
-import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
-import org.sdmlib.examples.helloworld.GreetingMessage;
-import org.sdmlib.examples.helloworld.creators.PersonPO;
-import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
+import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.GraphComponent;
+import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.Node;
+import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

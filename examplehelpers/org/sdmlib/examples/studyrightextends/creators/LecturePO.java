@@ -1,18 +1,13 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.studyrightextends.creators.RoomPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.studyrightextends.creators.LecturePO;
-import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.creators.ProfessorPO;
 import org.sdmlib.examples.studyrightextends.Professor;
-import org.sdmlib.examples.studyrightextends.creators.StudentPO;
+import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.Student;
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LecturePO extends PatternObject
 {

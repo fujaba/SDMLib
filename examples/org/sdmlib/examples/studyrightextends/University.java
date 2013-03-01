@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.studyrightextends.creators.RoomSet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class University implements PropertyChangeInterface
 {

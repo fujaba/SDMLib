@@ -2,7 +2,6 @@ package org.sdmlib.examples.helloworld;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.helloworld.creators.CreatorCreator;
@@ -19,20 +18,16 @@ import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.creators.GenericAttributePO;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 

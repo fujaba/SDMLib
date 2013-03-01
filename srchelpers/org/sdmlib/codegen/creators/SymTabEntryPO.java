@@ -1,9 +1,8 @@
 package org.sdmlib.codegen.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.codegen.creators.SymTabEntrySet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class SymTabEntryPO extends PatternObject
 {

@@ -1,16 +1,13 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.DrawPointFlow;
-import org.sdmlib.examples.chats.creators.DrawPointFlowSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.chats.PeerToPeerChat;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.chats.creators.DrawPointFlowPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class DrawPointFlowPO extends PatternObject<DrawPointFlowPO, DrawPointFlow>
 {

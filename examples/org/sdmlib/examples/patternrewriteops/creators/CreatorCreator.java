@@ -1,6 +1,7 @@
 package org.sdmlib.examples.patternrewriteops.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;

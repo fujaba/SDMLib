@@ -22,6 +22,7 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 import org.sdmlib.models.modelsets.StringList;
 

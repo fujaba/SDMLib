@@ -1,10 +1,9 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.ChatServer;
-import org.sdmlib.examples.chats.creators.ChatServerSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ChatServerPO extends PatternObject<ChatServerPO, ChatServer>
 {

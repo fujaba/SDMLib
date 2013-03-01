@@ -1,16 +1,12 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.CSChatMessageFlow;
-import org.sdmlib.examples.chats.creators.CSChatMessageFlowSet;
-import org.sdmlib.examples.chats.PeerToPeerChat;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.chats.creators.CSChatMessageFlowPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class CSChatMessageFlowPO extends PatternObject<CSChatMessageFlowPO, CSChatMessageFlow>
 {

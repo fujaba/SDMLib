@@ -1,14 +1,11 @@
 package org.sdmlib.model.test.superclasses.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.model.test.superclasses.creators.ContinentPO;
-import org.sdmlib.model.test.superclasses.Continent;
-import org.sdmlib.model.test.superclasses.creators.StatePO;
-import org.sdmlib.model.test.superclasses.State;
-import org.sdmlib.model.test.superclasses.creators.TownPO;
-import org.sdmlib.model.test.superclasses.Town;
-import org.sdmlib.model.classes.creators.ReverseClassModelTestPO;
 import org.sdmlib.model.classes.ReverseClassModelTest;
+import org.sdmlib.model.classes.creators.ReverseClassModelTestPO;
+import org.sdmlib.model.test.superclasses.Continent;
+import org.sdmlib.model.test.superclasses.State;
+import org.sdmlib.model.test.superclasses.Town;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

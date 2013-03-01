@@ -1,24 +1,18 @@
 package org.sdmlib.models.classes.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.classes.creators.ClassModelPO;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.creators.ClazzPO;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.creators.AttributePO;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.creators.MethodPO;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.creators.AssociationPO;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.creators.RolePO;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.codegen.creators.SymTabEntryPO;
+import org.sdmlib.codegen.LocalVarTableEntry;
+import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.creators.LocalVarTableEntryPO;
-import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.creators.StatementEntryPO;
-import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.codegen.creators.SymTabEntryPO;
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

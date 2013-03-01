@@ -1,19 +1,9 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.creators.LudoSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.ludo.creators.PlayerPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.ludo.creators.LudoPO;
-import org.sdmlib.examples.ludo.Player;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.creators.FieldPO;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {

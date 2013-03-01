@@ -21,9 +21,11 @@
 
 package org.sdmlib.examples.studyright;
 
+import static org.sdmlib.models.classes.Role.R.MANY;
+import static org.sdmlib.models.classes.Role.R.ONE;
+
 import java.beans.PropertyChangeSupport;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
@@ -33,8 +35,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import static org.sdmlib.models.classes.Role.R.ONE;
-import static org.sdmlib.models.classes.Role.R.MANY;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;

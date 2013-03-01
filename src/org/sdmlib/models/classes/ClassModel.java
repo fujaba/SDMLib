@@ -21,9 +21,6 @@
 
 package org.sdmlib.models.classes;
 
-import static org.sdmlib.models.classes.Role.R.MANY;
-import static org.sdmlib.models.classes.Role.R.ONE;
-
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +47,6 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.scenarios.CallDot;
-import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;

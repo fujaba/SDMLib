@@ -22,12 +22,12 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
+
 import org.sdmlib.examples.ludoreverse.model.Ludo;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.ludoreverse.model.Player;
+import org.sdmlib.models.modelsets.ModelSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
 {

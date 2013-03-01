@@ -21,12 +21,12 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.PatternElement;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 
 public class AttributeConstraint extends PatternElement implements PropertyChangeInterface
 {

@@ -1,8 +1,8 @@
 package org.sdmlib.models.transformations.creators;
 
+import org.sdmlib.models.transformations.LinkOp;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.transformations.LinkOp;
 
 public class LinkOpCreator extends EntityFactory
 {

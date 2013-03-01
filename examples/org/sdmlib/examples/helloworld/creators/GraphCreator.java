@@ -2,7 +2,6 @@ package org.sdmlib.examples.helloworld.creators;
 
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class GraphCreator extends EntityFactory

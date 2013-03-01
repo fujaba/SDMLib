@@ -1,9 +1,7 @@
 package org.sdmlib.scenarios.creators;
 
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.scenarios.creators.KanbanEntryPO;
 import org.sdmlib.scenarios.KanbanEntry;
-import org.sdmlib.scenarios.creators.LogEntryPO;
 import org.sdmlib.scenarios.LogEntry;
 
 public class ModelPattern extends Pattern

@@ -22,10 +22,10 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.chats.ChatServer;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class ChatServerSet extends LinkedHashSet<ChatServer>
 {

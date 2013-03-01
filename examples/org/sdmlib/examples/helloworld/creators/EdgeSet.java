@@ -1,11 +1,11 @@
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 
 public class EdgeSet extends LinkedHashSet<Edge>
 {

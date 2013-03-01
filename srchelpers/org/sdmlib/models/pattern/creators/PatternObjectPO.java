@@ -1,18 +1,10 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.creators.PatternLinkPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.creators.PatternObjectPO;
-import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
-import org.sdmlib.models.pattern.creators.PatternObjectSet;
-import org.sdmlib.models.pattern.creators.PatternLinkSet;
-import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
-import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PatternObjectPO extends PatternObject
 {

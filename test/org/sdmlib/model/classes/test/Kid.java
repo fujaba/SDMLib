@@ -21,9 +21,9 @@
    
 package org.sdmlib.model.classes.test;
 
-import org.sdmlib.model.classes.test.Parent;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Kid extends Parent implements PropertyChangeInterface
 {

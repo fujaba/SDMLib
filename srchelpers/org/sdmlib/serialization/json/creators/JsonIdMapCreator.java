@@ -3,7 +3,6 @@ package org.sdmlib.serialization.json.creators;
 import org.sdmlib.models.pattern.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class JsonIdMapCreator extends EntityFactory

@@ -1,9 +1,9 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import java.awt.Point;
+
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.ludo.creators.PointSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PointPO extends PatternObject<PointPO, Point>
 {

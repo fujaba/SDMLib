@@ -21,11 +21,11 @@
    
 package org.sdmlib.model.taskflows;
 
+import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public class SDMTimer extends Timer implements PropertyChangeInterface
 {

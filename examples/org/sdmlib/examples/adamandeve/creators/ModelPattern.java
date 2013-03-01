@@ -1,20 +1,17 @@
 package org.sdmlib.examples.adamandeve.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.adamandeve.creators.EvePO;
-import org.sdmlib.examples.adamandeve.Eve;
-import org.sdmlib.examples.adamandeve.creators.AdamPO;
 import org.sdmlib.examples.adamandeve.Adam;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.serialization.json.creators.JsonIdMapPO;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.model.taskflows.creators.PeerProxyPO;
-import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowPO;
+import org.sdmlib.examples.adamandeve.Eve;
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
-import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
+import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.PeerProxyPO;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.json.creators.JsonIdMapPO;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
 
 public class ModelPattern extends Pattern
 {

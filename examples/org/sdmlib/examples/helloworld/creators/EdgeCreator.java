@@ -1,11 +1,9 @@
 package org.sdmlib.examples.helloworld.creators;
 
-import org.sdmlib.examples.helloworld.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.GraphComponent;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class EdgeCreator extends EntityFactory
 {

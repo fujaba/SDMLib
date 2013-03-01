@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;

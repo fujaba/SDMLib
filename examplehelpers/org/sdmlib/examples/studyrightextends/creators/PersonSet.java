@@ -22,11 +22,9 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightextends.Person;
-
 import org.sdmlib.models.modelsets.StringList;
-
-import org.sdmlib.examples.studyrightextends.creators.PersonSet;
 
 public class PersonSet extends LinkedHashSet<Person>
 {

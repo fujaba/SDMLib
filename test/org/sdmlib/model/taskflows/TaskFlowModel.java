@@ -1,14 +1,15 @@
 package org.sdmlib.model.taskflows;
 
+import static org.sdmlib.models.classes.Role.R.MANY;
+import static org.sdmlib.models.classes.Role.R.ONE;
+
 import java.util.Timer;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
-import static org.sdmlib.models.classes.Role.R.*;
 import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class TaskFlowModel 

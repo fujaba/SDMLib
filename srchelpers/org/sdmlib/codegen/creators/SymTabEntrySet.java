@@ -1,9 +1,9 @@
 package org.sdmlib.codegen.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 
 public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>

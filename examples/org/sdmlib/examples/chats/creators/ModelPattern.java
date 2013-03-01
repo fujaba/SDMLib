@@ -1,44 +1,27 @@
 package org.sdmlib.examples.chats.creators;
 
 import org.sdmlib.examples.chats.CSChatMessageFlow;
+import org.sdmlib.examples.chats.CSClearDrawingFlow;
+import org.sdmlib.examples.chats.CSClientTask;
+import org.sdmlib.examples.chats.CSDrawPointFlow;
+import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
+import org.sdmlib.examples.chats.CTClearDrawing;
+import org.sdmlib.examples.chats.CTDrawPoint;
 import org.sdmlib.examples.chats.ChatMessageFlow;
+import org.sdmlib.examples.chats.ChatServer;
 import org.sdmlib.examples.chats.ClearDrawingFlow;
+import org.sdmlib.examples.chats.ClientLoginFlow;
 import org.sdmlib.examples.chats.DrawPointFlow;
+import org.sdmlib.examples.chats.P2PChatMessageFlow;
+import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
 import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.examples.chats.PeerToPeerChatArgs;
+import org.sdmlib.examples.chats.TestChatMessageFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.PeerProxyPO;
 import org.sdmlib.model.taskflows.creators.TaskFlowPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.chats.creators.PeerToPeerChatPO;
-import org.sdmlib.examples.chats.creators.ChatMessageFlowPO;
-import org.sdmlib.examples.chats.creators.DrawPointFlowPO;
-import org.sdmlib.examples.chats.creators.ClearDrawingFlowPO;
-import org.sdmlib.examples.chats.creators.PeerToPeerChatArgsPO;
-import org.sdmlib.examples.chats.creators.CSChatMessageFlowPO;
-import org.sdmlib.examples.chats.creators.ChatServerPO;
-import org.sdmlib.examples.chats.ChatServer;
-import org.sdmlib.examples.chats.creators.ClientLoginFlowPO;
-import org.sdmlib.examples.chats.ClientLoginFlow;
-import org.sdmlib.examples.chats.creators.CSDrawPointFlowPO;
-import org.sdmlib.examples.chats.CSDrawPointFlow;
-import org.sdmlib.examples.chats.creators.CSClearDrawingFlowPO;
-import org.sdmlib.examples.chats.CSClearDrawingFlow;
-import org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPO;
-import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
-import org.sdmlib.examples.chats.creators.CSClientTaskPO;
-import org.sdmlib.examples.chats.CSClientTask;
-import org.sdmlib.examples.chats.creators.CTDrawPointPO;
-import org.sdmlib.examples.chats.CTDrawPoint;
-import org.sdmlib.examples.chats.creators.CTClearDrawingPO;
-import org.sdmlib.examples.chats.CTClearDrawing;
-import org.sdmlib.examples.chats.creators.TestChatMessageFlowPO;
-import org.sdmlib.examples.chats.TestChatMessageFlow;
-import org.sdmlib.examples.chats.creators.P2PNetworkLoginFlowPO;
-import org.sdmlib.examples.chats.P2PNetworkLoginFlow;
-import org.sdmlib.examples.chats.creators.P2PChatMessageFlowPO;
-import org.sdmlib.examples.chats.P2PChatMessageFlow;
 
 public class ModelPattern extends Pattern
 {

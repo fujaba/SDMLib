@@ -1,18 +1,15 @@
 package org.sdmlib.model.taskflows.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.model.taskflows.creators.TaskFlowSet;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+
 import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.models.modelsets.ModelSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 
 public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
 {

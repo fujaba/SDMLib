@@ -1,9 +1,9 @@
 package org.sdmlib.models.objects.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.objects.GenericAttribute;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
+import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
 
 public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>

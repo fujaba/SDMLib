@@ -1,10 +1,9 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.model.classes.test.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.model.classes.test.Kid;
 import org.sdmlib.model.classes.test.Parent;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class KidCreator extends EntityFactory
 {

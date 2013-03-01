@@ -21,9 +21,9 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import org.sdmlib.examples.studyrightextends.Person;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class Female implements Person, PropertyChangeInterface

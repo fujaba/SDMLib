@@ -1,14 +1,10 @@
 package org.sdmlib.examples.patternrewriteops.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.patternrewriteops.creators.TrainPO;
-import org.sdmlib.examples.patternrewriteops.Train;
-import org.sdmlib.examples.patternrewriteops.creators.StationPO;
-import org.sdmlib.examples.patternrewriteops.Station;
-import org.sdmlib.examples.patternrewriteops.creators.PersonPO;
 import org.sdmlib.examples.patternrewriteops.Person;
-import org.sdmlib.examples.patternrewriteops.creators.SignalFlagPO;
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
+import org.sdmlib.examples.patternrewriteops.Station;
+import org.sdmlib.examples.patternrewriteops.Train;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

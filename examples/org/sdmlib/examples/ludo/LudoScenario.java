@@ -21,6 +21,8 @@
    
 package org.sdmlib.examples.ludo;
    
+import java.beans.PropertyChangeSupport;
+
 import org.junit.Test;
 import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.examples.ludo.creators.CreatorCreator;
@@ -29,14 +31,11 @@ import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.creators.ModelPattern;
 import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
    
 public class LudoScenario implements PropertyChangeInterface 
 {

@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.helloworld;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.examples.helloworld.creators.NodeSet;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Graph implements PropertyChangeInterface
 {

@@ -8,8 +8,6 @@ import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;

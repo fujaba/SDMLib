@@ -1,12 +1,9 @@
 package org.sdmlib.examples.groupAccount.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.groupAccount.creators.GroupAccountPO;
 import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.examples.groupAccount.creators.PersonPO;
-import org.sdmlib.examples.groupAccount.Person;
-import org.sdmlib.examples.groupAccount.creators.ItemPO;
 import org.sdmlib.examples.groupAccount.Item;
+import org.sdmlib.examples.groupAccount.Person;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

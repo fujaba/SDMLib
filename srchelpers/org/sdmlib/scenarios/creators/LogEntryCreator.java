@@ -1,8 +1,8 @@
 package org.sdmlib.scenarios.creators;
 
+import org.sdmlib.scenarios.LogEntry;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.scenarios.LogEntry;
 
 public class LogEntryCreator extends EntityFactory
 {

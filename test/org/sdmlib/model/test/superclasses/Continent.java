@@ -21,8 +21,9 @@
    
 package org.sdmlib.model.test.superclasses;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class Continent implements PropertyChangeInterface

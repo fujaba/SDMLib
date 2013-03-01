@@ -1,10 +1,10 @@
 package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.DestroyObjectElem;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.PatternObject;
 
 public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>

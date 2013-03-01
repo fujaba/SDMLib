@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import java.util.List;
 
 public class PatternElementSet extends ArrayList<PatternElement>
 {

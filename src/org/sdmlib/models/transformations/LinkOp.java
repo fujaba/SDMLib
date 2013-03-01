@@ -22,7 +22,6 @@
 package org.sdmlib.models.transformations;
 
 import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;

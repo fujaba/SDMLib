@@ -22,10 +22,10 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
+
 import org.sdmlib.examples.chats.TestChatMessageFlow;
+import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 
 public class TestChatMessageFlowSet extends LinkedHashSet<TestChatMessageFlow> implements ModelSet

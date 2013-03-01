@@ -1,16 +1,15 @@
 package org.sdmlib.examples.adamandeve.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.models.modelsets.longList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
-import org.sdmlib.serialization.json.creators.JsonIdMapSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.json.creators.JsonIdMapSet;
 
 public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
 {

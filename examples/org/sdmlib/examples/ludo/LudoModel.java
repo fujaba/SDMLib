@@ -1,14 +1,16 @@
 package org.sdmlib.examples.ludo;
 
+import static org.sdmlib.models.classes.Role.R.MANY;
+import static org.sdmlib.models.classes.Role.R.ONE;
+
 import java.awt.Point;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import static org.sdmlib.models.classes.Role.R.*;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
-import org.sdmlib.models.classes.Method;
 
 public class LudoModel
 {

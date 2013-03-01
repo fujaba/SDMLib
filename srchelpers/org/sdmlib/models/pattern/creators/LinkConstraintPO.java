@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.creators.LinkConstraintSet;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LinkConstraintPO extends PatternObject
 {

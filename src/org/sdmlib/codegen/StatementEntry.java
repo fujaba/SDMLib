@@ -25,10 +25,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.codegen.creators.StatementEntrySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.codegen.creators.StatementEntrySet;
 
 public class StatementEntry implements PropertyChangeInterface
 {

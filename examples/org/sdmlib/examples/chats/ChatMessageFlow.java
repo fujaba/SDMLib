@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.chats;
 
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.chats.PeerToPeerChat;
 
 public class ChatMessageFlow extends TaskFlow implements PropertyChangeInterface
 {

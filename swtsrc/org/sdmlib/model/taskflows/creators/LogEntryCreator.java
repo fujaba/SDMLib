@@ -1,9 +1,8 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.model.taskflows.creators.CreatorCreator;
+import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.model.taskflows.LogEntry;
 
 public class LogEntryCreator extends EntityFactory
 {

@@ -21,9 +21,9 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class OptionalSubPattern extends Pattern implements PropertyChangeInterface
 {

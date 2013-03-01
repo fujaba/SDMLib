@@ -1,16 +1,11 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.studyright.creators.UniversityPO;
-import org.sdmlib.examples.studyright.University;
-import org.sdmlib.examples.studyright.creators.StudentPO;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.creators.RoomPO;
-import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.creators.ProfessorPO;
 import org.sdmlib.examples.studyright.Professor;
-import org.sdmlib.examples.studyright.creators.TopicPO;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.Topic;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

@@ -21,13 +21,15 @@
 
 package org.sdmlib.model.classes;
 
+import static org.sdmlib.models.classes.Role.R.MANY;
+import static org.sdmlib.models.classes.Role.R.ONE;
+
 import org.junit.Test;
 import org.sdmlib.kanban.ProjectBoard;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import static org.sdmlib.models.classes.Role.R.*;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 

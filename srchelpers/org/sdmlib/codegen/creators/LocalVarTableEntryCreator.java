@@ -1,9 +1,9 @@
 package org.sdmlib.codegen.creators;
 
+import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.codegen.LocalVarTableEntry;
 
 public class LocalVarTableEntryCreator extends EntityFactory
 {

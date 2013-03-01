@@ -22,8 +22,9 @@
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
+
 import org.sdmlib.examples.ludo.LudoScenario;
+import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class LudoScenarioSet extends LinkedHashSet<LudoScenario> implements ModelSet

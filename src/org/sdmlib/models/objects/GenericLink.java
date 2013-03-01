@@ -21,10 +21,11 @@
    
 package org.sdmlib.models.objects;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class GenericLink implements PropertyChangeInterface
 {

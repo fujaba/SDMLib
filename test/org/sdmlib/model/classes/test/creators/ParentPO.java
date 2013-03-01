@@ -1,14 +1,10 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.classes.test.Parent;
-import org.sdmlib.model.classes.test.creators.ParentSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.model.classes.test.creators.UnclePO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.model.classes.test.creators.ParentPO;
 import org.sdmlib.model.classes.test.Uncle;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ParentPO extends PatternObject<ParentPO, Parent>
 {

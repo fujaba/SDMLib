@@ -1,12 +1,12 @@
 package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 {

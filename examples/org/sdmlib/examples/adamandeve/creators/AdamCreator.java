@@ -1,9 +1,8 @@
 package org.sdmlib.examples.adamandeve.creators;
 
-import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
+import org.sdmlib.examples.adamandeve.Adam;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.adamandeve.Adam;
 
 public class AdamCreator extends EntityFactory
 {

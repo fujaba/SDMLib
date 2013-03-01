@@ -1,10 +1,9 @@
 package org.sdmlib.examples.adamandeve.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
-import org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowSet;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 

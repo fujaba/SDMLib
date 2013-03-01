@@ -1,13 +1,10 @@
 package org.sdmlib.scenarios.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.scenarios.LogEntry;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.scenarios.creators.KanbanEntryPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.scenarios.creators.LogEntryPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.scenarios.KanbanEntry;
-import org.sdmlib.scenarios.creators.LogEntrySet;
+import org.sdmlib.scenarios.LogEntry;
 
 public class LogEntryPO extends PatternObject
 {

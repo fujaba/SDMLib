@@ -22,6 +22,7 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.models.modelsets.StringList;
 

@@ -22,12 +22,11 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 
 public class Association implements PropertyChangeInterface

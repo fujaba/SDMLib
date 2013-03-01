@@ -22,9 +22,9 @@
 package org.sdmlib.examples.chats.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.chats.PeerToPeerChatArgs;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 
 public class PeerToPeerChatArgsSet extends LinkedHashSet<PeerToPeerChatArgs>

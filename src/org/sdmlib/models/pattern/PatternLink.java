@@ -21,15 +21,14 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class PatternLink extends PatternElement implements PropertyChangeInterface
 {

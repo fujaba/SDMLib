@@ -1,10 +1,10 @@
 package org.sdmlib.models.classes.creators;
 
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.classes.Clazz;
 
 public class MethodSet extends LinkedHashSet<Method>
 {

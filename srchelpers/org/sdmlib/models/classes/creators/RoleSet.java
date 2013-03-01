@@ -1,11 +1,11 @@
 package org.sdmlib.models.classes.creators;
 
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Association;
 
 public class RoleSet extends LinkedHashSet<Role>
 {

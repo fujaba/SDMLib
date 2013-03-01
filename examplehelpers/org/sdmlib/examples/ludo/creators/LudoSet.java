@@ -1,10 +1,11 @@
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Player;
+
 import org.sdmlib.examples.ludo.Dice;
 import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
 
 public class LudoSet extends LinkedHashSet<Ludo>

@@ -1,12 +1,10 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.ludoreverse.model.creators.LudoPO;
-import org.sdmlib.examples.ludoreverse.model.Ludo;
-import org.sdmlib.examples.ludoreverse.model.creators.PlayerPO;
-import org.sdmlib.examples.ludoreverse.model.Player;
-import org.sdmlib.examples.ludoreverse.model.creators.PointPO;
 import java.awt.Point;
+
+import org.sdmlib.examples.ludoreverse.model.Ludo;
+import org.sdmlib.examples.ludoreverse.model.Player;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

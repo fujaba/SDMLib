@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.groupAccount;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class GroupAccount implements PropertyChangeInterface
 {

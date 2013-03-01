@@ -21,16 +21,16 @@
    
 package org.sdmlib.model.taskflows;
 
+import java.beans.PropertyChangeSupport;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.TreeSet;
+
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Display;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.utils.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeSet;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface, SelectionListener
 {

@@ -1,9 +1,9 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
-import org.sdmlib.examples.ludoreverse.model.creators.CreatorCreator;
+import java.awt.Point;
+
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import java.awt.Point;
 
 public class PointCreator extends EntityFactory
 {

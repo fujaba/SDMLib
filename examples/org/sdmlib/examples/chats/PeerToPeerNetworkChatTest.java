@@ -1,20 +1,12 @@
 package org.sdmlib.examples.chats;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.LinkedHashSet;
 
 import org.junit.Test;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.chats.creators.CreatorCreator;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.model.taskflows.creators.TaskFlowCreator;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;

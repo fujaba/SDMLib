@@ -6,7 +6,6 @@ import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class AdamAndEveModel

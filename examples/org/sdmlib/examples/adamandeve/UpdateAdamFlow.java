@@ -21,8 +21,6 @@
    
 package org.sdmlib.examples.adamandeve;
 
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileWriter;
@@ -32,6 +30,8 @@ import org.sdmlib.model.taskflows.FetchFileFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
 {

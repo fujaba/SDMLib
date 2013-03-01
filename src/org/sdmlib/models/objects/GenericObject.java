@@ -21,15 +21,15 @@
    
 package org.sdmlib.models.objects;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
-import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+
+import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class GenericObject implements PropertyChangeInterface
 {

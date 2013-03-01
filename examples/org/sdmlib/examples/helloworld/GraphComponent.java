@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.helloworld;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class GraphComponent implements PropertyChangeInterface
 {

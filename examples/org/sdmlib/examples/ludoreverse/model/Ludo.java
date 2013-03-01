@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.ludoreverse.model;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Ludo implements PropertyChangeInterface
 {

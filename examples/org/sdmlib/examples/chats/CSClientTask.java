@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.chats;
 
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 public abstract class CSClientTask extends TaskFlow implements PropertyChangeInterface
 {

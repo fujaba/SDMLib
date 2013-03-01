@@ -1,15 +1,9 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludoreverse.model.Ludo;
-import org.sdmlib.examples.ludoreverse.model.creators.LudoSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.ludoreverse.model.creators.PlayerPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.ludoreverse.model.creators.LudoPO;
-import org.sdmlib.examples.ludoreverse.model.Player;
-import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {

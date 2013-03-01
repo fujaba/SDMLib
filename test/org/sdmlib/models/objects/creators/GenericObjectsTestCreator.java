@@ -1,9 +1,8 @@
 package org.sdmlib.models.objects.creators;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericObjectsTest;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class GenericObjectsTestCreator extends EntityFactory
 {

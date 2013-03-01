@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.groupAccount;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Item implements PropertyChangeInterface
 {

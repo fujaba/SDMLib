@@ -1,9 +1,8 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.model.classes.test.creators.CreatorCreator;
+import org.sdmlib.model.classes.test.Uncle;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.model.classes.test.Uncle;
 
 public class UncleCreator extends EntityFactory
 {

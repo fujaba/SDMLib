@@ -1,8 +1,7 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.PeerToPeerChat;
-import org.sdmlib.examples.chats.creators.PeerToPeerChatSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PeerToPeerChatPO extends PatternObject<PeerToPeerChatPO, PeerToPeerChat>
 {

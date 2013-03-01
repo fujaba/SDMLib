@@ -1,10 +1,10 @@
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.helloworld.Greeting;
 
 public class PersonSet extends LinkedHashSet<Person>
 {

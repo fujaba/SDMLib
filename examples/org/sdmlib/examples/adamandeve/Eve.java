@@ -21,15 +21,15 @@
    
 package org.sdmlib.examples.adamandeve;
 
+import java.beans.PropertyChangeSupport;
+import java.util.Timer;
+
 import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.util.Timer;
 
 public class Eve extends Timer implements PropertyChangeInterface
 {

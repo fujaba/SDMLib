@@ -1,16 +1,12 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.studyright.creators.UniversityPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.studyright.creators.StudentPO;
-import org.sdmlib.examples.studyright.University;
-import org.sdmlib.examples.studyright.creators.RoomPO;
 import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StudentPO extends PatternObject
 {

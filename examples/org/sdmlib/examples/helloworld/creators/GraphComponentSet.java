@@ -1,10 +1,10 @@
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.helloworld.Graph;
 
 public class GraphComponentSet extends LinkedHashSet<GraphComponent>
 {

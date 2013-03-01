@@ -1,9 +1,8 @@
 package org.sdmlib.examples.patternrewriteops.creators;
 
-import org.sdmlib.examples.patternrewriteops.creators.CreatorCreator;
+import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.patternrewriteops.Station;
 
 public class StationCreator extends EntityFactory
 {

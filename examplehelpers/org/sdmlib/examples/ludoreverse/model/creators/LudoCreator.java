@@ -1,9 +1,8 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
-import org.sdmlib.examples.ludoreverse.model.creators.CreatorCreator;
+import org.sdmlib.examples.ludoreverse.model.Ludo;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.ludoreverse.model.Ludo;
 
 public class LudoCreator extends EntityFactory
 {

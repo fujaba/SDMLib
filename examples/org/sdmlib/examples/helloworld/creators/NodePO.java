@@ -1,17 +1,10 @@
 package org.sdmlib.examples.helloworld.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.helloworld.creators.GraphPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.helloworld.creators.NodePO;
-import org.sdmlib.examples.helloworld.Graph;
-import org.sdmlib.examples.helloworld.creators.EdgePO;
-import org.sdmlib.examples.helloworld.Edge;
-import org.sdmlib.examples.helloworld.creators.EdgeSet;
-import org.sdmlib.examples.helloworld.creators.NodeSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {

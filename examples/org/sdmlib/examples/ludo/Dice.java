@@ -21,8 +21,9 @@
    
 package org.sdmlib.examples.ludo;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Dice implements PropertyChangeInterface
 {

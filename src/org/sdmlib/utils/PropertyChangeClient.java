@@ -46,7 +46,7 @@
  */
 package org.sdmlib.utils;
 
-import java.beans.*;
+import java.beans.PropertyChangeListener;
 
 public interface PropertyChangeClient extends PropertyChangeInterface
 {

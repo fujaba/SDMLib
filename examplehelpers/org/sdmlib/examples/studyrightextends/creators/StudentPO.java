@@ -1,15 +1,11 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.studyrightextends.creators.LecturePO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.studyrightextends.creators.StudentPO;
-import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.examples.studyrightextends.creators.StudentSet;
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StudentPO extends PatternObject
 {

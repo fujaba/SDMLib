@@ -21,19 +21,18 @@
    
 package org.sdmlib.examples.adamandeve;
 
+import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import org.sdmlib.examples.adamandeve.creators.CreatorCreator;
 import org.sdmlib.model.taskflows.SDMThread;
-import org.sdmlib.model.taskflows.SDMTimer;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class Adam implements PropertyChangeInterface
 {

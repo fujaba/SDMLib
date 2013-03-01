@@ -2,9 +2,9 @@ package org.sdmlib.scenarios.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.scenarios.KanbanEntry;
 import org.sdmlib.scenarios.LogEntry;
-import org.sdmlib.models.modelsets.StringList;
 
 public class KanbanEntrySet extends LinkedHashSet<KanbanEntry>
 {

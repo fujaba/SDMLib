@@ -21,15 +21,11 @@
    
 package org.sdmlib.examples.chats;
 
-import org.sdmlib.examples.chats.TestChatMessageFlow.TaskNames;
-import org.sdmlib.model.taskflows.Logger;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.util.TreeSet;
-
 import org.sdmlib.utils.StrUtil;
 
 public class P2PNetworkLoginFlow extends TaskFlow implements PropertyChangeInterface

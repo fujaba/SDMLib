@@ -1,15 +1,12 @@
 package org.sdmlib.examples.helloworld.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.helloworld.creators.GreetingPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.helloworld.creators.PersonPO;
-import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

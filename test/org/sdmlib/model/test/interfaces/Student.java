@@ -21,10 +21,9 @@
    
 package org.sdmlib.model.test.interfaces;
 
-import org.sdmlib.model.test.interfaces.Female;
-import org.sdmlib.model.test.interfaces.Male;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Student implements Female, Male, PropertyChangeInterface
 {

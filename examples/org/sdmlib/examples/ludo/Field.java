@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.ludo;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.ludo.creators.FieldSet;
 import org.sdmlib.examples.ludo.creators.PawnSet;
-import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Field implements PropertyChangeInterface
 {

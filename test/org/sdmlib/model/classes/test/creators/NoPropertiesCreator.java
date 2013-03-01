@@ -1,9 +1,8 @@
 package org.sdmlib.model.classes.test.creators;
 
-import org.sdmlib.model.classes.test.creators.CreatorCreator;
+import org.sdmlib.model.classes.test.NoProperties;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.model.classes.test.NoProperties;
 
 public class NoPropertiesCreator extends EntityFactory
 {

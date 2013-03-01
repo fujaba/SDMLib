@@ -22,8 +22,6 @@
 package org.sdmlib.models.transformations;
 
 import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -34,13 +32,11 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.scenarios.CallDot;
-import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;

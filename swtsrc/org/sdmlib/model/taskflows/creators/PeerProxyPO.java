@@ -1,9 +1,8 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;

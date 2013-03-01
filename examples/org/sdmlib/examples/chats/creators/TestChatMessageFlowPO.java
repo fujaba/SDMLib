@@ -1,9 +1,8 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.TestChatMessageFlow;
-import org.sdmlib.examples.chats.creators.TestChatMessageFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TestChatMessageFlowPO extends PatternObject<TestChatMessageFlowPO, TestChatMessageFlow>
 {

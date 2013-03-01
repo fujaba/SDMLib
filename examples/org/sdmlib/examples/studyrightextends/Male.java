@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import org.sdmlib.examples.studyrightextends.Person;
 
 public interface Male extends Person
 {

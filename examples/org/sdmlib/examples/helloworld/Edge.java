@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.helloworld;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.helloworld.GraphComponent;
 
 public class Edge extends GraphComponent implements PropertyChangeInterface
 {

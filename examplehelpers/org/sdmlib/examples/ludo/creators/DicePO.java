@@ -1,16 +1,11 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.creators.DiceSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.ludo.creators.LudoPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.ludo.creators.DicePO;
 import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.creators.PlayerPO;
 import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class DicePO extends PatternObject<DicePO, Dice>
 {

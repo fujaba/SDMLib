@@ -1,13 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.AttributeOp;
-import org.sdmlib.models.transformations.creators.AttributeOpSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.transformations.creators.OperationObjectPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.transformations.creators.AttributeOpPO;
 import org.sdmlib.models.transformations.OperationObject;
 
 public class AttributeOpPO extends PatternObject

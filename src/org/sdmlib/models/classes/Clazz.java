@@ -31,8 +31,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;

@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Lecture implements PropertyChangeInterface
 {

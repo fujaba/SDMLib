@@ -21,7 +21,6 @@
    
 package org.sdmlib.model.test.interfaces;
 
-import org.sdmlib.model.test.interfaces.Person;
 
 public interface Female extends Person
 {

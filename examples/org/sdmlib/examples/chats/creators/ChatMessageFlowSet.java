@@ -25,15 +25,12 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.chats.ChatMessageFlow;
 import org.sdmlib.examples.chats.PeerToPeerChat;
-import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 
 public class ChatMessageFlowSet extends LinkedHashSet<ChatMessageFlow>
 {

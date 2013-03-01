@@ -22,9 +22,10 @@
 package org.sdmlib.examples.patternrewriteops.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
-import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.patternrewriteops.Station;
+import org.sdmlib.models.modelsets.StringList;
 
 public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdmlib.models.modelsets.ModelSet
 {

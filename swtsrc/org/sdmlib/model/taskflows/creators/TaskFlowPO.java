@@ -1,18 +1,10 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.model.taskflows.creators.LoggerPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.creators.LogEntryPO;
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {

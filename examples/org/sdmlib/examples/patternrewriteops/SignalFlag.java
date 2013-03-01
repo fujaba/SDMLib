@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.patternrewriteops;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class SignalFlag implements PropertyChangeInterface
 {

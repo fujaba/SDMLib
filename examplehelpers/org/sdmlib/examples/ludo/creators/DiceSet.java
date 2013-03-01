@@ -1,12 +1,12 @@
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
 import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class DiceSet extends LinkedHashSet<Dice>
 {

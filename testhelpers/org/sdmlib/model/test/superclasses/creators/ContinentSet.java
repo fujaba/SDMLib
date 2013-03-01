@@ -1,9 +1,9 @@
 package org.sdmlib.model.test.superclasses.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.model.test.superclasses.Continent;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 
 public class ContinentSet extends LinkedHashSet<Continent>
 {

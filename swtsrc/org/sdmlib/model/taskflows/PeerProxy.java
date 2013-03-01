@@ -21,16 +21,15 @@
    
 package org.sdmlib.model.taskflows;
 
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>

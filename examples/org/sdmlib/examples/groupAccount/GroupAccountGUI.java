@@ -4,24 +4,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.GridData;
-import org.sdmlib.examples.groupAccount.creators.CreatorCreator;
-import org.sdmlib.examples.groupAccount.creators.ItemCreator;
-import org.sdmlib.examples.groupAccount.creators.PersonCreator;
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 import de.uniks.jism.gui.table.SDMLibSearchTableComponent;
 import de.uniks.jism.gui.table.SearchTableComponent;
-import de.uniks.jism.gui.table.TableComponent;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 public class GroupAccountGUI extends Shell
 {

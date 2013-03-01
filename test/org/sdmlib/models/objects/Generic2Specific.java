@@ -1,13 +1,9 @@
 package org.sdmlib.models.objects;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-
-import de.kassel.roombook.Building;
 
 public class Generic2Specific
 {

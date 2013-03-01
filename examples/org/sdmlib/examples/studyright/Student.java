@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.studyright;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Student implements PropertyChangeInterface
 {

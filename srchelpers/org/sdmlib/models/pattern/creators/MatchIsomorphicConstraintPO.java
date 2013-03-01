@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class MatchIsomorphicConstraintPO extends PatternObject
 {

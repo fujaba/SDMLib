@@ -1,14 +1,11 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.Professor;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.studyright.creators.TopicPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.studyright.creators.ProfessorPO;
 import org.sdmlib.examples.studyright.Topic;
-import org.sdmlib.examples.studyright.creators.ProfessorSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ProfessorPO extends PatternObject
 {

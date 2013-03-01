@@ -21,38 +21,16 @@
    
 package org.sdmlib.examples.chats;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Button;
-import org.sdmlib.examples.chats.creators.CreatorCreator;
-import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.SDMThread;
-import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.TreeSet;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -61,9 +39,25 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.sdmlib.examples.chats.creators.CreatorCreator;
+import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.model.taskflows.SocketThread;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class PeerToPeerChat extends Shell implements PropertyChangeInterface
 {

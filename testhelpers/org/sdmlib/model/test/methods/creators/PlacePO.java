@@ -1,7 +1,7 @@
 package org.sdmlib.model.test.methods.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.test.methods.Place;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PlacePO extends PatternObject
 {

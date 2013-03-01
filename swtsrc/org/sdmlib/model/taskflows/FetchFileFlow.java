@@ -21,8 +21,6 @@
    
 package org.sdmlib.model.taskflows;
 
-import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface

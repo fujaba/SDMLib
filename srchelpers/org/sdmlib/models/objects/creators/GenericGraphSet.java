@@ -1,10 +1,11 @@
 package org.sdmlib.models.objects.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.GenericLink;
+
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.objects.GenericObject;
 
 public class GenericGraphSet extends LinkedHashSet<GenericGraph>
 {

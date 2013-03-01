@@ -2,13 +2,12 @@ package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.booleanList;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {

@@ -22,10 +22,11 @@
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
-import org.sdmlib.model.classes.test.Uncle;
-import org.sdmlib.models.modelsets.StringList;
+
 import org.sdmlib.model.classes.test.Parent;
+import org.sdmlib.model.classes.test.Uncle;
+import org.sdmlib.models.modelsets.ModelSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
 {

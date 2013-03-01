@@ -22,16 +22,15 @@
 package org.sdmlib.models.classes.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.booleanSet;
 
-import java.util.List;
-import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.modelsets.booleanSet;
 
 public class ClazzSet extends LinkedHashSet<Clazz>
 {

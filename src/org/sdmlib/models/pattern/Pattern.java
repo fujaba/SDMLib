@@ -21,26 +21,19 @@
    
 package org.sdmlib.models.pattern;
 
-import java.io.BufferedWriter;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.scenarios.JsonToImg;
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.models.pattern.Pattern;
 
 public class Pattern extends PatternElement<Pattern> implements PropertyChangeInterface
 {

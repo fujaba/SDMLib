@@ -1,9 +1,8 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.creators.CreatorCreator;
+import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.ludo.Ludo;
 
 public class LudoCreator extends EntityFactory
 {

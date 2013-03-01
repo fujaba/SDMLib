@@ -1,14 +1,10 @@
 package org.sdmlib.models.objects.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.objects.creators.GenericGraphPO;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.creators.GenericObjectPO;
-import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.creators.GenericAttributePO;
 import org.sdmlib.models.objects.GenericAttribute;
-import org.sdmlib.models.objects.creators.GenericLinkPO;
+import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

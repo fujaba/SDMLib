@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.ludoreverse.model.creators;
 
-import java.util.LinkedHashSet;
 import java.awt.Point;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.List;
 
 public class PointSet extends LinkedHashSet<Point> implements org.sdmlib.models.modelsets.ModelSet
 {

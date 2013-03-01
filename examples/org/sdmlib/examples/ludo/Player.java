@@ -21,14 +21,14 @@
    
 package org.sdmlib.examples.ludo;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.examples.ludo.creators.PawnSet;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.ludo.creators.PawnSet;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.ludo.LudoModel.LudoColor;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Player implements PropertyChangeInterface
 {

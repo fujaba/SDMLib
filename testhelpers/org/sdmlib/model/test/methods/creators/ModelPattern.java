@@ -1,8 +1,7 @@
 package org.sdmlib.model.test.methods.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.model.test.methods.creators.PlacePO;
 import org.sdmlib.model.test.methods.Place;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

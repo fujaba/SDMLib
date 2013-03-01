@@ -1,15 +1,10 @@
 package org.sdmlib.examples.patternrewriteops.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.patternrewriteops.Person;
-import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.patternrewriteops.creators.StationPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.patternrewriteops.creators.PersonPO;
 import org.sdmlib.examples.patternrewriteops.Station;
-import org.sdmlib.examples.patternrewriteops.creators.TrainPO;
 import org.sdmlib.examples.patternrewriteops.Train;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

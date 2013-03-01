@@ -1,8 +1,8 @@
 package de.kassel.roombook.creators;
 
 import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
+
 import de.kassel.roombook.Floor;
 
 public class FloorCreator extends EntityFactory

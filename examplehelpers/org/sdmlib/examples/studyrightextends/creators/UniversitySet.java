@@ -22,10 +22,10 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.studyrightextends.Room;
 
 public class UniversitySet extends LinkedHashSet<University>
 {

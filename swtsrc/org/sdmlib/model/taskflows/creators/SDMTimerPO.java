@@ -2,9 +2,8 @@ package org.sdmlib.model.taskflows.creators;
 
 import java.util.TimerTask;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.SDMTimer;
-import org.sdmlib.model.taskflows.creators.SDMTimerSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class SDMTimerPO extends PatternObject<SDMTimerPO, SDMTimer>
 {

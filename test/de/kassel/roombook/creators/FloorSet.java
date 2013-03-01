@@ -1,11 +1,12 @@
 package de.kassel.roombook.creators;
 
 import java.util.LinkedHashSet;
-import de.kassel.roombook.Floor;
+
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+
 import de.kassel.roombook.Building;
-import java.util.List;
+import de.kassel.roombook.Floor;
 
 public class FloorSet extends LinkedHashSet<Floor>
 {

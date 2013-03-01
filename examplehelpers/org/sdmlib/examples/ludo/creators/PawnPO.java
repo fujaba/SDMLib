@@ -1,16 +1,11 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.ludo.Pawn;
-import org.sdmlib.examples.ludo.creators.PawnSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.ludo.creators.PlayerPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.ludo.creators.PawnPO;
-import org.sdmlib.examples.ludo.Player;
-import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PawnPO extends PatternObject<PawnPO, Pawn>
 {

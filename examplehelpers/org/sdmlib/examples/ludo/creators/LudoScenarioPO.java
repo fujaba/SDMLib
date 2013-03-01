@@ -1,8 +1,7 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.LudoScenario;
-import org.sdmlib.examples.ludo.creators.LudoScenarioSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoScenarioPO extends PatternObject<LudoScenarioPO, LudoScenario>
 {

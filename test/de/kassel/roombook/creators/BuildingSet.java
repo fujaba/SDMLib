@@ -1,8 +1,10 @@
 package de.kassel.roombook.creators;
 
 import java.util.LinkedHashSet;
-import de.kassel.roombook.Building;
+
 import org.sdmlib.models.modelsets.StringList;
+
+import de.kassel.roombook.Building;
 import de.kassel.roombook.Floor;
 
 public class BuildingSet extends LinkedHashSet<Building>

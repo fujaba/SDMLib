@@ -1,16 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Statement;
-import org.sdmlib.models.transformations.creators.StatementSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.transformations.creators.StatementPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.transformations.creators.OperationObjectPO;
-import org.sdmlib.models.transformations.OperationObject;
-import org.sdmlib.models.transformations.creators.OperationObjectSet;
-import org.sdmlib.models.transformations.creators.TransformOpPO;
 import org.sdmlib.models.transformations.TransformOp;
 
 public class StatementPO extends PatternObject

@@ -21,12 +21,12 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.PatternLink;
+import java.beans.PropertyChangeSupport;
+import java.util.Collection;
+
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.util.Collection;
 
 public class LinkConstraint extends PatternLink implements PropertyChangeInterface
 {

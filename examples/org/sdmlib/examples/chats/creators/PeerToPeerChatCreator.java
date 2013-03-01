@@ -1,9 +1,8 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.examples.chats.creators.CreatorCreator;
+import org.sdmlib.examples.chats.PeerToPeerChat;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.chats.PeerToPeerChat;
 
 public class PeerToPeerChatCreator extends EntityFactory
 {

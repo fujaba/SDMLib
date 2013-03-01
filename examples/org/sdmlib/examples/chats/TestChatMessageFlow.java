@@ -21,15 +21,13 @@
 
 package org.sdmlib.examples.chats;
 
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.sdmlib.utils.StrUtil;
 
 public class TestChatMessageFlow extends TaskFlow implements PropertyChangeInterface

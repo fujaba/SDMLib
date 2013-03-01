@@ -1,15 +1,11 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.studyrightextends.creators.RoomPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.studyrightextends.creators.UniversityPO;
-import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
-import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class UniversityPO extends PatternObject
 {

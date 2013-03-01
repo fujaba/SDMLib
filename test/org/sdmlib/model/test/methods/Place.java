@@ -21,8 +21,9 @@
    
 package org.sdmlib.model.test.methods;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Place implements PropertyChangeInterface
 {

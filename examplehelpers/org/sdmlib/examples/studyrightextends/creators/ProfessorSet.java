@@ -22,11 +22,11 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.studyrightextends.Professor;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.models.modelsets.StringList;
+
 import org.sdmlib.examples.studyrightextends.Lecture;
+import org.sdmlib.examples.studyrightextends.Professor;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class ProfessorSet extends LinkedHashSet<Professor>
 {

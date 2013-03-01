@@ -1,9 +1,9 @@
 package org.sdmlib.codegen.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 
 public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>

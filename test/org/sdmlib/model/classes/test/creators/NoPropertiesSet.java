@@ -22,8 +22,9 @@
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.modelsets.ModelSet;
+
 import org.sdmlib.model.classes.test.NoProperties;
+import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements ModelSet

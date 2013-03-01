@@ -21,18 +21,18 @@
    
 package org.sdmlib.examples.groupAccount;
    
-import org.junit.Assert;
+import static org.sdmlib.models.classes.Role.R.DOUBLE;
+import static org.sdmlib.models.classes.Role.R.MANY;
+import static org.sdmlib.models.classes.Role.R.ONE;
+import static org.sdmlib.models.classes.Role.R.STRING;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
-import static org.sdmlib.models.classes.Role.R.*;
 import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.classes.Method;
    
 public class GroupAccountTests 
 {

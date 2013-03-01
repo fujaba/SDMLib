@@ -1,10 +1,9 @@
 package org.sdmlib.model.classes.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.model.classes.creators.ReverseClassModelTestPO;
 import org.sdmlib.model.classes.ReverseClassModelTest;
-import org.sdmlib.model.test.interfaces.creators.StudentPO;
 import org.sdmlib.model.test.interfaces.Student;
+import org.sdmlib.model.test.interfaces.creators.StudentPO;
+import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern
 {

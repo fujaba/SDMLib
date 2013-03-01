@@ -1,17 +1,13 @@
 package org.sdmlib.examples.chats.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.chats.CSClientTask;
-import org.sdmlib.examples.chats.creators.CSClientTaskSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.chats.creators.CSVisitAllClientsFlowPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.chats.creators.CSClientTaskPO;
 import org.sdmlib.examples.chats.CSVisitAllClientsFlow;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.creators.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.model.taskflows.creators.TaskFlowPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class CSClientTaskPO extends PatternObject<CSClientTaskPO, CSClientTask>
 {

@@ -1,9 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.LinkOp;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
+import org.sdmlib.models.transformations.LinkOp;
 import org.sdmlib.models.transformations.OperationObject;
 import org.sdmlib.models.transformations.TransformOp;
 

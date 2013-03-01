@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Association;
 
 public class LudoReverseModel
 {

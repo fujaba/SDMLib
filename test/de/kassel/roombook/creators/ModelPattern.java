@@ -1,12 +1,11 @@
 package de.kassel.roombook.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import de.kassel.roombook.creators.BuildingPO;
-import de.kassel.roombook.Building;
-import de.kassel.roombook.creators.FloorPO;
-import de.kassel.roombook.Floor;
-import org.sdmlib.models.objects.creators.GenericObjectsTestPO;
 import org.sdmlib.models.objects.GenericObjectsTest;
+import org.sdmlib.models.objects.creators.GenericObjectsTestPO;
+import org.sdmlib.models.pattern.Pattern;
+
+import de.kassel.roombook.Building;
+import de.kassel.roombook.Floor;
 
 public class ModelPattern extends Pattern
 {

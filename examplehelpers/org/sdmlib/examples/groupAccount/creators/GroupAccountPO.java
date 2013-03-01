@@ -1,17 +1,11 @@
 package org.sdmlib.examples.groupAccount.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.groupAccount.creators.PersonPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.groupAccount.creators.GroupAccountPO;
-import org.sdmlib.examples.groupAccount.Person;
-import org.sdmlib.examples.groupAccount.creators.ItemPO;
 import org.sdmlib.examples.groupAccount.Item;
-import org.sdmlib.examples.groupAccount.creators.GroupAccountSet;
-import org.sdmlib.examples.groupAccount.creators.PersonSet;
-import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import org.sdmlib.examples.groupAccount.Person;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GroupAccountPO extends PatternObject
 {

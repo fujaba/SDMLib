@@ -21,8 +21,9 @@
    
 package org.sdmlib.examples.studyright;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 public class Professor implements PropertyChangeInterface

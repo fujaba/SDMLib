@@ -1,9 +1,8 @@
 package org.sdmlib.model.test.superclasses.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.test.superclasses.Town;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.model.test.superclasses.creators.TownSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TownPO extends PatternObject
 {

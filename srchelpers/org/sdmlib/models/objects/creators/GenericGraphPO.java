@@ -1,17 +1,8 @@
 package org.sdmlib.models.objects.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.creators.GenericGraphSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.objects.creators.GenericGraphPO;
-import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
-import org.sdmlib.models.objects.creators.GenericLinkPO;
-import org.sdmlib.models.objects.GenericLink;
-import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericGraphPO extends PatternObject
 {

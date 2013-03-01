@@ -1,29 +1,19 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.PatternElementPO;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.creators.NegativeApplicationConditionPO;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.creators.PatternObjectPO;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternLinkPO;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.creators.LinkConstraintPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPO;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.creators.OptionalSubPatternPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.serialization.json.creators.JsonIdMapPO;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.json.creators.JsonIdMapPO;
+import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
 
 public class ModelPattern extends Pattern
 {

@@ -21,18 +21,16 @@
 package org.sdmlib.models.classes;
 
 
-import java.awt.Point;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class Attribute implements PropertyChangeInterface 
 {
