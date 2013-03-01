@@ -36,8 +36,8 @@
 <!-- _Building&#45;&gt;_Floor -->
 <g id="edge2" class="edge"><title>_Building&#45;&gt;_Floor</title>
 <path fill="none" stroke="black" d="M39,-130.245C39,-118.913 39,-105.913 39,-93.6447"/>
-<text text-anchor="middle" x="43.2262" y="-100.208" font-family="Times New Roman,serif" font-size="10.00">has</text>
-<text text-anchor="middle" x="34.7738" y="-118.682" font-family="Times New Roman,serif" font-size="10.00">buildings</text>
+<text text-anchor="middle" x="43.2262" y="-100.208" font-family="Times New Roman,serif" font-size="10.00">has *</text>
+<text text-anchor="middle" x="34.7738" y="-118.682" font-family="Times New Roman,serif" font-size="10.00">buildings *</text>
 </g>
 </g>
 </svg>

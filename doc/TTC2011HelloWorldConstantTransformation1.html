@@ -1,19 +1,21 @@
 <html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation1</a></p>
 <pre>A constant transformation that creates a Greeting object</pre>
 <pre>Create class model and generate implementation:</pre>
-<img src='TTC2011HelloWorldConstantTransformation1ClassDiag.svg'><pre>The code that builds and runs the transformation / pattern looks like: </pre>
+<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiag.svg'><pre>The code that builds and runs the transformation / pattern looks like: </pre>
 <pre>      ModelPattern p = new ModelPattern().startCreate();
       
       PatternObject greetingPO = p.hasElementGreetingPO()
                                   .hasText("Hello World");
 </pre>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1.svg'>
+<pre>Check: Constant transformation has match</pre>
 <pre>At runtime the object structure for the pattern and for the hostgraph looks like: </pre>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1AfterTransformation.svg'>
 <pre>For completeness just the host graph:</pre>
-<img src='TTC2011HelloWorldConstantTransformation111.svg'>
+<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation112.svg'>
 <pre>For fairness, the java code that does this transformation looks like: </pre>
 <pre>      Greeting greeting = new Greeting()
       .withText("Hello World");

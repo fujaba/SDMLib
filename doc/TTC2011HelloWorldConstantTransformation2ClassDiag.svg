@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-172 194,-172 194,5 -4,5"/>
 <!-- _Greeting -->
 <g id="node1" class="node"><title>_Greeting</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Greeting.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="79,-146 79,-163 120,-163 120,-146 79,-146"/>
 <text text-anchor="start" x="82.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Greeting</text>
+</a>
 <polygon fill="none" stroke="black" points="79,-126 79,-146 120,-146 120,-126 79,-126"/>
 <text text-anchor="start" x="98" y="-134" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="79,-106 79,-126 120,-126 120,-106 79,-106"/>
@@ -20,8 +22,10 @@
 </g>
 <!-- _GreetingMessage -->
 <g id="node2" class="node"><title>_GreetingMessage</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/GreetingMessage.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-44 8,-61 86,-61 86,-44 8,-44"/>
 <text text-anchor="start" x="11.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">GreetingMessage</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-24 8,-44 86,-44 86,-24 8,-24"/>
 <text text-anchor="start" x="13" y="-32" font-family="Times New Roman,serif" font-size="10.00">text :String</text>
 <polygon fill="none" stroke="black" points="8,-4 8,-24 86,-24 86,-4 8,-4"/>
@@ -35,8 +39,10 @@
 </g>
 <!-- _Person -->
 <g id="node3" class="node"><title>_Person</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="121,-44 121,-61 182,-61 182,-44 121,-44"/>
 <text text-anchor="start" x="137.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
+</a>
 <polygon fill="none" stroke="black" points="121,-24 121,-44 182,-44 182,-24 121,-24"/>
 <text text-anchor="start" x="126" y="-32" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <polygon fill="none" stroke="black" points="121,-4 121,-24 182,-24 182,-4 121,-4"/>

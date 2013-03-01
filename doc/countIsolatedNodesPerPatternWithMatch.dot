@@ -2,15 +2,15 @@ graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
 
-g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'> <tr> <td border='0' align='right'><font color='black'>&laquo;bound&raquo;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
-n2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> n2 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> <tr> <td border='0' align='right'><font color='black'>&#171;bound&#187;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+n2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> n2 :NodePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 allMatches_n2 [label=allMatches];
 subgraph cluster_n3 
 {
    label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
    color=grey;
 
-e4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e4 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+e4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> e4 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 }
 
 subgraph cluster_n5 
@@ -18,7 +18,7 @@ subgraph cluster_n5
    label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC n5</td></tr></table>>;
    color=grey;
 
-e6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='aliceblue'>  <tr> <td align='center'> <font color='black'> e6 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+e6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> e6 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 }
 
 g7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g7 :Graph</u></td></tr></table>>];

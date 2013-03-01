@@ -36,7 +36,7 @@
 <!-- _GenericGraph&#45;&gt;_GenericObject -->
 <g id="edge2" class="edge"><title>_GenericGraph&#45;&gt;_GenericObject</title>
 <path fill="none" stroke="black" d="M143.529,-246.245C140.149,-234.913 136.272,-221.913 132.613,-209.645"/>
-<text text-anchor="middle" x="139.253" y="-214.622" font-family="Times New Roman,serif" font-size="10.00">objects</text>
+<text text-anchor="middle" x="139.253" y="-214.622" font-family="Times New Roman,serif" font-size="10.00">objects *</text>
 <text text-anchor="middle" x="136.889" y="-236.267" font-family="Times New Roman,serif" font-size="10.00">graph</text>
 </g>
 <!-- _GenericLink -->
@@ -54,7 +54,7 @@
 <!-- _GenericGraph&#45;&gt;_GenericLink -->
 <g id="edge10" class="edge"><title>_GenericGraph&#45;&gt;_GenericLink</title>
 <path fill="none" stroke="black" d="M161.463,-246.41C164.115,-235.023 166.69,-222.018 168,-210 172.526,-168.468 172.117,-157.574 168,-116 166.822,-104.107 164.619,-91.307 162.256,-79.7071"/>
-<text text-anchor="middle" x="168.179" y="-85.2647" font-family="Times New Roman,serif" font-size="10.00">links</text>
+<text text-anchor="middle" x="168.179" y="-85.2647" font-family="Times New Roman,serif" font-size="10.00">links *</text>
 <text text-anchor="middle" x="159.364" y="-234.133" font-family="Times New Roman,serif" font-size="10.00">graph</text>
 </g>
 <!-- _GenericAttribute -->
@@ -72,19 +72,19 @@
 <!-- _GenericObject&#45;&gt;_GenericAttribute -->
 <g id="edge4" class="edge"><title>_GenericObject&#45;&gt;_GenericAttribute</title>
 <path fill="none" stroke="black" d="M91.0238,-116.255C83.6566,-104.209 75.7811,-91.3313 68.6653,-79.6959"/>
-<text text-anchor="middle" x="76.9992" y="-82.7227" font-family="Times New Roman,serif" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="76.9992" y="-82.7227" font-family="Times New Roman,serif" font-size="10.00">attrs *</text>
 <text text-anchor="middle" x="82.6899" y="-108.228" font-family="Times New Roman,serif" font-size="10.00">owner</text>
 </g>
 <!-- _GenericObject&#45;&gt;_GenericLink -->
 <g id="edge6" class="edge"><title>_GenericObject&#45;&gt;_GenericLink</title>
 <path fill="none" stroke="black" d="M125.286,-116.255C128.368,-104.209 132.062,-91.3313 135.783,-79.6959"/>
-<text text-anchor="middle" x="137.08" y="-87.1114" font-family="Times New Roman,serif" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="137.08" y="-87.1114" font-family="Times New Roman,serif" font-size="10.00">outgoingLinks *</text>
 <text text-anchor="middle" x="123.468" y="-103.922" font-family="Times New Roman,serif" font-size="10.00">src</text>
 </g>
 <!-- _GenericObject&#45;&gt;_GenericLink -->
 <g id="edge8" class="edge"><title>_GenericObject&#45;&gt;_GenericLink</title>
 <path fill="none" stroke="black" d="M138.422,-116.255C142.109,-104.209 145.653,-91.3313 148.471,-79.6959"/>
-<text text-anchor="middle" x="150.412" y="-87.0057" font-family="Times New Roman,serif" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="150.412" y="-87.0057" font-family="Times New Roman,serif" font-size="10.00">incommingLinks *</text>
 <text text-anchor="middle" x="137.004" y="-103.856" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
 </g>
 </g>

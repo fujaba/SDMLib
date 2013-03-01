@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-966 1036,-966 1036,5 -4,5"/>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="284,-906.5 284,-957.5 344,-957.5 344,-906.5 284,-906.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="284,-906.5 284,-957.5 344,-957.5 344,-906.5 284,-906.5"/>
 <text text-anchor="start" x="312" y="-947.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
 <polygon fill="none" stroke="black" points="284,-926 284,-942 344,-942 344,-926 284,-926"/>
 <text text-anchor="start" x="287.5" y="-932" font-family="Times New Roman,serif" font-size="10.00"> </text>
@@ -21,7 +21,7 @@
 </g>
 <!-- n2 -->
 <g id="node2" class="node"><title>n2</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="85.5,-824.5 85.5,-861.5 148.5,-861.5 148.5,-824.5 85.5,-824.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="85.5,-824.5 85.5,-861.5 148.5,-861.5 148.5,-824.5 85.5,-824.5"/>
 <polygon fill="none" stroke="black" points="86,-844 86,-861 149,-861 149,-844 86,-844"/>
 <text text-anchor="start" x="89.5" y="-850.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="92.5" y="-850.5" font-family="Times New Roman,serif" font-size="10.00"> n2 :NodePO </text>

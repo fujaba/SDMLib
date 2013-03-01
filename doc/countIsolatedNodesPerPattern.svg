@@ -21,7 +21,7 @@
 </g>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="90.5,-211.5 90.5,-262.5 155.5,-262.5 155.5,-211.5 90.5,-211.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="90.5,-211.5 90.5,-262.5 155.5,-262.5 155.5,-211.5 90.5,-211.5"/>
 <text text-anchor="start" x="117" y="-252.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
 <polygon fill="none" stroke="black" points="91,-231 91,-247 156,-247 156,-231 91,-231"/>
 <text text-anchor="start" x="94.5" y="-237" font-family="Times New Roman,serif" font-size="10.00"> </text>
@@ -31,7 +31,7 @@
 </g>
 <!-- n2 -->
 <g id="node2" class="node"><title>n2</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="91.5,-129.5 91.5,-166.5 154.5,-166.5 154.5,-129.5 91.5,-129.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="91.5,-129.5 91.5,-166.5 154.5,-166.5 154.5,-129.5 91.5,-129.5"/>
 <polygon fill="none" stroke="black" points="92,-149 92,-166 155,-166 155,-149 92,-149"/>
 <text text-anchor="start" x="95.5" y="-155.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="98.5" y="-155.5" font-family="Times New Roman,serif" font-size="10.00"> n2 :NodePO </text>
@@ -53,7 +53,7 @@
 </g>
 <!-- e4 -->
 <g id="node5" class="node"><title>e4</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="92.5,-20.5 92.5,-57.5 153.5,-57.5 153.5,-20.5 92.5,-20.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="92.5,-20.5 92.5,-57.5 153.5,-57.5 153.5,-20.5 92.5,-20.5"/>
 <polygon fill="none" stroke="black" points="93,-40 93,-57 154,-57 154,-40 93,-40"/>
 <text text-anchor="start" x="96.5" y="-46.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="99.5" y="-46.5" font-family="Times New Roman,serif" font-size="10.00"> e4 :EdgePO </text>
@@ -67,7 +67,7 @@
 </g>
 <!-- e6 -->
 <g id="node7" class="node"><title>e6</title>
-<polygon fill="aliceblue" stroke="aliceblue" points="201.5,-20.5 201.5,-57.5 262.5,-57.5 262.5,-20.5 201.5,-20.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="201.5,-20.5 201.5,-57.5 262.5,-57.5 262.5,-20.5 201.5,-20.5"/>
 <polygon fill="none" stroke="black" points="202,-40 202,-57 263,-57 263,-40 202,-40"/>
 <text text-anchor="start" x="205.5" y="-46.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="208.5" y="-46.5" font-family="Times New Roman,serif" font-size="10.00"> e6 :EdgePO </text>

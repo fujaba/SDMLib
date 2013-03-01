@@ -10,5 +10,5 @@
     
     
     
-    _Building -> _Floor [headlabel = "has" taillabel = "buildings" arrowhead = "none" ];
+    _Building -> _Floor [headlabel = "has *" taillabel = "buildings" arrowhead = "none" ];
 }

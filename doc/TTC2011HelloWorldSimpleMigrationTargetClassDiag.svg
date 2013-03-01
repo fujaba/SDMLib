@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-376 112.937,-376 112.937,5 -4,5"/>
 <!-- _Graph -->
 <g id="node1" class="node"><title>_Graph</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Graph.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="44.937,-350 44.937,-367 76.937,-367 76.937,-350 44.937,-350"/>
 <text text-anchor="start" x="48.437" y="-356.5" font-family="Times New Roman,serif" font-size="10.00">Graph</text>
+</a>
 <polygon fill="none" stroke="black" points="44.937,-330 44.937,-350 76.937,-350 76.937,-330 44.937,-330"/>
 <text text-anchor="start" x="59.437" y="-338" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="44.937,-310 44.937,-330 76.937,-330 76.937,-310 44.937,-310"/>
@@ -20,8 +22,10 @@
 </g>
 <!-- _GraphComponent -->
 <g id="node2" class="node"><title>_GraphComponent</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/GraphComponent.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="21.937,-248 21.937,-265 99.937,-265 99.937,-248 21.937,-248"/>
 <text text-anchor="start" x="25.437" y="-254.5" font-family="Times New Roman,serif" font-size="10.00">GraphComponent</text>
+</a>
 <polygon fill="none" stroke="black" points="21.937,-228 21.937,-248 99.937,-248 99.937,-228 21.937,-228"/>
 <text text-anchor="start" x="26.937" y="-236" font-family="Times New Roman,serif" font-size="10.00">text :String</text>
 <polygon fill="none" stroke="black" points="21.937,-208 21.937,-228 99.937,-228 99.937,-208 21.937,-208"/>
@@ -35,8 +39,10 @@
 </g>
 <!-- _Edge -->
 <g id="node3" class="node"><title>_Edge</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="19.937,-146 19.937,-163 47.937,-163 47.937,-146 19.937,-146"/>
 <text text-anchor="start" x="23.437" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Edge</text>
+</a>
 <polygon fill="none" stroke="black" points="19.937,-126 19.937,-146 47.937,-146 47.937,-126 19.937,-126"/>
 <text text-anchor="start" x="32.437" y="-134" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="19.937,-106 19.937,-126 47.937,-126 47.937,-106 19.937,-106"/>
@@ -49,8 +55,10 @@
 </g>
 <!-- _Node -->
 <g id="node4" class="node"><title>_Node</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="19.937,-44 19.937,-61 48.937,-61 48.937,-44 19.937,-44"/>
 <text text-anchor="start" x="23.437" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Node</text>
+</a>
 <polygon fill="none" stroke="black" points="19.937,-24 19.937,-44 48.937,-44 48.937,-24 19.937,-24"/>
 <text text-anchor="start" x="32.937" y="-32" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="19.937,-4 19.937,-24 48.937,-24 48.937,-4 19.937,-4"/>

@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-274 103,-274 103,5 -4,5"/>
 <!-- _Graph -->
 <g id="node1" class="node"><title>_Graph</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Graph.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="55,-248 55,-265 87,-265 87,-248 55,-248"/>
 <text text-anchor="start" x="58.5" y="-254.5" font-family="Times New Roman,serif" font-size="10.00">Graph</text>
+</a>
 <polygon fill="none" stroke="black" points="55,-228 55,-248 87,-248 87,-228 55,-228"/>
 <text text-anchor="start" x="69.5" y="-236" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="55,-208 55,-228 87,-228 87,-208 55,-208"/>
@@ -20,8 +22,10 @@
 </g>
 <!-- _Edge -->
 <g id="node2" class="node"><title>_Edge</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-146 8,-163 69,-163 69,-146 8,-146"/>
 <text text-anchor="start" x="28" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Edge</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-126 8,-146 69,-146 69,-126 8,-126"/>
 <text text-anchor="start" x="13" y="-134" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <polygon fill="none" stroke="black" points="8,-106 8,-126 69,-126 69,-106 8,-106"/>
@@ -35,8 +39,10 @@
 </g>
 <!-- _Node -->
 <g id="node3" class="node"><title>_Node</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-44 8,-61 69,-61 69,-44 8,-44"/>
 <text text-anchor="start" x="27.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Node</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-24 8,-44 69,-44 69,-24 8,-24"/>
 <text text-anchor="start" x="13" y="-32" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <polygon fill="none" stroke="black" points="8,-4 8,-24 69,-24 69,-4 8,-4"/>

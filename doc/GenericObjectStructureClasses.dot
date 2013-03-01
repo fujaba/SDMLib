@@ -11,9 +11,9 @@
     
     
     
-    _GenericGraph -> _GenericObject [headlabel = "objects" taillabel = "graph" arrowhead = "none" ];
-    _GenericObject -> _GenericAttribute [headlabel = "attrs" taillabel = "owner" arrowhead = "none" ];
-    _GenericObject -> _GenericLink [headlabel = "outgoingLinks" taillabel = "src" arrowhead = "none" ];
-    _GenericObject -> _GenericLink [headlabel = "incommingLinks" taillabel = "tgt" arrowhead = "none" ];
-    _GenericGraph -> _GenericLink [headlabel = "links" taillabel = "graph" arrowhead = "none" ];
+    _GenericGraph -> _GenericObject [headlabel = "objects *" taillabel = "graph" arrowhead = "none" ];
+    _GenericObject -> _GenericAttribute [headlabel = "attrs *" taillabel = "owner" arrowhead = "none" ];
+    _GenericObject -> _GenericLink [headlabel = "outgoingLinks *" taillabel = "src" arrowhead = "none" ];
+    _GenericObject -> _GenericLink [headlabel = "incommingLinks *" taillabel = "tgt" arrowhead = "none" ];
+    _GenericGraph -> _GenericLink [headlabel = "links *" taillabel = "graph" arrowhead = "none" ];
 }
