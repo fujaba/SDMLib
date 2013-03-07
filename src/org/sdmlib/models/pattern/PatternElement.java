@@ -235,7 +235,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    
    public static final String PROPERTY_HASMATCH = "hasMatch";
    
-   private boolean hasMatch = false;
+   protected boolean hasMatch = false;
 
    public boolean getHasMatch()
    {
@@ -327,13 +327,16 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       StringList valueList = new StringList();
       for (Object elem : (Iterable) value)
       {
-         valueList.add(getTopPattern().getJsonIdMap().getId(elem));
+         valueList.add(dumpHostGraphObject(elem));
       }
       String valueSet = "{" + valueList.concat(", ") + "}";
       return valueSet;
    }
 
-
+   public String dumpHostGraphObject(Object hostGraphObject)
+   {
+      return getTopPattern().getJsonIdMap().getId(hostGraphObject) + " " + hostGraphObject.toString();
+   }
 
 
    public String toString()

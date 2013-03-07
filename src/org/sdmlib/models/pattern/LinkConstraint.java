@@ -95,10 +95,22 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else if (value instanceof Collection)
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
+                     + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
+               }
+               
             	creatorClass.setValue(srcObj, this.getTgtRoleName()  + JsonIdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
+                     + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
+               }
+               
             	creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
             }
             this.setHasMatch(true);
@@ -119,13 +131,36 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             Object value = creatorClass.getValue(getHostGraphSrcObject(), getTgtRoleName());
             Object hostGraphTgtObject = this.getTgt().getCurrentMatch();
             
-            if (hostGraphTgtObject != null && hostGraphTgtObject == value)
+            if (hostGraphTgtObject != null && 
+                  (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value).contains(hostGraphTgtObject))))
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  String msg = "// cnet link from x to y exists";
+                  msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
+                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("cnet", getTgtRoleName());
+                  getTopPattern().addLogMsg(msg);
+               }
+
                return true;
             }
             else
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {
+                  String msg = "// cnet link from x to ? does not exists, backtrack";
+                  if (value != null)
+                  {
+                     msg = msg.replaceFirst("\\?", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
+                  }
+                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("cnet", getTgtRoleName());
+                  getTopPattern().addLogMsg(msg);
+               }
+               
                this.setHostGraphSrcObject(null);
+               
                return false;
             }
          }
@@ -140,6 +175,13 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       
          return false;
       }
+   }
+   
+   @Override
+   public void resetSearch()
+   {
+      this.setHasMatch(false);
+      super.resetSearch();
    }
 
 

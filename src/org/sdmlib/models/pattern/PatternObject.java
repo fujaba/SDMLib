@@ -95,6 +95,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          }
       }
       
+      if ( ! this.getPattern().getHasMatch())
+      {
+         return false;
+      }
+      
       if (this.getCandidates() == null 
             || this.getCandidates() instanceof Collection && ((Collection) this.getCandidates()).isEmpty()) 
       {
@@ -171,8 +176,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    @Override
    public void resetSearch()
    {
-      this.setCandidates(null);
-      this.setCurrentMatch(null);
+      if ( ! Pattern.BOUND.equals(getModifier()))
+      {
+         this.setCandidates(null);
+         this.setCurrentMatch(null);
+      }
+      this.setHasMatch(false);
    }
 
    public POC startCreate()
@@ -198,12 +207,26 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       return (POC) this;
    }
 
+   public POC endDestroy()
+   {
+      this.getPattern().endCreate();
+      
+      return (POC) this;
+   }
+
+
 
    public POC startNAC()
    {
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
       
       this.getPattern().addToElements(nac);
+
+      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      {
+         nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
+         
+      }
 
       return (POC) this;
    }
@@ -212,6 +235,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    public POC endNAC()
    {
       Pattern directPattern = this.getPattern();
+      
+      while (directPattern.getCurrentSubPattern() != null)
+      {
+         directPattern = directPattern.getCurrentSubPattern();
+      }
+      
       if (directPattern instanceof NegativeApplicationCondition)
       {
          directPattern = directPattern.getPattern();
@@ -220,7 +249,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       directPattern.setCurrentSubPattern(null);
       
       directPattern.findMatch();
-      
+
       return (POC) this;
    }
    
@@ -233,6 +262,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
       {
          optionalSubPattern.setPatternObjectName("o" + getTopPattern().getPatternObjectCount());
+         
+         getTopPattern().addLogMsg("// start subpattern " + optionalSubPattern.getPatternObjectName());
       }
       
       return (POC) this;
@@ -250,6 +281,26 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       
       return (POC) this;
    }
+   
+   public POC doAllMatches()
+   {
+      this.getPattern().setDoAllMatches(true);
+      this.setDoAllMatches(true);
+      
+      while (this.getPattern().getHasMatch())
+      {
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            getTopPattern().addLogMsg("// " + getPattern().getPatternObjectName() + " allMatches?");
+         }
+         
+         this.getPattern().findMatch();
+      }
+      
+      return (POC) this;
+   }
+   
+
    
    public POC destroy()
    {
@@ -779,7 +830,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          
          this.getPattern().addToElements(patternLink);
          
-         this.getPattern().findMatch();
+         patternLink.getPattern().findMatch();
       }
       else
       {
@@ -792,7 +843,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    
          this.getPattern().addToElements(result);
    
-         this.getPattern()
+         result.getPattern()
          .findMatch();
       }
    }

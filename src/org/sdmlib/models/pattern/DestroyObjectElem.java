@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -54,6 +55,11 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
             EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
             
             creatorClass.removeObject(currentMatch);
+            
+            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            {
+               getTopPattern().addLogMsg(getPatternObject().getPatternObjectName() + ".removeYou(); // kill: " + dumpHostGraphObject(currentMatch));
+            }
             
             return true;
          }

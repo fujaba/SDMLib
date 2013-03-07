@@ -38,7 +38,7 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class Pattern extends PatternElement<Pattern> implements PropertyChangeInterface
+public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
 {
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";
@@ -66,27 +66,34 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    
    public Pattern()
    {
+      hasMatch = true;
    }
 
-   public Pattern startCreate()
+   public MP startCreate()
    {
       this.setModifier(Pattern.CREATE);
-      return this;
+      return (MP) this;
    }
    
-   public Pattern endCreate()
+   public MP endCreate()
    {
       this.setModifier(null);
-      return this;
+      return (MP) this;
    }
    
-   public Pattern startDestroy()
+   public MP startDestroy()
    {
       this.setModifier(Pattern.DESTROY);
-      return this;
+      return (MP) this;
    }
    
-   public Pattern matchIsomorphic()
+   public MP endDestroy()
+   {
+      this.setModifier(null);
+      return (MP) this;
+   }
+   
+   public MP matchIsomorphic()
    {
       MatchIsomorphicConstraint isoConstraint = new MatchIsomorphicConstraint();
       
@@ -94,7 +101,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       
       this.findMatch();
       
-      return this;
+      return (MP) this;
    }
    
    //==========================================================================
@@ -115,6 +122,11 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
    
    public boolean findMatch()
    {
+      if ( ! this.getHasMatch())
+      {
+         return false;
+      }
+      
       boolean done = false; 
       
       // start with the last element and go backward until a new choice is made, then go forward to propagate the new choice
@@ -388,16 +400,16 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       return changed;   
    }
    
-   public Pattern withElements(PatternElement value)
+   public MP withElements(PatternElement value)
    {
       addToElements(value);
-      return this;
+      return (MP) this;
    } 
    
-   public Pattern withoutElements(PatternElement value)
+   public MP withoutElements(PatternElement value)
    {
       removeFromElements(value);
-      return this;
+      return (MP) this;
    } 
    
    public void removeAllFromElements()
@@ -721,7 +733,7 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             StringBuilder nacBuilder = new StringBuilder(
                "subgraph cluster_nacId \n" + 
                "{\n" + 
-               "   label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC nacId</td></tr></table>>;\n" + 
+               "   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC nacId</td></tr></table>>;\n" + 
                "   color=grey;\n" +
                "\n");
             
@@ -815,10 +827,10 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       }
    }
    
-   public Pattern withCurrentSubPattern(Pattern value)
+   public MP withCurrentSubPattern(Pattern value)
    {
       setCurrentSubPattern(value);
-      return this;
+      return (MP) this;
    } 
 
    
@@ -848,10 +860,10 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       }
    }
    
-   public Pattern withDebugMode(int value)
+   public MP withDebugMode(int value)
    {
       setDebugMode(value);
-      return this;
+      return (MP) this;
    } 
 
    public String toString()
@@ -908,15 +920,15 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
       }
    }
    
-   public Pattern withTrace(StringBuilder value)
+   public MP withTrace(StringBuilder value)
    {
       setTrace(value);
-      return this;
+      return (MP) this;
    } 
    
-   int traceLength = 0;
+   static int traceLength = 0;
    
-   public Pattern addLogMsg(String msg)
+   public MP addLogMsg(String msg)
    {
       if (debugMode >= R.DEBUG_ON)
       {
@@ -935,13 +947,13 @@ public class Pattern extends PatternElement<Pattern> implements PropertyChangeIn
             System.out.print(line);
          }
          
-         if (traceLength >= 200)
+         if (traceLength >= 719)
          {
             boolean stop = true;
          }
       }
       
-      return this;
+      return (MP) this;
    }
 }
 

@@ -22,6 +22,8 @@
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -65,7 +67,26 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          // thus some earlier pattern elements have been rematched.
          // check the NAC again
          resetSearch();
+         
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            getTopPattern().addLogMsg("// start NAC " + getPatternObjectName());
+         }
+         
          boolean nacHasMatch = findMatch();
+         
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            if (nacHasMatch)
+            {
+               getTopPattern().addLogMsg("// NAC " + getPatternObjectName() + " has match, backtrack!");
+            }
+            else
+            {
+               getTopPattern().addLogMsg("// NAC " + getPatternObjectName() + " has NO match, that is good");
+            }
+         }
+         
          return ! nacHasMatch;
       }
       else

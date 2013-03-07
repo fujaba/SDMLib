@@ -26,6 +26,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
+
+import java.awt.Container;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -67,6 +69,10 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                   
                   getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
                      + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + valueSetString(value));
+                  if (((Collection) value).isEmpty())
+                  {
+                     getTopPattern().addLogMsg("// No candidates, backtrack!");
+                  }
                }
             }
             else

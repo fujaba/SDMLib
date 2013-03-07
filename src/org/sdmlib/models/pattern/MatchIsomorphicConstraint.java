@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
@@ -54,6 +55,12 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
                Object currentMatch = ((PatternObject) patElem).getCurrentMatch();
                if (usedObjects.contains(currentMatch))
                {
+                  if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+                  {
+                     getTopPattern().addLogMsg("// match is NOT isomorphic. "
+                        + dumpHostGraphObject(currentMatch) + " has been matched twice (or more). Backtrack! ");
+                  }
+                  
                   return false;
                }
                else
@@ -65,6 +72,11 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          
          // no double match, match is isomorphic
          this.setHasMatch(true);
+         
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            getTopPattern().addLogMsg("// match is isomorphic");
+         }
          
          return true;
       }

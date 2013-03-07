@@ -12,8 +12,19 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.StrUtil;
 
+
 public class EmfIdMap extends SDMLibJsonIdMap
 {
+   public Object decode(StringBuilder fileText)
+   {
+      int pos = fileText.indexOf("\n");
+      fileText.delete(0, pos);
+
+      String string = fileText.toString();
+
+      return decode(string);
+   }
+
    public Object decode(String emfxml)
    {
       EntityFactory rootFactory = null;
@@ -101,8 +112,6 @@ public class EmfIdMap extends SDMLibJsonIdMap
                rootFactory.setValue(rootObject, tag, kidObject, "");
                
                addChildren(kidEntity, kidFactory, kidObject);
-               
-               System.out.println(kidObject.toString());
             }
          }
          catch (Exception e)
@@ -117,5 +126,12 @@ public class EmfIdMap extends SDMLibJsonIdMap
    {
       addCreator(creatorSet);
       return this;
+   }
+
+   public Object decodeFile(String fileName)
+   {
+      StringBuilder fileText = CGUtil.readFile(fileName);
+      
+      return decode(fileText);
    }
 }

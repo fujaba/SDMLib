@@ -30,8 +30,14 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class OptionalSubPattern extends Pattern implements PropertyChangeInterface
+public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements PropertyChangeInterface
 {
+   public OptionalSubPattern()
+   {
+      this.setHasMatch(true);
+   }
+   
+   
    @Override
    public boolean findNextMatch()
    {
@@ -78,7 +84,13 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
       }
    }
 
-   
+   @Override
+   public boolean addToElements(PatternElement value)
+   {
+      // sub pattern is extended, thus do not backtrack but match forward
+      this.setMatchForward(true);
+      return super.addToElements(value);
+   }
    //==========================================================================
    
    public Object get(String attrName)
@@ -255,6 +267,14 @@ public class OptionalSubPattern extends Pattern implements PropertyChangeInterfa
       setMatchForward(value);
       return this;
    } 
+   
+   @Override
+   public void resetSearch()
+   {
+      setHasMatch(true);
+      setMatchForward(true);
+      super.resetSearch();
+   }
 
    public String toString()
    {

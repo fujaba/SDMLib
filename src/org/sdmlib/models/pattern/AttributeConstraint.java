@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -72,11 +73,31 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             
             if (value == null && tgtValue == null || value != null && value.equals(tgtValue))
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {  
+                  String msg = "// attribute a1 of node x has required value y";
+                  msg = msg.replaceFirst("y", "" + value);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("a1", "" + attrName);
+                  getTopPattern().addLogMsg(msg);
+               }
+               
                return true;
             }
             else
             {
+               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               {  
+                  String msg = "// attribute a1 of node x has value actual and not required value y, backtrack!";
+                  msg = msg.replaceFirst("y", "" + tgtValue);
+                  msg = msg.replaceFirst("actual", "" + value);
+                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("a1", "" + attrName);
+                  getTopPattern().addLogMsg(msg);
+               }
+               
                this.setHostGraphSrcObject(null);
+               
                return false;
             }
          }
