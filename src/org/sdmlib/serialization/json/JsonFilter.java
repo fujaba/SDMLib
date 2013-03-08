@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
@@ -44,10 +45,10 @@ public class JsonFilter extends IdMapFilter{
 
 	
 	/** The exclusive properties. */
-	private String[] exclusiveProperties;
+	private String[] exclusiveProperties = new String[] {};
 	
 	/** The objects. */
-	private HashSet<String> objects = new HashSet<String>();
+	private HashSet<String> objects = new LinkedHashSet<String>();
 	
 	/**
 	 * Instantiates a new json filter.
@@ -83,6 +84,24 @@ public class JsonFilter extends IdMapFilter{
 	public JsonFilter(int deep, String... filter) {
 		this.deep = deep;
 		this.exclusiveProperties = filter;
+	}
+	
+	@Override
+	public boolean isRegard(IdMap map, Object entity, String property,
+	      Object value, boolean isMany)
+	{
+	   if (existsObject(map.getId(value)) )
+      {
+         return false;
+      }
+	   for (String xProp : exclusiveProperties)
+      {
+         if (xProp.equals(property))
+         {
+            return false;
+         }
+      }
+	   return super.isRegard(map, entity, property, value, isMany);
 	}
 
 	/**

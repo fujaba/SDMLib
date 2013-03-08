@@ -68,7 +68,8 @@ public class IdMapFilter {
 		return true;
 	}
 
-	public boolean isRegard(IdMap map, Object entity, String property, Object value, boolean isMany){
+	public boolean isRegard(IdMap map, Object entity, String property, Object value, boolean isMany)
+	{
 		return true;
 	}
 	

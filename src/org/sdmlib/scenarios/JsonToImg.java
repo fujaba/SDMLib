@@ -73,10 +73,10 @@ public class JsonToImg
    
    public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects)
    {
-      return toImg(imgName, objects, false);
+      return toImg(imgName, objects, false, null);
    }
    
-   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot)
+   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot, String[] aggregationRoles)
    {
       String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", imgName + ".svg");
@@ -94,7 +94,7 @@ public class JsonToImg
       
       StringBuilder edgeBuilder = new StringBuilder();
       
-      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder, omitRoot);
+      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder, omitRoot, aggregationRoles);
       
       fileText = fileText.replaceFirst("<nodes>", Matcher.quoteReplacement(nodeBuilder.toString()));
       
@@ -108,7 +108,7 @@ public class JsonToImg
    }
 
 
-   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder, boolean omitRoot)
+   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder, boolean omitRoot, String... aggregationRoles)
    {
       String omittedId = "";
       // collect all edges

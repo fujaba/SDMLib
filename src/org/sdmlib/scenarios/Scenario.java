@@ -341,16 +341,16 @@ public class Scenario
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
       
-      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, omitRoot);
+      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, omitRoot, null);
       
       steps.add(imgLink);
    }
 
-   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, JsonFilter filter)
+   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);
       
-      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
+      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, false, aggregationRoles);
       
       steps.add(imgLink);
    }
