@@ -58,11 +58,18 @@ public abstract class Tokener {
      * @param s     A source string.
      */
     public Tokener(String s) {
-    	this.buffer=s;
+    	reset(s);
+    }
+    
+    /**
+     * Reset the Tokener
+     * @param value
+     */
+    public void reset(String value){
+    	this.buffer=value;
     	this.index=0;
     	this.line=0;
     }
-
 
     /**
      * Back up one character. This provides a sort of lookahead capability,
@@ -76,7 +83,6 @@ public abstract class Tokener {
         this.index -= 1;
         this.character -= 1;
     }
-
 
     /**
      * Get the hex value of a character (base16).
@@ -105,7 +111,6 @@ public abstract class Tokener {
     public boolean isEnd() {
     	return this.buffer.length()<=this.index;
     }
-
 
     /**
      * Get the next character in the source string.
@@ -204,7 +209,6 @@ public abstract class Tokener {
         }
     }
 
-
     /**
      * Return the characters up to the next close quote character.
      * Backslash processing is done. The formal JSON format does not
@@ -216,12 +220,15 @@ public abstract class Tokener {
      * @param quote allowCRLF
      * @return      A String.
      */
-    public String nextString(char quote, boolean allowCRLF )  {
+    public String nextString(char quote, boolean allowCRLF, boolean ignoreCurrent)  {
         StringBuilder sb = new StringBuilder();
         char c=getCurrentChar();
         if(c == quote){
         	next();
-        	return "";
+        	if(!ignoreCurrent){
+        		return "";
+        	}
+        	c=1;
         }
         while(c!=0 &&c != quote){
         	c = next();
@@ -285,7 +292,7 @@ public abstract class Tokener {
     public Object nextValue(JSIMEntity creator) {
     	char c = nextClean();
     	StringBuilder sb = new StringBuilder();
-	    while (c >= ' ' && ",]}/\\\"[{;=#".indexOf(c) < 0) {
+    	while (c >= ' ' && getStopChars().indexOf(c) < 0) {
 	        sb.append(c);
 	        c = next();
 	    }
@@ -297,6 +304,10 @@ public abstract class Tokener {
 	    }
 	    return EntityUtil.stringToValue(value);
   }
+    
+    protected String getStopChars(){
+    	return ",]}/\\\"[{;=# ";
+    }
 
     /**
      * Skip.
@@ -314,57 +325,6 @@ public abstract class Tokener {
     	return true;
     }
     
-//    /**
-//     * Skip.
-//     *
-//     * @param search the The String of searchelements
-//     * @param notSearch the String of elements with is not in string
-//     * @param order the if the order of search element importent
-//     * @return true, if successful
-//     */
-//    public boolean stepPos2(String search, String notSearch, boolean order, boolean notEscape){
-//    	char[] character=search.toCharArray();
-//    	char[] characterNot=notSearch.toCharArray();
-//    	int z=0;
-//    	int strLen=character.length;
-//    	int len=this.buffer.length();
-//    	char lastChar=0;
-//    	if(this.index>0){
-//    		lastChar=this.buffer.charAt(this.index-1);
-//    	}
-//		while ( this.index < len ) {
-//			boolean loop=false;
-//			char currentChar = getCurrentChar();
-//			for (char zeichen : characterNot) {
-//				if (currentChar == zeichen){
-//					loop=true;
-//					break;
-//				}
-//			}
-//			if(!loop){
-//				if(order){
-//					if (currentChar == character[z]) {
-//						z++;
-//						if(z>=strLen){
-//							return true;
-//						}
-//					}else{
-//						z=0;
-//					}
-//				}else{
-//					for (char zeichen : character) {
-//						if (currentChar == zeichen && (!notEscape || lastChar!='\\')) {
-//							return true;
-//						}
-//					}
-//				}
-//			}
-//			lastChar=currentChar;
-//			next();
-//		}
-//		return false;
-//    }
-
     /**
      * Skip.
      *
@@ -405,8 +365,6 @@ public abstract class Tokener {
 		}
 		return false;
     }
-
-    
     
  	/**
      * Gets the index.
@@ -425,7 +383,6 @@ public abstract class Tokener {
     public int getLength(){
     	return this.buffer.length();
     }
-
 
     /**
      * Make a printable string of this JSONTokener.
@@ -530,7 +487,6 @@ public abstract class Tokener {
 		}
 		return "";
     }
-    
     
 	/**
 	 * Sets the index.

@@ -52,7 +52,7 @@ public class JsonTokener extends Tokener{
 		switch (c) {
 		case '"':
 		case '\'':
-			return nextString(c, false);
+			return nextString(c, false, false);
 		case '{':
 			back();
 			JSIMEntity element = creator.getNewObject();
@@ -70,6 +70,11 @@ public class JsonTokener extends Tokener{
 		}
 		back();
 		return super.nextValue(creator);
+	}
+	
+	@Override
+	protected String getStopChars() {
+		return ",:]}/\\\"[{;=# ";
 	}
 
 	public Entity parseEntity(JsonObject parent, Entity newValue) {
@@ -177,7 +182,7 @@ public class JsonTokener extends Tokener{
 					back();
 				}
 			} else if (c != ':') {
-				throw new TextParsingException("Expected a ':' after a key", this);
+				throw new TextParsingException("Expected a ':' after a key ["+getNextString(30)+"]", this);
 			}
 			entity.put(key, nextValue(entity));
 

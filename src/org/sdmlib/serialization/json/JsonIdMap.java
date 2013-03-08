@@ -23,6 +23,7 @@ package org.sdmlib.serialization.json;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -32,7 +33,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.sdmlib.scenarios.KanbanEntry;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
@@ -45,7 +45,6 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.creator.JsonArrayCreator;
 import org.sdmlib.serialization.json.creator.JsonObjectCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 
 /**
  * The Class JsonIdMap.
@@ -114,7 +113,19 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 	 * @param className the className of the entity
 	 * @return the Jsonobject
 	 */
-	public JsonObject toJsonObject(Object entity, JsonFilter filter, String className, LinkedHashSet<String> visitedObjects) {
+	public JsonObject toJsonObject(Object entity, JsonFilter filter, String className) {
+		return toJsonObject(entity, filter, className, new LinkedHashSet<String>());
+	}
+	
+	/**
+	 * To Jsonobject.
+	 *
+	 * @param entity the entity to convert
+	 * @param filter the filter
+	 * @param className the className of the entity
+	 * @return the Jsonobject
+	 */
+	protected JsonObject toJsonObject(Object entity, JsonFilter filter, String className, LinkedHashSet<String> visitedObjects) {
 		String id = "";
 		SendableEntityCreator prototyp = grammar.getObjectCreator(entity, className, this);
 		if (prototyp == null) {
@@ -126,7 +137,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 		JsonObject jsonProp = new JsonObject();
 
 		String[] properties = prototyp.getProperties();
-		filter.addObject(id);
+		visitedObjects.add(id);
 		Object referenceObject = prototyp.getSendableInstance(true);
 		
 		if (properties != null) {
@@ -170,16 +181,6 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 								if(item!=null){
 									subValues.add(item);
 								}
-//								toJsonObject(mapEntry, filter, String className, SendableEntityCreator prototyp) {
-//								Object mapKey=getItem(mapEntry.getKey(), filter, entity, property);
-//								if(mapKey!=null){
-//									Object mapValue=getItem(mapEntry.getValue(), filter, entity, property);
-//									if(mapValue!=null){
-//										toJsonObject(entity, filter)
-//									}
-//										subValues.put(mapKey.toString(), mapValue);
-//									}
-//								}
 							}
 							if(subValues.size()>0){
 								jsonProp.put(property, subValues);
@@ -469,12 +470,11 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 	 * @return the json array
 	 */
 	public JsonArray toJsonArray(Object object, JsonFilter filter) {
-	   LinkedHashSet<String> visitedObjects=new LinkedHashSet<String>();
 		JsonArray jsonArray = new JsonArray();
 		if (filter == null) {
 			filter = new JsonFilter();
 		}
-		toJsonArray(object, jsonArray, filter, visitedObjects);
+		toJsonArray(object, jsonArray, filter, new LinkedHashSet<String>());
 		return jsonArray;
 	}
 
@@ -486,21 +486,19 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 	 * @return the json array
 	 */
 	public JsonArray toJsonSortedArray(Object object, String property) {
-	   LinkedHashSet<String> visitedObjects=new LinkedHashSet<String>();
 		JsonSortedArray jsonArray = new JsonSortedArray();
 		jsonArray.setSortProp(property);
-		toJsonArray(object, jsonArray, new JsonFilter(), visitedObjects);
+		toJsonArray(object, jsonArray, new JsonFilter(), new LinkedHashSet<String>());
 		jsonArray.finishUnsorted();
 		return jsonArray;
 	}
-	
-   public JsonArray toJsonArray(Object object,
-         JsonArray jsonArray, JsonFilter filter)
-   {
-      
-      return toJsonArray(object, jsonArray, filter, new LinkedHashSet<String>());
-   }
 
+	public JsonArray toJsonArray(Object object, JsonArray jsonArray,
+			JsonFilter filter) {
+
+		return toJsonArray(object, jsonArray, filter,
+				new LinkedHashSet<String>());
+	}
 
 	/**
 	 * To json array.
@@ -510,24 +508,20 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 	 * @param filter the filter
 	 * @return the json array
 	 */
-	public JsonArray toJsonArray(Object entity, JsonArray jsonArray,
+	protected JsonArray toJsonArray(Object entity, JsonArray jsonArray,
 			JsonFilter filter, LinkedHashSet<String> visitedObjects) {
 		String className = entity.getClass().getName();
 		String id = getId(entity);
 
 		JsonObject jsonObject = new JsonObject();
-		
-		if (getCounter().isId()&&filter.isId()) {
-			jsonObject.put(ID, id);
+		if ( ! visitedObjects.contains(id)){
+			if (getCounter().isId()&&filter.isId()) {
+				jsonObject.put(ID, id);
+			}
+			jsonObject.put(CLASS, className);
+			jsonArray.put(jsonObject);
 		}
-		
-		jsonObject.put(CLASS, className);
-		
-		if ( ! filter.existsObject(id))
-		{
-		   jsonArray.put(jsonObject);
-		}
-		
+
 		SendableEntityCreator prototyp = getCreatorClasses(className);
 		if (prototyp == null) {
 			throw new RuntimeException("No Creator exist for " + className);
@@ -584,13 +578,13 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 	 * @param jsonArray the json array
 	 * @return the object
 	 */
-	private Object parseObject(Object entity, boolean aggregation,
+	protected Object parseObject(Object entity, boolean aggregation,
 			JsonFilter filter, JsonArray jsonArray, SendableEntityCreator valueCreater, boolean typSave, LinkedHashSet<String> visitedObjects) {
 		if (valueCreater != null) {
 			if (aggregation) {
 				String subId = this.getKey(entity);
 				if (valueCreater instanceof NoIndexCreator
-						|| (!filter.existsObject(subId) && ! visitedObjects.contains(subId))) {
+						|| subId==null || !filter.checkProperty(this, subId, entity) || ! visitedObjects.contains(subId)) {
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 					if (jsonArray == null) {
 						JsonObject result = toJsonObject(entity, filter);
@@ -771,39 +765,37 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 		this.grammar=value;
 	}
 
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      return null;
-   }
+	  //==========================================================================
+	   
+	   public Object get(String attrName)
+	   {
+	      return null;
+	   }
 
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      return false;
-   }
+	   
+	   //==========================================================================
+	   
+	   public boolean set(String attrName, Object value)
+	   {
+	      return false;
+	   }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
+	   
+	   //==========================================================================
+	   
+	   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+	   
+	   public PropertyChangeSupport getPropertyChangeSupport()
+	   {
+	      return listeners;
+	   }
 
-   
-   //==========================================================================
-   
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
+	   
+	   //==========================================================================
+	   
+	   public void removeYou()
+	   {
+	      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+	   }
 
 }
-

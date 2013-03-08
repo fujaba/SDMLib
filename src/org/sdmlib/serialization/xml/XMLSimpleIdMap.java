@@ -154,7 +154,7 @@ public class XMLSimpleIdMap extends IdMap{
 				char quote = (char)ITEMSTART;
 				// Skip >
 				value.next();
-				String strvalue = value.nextString(quote, true);
+				String strvalue = value.nextString(quote, true, false);
 				
 				// BACK TO <
 				value.back();
@@ -231,7 +231,7 @@ public class XMLSimpleIdMap extends IdMap{
 		boolean isEmpty=true;
 		do{
 			if(value.getCurrentChar()!=ITEMSTART){
-				String strValue = value.nextString(ITEMSTART, true);
+				String strValue = value.nextString(ITEMSTART, true, false);
 				if(strValue!=null){
 					value.back();
 					strValue = strValue.trim();

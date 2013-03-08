@@ -52,7 +52,7 @@ public class XMLTokener extends Tokener{
         switch (c) {
         case '"':
         case '\'':
-            return nextString(c, false);
+            return nextString(c, false, false);
         case '<':
             back();
             JSIMEntity element = creator.getNewObject();
@@ -80,7 +80,7 @@ public class XMLTokener extends Tokener{
         XMLEntity xmlEntity=(XMLEntity) entity;
         StringBuilder sb = new StringBuilder();
         c = nextClean();
-        while (c >= ' ' && ",]>/\\\"<;=# ".indexOf(c) < 0) {
+        while (c >= ' ' && getStopChars().indexOf(c) < 0) {
             sb.append(c);
             c = next();
         }
@@ -100,7 +100,7 @@ public class XMLTokener extends Tokener{
                 		parseToEntity((BaseEntity)child);
                 		xmlEntity.addChild(child);
             		}else{
-            			xmlEntity.setValue(nextString('<', false));
+            			xmlEntity.setValue(nextString('<', false, false));
             			back();
             		}
             	}
@@ -120,22 +120,21 @@ public class XMLTokener extends Tokener{
             	next();
             	lExit=true;
             }else{
-            back();
-            String key = nextValue(xmlEntity).toString();
-            if(key!=null){
-               // The key is followed by ':'. We will also tolerate '=' or '=>'.
-               c = nextClean();
-               if (c == '=') {
-                  if (next() != '>') {
-                     back();
-                  }
-               }
-               Object nv = nextValue(xmlEntity);
-               xmlEntity.put(key, nv);
+                back();
+                String key = nextValue(xmlEntity).toString();
+                if(key!=null){
+                	// The key is followed by ':'. We will also tolerate '=' or '=>'.
+		            c = nextClean();
+		            if (c == '=') {
+		                if (next() != '>') {
+		                    back();
+		                }
+		            }
+		            xmlEntity.put(key, nextValue(xmlEntity));
+	            }
             }
-         }
-      }		
-   }
+        }		
+	}
 
 	@Override
 	public void parseToEntity(BaseEntityList entityList) {
