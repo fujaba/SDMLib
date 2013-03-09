@@ -29,6 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 public class ByteConverterBinary extends ByteConverter {
+	public static String toString(byte value) {
+		ByteConverterBinary converter = new ByteConverterBinary();
+		return converter.toString(new byte[]{value}, 1);
+	}
+	
+	public static String toString(int value) {
+		ByteConverterBinary converter = new ByteConverterBinary();
+		return converter.toString(new byte[]{(byte)value}, 1);
+	}
+	
+	public static String toString(byte[] values) {
+		ByteConverterBinary converter = new ByteConverterBinary();
+		return converter.toString(values, values.length);
+	}
+	
 	/**
 	 * To Binary string.
 	 *
@@ -39,10 +54,13 @@ public class ByteConverterBinary extends ByteConverter {
 	public String toString(byte[] values, int size) {
 		StringBuilder sb=new StringBuilder();
 		for(int z=0;z<size;z++){
-			byte number = values[z];
+			int number = values[z];
 			char[] bits = new char[]{'0','0','0','0','0','0','0','0'};
 			int i=7;
-			while (number > 0) {
+			if(number<0){
+				number+=256;
+			}
+			while (number != 0) {
 				bits[i] = (char) (48+(number % 2));
 				number = (byte) (number / 2);
 				i--;

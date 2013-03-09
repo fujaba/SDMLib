@@ -28,6 +28,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -264,7 +265,12 @@ public class EntityUtil {
 			return reference.getNewArray().initWithMap((Collection<?>)value).toString(indentFactor, intent);
 		}
 		if (value.getClass().isArray()) {
-			return reference.getNewArray().initWithMap((Collection<?>)value).toString(indentFactor, intent);
+			Object[] items=(Object[]) value;
+			ArrayList<Object> arrayList = new ArrayList<Object>();
+			for(Object item : items){
+				arrayList.add(item);
+			}
+			return reference.getNewArray().initWithMap(arrayList).toString(indentFactor, intent);
 		}
 		if(simpleText){
 			return value.toString();
@@ -300,7 +306,13 @@ public class EntityUtil {
 			return reference.getNewArray().initWithMap((Collection<?>)value).toString();
 		}
 		if (value.getClass().isArray()) {
-			return reference.getNewArray().initWithMap((Collection<?>)value).toString();
+			Object[] items=(Object[]) value;
+			ArrayList<Object> arrayList = new ArrayList<Object>();
+			for(Object item : items){
+				arrayList.add(item);
+			}
+
+			return reference.getNewArray().initWithMap(arrayList).toString();
 		}
 		if(simpleText){
 			return value.toString();

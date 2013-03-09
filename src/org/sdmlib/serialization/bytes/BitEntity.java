@@ -2,9 +2,12 @@ package org.sdmlib.serialization.bytes;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
@@ -36,7 +39,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-public class BitEntity implements JSIMEntity, ByteItem{
+public class BitEntity implements BaseEntityList, ByteItem{
 	public static final String BIT_STRING="string";
 	public static final String BIT_NUMBER="number";
 	public static final String BIT_BYTE="byte";
@@ -48,9 +51,14 @@ public class BitEntity implements JSIMEntity, ByteItem{
 	// Can be a Typ 
 	protected String property;
 	protected String typ=BIT_BYTE;
+	protected int orientation=1;
 	public static final String PROPERTY_PROPERTY="property";
 	public static final String PROPERTY_TYP="typ";
+	public static final String PROPERTY_ORIENTATION="orientation";
 	
+	public BitEntity(){
+		
+	}
 	public BitEntity(Object value){
 		if(value instanceof Byte){
 			this.typ = BIT_BYTE;
@@ -72,6 +80,13 @@ public class BitEntity implements JSIMEntity, ByteItem{
 	public BitEntity(String property, String typ){
 		this.property=property;
 		this.typ = typ;
+	}
+	public BitEntity(String field, String typ, int start, int len,
+			int orientation) {
+		this.property=field;
+		this.typ = typ;
+		this.orientation = orientation;
+		this.values.add(new BitValue(start, len));
 	}
 	public boolean addValue(BitValue value){
 		return this.values.add(value);
@@ -97,38 +112,18 @@ public class BitEntity implements JSIMEntity, ByteItem{
 	public Iterator<BitValue> valueIterator(){
 		return values.iterator();
 	}
-	public int valueSize(){
-		return values.size();
-	}
-	
 	
 	public boolean set(String attribute, Object value){
-		if (attribute.equalsIgnoreCase(PROPERTY_PROPERTY)) {
-			
+		if (PROPERTY_PROPERTY.equalsIgnoreCase(attribute)) {
+			this.property = ""+value;
+			return true;
+		}else if(PROPERTY_TYP.equalsIgnoreCase(attribute)){
+			this.typ = ""+value;
+			return true;
+		}else if(PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)){
+			this.orientation = Integer.valueOf(""+value);
+			return true;
 		}
-//			this.property = (String) value;
-//			return true;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_START)) {
-//			if(value instanceof Integer){
-//				this.start = new BitEntity(TYP_VALUE, ""+value);
-//			}else{
-//				this.start = new BitEntity(TYP_REFERENCE, ""+value);
-//			}
-//			return true;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_LEN)) {
-//			if(value instanceof Integer){
-//				this.len = new BitEntity(TYP_VALUE, ""+value);
-//			}else{
-//				this.len = new BitEntity(TYP_REFERENCE, ""+value);
-//			}
-//			return true;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_PROPERTY)) {
-//			this.property = (String)value;
-//			return true;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_TYP)) {
-//			this.typ = (String)value;
-//			return true;
-//		}
 		return false;
 	}
 	
@@ -143,18 +138,13 @@ public class BitEntity implements JSIMEntity, ByteItem{
 		} else {
 			attribute = attrName;
 		}
-		
-//FIXME		if (attribute.equalsIgnoreCase(PROPERTY_NAME)) {
-//			return this.property;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_START)) {
-//			return this.start;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_LEN)) {
-//			return this.len;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_PROPERTY)) {
-//			return this.property;
-//		}else if (attribute.equalsIgnoreCase(PROPERTY_TYP)) {
-//			return this.typ;
-//		}
+		if (PROPERTY_PROPERTY.equalsIgnoreCase(attribute)) {
+			return this.property;
+		}else if(PROPERTY_TYP.equalsIgnoreCase(attribute)){
+			return this.typ;
+		}else if(PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)){
+			return this.orientation;
+		}
 		return null;
 	}
 
@@ -168,45 +158,67 @@ public class BitEntity implements JSIMEntity, ByteItem{
 		return 0;
 	}
 
-	@Override
-	public EntityList getNewArray() {
-		return null;
+	public BaseEntityList getNewArray() {
+		return new BitEntity();
 	}
 
-	@Override
-	public JSIMEntity getNewObject() {
+	public BaseEntity getNewObject() {
 		return null;
 	}
 	
-	@Override
+	public String toString() {
+		return super.toString();
+	}
+
 	public String toString(ByteConverter converter) {
-		// TODO Auto-generated method stub
-		return null;
+		return toString();
 	}	
-	@Override
 	public String toString(ByteConverter converter, boolean isDynamic) {
-		// TODO Auto-generated method stub
-		return null;
+		return toString();
 	}
-	@Override
 	public String toString(int indentFactor) {
-		// TODO Auto-generated method stub
-		return null;
+		return toString();
 	}
 
-	@Override
 	public String toString(int indentFactor, int intent) {
-		// TODO Auto-generated method stub
-		return null;
+		return toString();
 	}
 
-	@Override
 	public void setVisible(boolean value) {
-		this.isVisible=isVisible;
+		this.isVisible=value;
 	}
 
-	@Override
 	public boolean isVisible() {
 		return isVisible;
+	}
+
+	public BaseEntityList initWithMap(Collection<?> value) {
+		for(Iterator<?> i=value.iterator();i.hasNext();){
+			values.add((BitValue) i.next());
+		}
+		return this;
+	}
+	
+	public BaseEntityList put(Object value) {
+		values.add((BitValue) value);
+		return this;
+	}
+	
+	public int size() {
+		return values.size();
+	}
+
+	public boolean add(Object value) {
+		return values.add((BitValue) value);
+	}
+
+	public Object get(int index) {
+		return values.get(index);
+	}
+	public int getOrientation() {
+		return orientation;
+	}
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
 	}
 }

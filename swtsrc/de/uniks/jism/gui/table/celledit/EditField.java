@@ -249,7 +249,7 @@ public class EditField {
 		}
 		if(control==null){
 			if(format==EditFields.TEXT||format==EditFields.DOUBLE){
-				control = new Text(parent, SWT.BORDER); 
+				control = new Text(parent, SWT.BORDER | SWT.FILL); 
 			}else if(format==EditFields.INTEGER){
 				spinner = new Spinner(parent, SWT.BORDER);
 				spinner.setMaximum(Integer.MAX_VALUE);

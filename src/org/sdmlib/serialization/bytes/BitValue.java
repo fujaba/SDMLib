@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public class BitValue {
 	private BitEntity start;
 	private BitEntity len;
+	private int orientation=1;
 
 	public BitValue(int start, int len){
 		this.start = new BitEntity(start);
@@ -52,5 +53,12 @@ public class BitValue {
 	}
 	public void setLen(BitEntity len) {
 		this.len = len;
+	}
+	public void setOrientation(int value){
+		this.orientation = value;
+	}
+	
+	public int getOrientation() {
+		return orientation;
 	}
 }

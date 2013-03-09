@@ -65,6 +65,10 @@ public abstract class MasterShell extends Shell {
 		this(Display.getDefault());
 	}
 	
+	public MasterShell(Shell parent, int param){
+		super(parent, param);
+	}
+	
 	public MasterShell(Display display) {
 		super(display);
 		initShell();
@@ -86,12 +90,9 @@ public abstract class MasterShell extends Shell {
 		}
 	}
 	
-	protected void printCommandHelp(){
-		System.out.println("Help for the Commandline - "+ getCaption()+"\n\n");
-		System.out.println("");
-		System.out.println("");
+	protected String getCommandHelp(){
+		return "Help for the Commandline - "+ getCaption()+"\n\n";
 	}
-	
 	
 	public boolean openSecond(String[] args){
 		Os os = new Os();
@@ -100,7 +101,7 @@ public abstract class MasterShell extends Shell {
 		if (!fileName.endsWith(".jar") && !fileName.endsWith(".exe")){
 			// ECLIPSE
 			initShell();
-		}else if("UTF-8".equals(System.getProperty("file.encoding"))){
+		}else if("UTF-8".equals(System.getProperty("file.encoding"))||"UTF8".equals(System.getProperty("file.encoding"))){
 		}else{
 			// NOT Eclipse and not UTF-8
 			// try to load data from config file
@@ -116,6 +117,7 @@ public abstract class MasterShell extends Shell {
 				if (args.length > 0) {
 					String executeString = null;
 					if ("-?".equalsIgnoreCase(args[0])) {
+						getCommandHelp();
 						return false;
 					} else if ("debug".equalsIgnoreCase(args[0])) {
 						System.out.println("DEBUG-MODE");
@@ -128,12 +130,11 @@ public abstract class MasterShell extends Shell {
 						executeString = " -XstartOnFirstThread ";
 					}
 					if(executeString!=null){
-						executeString = "\""+ System.getProperty("java.home")+ "/bin/java" +executeString + " -Dfile.encoding=UTF8 -jar " +fileName;
+						executeString = "\""+ System.getProperty("java.home")+ "/bin/java\"" +executeString + " -Dfile.encoding=UTF8 -jar " +fileName;
 						Runtime run = Runtime.getRuntime();
 						
 						try {
 							run.exec(executeString.trim());
-							printCommandHelp();
 							return false;
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -143,6 +144,8 @@ public abstract class MasterShell extends Shell {
 				}
 			}
 		}
+		
+		initFromParams(args);
 		
 		// Everything ok
 		Display display = Display.getDefault();
@@ -157,6 +160,9 @@ public abstract class MasterShell extends Shell {
 		return true;
 	}
 	
+	public void initFromParams(String[] params){
+		
+	}
 
 	public void open() {
 		open(!os.isEclipse());
@@ -179,6 +185,7 @@ public abstract class MasterShell extends Shell {
 				}
 			}
 		} catch (Exception e) {
+			System.out.println("dd"+e.getMessage());
 			if (!catchError) {
 				throw new RuntimeException(e);
 			}
@@ -229,7 +236,20 @@ public abstract class MasterShell extends Shell {
 			if(extra!=null){
 				ps.println("Extra: "+extra.toString());
 			}
-			ps.println("Thread: "+Thread.currentThread().getName());	
+			ps.println("Thread: "+Thread.currentThread().getName());
+			ps.println("------------ SYSTEM-INFO ------------");
+			printProperty(ps, "java.class.version");
+			printProperty(ps, "java.runtime.version");
+			printProperty(ps, "java.specification.version");
+			printProperty(ps, "java.version");
+			printProperty(ps, "os.arch");
+			printProperty(ps, "os.name");
+			printProperty(ps, "os.version");
+			printProperty(ps, "user.dir");
+			printProperty(ps, "user.home");
+			printProperty(ps, "user.language");
+			printProperty(ps, "user.name");
+			printProperty(ps, "user.timezone");
 			ps.println();
 			e.printStackTrace(ps);
 			ps.close();
@@ -240,6 +260,10 @@ public abstract class MasterShell extends Shell {
 			success=false;
 		}
 		return success;
+	}
+	
+	private void printProperty(PrintStream ps, String property){
+		ps.println(property+": "+System.getProperty(property));
 	}
 	
 	protected String createDir(String path){
@@ -290,7 +314,6 @@ public abstract class MasterShell extends Shell {
 		return result;
 	}
 
-
 	public void setText(String value) {
 		this.captionPrefix=value;
 		super.setText(getCaption());
@@ -303,5 +326,4 @@ public abstract class MasterShell extends Shell {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
 }

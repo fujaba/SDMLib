@@ -28,7 +28,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.IdMap;

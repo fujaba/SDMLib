@@ -43,6 +43,7 @@ import de.uniks.jism.gui.GUIPosition;
 public class BorderLayout extends AWTLayout {
 	private int hgap, vgap;
 	private Control centerChild, eastChild, northChild, southChild, westChild;
+	private int fixWest;
 
 	public BorderLayout() {
 		super();
@@ -70,9 +71,13 @@ public class BorderLayout extends AWTLayout {
 			size.y += preferredSize.y + vgap;
 		}
 		if (westChild != null) {
-			preferredSize = getPreferredSize(westChild, SWT.DEFAULT, hHint,
-					flushCache);
-			size.x += preferredSize.x + hgap;
+			if(fixWest>0){
+				size.x += fixWest;
+			}else{
+				preferredSize = getPreferredSize(westChild, SWT.DEFAULT, hHint,
+						flushCache);
+				size.x += preferredSize.x + hgap;
+			}
 		}
 		if (eastChild != null) {
 			preferredSize = getPreferredSize(eastChild, SWT.DEFAULT, hHint,
@@ -86,6 +91,9 @@ public class BorderLayout extends AWTLayout {
 			size.y += preferredSize.y;
 		}
 		return size;
+	}
+	public void setFixWestSize(int size){
+		this.fixWest=size;
 	}
 
 	protected void layout(Composite composite, boolean flushCache) {
@@ -111,10 +119,14 @@ public class BorderLayout extends AWTLayout {
 			bottom -= preferredSize.y + vgap;
 		}
 		if (westChild != null) {
-			preferredSize = getPreferredSize(westChild, SWT.DEFAULT, bottom
-					- top, flushCache);
-			westChild.setBounds(left, top, preferredSize.x, bottom - top);
-			left += preferredSize.x + hgap;
+			if(fixWest>0){
+				westChild.setBounds(left, top, fixWest, bottom - top);
+				left += fixWest + hgap;
+			}else{
+				preferredSize = getPreferredSize(westChild, SWT.DEFAULT, bottom - top, flushCache);
+				westChild.setBounds(left, top, preferredSize.x, bottom - top);
+				left += preferredSize.x + hgap;
+			}
 		}
 		if (eastChild != null) {
 			preferredSize = getPreferredSize(eastChild, SWT.DEFAULT, bottom

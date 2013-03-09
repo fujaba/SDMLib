@@ -34,17 +34,20 @@ import java.text.ParseException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
+import de.uniks.jism.gui.GUIPosition;
+import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.Column;
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
 import de.uniks.jism.gui.table.celledit.EditField;
@@ -60,19 +63,28 @@ public class PropertyComposite extends Composite implements PropertyChangeListen
 	private SendableEntityCreator creator;
 	private Object item;
 	private Column column=new Column();
+	private BorderLayout layout;
 
 	public PropertyComposite(Composite parent, int style) {
 		super(parent, style);
-		setLayout(new GridLayout(3, false));
+		layout = new BorderLayout(0,0);
+		setLayout(layout);
 
 		westLabel = new CLabel(this, SWT.NONE);
+		westLabel.setLayoutData(GUIPosition.WEST);
 		
 		centerComposite = new Composite(this, SWT.NONE);
+		centerComposite.setLayoutData(GUIPosition.CENTER);
 		centerComposite.setLayout(new FillLayout());
-
+		
 		field.setLayoutFromParent(false);
 		
 		eastLabel = new CLabel(this, SWT.NONE);
+		eastLabel.setLayoutData(GUIPosition.EAST);
+		if(this.getParent() instanceof ModelForm){
+			ModelForm modelForm=(ModelForm) this.getParent();
+			modelForm.addProperty(this);
+		}
 	}
 	
 	public String getLabelText() {
@@ -82,7 +94,7 @@ public class PropertyComposite extends Composite implements PropertyChangeListen
 	public void setLabelText(String value) {
 		this.column.setLabel(value);
 		initLabel();
-		field.setParent(this, centerComposite);
+		initControl();
 	}
 	
 	public void setFieldType(EditFields type){
@@ -142,9 +154,8 @@ public class PropertyComposite extends Composite implements PropertyChangeListen
 	public void setLabelLength(int width){
 		CLabel control = getLabelControl();
 		if(control!=null){
-			GridData gridData = new GridData();
-			gridData.widthHint = width;
-			control.setLayoutData(gridData);
+			layout.setFixWestSize(width);
+			control.layout();
 		}
 	}
 
@@ -160,26 +171,72 @@ public class PropertyComposite extends Composite implements PropertyChangeListen
 	public void setProperty(String value){
 		this.column.setAttrName(value);
 		field.init(column);
-		field.setParent(this, centerComposite);
+		initControl();
 	}
 	public String getProperty(){
 		return column.getAttrName();
 	}
-
-	public void setDataBinding(SendableEntityCreator creator, Object item, IdMap map, Column column) {
-		this.creator = creator;
+	
+	public void setDataBinding(IdMap map, Object item) {
+		setDataBinding(map, item, column);
+	}
+	
+	public void setDataBinding(IdMap map, Object item, Column column) {
+		this.creator = map.getCreatorClass(item);;
 		this.item = item;
-		this.column = column;
-		field.init(item, map, column);
-		field.setParent(this, centerComposite);
-		field.setValue(creator.getValue(item, column.getAttrName()));
+		if(column!=null){
+			this.column = column;
+		}
+		field.init(item, map, this.column);
+		initControl();
+		field.setValue(creator.getValue(item, this.column.getAttrName()));
 //		if(column.getWidth()>0){
 //			Control control = field.getControl();
 //		}
 		initLabel();
 		if(item instanceof SendableEntity) {
-			((SendableEntity) item).addPropertyChangeListener(column.getAttrName(), this);
+			((SendableEntity) item).addPropertyChangeListener(this.column.getAttrName(), this);
 		}
+	}
+	
+	private void initControl(){
+		field.setParent(this, centerComposite);
+		field.getControl().addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				focusnext();
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+		});
+		field.getControl().addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				onFocusLost();
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				onFocus();
+			};
+		});
+	}
+
+	public void focusnext(){
+		if(this.getParent() instanceof ModelForm){
+			ModelForm parent=(ModelForm) this.getParent();
+			parent.focusnext();
+		}
+	}
+
+	public void addFieldListener(FocusListener listener) {
+		field.getControl().addFocusListener(listener);
+	}
+	
+	public void addFieldListener(KeyListener listener) {
+		field.getControl().addKeyListener(listener);
 	}
 
 	@Override
@@ -200,25 +257,31 @@ public class PropertyComposite extends Composite implements PropertyChangeListen
 		}
 	}
 
-	@Override
 	public void defaultSelection(SelectionEvent event) {
 //		field.dispose();
 	}
 
-	@Override
 	public void keyRelease(KeyEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void onFocusLost() {
-		// TODO Auto-generated method stub
-		
+		if(this.getParent() instanceof ModelForm){
+			ModelForm parent=(ModelForm) this.getParent();
+			parent.onFocusLost(this);
+		}
+	}
+	
+	public void onFocus() {
+		if(this.getParent() instanceof ModelForm){
+			ModelForm parent=(ModelForm) this.getParent();
+			parent.onFocus(this);
+		}
 	}
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		return 	field.getValue(convert); 
+		return field.getValue(convert); 
 	}
 }

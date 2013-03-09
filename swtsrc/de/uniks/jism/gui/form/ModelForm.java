@@ -28,7 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -37,18 +38,20 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-import de.uniks.jism.gui.TextItems;
 import de.uniks.jism.gui.table.Column;
 
 public class ModelForm extends Composite{
 	private IdMap map;
 	private TextItems textClazz= null;
-	private ArrayList<PropertyComposite> properties=new ArrayList<PropertyComposite>();
+	private LinkedHashSet<PropertyComposite> properties=new LinkedHashSet<PropertyComposite>();
 	private Composite actionComposite;
 	private Button saveBtn;
 	private Button reloadBtn;
+	private Object item;
+	private PropertyComposite currentFocus;
 
 	public ModelForm(Composite parent, int style) {
 		super(parent, style);
@@ -56,14 +59,23 @@ public class ModelForm extends Composite{
 		setLayout(new RowLayout(SWT.VERTICAL));
 	}
 	
-	public void init(IdMap map, Object textClazz, Object item, boolean addCommandBtn){
+	public void setPreSize(){
+		int max=0;
+		for(PropertyComposite propertyComposite : properties){
+			int temp = propertyComposite.getLabelLength();
+			if(temp>max){
+				max = temp; 
+			}
+		}
+		for(PropertyComposite propertyComposite : properties){
+			propertyComposite.setLabelLength(max);
+		}
+	}
+	
+	public void init(IdMap map, Object item, boolean addCommandBtn){
 		this.map = map;
-		if(textClazz instanceof String){
-			textClazz = map.getCreatorClasses((String) textClazz);
-		}
-		if(textClazz instanceof TextItems){
-			this.textClazz = (TextItems) textClazz;
-		}
+		this.item = item;
+		textClazz = (TextItems) map.getCreatorClasses(TextItems.class.getName());
 		
 		SendableEntityCreator creator = map.getCreatorClass(item);
 		if(creator != null){
@@ -72,12 +84,12 @@ public class ModelForm extends Composite{
 				PropertyComposite propertyComposite = new PropertyComposite(this, SWT.NONE);
 				Column column = new Column();
 				if(this.textClazz!=null){
-					column.setLabel(this.textClazz.getText(property));
+					column.setLabel(this.textClazz.getText(property, item, this));
 					propertyComposite.setLabelOrientation(LabelPosition.WEST);
 				}
 				column.setAttrName(property);
 				
-				propertyComposite.setDataBinding(creator, item, map, column);
+				propertyComposite.setDataBinding(map, item, column);
 				int temp = propertyComposite.getLabelLength();
 				if(temp>max){
 					max = temp; 
@@ -124,7 +136,7 @@ public class ModelForm extends Composite{
 	
 	private String getText(String label){
 		if(this.textClazz!=null){
-			return this.textClazz.getText(label);
+			return this.textClazz.getText(label, item, this);
 		}
 		return label;
 	}
@@ -146,5 +158,33 @@ public class ModelForm extends Composite{
 
 	public TextItems getTextClazz() {
 		return textClazz;
+	}
+	
+	public void addProperty(PropertyComposite propertyComposite){
+		this.properties.add(propertyComposite);
+	}
+
+	public void focusnext() {
+		Iterator<PropertyComposite> iterator = properties.iterator();
+		if(currentFocus!=null){
+			while(iterator.hasNext()){
+				PropertyComposite property = iterator.next();
+				if(property==currentFocus){
+					break;
+				}
+			}
+			if(iterator.hasNext()){
+				iterator.next();
+			}
+		}
+	}
+
+	public void onFocus(PropertyComposite propertyComposite) {
+		this.currentFocus=propertyComposite;
+	}
+	public void onFocusLost(PropertyComposite propertyComposite) {
+		if(this.currentFocus==propertyComposite){
+			this.currentFocus=null;
+		}
 	}
 }

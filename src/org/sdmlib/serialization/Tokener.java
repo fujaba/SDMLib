@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Class Tokener.
  */
 public abstract class Tokener {
+	public final static String STOPCHARS=",]}/\\\"[{;=# ";
     /** The index. */
     private int 	index;
     
@@ -306,7 +307,7 @@ public abstract class Tokener {
   }
     
     protected String getStopChars(){
-    	return ",]}/\\\"[{;=# ";
+    	return STOPCHARS;
     }
 
     /**

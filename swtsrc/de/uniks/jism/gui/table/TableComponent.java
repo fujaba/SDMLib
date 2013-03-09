@@ -61,13 +61,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.SortingDirection;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
-import de.uniks.jism.gui.TextItems;
 import de.uniks.jism.gui.layout.BorderLayout;
 
 public class TableComponent extends Composite implements Listener,
@@ -130,7 +130,7 @@ public class TableComponent extends Composite implements Listener,
 
 		headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
-		columnsMenue.setText("Columns");
+		columnsMenue.setText(getText("Columns"));
 		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
 		columnsMenue.setMenu(mnuColumns);
 
@@ -733,7 +733,7 @@ public class TableComponent extends Composite implements Listener,
 		if(this.map!=null){
 			SendableEntityCreator textItemClazz = map.getCreatorClasses(TextItems.class.getName());
 			if(textItemClazz != null){
-				return((TextItems)textItemClazz).getText(label);
+				return((TextItems)textItemClazz).getText(label, source, this);
 			}
 		}
 		return label;

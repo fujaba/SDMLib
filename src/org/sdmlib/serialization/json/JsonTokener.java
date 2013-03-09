@@ -37,6 +37,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public class JsonTokener extends Tokener{
+	public final static String STOPCHARS=",:]}/\\\"[{;=# ";
 	public JsonTokener() {
 		super();
 	}
@@ -74,7 +75,7 @@ public class JsonTokener extends Tokener{
 	
 	@Override
 	protected String getStopChars() {
-		return ",:]}/\\\"[{;=# ";
+		return STOPCHARS;
 	}
 
 	public Entity parseEntity(JsonObject parent, Entity newValue) {
