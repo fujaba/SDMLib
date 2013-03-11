@@ -514,7 +514,8 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 		String id = getId(entity);
 
 		JsonObject jsonObject = new JsonObject();
-		if ( ! visitedObjects.contains(id)){
+		if ( ! visitedObjects.contains(id) && 
+		      filter.checkProperty(this, JsonFilter.CUTREFERENCE+id, entity)){
 			if (getCounter().isId()&&filter.isId()) {
 				jsonObject.put(ID, id);
 			}
@@ -584,7 +585,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface{
 			if (aggregation) {
 				String subId = this.getKey(entity);
 				if (valueCreater instanceof NoIndexCreator
-						|| subId==null || !filter.checkProperty(this, subId, entity) || ! visitedObjects.contains(subId)) {
+						|| subId==null || (filter.checkProperty(this, JsonFilter.CUTREFERENCE+subId, entity) && ! visitedObjects.contains(subId))) {
 					int oldValue = filter.setDeep(IdMapFilter.DEEPER);
 					if (jsonArray == null) {
 						JsonObject result = toJsonObject(entity, filter);

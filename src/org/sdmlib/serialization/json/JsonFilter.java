@@ -133,20 +133,23 @@ public class JsonFilter extends IdMapFilter{
 	
 	public boolean checkProperty(IdMap map,String property, Object value){
 		if(items!=null){
-			for(String item : items){
-				String sessionIdMap = map.getPrefixSession();
-				if(property.startsWith(REFERENCE)|| property.startsWith(CUTREFERENCE)){
-					String prop=property.substring(REFERENCE.length());
-					if (item.equalsIgnoreCase(prop)) {
-						return false;
-					}else if(prop.startsWith(""+sessionIdMap)){
-						String key = map.getKey(value);
-						if(prop.equals(key)){
-							return false;
-						}
-					}
-				}
-			}
+		   if(property.startsWith(REFERENCE)|| property.startsWith(CUTREFERENCE)){
+		      if(items.contains(property)) {
+		         return false;
+		      }else {
+		         String typ=property.substring(0,1);
+//		         String sessionIdMap = map.getPrefixSession();
+//		         if(prop.startsWith(""+sessionIdMap)){
+                  String key = map.getKey(value);
+                  if(items.contains(typ+key)) {
+                     return false;
+                  }
+//                  if(prop.equals(key)){
+//                     return false;
+//                  }
+//		         }
+            }
+		   }
 		}
 		return true;
 	}
@@ -171,6 +174,17 @@ public class JsonFilter extends IdMapFilter{
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean isRegard(IdMap map, Object entity, String property,
+	      Object value, boolean isMany)
+	{
+	     if(!checkProperty(map, CUTREFERENCE+property, value)){
+	         return false;
+	      }
+	   
+	   return super.isRegard(map, entity, property, value, isMany);
 	}
 	
 	public Object get(String attrName) {
