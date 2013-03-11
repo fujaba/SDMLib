@@ -50,7 +50,7 @@ public class IdMapFilter {
 	/** The deep. */
 	protected int deep = ALLDEEP;
 	
-	/** The simple check. */
+	/** The simple check. Serialisation Empty value*/
 	private boolean fullSerialization;
 
 	/** The deep. */

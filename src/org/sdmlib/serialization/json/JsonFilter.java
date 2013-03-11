@@ -49,6 +49,8 @@ public class JsonFilter extends IdMapFilter{
 	/** The Constant Cut the Association. */
 	public static final String CUTREFERENCE= "-";
 
+	/** Check if property starts with Model-Prefix */
+	private boolean checkModelValue=true;
 	
 	/** The objects and exclusive properties. */
 	private LinkedHashSet<String> items;
@@ -59,7 +61,14 @@ public class JsonFilter extends IdMapFilter{
 	public JsonFilter() {
 
 	}
-
+	
+	/**
+	 * Instantiates a new json filter.
+	 */
+	public JsonFilter(boolean checkModelValue) {
+		this.checkModelValue=checkModelValue;
+	}
+	
 	/**
 	 * Instantiates a new json filter.
 	 *
@@ -106,50 +115,51 @@ public class JsonFilter extends IdMapFilter{
 	 * @param id the id
 	 * @return true, if successful
 	 */
-	public boolean add(String value){
-		if(value!=null && value.length()>0){
+	public boolean add(String typ, String... value){
+		if(value!=null && (REFERENCE.equals(typ)|| CUTREFERENCE.equals(typ))){
 			if(items==null){
 				items = new LinkedHashSet<String>();
 			}
-			if(value.startsWith(REFERENCE)||value.startsWith(CUTREFERENCE)){
-				items.add(value);
-			}else{
-				items.add(REFERENCE+value);
+			for(String item : value){
+				if(item!=null){
+					items.add(typ+value);
+				}
 			}
 			return true;
 		}
 		return false;
 	}
 	
-	public JsonFilter withReference(String value){
-		add(REFERENCE+value);
-		return this;
+	public boolean add(String value){
+		if(value!=null){
+			String typ=value.substring(0,1);
+			return add(typ, value.substring(1));
+		}
+		return false;
 	}
-	public JsonFilter withCutReference(String value){
-		add(CUTREFERENCE+value);
+	
+	public JsonFilter with(String typ, String... value){
+		add(typ, value);
 		return this;
 	}
 	
+	public void setEnableModelCheck(boolean value){
+		this.checkModelValue=value;
+	}
 	
-	public boolean checkProperty(IdMap map,String property, Object value){
+	public boolean checkProperty(IdMap map, String typ, String property, Object value){
 		if(items!=null){
-		   if(property.startsWith(REFERENCE)|| property.startsWith(CUTREFERENCE)){
-		      if(items.contains(property)) {
-		         return false;
-		      }else {
-		         String typ=property.substring(0,1);
-//		         String sessionIdMap = map.getPrefixSession();
-//		         if(prop.startsWith(""+sessionIdMap)){
-                  String key = map.getKey(value);
-                  if(items.contains(typ+key)) {
-                     return false;
-                  }
-//                  if(prop.equals(key)){
-//                     return false;
-//                  }
-//		         }
-            }
-		   }
+			if (items.contains(typ+property)) {
+				return false;
+			} else {
+				String sessionIdMap = map.getPrefixSession();
+				if(isId && (!checkModelValue || property.startsWith(sessionIdMap))){
+					String key = map.getKey(value);
+					if (items.contains(typ + key)) {
+						return false;
+					}
+				}
+			}
 		}
 		return true;
 	}
@@ -166,7 +176,11 @@ public class JsonFilter extends IdMapFilter{
 			return false;
 		}
 		
-		if(!checkProperty(map,property, value)){
+		if(!checkProperty(map, CUTREFERENCE, property, value)){
+			return false;
+		}
+		
+		if(!checkProperty(map, REFERENCE, property, value)){
 			return false;
 		}
 		
@@ -180,7 +194,7 @@ public class JsonFilter extends IdMapFilter{
 	public boolean isRegard(IdMap map, Object entity, String property,
 	      Object value, boolean isMany)
 	{
-	     if(!checkProperty(map, CUTREFERENCE+property, value)){
+	     if(!checkProperty(map, CUTREFERENCE, property, value)){
 	         return false;
 	      }
 	   
