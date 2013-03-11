@@ -22,11 +22,16 @@
 package org.sdmlib.scenarios;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 
+import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -84,7 +89,9 @@ public class JsonToImg
       // generate dot file
       String fileText = "graph ObjectDiagram {\n" +
       		"   node [shape = none, fontsize = 10];\n" +
-      		"   edge [fontsize = 10];\n\n" +
+      		"   edge [fontsize = 10];\n" +
+      		"   compound=true;\n" +
+      		"\n" +
       		"<nodes>\n" +
       		"<edges>" +
       		"}\n";
@@ -112,10 +119,13 @@ public class JsonToImg
    {
       String omittedId = "";
       // collect all edges
-      TreeMap<String, EdgeLabels> edgeMap = new TreeMap<String, EdgeLabels>();
+      LinkedHashMap<String, EdgeLabels> edgeMap = new LinkedHashMap<String, EdgeLabels>();
       
       // collect all jsonIds
-      TreeSet<String> knownIds = new TreeSet<String>();
+      LinkedHashSet<String> knownIds = new LinkedHashSet<String>();
+      LinkedHashMap<String, LinkedHashSet<String>> aggregationMap = new LinkedHashMap<String, LinkedHashSet<String>>();
+      LinkedHashMap<String, JsonObject> jsonObjectMap = new LinkedHashMap<String, JsonObject>();
+      
       for (int i = 0; i < objects.size(); i++)
       {
          JsonObject jsonObject = objects.getJSONObject(i);
@@ -128,20 +138,120 @@ public class JsonToImg
          else
          {
             knownIds.add(jsonId);
+            aggregationMap.put(jsonId, new LinkedHashSet<String>());
+            jsonObjectMap.put(jsonId, jsonObject);
          }
       }
-      
-      // list of nodes
-      for (int i = 0; i < objects.size(); i++)
+
+      LinkedHashSet<String> aggregationRolesSet = new LinkedHashSet<String>();
+      if (aggregationRoles != null && aggregationRoles.length > 0)
       {
-         if (i == 0 && omitRoot)
+         aggregationRolesSet.addAll(Arrays.asList(aggregationRoles));
+
+         // all nodes
+         for (String id : (LinkedHashSet<String>) knownIds.clone())
+         {
+            // all properties
+            JsonObject properties = jsonObjectMap.get(id);
+
+            JsonObject props = (JsonObject) properties.get(JsonIdMap.JSON_PROPS);
+            
+            if (props == null)
+            {
+               continue;
+            }
+            
+            for (Iterator<String> iter = props.keys(); iter.hasNext(); )
+            {
+               String nextProp = iter.next();
+
+               if (aggregationRolesSet.contains(nextProp))
+               {
+                  // found contained elements, restructure
+                  Object propValue = props.get(nextProp);
+
+                  if (propValue instanceof JsonArray)
+                  {
+                     JsonArray propArray = (JsonArray) propValue;
+
+                     for(int i = 0; i < propArray.size(); i++)
+                     {
+                        JsonObject containedId = propArray.getJSONObject(i);
+
+                        String subId = containedId.getString(JsonIdMap.ID);
+
+                        // add to parent and remove from top level ids
+                        aggregationMap.get(id).add(subId);
+                        knownIds.remove(subId);
+                     }
+                  }
+                  else
+                  {
+                     String subId = ((JsonObject) propValue).getString(JsonIdMap.ID);
+                     
+                     // add to parent and remove from top level ids
+                     aggregationMap.get(id).add(subId);
+                     knownIds.remove(subId);
+                  }
+               }
+            }
+         }
+
+      }
+
+
+      // list of nodes
+      listOfNodes(nodeBuilder, omittedId, edgeMap, knownIds, aggregationMap, jsonObjectMap);
+      
+      
+      // now generate edges from edgeMap
+      for (String keyPair : edgeMap.keySet())
+      {
+         String[] split = keyPair.split(":");
+         
+         EdgeLabels edgeLabels = edgeMap.get(keyPair);
+         
+         if (aggregationRolesSet.contains(edgeLabels.headlabel) || aggregationRolesSet.contains(edgeLabels.taillabel))
          {
             continue;
          }
          
-         JsonObject jsonObject = objects.getJSONObject(i);
+         String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
+         edgeLine = edgeLine.replaceFirst("<srcId>", Matcher.quoteReplacement(split[0]));
+         edgeLine = edgeLine.replaceFirst("<tgtId>", Matcher.quoteReplacement(split[1]));
+         edgeLine = edgeLine.replaceFirst("<headlabel>", Matcher.quoteReplacement(edgeLabels.headlabel));
+         String taillabel = edgeLabels.taillabel;
+         if (taillabel.startsWith("_"))
+         {
+            taillabel = taillabel.substring(1);
+         }
+         edgeLine = edgeLine.replaceFirst("<taillabel>", Matcher.quoteReplacement(taillabel));
+         
+         edgeBuilder.append(edgeLine);
+      }
+   }
+
+   private static void listOfNodes(StringBuilder nodeBuilder, String omittedId,
+         LinkedHashMap<String, EdgeLabels> edgeMap, Set<String> knownIds,
+         LinkedHashMap<String, LinkedHashSet<String>> aggregationMap,
+         LinkedHashMap<String, JsonObject> jsonObjectMap)
+   {
+      for (String topId : knownIds)
+      {         
+         JsonObject jsonObject = jsonObjectMap.get(topId);
          String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <optionalImage><tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
         
+         boolean isCluster = false;
+         if (aggregationMap.get(topId).size() > 0)
+         {
+            isCluster = true;
+            
+            // has kids, render as cluster
+            nodeLine = "subgraph cluster_<id> { \n" +
+            		"   <id> [label=<<table border='0' cellborder='0' cellspacing='0'> <optionalImage><tr> <td> <u><id> :<classname></u></td></tr></table>>];\n" +
+            		"   \n";
+         }
+         
          String imageName = jsonObject.getString(JsonIdMap.CLASS) + ".svg";
          File imageFile = new File("doc/" + imageName);
          if (imageFile.exists())
@@ -234,30 +344,21 @@ public class JsonToImg
          }
          
          nodeBuilder.append(nodeLine);
-      }
-      
-      // now generate edges from edgeMap
-      for (String keyPair : edgeMap.keySet())
-      {
-         String[] split = keyPair.split(":");
-         EdgeLabels edgeLabels = edgeMap.get(keyPair);
-         
-         String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
-         edgeLine = edgeLine.replaceFirst("<srcId>", Matcher.quoteReplacement(split[0]));
-         edgeLine = edgeLine.replaceFirst("<tgtId>", Matcher.quoteReplacement(split[1]));
-         edgeLine = edgeLine.replaceFirst("<headlabel>", Matcher.quoteReplacement(edgeLabels.headlabel));
-         String taillabel = edgeLabels.taillabel;
-         if (taillabel.startsWith("_"))
+
+         // do contained elements
+         if (isCluster)
          {
-            taillabel = taillabel.substring(1);
+            // call recursive
+            listOfNodes(nodeBuilder, omittedId, edgeMap, aggregationMap.get(topId), aggregationMap, jsonObjectMap);
+            
+            nodeBuilder.append("}\n");
          }
-         edgeLine = edgeLine.replaceFirst("<taillabel>", Matcher.quoteReplacement(taillabel));
          
-         edgeBuilder.append(edgeLine);
+
       }
    }
    
-   private static void addToEdges(TreeMap<String, EdgeLabels> edgeMap, String srcId,
+   private static void addToEdges(LinkedHashMap<String, EdgeLabels> edgeMap, String srcId,
          String tgtId, String label)
    {
       // is this edge already known?

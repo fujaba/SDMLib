@@ -947,7 +947,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             System.out.print(line);
          }
          
-         if (traceLength >= 246)
+         if (traceLength >= 821)
          {
             boolean stop = true;
          }

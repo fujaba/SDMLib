@@ -53,6 +53,9 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
             if (patElem instanceof PatternObject)
             {
                Object currentMatch = ((PatternObject) patElem).getCurrentMatch();
+               if (currentMatch == null)
+                  continue;
+               
                if (usedObjects.contains(currentMatch))
                {
                   if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
