@@ -122,7 +122,7 @@ public class JsonFilter extends IdMapFilter{
 			}
 			for(String item : value){
 				if(item!=null){
-					items.add(typ+value);
+					items.add(typ+item);
 				}
 			}
 			return true;
