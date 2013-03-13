@@ -8,6 +8,17 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.PatternObjectSet;
+import org.sdmlib.models.pattern.creators.PatternLinkPO;
+import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
+import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
+import org.sdmlib.models.pattern.creators.CardinalityConstraintPO;
+import org.sdmlib.models.pattern.creators.PatternObjectPO;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
+import org.sdmlib.models.pattern.creators.MatchOtherThenPO;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 
 
 public class PatternObjectPO extends PatternObject
@@ -451,7 +462,108 @@ public class PatternObjectPO extends PatternObject
       return this;
    }
    
+   public CardinalityConstraintPO hasCardConstraints()
+   {
+      CardinalityConstraintPO result = new CardinalityConstraintPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternObject.PROPERTY_CARDCONSTRAINTS, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO hasCardConstraints(CardinalityConstraintPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_CARDCONSTRAINTS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public CardinalityConstraintSet getCardConstraints()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getCardConstraints();
+      }
+      return null;
+   }
+
+   public MatchOtherThenPO hasMatchOtherThen()
+   {
+      MatchOtherThenPO result = new MatchOtherThenPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternObject.PROPERTY_MATCHOTHERTHEN, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO hasMatchOtherThen(MatchOtherThenPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_MATCHOTHERTHEN)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public MatchOtherThenSet getMatchOtherThen()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getMatchOtherThen();
+      }
+      return null;
+   }
+
+   public MatchOtherThenPO hasExcluders()
+   {
+      MatchOtherThenPO result = new MatchOtherThenPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PatternObject.PROPERTY_EXCLUDERS, result);
+      
+      return result;
+   }
+
+   public PatternObjectPO hasExcluders(MatchOtherThenPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_EXCLUDERS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public MatchOtherThenSet getExcluders()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PatternObject) this.getCurrentMatch()).getExcluders();
+      }
+      return null;
+   }
+
 }
+
+
 
 
 

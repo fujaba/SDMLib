@@ -15,6 +15,8 @@
     _LinkConstraint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/LinkConstraint.java">LinkConstraint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _MatchIsomorphicConstraint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/MatchIsomorphicConstraint.java">MatchIsomorphicConstraint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _DestroyObjectElem [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/DestroyObjectElem.java">DestroyObjectElem</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _CardinalityConstraint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/CardinalityConstraint.java">CardinalityConstraint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>tgtRoleName :String</td></tr> <tr><td align='left'>hostGraphSrcObject :Object</td></tr> <tr><td align='left'>minCard :long</td></tr> <tr><td align='left'>maxCard :long</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _MatchOtherThen [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/MatchOtherThen.java">MatchOtherThen</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>hostGraphSrcObject :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _JsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/JsonIdMap.java">JsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SDMLibJsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/SDMLibJsonIdMap.java">SDMLibJsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
@@ -29,11 +31,16 @@
     _PatternLink ->  _LinkConstraint [dir = "back" arrowtail = "empty"];
     _PatternElement ->  _MatchIsomorphicConstraint [dir = "back" arrowtail = "empty"];
     _PatternElement ->  _DestroyObjectElem [dir = "back" arrowtail = "empty"];
+    _PatternElement ->  _CardinalityConstraint [dir = "back" arrowtail = "empty"];
+    _PatternElement ->  _MatchOtherThen [dir = "back" arrowtail = "empty"];
     _Pattern -> _PatternElement [headlabel = "elements *" taillabel = "pattern" arrowhead = "none" ];
     _PatternLink -> _PatternObject [headlabel = "tgt" taillabel = "incomming *" arrowhead = "none" ];
     _PatternLink -> _PatternObject [headlabel = "src" taillabel = "outgoing *" arrowhead = "none" ];
     _AttributeConstraint -> _PatternObject [headlabel = "src" taillabel = "attrConstraints *" arrowhead = "none" ];
     _DestroyObjectElem -> _PatternObject [headlabel = "patternObject" taillabel = "destroyElem" arrowhead = "none" ];
+    _CardinalityConstraint -> _PatternObject [headlabel = "src" taillabel = "cardConstraints *" arrowhead = "none" ];
+    _MatchOtherThen -> _PatternObject [headlabel = "src" taillabel = "matchOtherThen *" arrowhead = "none" ];
+    _MatchOtherThen -> _PatternObject [headlabel = "forbidden" taillabel = "excluders *" arrowhead = "none" ];
     _Pattern -> _Pattern [headlabel = "currentSubPattern" taillabel = "" arrowhead = "vee" ];
     _Pattern -> _StringBuilder [headlabel = "trace" taillabel = "" arrowhead = "vee" ];
     _PatternObject -> _Object [headlabel = "currentMatch" taillabel = "" arrowhead = "vee" ];
@@ -41,4 +48,6 @@
     _PatternLink -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
     _AttributeConstraint -> _Object [headlabel = "tgtValue" taillabel = "" arrowhead = "vee" ];
     _AttributeConstraint -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
+    _CardinalityConstraint -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
+    _MatchOtherThen -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
 }

@@ -132,17 +132,11 @@ public class Scenario
       
       steps.add(name);
       
-      try
-      {
-         throw new RuntimeException();
-      }
-      catch (Exception e)
-      {
-         StackTraceElement[] stackTrace = e.getStackTrace();
-         StackTraceElement callEntry = stackTrace[1];
-         javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
-      }
-
+      Exception e =  new RuntimeException();
+      
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
    
 	public Vector<String> steps = new Vector<String>();

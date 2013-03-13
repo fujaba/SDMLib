@@ -43,6 +43,10 @@ public class CreatorCreator
          creatorSet.add(new StringBuilderPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.StringBuilderCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.StringBuilderPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.CardinalityConstraintCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.CardinalityConstraintPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.MatchOtherThenCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.MatchOtherThenPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -58,6 +62,8 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
 
 
 

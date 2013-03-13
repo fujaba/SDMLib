@@ -16,6 +16,21 @@ import org.sdmlib.serialization.json.creators.JsonIdMapPO;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
 
 import java.lang.StringBuilder;
+import org.sdmlib.models.pattern.creators.PatternElementPO;
+import org.sdmlib.models.pattern.creators.PatternPO;
+import org.sdmlib.models.pattern.creators.StringBuilderPO;
+import org.sdmlib.models.pattern.creators.NegativeApplicationConditionPO;
+import org.sdmlib.models.pattern.creators.OptionalSubPatternPO;
+import org.sdmlib.models.pattern.creators.PatternObjectPO;
+import org.sdmlib.models.pattern.creators.PatternLinkPO;
+import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
+import org.sdmlib.models.pattern.creators.LinkConstraintPO;
+import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPO;
+import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
+import org.sdmlib.models.pattern.creators.CardinalityConstraintPO;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.creators.MatchOtherThenPO;
+import org.sdmlib.models.pattern.MatchOtherThen;
 
 public class ModelPattern extends Pattern
 {
@@ -342,7 +357,57 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public CardinalityConstraintPO hasElementCardinalityConstraintPO()
+   {
+      CardinalityConstraintPO value = new CardinalityConstraintPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CardinalityConstraintPO hasElementCardinalityConstraintPO(CardinalityConstraint hostGraphObject)
+   {
+      CardinalityConstraintPO value = new CardinalityConstraintPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public MatchOtherThenPO hasElementMatchOtherThenPO()
+   {
+      MatchOtherThenPO value = new MatchOtherThenPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public MatchOtherThenPO hasElementMatchOtherThenPO(MatchOtherThen hostGraphObject)
+   {
+      MatchOtherThenPO value = new MatchOtherThenPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
 
 
 

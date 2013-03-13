@@ -31,6 +31,10 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
+import org.sdmlib.models.pattern.MatchOtherThen;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {
@@ -356,7 +360,105 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+   public CardinalityConstraintSet getCardConstraints()
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (PatternObject obj : this)
+      {
+         result.addAll(obj.getCardConstraints());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withCardConstraints(CardinalityConstraint value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withCardConstraints(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutCardConstraints(CardinalityConstraint value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutCardConstraints(value);
+      }
+      
+      return this;
+   }
+
+   public MatchOtherThenSet getMatchOtherThen()
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (PatternObject obj : this)
+      {
+         result.addAll(obj.getMatchOtherThen());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withMatchOtherThen(MatchOtherThen value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withMatchOtherThen(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutMatchOtherThen(MatchOtherThen value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutMatchOtherThen(value);
+      }
+      
+      return this;
+   }
+
+   public MatchOtherThenSet getExcluders()
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (PatternObject obj : this)
+      {
+         result.addAll(obj.getExcluders());
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet withExcluders(MatchOtherThen value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withExcluders(value);
+      }
+      
+      return this;
+   }
+
+   public PatternObjectSet withoutExcluders(MatchOtherThen value)
+   {
+      for (PatternObject obj : this)
+      {
+         obj.withoutExcluders(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
 

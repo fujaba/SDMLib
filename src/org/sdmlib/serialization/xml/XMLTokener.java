@@ -94,15 +94,24 @@ public class XMLTokener extends Tokener{
         		lExit=true;
             }else if(c=='>'){
             	if(nextClean()>' '){
-            		back();
-            	   if(getCurrentChar()=='<'){
-                		child = (XMLEntity) xmlEntity.getNewObject();
-                		parseToEntity((BaseEntity)child);
-                		xmlEntity.addChild(child);
-            		}else{
-            			xmlEntity.setValue(nextString('<', false, false));
-            			back();
-            		}
+            	   if (getCurrentChar() == '/')
+            	   {
+            	      stepPos(">", false, false);
+                     next();
+                     lExit=true;
+            	   }
+            	   else
+            	   {
+            	      back();
+            	      if(getCurrentChar()=='<'){
+            	         child = (XMLEntity) xmlEntity.getNewObject();
+            	         parseToEntity((BaseEntity)child);
+            	         xmlEntity.addChild(child);
+            	      }else{
+            	         xmlEntity.setValue(nextString('<', false, false));
+            	         back();
+            	      }
+            	   }
             	}
         	}else if(c=='<'){
             	if(next()=='/'){

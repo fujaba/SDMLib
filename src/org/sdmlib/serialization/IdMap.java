@@ -192,19 +192,32 @@ public class IdMap extends AbstractIdMap{
 	 * @param obj the obj
 	 * @return the id
 	 */
-	public String getId(Object obj) {
-		if (!getCounter().isId()) {
+	public String getId(Object obj) 
+	{
+	   if (obj == null)
+	   {
+	      return "null";
+	   }
+	   
+	   if (!getCounter().isId()) 
+	   {
 			return "";
 		}
-		if (this.parent != null) {
+		
+	   if (this.parent != null) 
+	   {
 			return this.parent.getId(obj);
 		}
-		String key = this.keys.get(obj);
-		if (key == null) {
+		
+	   String key = this.keys.get(obj);
+		
+	   if (key == null) 
+	   {
 			key = getCounter().getId(obj);
 			put(key, obj);
 		}
-		return key;
+		
+	   return key;
 	}
 
 	/**

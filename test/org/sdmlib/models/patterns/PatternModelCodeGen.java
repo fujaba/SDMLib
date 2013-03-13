@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
@@ -104,14 +105,23 @@ public class PatternModelCodeGen
       Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
       .withSuperClass(patternElement);
       
-      //      Clazz allMatchesElemClazz = new Clazz("allMatchesElem", 
-      //         "tgt", PatternObject.class.getSimpleName(), 
-      //         "resultSet", "LinkedHashSet<Object>")
-      //      .withSuperClass(patternElement);
-      
       new Association()
       .withTarget(patternObject, "patternObject", R.ONE)
       .withSource(destroyObjectClazz, "destroyElem", R.ONE);
+      
+      Clazz cardinalityConstraint = new Clazz("CardinalityConstraint")
+      .withSuperClass(patternElement)
+      .withAttributes("tgtRoleName", "String",
+         "hostGraphSrcObject", "Object",
+         "minCard", R.LONG,
+         "maxCard", R.LONG)
+      .withAssoc(patternObject, "src", R.ONE, "cardConstraints", R.MANY);
+      
+      Clazz matchOtherThen = new Clazz("MatchOtherThen")
+      .withSuperClass(patternElement)
+      .withAttributes("hostGraphSrcObject", "Object")
+      .withAssoc(patternObject, "src", R.ONE, "matchOtherThen", R.MANY)
+      .withAssoc(patternObject, "forbidden", R.ONE, "excluders", R.MANY);
       
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       

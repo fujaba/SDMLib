@@ -178,10 +178,10 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return changed;
    }
    
-   public PatternElement withPattern(Pattern value)
+   public PEC withPattern(Pattern value)
    {
       setPattern(value);
-      return this;
+      return (PEC) this;
    }
    
    public Pattern getTopPattern()

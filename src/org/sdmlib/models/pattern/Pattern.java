@@ -120,6 +120,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return result;
    }
    
+   public boolean rebind(PatternObject boundObject, Object value)
+   {
+      boundObject.setCurrentMatch(value);
+      this.resetSearch();
+      return this.findMatch();
+   }
+   
    public boolean findMatch()
    {
       if ( ! this.getHasMatch())
@@ -137,6 +144,11 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          restartSearchAtIndex0 = false;
          
          i = 0;
+         
+         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         {
+            getTopPattern().addLogMsg("\n     Restart pattern: ");
+         }
       }
       
       PatternElement currentPE = null;
@@ -725,6 +737,53 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             
             edgeBuilder.append(destroyEdgeBuilder.toString());
          }
+         else if (patElem instanceof CardinalityConstraint)
+         {
+            CardinalityConstraint cardConstr = (CardinalityConstraint) patElem;
+            
+            StringBuilder cardConstrBuilder = new StringBuilder(
+               "id [label=\"{mincard <= tgtRole.size <= maxcard}\"]\n");
+            
+            CGUtil.replaceAll(cardConstrBuilder, 
+               "id", nameForPatElem(cardConstr),
+               "mincard", "" + cardConstr.getMinCard(),
+               "maxcard", "" + cardConstr.getMaxCard(),
+               "tgtRole", cardConstr.getTgtRoleName());
+            
+            nodeBuilder.append(cardConstrBuilder.toString());
+            
+            StringBuilder destroyEdgeBuilder = new StringBuilder(
+                  "<srcId> -- <tgtId> [style=\"dotted\"];\n");
+            
+            CGUtil.replaceAll(destroyEdgeBuilder, 
+               "<srcId>", nameForPatElem(cardConstr.getSrc()), 
+               "<tgtId>", nameForPatElem(cardConstr));
+            
+            edgeBuilder.append(destroyEdgeBuilder.toString());
+         }
+         else if (patElem instanceof MatchOtherThen)
+         {
+            MatchOtherThen matchOther = (MatchOtherThen) patElem;
+            
+            StringBuilder cardConstrBuilder = new StringBuilder(
+               "id [label=\"{nodeX != nodeY}\"]\n");
+            
+            CGUtil.replaceAll(cardConstrBuilder, 
+               "id", nameForPatElem(matchOther),
+               "nodeX", nameForPatElem(matchOther.getSrc()),
+               "nodeY", nameForPatElem(matchOther.getForbidden()));
+            
+            nodeBuilder.append(cardConstrBuilder.toString());
+            
+            StringBuilder destroyEdgeBuilder = new StringBuilder(
+                  "<srcId> -- <tgtId> [style=\"dotted\"];\n");
+            
+            CGUtil.replaceAll(destroyEdgeBuilder, 
+               "<srcId>", nameForPatElem(matchOther.getSrc()), 
+               "<tgtId>", nameForPatElem(matchOther));
+            
+            edgeBuilder.append(destroyEdgeBuilder.toString());
+         }
          else if (patElem instanceof NegativeApplicationCondition)
          {
             NegativeApplicationCondition nac = (NegativeApplicationCondition) patElem;
@@ -926,7 +985,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return (MP) this;
    } 
    
-   static int traceLength = 0;
+   public static int traceLength = 0;
    
    public MP addLogMsg(String msg)
    {
@@ -947,9 +1006,9 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             System.out.print(line);
          }
          
-         if (traceLength >= 821)
+         if (traceLength >= 1550)
          {
-            boolean stop = true;
+            traceLength = traceLength + 0; // break here to stop on trace step i
          }
       }
       

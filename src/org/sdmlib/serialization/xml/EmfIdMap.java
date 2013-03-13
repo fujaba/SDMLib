@@ -15,6 +15,8 @@ import org.sdmlib.utils.StrUtil;
 
 public class EmfIdMap extends SDMLibJsonIdMap
 {
+   private static final String XMI_ID = "xmi:id";
+
    public Object decode(StringBuilder fileText)
    {
       int pos = fileText.indexOf("\n");
@@ -46,6 +48,8 @@ public class EmfIdMap extends SDMLibJsonIdMap
       
       Object rootObject = rootFactory.getSendableInstance(false);
       
+      addXMIIds(xmlEntity);
+      
       addValues(rootFactory, xmlEntity, rootObject);
       
       addChildren(xmlEntity, rootFactory, rootObject);
@@ -53,11 +57,33 @@ public class EmfIdMap extends SDMLibJsonIdMap
       return rootObject;
    }
 
+   private void addXMIIds(XMLEntity xmlEntity)
+   {
+      if (xmlEntity.has(XMI_ID))
+      {
+         return;
+      }
+      
+      xmlEntity.put(XMI_ID, "$n1");
+      int i = 0;
+      String firstTag="p";
+      for (XMLEntity kid : xmlEntity.getChildren())
+      {
+         if( ! kid.getTag().startsWith(firstTag))
+         {
+            i = 0;
+            firstTag = "t";
+         }
+         kid.put(XMI_ID, "$"  + firstTag + i); 
+         i++;
+      }
+   }
+
    private void addValues(EntityFactory rootFactory, XMLEntity xmlEntity,
          Object rootObject)
    {
       // add to map
-      String id = (String) xmlEntity.get("xmi:id");
+      String id = (String) xmlEntity.get(XMI_ID);
       
       id = "_" + id.substring(1);
       
@@ -67,13 +93,29 @@ public class EmfIdMap extends SDMLibJsonIdMap
       for (Iterator<String> iter = xmlEntity.keys(); iter.hasNext(); )
       {
          String key = iter.next();
-         String value = (String) xmlEntity.get(key);
+         String value = ((String) xmlEntity.get(key)).trim();
          
-         if (value.startsWith("$"))
+         if (value == null || "".equals(value))
+         {
+            continue;
+         }
+         else if (value.startsWith("$"))
          {
             for (String ref : value.split(" "))
             {
                String myRef = "_" + ref.substring(1);
+               if (getObject(myRef) != null)
+               {
+                  rootFactory.setValue(rootObject, key, getObject(myRef), "");
+               }
+            }
+         }
+         else if (value.startsWith("//@"))
+         {
+            for (String ref : value.split(" "))
+            {
+               String myRef = ref.substring(3);
+               myRef = "_" + myRef.subSequence(0, 1) + myRef.split("\\.")[1];
                if (getObject(myRef) != null)
                {
                   rootFactory.setValue(rootObject, key, getObject(myRef), "");
