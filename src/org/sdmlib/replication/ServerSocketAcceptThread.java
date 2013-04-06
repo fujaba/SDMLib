@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,26 +19,38 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.model.taskflows;
+package org.sdmlib.replication;
 
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.replication.ReplicationNode;
 
-public class SocketThread extends Thread implements PropertyChangeInterface
+
+public class ServerSocketAcceptThread extends Thread implements PropertyChangeInterface
 {
-
-   
    //==========================================================================
    
+   public int port;
+   public ReplicationNode replicationNode;
+
+   public ServerSocketAcceptThread(ReplicationNode replicationNode, int replicationServerPort)
+   {
+      this.replicationNode = replicationNode;
+      this.port = replicationServerPort;
+   }
+
+   public ServerSocketAcceptThread()
+   {
+      // blank
+   }
+
    @Override
    public void run()
    {
-      this.setName("SocketThread");
+      this.setName("SocketAcceptThread");
       // open server socket
       try
       {
@@ -50,9 +62,9 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          {
             Socket connection = serverSocket.accept();
             
-            SocketReader socketReader = new SocketReader(this, connection);
-            socketReader.setName("SocketReader_" + i++);
-            socketReader.start();
+            ReplicationChannel channel = new ReplicationChannel(replicationNode, connection);
+            channel.setName("ReplicationChannel" + i++);
+            channel.start();
          }
       }
       catch (IOException e)
@@ -63,36 +75,23 @@ public class SocketThread extends Thread implements PropertyChangeInterface
      
    }
    
+
+
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_IP.equalsIgnoreCase(attribute))
-      {
-         return getIp();
-      }
-
-      if (PROPERTY_PORT.equalsIgnoreCase(attribute))
+      if (PROPERTY_PORT.equalsIgnoreCase(attrName))
       {
          return getPort();
       }
 
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attribute))
+      if (PROPERTY_REPLICATIONNODE.equalsIgnoreCase(attrName))
       {
-         return getIdMap();
+         return getReplicationNode();
       }
 
-      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attribute))
-      {
-         return getDefaultTargetThread();
-      }
-      
       return null;
    }
 
@@ -101,27 +100,15 @@ public class SocketThread extends Thread implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_IP.equalsIgnoreCase(attrName))
-      {
-         setIp((String) value);
-         return true;
-      }
-
       if (PROPERTY_PORT.equalsIgnoreCase(attrName))
       {
          setPort(Integer.parseInt(value.toString()));
          return true;
       }
 
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      if (PROPERTY_REPLICATIONNODE.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.JsonIdMap) value);
-         return true;
-      }
-
-      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attrName))
-      {
-         setDefaultTargetThread((Object) value);
+         setReplicationNode((ReplicationNode) value);
          return true;
       }
 
@@ -144,43 +131,14 @@ public class SocketThread extends Thread implements PropertyChangeInterface
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      // super.removeYou();
    }
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IP = "ip";
-   
-   private String ip;
-
-   public String getIp()
-   {
-      return this.ip;
-   }
-   
-   public void setIp(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.ip, value))
-      {
-         String oldValue = this.ip;
-         this.ip = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IP, oldValue, value);
-      }
-   }
-   
-   public SocketThread withIp(String value)
-   {
-      setIp(value);
-      return this;
-   } 
 
    
    //==========================================================================
    
    public static final String PROPERTY_PORT = "port";
    
-   private int port;
-
    public int getPort()
    {
       return this.port;
@@ -196,65 +154,44 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       }
    }
    
-   public SocketThread withPort(int value)
+   public ServerSocketAcceptThread withPort(int value)
    {
       setPort(value);
       return this;
    } 
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_IDMAP = "idMap";
-   
-   org.sdmlib.serialization.json.JsonIdMap idMap;
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getPort());
+      return _.substring(1);
+   }
 
-   public org.sdmlib.serialization.json.JsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-   
-   public void setIdMap(org.sdmlib.serialization.json.JsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.JsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public SocketThread withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 
    
    //==========================================================================
    
-   public static final String PROPERTY_DEFAULTTARGETTHREAD = "defaultTargetThread";
+   public static final String PROPERTY_REPLICATIONNODE = "replicationNode";
    
-   Object defaultTargetThread;
-
-   public Object getDefaultTargetThread()
+   public ReplicationNode getReplicationNode()
    {
-      return this.defaultTargetThread;
+      return this.replicationNode;
    }
    
-   public void setDefaultTargetThread(Object value)
+   public void setReplicationNode(ReplicationNode value)
    {
-      if (this.defaultTargetThread != value)
+      if (this.replicationNode != value)
       {
-         Object oldValue = this.defaultTargetThread;
-         this.defaultTargetThread = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEFAULTTARGETTHREAD, oldValue, value);
+         ReplicationNode oldValue = this.replicationNode;
+         this.replicationNode = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_REPLICATIONNODE, oldValue, value);
       }
    }
    
-   public SocketThread withDefaultTargetThread(Object value)
+   public ServerSocketAcceptThread withReplicationNode(ReplicationNode value)
    {
-      setDefaultTargetThread(value);
+      setReplicationNode(value);
       return this;
    } 
 }

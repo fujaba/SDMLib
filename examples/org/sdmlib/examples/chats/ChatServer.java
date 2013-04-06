@@ -35,7 +35,7 @@ public class ChatServer implements PropertyChangeInterface
 {
    public static final String CHAT_SERVER = "chat.server";
 
-   private static final int CHAT_SERVER_PORT = 11112;
+   public static final int CHAT_SERVER_PORT = 11112;
 
    public static void main(String[] args)
    {

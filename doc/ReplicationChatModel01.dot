@@ -1,0 +1,13 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _ChatRoot [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/replication/ChatRoot.java">ChatRoot</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ChatMsg [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/replication/ChatMsg.java">ChatMsg</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr> <tr><td align='left'>time :long</td></tr> <tr><td align='left'>sender :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _ChatRoot -> _ChatMsg [headlabel = "msgs *" taillabel = "root" arrowhead = "none" ];
+}
