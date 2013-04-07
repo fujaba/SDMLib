@@ -26,7 +26,10 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -151,7 +154,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             lower = new ReplicationChange().withHistoryIdNumber(0).withHistoryIdPrefix(" ");
          }
          
-         if (lower.compareTo(previousChange) >= 1)
+         if (msg.channel != null && lower.compareTo(previousChange) >= 1)
          {
             // ups, the sender does not know lower
             // send all since previous
@@ -280,6 +283,11 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    private void sendChangeTo(ReplicationChannel channel,
          ReplicationChange change)
    {
+      if (channel == null)
+      {
+         return;
+      }
+      
       JsonIdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
@@ -332,7 +340,9 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          if (logFile == null)
          {
             boolean result = new File("./SharedSpace/").mkdirs();
-            logFile = new File("./SharedSpace/"+getName()+".json");
+            logFile = new File("./SharedSpace/"
+            + getSpaceId() + "_"
+            + getNodeId()  + ".json");
 
             result = logFile.createNewFile();
 
@@ -351,6 +361,49 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       }
 
    }
+   
+   public void loadHistoryFromFile()
+   {
+      // remove old backup file
+      File backupFile = new File("./SharedSpace/"
+            + getSpaceId() + "_"
+            + getNodeId()  + ".json.backup");
+      
+      if (backupFile.exists())
+      {
+         backupFile.delete();
+      }
+      
+      // move old history file to backup
+      File historyfile = new File("./SharedSpace/"
+            + getSpaceId() + "_"
+            + getNodeId()  + ".json");
+      
+      if (historyfile.exists())
+      {
+         historyfile.renameTo(backupFile);
+         
+         try
+         {
+            BufferedReader in = new BufferedReader(new FileReader(backupFile));
+            
+            String line = in.readLine();
+            while (line != null)
+            {
+               ChannelMsg msg = new ChannelMsg(null, line);
+               
+               handleMessage(msg);
+               
+               line = in.readLine();
+            }
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
+   } 
+
 
 
    private boolean isApplyingChangeMsg = false;
@@ -884,6 +937,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       setNodeId(value);
       return this;
-   } 
+   }
+
 }
 

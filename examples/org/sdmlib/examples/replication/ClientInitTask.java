@@ -68,9 +68,20 @@ public class ClientInitTask implements Runnable
       // map.executeUpdateMsg(element)
       map.put(NINA_ALBERT_CHAT + "_root", chatRoot);
       
-      ChatMsg msg = new ChatMsg().withText("Hello")
-            .withSender(chatSpace.getNodeId())
-            .withRoot(chatRoot);
+      chatSpace.loadHistoryFromFile();
+      
+      if (chatRoot.getMsgs().size() == 0)
+      {
+         ChatMsg msg = new ChatMsg().withText("Hello")
+               .withSender(chatSpace.getNodeId())
+               .withRoot(chatRoot);
+      }
+      else
+      {
+         ChatMsg msg = new ChatMsg().withText("Hello again")
+               .withSender(chatSpace.getNodeId())
+               .withRoot(chatRoot);
+      }
       
       // update gui
       System.out.println("Connection established");
