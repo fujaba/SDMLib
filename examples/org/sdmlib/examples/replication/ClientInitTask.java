@@ -33,7 +33,7 @@ public class ClientInitTask implements Runnable
       .withSpaceId(NINA_ALBERT_CHAT)
       .withNodeId(nodeId);
       
-      chatSpace.setName("ChatSpace");
+      chatSpace.setName("ChatSpace" + nodeId);
             
       ReplicationChannel channel = chatSpace.createChannels()
             .withConnect("localhost", ReplicationServer.REPLICATION_SERVER_PORT);

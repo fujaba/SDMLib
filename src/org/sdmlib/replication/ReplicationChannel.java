@@ -73,7 +73,7 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
             }
             else
             {
-               sharedSpace.enqueueMsg(line);
+               sharedSpace.enqueueMsg(this, line);
             }
          }
       }
