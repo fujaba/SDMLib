@@ -39,110 +39,106 @@ public class XMLTokener extends Tokener{
 	public XMLTokener(String s) {
 		super(s);
 	}
+
 	/**
-     * Get the next value. The value can be a Boolean, Double, Integer,
-     * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
-     *
-     * @return An object.
-     */
+	 * Get the next value. The value can be a Boolean, Double, Integer,
+	 * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
+	 * 
+	 * @return An object.
+	 */
 	@Override
 	public Object nextValue(JSIMEntity creator) {
-        char c = nextClean();
-        
-        switch (c) {
-        case '"':
-        case '\'':
-            return nextString(c, false, false);
-        case '<':
-            back();
-            JSIMEntity element = creator.getNewObject();
-            if(element instanceof Entity){
-            	parseToEntity((Entity)element);
-            }
-            return element;
+		char c = nextClean();
+
+		switch (c) {
+		case '"':
+		case '\'':
+			return nextString(c, false, false);
+		case '<':
+			back();
+			JSIMEntity element = creator.getNewObject();
+			if (element instanceof Entity) {
+				parseToEntity((Entity) element);
+			}
+			return element;
 		default:
 			break;
-        }
-    	back();
-        return super.nextValue(creator);
-    }
-	
+		}
+		back();
+		return super.nextValue(creator);
+	}
+
 	@Override
 	public void parseToEntity(BaseEntity entity) {
-        char c;
-        
-        if (nextClean() != '<') {
-            throw new TextParsingException("A XML text must begin with '<'", this);
-        }
-        if(!(entity instanceof XMLEntity)){
-        	throw new TextParsingException("Parse only XMLEntity", this);
-        }
-        XMLEntity xmlEntity=(XMLEntity) entity;
-        StringBuilder sb = new StringBuilder();
-        c = nextClean();
-        while (c >= ' ' && getStopChars().indexOf(c) < 0) {
-            sb.append(c);
-            c = next();
-        }
-        back();
-        xmlEntity.setTag(sb.toString());
-        XMLEntity child;
-        boolean lExit=false;
-        while(!lExit){
-            c = nextClean();
-            if(c==0){
-        		lExit=true;
-            }else if(c=='>'){
-            	if(nextClean()>' '){
-            	   if (getCurrentChar() == '/')
-            	   {
-            	      stepPos(">", false, false);
-                     next();
-                     lExit=true;
-            	   }
-            	   else
-            	   {
-            	      back();
-            	      if(getCurrentChar()=='<'){
-            	         child = (XMLEntity) xmlEntity.getNewObject();
-            	         parseToEntity((BaseEntity)child);
-            	         xmlEntity.addChild(child);
-            	      }else{
-            	         xmlEntity.setValue(nextString('<', false, false));
-            	         back();
-            	      }
-            	   }
-            	}
-        	}else if(c=='<'){
-            	if(next()=='/'){
-            		stepPos(">", false, false);
-            		next();
-            		lExit=true;
-            	}else{
-            		back();
-            		back();
-            		child = (XMLEntity) xmlEntity.getNewObject();
-            		parseToEntity((BaseEntity)child);
-            		xmlEntity.addChild(child);
-            	}
-            }else if(c=='/'){
-            	next();
-            	lExit=true;
-            }else{
-                back();
-                String key = nextValue(xmlEntity).toString();
-                if(key!=null){
-                	// The key is followed by ':'. We will also tolerate '=' or '=>'.
-		            c = nextClean();
-		            if (c == '=') {
-		                if (next() != '>') {
-		                    back();
-		                }
-		            }
-		            xmlEntity.put(key, nextValue(xmlEntity));
-	            }
-            }
-        }		
+		char c;
+
+		if (nextClean() != '<') {
+			throw new TextParsingException("A XML text must begin with '<'",
+					this);
+		}
+		if (!(entity instanceof XMLEntity)) {
+			throw new TextParsingException("Parse only XMLEntity", this);
+		}
+		XMLEntity xmlEntity = (XMLEntity) entity;
+		StringBuilder sb = new StringBuilder();
+		c = nextClean();
+		while (c >= ' ' && getStopChars().indexOf(c) < 0) {
+			sb.append(c);
+			c = next();
+		}
+		back();
+		xmlEntity.setTag(sb.toString());
+		XMLEntity child;
+		while (true) {
+			c = nextClean();
+			if (c == 0) {
+				break;
+			} else if (c == '>') {
+				c = nextClean();
+				if (c != '<') {
+					back();
+					xmlEntity.setValue(nextString('<', false, false));
+					back();
+					continue;
+				}
+			}
+
+			if (c == '<') {
+				if (next() == '/') {
+					stepPos(">", false, false);
+					next();
+					break;
+				} else {
+					back();
+					back();
+					if (getCurrentChar() == '<') {
+						child = (XMLEntity) xmlEntity.getNewObject();
+						parseToEntity((BaseEntity) child);
+						xmlEntity.addChild(child);
+					} else {
+						xmlEntity.setValue(nextString('<', false, false));
+						back();
+					}
+				}
+			} else if (c == '/') {
+				next();
+				break;
+			} else {
+				back();
+				String key = nextValue(xmlEntity).toString();
+				if (key != null) {
+					// The key is followed by ':'. We will also tolerate '=' or
+					// '=>'.
+					c = nextClean();
+					if (c == '=') {
+						if (next() != '>') {
+							back();
+						}
+					}
+					xmlEntity.put(key, nextValue(xmlEntity));
+				}
+			}
+		}
 	}
 
 	@Override

@@ -37,16 +37,15 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class DateCreator.
  */
 public class DateCreator implements SendableEntityCreator, NoIndexCreator{
-	
 	/** The Constant VALUE. */
-	public static final String VALUE="value";
-	
+	public static final String VALUE = "value";
+
 	/*
 	 * return the Properties
 	 */
 	@Override
 	public String[] getProperties() {
-		return new String[]{VALUE};
+		return new String[] {VALUE};
 	}
 
 	/*
@@ -62,8 +61,8 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	 */
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		if(VALUE.equals(attribute)){
-			return new Long(((Date)entity).getTime());
+		if (VALUE.equals(attribute)) {
+			return new Long(((Date) entity).getTime());
 		}
 		return null;
 	}
@@ -72,9 +71,10 @@ public class DateCreator implements SendableEntityCreator, NoIndexCreator{
 	 * Setter for java.util.Date
 	 */
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value, String typ) {
-		if(VALUE.equals(attribute)){
-			((Date)entity).setTime((Long) value);
+	public boolean setValue(Object entity, String attribute, Object value,
+			String typ) {
+		if (VALUE.equals(attribute)) {
+			((Date) entity).setTime((Long) value);
 			return true;
 		}
 		return false;

@@ -34,98 +34,107 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Class IdMapFilter.
  */
 public class IdMapFilter {
-	public static final String PROPERTY_DEEP="deep";
-	public static final String PROPERTY_FULLSERIALIZATION="fullSerialization";
-	public static final String PROPERTY_ID="id";
-	
+	public static final String PROPERTY_DEEP = "deep";
+	public static final String PROPERTY_FULLSERIALIZATION = "fullSerialization";
+	public static final String PROPERTY_ID = "id";
+
 	/** The Constant ALLDEEP. */
 	public final static int ALLDEEP = -1;
-	
+
 	/** The Constant LASTDEEP. */
 	public final static int LASTDEEP = 0;
-	
+
 	/** The Constant DEEPER. */
 	public final static int DEEPER = -2;
-	
+
 	/** The deep. */
 	protected int deep = ALLDEEP;
-	
-	/** The simple check. Serialisation Empty value*/
+
+	/** The simple check. Serialisation Empty value */
 	private boolean fullSerialization;
 
 	/** The deep. */
 	protected boolean isId = true;
-	
+
 	/**
 	 * Checks if is convertable.
-	 *
-	 * @param map the map
-	 * @param entity the entity
-	 * @param property the property
-	 * @param value the value
+	 * 
+	 * @param map
+	 *            the map
+	 * @param entity
+	 *            the entity
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @return true, if is convertable
 	 */
-	public boolean isConvertable(IdMap map, Object entity, String property, Object value, boolean isMany){
-		if (getDeep() == LASTDEEP){
+	public boolean isConvertable(IdMap map, Object entity, String property,
+			Object value, boolean isMany) {
+		if (getDeep() == LASTDEEP) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isRegard(IdMap map, Object entity, String property, Object value, boolean isMany){
+	public boolean isRegard(IdMap map, Object entity, String property,
+			Object value, boolean isMany) {
 		return true;
 	}
-	
+
 	/**
 	 * Change IdMap to not give a ID and dont add UpdateListener
+	 * 
 	 * @return boolean
 	 */
-	public boolean isId(){
+	public boolean isId() {
 		return isId;
 	}
-	
+
 	public void setId(boolean isId) {
 		this.isId = isId;
 	}
-	
+
 	/**
 	 * Checks if is serialization many assocs.
-	 *
+	 * 
 	 * @return true, if is treesync
 	 */
 	public boolean isManySerialization() {
 		return true;
 	}
-	
+
 	/**
 	 * Gets the deep.
-	 *
+	 * 
 	 * @return the deep
 	 */
 	public int getDeep() {
 		return this.deep;
 	}
-	
+
 	/**
 	 * Sets the deep.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the int
 	 */
 	public int setDeep(int value) {
 		int oldValue = this.deep;
-		if(value==DEEPER){
+		if (value == DEEPER) {
 			if (this.deep != ALLDEEP) {
 				this.deep = this.deep - 1;
 			}
-		}else{
-			this.deep=value;
+		} else {
+			this.deep = value;
 		}
 		return oldValue;
 	}
+
 	/**
 	 * Checks if is simple check.
-	 *
+	 * 
 	 * @return true, if is simple check
 	 */
 	public boolean isFullSerialization() {
@@ -134,8 +143,9 @@ public class IdMapFilter {
 
 	/**
 	 * Sets the simple check.
-	 *
-	 * @param simpleCheck the simple check
+	 * 
+	 * @param simpleCheck
+	 *            the simple check
 	 * @return true, if successful
 	 */
 	public boolean setFullSerialization(boolean serialization) {
@@ -162,13 +172,13 @@ public class IdMapFilter {
 
 	public boolean set(String attribute, Object value) {
 		if (PROPERTY_DEEP.equalsIgnoreCase(attribute)) {
-			this.setDeep(Integer.valueOf(""+value));
+			this.setDeep(Integer.valueOf("" + value));
 			return true;
 		} else if (PROPERTY_FULLSERIALIZATION.equalsIgnoreCase(attribute)) {
-			setFullSerialization(Boolean.valueOf(""+value));
+			setFullSerialization(Boolean.valueOf("" + value));
 			return true;
 		} else if (PROPERTY_ID.equalsIgnoreCase(attribute)) {
-			setId(Boolean.valueOf(""+value));
+			setId(Boolean.valueOf("" + value));
 			return true;
 		}
 		return false;

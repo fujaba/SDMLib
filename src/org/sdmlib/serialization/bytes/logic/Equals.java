@@ -31,27 +31,27 @@ import java.nio.ByteBuffer;
 
 public class Equals implements ByteCondition{
 	private Byte value;
-	// Position of the Byte or -1 for currentPosition 
-	private int position=-1;
+	// Position of the Byte or -1 for currentPosition
+	private int position = -1;
 
-	public Equals(Byte value){
+	public Equals(Byte value) {
 		this.value = value;
 	}
-	
-	public Equals(Byte value, int position){
+
+	public Equals(Byte value, int position) {
 		this.value = value;
 		this.position = position;
 	}
-	
+
 	@Override
 	public boolean matches(ByteBuffer buffer) {
 		int pos;
-		if(position<0){
-			pos = buffer.position(); 
-		}else{
+		if (position < 0) {
+			pos = buffer.position();
+		} else {
 			pos = position;
 		}
-		return buffer.get(pos)==value;
+		return buffer.get(pos) == value;
 	}
 
 }

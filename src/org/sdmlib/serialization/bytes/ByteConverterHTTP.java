@@ -34,9 +34,9 @@ public class ByteConverterHTTP extends ByteConverter{
 
 	@Override
 	public String toString(byte[] values, int size) {
-		StringBuilder returnValue=new StringBuilder();
-		
-		if(values!=null){
+		StringBuilder returnValue = new StringBuilder();
+
+		if (values != null) {
 			for (int i = 0; i < size; i++) {
 				byte value = values[i];
 				if (value <= 32 || value == 127) {
@@ -52,8 +52,9 @@ public class ByteConverterHTTP extends ByteConverter{
 
 	/**
 	 * Decode http.
-	 *
-	 * @param bytes the bytes
+	 * 
+	 * @param bytes
+	 *            the bytes
 	 * @return the object
 	 */
 	@Override
@@ -70,7 +71,7 @@ public class ByteConverterHTTP extends ByteConverter{
 			}
 		}
 		buffer.flip();
-		byte[] returnValue=new byte[buffer.limit()];
+		byte[] returnValue = new byte[buffer.limit()];
 		buffer.get(returnValue);
 		return returnValue;
 	}

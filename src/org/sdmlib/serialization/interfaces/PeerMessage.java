@@ -34,17 +34,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public interface PeerMessage {
 	/**
 	 * Gets the Datatype of a value.
-	 *
-	 * @param attribute the attribute
+	 * 
+	 * @param attribute
+	 *            the attribute
 	 * @return the DataTyp
 	 */
 	public Object get(String attribute);
 
 	/**
 	 * Sets the.
-	 *
-	 * @param attribute the attribute
-	 * @param value the value
+	 * 
+	 * @param attribute
+	 *            the attribute
+	 * @param value
+	 *            the value
 	 * @return true, if successful
 	 */
 	public boolean set(String attribute, Object value);

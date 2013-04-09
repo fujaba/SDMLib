@@ -1,4 +1,5 @@
 package org.sdmlib.serialization.xml;
+import org.sdmlib.serialization.Style;
 /*
 Copyright (c) 2013, Stefan Lindel
 All rights reserved.
@@ -30,118 +31,55 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class XMLStyledEntity extends XMLEntity implements PeerMessage{
-	/** The Constant PROPERTY_BOLD for Bold Attribute */
-	public static final String PROPERTY_BOLD="bold";
-	/** The Bold value. */
-	private boolean bold;
+	private Style style=new Style();
 	
-	/** The Constant PROPERTY_ITALIC for Italic Attribute */
-	public static final String PROPERTY_ITALIC="italic";
-	/** The Italic value. */
-	private boolean italic;
-	
-	/** The Constant PROPERTY_FONT for Font-Family Attribute */
-	public static final String PROPERTY_FONTFAMILY="fontfamily";
-	/** The Font-Family value. */
-	private String fontfamily;
-
-	/** The Constant PROPERTY_FONTSIZE for Font-Size Attribute */
-	public static final String PROPERTY_FONTSIZE="size";
-	/** The Font-Size-Family value. */
-	private String fontsize;
-	
-	
-	public boolean isBold() {
-		return bold;
-	}
-	public void setBold(boolean bold) {
-		this.bold = bold;
-	}
-	public boolean isItalic() {
-		return italic;
-	}
-	public void setItalic(boolean italic) {
-		this.italic = italic;
-	}
-	public String getFontFamily() {
-		return fontfamily;
-	}
-	public void setFontFamily(String fontFamily) {
-		this.fontfamily = fontFamily;
-	}
-	public String getFontSize() {
-		return fontsize;
-	}
-	public void setFontSize(String size) {
-		this.fontsize = size;
-	}
-	
-	/*
-	 * Generic Getter for Attributes
-	 */
 	@Override
-	public Object get(String attrName) {
-		String attribute;
-		int pos = attrName.indexOf(".");
-		if (pos > 0) {
-			attribute = attrName.substring(0, pos);
-		} else {
-			attribute = attrName;
+	protected String toStringValue(int indentFactor) {
+		StringBuilder sb = new StringBuilder();
+
+		// Starttag
+		if (style.isBold()) {
+			sb.append("<b>");
 		}
-		if (attribute.equalsIgnoreCase(PROPERTY_BOLD)) {
-			return isBold();
-		}else if (attribute.equalsIgnoreCase(PROPERTY_ITALIC)) {
-			return isItalic();
-		}else if (attribute.equalsIgnoreCase(PROPERTY_FONTFAMILY)) {
-			return getFontFamily();
-		}else if (attribute.equalsIgnoreCase(PROPERTY_FONTSIZE)) {
-			return getFontSize();
+		if (style.isItalic()) {
+			sb.append("<i>");
 		}
-		return null;
+		sb.append(super.toStringValue(indentFactor));
+
+		// EndTag
+		if (style.isItalic()) {
+			sb.append("</i>");
+		}
+		if (style.isBold()) {
+			sb.append("</b>");
+		}
+		return sb.toString();
 	}
 
-	/*
-	 * Generic Setter for Attributes
-	 */
+
 	@Override
 	public boolean set(String attribute, Object value) {
-		if (attribute.equalsIgnoreCase(PROPERTY_BOLD)) {
-			setBold((Boolean)value);
-			return  true;
-		}else if (attribute.equalsIgnoreCase(PROPERTY_ITALIC)) {
-			setItalic((Boolean)value);
-			return true;
-		}else if (attribute.equalsIgnoreCase(PROPERTY_FONTFAMILY)) {
-			setFontFamily((String)value);
-			return true;
-		}else if (attribute.equalsIgnoreCase(PROPERTY_FONTSIZE)) {
-			setFontSize((String)value);
+		if(style.set(attribute, value)){
 			return true;
 		}
 		return false;
 	}
-	
-	
 	@Override
-	protected String toStringValue(int indentFactor) {
-		StringBuilder sb=new StringBuilder();
+	public Object get(String key) {
+		Object attrValue=style.get(key);
+		if(attrValue!=null){
+			return attrValue;
+		}
+		return super.get(key);
+	}
 
-		// Starttag
-		if(isBold()){
-			sb.append("<b>");
-		}
-		if(isItalic()){
-			sb.append("<i>");
-		}
-		sb.append(super.toStringValue(indentFactor));
-		
-		// EndTag
-		if(isItalic()){
-			sb.append("</i>");
-		}
-		if(isBold()){
-			sb.append("</b>");
-		}
-		return sb.toString();
+
+	public boolean isBold() {
+		return style.isBold();
+	}
+
+
+	public void setBold(boolean value) {
+		style.setBold(value);
 	}
 }

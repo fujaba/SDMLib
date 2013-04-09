@@ -42,10 +42,10 @@ public class Crc16 extends CRC {
 		return 0x8005; // 1000000000000101
 	}
 
-    public void update(int b) {
-    	super.update(b);
-    	value = ( value >>> 8 ) ^ crc_table[( (int)value ^ b ) & 0xff];
-    }
+	public void update(int b) {
+		super.update(b);
+		value = (value >>> 8) ^ crc_table[((int) value ^ b) & 0xff];
+	}
 
 	@Override
 	public boolean isReflect() {

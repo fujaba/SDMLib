@@ -31,7 +31,9 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonFilter;
 
 public class JsonFilterCreator implements SendableEntityCreator{
-	private String[] properties=new String[]{JsonFilter.PROPERTY_DEEP, JsonFilter.PROPERTY_FULLSERIALIZATION, JsonFilter.PROPERTY_ID,JsonFilter.PROPERTY_ITEMS}; 
+	private String[] properties = new String[] { JsonFilter.PROPERTY_DEEP,
+			JsonFilter.PROPERTY_FULLSERIALIZATION, JsonFilter.PROPERTY_ID,
+			JsonFilter.PROPERTY_ITEMS };
 
 	public String[] getProperties() {
 		return properties;
@@ -44,14 +46,13 @@ public class JsonFilterCreator implements SendableEntityCreator{
 
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		return ((JsonFilter)entity).get(attribute);
+		return ((JsonFilter) entity).get(attribute);
 	}
 
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
-		return ((JsonFilter)entity).set(attribute, value);
+		return ((JsonFilter) entity).set(attribute, value);
 	}
-	
 
 }

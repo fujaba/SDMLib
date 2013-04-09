@@ -32,7 +32,8 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 
 public class JsonArrayCreator implements SendableEntityCreator, NoIndexCreator{
-	private final String[] properties= new String[]{"VALUE"};
+	private final String[] properties = new String[] { "VALUE" };
+
 	@Override
 	public String[] getProperties() {
 		return this.properties;
@@ -49,8 +50,9 @@ public class JsonArrayCreator implements SendableEntityCreator, NoIndexCreator{
 	}
 
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value, String typ) {
-		return ((JsonArray)entity).setAllValue((String) value);
+	public boolean setValue(Object entity, String attribute, Object value,
+			String typ) {
+		return ((JsonArray) entity).setAllValue((String) value);
 	}
 
 }

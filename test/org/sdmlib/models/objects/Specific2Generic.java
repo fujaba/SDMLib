@@ -28,9 +28,8 @@ public class Specific2Generic
       }
 
       @Override
-      public boolean sendUpdateMsg(Object oldObj, Object newObject,
-            JsonObject jsonObject)
-      {
+  	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
+  			Object newObject, JsonObject jsonObject) {
          Object tmp = jsonObject.get(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
@@ -46,20 +45,19 @@ public class Specific2Generic
          return false;
       }
 
-      @Override
-      public boolean readMessages(String type, Object value, JsonObject props)
-      {
-         // TODO Auto-generated method stub
-         return false;
-      }
+	@Override
+	public boolean isReadMessages(String key, Object element, JsonObject props,
+			String type) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-      @Override
-      public boolean readMessageObj(Object element, String key, Object value,
-            String typ)
-      {
-         // TODO Auto-generated method stub
-         return false;
-      }
+	@Override
+	public boolean readMessages(String key, Object element, Object value,
+			JsonObject props, String type) {
+		// TODO Auto-generated method stub
+		return false;
+	}
    }
 
    public GenericGraph convert(JsonIdMap idMap, Object root)

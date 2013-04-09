@@ -31,8 +31,12 @@ import java.util.Collection;
 
 public interface BaseEntityList extends JSIMEntity{
 	public BaseEntityList initWithMap(Collection<?> value);
+
 	public BaseEntityList put(Object value);
+
 	public int size();
+
 	public boolean add(Object value);
+
 	public Object get(int z);
 }

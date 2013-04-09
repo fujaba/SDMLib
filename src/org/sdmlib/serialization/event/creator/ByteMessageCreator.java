@@ -35,9 +35,9 @@ import org.sdmlib.serialization.interfaces.ByteEntityCreator;
  * The Class ByteMessageCreator.
  */
 public class ByteMessageCreator implements ByteEntityCreator {
-	
+
 	/** The properties. */
-	private final String[] properties = new String[] { ByteMessage.PROPERTY_VALUE };
+	private final String[] properties = new String[] {ByteMessage.PROPERTY_VALUE};
 
 	/*
 	 * return the Properties
@@ -47,7 +47,7 @@ public class ByteMessageCreator implements ByteEntityCreator {
 		return properties;
 	}
 
-	/* 
+	/*
 	 * Create new Instance of ByteMessage
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class ByteMessageCreator implements ByteEntityCreator {
 		return 0x01;
 	}
 
-	/* 
+	/*
 	 * Getter for ByteMessage
 	 */
 	@Override
@@ -71,11 +71,12 @@ public class ByteMessageCreator implements ByteEntityCreator {
 		return ((ByteMessage) entity).get(attribute);
 	}
 
-	/* 
+	/*
 	 * Setter for ByteMessage
 	 */
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value, String typ) {
+	public boolean setValue(Object entity, String attribute, Object value,
+			String typ) {
 		return ((ByteMessage) entity).set(attribute, value);
 	}
 }

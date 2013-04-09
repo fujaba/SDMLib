@@ -32,30 +32,36 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class SQLConverter {
-	public static JsonObject sqlToJsonObject(ResultSet sqlSet) throws SQLException{
-		JsonObject json=new JsonObject();
+	public static JsonObject sqlToJsonObject(ResultSet sqlSet)
+			throws SQLException {
+		JsonObject json = new JsonObject();
 		ResultSetMetaData metaData = sqlSet.getMetaData();
-		for(int z=0;z<metaData.getColumnCount();z++){
+		for (int z = 0; z < metaData.getColumnCount(); z++) {
 			String columnName = metaData.getColumnName(z);
-			json.put(columnName, sqlSet.getObject(z));
+			json.put(columnName, sqlSet.getObject(z+1));
 		}
 		return json;
 	}
-	
-	public static JsonObject sqlToJson(ResultSet sqlSet, String clazz) throws SQLException{
-		JsonObject msg=new JsonObject(JsonIdMap.CLASS, clazz);
+
+	public static JsonObject sqlToJson(ResultSet sqlSet, String clazz)
+			throws SQLException {
+		JsonObject msg = new JsonObject(JsonIdMap.CLASS, clazz);
 		msg.put(JsonIdMap.JSON_PROPS, sqlToJsonObject(sqlSet));
 		return msg;
 	}
-	
-	public static JsonObject sqlToJson(ResultSet sqlSet, String clazz, String id) throws SQLException{
-		JsonObject msg=new JsonObject(JsonIdMap.CLASS, clazz, JsonIdMap.ID, id);
+
+	public static JsonObject sqlToJson(ResultSet sqlSet, String clazz, String id)
+			throws SQLException {
+		JsonObject msg = new JsonObject(JsonIdMap.CLASS, clazz, JsonIdMap.ID,
+				id);
 		msg.put(JsonIdMap.JSON_PROPS, sqlToJsonObject(sqlSet));
 		return msg;
 	}
-	public static JsonArray sqlToJsonArray(ResultSet sqlSet, String clazz) throws SQLException{
-		JsonArray jsonlist=new JsonArray();
-		while(!sqlSet.isAfterLast()&&sqlSet.isClosed()){
+
+	public static JsonArray sqlToJsonArray(ResultSet sqlSet, String clazz)
+			throws SQLException {
+		JsonArray jsonlist = new JsonArray();
+		while (!sqlSet.isAfterLast() && sqlSet.isClosed()) {
 			jsonlist.add(sqlToJson(sqlSet, clazz));
 			sqlSet.next();
 		}

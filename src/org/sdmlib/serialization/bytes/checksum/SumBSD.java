@@ -29,15 +29,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 public class SumBSD extends Checksum {
-    /** implemented from original GNU C source */
-    public void update(int b) {
-    	super.update(b);
-    	value = (value >> 1) + ((value & 1) << 15);
-        value += b & 0xFF;
-        value &= 0xffff;
-    }
+	/** implemented from original GNU C source */
+	public void update(int b) {
+		super.update(b);
+		value = (value >> 1) + ((value & 1) << 15);
+		value += b & 0xFF;
+		value &= 0xffff;
+	}
 
-    public int getOrder() {
+	public int getOrder() {
 		return 16;
 	}
 }

@@ -37,45 +37,46 @@ import org.sdmlib.serialization.interfaces.XMLGrammar;
 
 public class XMLSimpleIdMap extends IdMap{
 	/** The Constant ENDTAG. */
-	public static final char ENDTAG='/';
-	
+	public static final char ENDTAG = '/';
+
 	/** The Constant ITEMEND. */
-	public static final char ITEMEND='>';
-	
+	public static final char ITEMEND = '>';
+
 	/** The Constant ITEMSTART. */
-	public static final char ITEMSTART='<';
-	
+	public static final char ITEMSTART = '<';
+
 	/** The Constant SPACE. */
-	public static final char SPACE=' ';
-	
+	public static final char SPACE = ' ';
+
 	/** The stack. */
 	protected ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
-	
+
 	/** The stopwords. */
-	protected HashSet<String> stopwords=new HashSet<String>();
-	
+	protected HashSet<String> stopwords = new HashSet<String>();
+
 	/** The value. */
 	protected Tokener value;
-	
+
 	/**
 	 * Instantiates a new XML id map.
 	 */
-	public XMLSimpleIdMap(){
+	public XMLSimpleIdMap() {
 		super();
 		init();
 	}
-	
+
 	/**
 	 * Instantiates a new XML id map.
-	 *
-	 * @param parent the parent
+	 * 
+	 * @param parent
+	 *            the parent
 	 */
-	public XMLSimpleIdMap(IdMap parent){
+	public XMLSimpleIdMap(IdMap parent) {
 		super(parent);
 		init();
 	}
-	
-	protected void init(){
+
+	protected void init() {
 		this.stopwords.add("?xml");
 		this.stopwords.add("!--");
 		this.stopwords.add("!DOCTYPE");
@@ -83,56 +84,58 @@ public class XMLSimpleIdMap extends IdMap{
 
 	public Object decode(String value, XMLGrammar factory) {
 		Object result = null;
-		Object temp = null;
-		this.value=new XMLTokener(value);
-		
+		XMLEntity temp = null;
+		this.value = new XMLTokener(value);
+
 		this.stack.clear();
 		while (!this.value.isEnd()) {
-			if (this.value.stepPos(""+ITEMSTART, false, false)) {
-				XMLEntity entity=getEntity(factory);
-				if(entity!=null){
+			if (this.value.stepPos("" + ITEMSTART, false, false)) {
+				XMLEntity entity = getEntity(factory);
+				if (entity != null) {
 					temp = findTag(entity, factory);
 				}
 			}
-			if (temp != null && !(temp instanceof String)) {
+			if ( temp != null ) {
 				result = temp;
 			}
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * Find tag.
-	 *
-	 * @param prefix the prefix
-	 * @param tag the tag
-	 * @param styleFormat 
-	 * @param styleFormatCreator 
+	 * 
+	 * @param prefix
+	 *            the prefix
+	 * @param tag
+	 *            the tag
+	 * @param styleFormat
+	 * @param styleFormatCreator
 	 * @return the object
 	 */
-	private XMLEntity findTag(XMLEntity entity, XMLGrammar styleFormatCreator){
+	private XMLEntity findTag(XMLEntity entity, XMLGrammar styleFormatCreator) {
 		if (entity != null) {
 			// Parsing attributes
-			char myChar=this.value.getCurrentChar();
-			while(myChar!=ITEMEND){
-				if(myChar==SPACE){
+			char myChar = this.value.getCurrentChar();
+			while (myChar != ITEMEND) {
+				if (myChar == SPACE) {
 					value.next();
 				}
-				int start=this.value.getIndex();
+				int start = this.value.getIndex();
 				if (this.value.stepPos("=>", false, false)) {
-					myChar=this.value.getCurrentChar();
-					if(myChar=='='){
+					myChar = this.value.getCurrentChar();
+					if (myChar == '=') {
 						String key = this.value.substring(start, -1);
 						this.value.skip(2);
 						start = this.value.getIndex();
 						if (this.value.stepPos("\"", false, true)) {
 							String value = this.value.substring(start, -1);
 							this.value.next();
-							styleFormatCreator.setValue(entity, key, value, IdMap.NEW);
-						}						
+							styleFormatCreator.setValue(entity, key, value,
+									IdMap.NEW);
+						}
 					}
-				}else{
+				} else {
 					break;
 				}
 			}
@@ -141,98 +144,101 @@ public class XMLSimpleIdMap extends IdMap{
 			this.stack.add(new ReferenceObject(entity.getTag(), entity));
 
 			// Parsing next Element
-			if(value.stepPos("/>", false, false)){
-				if(value.getCurrentChar()=='/'){ 
-					stack.remove(stack.size()-1);
+			if (value.stepPos("/>", false, false)) {
+				if (value.getCurrentChar() == '/') {
+					stack.remove(stack.size() - 1);
 					value.next();
 					String tag = value.getNextTag();
 					styleFormatCreator.endChild(tag);
-//					skipEntity();
+					// skipEntity();
 					return entity;
 				}
 
-				char quote = (char)ITEMSTART;
+				char quote = (char) ITEMSTART;
 				// Skip >
 				value.next();
 				String strvalue = value.nextString(quote, true, false);
-				
+
 				// BACK TO <
 				value.back();
 				strvalue = strvalue.trim();
 				XMLEntity newTag;
-				if (this.value.getCurrentChar()==ITEMSTART) {
+				if (this.value.getCurrentChar() == ITEMSTART) {
 					// show next Tag
 					XMLEntity child = null;
-					do{
-						boolean saveValue=true;
-						do{
-							newTag=getEntity(styleFormatCreator);
-							if(newTag==null ){
+					do {
+						boolean saveValue = true;
+						do {
+							newTag = getEntity(styleFormatCreator);
+							if (newTag == null) {
 								entity.setValue(strvalue);
-								stack.remove(stack.size()-1);
+								stack.remove(stack.size() - 1);
 								skipEntity();
 								return entity;
 							}
-							if(newTag.getTag().isEmpty()){
-								if(saveValue){
+							if (newTag.getTag().isEmpty()) {
+								if (saveValue) {
 									entity.setValue(newTag.getValue());
 								}
 								skipEntity();
-								newTag=getEntity(styleFormatCreator);
-								if(newTag==null){
-									stack.remove(stack.size()-1);
+								newTag = getEntity(styleFormatCreator);
+								if (newTag == null) {
+									stack.remove(stack.size() - 1);
 									skipEntity();
 								}
 								return entity;
 							}
-							if(styleFormatCreator.parseChild(entity, newTag, value)){
+							if (styleFormatCreator.parseChild(entity, newTag,
+									value)) {
 								// Skip >
-								saveValue=false;
+								saveValue = false;
 								value.next();
-							}else{
+							} else {
 								break;
 							}
-						}while(newTag != null);
+						} while (newTag != null);
 						child = findTag(newTag, styleFormatCreator);
-						if(child!=null){
+						if (child != null) {
 							styleFormatCreator.addChildren(entity, child);
 						}
-					}while(child!=null);
+					} while (child != null);
 				}
 			}
 		}
 		return entity;
 	}
-	
-	protected void skipEntity(){
+
+	protected void skipEntity() {
 		value.stepPos(">", false, false);
 		// Skip >
 		value.next();
 	}
+
 	/**
 	 * Gets the entity.
-	 *
-	 * @param start the start
+	 * 
+	 * @param start
+	 *            the start
 	 * @return the entity
 	 */
 	protected XMLEntity getEntity(XMLGrammar factory) {
 		XMLEntity entity;
-		if(factory!=null){
+		if (factory != null) {
 			Object newObj = factory.getSendableInstance(false);
-			if(newObj instanceof XMLEntity){
-				entity=(XMLEntity) newObj;
-			}else{
-				entity=new XMLEntity();	
+			if (newObj instanceof XMLEntity) {
+				entity = (XMLEntity) newObj;
+			} else {
+				entity = new XMLEntity();
 			}
-		}else{
-			entity=new XMLEntity();
+		} else {
+			entity = new XMLEntity();
 		}
-		String tag=null;
-		boolean isEmpty=true;
-		do{
-			if(value.getCurrentChar()!=ITEMSTART){
+		String tag = null;
+		boolean isEmpty = true;
+		do {
+			if (value.getCurrentChar() != ITEMSTART) {
 				String strValue = value.nextString(ITEMSTART, true, false);
-				if(strValue!=null){
+				if (strValue != null) {
 					value.back();
 					strValue = strValue.trim();
 					isEmpty = strValue.isEmpty();
@@ -240,22 +246,21 @@ public class XMLSimpleIdMap extends IdMap{
 				entity.setValue(strValue);
 			}
 			tag = this.value.getNextTag();
-			if(tag != null){
-				for(String stopword : this.stopwords){
-					if(tag.startsWith(stopword)){
+			if (tag != null) {
+				for (String stopword : this.stopwords) {
+					if (tag.startsWith(stopword)) {
 						this.value.stepPos(">", false, false);
 						this.value.stepPos("<", false, false);
-						tag =null;
+						tag = null;
 						break;
 					}
 				}
 			}
-		}while(tag==null);
-		if(tag.isEmpty() && isEmpty){
+		} while (tag == null);
+		if (tag.isEmpty() && isEmpty) {
 			return null;
 		}
 		entity.setTag(tag);
 		return entity;
 	}
-	
 }

@@ -313,7 +313,6 @@ public class HTMLEntities {
 
 	/**
 	 * Convert special and extended characters into HTML entitities.
-	 * 
 	 * @param str
 	 *            input string
 	 * @return formatted string
@@ -332,7 +331,8 @@ public class HTMLEntities {
 			String entity = this.htmlentities_map.get(new Integer(ch)); // get equivalent html entity
 			if (entity == null) { // if entity has not been found
 				if (ch > 128) { // check if is an extended character
-					buf.append("&#" + ((int) ch) + ";"); // convert extended character
+					buf.append("&#" + ((int) ch) + ";"); // convert extended
+															// character
 				} else {
 					buf.append(ch); // append the character as is
 				}
@@ -371,7 +371,8 @@ public class HTMLEntities {
 				}
 				if (entity.charAt(1) == '#') {
 					if (entity.charAt(2) == 'x') {
-						iso = Integer.valueOf(entity.substring(3, entity.length() - 1), 16);
+						iso = Integer.valueOf(
+								entity.substring(3, entity.length() - 1), 16);
 					} else {
 						iso = new Integer(entity.substring(2,
 								entity.length() - 1));
@@ -428,7 +429,8 @@ public class HTMLEntities {
 	 * @return string with replaced double quotes
 	 */
 	public static String htmlDoubleQuotes(String str) {
-		return str.replaceAll("[\"]", "&quot;").replaceAll("&#147;", "&quot;").replaceAll("&#148;", "&quot;");
+		return str.replaceAll("[\"]", "&quot;").replaceAll("&#147;", "&quot;")
+				.replaceAll("&#148;", "&quot;");
 	}
 
 	/**

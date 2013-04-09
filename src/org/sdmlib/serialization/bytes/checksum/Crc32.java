@@ -45,13 +45,12 @@ public class Crc32 extends CRC{
 		return crc_table;
 	}
 
-    public void update (int bval)
-    {
-    	super.update(bval);
-    	int c = (int)~value;
-    	c = crc_table[(c ^ bval) & 0xff] ^ (c >>> 8);
-    	value = ~c;
-    }
+	public void update(int bval) {
+		super.update(bval);
+		int c = (int) ~value;
+		c = crc_table[(c ^ bval) & 0xff] ^ (c >>> 8);
+		value = ~c;
+	}
 
 	@Override
 	public int getPolynom() {

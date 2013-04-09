@@ -32,9 +32,33 @@ import java.nio.ByteBuffer;
 import org.sdmlib.serialization.bytes.ByteConverter;
 
 public interface ByteItem {
+	/**
+	 * @return the ByteItem as String
+	 */
 	public String toString();
+
+	/**
+	 * @param converter ByteConverter for Format
+	 * @return the ByteItem as String with converter
+	 */
 	public String toString(ByteConverter converter);
+
+	/**
+	 * @param converter ByteConverter for Format
+	 * @param isDynamic ByteStream for minimize output
+	 * @return the ByteItem as String 
+	 */
 	public String toString(ByteConverter converter, boolean isDynamic);
+
+	/**
+	 * @param isDynamic ByteStream for minimize output
+	 * @return ByteStream 
+	 */
 	public ByteBuffer getBytes(boolean isDynamic);
+
+	/**
+	 * @param isDynamic ByteStream for minimize output
+	 * @return the Size of Bytes
+	 */
 	public int calcLength(boolean isDynamic);
 }

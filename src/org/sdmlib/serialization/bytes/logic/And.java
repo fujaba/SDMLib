@@ -31,21 +31,22 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class And implements ByteCondition{
-	private ArrayList<ByteCondition> list=new ArrayList<ByteCondition>();
-	public And(ByteCondition... byteConditions){
-		for(ByteCondition condition : byteConditions){
+	private ArrayList<ByteCondition> list = new ArrayList<ByteCondition>();
+
+	public And(ByteCondition... byteConditions) {
+		for (ByteCondition condition : byteConditions) {
 			this.list.add(condition);
 		}
 	}
-	
-	public void addCondition(ByteCondition condition){
+
+	public void addCondition(ByteCondition condition) {
 		this.list.add(condition);
 	}
-	
+
 	@Override
 	public boolean matches(ByteBuffer buffer) {
-		for(ByteCondition condition : list){
-			if(!condition.matches(buffer)){
+		for (ByteCondition condition : list) {
+			if (!condition.matches(buffer)) {
 				return false;
 			}
 		}

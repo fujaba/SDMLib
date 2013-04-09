@@ -34,14 +34,14 @@ import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 public class InstanceOf implements ByteCondition{
 	protected ByteEntityCreator value;
 
-	public InstanceOf(ByteEntityCreator creator){
+	public InstanceOf(ByteEntityCreator creator) {
 		this.value = creator;
 	}
-	
+
 	@Override
 	public boolean matches(ByteBuffer buffer) {
-		
-//		return value.getEventTyp();
+
+		// return value.getEventTyp();
 		return false;
 	}
 

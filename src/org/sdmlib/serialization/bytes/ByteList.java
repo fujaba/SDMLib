@@ -30,8 +30,9 @@ import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class ByteList extends EntityList implements ByteItem {
 	/** The children of the ByteEntity. */
-	private byte typ=0;
-	private boolean isGroupable=true;
+	private byte typ = 0;
+	private boolean isGroupable = true;
+
 	@Override
 	public EntityList getNewArray() {
 		return new ByteList();
@@ -56,43 +57,49 @@ public class ByteList extends EntityList implements ByteItem {
 	public String toString() {
 		return toString(null);
 	}
-	
+
 	/**
 	 * Convert the bytes to a String
-	 * @param converter Grammar
+	 * 
+	 * @param converter
+	 *            Grammar
 	 * @return converted bytes as String
 	 */
-	public String toString(ByteConverter converter){
+	public String toString(ByteConverter converter) {
 		return toString(converter, false);
 	}
+
 	/**
 	 * Convert the bytes to a String
-	 * @param converter Grammar
-	 * @param dynamic if byte is dynamic
+	 * 
+	 * @param converter
+	 *            Grammar
+	 * @param dynamic
+	 *            if byte is dynamic
 	 * @return converted bytes as String
 	 */
-	public String toString(ByteConverter converter, boolean dynamic){
-		if(converter==null){
-			converter=new ByteConverterHTTP();
+	public String toString(ByteConverter converter, boolean dynamic) {
+		if (converter == null) {
+			converter = new ByteConverterHTTP();
 		}
 		return converter.toString(this, dynamic);
 	}
 
 	public ByteBuffer getBytes(boolean isDynamic) {
-		int len=calcLength(isDynamic);
+		int len = calcLength(isDynamic);
 		ByteBuffer buffer = ByteUtil.getBuffer(len, getTyp(), isGroupable());
-		if(buffer==null){
+		if (buffer == null) {
 			return null;
 		}
-		for(Object value : values){
-			ByteBuffer child=null;
-			if(value instanceof ByteItem){
-				child=((ByteItem)value).getBytes(isDynamic);
+		for (Object value : values) {
+			ByteBuffer child = null;
+			if (value instanceof ByteItem) {
+				child = ((ByteItem) value).getBytes(isDynamic);
 			}
-			if(child==null){
+			if (child == null) {
 				buffer.put(ByteIdMap.DATATYPE_NULL);
-			}else{
-				byte[] array=new byte[child.limit()];
+			} else {
+				byte[] array = new byte[child.limit()];
 				child.get(array);
 				buffer.put(array);
 			}
@@ -102,43 +109,44 @@ public class ByteList extends EntityList implements ByteItem {
 	}
 
 	public int calcLength(boolean isDynamic) {
-		int length=0;
-		if(this.values==null){
+		int length = 0;
+		if (size() == 0 ) {
 			return 0;
 		}
-		if(typ!=0){
-			length=ByteUtil.getTypLen(typ)+ByteEntity.TYPBYTE;
+		if (typ != 0) {
+			length = ByteUtil.getTypLen(typ) + ByteEntity.TYPBYTE;
 		}
-		Object[] valueList=this.values.toArray(new Object[this.values.size()]);
-		boolean notLast=true;
-		for(int i=valueList.length-1;i>=0;i--){
-			if(notLast){
-				int len=0;
-				if(valueList[i] instanceof ByteList){
-					len=((ByteList)valueList[i]).calcLength(isDynamic);
-					if(len<1){
+		Object[] valueList = this.values
+				.toArray(new Object[this.values.size()]);
+		boolean notLast = true;
+		for (int i = valueList.length - 1; i >= 0; i--) {
+			if (notLast) {
+				int len = 0;
+				if (valueList[i] instanceof ByteList) {
+					len = ((ByteList) valueList[i]).calcLength(isDynamic);
+					if (len < 1) {
 						this.values.remove(valueList[i]);
-					}else{
-						notLast=false;
-						length+=len;
+					} else {
+						notLast = false;
+						length += len;
 					}
-				}else if(valueList[i] instanceof ByteEntity){
-					ByteEntity entity=(ByteEntity)valueList[i];
-					len=entity.calcLength(isDynamic);
-					if(len==1){
+				} else if (valueList[i] instanceof ByteEntity) {
+					ByteEntity entity = (ByteEntity) valueList[i];
+					len = entity.calcLength(isDynamic);
+					if (len == 1) {
 						this.values.remove(valueList[i]);
-					}else{
+					} else {
 						// SET the LastEntity
-						notLast=false;
-						if(entity.setLenCheck(false)){
-							len=entity.calcLength(isDynamic);
+						notLast = false;
+						if (entity.setLenCheck(false)) {
+							len = entity.calcLength(isDynamic);
 						}
-						length+=len;
+						length += len;
 					}
 				}
-			}else{
-				if(valueList[i] instanceof ByteItem){
-					length+=((ByteItem)valueList[i]).calcLength(isDynamic);
+			} else {
+				if (valueList[i] instanceof ByteItem) {
+					length += ((ByteItem) valueList[i]).calcLength(isDynamic);
 				}
 			}
 		}
@@ -152,9 +160,10 @@ public class ByteList extends EntityList implements ByteItem {
 	public void setTyp(Byte typ) {
 		this.typ = typ;
 	}
+
 	public void setTyp(Byte typ, boolean isGroupable) {
-		this.typ=typ;
-		this.isGroupable=isGroupable;
+		this.typ = typ;
+		this.isGroupable = isGroupable;
 	}
 
 	public boolean isGroupable() {

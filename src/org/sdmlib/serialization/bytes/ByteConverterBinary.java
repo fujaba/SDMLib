@@ -31,49 +31,51 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public class ByteConverterBinary extends ByteConverter {
 	public static String toString(byte value) {
 		ByteConverterBinary converter = new ByteConverterBinary();
-		return converter.toString(new byte[]{value}, 1);
+		return converter.toString(new byte[] { value }, 1);
 	}
-	
+
 	public static String toString(int value) {
 		ByteConverterBinary converter = new ByteConverterBinary();
-		return converter.toString(new byte[]{(byte)value}, 1);
+		return converter.toString(new byte[] { (byte) value }, 1);
 	}
-	
+
 	public static String toString(byte[] values) {
 		ByteConverterBinary converter = new ByteConverterBinary();
 		return converter.toString(values, values.length);
 	}
-	
+
 	/**
 	 * To Binary string.
-	 *
-	 * @param bytes the bytes
+	 * 
+	 * @param bytes
+	 *            the bytes
 	 * @return the string
 	 */
 	@Override
 	public String toString(byte[] values, int size) {
-		StringBuilder sb=new StringBuilder();
-		for(int z=0;z<size;z++){
+		StringBuilder sb = new StringBuilder();
+		for (int z = 0; z < size; z++) {
 			int number = values[z];
-			char[] bits = new char[]{'0','0','0','0','0','0','0','0'};
-			int i=7;
-			if(number<0){
-				number+=256;
+			char[] bits = new char[] { '0', '0', '0', '0', '0', '0', '0', '0' };
+			int i = 7;
+			if (number < 0) {
+				number += 256;
 			}
 			while (number != 0) {
-				bits[i] = (char) (48+(number % 2));
+				bits[i] = (char) (48 + (number % 2));
 				number = (byte) (number / 2);
 				i--;
-		   }
+			}
 			sb.append(new String(bits));
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * To byte string.
-	 *
-	 * @param hexString the hex string
+	 * 
+	 * @param hexString
+	 *            the hex string
 	 * @return the byte[]
 	 */
 	@Override
@@ -83,9 +85,9 @@ public class ByteConverterBinary extends ByteConverter {
 		int n = value.length();
 
 		for (int i = 0; i < n;) {
-			int charText=0;
-			for(int z=0;z<8;z++){
-				charText = charText << ((byte)(value.charAt(i++)-48));
+			int charText = 0;
+			for (int z = 0; z < 8; z++) {
+				charText = charText << ((byte) (value.charAt(i++) - 48));
 			}
 			// now just shift the high order nibble and add them together
 			out[i / 8] = (byte) charText;

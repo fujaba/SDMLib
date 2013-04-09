@@ -33,165 +33,171 @@ import java.nio.ByteBuffer;
 public class ByteUtil {
 	/**
 	 * Gets the typ.
-	 *
-	 * @param group the group
-	 * @param subgroup the subgroup
+	 * 
+	 * @param group
+	 *            the group
+	 * @param subgroup
+	 *            the subgroup
 	 * @return the typ
 	 */
-	public static byte getTyp(byte group, byte subgroup){
-		byte returnValue=(byte) ((group/16)*16);
-		return (byte) (returnValue+(subgroup%16));
+	public static byte getTyp(byte group, byte subgroup) {
+		byte returnValue = (byte) ((group / 16) * 16);
+		return (byte) (returnValue + (subgroup % 16));
 	}
-	
-	public static byte getTyp(byte group, int len){
+
+	public static byte getTyp(byte group, int len) {
 		if (len > 32767) {
 			return getTyp(group, ByteIdMap.DATATYPE_STRINGBIG);
 		} else if (len > 250) {
 			return getTyp(group, ByteIdMap.DATATYPE_STRINGMID);
-		} else if(len>ByteIdMap.SPLITTER){
+		} else if (len > ByteIdMap.SPLITTER) {
 			return getTyp(group, ByteIdMap.DATATYPE_STRING);
-		}else{
+		} else {
 			return getTyp(group, ByteIdMap.DATATYPE_STRINGSHORT);
 		}
 	}
-	public static int getTypLen(byte typ){
-		if(isGroup(typ)){
-			int ref=typ%16;
-			if(ref==ByteIdMap.DATATYPE_STRINGSHORT%16){
+
+	public static int getTypLen(byte typ) {
+		if (isGroup(typ)) {
+			int ref = typ % 16;
+			if (ref == ByteIdMap.DATATYPE_STRINGSHORT % 16) {
 				return 1;
-			}else if(ref==ByteIdMap.DATATYPE_STRING%16){
+			} else if (ref == ByteIdMap.DATATYPE_STRING % 16) {
 				return 1;
-			}else if(ref==ByteIdMap.DATATYPE_STRINGMID%16){
+			} else if (ref == ByteIdMap.DATATYPE_STRINGMID % 16) {
 				return 2;
-			}else if(ref==ByteIdMap.DATATYPE_STRINGBIG%16){
+			} else if (ref == ByteIdMap.DATATYPE_STRINGBIG % 16) {
 				return 4;
-			}else if(ref==ByteIdMap.DATATYPE_STRINGLAST%16){
+			} else if (ref == ByteIdMap.DATATYPE_STRINGLAST % 16) {
 				return 0;
 			}
-		}else if(typ==ByteIdMap.DATATYPE_CLAZZ){
+		} else if (typ == ByteIdMap.DATATYPE_CLAZZ) {
 			return 1;
 		}
 		return 0;
 	}
-	public static ByteBuffer getBuffer(int len, byte typ){
+
+	public static ByteBuffer getBuffer(int len, byte typ) {
 		return getBuffer(len, typ, true);
 	}
-	public static ByteBuffer getBuffer(int len, byte typ, boolean isGroupable){
-		if(len<1){
+
+	public static ByteBuffer getBuffer(int len, byte typ, boolean isGroupable) {
+		if (len < 1) {
 			return null;
 		}
 		ByteBuffer message;
-		if(typ==ByteIdMap.DATATYPE_CLAZZ){
+		if (typ == ByteIdMap.DATATYPE_CLAZZ) {
 			message = ByteBuffer.allocate(len);
 			message.put(typ);
-			message.put((byte)(ByteIdMap.SPLITTER+len-2));
-			
-		}else{
-			int lenGroup=getTypLen(typ);
-			int lenTyp=0;
-			if(!isGroupable){
-				lenGroup=0;
-				lenTyp=1;
+			message.put((byte) (ByteIdMap.SPLITTER + len - 2));
+
+		} else {
+			int lenGroup = getTypLen(typ);
+			int lenTyp = 0;
+			if (!isGroupable) {
+				lenGroup = 0;
+				lenTyp = 1;
 			}
-			if(lenGroup>0){
-				message=ByteBuffer.allocate(len);
-				int lenValue=len-ByteEntity.TYPBYTE-lenGroup;
+			if (lenGroup > 0) {
+				message = ByteBuffer.allocate(len);
+				int lenValue = len - ByteEntity.TYPBYTE - lenGroup;
 				byte typGroup = getTyp(typ, lenValue);
 				message.put(typGroup);
-	
-				if(typGroup%16==ByteIdMap.DATATYPE_STRINGSHORT%16){
-					message.put((byte)(ByteIdMap.SPLITTER+lenValue));
-				}else if(typGroup%16==ByteIdMap.DATATYPE_STRING%16){
-					message.put((byte)lenValue);
-				}else if(typGroup%16==ByteIdMap.DATATYPE_STRINGMID%16){
-					message.putShort((short)lenValue);
-				}else if(typGroup%16==ByteIdMap.DATATYPE_STRINGBIG%16){
+
+				if (typGroup % 16 == ByteIdMap.DATATYPE_STRINGSHORT % 16) {
+					message.put((byte) (ByteIdMap.SPLITTER + lenValue));
+				} else if (typGroup % 16 == ByteIdMap.DATATYPE_STRING % 16) {
+					message.put((byte) lenValue);
+				} else if (typGroup % 16 == ByteIdMap.DATATYPE_STRINGMID % 16) {
+					message.putShort((short) lenValue);
+				} else if (typGroup % 16 == ByteIdMap.DATATYPE_STRINGBIG % 16) {
 					message.putInt(lenValue);
-				}else if(typGroup%16==ByteIdMap.DATATYPE_STRINGLAST%16){
+				} else if (typGroup % 16 == ByteIdMap.DATATYPE_STRINGLAST % 16) {
 					// Nothing to ADD
 				}
-			}else if(typ>0){
-				message = ByteBuffer.allocate(len+lenTyp);
+			} else if (typ > 0) {
+				message = ByteBuffer.allocate(len + lenTyp);
 				message.put(typ);
-			}else{
+			} else {
 				message = ByteBuffer.allocate(len);
 			}
 		}
 		return message;
 	}
-	
+
 	/**
 	 * CHeck if the Typ is typ of Group
-	 *
-	 * @param typ the the typ of data
+	 * 
+	 * @param typ
+	 *            the the typ of data
 	 * @return the boolean
 	 */
-	public static boolean isGroup(byte typ){
-		int ref=(typ/16);
-		if(ref==(ByteIdMap.DATATYPE_BYTEARRAY/16)){
+	public static boolean isGroup(byte typ) {
+		int ref = (typ / 16);
+		if (ref == (ByteIdMap.DATATYPE_BYTEARRAY / 16)) {
 			return true;
-		}else if(ref==(ByteIdMap.DATATYPE_STRING/16)){
+		} else if (ref == (ByteIdMap.DATATYPE_STRING / 16)) {
 			return true;
-		}else if(ref==(ByteIdMap.DATATYPE_LIST/16)){
+		} else if (ref == (ByteIdMap.DATATYPE_LIST / 16)) {
 			return true;
-		}else if(ref==(ByteIdMap.DATATYPE_MAP/16)){
+		} else if (ref == (ByteIdMap.DATATYPE_MAP / 16)) {
 			return true;
-		}else if(ref==(ByteIdMap.DATATYPE_CHECK/16)){
+		} else if (ref == (ByteIdMap.DATATYPE_CHECK / 16)) {
 			return true;
 		}
 		return false;
 	}
 
-	public static String getStringTyp(byte typ){
-		if(typ==ByteIdMap.DATATYPE_NULL){
+	public static String getStringTyp(byte typ) {
+		if (typ == ByteIdMap.DATATYPE_NULL) {
 			return "DATATYPE_NULL";
-		}else if(typ==ByteIdMap.DATATYPE_FIXED){
+		} else if (typ == ByteIdMap.DATATYPE_FIXED) {
 			return "DATATYPE_FIXED";
-		}else if(typ==ByteIdMap.DATATYPE_CLAZZ){
+		} else if (typ == ByteIdMap.DATATYPE_CLAZZ) {
 			return "DATATYPE_CLAZZ";
-		}else if(typ==ByteIdMap.DATATYPE_SHORT){
+		} else if (typ == ByteIdMap.DATATYPE_SHORT) {
 			return "DATATYPE_SHORT";
-		}else if(typ==ByteIdMap.DATATYPE_INTEGER){
+		} else if (typ == ByteIdMap.DATATYPE_INTEGER) {
 			return "DATATYPE_INTEGER";
-		}else if(typ==ByteIdMap.DATATYPE_LONG){
+		} else if (typ == ByteIdMap.DATATYPE_LONG) {
 			return "DATATYPE_LONG";
-		}else if(typ==ByteIdMap.DATATYPE_FLOAT){
+		} else if (typ == ByteIdMap.DATATYPE_FLOAT) {
 			return "DATATYPE_FLOAT";
-		}else if(typ==ByteIdMap.DATATYPE_DOUBLE){
+		} else if (typ == ByteIdMap.DATATYPE_DOUBLE) {
 			return "DATATYPE_DOUBLE";
-		}else if(typ==ByteIdMap.DATATYPE_DATE){
+		} else if (typ == ByteIdMap.DATATYPE_DATE) {
 			return "DATATYPE_DATE";
-		}else if(typ==ByteIdMap.DATATYPE_ASSOC){
+		} else if (typ == ByteIdMap.DATATYPE_ASSOC) {
 			return "DATATYPE_ASSOC";
-		}else if(typ==ByteIdMap.DATATYPE_BYTE){
+		} else if (typ == ByteIdMap.DATATYPE_BYTE) {
 			return "DATATYPE_BYTE";
-		}else if(typ==ByteIdMap.DATATYPE_UNSIGNEDBYTE){
+		} else if (typ == ByteIdMap.DATATYPE_UNSIGNEDBYTE) {
 			return "DATATYPE_UNSIGNEDBYTE";
-		}else if(typ==ByteIdMap.DATATYPE_CHAR){
+		} else if (typ == ByteIdMap.DATATYPE_CHAR) {
 			return "DATATYPE_CHAR";
-		}else {
-			byte group=getTyp(typ, ByteIdMap.DATATYPE_STRING);
-			byte subgroup=getTyp(ByteIdMap.DATATYPE_STRING, typ);
-			String result="";
-			if(group==ByteIdMap.DATATYPE_BYTEARRAY){
-				result="DATATYPE_BYTEARRAY";
-			}else if(group==ByteIdMap.DATATYPE_STRING){
-				result="DATATYPE_STRING";
-			}else if(group==ByteIdMap.DATATYPE_LIST){
-				result="DATATYPE_LIST";
-			}else if(group==ByteIdMap.DATATYPE_MAP){
-				result="DATATYPE_MAP";
-			}else if(group==ByteIdMap.DATATYPE_CHECK){
-				result="DATATYPE_CHECK";
+		} else {
+			byte group = getTyp(typ, ByteIdMap.DATATYPE_STRING);
+			byte subgroup = getTyp(ByteIdMap.DATATYPE_STRING, typ);
+			String result = "";
+			if (group == ByteIdMap.DATATYPE_BYTEARRAY) {
+				result = "DATATYPE_BYTEARRAY";
+			} else if (group == ByteIdMap.DATATYPE_STRING) {
+				result = "DATATYPE_STRING";
+			} else if (group == ByteIdMap.DATATYPE_LIST) {
+				result = "DATATYPE_LIST";
+			} else if (group == ByteIdMap.DATATYPE_MAP) {
+				result = "DATATYPE_MAP";
+			} else if (group == ByteIdMap.DATATYPE_CHECK) {
+				result = "DATATYPE_CHECK";
 			}
-			if(subgroup==ByteIdMap.DATATYPE_STRINGSHORT){
-				result+="SHORT";
-			}else if(subgroup==ByteIdMap.DATATYPE_STRINGMID){
-				result+="MID";
-			}else if(subgroup==ByteIdMap.DATATYPE_STRINGBIG){
-				result+="BIG";
-			}else if(subgroup==ByteIdMap.DATATYPE_STRINGLAST){
-				result+="LAST";
+			if (subgroup == ByteIdMap.DATATYPE_STRINGSHORT) {
+				result += "SHORT";
+			} else if (subgroup == ByteIdMap.DATATYPE_STRINGMID) {
+				result += "MID";
+			} else if (subgroup == ByteIdMap.DATATYPE_STRINGBIG) {
+				result += "BIG";
+			} else if (subgroup == ByteIdMap.DATATYPE_STRINGLAST) {
+				result += "LAST";
 			}
 			return result;
 		}

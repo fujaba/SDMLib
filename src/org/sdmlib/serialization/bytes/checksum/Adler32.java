@@ -34,18 +34,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 public class Adler32 extends Checksum {
-	 private static final int BASE = 65521;
+	private static final int BASE = 65521;
 
 	public void update(int b) {
 		super.update(b);
-		int s1 = (int)value & 0xffff;
-		int s2 = (int)value >>> 16;
+		int s1 = (int) value & 0xffff;
+		int s2 = (int) value >>> 16;
 		s1 = (s1 + (b & 0xFF)) % BASE;
 		s2 = (s1 + s2) % BASE;
 
 		value = (s2 << 16) + s1;
 	}
-    
+
 	@Override
 	public int getOrder() {
 		return 32;

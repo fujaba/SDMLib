@@ -33,10 +33,10 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
  * The Class ByteMessage.
  */
 public class ByteMessage implements PeerMessage {
-	
+
 	/** The Constant PROPERTY_VALUE. */
 	public static final String PROPERTY_VALUE = "value";
-	
+
 	/** The value. */
 	private byte[] value = new byte[] {};
 
@@ -48,8 +48,9 @@ public class ByteMessage implements PeerMessage {
 
 	/**
 	 * Instantiates a new byte message.
-	 *
-	 * @param message the message
+	 * 
+	 * @param message
+	 *            the message
 	 */
 	public ByteMessage(byte[] message) {
 		setValue(message);
@@ -87,7 +88,7 @@ public class ByteMessage implements PeerMessage {
 
 	/**
 	 * Gets the value.
-	 *
+	 * 
 	 * @return the value
 	 */
 	public byte[] getValue() {
@@ -96,8 +97,9 @@ public class ByteMessage implements PeerMessage {
 
 	/**
 	 * Sets the value.
-	 *
-	 * @param value the new value
+	 * 
+	 * @param value
+	 *            the new value
 	 */
 	public void setValue(byte[] value) {
 		this.value = value;

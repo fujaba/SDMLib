@@ -32,23 +32,24 @@ import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
 public class StringTokener extends Tokener{
-	private boolean isString=true;
-	public StringTokener(String value){
+	private boolean isString = true;
+
+	public StringTokener(String value) {
 		super(value);
 	}
-	
+
 	@Override
 	public String nextString(char quote, boolean allowCRLF,
 			boolean ignoreCurrent) {
-		
-		if(getCurrentChar()==quote){
-			isString=true;
-		}else{
+
+		if (getCurrentChar() == quote) {
+			isString = true;
+		} else {
 			isString = !isString;
 		}
 		return super.nextString(quote, allowCRLF, ignoreCurrent);
 	}
-	
+
 	@Override
 	public void parseToEntity(BaseEntity entity) {
 	}
@@ -64,5 +65,5 @@ public class StringTokener extends Tokener{
 	public void setString(boolean isString) {
 		this.isString = isString;
 	}
-	
+
 }

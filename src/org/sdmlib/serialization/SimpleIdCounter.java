@@ -37,34 +37,34 @@ import org.sdmlib.serialization.interfaces.IdMapCounter;
  */
 public class SimpleIdCounter implements IdMapCounter{
 	/** The prefix id. */
-	protected String prefixId="J1";
-	
+	protected String prefixId = "J1";
+
 	/** The number. */
 	protected long number = 1;
-	
-	private char splitter='.';
-	
+
+	private char splitter = '.';
+
 	/** The is id. */
 	protected boolean isId = true;
-	
+
 	/** The prio Object mostly a Timestamp or int value. */
 	private Object prio;
-	
-	/** 
+
+	/**
 	 * Set the Session Prefix for a Peer
 	 */
 	public void setPrefixId(String value) {
 		this.prefixId = value;
 	}
 
-	/** 
+	/**
 	 * Set the Session Prefix for a Peer
 	 */
 	public String getPrefixId() {
 		return this.prefixId;
 	}
 
-	/** 
+	/**
 	 * Get a new Id
 	 */
 	@Override
@@ -74,7 +74,7 @@ public class SimpleIdCounter implements IdMapCounter{
 		// new object generate key and add to tables
 		// <session id>.<first char><running number>
 		if (obj == null) {
-			Exception e=new Exception("NullPointer: " + obj);
+			Exception e = new Exception("NullPointer: " + obj);
 			e.printStackTrace();
 			return "";
 		}
@@ -130,10 +130,10 @@ public class SimpleIdCounter implements IdMapCounter{
 	public void setSplitter(char splitter) {
 		this.splitter = splitter;
 	}
-	
+
 	/**
 	 * Gets the prio.
-	 *
+	 * 
 	 * @return the prio
 	 */
 	@Override
@@ -143,16 +143,17 @@ public class SimpleIdCounter implements IdMapCounter{
 
 	/**
 	 * Sets the prio.
-	 *
-	 * @param prio the new prio
+	 * 
+	 * @param prio
+	 *            the new prio
 	 */
 	public void setPrio(Object prio) {
 		this.prio = prio;
 	}
-	
+
 	/**
 	 * Checks if is serialisable id.
-	 *
+	 * 
 	 * @return true, if is id
 	 */
 	@Override
@@ -162,6 +163,6 @@ public class SimpleIdCounter implements IdMapCounter{
 
 	@Override
 	public void enableId(boolean value) {
-		this.isId=value;
+		this.isId = value;
 	}
 }

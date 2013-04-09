@@ -31,10 +31,9 @@ import org.sdmlib.serialization.IdMap;
 
 public class UpdateFilter extends JsonFilter
 {
-   @Override
-   public boolean isConvertable(IdMap map, Object entity, String property,
-         Object value, boolean isMany)
-   {
-      return map.getKey(value) == null;
-   }
+	@Override
+	public boolean isConvertable(IdMap map, Object entity, String property,
+			Object value, boolean isMany) {
+		return map.getKey(value) == null;
+	}
 }

@@ -6,17 +6,18 @@ import java.util.Map.Entry;
 public class MapEntry implements Entry<Object, Object>{
 	private Object key;
 	private Object value;
-	
-	public MapEntry(){
-		
+
+	public MapEntry() {
+
 	}
+
 	public MapEntry(Object key, Object value) {
-		 this.key   = key;
-		 this.value = value;
+		this.key = key;
+		this.value = value;
 	}
 
 	public Object setKey(Object key) {
-		this.key=key;
+		this.key = key;
 		return key;
 	}
 
@@ -29,10 +30,10 @@ public class MapEntry implements Entry<Object, Object>{
 	}
 
 	public Object setValue(Object value) {
-		this.value=value;
+		this.value = value;
 		return value;
 	}
-	
+
 	public boolean equals(Object o) {
 		if (!(o instanceof Map.Entry))
 			return false;
@@ -53,4 +54,3 @@ public class MapEntry implements Entry<Object, Object>{
 		return (o1 == null ? o2 == null : o1.equals(o2));
 	}
 }
-

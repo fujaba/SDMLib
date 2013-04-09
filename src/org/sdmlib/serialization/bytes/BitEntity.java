@@ -40,93 +40,97 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public class BitEntity implements BaseEntityList, ByteItem{
-	public static final String BIT_STRING="string";
-	public static final String BIT_NUMBER="number";
-	public static final String BIT_BYTE="byte";
-	public static final String BIT_REFERENCE="reference";
+	public static final String BIT_STRING = "string";
+	public static final String BIT_NUMBER = "number";
+	public static final String BIT_BYTE = "byte";
+	public static final String BIT_REFERENCE = "reference";
 
-	private boolean isVisible=true;
-	private ArrayList<BitValue> values=new ArrayList<BitValue>();
-	
-	// Can be a Typ 
+	private boolean isVisible = true;
+	private ArrayList<BitValue> values = new ArrayList<BitValue>();
+
+	// Can be a Typ
 	protected String property;
-	protected String typ=BIT_BYTE;
-	protected int orientation=1;
-	public static final String PROPERTY_PROPERTY="property";
-	public static final String PROPERTY_TYP="typ";
-	public static final String PROPERTY_ORIENTATION="orientation";
-	
-	public BitEntity(){
-		
+	protected String typ = BIT_BYTE;
+	protected int orientation = 1;
+	public static final String PROPERTY_PROPERTY = "property";
+	public static final String PROPERTY_TYP = "typ";
+	public static final String PROPERTY_ORIENTATION = "orientation";
+
+	public BitEntity() {
+
 	}
-	public BitEntity(Object value){
-		if(value instanceof Byte){
+
+	public BitEntity(Object value) {
+		if (value instanceof Byte) {
 			this.typ = BIT_BYTE;
-			this.property = ""+value;
-		}else if(value instanceof Integer){
+			this.property = "" + value;
+		} else if (value instanceof Integer) {
 			this.typ = BIT_NUMBER;
-			this.property = ""+value;
-		}else{
+			this.property = "" + value;
+		} else {
 			this.typ = BIT_STRING;
-			this.property = ""+value;
+			this.property = "" + value;
 		}
 	}
-	
-	public BitEntity(String property, String typ, int start, int len){
-		this.property=property;
+
+	public BitEntity(String property, String typ, int start, int len) {
+		this.property = property;
 		this.typ = typ;
 		this.values.add(new BitValue(start, len));
 	}
-	public BitEntity(String property, String typ){
-		this.property=property;
+
+	public BitEntity(String property, String typ) {
+		this.property = property;
 		this.typ = typ;
 	}
+
 	public BitEntity(String field, String typ, int start, int len,
 			int orientation) {
-		this.property=field;
+		this.property = field;
 		this.typ = typ;
 		this.orientation = orientation;
 		this.values.add(new BitValue(start, len));
 	}
-	public boolean addValue(BitValue value){
+
+	public boolean addValue(BitValue value) {
 		return this.values.add(value);
 	}
-	
-	public String getPropertyName(){
+
+	public String getPropertyName() {
 		return property;
 	}
-	
-	public String getTyp(){
+
+	public String getTyp() {
 		return typ;
 	}
-	
-	public boolean isTyp(String... referenceTyp){
-		for(String typ : referenceTyp){
-			if(this.typ.equals(typ)){
+
+	public boolean isTyp(String... referenceTyp) {
+		for (String typ : referenceTyp) {
+			if (this.typ.equals(typ)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public Iterator<BitValue> valueIterator(){
+
+	public Iterator<BitValue> valueIterator() {
 		return values.iterator();
 	}
-	
-	public boolean set(String attribute, Object value){
+
+	public boolean set(String attribute, Object value) {
 		if (PROPERTY_PROPERTY.equalsIgnoreCase(attribute)) {
-			this.property = ""+value;
+			this.property = "" + value;
 			return true;
-		}else if(PROPERTY_TYP.equalsIgnoreCase(attribute)){
-			this.typ = ""+value;
+		} else if (PROPERTY_TYP.equalsIgnoreCase(attribute)) {
+			this.typ = "" + value;
 			return true;
-		}else if(PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)){
-			this.orientation = Integer.valueOf(""+value);
+		} else if (PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)) {
+			this.orientation = Integer.valueOf("" + value);
 			return true;
 		}
 		return false;
 	}
-	
+
 	/*
 	 * Generic Getter for Attributes
 	 */
@@ -140,9 +144,9 @@ public class BitEntity implements BaseEntityList, ByteItem{
 		}
 		if (PROPERTY_PROPERTY.equalsIgnoreCase(attribute)) {
 			return this.property;
-		}else if(PROPERTY_TYP.equalsIgnoreCase(attribute)){
+		} else if (PROPERTY_TYP.equalsIgnoreCase(attribute)) {
 			return this.typ;
-		}else if(PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)){
+		} else if (PROPERTY_ORIENTATION.equalsIgnoreCase(attribute)) {
 			return this.orientation;
 		}
 		return null;
@@ -165,17 +169,19 @@ public class BitEntity implements BaseEntityList, ByteItem{
 	public BaseEntity getNewObject() {
 		return null;
 	}
-	
+
 	public String toString() {
 		return super.toString();
 	}
 
 	public String toString(ByteConverter converter) {
 		return toString();
-	}	
+	}
+
 	public String toString(ByteConverter converter, boolean isDynamic) {
 		return toString();
 	}
+
 	public String toString(int indentFactor) {
 		return toString();
 	}
@@ -185,7 +191,7 @@ public class BitEntity implements BaseEntityList, ByteItem{
 	}
 
 	public void setVisible(boolean value) {
-		this.isVisible=value;
+		this.isVisible = value;
 	}
 
 	public boolean isVisible() {
@@ -193,17 +199,17 @@ public class BitEntity implements BaseEntityList, ByteItem{
 	}
 
 	public BaseEntityList initWithMap(Collection<?> value) {
-		for(Iterator<?> i=value.iterator();i.hasNext();){
+		for (Iterator<?> i = value.iterator(); i.hasNext();) {
 			values.add((BitValue) i.next());
 		}
 		return this;
 	}
-	
+
 	public BaseEntityList put(Object value) {
 		values.add((BitValue) value);
 		return this;
 	}
-	
+
 	public int size() {
 		return values.size();
 	}
@@ -215,9 +221,11 @@ public class BitEntity implements BaseEntityList, ByteItem{
 	public Object get(int index) {
 		return values.get(index);
 	}
+
 	public int getOrientation() {
 		return orientation;
 	}
+
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
 	}

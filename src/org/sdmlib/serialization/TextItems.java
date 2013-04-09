@@ -36,57 +36,58 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 
 public class TextItems implements SendableEntityCreator, PeerMessage, LocalisationInterface {
-	public static final String PROPERTY_VALUE="value";
-	private TreeMap<String, String> values=new TreeMap<String, String>();
-	private LocalisationInterface customLanguage=null;
+	public static final String PROPERTY_VALUE = "value";
+	private TreeMap<String, String> values = new TreeMap<String, String>();
+	private LocalisationInterface customLanguage = null;
 	
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		return ((TextItems)entity).get(attribute);
+		return ((TextItems) entity).get(attribute);
 	}
 
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
-		return ((TextItems)entity).set(attribute, value);
+		return ((TextItems) entity).set(attribute, value);
 	}
-	
-	
+
 	@Override
 	public Object get(String attribute) {
-		if(values.containsKey(attribute)){
+		if (values.containsKey(attribute)) {
 			return values.get(attribute);
 		}
 		return attribute;
 	}
-
-	public String getText(String label, Object model, Object gui){
+	
+	public String getText(String label, Object model, Object gui) {
 		String text = null;
-		if(customLanguage!=null){
+		if (customLanguage != null) {
 			text = customLanguage.getText(label, model, gui);
-			if(text!=null){
+			if (text != null) {
 				return text;
 			}
 		}
-		text = getLabelValue(label+"."+System.getProperty("java.class.version"));
-		if(text!=null){
+		text = getLabelValue(label + "."
+				+ System.getProperty("java.class.version"));
+		if (text != null) {
 			return text;
-			
+
 		}
 		text = getLabelValue(label);
-		if(text!=null){
+		if (text != null) {
 			return text;
 		}
-		return label;		
+		return label;
 	}
-	private String getLabelValue(String label){
-		if(values.containsKey(label)){
+
+	private String getLabelValue(String label) {
+		if (values.containsKey(label)) {
 			return values.get(label);
 		}
 		return null;
 	}
-	
-	public void addTextLabel(String key, String value){
+
+	public void addTextLabel(String key, String value) {
 		values.put(key, value);
 	}
 
@@ -98,14 +99,13 @@ public class TextItems implements SendableEntityCreator, PeerMessage, Localisati
 
 	@Override
 	public String[] getProperties() {
-		return new String[]{PROPERTY_VALUE};
+		return new String[] { PROPERTY_VALUE };
 	}
 
-	@Override
 	public Object getSendableInstance(boolean prototyp) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TextItems();
 	}
-
-
+	public void setCustomLanguage(LocalisationInterface value){
+		this.customLanguage=value;
+	}
 }

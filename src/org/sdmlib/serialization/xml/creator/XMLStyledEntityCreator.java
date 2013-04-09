@@ -27,6 +27,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import org.sdmlib.serialization.Style;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLGrammar;
@@ -35,7 +36,11 @@ import org.sdmlib.serialization.xml.XMLStyledEntity;
 
 public class XMLStyledEntityCreator implements SendableEntityCreator, XMLGrammar{
 	/** The properties. */
-	private final String[] properties = new String[] { XMLStyledEntity.PROPERTY_FONTFAMILY,  XMLStyledEntity.PROPERTY_FONTSIZE,  XMLStyledEntity.PROPERTY_BOLD,  XMLStyledEntity.PROPERTY_ITALIC };
+	private final String[] properties = new String[] {
+			Style.PROPERTY_FONTFAMILY,
+			Style.PROPERTY_FONTSIZE, Style.PROPERTY_BOLD,
+			Style.PROPERTY_ITALIC };
+
 	@Override
 	public String[] getProperties() {
 		return properties;
@@ -48,26 +53,27 @@ public class XMLStyledEntityCreator implements SendableEntityCreator, XMLGrammar
 
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		return ((XMLStyledEntity)entity).get(attribute);
+		return ((XMLStyledEntity) entity).get(attribute);
 	}
 
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
-		return ((XMLStyledEntity)entity).set(attribute, value);	
+		return ((XMLStyledEntity) entity).set(attribute, value);
 	}
 
-	
 	public boolean parseChild(XMLEntity entity, XMLEntity child, Tokener value) {
 		XMLStyledEntity source = (XMLStyledEntity) entity;
 		XMLStyledEntity target = (XMLStyledEntity) child;
-		
-		for(String property : getProperties()){
-			target.set(property, source.get(property));
+
+		for (String property : getProperties()) {
+			if(source.get(property)!=null){
+				target.set(property, source.get(property));
+			}
 		}
 
-		if("b".equalsIgnoreCase(child.getTag())){
-			if(!source.isBold()){
+		if ("b".equalsIgnoreCase(child.getTag())) {
+			if (!source.isBold()) {
 				source.setBold(true);
 				return true;
 			}

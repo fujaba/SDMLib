@@ -44,15 +44,17 @@ import org.sdmlib.serialization.json.JsonObject;
 public interface MapUpdateListener {
 	/**
 	 * Send update msg.
-	 *
-	 * @param jsonObject the json object
+	 * 
+	 * @param jsonObject
+	 *            the json object
 	 * @return true, if successful
 	 */
-	public boolean sendUpdateMsg(Object oldObj, Object newObject, JsonObject jsonObject);
-	
-	public boolean readMessages(String type, Object value, JsonObject props);
-	
-	public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson);
+	public boolean sendUpdateMsg(Object target, String property, Object oldObj, Object newObject,
+			JsonObject jsonObject);
 
-	public boolean readMessageObj(Object element, String key, Object value, String typ);
+	public boolean isReadMessages(String key, Object element, JsonObject props, String type);
+	public boolean readMessages(String key, Object element, Object value, JsonObject props, String type);
+
+	public boolean skipCollision(Object masterObj, String key, Object value,
+			JsonObject removeJson, JsonObject updateJson);
 }

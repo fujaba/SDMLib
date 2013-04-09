@@ -34,124 +34,139 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class ReferenceObject.
  */
 public class ReferenceObject {
-	
+
 	/** The json id. */
 	private String jsonId;
-	
+
 	/** The creator. */
 	private SendableEntityCreator creator;
-	
+
 	/** The property. */
 	private String property;
-	
+
 	/** The entity. */
 	private Object entity;
-	
+
 	/** The map. */
 	private IdMap map;
-	
+
 	/**
 	 * Instantiates a new reference object.
-	 *
-	 * @param property the property
+	 * 
+	 * @param property
+	 *            the property
 	 */
-	public ReferenceObject(String property){
-		this.property=property;
+	public ReferenceObject(String property) {
+		this.property = property;
 	}
 
 	/**
 	 * Instantiates a new reference object.
-	 *
-	 * @param property the property
-	 * @param entity the entity
+	 * 
+	 * @param property
+	 *            the property
+	 * @param entity
+	 *            the entity
 	 */
-	public ReferenceObject(String property, Entity entity){
-		this.property=property;
-		this.entity=entity;
+	public ReferenceObject(String property, Entity entity) {
+		this.property = property;
+		this.entity = entity;
 	}
 
-	
 	/**
 	 * Instantiates a new reference object.
-	 *
-	 * @param creator the creator
-	 * @param property the property
-	 * @param map the map
-	 * @param entity the entity
+	 * 
+	 * @param creator
+	 *            the creator
+	 * @param property
+	 *            the property
+	 * @param map
+	 *            the map
+	 * @param entity
+	 *            the entity
 	 */
-	public ReferenceObject(SendableEntityCreator creator, String property, IdMap map, Object entity){
-		this.creator=creator;
-		this.property=property;
-		this.entity=entity;
-		this.map=map;
-	}	
-	
-	/**
-	 * Instantiates a new reference object.
-	 *
-	 * @param jsonId the json id
-	 * @param creator the creator
-	 * @param property the property
-	 * @param map the map
-	 * @param entity the entity
-	 */
-	public ReferenceObject(String jsonId, SendableEntityCreator creator, String property, IdMap map, Object entity){
-		this.jsonId=jsonId;
-		this.creator=creator;
-		this.property=property;
-		this.entity=entity;
-		this.map=map;
+	public ReferenceObject(SendableEntityCreator creator, String property,
+			IdMap map, Object entity) {
+		this.creator = creator;
+		this.property = property;
+		this.entity = entity;
+		this.map = map;
 	}
-	
+
+	/**
+	 * Instantiates a new reference object.
+	 * 
+	 * @param jsonId
+	 *            the json id
+	 * @param creator
+	 *            the creator
+	 * @param property
+	 *            the property
+	 * @param map
+	 *            the map
+	 * @param entity
+	 *            the entity
+	 */
+	public ReferenceObject(String jsonId, SendableEntityCreator creator,
+			String property, IdMap map, Object entity) {
+		this.jsonId = jsonId;
+		this.creator = creator;
+		this.property = property;
+		this.entity = entity;
+		this.map = map;
+	}
+
 	/**
 	 * Execute.
-	 *
+	 * 
 	 * @return true, if successful
 	 */
-	public boolean execute(){
+	public boolean execute() {
 		Object assoc = this.map.getObject(this.jsonId);
-		if(assoc!=null){
+		if (assoc != null) {
 			this.creator.setValue(this.entity, this.property, assoc, IdMap.NEW);
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets the creater.
-	 *
+	 * 
 	 * @return the creater
 	 */
-	public SendableEntityCreator getCreater(){
+	public SendableEntityCreator getCreater() {
 		return this.creator;
 	}
-	
+
 	/**
 	 * Gets the entity.
-	 *
+	 * 
 	 * @return the entity
 	 */
-	public Object getEntity(){
+	public Object getEntity() {
 		return this.entity;
 	}
-	
+
 	/**
 	 * Gets the property.
-	 *
+	 * 
 	 * @return the property
 	 */
 	public String getProperty() {
 		return this.property;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		if(entity==null){
+		if (entity == null) {
 			return property;
 		}
-		return this.property+":"+this.entity.getClass().getName();
+		return this.property + ":" + this.entity.getClass().getName();
 	}
 }

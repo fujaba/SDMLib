@@ -4,32 +4,34 @@ public class ByteConverterHex extends ByteConverter {
 
 	/**
 	 * To hex string.
-	 *
-	 * @param bytes the bytes
+	 * 
+	 * @param bytes
+	 *            the bytes
 	 * @return the string
 	 */
 	@Override
 	public String toString(byte[] values, int size) {
 		String hexVal = "0123456789ABCDEF";
 
-		StringBuilder returnValue = new StringBuilder(size*2);
-		if(values!=null){
+		StringBuilder returnValue = new StringBuilder(size * 2);
+		if (values != null) {
 			for (int i = 0; i < size; i++) {
-				int value=values[i];
-				if(value<0){
-					value+=256;
+				int value = values[i];
+				if (value < 0) {
+					value += 256;
 				}
-				returnValue.append(""+hexVal.charAt(value/16)+hexVal.charAt(value%16));
+				returnValue.append("" + hexVal.charAt(value / 16)
+						+ hexVal.charAt(value % 16));
 			}
 		}
 		return returnValue.toString();
 	}
-	
-	
+
 	/**
 	 * To byte string.
-	 *
-	 * @param hexString the hex string
+	 * 
+	 * @param hexString
+	 *            the hex string
 	 * @return the byte[]
 	 */
 	@Override

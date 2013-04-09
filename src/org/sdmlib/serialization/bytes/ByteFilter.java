@@ -6,11 +6,12 @@ public class ByteFilter extends IdMapFilter{
 	private boolean isDynamic;
 	private boolean isLenCheck;
 
-	public ByteFilter(){
+	public ByteFilter() {
 	}
-	public ByteFilter(boolean isLenCheck, boolean isDynamic){
-		this.isLenCheck=isLenCheck;
-		this.isDynamic=isDynamic;
+
+	public ByteFilter(boolean isLenCheck, boolean isDynamic) {
+		this.isLenCheck = isLenCheck;
+		this.isDynamic = isDynamic;
 	}
 
 	public boolean isLenCheck() {

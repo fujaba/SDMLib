@@ -38,91 +38,97 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public abstract class AbstractIdMap {
 	/** The creators. */
 	protected HashMap<String, SendableEntityCreator> creators;
-	
-	public AbstractIdMap(){
+
+	public AbstractIdMap() {
 		this.creators = new HashMap<String, SendableEntityCreator>();
 	}
-	
+
 	/**
 	 * Gets the creator class.
-	 *
-	 * @param reference the reference
+	 * 
+	 * @param reference
+	 *            the reference
 	 * @return the creator class
 	 */
 	public SendableEntityCreator getCreatorClass(Object reference) {
-		if(reference==null){
+		if (reference == null) {
 			return null;
 		}
 		return getCreatorClasses(reference.getClass().getName());
 	}
 
 	public SendableEntityCreator getCreatorClassName(String clazz) {
-		clazz="."+clazz;
-		for(Iterator<Entry<String, SendableEntityCreator>> i = this.creators.entrySet().iterator();i.hasNext();){
+		clazz = "." + clazz;
+		for (Iterator<Entry<String, SendableEntityCreator>> i = this.creators
+				.entrySet().iterator(); i.hasNext();) {
 			Entry<String, SendableEntityCreator> entry = i.next();
-			if(entry.getKey().endsWith(clazz)){
+			if (entry.getKey().endsWith(clazz)) {
 				return entry.getValue();
 			}
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets the creator classes.
-	 *
-	 * @param className the class name
+	 * 
+	 * @param className
+	 *            the class name
 	 * @return the creator classes
 	 */
-	public SendableEntityCreator getCreatorClasses(String className){
+	public SendableEntityCreator getCreatorClasses(String className) {
 		return this.creators.get(className);
 	}
 
-
 	/**
 	 * Adds the creator.
-	 *
-	 * @param Set<createrClass> the creater class
+	 * 
+	 * @param Set
+	 *            <createrClass> the creater class
 	 * @return true, if successful
 	 */
 	public boolean addCreator(Set<SendableEntityCreator> creatorSet) {
 		for (SendableEntityCreator sendableEntityCreator : creatorSet) {
-			if(!addCreator(sendableEntityCreator)){
+			if (!addCreator(sendableEntityCreator)) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
 	 * add a Creator to list
-	 *
-	 * @param className the class name
-	 * @param creator the creator
+	 * 
+	 * @param className
+	 *            the class name
+	 * @param creator
+	 *            the creator
 	 */
-	public void addCreator(String className, SendableEntityCreator creator)
-	{
-	   this.creators.put(className, creator);
+	public void addCreator(String className, SendableEntityCreator creator) {
+		this.creators.put(className, creator);
 	}
-	
+
 	/**
 	 * Adds the creator.
-	 *
-	 * @param createrClass the creater class
+	 * 
+	 * @param createrClass
+	 *            the creater class
 	 * @return true, if successful
 	 */
-	public boolean addCreator(SendableEntityCreator createrClass){
+	public boolean addCreator(SendableEntityCreator createrClass) {
 		Object reference = createrClass.getSendableInstance(true);
-		if(reference == null){
+		if (reference == null) {
 			return false;
 		}
 		addCreator(reference.getClass().getName(), createrClass);
 		return true;
 	}
-	
+
 	/**
 	 * Clone object.
-	 *
-	 * @param reference the reference
+	 * 
+	 * @param reference
+	 *            the reference
 	 * @return the object
 	 */
 	public Object cloneObject(Object reference) {
@@ -131,9 +137,11 @@ public abstract class AbstractIdMap {
 
 	/**
 	 * Clone object.
-	 *
-	 * @param reference the reference
-	 * @param filter the filter
+	 * 
+	 * @param reference
+	 *            the reference
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	public abstract Object cloneObject(Object reference, CloneFilter filter);

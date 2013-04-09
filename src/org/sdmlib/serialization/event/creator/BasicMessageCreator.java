@@ -34,11 +34,11 @@ import org.sdmlib.serialization.interfaces.ByteEntityCreator;
  * The Class BasicMessageCreator.
  */
 public class BasicMessageCreator implements ByteEntityCreator {
-	
+
 	/** The properties. */
 	protected final String[] properties = new String[] { BasicMessage.PROPERTY_VALUE };
 
-	/* 
+	/*
 	 * return the Properties
 	 */
 	@Override
@@ -46,7 +46,7 @@ public class BasicMessageCreator implements ByteEntityCreator {
 		return this.properties;
 	}
 
-	/* 
+	/*
 	 * Create new Instance of BasicMessage
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class BasicMessageCreator implements ByteEntityCreator {
 		return new BasicMessage();
 	}
 
-	/* 
+	/*
 	 * Get the EventTyp of BasicMessage (0x42)
 	 */
 	@Override
@@ -74,7 +74,8 @@ public class BasicMessageCreator implements ByteEntityCreator {
 	 * Setter for BasicMessage
 	 */
 	@Override
-	public boolean setValue(Object entity, String attribute, Object value, String typ) {
+	public boolean setValue(Object entity, String attribute, Object value,
+			String typ) {
 		return ((BasicMessage) entity).set(attribute, value);
 	}
 }

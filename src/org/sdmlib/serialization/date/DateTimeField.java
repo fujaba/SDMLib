@@ -29,35 +29,36 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public class DateTimeField {
 
-    /** The field type. */
-    private String typValue;
+	/** The field type. */
+	private String typValue;
 	private Integer min;
 	private Integer max;
 	private int defaultValue;
 
-    /**
-     * Constructor.
-     */
+	/**
+	 * Constructor.
+	 */
 	public DateTimeField(String type, Integer min, Integer max) {
-    	this.typValue = type;
-    	this.min = min;
-    	this.max = max;
-    }
+		this.typValue = type;
+		this.min = min;
+		this.max = max;
+	}
+
 	public DateTimeField(String type, Integer min, Integer max, int value) {
 		this(type, min, max);
-    	this.defaultValue=value;
-    }
-    
-    public String getType() {
-        return typValue;
-    }
+		this.defaultValue = value;
+	}
 
-    /**
-     * @return true always
-     */
-    public boolean isSupported() {
-        return true;
-    }
+	public String getType() {
+		return typValue;
+	}
+
+	/**
+	 * @return true always
+	 */
+	public boolean isSupported() {
+		return true;
+	}
 
 	public int getMin() {
 		return min;
@@ -82,12 +83,12 @@ public class DateTimeField {
 	public void setValue(int value) {
 		this.defaultValue = value;
 	}
-	
-	public int validate(int value){
-		if(min!=null && value<min){
+
+	public int validate(int value) {
+		if (min != null && value < min) {
 			return -1;
 		}
-		if(max !=null && value>max){
+		if (max != null && value > max) {
 			return 1;
 		}
 		return 0;

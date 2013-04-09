@@ -86,7 +86,7 @@ import org.sdmlib.serialization.interfaces.JSIMEntity;
  * @version 2010-12-28
  */
 
-public class JsonArray extends EntityList{
+public class JsonArray extends EntityList {
 	/**
 	 * Construct an empty JSONArray.
 	 */
@@ -105,8 +105,6 @@ public class JsonArray extends EntityList{
 		this();
 		x.parseToEntity(this);
 	}
-	    
-
 
 	/**
 	 * Construct a JSONArray from a source JSON text.
@@ -130,25 +128,25 @@ public class JsonArray extends EntityList{
 	 */
 	public JsonArray(Collection<?> collection) {
 		if (collection != null) {
-			getElements();
 			Iterator<?> iter = collection.iterator();
 			while (iter.hasNext()) {
 				put(EntityUtil.wrap(iter.next(), this));
 			}
 		}
 	}
-	
+
 	/**
 	 * Construct a JSONArray from a BaseEntityArray.
 	 * 
-	 * @param Array of Elements.
+	 * @param Array
+	 *            of Elements.
 	 */
 	public JsonArray(JSIMEntity... values) {
-		for(int i=0;i<values.length;i++){
+		for (int i = 0; i < values.length; i++) {
 			put(EntityUtil.wrap(values[i], this));
 		}
 	}
-
+	
 	/**
 	 * Get the JSONArray associated with an index.
 	 * 
@@ -187,9 +185,6 @@ public class JsonArray extends EntityList{
 				+ "] is not a JSONObject.");
 	}
 
-
-
-
 	/**
 	 * Put a value in the JSONArray, where the value will be a JSONArray which
 	 * is produced from a Collection.
@@ -220,8 +215,6 @@ public class JsonArray extends EntityList{
 		super.put(index, new JsonArray(value));
 		return this;
 	}
-
-
 
 	/**
 	 * Produce a JSONObject by combining a JSONArray of names with the values of
@@ -261,87 +254,92 @@ public class JsonArray extends EntityList{
 	public String toString() {
 		try {
 			if (!isVisible()) {
-				return "[" + getElements().size() + " Items]";
+				return "[" + size() + " Items]";
 			}
 			return '[' + join(",") + ']';
 		} catch (Exception e) {
-			return null;
+			return "";
 		}
 	}
 
 	/**
 	 * Make a prettyprinted JSON text of this JSONArray. Warning: This method
 	 * assumes that the data structure is acyclical.
-	 *
-	 * @param indentFactor The number of spaces to add to each level of indentation.
+	 * 
+	 * @param indentFactor
+	 *            The number of spaces to add to each level of indentation.
 	 * @return a printable, displayable, transmittable representation of the
-	 * object, beginning with <code>[</code>&nbsp;<small>(left
-	 * bracket)</small> and ending with <code>]</code>
-	 * &nbsp;<small>(right bracket)</small>.
-	 * @throws RuntimeException the runtime exception
+	 *         object, beginning with <code>[</code>&nbsp;<small>(left
+	 *         bracket)</small> and ending with <code>]</code>
+	 *         &nbsp;<small>(right bracket)</small>.
+	 * @throws RuntimeException
+	 *             the runtime exception
 	 */
 	@Override
 	public String toString(int indentFactor) throws RuntimeException {
 		return toString(indentFactor, 0);
 	}
-	
-	/** 
+
+	/**
 	 * Make a prettyprinted JSON text of this JSONArray.
 	 */
 	@Override
 	public String toString(int indentFactor, int indent) {
-		Iterator<Object> iterator = getElements().iterator();
-		if(!iterator.hasNext()){
+		Iterator<Object> iterator = iterator();
+		if (!iterator.hasNext()) {
 			return "[]";
 		}
 
 		if (!isVisible()) {
-			return "[" + getElements().size() + " Items]";
+			return "[" + size() + " Items]";
 		}
 
 		StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < indentFactor; i++) {
-        	sb.append(' ');
-        }
-        String step=sb.toString();
-        String prefix="";
-        int newindent = indent + indentFactor;
-		if(newindent>0){
-        	sb = new StringBuilder();
-            for(int i = 0; i < indent; i+=indentFactor) {
-            	sb.append(step);
-            }
-            prefix=CRLF+sb.toString();
+		for (int i = 0; i < indentFactor; i++) {
+			sb.append(' ');
 		}
-		//First Element
-		
-		sb = new StringBuilder("["+prefix+step);
+		String step = sb.toString();
+		String prefix = "";
+		int newindent = indent + indentFactor;
+		if (newindent > 0) {
+			sb = new StringBuilder();
+			for (int i = 0; i < indent; i += indentFactor) {
+				sb.append(step);
+			}
+			prefix = CRLF + sb.toString();
+		}
+		// First Element
+
+		sb = new StringBuilder("[" + prefix + step);
 		Object element = iterator.next();
-		sb.append(EntityUtil.valueToString(element, indentFactor, newindent, false, this));
-		
-		while(iterator.hasNext()){
+		sb.append(EntityUtil.valueToString(element, indentFactor, newindent,
+				false, this));
+
+		while (iterator.hasNext()) {
 			element = iterator.next();
-			sb.append(","+prefix+step);
-			sb.append(EntityUtil.valueToString(element, indentFactor, newindent, false, this));
+			sb.append("," + prefix + step);
+			sb.append(EntityUtil.valueToString(element, indentFactor,
+					newindent, false, this));
 		}
-		sb.append(prefix+']');
+		sb.append(prefix + ']');
 		return sb.toString();
 	}
 
 	/**
-	 *  Get a new Instance of a JsonObject
+	 * Get a new Instance of a JsonObject
 	 */
 	@Override
 	public Entity getNewObject() {
 		return new JsonObject();
 	}
 
-    public boolean setAllValue(String value){
-    	clear();
-    	JsonTokener tokener = new JsonTokener(value);
-    	tokener.parseToEntity(this);
-    	return true;
-    }
+	public boolean setAllValue(String value) {
+		clear();
+		JsonTokener tokener = new JsonTokener(value);
+		tokener.parseToEntity(this);
+		return true;
+	}
+
 	/**
 	 * Get a new Instance of a JsonArray
 	 */

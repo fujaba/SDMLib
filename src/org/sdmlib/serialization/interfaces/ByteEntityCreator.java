@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public interface ByteEntityCreator extends SendableEntityCreator {
 	/**
 	 * Gets the event typ of ByteMessage.
-	 *
+	 * 
 	 * @return the event typ
 	 */
 	public byte getEventTyp();

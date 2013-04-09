@@ -41,12 +41,13 @@ import org.sdmlib.serialization.interfaces.BaseEntityList;
  * The Class EntityList.
  */
 public abstract class EntityList implements BaseEntityList, List<Object>{
-	protected ArrayList<Object> values;
-	private boolean visible=true;
+	protected List<Object> values;
+	private boolean visible = true;
 
-	public EntityList(){
-		
+	public EntityList() {
+		initMap();
 	}
+	
 	/**
 	 * Construct a EntityList from a Collection.
 	 * 
@@ -55,10 +56,11 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 */
 	public EntityList(Collection<?> collection) {
 		initWithMap(collection);
+		initMap();
 	}
-	public EntityList initWithMap(Collection<?> collection){
+
+	public EntityList initWithMap(Collection<?> collection) {
 		if (collection != null) {
-			getElements();
 			Iterator<?> iter = collection.iterator();
 			while (iter.hasNext()) {
 				put(EntityUtil.wrap(iter.next(), this));
@@ -66,16 +68,12 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 		}
 		return this;
 	}
-	
-	/**
-	 * The arrayList where the EntityList's properties are kept.
-	 */
-	public List<Object> getElements(){
-		if(this.values==null){
-			this.values=new ArrayList<Object>();
-		}
-		return this.values;
+
+	//FIXME
+	protected void initMap(){
+		this.values=new ArrayList<Object>();
 	}
+
 	/**
 	 * Get the object value associated with an index.
 	 * 
@@ -87,12 +85,13 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 */
 	@Override
 	public Object get(int index) throws RuntimeException {
-		Object object = getElements().get(index);
+		Object object = values.get(index);
 		if (object == null) {
 			throw new RuntimeException("EntityList[" + index + "] not found.");
 		}
 		return object;
 	}
+
 	/**
 	 * Get the boolean value associated with an index. The string values "true"
 	 * and "false" are converted to boolean.
@@ -115,7 +114,8 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 						.equalsIgnoreCase("true"))) {
 			return true;
 		}
-		throw new RuntimeException("EntityList[" + index + "] is not a boolean.");
+		throw new RuntimeException("EntityList[" + index
+				+ "] is not a boolean.");
 	}
 
 	/**
@@ -158,6 +158,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 					+ "] is not a number.");
 		}
 	}
+
 	/**
 	 * Get the long value associated with an index.
 	 * 
@@ -208,36 +209,35 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *             If the array contains an invalid number.
 	 */
 	public String join(String separator) throws RuntimeException {
-		List<Object> elements = getElements();
 		StringBuilder sb = new StringBuilder();
 
-		for (int i = 0; i < elements.size(); i += 1) {
+		for (int i = 0; i < values.size(); i += 1) {
 			if (i > 0) {
 				sb.append(separator);
 			}
-			sb.append(EntityUtil.valueToString(elements.get(i), this));
+			sb.append(EntityUtil.valueToString(values.get(i), this));
 		}
 		return sb.toString();
 	}
-
 
 	/**
 	 * Append a boolean value. This increases the array's length by one.
 	 * 
 	 * @param value
 	 *            A boolean value.
-	 * @return 
+	 * @return
 	 */
 	public EntityList put(boolean value) {
 		put(value ? Boolean.TRUE : Boolean.FALSE);
 		return this;
 	}
+
 	/**
 	 * Append an int value. This increases the array's length by one.
 	 * 
 	 * @param value
 	 *            An int value.
-	 * @return 
+	 * @return
 	 */
 	public EntityList put(int value) {
 		put(new Integer(value));
@@ -249,7 +249,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 * 
 	 * @param value
 	 *            A long value.
-	 * @return 
+	 * @return
 	 * @return this.
 	 */
 	public EntityList put(long value) {
@@ -263,10 +263,10 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 * @param value
 	 *            An object value. The value should be a Boolean, Double,
 	 *            Integer, EntityList, Entity, Long, or String object.
-	 * @return 
+	 * @return
 	 */
 	public EntityList put(Object value) {
-		getElements().add(value);
+		add(value);
 		return this;
 	}
 
@@ -279,7 +279,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *            The subscript.
 	 * @param value
 	 *            A boolean value.
-	 * @return 
+	 * @return
 	 * @return this.
 	 * @throws RuntimeException
 	 *             If the index is negative.
@@ -288,6 +288,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 		put(index, value ? Boolean.TRUE : Boolean.FALSE);
 		return this;
 	}
+
 	/**
 	 * Put or replace a double value. If the index is greater than the length of
 	 * the EntityList, then null elements will be added as necessary to pad it
@@ -297,7 +298,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *            The subscript.
 	 * @param value
 	 *            A double value.
-	 * @return 
+	 * @return
 	 * @throws RuntimeException
 	 *             If the index is negative or if the value is not finite.
 	 */
@@ -315,7 +316,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *            The subscript.
 	 * @param value
 	 *            An int value.
-	 * @return 
+	 * @return
 	 * @throws RuntimeException
 	 *             If the index is negative.
 	 */
@@ -333,7 +334,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *            The subscript.
 	 * @param value
 	 *            A long value.
-	 * @return 
+	 * @return
 	 * @throws RuntimeException
 	 *             If the index is negative.
 	 */
@@ -351,8 +352,8 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 *            The subscript.
 	 * @param value
 	 *            The value to put into the array. The value should be a
-	 *            Boolean, Double, Integer, EntityList, Entity, Long, or
-	 *            String object.
+	 *            Boolean, Double, Integer, EntityList, Entity, Long, or String
+	 *            object.
 	 * @return this.
 	 * @throws RuntimeException
 	 *             If the index is negative or if the the value is an invalid
@@ -364,7 +365,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 			throw new RuntimeException("EntityList[" + index + "] not found.");
 		}
 		if (index < size()) {
-			getElements().set(index, value);
+			values.set(index, value);
 		} else {
 			while (index != size()) {
 				put(null);
@@ -389,7 +390,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 		put(d);
 		return this;
 	}
-	
+
 	/**
 	 * Remove an index and close the hole.
 	 * 
@@ -401,14 +402,16 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	@Override
 	public Object remove(int index) {
 		Object o = get(index);
-		getElements().remove(index);
+		values.remove(index);
 		return o;
 	}
+
 	public abstract String toString(int indentFactor);
+
 	public abstract String toString(int indentFactor, int intent);
+
 	@Override
 	public abstract String toString();
-	
 
 	/**
 	 * Get the number of elements in the EntityList, included nulls.
@@ -417,7 +420,7 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 */
 	@Override
 	public int size() {
-		return getElements().size();
+		return values.size();
 	}
 
 	/**
@@ -427,109 +430,113 @@ public abstract class EntityList implements BaseEntityList, List<Object>{
 	 */
 	@Override
 	public boolean isEmpty() {
-		return getElements().size()<1;
+		return values.size() < 1;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		return getElements().contains(o);
+		return values.contains(o);
 	}
 
 	@Override
 	public Iterator<Object> iterator() {
-		return getElements().iterator();
+		return values.iterator();
 	}
 
 	@Override
 	public Object[] toArray() {
-		return getElements().toArray();
+		return values.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		return getElements().toArray(a);
+		return values.toArray(a);
 	}
 
+	/* The Basic-Add Method
+	 * @see de.uniks.jism.interfaces.BaseEntityList#add(java.lang.Object)
+	 */
 	@Override
 	public boolean add(Object e) {
-		return getElements().add(e);
+		return values.add(e);
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		return getElements().remove(o);
+		return values.remove(o);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		return getElements().containsAll(c);
+		return values.containsAll(c);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends Object> c) {
-		return getElements().addAll(c);
+		return values.addAll(c);
 	}
 
 	@Override
 	public boolean addAll(int index, Collection<? extends Object> c) {
-		return getElements().addAll(index, c);
+		return values.addAll(index, c);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		return getElements().removeAll(c);
+		return values.removeAll(c);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		return getElements().retainAll(c);
+		return values.retainAll(c);
 	}
 
 	@Override
 	public void clear() {
-		getElements().clear();
+		values.clear();
 	}
 
 	@Override
 	public Object set(int index, Object element) {
-		return getElements().set(index, element);
+		return values.set(index, element);
 	}
 
 	@Override
 	public void add(int index, Object element) {
-		getElements().add(index, element);
+		values.add(index, element);
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		return getElements().indexOf(o);
+		return values.indexOf(o);
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		return getElements().lastIndexOf(o);
+		return values.lastIndexOf(o);
 	}
 
 	@Override
 	public ListIterator<Object> listIterator() {
-		return getElements().listIterator();
+		return values.listIterator();
 	}
 
 	@Override
 	public ListIterator<Object> listIterator(int index) {
-		return getElements().listIterator(index);
+		return values.listIterator(index);
 	}
 
 	@Override
 	public List<Object> subList(int fromIndex, int toIndex) {
-		return getElements().subList(fromIndex, toIndex);
+		return values.subList(fromIndex, toIndex);
 	}
-	
+
 	@Override
 	public void setVisible(boolean value) {
-		this.visible=value;
+		this.visible = value;
 	}
-	public boolean isVisible(){
+
+	public boolean isVisible() {
 		return visible;
 	}
 }

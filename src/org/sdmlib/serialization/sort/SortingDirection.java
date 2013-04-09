@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.exceptions;
+package org.sdmlib.serialization.sort;
 /*
 Copyright (c) 2012, Stefan Lindel
 All rights reserved.
@@ -16,7 +16,7 @@ modification, are permitted provided that the following conditions are met:
 4. Neither the name of contributors may be used to endorse or promote products
    derived from this software without specific prior written permission.
 
-THIS SOFTWARE 'Json Id Serialisierung Map' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
@@ -27,35 +27,30 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import org.sdmlib.serialization.Tokener;
 
+public enum SortingDirection {
+	ASC(1), DESC(-1);
+	
+	private int direction;
 
-public class TextParsingException extends RuntimeException{
-	private static final long serialVersionUID = 1L;
-	private String message;
-	private String tokenerMsg;
-	private int index;
-
-	public TextParsingException(String message, int index) {
-		this.message = message;
-		this.index = index;
+	SortingDirection(int direction){
+		this.setDirection(direction);
 	}
 
-	public TextParsingException(String message, Tokener tokener) {
-		this.message = message;
-		this.tokenerMsg = tokener.toString();
-		this.index = tokener.getIndex();
+	public int getDirection() {
+		return direction;
 	}
 
-	public String getMessage() {
-		return message;
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	public SortingDirection changeDirection(){
+		if (direction == SortingDirection.ASC.getDirection()) {
+			return SortingDirection.DESC;
+		} else if (direction == SortingDirection.DESC.getDirection()) {
+			return SortingDirection.ASC;
+		}
+		return SortingDirection.ASC;
 	}
 
-	public String getTokenerMsg() {
-		return tokenerMsg;
-	}
-
-	public int getIndex() {
-		return index;
-	}
 }

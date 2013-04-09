@@ -29,10 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 public class Xor8 extends Checksum {
-    public void update(int b) {
-        super.update(b);
-    	value ^= b & 0xFF;
-    }
+	public void update(int b) {
+		super.update(b);
+		value ^= b & 0xFF;
+	}
 
 	@Override
 	public int getOrder() {
@@ -41,9 +41,8 @@ public class Xor8 extends Checksum {
 }
 
 /*
-    Testvector from Motorola's GPS:
-    (http://www.motorola.com/ies/GPS/docs_pdf/checksum.pdf)
- 
-    hex:
-      45 61 01 => 25
+ * Testvector from Motorola's GPS:
+ * (http://www.motorola.com/ies/GPS/docs_pdf/checksum.pdf)
+ * 
+ * hex: 45 61 01 => 25
  */

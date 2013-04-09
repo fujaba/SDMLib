@@ -32,51 +32,51 @@ public abstract class CRC extends Checksum{
 	protected int[] crc_table = getGenTable();
 
 	public abstract int getPolynom();
+
 	public abstract boolean isReflect();
 
 	/** Make the table for a fast CRC. */
 	public int[] getGenTable() {
-		int[] result=new int[256];
-			
+		int[] result = new int[256];
+
 		int order = getOrder();
-		long topBit = (long)1 << (order - 1);
+		long topBit = (long) 1 << (order - 1);
 		long widthMask = (((1 << (order - 1)) - 1) << 1) | 1;
 		int polynom = getPolynom();
 		boolean isReflect = isReflect();
-		
-		for (int i = 0; i < 256; ++i) 
-        {
+
+		for (int i = 0; i < 256; ++i) {
 			result[i] = i;
-			if (isReflect) { result[i] = Reflect(i, 8); }
+			if (isReflect) {
+				result[i] = Reflect(i, 8);
+			}
 			result[i] = result[i] << (order - 8);
-            for (int j = 0; j < 8; ++j) 
-            { 
-                if ((result[i] & topBit) != 0) 
-                { 
-                	result[i] = (result[i] << 1) ^ polynom; 
-                } 
-                else 
-                { 
-                	result[i] <<= 1; 
-                } 
-            } 
-            if (isReflect) { result[i] = Reflect(result[i], order); }
-            result[i] &= widthMask;
-        } 
+			for (int j = 0; j < 8; ++j) {
+				if ((result[i] & topBit) != 0) {
+					result[i] = (result[i] << 1) ^ polynom;
+				} else {
+					result[i] <<= 1;
+				}
+			}
+			if (isReflect) {
+				result[i] = Reflect(result[i], order);
+			}
+			result[i] &= widthMask;
+		}
 		return result;
 	}
-	
-	/// <summary>Reflects the lower bits of the value provided.</summary>
-	/// <param name="data">The value to reflect.</param>
-	/// <param name="numBits">The number of bits to reflect.</param>
-	/// <returns>The reflected value.</returns>
+
+	// / <summary>Reflects the lower bits of the value provided.</summary>
+	// / <param name="data">The value to reflect.</param>
+	// / <param name="numBits">The number of bits to reflect.</param>
+	// / <returns>The reflected value.</returns>
 	static private int Reflect(int data, int numBits) {
 		int temp = data;
 
 		for (int i = 0; i < numBits; i++) {
-			long bitMask = (long)1 << ((numBits - 1) - i);
+			long bitMask = (long) 1 << ((numBits - 1) - i);
 
-			if ((temp & (long)1) != 0) {
+			if ((temp & (long) 1) != 0) {
 				data |= bitMask;
 			} else {
 				data &= ~bitMask;

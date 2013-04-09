@@ -47,85 +47,92 @@ import org.sdmlib.serialization.interfaces.BaseEntityList;
 public class XMLEntity extends Entity implements BaseEntityList {
 	/** The children. */
 	protected ArrayList<XMLEntity> children;
-	
+
 	/** The tag. */
 	protected String tag;
-	
+
 	/** The value. */
 	protected String value;
 
 	/**
 	 * Instantiates a new xML entity.
 	 */
-	public XMLEntity(){
-		
+	public XMLEntity() {
+
 	}
-	
+
 	/**
 	 * Instantiates a new xML entity.
-	 *
-	 * @param tag the tag
+	 * 
+	 * @param tag
+	 *            the tag
 	 */
-	public XMLEntity(String value){
+	public XMLEntity(String value) {
 		this(new XMLTokener(value));
 	}
-	
-    /**
-     * Construct a XMLEntity from a Tokener.
-     * @param value A Tokener object containing the source string.
-     *  or a duplicated key.
-     */
-    public XMLEntity(Tokener tokener) {
-        this();
-        tokener.parseToEntity((BaseEntity)this);
-    }
 
-	/* (non-Javadoc)
+	/**
+	 * Construct a XMLEntity from a Tokener.
+	 * 
+	 * @param value
+	 *            A Tokener object containing the source string. or a duplicated
+	 *            key.
+	 */
+	public XMLEntity(Tokener tokener) {
+		this();
+		tokener.parseToEntity((BaseEntity) this);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewArray()
 	 */
-	@Override
 	public EntityList getNewArray() {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewObject()
 	 */
-	@Override
 	public Entity getNewObject() {
 		return new XMLEntity();
 	}
 
 	/**
 	 * Gets the children.
-	 *
+	 * 
 	 * @return the children
 	 */
 	public ArrayList<XMLEntity> getChildren() {
-		if(this.children==null){
-			this.children=new  ArrayList<XMLEntity>();
+		if (this.children == null) {
+			this.children = new ArrayList<XMLEntity>();
 		}
 		return this.children;
 	}
 
 	/**
 	 * Adds the child.
-	 *
-	 * @param child the child
+	 * 
+	 * @param child
+	 *            the child
 	 */
 	public void addChild(XMLEntity child) {
 		getChildren().add(child);
 	}
-	
+
 	/**
 	 * Gets the child.
-	 *
-	 * @param tag the tag
+	 * 
+	 * @param tag
+	 *            the tag
 	 * @return the child
 	 */
-	public XMLEntity getChild(String tag){
-		for(XMLEntity entity : getChildren()){
-			if(tag.equals(entity.getTag())){
+	public XMLEntity getChild(String tag) {
+		for (XMLEntity entity : getChildren()) {
+			if (tag.equals(entity.getTag())) {
 				return entity;
 			}
 		}
@@ -134,7 +141,7 @@ public class XMLEntity extends Entity implements BaseEntityList {
 
 	/**
 	 * Gets the tag.
-	 *
+	 * 
 	 * @return the tag
 	 */
 	public String getTag() {
@@ -143,8 +150,9 @@ public class XMLEntity extends Entity implements BaseEntityList {
 
 	/**
 	 * Sets the tag.
-	 *
-	 * @param tag the new tag
+	 * 
+	 * @param tag
+	 *            the new tag
 	 */
 	public void setTag(String tag) {
 		this.tag = tag;
@@ -152,7 +160,7 @@ public class XMLEntity extends Entity implements BaseEntityList {
 
 	/**
 	 * Gets the value.
-	 *
+	 * 
 	 * @return the value
 	 */
 	public String getValue() {
@@ -161,14 +169,17 @@ public class XMLEntity extends Entity implements BaseEntityList {
 
 	/**
 	 * Sets the value.
-	 *
-	 * @param value the new value
+	 * 
+	 * @param value
+	 *            the new value
 	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.uni.kassel.peermessage.Entity#toString()
 	 */
 	@Override
@@ -176,61 +187,67 @@ public class XMLEntity extends Entity implements BaseEntityList {
 		return toString(0);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.uni.kassel.peermessage.Entity#toString(int)
 	 */
 	@Override
 	public String toString(int indentFactor) {
 		return toString(indentFactor, 0);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.uni.kassel.peermessage.Entity#toString(int, int)
 	 */
 	@Override
 	public String toString(int indentFactor, int intent) {
-		StringBuilder sb=new StringBuilder();
-		if(indentFactor>0){
+		StringBuilder sb = new StringBuilder();
+		if (indentFactor > 0) {
 			sb.append("\n");
 		}
 		for (int i = 0; i < indentFactor; i += 1) {
-            sb.append(' ');
-        }
-		sb.append("<"+this.getTag());
-		Map<String, Object> attributes = getMap();
-		
-		for(Iterator<Entry<String, Object>> i = attributes.entrySet().iterator();i.hasNext();){
-			Entry<String, Object> attribute = i.next();
-			sb.append(" "+attribute.getKey()+"="+EntityUtil.quote((String)attribute.getValue()));
+			sb.append(' ');
 		}
-		
-		boolean hasChild=(this.children!=null&&this.children.size()>0);
-		if(this.value==null&&!hasChild){
+		sb.append("<" + this.getTag());
+		Map<String, Object> attributes = getMap();
+
+		for (Iterator<Entry<String, Object>> i = attributes.entrySet()
+				.iterator(); i.hasNext();) {
+			Entry<String, Object> attribute = i.next();
+			sb.append(" " + attribute.getKey() + "="
+					+ EntityUtil.quote((String) attribute.getValue()));
+		}
+
+		boolean hasChild = (this.children != null && this.children.size() > 0);
+		if (this.value == null && !hasChild) {
 			sb.append("/>");
-		}else{
+		} else {
 			sb.append(">");
 			sb.append(toStringValue(indentFactor));
-			sb.append("</"+getTag()+">");
+			sb.append("</" + getTag() + ">");
 		}
 		return sb.toString();
 	}
-	
-	protected String toStringValue(int indentFactor){
-		StringBuilder sb=new StringBuilder();
-		
+
+	protected String toStringValue(int indentFactor) {
+		StringBuilder sb = new StringBuilder();
+
 		// parse Children
-		if(this.children!=null&&this.children.size()>0){
-			for(XMLEntity child : this.children){
+		if (this.children != null && this.children.size() > 0) {
+			for (XMLEntity child : this.children) {
 				sb.append(child.toString(indentFactor));
 			}
-		}else if(this.value!=null){
+		} else if (this.value != null) {
 			sb.append(this.value);
 		}
 		return sb.toString();
 	}
 
 	public BaseEntityList initWithMap(Collection<?> value) {
-		for(Iterator<?>i=value.iterator();i.hasNext();){
+		for (Iterator<?> i = value.iterator(); i.hasNext();) {
 			children.add((XMLEntity) i.next());
 		}
 		return this;

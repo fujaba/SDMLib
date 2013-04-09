@@ -33,10 +33,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The Interface XMLEntityCreator.
  */
 public interface XMLEntityCreator extends SendableEntityCreator {
-	
+
 	/**
 	 * Gets the tag of the XML Entity.
-	 *
+	 * 
 	 * @return the tag
 	 */
 	public String getTag();

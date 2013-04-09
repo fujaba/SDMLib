@@ -33,39 +33,47 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * This is the Basic Interface for the Creator for Serialization
  */
 public interface SendableEntityCreator {
-	
+
 	/**
 	 * Gets the properties.
-	 *
+	 * 
 	 * @return the properties
 	 */
 	public String[] getProperties();
 
 	/**
 	 * Gets the sendable instance.
-	 *
-	 * @param prototyp the prototyp
+	 * 
+	 * @param prototyp
+	 *            the prototyp
 	 * @return the sendable instance
 	 */
 	public Object getSendableInstance(boolean prototyp);
 
 	/**
 	 * Gets the value.
-	 *
-	 * @param entity the entity
-	 * @param attribute the attribute
+	 * 
+	 * @param entity
+	 *            the entity
+	 * @param attribute
+	 *            the attribute
 	 * @return the value
 	 */
 	public Object getValue(Object entity, String attribute);
 
 	/**
 	 * Sets the value.
-	 *
-	 * @param entity the entity
-	 * @param attribute the attribute
-	 * @param value the value
-	 * @param type edit, update or remove operation
+	 * 
+	 * @param entity
+	 *            the entity
+	 * @param attribute
+	 *            the attribute
+	 * @param value
+	 *            the value
+	 * @param type
+	 *            edit, update or remove operation
 	 * @return true, if successful
 	 */
-	public boolean setValue(Object entity, String attribute, Object value, String type);
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type);
 }

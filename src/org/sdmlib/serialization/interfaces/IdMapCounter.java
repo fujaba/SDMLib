@@ -34,56 +34,60 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public interface IdMapCounter {
 	/**
 	 * Sets the prefix for The Id of Elements
-	 *
-	 * @param sessionId the new prefix id
+	 * 
+	 * @param sessionId
+	 *            the new prefix id
 	 */
 	public void setPrefixId(String sessionId);
-	
+
 	/**
 	 * @return the current sessionid
 	 */
 	public String getPrefixId();
-	
+
 	/**
 	 * Sets the splitter for The session id
-	 *
-	 * @param Character the new splitter character for the session id
+	 * 
+	 * @param Character
+	 *            the new splitter character for the session id
 	 */
 	public void setSplitter(char splitter);
-	
+
 	/**
 	 * @return the current splitterString
 	 */
 	public char getSplitter();
-	
-	
+
 	/**
 	 * Gets the id.
-	 *
-	 * @param obj the obj
+	 * 
+	 * @param obj
+	 *            the obj
 	 * @return the id
 	 */
 	public String getId(Object obj);
-	
+
 	/**
 	 * Read id.
-	 *
-	 * @param id the last id from Message
+	 * 
+	 * @param id
+	 *            the last id from Message
 	 */
 	public void readId(String id);
-	
+
 	/**
 	 * @return if Id must seriasable
 	 */
 	public boolean isId();
-	
+
 	/**
 	 * @return the Prio Object for checking errors
 	 */
 	public Object getPrio();
 
 	/**
-	 * @param Enable or disable the ID generating
+	 * @param Enable
+	 *            or disable the ID generating
 	 */
 	public void enableId(boolean value);
 }

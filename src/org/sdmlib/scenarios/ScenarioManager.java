@@ -52,11 +52,11 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.sdmlib.scenarios.creators.KanbanEntryCreator;
 import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonArraySorted;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdComparator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.serialization.json.JsonSortedArray;
 
 public class ScenarioManager 
 {
@@ -203,7 +203,7 @@ public class ScenarioManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-      JsonSortedArray jsonSortedArray = new JsonSortedArray(new JsonIdComparator(), JsonIdMap.ID);
+	   JsonArraySorted jsonSortedArray = new JsonArraySorted(new JsonIdComparator());
 	   JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, new JsonFilter());
 	   String jsonString = jsonArray.toString(2);
      

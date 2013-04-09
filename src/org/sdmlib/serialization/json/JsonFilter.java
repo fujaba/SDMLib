@@ -39,40 +39,41 @@ import org.sdmlib.serialization.IdMapFilter;
  * serialization  
  */
 public class JsonFilter extends IdMapFilter{
-	public static final String PROPERTY_ITEMS="items";
-	
+	public static final String PROPERTY_ITEMS = "items";
+
 	/** The Constant REFERENCE. */
-	public static final String REF_SUFFIX= "_ref";
-	
+	public static final String REF_SUFFIX = "_ref";
+
 	/** The Constant REFERENCE. */
-	public static final String REFERENCE= "#";
+	public static final String REFERENCE = "#";
 	/** The Constant Cut the Association. */
-	public static final String CUTREFERENCE= "-";
+	public static final String CUTREFERENCE = "-";
 
 	/** Check if property starts with Model-Prefix */
-	private boolean checkModelValue=true;
-	
+	private boolean checkModelValue = true;
+
 	/** The objects and exclusive properties. */
 	private LinkedHashSet<String> items;
-	
+
 	/**
 	 * Instantiates a new json filter.
 	 */
 	public JsonFilter() {
 
 	}
-	
+
 	/**
 	 * Instantiates a new json filter.
 	 */
 	public JsonFilter(boolean checkModelValue) {
-		this.checkModelValue=checkModelValue;
+		this.checkModelValue = checkModelValue;
 	}
-	
+
 	/**
 	 * Instantiates a new json filter.
-	 *
-	 * @param deep the deep
+	 * 
+	 * @param deep
+	 *            the deep
 	 */
 	public JsonFilter(int deep) {
 		this.deep = deep;
@@ -80,17 +81,19 @@ public class JsonFilter extends IdMapFilter{
 
 	/**
 	 * Instantiates a new json filter.
-	 *
-	 * @param filter the filter
+	 * 
+	 * @param filter
+	 *            the filter
 	 */
 	public JsonFilter(String... filters) {
 		items = new LinkedHashSet<String>();
-		for(String value : filters){
-			if(value!=null && value.length()>0){
-				if(value.startsWith(REFERENCE)||value.startsWith(CUTREFERENCE)){
+		for (String value : filters) {
+			if (value != null && value.length() > 0) {
+				if (value.startsWith(REFERENCE)
+						|| value.startsWith(CUTREFERENCE)) {
 					items.add(value);
-				}else{
-					items.add(REFERENCE+value);
+				} else {
+					items.add(REFERENCE + value);
 				}
 			}
 		}
@@ -98,9 +101,11 @@ public class JsonFilter extends IdMapFilter{
 
 	/**
 	 * Instantiates a new json filter.
-	 *
-	 * @param deep the deep
-	 * @param filter the filter
+	 * 
+	 * @param deep
+	 *            the deep
+	 * @param filter
+	 *            the filter
 	 */
 	public JsonFilter(int deep, String... filters) {
 		this(filters);
@@ -108,52 +113,56 @@ public class JsonFilter extends IdMapFilter{
 	}
 
 	/**
-	 * Adds the object or Attribute
-	 * Starts with # {@link #REFERENCE}
-	 * or - {@link #CUTREFERENCE}
-	 *
-	 * @param id the id
+	 * Adds the object or Attribute Starts with # {@link #REFERENCE} or -
+	 * {@link #CUTREFERENCE}
+	 * 
+	 * @param id
+	 *            the id
 	 * @return true, if successful
 	 */
-	public boolean add(String typ, String... value){
-		if(value!=null && (REFERENCE.equals(typ)|| CUTREFERENCE.equals(typ))){
-			if(items==null){
+	public boolean add(String typ, String... value) {
+		if (value != null
+				&& (REFERENCE.equals(typ) || CUTREFERENCE.equals(typ))) {
+			if (items == null) {
 				items = new LinkedHashSet<String>();
 			}
-			for(String item : value){
-				if(item!=null){
-					items.add(typ+item);
+			for (String item : value) {
+				if (item != null) {
+					items.add(typ + item);
 				}
 			}
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean add(String value){
-		if(value!=null){
-			String typ=value.substring(0,1);
+
+	public boolean add(String value) {
+		if (value != null) {
+			String typ = value.substring(0, 1);
 			return add(typ, value.substring(1));
 		}
 		return false;
 	}
-	
-	public JsonFilter with(String typ, String... value){
+
+	public JsonFilter with(String typ, String... value) {
 		add(typ, value);
 		return this;
 	}
-	
-	public void setEnableModelCheck(boolean value){
-		this.checkModelValue=value;
+
+	public void setEnableModelCheck(boolean value) {
+		this.checkModelValue = value;
 	}
-	
-	public boolean checkProperty(IdMap map, String typ, String property, Object value){
-		if(items!=null){
-			if (items.contains(typ+property)) {
+
+	public boolean checkProperty(IdMap map, String typ, String property,
+			Object value) {
+		if (items != null) {
+			if (items.contains(typ + property)) {
 				return false;
 			} else {
 				String sessionIdMap = map.getPrefixSession();
-				if(isId && (!checkModelValue || property.startsWith(sessionIdMap))){
+				if (isId
+						&& (!checkModelValue || property
+								.startsWith(sessionIdMap))) {
 					String key = map.getKey(value);
 					if (items.contains(typ + key)) {
 						return false;
@@ -163,44 +172,48 @@ public class JsonFilter extends IdMapFilter{
 		}
 		return true;
 	}
-	
-	/* (non-Javadoc)
-	 * @see de.uni.kassel.peermessage.IdMapFilter#isConvertable(de.uni.kassel.peermessage.IdMap, java.lang.Object, java.lang.String, java.lang.Object)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.uni.kassel.peermessage.IdMapFilter#isConvertable(de.uni.kassel.peermessage
+	 * .IdMap, java.lang.Object, java.lang.String, java.lang.Object)
 	 */
 	@Override
-	public boolean isConvertable(IdMap map, Object entity, String property, Object value, boolean isMany) {
-		if (!super.isConvertable(map, entity, property, value, isMany)){
+	public boolean isConvertable(IdMap map, Object entity, String property,
+			Object value, boolean isMany) {
+		if (!super.isConvertable(map, entity, property, value, isMany)) {
 			return false;
 		}
-		if(property.endsWith(REF_SUFFIX)){
+		if (property.endsWith(REF_SUFFIX)) {
 			return false;
 		}
-		
-		if(!checkProperty(map, CUTREFERENCE, property, value)){
+
+		if (!checkProperty(map, CUTREFERENCE, property, value)) {
 			return false;
 		}
-		
-		if(!checkProperty(map, REFERENCE, property, value)){
+
+		if (!checkProperty(map, REFERENCE, property, value)) {
 			return false;
 		}
-		
-		if(!isManySerialization()&&isMany){
+
+		if (!isManySerialization() && isMany) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isRegard(IdMap map, Object entity, String property,
-	      Object value, boolean isMany)
-	{
-	     if(!checkProperty(map, CUTREFERENCE, property, value)){
-	         return false;
-	      }
-	   
-	   return super.isRegard(map, entity, property, value, isMany);
+			Object value, boolean isMany) {
+		if (!checkProperty(map, CUTREFERENCE, property, value)) {
+			return false;
+		}
+
+		return super.isRegard(map, entity, property, value, isMany);
 	}
-	
+
 	public Object get(String attrName) {
 		int pos = attrName.indexOf(".");
 		String attribute = attrName;
@@ -213,9 +226,9 @@ public class JsonFilter extends IdMapFilter{
 		}
 		return super.get(attrName);
 	}
-	
-	public String[] getItems(){
-		if(items==null){
+
+	public String[] getItems() {
+		if (items == null) {
 			return null;
 		}
 		return this.items.toArray(new String[this.items.size()]);
@@ -223,10 +236,10 @@ public class JsonFilter extends IdMapFilter{
 
 	public boolean set(String attribute, Object value) {
 		if (PROPERTY_ITEMS.equalsIgnoreCase(attribute)) {
-			if(value instanceof String){
-				return add(""+value);
-			}else if(value instanceof String[]){
-				for(String item : (String[]) value){
+			if (value instanceof String) {
+				return add("" + value);
+			} else if (value instanceof String[]) {
+				for (String item : (String[]) value) {
 					add(item);
 				}
 				return true;

@@ -35,69 +35,74 @@ import java.util.HashMap;
  */
 public class CloneFilter extends IdMapFilter{
 	/** The Constant OBJECT. */
-	public static final int OBJECT=0;
-	
+	public static final int OBJECT = 0;
+
 	/** The Constant SIMPLE. */
-	public static final int SIMPLE=1;
-	
+	public static final int SIMPLE = 1;
+
 	/** The Constant FULL. */
-	public static final int FULL=2;
-	
+	public static final int FULL = 2;
+
 	/** The typ. */
 	private int typ;
-	
+
 	/** The assocs. */
-	private HashMap<Object, Object> assocs=new HashMap<Object, Object>();
-	
+	private HashMap<Object, Object> assocs = new HashMap<Object, Object>();
+
 	/**
 	 * Instantiates a new clone filter.
 	 */
-	public CloneFilter(){
-		
+	public CloneFilter() {
+
 	}
-	
+
 	/**
 	 * Instantiates a new clone filter.
-	 *
-	 * @param typ the typ
+	 * 
+	 * @param typ
+	 *            the typ
 	 */
-	public CloneFilter(int typ){
+	public CloneFilter(int typ) {
 		setTyp(typ);
 	}
-	
+
 	/**
 	 * Adds the object.
-	 *
-	 * @param reference the reference
-	 * @param newObject the new object
+	 * 
+	 * @param reference
+	 *            the reference
+	 * @param newObject
+	 *            the new object
 	 */
-	public void addObject(Object reference, Object newObject){
+	public void addObject(Object reference, Object newObject) {
 		this.assocs.put(reference, newObject);
 	}
-	
+
 	/**
 	 * Checks for object.
-	 *
-	 * @param objects the objects
+	 * 
+	 * @param objects
+	 *            the objects
 	 * @return true, if successful
 	 */
-	public boolean hasObject(Object objects){
+	public boolean hasObject(Object objects) {
 		return this.assocs.containsKey(objects);
 	}
-	
+
 	/**
 	 * Gets the object.
-	 *
-	 * @param objects the objects
+	 * 
+	 * @param objects
+	 *            the objects
 	 * @return the object
 	 */
-	public Object getObject(Object objects){
+	public Object getObject(Object objects) {
 		return this.assocs.get(objects);
 	}
-	
+
 	/**
 	 * Gets the typ.
-	 *
+	 * 
 	 * @return the typ
 	 */
 	public int getTyp() {
@@ -106,13 +111,14 @@ public class CloneFilter extends IdMapFilter{
 
 	/**
 	 * Sets the typ.
-	 *
-	 * @param typ the new typ
+	 * 
+	 * @param typ
+	 *            the new typ
 	 */
 	public void setTyp(int typ) {
 		this.typ = typ;
-		if(typ==OBJECT){
-			this.deep=LASTDEEP;
+		if (typ == OBJECT) {
+			this.deep = LASTDEEP;
 		}
 	}
 }

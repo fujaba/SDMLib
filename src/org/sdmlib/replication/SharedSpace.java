@@ -21,34 +21,29 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.LinkedBlockingQueue;
-
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.replication.creators.ReplicationChangeSet;
-import org.sdmlib.replication.creators.SharedSpaceSet;
-import org.sdmlib.replication.creators.ReplicationChannelSet;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import org.sdmlib.replication.creators.ReplicationChangeSet;
+import org.sdmlib.replication.creators.ReplicationChannelSet;
+import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 public class SharedSpace extends Thread 
 implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
@@ -411,9 +406,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    private int logLevel = 1;
 
    @Override
-   public boolean sendUpdateMsg(Object oldObj, Object newObject,
-         JsonObject jsonObject)
-   {
+	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
+			Object newObject, JsonObject jsonObject) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -433,8 +427,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          JsonObject jsonUpdate = (JsonObject) object;
          for (Iterator<String> iter = jsonUpdate.keys(); iter.hasNext();)
          {
-            String property = iter.next();
-            change.withTargetProperty(property);
+            String prop = iter.next();
+            change.withTargetProperty(prop);
             break;
          }
       }
@@ -829,8 +823,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    }
 
    @Override
-   public boolean readMessages(String type, Object value, JsonObject props)
-   {
+	public boolean readMessages(String key, Object element, Object value,
+			JsonObject props, String type) {
       return false;
    }
 
@@ -840,14 +834,6 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       return false;
    }
-
-   @Override
-   public boolean readMessageObj(Object element, String key, Object value,
-         String typ)
-   {
-      return false;
-   } 
-
 
    //==========================================================================
 
@@ -939,5 +925,12 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return this;
    }
 
+	@Override
+	public boolean isReadMessages(String key, Object element, JsonObject props,
+			String type) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
 

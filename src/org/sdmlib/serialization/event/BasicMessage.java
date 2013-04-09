@@ -34,10 +34,9 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
  * The Class BasicMessage.
  */
 public class BasicMessage implements PeerMessage {
-	
 	/** The Constant PROPERTY_VALUE. */
 	public static final String PROPERTY_VALUE = "value";
-	
+
 	/** The value. */
 	private String value;
 
@@ -50,8 +49,9 @@ public class BasicMessage implements PeerMessage {
 
 	/**
 	 * Instantiates a new basic message.
-	 *
-	 * @param message the message
+	 * 
+	 * @param message
+	 *            the message
 	 */
 	public BasicMessage(String message) {
 		setValue(message);
@@ -89,7 +89,7 @@ public class BasicMessage implements PeerMessage {
 
 	/**
 	 * Gets the value.
-	 *
+	 * 
 	 * @return the value
 	 */
 	public String getValue() {
@@ -98,8 +98,9 @@ public class BasicMessage implements PeerMessage {
 
 	/**
 	 * Sets the value.
-	 *
-	 * @param value the new value
+	 * 
+	 * @param value
+	 *            the new value
 	 */
 	public void setValue(String value) {
 		this.value = value;

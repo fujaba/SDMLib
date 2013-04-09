@@ -68,277 +68,285 @@ import org.sdmlib.serialization.Tokener;
  * produces the string <code>{"JSON": "Hello, World"}</code>.
  * <p>
  * The texts produced by the <code>toString</code> methods strictly conform to
- * the JSON syntax rules.
- * The constructors are more forgiving in the texts they will accept:
+ * the JSON syntax rules. The constructors are more forgiving in the texts they
+ * will accept:
  * <ul>
  * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just
- *     before the closing brace.</li>
+ * before the closing brace.</li>
  * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
- *     quote)</small>.</li>
+ * quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
- *     or single quote, and if they do not contain leading or trailing spaces,
- *     and if they do not contain any of these characters:
- *     <code>{ } [ ] / \ : , = ; #</code> and if they do not look like numbers
- *     and if they are not the reserved words <code>true</code>,
- *     <code>false</code>, or <code>null</code>.</li>
- * <li>Keys can be followed by <code>=</code> or <code>=></code> as well as
- *     by <code>:</code>.</li>
+ * or single quote, and if they do not contain leading or trailing spaces, and
+ * if they do not contain any of these characters:
+ * <code>{ } [ ] / \ : , = ; #</code> and if they do not look like numbers and
+ * if they are not the reserved words <code>true</code>, <code>false</code>, or
+ * <code>null</code>.</li>
+ * <li>Keys can be followed by <code>=</code> or <code>=></code> as well as by
+ * <code>:</code>.</li>
  * <li>Values can be followed by <code>;</code> <small>(semicolon)</small> as
- *     well as by <code>,</code> <small>(comma)</small>.</li>
+ * well as by <code>,</code> <small>(comma)</small>.</li>
  * </ul>
+ * 
  * @author JSON.org
  * @version 2011-11-24
  */
-public class JsonObject extends Entity{
-    /**
-     * Construct an empty JsonObject.
-     */
-    public JsonObject() {
-    }
-    
-    public JsonObject(String... values) {
-    	if(values.length%2==0){
-    		for(int z=0;z<values.length;z+=2){
-    			put(values[z], values[z+1]);
-    		}
-    	}
-    }
+public class JsonObject extends Entity {
+	/**
+	 * Construct an empty JsonObject.
+	 */
+	public JsonObject() {
+	}
 
-    /**
-     * Construct a JsonObject from a JSONTokener.
-     * @param x A JSONTokener object containing the source string.
-     *  or a duplicated key.
-     */
-    public JsonObject(Tokener x) {
-        this();
-        x.parseToEntity(this);
-    }
+	public JsonObject(String... values) {
+		if (values.length % 2 == 0) {
+			for (int z = 0; z < values.length; z += 2) {
+				put(values[z], values[z + 1]);
+			}
+		}
+	}
 
-    
-    public JsonObject(Entity entity){
-    	JsonTokener tokener=new JsonTokener();
-    	tokener.parseToEntity(this, entity);
-    }
-    
-    /**
-     * Construct a JsonObject from a source JSON text string.
-     * This is the most commonly used JsonObject constructor.
-     * @param source    A string beginning
-     *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-     *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-     */
-    public JsonObject(String source) {
-    	this();
-    	JsonTokener tokener = new JsonTokener(source);
-    	tokener.parseToEntity(this);
-    }
-    
-   
-    /**
-     * Construct a JsonObject from a Map.
-     *
-     * @param map A map object that can be used to initialize the contents of
-     *  the JsonObject.
-     */
-    public JsonObject(Map<String, Object> map) {
-    	getMap();
-        if (map != null) {
-        	Iterator<Entry<String, Object>> i = map.entrySet().iterator();
-            while (i.hasNext()) {
-            	Entry<String, Object> e = i.next();
-                Object value = e.getValue();
-                if (value != null) {
-                    this.put(e.getKey(), EntityUtil.wrap(value, this));
-                }
-            }
-        }
-    }
+	/**
+	 * Construct a JsonObject from a JSONTokener.
+	 * 
+	 * @param x
+	 *            A JSONTokener object containing the source string. or a
+	 *            duplicated key.
+	 */
+	public JsonObject(Tokener x) {
+		this();
+		x.parseToEntity(this);
+	}
 
-    /**
-     * Produce a string from a double. The string "null" will be returned if
-     * the number is not finite.
-     * @param  d A double.
-     * @return A String.
-     */
-    public static String doubleToString(double d) {
-        if (Double.isInfinite(d) || Double.isNaN(d)) {
-            return "null";
-        }
-// Shave off trailing zeros and decimal point, if possible.
-        String string = Double.toString(d);
-        if (string.indexOf('.') > 0 && string.indexOf('e') < 0 &&
-                string.indexOf('E') < 0) {
-            while (string.endsWith("0")) {
-                string = string.substring(0, string.length() - 1);
-            }
-            if (string.endsWith(".")) {
-                string = string.substring(0, string.length() - 1);
-            }
-        }
-        return string;
-    }
+	public JsonObject(Entity entity) {
+		JsonTokener tokener = new JsonTokener();
+		tokener.parseToEntity(this, entity);
+	}
 
+	/**
+	 * Construct a JsonObject from a source JSON text string. This is the most
+	 * commonly used JsonObject constructor.
+	 * 
+	 * @param source
+	 *            A string beginning with <code>{</code>&nbsp;<small>(left
+	 *            brace)</small> and ending with <code>}</code>
+	 *            &nbsp;<small>(right brace)</small>.
+	 */
+	public JsonObject(String source) {
+		this();
+		JsonTokener tokener = new JsonTokener(source);
+		tokener.parseToEntity(this);
+	}
 
-    /**
-     * Get the JsonArray value associated with a key.
-     *
-     * @param key   A key string.
-     * @return      A JsonArray which is the value.
-     * @throws      RuntimeExpetion if the key is not found or
-     *  if the value is not a JsonArray.
-     */
-    public JsonArray getJsonArray(String key) {
-        Object object = this.get(key);
-        if (object instanceof JsonArray) {
-            return (JsonArray)object;
-        }
-        throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-                "] is not a JsonArray.");
-    }
+	/**
+	 * Construct a JsonObject from a Map.
+	 * 
+	 * @param map
+	 *            A map object that can be used to initialize the contents of
+	 *            the JsonObject.
+	 */
+	public JsonObject(Map<String, Object> map) {
+		getMap();
+		if (map != null) {
+			Iterator<Entry<String, Object>> i = map.entrySet().iterator();
+			while (i.hasNext()) {
+				Entry<String, Object> e = i.next();
+				Object value = e.getValue();
+				if (value != null) {
+					this.put(e.getKey(), EntityUtil.wrap(value, this));
+				}
+			}
+		}
+	}
 
+	/**
+	 * Produce a string from a double. The string "null" will be returned if the
+	 * number is not finite.
+	 * 
+	 * @param d
+	 *            A double.
+	 * @return A String.
+	 */
+	public static String doubleToString(double d) {
+		if (Double.isInfinite(d) || Double.isNaN(d)) {
+			return "null";
+		}
+		// Shave off trailing zeros and decimal point, if possible.
+		String string = Double.toString(d);
+		if (string.indexOf('.') > 0 && string.indexOf('e') < 0
+				&& string.indexOf('E') < 0) {
+			while (string.endsWith("0")) {
+				string = string.substring(0, string.length() - 1);
+			}
+			if (string.endsWith(".")) {
+				string = string.substring(0, string.length() - 1);
+			}
+		}
+		return string;
+	}
 
-    /**
-     * Get the JsonObject value associated with a key.
-     *
-     * @param key   A key string.
-     * @return      A JsonObject which is the value.
-     * @throws      RuntimeException if the key is not found or
-     *  if the value is not a JsonObject.
-     */
-    public JsonObject getJsonObject(String key) {
-        Object object = this.get(key);
-        if (object instanceof JsonObject) {
-            return (JsonObject)object;
-        }
-        throw new RuntimeException("JsonObject[" + EntityUtil.quote(key) +
-                "] is not a JsonObject.");
-    }
+	/**
+	 * Get the JsonArray value associated with a key.
+	 * 
+	 * @param key
+	 *            A key string.
+	 * @return A JsonArray which is the value.
+	 * @throws RuntimeExpetion
+	 *             if the key is not found or if the value is not a JsonArray.
+	 */
+	public JsonArray getJsonArray(String key) {
+		Object object = this.get(key);
+		if (object instanceof JsonArray) {
+			return (JsonArray) object;
+		}
+		throw new RuntimeException("JsonObject[" + EntityUtil.quote(key)
+				+ "] is not a JsonArray.");
+	}
 
-    /**
-     * Make a JSON text of this JsonObject. For compactness, no whitespace
-     * is added. If this would not result in a syntactically correct JSON text,
-     * then null will be returned instead.
-     * <p>
-     * Warning: This method assumes that the data structure is acyclical.
-     *
-     * @return a printable, displayable, portable, transmittable
-     *  representation of the object, beginning
-     *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-     *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-     */
-    @Override
+	/**
+	 * Get the JsonObject value associated with a key.
+	 * 
+	 * @param key
+	 *            A key string.
+	 * @return A JsonObject which is the value.
+	 * @throws RuntimeException
+	 *             if the key is not found or if the value is not a JsonObject.
+	 */
+	public JsonObject getJsonObject(String key) {
+		Object object = this.get(key);
+		if (object instanceof JsonObject) {
+			return (JsonObject) object;
+		}
+		throw new RuntimeException("JsonObject[" + EntityUtil.quote(key)
+				+ "] is not a JsonObject.");
+	}
+
+	/**
+	 * Make a JSON text of this JsonObject. For compactness, no whitespace is
+	 * added. If this would not result in a syntactically correct JSON text,
+	 * then null will be returned instead.
+	 * <p>
+	 * Warning: This method assumes that the data structure is acyclical.
+	 * 
+	 * @return a printable, displayable, portable, transmittable representation
+	 *         of the object, beginning with <code>{</code>&nbsp;<small>(left
+	 *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
+	 *         brace)</small>.
+	 */
+	@Override
 	public String toString() {
-    	int length = this.size();
-        if (length == 0) {
-            return "{}";
-        }
-        Map<String, Object> map = getMap();
+		int length = this.size();
+		if (length == 0) {
+			return "{}";
+		}
+		Map<String, Object> map = getMap();
 
-        if(!isVisible()){
-        	return "{Item with "+map.size()+" values}";
-        }
-        
-        Iterator<String> keys = map.keySet().iterator();
-       
-        Object key= keys.next();
-        Object value=map.get(key);
-        StringBuilder sb = new StringBuilder();
-        sb = new StringBuilder("{");
-        sb.append(EntityUtil.quote(key.toString()));
-        sb.append(":");
-        sb.append(EntityUtil.valueToString(value, false, this));
-        while (keys.hasNext()) {
-            key = keys.next();
-            sb.append(",");
-            sb.append(EntityUtil.quote(key.toString()));
-            sb.append(":");
-            sb.append(EntityUtil.valueToString(map.get(key), false, this));
-        }
-        sb.append("}");
-        return sb.toString();
-    }
+		if (!isVisible()) {
+			return "{Item with " + map.size() + " values}";
+		}
 
-    /**
-     * Make a prettyprinted JSON text of this JsonObject.
-     * <p>
-     * Warning: This method assumes that the data structure is acyclical.
-     * @param indentFactor The number of spaces to add to each level of
-     *  indentation.
-     * @return a printable, displayable, portable, transmittable
-     *  representation of the object, beginning
-     *  with <code>{</code>&nbsp;<small>(left brace)</small> and ending
-     *  with <code>}</code>&nbsp;<small>(right brace)</small>.
-     */
-    @Override
-	public String toString(int indentFactor){
-    	return toString(indentFactor, 0);
-    }
+		Iterator<String> keys = map.keySet().iterator();
 
-    @Override
+		Object key = keys.next();
+		Object value = map.get(key);
+		StringBuilder sb = new StringBuilder();
+		sb = new StringBuilder("{");
+		sb.append(EntityUtil.quote(key.toString()));
+		sb.append(":");
+		sb.append(EntityUtil.valueToString(value, false, this));
+		while (keys.hasNext()) {
+			key = keys.next();
+			sb.append(",");
+			sb.append(EntityUtil.quote(key.toString()));
+			sb.append(":");
+			sb.append(EntityUtil.valueToString(map.get(key), false, this));
+		}
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Make a prettyprinted JSON text of this JsonObject.
+	 * <p>
+	 * Warning: This method assumes that the data structure is acyclical.
+	 * 
+	 * @param indentFactor
+	 *            The number of spaces to add to each level of indentation.
+	 * @return a printable, displayable, portable, transmittable representation
+	 *         of the object, beginning with <code>{</code>&nbsp;<small>(left
+	 *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
+	 *         brace)</small>.
+	 */
+	@Override
+	public String toString(int indentFactor) {
+		return toString(indentFactor, 0);
+	}
+
+	@Override
 	public String toString(int indentFactor, int indent) {
-        int length = this.size();
-        if (length == 0) {
-            return "{}";
-        }
+		int length = this.size();
+		if (length == 0) {
+			return "{}";
+		}
 
-        Map<String, Object> map = getMap();
-        
-        if(!isVisible()){
-        	return "{"+map.size()+" values}";
-        }
-        
-        Iterator<String> keys = map.keySet().iterator();
-       
-        int newindent = indent + indentFactor;
-        String prefix="";
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < indentFactor; i++) {
-        	sb.append(' ');
-        }
-        String step=sb.toString();
-        if(indent>0){
-        	sb = new StringBuilder();
-            for(int i = 0; i < indent; i+=indentFactor) {
-            	sb.append(step);
-            }
-            prefix=CRLF+sb.toString();
-    	}else if(indentFactor>0){
-    		prefix=CRLF;
-    	}
-        
-        Object key= keys.next();
-        Object value=map.get(key);
-        if(length==1&&!(value instanceof Entity)){
-        	sb = new StringBuilder("{");
-        }else{
-        	sb = new StringBuilder("{"+prefix+step);
-        }
-       
-        sb.append(EntityUtil.quote(key.toString()));
-        sb.append(":");
-        sb.append(EntityUtil.valueToString(value, indentFactor, newindent, false, this));
-        while (keys.hasNext()) {
-            key = keys.next();
-            sb.append(","+prefix+step);
-            sb.append(EntityUtil.quote(key.toString()));
-            sb.append(":");
-            sb.append(EntityUtil.valueToString(map.get(key), indentFactor,
-            		newindent, false, this));
-        }
-        if(length==1&&!(value instanceof Entity)){
-        	sb.append("}");
-        }else{
-        	sb.append(prefix+"}");
-        }
-        return sb.toString();
-    }
-    
-    public boolean setAllValue(String value){
-    	this.getMap().clear();
-    	JsonTokener tokener = new JsonTokener(value);
-    	tokener.parseToEntity(this);
-    	return true;
-    }
+		Map<String, Object> map = getMap();
+
+		if (!isVisible()) {
+			return "{" + map.size() + " values}";
+		}
+
+		Iterator<String> keys = map.keySet().iterator();
+
+		int newindent = indent + indentFactor;
+		String prefix = "";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < indentFactor; i++) {
+			sb.append(' ');
+		}
+		String step = sb.toString();
+		if (indent > 0) {
+			sb = new StringBuilder();
+			for (int i = 0; i < indent; i += indentFactor) {
+				sb.append(step);
+			}
+			prefix = CRLF + sb.toString();
+		} else if (indentFactor > 0) {
+			prefix = CRLF;
+		}
+
+		Object key = keys.next();
+		Object value = map.get(key);
+		if (length == 1 && !(value instanceof Entity)) {
+			sb = new StringBuilder("{");
+		} else {
+			sb = new StringBuilder("{" + prefix + step);
+		}
+
+		sb.append(EntityUtil.quote(key.toString()));
+		sb.append(":");
+		sb.append(EntityUtil.valueToString(value, indentFactor, newindent,
+				false, this));
+		while (keys.hasNext()) {
+			key = keys.next();
+			sb.append("," + prefix + step);
+			sb.append(EntityUtil.quote(key.toString()));
+			sb.append(":");
+			sb.append(EntityUtil.valueToString(map.get(key), indentFactor,
+					newindent, false, this));
+		}
+		if (length == 1 && !(value instanceof Entity)) {
+			sb.append("}");
+		} else {
+			sb.append(prefix + "}");
+		}
+		return sb.toString();
+	}
+
+	public boolean setAllValue(String value) {
+		this.getMap().clear();
+		JsonTokener tokener = new JsonTokener(value);
+		tokener.parseToEntity(this);
+		return true;
+	}
 
 	/**
 	 * Get a new Instance of JsonArray
@@ -348,7 +356,7 @@ public class JsonObject extends Entity{
 		return new JsonArray();
 	}
 
-	/** 
+	/**
 	 * Get a new Instance of JsonObject
 	 */
 	@Override
