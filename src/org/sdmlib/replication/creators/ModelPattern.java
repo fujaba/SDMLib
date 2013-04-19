@@ -21,6 +21,16 @@ import org.sdmlib.replication.creators.TaskPO;
 import org.sdmlib.replication.Task;
 import org.sdmlib.replication.creators.LogEntryPO;
 import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.creators.TaskFlowBoardPO;
+import org.sdmlib.replication.TaskFlowBoard;
+import org.sdmlib.replication.creators.LanePO;
+import org.sdmlib.replication.Lane;
+import org.sdmlib.replication.creators.StepPO;
+import org.sdmlib.replication.Step;
+import org.sdmlib.replication.creators.ExecutorPO;
+import org.sdmlib.replication.Executor;
+import org.sdmlib.replication.creators.BoardTaskPO;
+import org.sdmlib.replication.BoardTask;
 
 public class ModelPattern extends Pattern
 {
@@ -275,7 +285,128 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public TaskFlowBoardPO hasElementTaskFlowBoardPO()
+   {
+      TaskFlowBoardPO value = new TaskFlowBoardPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public TaskFlowBoardPO hasElementTaskFlowBoardPO(TaskFlowBoard hostGraphObject)
+   {
+      TaskFlowBoardPO value = new TaskFlowBoardPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public LanePO hasElementLanePO()
+   {
+      LanePO value = new LanePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public LanePO hasElementLanePO(Lane hostGraphObject)
+   {
+      LanePO value = new LanePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public StepPO hasElementStepPO()
+   {
+      StepPO value = new StepPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public StepPO hasElementStepPO(Step hostGraphObject)
+   {
+      StepPO value = new StepPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public ExecutorPO hasElementExecutorPO()
+   {
+      ExecutorPO value = new ExecutorPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ExecutorPO hasElementExecutorPO(Executor hostGraphObject)
+   {
+      ExecutorPO value = new ExecutorPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public BoardTaskPO hasElementBoardTaskPO()
+   {
+      BoardTaskPO value = new BoardTaskPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public BoardTaskPO hasElementBoardTaskPO(BoardTask hostGraphObject)
+   {
+      BoardTaskPO value = new BoardTaskPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

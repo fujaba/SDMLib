@@ -400,13 +400,21 @@ public class Parser
 
    private void parseMemberDecl()
    {
-      // modifiers ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
+      // modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
       
       // TODO: annotations
       
       int startPos = currentRealToken.startPos;
       
       String modifiers = parseModifiers();
+      
+      if (currentRealTokenEquals("<"))
+      {
+         // generic type decl
+         skip("<");
+         nextRealToken();
+         skip(">");
+      }
       
       if (currentRealTokenEquals(CLASS))
       {

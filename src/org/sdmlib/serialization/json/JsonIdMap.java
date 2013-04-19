@@ -43,11 +43,14 @@ import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.creator.JsonArrayCreator;
 import org.sdmlib.serialization.json.creator.JsonObjectCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 /**
- * The Class JsonIdMap.
+ * The Class JsonIdMap is used to store object ids for serialization and deserialization.
  */
-public class JsonIdMap extends IdMap{
+
+public class JsonIdMap extends IdMap 
+{
 	/** The Constant CLASS. */
 	public static final String CLASS = "class";
 
@@ -71,7 +74,8 @@ public class JsonIdMap extends IdMap{
 	/**
 	 * Instantiates a new json id map.
 	 */
-	public JsonIdMap() {
+	public JsonIdMap() 
+	{
 		super();
 		this.addCreator(new DateCreator());
 		this.addCreator(new JsonObjectCreator());

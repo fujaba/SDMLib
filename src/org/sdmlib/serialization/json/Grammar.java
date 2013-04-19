@@ -6,7 +6,15 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class Grammar {
+/**
+ *  The Grammer class is used to parse json and xml strings
+ * 
+ * @author zuendorf
+ *
+ */
+
+public class Grammar 
+{
 	/**
 	 * @param jsonObject
 	 * @return the props of theJsonObject

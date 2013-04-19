@@ -70,6 +70,8 @@ public class ClientInitTask implements Runnable
       
       chatSpace.loadHistoryFromFile();
       
+      // chatSpace.resync();
+      
       if (chatRoot.getMsgs().size() == 0)
       {
          ChatMsg msg = new ChatMsg().withText("Hello")

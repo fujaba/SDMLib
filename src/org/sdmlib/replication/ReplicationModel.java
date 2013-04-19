@@ -68,6 +68,24 @@ public class ReplicationModel
             "changeMsg", R.STRING
                );
       
+      // replicated task flow model
+      Clazz taskFlowBoard = model.createClazz("TaskFlowBoard");
+      
+      Clazz lane = taskFlowBoard.createClassAndAssoc("Lane", "lanes", R.MANY, "board", R.ONE)
+            .withAttributes("name", R.STRING);
+      
+      Clazz step = taskFlowBoard.createClassAndAssoc("Step", "steps", R.MANY, "board", R.ONE)
+            .withAttributes("name", R.STRING);
+      
+      Clazz executor = step.createClassAndAssoc("Executor", "executor", R.ONE, "step", R.ONE);
+
+      Clazz boardTask = step.createClassAndAssoc("BoardTask", "tasks", R.MANY, "currentStep", R.ONE)
+      .withSuperClass(task)
+      .withAttributes("name", R.STRING);
+      
+      lane.withAssoc(boardTask, "tasks", R.MANY, "lane", R.ONE);
+      
+      
       model.generate("src");
       
       scenario.addImage(model.dumpClassDiag("src", "ReplicationModel01"));

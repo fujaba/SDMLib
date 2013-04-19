@@ -92,7 +92,8 @@
         {"id":"KE.K217"},
         {"id":"KE.K221"},
         {"id":"KE.K225"},
-        {"id":"KE.K227"}
+        {"id":"KE.K227"},
+        {"id":"KE.K229"}
       ]
     }
   },
@@ -857,6 +858,21 @@
         {"id":"KE.L228"}
       ],
       "name":"ReplicationChatModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":0,
+      "hoursSpend":0,
+      "parent":{"id":"KE.K1"}
+    }
+  },
+  {
+    "id":"KE.K229",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "logEntries":[
+        {"id":"KE.L230"}
+      ],
+      "name":"MauMauModel",
       "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":0,
@@ -3391,6 +3407,19 @@
       "hoursRemainingInPhase":0,
       "hoursRemainingInTotal":0,
       "kanbanEntry":{"id":"KE.K227"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L230",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"09.04.2013 12:00:00",
+      "hoursSpend":0,
+      "hoursRemainingInPhase":0,
+      "hoursRemainingInTotal":0,
+      "kanbanEntry":{"id":"KE.K229"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

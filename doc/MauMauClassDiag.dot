@@ -1,0 +1,24 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _MauMau [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/examples/replication/maumau/MauMau.java">MauMau</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Card [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/examples/replication/maumau/Card.java">Card</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>suit :Suit</td></tr> <tr><td align='left'>value :Value</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Holder [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/examples/replication/maumau/Holder.java">Holder</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Player [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/examples/replication/maumau/Player.java">Player</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _Holder ->  _Player [dir = "back" arrowtail = "empty"];
+    _MauMau -> _Card [headlabel = "cards *" taillabel = "game" arrowhead = "none" ];
+    _MauMau -> _Holder [headlabel = "deck" taillabel = "deckOwner" arrowhead = "none" ];
+    _Holder -> _Card [headlabel = "cards *" taillabel = "holder" arrowhead = "none" ];
+    _MauMau -> _Holder [headlabel = "stack" taillabel = "stackOwner *" arrowhead = "none" ];
+    _MauMau -> _Player [headlabel = "players *" taillabel = "game" arrowhead = "none" ];
+    _Player -> _Player [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
+    _MauMau -> _Player [headlabel = "currentMove" taillabel = "assignment" arrowhead = "none" ];
+    _Card -> _Suit [headlabel = "suit" taillabel = "" arrowhead = "vee" ];
+    _Card -> _Value [headlabel = "value" taillabel = "" arrowhead = "vee" ];
+}

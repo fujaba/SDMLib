@@ -925,6 +925,47 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return this;
    }
 
+
+   public <T> T glueObjectsAtId(String id, T newObj)
+   {
+      // id already in use? 
+      Object oldObj = map.getObject(id);
+      
+      if (oldObj == null)
+      {
+         map.put(id, newObj);
+         return newObj;
+      }
+      else 
+      {
+         String newKey = map.getKey(newObj);
+         
+         // transfer attributes from newObj to oldObj
+         // use the newer change
+         
+         SendableEntityCreator creator = map.getCreatorClass(oldObj);
+         for (String prop : creator.getProperties())
+         {
+            Object value = creator.getValue(newObj, prop);
+            
+            if (value != null && value instanceof Collection)
+            {
+               // add all elements to oldObj
+               for (Object elem : (Collection) value)
+               {
+                  creator.setValue(oldObj, prop, elem, "");
+               }
+            }
+            else if (value != null)
+            {
+               creator.setValue(oldObj, prop, value, "");
+            }
+         }
+         
+         return (T) oldObj;
+      }
+   }
+
 	@Override
 	public boolean isReadMessages(String key, Object element, JsonObject props,
 			String type) {
