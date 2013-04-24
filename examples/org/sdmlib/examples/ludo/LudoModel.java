@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
 
@@ -50,9 +51,8 @@ public class LudoModel
       Clazz player = ludo.createClassAndAssoc("Player",
          "players", MANY,
          "game", ONE 
-         );
-         
-      player.withAttributes(
+         )
+         .withAttributes(
          "color", String.class.getSimpleName(),
          "enumColor", LudoColor.class.getCanonicalName(),
          "name", STRING,

@@ -39,6 +39,9 @@ import org.sdmlib.utils.PropertyChangeInterface;
    
 public class LudoScenario implements PropertyChangeInterface 
 {
+   private static final String RED = "red";
+
+
    @Test
    public void testLudoScenario()
    {
@@ -58,7 +61,7 @@ public class LudoScenario implements PropertyChangeInterface
       System.out.println(jsonArray.toString(3));
       
       
-      Player sabine = new Player().withName("Sabine").withColor("red").withEnumColor(LudoColor.red);
+      Player sabine = new Player().withName("Sabine").withColor(RED).withEnumColor(LudoColor.red);
       
       JsonIdMap jsonIdMapClone = CreatorCreator.createIdMap("l2");
 
@@ -70,6 +73,8 @@ public class LudoScenario implements PropertyChangeInterface
       
       Field tomStartField = tom.createStart().withColor("blue").withKind("start");
       
+      sabine.createStart().withColor(RED).withKind("start");
+      
       Field tmp = tomStartField;
       for (int i = 0; i < 4; i++)
       {
@@ -78,7 +83,7 @@ public class LudoScenario implements PropertyChangeInterface
       
       Field tomBase = tom.createBase().withColor("blue").withKind("base").withPawns(p2);
       
-      Pawn p9 = sabine.createPawns().withColor("red")
+      Pawn p9 = sabine.createPawns().withColor(RED)
             .withPos(tomStartField);
       
       
@@ -106,7 +111,7 @@ public class LudoScenario implements PropertyChangeInterface
       scenario.addCode("examples");
       
       // scenario.addObjectDiag(jsonIdMap, pawnPO);
-      scenario.add(p.dumpDiagram("LudoMoveWithMatch01"));
+      scenario.add(p.dumpDiagram("LudoMoveWithMatch01", true));
       
       scenario.markCodeStart();
       p.startDestroy();
@@ -137,7 +142,7 @@ public class LudoScenario implements PropertyChangeInterface
       // create a simple ludo scenario
       
       Player tom = new Player().withName("Tom").withColor("blue");
-      Player sabine = new Player().withName("Sabine").withColor("red");
+      Player sabine = new Player().withName("Sabine").withColor(RED);
       
       Dice dice = new Dice().withValue(6)
             .withPlayer(tom);
@@ -157,7 +162,7 @@ public class LudoScenario implements PropertyChangeInterface
       Field tomBase = new Field().withColor("blue").withKind("base").withPawns(p8);
       tom.withBase(tomBase);
       
-      Pawn p9 = new Pawn().withColor("red")
+      Pawn p9 = new Pawn().withColor(RED)
             .withPlayer(sabine)
             .withPos(tomStartField);
       
