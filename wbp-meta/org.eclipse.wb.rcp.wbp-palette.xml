@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<palette>
+	<category id="NetworkParserGUI" name="NetworkParserGUI" description="NetworkParserGUI Elements" open="true">
+		<component class="de.uniks.jism.gui.form.ModelForm"  name="Formular" />
+		<component class="de.uniks.jism.gui.form.PropertyComposite" name="Formularfield"/>
+		<component class="de.uniks.jism.gui.table.SearchTableComponent" name="Table with Search-Engine"/>
+		<component class="de.uniks.jism.gui.table.TableComponent" name="Table" />
+		<component class="de.uniks.jism.gui.table.ColumnView" name="Column"/>
+	</category>
+</palette>

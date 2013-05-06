@@ -1,42 +1,46 @@
 package de.uniks.jism.gui.form;
+
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -44,7 +48,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import de.uniks.jism.gui.table.Column;
 
 public class ModelForm extends Composite{
-	private IdMap map;
+private IdMap map;
 	private TextItems textClazz= null;
 	private LinkedHashSet<PropertyComposite> properties=new LinkedHashSet<PropertyComposite>();
 	private Composite actionComposite;
@@ -72,6 +76,10 @@ public class ModelForm extends Composite{
 		}
 	}
 	
+	public void init(IdMap map, Object item){
+		this.map = map;
+		this.item = item;
+	}
 	public void init(IdMap map, Object item, boolean addCommandBtn){
 		this.map = map;
 		this.item = item;
@@ -106,7 +114,7 @@ public class ModelForm extends Composite{
 				this.actionComposite.setLayout(new RowLayout(SWT.HORIZONTAL));
 				
 				this.saveBtn = new Button(actionComposite, SWT.NONE);
-				this.saveBtn.setText(getText("Save"));
+				this.saveBtn.setText(getText(DefaultTextItems.SAVE));
 				this.saveBtn.addSelectionListener(new SelectionListener() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -118,7 +126,7 @@ public class ModelForm extends Composite{
 					}
 				});
 				this.reloadBtn = new Button(actionComposite, SWT.NONE);
-				this.reloadBtn.setText(getText("Reload"));
+				this.reloadBtn.setText(getText(DefaultTextItems.RELOAD));
 				this.reloadBtn.addSelectionListener(new SelectionListener() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -155,6 +163,10 @@ public class ModelForm extends Composite{
 	public IdMap getMap() {
 		return map;
 	}
+	
+	public Object getItem() {
+		return item;
+	}
 
 	public TextItems getTextClazz() {
 		return textClazz;
@@ -174,7 +186,8 @@ public class ModelForm extends Composite{
 				}
 			}
 			if(iterator.hasNext()){
-				iterator.next();
+				PropertyComposite property = iterator.next();
+				property.setFocus();
 			}
 		}
 	}
@@ -182,9 +195,21 @@ public class ModelForm extends Composite{
 	public void onFocus(PropertyComposite propertyComposite) {
 		this.currentFocus=propertyComposite;
 	}
+	
 	public void onFocusLost(PropertyComposite propertyComposite) {
 		if(this.currentFocus==propertyComposite){
 			this.currentFocus=null;
+		}
+	}
+	public void onKeyReleased(KeyEvent event){
+		if(event.keyCode == SWT.CR && event.stateMask == 0){
+			// ENTER
+			focusnext();
+		}else if(event.keyCode == SWT.TAB && event.stateMask == 0){
+			// TAB
+			focusnext();
+		}else if(event.keyCode == SWT.ESC && event.stateMask == 0){
+			// EXIT
 		}
 	}
 }

@@ -1,55 +1,59 @@
 package org.sdmlib.serialization;
 
+/*
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
-/*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 /**
  * The Class Tokener.
  */
 public abstract class Tokener {
-	public final static String STOPCHARS = ",]}/\\\"[{;=# ";
+public final static String STOPCHARS = ",]}/\\\"[{;=# ";
 	/** The index. */
-	private int index;
+	protected int index;
 
 	/** The line. */
-	private int line;
+	protected int line;
 
 	/** The character. */
-	private int character;
+	protected int character;
 
 	/** The buffer. */
-	private String buffer;
+	protected String buffer;
+
+	/** The length. */
+	protected int length;
 
 	public Tokener() {
 	}
@@ -73,6 +77,7 @@ public abstract class Tokener {
 		this.buffer = value;
 		this.index = 0;
 		this.line = 0;
+		this.length = value.length();
 	}
 
 	/**
@@ -95,7 +100,7 @@ public abstract class Tokener {
 	 * @return true, if successful
 	 */
 	public boolean isEnd() {
-		return this.buffer.length() <= this.index;
+		return length <= this.index;
 	}
 
 	/**
@@ -104,7 +109,7 @@ public abstract class Tokener {
 	 * @return The next character, or 0 if past the end of the source string.
 	 */
 	public char next() {
-		if (this.index >= this.buffer.length()) {
+		if (this.index >= length) {
 			return 0;
 		}
 		char c = this.buffer.charAt(this.index);
@@ -137,11 +142,11 @@ public abstract class Tokener {
 	 */
 	public String getNextString(int n) {
 		if (n == -1) {
-			n = this.buffer.length() - this.index;
+			n = length - this.index;
 		} else if (n == 0) {
 			return "";
 		} else if (this.index + n > this.buffer.length()) {
-			n = this.buffer.length() - this.index;
+			n = length - this.index;
 		}
 
 		char[] chars = new char[n];
@@ -163,7 +168,7 @@ public abstract class Tokener {
 	 */
 	public String skipPos(int n) {
 		if (n == -1) {
-			n = this.buffer.length() - this.index;
+			n = length - this.index;
 		} else if (n == 0) {
 			return "";
 		}
@@ -329,7 +334,7 @@ public abstract class Tokener {
 		char[] character = search.toCharArray();
 		int z = 0;
 		int strLen = character.length;
-		int len = this.buffer.length();
+		int len = length;
 		char lastChar = 0;
 		if (this.index > 0 && this.index < len) {
 			lastChar = this.buffer.charAt(this.index - 1);
@@ -374,7 +379,7 @@ public abstract class Tokener {
 	 * @return the length
 	 */
 	public int getLength() {
-		return this.buffer.length();
+		return length;
 	}
 
 	/**
@@ -405,7 +410,7 @@ public abstract class Tokener {
 	 * @return the current char
 	 */
 	public char getCurrentChar() {
-		if (this.index < this.buffer.length()) {
+		if (this.index < length) {
 			return this.buffer.charAt(this.index);
 		}
 		return 0;
@@ -430,7 +435,7 @@ public abstract class Tokener {
 		int start = positions[0], end = -1;
 		if (positions.length < 2) {
 			// END IS END OF BUFFER (Exclude)
-			end = buffer.length();
+			end = length;
 		} else {
 			end = positions[1];
 		}
@@ -442,8 +447,8 @@ public abstract class Tokener {
 				start = this.index + start;
 			} else {
 				end = this.index + start;
-				if (this.index + end > this.buffer.length()) {
-					end = this.buffer.length();
+				if (this.index + end > length) {
+					end = length;
 				}
 				start = this.index;
 			}

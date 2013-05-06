@@ -1,31 +1,33 @@
 package de.uniks.jism.gui;
+
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.beans.PropertyChangeListener;
@@ -36,23 +38,24 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
 
+import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.sort.EntityComparator;
+import org.sdmlib.serialization.sort.SortingDirection;
 import org.sdmlib.utils.PropertyChangeClient;
 
-import de.uniks.jism.gui.table.CellValueCreator;
-
 public class TableList implements Collection<Object>, PeerMessage, PropertyChangeClient {
-	public static final String PROPERTY_ITEMS = "items";
-	protected TableListComparator comparator;
+public static final String PROPERTY_ITEMS = "items";
+	protected EntityComparator comparator;
 	protected TreeSet<Object> list;
 	protected HashSet<Object> index;
 	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
 	
 	public TableList(){
-		comparator=new TableListComparator();
+		comparator=new EntityComparator();
 	}
 
 	public TableList(Collection<? extends Object> items){
@@ -226,7 +229,7 @@ public class TableList implements Collection<Object>, PeerMessage, PropertyChang
 		return true;
 	}
 	
-	public void setSort(String field, SortingDirection direction, CellValueCreator cellValueCreator) {
+	public void setSort(String field, SortingDirection direction, EntityValueFactory cellValueCreator) {
 		comparator.setColumn(field);
 		comparator.setDirection(direction);
 		comparator.setCellCreator(cellValueCreator);
@@ -288,7 +291,7 @@ public class TableList implements Collection<Object>, PeerMessage, PropertyChang
 		String column = comparator.getColumn();
 		if(creator != null &&  column != null){
 			Object[] returnValues=new Object[list.size()];
-			CellValueCreator cellCreator = comparator.getCellCreator();
+			EntityValueFactory cellCreator = comparator.getCellCreator();
 			if(comparator.getDirection()==SortingDirection.ASC){
 				int pos=0;
 				for(Iterator<Object> i = iterator();i.hasNext();){

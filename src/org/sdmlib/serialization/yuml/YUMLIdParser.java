@@ -1,38 +1,39 @@
 package org.sdmlib.serialization.yuml;
+
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -41,7 +42,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  * The Class YUMLIdParser.
  */
 public class YUMLIdParser extends IdMap{
-	/** The Constant URL. */
+/** The Constant URL. */
 	public static final String URL = "http://yuml.me/diagram/class/";
 
 	/** The Constant for CLASS Diagramms. */
@@ -49,18 +50,6 @@ public class YUMLIdParser extends IdMap{
 
 	/** The Constant for OBJECT Diagramms. */
 	public static final int OBJECT = 2;
-
-	/** The link cardinality. */
-	private HashMap<String, String> linkCardinality = new HashMap<String, String>();
-
-	/** The link property. */
-	private HashMap<String, String> linkProperty = new HashMap<String, String>();
-
-	/** The value yuml. */
-	private HashMap<String, String> valueYUML = new HashMap<String, String>();
-
-	/** The show line. */
-	private boolean isLine;
 
 	/**
 	 * Instantiates a new yUML id parser.
@@ -87,18 +76,18 @@ public class YUMLIdParser extends IdMap{
 	 * @return the string
 	 */
 	public String parseObject(Object object) {
-		return parse(object, OBJECT, new IdMapFilter(), true);
+		return parse(object, OBJECT, new YUmlIdMapFilter(true));
 	}
 
 	/**
 	 * Parses the object.
 	 *
-	 * @param object
-	 *			the object
+	 * @param object the object
+	 * @param filter  Filter for Serialisation
 	 * @return the string
 	 */
-	public String parseObject(Object object, IdMapFilter filter) {
-		return parse(object, OBJECT, filter, true);
+	public String parseObject(Object object, YUmlIdMapFilter filter) {
+		return parse(object, OBJECT, filter);
 	}
 
 	/**
@@ -110,83 +99,69 @@ public class YUMLIdParser extends IdMap{
 	 *			the show cardinality
 	 * @return the string
 	 */
-	public String parseClass(Object object, boolean showCardinality) {
-		return parse(object, CLASS, new IdMapFilter(), showCardinality);
+	public String parseClass(Object object, boolean showCardinality ) {
+		return parse(object, CLASS, new YUmlIdMapFilter(showCardinality));
 	}
 
 	/**
 	 * Parses the class.
 	 *
-	 * @param object
-	 *			the object
-	 * @param showCardinality
-	 *			the show cardinality
-	 * @param filter
-	 *			Filter for Serialisation
+	 * @param object           the object to Serialisation
+	 * @param filter           Filter for Serialisation
 	 * @return the string
 	 */
-	public String parseClass(Object object, boolean showCardinality,
-			IdMapFilter filter) {
-		return parse(object, CLASS, filter, showCardinality);
+	public String parseClass(Object object, YUmlIdMapFilter filter) {
+		return parse(object, CLASS, filter);
 	}
 
 	/**
 	 * Parses the.
 	 *
-	 * @param object
-	 *			the object
-	 * @param typ
-	 *			Is it a OBJECT OR A CLASS diagram
-	 * @param filter
-	 *			Filter for Serialisation
+	 * @param object  the object to Serialisation
+	 * @param typ     Is it a OBJECT OR A CLASS diagram
+	 * @param filter  Filter for Serialisation
+	 * @param showCardinality  the show cardinality
 	 * @return the Object as String
 	 */
-	public String parse(Object object, int typ, IdMapFilter filter,
-			boolean isShowCardinality) {
-		this.linkProperty.clear();
-		this.linkCardinality.clear();
-		this.valueYUML.clear();
-
+	protected String parse(Object object, int typ, YUmlIdMapFilter filter) {
 		String id = parse(object, filter, typ);
-		// Links aufl�sen
-		Set<String> keySet = this.linkProperty.keySet();
+		// Links aufloesen
+		Set<String> keySet = filter.getLinkPropertys();
 		if (keySet.size() > 0) {
 			Iterator<String> i = keySet.iterator();
 
 			String key = i.next();
-			String result = getUMLText(key, typ, isShowCardinality);
+			String result = getUMLText(key, typ, filter);
 
 			while (i.hasNext()) {
-				result += "," + getUMLText(i.next(), typ, isShowCardinality);
+				result += "," + getUMLText(i.next(), typ, filter);
 			}
 			return result;
 		}
-		return getYUMLString(id, typ);
+		return getYUMLString(id, typ, filter);
 	}
 
 	/**
 	 * @param key of the Object
-	 * @param typ
-	 *			Is it a OBJECT OR A CLASS diagram
+	 * @param typ Is it a OBJECT OR A CLASS diagram
+	 * @param showCardinality  the show cardinality
 	 * @return Object as String
 	 */
-	private String getUMLText(String key, int typ, boolean isShowCardinality) {
+	private String getUMLText(String key, int typ, YUmlIdMapFilter filter) {
 		String[] itemsId = key.split("-");
 
-		String first = getYUMLString(itemsId[0], typ);
-		String second = getYUMLString(itemsId[1], typ);
+		String first = getYUMLString(itemsId[0], typ, filter);
+		String second = getYUMLString(itemsId[1], typ, filter);
 		String result;
 		if (typ == OBJECT) {
 			result = first + "-" + second;
 		} else {
-			String firstCardNo = this.linkCardinality.get(key);
-			String secondCardNo = this.linkCardinality.get(itemsId[1] + "-"
-					+ itemsId[0]);
+			String firstCardNo = filter.getLinkCardinality(key);
+			String secondCardNo = filter.getLinkCardinality(itemsId[1] + "-" + itemsId[0]);
 			result = first;
-			if (isShowCardinality) {
-				String firstCardName = this.linkProperty.get(key);
-				String secondCardName = this.linkProperty.get(itemsId[1] + "-"
-						+ itemsId[0]);
+			if ( filter.isShowCardinality() ) {
+				String firstCardName = filter.getLinkProperty(key);
+				String secondCardName = filter.getLinkProperty(itemsId[1] + "-" + itemsId[0]);
 				result += firstCardName + ": " + firstCardNo + "-";
 				if (secondCardName != null) {
 					result += secondCardName + ": " + secondCardNo;
@@ -211,13 +186,13 @@ public class YUMLIdParser extends IdMap{
 	 *			Is it a OBJECT OR A CLASS diagram
 	 * @return the yUML string
 	 */
-	private String getYUMLString(String id, int typ) {
-		String removeString = this.valueYUML.remove(id);
+	private String getYUMLString(String id, int typ, YUmlIdMapFilter filter) {
+		String removeString = filter.removeValueYUML(id);
 		if (removeString != null) {
 			return removeString;
 		}
 		if (typ == OBJECT) {
-			if (isShowLine()) {
+			if (filter.isShowLine()) {
 				String text = id + " : " + getClassName(id);
 				return "["
 						+ text
@@ -241,7 +216,7 @@ public class YUMLIdParser extends IdMap{
 	 *			Filter for converting
 	 * @return the string
 	 */
-	private String parse(Object object, IdMapFilter filter, int typ) {
+	private String parse(Object object, YUmlIdMapFilter filter, int typ) {
 		String className = "";
 		String id = "";
 		String mainKey = "";
@@ -262,8 +237,8 @@ public class YUMLIdParser extends IdMap{
 			}
 		}
 
-		if (prototyp != null && !this.valueYUML.containsKey(id)) {
-			this.valueYUML.put(id, null);
+		if (prototyp != null && !filter.containsKeyValueYUML(id)) {
+			filter.addValueYUML(id,  null);
 			if (prototyp.getProperties().length > 0) {
 				result += "|";
 				boolean first = true;
@@ -286,9 +261,8 @@ public class YUMLIdParser extends IdMap{
 
 							String subId = parse(containee, filter, typ);
 							String key = id + "-" + subId;
-							this.linkProperty.put(key, property);
-							this.linkCardinality.put(key,
-									getCardinality("0..n", typ));
+							filter.addLinkProperty(key, property);
+							filter.addLinkCardinality(key, getCardinality("0..n", typ));
 						}
 					} else {
 						if (!filter.isRegard(this, object, property, value,
@@ -303,9 +277,8 @@ public class YUMLIdParser extends IdMap{
 						if (valueCreater != null) {
 							String subId = parse(value, filter, typ);
 							String key = id + "-" + subId;
-							this.linkProperty.put(key, property);
-							this.linkCardinality.put(key,
-									getCardinality("0..1", typ));
+							filter.addLinkProperty(key, property);
+							filter.addLinkCardinality(key, getCardinality("0..n", typ));
 						} else {
 							if (!first) {
 								result += ";";
@@ -325,7 +298,7 @@ public class YUMLIdParser extends IdMap{
 			}
 			result += "]";
 			put(id, object);
-			this.valueYUML.put(id, result);
+			filter.addValueYUML(id, result);
 		}
 		return id;
 	}
@@ -361,22 +334,4 @@ public class YUMLIdParser extends IdMap{
 		return className.substring(className.lastIndexOf('.') + 1);
 	}
 
-	/**
-	 * Checks if is show line.
-	 *
-	 * @return true, if is show line for objects
-	 */
-	public boolean isShowLine() {
-		return this.isLine;
-	}
-
-	/**
-	 * Sets the show line.
-	 *
-	 * @param value
-	 *			the new show line
-	 */
-	public void setShowLine(boolean value) {
-		this.isLine = value;
-	}
 }

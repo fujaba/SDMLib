@@ -1,31 +1,33 @@
 package de.uniks.jism.gui.table;
+
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import org.eclipse.jface.viewers.TableViewer;
@@ -40,7 +42,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.sdmlib.serialization.IdMap;
 
 public class TableColumnView implements ControlListener {
-	public static final int BorderCell=10;
+public static final int BorderCell=10;
 	private TableViewerColumn tableViewerColumn;
 	private Column column;
 	private TableColumnLabelProvider tableLabelProvider;
@@ -49,6 +51,8 @@ public class TableColumnView implements ControlListener {
 	protected ColumnViewerSorter columnViewerSorter;
 	private TableCellMenuItem tableCellMenuItem;
 	private String oldTextWidth=null;
+	private int width;
+	private int x;
 
 	public TableColumnView(TableComponent tableComponent, Column column, Menu mnuColumns) {
 		this.owner=tableComponent;
@@ -71,7 +75,7 @@ public class TableColumnView implements ControlListener {
 			columnViewerSorter = new ColumnViewerSorter(this, owner, column);
 			// RegExpression
 			if(column.getEditColumn()!=null){
-				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column));
+				tableViewerColumn.setEditingSupport(new TableCellEditingSupport(owner, tv, column, this));
 			}else if(column.isEditingSupport()){
 				if(column instanceof ColumnNotification){
 					tableViewerColumn.setEditingSupport(((ColumnNotification)column).getEditingSupport(owner, tv, column));
@@ -122,7 +126,6 @@ public class TableColumnView implements ControlListener {
 	
 	@Override
 	public void controlMoved(ControlEvent event) {
-		
 	}
 
 	@Override
@@ -149,7 +152,7 @@ public class TableColumnView implements ControlListener {
 	}
 
 	public void onNewText(String value, int borderCell) {
-		if(column.isAutoWidth()){
+		if(column.getWidth()==Column.AUTOWIDTH){
 			if(value != null){
 				if(oldTextWidth==null || !value.equals(oldTextWidth)){
 					oldTextWidth = value;
@@ -167,5 +170,16 @@ public class TableColumnView implements ControlListener {
 		        }		
 			}
 		}
+	}
+
+	public void setPosition(int x, int width) {
+		this.width = width;
+		this.x = x;
 	}	
+	public int getX(){
+		return x;
+	}
+	public int getWidth(){
+		return width;
+	}
 }

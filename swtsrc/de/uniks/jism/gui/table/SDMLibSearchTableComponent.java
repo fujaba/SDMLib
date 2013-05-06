@@ -15,6 +15,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 
+import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableListCreator;
 
 public class SDMLibSearchTableComponent extends SearchTableComponent
@@ -95,7 +96,7 @@ public class SDMLibSearchTableComponent extends SearchTableComponent
 	         public void widgetSelected(SelectionEvent e) 
 	         {
 	            Object entityObj = SDMLibSearchTableComponent.this
-	                  .getTable()
+	                  .getTable(GUIPosition.CENTER)
 	                  .getSelection()[0]
 	                        .getData();
 	            

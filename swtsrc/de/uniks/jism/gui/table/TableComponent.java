@@ -1,7 +1,8 @@
 package de.uniks.jism.gui.table;
 
 /*
- Copyright (c) 2012, Stefan Lindel
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -17,7 +18,7 @@ package de.uniks.jism.gui.table;
  4. Neither the name of contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
@@ -27,7 +28,7 @@ package de.uniks.jism.gui.table;
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -60,19 +61,20 @@ import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.sort.SortingDirection;
 
 import de.uniks.jism.gui.GUIPosition;
-import de.uniks.jism.gui.SortingDirection;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
 import de.uniks.jism.gui.layout.BorderLayout;
 
 public class TableComponent extends Composite implements Listener,
 		PropertyChangeListener {
-	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
+private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	private Cursor defaultCursor = new Cursor(Display.getDefault(),
 			SWT.CURSOR_ARROW);
 	private Cursor handCursor = new Cursor(Display.getDefault(),
@@ -130,12 +132,23 @@ public class TableComponent extends Composite implements Listener,
 
 		headerMenu = new Menu(getShell(), SWT.POP_UP);
 		MenuItem columnsMenue = new MenuItem(headerMenu, SWT.CASCADE);
-		columnsMenue.setText(getText("Columns"));
+		columnsMenue.setText(getText(DefaultTextItems.COLUMNS));
 		mnuColumns = new Menu(getShell(), SWT.DROP_DOWN);
 		columnsMenue.setMenu(mnuColumns);
 
 		tableViewer = createBrowser(GUIPosition.CENTER);
+		
 		setLayout(new BorderLayout(0, 0));
+	}
+	
+	protected String getText(String label){
+		if(this.map!=null){
+			SendableEntityCreator textItemClazz = map.getCreatorClasses(TextItems.class.getName());
+			if(textItemClazz != null){
+				return ((TextItems)textItemClazz).getText(label, source, this);
+			}
+		}
+		return label;
 	}
 
 	protected TableViewerComponent createBrowser(GUIPosition browserId) {
@@ -143,8 +156,7 @@ public class TableComponent extends Composite implements Listener,
 		if (!browserId.equals(GUIPosition.CENTER)) {
 			flags = flags | SWT.NO_SCROLL ;
 		}
-		TableViewerComponent tableViewer = new TableViewerComponent(tableComposite, flags);
-		tableViewer.setLabelProvider(new TableLabelProvider());
+		TableViewerComponent tableViewer = new TableViewerComponent(tableComposite, this, flags, browserId);
 		tableViewer.setFilters(new ViewerFilter[] { tableFilterView });
 		
 		Table table = tableViewer.getTable();
@@ -189,6 +201,12 @@ public class TableComponent extends Composite implements Listener,
 		if (column.getBrowserId().equals(GUIPosition.WEST)) {
 			setVisibleFixedColumns(true);
 		}
+		//FIX FOR EMPTY TABLE
+		if(tableComposite == null){
+			getTableComponent();
+			this.layout(true);
+			
+		}
 		this.columns.add(new TableColumnView(this, column, mnuColumns));
 		if (column.getAltAttribute() != null) {
 			if (!isToolTip) {
@@ -201,6 +219,73 @@ public class TableComponent extends Composite implements Listener,
 		}
 	}
 
+	public void updatePosition(){
+		updatePosition(GUIPosition.WEST, null);
+		updatePosition(GUIPosition.CENTER, null);
+	}
+	
+	public TableColumnView updatePosition(GUIPosition pos, Point pt){
+		int position = -1;
+		int index = -1;
+		Table table = getTable(pos);
+		if(table != null){
+			if(table.getItemCount()>0){
+				TableItem item = table.getItem(0);
+				for(int i=0;i<item.getParent().getColumnCount();i++){
+					Rectangle rect = item.getBounds(i);
+					TableColumnView tableColumnView = columns.get(i);
+					if(tableColumnView != null){
+						tableColumnView.setPosition(rect.x, rect.width);
+						if(pt != null && rect.contains(pt)){
+							position = rect.x;
+							index = i;
+						}
+					}
+				}
+			}
+		}
+		if(position >= 0){
+			return columns.get(index);
+		}
+		return null;
+	}
+	
+	public int getColumn(TableColumnView view) {
+		for(int i=0;i<columns.size();i++){
+			if(columns.get(i)==view){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public TableColumnView getNextColumn(TableColumnView view) {
+		TableColumnView result = null;
+		int found=0;
+		for(TableColumnView column : columns){
+			if(column.getX()>view.getX()){
+				if(found==0||column.getX()<found){
+					result = column;
+					found = column.getX();
+				}
+			}
+		}
+		return result;
+	}
+	
+	public Table getTable(GUIPosition browserId){
+		if (browserId.equals(GUIPosition.WEST)) {
+			if(fixedTableViewerLeft!=null){
+				return fixedTableViewerLeft.getTable();
+			}
+			return null;
+		} 
+		if(tableViewer != null){
+			return tableViewer.getTable();
+		}
+		return null;
+	}
+		
 	public void removeColumn(Column column) {
 		TableColumnView[] array = this.columns
 				.toArray(new TableColumnView[this.columns.size()]);
@@ -240,7 +325,20 @@ public class TableComponent extends Composite implements Listener,
 		}
 		return null;
 	}
-
+	public int getColumnPos(Column column) {
+		int pos=0;
+		if (column != null) {
+			for (Iterator<TableColumnView> i = this.columns.iterator(); i
+					.hasNext();) {
+				TableColumnView item = i.next();
+				if (item.getColumn().equals(column)) {
+					return pos;
+				}
+				pos++;
+			}
+		}
+		return 0;
+	}
 	public void removeColumn(TableColumnView column) {
 		if (this.columns.remove(column)) {
 			column.disposeColumn();
@@ -251,9 +349,8 @@ public class TableComponent extends Composite implements Listener,
 	public TableViewer getBrowserView(GUIPosition browserId) {
 		if (browserId.equals(GUIPosition.WEST)) {
 			return fixedTableViewerLeft;
-		} else {
-			return tableViewer;
 		}
+		return tableViewer;
 	}
 
 	public void setVisibleFixedColumns(boolean visible) {
@@ -454,8 +551,8 @@ public class TableComponent extends Composite implements Listener,
 	@Override
 	public void handleEvent(Event event) {
 		Point pt = new Point(event.x, event.y);
-
-		TableItem currentItem = tableViewer.getTable().getItem(pt);
+		Table table = tableViewer.getTable();
+		TableItem currentItem = table.getItem(pt);
 		
 		if (SWT.MouseMove == event.type | SWT.MouseUp == event.type
 				| SWT.MouseExit == event.type) {
@@ -493,11 +590,11 @@ public class TableComponent extends Composite implements Listener,
 						}
 
 					}
-					onSelection(getTable(), getTable().getSelection());
+					onSelection(table, table.getSelection());
 				}else{
 					// Deselect All
 					selectNone();
-					onSelection(getTable(), getTable().getSelection());
+					onSelection(table, table.getSelection());
 				}
 			}
 			if (currentItem == null || currentItem.isDisposed()) {
@@ -553,8 +650,8 @@ public class TableComponent extends Composite implements Listener,
 			}
 		} else if(SWT.SELECTED == event.type){
 			// Notifiy Selection
-			Table table = (Table) event.widget;
-			onSelection(table, table.getSelection());
+			Table tableItem = (Table) event.widget;
+			onSelection(tableItem, tableItem.getSelection());
 		}
 	}
 	public void selectChange(){
@@ -584,13 +681,9 @@ public class TableComponent extends Composite implements Listener,
 		return tableViewer.getTable().getItemCount();
 	}
 
-	public Table getTable() {
-		return tableViewer.getTable();
-	}
-	
 	public ArrayList<Object> getSelectionItems() {
 		ArrayList<Object> selecteditems=new ArrayList<Object>();
-		for(TableItem item : getTable().getSelection()){
+		for(TableItem item : getTable(GUIPosition.CENTER).getSelection()){
 			if(item.getData() != null){
 				selecteditems.add(item.getData());
 			}
@@ -635,7 +728,7 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	public void removeSelectionItems() {
-		TableItem[] selectionItems = getTable().getSelection();
+		TableItem[] selectionItems = getTable(GUIPosition.CENTER).getSelection();
 
 		if (selectionItems.length > 0) {
 			for (TableItem tableItem : selectionItems) {
@@ -710,7 +803,7 @@ public class TableComponent extends Composite implements Listener,
 	}
 
 	
-	public Object getTableComponent(){
+	public Composite getTableComponent(){
 		
 		if(tableComposite==null){
 			sashForm = new SashForm(this, SWT.NONE);
@@ -728,15 +821,4 @@ public class TableComponent extends Composite implements Listener,
 			removeColumn(item);
 		}
 	}
-	
-	protected String getText(String label){
-		if(this.map!=null){
-			SendableEntityCreator textItemClazz = map.getCreatorClasses(TextItems.class.getName());
-			if(textItemClazz != null){
-				return((TextItems)textItemClazz).getText(label, source, this);
-			}
-		}
-		return label;
-	}
 }
-	

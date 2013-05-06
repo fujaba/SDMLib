@@ -1,38 +1,41 @@
 package org.sdmlib.serialization.date;
+
 /*
-Copyright (c) 2013, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE 'Json Id Serialisierung Map' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 import java.util.Date;
 
 import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.TextItems;
 
-public class DateTime extends Date {
+public class DateTimeEntity extends Date {
 	private static final long serialVersionUID = -6958410418045637223L;
 	private DateTimeFields fields = new DateTimeFields();
 	private TextItems items;
@@ -48,15 +51,15 @@ public class DateTime extends Date {
 	/**
 	 * Days of the week
 	 */
-	public String[] weekDays = new String[] { DefaultTextItems.SUNDAY, DefaultTextItems.MONDAY, DefaultTextItems.TUESDAY,
+	public String[] weekDays = new String[] {DefaultTextItems.SUNDAY, DefaultTextItems.MONDAY, DefaultTextItems.TUESDAY,
 			DefaultTextItems.WEDNESDAY, DefaultTextItems.THURSDAY, DefaultTextItems.FRIDAY, DefaultTextItems.SATURDAY };
 	private boolean isInitConstants = false;
 
-	public DateTime() {
+	public DateTimeEntity() {
 		super();
 	}
 
-	public DateTime(long milliseconds) {
+	public DateTimeEntity(long milliseconds) {
 		super(milliseconds);
 	}
 
@@ -70,10 +73,13 @@ public class DateTime extends Date {
 	 * @param day
 	 *            day of the date
 	 */
-	public DateTime(int year, int month, int day) {
+	public DateTimeEntity(int year, int month, int day) {
 		super(0);
-		this.setNewDate(getYearSeconds(year)
-				+ get(DateTimeFields.SECOND_OF_DAY, year, month, day));
+		this.setYear(year);
+		this.setMonth(month);
+		this.setDate(day);
+//		this.setNewDate(getYearSeconds(year)
+//				+ get(DateTimeFields.SECOND_OF_DAY, year, month, day));
 		this.initDate();
 	}
 
@@ -83,7 +89,7 @@ public class DateTime extends Date {
 	 * @param date
 	 *            date as String
 	 */
-	public DateTime(String date) {
+	public DateTimeEntity(String date) {
 		super(0);
 		String dayString = date.substring(0, 1);
 		String monthString = date.substring(3, 4);
@@ -92,8 +98,8 @@ public class DateTime extends Date {
 		Integer month = Integer.valueOf(monthString);
 		Integer year = Integer.valueOf(yearString);
 
-		this.setNewDate(getYearSeconds(year)
-				+ get(DateTimeFields.SECOND_OF_DAY, year, month, day));
+		this.setNewDate(getYearSeconds(year)+ DateTimeEntity.get(DateTimeFields.SECOND_OF_DAY, new DateTimeEntity(year, month, day)));
+//				+ get(DateTimeFields.SECOND_OF_DAY, year, month, day));
 		this.initDate();
 	}
 
@@ -103,7 +109,7 @@ public class DateTime extends Date {
 	 * @param date
 	 *            with new date
 	 */
-	public DateTime(java.util.Date date) {
+	public DateTimeEntity(java.util.Date date) {
 		super(date.getTime());
 		this.initDate();
 	}
@@ -160,7 +166,6 @@ public class DateTime extends Date {
 	 * @param amount
 	 *            value of changes
 	 */
-	@SuppressWarnings("deprecation")
 	public void add(String fieldCode, int amount) {
 		if (DateTimeFields.DAY_OF_YEAR.equalsIgnoreCase(fieldCode)
 				|| DateTimeFields.DAY_OF_MONTH.equalsIgnoreCase(fieldCode)
@@ -198,16 +203,11 @@ public class DateTime extends Date {
 		}
 	}
 
-	public static long get(String field, int year, int month, int day) {
-		return get(field, new DateTime(year, month, day));
-	}
-
 	public long get(String field) {
 		return get(field, this);
 	}
 
-	@SuppressWarnings("deprecation")
-	public static long get(String field, DateTime reference) {
+	public static long get(String field, DateTimeEntity reference) {
 		if (DateTimeFields.MILLISECONDS.equalsIgnoreCase(field)) {
 			return reference.getTime();
 		} else if (DateTimeFields.MILLISECOND_OF_DAY.equalsIgnoreCase(field)) {
@@ -221,6 +221,9 @@ public class DateTime extends Date {
 					% DateTimeFields.ONE_MINUTE;
 		} else if (DateTimeFields.SECOND_OF_DAY.equalsIgnoreCase(field)) {
 			return (get(DateTimeFields.MILLISECOND_OF_DAY, reference) / DateTimeFields.ONE_SECOND);
+		} else if (DateTimeFields.SECOND_OF_YEAR.equalsIgnoreCase(field)) {
+			long milli = get(DateTimeFields.MILLISECONDS, reference)/ DateTimeFields.ONE_SECOND;
+			return milli - reference.getYearSeconds(reference.getYear());
 		} else if (DateTimeFields.MINUTES.equalsIgnoreCase(field)) {
 			return get(DateTimeFields.MILLISECONDS, reference)
 					/ DateTimeFields.ONE_MINUTE;
@@ -255,11 +258,10 @@ public class DateTime extends Date {
 	 * 
 	 * @param newYear
 	 */
-	@SuppressWarnings("deprecation")
 	public void setYear(int newYear) {
-		this.setNewDate(getYearSeconds(newYear)
-				+ get(DateTimeFields.SECOND_OF_DAY, newYear, this.getMonth(),
-						this.getDate()) / 1000);
+		this.setNewDate(getYearSeconds(newYear)+get(DateTimeFields.SECOND_OF_YEAR));
+		//FIXME 
+		System.out.println(get(DateTimeFields.SECOND_OF_YEAR));
 	}
 
 	/**
@@ -280,6 +282,21 @@ public class DateTime extends Date {
 	@SuppressWarnings("deprecation")
 	public int getMonth() {
 		return super.getMonth() + 1;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void setHours(int hours){
+		super.setHours(hours);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void setMinutes(int minutes){
+		super.setMinutes(minutes);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void setSeconds(int seconds){
+		super.setSeconds(seconds);
 	}
 
 	// /**
@@ -307,27 +324,30 @@ public class DateTime extends Date {
 
 	@SuppressWarnings("deprecation")
 	public void setMonth(int newMonth) {
-		int year = this.getYear();
-		this.setNewDate(getYearSeconds(year)
-				+ get(DateTimeFields.SECOND_OF_DAY, year, newMonth,
-						this.getDate()));
+//		int year = this.getYear();
+		super.setMonth(newMonth);
+//		this.setNewDate(getYearSeconds(year)+get(DateTimeFields.SECOND_OF_YEAR));
+//		System.out.println(get(DateTimeFields.SECOND_OF_YEAR));
 	}
 
-	// public int getDate(){
-	// return Integer.parseInt(splitDate()[2]);
-	// }
 	public int getDay() {
 		// Get the Weekday
 		// 01.01.70 is Tuersday
 		int weekday = (int) ((this.get(DateTimeFields.DAYS) - 3) % 7);
 		return weekday;
 	}
-
+	
+	@SuppressWarnings("deprecation")
+	public int getDate(){
+		return super.getDate();
+	}
+	
+	@SuppressWarnings("deprecation")
 	public void setDate(int dayOfMonth) {
-		int year = this.getYear();
-		this.setNewDate(getYearSeconds(year)
-				+ get(DateTimeFields.SECOND_OF_DAY, year, this.getMonth(),
-						dayOfMonth));
+		super.setDate(dayOfMonth);
+//		int year = this.getYear();
+//		this.setNewDate(getYearSeconds(year)+get(DateTimeFields.SECOND_OF_YEAR));
+//		System.out.println(get(DateTimeFields.SECOND_OF_YEAR));
 	}
 
 	public int getDayOfYear(int year, int month, int dayOfMonth) {
@@ -343,7 +363,7 @@ public class DateTime extends Date {
 	 *            > 1583
 	 * @return The date of Easter Sunday for a given year.
 	 */
-	public static DateTime getEasterSunday(int year) {
+	public static DateTimeEntity getEasterSunday(int year) {
 		int i = year % 19;
 		int j = year / 100;
 		int k = year % 100;
@@ -355,7 +375,7 @@ public class DateTime extends Date {
 		int month = n / 31;
 		int day = (n % 31) + 1;
 
-		return new DateTime(year, month - 1, day);
+		return new DateTimeEntity(year, month - 1, day);
 	}
 
 	/**

@@ -1,43 +1,69 @@
 package de.uniks.jism.gui.table;
 
-import de.uniks.jism.gui.GUIPosition;
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import org.sdmlib.serialization.EntityValueFactory;
+import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class Column {
+import de.uniks.jism.gui.GUIPosition;
+
+public class Column implements PeerMessage{
+	public static final int AUTOWIDTH=-1;
+	public static final String PROPERTY_ATTRNAME="attrName";
+	public static final String PROPERTY_REGEXPRESSION="regEx";
+	public static final String PROPERTY_EDITCOLUMN="editColumn";
+	public static final String PROPERTY_LABEL="label";
+	public static final String PROPERTY_DEFAULTTEXT="defaulttext";
+	public static final String PROPERTY_BACKGROUNDCOLOR="bgcolor";
+	public static final String PROPERTY_FORGROUNDCOLOR="fgcolor";
+	public static final String PROPERTY_FORGROUNDCOLORACTIV="fgcoloractiv";
+	public static final String PROPERTY_BACKGROUNDCOLORACTIV="bgcoloractiv";
+	public static final String PROPERTY_CELLVALUE="cellvalue";
+	public static final String PROPERTY_TEXTALIGNMENT="textalignment";
+	public static final String PROPERTY_FONT="font";
+	public static final String PROPERTY_SIZE="size";
+	public static final String PROPERTY_RESIZE="resize";
+	public static final String PROPERTY_VISIBLE="visible";
+	public static final String PROPERTY_MOVABLE="movable";
+	public static final String PROPERTY_ALTTEXT="altText";
+	public static final String PROPERTY_BROWSERID="browserid";
+	public static final String PROPERTY_VALUEFROMDROPDOWNLIST="valuefromdropdown";
+	
 	public static final String DATE="%DATE%";
 	private int width=100;
 	private String attrName;
 	private String regEx;
 	private String editColumn;
 	private String label;
+	private String defaultText;
 	private String backgroundColor=null;
 	private String forgroundColor=null;
 	private String forgroundColorActiv=null;
@@ -47,7 +73,6 @@ public class Column {
 	private int textalignment=-1;
 	private boolean isVisible=true;
 	private boolean isMovable=true;
-	private boolean autoWidth;
 	private String altAttribute;
 	private Object item;
 	private GUIPosition browserId=GUIPosition.CENTER;
@@ -236,8 +261,8 @@ public class Column {
 	public void setTextalignment(int textalignment) {
 		this.textalignment = textalignment;
 	}
-	public CellValueCreator getCellValueCreator(){
-		return new CellValueCreator();
+	public EntityValueFactory getCellValueCreator(){
+		return new EntityValueFactory();
 	}
 
 	public boolean isVisible() {
@@ -296,10 +321,122 @@ public class Column {
 	public void setGetDropDownListFromMap(boolean getDropDownListFromMap) {
 		this.getDropDownListFromMap = getDropDownListFromMap;
 	}
-	public boolean isAutoWidth() {
-		return autoWidth;
+	public String getDefaultText() {
+		return defaultText;
 	}
-	public void setAutoWidth(boolean autoWidth) {
-		this.autoWidth = autoWidth;
+	public void setDefaultText(String defaultText) {
+		this.defaultText = defaultText;
+	}
+	@Override
+	public Object get(String attribute) {
+		String attrName;
+		int pos = attribute.indexOf(".");
+		if (pos > 0) {
+			attrName = attribute.substring(0, pos);
+		} else {
+			attrName = attribute;
+		}
+		if (attrName.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
+			return this.getAttrName();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_REGEXPRESSION)) {
+			return this.getRegEx();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_EDITCOLUMN)) {
+			return this.getEditColumn();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_LABEL)) {
+			return this.getLabel();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_DEFAULTTEXT)) {
+			return this.getDefaultText();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLOR)) {
+			return this.getBackgroundColor();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_FORGROUNDCOLOR)) {
+			return this.getForgroundColor();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_FORGROUNDCOLORACTIV)) {
+			return this.getForgroundColorActiv();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLORACTIV)) {
+			return this.getBackgroundColorActiv();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_CELLVALUE)) {
+			return this.getCellValue();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_TEXTALIGNMENT)) {
+			return this.getTextalignment();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_FONT)) {
+			return this.getFont();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_SIZE)) {
+			return this.getWidth();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_RESIZE)) {
+			return this.isResizable();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_VISIBLE)) {
+			return this.isVisible();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_MOVABLE)) {
+			return this.isMovable();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_ALTTEXT)) {
+			return this.getAltAttribute();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_BROWSERID)) {
+			return this.getBrowserId();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_VALUEFROMDROPDOWNLIST)) {
+			return this.isGetDropDownListFromMap();
+		}
+		return null;
+	}
+	@Override
+	public boolean set(String attribute, Object value) {
+		if (attribute.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
+			setAttrName((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_REGEXPRESSION)) {
+			setRegEx((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_EDITCOLUMN)) {
+			setEditColumn((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_LABEL)) {
+			setLabel((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_DEFAULTTEXT)) {
+			setDefaultText((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLOR)) {
+			setBackgroundColor((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_FORGROUNDCOLOR)) {
+			setForgroundColor((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_FORGROUNDCOLORACTIV)) {
+			setForgroundColorActiv((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLORACTIV)) {
+			setBackgroundColorActiv((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_CELLVALUE)) {
+			setCellValue((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_TEXTALIGNMENT)) {
+			setTextalignment((Integer) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_FONT)) {
+			setFont((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_SIZE)) {
+			setWidth((Integer) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_RESIZE)) {
+			setResizable((Boolean) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_VISIBLE)) {
+			setVisible((Boolean) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_MOVABLE)) {
+			setMovable((Boolean) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_ALTTEXT)) {
+			setAltAttribute((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_BROWSERID)) {
+			setBrowserId(GUIPosition.valueOf((String)value));
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_VALUEFROMDROPDOWNLIST)) {
+			setGetDropDownListFromMap((Boolean) value);
+			return true;
+		}
+		return false;
 	}
 }

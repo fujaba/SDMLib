@@ -1,31 +1,33 @@
 package de.uniks.jism.gui.table;
+
 /*
-Copyright (c) 2012, Stefan Lindel
-All rights reserved.
+ Json Id Serialisierung Map
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by Stefan Lindel.
-4. Neither the name of contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by Stefan Lindel.
+ 4. Neither the name of contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import java.beans.PropertyChangeEvent;
@@ -37,29 +39,26 @@ import java.util.Date;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-import de.uniks.jism.gui.table.celledit.CellDateEditor;
-import de.uniks.jism.gui.table.celledit.CellDropDownEditor;
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
-import de.uniks.jism.gui.table.celledit.CellNumberEditor;
 import de.uniks.jism.gui.table.celledit.EditField;
-import de.uniks.jism.gui.table.celledit.EditFields;
+import de.uniks.jism.gui.table.celledit.JISMCellEditor;
 
 public class TableCellEditingSupport extends EditingSupport {
-	protected TableComponent owner;
+protected TableComponent owner;
 	protected Column column;
+	protected TableColumnView tableColumn;
 
 	public TableCellEditingSupport(TableComponent owner,
-			TableViewer tableViewer, Column column) {
+			TableViewer tableViewer, Column column, TableColumnView tableColumn) {
 		super(tableViewer);
 		this.column=column;
 		this.owner = owner;
+		this.tableColumn = tableColumn;
 	}
 
 	public TableCellEditingSupport(TableComponent owner, Column column) {
@@ -93,27 +92,14 @@ public class TableCellEditingSupport extends EditingSupport {
 		IdMap map = owner.getIdMap();
 		EditField editField=new EditField().init(element, map, column);
 		Table table = ((TableViewer) getViewer()).getTable();
-		if(editField.getFormat()==EditFields.INTEGER){
-			return new CellNumberEditor(table, editField);
-		}else if(editField.getFormat()==EditFields.DOUBLE){
-			return new CellNumberEditor(table, editField);
-		}else if(editField.getFormat()==EditFields.COMBOBOX){
-			return new CellDropDownEditor(table, editField);
-		}else if(editField.getFormat()==EditFields.DATE){
-			return new CellDateEditor(table, editField);
-		}
-		return getDefaultEditor();
+//TODO TEST		if(editField.getEditFormat()==EditFields.COMBOBOX){
+//			return new CellDropDownEditor(table, editField, owner);
+//		}
+		JISMCellEditor editor = new JISMCellEditor(table, editField, owner);
+		editor.setElement(element, tableColumn);
+		return editor;
 	}
 	
-	protected CellEditor getDefaultEditor(){
-		return new TextCellEditor(getDefaultOwner());
-	}
-	
-	protected Composite getDefaultOwner(){
-		return ((TableViewer) getViewer()).getTable();
-	}
-	
-
 	protected Object getValue(Object element) {
 		Object value=null;
 		IdMap map = owner.getIdMap();
