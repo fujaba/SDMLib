@@ -33,19 +33,18 @@ package de.uniks.jism.gui.table.celledit;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.HashMap;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.creator.DateCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.table.Column;
 import de.uniks.jism.gui.table.controls.CheckBoxEditControl;
 import de.uniks.jism.gui.table.controls.ComboEditControl;
 import de.uniks.jism.gui.table.controls.DateTimeEditControl;
 import de.uniks.jism.gui.table.controls.EditControl;
 import de.uniks.jism.gui.table.controls.NumberEditControl;
+import de.uniks.jism.gui.table.controls.PasswordEditorControl;
 import de.uniks.jism.gui.table.controls.SpinnerEditControl;
 import de.uniks.jism.gui.table.controls.TextEditorControl;
 
@@ -67,6 +66,7 @@ private EditControl<?> editControl;
 		addToEditControls( new NumberEditControl() );
 		addToEditControls( new SpinnerEditControl() );
 		addToEditControls( new TextEditorControl() );
+		addToEditControls( new PasswordEditorControl());
 	}
 	public void addToEditControls(EditControl<?> field){
 		fields.put(field.getFieldTyp(), field);

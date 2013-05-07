@@ -31,7 +31,6 @@ package de.uniks.jism.gui.table;
 */
 
 import java.util.EventObject;
-
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationListener;
@@ -42,7 +41,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableItem;
-
 import de.uniks.jism.gui.GUIPosition;
 
 public class TableViewerComponent extends TableViewer {
@@ -58,12 +56,12 @@ protected ColumnViewerEditor viewerEditor;
 
 		createViewerEditor().addEditorActivationListener(new ColumnViewerEditorActivationListener() {
 			private String savedValue="";
-			private TableItem item;
+			private TableItem itemRow;
 			private int index;
 			@Override
 			public void beforeEditorDeactivated(
 					ColumnViewerEditorDeactivationEvent event) {
-				item.setText(savedValue);
+				itemRow.setText(index, savedValue);
 			}
 			
 			@Override
@@ -75,9 +73,16 @@ protected ColumnViewerEditor viewerEditor;
 					
 					MouseEvent evt=(MouseEvent)sourceEvent; 
 					Point pt = new Point(evt.x, evt.y);
-					item = getTable().getItem(pt);
-					savedValue = item.getText(index);
-					item.setText(index, "");
+					itemRow = getTable().getItem(pt);
+					savedValue = itemRow.getText(index);
+					itemRow.setText(index, "");
+				}else if (event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC){
+					ViewerCell cell = (ViewerCell) event.getSource();
+					index = cell.getColumnIndex();
+//					Point pt = new Point(evt.x, evt.y);
+//					item = getTable().getItem(pt);
+					savedValue = itemRow.getText(index);
+					itemRow.setText(index, "");
 				}
 			}
 			

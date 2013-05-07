@@ -35,7 +35,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -66,7 +65,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.SortingDirection;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
@@ -271,6 +269,10 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			}
 		}
 		return result;
+	}
+	
+	public Table getTableCenter(){
+		return getTable(GUIPosition.CENTER);
 	}
 	
 	public Table getTable(GUIPosition browserId){

@@ -31,6 +31,7 @@ import java.util.Comparator;
 
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.sort.SortingDirection;
 
 import de.uniks.jism.gui.table.CellValueCreator;
 
