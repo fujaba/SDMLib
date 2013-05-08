@@ -39,6 +39,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+
+import de.uniks.jism.gui.table.Column;
 import de.uniks.jism.gui.table.TableColumnView;
 import de.uniks.jism.gui.table.TableComponent;
 
@@ -92,6 +94,16 @@ protected EditField editField;
 			return editField.getControl();
 		}
 		return null;
+	}
+	
+	public Column getColumn(){
+		if(editField!=null){
+			return editField.getColumn();
+		}
+		return null;
+	}
+	public Object getElement(){
+		return element;
 	}
 
 	public boolean isActivated() {

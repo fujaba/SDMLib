@@ -30,15 +30,15 @@ package de.uniks.jism.gui.table;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import org.eclipse.swt.widgets.Listener;
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.interfaces.PeerMessage;
-
 import de.uniks.jism.gui.GUIPosition;
 
 public class Column implements PeerMessage{
-	public static final int AUTOWIDTH=-1;
+public static final int AUTOWIDTH=-1;
 	public static final String PROPERTY_ATTRNAME="attrName";
-	public static final String PROPERTY_REGEXPRESSION="regEx";
+	public static final String PROPERTY_NUMBERFORMAT="numberformat";
 	public static final String PROPERTY_EDITCOLUMN="editColumn";
 	public static final String PROPERTY_LABEL="label";
 	public static final String PROPERTY_DEFAULTTEXT="defaulttext";
@@ -60,7 +60,7 @@ public class Column implements PeerMessage{
 	public static final String DATE="%DATE%";
 	private int width=100;
 	private String attrName;
-	private String regEx;
+	private String numberFormat;
 	private String editColumn;
 	private String label;
 	private String defaultText;
@@ -117,14 +117,14 @@ public class Column implements PeerMessage{
 		this.label=label;
 		this.width=width;
 		this.attrName=attrName;
-		this.regEx=regEx;
+		this.numberFormat=regEx;
 		this.editColumn=editColumn;
 	}
 	public Column(String label, int width, String attrName, String regEx){
 		this.label=label;
 		this.width=width;
 		this.attrName=attrName;
-		this.regEx=regEx;
+		this.numberFormat=regEx;
 	}
 	
 	/**
@@ -170,17 +170,18 @@ public class Column implements PeerMessage{
 	}
 
 	/**
-	 * @return the regEx
+	 * @return the NumberFormat
 	 */
-	public String getRegEx() {
-		return regEx;
+	public String getNumberFormat() {
+		return numberFormat;
 	}
 
 	/**
-	 * @param regEx the regEx to set
+	 * @param NumberFormat the NumberFormat to set
 	 */
-	public void setRegEx(String regEx) {
-		this.regEx = regEx;
+	public Column withNumberFormat(String value) {
+		this.numberFormat = value;
+		return this;
 	}
 
 	/**
@@ -338,8 +339,8 @@ public class Column implements PeerMessage{
 		}
 		if (attrName.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
 			return this.getAttrName();
-		}else if (attrName.equalsIgnoreCase(PROPERTY_REGEXPRESSION)) {
-			return this.getRegEx();
+		}else if (attrName.equalsIgnoreCase(PROPERTY_NUMBERFORMAT)) {
+			return this.getNumberFormat();
 		}else if (attrName.equalsIgnoreCase(PROPERTY_EDITCOLUMN)) {
 			return this.getEditColumn();
 		}else if (attrName.equalsIgnoreCase(PROPERTY_LABEL)) {
@@ -382,8 +383,8 @@ public class Column implements PeerMessage{
 		if (attribute.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
 			setAttrName((String) value);
 			return true;
-		} else if (attribute.equalsIgnoreCase(PROPERTY_REGEXPRESSION)) {
-			setRegEx((String) value);
+		} else if (attribute.equalsIgnoreCase(PROPERTY_NUMBERFORMAT)) {
+			withNumberFormat((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_EDITCOLUMN)) {
 			setEditColumn((String) value);

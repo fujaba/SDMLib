@@ -69,6 +69,7 @@ import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
 import de.uniks.jism.gui.layout.BorderLayout;
+import de.uniks.jism.gui.table.celledit.JISMCellEditor;
 
 public class TableComponent extends Composite implements Listener,
 		PropertyChangeListener {
@@ -822,5 +823,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		for (TableColumnView item : array) {
 			removeColumn(item);
 		}
+	}
+	public void notifiyCellEditor(JISMCellEditor editor) {
+		
 	}
 }

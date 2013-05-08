@@ -35,7 +35,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
@@ -43,7 +42,6 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.widgets.Table;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.JISMCellEditor;
@@ -92,11 +90,10 @@ protected TableComponent owner;
 		IdMap map = owner.getIdMap();
 		EditField editField=new EditField().init(element, map, column);
 		Table table = ((TableViewer) getViewer()).getTable();
-//TODO TEST		if(editField.getEditFormat()==EditFields.COMBOBOX){
-//			return new CellDropDownEditor(table, editField, owner);
-//		}
 		JISMCellEditor editor = new JISMCellEditor(table, editField, owner);
 		editor.setElement(element, tableColumn);
+		
+		owner.notifiyCellEditor(editor);
 		return editor;
 	}
 	
@@ -108,7 +105,7 @@ protected TableComponent owner;
 			value = creatorClass.getValue(element, column.getAttrName());
 		}
 
-		if (Column.DATE.equalsIgnoreCase(column.getRegEx())) {
+		if (Column.DATE.equalsIgnoreCase(column.getNumberFormat())) {
 			return getDateFormat((Long) value);
 		}
 		if(value==null){

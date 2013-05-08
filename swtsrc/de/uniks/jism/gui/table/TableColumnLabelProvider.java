@@ -69,14 +69,14 @@ private Font font=null;
     		return column.getCellValue();	
     	}
 		SendableEntityCreator creatorClass = owner.getMap().getCreatorClass(element);
-		if(Column.DATE.equalsIgnoreCase(column.getRegEx())){
+		if(Column.DATE.equalsIgnoreCase(column.getNumberFormat())){
 			if(creatorClass!=null){
 				Object value=creatorClass.getValue(element, column.getAttrName());
 				if(value!=null){
 					return getDateFormat((Long) value);
 				}
 			}
-		}else if(column.getRegEx()!=null){
+		}else if(column.getNumberFormat()!=null){
 			
 		}else{
 			if(creatorClass!=null){

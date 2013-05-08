@@ -1,9 +1,5 @@
 package de.uniks.jism.gui.table.creator;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
-import de.uniks.jism.gui.table.Column;
-
 /*
  Json Id Serialisierung Map
  Copyright (c) 2011 - 2013, Stefan Lindel
@@ -34,9 +30,12 @@ import de.uniks.jism.gui.table.Column;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import de.uniks.jism.gui.table.Column;
+
 public class ColumnCreator implements SendableEntityCreator{
-	private static final String[] properties=new String[]{Column.PROPERTY_ATTRNAME,
-		Column.PROPERTY_REGEXPRESSION,
+private static final String[] properties=new String[]{Column.PROPERTY_ATTRNAME,
+		Column.PROPERTY_NUMBERFORMAT,
 		Column.PROPERTY_EDITCOLUMN,
 		Column.PROPERTY_LABEL,
 		Column.PROPERTY_DEFAULTTEXT,

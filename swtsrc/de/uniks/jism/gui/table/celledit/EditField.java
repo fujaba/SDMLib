@@ -58,6 +58,7 @@ private EditControl<?> editControl;
 	protected Composite parent;
 	protected HashMap<EditFields, EditControl<?>> fields=new HashMap<EditFields, EditControl<?>>();
 	protected boolean layoutFromParent=true;
+	protected Column column;
 
 	public EditField(){
 		addToEditControls( new CheckBoxEditControl() );
@@ -76,7 +77,11 @@ private EditControl<?> editControl;
 		this.layoutFromParent = false;
 	}
 		
+	public Column getColumn(){
+		return column;
+	}
 	public EditField init(Object element, IdMap map, Column column) {
+		this.column = column;
 		if(column.getAttrName()!=null){
 			SendableEntityCreator creatorClass = map.getCreatorClass(element);
 			Object value=null;

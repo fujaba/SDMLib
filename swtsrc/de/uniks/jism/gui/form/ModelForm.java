@@ -32,7 +32,6 @@ package de.uniks.jism.gui.form;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
@@ -44,7 +43,6 @@ import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.table.Column;
 
 public class ModelForm extends Composite{

@@ -3,12 +3,10 @@ package de.uniks.jism.gui.table.controls;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Composite;
 import org.sdmlib.serialization.date.StringTokener;
-
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
