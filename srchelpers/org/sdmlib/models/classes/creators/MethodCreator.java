@@ -11,6 +11,7 @@ public class MethodCreator extends EntityFactory
       Method.PROPERTY_SIGNATURE,
       Method.PROPERTY_RETURNTYPE,
       Method.PROPERTY_CLAZZ,
+      Method.PROPERTY_BODY,
    };
    
    public String[] getProperties()
@@ -47,6 +48,7 @@ public class MethodCreator extends EntityFactory
       ((Method) entity).removeYou();
    }
 }
+
 
 
 

@@ -5,6 +5,8 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.models.classes.creators.ClazzPO;
 
 public class MethodPO extends PatternObject
 {
@@ -111,5 +113,38 @@ public class MethodPO extends PatternObject
       return null;
    }
    
+   public MethodPO hasBody(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Method.PROPERTY_BODY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getBody()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) getCurrentMatch()).getBody();
+      }
+      return null;
+   }
+   
+   public MethodPO withBody(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Method) getCurrentMatch()).setBody(value);
+      }
+      return this;
+   }
+   
 }
+
 

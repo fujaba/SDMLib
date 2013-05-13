@@ -85,7 +85,8 @@ public class ClassModelTest
       
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
       .withAttribute("signature", STRING)
-      .withAttribute("returnType", STRING);     
+      .withAttribute("returnType", STRING)
+      .withAttribute("body", STRING);     
       
       new Association()
       .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
