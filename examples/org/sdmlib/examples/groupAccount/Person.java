@@ -132,7 +132,7 @@ public class Person implements PropertyChangeInterface
    
    public static final String PROPERTY_NAME = "name";
    
-   private String name;
+   private String name = "";
 
    public String getName()
    {

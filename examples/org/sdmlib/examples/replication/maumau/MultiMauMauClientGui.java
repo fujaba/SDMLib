@@ -17,9 +17,10 @@ public class MultiMauMauClientGui
       try
       {
          MauMauClientGui gui = new MauMauClientGui();
-         gui.open();
 
          Display.getDefault().asyncExec(new MultiMauMauClientInitTask(gui, args));
+
+         gui.open();
       }
       catch (Exception e)
       {

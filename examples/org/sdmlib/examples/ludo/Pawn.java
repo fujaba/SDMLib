@@ -333,5 +333,16 @@ public class Pawn implements PropertyChangeInterface
       withPos(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getColor());
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      return _.substring(1);
+   }
+
 }
 

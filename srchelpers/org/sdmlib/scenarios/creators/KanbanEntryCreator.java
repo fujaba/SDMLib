@@ -8,7 +8,6 @@ public class KanbanEntryCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      KanbanEntry.PROPERTY_LOGENTRIES,
       KanbanEntry.PROPERTY_NAME,
       KanbanEntry.PROPERTY_PHASE,
       KanbanEntry.PROPERTY_LAST_DEVELOPER,

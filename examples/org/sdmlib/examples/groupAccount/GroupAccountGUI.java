@@ -16,7 +16,7 @@ import de.uniks.jism.gui.table.SearchTableComponent;
 
 public class GroupAccountGUI extends Shell
 {
-   private GroupAccount groupAccount = new GroupAccount().withPersons(new Person().withName("Albert"));
+   private GroupAccount groupAccount; // = new GroupAccount().withPersons(new Person().withName("Albert"));
 
    /**
     * Launch the application.
@@ -51,6 +51,9 @@ public class GroupAccountGUI extends Shell
    public GroupAccountGUI(Display display)
    {
       super(display, SWT.SHELL_TRIM);
+      
+      initModel();
+      
       setLayout(new GridLayout(1, false));
       
       SashForm sashForm = new SashForm(this, SWT.NONE);
@@ -62,6 +65,9 @@ public class GroupAccountGUI extends Shell
       SearchTableComponent itemsTable = new SDMLibSearchTableComponent(sashForm, groupAccount, GroupAccount.PROPERTY_ITEMS);
       
       JsonIdMap map = (JsonIdMap) itemsTable.getMap();
+      
+      map.toJsonObject(groupAccount);
+      
       map.setUpdateMsgListener(new PropertyChangeListener()
       {
          @Override
@@ -72,6 +78,19 @@ public class GroupAccountGUI extends Shell
       });
       
       createContents();
+   }
+
+   private void initModel()
+   {
+      groupAccount = new GroupAccount();
+      
+      Person albert = groupAccount.createPersons().withName("Albert");
+      
+      groupAccount.createPersons().withName("Nina");
+      
+      groupAccount.createItems().withBuyer(albert).withDescription("Bier").withValue(12.0);
+      
+      groupAccount.updateBalances();
    }
 
    /**

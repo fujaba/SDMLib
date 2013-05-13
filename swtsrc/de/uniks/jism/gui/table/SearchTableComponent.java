@@ -60,13 +60,14 @@ private Text searchText;
 
 	public void createContent(Composite owner){
 		boolean isInit=northComponents!=null;
+		this.setLayout(new RowLayout(1));
 		if(!isInit){
 			northComponents = new Composite(this, SWT.FILL);
 			northComponents.setLayoutData(GUIPosition.NORTH);
 			northComponents.setLayout(new GridLayout(3,false));
 		}
 		
-		super.createContent(owner);
+		super.createContent(this);
 		if(!isInit){
 			firstNorth=new Composite(northComponents, SWT.NONE);
 			firstNorth.setLayout(new RowLayout(SWT.HORIZONTAL));

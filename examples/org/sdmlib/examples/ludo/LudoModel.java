@@ -58,6 +58,17 @@ public class LudoModel
          "name", STRING,
          "x", INT,
          "y", INT);
+
+      player.withAttributes(
+         "color", "String",
+         /*add attribut*/
+         "enumColor", "org.sdmlib.examples.ludo.LudoModel.LudoColor",
+         /*add attribut*/
+         "name", "String",
+         /*add attribut*/
+         "x", "int",
+         /*add attribut*/
+         "y", "int");
       
       player.withAssoc(player, "next", ONE, "prev", ONE);
       
@@ -66,6 +77,8 @@ public class LudoModel
       dice.withAttributes("value", INT);
       
       player.withAssoc(dice, "dice", ONE, "player", ONE);
+      
+      // player.withAssoc(dice, "dice", MANY, "player", ONE);
       
       Clazz field = ludo.createClassAndAssoc("Field", "fields", MANY, "game", ONE);
       

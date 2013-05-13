@@ -1,5 +1,7 @@
 package org.sdmlib.examples.replication.maumau;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,9 +12,11 @@ import org.sdmlib.examples.replication.ChatRoot;
 import org.sdmlib.examples.replication.SWTSharedSpace;
 import org.sdmlib.examples.replication.maumau.creators.CardSet;
 import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.TaskFlowBoard;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 
@@ -42,7 +46,7 @@ public class MultiMauMauClientInitTask implements Runnable
       gameSpace.setName("GameSpace" + nodeId);
             
       ReplicationChannel channel = gameSpace.createChannels()
-            .withConnect("localhost", ReplicationServer.REPLICATION_SERVER_PORT);
+            .withConnect("localhost", ReplicationMauMauServer.REPLICATION_SERVER_PORT);
       channel.setName("ReplicationChannel" + nodeId + "Server");
       channel.start();
       
@@ -70,56 +74,19 @@ public class MultiMauMauClientInitTask implements Runnable
       MauMauControler gameControler = new MauMauControler(mauMau, gui);
       mauMau.getPropertyChangeSupport().addPropertyChangeListener(gameControler);
       
-      Player me = new Player();
-      me = gameSpace.glueObjectsAtId(nodeId, me);
+      // create task board and start action
+      TaskFlowBoard taskFlowBoard = new TaskFlowBoard();
+      map.put(gameSpace.getSpaceId() + "taskBoard", taskFlowBoard);
       
+      Lane anyPlayerLane = new Lane().withName("anyPlayer");
+      map.put("anyPlayerLane", taskFlowBoard);
+      taskFlowBoard.addToLanes(anyPlayerLane);
+      
+      anyPlayerLane.getPropertyChangeSupport().addPropertyChangeListener(new LaneListener());
+      
+      Player me = new Player();
       me.withName(nodeId);
       mauMau.withPlayers(me);
-      
-      // tom.withNext(albert);
-      // albert.withNext(tom);
-      
-      gameControler.setActivePlayer(me);
-      
-      // mauMau.setCurrentMove(albert);
-      
-      // deal cards
-      Player[] players = mauMau.getPlayers().toArray(new Player[] {});
-      
-      int i = 0;
-      int p = 0;
-
-      CardSet cards = new CardSet();
-      cards.addAll(mauMau.getCards());
-      
-      Collections.shuffle(cards);
-      
-      for (Card c : cards)
-      {
-         if (p < players.length)
-         {
-            players[p].addToCards(c);
-            
-            i++;
-            
-            if ( ! (i < 5))
-            {
-               i = 0;
-               p++;
-            }
-         }
-         else if (p == players.length)
-         {
-            // put one card on the stack
-            mauMau.getStack().addToCards(c);
-            p++;
-         }
-         else
-         { 
-            // all other cards put on the deck
-            mauMau.getDeck().addToCards(c);
-         }
-      }
       
    }
 

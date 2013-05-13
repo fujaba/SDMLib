@@ -160,6 +160,11 @@ public class Method implements PropertyChangeInterface
          return getReturnType();
       }
 
+      if (PROPERTY_BODY.equalsIgnoreCase(attrName))
+      {
+         return getBody();
+      }
+
       return null;
    }
 
@@ -195,6 +200,12 @@ public class Method implements PropertyChangeInterface
       if (PROPERTY_RETURNTYPE.equalsIgnoreCase(attrName))
       {
          setReturnType((String) value);
+         return true;
+      }
+
+      if (PROPERTY_BODY.equalsIgnoreCase(attrName))
+      {
+         setBody((String) value);
          return true;
       }
 
@@ -522,7 +533,7 @@ public class Method implements PropertyChangeInterface
          {
             returnClause = "return null;";
          }
-
+         
          CGUtil.replaceAll(text, 
             "modifiers", "public", 
             "returnType", returnType,
@@ -536,6 +547,21 @@ public class Method implements PropertyChangeInterface
          parser.getFileBody().insert(pos, text.toString());
          clazz.setFileHasChanged(true);
       }
+      
+      pos = parser.indexOf(Parser.METHOD + ":" + signature);
+
+      symTabEntry = parser.getSymTab().get(string);
+
+      // in case of a method body, remove old method
+      if (pos >= 0 && this.getBody() != null)
+      {
+    	  parser.getFileBody().replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + getBody() + "   ");
+    	  pos = -1;
+
+          clazz.setFileHasChanged(true);
+      }
+      
+      
 
    }
 
@@ -578,8 +604,37 @@ public class Method implements PropertyChangeInterface
       
       _.append(" ").append(this.getSignature());
       _.append(" ").append(this.getReturnType());
+      _.append(" ").append(this.getBody());
       return _.substring(1);
    }
    
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_BODY = "body";
+   
+   private String body;
+
+   public String getBody()
+   {
+      return this.body;
+   }
+   
+   public void setBody(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.body, value))
+      {
+         String oldValue = this.body;
+         this.body = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BODY, oldValue, value);
+      }
+   }
+   
+   public Method withBody(String value)
+   {
+      setBody(value);
+      return this;
+   } 
 }
 

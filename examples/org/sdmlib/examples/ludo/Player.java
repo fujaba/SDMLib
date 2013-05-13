@@ -880,5 +880,17 @@ public class Player implements PropertyChangeInterface
       setEnumColor(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getColor());
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      return _.substring(1);
+   }
+
 }
 

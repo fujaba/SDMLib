@@ -1,9 +1,12 @@
 package org.sdmlib.examples.replication.maumau;
 
-import org.sdmlib.examples.replication.creators.CreatorCreator;
+import org.eclipse.swt.widgets.TaskBar;
+import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.Step;
+import org.sdmlib.replication.TaskFlowBoard;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class ReplicationMauMauServer extends ReplicationNode
@@ -25,33 +28,32 @@ public class ReplicationMauMauServer extends ReplicationNode
 
       if (sharedSpace.getMap() == null)
       {
-         JsonIdMap map = CreatorCreator.createIdMap("server");
+         JsonIdMap map = org.sdmlib.examples.replication.maumau.creators.CreatorCreator.createIdMap("server");
+         map.addCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
          
          sharedSpace.withNodeId("server").withMap(map);
+         
+         // create task board and start action
+         TaskFlowBoard taskFlowBoard = new TaskFlowBoard();
+         map.put(spaceId + "taskBoard", taskFlowBoard);
+         
+         Lane serverLane = taskFlowBoard.createLanes().withName("server");
+         
+         Lane anyPlayerLane = new Lane().withName("anyPlayer");
+         map.put("anyPlayerLane", anyPlayerLane);
+         
+         taskFlowBoard.addToLanes(anyPlayerLane);
+         
+         Step startGameStep = taskFlowBoard.createSteps().withName("Start Game");
+         
+         startGameStep.createTasks().withName("startGame").withLane(anyPlayerLane);
          
          // create game
          MauMau mauMau = new MauMau();
 
          map.put(spaceId + "_root", mauMau);
 
-         // create cards
-         mauMau.createDeck();
-         mauMau.createStack();
-               
-         int suitCount = 0;
-         for (Suit s : Suit.values())
-         {
-            for (Value v : Value.values())
-            {
-               Card card = new Card().withSuit(s).withValue(v);
-               mauMau.addToCards(card);
-            }
-            suitCount++;
-            if (suitCount >= 2)
-            {
-               break;
-            }
-         }
+
       }
       
       return sharedSpace;

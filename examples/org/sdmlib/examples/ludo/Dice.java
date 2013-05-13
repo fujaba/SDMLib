@@ -255,5 +255,14 @@ public class Dice implements PropertyChangeInterface
       withPlayer(value);
       return value;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getValue());
+      return _.substring(1);
+   }
+
 }
 

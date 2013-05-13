@@ -7,6 +7,11 @@ public class JsonIdComparator implements Comparator<Object>
    @Override
    public int compare(Object o1, Object o2)
    {
+      if (o1 instanceof JsonObject)
+      {
+         o1 = ((JsonObject)o1).get(JsonIdMap.ID);
+         o2 = ((JsonObject)o2).get(JsonIdMap.ID);
+      }
       String id1 = (String) o1;
       String id2 = (String) o2;
       

@@ -352,6 +352,11 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	public TableViewer getBrowserView(GUIPosition browserId) {
 		if (browserId.equals(GUIPosition.WEST)) {
 			return fixedTableViewerLeft;
+		} else {
+		   if (tableViewer == null)
+		   {
+		      createBrowser(browserId);
+		   }
 		}
 		return tableViewer;
 	}

@@ -76,6 +76,8 @@ public class SDMLibSearchTableComponent extends SearchTableComponent
 	      
 	      final SendableEntityCreator entityCreatorClass = this.map.getCreatorClasses(packageName + "." + entryTypeName);
 	      
+	      this.createContent(parent);
+	      
 	      this.createFromCreator(entityCreatorClass, true);
 	      
 	      Button addButton = new Button(this.getNorth(), SWT.NONE);
