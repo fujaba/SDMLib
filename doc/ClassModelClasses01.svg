@@ -90,57 +90,58 @@
 <!-- _Method -->
 <g id="node4" class="node"><title>_Method</title>
 <a xlink:href="../src/org/sdmlib/models/classes/Method.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="131,-65 131,-82 216,-82 216,-65 131,-65"/>
-<text text-anchor="start" x="157" y="-71.5" font-family="Times New Roman,serif" font-size="10.00">Method</text>
+<polygon fill="none" stroke="black" points="131,-72 131,-89 216,-89 216,-72 131,-72"/>
+<text text-anchor="start" x="157" y="-78.5" font-family="Times New Roman,serif" font-size="10.00">Method</text>
 </a>
-<polygon fill="none" stroke="black" points="131,-31 131,-65 216,-65 216,-31 131,-31"/>
-<text text-anchor="start" x="136" y="-53" font-family="Times New Roman,serif" font-size="10.00">signature :String</text>
-<text text-anchor="start" x="136" y="-39" font-family="Times New Roman,serif" font-size="10.00">returnType :String</text>
-<polygon fill="none" stroke="black" points="131,-11 131,-31 216,-31 216,-11 131,-11"/>
-<text text-anchor="start" x="172" y="-19" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="131,-24 131,-72 216,-72 216,-24 131,-24"/>
+<text text-anchor="start" x="136" y="-60" font-family="Times New Roman,serif" font-size="10.00">signature :String</text>
+<text text-anchor="start" x="136" y="-46" font-family="Times New Roman,serif" font-size="10.00">returnType :String</text>
+<text text-anchor="start" x="136" y="-32" font-family="Times New Roman,serif" font-size="10.00">body :String</text>
+<polygon fill="none" stroke="black" points="131,-4 131,-24 216,-24 216,-4 131,-4"/>
+<text text-anchor="start" x="172" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- _Clazz&#45;&gt;_Method -->
 <g id="edge10" class="edge"><title>_Clazz&#45;&gt;_Method</title>
-<path fill="none" stroke="black" d="M167.791,-130.191C168.723,-115.486 169.696,-100.125 170.546,-86.7156"/>
-<text text-anchor="middle" x="174.191" y="-93.5279" font-family="Times New Roman,serif" font-size="10.00">methods *</text>
+<path fill="none" stroke="black" d="M167.791,-130.191C168.559,-118.063 169.356,-105.489 170.089,-93.9317"/>
+<text text-anchor="middle" x="173.733" y="-100.744" font-family="Times New Roman,serif" font-size="10.00">methods *</text>
 <text text-anchor="middle" x="164.146" y="-118.379" font-family="Times New Roman,serif" font-size="10.00">clazz</text>
 </g>
 <!-- _Role -->
 <g id="node6" class="node"><title>_Role</title>
 <a xlink:href="../src/org/sdmlib/models/classes/Role.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="258,-72 258,-89 319,-89 319,-72 258,-72"/>
-<text text-anchor="start" x="279" y="-78.5" font-family="Times New Roman,serif" font-size="10.00">Role</text>
+<polygon fill="none" stroke="black" points="266,-72 266,-89 327,-89 327,-72 266,-72"/>
+<text text-anchor="start" x="287" y="-78.5" font-family="Times New Roman,serif" font-size="10.00">Role</text>
 </a>
-<polygon fill="none" stroke="black" points="258,-24 258,-72 319,-72 319,-24 258,-24"/>
-<text text-anchor="start" x="263" y="-60" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
-<text text-anchor="start" x="263" y="-46" font-family="Times New Roman,serif" font-size="10.00">card :String</text>
-<text text-anchor="start" x="263" y="-32" font-family="Times New Roman,serif" font-size="10.00">kind :String</text>
-<polygon fill="none" stroke="black" points="258,-4 258,-24 319,-24 319,-4 258,-4"/>
-<text text-anchor="start" x="287" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="266,-24 266,-72 327,-72 327,-24 266,-24"/>
+<text text-anchor="start" x="271" y="-60" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
+<text text-anchor="start" x="271" y="-46" font-family="Times New Roman,serif" font-size="10.00">card :String</text>
+<text text-anchor="start" x="271" y="-32" font-family="Times New Roman,serif" font-size="10.00">kind :String</text>
+<polygon fill="none" stroke="black" points="266,-4 266,-24 327,-24 327,-4 266,-4"/>
+<text text-anchor="start" x="295" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- _Clazz&#45;&gt;_Role -->
 <g id="edge14" class="edge"><title>_Clazz&#45;&gt;_Role</title>
-<path fill="none" stroke="black" d="M209.553,-130.191C222.716,-114.88 236.929,-98.8569 249.62,-85.0669"/>
-<text text-anchor="middle" x="246.612" y="-92.1037" font-family="Times New Roman,serif" font-size="10.00">sourceRoles *</text>
-<text text-anchor="middle" x="212.272" y="-118.068" font-family="Times New Roman,serif" font-size="10.00">clazz</text>
+<path fill="none" stroke="black" d="M212.922,-130.191C227.642,-114.122 243.563,-97.2688 257.519,-83.0356"/>
+<text text-anchor="middle" x="254.211" y="-89.9727" font-family="Times New Roman,serif" font-size="10.00">sourceRoles *</text>
+<text text-anchor="middle" x="215.943" y="-118.158" font-family="Times New Roman,serif" font-size="10.00">clazz</text>
 </g>
 <!-- _Clazz&#45;&gt;_Role -->
 <g id="edge16" class="edge"><title>_Clazz&#45;&gt;_Role</title>
-<path fill="none" stroke="black" d="M213.482,-140.734C227.19,-125.514 241.734,-108.82 254.328,-93.8414"/>
-<text text-anchor="middle" x="251.711" y="-100.993" font-family="Times New Roman,serif" font-size="10.00">targetRoles *</text>
-<text text-anchor="middle" x="216.39" y="-128.666" font-family="Times New Roman,serif" font-size="10.00">clazz</text>
+<path fill="none" stroke="black" d="M213.601,-143.504C228.992,-127.489 245.632,-109.577 259.933,-93.6318"/>
+<text text-anchor="middle" x="257.01" y="-100.695" font-family="Times New Roman,serif" font-size="10.00">targetRoles *</text>
+<text text-anchor="middle" x="216.816" y="-131.535" font-family="Times New Roman,serif" font-size="10.00">clazz</text>
 </g>
 <!-- _Association&#45;&gt;_Role -->
 <g id="edge18" class="edge"><title>_Association&#45;&gt;_Role</title>
-<path fill="none" stroke="black" d="M294.729,-158.486C291.472,-139.448 288.489,-114.856 286.796,-93.7083"/>
-<text text-anchor="middle" x="291.773" y="-99.8822" font-family="Times New Roman,serif" font-size="10.00">source</text>
-<text text-anchor="middle" x="289.084" y="-147.731" font-family="Times New Roman,serif" font-size="10.00">assoc</text>
+<path fill="none" stroke="black" d="M296.505,-158.486C294.32,-139.448 292.723,-114.856 292.221,-93.7083"/>
+<text text-anchor="middle" x="296.703" y="-100.148" font-family="Times New Roman,serif" font-size="10.00">source</text>
+<text text-anchor="middle" x="291.325" y="-147.432" font-family="Times New Roman,serif" font-size="10.00">assoc</text>
 </g>
 <!-- _Association&#45;&gt;_Role -->
 <g id="edge20" class="edge"><title>_Association&#45;&gt;_Role</title>
-<path fill="none" stroke="black" d="M306.169,-158.486C305.136,-139.448 302.577,-114.856 299.504,-93.7083"/>
-<text text-anchor="middle" x="304.951" y="-99.5946" font-family="Times New Roman,serif" font-size="10.00">target</text>
-<text text-anchor="middle" x="301.404" y="-147.194" font-family="Times New Roman,serif" font-size="10.00">assoc</text>
+<path fill="none" stroke="black" d="M307.945,-158.486C307.984,-139.448 306.81,-114.856 304.929,-93.7083"/>
+<text text-anchor="middle" x="309.901" y="-99.8844" font-family="Times New Roman,serif" font-size="10.00">target</text>
+<text text-anchor="middle" x="303.681" y="-146.94" font-family="Times New Roman,serif" font-size="10.00">assoc</text>
 </g>
 <!-- _SymTabEntry -->
 <g id="node7" class="node"><title>_SymTabEntry</title>
@@ -193,6 +194,16 @@
 <path fill="none" stroke="black" d="M701.386,-392.101C711.91,-387.481 719,-377.781 719,-363 719,-348.219 711.91,-338.519 701.386,-333.899"/>
 <text text-anchor="middle" x="711.381" y="-331.706" font-family="Times New Roman,serif" font-size="10.00">bodyStats *</text>
 <text text-anchor="middle" x="707.576" y="-381.746" font-family="Times New Roman,serif" font-size="10.00">parent</text>
+</g>
+<!-- _String -->
+<g id="node22" class="node"><title>_String</title>
+<text text-anchor="middle" x="629" y="-188.5" font-family="Times New Roman,serif" font-size="10.00">_String</text>
+</g>
+<!-- _StatementEntry&#45;&gt;_String -->
+<g id="edge24" class="edge"><title>_StatementEntry&#45;&gt;_String</title>
+<path fill="none" stroke="black" d="M629,-302.064C629,-273.804 629,-241.485 629,-219.216"/>
+<polygon fill="black" stroke="black" points="629,-209.152 633.5,-219.152 629,-214.152 629,-219.152 629,-219.152 629,-219.152 629,-214.152 624.5,-219.152 629,-209.152 629,-209.152"/>
+<text text-anchor="middle" x="633.226" y="-215.715" font-family="Times New Roman,serif" font-size="10.00">tokenList</text>
 </g>
 </g>
 </svg>
