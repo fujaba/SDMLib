@@ -63,7 +63,7 @@ public class MultiMauMauClientInitTask implements Runnable
       
       // create initial chat model
       JsonIdMap map = org.sdmlib.examples.replication.maumau.creators.CreatorCreator.createIdMap(nodeId);
-      map.addCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
       gameSpace.withMap(map);
       
       MauMau mauMau = new MauMau();

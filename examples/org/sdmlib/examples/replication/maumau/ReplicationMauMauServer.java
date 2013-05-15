@@ -29,7 +29,7 @@ public class ReplicationMauMauServer extends ReplicationNode
       if (sharedSpace.getMap() == null)
       {
          JsonIdMap map = org.sdmlib.examples.replication.maumau.creators.CreatorCreator.createIdMap("server");
-         map.addCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+         map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
          
          sharedSpace.withNodeId("server").withMap(map);
          
