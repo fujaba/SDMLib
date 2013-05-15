@@ -90,8 +90,7 @@ protected TableComponent owner;
 		IdMap map = owner.getIdMap();
 		EditField editField=new EditField().init(element, map, column);
 		Table table = ((TableViewer) getViewer()).getTable();
-		JISMCellEditor editor = new JISMCellEditor(table, editField, owner);
-		editor.setElement(element, tableColumn);
+		JISMCellEditor editor = new JISMCellEditor(table, editField, owner).withElement(element, tableColumn);
 		
 		owner.notifiyCellEditor(editor);
 		return editor;

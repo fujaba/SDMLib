@@ -9,7 +9,7 @@ public class CreatorCreator
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.model.test.methods.creators.PlaceCreator());
+      jsonIdMap.withCreator(new org.sdmlib.model.test.methods.creators.PlaceCreator());
       return jsonIdMap;
    }
 }

@@ -9,10 +9,10 @@ public class CreatorCreator
    {
 	   JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.model.test.superclasses.creators.ContinentCreator());
-      jsonIdMap.addCreator(new org.sdmlib.model.test.superclasses.creators.StateCreator());
-      jsonIdMap.addCreator(new org.sdmlib.model.test.superclasses.creators.TownCreator());
-      jsonIdMap.addCreator(new org.sdmlib.model.classes.creators.ReverseClassModelTestCreator());
+      jsonIdMap.withCreator(new org.sdmlib.model.test.superclasses.creators.ContinentCreator());
+      jsonIdMap.withCreator(new org.sdmlib.model.test.superclasses.creators.StateCreator());
+      jsonIdMap.withCreator(new org.sdmlib.model.test.superclasses.creators.TownCreator());
+      jsonIdMap.withCreator(new org.sdmlib.model.classes.creators.ReverseClassModelTestCreator());
       return jsonIdMap;
    }
 }

@@ -161,10 +161,10 @@ public static final int BorderCell=10;
 		        	int newWidth = size.x+borderCell;
 		        	if(column instanceof ColumnNotification){
 		        		if(((ColumnNotification)column).setNewWidth(column.getWidth(), newWidth)){
-		        			column.setWidth(newWidth);
+		        			column.withWidth(newWidth);
 		        		}
 		        	}else if(newWidth>column.getWidth()){
-		        		column.setWidth(newWidth);
+		        		column.withWidth(newWidth);
 		        	}
 		        	tableViewerColumn.getColumn().setWidth(column.getWidth());
 		        }		

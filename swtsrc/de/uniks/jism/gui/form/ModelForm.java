@@ -90,10 +90,10 @@ private IdMap map;
 				PropertyComposite propertyComposite = new PropertyComposite(this, SWT.NONE);
 				Column column = new Column();
 				if(this.textClazz!=null){
-					column.setLabel(this.textClazz.getText(property, item, this));
+					column.withLabel(this.textClazz.getText(property, item, this));
 					propertyComposite.setLabelOrientation(LabelPosition.WEST);
 				}
-				column.setAttrName(property);
+				column.withAttrName(property);
 				
 				propertyComposite.setDataBinding(map, item, column);
 				int temp = propertyComposite.getLabelLength();

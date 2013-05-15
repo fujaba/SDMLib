@@ -104,7 +104,7 @@ private CLabel westLabel;
 	}
 
 	public void setLabelText(String value) {
-		this.column.setLabel(value);
+		this.column.withLabel(value);
 		setDataBinding();
 	}
 	
@@ -113,10 +113,10 @@ private CLabel westLabel;
 			if(this.map!=null){
 				TextItems textClazz = (TextItems) map.getCreatorClasses(TextItems.class.getName());
 				if(textClazz !=null){
-					column.setLabel(textClazz.getText(value, item, this));
+					column.withLabel(textClazz.getText(value, item, this));
 				}
 			}else{
-				column.setLabel(value);
+				column.withLabel(value);
 			}
 		}
 		setDataBinding();
@@ -197,7 +197,7 @@ private CLabel westLabel;
 	}
 		
 	public void setProperty(String value){
-		this.column.setAttrName(value);
+		this.column.withAttrName(value);
 		
 		setDataBinding();
 	}

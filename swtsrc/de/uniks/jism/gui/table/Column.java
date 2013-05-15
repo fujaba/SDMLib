@@ -96,15 +96,6 @@ public static final int AUTOWIDTH=-1;
 		this.getDropDownListFromMap=createDropDownListFromMap;
 	}
 
-	public Column(String label, int width){
-		this.label=label;
-		this.width=width;
-	}
-	public Column(String label, int width, String attrName){
-		this.label=label;
-		this.width=width;
-		this.attrName=attrName;
-	}
 	public Column(String label, int width, String attrName, boolean edit){
 		this.label=label;
 		this.width=width;
@@ -112,19 +103,6 @@ public static final int AUTOWIDTH=-1;
 		if(edit){
 			this.editColumn=attrName;
 		}
-	}
-	public Column(String label, int width, String attrName, String regEx, String editColumn){
-		this.label=label;
-		this.width=width;
-		this.attrName=attrName;
-		this.numberFormat=regEx;
-		this.editColumn=editColumn;
-	}
-	public Column(String label, int width, String attrName, String regEx){
-		this.label=label;
-		this.width=width;
-		this.attrName=attrName;
-		this.numberFormat=regEx;
 	}
 	
 	/**
@@ -137,8 +115,9 @@ public static final int AUTOWIDTH=-1;
 	/**
 	 * @param label the label to set
 	 */
-	public void setLabel(String label) {
+	public Column withLabel(String label) {
 		this.label = label;
+		return this;
 	}
 
 	/**
@@ -151,8 +130,9 @@ public static final int AUTOWIDTH=-1;
 	/**
 	 * @param width the width to set
 	 */
-	public void setWidth(int width) {
+	public Column withWidth(int width) {
 		this.width = width;
+		return this;
 	}
 
 	/**
@@ -165,8 +145,9 @@ public static final int AUTOWIDTH=-1;
 	/**
 	 * @param sort the sort to set
 	 */
-	public void setAttrName(String attrName) {
+	public Column withAttrName(String attrName) {
 		this.attrName = attrName;
+		return this;
 	}
 
 	/**
@@ -194,74 +175,74 @@ public static final int AUTOWIDTH=-1;
 	/**
 	 * @param editColumn the editColumn to set
 	 */
-	public void setEditColumn(String editColumn) {
+	public Column withEditColumn(String editColumn) {
 		this.editColumn = editColumn;
+		return this;
 	}
 
 	public String getBackgroundColor() {
 		return backgroundColor;
 	}
 
-	public void setBackgroundColor(String backgroundColor) {
+	public Column withBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
-	}
-	public void setColor(String forgroundColor, String backgroundColor) {
-		this.forgroundColor = forgroundColor;
-		this.backgroundColor = backgroundColor;
+		return this;
 	}
 
 	public String getForgroundColor() {
 		return forgroundColor;
 	}
 
-	public void setForgroundColor(String value) {
+	public Column withForgroundColor(String value) {
 		this.forgroundColor = value;
+		return this;
 	}
 
 	public String getForgroundColorActiv() {
 		return forgroundColorActiv;
 	}
 
-	public void setForgroundColorActiv(String forgroundColorActiv) {
+	public Column withForgroundColorActiv(String forgroundColorActiv) {
 		this.forgroundColorActiv = forgroundColorActiv;
+		return this;
 	}
 
 	public String getBackgroundColorActiv() {
 		return backgroundColorActiv;
 	}
 
-	public void setBackgroundColorActiv(String backgroundColorActiv) {
+	public Column withBackgroundColorActiv(String backgroundColorActiv) {
 		this.backgroundColorActiv = backgroundColorActiv;
+		return this;
 	}
 
 	public String getCellValue() {
 		return cellValue;
 	}
 
-	public void setCellValue(String cellValue) {
+	public Column withCellValue(String cellValue) {
 		this.cellValue = cellValue;
-	}
-
-	public void setCellValue(String cellValue, int alignment) {
-		this.cellValue = cellValue;
-		this.textalignment=alignment;
+		return this;
 	}
 
 	public boolean isResizable() {
 		return isResizable;
 	}
 
-	public void setResizable(boolean isResizable) {
+	public Column withResizable(boolean isResizable) {
 		this.isResizable = isResizable;
+		return this;
 	}
 
 	public int getTextalignment() {
 		return textalignment;
 	}
 
-	public void setTextalignment(int textalignment) {
+	public Column withTextalignment(int textalignment) {
 		this.textalignment = textalignment;
+		return this;
 	}
+	
 	public EntityValueFactory getCellValueCreator(){
 		return new EntityValueFactory();
 	}
@@ -270,41 +251,47 @@ public static final int AUTOWIDTH=-1;
 		return isVisible;
 	}
 
-	public void setVisible(boolean isVisible) {
+	public Column withVisible(boolean isVisible) {
 		this.isVisible = isVisible;
+		return this;
 	}
 
-	public void setAltAttribute(String altAttribute){
+	public Column withAltAttribute(String altAttribute){
 		this.altAttribute=altAttribute;
+		return this;
 	}
+	
 	public String getAltAttribute() {
 		return altAttribute;
 	}
 
-	public void setItem(Object item) {
+	public Column withItem(Object item) {
 		this.item=item;
+		return this;
 	}
 	public Object getItem() {
 		return item;
 	}
-	public void setSelection(int x, int y){
-		
-	}
+	public void setSelection(int x, int y){}
+
 	public boolean isMovable() {
 		return isMovable;
 	}
 
-	public void setMovable(boolean isMovable) {
+	public Column withMovable(boolean isMovable) {
 		this.isMovable = isMovable;
+		return this;
 	}
 
 	public GUIPosition getBrowserId() {
 		return browserId;
 	}
 
-	public void setBrowserId(GUIPosition browserId) {
+	public Column withBrowserId(GUIPosition browserId) {
 		this.browserId = browserId;
+		return this;
 	}
+	
 	public boolean isEditingSupport() {
 		return false;
 	}
@@ -313,20 +300,26 @@ public static final int AUTOWIDTH=-1;
 		return font;
 	}
 
-	public void setFont(String font) {
+	public Column withFont(String font) {
 		this.font = font;
+		return this;
 	}
+	
 	public boolean isGetDropDownListFromMap() {
 		return getDropDownListFromMap;
 	}
-	public void setGetDropDownListFromMap(boolean getDropDownListFromMap) {
+	
+	public Column withGetDropDownListFromMap(boolean getDropDownListFromMap) {
 		this.getDropDownListFromMap = getDropDownListFromMap;
+		return this;
 	}
+	
 	public String getDefaultText() {
 		return defaultText;
 	}
-	public void setDefaultText(String defaultText) {
+	public Column withDefaultText(String defaultText) {
 		this.defaultText = defaultText;
+		return this;
 	}
 	@Override
 	public Object get(String attribute) {
@@ -381,61 +374,61 @@ public static final int AUTOWIDTH=-1;
 	@Override
 	public boolean set(String attribute, Object value) {
 		if (attribute.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
-			setAttrName((String) value);
+			withAttrName((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_NUMBERFORMAT)) {
 			withNumberFormat((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_EDITCOLUMN)) {
-			setEditColumn((String) value);
+			withEditColumn((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_LABEL)) {
-			setLabel((String) value);
+			withLabel((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_DEFAULTTEXT)) {
-			setDefaultText((String) value);
+			withDefaultText((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLOR)) {
-			setBackgroundColor((String) value);
+			withBackgroundColor((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_FORGROUNDCOLOR)) {
-			setForgroundColor((String) value);
+			withForgroundColor((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_FORGROUNDCOLORACTIV)) {
-			setForgroundColorActiv((String) value);
+			withForgroundColorActiv((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUNDCOLORACTIV)) {
-			setBackgroundColorActiv((String) value);
+			withBackgroundColorActiv((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_CELLVALUE)) {
-			setCellValue((String) value);
+			withCellValue((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_TEXTALIGNMENT)) {
-			setTextalignment((Integer) value);
+			withTextalignment((Integer) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_FONT)) {
-			setFont((String) value);
+			withFont((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_SIZE)) {
-			setWidth((Integer) value);
+			withWidth((Integer) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_RESIZE)) {
-			setResizable((Boolean) value);
+			withResizable((Boolean) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_VISIBLE)) {
-			setVisible((Boolean) value);
+			withVisible((Boolean) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_MOVABLE)) {
-			setMovable((Boolean) value);
+			withMovable((Boolean) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_ALTTEXT)) {
-			setAltAttribute((String) value);
+			withAltAttribute((String) value);
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_BROWSERID)) {
-			setBrowserId(GUIPosition.valueOf((String)value));
+			withBrowserId(GUIPosition.valueOf((String)value));
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_VALUEFROMDROPDOWNLIST)) {
-			setGetDropDownListFromMap((Boolean) value);
+			withGetDropDownListFromMap((Boolean) value);
 			return true;
 		}
 		return false;

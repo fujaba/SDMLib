@@ -9,13 +9,13 @@ public class CreatorCreator
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.LectureCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.RoomCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.UniversityCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.FemaleCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.ProfessorCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyrightextends.creators.StudentCreator());
-      jsonIdMap.addCreator(new org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.LectureCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.RoomCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.UniversityCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.FemaleCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.ProfessorCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyrightextends.creators.StudentCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenCreator());
       return jsonIdMap;
    }
 }

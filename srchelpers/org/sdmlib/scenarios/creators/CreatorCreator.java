@@ -9,8 +9,8 @@ public class CreatorCreator
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.KanbanEntryCreator());
-      jsonIdMap.addCreator(new org.sdmlib.scenarios.creators.LogEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.scenarios.creators.KanbanEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.scenarios.creators.LogEntryCreator());
       return jsonIdMap;
    }
 }

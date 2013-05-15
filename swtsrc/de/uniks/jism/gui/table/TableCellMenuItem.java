@@ -61,13 +61,13 @@ private TableColumnView column;
 		if (menuItem.getSelection()) {
 			tableColumn.setWidth(columnConfig.getWidth());
 			tableColumn.setResizable(columnConfig.isResizable());
-			columnConfig.setVisible(true);
+			columnConfig.withVisible(true);
 		} else {
-			columnConfig.setWidth(tableColumn.getWidth());
+			columnConfig.withWidth(tableColumn.getWidth());
 
 			tableColumn.setWidth(0);
 			tableColumn.setResizable(false);
-			columnConfig.setVisible(false);
+			columnConfig.withVisible(false);
 		}
 		column.onResizeColumn(tableColumn);
 	}

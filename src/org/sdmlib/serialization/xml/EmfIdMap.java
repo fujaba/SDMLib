@@ -1,8 +1,6 @@
 package org.sdmlib.serialization.xml;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
@@ -166,7 +164,7 @@ public class EmfIdMap extends SDMLibJsonIdMap
 
    public EmfIdMap withCreators(LinkedHashSet<SendableEntityCreator> creatorSet)
    {
-      addCreator(creatorSet);
+      withCreator(creatorSet);
       return this;
    }
 

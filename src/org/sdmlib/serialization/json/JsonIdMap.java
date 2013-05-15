@@ -81,10 +81,10 @@ public class JsonIdMap extends IdMap{
 	 */
 	public JsonIdMap() {
 		super();
-		this.addCreator(new DateCreator());
-		this.addCreator(new JsonObjectCreator());
-		this.addCreator(new JsonArrayCreator());
-		this.addCreator(new MapEntryCreator());
+		this.withCreator(new DateCreator());
+		this.withCreator(new JsonObjectCreator());
+		this.withCreator(new JsonArrayCreator());
+		this.withCreator(new MapEntryCreator());
 	}
 
 	/**
@@ -664,20 +664,23 @@ public class JsonIdMap extends IdMap{
 	 * 
 	 * @param listener
 	 *            the new update msg listener
+	 * @return JsonIdMap
 	 */
-	public void setUpdateMsgListener(MapUpdateListener listener) {
+	public JsonIdMap withUpdateMsgListener(MapUpdateListener listener) {
 		this.updatelistener = listener;
 		if (listener instanceof PropertyChangeListener) {
 			super.setUpdateMsgListener((PropertyChangeListener) listener);
 		}
+		return this;
 	}
 
-	public void setUpdateMsgListener(PropertyChangeListener listener) {
+	public JsonIdMap withUpdateMsgListener(PropertyChangeListener listener) {
 		super.setUpdateMsgListener(listener);
 		if (listener instanceof MapUpdateListener) {
 
 			this.updatelistener = (MapUpdateListener) listener;
 		}
+		return this;
 	}
 
 	/**
@@ -797,8 +800,13 @@ public class JsonIdMap extends IdMap{
 		return true;
 	}
 
-	public void setGrammar(Grammar value) {
+	/**
+	 * @param Gammar value
+	 * @return JsonIdMap
+	 */
+	public JsonIdMap withGrammar(Grammar value) {
 		this.grammar = value;
+		return this;
 	}
 	
 	/**
@@ -806,9 +814,11 @@ public class JsonIdMap extends IdMap{
 	 * 
 	 * @param typSave
 	 *            the new typ save
+	 * @return JsonIdMap
 	 */
-	public void setTypSave(boolean typSave) {
+	public JsonIdMap withTypSave(boolean typSave) {
 		this.typSave = typSave;
+		return this;
 	}
 
 }

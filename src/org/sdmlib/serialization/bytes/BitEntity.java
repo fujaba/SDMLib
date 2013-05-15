@@ -34,11 +34,10 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import org.sdmlib.serialization.EntityList;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.ByteItem;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class BitEntity implements BaseEntityList, ByteItem{
 public static final String BIT_STRING = "string";

@@ -39,26 +39,11 @@ public class ColumnNotification extends Column{
 private EditingSupport editingsupport;
 
 	public ColumnNotification(){
-		
-	}
-	public ColumnNotification(String label, int width){
-		super(label, width);
-	}
-	
-	public ColumnNotification(String label, int width, String attrName){
-		super(label, width, attrName);
+		super();
 	}
 	
 	public ColumnNotification(String label, int width, String attrName, boolean edit){
 		super(label, width, attrName, edit);
-	}
-	
-	
-	public ColumnNotification(String label, int width, String attrName, String regEx){
-		super(label, width, attrName, regEx);
-	}
-	public ColumnNotification(String label, int width, String attrName, String regEx, String editColumn){
-		super(label, width, attrName, regEx, editColumn);
 	}
 	
 	public void updateTableViewer(ViewerCell cell){

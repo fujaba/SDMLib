@@ -97,6 +97,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	protected TableFilterView tableFilterView;
 	private Menu headerMenu;
 	private SashForm sashForm;
+	public static final String PROPERTY_COLUMN="column";
+	public static final String PROPERTY_ITEM="item";
 
 	public IdMap getMap()
    {
@@ -108,7 +110,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 
 		if (map != null) {
 			this.map = map;
-			this.map.addCreator(new TableListCreator());
+			this.map.withCreator(new TableListCreator());
 		}
 
 		createContent(this);
@@ -216,6 +218,9 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				}
 			}
 		}
+		if(getParent() instanceof PropertyChangeListener){
+			((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_COLUMN, null, column));
+		}
 	}
 
 	public void updatePosition(){
@@ -297,6 +302,10 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				removeColumn(item);
 			}
 		}
+		if(getParent() instanceof PropertyChangeListener){
+			((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_COLUMN, column, null));
+		}
+
 	}
 
 	public boolean setCounterField(Column column) {
@@ -352,11 +361,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	public TableViewer getBrowserView(GUIPosition browserId) {
 		if (browserId.equals(GUIPosition.WEST)) {
 			return fixedTableViewerLeft;
-		} else {
-		   if (tableViewer == null)
-		   {
-		      createBrowser(browserId);
-		   }
+		} else if (tableViewer == null) {
+			createBrowser(browserId);
 		}
 		return tableViewer;
 	}
@@ -440,6 +446,9 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			if (tableFilterView.matchesSearchCriteria(item)) {
 				list.add(item);
 				tableFilterView.refreshCounter();
+				if(getParent() instanceof PropertyChangeListener){
+					((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_ITEM, null, item));
+				}
 			}
 		}
 	}
@@ -449,6 +458,10 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			list.set(property + IdMap.REMOVE, item);
 			sourceCreator.setValue(source, property, item, IdMap.REMOVE);
 			tableFilterView.refreshCounter();
+			if(getParent() instanceof PropertyChangeListener){
+				((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_ITEM, item, null));
+			}
+
 		}
 	}
 
@@ -829,7 +842,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			removeColumn(item);
 		}
 	}
+
 	public void notifiyCellEditor(JISMCellEditor editor) {
-		
 	}
 }

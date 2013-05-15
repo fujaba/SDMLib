@@ -88,13 +88,11 @@ public abstract class AbstractIdMap {
 	 *            <createrClass> the creater class
 	 * @return true, if successful
 	 */
-	public boolean addCreator(Set<SendableEntityCreator> creatorSet) {
+	public AbstractIdMap withCreator(Set<SendableEntityCreator> creatorSet) {
 		for (SendableEntityCreator sendableEntityCreator : creatorSet) {
-			if (!addCreator(sendableEntityCreator)) {
-				return false;
-			}
+			withCreator(sendableEntityCreator);
 		}
-		return true;
+		return this;
 	}
 
 	/**
@@ -105,8 +103,9 @@ public abstract class AbstractIdMap {
 	 * @param creator
 	 *            the creator
 	 */
-	public void addCreator(String className, SendableEntityCreator creator) {
+	public AbstractIdMap withCreator(String className, SendableEntityCreator creator) {
 		this.creators.put(className, creator);
+		return this;
 	}
 
 	/**
@@ -116,13 +115,12 @@ public abstract class AbstractIdMap {
 	 *            the creater class
 	 * @return true, if successful
 	 */
-	public boolean addCreator(SendableEntityCreator createrClass) {
+	public AbstractIdMap withCreator(SendableEntityCreator createrClass) {
 		Object reference = createrClass.getSendableInstance(true);
-		if (reference == null) {
-			return false;
+		if (reference != null) {
+			withCreator(reference.getClass().getName(), createrClass);
 		}
-		addCreator(reference.getClass().getName(), createrClass);
-		return true;
+		return this;
 	}
 
 	/**

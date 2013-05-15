@@ -813,7 +813,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.setUpdateMsgListener((MapUpdateListener) this); 
+      map.withUpdateMsgListener((MapUpdateListener) this); 
    }
 
    @Override

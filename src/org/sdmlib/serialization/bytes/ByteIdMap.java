@@ -38,6 +38,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.sdmlib.serialization.AbstractIdMap;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.event.MapEntry;
@@ -186,24 +188,33 @@ public class ByteIdMap extends IdMap{
 	 * de.uni.kassel.peermessage.IdMap#addCreator(de.uni.kassel.peermessage.
 	 * interfaces.SendableEntityCreator)
 	 */
-	@Override
 	public boolean addCreator(SendableEntityCreator createrClass) {
-		boolean result = super.addCreator(createrClass);
-		if (this.decoderMap == null) {
-			this.decoderMap = new HashMap<Byte, ByteEntityCreator>();
+		if (createrClass instanceof ByteEntityCreator) {
+			if(this.decoderMap != null){
+				if (this.decoderMap.containsKey(new Byte(((ByteEntityCreator) createrClass).getEventTyp()))) {
+					return false;
+				}
+			}
 		}
+		super.withCreator(createrClass);
+		return true;
+	}
+
+	@Override
+	public AbstractIdMap withCreator(String className,
+			SendableEntityCreator createrClass) {
+		super.withCreator(className, createrClass);
+
 		if (createrClass instanceof ByteEntityCreator) {
 			ByteEntityCreator byteCreator = (ByteEntityCreator) createrClass;
-			if (this.decoderMap
-					.containsKey(new Byte(byteCreator.getEventTyp()))) {
-				return false;
+			if (this.decoderMap == null) {
+				this.decoderMap = new HashMap<Byte, ByteEntityCreator>();
 			}
+
 			this.decoderMap.put(new Byte(byteCreator.getEventTyp()),
 					byteCreator);
-		} else {
-			return false;
 		}
-		return result;
+		return this;
 	}
 
 	/**

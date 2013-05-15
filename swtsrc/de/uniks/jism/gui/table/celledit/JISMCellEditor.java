@@ -39,7 +39,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-
 import de.uniks.jism.gui.table.Column;
 import de.uniks.jism.gui.table.TableColumnView;
 import de.uniks.jism.gui.table.TableComponent;
@@ -58,9 +57,10 @@ protected EditField editField;
 		editField.setParent(this, parent);
 	}
 	
-	public void setElement(Object element, TableColumnView view){
+	public JISMCellEditor withElement(Object element, TableColumnView view){
 		this.element = element;
 		this.view = view;
+		return this;
 	}
 
 	
@@ -102,6 +102,7 @@ protected EditField editField;
 		}
 		return null;
 	}
+	
 	public Object getElement(){
 		return element;
 	}

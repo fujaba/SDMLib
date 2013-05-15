@@ -9,9 +9,9 @@ public class CreatorCreator
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new de.kassel.roombook.creators.BuildingCreator());
-      jsonIdMap.addCreator(new de.kassel.roombook.creators.FloorCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.objects.creators.GenericObjectsTestCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.creators.BuildingCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.creators.FloorCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.objects.creators.GenericObjectsTestCreator());
       return jsonIdMap;
    }
 }

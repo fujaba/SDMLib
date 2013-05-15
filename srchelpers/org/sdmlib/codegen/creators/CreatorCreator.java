@@ -9,9 +9,9 @@ public class CreatorCreator
    {
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.addCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
-      jsonIdMap.addCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
-      jsonIdMap.addCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.creators.StatementEntryCreator());
       return jsonIdMap;
    }
 }

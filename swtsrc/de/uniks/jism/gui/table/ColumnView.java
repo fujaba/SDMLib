@@ -57,7 +57,7 @@ private Column column=new Column();
 	}
 
 	public void setAttributeName(String value) {
-		column.setAttrName(value);
+		column.withAttrName(value);
 	}
 
 	public String getLabel() {
@@ -65,7 +65,7 @@ private Column column=new Column();
 	}
 
 	public void setLabel(String label) {
-		column.setLabel(label);
+		column.withLabel(label);
 		finish();
 		
 	}

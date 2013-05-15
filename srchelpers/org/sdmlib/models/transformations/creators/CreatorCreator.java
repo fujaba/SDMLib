@@ -10,11 +10,11 @@ public class CreatorCreator
       JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
       
      
-      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.LinkOpCreator());
-      jsonIdMap.addCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.transformations.creators.TransformOpCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.transformations.creators.OperationObjectCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.transformations.creators.AttributeOpCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.transformations.creators.LinkOpCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.transformations.creators.StatementCreator());
       return jsonIdMap;
    }
 }

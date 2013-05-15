@@ -45,10 +45,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-
 import javax.imageio.ImageIO;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
@@ -116,35 +115,34 @@ public static final String SECOND_MAC="secondmac";
 				}
 			}
 	
-			if (args != null) {
-				if (args.length > 0) {
-					String executeString = null;
-					if ("-?".equalsIgnoreCase(args[0])) {
-						getCommandHelp();
-						return false;
-					} else if ("debug".equalsIgnoreCase(args[0])) {
-						System.out.println("DEBUG-MODE");
-						executeString =" -Xms512m -Xmx1024m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4223";
-					} else if (SECOND.equalsIgnoreCase(args[0])) {
-						System.out.println("STANDARD-MODE");
-						executeString ="";
-					} else if (SECOND_MAC.equalsIgnoreCase(args[0])) {
-						System.out.println("STANDARD-MODE-MAC");
-						executeString = " -XstartOnFirstThread ";
-					}
-					if(executeString!=null){
-						executeString = "\""+ System.getProperty("java.home")+ "/bin/java\"" +executeString + " -Dfile.encoding=UTF8 -jar " +fileName;
-						Runtime run = Runtime.getRuntime();
-						
-						try {
-							run.exec(executeString.trim());
-							return false;
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-					return false;
-				}
+			if ("-?".equalsIgnoreCase(args[0])) {
+				getCommandHelp();
+				return false;
+			}
+
+			ArrayList<String> params=new ArrayList<String>();
+			if ("debug".equalsIgnoreCase(args[0])) {
+				System.out.println("DEBUG-MODE");
+				params.add("-Xms512m");
+				params.add("-Xmx1024m");
+				params.add("-Xdebug");
+				params.add("-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4223");
+			} else if (SECOND.equalsIgnoreCase(args[0])) {
+				System.out.println("STANDARD-MODE");
+			} else if (SECOND_MAC.equalsIgnoreCase(args[0])) {
+				System.out.println("STANDARD-MODE-MAC");
+				params.add("-XstartOnFirstThread ");
+			}
+			params.add("-Dfile.encoding=UTF8");
+			params.add("-jar");
+			params.add(fileName);
+			params.add(0, "\""+ System.getProperty("java.home").replace("\\", "/")+ "/bin/java\"");
+			try {
+				ProcessBuilder processBuilder = new ProcessBuilder( params );
+				processBuilder.start();
+				return false;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 		
@@ -154,7 +152,6 @@ public static final String SECOND_MAC="secondmac";
 		Display display = Display.getDefault();
 				
 		display.syncExec(new Runnable() {
-			
 			@Override
 			public void run() {
 				MasterShell.this.open();

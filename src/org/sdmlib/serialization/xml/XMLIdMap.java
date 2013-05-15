@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import org.sdmlib.serialization.AbstractIdMap;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
@@ -76,22 +78,33 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	 * org.sdmlib.serialization.IdMap#addCreator(org.sdmlib.serialization.interfaces
 	 * .SendableEntityCreator)
 	 */
-	@Override
 	public boolean addCreator(SendableEntityCreator createrClass) {
-		boolean result = super.addCreator(createrClass);
-		if (this.decoderMap == null) {
-			this.decoderMap = new HashMap<String, XMLEntityCreator>();
-		}
 		if (createrClass instanceof XMLEntityCreator) {
-			XMLEntityCreator xmlCreator = (XMLEntityCreator) createrClass;
-			if (this.decoderMap.containsKey(xmlCreator.getTag())) {
-				return false;
+			if(this.decoderMap != null){
+				if (this.decoderMap.containsKey(((XMLEntityCreator)createrClass).getTag())) {
+					return false;
+				}
 			}
-			this.decoderMap.put(xmlCreator.getTag(), xmlCreator);
-		} else {
+		}else{
 			return false;
 		}
-		return result;
+		super.withCreator(createrClass);
+		return true;
+	}
+	
+	@Override
+	public AbstractIdMap withCreator(String className,
+			SendableEntityCreator createrClass) {
+		super.withCreator(className, createrClass);
+
+		if (createrClass instanceof XMLEntityCreator) {
+			XMLEntityCreator xmlCreator = (XMLEntityCreator) createrClass;
+			if (this.decoderMap == null) {
+				this.decoderMap = new HashMap<String, XMLEntityCreator>();
+			}
+			this.decoderMap.put(xmlCreator.getTag(), xmlCreator);
+		}
+		return this;
 	}
 
 	/**

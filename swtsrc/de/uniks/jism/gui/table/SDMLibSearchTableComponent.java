@@ -48,7 +48,7 @@ public class SDMLibSearchTableComponent extends SearchTableComponent
                Object obj = method.invoke(null, "gui");
 
                this.map = (IdMap) obj;
-               this.map.addCreator(new TableListCreator());
+               this.map.withCreator(new TableListCreator());
 
                if(map!=null){
 	               JsonIdMap myMap = (JsonIdMap) map;
