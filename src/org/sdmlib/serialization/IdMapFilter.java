@@ -91,8 +91,9 @@ public static final String PROPERTY_DEEP = "deep";
 		return isId;
 	}
 
-	public void setId(boolean isId) {
+	public IdMapFilter withId(boolean isId) {
 		this.isId = isId;
+		return this;
 	}
 
 	/**
@@ -148,9 +149,9 @@ public static final String PROPERTY_DEEP = "deep";
 	 *            the simple check
 	 * @return true, if successful
 	 */
-	public boolean setFullSerialization(boolean serialization) {
+	public IdMapFilter withFullSerialization(boolean serialization) {
 		this.fullSerialization = serialization;
-		return this.fullSerialization;
+		return this;
 	}
 
 	public Object get(String attrName) {
@@ -175,10 +176,10 @@ public static final String PROPERTY_DEEP = "deep";
 			this.setDeep(Integer.valueOf("" + value));
 			return true;
 		} else if (PROPERTY_FULLSERIALIZATION.equalsIgnoreCase(attribute)) {
-			setFullSerialization(Boolean.valueOf("" + value));
+			withFullSerialization(Boolean.valueOf("" + value));
 			return true;
 		} else if (PROPERTY_ID.equalsIgnoreCase(attribute)) {
-			setId(Boolean.valueOf("" + value));
+			withId(Boolean.valueOf("" + value));
 			return true;
 		}
 		return false;

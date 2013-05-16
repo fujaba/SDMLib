@@ -41,23 +41,20 @@ public ThemeMDUltra() {
 
     // MDUltra SyntaxHighlighter theme based on Midnight Theme
     // http://www.mddev.co.uk/
-    addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-			Style.PROPERTY_FONTSIZE, 12,
-			Style.PROPERTY_BACKGROUND, "222222",
-			Style.PROPERTY_FORGROUND, "00ff00"));
-	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "253e5a"));
-	addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-	addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "428bdd"));
-	addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "00ff00"));
-	addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "aaaaff"));
-	addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "8aa6c1"));
-	addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "00ffff"));
-	addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "f7e741"));
-	addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "ff8000"));
-	addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "ffff00"));
-	addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "aaaaff", Style.PROPERTY_BOLD, true));
-	addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "FF0000"));
-	addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "FFFF00"));
-	addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
+    addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("222222").withForground("00ff00"));
+	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("253e5a"));
+	addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+	addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("428bdd"));
+	addStyle(StyleConstants.STYLE_STRING, new Style().withForground("00ff00"));
+	addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("aaaaff"));
+	addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("8aa6c1"));
+	addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("00ffff"));
+	addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("f7e741"));
+	addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("ff8000"));
+	addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("ffff00"));
+	addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("aaaaff").withBold(true));
+	addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("FF0000"));
+	addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("FFFF00"));
+	addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("ffaa3e"));
   }
 }

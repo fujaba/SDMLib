@@ -25,7 +25,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 import org.sdmlib.serialization.Style;
 
 /**
@@ -50,7 +49,7 @@ public BrushRuby() {
     addRule(new RegExpRule(RegExpRule.singleQuotedString, "string")); // single quoted strings
     addRule(new RegExpRule("\\b[A-Z0-9_]+\\b", "constants")); // constants
     addRule(new RegExpRule(":[a-z][A-Za-z0-9_]*", "color2")); // symbols
-    addRule(new RegExpRule("(\\$|@@|@)\\w+", "variable", new Style(Style.PROPERTY_BOLD, true))); // $global, @instance, and @@class variables
+    addRule(new RegExpRule("(\\$|@@|@)\\w+", "variable", new Style().withBold(true))); // $global, @instance, and @@class variables
     addRule(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword")); // keywords
     addRule(new RegExpRule(getKeywords(builtins), Pattern.MULTILINE, "color1")); // builtins
 

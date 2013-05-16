@@ -42,23 +42,20 @@ public ThemeFadeToGrey() {
     // Fade to Grey SyntaxHighlighter theme based on theme by Brasten Sager
     // :http//www.ibrasten.com/
 
-    addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-			Style.PROPERTY_FONTSIZE, 12,
-			Style.PROPERTY_BACKGROUND, "121212",
-			Style.PROPERTY_FORGROUND, "FFFFFF"));
-    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "2C2C29"));
-    addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "696854"));
-    addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "e3e658"));
-    addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "d01d33"));
-    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "435a5f"));
-    addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "898989"));
-    addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "009900"));
-    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "aaaaaa", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "96daff"));
-    addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "d01d33", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "ffc074"));
-    addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "4a8cdb"));
-    addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "96daff"));
+    addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("121212").withForground("FFFFFF"));
+    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("2C2C29"));
+    addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+    addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("696854"));
+    addStyle(StyleConstants.STYLE_STRING, new Style().withForground("e3e658"));
+    addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("d01d33"));
+    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("435a5f"));
+    addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("898989"));
+    addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("009900"));
+    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("aaaaaa").withBold(true));
+    addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("96daff"));
+    addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("d01d33").withBold(true));
+    addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("ffc074"));
+    addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("4a8cdb"));
+    addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("96daff"));
   }
 }

@@ -40,23 +40,20 @@ public ThemeEmacs() {
 //	    setGutterTextPaddingRight(7);
 
     // Emacs SyntaxHighlighter theme based on theme by Joshua Emmons http://www.skia.net/
-    addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-			Style.PROPERTY_FONTSIZE, 12,
-			Style.PROPERTY_BACKGROUND, "d3d3d3",
-			Style.PROPERTY_FORGROUND, "FFFFFF"));
-    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "2A3133"));
-    addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "ff7d27"));
-    addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "ff9e7b"));
-    addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "00ffff"));
-    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "aec4de"));
-    addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
-    addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "009900"));
-    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "81cef9"));
-    addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "ff9e7b"));
-    addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "00ffff", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "ebdb8d"));
-    addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "ff7d27"));
-    addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "aec4de"));
+    addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("d3d3d3").withForground("FFFFFF"));
+    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("2A3133"));
+    addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+    addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("ff7d27"));
+    addStyle(StyleConstants.STYLE_STRING, new Style().withForground("ff9e7b"));
+    addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("00ffff"));
+    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("aec4de"));
+    addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("ffaa3e"));
+    addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("009900"));
+    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("81cef9"));
+    addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("ff9e7b"));
+    addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("00ffff").withBold(true));
+    addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("ebdb8d"));
+    addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("ff7d27"));
+    addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("aec4de"));
   }
 }

@@ -83,6 +83,6 @@ private Style style=new Style();
 
 
 	public void setBold(boolean value) {
-		style.setBold(value);
+		style.withBold(value);
 	}
 }

@@ -132,7 +132,7 @@ public class IdMap extends AbstractIdMap{
 	 *            the new session id
 	 */
 	public void setSessionId(String value) {
-		getCounter().setPrefixId(value);
+		getCounter().withPrefixId(value);
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class IdMap extends AbstractIdMap{
 	 *            the new splitter-Character for the session id
 	 */
 	public void setSplitterId(char splitter) {
-		getCounter().setSplitter(splitter);
+		getCounter().withSplitter(splitter);
 	}
 
 	// Key Value paar
@@ -364,7 +364,7 @@ public class IdMap extends AbstractIdMap{
 		if (creatorClass != null) {
 			newObject = creatorClass.getSendableInstance(false);
 			String[] properties = creatorClass.getProperties();
-			filter.addObject(reference, newObject);
+			filter.withObject(reference, newObject);
 
 			for (String property : properties) {
 				Object value = creatorClass.getValue(reference, property);

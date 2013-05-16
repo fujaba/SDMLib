@@ -41,23 +41,20 @@ public ThemeRDark() {
 
     // RDark SyntaxHighlighter theme based on theme by Radu Dineiu
     // http://www.vim.org/scripts/script.php?script_id=1732
-    addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-			Style.PROPERTY_FONTSIZE, 12,
-			Style.PROPERTY_BACKGROUND, "1b2426",
-			Style.PROPERTY_FORGROUND, "b9bdb6"));
-	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "323E41"));
-	addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-	addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "878a85"));
-	addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "5ce638"));
-	addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "5ba1cf"));
-	addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "435a5f"));
-	addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
-	addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "009900"));
-	addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
-	addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "e0e8ff"));
-	addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "5ba1cf", Style.PROPERTY_BOLD, true));
-	addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "e0e8ff"));
-	addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "FFFFFF"));
-	addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
+    addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("1b2426").withForground("b9bdb6"));
+	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("323E41"));
+	addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+	addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("878a85"));
+	addStyle(StyleConstants.STYLE_STRING, new Style().withForground("5ce638"));
+	addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("5ba1cf"));
+	addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("435a5f"));
+	addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("ffaa3e"));
+	addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("009900"));
+	addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("ffaa3e"));
+	addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("e0e8ff"));
+	addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("5ba1cf").withBold(true));
+	addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("e0e8ff"));
+	addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("FFFFFF"));
+	addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("ffaa3e"));
   }
 }

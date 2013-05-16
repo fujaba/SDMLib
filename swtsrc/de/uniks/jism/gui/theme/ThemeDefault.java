@@ -32,24 +32,21 @@ import org.sdmlib.serialization.Style;
  */
 public class ThemeDefault extends Theme{
 public ThemeDefault() {
-	addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-									Style.PROPERTY_FONTSIZE, 12,
-									Style.PROPERTY_BACKGROUND, "FFFFFF",
-									Style.PROPERTY_FORGROUND, "000000"));
-	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "FEE5AC"));
-    addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "005200"));
-    addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "0000ff"));
-    addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "006699", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "808080"));
-    addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "aa7700"));
-    addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "009900"));
-    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "ff1493"));
-    addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "0066cc"));
-    addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "006699", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "808080"));
-    addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "ff1493"));
-    addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "ff0000"));
+	addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("FFFFFF").withForground("000000"));
+	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("FEE5AC"));
+    addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+    addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("005200"));
+    addStyle(StyleConstants.STYLE_STRING, new Style().withForground("0000ff"));
+    addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("006699").withBold(true));
+    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("808080"));
+    addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("aa7700"));
+    addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("009900"));
+    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("ff1493"));
+    addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("0066cc"));
+    addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("006699").withBold(true));
+    addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("808080"));
+    addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("ff1493"));
+    addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("ff0000"));
 //    addStyle("hightlighted", new Style(Style.PROPERTY_BACKGROUND, "e0e0e0"));
   }
 }

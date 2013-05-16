@@ -38,23 +38,20 @@ public ThemeDjango() {
 //    setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
 //    setGutterTextPaddingLeft(7);
 //    setGutterTextPaddingRight(7);
-	addStyle(StyleConstants.STYLE_PLAIN, new Style(Style.PROPERTY_FONTFAMILY, "Consolas",
-			Style.PROPERTY_FONTSIZE, 12,
-			Style.PROPERTY_BACKGROUND, "0a2b1d",
-			Style.PROPERTY_FORGROUND, "f8f8f8"));
-    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style(Style.PROPERTY_BACKGROUND, "233729"));
-    addStyle(StyleConstants.STYLE_BOLD, new Style(Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_COMMENTS, new Style(Style.PROPERTY_FORGROUND, "336442", Style.PROPERTY_ITALIC, true));
-    addStyle(StyleConstants.STYLE_STRING, new Style(Style.PROPERTY_FORGROUND, "9df39f"));
-    addStyle(StyleConstants.STYLE_KEYWORD, new Style(Style.PROPERTY_FORGROUND, "96dd3b", Style.PROPERTY_BOLD, true));
-    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style(Style.PROPERTY_FORGROUND, "91bb9e"));
-    addStyle(StyleConstants.STYLE_VARIABLE, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
-    addStyle(StyleConstants.STYLE_VALUE, new Style(Style.PROPERTY_FORGROUND, "f7e741"));
-    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style(Style.PROPERTY_FORGROUND, "ffaa3e"));
-    addStyle(StyleConstants.STYLE_CONSTANTS, new Style(Style.PROPERTY_FORGROUND, "e0e8ff"));
-    addStyle(StyleConstants.STYLE_SCRIPT, new Style(Style.PROPERTY_FORGROUND, "96dd3b"));
-    addStyle(StyleConstants.STYLE_COLOR1, new Style(Style.PROPERTY_FORGROUND, "eb939a"));
-    addStyle(StyleConstants.STYLE_COLOR2, new Style(Style.PROPERTY_FORGROUND, "91bb9e"));
-    addStyle(StyleConstants.STYLE_COLOR3, new Style(Style.PROPERTY_FORGROUND, "edef7d"));
+	addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("0a2b1d").withForground("f8f8f8"));
+    addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("233729"));
+    addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));
+    addStyle(StyleConstants.STYLE_COMMENTS, new Style().withForground("336442").withItalic(true));
+    addStyle(StyleConstants.STYLE_STRING, new Style().withForground("9df39f"));
+    addStyle(StyleConstants.STYLE_KEYWORD, new Style().withForground("96dd3b").withBold(true));
+    addStyle(StyleConstants.STYLE_PREPROCESSOR, new Style().withForground("91bb9e"));
+    addStyle(StyleConstants.STYLE_VARIABLE, new Style().withForground("ffaa3e"));
+    addStyle(StyleConstants.STYLE_VALUE, new Style().withForground("f7e741"));
+    addStyle(StyleConstants.STYLE_FUNCTIONS, new Style().withForground("ffaa3e"));
+    addStyle(StyleConstants.STYLE_CONSTANTS, new Style().withForground("e0e8ff"));
+    addStyle(StyleConstants.STYLE_SCRIPT, new Style().withForground("96dd3b"));
+    addStyle(StyleConstants.STYLE_COLOR1, new Style().withForground("eb939a"));
+    addStyle(StyleConstants.STYLE_COLOR2, new Style().withForground("91bb9e"));
+    addStyle(StyleConstants.STYLE_COLOR3, new Style().withForground("edef7d"));
   }
 }

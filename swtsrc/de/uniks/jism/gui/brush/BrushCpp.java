@@ -25,7 +25,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 import org.sdmlib.serialization.Style;
 
 /**
@@ -93,9 +92,9 @@ public BrushCpp() {
     addRule(new RegExpRule(RegExpRule.doubleQuotedString, "string")); // strings
     addRule(new RegExpRule(RegExpRule.singleQuotedString, "string")); // strings
     addRule(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
-    addRule(new RegExpRule(getKeywords(datatypes), Pattern.MULTILINE, "color1", new Style(Style.PROPERTY_BOLD, true)));
-    addRule(new RegExpRule(getKeywords(functions), Pattern.MULTILINE, "functions", new Style(Style.PROPERTY_BOLD, true)));
-    addRule(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword", new Style(Style.PROPERTY_BOLD, true)));
+    addRule(new RegExpRule(getKeywords(datatypes), Pattern.MULTILINE, "color1", new Style().withBold(true)));
+    addRule(new RegExpRule(getKeywords(functions), Pattern.MULTILINE, "functions", new Style().withBold(true)));
+    addRule(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword", new Style().withBold(true)));
 
     setCommonFileExtensionList("c", "cpp");
   }

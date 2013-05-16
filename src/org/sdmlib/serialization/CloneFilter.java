@@ -52,32 +52,17 @@ public class CloneFilter extends IdMapFilter{
 	private HashMap<Object, Object> assocs = new HashMap<Object, Object>();
 
 	/**
-	 * Instantiates a new clone filter.
-	 */
-	public CloneFilter() {
-
-	}
-
-	/**
-	 * Instantiates a new clone filter.
-	 * 
-	 * @param typ
-	 *            the typ
-	 */
-	public CloneFilter(int typ) {
-		setTyp(typ);
-	}
-
-	/**
 	 * Adds the object.
 	 * 
 	 * @param reference
 	 *            the reference
 	 * @param newObject
 	 *            the new object
+	 * @return 
 	 */
-	public void addObject(Object reference, Object newObject) {
+	public CloneFilter withObject(Object reference, Object newObject) {
 		this.assocs.put(reference, newObject);
+		return this;
 	}
 
 	/**
@@ -116,11 +101,13 @@ public class CloneFilter extends IdMapFilter{
 	 * 
 	 * @param typ
 	 *            the new typ
+	 * @return 
 	 */
-	public void setTyp(int typ) {
+	public CloneFilter withTyp(int typ) {
 		this.typ = typ;
 		if (typ == OBJECT) {
 			this.deep = LASTDEEP;
 		}
+		return this;
 	}
 }

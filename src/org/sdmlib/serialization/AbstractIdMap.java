@@ -131,7 +131,7 @@ public abstract class AbstractIdMap {
 	 * @return the object
 	 */
 	public Object cloneObject(Object reference) {
-		return cloneObject(reference, new CloneFilter(CloneFilter.SIMPLE));
+		return cloneObject(reference, new CloneFilter().withTyp(CloneFilter.SIMPLE));
 	}
 
 	/**

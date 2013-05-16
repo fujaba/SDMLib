@@ -25,7 +25,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 import org.sdmlib.serialization.Style;
 
 /**
@@ -52,7 +51,7 @@ public BrushBash() {
             + "uname unexpand uniq units unset unshar useradd usermod users uuencode uudecode v vdir "
             + "vi watch wc whereis which who whoami Wget xargs yes";
 
-    addRule(new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor", new Style(Style.PROPERTY_BOLD, true)));
+    addRule(new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor", new Style().withBold(true)));
     addRule(new RegExpRule("\\/[\\w-\\/]+", Pattern.MULTILINE, "plain"));
     addRule(new RegExpRule(RegExpRule.singleLinePerlComments, "comments")); // one line comments
     addRule(new RegExpRule(RegExpRule.doubleQuotedString, "string")); // double quoted strings
