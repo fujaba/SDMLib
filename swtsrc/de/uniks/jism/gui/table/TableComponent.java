@@ -412,7 +412,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		for (String property : properties) {
 			Object value = creator.getValue(prototyp, property);
 			if (!(value instanceof Collection<?>)) {
-				addColumn(new Column(property, edit, true));
+				addColumn(new Column().withAttrName(property, edit).withGetDropDownListFromMap(true));
 			}
 		}
 	}

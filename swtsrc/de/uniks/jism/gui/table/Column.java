@@ -30,7 +30,6 @@ package de.uniks.jism.gui.table;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import org.eclipse.swt.widgets.Listener;
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import de.uniks.jism.gui.GUIPosition;
@@ -79,32 +78,6 @@ public static final int AUTOWIDTH=-1;
 	private String font;
 	private boolean getDropDownListFromMap=false;
 	
-	public Column(){
-		
-	}
-	public Column(String value){
-		this.label=value;
-		this.attrName=value;
-	}
-	
-	public Column(String value, boolean edit, boolean createDropDownListFromMap){
-		this.label=value;
-		this.attrName=value;
-		if(edit){
-			this.editColumn=attrName;
-		}
-		this.getDropDownListFromMap=createDropDownListFromMap;
-	}
-
-	public Column(String label, int width, String attrName, boolean edit){
-		this.label=label;
-		this.width=width;
-		this.attrName=attrName;
-		if(edit){
-			this.editColumn=attrName;
-		}
-	}
-	
 	/**
 	 * @return the label
 	 */
@@ -136,17 +109,32 @@ public static final int AUTOWIDTH=-1;
 	}
 
 	/**
-	 * @return the sort
+	 * @return the Attribute Name for display
 	 */
 	public String getAttrName() {
 		return attrName;
 	}
 
 	/**
-	 * @param sort the sort to set
+	 * @param attrName Attribute Name for display
 	 */
 	public Column withAttrName(String attrName) {
 		this.attrName = attrName;
+		return this;
+	}
+	/**
+	 * @param attrName Attribute Name for display
+	 * @param edit is the Column is editable 
+	 * @return this
+	 */
+	public Column withAttrName(String attrName, boolean edit) {
+		this.attrName = attrName;
+		if(label==null){
+			label = attrName;
+		}
+		if(edit){
+			this.editColumn = attrName;
+		}
 		return this;
 	}
 

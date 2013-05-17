@@ -38,14 +38,6 @@ import org.eclipse.swt.widgets.TableItem;
 public class ColumnNotification extends Column{
 private EditingSupport editingsupport;
 
-	public ColumnNotification(){
-		super();
-	}
-	
-	public ColumnNotification(String label, int width, String attrName, boolean edit){
-		super(label, width, attrName, edit);
-	}
-	
 	public void updateTableViewer(ViewerCell cell){
 		
 	}

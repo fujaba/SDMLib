@@ -34,6 +34,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.EventListener;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
@@ -46,11 +48,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Listener;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.Column;
@@ -70,7 +72,7 @@ private CLabel westLabel;
 	private Column column=new Column();
 	private BorderLayout layout;
 	private IdMap map;
-	private ArrayList<Listener> listeners=new ArrayList<Listener>();
+	private ArrayList<EventListener> listeners=new ArrayList<EventListener>();
 
 	public PropertyComposite(Composite parent, int style) {
 		super(parent, style);
@@ -299,7 +301,7 @@ private CLabel westLabel;
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		for(Listener listener : listeners){
+		for(EventListener listener : listeners){
 			if(listener instanceof FocusListener){
 				((FocusListener)listener).focusGained(e);
 			}
@@ -312,7 +314,7 @@ private CLabel westLabel;
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		for(Listener listener : listeners){
+		for(EventListener listener : listeners){
 			if(listener instanceof FocusListener){
 				((FocusListener)listener).focusLost(e);
 			}
@@ -325,7 +327,7 @@ private CLabel westLabel;
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		for(Listener listener : listeners){
+		for(EventListener listener : listeners){
 			if(listener instanceof KeyListener){
 				((KeyListener)listener).keyPressed(e);
 			}
@@ -334,7 +336,7 @@ private CLabel westLabel;
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		for(Listener listener : listeners){
+		for(EventListener listener : listeners){
 			if(listener instanceof KeyListener){
 				((KeyListener)listener).keyReleased(e);
 			}
@@ -345,7 +347,7 @@ private CLabel westLabel;
 		}
 	}
 	
-	public void addFieldListener(Listener listener) {
+	public void addFieldListener(EventListener listener) {
 		this.listeners.add(listener);
 	}
 
