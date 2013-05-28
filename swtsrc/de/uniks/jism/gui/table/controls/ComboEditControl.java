@@ -82,5 +82,12 @@ private ArrayList<Object> list;
 			this.list = new ArrayList<Object>();
 		}
 		this.list.add(value);
+		
+		String[] items=new String[list.size()];
+		int count=0;
+		for(Object item : list){
+			items[count++]=item.toString();
+		}
+		control.setItems(items);
 	}
 }

@@ -38,7 +38,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.LineStyleEvent;
 import org.eclipse.swt.custom.LineStyleListener;
@@ -62,7 +61,6 @@ import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.Style;
 import org.sdmlib.serialization.TextItems;
-
 import de.uniks.jism.gui.ColorSWT;
 import de.uniks.jism.gui.GUIElement;
 import de.uniks.jism.gui.GUIPosition;
@@ -328,18 +326,22 @@ private Text searchText;
 
 	public void refreshText(String value){
 		this.styles.clear();
-		
+		if(this.parser==null){
+			setSimpleText(value);
+		}
 		List<ParsePosition> styleList = this.parser.parse(value);
-		int lastOffset = 0;
-		for (ParsePosition position : styleList) {
-			int newOffset = position.getOffset() + position.getLength();
-			if (lastOffset > newOffset) {
-				continue;
+		if (styleList != null) {
+			int lastOffset = 0;
+			for (ParsePosition position : styleList) {
+				int newOffset = position.getOffset() + position.getLength();
+				if (lastOffset > newOffset) {
+					continue;
+				}
+				String key = position.getStyleTyp();
+				Style attributeSet = this.parser.getStyle(key);
+				lastOffset = newOffset;
+				addStyle(new SWTStyle(attributeSet, position, colors));
 			}
-			String key = position.getStyleTyp();
-			Style attributeSet = this.parser.getStyle(key);
-			lastOffset = newOffset;
-			addStyle(new SWTStyle(attributeSet, position, colors));
 		}
 	}
 	

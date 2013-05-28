@@ -219,10 +219,11 @@ private EditControl<?> editControl;
 		return false;
 	}
 	
-	public void setFocus() {
+	public boolean setFocus() {
 		if(editControl!=null){
-			editControl.setFocus();
+			return editControl.setFocus();
 		}
+		return false;
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.util;
+package org.sdmlib.serialization.util;
 
 /*
 The FUJABA ToolSuite project
@@ -46,7 +46,7 @@ Contact address:
   email: info@fujaba.de
 */
 
-import java.beans.*;
+import java.beans.PropertyChangeSupport;
 
 public interface PropertyChangeInterface
 {

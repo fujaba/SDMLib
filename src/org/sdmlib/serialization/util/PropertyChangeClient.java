@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.util;
+package org.sdmlib.serialization.util;
 
 /*
 The FUJABA ToolSuite project
@@ -56,7 +56,7 @@ public interface PropertyChangeClient extends PropertyChangeInterface
     * @param name      No description provided
     * @param listener  No description provided
     */
-   public void removePropertyChangeListener (String name, PropertyChangeListener listener);
+   public boolean removePropertyChangeListener (String name, PropertyChangeListener listener);
 
 
    /**
@@ -64,7 +64,7 @@ public interface PropertyChangeClient extends PropertyChangeInterface
     *
     * @param listener  No description provided
     */
-   public void removePropertyChangeListener (PropertyChangeListener listener);
+   public boolean removePropertyChangeListener (PropertyChangeListener listener);
 
 
    /**
@@ -73,7 +73,7 @@ public interface PropertyChangeClient extends PropertyChangeInterface
     * @param name      The object added.
     * @param listener  The object added.
     */
-   public void addPropertyChangeListener (String name, PropertyChangeListener listener);
+   public boolean addPropertyChangeListener (String name, PropertyChangeListener listener);
 
 
    /**
@@ -81,5 +81,5 @@ public interface PropertyChangeClient extends PropertyChangeInterface
     *
     * @param listener  The object added.
     */
-   public void addPropertyChangeListener (PropertyChangeListener listener);
+   public boolean addPropertyChangeListener (PropertyChangeListener listener);
 }

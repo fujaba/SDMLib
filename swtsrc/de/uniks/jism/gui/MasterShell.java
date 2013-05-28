@@ -223,7 +223,11 @@ public static final String SECOND_MAC="secondmac";
 		boolean success;
 		try {
 			filepath=createDir(filepath);
-			String fullfilename=filepath+"/"+fileName;
+			if(!filepath.endsWith("/")){
+				filepath+="/";
+			}
+			String fullfilename=filepath+fileName;
+
 			File file=new File(fullfilename);
 			if(!file.exists()){
 				file.createNewFile();

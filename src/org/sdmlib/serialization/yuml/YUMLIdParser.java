@@ -31,9 +31,9 @@ package org.sdmlib.serialization.yuml;
 */
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;

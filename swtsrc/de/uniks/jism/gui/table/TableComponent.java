@@ -529,10 +529,33 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		return tableViewer;
 	}
 
+	class UpdateGUI implements Runnable{
+		private PropertyChangeEvent event;
+
+		public UpdateGUI(PropertyChangeEvent evt){
+			this.event = evt;
+		}
+
+		@Override
+		public void run() {
+			propertyChange(event);
+		}
+		
+	}
+	
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt != null) {
 			if (list.equals(evt.getSource())) {
 				if (evt.getPropertyName().equals(TableList.PROPERTY_ITEMS)) {
+					
+					// Test Thread and restarten
+					if(getDisplay().getThread()!=Thread.currentThread()){
+						getDisplay().asyncExec(new UpdateGUI(evt));
+						return;
+					}
+					
+					
+					
 					if (evt.getOldValue() == null && evt.getNewValue() != null) {
 						// ADD a new Item
 						if (fixedTableViewerLeft != null) {

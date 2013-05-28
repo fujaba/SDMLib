@@ -171,4 +171,15 @@ public class Style implements PeerMessage{
 		this.background = background;
 		return this;
 	}
+	
+	public Style clone(){
+		return new Style()
+				.withFontFamily(fontfamily)
+				.withFontSize(fontsize)
+				.withForground(forground)
+				.withBackground(background)
+				.withBold(bold)
+				.withItalic(italic);
+	}
+	
 }

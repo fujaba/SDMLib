@@ -31,7 +31,6 @@ package de.uniks.jism.gui.table;
 */
 
 import java.beans.PropertyChangeEvent;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
@@ -42,7 +41,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.IdMap;
-
 import de.uniks.jism.gui.GUIPosition;
 
 public class SearchTableComponent extends TableComponent {
@@ -93,6 +91,7 @@ private Text searchText;
 				firstNorth=null;
 			}
 			northComponents.setLayout(new GridLayout(northComponents.getChildren().length, false));
+			this.layout(true);
 		}
 	}
 	

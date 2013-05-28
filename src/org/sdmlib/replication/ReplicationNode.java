@@ -21,13 +21,12 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.replication.creators.SharedSpaceSet;
 import java.util.LinkedHashSet;
-import java.util.concurrent.LinkedBlockingQueue;
 
+import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class ReplicationNode implements PropertyChangeInterface
 {

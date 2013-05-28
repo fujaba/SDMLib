@@ -78,6 +78,12 @@ private IdMap map;
 		this.map = map;
 		this.item = item;
 	}
+	
+	public void finishDataBinding(){
+		for(PropertyComposite propertyComposite : properties){
+			propertyComposite.setDataBinding(map, item);
+		}	
+	}
 	public void init(IdMap map, Object item, boolean addCommandBtn){
 		this.map = map;
 		this.item = item;
@@ -174,7 +180,7 @@ private IdMap map;
 		this.properties.add(propertyComposite);
 	}
 
-	public void focusnext() {
+	public boolean focusnext() {
 		Iterator<PropertyComposite> iterator = properties.iterator();
 		if(currentFocus!=null){
 			while(iterator.hasNext()){
@@ -185,9 +191,11 @@ private IdMap map;
 			}
 			if(iterator.hasNext()){
 				PropertyComposite property = iterator.next();
-				property.setFocus();
+				return property.setFocus();
 			}
+			currentFocus = null;
 		}
+		return false;
 	}
 
 	public void onFocus(PropertyComposite propertyComposite) {
@@ -203,11 +211,17 @@ private IdMap map;
 		if(event.keyCode == SWT.CR && event.stateMask == 0){
 			// ENTER
 			focusnext();
-		}else if(event.keyCode == SWT.TAB && event.stateMask == 0){
-			// TAB
-			focusnext();
 		}else if(event.keyCode == SWT.ESC && event.stateMask == 0){
 			// EXIT
 		}
+	}
+	public void onKeyTraversed(KeyEvent event){
+		if(event.keyCode == SWT.TAB && event.stateMask == 0){
+			// TAB
+			event.doit=false;
+			System.out.println(event.time);
+			focusnext();
+		}
+		
 	}
 }

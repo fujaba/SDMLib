@@ -3,6 +3,7 @@ package de.uniks.jism.gui.table.controls;
 
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import de.uniks.jism.gui.table.celledit.EditField;
@@ -40,5 +41,11 @@ public TextEditorControl(){
 	public Object getValue(EditField owner, boolean convert)
 			throws ParseException {
 		return control.getText();
+	}
+	
+	@Override
+	public void focusLost(FocusEvent e) {
+//		super.focusLost(e);
+//		System.out.println("LOST"+control.getText());
 	}
 }

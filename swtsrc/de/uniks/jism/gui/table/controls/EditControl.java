@@ -3,19 +3,19 @@ package de.uniks.jism.gui.table.controls;
 
 import java.text.ParseException;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public abstract class EditControl<T extends Control> implements CellEditorElement {
-	protected T control;
+protected T control;
 	protected EditFields fieldTyp;
 	protected CellEditorElement cellOwner;
 
@@ -41,11 +41,12 @@ public abstract class EditControl<T extends Control> implements CellEditorElemen
 		return false;
 	}
 	
-	public void setFocus(){
+	public boolean setFocus(){
 		 Control control=getControl();
 		 if(control!=null){
-			 control.setFocus();
+			 return control.setFocus();
 		 }
+		 return false;
 	}
 	public boolean isActive(){
 		if (control != null && !control.isDisposed()) {
@@ -120,10 +121,14 @@ public abstract class EditControl<T extends Control> implements CellEditorElemen
 	}
 
 	public void keyReleased(KeyEvent e) {
+		
 	}
 
 	@Override
 	public void keyTraversed(TraverseEvent e) {
+		if(e.keyCode==SWT.TAB){
+			cellOwner.keyTraversed(e);
+		}
 	}
 
 	@Override

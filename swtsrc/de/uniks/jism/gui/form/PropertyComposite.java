@@ -35,7 +35,6 @@ import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventListener;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
@@ -52,7 +51,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.Column;
@@ -319,10 +317,6 @@ private CLabel westLabel;
 				((FocusListener)listener).focusLost(e);
 			}
 		}
-		if (this.getParent() instanceof ModelForm) {
-			ModelForm parent = (ModelForm) this.getParent();
-			parent.onFocusLost(this);
-		}
 	}
 
 	@Override
@@ -353,6 +347,18 @@ private CLabel westLabel;
 
 	@Override
 	public void keyTraversed(TraverseEvent e) {
+		if (this.getParent() instanceof ModelForm) {
+			ModelForm parent = (ModelForm) this.getParent();
+			parent.onKeyTraversed(e);
+		}
+	}
+	
+	@Override
+	public boolean setFocus() {
+		if(field!=null){
+			return field.setFocus();
+		}
+		return false;
 	}
 
 	@Override

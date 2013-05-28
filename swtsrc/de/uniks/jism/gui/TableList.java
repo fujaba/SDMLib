@@ -44,7 +44,7 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
-import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.serialization.util.PropertyChangeClient;
 
 public class TableList implements Collection<Object>, PeerMessage, PropertyChangeClient {
 public static final String PROPERTY_ITEMS = "items";
@@ -200,22 +200,26 @@ public static final String PROPERTY_ITEMS = "items";
 
 	// ==========================================================================
 
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
+	public boolean addPropertyChangeListener(PropertyChangeListener listener) {
 		getPropertyChangeSupport().addPropertyChangeListener(listener);
+		return true;
 	}
 
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
+	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
 		getPropertyChangeSupport().removePropertyChangeListener(listener);
+		return true;
 	}
 	
-	public void removePropertyChangeListener(String name,
+	public boolean removePropertyChangeListener(String name,
 			PropertyChangeListener listener) {
-		getPropertyChangeSupport().removePropertyChangeListener(name, listener);		
+		getPropertyChangeSupport().removePropertyChangeListener(name, listener);
+		return true;
 	}
 
-	public void addPropertyChangeListener(String name,
+	public boolean addPropertyChangeListener(String name,
 			PropertyChangeListener listener) {
 		getPropertyChangeSupport().addPropertyChangeListener(name, listener);
+		return true;
 	
 	}
 	public boolean removeAllFromItems() {
