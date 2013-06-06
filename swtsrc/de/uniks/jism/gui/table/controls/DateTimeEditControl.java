@@ -3,13 +3,11 @@ package de.uniks.jism.gui.table.controls;
 
 import java.text.ParseException;
 import java.util.Date;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.sdmlib.serialization.date.DateTimeEntity;
 import org.sdmlib.serialization.date.DateTimeFields;
-
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
@@ -27,7 +25,15 @@ public DateTimeEditControl(){
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		return null;
+		DateTimeEntity myDate=new DateTimeEntity();
+		System.out.println(myDate.get(DateTimeFields.SECOND_OF_YEAR));
+		myDate.setYear(control.getYear());
+		myDate.setMonth(control.getMonth());
+		myDate.setDate(control.getDay());
+		myDate.setHours(control.getHours());
+		myDate.setMinutes(control.getMinutes());
+		myDate.setSeconds(control.getSeconds());
+		return myDate;
 	}
 
 	@Override
@@ -49,19 +55,5 @@ public DateTimeEditControl(){
 	public boolean isCorrect(Object value, EditField field)
 			throws ParseException {
 		return true;
-	}
-
-	@Override
-	public Object getValue(EditField owner, boolean convert)
-			throws ParseException {
-		DateTimeEntity myDate=new DateTimeEntity();
-		System.out.println(myDate.get(DateTimeFields.SECOND_OF_YEAR));
-		myDate.setYear(control.getYear());
-		myDate.setMonth(control.getMonth());
-		myDate.setDate(control.getDay());
-		myDate.setHours(control.getHours());
-		myDate.setMinutes(control.getMinutes());
-		myDate.setSeconds(control.getSeconds());
-		return myDate;
 	}
 }

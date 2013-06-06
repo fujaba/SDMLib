@@ -242,7 +242,7 @@ public class JsonIdMap extends IdMap{
 			SendableEntityCreator valueCreater = getCreatorClasses(className);
 
 			if (valueCreater != null) {
-				if (filter.isConvertable(this, entity, property, item, true)) {
+				if (filter.isConvertable(this, entity, property, item, true) && !getCounter().isSimpleObject()) {
 					String subId = this.getKey(entity);
 					if (valueCreater instanceof NoIndexCreator || subId == null
 							|| !visitedObjects.contains(subId)) {

@@ -91,5 +91,7 @@ public interface IdMapCounter {
 	 * @param Enable
 	 *            or disable the ID generating
 	 */
-	public void enableId(boolean value);
+	public IdMapCounter withId(boolean value);
+
+	public boolean isSimpleObject();
 }

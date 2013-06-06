@@ -113,7 +113,10 @@ private Text searchText;
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		super.propertyChange(evt);
-		
+		// Test Thread and restarten
+		if(runDisplayThread(evt)){
+			return;
+		}
 		if (evt != null && source.equals(evt.getSource()) ){
 			if(getProperty()!=null && getProperty().equals(evt.getPropertyName())) {
 				if(evt.getNewValue()==null){

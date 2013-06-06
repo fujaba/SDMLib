@@ -41,12 +41,12 @@ import java.util.TreeSet;
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
-import org.sdmlib.serialization.util.PropertyChangeClient;
 
-public class TableList implements Collection<Object>, PeerMessage, PropertyChangeClient {
+public class TableList implements Collection<Object>, PeerMessage, SendableEntity {
 public static final String PROPERTY_ITEMS = "items";
 	protected EntityComparator comparator;
 	protected TreeSet<Object> list;

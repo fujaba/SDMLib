@@ -165,7 +165,16 @@ public class SimpleIdCounter implements IdMapCounter{
 	}
 
 	@Override
-	public void enableId(boolean value) {
+	public IdMapCounter withId(boolean value) {
 		this.isId = value;
+		return this;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.uniks.jism.interfaces.IdMapCounter#isSimpleObject()
+	 */
+	@Override
+	public boolean isSimpleObject() {
+		return false;
 	}
 }

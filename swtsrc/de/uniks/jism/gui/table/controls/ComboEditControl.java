@@ -24,8 +24,14 @@ private ArrayList<Object> list;
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
+		Object value=control.getText();
+		if("".equals(value)){
+			return null;
+		}
+		if(control.getSelectionIndex()<0){
+			return null;
+		}
+		return list.get(control.getSelectionIndex());
 	}
 
 	@Override
@@ -62,18 +68,6 @@ private ArrayList<Object> list;
 	public boolean isCorrect(Object value, EditField field)
 			throws ParseException {
 		return false;
-	}
-
-	@Override
-	public Object getValue(EditField owner, boolean convert) throws ParseException {
-		Object value=control.getText();
-		if("".equals(value)){
-			return null;
-		}
-		if(control.getSelectionIndex()<0){
-			return null;
-		}
-		return list.get(control.getSelectionIndex());
 	}
 	
 	@Override

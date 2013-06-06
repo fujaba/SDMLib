@@ -35,6 +35,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -65,9 +66,11 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.SortingDirection;
+
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
+import de.uniks.jism.gui.UpdateGUI;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.celledit.JISMCellEditor;
 
@@ -529,33 +532,24 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		return tableViewer;
 	}
 
-	class UpdateGUI implements Runnable{
-		private PropertyChangeEvent event;
-
-		public UpdateGUI(PropertyChangeEvent evt){
-			this.event = evt;
+	public boolean runDisplayThread(PropertyChangeEvent evt){
+		if(isDisposed()){
+			return true;
 		}
-
-		@Override
-		public void run() {
-			propertyChange(event);
+		// Test Thread and restarten
+		if(getDisplay().getThread()!=Thread.currentThread()){
+			getDisplay().asyncExec(new UpdateGUI(this, evt));
+			return true;
 		}
-		
+		return false;
 	}
-	
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt != null) {
+			if(runDisplayThread(evt)){
+				return;
+			}
 			if (list.equals(evt.getSource())) {
 				if (evt.getPropertyName().equals(TableList.PROPERTY_ITEMS)) {
-					
-					// Test Thread and restarten
-					if(getDisplay().getThread()!=Thread.currentThread()){
-						getDisplay().asyncExec(new UpdateGUI(evt));
-						return;
-					}
-					
-					
-					
 					if (evt.getOldValue() == null && evt.getNewValue() != null) {
 						// ADD a new Item
 						if (fixedTableViewerLeft != null) {

@@ -32,7 +32,7 @@ package de.uniks.jism.gui.table;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.PropertyChangeClient;
+import org.sdmlib.serialization.interfaces.SendableEntity;
 
 public class UpdateSearchList implements PropertyChangeListener {
 protected TableComponent tableComponent;
@@ -40,8 +40,8 @@ protected TableComponent tableComponent;
 
 	public UpdateSearchList(TableComponent tableComponent, Object list){
 		this.tableComponent = tableComponent;
-		if (list instanceof PropertyChangeClient) {
-			((PropertyChangeClient) list).addPropertyChangeListener(this);
+		if (list instanceof SendableEntity) {
+			((SendableEntity) list).addPropertyChangeListener(this);
 			isListener=true;
 		}
 	}

@@ -71,7 +71,7 @@ protected EditField editField;
 	protected Object doGetValue() {
 		if(editField!=null){
 			try {
-				return editField.getValue(true);
+				return editField.getEditorValue(true);
 			} catch (ParseException e) {
 			}
 		}
@@ -153,7 +153,7 @@ protected EditField editField;
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
 		if(editField!=null){
-			return editField.getValue(convert);
+			return editField.getEditorValue(convert);
 		}
 		return null;
 	}

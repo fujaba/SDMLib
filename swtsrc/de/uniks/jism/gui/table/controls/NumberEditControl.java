@@ -9,8 +9,11 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class NumberEditControl extends EditControl<Text>{
-public NumberEditControl(){
+private EditField owner;
+
+	public NumberEditControl(EditField owner){
 		this.fieldTyp = EditFields.DOUBLE;
+		this.owner=owner;
 	}
 	
 	@Override
@@ -32,21 +35,15 @@ public NumberEditControl(){
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		return control.getText();
-	}
-
-	@Override
-	public void createControl(EditField owner, Composite parent) {
-		control = new Text(parent, SWT.BORDER | SWT.FILL);
-	}
-
-
-	@Override
-	public Object getValue(EditField owner, boolean convert) throws ParseException {
 		String value = control.getText().replaceAll(",",".");
 		if(convert){
 			return owner.convertFromString(value);
 		}
 		return value;
+	}
+
+	@Override
+	public void createControl(EditField owner, Composite parent) {
+		control = new Text(parent, SWT.BORDER | SWT.FILL);
 	}
 }

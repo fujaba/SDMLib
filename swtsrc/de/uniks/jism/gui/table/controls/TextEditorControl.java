@@ -38,12 +38,6 @@ public TextEditorControl(){
 	}
 
 	@Override
-	public Object getValue(EditField owner, boolean convert)
-			throws ParseException {
-		return control.getText();
-	}
-	
-	@Override
 	public void focusLost(FocusEvent e) {
 //		super.focusLost(e);
 //		System.out.println("LOST"+control.getText());

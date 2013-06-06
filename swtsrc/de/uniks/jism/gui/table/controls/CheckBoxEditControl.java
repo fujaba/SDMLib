@@ -15,7 +15,10 @@ public CheckBoxEditControl(){
 	
 	@Override
 	public void setValue(Object value, boolean selectAll) {
-		control.setText(""+value);
+		if(value instanceof Boolean){
+			control.setSelection((Boolean)value);
+		}
+//		control.setText(""+value);
 	}
 
 	@Override
@@ -33,14 +36,6 @@ public CheckBoxEditControl(){
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public Object getValue(EditField owner, boolean convert)
-			throws ParseException {
 		return control.getSelection();
 	}
 }

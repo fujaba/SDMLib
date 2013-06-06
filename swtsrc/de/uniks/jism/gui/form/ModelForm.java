@@ -63,14 +63,15 @@ private IdMap map;
 	
 	public void setPreSize(){
 		int max=0;
-		for(PropertyComposite propertyComposite : properties){
-			int temp = propertyComposite.getLabelLength();
+		
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			int temp = iterator.next().getLabelLength();
 			if(temp>max){
 				max = temp; 
 			}
 		}
-		for(PropertyComposite propertyComposite : properties){
-			propertyComposite.setLabelLength(max);
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			iterator.next().setLabelLength(max);
 		}
 	}
 	
@@ -80,10 +81,17 @@ private IdMap map;
 	}
 	
 	public void finishDataBinding(){
-		for(PropertyComposite propertyComposite : properties){
-			propertyComposite.setDataBinding(map, item);
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			iterator.next().setDataBinding(map, item);
 		}	
 	}
+	
+	public void dispose(){
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			iterator.next().dispose();
+		}	
+	}
+	
 	public void init(IdMap map, Object item, boolean addCommandBtn){
 		this.map = map;
 		this.item = item;
@@ -108,9 +116,8 @@ private IdMap map;
 				}
 				properties.add(propertyComposite);
 			}
-			
-			for(PropertyComposite propertyComposite : properties){
-				propertyComposite.setLabelLength(max);
+			for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+				iterator.next().setLabelLength(max);
 			}
 			
 			if(addCommandBtn){
@@ -154,13 +161,13 @@ private IdMap map;
 	}
 	
 	public void save(){
-		for(PropertyComposite propertyComposite : properties){
-			propertyComposite.save();
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			iterator.next().save();
 		}
 	}
 	public void reload(){
-		for(PropertyComposite propertyComposite : properties){
-			propertyComposite.reload();
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			iterator.next().reload();
 		}
 	}
 
@@ -179,19 +186,27 @@ private IdMap map;
 	public void addProperty(PropertyComposite propertyComposite){
 		this.properties.add(propertyComposite);
 	}
+	
+	public PropertyComposite getProperty(String property){
+		for(Iterator<PropertyComposite> iterator = properties.iterator();iterator.hasNext();){
+			PropertyComposite item = iterator.next();
+			if(item.getProperty()!=null && item.getProperty().equals(property)){
+				return item;
+			}
+		}
+		return null;
+	}
 
 	public boolean focusnext() {
-		Iterator<PropertyComposite> iterator = properties.iterator();
 		if(currentFocus!=null){
+			Iterator<PropertyComposite> iterator = properties.iterator();
 			while(iterator.hasNext()){
-				PropertyComposite property = iterator.next();
-				if(property==currentFocus){
+				if(iterator.next()==currentFocus){
 					break;
 				}
 			}
 			if(iterator.hasNext()){
-				PropertyComposite property = iterator.next();
-				return property.setFocus();
+				return iterator.next().setFocus();
 			}
 			currentFocus = null;
 		}

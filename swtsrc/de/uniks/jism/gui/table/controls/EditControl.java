@@ -2,7 +2,6 @@ package de.uniks.jism.gui.table.controls;
 
 
 import java.text.ParseException;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
@@ -104,10 +103,8 @@ protected T control;
 	public void addChoiceList(Object value){
 		
 	}
-	
 	public abstract void createControl(EditField owner, Composite parent);
 	public abstract void setValue(Object value, boolean selectAll);
-	public abstract Object getValue(EditField owner, boolean convert) throws ParseException;
 	public abstract boolean isCorrect(Object value, EditField field) throws ParseException;
 	
 	

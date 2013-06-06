@@ -64,8 +64,8 @@ private EditControl<?> editControl;
 		addToEditControls( new CheckBoxEditControl() );
 		addToEditControls( new ComboEditControl() );
 		addToEditControls( new DateTimeEditControl() );
-		addToEditControls( new NumberEditControl() );
-		addToEditControls( new SpinnerEditControl() );
+		addToEditControls( new NumberEditControl(this) );
+		addToEditControls( new SpinnerEditControl(this) );
 		addToEditControls( new TextEditorControl() );
 		addToEditControls( new PasswordEditorControl());
 	}
@@ -280,8 +280,8 @@ private EditControl<?> editControl;
 		}
 		return true;
 	}
-	public Object getValue(boolean convert) throws ParseException {
-		return editControl.getValue(this, convert);
+	public Object getEditorValue(boolean convert) throws ParseException {
+		return editControl.getEditorValue(convert);
 	}
 	public void addChoiceList(Object value) {
 		editControl.addChoiceList(value);

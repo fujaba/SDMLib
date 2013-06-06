@@ -35,6 +35,7 @@ import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventListener;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
@@ -51,7 +52,9 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
 import de.uniks.jism.gui.GUIPosition;
+import de.uniks.jism.gui.UpdateGUI;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.Column;
 import de.uniks.jism.gui.table.celledit.CellEditorElement;
@@ -248,6 +251,14 @@ private CLabel westLabel;
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName()!=null){
 			if(evt.getPropertyName().equals(column.getAttrName())){
+				// Test Thread and restarten
+				if(isDisposed()){
+					return;
+				}
+				if(getDisplay().getThread()!=Thread.currentThread()){
+					getDisplay().asyncExec(new UpdateGUI(this, evt));
+					return;
+				}
 				field.setValue(evt.getNewValue(), false);
 			}
 		}
@@ -261,7 +272,7 @@ private CLabel westLabel;
 
 	public void save() {
 		try {
-			creator.setValue(item, column.getAttrName(), field.getValue(true), IdMap.UPDATE);
+			creator.setValue(item, column.getAttrName(), field.getEditorValue(true), IdMap.UPDATE);
 		} catch (ParseException e) {
 		}
 	}
@@ -272,7 +283,7 @@ private CLabel westLabel;
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		return field.getValue(convert); 
+		return field.getEditorValue(convert); 
 	}
 	
 	public Control getEditorField(){
@@ -361,6 +372,14 @@ private CLabel westLabel;
 		return false;
 	}
 
+	@Override
+	public void dispose() {
+		if(item instanceof SendableEntity) {
+			((SendableEntity) item).removePropertyChangeListener(this);
+		}
+		super.dispose();
+	}
+	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 	}

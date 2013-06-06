@@ -2,18 +2,19 @@ package de.uniks.jism.gui.table.controls;
 
 
 import java.text.ParseException;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
-
 import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class SpinnerEditControl extends EditControl<Spinner> {
-public SpinnerEditControl(){
+private EditField owner;
+
+	public SpinnerEditControl(EditField owner){
 		this.fieldTyp = EditFields.INTEGER;
+		this.owner = owner;
 	}
 	@Override
 	public void setValue(Object value, boolean selectAll) {
@@ -43,7 +44,11 @@ public SpinnerEditControl(){
 
 	@Override
 	public Object getEditorValue(boolean convert) throws ParseException {
-		return control.getText();
+		String value = control.getText();
+		if(convert){
+			return owner.convertFromString(value);
+		}
+		return value;
 	}
 
 	@Override
@@ -56,15 +61,5 @@ public SpinnerEditControl(){
 		if(cellOwner!=null){
 			control.addSelectionListener(cellOwner);
 		};
-	}
-
-	@Override
-	public Object getValue(EditField owner, boolean convert)
-			throws ParseException {
-		String value = control.getText();
-		if(convert){
-			return owner.convertFromString(value);
-		}
-		return value;
 	}
 }
