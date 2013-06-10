@@ -34,7 +34,7 @@ import org.sdmlib.serialization.interfaces.LocalisationInterface;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-		LocalisationInterface {
+public class TextItems implements SendableEntityCreator, PeerMessage, LocalisationInterface {
 	public static final String PROPERTY_VALUE = "value";
 	private TreeMap<String, String> values = new TreeMap<String, String>();
 	private LocalisationInterface customLanguage = null;
