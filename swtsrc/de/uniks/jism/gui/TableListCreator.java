@@ -34,7 +34,7 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableListCreator implements SendableEntityCreator{
-public static final String[] properties=new String[]{TableList.PROPERTY_ITEMS};
+	public static final String[] properties=new String[]{TableList.PROPERTY_ITEMS};
 	@Override
 	public String[] getProperties() {
 		return properties;
