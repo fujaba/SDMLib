@@ -29,17 +29,16 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
-
 /**
  * The Class Tokener.
  */
+
 public abstract class Tokener {
-public final static String STOPCHARS = ",]}/\\\"[{;=# ";
+	public final static String STOPCHARS = ",]}/\\\"[{;=# ";
 	/** The index. */
 	protected int index;
 

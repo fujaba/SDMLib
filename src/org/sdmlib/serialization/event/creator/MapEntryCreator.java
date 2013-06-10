@@ -29,15 +29,14 @@ package org.sdmlib.serialization.event.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Map.Entry;
 import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.MapSet;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class MapEntryCreator implements SendableEntityCreator, NoIndexCreator{
-public static final String PROPERTY_KEY = "key";
+public class MapEntryCreator implements SendableEntityCreator, NoIndexCreator {
+	public static final String PROPERTY_KEY = "key";
 	public static final String PROPERTY_VALUE = "value";
 	private final String[] properties = new String[] { PROPERTY_KEY,
 			PROPERTY_VALUE };

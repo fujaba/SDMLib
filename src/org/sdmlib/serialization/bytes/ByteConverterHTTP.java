@@ -29,11 +29,10 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 
-public class ByteConverterHTTP extends ByteConverter{
-@Override
+public class ByteConverterHTTP extends ByteConverter {
+	@Override
 	public String toString(byte[] values, int size) {
 		StringBuilder returnValue = new StringBuilder();
 

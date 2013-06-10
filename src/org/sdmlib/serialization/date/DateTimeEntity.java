@@ -29,9 +29,7 @@ package org.sdmlib.serialization.date;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Date;
-
 import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.TextItems;
 

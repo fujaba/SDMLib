@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes;
 */
 
 public class ByteConverterString extends ByteConverter {
-/**
+	/**
 	 * To simple string.
 	 * 
 	 * @param bytes

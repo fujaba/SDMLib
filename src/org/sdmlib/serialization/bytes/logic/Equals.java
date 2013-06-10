@@ -29,11 +29,10 @@ package org.sdmlib.serialization.bytes.logic;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 
-public class Equals implements ByteCondition{
-private Byte value;
+public class Equals implements ByteCondition {
+	private Byte value;
 	// Position of the Byte or -1 for currentPosition
 	private int position = -1;
 

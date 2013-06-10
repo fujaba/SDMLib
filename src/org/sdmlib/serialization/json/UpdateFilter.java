@@ -29,12 +29,10 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.IdMap;
 
-public class UpdateFilter extends JsonFilter
-{
-@Override
+public class UpdateFilter extends JsonFilter {
+	@Override
 	public boolean isConvertable(IdMap map, Object entity, String property,
 			Object value, boolean isMany) {
 		return map.getKey(value) == null;

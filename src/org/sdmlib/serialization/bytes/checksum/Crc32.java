@@ -30,8 +30,8 @@ package org.sdmlib.serialization.bytes.checksum;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public class Crc32 extends CRC{
-/** Make the table for a fast CRC. */
+public class Crc32 extends CRC {
+	/** Make the table for a fast CRC. */
 	public int[] getGenTable() {
 		int[] crc_table = new int[256];
 		for (int n = 0; n < 256; n++) {

@@ -29,12 +29,12 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Interface XMLEntityCreator.
  */
+
 public interface XMLEntityCreator extends SendableEntityCreator {
-/**
+	/**
 	 * Gets the tag of the XML Entity.
 	 * 
 	 * @return the tag

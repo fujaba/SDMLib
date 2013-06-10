@@ -29,14 +29,13 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.TreeMap;
 import org.sdmlib.serialization.interfaces.LocalisationInterface;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class TextItems implements SendableEntityCreator, PeerMessage, LocalisationInterface {
-public static final String PROPERTY_VALUE = "value";
+		LocalisationInterface {
+	public static final String PROPERTY_VALUE = "value";
 	private TreeMap<String, String> values = new TreeMap<String, String>();
 	private LocalisationInterface customLanguage = null;
 	

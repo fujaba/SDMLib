@@ -29,11 +29,10 @@ package org.sdmlib.serialization.date;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.HashMap;
 
 public class DateTimeFields extends HashMap<String, DateTimeField> {
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	public static final String ERA = "era";
 	public static final String MONTH = "month";
 	public static final String YEAR = "year";

@@ -29,7 +29,6 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +38,8 @@ import org.sdmlib.serialization.CloneFilter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.bytes.creator.BitEntityCreator;
 
-public class ByteSimpleMap extends AbstractIdMap{
-@Override
+public class ByteSimpleMap extends AbstractIdMap {
+	@Override
 	public Object cloneObject(Object reference, CloneFilter filter) {
 		return null;
 	}

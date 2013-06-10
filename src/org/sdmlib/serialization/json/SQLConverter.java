@@ -29,13 +29,12 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class SQLConverter {
-public static JsonObject sqlToJsonObject(ResultSet sqlSet)
+	public static JsonObject sqlToJsonObject(ResultSet sqlSet)
 			throws SQLException {
 		JsonObject json = new JsonObject();
 		ResultSetMetaData metaData = sqlSet.getMetaData();

@@ -29,10 +29,10 @@ package org.sdmlib.serialization.bytes.checksum;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 // ftp://ftp.rfc-editor.org/in-notes/rfc1331.txt
+
 public class FCS16 extends Checksum {
-protected int polynom = 0x8408;
+	protected int polynom = 0x8408;
 	protected int[] crc_table = getGenTable();
 
 	public int[] getGenTable() {

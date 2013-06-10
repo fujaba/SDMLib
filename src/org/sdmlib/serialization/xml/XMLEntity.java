@@ -29,7 +29,6 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,12 +40,12 @@ import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
-
 /**
  * The Class XMLEntity.
  */
+
 public class XMLEntity extends Entity implements BaseEntityList {
-/** The children. */
+	/** The children. */
 	protected ArrayList<XMLEntity> children;
 
 	/** The tag. */

@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes;
 */
 
 public class ByteConverterBinary extends ByteConverter {
-public static String toString(byte value) {
+	public static String toString(byte value) {
 		ByteConverterBinary converter = new ByteConverterBinary();
 		return converter.toString(new byte[] { value }, 1);
 	}

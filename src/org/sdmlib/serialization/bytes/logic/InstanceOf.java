@@ -29,12 +29,11 @@ package org.sdmlib.serialization.bytes.logic;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 
-public class InstanceOf implements ByteCondition{
-protected ByteEntityCreator value;
+public class InstanceOf implements ByteCondition {
+	protected ByteEntityCreator value;
 
 	public InstanceOf(ByteEntityCreator creator) {
 		this.value = creator;

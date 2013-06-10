@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 public class RestCounter extends SimpleIdCounter{
-public RestCounter(String path){
+	public RestCounter(String path){
 		if(path.endsWith("/")){
 			this.prefixId = path;
 		}else{

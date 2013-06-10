@@ -29,7 +29,6 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,12 +40,12 @@ import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
-
 /**
  * The Class XMLIdMap.
  */
+
 public class XMLIdMap extends XMLSimpleIdMap {
-/** The Constant ENTITYSPLITTER. */
+	/** The Constant ENTITYSPLITTER. */
 	public static final String ENTITYSPLITTER = "&";
 
 	/** The Constant ATTRIBUTEVALUE. */

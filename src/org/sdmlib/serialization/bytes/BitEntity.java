@@ -29,18 +29,16 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.ByteItem;
 
-public class BitEntity implements BaseEntityList, ByteItem{
-public static final String BIT_STRING = "string";
+public class BitEntity implements BaseEntityList, ByteItem {
+	public static final String BIT_STRING = "string";
 	public static final String BIT_NUMBER = "number";
 	public static final String BIT_BYTE = "byte";
 	public static final String BIT_REFERENCE = "reference";

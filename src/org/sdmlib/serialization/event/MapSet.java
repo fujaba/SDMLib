@@ -29,9 +29,8 @@ package org.sdmlib.serialization.event;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.LinkedHashSet;
 
-public class MapSet extends LinkedHashSet<Object>{
-private static final long serialVersionUID = 1L;
+public class MapSet extends LinkedHashSet<Object> {
+	private static final long serialVersionUID = 1L;
 }

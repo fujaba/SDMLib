@@ -31,7 +31,7 @@ package org.sdmlib.serialization;
 */
 
 public class DefaultTextItems {
-// Month
+	// Month
 	public static final String JANUARY = "January";
 	public static final String FEBRUARY = "February";
 	public static final String MARCH = "March";

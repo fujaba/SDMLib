@@ -29,19 +29,18 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
-
 /**
  * The Class EntityList.
  */
-public abstract class EntityList implements BaseEntityList, List<Object>{
-protected List<Object> values;
+
+public abstract class EntityList implements BaseEntityList, List<Object> {
+	protected List<Object> values;
 	private boolean visible = true;
 
 	public EntityList() {

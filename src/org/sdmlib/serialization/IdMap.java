@@ -29,7 +29,6 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,12 +42,12 @@ import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.TypList;
 import org.sdmlib.serialization.json.UpdateListener;
-
 /**
  * The Class IdMap.
  */
-public class IdMap extends AbstractIdMap{
-/** The Constant ID. */
+
+public class IdMap extends AbstractIdMap implements Map<String, Object> {
+	/** The Constant ID. */
 	public static final String ID = "id";
 
 	/** The Constant REMOVE. */
@@ -266,8 +265,7 @@ public class IdMap extends AbstractIdMap{
 	 */
 	public boolean addListener(Object object) {
 		if (object instanceof SendableEntity) {
-			return ((SendableEntity) object).addPropertyChangeListener(
-					IdMap.UPDATE, getUpdateListener());
+			return ((SendableEntity) object).addPropertyChangeListener(getUpdateListener());
 		}
 		return false;
 	}

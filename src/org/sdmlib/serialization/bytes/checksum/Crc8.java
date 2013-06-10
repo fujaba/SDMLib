@@ -29,12 +29,12 @@ package org.sdmlib.serialization.bytes.checksum;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * A class that can be used to compute the Crc8 of a data stream.
  */
+
 public class Crc8 extends CRC {
-// CRC-8, poly = x^8 + x^2 + x^1 + 1, init = 0
+	// CRC-8, poly = x^8 + x^2 + x^1 + 1, init = 0
 	// 1 0000 0111
 	// 0111 0000 1
 	public int getPolynom() {

@@ -29,11 +29,10 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Collection;
 
 public interface TypList {
-public boolean addObject(Object object);
+	public boolean addObject(Object object);
 
 	public boolean removeObject(Object object);
 

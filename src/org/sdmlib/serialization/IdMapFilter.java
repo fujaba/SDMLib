@@ -1,5 +1,7 @@
 package org.sdmlib.serialization;
 
+import org.sdmlib.serialization.interfaces.PeerMessage;
+
 /*
  Json Id Serialisierung Map
  Copyright (c) 2011 - 2013, Stefan Lindel
@@ -29,12 +31,12 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Class IdMapFilter.
  */
-public class IdMapFilter {
-public static final String PROPERTY_DEEP = "deep";
+
+public class IdMapFilter implements PeerMessage {
+	public static final String PROPERTY_DEEP = "deep";
 	public static final String PROPERTY_FULLSERIALIZATION = "fullSerialization";
 	public static final String PROPERTY_ID = "id";
 

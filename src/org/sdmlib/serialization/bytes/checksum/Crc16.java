@@ -29,14 +29,13 @@ package org.sdmlib.serialization.bytes.checksum;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * A class that can be used to compute the CRC-16 of a data stream.
  * This is a 100% Java implementation.
  */
 
 public class Crc16 extends CRC {
-@Override
+	@Override
 	public int getPolynom() {
 		return 0x8005; // 1000000000000101
 	}

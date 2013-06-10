@@ -29,10 +29,9 @@ package org.sdmlib.serialization.bytes.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.bytes.BitEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public interface BitEntityCreator extends SendableEntityCreator{
-public BitEntity[] getBitProperties();
+public interface BitEntityCreator extends SendableEntityCreator {
+	public BitEntity[] getBitProperties();
 }

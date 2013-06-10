@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes;
 */
 
 public class BitValue {
-private BitEntity start;
+	private BitEntity start;
 	private BitEntity len;
 	private int orientation = 1;
 

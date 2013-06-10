@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes.checksum;
 */
 
 public class Xor8 extends Checksum {
-public void update(int b) {
+	public void update(int b) {
 		super.update(b);
 		value ^= b & 0xFF;
 	}

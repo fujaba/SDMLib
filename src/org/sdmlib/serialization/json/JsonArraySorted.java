@@ -29,14 +29,13 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Comparator;
 import java.util.LinkedList;
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
 
 public class JsonArraySorted extends JsonArray {
-protected Comparator<? super Object> cpr;
+	protected Comparator<? super Object> cpr;
 	
 	/**
 	 * Instantiates a new json sorted array.

@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes.checksum;
 */
 
 public class Sum24 extends Sum8 {
-@Override
+	@Override
 	public int getOrder() {
 		return 24;
 	}

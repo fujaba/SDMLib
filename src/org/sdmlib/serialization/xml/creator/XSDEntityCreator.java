@@ -29,7 +29,6 @@ package org.sdmlib.serialization.xml.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.XMLEntityCreator;
@@ -37,8 +36,8 @@ import org.sdmlib.serialization.interfaces.XMLGrammar;
 import org.sdmlib.serialization.xml.XMLEntity;
 import org.sdmlib.serialization.xml.XSDEntity;
 
-public class XSDEntityCreator implements XMLEntityCreator, XMLGrammar{
-private String nameSpace;
+public class XSDEntityCreator implements XMLEntityCreator, XMLGrammar {
+	private String nameSpace;
 	private ArrayList<String> privateStack = new ArrayList<String>();
 	public static final String[] IGNORETAGS = new String[] {"annotation",
 			"documentation", "complextype", "simpletype" };

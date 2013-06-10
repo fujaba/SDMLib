@@ -29,7 +29,6 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -38,8 +37,8 @@ import java.util.Map.Entry;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
-public abstract class Entity implements BaseEntity{
-/**
+public abstract class Entity implements BaseEntity {
+	/**
 	 * The map where the Entity's properties are kept.
 	 */
 	private Map<String, Object> map;

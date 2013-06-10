@@ -29,9 +29,7 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.json.JsonObject;
-
 /**
  * The listener interface for receiving mapUpdate events.
  * The class that is interested in processing a mapUpdate
@@ -43,8 +41,9 @@ import org.sdmlib.serialization.json.JsonObject;
  *
  * @see MapUpdateEvent
  */
+
 public interface MapUpdateListener {
-/**
+	/**
 	 * Send update msg.
 	 * 
 	 * @param jsonObject

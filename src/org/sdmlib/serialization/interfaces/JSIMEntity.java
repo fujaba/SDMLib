@@ -29,7 +29,6 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Class BaseEntity.
  */
@@ -41,8 +40,9 @@ package org.sdmlib.serialization.interfaces;
  * @author Stefan
  *
  */
+
 public interface JSIMEntity {
-public static final String CRLF = "\r\n";
+	public static final String CRLF = "\r\n";
 
 	public BaseEntityList getNewArray();
 

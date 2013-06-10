@@ -29,14 +29,12 @@ package org.sdmlib.serialization.yuml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.HashMap;
 import java.util.Set;
-
 import org.sdmlib.serialization.IdMapFilter;
 
 public class YUmlIdMapFilter extends IdMapFilter{
-/** The link cardinality. */
+	/** The link cardinality. */
 	private HashMap<String, String> linkCardinality = new HashMap<String, String>();
 
 	/** The link property. */

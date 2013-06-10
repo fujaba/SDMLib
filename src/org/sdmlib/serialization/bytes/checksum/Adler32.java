@@ -29,14 +29,13 @@ package org.sdmlib.serialization.bytes.checksum;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * A class that can be used to compute the Adler32 of a data stream.
  * This implementation uses the class java.util.zip.Adler32 from the Java Standard API.
  */
 
 public class Adler32 extends Checksum {
-private static final int BASE = 65521;
+	private static final int BASE = 65521;
 
 	public void update(int b) {
 		super.update(b);

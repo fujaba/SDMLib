@@ -29,7 +29,6 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,7 +36,6 @@ import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
-
 /**
  * A JsonObject is an unordered collection of name/value pairs. Its
  * external form is a string wrapped in curly braces with colons between the
@@ -64,8 +62,9 @@ import org.sdmlib.serialization.Tokener;
  * <p>
  * The <code>put</code> methods add or replace values in an object. For example,
  * <pre>myString = new JsonObject().put("JSON", "Hello, World!").toString();</pre>
+
  * produces the string <code>{"JSON": "Hello, World"}</code>.
-* <p>
+	* <p>
  * The texts produced by the <code>toString</code> methods strictly conform to
  * the JSON syntax rules. The constructors are more forgiving in the texts they
  * will accept:

@@ -29,7 +29,6 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
@@ -37,8 +36,8 @@ import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
-public class XMLTokener extends Tokener{
-public XMLTokener(String s) {
+public class XMLTokener extends Tokener {
+	public XMLTokener(String s) {
 		super(s);
 	}
 

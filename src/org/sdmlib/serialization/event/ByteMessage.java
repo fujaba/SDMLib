@@ -29,14 +29,13 @@ package org.sdmlib.serialization.event;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.PeerMessage;
-
 /**
  * The Class ByteMessage.
  */
+
 public class ByteMessage implements PeerMessage {
-/** The Constant PROPERTY_VALUE. */
+	/** The Constant PROPERTY_VALUE. */
 	public static final String PROPERTY_VALUE = "value";
 
 	/** The value. */

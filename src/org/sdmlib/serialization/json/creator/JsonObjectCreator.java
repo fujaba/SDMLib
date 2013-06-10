@@ -29,13 +29,12 @@ package org.sdmlib.serialization.json.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonObject;
 
-public class JsonObjectCreator implements SendableEntityCreator, NoIndexCreator{
-private final String[] properties = new String[] { "VALUE" };
+public class JsonObjectCreator implements SendableEntityCreator, NoIndexCreator {
+	private final String[] properties = new String[] { "VALUE" };
 
 	@Override
 	public String[] getProperties() {

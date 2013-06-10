@@ -29,7 +29,6 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 /**
  * The listener interface for receiving update events.
  * The class that is interested in processing a update
@@ -51,8 +49,9 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  *
  * @see UpdateEvent
  */
-public class UpdateListener implements PropertyChangeListener{
-/** The map. */
+
+public class UpdateListener implements PropertyChangeListener {
+	/** The map. */
 	private JsonIdMap map;
 
 	/** The suspend id list. */

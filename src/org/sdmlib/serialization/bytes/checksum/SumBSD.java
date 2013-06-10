@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes.checksum;
 */
 
 public class SumBSD extends Checksum {
-/** implemented from original GNU C source */
+	/** implemented from original GNU C source */
 	public void update(int b) {
 		super.update(b);
 		value = (value >> 1) + ((value & 1) << 15);

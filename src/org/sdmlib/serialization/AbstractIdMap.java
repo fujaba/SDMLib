@@ -29,7 +29,6 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -37,7 +36,7 @@ import java.util.Set;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public abstract class AbstractIdMap {
-/** The creators. */
+	/** The creators. */
 	protected HashMap<String, SendableEntityCreator> creators;
 
 	public AbstractIdMap() {

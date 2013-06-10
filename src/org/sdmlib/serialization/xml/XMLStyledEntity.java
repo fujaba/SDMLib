@@ -29,12 +29,11 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Style;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class XMLStyledEntity extends XMLEntity implements PeerMessage{
-private Style style=new Style();
+public class XMLStyledEntity extends XMLEntity implements PeerMessage {
+	private Style style=new Style();
 	
 	@Override
 	protected String toStringValue(int indentFactor) {

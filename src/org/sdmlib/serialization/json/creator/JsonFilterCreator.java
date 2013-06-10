@@ -29,12 +29,11 @@ package org.sdmlib.serialization.json.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonFilter;
 
-public class JsonFilterCreator implements SendableEntityCreator{
-private String[] properties = new String[] { JsonFilter.PROPERTY_DEEP,
+public class JsonFilterCreator implements SendableEntityCreator {
+	private String[] properties = new String[] { JsonFilter.PROPERTY_DEEP,
 			JsonFilter.PROPERTY_FULLSERIALIZATION, JsonFilter.PROPERTY_ID,
 			JsonFilter.PROPERTY_ITEMS };
 

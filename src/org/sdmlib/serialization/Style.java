@@ -29,11 +29,10 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class Style implements PeerMessage{
-/** The Constant PROPERTY_BOLD for Bold Attribute */
+public class Style implements PeerMessage, Cloneable{
+	/** The Constant PROPERTY_BOLD for Bold Attribute */
 	public static final String PROPERTY_BOLD = "bold";
 	/** The Bold value. */
 	private boolean bold;

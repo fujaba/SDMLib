@@ -29,13 +29,12 @@ package org.sdmlib.serialization.date;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
-public class StringTokener extends Tokener{
-private boolean isString = true;
+public class StringTokener extends Tokener {
+	private boolean isString = true;
 
 	public StringTokener(String value) {
 		super(value);

@@ -29,7 +29,6 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
@@ -38,8 +37,8 @@ import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
-public class JsonTokener extends Tokener{
-public final static String STOPCHARS = ",:]}/\\\"[{;=# ";
+public class JsonTokener extends Tokener {
+	public final static String STOPCHARS = ",:]}/\\\"[{;=# ";
 
 	public JsonTokener() {
 		super();

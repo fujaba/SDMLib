@@ -29,18 +29,17 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
-
 /**
 // * The Class JsonFilter.
  * This Class is for filter the elements of a modell. The Standard is filtering the deep of
  * serialization  
  */
-public class JsonFilter extends IdMapFilter{
-public static final String PROPERTY_ITEMS = "items";
+
+public class JsonFilter extends IdMapFilter {
+	public static final String PROPERTY_ITEMS = "items";
 
 	/** The Constant REFERENCE. */
 	public static final String REF_SUFFIX = "_ref";

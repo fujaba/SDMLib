@@ -29,12 +29,12 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Interface PeerMessage.
  */
+
 public interface PeerMessage {
-/**
+	/**
 	 * Gets the Datatype of a value.
 	 * 
 	 * @param attribute

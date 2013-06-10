@@ -29,15 +29,14 @@ package org.sdmlib.serialization.event.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
-
 /**
  * The Class BasicMessageCreator.
  */
+
 public class BasicMessageCreator implements ByteEntityCreator {
-/** The properties. */
+	/** The properties. */
 	protected final String[] properties = new String[] { BasicMessage.PROPERTY_VALUE };
 
 	/*

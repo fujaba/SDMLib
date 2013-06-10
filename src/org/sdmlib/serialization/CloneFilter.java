@@ -29,14 +29,13 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.HashMap;
-
 /**
  * The Class CloneFilter.
  */
-public class CloneFilter extends IdMapFilter{
-/** The Constant OBJECT. */
+
+public class CloneFilter extends IdMapFilter {
+	/** The Constant OBJECT. */
 	public static final int OBJECT = 0;
 
 	/** The Constant SIMPLE. */

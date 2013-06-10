@@ -30,8 +30,8 @@ package org.sdmlib.serialization.bytes.checksum;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public abstract class CRC extends Checksum{
-/** The fast CRC table. Computed once when the CRC32 class is loaded. */
+public abstract class CRC extends Checksum {
+	/** The fast CRC table. Computed once when the CRC32 class is loaded. */
 	protected int[] crc_table = getGenTable();
 
 	public abstract int getPolynom();

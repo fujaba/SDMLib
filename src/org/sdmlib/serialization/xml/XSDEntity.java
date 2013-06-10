@@ -29,11 +29,10 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 
-public class XSDEntity extends XMLEntity{
-public static final String PROPERTY_CHOICE = "choice";
+public class XSDEntity extends XMLEntity {
+	public static final String PROPERTY_CHOICE = "choice";
 	public static final String PROPERTY_SEQUENCE = "sequence";
 	public static final String PROPERTY_ATTRIBUTE = "attribute";
 	public static final String PROPERTY_MINOCCURS = "minOccurs";

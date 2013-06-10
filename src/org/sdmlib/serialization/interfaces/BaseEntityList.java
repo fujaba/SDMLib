@@ -29,11 +29,10 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Collection;
 
-public interface BaseEntityList extends JSIMEntity{
-public BaseEntityList initWithMap(Collection<?> value);
+public interface BaseEntityList extends JSIMEntity {
+	public BaseEntityList initWithMap(Collection<?> value);
 
 	public BaseEntityList put(Object value);
 

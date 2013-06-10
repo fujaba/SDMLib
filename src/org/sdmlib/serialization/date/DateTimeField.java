@@ -31,7 +31,7 @@ package org.sdmlib.serialization.date;
 */
 
 public class DateTimeField {
-/** The field type. */
+	/** The field type. */
 	private String typValue;
 	private Integer min;
 	private Integer max;

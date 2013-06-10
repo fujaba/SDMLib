@@ -31,5 +31,5 @@ package org.sdmlib.serialization.interfaces;
 */
 
 public interface LocalisationInterface {
-public String getText(String label, Object model, Object gui);
+	public String getText(String label, Object model, Object gui);
 }

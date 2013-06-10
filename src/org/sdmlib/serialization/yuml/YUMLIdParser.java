@@ -29,20 +29,18 @@ package org.sdmlib.serialization.yuml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 /**
  * The Class YUMLIdParser.
  */
-public class YUMLIdParser extends IdMap{
-/** The Constant URL. */
+
+public class YUMLIdParser extends IdMap {
+	/** The Constant URL. */
 	public static final String URL = "http://yuml.me/diagram/class/";
 
 	/** The Constant for CLASS Diagramms. */

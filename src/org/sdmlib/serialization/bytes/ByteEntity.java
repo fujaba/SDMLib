@@ -29,18 +29,17 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import java.util.Date;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
-
 /**
  * The Class ByteEntity.
  */
-public class ByteEntity implements JSIMEntity, ByteItem{
-/** The Constant BIT OF A BYTE. */
+
+public class ByteEntity implements JSIMEntity, ByteItem {
+	/** The Constant BIT OF A BYTE. */
 	public final static int BITOFBYTE = 8;
 	public final static int TYPBYTE = 1;
 

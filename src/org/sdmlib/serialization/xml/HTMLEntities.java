@@ -29,11 +29,10 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.HashMap;
 
 public class HTMLEntities {
-/**
+	/**
 	 * Map to convert extended characters in html entities.
 	 */
 	private HashMap<Integer, String> htmlentities_map = new HashMap<Integer, String>();

@@ -29,12 +29,11 @@ package org.sdmlib.serialization.bytes.logic;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-public class Or implements ByteCondition{
-private ArrayList<ByteCondition> list = new ArrayList<ByteCondition>();
+public class Or implements ByteCondition {
+	private ArrayList<ByteCondition> list = new ArrayList<ByteCondition>();
 
 	public Or(ByteCondition... byteConditions) {
 		for (ByteCondition condition : byteConditions) {

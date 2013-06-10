@@ -29,11 +29,11 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Class BaseEntity.
  */
-public interface BaseEntity extends JSIMEntity{
-public void put(String key, Object value);
+
+public interface BaseEntity extends JSIMEntity {
+	public void put(String key, Object value);
 
 }

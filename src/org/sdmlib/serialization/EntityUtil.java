@@ -29,14 +29,13 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class EntityUtil {
-/**
+	/**
 	 * Produce a string from a Number.
 	 * 
 	 * @param number

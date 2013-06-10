@@ -31,7 +31,7 @@ package org.sdmlib.serialization.bytes;
 */
 
 public class ByteConverterHex extends ByteConverter {
-/**
+	/**
 	 * To hex string.
 	 * 
 	 * @param bytes the bytes

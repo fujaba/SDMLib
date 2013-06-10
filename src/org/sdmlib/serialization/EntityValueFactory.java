@@ -29,11 +29,10 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class EntityValueFactory {
-public Object getCellValue(Object value){
+	public Object getCellValue(Object value){
 		return getCellValue(value, null, null);
 	}
 	public Object getCellValue(Object value, SendableEntityCreator creator, String property){

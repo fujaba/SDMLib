@@ -29,12 +29,11 @@ package org.sdmlib.serialization.event;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapEntry implements Entry<Object, Object>{
-private Object key;
+public class MapEntry implements Entry<Object, Object> {
+	private Object key;
 	private Object value;
 
 	public MapEntry() {

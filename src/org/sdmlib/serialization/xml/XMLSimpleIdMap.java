@@ -29,7 +29,6 @@ package org.sdmlib.serialization.xml;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import org.sdmlib.serialization.IdMap;
@@ -37,8 +36,8 @@ import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.XMLGrammar;
 
-public class XMLSimpleIdMap extends IdMap{
-/** The Constant ENDTAG. */
+public class XMLSimpleIdMap extends IdMap {
+	/** The Constant ENDTAG. */
 	public static final char ENDTAG = '/';
 
 	/** The Constant ITEMEND. */

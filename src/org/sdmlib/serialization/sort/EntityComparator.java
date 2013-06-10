@@ -29,14 +29,13 @@ package org.sdmlib.serialization.sort;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Comparator;
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class EntityComparator implements Comparator<Object> {
-public static String IDMAP = "%idmap%";
+	public static String IDMAP = "%idmap%";
 	public static String HASHCODE = "%HASHCODE%";
 
 	private SortingDirection direction = SortingDirection.ASC;

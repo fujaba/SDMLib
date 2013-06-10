@@ -29,16 +29,15 @@ package org.sdmlib.serialization.event.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Date;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 /**
  * The Class DateCreator.
  */
-public class DateCreator implements SendableEntityCreator, NoIndexCreator{
-/** The Constant VALUE. */
+
+public class DateCreator implements SendableEntityCreator, NoIndexCreator {
+	/** The Constant VALUE. */
 	public static final String VALUE = "value";
 
 	/*

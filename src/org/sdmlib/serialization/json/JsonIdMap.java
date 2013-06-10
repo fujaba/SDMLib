@@ -29,7 +29,6 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -51,12 +50,12 @@ import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.creator.JsonArrayCreator;
 import org.sdmlib.serialization.json.creator.JsonObjectCreator;
-
 /**
  * The Class JsonIdMap.
  */
-public class JsonIdMap extends IdMap{
-/** The Constant CLASS. */
+
+public class JsonIdMap extends IdMap {
+	/** The Constant CLASS. */
 	public static final String CLASS = "class";
 
 	/** The Constant VALUE. */

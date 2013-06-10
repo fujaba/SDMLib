@@ -29,12 +29,12 @@ package org.sdmlib.serialization.bytes.checksum;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * Checksum Abstract Class
  */
+
 public abstract class Checksum {
-/** The crc data checksum so far. */
+	/** The crc data checksum so far. */
 	protected long value;
 	protected long length;
 

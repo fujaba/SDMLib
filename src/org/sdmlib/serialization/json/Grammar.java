@@ -29,14 +29,13 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Iterator;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class Grammar {
-/**
+	/**
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */

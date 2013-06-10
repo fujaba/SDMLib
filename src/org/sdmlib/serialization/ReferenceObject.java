@@ -29,14 +29,13 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 /**
  * The Class ReferenceObject.
  */
+
 public class ReferenceObject {
-/** The json id. */
+	/** The json id. */
 	private String jsonId;
 
 	/** The creator. */

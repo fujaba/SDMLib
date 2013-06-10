@@ -31,7 +31,7 @@ package org.sdmlib.serialization.sort;
 */
 
 public enum SortingDirection {
-ASC(1), DESC(-1);
+	ASC(1), DESC(-1);
 	
 	private int direction;
 

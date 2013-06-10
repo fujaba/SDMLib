@@ -29,14 +29,13 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class ByteList extends EntityList implements ByteItem {
-/** The children of the ByteEntity. */
+	/** The children of the ByteEntity. */
 	private byte typ = 0;
 	private boolean isGroupable = true;
 

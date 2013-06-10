@@ -29,7 +29,6 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +37,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.AbstractIdMap;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.event.BasicMessage;
@@ -49,12 +47,12 @@ import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.ByteEntityCreator;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 /**
  * The Class ByteIdMap.
  */
-public class ByteIdMap extends IdMap{
-/** The SPLITTER. */
+
+public class ByteIdMap extends IdMap {
+	/** The SPLITTER. */
 	public static char SPLITTER = ' ';
 
 	/** The Constant NULL-VALUE. */

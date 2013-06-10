@@ -29,13 +29,13 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Interface SendableEntityCreator.
  * This is the Basic Interface for the Creator for Serialization
  */
+
 public interface SendableEntityCreator {
-/**
+	/**
 	 * Gets the properties.
 	 * 
 	 * @return the properties

@@ -29,12 +29,11 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.xml.XMLEntity;
 
-public interface XMLGrammar extends SendableEntityCreator{
-public boolean parseChild(XMLEntity entity, XMLEntity child, Tokener value);
+public interface XMLGrammar extends SendableEntityCreator {
+	public boolean parseChild(XMLEntity entity, XMLEntity child, Tokener value);
 
 	public void addChildren(XMLEntity parent, XMLEntity child);
 

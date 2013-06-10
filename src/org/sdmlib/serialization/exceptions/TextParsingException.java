@@ -29,11 +29,10 @@ package org.sdmlib.serialization.exceptions;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.Tokener;
 
-public class TextParsingException extends RuntimeException{
-private static final long serialVersionUID = 1L;
+public class TextParsingException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 	private String message;
 	private String tokenerMsg;
 	private int index;

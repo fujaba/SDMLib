@@ -29,7 +29,6 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import java.util.Collection;
 import java.util.Iterator;
 import org.sdmlib.serialization.Entity;
@@ -38,7 +37,6 @@ import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
-
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
  * string wrapped in square brackets with commas separating the values. The
@@ -75,8 +73,9 @@ import org.sdmlib.serialization.interfaces.JSIMEntity;
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
+
  * <code>{ } [ ] / \ : , = ; #</code> and if they do not look like numbers and
-* if they are not the reserved words <code>true</code>, <code>false</code>, or
+	* if they are not the reserved words <code>true</code>, <code>false</code>, or
  * <code>null</code>.</li>
  * <li>Values can be separated by <code>;</code> <small>(semicolon)</small> as
  * well as by <code>,</code> <small>(comma)</small>.</li>

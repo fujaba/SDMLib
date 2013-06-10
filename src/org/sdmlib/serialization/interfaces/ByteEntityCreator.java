@@ -29,12 +29,12 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /**
  * The Interface ByteEntityCreator.
  */
+
 public interface ByteEntityCreator extends SendableEntityCreator {
-/**
+	/**
 	 * Gets the event typ of ByteMessage.
 	 * 
 	 * @return the event typ

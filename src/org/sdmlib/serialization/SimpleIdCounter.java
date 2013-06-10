@@ -29,14 +29,13 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 import org.sdmlib.serialization.interfaces.IdMapCounter;
-
 /**
  * The Class SimpleIdCounter.
  */
-public class SimpleIdCounter implements IdMapCounter{
-/** The prefix id. */
+
+public class SimpleIdCounter implements IdMapCounter {
+	/** The prefix id. */
 	protected String prefixId = "J1";
 
 	/** The number. */
