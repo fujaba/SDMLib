@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import org.eclipse.swt.SWT;
@@ -11,7 +10,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class ComboEditControl extends EditControl<CCombo>{
-private ArrayList<Object> list;
+	private ArrayList<Object> list;
 
 	public ComboEditControl(){
 		this.fieldTyp = EditFields.COMBOBOX;

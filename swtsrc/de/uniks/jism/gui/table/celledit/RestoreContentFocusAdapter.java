@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Text;
 import de.uniks.jism.gui.table.Column;
 
 public class RestoreContentFocusAdapter extends FocusAdapter {
-private Column column;
+	private Column column;
 
 	public RestoreContentFocusAdapter(Column column) {
 		this.column = column;

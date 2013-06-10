@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Scala brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushScala extends Brush {
-public BrushScala() {
+	public BrushScala() {
     super();
 
     // Contributed by Yegor Jbanov and David Bernard.

@@ -37,7 +37,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
-
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.PeerMessage;
@@ -47,7 +46,7 @@ import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
 
 public class TableList implements Collection<Object>, PeerMessage, SendableEntity {
-public static final String PROPERTY_ITEMS = "items";
+	public static final String PROPERTY_ITEMS = "items";
 	protected EntityComparator comparator;
 	protected TreeSet<Object> list;
 	protected HashSet<Object> index;

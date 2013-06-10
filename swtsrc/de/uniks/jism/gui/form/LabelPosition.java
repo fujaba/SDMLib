@@ -30,8 +30,9 @@ package de.uniks.jism.gui.form;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public enum LabelPosition {
-WEST("West"), EAST("East");
+	WEST("West"), EAST("East");
 	private String value;
 	
 	LabelPosition(String value) {

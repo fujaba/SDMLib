@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Delphi brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushDelphi extends Brush {
-public BrushDelphi() {
+	public BrushDelphi() {
     super();
 
     String keywords = "abs addr and ansichar ansistring array as asm begin boolean byte cardinal "

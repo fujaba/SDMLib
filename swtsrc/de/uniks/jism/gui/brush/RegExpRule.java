@@ -31,11 +31,10 @@ package de.uniks.jism.gui.brush;
 */
 
 import java.util.regex.Pattern;
-
 import org.sdmlib.serialization.Style;
 
 public class RegExpRule extends RegExRule {
-/**
+	/**
 	 * Common regular expression rule.
 	 */
 	public static final Pattern multiLineCComments = Pattern.compile(

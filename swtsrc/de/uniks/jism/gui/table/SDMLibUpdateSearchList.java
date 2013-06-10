@@ -31,13 +31,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class SDMLibUpdateSearchList extends UpdateSearchList{
-	public SDMLibUpdateSearchList(TableComponent tableComponent, Object list){
-		super(tableComponent, list);
-		if(!isListener){
-			if(list instanceof PropertyChangeInterface){
-				((PropertyChangeInterface) list).getPropertyChangeSupport().addPropertyChangeListener(this);
-				isListener=true;
-			}
+	public SDMLibUpdateSearchList(TableComponent tableComponent){
+		super(tableComponent);
+	}
+	
+	@Override
+	public void addItem(Object item) {
+		super.addItem(item);
+		if(item instanceof PropertyChangeInterface){
+			((PropertyChangeInterface) item).getPropertyChangeSupport().addPropertyChangeListener(this);
+		}
+	}
+	
+	@Override
+	public void removeItem(Object item) {
+		super.removeItem(item);
+		if(item instanceof PropertyChangeInterface){
+			((PropertyChangeInterface) item).getPropertyChangeSupport().removePropertyChangeListener(this);
 		}
 	}
 }

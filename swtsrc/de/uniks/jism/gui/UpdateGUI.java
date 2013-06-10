@@ -1,11 +1,10 @@
 package de.uniks.jism.gui;
 
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class UpdateGUI implements Runnable{
-private PropertyChangeEvent event;
+	private PropertyChangeEvent event;
 		private PropertyChangeListener listener;
 
 		public UpdateGUI(PropertyChangeListener listener, PropertyChangeEvent evt){

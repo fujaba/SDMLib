@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * SQL brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushSql extends Brush {
-public BrushSql() {
+	public BrushSql() {
     super();
 
     String funcs = "abs avg case cast coalesce convert count current_timestamp "

@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Java brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushJava extends Brush {
-public BrushJava() {
+	public BrushJava() {
     super();
 
     String keywords = "abstract assert boolean break byte case catch char class const "

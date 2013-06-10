@@ -46,7 +46,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import de.uniks.jism.gui.table.Column;
 
 public class ModelForm extends Composite{
-private IdMap map;
+	private IdMap map;
 	private TextItems textClazz= null;
 	private LinkedHashSet<PropertyComposite> properties=new LinkedHashSet<PropertyComposite>();
 	private Composite actionComposite;

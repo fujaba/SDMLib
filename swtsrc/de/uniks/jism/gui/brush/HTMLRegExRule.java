@@ -33,7 +33,7 @@ package de.uniks.jism.gui.brush;
 import java.util.regex.Pattern;
 
 public class HTMLRegExRule extends RegExRule{
-/**
+	/**
 	   * Common HTML script RegExp.
 	   */
 	  public static final HTMLRegExRule phpScriptTags = new HTMLRegExRule("(?:&lt;|<)\\?=?", "\\?(?:&gt;|>)");

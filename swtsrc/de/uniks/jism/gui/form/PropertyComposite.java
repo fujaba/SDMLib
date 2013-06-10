@@ -35,7 +35,6 @@ import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventListener;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
@@ -52,7 +51,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.UpdateGUI;
 import de.uniks.jism.gui.layout.BorderLayout;
@@ -62,7 +60,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class PropertyComposite extends Composite implements PropertyChangeListener, CellEditorElement{
-private CLabel westLabel;
+	private CLabel westLabel;
 	private Composite centerComposite;
 	private CLabel eastLabel;
 	private LabelPosition labelOrientation=LabelPosition.WEST;
@@ -215,7 +213,15 @@ private CLabel westLabel;
 	public void setDataBinding(IdMap map, Object item) {
 		setDataBinding(map, item, column);
 	}
-	
+	public void setDataBinding(Column column) {
+		if(column!=null){
+			this.column = column;
+		}
+		field.init(column, "");
+		initControl();
+		
+		initLabel();
+	}
 	public void setDataBinding(IdMap map, Object item, Column column) {
 		this.item = item;
 		if(column!=null){

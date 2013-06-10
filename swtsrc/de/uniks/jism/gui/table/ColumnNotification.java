@@ -36,7 +36,7 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.widgets.TableItem;
 
 public class ColumnNotification extends Column{
-private EditingSupport editingsupport;
+	protected EditingSupport editingsupport;
 
 	public void updateTableViewer(ViewerCell cell){
 		

@@ -47,7 +47,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.JISMCellEditor;
 
 public class TableCellEditingSupport extends EditingSupport {
-protected TableComponent owner;
+	protected TableComponent owner;
 	protected Column column;
 	protected TableColumnView tableColumn;
 

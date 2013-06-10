@@ -25,13 +25,13 @@ package de.uniks.jism.gui.brush;
 */
 
 import java.util.regex.Pattern;
-
 /**
  * General XML (include HTML) brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushXml extends Brush {
-public BrushXml() {
+	public BrushXml() {
     super();
 
 

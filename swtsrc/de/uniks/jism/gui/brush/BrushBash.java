@@ -26,13 +26,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.util.regex.Pattern;
 import org.sdmlib.serialization.Style;
-
 /**
  * Bash brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushBash extends Brush {
-public BrushBash() {
+	public BrushBash() {
     super();
 
     String keywords = "if fi then elif else for do done until while break continue case function return in eq ne ge le";

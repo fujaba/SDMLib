@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Eclipse theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeEclipse extends Theme {
-public ThemeEclipse() {
+	public ThemeEclipse() {
 //    setHighlightedBackground(Color.decode("0xc3defe"));
 //    setGutterText(Color.decode("0x787878"));
 //    setGutterBorderColor(Color.decode("0xd4d0c8"));

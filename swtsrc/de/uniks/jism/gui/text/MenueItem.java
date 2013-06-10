@@ -34,7 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MenuItem;
 
 public class MenueItem {
-private String labelTag;
+	private String labelTag;
 	private int keyState;
 	private int keyCode;
 	private MenuItem item;

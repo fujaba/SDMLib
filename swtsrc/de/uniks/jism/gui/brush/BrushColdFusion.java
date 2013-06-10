@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Cold Fusion brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushColdFusion extends Brush {
-public BrushColdFusion() {
+	public BrushColdFusion() {
     super();
 
     // Contributed by Jen

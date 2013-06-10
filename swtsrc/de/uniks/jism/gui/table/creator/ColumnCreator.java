@@ -34,7 +34,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import de.uniks.jism.gui.table.Column;
 
 public class ColumnCreator implements SendableEntityCreator{
-private static final String[] properties=new String[]{Column.PROPERTY_ATTRNAME,
+	private static final String[] properties=new String[]{Column.PROPERTY_ATTRNAME,
 		Column.PROPERTY_NUMBERFORMAT,
 		Column.PROPERTY_EDITCOLUMN,
 		Column.PROPERTY_LABEL,

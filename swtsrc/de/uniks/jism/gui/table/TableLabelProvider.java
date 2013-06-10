@@ -35,7 +35,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 public class TableLabelProvider implements ITableLabelProvider {
-public TableLabelProvider() {
+	public TableLabelProvider() {
 	}
 
 	@Override

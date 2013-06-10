@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Fade to Grey theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeFadeToGrey extends Theme {
-public ThemeFadeToGrey() {
+	public ThemeFadeToGrey() {
 //	    setGutterText(Color.decode("0xafafaf"));
 //	    setGutterBorderColor(Color.decode("0x3185b9"));
 //	    setGutterBorderWidth(3);

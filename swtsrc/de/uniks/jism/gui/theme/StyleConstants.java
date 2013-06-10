@@ -30,8 +30,9 @@ package de.uniks.jism.gui.theme;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public class StyleConstants {
-public final static String STYLE_BOLD="bold";
+	public final static String STYLE_BOLD="bold";
 	public final static String STYLE_PLAIN="plain";
 	public final static String STYLE_COMMENTS="comments";
 	public final static String STYLE_STRING="string";

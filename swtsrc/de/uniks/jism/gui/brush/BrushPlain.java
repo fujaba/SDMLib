@@ -28,8 +28,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * Plain text file brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushPlain extends Brush {
-public BrushPlain() {
+	public BrushPlain() {
     super();
   }
 }

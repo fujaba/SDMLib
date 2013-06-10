@@ -32,7 +32,6 @@ package de.uniks.jism.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -43,7 +42,7 @@ import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class ControlListener implements Listener, PropertyChangeListener {
-protected Widget widget;
+	protected Widget widget;
 	protected Object item;
 	protected String property;
 	protected SendableEntityCreator creator;

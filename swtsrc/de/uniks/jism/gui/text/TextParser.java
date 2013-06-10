@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.text;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,11 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
-
 import javax.swing.text.Segment;
-
 import org.sdmlib.serialization.Style;
-
 import de.uniks.jism.gui.brush.Brush;
 import de.uniks.jism.gui.brush.HTMLRegExRule;
 import de.uniks.jism.gui.brush.RegExRule;
@@ -21,7 +17,7 @@ import de.uniks.jism.gui.theme.StyleConstants;
 import de.uniks.jism.gui.theme.Theme;
 
 public class TextParser {
-private Theme theme;
+	private Theme theme;
 	private Brush brush;
 
 	public void setDefaultColors(Theme theme, Brush brush) {

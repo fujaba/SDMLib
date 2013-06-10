@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Groovy brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushGroovy extends Brush {
-public BrushGroovy() {
+	public BrushGroovy() {
     super();
 
     // Contributed by Andres Almiray

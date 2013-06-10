@@ -28,14 +28,13 @@ package de.uniks.jism.gui.table;
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -66,7 +65,6 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.TextItems;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.SortingDirection;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 import de.uniks.jism.gui.TableListCreator;
@@ -74,13 +72,10 @@ import de.uniks.jism.gui.UpdateGUI;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.table.celledit.JISMCellEditor;
 
-public class TableComponent extends Composite implements Listener,
-		PropertyChangeListener {
-private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
-	private Cursor defaultCursor = new Cursor(Display.getDefault(),
-			SWT.CURSOR_ARROW);
-	private Cursor handCursor = new Cursor(Display.getDefault(),
-			SWT.CURSOR_HAND);
+public class TableComponent extends Composite implements Listener, PropertyChangeListener {
+	private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
+	private Cursor defaultCursor = new Cursor(Display.getDefault(), SWT.CURSOR_ARROW);
+	private Cursor handCursor = new Cursor(Display.getDefault(), SWT.CURSOR_HAND);
 	private TableItem activeItem;
 
 	protected TableViewerComponent tableViewer;
@@ -98,16 +93,12 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	protected int additionKey;
 	protected IdMap map;
 	protected TableFilterView tableFilterView;
+	protected UpdateSearchList updateItemListener;
 	private Menu headerMenu;
 	private SashForm sashForm;
-	public static final String PROPERTY_COLUMN="column";
-	public static final String PROPERTY_ITEM="item";
+	public static final String PROPERTY_COLUMN = "column";
+	public static final String PROPERTY_ITEM = "item";
 
-	public IdMap getMap()
-   {
-      return map;
-   }
-	
 	public TableComponent(Composite parent, int style, IdMap map) {
 		super(parent, style);
 
@@ -122,7 +113,11 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	public TableComponent(Composite parent, int style) {
 		super(parent, style);
 	}
-	
+
+	public IdMap getMap() {
+		return map;
+	}
+
 	public void createContent(Composite owner) {
 		tableComposite = new Composite(owner, SWT.NONE | SWT.FILL);
 		tableComposite.setLayoutData(GUIPosition.CENTER);
@@ -141,28 +136,37 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		columnsMenue.setMenu(mnuColumns);
 
 		tableViewer = createBrowser(GUIPosition.CENTER);
-		
+
 		setLayout(new BorderLayout(0, 0));
+		
+		this.updateItemListener = getUpdateListener();
 	}
 	
-	protected String getText(String label){
-		if(this.map!=null){
-			SendableEntityCreator textItemClazz = map.getCreatorClasses(TextItems.class.getName());
-			if(textItemClazz != null){
-				return ((TextItems)textItemClazz).getText(label, source, this);
+	protected UpdateSearchList getUpdateListener()
+	{
+		return new UpdateSearchList(this);
+	}
+
+	protected String getText(String label) {
+		if (this.map != null) {
+			SendableEntityCreator textItemClazz = map
+					.getCreatorClasses(TextItems.class.getName());
+			if (textItemClazz != null) {
+				return ((TextItems) textItemClazz).getText(label, source, this);
 			}
 		}
 		return label;
 	}
 
 	protected TableViewerComponent createBrowser(GUIPosition browserId) {
-		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION ;
+		int flags = SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION;
 		if (!browserId.equals(GUIPosition.CENTER)) {
-			flags = flags | SWT.NO_SCROLL ;
+			flags = flags | SWT.NO_SCROLL;
 		}
-		TableViewerComponent tableViewer = new TableViewerComponent(tableComposite, this, flags, browserId);
+		TableViewerComponent tableViewer = new TableViewerComponent(
+				tableComposite, this, flags, browserId);
 		tableViewer.setFilters(new ViewerFilter[] { tableFilterView });
-		
+
 		Table table = tableViewer.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
@@ -174,42 +178,43 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		table.addListener(SWT.MouseExit, this);
 		table.addListener(SWT.SELECTED, this);
 		ScrollBar verticalScrollBar = table.getVerticalBar();
-		if(verticalScrollBar!=null){
-			verticalScrollBar.addSelectionListener(new SelectionListener()
-			{
-				public void widgetDefaultSelected(SelectionEvent event)
-				{				
+		if (verticalScrollBar != null) {
+			verticalScrollBar.addSelectionListener(new SelectionListener() {
+				public void widgetDefaultSelected(SelectionEvent event) {
 				}
-	
-				public void widgetSelected(SelectionEvent event)
-				{
+
+				public void widgetSelected(SelectionEvent event) {
 					// listen for drag events in the scrollbar
-					// if the user scrolls away from the bottom, stop auto scrolling
-					// if the user scrolls back to the bottom, resume auto scrolling
-					if(event.detail!=SWT.DRAG)return;
+					// if the user scrolls away from the bottom, stop auto
+					// scrolling
+					// if the user scrolls back to the bottom, resume auto
+					// scrolling
+					if (event.detail != SWT.DRAG)
+						return;
 					refreshPosition();
 				}
 			});
 		}
 		table.setLayoutData(browserId);
 
-
 		return tableViewer;
 	}
-	public void refreshPosition(){
-		if(tableSyncronizer!=null){
+
+	public void refreshPosition() {
+		if (tableSyncronizer != null) {
 			tableSyncronizer.refreshMiddle();
 		}
 	}
+
 	public void addColumn(Column column) {
 		if (column.getBrowserId().equals(GUIPosition.WEST)) {
 			setVisibleFixedColumns(true);
 		}
-		//FIX FOR EMPTY TABLE
-		if(tableComposite == null){
+		// FIX FOR EMPTY TABLE
+		if (tableComposite == null) {
 			getTableComponent();
 			this.layout(true);
-			
+
 		}
 		this.columns.add(new TableColumnView(this, column, mnuColumns));
 		if (column.getAltAttribute() != null) {
@@ -221,29 +226,31 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				}
 			}
 		}
-		if(getParent() instanceof PropertyChangeListener){
-			((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_COLUMN, null, column));
+		if (getParent() instanceof PropertyChangeListener) {
+			((PropertyChangeListener) getParent())
+					.propertyChange(new PropertyChangeEvent(this,
+							PROPERTY_COLUMN, null, column));
 		}
 	}
 
-	public void updatePosition(){
+	public void updatePosition() {
 		updatePosition(GUIPosition.WEST, null);
 		updatePosition(GUIPosition.CENTER, null);
 	}
-	
-	public TableColumnView updatePosition(GUIPosition pos, Point pt){
+
+	public TableColumnView updatePosition(GUIPosition pos, Point pt) {
 		int position = -1;
 		int index = -1;
 		Table table = getTable(pos);
-		if(table != null){
-			if(table.getItemCount()>0){
+		if (table != null) {
+			if (table.getItemCount() > 0) {
 				TableItem item = table.getItem(0);
-				for(int i=0;i<item.getParent().getColumnCount();i++){
+				for (int i = 0; i < item.getParent().getColumnCount(); i++) {
 					Rectangle rect = item.getBounds(i);
 					TableColumnView tableColumnView = columns.get(i);
-					if(tableColumnView != null){
+					if (tableColumnView != null) {
 						tableColumnView.setPosition(rect.x, rect.width);
-						if(pt != null && rect.contains(pt)){
+						if (pt != null && rect.contains(pt)) {
 							position = rect.x;
 							index = i;
 						}
@@ -251,27 +258,27 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				}
 			}
 		}
-		if(position >= 0){
+		if (position >= 0) {
 			return columns.get(index);
 		}
 		return null;
 	}
-	
+
 	public int getColumn(TableColumnView view) {
-		for(int i=0;i<columns.size();i++){
-			if(columns.get(i)==view){
+		for (int i = 0; i < columns.size(); i++) {
+			if (columns.get(i) == view) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
+
 	public TableColumnView getNextColumn(TableColumnView view) {
 		TableColumnView result = null;
-		int found=0;
-		for(TableColumnView column : columns){
-			if(column.getX()>view.getX()){
-				if(found==0||column.getX()<found){
+		int found = 0;
+		for (TableColumnView column : columns) {
+			if (column.getX() > view.getX()) {
+				if (found == 0 || column.getX() < found) {
 					result = column;
 					found = column.getX();
 				}
@@ -279,24 +286,24 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		}
 		return result;
 	}
-	
-	public Table getTableCenter(){
+
+	public Table getTableCenter() {
 		return getTable(GUIPosition.CENTER);
 	}
-	
-	public Table getTable(GUIPosition browserId){
+
+	public Table getTable(GUIPosition browserId) {
 		if (browserId.equals(GUIPosition.WEST)) {
-			if(fixedTableViewerLeft!=null){
+			if (fixedTableViewerLeft != null) {
 				return fixedTableViewerLeft.getTable();
 			}
 			return null;
-		} 
-		if(tableViewer != null){
+		}
+		if (tableViewer != null) {
 			return tableViewer.getTable();
 		}
 		return null;
 	}
-		
+
 	public void removeColumn(Column column) {
 		TableColumnView[] array = this.columns
 				.toArray(new TableColumnView[this.columns.size()]);
@@ -305,8 +312,10 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				removeColumn(item);
 			}
 		}
-		if(getParent() instanceof PropertyChangeListener){
-			((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_COLUMN, column, null));
+		if (getParent() instanceof PropertyChangeListener) {
+			((PropertyChangeListener) getParent())
+					.propertyChange(new PropertyChangeEvent(this,
+							PROPERTY_COLUMN, column, null));
 		}
 
 	}
@@ -340,8 +349,9 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		}
 		return null;
 	}
+
 	public int getColumnPos(Column column) {
-		int pos=0;
+		int pos = 0;
 		if (column != null) {
 			for (Iterator<TableColumnView> i = this.columns.iterator(); i
 					.hasNext();) {
@@ -354,6 +364,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		}
 		return 0;
 	}
+
 	public void removeColumn(TableColumnView column) {
 		if (this.columns.remove(column)) {
 			column.disposeColumn();
@@ -392,10 +403,9 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 				tableViewer.getTable().getVerticalBar()
 						.addListener(SWT.Selection, tableSyncronizer);
 			}
-			fixedTableViewerLeft.getTable().addListener(SWT.Selection, tableSyncronizer);
-			
-			
-			
+			fixedTableViewerLeft.getTable().addListener(SWT.Selection,
+					tableSyncronizer);
+
 			for (TableColumnView item : columns) {
 				if (item.getColumn().getBrowserId().equals(GUIPosition.WEST)) {
 					item.setVisible(true);
@@ -415,7 +425,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		for (String property : properties) {
 			Object value = creator.getValue(prototyp, property);
 			if (!(value instanceof Collection<?>)) {
-				addColumn(new Column().withAttrName(property, edit).withGetDropDownListFromMap(true));
+				addColumn(new Column().withAttrName(property, edit)
+						.withGetDropDownListFromMap(true));
 			}
 		}
 	}
@@ -449,10 +460,13 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			if (tableFilterView.matchesSearchCriteria(item)) {
 				list.add(item);
 				tableFilterView.refreshCounter();
-				if(getParent() instanceof PropertyChangeListener){
-					((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_ITEM, null, item));
+				if (getParent() instanceof PropertyChangeListener) {
+					((PropertyChangeListener) getParent())
+							.propertyChange(new PropertyChangeEvent(this,
+									PROPERTY_ITEM, null, item));
 				}
 			}
+			this.updateItemListener.addItem(item);
 		}
 	}
 
@@ -461,10 +475,12 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			list.set(property + IdMap.REMOVE, item);
 			sourceCreator.setValue(source, property, item, IdMap.REMOVE);
 			tableFilterView.refreshCounter();
-			if(getParent() instanceof PropertyChangeListener){
-				((PropertyChangeListener)getParent()).propertyChange(new PropertyChangeEvent(this, PROPERTY_ITEM, item, null));
+			if (getParent() instanceof PropertyChangeListener) {
+				((PropertyChangeListener) getParent())
+						.propertyChange(new PropertyChangeEvent(this,
+								PROPERTY_ITEM, item, null));
 			}
-
+			this.updateItemListener.removeItem(item);
 		}
 	}
 
@@ -488,25 +504,26 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		this.map = map;
 		return finishDataBinding(item);
 	}
+
 	public boolean finishDataBinding(TableList item) {
 		return finishDataBinding(item, TableList.PROPERTY_ITEMS);
 	}
 
 	public boolean finishDataBinding(Object item, String property) {
-		if(map==null){
+		if (map == null) {
 			return true;
 		}
 		this.source = item;
 		this.sourceCreator = map.getCreatorClass(source);
 		this.property = property;
-		if(sourceCreator==null){
+		if (sourceCreator == null) {
 			return false;
 		}
 
 		// Copy all Elements to TableList
 		Collection<?> collection = (Collection<?>) sourceCreator.getValue(item,
 				property);
-		if(collection!=null){
+		if (collection != null) {
 			for (Iterator<?> i = collection.iterator(); i.hasNext();) {
 				addItem(i.next());
 			}
@@ -521,7 +538,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	}
 
 	public void addUpdateListener(Object list) {
-		new UpdateSearchList(this, list);
+		this.updateItemListener.addItem(list);
 	}
 
 	public String getProperty() {
@@ -532,20 +549,21 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		return tableViewer;
 	}
 
-	public boolean runDisplayThread(PropertyChangeEvent evt){
-		if(isDisposed()){
+	public boolean runDisplayThread(PropertyChangeEvent evt) {
+		if (isDisposed()) {
 			return true;
 		}
 		// Test Thread and restarten
-		if(getDisplay().getThread()!=Thread.currentThread()){
+		if (getDisplay().getThread() != Thread.currentThread()) {
 			getDisplay().asyncExec(new UpdateGUI(this, evt));
 			return true;
 		}
 		return false;
 	}
+
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt != null) {
-			if(runDisplayThread(evt)){
+			if (runDisplayThread(evt)) {
 				return;
 			}
 			if (list.equals(evt.getSource())) {
@@ -560,10 +578,13 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 						}
 					} else if (evt.getOldValue() != null
 							&& evt.getNewValue() == null) {
-						if (fixedTableViewerLeft != null && !fixedTableViewerLeft.getTable().isDisposed()) {
+						if (fixedTableViewerLeft != null
+								&& !fixedTableViewerLeft.getTable()
+										.isDisposed()) {
 							fixedTableViewerLeft.remove(evt.getOldValue());
 						}
-						if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
+						if (tableViewer != null
+								&& !tableViewer.getTable().isDisposed()) {
 							tableViewer.remove(evt.getOldValue());
 						}
 					}
@@ -584,14 +605,13 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 
 	protected void onSelection(Table table, TableItem[] tableItems) {
 	}
-	
 
 	@Override
 	public void handleEvent(Event event) {
 		Point pt = new Point(event.x, event.y);
 		Table table = tableViewer.getTable();
 		TableItem currentItem = table.getItem(pt);
-		
+
 		if (SWT.MouseMove == event.type | SWT.MouseUp == event.type
 				| SWT.MouseExit == event.type) {
 			if (SWT.MouseUp == event.type) {
@@ -629,7 +649,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 
 					}
 					onSelection(table, table.getSelection());
-				}else{
+				} else {
 					// Deselect All
 					selectNone();
 					onSelection(table, table.getSelection());
@@ -686,25 +706,26 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			} else {
 				this.additionKey = 0;
 			}
-		} else if(SWT.SELECTED == event.type){
+		} else if (SWT.SELECTED == event.type) {
 			// Notifiy Selection
 			Table tableItem = (Table) event.widget;
 			onSelection(tableItem, tableItem.getSelection());
 		}
 	}
-	public void selectChange(){
-		if(getSelectionItems().size()==this.getTableItemCount()){
+
+	public void selectChange() {
+		if (getSelectionItems().size() == this.getTableItemCount()) {
 			this.selectNone();
-		}else{
+		} else {
 			this.selectAll();
 		}
 	}
 
-	public void selectNone(){
+	public void selectNone() {
 		tableViewer.getTable().setSelection(new int[0]);
 		refreshPosition();
 	}
-	
+
 	public void selectAll() {
 		int count = tableViewer.getTable().getItemCount();
 		int[] array = new int[count];
@@ -720,15 +741,14 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	}
 
 	public ArrayList<Object> getSelectionItems() {
-		ArrayList<Object> selecteditems=new ArrayList<Object>();
-		for(TableItem item : getTable(GUIPosition.CENTER).getSelection()){
-			if(item.getData() != null){
+		ArrayList<Object> selecteditems = new ArrayList<Object>();
+		for (TableItem item : getTable(GUIPosition.CENTER).getSelection()) {
+			if (item.getData() != null) {
 				selecteditems.add(item.getData());
 			}
 		}
 		return selecteditems;
 	}
-
 
 	public void onResizeColumn(TableColumn column) {
 		for (TableColumnView item : columns) {
@@ -766,7 +786,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	}
 
 	public void removeSelectionItems() {
-		TableItem[] selectionItems = getTable(GUIPosition.CENTER).getSelection();
+		TableItem[] selectionItems = getTable(GUIPosition.CENTER)
+				.getSelection();
 
 		if (selectionItems.length > 0) {
 			for (TableItem tableItem : selectionItems) {
@@ -782,8 +803,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 	public IdMap getIdMap() {
 		return map;
 	}
-	
-	public int getColumnsSize(){
+
+	public int getColumnsSize() {
 		return columns.size();
 	}
 
@@ -809,7 +830,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 
 	public void setSorting(TableColumn column, SortingDirection direction,
 			ColumnViewerSorter sorter) {
-		
+
 		if (fixedTableViewerLeft != null) {
 			setSorting(column, direction, fixedTableViewerLeft, sorter);
 		}
@@ -826,7 +847,7 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 			} else {
 				table.setSortDirection(SWT.DOWN);
 			}
-			
+
 		} else {
 			table.setSortColumn(null);
 			table.setSortDirection(SWT.NONE);
@@ -836,14 +857,14 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		}
 		refresh();
 	}
+
 	public void clear() {
 		this.list.clear();
 	}
 
-	
-	public Composite getTableComponent(){
-		
-		if(tableComposite==null){
+	public Composite getTableComponent() {
+
+		if (tableComposite == null) {
 			sashForm = new SashForm(this, SWT.NONE);
 
 			createContent(sashForm);
@@ -851,8 +872,8 @@ private ArrayList<TableColumnView> columns = new ArrayList<TableColumnView>();
 		}
 		return sashForm;
 	}
-	
-	public void clearColumns(){
+
+	public void clearColumns() {
 		TableColumnView[] array = this.columns
 				.toArray(new TableColumnView[this.columns.size()]);
 		for (TableColumnView item : array) {

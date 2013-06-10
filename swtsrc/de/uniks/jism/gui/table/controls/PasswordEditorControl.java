@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -9,7 +8,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class PasswordEditorControl extends EditControl<Text>{
-public PasswordEditorControl(){
+	public PasswordEditorControl(){
 		this.fieldTyp = EditFields.PASSWORD;
 	}
 	@Override

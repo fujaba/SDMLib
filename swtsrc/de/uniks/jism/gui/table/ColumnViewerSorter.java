@@ -37,11 +37,10 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.sdmlib.serialization.sort.SortingDirection;
-
 import de.uniks.jism.gui.TableList;
 
 public class ColumnViewerSorter extends ViewerComparator {
-private TableColumnView view;
+	private TableColumnView view;
 	private TableComponent tableComponent;
 	private Column columnConfig;
 

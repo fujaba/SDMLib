@@ -31,7 +31,6 @@ package de.uniks.jism.gui.entry;
 */
 
 import java.util.Iterator;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Composite;
@@ -42,13 +41,12 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.layout.BorderLayout;
 import de.uniks.jism.gui.text.TextComponent;
 
 public class EntryEditor extends Composite{
-protected TextComponent textComponente;
+	protected TextComponent textComponente;
 	protected Tree tree;
 	protected EntryTreeItem root;
 

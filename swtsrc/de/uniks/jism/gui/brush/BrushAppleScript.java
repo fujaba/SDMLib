@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * AppleScript brush
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushAppleScript extends Brush {
-public BrushAppleScript() {
+	public BrushAppleScript() {
     super();
 
     // AppleScript brush by David Chambers

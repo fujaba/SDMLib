@@ -113,9 +113,9 @@ public class SDMLibSearchTableComponent extends SearchTableComponent
 	      this.finishDataBinding(root, property);
 	   }
 
-	 @Override
-	 public void addUpdateListener(Object list){
-		 new SDMLibUpdateSearchList(this, list);
-	 }
 
+   	@Override
+	protected UpdateSearchList getUpdateListener() {
+		return new SDMLibUpdateSearchList(this);
+	}
 }

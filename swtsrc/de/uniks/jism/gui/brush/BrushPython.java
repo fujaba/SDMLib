@@ -25,13 +25,13 @@ package de.uniks.jism.gui.brush;
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Python brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushPython extends Brush {
-public BrushPython() {
+	public BrushPython() {
     super();
 
     // Contributed by Gheorghe Milas and Ahmad Sherif

@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class EntryTreeItem extends TreeItem{
-private JSIMEntity entity;
+	private JSIMEntity entity;
 	private String idField;
 	public EntryTreeItem(Tree parent, String idField) {
 		super(parent, SWT.NONE);

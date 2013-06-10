@@ -51,7 +51,7 @@ import org.eclipse.swt.widgets.Shell;
 import de.uniks.jism.gui.layout.BorderLayout;
 
 public class CompleteField  extends PopupDialog implements Listener {
-protected static final int POPUP_OFFSET = 3;
+	protected static final int POPUP_OFFSET = 3;
 	protected static final int HEIGHTINFOFIELD = 20;
 	protected Collection<?> collection;
 	protected Control control;

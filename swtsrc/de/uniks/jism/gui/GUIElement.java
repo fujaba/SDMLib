@@ -30,8 +30,9 @@ package de.uniks.jism.gui;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public interface GUIElement {
-public void updateGUI(String typ, Object value);
+	public void updateGUI(String typ, Object value);
 
 	public boolean isDisposed();
 }

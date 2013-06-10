@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Sass brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushSass extends Brush {
-public BrushSass() {
+	public BrushSass() {
     super();
 
     String keywords = "ascent azimuth background-attachment background-color background-image background-position "

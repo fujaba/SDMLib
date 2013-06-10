@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Emacs theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeEmacs extends Theme {
-public ThemeEmacs() {
+	public ThemeEmacs() {
 //	    setGutterText(Color.decode("0xd3d3d3"));
 //	    setGutterBorderColor(Color.decode("0x990000"));
 //	    setGutterBorderWidth(3);

@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import java.util.Date;
 import org.eclipse.swt.SWT;
@@ -12,7 +11,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class DateTimeEditControl extends EditControl<org.eclipse.swt.widgets.DateTime>{
-public DateTimeEditControl(){
+	public DateTimeEditControl(){
 		this.fieldTyp = EditFields.DATE;
 	}
 	@Override

@@ -32,14 +32,14 @@ package de.uniks.jism.gui.table;
 
 import org.eclipse.swt.widgets.Composite;
 import de.uniks.jism.gui.GUIPosition;
-
 /**
  * DummyClazz for Window Designer
  * @author Stefan
  *
  */
+
 public class ColumnView extends Composite{
-private Column column=new Column();
+	private Column column=new Column();
 	private TableComponent owner;
 
 	public ColumnView(TableComponent owner, int style){

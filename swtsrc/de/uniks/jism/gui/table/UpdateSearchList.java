@@ -35,14 +35,21 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 
 public class UpdateSearchList implements PropertyChangeListener {
-protected TableComponent tableComponent;
-	protected boolean isListener;
+	protected TableComponent tableComponent;
 
-	public UpdateSearchList(TableComponent tableComponent, Object list){
+	public UpdateSearchList(TableComponent tableComponent){
 		this.tableComponent = tableComponent;
-		if (list instanceof SendableEntity) {
-			((SendableEntity) list).addPropertyChangeListener(this);
-			isListener=true;
+	}
+	
+	public void addItem(Object item){
+		if (item instanceof SendableEntity) {
+			((SendableEntity) item).addPropertyChangeListener(this);
+		}
+	}
+	
+	public void removeItem(Object item){
+		if (item instanceof SendableEntity) {
+			((SendableEntity) item).removePropertyChangeListener(this);
 		}
 	}
 

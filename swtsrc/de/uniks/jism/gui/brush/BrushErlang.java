@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Erlang brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushErlang extends Brush {
-public BrushErlang() {
+	public BrushErlang() {
     super();
 
     // Contributed by Jean-Lou Dupont

@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
 public class TextView extends TabItem{
-private TextComponent textComponente;
+	private TextComponent textComponente;
 
 	public TextView(TabFolder parent, String label) {
 		super(parent, SWT.NONE);

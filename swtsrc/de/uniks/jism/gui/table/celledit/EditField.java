@@ -49,7 +49,7 @@ import de.uniks.jism.gui.table.controls.SpinnerEditControl;
 import de.uniks.jism.gui.table.controls.TextEditorControl;
 
 public class EditField {
-private EditControl<?> editControl;
+	private EditControl<?> editControl;
 	protected IdMap map;
 	protected EditFields format;
 	protected String numberFormat;
@@ -80,6 +80,31 @@ private EditControl<?> editControl;
 	public Column getColumn(){
 		return column;
 	}
+	public EditField init(Column column, Object value) {
+		if(map!=null){
+			SendableEntityCreator creator = map.getCreatorClass(value);
+			if(creator!=null){
+				if(creator instanceof DateCreator){
+					setFormat(EditFields.DATE);
+					return this;
+				}
+				setFormat(EditFields.COMBOBOX, map, creator);
+				return this;
+			}
+		}
+		if(value instanceof Integer){
+			setFormat(EditFields.INTEGER, "###");
+		}else if(value instanceof Double){
+			setFormat(EditFields.DOUBLE, "###.##");
+		}else if(value instanceof String){
+			if( format!=EditFields.COMBOBOX ){
+				setFormat(EditFields.TEXT);
+			}
+		}else if(value instanceof Boolean){
+			setFormat(EditFields.CHECKBOX);
+		}
+		return this;
+	}
 	public EditField init(Object element, IdMap map, Column column) {
 		this.column = column;
 		if(column.getAttrName()!=null){
@@ -104,26 +129,7 @@ private EditControl<?> editControl;
 				}
 			}
 			if(value!=null){
-				SendableEntityCreator creator = map.getCreatorClass(value);
-				if(creator!=null){
-					if(creator instanceof DateCreator){
-						setFormat(EditFields.DATE);
-						return this;
-					}
-					setFormat(EditFields.COMBOBOX, map, creator);
-					return this;
-				}
-				else if(value instanceof Integer){
-					setFormat(EditFields.INTEGER, "###");
-				}else if(value instanceof Double){
-					setFormat(EditFields.DOUBLE, "###.##");
-				}else if(value instanceof String){
-					if( format!=EditFields.COMBOBOX ){
-						setFormat(EditFields.TEXT);
-					}
-				}else if(value instanceof Boolean){
-					setFormat(EditFields.CHECKBOX);
-				}
+				init(column, value);
 			}
 		}
 		return this;

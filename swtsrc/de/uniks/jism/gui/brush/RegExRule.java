@@ -33,11 +33,10 @@ package de.uniks.jism.gui.brush;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import org.sdmlib.serialization.Style;
 
 public class RegExRule {
-/**
+	/**
 	 * The compiled pattern.
 	 */
 	protected Pattern pattern;

@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * C# brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushCSharp extends Brush {
-public BrushCSharp() {
+	public BrushCSharp() {
     super();
 
     String keywords = "abstract as base bool break byte case catch char checked class const "

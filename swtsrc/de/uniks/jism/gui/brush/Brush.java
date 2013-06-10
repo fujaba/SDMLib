@@ -26,7 +26,6 @@ package de.uniks.jism.gui.brush;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Brush for syntax highlighter.
  * 
@@ -37,8 +36,9 @@ import java.util.List;
  * 
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class Brush {
-/**
+	/**
    * Regular expression rules list. It will be executed in sequence.
    */
   protected List<RegExRule> rules;

@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -9,7 +8,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class CheckBoxEditControl extends EditControl<Button>{
-public CheckBoxEditControl(){
+	public CheckBoxEditControl(){
 		this.fieldTyp = EditFields.CHECKBOX;
 	}
 	

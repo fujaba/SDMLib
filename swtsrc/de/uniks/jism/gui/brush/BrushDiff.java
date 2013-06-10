@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Diff file brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushDiff extends Brush {
-public BrushDiff() {
+	public BrushDiff() {
     super();
 
     addRule(new RegExpRule("^\\+\\+\\+\\s.*$", Pattern.MULTILINE, "color2")); // new file

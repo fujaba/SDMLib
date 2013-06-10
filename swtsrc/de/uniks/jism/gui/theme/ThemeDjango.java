@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Django theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeDjango extends Theme {
-public ThemeDjango() {
+	public ThemeDjango() {
 //    setGutterText(Color.decode("0x497958"));
 //    setGutterBorderColor(Color.decode("0x41a83e"));
 //    setGutterBorderWidth(3);

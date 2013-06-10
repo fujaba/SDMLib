@@ -32,7 +32,6 @@ package de.uniks.jism.gui.text;
 
 import org.sdmlib.serialization.Style;
 import org.sdmlib.serialization.interfaces.PeerMessage;
-
 /**
  * The parser parsed result.
  * 
@@ -40,8 +39,9 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
  * Information includes where the content located in the document (offset and
  * length) and what style should be applied on that segment of content.
  */
+
 public class ParsePosition implements PeerMessage{
-public static final String PROPERTY_OFFSET="offset";
+	public static final String PROPERTY_OFFSET="offset";
 	/**
 	 * The start position of the content.
 	 */

@@ -33,7 +33,7 @@ package de.uniks.jism.gui;
 import java.io.File;
 
 public class Os {
-public boolean isWindows() {
+	public boolean isWindows() {
 		
 		String os = System.getProperty("os.name").toLowerCase();
 		// windows

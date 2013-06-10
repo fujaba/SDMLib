@@ -31,7 +31,6 @@ package de.uniks.jism.gui.table.celledit;
 */
 
 import java.text.ParseException;
-
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionListener;

@@ -33,5 +33,5 @@ package de.uniks.jism.gui.text;
 import java.util.EventObject;
 
 public interface SWTEventListener {
-public void handleEvent(EventObject event);
+	public void handleEvent(EventObject event);
 }

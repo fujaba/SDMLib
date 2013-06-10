@@ -35,7 +35,7 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
 import de.uniks.jism.gui.GUIPosition;
 
 public class Column implements PeerMessage{
-public static final int AUTOWIDTH=-1;
+	public static final int AUTOWIDTH=-1;
 	public static final String PROPERTY_ATTRNAME="attrName";
 	public static final String PROPERTY_NUMBERFORMAT="numberformat";
 	public static final String PROPERTY_EDITCOLUMN="editColumn";

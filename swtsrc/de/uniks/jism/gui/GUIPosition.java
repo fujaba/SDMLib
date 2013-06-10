@@ -30,8 +30,9 @@ package de.uniks.jism.gui;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public enum GUIPosition {
-CENTER("Center"), EAST("East"), NORTH("North"), SOUTH("South"), WEST("West"), ALL("All");
+	CENTER("Center"), EAST("East"), NORTH("North"), SOUTH("South"), WEST("West"), ALL("All");
 	private String value;
 	
 	GUIPosition(String value) {

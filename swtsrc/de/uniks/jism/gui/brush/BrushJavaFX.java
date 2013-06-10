@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Java FX brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushJavaFX extends Brush {
-public BrushJavaFX() {
+	public BrushJavaFX() {
     super();
 
     // Contributed by Patrick Webster

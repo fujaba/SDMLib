@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * MD Ultra theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeMDUltra extends Theme {
-public ThemeMDUltra() {
+	public ThemeMDUltra() {
 //	    setGutterText(Color.decode("0x38566f"));
 //	    setGutterBorderColor(Color.decode("0x435a5f"));
 //	    setGutterBorderWidth(3);

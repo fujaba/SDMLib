@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * CSS brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushCss extends Brush {
-public BrushCss() {
+	public BrushCss() {
     String keywords = "ascent azimuth background-attachment background-color background-image background-position "
             + "background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top "
             + "border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color "

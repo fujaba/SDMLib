@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.TableColumn;
 
 public class TableCellMenuItem implements Listener{
-private TableColumnView column;
+	private TableColumnView column;
 	private MenuItem menuItem;
 	
 	public TableCellMenuItem(TableColumnView column, Menu parent){

@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * JavaScript brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushJScript extends Brush {
-public BrushJScript() {
+	public BrushJScript() {
     super();
 
     String keywords = "break case catch continue "

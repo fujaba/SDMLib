@@ -44,7 +44,7 @@ import de.uniks.jism.gui.table.TableColumnView;
 import de.uniks.jism.gui.table.TableComponent;
 
 public class JISMCellEditor extends CellEditor implements CellEditorElement {
-protected EditField editField;
+	protected EditField editField;
 	protected TableComponent tableComponent;
 	private Object element;
 	private TableColumnView view;

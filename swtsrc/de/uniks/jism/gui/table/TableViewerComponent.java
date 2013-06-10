@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.TableItem;
 import de.uniks.jism.gui.GUIPosition;
 
 public class TableViewerComponent extends TableViewer {
-protected ColumnViewerEditor viewerEditor;
+	protected ColumnViewerEditor viewerEditor;
 	private TableComponent component;
 	private GUIPosition position;
 	

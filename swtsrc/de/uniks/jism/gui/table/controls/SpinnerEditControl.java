@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -10,7 +9,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class SpinnerEditControl extends EditControl<Spinner> {
-private EditField owner;
+	private EditField owner;
 
 	public SpinnerEditControl(EditField owner){
 		this.fieldTyp = EditFields.INTEGER;

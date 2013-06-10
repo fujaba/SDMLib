@@ -33,7 +33,6 @@ package de.uniks.jism.gui.table;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
@@ -42,11 +41,10 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.ColorSWT;
 
 public class TableColumnLabelProvider extends ColumnLabelProvider{
-private Font font=null;
+	private Font font=null;
 	private Column column;
 	private TableColumnView owner;
 	private ColorSWT colors=new ColorSWT();
@@ -80,9 +78,11 @@ private Font font=null;
 			
 		}else{
 			if(creatorClass!=null){
-				Object value=creatorClass.getValue(element, column.getAttrName());
-				if(value!=null){
-					return value.toString();
+				if(column.getAttrName()!=null){
+					Object value=creatorClass.getValue(element, column.getAttrName());
+					if(value!=null){
+						return value.toString();
+					}
 				}
 			}
 		}

@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -9,7 +8,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class NumberEditControl extends EditControl<Text>{
-private EditField owner;
+	private EditField owner;
 
 	public NumberEditControl(EditField owner){
 		this.fieldTyp = EditFields.DOUBLE;

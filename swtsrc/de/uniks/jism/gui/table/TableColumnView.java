@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.sdmlib.serialization.IdMap;
 
 public class TableColumnView implements ControlListener {
-public static final int BorderCell=10;
+	public static final int BorderCell=10;
 	private TableViewerColumn tableViewerColumn;
 	private Column column;
 	private TableColumnLabelProvider tableLabelProvider;

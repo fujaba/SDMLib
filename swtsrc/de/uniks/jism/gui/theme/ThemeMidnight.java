@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Midnight theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeMidnight extends Theme {
-public ThemeMidnight() {
+	public ThemeMidnight() {
 //	    setGutterText(Color.decode("0xafafaf"));
 //	    setGutterBorderColor(Color.decode("0x435a5f"));
 //	    setGutterBorderWidth(3);

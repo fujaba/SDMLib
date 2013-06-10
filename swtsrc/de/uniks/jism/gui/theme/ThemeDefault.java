@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import org.sdmlib.serialization.Style;
-
 /**
  * Default theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class ThemeDefault extends Theme{
-public ThemeDefault() {
+	public ThemeDefault() {
 	addStyle(StyleConstants.STYLE_PLAIN, new Style().withFontFamily("Consolas").withFontSize("12").withBackground("FFFFFF").withForground("000000"));
 	addStyle(StyleConstants.STYLE_HIGHTLIGHTED, new Style().withBackground("FEE5AC"));
     addStyle(StyleConstants.STYLE_BOLD, new Style().withBold(true));

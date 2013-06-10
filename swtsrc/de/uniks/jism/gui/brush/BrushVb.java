@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Visual Basic brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushVb extends Brush {
-public BrushVb() {
+	public BrushVb() {
     super();
 
     String keywords = "AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto "

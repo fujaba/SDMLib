@@ -32,11 +32,10 @@ package de.uniks.jism.gui.theme;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.sdmlib.serialization.Style;
 
 public class Theme {
-/**
+	/**
 	 * The styles of this theme.
 	 */
 	protected Map<String, Style> styles=new LinkedHashMap<String, Style>();

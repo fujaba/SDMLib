@@ -44,7 +44,7 @@ import org.sdmlib.serialization.IdMap;
 import de.uniks.jism.gui.GUIPosition;
 
 public class SearchTableComponent extends TableComponent {
-private Text searchText;
+	private Text searchText;
 	private Composite northComponents;
 	private Composite firstNorth;
    

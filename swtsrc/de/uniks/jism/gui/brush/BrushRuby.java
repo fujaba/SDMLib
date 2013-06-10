@@ -26,13 +26,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.util.regex.Pattern;
 import org.sdmlib.serialization.Style;
-
 /**
  * Ruby brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushRuby extends Brush {
-public BrushRuby() {
+	public BrushRuby() {
     super();
 
     // Contributed by Erik Peterson.

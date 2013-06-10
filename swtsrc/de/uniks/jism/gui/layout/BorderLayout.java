@@ -35,13 +35,13 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import de.uniks.jism.gui.GUIPosition;
-
 /**
  * Port of AWT BorderLayout to SWT.
  * @author Yannick Saillet
  */
+
 public class BorderLayout extends AWTLayout {
-private int hgap, vgap;
+	private int hgap, vgap;
 	private Control centerChild, eastChild, northChild, southChild, westChild;
 	private int fixWest;
 

@@ -37,16 +37,22 @@ import java.awt.Robot;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.lang.management.ManagementFactory;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -55,8 +61,9 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 public abstract class MasterShell extends Shell {
-public static final String SECOND_MAC="secondmac";
+	public static final String SECOND_MAC="secondmac";
 	public static final String SECOND="second";
+	public static final String DEBUG="debug";
 	protected String captionPrefix;
 	protected boolean isInit=false;
 	private String icon;
@@ -105,45 +112,92 @@ public static final String SECOND_MAC="secondmac";
 			initShell();
 		}else if("UTF-8".equals(System.getProperty("file.encoding"))||"UTF8".equals(System.getProperty("file.encoding"))){
 		}else{
+			String typ;
 			// NOT Eclipse and not UTF-8
 			// try to load data from config file
 			if (args == null || args.length < 1) {
 				if (os.isMac()) {
-					args = new String[] { SECOND_MAC };
+					typ = SECOND_MAC;
 				} else {
-					args = new String[] { SECOND };
+					typ = SECOND;
 				}
+			}else{
+				typ = args[0];
 			}
 	
-			if ("-?".equalsIgnoreCase(args[0])) {
+			if ("-?".equalsIgnoreCase(typ)) {
 				getCommandHelp();
 				return false;
 			}
 
-			ArrayList<String> params=new ArrayList<String>();
-			if ("debug".equalsIgnoreCase(args[0])) {
-				System.out.println("DEBUG-MODE");
-				params.add("-Xms512m");
-				params.add("-Xmx1024m");
-				params.add("-Xdebug");
-				params.add("-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4223");
-			} else if (SECOND.equalsIgnoreCase(args[0])) {
+			LinkedHashMap<String, String>  params=new LinkedHashMap<String, String>();
+			int start=0;
+			params.put("PATH", "\""+ System.getProperty("java.home").replace("\\", "/")+ "/bin/java\"");
+			params.put("-Dfile.encoding", "-Dfile.encoding=UTF8");
+
+			if (DEBUG.equalsIgnoreCase(typ)) {
+				System.out.println("DEBUG-MODE: Port 4223");
+				params.put("-Xdebug", "-Xdebug");
+				params.put("-Xrunjdwp", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4223");
+				start=1;
+			} else if (SECOND.equalsIgnoreCase(typ)) {
 				System.out.println("STANDARD-MODE");
-			} else if (SECOND_MAC.equalsIgnoreCase(args[0])) {
+				start=1;
+			} else if (SECOND_MAC.equalsIgnoreCase(typ)) {
 				System.out.println("STANDARD-MODE-MAC");
-				params.add("-XstartOnFirstThread ");
+				params.put("-XstartOnFirstThread", "-XstartOnFirstThread");
+				start=1;
 			}
-			params.add("-Dfile.encoding=UTF8");
-			params.add("-jar");
-			params.add(fileName);
-			params.add(0, "\""+ System.getProperty("java.home").replace("\\", "/")+ "/bin/java\"");
+			
+			long mbMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize()/(1014*1024);
+			System.out.println("Total:"+ ((com.sun.management.OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize());
+			params.put("-Xmx", "-Xmx"+mbMemory/4+"m");
+			System.out.println("Set MaxMemory: "+mbMemory/4+"m");
+
+			params.put("-jar", "-jar");
+			params.put("FILE", fileName);
+
+			
+			if (args == null || args.length < 1) {
+				for(;start<args.length;start++){
+					boolean found = false;
+					for(Iterator<Entry<String, String>> iterator = params.entrySet().iterator();iterator.hasNext();){
+						Entry<String, String> item = iterator.next();
+						if(args[start].startsWith(item.getKey())){
+							System.out.println("Change value from "+item.getKey()+" to "+args[start]);
+							params.put(item.getKey(), args[start]);
+							found=true;
+							break;
+						}
+					}
+					if(!found){
+						System.out.println("Add value "+args[start]);
+						params.put(args[start], args[start]);
+					}
+				}
+			}
+			
 			try {
-				ProcessBuilder processBuilder = new ProcessBuilder( params );
-				processBuilder.start();
-				return false;
+				ArrayList<String> items = new ArrayList<String>(params.values());
+				ProcessBuilder processBuilder = new ProcessBuilder( items );
+				Process process = processBuilder.start();
+				if(DEBUG.equals(typ)){
+					BufferedReader reader = new BufferedReader (new InputStreamReader(process.getInputStream ()));
+					String line;
+					while ((line = reader.readLine ()) != null) {
+						System.out.println ("Stdout: " + line);
+					}
+					
+					System.out.println("RETURN VALUE: "+process.waitFor());
+					reader.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			System.out.println("EXIT");
+			return false;
 		}
 		
 		initFromParams(args);
@@ -199,7 +253,7 @@ public static final String SECOND_MAC="secondmac";
 		DateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
 		String prefixName = formatter.format(temp.getTime()) + "_";
 		writeErrorFile(prefixName + "error.txt", path, e, extra);
-
+		writeModel();
 		// Save Screenshot
 		BufferedImage bi;
 		try {
@@ -217,6 +271,10 @@ public static final String SECOND_MAC="secondmac";
 		} catch (HeadlessException e1) {
 		} catch (AWTException e1) {
 		}
+	}
+	
+	protected void writeModel(){
+		
 	}
 	
 	protected boolean writeErrorFile(String fileName, String filepath, Exception e, Object extra){
@@ -253,6 +311,17 @@ public static final String SECOND_MAC="secondmac";
 			printProperty(ps, "user.language");
 			printProperty(ps, "user.name");
 			printProperty(ps, "user.timezone");
+			ps.println("");
+			
+			Runtime r=Runtime.getRuntime();
+			ps.println("Prozessoren :       " + r.availableProcessors());
+			ps.println("Freier Speicher JVM:    " + r.freeMemory());
+			ps.println("Maximaler Speicher JVM: " + r.maxMemory());
+			ps.println("Gesamter Speicher JVM:  " + r.totalMemory());
+			ps.println("Gesamter Speicher Java:  " + ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalSwapSpaceSize() );
+
+			ps.println("***  ***");
+			
 			ps.println();
 			e.printStackTrace(ps);
 			ps.close();

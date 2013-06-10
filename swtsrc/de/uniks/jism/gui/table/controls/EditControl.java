@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -14,7 +13,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public abstract class EditControl<T extends Control> implements CellEditorElement {
-protected T control;
+	protected T control;
 	protected EditFields fieldTyp;
 	protected CellEditorElement cellOwner;
 

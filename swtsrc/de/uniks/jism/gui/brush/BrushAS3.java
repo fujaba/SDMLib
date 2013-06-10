@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.util.regex.Pattern;
-
 /**
  * Action Script brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushAS3 extends Brush {
-public BrushAS3() {
+	public BrushAS3() {
     super();
 
     // Created by Peter Atoria @ http://iAtoria.com

@@ -36,7 +36,7 @@ import org.sdmlib.serialization.interfaces.XMLGrammar;
 import org.sdmlib.serialization.xml.XMLEntity;
 import org.sdmlib.serialization.xml.XMLStyledEntity;
 
-		XMLGrammar {
+public class XMLStyledEntityCreator implements SendableEntityCreator, XMLGrammar {
 	/** The properties. */
 	private final String[] properties = new String[] {
 			Style.PROPERTY_FONTFAMILY,

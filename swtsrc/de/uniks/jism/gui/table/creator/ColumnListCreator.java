@@ -30,5 +30,6 @@ package de.uniks.jism.gui.table.creator;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public class ColumnListCreator {
-}
+	}

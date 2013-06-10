@@ -33,13 +33,13 @@ import java.awt.Dimension;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
-
 /**
  * Superclass for all the AWT layouts ported to SWT.
  * @author Yannick Saillet
  */
+
 public abstract class AWTLayout extends Layout {
-/** 
+	/** 
    * Key under which an eventual preferred size (set with setPreferredSize)
    * is stored as a user data in the SWT control.
    */

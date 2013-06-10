@@ -30,8 +30,9 @@ package de.uniks.jism.gui.table.celledit;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 public enum EditFields {
-ASSOC(1), DATE(2), CHECKBOX(3), COMBOBOX(4), DOUBLE(5), INTEGER(6), TEXT(7), PASSWORD(8);
+	ASSOC(1), DATE(2), CHECKBOX(3), COMBOBOX(4), DOUBLE(5), INTEGER(6), TEXT(7), PASSWORD(8);
 
 	private int value;
 	

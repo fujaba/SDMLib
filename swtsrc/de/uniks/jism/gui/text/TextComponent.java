@@ -70,7 +70,7 @@ import de.uniks.jism.gui.theme.StyleConstants;
 import de.uniks.jism.gui.theme.Theme;
 
 public class TextComponent extends Composite implements GUIElement{
-private Text searchText;
+	private Text searchText;
 	private StyledText textarea;
 	private Label lblSize;
 	private Composite parent;

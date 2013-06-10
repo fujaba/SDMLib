@@ -32,7 +32,6 @@ package de.uniks.jism.gui.table;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.events.ModifyEvent;
@@ -40,12 +39,11 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-
 import de.uniks.jism.gui.GUIPosition;
 import de.uniks.jism.gui.TableList;
 
 public class TableFilterView extends ViewerFilter implements ModifyListener{
-private Text searchText;
+	private Text searchText;
 	private String lastSearchCriteria = "####";
 	private TableComponent component;
 	private ArrayList<String> searchProperties = new ArrayList<String>();

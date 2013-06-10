@@ -33,11 +33,10 @@ package de.uniks.jism.gui.text;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.sdmlib.serialization.Style;
-
 import de.uniks.jism.gui.ColorSWT;
 
 public class SWTStyle extends StyleRange{
-public SWTStyle(Style attributeSet, ParsePosition pos, ColorSWT colors) {
+	public SWTStyle(Style attributeSet, ParsePosition pos, ColorSWT colors) {
 		start = pos.getOffset();
 		length = pos.getLength();
 		

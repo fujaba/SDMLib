@@ -26,13 +26,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.util.regex.Pattern;
 import org.sdmlib.serialization.Style;
-
 /**
  * C++ brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
+
 public class BrushCpp extends Brush {
-public BrushCpp() {
+	public BrushCpp() {
     super();
 
     // Copyright 2006 Shin, YoungJin

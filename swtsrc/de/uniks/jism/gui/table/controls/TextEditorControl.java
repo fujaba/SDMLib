@@ -1,6 +1,5 @@
 package de.uniks.jism.gui.table.controls;
 
-
 import java.text.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -10,7 +9,7 @@ import de.uniks.jism.gui.table.celledit.EditField;
 import de.uniks.jism.gui.table.celledit.EditFields;
 
 public class TextEditorControl extends EditControl<Text>{
-public TextEditorControl(){
+	public TextEditorControl(){
 		this.fieldTyp = EditFields.TEXT;
 	}
 	@Override

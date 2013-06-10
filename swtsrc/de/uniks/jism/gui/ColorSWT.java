@@ -31,13 +31,12 @@ package de.uniks.jism.gui;
 */
 
 import java.util.LinkedHashMap;
-
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
 public class ColorSWT {
-protected LinkedHashMap<String, Color> colors = new LinkedHashMap<String, Color>();
+	protected LinkedHashMap<String, Color> colors = new LinkedHashMap<String, Color>();
 	private RGB getRGB(String value) {
 		
 		String hexVal = "0123456789ABCDEF";

@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 
 public class TableSyncronizer implements MouseWheelListener, Listener{
-private Table left;
+	private Table left;
 	private Table middle;
 
 	public TableSyncronizer(TableComponent owner, Table left, Table right){
