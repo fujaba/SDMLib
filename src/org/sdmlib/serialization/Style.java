@@ -61,6 +61,16 @@ public class Style implements PeerMessage, Cloneable{
 	public static final String PROPERTY_BACKGROUND = "background";
 	/** The Font-Size-Family value. */
 	private String background;
+	
+	/** The Constant PROPERTY_BACKGROUND for Color of Background Attribute */
+	public static final String PROPERTY_UNDERLINE = "underline";
+	/** The Underline value. */
+	private boolean underline;
+	
+	/** The Constant PROPERTY_BACKGROUND for Color of Background Attribute */
+	public static final String PROPERTY_ALIGNMENT = "alignment";
+	/** The Underline value. */
+	private String alignment;
 
 	public boolean isBold() {
 		return bold;
@@ -122,6 +132,10 @@ public class Style implements PeerMessage, Cloneable{
 			return getForground();
 		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUND)) {
 			return getBackground();
+		} else if (attribute.equalsIgnoreCase(PROPERTY_UNDERLINE)) {
+			return getUnderline();
+		} else if (attribute.equalsIgnoreCase(PROPERTY_ALIGNMENT)) {
+			return getAlignment();
 		}
 		return null;
 	}
@@ -148,6 +162,12 @@ public class Style implements PeerMessage, Cloneable{
 			return true;
 		} else if (attribute.equalsIgnoreCase(PROPERTY_BACKGROUND)) {
 			withBackground((String) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_UNDERLINE)) {
+			withUnderline((Boolean) value);
+			return true;
+		} else if (attribute.equalsIgnoreCase(PROPERTY_ALIGNMENT)) {
+			withAlignment((String)value);
 			return true;
 		}
 		return false;
@@ -178,7 +198,26 @@ public class Style implements PeerMessage, Cloneable{
 				.withForground(forground)
 				.withBackground(background)
 				.withBold(bold)
-				.withItalic(italic);
+				.withItalic(italic)
+				.withAlignment(alignment)
+				.withUnderline(underline);
 	}
-	
+
+	public boolean getUnderline() {
+		return underline;
+	}
+
+	public Style withUnderline(Boolean underline) {
+		this.underline = underline;
+		return this;
+	}
+
+	public String getAlignment() {
+		return alignment;
+	}
+
+	public Style withAlignment(String alignment) {
+		this.alignment = alignment;
+		return this;
+	}
 }
