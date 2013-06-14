@@ -38,7 +38,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
@@ -386,7 +385,7 @@ public class JsonIdMap extends IdMap {
 
 		if (typeInfo != null) {
 			if (getCounter().isId()) {
-				String jsonId = (String) jsonObject.get(ID);
+				String jsonId = grammar.getValue(jsonObject, ID);
 				if (jsonId != null) {
 					result = getObject(jsonId);
 				}
@@ -431,7 +430,7 @@ public class JsonIdMap extends IdMap {
 			LinkedHashSet<ReferenceObject> refs, boolean readId) {
 		// JSONArray jsonArray;
 		if (getCounter().isId() && readId) {
-			String jsonId = (String) jsonObject.get(ID);
+			String jsonId =  grammar.getValue(jsonObject, ID);
 			if (jsonId == null) {
 				return target;
 			}

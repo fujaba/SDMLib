@@ -87,4 +87,8 @@ public class Grammar {
 		}
 		return json;
 	}
+	
+	public String getValue(JsonObject json, String property){
+		return json.getString(property);
+	}
 }

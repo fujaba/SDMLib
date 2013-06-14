@@ -29,6 +29,7 @@ package org.sdmlib.serialization;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -143,4 +144,12 @@ public abstract class AbstractIdMap {
 	 * @return the object
 	 */
 	public abstract Object cloneObject(Object reference, CloneFilter filter);
+	
+	/**
+	 * @return a Collection of All Creators
+	 */
+	public Collection<SendableEntityCreator> getCreators(){
+		return creators.values();
+	}
+
 }
