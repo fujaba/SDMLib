@@ -41,7 +41,7 @@ public class ByteConverterHex extends ByteConverter {
 	public String toString(byte[] values, int size) {
 		String hexVal = "0123456789ABCDEF";
 
-		StringBuilder returnValue = new StringBuilder(size * 2);
+		StringBuilder returnValue = new StringBuilder(size << 1 );
 		if (values != null) {
 			for (int i = 0; i < size; i++) {
 				int value = values[i];

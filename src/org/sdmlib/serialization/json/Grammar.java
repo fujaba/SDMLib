@@ -39,7 +39,7 @@ public class Grammar {
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */
-	public JsonObject getJsonObjectProperties(JsonObject jsonObject) {
+	public JsonObject getJsonObjectProperties(JsonObject jsonObject, IdMap map) {
 		if (jsonObject.has(JsonIdMap.JSON_PROPS)) {
 			return jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
 		}

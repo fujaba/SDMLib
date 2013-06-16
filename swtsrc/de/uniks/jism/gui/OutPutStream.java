@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.table.controls;
+package de.uniks.jism.gui;
 
 /*
  Json Id Serialisierung Map
@@ -30,45 +30,39 @@ package de.uniks.jism.gui.table.controls;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import java.text.ParseException;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
-import de.uniks.jism.gui.table.celledit.EditField;
-import de.uniks.jism.gui.table.celledit.EditFields;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-public class TextEditorControl extends EditControl<Text>{
-	public TextEditorControl(){
-		this.fieldTyp = EditFields.TEXT;
+public class OutPutStream extends Thread{
+	private InputStream stream;
+	private BufferedReader readerOut;
+	private String typ;
+
+	public OutPutStream(InputStream stream, String typ){
+		this.stream = stream;
+		this.typ = typ;
 	}
+	
 	@Override
-	public void setValue(Object value, boolean selectAll) {
-		control.setText(""+value);
-		if(selectAll){
-			control.selectAll();
+	public void run() {
+		try {
+			readerOut = new BufferedReader (new InputStreamReader(stream));
+			String line;
+			while ((line = readerOut.readLine ()) != null) {
+				System.out.println (typ+": " + line);
+			}
+		} catch (IOException e) {
 		}
 	}
-
-	@Override
-	public Object getEditorValue(boolean convert) throws ParseException {
-		return control.getText();
-	}
-
-	@Override
-	public void createControl(EditField owner, Composite parent) {
-		control = new Text(parent, SWT.BORDER | SWT.FILL); 
-	}
-
-	@Override
-	public boolean isCorrect(Object value, EditField field)
-			throws ParseException {
-		return true;
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-//		super.focusLost(e);
-//		System.out.println("LOST"+control.getText());
+	@SuppressWarnings("deprecation")
+	public void cancel(){
+		try {
+			super.stop();
+			readerOut.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package de.uniks.jism.gui.table.controls;
+package org.sdmlib.serialization.event.creator;
 
 /*
  Json Id Serialisierung Map
@@ -29,46 +29,33 @@ package de.uniks.jism.gui.table.controls;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import org.sdmlib.serialization.Style;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-import java.text.ParseException;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
-import de.uniks.jism.gui.table.celledit.EditField;
-import de.uniks.jism.gui.table.celledit.EditFields;
+public class StyleCreator implements SendableEntityCreator{
+	private static final String[] props=new String[]{Style.PROPERTY_BOLD, Style.PROPERTY_ITALIC, Style.PROPERTY_FONTFAMILY, 
+													Style.PROPERTY_FONTSIZE, Style.PROPERTY_FORGROUND, Style.PROPERTY_BACKGROUND,
+													Style.PROPERTY_UNDERLINE, Style.PROPERTY_ALIGNMENT};
 
-public class TextEditorControl extends EditControl<Text>{
-	public TextEditorControl(){
-		this.fieldTyp = EditFields.TEXT;
-	}
 	@Override
-	public void setValue(Object value, boolean selectAll) {
-		control.setText(""+value);
-		if(selectAll){
-			control.selectAll();
-		}
+	public String[] getProperties() {
+		return props;
 	}
 
 	@Override
-	public Object getEditorValue(boolean convert) throws ParseException {
-		return control.getText();
+	public Object getSendableInstance(boolean prototyp) {
+		return new Style();
 	}
 
 	@Override
-	public void createControl(EditField owner, Composite parent) {
-		control = new Text(parent, SWT.BORDER | SWT.FILL); 
+	public Object getValue(Object entity, String attribute) {
+		return ((Style)entity).get(attribute);
 	}
 
 	@Override
-	public boolean isCorrect(Object value, EditField field)
-			throws ParseException {
-		return true;
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type) {
+		return ((Style)entity).set(attribute, value);
 	}
 
-	@Override
-	public void focusLost(FocusEvent e) {
-//		super.focusLost(e);
-//		System.out.println("LOST"+control.getText());
-	}
 }

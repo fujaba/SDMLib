@@ -182,14 +182,16 @@ public abstract class MasterShell extends Shell {
 				ProcessBuilder processBuilder = new ProcessBuilder( items );
 				Process process = processBuilder.start();
 				if(DEBUG.equals(typ)){
-					BufferedReader reader = new BufferedReader (new InputStreamReader(process.getInputStream ()));
-					String line;
-					while ((line = reader.readLine ()) != null) {
-						System.out.println ("Stdout: " + line);
-					}
-					
+					OutPutStream std = new OutPutStream(process.getInputStream (), "Stdout");
+					std.start();
+
+					OutPutStream error = new OutPutStream(process.getErrorStream(), "Error");
+					error.start();
+
 					System.out.println("RETURN VALUE: "+process.waitFor());
-					reader.close();
+					
+					std.cancel();
+					error.cancel();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -221,6 +223,9 @@ public abstract class MasterShell extends Shell {
 	public void open() {
 		open(!os.isEclipse());
 	}
+	
+	protected void preOpen() {
+	}
 	public void open(boolean catchError) {
 		try {
 			if(isInit){
@@ -232,6 +237,9 @@ public abstract class MasterShell extends Shell {
 				return;
 			}
 			super.open();
+			
+			preOpen();
+		
 			layout();
 			while (!isDisposed()) {
 				if (!getDisplay().readAndDispatch()) {
