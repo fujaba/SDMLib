@@ -29,11 +29,15 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
@@ -43,6 +47,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
@@ -104,6 +109,9 @@ public class ClassModel implements PropertyChangeInterface
 
 	public ClassModel generate(String rootDir, String helpersDir)
 	{
+		Exception e = new RuntimeException();
+		attributNameConsistenceCheck(e, rootDir);
+		
 		resetParsers();
 		generateCreatorCreatorClass(helpersDir);
 		generateModelPatternClass(helpersDir);
@@ -119,6 +127,118 @@ public class ClassModel implements PropertyChangeInterface
 		}
 
 		return this;
+	}
+
+	private void attributNameConsistenceCheck(Exception e, String rootDir) {
+	
+		StackTraceElement[] stackTrace = e.getStackTrace();
+		StackTraceElement secondStackTraceElement = stackTrace[1];
+		String fileName = secondStackTraceElement.getFileName();
+		String className = secondStackTraceElement.getClassName();
+		String methodName = secondStackTraceElement.getMethodName();
+		int callMethodLineNumber = secondStackTraceElement.getLineNumber();
+
+		Clazz modelCreationClass = getOrCreateClazz(className);
+		
+		Parser parser = modelCreationClass.getOrCreateParser(rootDir);
+		parser.indexOf(Parser.CLASS_END);
+		String signature = "method:"+methodName+"(";
+		ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
+		SymTabEntry symTabEntry = null;
+		
+		for (SymTabEntry symTabEnt : symTabEntries) {
+			long startPos = parser.getLineIndexOf(symTabEnt.getStartPos());
+			long endPos = parser.getLineIndexOf(symTabEnt.getEndPos());
+			
+			if( startPos <= callMethodLineNumber && endPos >= callMethodLineNumber ) {
+				symTabEntry = symTabEnt;
+			}	
+		}
+		LinkedHashMap<String, LocalVarTableEntry> localVarTable = null;
+		
+		if (symTabEntry != null) {
+			parser.parseMethodBody(symTabEntry);
+			localVarTable =  parser.getLocalVarTable();
+		}
+		
+		for (Clazz clazz : getClasses())
+		{
+			HashMap <String, Object> attributs = new HashMap <String, Object>();	
+			HashSet< Object> duplicateEntries = new HashSet< Object>();
+			for( Attribute attr : clazz.getAttributes()) {
+				String name = attr.getName();
+				if (attributs.containsKey(name)) {
+					duplicateEntries.add(attr);
+					duplicateEntries.add(attributs.get(name));
+				}
+				attributs.put(name, attr);
+			}
+			
+			RoleSet roles = clazz.getSourceRoles();
+			roles.addAll(clazz.getTargetRoles());
+			
+			for( Role role : roles) {
+				String name = role.getName();
+				if (attributs.containsKey(name)) {
+					duplicateEntries.add(role);
+					duplicateEntries.add(attributs.get(name));
+				}
+				attributs.put(name, role);
+			}
+			
+			for (Object object : duplicateEntries) {
+				
+				if(object instanceof Attribute) {
+					Attribute attribute = (Attribute)object;
+					String position = defPosition(parser, localVarTable, attribute.getName(), attribute.getType(), attribute.getClazz().getName() );
+					
+					System.err.println("in " + fileName + ":  duplicate name found in definition for " + attribute.getClazz() +"\n		"+ position+ "\n		Attribute " + attribute );
+					attribute.removeYou();
+				}
+				else if(object instanceof Role) {
+					Role role = (Role)object;
+					String position = defPosition(parser, localVarTable, role.getName(), "NONE" ,role.getClazz().getName() );
+					System.err.println("in " + fileName + "  duplicate name found in definition for "+ role.getClazz() + "\n	  	" + position + "\n		Role " + role );
+					Association assoc = role.getAssoc();
+					
+					if(assoc != null)
+						assoc.removeYou();
+					
+					if(role != null)
+						role.removeYou();
+				}
+			}
+		}			
+	}
+
+	private String defPosition(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, String attrType , String clazzType) {
+		 String position = "";
+		 
+		if ( localVarTable != null ) {
+			
+			for (LocalVarTableEntry entry : localVarTable.values()) {
+			
+				if (entry.getType().equals("Clazz")) {
+					String type = entry.getInitSequence().get(0).get(1).replace("\"", "");
+					
+					if (clazzType.equals(type)) {
+						CharSequence subSequence = parser.getFileBody().subSequence(entry.getStartPos(), entry.getEndPos()+1);
+						String subSequenceString = subSequence.toString();
+						
+						Pattern fileName = Pattern.compile("\""+name+"\"\\s*,\\s*\""+attrType+"\"");
+						Matcher matcher = fileName.matcher(subSequenceString);
+						
+						int indexOf = 0;
+						while (matcher.find()) {
+							String group = matcher.group(0);
+							indexOf = subSequenceString.indexOf(group);
+						}
+						position =  "at line " + parser.getLineIndexOf(entry.getStartPos() + indexOf) + "    ";
+					}
+				}
+			}
+		}
+		return position;
 	}
 
 	private void resetParsers()
