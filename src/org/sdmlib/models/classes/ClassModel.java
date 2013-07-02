@@ -478,6 +478,18 @@ public class ClassModel implements PropertyChangeInterface
 		}
 		return this.classes;
 	}
+	
+	public Clazz getClazz(String name)
+	{
+	   for (Clazz c : getClasses())
+      {
+         if (c.getName().endsWith(name))
+         {
+            return c;
+         }
+      }
+	   return null;
+	}
 
 	public ClassModel withClasses(Clazz value)
 	{

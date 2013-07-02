@@ -32,6 +32,15 @@ public interface emfstudyrightgenmodelFactory extends EFactory
    University createUniversity();
 
    /**
+    * Returns a new object of class '<em>Person</em>'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @return a new object of class '<em>Person</em>'.
+    * @generated
+    */
+   Person createPerson();
+
+   /**
     * Returns a new object of class '<em>Student</em>'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->

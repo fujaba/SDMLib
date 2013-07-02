@@ -63,7 +63,6 @@ public class HolderSet extends LinkedHashSet<Holder> implements org.sdmlib.model
       this.remove(value);
       return this;
    }
-
    public MauMauSet getDeckOwner()
    {
       MauMauSet result = new MauMauSet();
@@ -151,5 +150,4 @@ public class HolderSet extends LinkedHashSet<Holder> implements org.sdmlib.model
    }
 
 }
-
 

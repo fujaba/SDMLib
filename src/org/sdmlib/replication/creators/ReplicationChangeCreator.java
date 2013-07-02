@@ -10,14 +10,14 @@ public class ReplicationChangeCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ReplicationChange.PROPERTY_TARGETOBJECTID,
-      ReplicationChange.PROPERTY_TARGETPROPERTY,
-      ReplicationChange.PROPERTY_CHANGEMSG,
-      // ReplicationChange.PROPERTY_HISTORY,
-      ReplicationChange.PROPERTY_ISTOMANYPROPERTY,
       ReplicationChange.PROPERTY_HISTORYIDPREFIX,
       ReplicationChange.PROPERTY_HISTORYIDNUMBER,
+      ReplicationChange.PROPERTY_TARGETOBJECTID,
+      ReplicationChange.PROPERTY_TARGETPROPERTY,
+      ReplicationChange.PROPERTY_ISTOMANYPROPERTY,
+      ReplicationChange.PROPERTY_CHANGEMSG,
       Task.PROPERTY_LOGENTRIES,
+      // ReplicationChange.PROPERTY_HISTORY,
    };
    
    public String[] getProperties()
@@ -37,6 +37,10 @@ public class ReplicationChangeCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((ReplicationChange) target).set(attrName, value);
    }
    
@@ -54,7 +58,4 @@ public class ReplicationChangeCreator extends EntityFactory
       ((ReplicationChange) entity).removeYou();
    }
 }
-
-
-
 

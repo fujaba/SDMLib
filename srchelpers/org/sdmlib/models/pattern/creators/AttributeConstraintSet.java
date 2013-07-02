@@ -30,6 +30,7 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import java.util.List;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 {
@@ -262,7 +263,30 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       return this;
    }
 
+   public StringList getCmpOp()
+   {
+      StringList result = new StringList();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getCmpOp());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withCmpOp(String value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.setCmpOp(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

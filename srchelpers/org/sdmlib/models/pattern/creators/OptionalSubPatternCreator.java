@@ -20,6 +20,7 @@ public class OptionalSubPatternCreator extends EntityFactory
       Pattern.PROPERTY_ELEMENTS,
       PatternElement.PROPERTY_PATTERN,
       Pattern.PROPERTY_TRACE,
+      Pattern.PROPERTY_RGRAPH,
    };
    
    public String[] getProperties()
@@ -56,6 +57,7 @@ public class OptionalSubPatternCreator extends EntityFactory
       ((OptionalSubPattern) entity).removeYou();
    }
 }
+
 
 
 

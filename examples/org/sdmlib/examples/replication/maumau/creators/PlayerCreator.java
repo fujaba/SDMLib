@@ -11,13 +11,13 @@ public class PlayerCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Player.PROPERTY_NAME,
+      Holder.PROPERTY_DECKOWNER,
+      Holder.PROPERTY_CARDS,
+      Holder.PROPERTY_STACKOWNER,
       Player.PROPERTY_GAME,
       Player.PROPERTY_NEXT,
       Player.PROPERTY_PREV,
       Player.PROPERTY_ASSIGNMENT,
-      Holder.PROPERTY_DECKOWNER,
-      Holder.PROPERTY_CARDS,
-      Holder.PROPERTY_STACKOWNER,
    };
    
    public String[] getProperties()
@@ -37,6 +37,10 @@ public class PlayerCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Player) target).set(attrName, value);
    }
    
@@ -54,8 +58,4 @@ public class PlayerCreator extends EntityFactory
       ((Player) entity).removeYou();
    }
 }
-
-
-
-
 

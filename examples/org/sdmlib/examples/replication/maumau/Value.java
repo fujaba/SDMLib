@@ -4,6 +4,7 @@ public enum Value
 {
    _7, _8, _9, _10, Jack, Queen, King, Ace;
    
+   @Override
    public String toString() 
    {
       String superString = super.toString();

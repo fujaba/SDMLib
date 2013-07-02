@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
+import org.sdmlib.models.pattern.creators.PatternObjectPO;
 
 public class AttributeConstraintPO extends PatternObject
 {
@@ -292,7 +294,40 @@ public class AttributeConstraintPO extends PatternObject
       return null;
    }
 
+   public AttributeConstraintPO hasCmpOp(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getCmpOp()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getCmpOp();
+      }
+      return null;
+   }
+   
+   public AttributeConstraintPO withCmpOp(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((AttributeConstraint) getCurrentMatch()).setCmpOp(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

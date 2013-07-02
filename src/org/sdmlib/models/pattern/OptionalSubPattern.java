@@ -147,6 +147,16 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       {
          return getPattern();
       }
+
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         return getTrace();
+      }
+
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         return getRgraph();
+      }
       
       return null;
    }
@@ -216,6 +226,18 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
          return true;
       }
 
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         setTrace((StringBuilder) value);
+         return true;
+      }
+
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         setRgraph((ReachabilityGraph) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -236,6 +258,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
    {
       removeAllFromElements();
       setPattern(null);
+      setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }

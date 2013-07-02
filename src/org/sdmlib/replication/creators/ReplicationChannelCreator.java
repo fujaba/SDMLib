@@ -9,8 +9,8 @@ public class ReplicationChannelCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ReplicationChannel.PROPERTY_SHAREDSPACE,
       ReplicationChannel.PROPERTY_SOCKET,
+      ReplicationChannel.PROPERTY_SHAREDSPACE,
    };
    
    public String[] getProperties()
@@ -30,6 +30,10 @@ public class ReplicationChannelCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((ReplicationChannel) target).set(attrName, value);
    }
    
@@ -47,5 +51,4 @@ public class ReplicationChannelCreator extends EntityFactory
       ((ReplicationChannel) entity).removeYou();
    }
 }
-
 

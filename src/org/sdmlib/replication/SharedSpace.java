@@ -49,6 +49,10 @@ public class SharedSpace extends Thread
 implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 {
 
+   private static final String RESEND_ID_HISTORY_PREFIX = "resendIdHistoryPrefix";
+
+   private static final String RESEND_ID_HISTORY_NUMBER = "resendIdHistoryNumber";
+
    private static final String LOWER_ID_PREFIX = "lowerIdPrefix";
 
    private static final String LOWER_ID_NUMBER = "lowerIdNumber";
@@ -109,6 +113,33 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject(msg.msg);
+         
+         if (previousChange == null)
+         {
+            previousChange = new ReplicationChange();
+         }
+
+         // check for initial message
+         if (jsonObject.get("spaceId") != null)
+         {
+            // initial message, send my changes
+            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
+            
+            sendAllChangesSince(previousChange, msg.channel);
+            
+            return;
+         }
+         
+         // handle resend request
+         if (jsonObject.get(RESEND_ID_HISTORY_NUMBER) != null)
+         {
+            previousChange.setHistoryIdNumber(jsonObject.getLong(RESEND_ID_HISTORY_NUMBER));
+            previousChange.setHistoryIdPrefix(jsonObject.getString(RESEND_ID_HISTORY_PREFIX));
+            
+            sendAllChangesSince(previousChange, msg.channel);
+            
+            return;
+         }
 
          JsonIdMap cmap = getChangeMap();
 
@@ -120,44 +151,60 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             // change already known, ignore
             change.withLog("ignore change already known", this.getName());
 
-            System.out.println(change);
+            // System.out.println(change);
             return;
          }
 
-         // is previous change known?
-         if (previousChange == null)
+         if (change.getHistoryIdNumber() <= -2)
          {
-            previousChange = new ReplicationChange();
+            System.out.println("Handling change\n" + change.toString());
          }
 
+         // is previous change known?
          String previousPrefix = (String) jsonObject.get(LOWER_ID_PREFIX);
          if (previousPrefix != null)
          {
             long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
             previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
+            
+            // there is an id for the previous change, do I know that one? 
+            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
+            if (floor == null || floor.compareTo(previousChange) != 0)
+            {
+               // ups, I do not have the previous change.
+               // this should not happen. 
+               // well, ask for the previous change and wait for it
+               // well what is the latest change I have already that is before the one I have no longer
+               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
+               if (floor != null)
+               {
+                  previousNumber = previousfloor.getHistoryIdNumber();
+                  previousPrefix = previousfloor.getHistoryIdPrefix();
+               }
+               else
+               {
+                  // ups, I do not have the previous Id nor any one before that, start from the beginning
+                  previousNumber = 0;
+                  previousPrefix = " ";
+               }
+               JsonObject jsonRequest = new JsonObject();
+               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
+               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
+               
+               msg.channel.send(jsonRequest.toString());
+               
+               // wait for it
+               return;
+            }
          }
          else
          {
+            // sender does not have an earlier change, use dummy for further processing
             previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
          }
 
-         // find the change before the new change
-         ReplicationChange lower = getHistory().getChanges().lower(change);
-         
-         if (lower == null)
-         {
-            lower = new ReplicationChange().withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-         }
-         
-         if (msg.channel != null && lower.compareTo(previousChange) >= 1)
-         {
-            // ups, the sender does not know lower
-            // send all since previous
-            sendAllChangesSince(previousChange, msg.channel);
-            return;
-         }
-
-         // is it a conflict
+         // try to apply change
+         // is it a conflict?
          String key = change.getTargetObjectId() + "|" + change.getTargetProperty(); 
 
          Object oldChange = this.getHistory().getChangeMap().get(key);
@@ -247,6 +294,13 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             {
                applyChange(change, msg.channel);
             }
+            else
+            {
+               // there is a newer change, but we may need to keep this one until
+               // we have synchronized with the sending node.
+               getHistory().addToChanges(change);
+               getHistory().addToObsoleteChanges(change);
+            }
          }
       }
       finally 
@@ -306,7 +360,16 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject(change.getChangeMsg());
-      map.executeUpdateMsg(jsonUpdate);
+      
+      try
+      {
+         this.setReadMessages(true);
+         map.executeUpdateMsg(jsonUpdate);
+      }
+      finally
+      {
+         this.setReadMessages(false);
+      }
 
       getHistory().addChange(change);
 
@@ -402,6 +465,16 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
 
    private boolean isApplyingChangeMsg = false;
+
+   public boolean isApplyingChangeMsg()
+   {
+      return isApplyingChangeMsg;
+   }
+
+   public void setApplyingChangeMsg(boolean isApplyingChangeMsg)
+   {
+      this.isApplyingChangeMsg = isApplyingChangeMsg;
+   }
 
    private int logLevel = 1;
 
@@ -965,12 +1038,24 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          return (T) oldObj;
       }
    }
+   
+   private boolean readMessages = false; 
+   
+   public void setReadMessages(boolean readMessages)
+   {
+      this.readMessages = readMessages;
+   }
+   
+   public boolean isReadMessages()
+   {
+      return readMessages;
+   }
 
 	@Override
 	public boolean isReadMessages(String key, Object element, JsonObject props,
 			String type) {
 		// TODO Auto-generated method stub
-		return false;
+		return readMessages;
 	}
 	
 }

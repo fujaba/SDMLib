@@ -27,9 +27,9 @@ import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.examples.replication.maumau.creators.MauMauSet;
 import org.sdmlib.examples.replication.maumau.MauMau;
-import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
 import org.sdmlib.examples.replication.maumau.creators.CardSet;
 import org.sdmlib.examples.replication.maumau.Card;
+import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
 
 public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -82,6 +82,92 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
       for (Player obj : this)
       {
          obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public MauMauSet getDeckOwner()
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getDeckOwner());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withDeckOwner(MauMau value)
+   {
+      for (Player obj : this)
+      {
+         obj.withDeckOwner(value);
+      }
+      
+      return this;
+   }
+
+   public CardSet getCards()
+   {
+      CardSet result = new CardSet();
+      
+      for (Player obj : this)
+      {
+         result.addAll(obj.getCards());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withCards(Card value)
+   {
+      for (Player obj : this)
+      {
+         obj.withCards(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withoutCards(Card value)
+   {
+      for (Player obj : this)
+      {
+         obj.withoutCards(value);
+      }
+      
+      return this;
+   }
+
+   public MauMauSet getStackOwner()
+   {
+      MauMauSet result = new MauMauSet();
+      
+      for (Player obj : this)
+      {
+         result.addAll(obj.getStackOwner());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withStackOwner(MauMau value)
+   {
+      for (Player obj : this)
+      {
+         obj.withStackOwner(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet withoutStackOwner(MauMau value)
+   {
+      for (Player obj : this)
+      {
+         obj.withoutStackOwner(value);
       }
       
       return this;
@@ -175,95 +261,5 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
       return this;
    }
 
-   public MauMauSet getDeckOwner()
-   {
-      MauMauSet result = new MauMauSet();
-      
-      for (Player obj : this)
-      {
-         result.add(obj.getDeckOwner());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet withDeckOwner(MauMau value)
-   {
-      for (Player obj : this)
-      {
-         obj.withDeckOwner(value);
-      }
-      
-      return this;
-   }
-
-   public CardSet getCards()
-   {
-      CardSet result = new CardSet();
-      
-      for (Player obj : this)
-      {
-         result.addAll(obj.getCards());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet withCards(Card value)
-   {
-      for (Player obj : this)
-      {
-         obj.withCards(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withoutCards(Card value)
-   {
-      for (Player obj : this)
-      {
-         obj.withoutCards(value);
-      }
-      
-      return this;
-   }
-
-   public MauMauSet getStackOwner()
-   {
-      MauMauSet result = new MauMauSet();
-      
-      for (Player obj : this)
-      {
-         result.addAll(obj.getStackOwner());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet withStackOwner(MauMau value)
-   {
-      for (Player obj : this)
-      {
-         obj.withStackOwner(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet withoutStackOwner(MauMau value)
-   {
-      for (Player obj : this)
-      {
-         obj.withoutStackOwner(value);
-      }
-      
-      return this;
-   }
-
 }
-
-
-
-
 

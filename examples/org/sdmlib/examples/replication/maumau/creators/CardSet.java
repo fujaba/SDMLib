@@ -31,8 +31,6 @@ import org.sdmlib.examples.replication.maumau.creators.ValueSet;
 import org.sdmlib.examples.replication.maumau.Value;
 import org.sdmlib.examples.replication.maumau.creators.MauMauSet;
 import org.sdmlib.examples.replication.maumau.MauMau;
-import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
-import org.sdmlib.examples.replication.maumau.Player;
 import org.sdmlib.examples.replication.maumau.creators.HolderSet;
 import org.sdmlib.examples.replication.maumau.Holder;
 
@@ -80,7 +78,6 @@ public class CardSet extends LinkedList<Card> implements org.sdmlib.models.model
       this.remove(value);
       return this;
    }
-
    public SuitSet getSuit()
    {
       SuitSet result = new SuitSet();
@@ -170,6 +167,4 @@ public class CardSet extends LinkedList<Card> implements org.sdmlib.models.model
    }
 
 }
-
-
 

@@ -32,6 +32,10 @@ public class CardCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Card) target).set(attrName, value);
    }
    
@@ -49,6 +53,4 @@ public class CardCreator extends EntityFactory
       ((Card) entity).removeYou();
    }
 }
-
-
 

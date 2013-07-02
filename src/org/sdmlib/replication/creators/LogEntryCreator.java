@@ -12,7 +12,7 @@ public class LogEntryCreator extends EntityFactory
       LogEntry.PROPERTY_STEPNAME,
       LogEntry.PROPERTY_EXECUTEDBY,
       LogEntry.PROPERTY_TIMESTAMP,
-      // LogEntry.PROPERTY_TASK,
+      LogEntry.PROPERTY_TASK,
    };
    
    public String[] getProperties()
@@ -32,6 +32,10 @@ public class LogEntryCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((LogEntry) target).set(attrName, value);
    }
    

@@ -8,10 +8,10 @@ import org.sdmlib.examples.replication.maumau.creators.MauMauPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.replication.maumau.creators.HolderPO;
 import org.sdmlib.examples.replication.maumau.MauMau;
+import org.sdmlib.examples.replication.maumau.creators.CardPO;
 import org.sdmlib.examples.replication.maumau.Card;
 import org.sdmlib.examples.replication.maumau.creators.CardSet;
 import org.sdmlib.examples.replication.maumau.creators.MauMauSet;
-import org.sdmlib.examples.replication.maumau.creators.CardPO;
 
 public class HolderPO extends PatternObject<HolderPO, Holder>
 {
@@ -64,6 +64,30 @@ public class HolderPO extends PatternObject<HolderPO, Holder>
       return null;
    }
 
+   public CardPO hasCards()
+   {
+      CardPO result = new CardPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Holder.PROPERTY_CARDS, result);
+      
+      return result;
+   }
+
+   public HolderPO hasCards(CardPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Holder.PROPERTY_CARDS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
    public CardSet getCards()
    {
       if (this.getPattern().getHasMatch())
@@ -106,31 +130,5 @@ public class HolderPO extends PatternObject<HolderPO, Holder>
       return null;
    }
 
-   public CardPO hasCards()
-   {
-      CardPO result = new CardPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Holder.PROPERTY_CARDS, result);
-      
-      return result;
-   }
-
-   public HolderPO hasCards(CardPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Holder.PROPERTY_CARDS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
 }
-
-
 

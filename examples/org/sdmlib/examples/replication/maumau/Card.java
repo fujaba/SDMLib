@@ -63,13 +63,26 @@ public class Card implements PropertyChangeInterface
    {
       if (PROPERTY_SUIT.equalsIgnoreCase(attrName))
       {
-         setSuit((Suit) value);
+         String suitStr = (String)value;
+         Suit valueOf = Suit.valueOf(suitStr);
+         setSuit(valueOf);
          return true;
       }
 
       if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
-         setValue((org.sdmlib.examples.replication.maumau.Value) value);
+         String valueStr = (String) value;
+         
+         try
+         {
+            int parseInt = Integer.parseInt(valueStr);
+            valueStr = "_" + valueStr;
+         }
+         catch (NumberFormatException e)
+         {
+         }
+         Value valueOf = Value.valueOf(valueStr);
+         setValue(valueOf);
          return true;
       }
 

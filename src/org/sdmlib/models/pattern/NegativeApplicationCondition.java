@@ -147,6 +147,16 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       {
          return getPattern();
       }
+
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         return getTrace();
+      }
+
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         return getRgraph();
+      }
       
       return null;
    }
@@ -210,6 +220,18 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          return true;
       }
 
+      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
+      {
+         setTrace((StringBuilder) value);
+         return true;
+      }
+
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         setRgraph((ReachabilityGraph) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -220,6 +242,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    {
       removeAllFromElements();
       setPattern(null);
+      setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }

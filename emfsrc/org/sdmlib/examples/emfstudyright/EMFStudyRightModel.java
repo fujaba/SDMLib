@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.swt.widgets.Monitor;
 import org.junit.Test;
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.models.EMFTool;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
@@ -39,7 +40,7 @@ public class EMFStudyRightModel
    @Test
    public void EMFStudyRightClasses()
    {
-      Scenario scenario = new Scenario("examples");
+      Scenario scenario = new Scenario("emfsrc");
 
       scenario.add("We build some example classes and then turn them into an Ecore model ", Scenario.MODELING, "zuendorf", "08.02.2013 14:53:42", 8, 0);
 
@@ -47,29 +48,19 @@ public class EMFStudyRightModel
 
       Clazz uniClazz = model.createClazz("University", "name", R.STRING);
       
+      Clazz persClazz = model.createClazz("Person", "name", R.STRING);
+      
       Clazz studClazz = uniClazz.createClassAndAssoc("Student", "students", R.MANY, "uni", R.ONE)
-            .withAttributes("studId", R.STRING);
+            .withAttributes("studId", R.STRING)
+            .withSuperClass(persClazz);
       
       scenario.addImage(model.dumpClassDiag("examples", "EMFStudyRightClassDiag"));
       
-      // now create the corresponding EMF ecore structures
-      EcoreFactory ecoreFactory = EcoreFactory.eINSTANCE;
+      EMFTool emfTool = new EMFTool();
       
-      // first we need a package
-      EPackage ePackage = ecoreFactory.createEPackage();
-      ePackage.setName(StrUtil.upFirstChar(CGUtil.shortClassName(model.getPackageName()))+"Package");
-      ePackage.setNsPrefix(CGUtil.shortClassName(model.getPackageName()));
-      ePackage.setNsURI("http:///" + model.getPackageName() + ".ecore");
-      
-      
-      for (Clazz c : model.getClasses())
-      {
-         EClass ec = ecoreFactory.createEClass();
-         ec.setName(CGUtil.shortClassName(c.getName()));
-         
-         ePackage.getEClassifiers().add(ec);
-      }
-      
+      // turn into EPackage
+      EPackage ePackage = emfTool.classModelToEPackage(model);
+            
       // write to file 
       ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new XMLResourceFactoryImpl());
@@ -109,7 +100,7 @@ public class EMFStudyRightModel
       
       resourceSet.getResources().add(genModelResource);
       
-      genModel.setModelDirectory("./emfsrc");
+      genModel.setModelDirectory("./SDMLib/emfsrc");
       genModel.getForeignModel().add("./EMFStudyRight.ecore");
       genModel.initialize(Collections.singleton(ePackage));
       
@@ -140,29 +131,43 @@ public class EMFStudyRightModel
       
       // now generate Java
       // org.eclipse.xsd
-      JETEmitter e;
-      CodeGenEcorePlugin codeGenPlugin = CodeGenEcorePlugin.INSTANCE;
-      
-      genModel.setCanGenerate(true);
-      
-      org.eclipse.emf.codegen.ecore.generator.Generator gen = new org.eclipse.emf.codegen.ecore.generator.Generator();
-      
-      gen.setInput(genModel);
-      
-      boolean flag = gen.canGenerate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE);
-      
-      if (!flag)
-      {
-         System.out.println("Cannot generate");
-      }
-      
-      BasicMonitor basicMonitor = new BasicMonitor();
-      gen.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, basicMonitor);
+      //      JETEmitter e;
+      //      CodeGenEcorePlugin codeGenPlugin = CodeGenEcorePlugin.INSTANCE;
+      //      
+      //      genModel.setCanGenerate(true);
+      //      
+      //      org.eclipse.emf.codegen.ecore.generator.Generator gen = new org.eclipse.emf.codegen.ecore.generator.Generator();
+      //      
+      //      gen.setInput(genModel);
+      //      
+      //      boolean flag = gen.canGenerate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE);
+      //      
+      //      if (!flag)
+      //      {
+      //         System.out.println("Cannot generate");
+      //      }
+      //      
+      //      BasicMonitor basicMonitor = new BasicMonitor();
+      //      gen.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, basicMonitor);
       
       
       scenario.dumpHTML();
+   }
+   
+   @Test
+   public void testLoadEcoreCreateClassModel()
+   {
+      Scenario scenario = new Scenario("emfsrc");
+
+      scenario.add("Reading ecore file and generating sdmlib classModel ", Scenario.MODELING, "zuendorf", "28.06.2013 12:56:42", 1, 24);
+
       
+      EMFTool emfTool = new EMFTool();
       
+      ClassModel model = emfTool.genModelToClassModel("./EMFStudyRight.genmodel");
       
+      scenario.addImage(model.dumpClassDiag("StudyRighLoadedFromECore"));
+      
+      scenario.dumpHTML();
    }
 }

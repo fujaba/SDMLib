@@ -31,6 +31,8 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {
@@ -283,7 +285,30 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
+   public ReachabilityGraphSet getRgraph()
+   {
+      ReachabilityGraphSet result = new ReachabilityGraphSet();
+      
+      for (Pattern obj : this)
+      {
+         result.add(obj.getRgraph());
+      }
+      
+      return result;
+   }
+
+   public PatternSet withRgraph(ReachabilityGraph value)
+   {
+      for (Pattern obj : this)
+      {
+         obj.withRgraph(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

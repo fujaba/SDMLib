@@ -2,11 +2,14 @@
  */
 package org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.Person;
 import org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.Student;
 import org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.University;
 import org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.emfstudyrightgenmodelFactory;
@@ -26,6 +29,13 @@ public class emfstudyrightgenmodelPackageImpl extends EPackageImpl implements em
     * @generated
     */
    private EClass universityEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   private EClass personEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -112,9 +122,69 @@ public class emfstudyrightgenmodelPackageImpl extends EPackageImpl implements em
     * <!-- end-user-doc -->
     * @generated
     */
+   public EAttribute getUniversity_Name()
+   {
+      return (EAttribute)universityEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public EReference getUniversity_Students()
+   {
+      return (EReference)universityEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public EClass getPerson()
+   {
+      return personEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public EAttribute getPerson_Name()
+   {
+      return (EAttribute)personEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
    public EClass getStudent()
    {
       return studentEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public EAttribute getStudent_StudId()
+   {
+      return (EAttribute)studentEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public EReference getStudent_Uni()
+   {
+      return (EReference)studentEClass.getEStructuralFeatures().get(1);
    }
 
    /**
@@ -148,8 +218,15 @@ public class emfstudyrightgenmodelPackageImpl extends EPackageImpl implements em
 
       // Create classes and their features
       universityEClass = createEClass(UNIVERSITY);
+      createEAttribute(universityEClass, UNIVERSITY__NAME);
+      createEReference(universityEClass, UNIVERSITY__STUDENTS);
+
+      personEClass = createEClass(PERSON);
+      createEAttribute(personEClass, PERSON__NAME);
 
       studentEClass = createEClass(STUDENT);
+      createEAttribute(studentEClass, STUDENT__STUD_ID);
+      createEReference(studentEClass, STUDENT__UNI);
    }
 
    /**
@@ -177,11 +254,19 @@ public class emfstudyrightgenmodelPackageImpl extends EPackageImpl implements em
       setNsURI(eNS_URI);
 
       // Add supertypes to classes
+      studentEClass.getESuperTypes().add(this.getPerson());
 
       // Initialize classes and features; add operations and parameters
       initEClass(universityEClass, University.class, "University", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getUniversity_Name(), ecorePackage.getEString(), "name", null, 0, 1, University.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getUniversity_Students(), this.getStudent(), this.getStudent_Uni(), "students", null, 0, -1, University.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+      initEClass(personEClass, Person.class, "Person", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getPerson_Name(), ecorePackage.getEString(), "name", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(studentEClass, Student.class, "Student", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getStudent_StudId(), ecorePackage.getEString(), "studId", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getStudent_Uni(), this.getUniversity(), this.getUniversity_Students(), "uni", null, 0, 1, Student.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       // Create resource
       createResource(eNS_URI);

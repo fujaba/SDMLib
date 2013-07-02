@@ -71,7 +71,14 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, attrName);
             
-            if (value == null && tgtValue == null || value != null && value.equals(tgtValue))
+            boolean itWorks = (value == null && tgtValue == null || value != null && value.equals(tgtValue));
+            
+            if (cmpOp != null && cmpOp.equals("!="))
+            {
+               itWorks = (value == null && tgtValue != null || value != null && ! value.equals(tgtValue));
+            }
+            
+            if (itWorks)
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {  
@@ -177,6 +184,11 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       {
          return getPattern();
       }
+
+      if (PROPERTY_CMPOP.equalsIgnoreCase(attrName))
+      {
+         return getCmpOp();
+      }
       
       return null;
    }
@@ -237,6 +249,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
          setPattern((Pattern) value);
+         return true;
+      }
+
+      if (PROPERTY_CMPOP.equalsIgnoreCase(attrName))
+      {
+         setCmpOp((String) value);
          return true;
       }
 
@@ -408,11 +426,42 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    {
       StringBuilder _ = new StringBuilder();
       
+      _.append(" ").append(this.getPatternObjectName());
       _.append(" ").append(this.getAttrName());
       _.append(" ").append(this.getModifier());
-      _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getCmpOp());
+      _.append(" ").append(this.getTgtValue());
+      
       return _.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CMPOP = "cmpOp";
+   
+   private String cmpOp;
+
+   public String getCmpOp()
+   {
+      return this.cmpOp;
+   }
+   
+   public void setCmpOp(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.cmpOp, value))
+      {
+         String oldValue = this.cmpOp;
+         this.cmpOp = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CMPOP, oldValue, value);
+      }
+   }
+   
+   public AttributeConstraint withCmpOp(String value)
+   {
+      setCmpOp(value);
+      return this;
+   } 
 }
 

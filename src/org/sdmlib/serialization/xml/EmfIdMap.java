@@ -13,6 +13,7 @@ import org.sdmlib.utils.StrUtil;
 
 public class EmfIdMap extends SDMLibJsonIdMap
 {
+   private static final String XSI_TYPE = "xsi:type";
    private static final String XMI_ID = "xmi:id";
 
    public Object decode(StringBuilder fileText)
@@ -67,6 +68,10 @@ public class EmfIdMap extends SDMLibJsonIdMap
       String firstTag="p";
       for (XMLEntity kid : xmlEntity.getChildren())
       {
+         if (kid.has(XMI_ID))
+         {
+            continue;
+         }
          if( ! kid.getTag().startsWith(firstTag))
          {
             i = 0;
@@ -83,7 +88,10 @@ public class EmfIdMap extends SDMLibJsonIdMap
       // add to map
       String id = (String) xmlEntity.get(XMI_ID);
       
-      id = "_" + id.substring(1);
+      if (id.startsWith("$"))
+      {
+         id = "_" + id.substring(1);
+      }
       
       this.put(id, rootObject);
       
@@ -96,6 +104,17 @@ public class EmfIdMap extends SDMLibJsonIdMap
          if (value == null || "".equals(value))
          {
             continue;
+         }
+         else if (value.indexOf('_') > 0 )
+         {
+            // maybe multiple separated by blanks
+            for (String ref : value.split(" "))
+            {
+               if (getObject(ref) != null)
+               {
+                  rootFactory.setValue(rootObject, key, getObject(ref), "");
+               }
+            }
          }
          else if (value.startsWith("$"))
          {
@@ -141,6 +160,12 @@ public class EmfIdMap extends SDMLibJsonIdMap
             String typeName = getMethod.getReturnType().getName();
             
             typeName = CGUtil.baseClassName(typeName, "Set");
+            
+            if (kidEntity.has(XSI_TYPE))
+            {
+               typeName = kidEntity.getString(XSI_TYPE);
+               typeName = typeName.replaceAll(":", ".");
+            }
             if (typeName != null)
             {
                EntityFactory kidFactory = (EntityFactory) getCreatorClasses(typeName);

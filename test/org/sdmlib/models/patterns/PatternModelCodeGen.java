@@ -90,6 +90,7 @@ public class PatternModelCodeGen
       .withSuperClass(patternElement)
       .withAttribute("attrName", "String")
       .withAttribute("tgtValue", "Object")
+      .withAttribute("cmpOp", R.STRING)
       .withAttribute("hostGraphSrcObject", "Object");
       
       new Association()
@@ -102,6 +103,12 @@ public class PatternModelCodeGen
       Clazz matchIsomorphicConstraint = new Clazz("MatchIsomorphicConstraint")
       .withSuperClass(patternElement);
       
+      Clazz cloneOp = new Clazz("CloneOp")
+      .withSuperClass(patternElement);
+      
+      Clazz unifyGraphsOp = new Clazz("UnifyGraphsOp")
+      .withSuperClass(patternElement);
+
       Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
       .withSuperClass(patternElement);
       
@@ -126,7 +133,15 @@ public class PatternModelCodeGen
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       
       model.createClazz(SDMLibJsonIdMap.class.getName());
-
+      
+      Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
+      
+      Clazz rState = reachabilityGraph.createClassAndAssoc("ReachableState", "states", R.MANY, "parent", R.ONE);
+      rState.withAssoc(rState, "successor", R.MANY, "predecessor", R.MANY);
+      reachabilityGraph.withAssoc(rState, "todo", R.MANY, "master", R.ONE);
+      
+      reachabilityGraph.withAssoc(pattern, "rules", R.MANY, "rgraph", R.ONE);
+      
       model.generate("src", "srchelpers");
       
       scenario.addImage(model.dumpClassDiag("src", "PatternModel01"));

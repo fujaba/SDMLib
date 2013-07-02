@@ -33,6 +33,10 @@ public class BoardTaskCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((BoardTask) target).set(attrName, value);
    }
    

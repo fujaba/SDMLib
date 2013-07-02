@@ -88,8 +88,8 @@ public abstract class AbstractIdMap {
 	 *            <createrClass> the creater class
 	 * @return true, if successful
 	 */
-	public AbstractIdMap withCreator(Set<SendableEntityCreator> creatorSet) {
-		for (SendableEntityCreator sendableEntityCreator : creatorSet) {
+	public AbstractIdMap withCreator(Collection<SendableEntityCreator> collection) {
+		for (SendableEntityCreator sendableEntityCreator : collection) {
 			withCreator(sendableEntityCreator);
 		}
 		return this;

@@ -47,6 +47,14 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.pattern.creators.CardinalityConstraintPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.MatchOtherThenCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.MatchOtherThenPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.ReachabilityGraphCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.ReachabilityGraphPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.ReachableStateCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.ReachableStatePOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.CloneOpCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.CloneOpPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.UnifyGraphsOpCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.UnifyGraphsOpPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -62,6 +70,8 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
 
 
 

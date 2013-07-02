@@ -967,6 +967,10 @@ public class Clazz implements PropertyChangeInterface
                      "   \n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
+                     "      if (JsonIdMap.REMOVE.equals(type))\n" + 
+                     "      {\n" + 
+                     "         attrName = attrName + type;\n" + 
+                     "      }\n" + 
                      "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
                      "   \n" +

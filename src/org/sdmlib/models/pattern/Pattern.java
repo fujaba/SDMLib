@@ -37,6 +37,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.models.pattern.creators.PatternSet;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
 {
@@ -55,6 +56,26 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    {
       this.jsonIdMap = jsonIdMap;
    }
+   
+   public void clone(ReachabilityGraph rgraph)
+   {
+      CloneOp cloneOp = new CloneOp();
+      
+      this.withElements(cloneOp);
+      
+      this.findMatch();
+   }
+
+   public void unify(ReachabilityGraph rgraph)
+   {
+      UnifyGraphsOp unifyGraphsOp = new UnifyGraphsOp();
+      
+      this.withElements(unifyGraphsOp);
+      
+      this.findMatch();
+   } 
+
+
    
    //==========================================================================
    
@@ -78,6 +99,20 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    public MP endCreate()
    {
       this.setModifier(null);
+      return (MP) this;
+   }
+   
+   public MP startNAC()
+   {
+      NegativeApplicationCondition nac = new NegativeApplicationCondition();
+      
+      this.addToElements(nac);
+
+      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      {
+         nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
+         
+      }   
       return (MP) this;
    }
    
@@ -246,6 +281,11 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       {
          return getTrace();
       }
+
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         return getRgraph();
+      }
       
       return null;
    }
@@ -315,6 +355,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          return true;
       }
 
+      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         setRgraph((ReachabilityGraph) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -325,6 +371,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    {
       removeAllFromElements();
       setPattern(null);
+      setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -626,6 +673,11 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                   {
                      op = ":=";
                      color = "green";
+                  }
+                  
+                  if (attrConstr.getCmpOp() != null)
+                  {
+                     op = attrConstr.getCmpOp();
                   }
                   
                   Object tgtValue = attrConstr.getTgtValue();
@@ -1006,7 +1058,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             System.out.print(line);
          }
          
-         if (traceLength >= 1550)
+         if (traceLength >= 50)
          {
             traceLength = traceLength + 0; // break here to stop on trace step i
          }
@@ -1014,5 +1066,67 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       return (MP) this;
    }
+
+   
+   public static final PatternSet EMPTY_SET = new PatternSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Pattern ----------------------------------- ReachabilityGraph
+    *              rules                   rgraph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_RGRAPH = "rgraph";
+   
+   private ReachabilityGraph rgraph = null;
+   
+   public ReachabilityGraph getRgraph()
+   {
+      return this.rgraph;
+   }
+   
+   public boolean setRgraph(ReachabilityGraph value)
+   {
+      boolean changed = false;
+      
+      if (this.rgraph != value)
+      {
+         ReachabilityGraph oldValue = this.rgraph;
+         
+         if (this.rgraph != null)
+         {
+            this.rgraph = null;
+            oldValue.withoutRules(this);
+         }
+         
+         this.rgraph = value;
+         
+         if (value != null)
+         {
+            value.withRules(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_RGRAPH, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Pattern withRgraph(ReachabilityGraph value)
+   {
+      setRgraph(value);
+      return this;
+   } 
+   
+   public ReachabilityGraph createRgraph()
+   {
+      ReachabilityGraph value = new ReachabilityGraph();
+      withRgraph(value);
+      return value;
+   } 
 }
 

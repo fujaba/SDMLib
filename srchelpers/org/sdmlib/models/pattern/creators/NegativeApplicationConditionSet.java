@@ -32,6 +32,8 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -285,7 +287,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+   public ReachabilityGraphSet getRgraph()
+   {
+      ReachabilityGraphSet result = new ReachabilityGraphSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getRgraph());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withRgraph(ReachabilityGraph value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.withRgraph(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

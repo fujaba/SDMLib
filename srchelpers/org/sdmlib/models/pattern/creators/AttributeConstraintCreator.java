@@ -18,6 +18,7 @@ public class AttributeConstraintCreator extends EntityFactory
       PatternElement.PROPERTY_HASMATCH,
       PatternElement.PROPERTY_DOALLMATCHES,
       PatternElement.PROPERTY_PATTERN,
+      AttributeConstraint.PROPERTY_CMPOP,
    };
    
    public String[] getProperties()
@@ -54,6 +55,7 @@ public class AttributeConstraintCreator extends EntityFactory
       ((AttributeConstraint) entity).removeYou();
    }
 }
+
 
 
 

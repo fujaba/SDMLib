@@ -32,6 +32,10 @@ public class StepCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Step) target).set(attrName, value);
    }
    

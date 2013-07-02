@@ -285,6 +285,21 @@ public class TaskFlowBoard implements PropertyChangeInterface
       Step value = new Step();
       withSteps(value);
       return value;
+   }
+
+
+   public Lane getLanes(String name)
+   {
+      // TODO Auto-generated method stub
+      for (Lane l : getLanes())
+      {
+         if (name.equals(l.getName()))
+         {
+            return l;
+         }
+      }
+      
+      return null;
    } 
 }
 

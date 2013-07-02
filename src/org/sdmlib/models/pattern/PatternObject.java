@@ -344,10 +344,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return getIncomming();
       }
 
-      if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
-      {
-         return getOutgoing();
-      }
+//      if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
+//      {
+//         return getOutgoing();
+//      }
 
       if (PROPERTY_CANDIDATES.equalsIgnoreCase(attrName))
       {
@@ -604,7 +604,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
    private PatternLinkSet incomming = null;
 
-   public PatternLinkSet getIncomming()
+   private PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
       {
@@ -690,15 +690,15 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
    private PatternLinkSet outgoing = null;
 
-   public PatternLinkSet getOutgoing()
-   {
-      if (this.outgoing == null)
-      {
-         return PatternLink.EMPTY_SET;
-      }
-
-      return this.outgoing;
-   }
+//   public PatternLinkSet getOutgoing()
+//   {
+//      if (this.outgoing == null)
+//      {
+//         return PatternLink.EMPTY_SET;
+//      }
+//
+//      return this.outgoing;
+//   }
 
    public boolean addToOutgoing(PatternLink value)
    {
@@ -755,12 +755,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
    public void removeAllFromOutgoing()
    {
-      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getOutgoing());
-
-      for (PatternLink value : tmpSet)
-      {
-         this.removeFromOutgoing(value);
-      }
+//      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getOutgoing());
+//
+//      for (PatternLink value : tmpSet)
+//      {
+//         this.removeFromOutgoing(value);
+//      }
    }
 
    

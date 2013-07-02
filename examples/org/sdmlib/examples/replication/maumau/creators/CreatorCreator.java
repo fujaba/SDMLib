@@ -17,10 +17,11 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.MauMauCreator());
          creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.MauMauPOCreator());
          creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.CardCreator());
-         creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.PlayerCreator());
-         creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.PlayerPOCreator());
+         creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.CardPOCreator());
          creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.HolderCreator());
          creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.HolderPOCreator());
+         creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.PlayerCreator());
+         creatorSet.add(new org.sdmlib.examples.replication.maumau.creators.PlayerPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -36,5 +37,4 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
-
 

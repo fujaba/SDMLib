@@ -31,6 +31,14 @@ import org.sdmlib.models.pattern.creators.CardinalityConstraintPO;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.creators.MatchOtherThenPO;
 import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.creators.ReachableStatePO;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.creators.CloneOpPO;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.creators.UnifyGraphsOpPO;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class ModelPattern extends Pattern
 {
@@ -405,7 +413,105 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public ReachabilityGraphPO hasElementReachabilityGraphPO()
+   {
+      ReachabilityGraphPO value = new ReachabilityGraphPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ReachabilityGraphPO hasElementReachabilityGraphPO(ReachabilityGraph hostGraphObject)
+   {
+      ReachabilityGraphPO value = new ReachabilityGraphPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public ReachableStatePO hasElementReachableStatePO()
+   {
+      ReachableStatePO value = new ReachableStatePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ReachableStatePO hasElementReachableStatePO(ReachableState hostGraphObject)
+   {
+      ReachableStatePO value = new ReachableStatePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public CloneOpPO hasElementCloneOpPO()
+   {
+      CloneOpPO value = new CloneOpPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public CloneOpPO hasElementCloneOpPO(CloneOp hostGraphObject)
+   {
+      CloneOpPO value = new CloneOpPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public UnifyGraphsOpPO hasElementUnifyGraphsOpPO()
+   {
+      UnifyGraphsOpPO value = new UnifyGraphsOpPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public UnifyGraphsOpPO hasElementUnifyGraphsOpPO(UnifyGraphsOp hostGraphObject)
+   {
+      UnifyGraphsOpPO value = new UnifyGraphsOpPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
 
 
 

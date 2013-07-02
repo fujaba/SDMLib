@@ -6,6 +6,11 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.creators.PatternElementPO;
+import org.sdmlib.models.pattern.creators.PatternPO;
+import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternPO extends PatternObject
 {
@@ -294,7 +299,41 @@ public class PatternPO extends PatternObject
       return this;
    }
    
+   public ReachabilityGraphPO hasRgraph()
+   {
+      ReachabilityGraphPO result = new ReachabilityGraphPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Pattern.PROPERTY_RGRAPH, result);
+      
+      return result;
+   }
+
+   public PatternPO hasRgraph(ReachabilityGraphPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_RGRAPH)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public ReachabilityGraph getRgraph()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Pattern) this.getCurrentMatch()).getRgraph();
+      }
+      return null;
+   }
+
 }
+
 
 
 

@@ -5,10 +5,10 @@ import org.sdmlib.examples.replication.maumau.creators.MauMauPO;
 import org.sdmlib.examples.replication.maumau.MauMau;
 import org.sdmlib.examples.replication.maumau.creators.CardPO;
 import org.sdmlib.examples.replication.maumau.Card;
-import org.sdmlib.examples.replication.maumau.creators.PlayerPO;
-import org.sdmlib.examples.replication.maumau.Player;
 import org.sdmlib.examples.replication.maumau.creators.HolderPO;
 import org.sdmlib.examples.replication.maumau.Holder;
+import org.sdmlib.examples.replication.maumau.creators.PlayerPO;
+import org.sdmlib.examples.replication.maumau.Player;
 
 public class ModelPattern extends Pattern
 {
@@ -71,30 +71,6 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
-   public PlayerPO hasElementPlayerPO()
-   {
-      PlayerPO value = new PlayerPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public PlayerPO hasElementPlayerPO(Player hostGraphObject)
-   {
-      PlayerPO value = new PlayerPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
    public HolderPO hasElementHolderPO()
    {
       HolderPO value = new HolderPO();
@@ -119,7 +95,30 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
-}
+   public PlayerPO hasElementPlayerPO()
+   {
+      PlayerPO value = new PlayerPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PlayerPO hasElementPlayerPO(Player hostGraphObject)
+   {
+      PlayerPO value = new PlayerPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
 
+}
 
 

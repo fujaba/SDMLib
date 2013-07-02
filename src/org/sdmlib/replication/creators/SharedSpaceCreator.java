@@ -10,11 +10,11 @@ public class SharedSpaceCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       SharedSpace.PROPERTY_SPACEID,
-      SharedSpace.PROPERTY_NODE,
-      SharedSpace.PROPERTY_CHANNELS,
       SharedSpace.PROPERTY_HISTORY,
       SharedSpace.PROPERTY_LASTCHANGEID,
       SharedSpace.PROPERTY_NODEID,
+      SharedSpace.PROPERTY_NODE,
+      SharedSpace.PROPERTY_CHANNELS,
    };
    
    public String[] getProperties()
@@ -34,6 +34,10 @@ public class SharedSpaceCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((SharedSpace) target).set(attrName, value);
    }
    
@@ -51,8 +55,4 @@ public class SharedSpaceCreator extends EntityFactory
       ((SharedSpace) entity).removeYou();
    }
 }
-
-
-
-
 

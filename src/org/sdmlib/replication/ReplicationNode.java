@@ -95,7 +95,7 @@ public class ReplicationNode implements PropertyChangeInterface
    
    private SharedSpaceSet sharedSpaces = null;
    
-   public SharedSpace getOrCreateSharedSpace(String spaceId)
+   public synchronized SharedSpace getOrCreateSharedSpace(String spaceId)
    {
       SharedSpace sharedSpace = this.getSharedSpaces().get(spaceId);
       

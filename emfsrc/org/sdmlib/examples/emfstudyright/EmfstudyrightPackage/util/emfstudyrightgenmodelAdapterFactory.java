@@ -77,6 +77,10 @@ public class emfstudyrightgenmodelAdapterFactory extends AdapterFactoryImpl
          {
             return createUniversityAdapter();
          }
+         public Object casePerson(Person object)
+         {
+            return createPersonAdapter();
+         }
          public Object caseStudent(Student object)
          {
             return createStudentAdapter();
@@ -112,6 +116,21 @@ public class emfstudyrightgenmodelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createUniversityAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.Person <em>Person</em>}'.
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
+    * @return the new adapter.
+    * @see org.sdmlib.examples.emfstudyright.EmfstudyrightPackage.Person
+    * @generated
+    */
+   public Adapter createPersonAdapter()
    {
       return null;
    }

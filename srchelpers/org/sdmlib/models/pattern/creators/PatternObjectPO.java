@@ -19,6 +19,7 @@ import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.creators.MatchOtherThenPO;
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
+import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
 
 public class PatternObjectPO extends PatternObject
@@ -291,23 +292,23 @@ public class PatternObjectPO extends PatternObject
       return false;
    }
    
-   public PatternLinkSet getIncomming()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PatternObject) this.getCurrentMatch()).getIncomming();
-      }
-      return null;
-   }
+//   public PatternLinkSet getIncomming()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((PatternObject) this.getCurrentMatch()).getIncomming();
+//      }
+//      return null;
+//   }
    
-   public PatternLinkSet getOutgoing()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PatternObject) this.getCurrentMatch()).getOutgoing();
-      }
-      return null;
-   }
+//   public PatternLinkSet getOutgoing()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((PatternObject) this.getCurrentMatch()).getOutgoing();
+//      }
+//      return null;
+//   }
    
    public AttributeConstraintSet getAttrConstraints()
    {
@@ -561,7 +562,21 @@ public class PatternObjectPO extends PatternObject
       return null;
    }
 
+//   public PatternLinkSet getOutgoing()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((PatternObject) this.getCurrentMatch()).getOutgoing();
+//      }
+//      return null;
+//   }
+
 }
+
+
+
+
+
 
 
 

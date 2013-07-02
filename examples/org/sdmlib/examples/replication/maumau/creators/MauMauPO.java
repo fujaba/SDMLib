@@ -9,12 +9,11 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.replication.maumau.creators.MauMauPO;
 import org.sdmlib.examples.replication.maumau.Card;
 import org.sdmlib.examples.replication.maumau.creators.CardSet;
+import org.sdmlib.examples.replication.maumau.creators.HolderPO;
+import org.sdmlib.examples.replication.maumau.Holder;
 import org.sdmlib.examples.replication.maumau.creators.PlayerPO;
 import org.sdmlib.examples.replication.maumau.Player;
 import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
-import org.sdmlib.examples.replication.maumau.creators.HolderPO;
-import org.sdmlib.examples.replication.maumau.Holder;
-import org.sdmlib.examples.replication.maumau.creators.HolderSet;
 
 public class MauMauPO extends PatternObject<MauMauPO, MauMau>
 {
@@ -63,6 +62,72 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
       if (this.getPattern().getHasMatch())
       {
          return ((MauMau) this.getCurrentMatch()).getCards();
+      }
+      return null;
+   }
+
+   public HolderPO hasDeck()
+   {
+      HolderPO result = new HolderPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(MauMau.PROPERTY_DECK, result);
+      
+      return result;
+   }
+
+   public MauMauPO hasDeck(HolderPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(MauMau.PROPERTY_DECK)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Holder getDeck()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((MauMau) this.getCurrentMatch()).getDeck();
+      }
+      return null;
+   }
+
+   public HolderPO hasStack()
+   {
+      HolderPO result = new HolderPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(MauMau.PROPERTY_STACK, result);
+      
+      return result;
+   }
+
+   public MauMauPO hasStack(HolderPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(MauMau.PROPERTY_STACK)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public Holder getStack()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((MauMau) this.getCurrentMatch()).getStack();
       }
       return null;
    }
@@ -133,76 +198,5 @@ public class MauMauPO extends PatternObject<MauMauPO, MauMau>
       return null;
    }
 
-   public HolderPO hasDeck()
-   {
-      HolderPO result = new HolderPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(MauMau.PROPERTY_DECK, result);
-      
-      return result;
-   }
-
-   public MauMauPO hasDeck(HolderPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(MauMau.PROPERTY_DECK)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public Holder getDeck()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((MauMau) this.getCurrentMatch()).getDeck();
-      }
-      return null;
-   }
-
-   public MauMauPO hasStack(HolderPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(MauMau.PROPERTY_STACK)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public HolderPO hasStack()
-   {
-      HolderPO result = new HolderPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(MauMau.PROPERTY_STACK, result);
-      
-      return result;
-   }
-
-   public Holder getStack()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((MauMau) this.getCurrentMatch()).getStack();
-      }
-      return null;
-   }
-
 }
-
-
-
-
-
 

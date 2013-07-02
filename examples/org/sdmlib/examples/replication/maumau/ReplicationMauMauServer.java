@@ -1,5 +1,6 @@
 package org.sdmlib.examples.replication.maumau;
 
+
 import org.eclipse.swt.widgets.TaskBar;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.ReplicationNode;
@@ -22,38 +23,43 @@ public class ReplicationMauMauServer extends ReplicationNode
    }
    
    @Override
-   public org.sdmlib.replication.SharedSpace getOrCreateSharedSpace(String spaceId) 
+   public synchronized org.sdmlib.replication.SharedSpace getOrCreateSharedSpace(String spaceId) 
    {
       SharedSpace sharedSpace = super.getOrCreateSharedSpace(spaceId);
 
       if (sharedSpace.getMap() == null)
       {
-         JsonIdMap map = org.sdmlib.examples.replication.maumau.creators.CreatorCreator.createIdMap("server");
+         JsonIdMap map = org.sdmlib.examples.replication.maumau.creators.CreatorCreator.createIdMap(MultiMauMau.SERVER);
          map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
          
-         sharedSpace.withNodeId("server").withMap(map);
+         sharedSpace.withNodeId(MultiMauMau.SERVER).withMap(map);
          
          // create task board and start action
          TaskFlowBoard taskFlowBoard = new TaskFlowBoard();
          map.put(spaceId + "taskBoard", taskFlowBoard);
          
-         Lane serverLane = taskFlowBoard.createLanes().withName("server");
+         Lane serverLane = taskFlowBoard.createLanes().withName(MultiMauMau.SERVER);
+         
+         serverLane.getPropertyChangeSupport().addPropertyChangeListener(new ServerLaneListener(sharedSpace).init());
          
          Lane anyPlayerLane = new Lane().withName("anyPlayer");
-         map.put("anyPlayerLane", anyPlayerLane);
+         // map.put("anyPlayerLane", anyPlayerLane);
          
          taskFlowBoard.addToLanes(anyPlayerLane);
          
+         
          Step startGameStep = taskFlowBoard.createSteps().withName("Start Game");
          
-         startGameStep.createTasks().withName("startGame").withLane(anyPlayerLane);
+         startGameStep.createTasks().withName(MultiMauMau.START_GAME)
+         .withLane(anyPlayerLane);
+         
+         // start game is handled by:
+         Class c = ShowStartGameButton.class;
          
          // create game
          MauMau mauMau = new MauMau();
 
          map.put(spaceId + "_root", mauMau);
-
-
       }
       
       return sharedSpace;

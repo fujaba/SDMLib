@@ -19,6 +19,7 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       Pattern.PROPERTY_DEBUGMODE,
       PatternElement.PROPERTY_PATTERN,
       Pattern.PROPERTY_TRACE,
+      Pattern.PROPERTY_RGRAPH,
    };
    
    public String[] getProperties()
@@ -55,6 +56,7 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       ((NegativeApplicationCondition) entity).removeYou();
    }
 }
+
 
 
 

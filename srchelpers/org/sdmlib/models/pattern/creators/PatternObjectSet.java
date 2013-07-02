@@ -35,6 +35,7 @@ import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {
@@ -50,28 +51,28 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return result;
    }
 
-   public PatternLinkSet getIncomming()
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternObject obj : this)
-      {
-         result.addAll(obj.getIncomming());
-      }
-      
-      return result;
-   }
-   public PatternLinkSet getOutgoing()
-   {
-      PatternLinkSet result = new PatternLinkSet();
-      
-      for (PatternObject obj : this)
-      {
-         result.addAll(obj.getOutgoing());
-      }
-      
-      return result;
-   }
+//   public PatternLinkSet getIncomming()
+//   {
+//      PatternLinkSet result = new PatternLinkSet();
+//      
+//      for (PatternObject obj : this)
+//      {
+//         result.addAll(obj.getIncomming());
+//      }
+//      
+//      return result;
+//   }
+//   public PatternLinkSet getOutgoing()
+//   {
+//      PatternLinkSet result = new PatternLinkSet();
+//      
+//      for (PatternObject obj : this)
+//      {
+//         result.addAll(obj.getOutgoing());
+//      }
+//      
+//      return result;
+//   }
    public LinkedHashSet<Object> getCandidates()
    {
       LinkedHashSet<Object> result = new LinkedHashSet<Object>();
@@ -456,7 +457,48 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
+//   public PatternLinkSet getOutgoing()
+//   {
+//      PatternLinkSet result = new PatternLinkSet();
+//      
+//      for (PatternObject obj : this)
+//      {
+//         result.addAll(obj.getOutgoing());
+//      }
+//      
+//      return result;
+//   }
+
+//   public PatternLinkSet getIncomming()
+//   {
+//      PatternLinkSet result = new PatternLinkSet();
+//      
+//      for (PatternObject obj : this)
+//      {
+//         result.addAll(obj.getIncomming());
+//      }
+//      
+//      return result;
+//   }
+//
+//   public PatternLinkSet getOutgoing()
+//   {
+//      PatternLinkSet result = new PatternLinkSet();
+//      
+//      for (PatternObject obj : this)
+//      {
+//         result.addAll(obj.getOutgoing());
+//      }
+//      
+//      return result;
+//   }
+
 }
+
+
+
+
+
 
 
 

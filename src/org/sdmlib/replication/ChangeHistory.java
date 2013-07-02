@@ -190,6 +190,18 @@ public class ChangeHistory implements PropertyChangeInterface
       // add to log
       this.addToChanges(change);
       
+      if (obsoleteChanges == null)
+      {
+         obsoleteChanges = new LinkedHashMap<String, ReplicationChange>();
+      }
+      
+      ReplicationChange obsoleteChange = obsoleteChanges.get(change.getHistoryIdPrefix());
+      if (obsoleteChange != null)
+      {
+         obsoleteChanges.remove(change.getHistoryIdPrefix());
+         changes.remove(obsoleteChange);
+      }
+      
       // add to map
       String fullKey = change.getTargetObjectId() + "|" + change.getTargetProperty();
       
@@ -215,6 +227,27 @@ public class ChangeHistory implements PropertyChangeInterface
          changeMap.put(fullKey, change);
       }
       
+   }
+
+   private LinkedHashMap<String, ReplicationChange> obsoleteChanges;
+
+   public void addToObsoleteChanges(ReplicationChange change)
+   {
+      if (obsoleteChanges == null)
+      {
+         obsoleteChanges = new LinkedHashMap<String, ReplicationChange>();
+      }
+      
+      ReplicationChange oldChange = obsoleteChanges.get(change.getHistoryIdPrefix());
+      {
+         if (oldChange != null)
+         {
+            changeMap.remove(oldChange);
+            obsoleteChanges.remove(change.getHistoryIdPrefix());
+         }
+         
+         obsoleteChanges.put(change.getHistoryIdPrefix(), change);
+      }
    }
 
 }

@@ -69,6 +69,8 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
                   SharedSpace matchingSharedSpace = replicationNode.getOrCreateSharedSpace(spaceId);
                   
                   this.setSharedSpace(matchingSharedSpace);
+                  
+                  sharedSpace.enqueueMsg(this, line);
                }
             }
             else

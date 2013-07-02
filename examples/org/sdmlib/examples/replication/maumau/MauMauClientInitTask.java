@@ -25,7 +25,7 @@ public class MauMauClientInitTask implements Runnable
       // create game, players, some cards and deal first cards
       MauMau mauMau = new MauMau();
       
-      MauMauControler gameControler = new MauMauControler(mauMau, gui);
+      MauMauControler gameControler = new MauMauControler(mauMau, gui, null).init();
       mauMau.getPropertyChangeSupport().addPropertyChangeListener(gameControler);
       
       Player tom = mauMau.createPlayers().withName("Tom");

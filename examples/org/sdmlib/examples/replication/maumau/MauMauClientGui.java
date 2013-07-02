@@ -5,6 +5,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class MauMauClientGui
 {
@@ -53,6 +56,7 @@ public class MauMauClientGui
       
      
       Label stack = new Label(shell, SWT.BORDER | SWT.SHADOW_NONE);
+      
       stack.setText("      ");
       stack.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
       stack.setAlignment(SWT.CENTER);

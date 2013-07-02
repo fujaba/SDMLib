@@ -190,11 +190,11 @@ public class JsonFilter extends IdMapFilter {
 			return false;
 		}
 
-		if (!checkProperty(map, CUTREFERENCE, property, value)) {
+		if (!checkProperty(map, CUTREFERENCE, property, entity)) {
 			return false;
 		}
 
-		if (!checkProperty(map, REFERENCE, property, value)) {
+		if (!checkProperty(map, REFERENCE, property, entity)) {
 			return false;
 		}
 

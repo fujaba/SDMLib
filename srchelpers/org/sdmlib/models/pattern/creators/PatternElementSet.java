@@ -186,6 +186,16 @@ public class PatternElementSet extends ArrayList<PatternElement>
       this.remove(value);
       return this;
    }
+   
+   public PatternElement first()
+   {
+      for (PatternElement pe : this)
+      {
+         return pe;
+      }
+      
+      return null;
+   }
 }
 
 

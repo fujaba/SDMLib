@@ -18,22 +18,20 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.replication.creators.ReplicationNodePOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.SharedSpaceCreator());
          creatorSet.add(new org.sdmlib.replication.creators.SharedSpacePOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ThreadCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ThreadPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChannelCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChannelPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.ReplicationServerCreator());
          creatorSet.add(new org.sdmlib.replication.creators.ReplicationServerPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.ServerSocketAcceptThreadCreator());
          creatorSet.add(new org.sdmlib.replication.creators.ServerSocketAcceptThreadPOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChannelCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChannelPOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ChangeHistoryCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ChangeHistoryPOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChangeCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChangePOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.TaskCreator());
          creatorSet.add(new org.sdmlib.replication.creators.TaskPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.LogEntryCreator());
          creatorSet.add(new org.sdmlib.replication.creators.LogEntryPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ChangeHistoryCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ChangeHistoryPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChangeCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationChangePOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.TaskFlowBoardCreator());
          creatorSet.add(new org.sdmlib.replication.creators.TaskFlowBoardPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.LaneCreator());
@@ -59,9 +57,4 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
-
-
-
-
-
 

@@ -30,7 +30,7 @@ public class emfstudyrightgenmodelFactoryImpl extends EFactoryImpl implements em
    {
       try
       {
-         emfstudyrightgenmodelFactory theemfstudyrightgenmodelFactory = (emfstudyrightgenmodelFactory)EPackage.Registry.INSTANCE.getEFactory("http:///org.sdmlib.examples.emfstudyright.ecore"); 
+         emfstudyrightgenmodelFactory theemfstudyrightgenmodelFactory = (emfstudyrightgenmodelFactory)EPackage.Registry.INSTANCE.getEFactory(emfstudyrightgenmodelPackage.eNS_URI);
          if (theemfstudyrightgenmodelFactory != null)
          {
             return theemfstudyrightgenmodelFactory;
@@ -64,6 +64,7 @@ public class emfstudyrightgenmodelFactoryImpl extends EFactoryImpl implements em
       switch (eClass.getClassifierID())
       {
          case emfstudyrightgenmodelPackage.UNIVERSITY: return createUniversity();
+         case emfstudyrightgenmodelPackage.PERSON: return createPerson();
          case emfstudyrightgenmodelPackage.STUDENT: return createStudent();
          default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -79,6 +80,17 @@ public class emfstudyrightgenmodelFactoryImpl extends EFactoryImpl implements em
    {
       UniversityImpl university = new UniversityImpl();
       return university;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * @generated
+    */
+   public Person createPerson()
+   {
+      PersonImpl person = new PersonImpl();
+      return person;
    }
 
    /**

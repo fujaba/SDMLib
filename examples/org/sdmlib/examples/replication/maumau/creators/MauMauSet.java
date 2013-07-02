@@ -26,10 +26,10 @@ import org.sdmlib.examples.replication.maumau.MauMau;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.replication.maumau.creators.CardSet;
 import org.sdmlib.examples.replication.maumau.Card;
-import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
-import org.sdmlib.examples.replication.maumau.Player;
 import org.sdmlib.examples.replication.maumau.creators.HolderSet;
 import org.sdmlib.examples.replication.maumau.Holder;
+import org.sdmlib.examples.replication.maumau.creators.PlayerSet;
+import org.sdmlib.examples.replication.maumau.Player;
 
 public class MauMauSet extends LinkedHashSet<MauMau> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -97,6 +97,50 @@ public class MauMauSet extends LinkedHashSet<MauMau> implements org.sdmlib.model
       return this;
    }
 
+   public HolderSet getDeck()
+   {
+      HolderSet result = new HolderSet();
+      
+      for (MauMau obj : this)
+      {
+         result.add(obj.getDeck());
+      }
+      
+      return result;
+   }
+
+   public MauMauSet withDeck(Holder value)
+   {
+      for (MauMau obj : this)
+      {
+         obj.withDeck(value);
+      }
+      
+      return this;
+   }
+
+   public HolderSet getStack()
+   {
+      HolderSet result = new HolderSet();
+      
+      for (MauMau obj : this)
+      {
+         result.add(obj.getStack());
+      }
+      
+      return result;
+   }
+
+   public MauMauSet withStack(Holder value)
+   {
+      for (MauMau obj : this)
+      {
+         obj.withStack(value);
+      }
+      
+      return this;
+   }
+
    public PlayerSet getPlayers()
    {
       PlayerSet result = new PlayerSet();
@@ -151,54 +195,5 @@ public class MauMauSet extends LinkedHashSet<MauMau> implements org.sdmlib.model
       return this;
    }
 
-   public HolderSet getDeck()
-   {
-      HolderSet result = new HolderSet();
-      
-      for (MauMau obj : this)
-      {
-         result.add(obj.getDeck());
-      }
-      
-      return result;
-   }
-
-   public MauMauSet withDeck(Holder value)
-   {
-      for (MauMau obj : this)
-      {
-         obj.withDeck(value);
-      }
-      
-      return this;
-   }
-
-   public MauMauSet withStack(Holder value)
-   {
-      for (MauMau obj : this)
-      {
-         obj.withStack(value);
-      }
-      
-      return this;
-   }
-
-   public HolderSet getStack()
-   {
-      HolderSet result = new HolderSet();
-      
-      for (MauMau obj : this)
-      {
-         result.add(obj.getStack());
-      }
-      
-      return result;
-   }
-
 }
-
-
-
-
-
 

@@ -30,6 +30,10 @@ public class ServerSocketAcceptThreadCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((ServerSocketAcceptThread) target).set(attrName, value);
    }
    
@@ -47,5 +51,4 @@ public class ServerSocketAcceptThreadCreator extends EntityFactory
       ((ServerSocketAcceptThread) entity).removeYou();
    }
 }
-
 
