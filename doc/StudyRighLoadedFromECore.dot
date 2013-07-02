@@ -1,0 +1,15 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/EMFStudyRight/University.java">University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/EMFStudyRight/Person.java">Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/EMFStudyRight/Student.java">Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>studId :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _Person ->  _Student [dir = "back" arrowtail = "empty"];
+    _University -> _Student [headlabel = "students *" taillabel = "uni" arrowhead = "none" ];
+}

@@ -6,8 +6,8 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":16,
-      "hoursSpend":167,
+      "hoursRemaining":40,
+      "hoursSpend":176,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K11"},
@@ -36,7 +36,11 @@
         {"id":"KE.K209"},
         {"id":"KE.K213"},
         {"id":"KE.K215"},
-        {"id":"KE.K217"}
+        {"id":"KE.K217"},
+        {"id":"KE.K221"},
+        {"id":"KE.K223"},
+        {"id":"KE.K225"},
+        {"id":"KE.K229"}
       ],
       "logEntries":[
         {"id":"KE.L14"},
@@ -88,7 +92,9 @@
         {"id":"KE.L204"},
         {"id":"KE.L205"},
         {"id":"KE.L211"},
-        {"id":"KE.L218"}
+        {"id":"KE.L218"},
+        {"id":"KE.L228"},
+        {"id":"KE.L232"}
       ]
     }
   },
@@ -755,6 +761,63 @@
       "logEntries":[
         {"id":"KE.L219"},
         {"id":"KE.L220"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K221",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"ReplicationModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L222"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K223",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"MauMauModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L224"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K225",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"EMFStudyRightClasses",
+      "phase":"modeling",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":8,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L226"},
+        {"id":"KE.L227"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K229",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"LoadEcoreCreateClassModel",
+      "phase":"modeling",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":24,
+      "hoursSpend":1,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L230"},
+        {"id":"KE.L231"}
       ]
     }
   },
@@ -2884,6 +2947,97 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Example model for testing destroy with model patterns: "
+    }
+  },
+  {
+    "id":"KE.L222",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"01.06.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K221"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L224",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"11.06.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K223"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L226",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"28.06.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K225"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L227",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"08.02.2013 14:53:42",
+      "hoursSpend":8,
+      "kanbanEntry":{"id":"KE.K225"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: We build some example classes and then turn them into an Ecore model "
+    }
+  },
+  {
+    "id":"KE.L228",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"28.06.2013 12:00:00",
+      "hoursSpend":8,
+      "hoursRemainingInTotal":16,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"EMFStudyRightClasses: null"
+    }
+  },
+  {
+    "id":"KE.L230",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"28.06.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K229"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L231",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"28.06.2013 12:56:42",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":24,
+      "kanbanEntry":{"id":"KE.K229"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: Reading ecore file and generating sdmlib classModel "
+    }
+  },
+  {
+    "id":"KE.L232",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"28.06.2013 12:56:42",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":40,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"LoadEcoreCreateClassModel: Achieved: Reading ecore file and generating sdmlib classModel "
     }
   }
 ]

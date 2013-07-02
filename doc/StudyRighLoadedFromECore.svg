@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-172 176,-172 176,5 -4,5"/>
 <!-- _University -->
 <g id="node1" class="node"><title>_University</title>
-<a xlink:href="../examples/org/sdmlib/examples/emfstudyright/University.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/EMFStudyRight/University.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-146 8,-163 69,-163 69,-146 8,-146"/>
 <text text-anchor="start" x="17" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 </a>
@@ -22,7 +22,7 @@
 </g>
 <!-- _Student -->
 <g id="node3" class="node"><title>_Student</title>
-<a xlink:href="../examples/org/sdmlib/examples/emfstudyright/Student.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/EMFStudyRight/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="52,-44 52,-61 118,-61 118,-44 52,-44"/>
 <text text-anchor="start" x="69" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 </a>
@@ -39,7 +39,7 @@
 </g>
 <!-- _Person -->
 <g id="node2" class="node"><title>_Person</title>
-<a xlink:href="../examples/org/sdmlib/examples/emfstudyright/Person.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/EMFStudyRight/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="103,-146 103,-163 164,-163 164,-146 103,-146"/>
 <text text-anchor="start" x="119.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
 </a>
