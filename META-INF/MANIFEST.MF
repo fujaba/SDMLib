@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SDMLib
-Bundle-SymbolicName: SDMLib
+Bundle-SymbolicName: SDMLib;singleton:=true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: SDMLib.jar,

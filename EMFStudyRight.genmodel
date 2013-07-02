@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="ASCII"?>
-<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
-    copyrightText="" modelDirectory="/SDMLib/emfsrc" modelName="EMFStudyRight"
-    copyrightFields="false">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="./SDMLib/emfsrc" modelName="EMFStudyRight" copyrightFields="false">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.emf.ecore.xcore.exporter">
+    <genAnnotations source="selectedPackages">
+      <details key="http:///org.sdmlib.examples.emfstudyright.ecore" value="emfstudyrightgenmodel.xcore"/>
+    </genAnnotations>
+    <details key="directoryURI" value="."/>
+  </genAnnotations>
   <foreignModel>./EMFStudyRight.ecore</foreignModel>
   <genPackages prefix="emfstudyrightgenmodel" basePackage="org.sdmlib.examples.emfstudyright"
       disposableProviderFactory="true" ecorePackage="EMFStudyRight.ecore#/">
-    <genClasses ecoreClass="EMFStudyRight.ecore#//University"/>
-    <genClasses ecoreClass="EMFStudyRight.ecore#//Student"/>
+    <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/exporter/org.eclipse.emf.ecore.xcore.exporter">
+      <genAnnotations source="emfstudyrightgenmodel.xcore"/>
+    </genAnnotations>
+    <genClasses ecoreClass="EMFStudyRight.ecore#//University">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMFStudyRight.ecore#//University/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMFStudyRight.ecore#//University/students"/>
+    </genClasses>
+    <genClasses ecoreClass="EMFStudyRight.ecore#//Person">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMFStudyRight.ecore#//Person/name"/>
+    </genClasses>
+    <genClasses ecoreClass="EMFStudyRight.ecore#//Student">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMFStudyRight.ecore#//Student/studId"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMFStudyRight.ecore#//Student/uni"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
