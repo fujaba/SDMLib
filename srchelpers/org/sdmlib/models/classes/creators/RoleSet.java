@@ -149,6 +149,27 @@ public class RoleSet extends LinkedHashSet<Role>
       this.remove(value);
       return this;
    }
+
+   public RoleSet getOtherRoles()
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role role : this)
+      {
+         Association assoc = role.getAssoc();
+         
+         if (assoc.getSource() == role)
+         {
+            result.add(assoc.getTarget());
+         }
+         else
+         {
+            result.add(assoc.getSource());
+         }
+      }
+      
+      return result;
+   }
 }
 
 

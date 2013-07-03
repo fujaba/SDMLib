@@ -8,8 +8,6 @@
 	<classpathentry kind="src" path="srchelpers"/>
 	<classpathentry kind="src" path="examplehelpers"/>
 	<classpathentry kind="src" path="testhelpers"/>
-	<classpathentry kind="src" path="swtsrc"/>
-	<classpathentry kind="src" path="emfsrc"/>
 	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
