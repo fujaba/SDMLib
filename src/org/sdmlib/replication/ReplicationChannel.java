@@ -21,21 +21,17 @@
    
 package org.sdmlib.replication;
 
-import org.eclipse.swt.widgets.Display;
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.replication.creators.ReplicationChannelSet;
-import org.sdmlib.serialization.json.JsonObject;
-
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.Thread;
+import java.net.Socket;
+
+import org.sdmlib.replication.creators.ReplicationChannelSet;
+import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class ReplicationChannel extends Thread implements PropertyChangeInterface
 {

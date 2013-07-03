@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2012 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,40 +19,62 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.replication;
+package org.sdmlib.model.taskflows;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class ReplicationServer extends ReplicationNode implements PropertyChangeInterface
+public class SDMTimer extends Timer implements PropertyChangeInterface
 {
-   public static final int REPLICATION_SERVER_PORT = 11142;
-
-   
-   /**
-    * @param args
-    */
-   public static void main(String[] args)
+   public SDMTimer(String name)
    {
-      // as a server, I provide a serverSocket.accept thread
-      ReplicationServer replicationServer = new ReplicationServer();
-      
-      new ServerSocketAcceptThread(replicationServer, REPLICATION_SERVER_PORT).start();
+      super(name);
    }
-
+   
+   public SDMTimer()
+   {
+      
+   }
+   
+   private long lastScheduleTime = 0;
+   //==========================================================================
+   
+   public void schedule(TimerTask task)
+   {
+      long now = System.currentTimeMillis();
+      long delay = 0;
+      
+      if (now <= lastScheduleTime)
+      {
+         // this milli second has already been used. Use next free to achieve stable schedule
+         delay = lastScheduleTime - now + 1;
+         lastScheduleTime++;
+      }
+      else
+      {
+         delay = 0;
+         lastScheduleTime = now;
+      }
+      
+      super.schedule(task, delay);
+   }
 
    
    //==========================================================================
    
    public Object get(String attrName)
    {
-      if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return getSharedSpaces();
+         attribute = attrName.substring(0, pos);
       }
-
+      
       return null;
    }
 
@@ -61,18 +83,6 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
-      {
-         addToSharedSpaces((SharedSpace) value);
-         return true;
-      }
-      
-      if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromSharedSpaces((SharedSpace) value);
-         return true;
-      }
-
       return false;
    }
 
@@ -91,9 +101,9 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
    
    public void removeYou()
    {
-      removeAllFromSharedSpaces();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
+      // super.removeYou();
    }
+
 }
 

@@ -174,17 +174,17 @@ public class ClassModel implements PropertyChangeInterface
 				attributs.put(name, attr);
 			}
 			
-			RoleSet roles = clazz.getSourceRoles();
-			roles.addAll(clazz.getTargetRoles());
-			
+			RoleSet roles = clazz.getSourceRoles().getOtherRoles();
+
 			for( Role role : roles) {
-				String name = role.getName();
-				if (attributs.containsKey(name)) {
-					duplicateEntries.add(role);
-					duplicateEntries.add(attributs.get(name));
-				}
-				attributs.put(name, role);
-			}
+            String name = role.getName();
+            if (attributs.containsKey(name)) {
+               duplicateEntries.add(role);
+               duplicateEntries.add(attributs.get(name));
+            }
+            attributs.put(name, role);
+         }
+         
 			
 			for (Object object : duplicateEntries) {
 				
