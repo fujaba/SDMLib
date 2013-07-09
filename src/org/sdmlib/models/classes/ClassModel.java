@@ -233,7 +233,7 @@ public class ClassModel implements PropertyChangeInterface
 				if (entry.getType().equals("Clazz")) {
 					String type = entry.getInitSequence().get(0).get(1).replace("\"", "");
 					
-					if (clazzType.equals(type)) {
+					if (clazzType.endsWith(type)) {
 						CharSequence subSequence = parser.getFileBody().subSequence(entry.getStartPos(), entry.getEndPos()+1);
 						String subSequenceString = subSequence.toString();
 						
