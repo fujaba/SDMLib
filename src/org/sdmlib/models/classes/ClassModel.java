@@ -138,7 +138,19 @@ public class ClassModel implements PropertyChangeInterface
 		String methodName = secondStackTraceElement.getMethodName();
 		int callMethodLineNumber = secondStackTraceElement.getLineNumber();
 
-		Clazz modelCreationClass = getOrCreateClazz(className);
+		int i = 2;
+		while (ClassModel.class.getName().equals(className))
+		{
+		   secondStackTraceElement = stackTrace[i];
+		   fileName = secondStackTraceElement.getFileName();
+	      className = secondStackTraceElement.getClassName();
+	      methodName = secondStackTraceElement.getMethodName();
+	      callMethodLineNumber = secondStackTraceElement.getLineNumber();
+	      i++;
+		}
+		
+		
+		Clazz modelCreationClass = new ClassModel(".").getOrCreateClazz(className);
 		
 		Parser parser = modelCreationClass.getOrCreateParser(rootDir);
 		parser.indexOf(Parser.CLASS_END);
