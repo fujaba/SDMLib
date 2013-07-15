@@ -5,7 +5,7 @@
     
     
     _PatternElement [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/PatternElement.java">PatternElement</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>modifier :String</td></tr> <tr><td align='left'>hasMatch :boolean</td></tr> <tr><td align='left'>patternObjectName :String</td></tr> <tr><td align='left'>doAllMatches :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Pattern [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/Pattern.java">Pattern</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>currentSubPattern :Pattern</td></tr> <tr><td align='left'>debugMode :int</td></tr> <tr><td align='left'>trace :StringBuilder</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Pattern [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/Pattern.java">Pattern</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>currentSubPattern :Pattern</td></tr> <tr><td align='left'>debugMode :int</td></tr> <tr><td align='left'>trace :StringBuilder</td></tr> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _StringBuilder [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/java/lang/StringBuilder.java">StringBuilder</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _NegativeApplicationCondition [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/NegativeApplicationCondition.java">NegativeApplicationCondition</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _OptionalSubPattern [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/OptionalSubPattern.java">OptionalSubPattern</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>matchForward :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
@@ -22,7 +22,8 @@
     _JsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/JsonIdMap.java">JsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SDMLibJsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/SDMLibJsonIdMap.java">SDMLibJsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _ReachabilityGraph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachabilityGraph.java">ReachabilityGraph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _ReachableState [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachableState.java">ReachableState</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReachableState [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachableState.java">ReachableState</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>number :int</td></tr> <tr><td align='left'>graphRoot :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _RuleApplication [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/RuleApplication.java">RuleApplication</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>description :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
@@ -40,15 +41,14 @@
     _PatternElement ->  _CardinalityConstraint [dir = "back" arrowtail = "empty"];
     _PatternElement ->  _MatchOtherThen [dir = "back" arrowtail = "empty"];
     _Pattern -> _PatternElement [headlabel = "elements *" taillabel = "pattern" arrowhead = "none" ];
-    _PatternLink -> _PatternObject [headlabel = "tgt" taillabel = "incomming *" arrowhead = "none" ];
-    _PatternLink -> _PatternObject [headlabel = "src" taillabel = "outgoing *" arrowhead = "none" ];
     _AttributeConstraint -> _PatternObject [headlabel = "src" taillabel = "attrConstraints *" arrowhead = "none" ];
     _DestroyObjectElem -> _PatternObject [headlabel = "patternObject" taillabel = "destroyElem" arrowhead = "none" ];
     _CardinalityConstraint -> _PatternObject [headlabel = "src" taillabel = "cardConstraints *" arrowhead = "none" ];
     _MatchOtherThen -> _PatternObject [headlabel = "src" taillabel = "matchOtherThen *" arrowhead = "none" ];
     _MatchOtherThen -> _PatternObject [headlabel = "forbidden" taillabel = "excluders *" arrowhead = "none" ];
     _ReachabilityGraph -> _ReachableState [headlabel = "states *" taillabel = "parent" arrowhead = "none" ];
-    _ReachableState -> _ReachableState [headlabel = "successor *" taillabel = "predecessor *" arrowhead = "none" ];
+    _ReachableState -> _RuleApplication [headlabel = "ruleapplications *" taillabel = "src" arrowhead = "none" ];
+    _RuleApplication -> _ReachableState [headlabel = "tgt" taillabel = "resultOf *" arrowhead = "none" ];
     _ReachabilityGraph -> _ReachableState [headlabel = "todo *" taillabel = "master" arrowhead = "none" ];
     _ReachabilityGraph -> _Pattern [headlabel = "rules *" taillabel = "rgraph" arrowhead = "none" ];
     _Pattern -> _Pattern [headlabel = "currentSubPattern" taillabel = "" arrowhead = "vee" ];
@@ -60,4 +60,5 @@
     _AttributeConstraint -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
     _CardinalityConstraint -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
     _MatchOtherThen -> _Object [headlabel = "hostGraphSrcObject" taillabel = "" arrowhead = "vee" ];
+    _ReachableState -> _Object [headlabel = "graphRoot" taillabel = "" arrowhead = "vee" ];
 }

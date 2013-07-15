@@ -1,0 +1,41 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+
+r1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> r1 :RiverPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+b2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> b2 :BoatPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+subgraph cluster_n3 
+{
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
+   color=grey;
+
+c4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c4 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+}
+
+b5 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> b5 :BankPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+c6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c6 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+subgraph cluster_n7 
+{
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n7</td></tr></table>>;
+   color=grey;
+
+c8 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c8 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> name == "goat" </font></td></tr></table></td></tr></table>>];
+m9 [label="{c8 != c6}"]
+c10 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c10 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+m11 [label="{c10 != c6}"]
+m12 [label="{c10 != c8}"]
+}
+
+
+c8 -- m9 [style="dotted"];
+c10 -- m11 [style="dotted"];
+c10 -- m12 [style="dotted"];
+r1 -- b2 [headlabel = "boat" taillabel = "" color="black" fontcolor="black"];
+b2 -- c4 [headlabel = "cargo" taillabel = "" color="black" fontcolor="black"];
+b2 -- b5 [headlabel = "bank" taillabel = "" color="black" fontcolor="black"];
+b5 -- c6 [headlabel = "cargos" taillabel = "" color="black" fontcolor="black"];
+b5 -- c8 [headlabel = "cargos" taillabel = "" color="black" fontcolor="black"];
+b5 -- c10 [headlabel = "cargos" taillabel = "" color="black" fontcolor="black"];
+b5 -- c6 [headlabel = "cargos" taillabel = "" color="red" fontcolor="red"];
+b2 -- c6 [headlabel = "cargo" taillabel = "" color="green" fontcolor="green"];
+}

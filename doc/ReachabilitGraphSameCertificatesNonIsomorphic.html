@@ -1,0 +1,37 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<body>
+<p>Scenario <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilitGraphSameCertificatesNonIsomorphic</a></p>
+<pre>graph 1 two rings of two nodes</pre>
+<pre>graph 2 one ring of four nodes</pre>
+<embed type="image/svg+xml" src='ReachabilitGraphSameCertificatesNonIsomorphic4.svg'>
+<embed type="image/svg+xml" src='ReachabilitGraphSameCertificatesNonIsomorphic5.svg'>
+<pre>compute certificates</pre>
+<pre>Both certificates are equal: true</pre>
+<pre>{
+  "class":"org.sdmlib.models.patterns.example.Node",
+  "prop":{
+    "graph":{"id":"#2"},
+    "next":[
+      {"id":"#1"}
+    ],
+    "prev":[
+      {"id":"#1"}
+    ]
+  }
+}*4
+{
+  "class":"org.sdmlib.models.patterns.example.SimpleState",
+  "prop":{"nodes":[
+      {"id":"#1"},
+      {"id":"#1"},
+      {"id":"#1"},
+      {"id":"#1"}
+    ]}
+}*1
+</pre>
+<pre>Graphs are not isomorphic:</pre>
+<pre>null</pre>
+
+</body>
+</html>

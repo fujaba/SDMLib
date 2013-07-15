@@ -40,7 +40,12 @@
         {"id":"KE.K221"},
         {"id":"KE.K223"},
         {"id":"KE.K225"},
-        {"id":"KE.K229"}
+        {"id":"KE.K229"},
+        {"id":"KE.K233"},
+        {"id":"KE.K235"},
+        {"id":"KE.K237"},
+        {"id":"KE.K239"},
+        {"id":"KE.K241"}
       ],
       "logEntries":[
         {"id":"KE.L14"},
@@ -818,6 +823,71 @@
       "logEntries":[
         {"id":"KE.L230"},
         {"id":"KE.L231"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K233",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"SimpleReachabilityGraphModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L234"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K235",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"SimpleReachabilityGraphIsomorphismTest",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L236"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K237",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"ReachabilitGraphSameCertificatesNonIsomorphic",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L238"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K239",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"FerryMansProblemModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L240"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K241",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"FerrymansProblemExample",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L242"}
       ]
     }
   },
@@ -3038,6 +3108,56 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"LoadEcoreCreateClassModel: Achieved: Reading ecore file and generating sdmlib classModel "
+    }
+  },
+  {
+    "id":"KE.L234",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"09.07.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K233"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L236",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"09.07.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K235"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L238",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"11.07.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K237"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L240",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"11.07.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K239"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L242",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"11.07.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K241"},
+      "developer":"zuendorf",
+      "phase":"backlog"
     }
   }
 ]
