@@ -1,0 +1,43 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+r8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r8 :ReachabilityGraph</u></td></tr></table>>];
+r9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r9 :ReachableState</u></td></tr></table>>];
+r10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r10 :ReachableState</u></td></tr></table>>];
+r11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r11 :River</u></td></tr></table>>];
+b12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b12 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "left"</td></tr></table></td></tr></table>>];
+b13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b13 :Boat</u></td></tr></table>>];
+c14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c14 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "goat"</td></tr></table></td></tr></table>>];
+c15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c15 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "cabbage"</td></tr></table></td></tr></table>>];
+c16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c16 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "wolf"</td></tr></table></td></tr></table>>];
+b17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b17 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "right"</td></tr></table></td></tr></table>>];
+r1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r1 :River</u></td></tr></table>>];
+b2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b2 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "left"</td></tr></table></td></tr></table>>];
+b3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b3 :Boat</u></td></tr></table>>];
+c4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c4 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "cabbage"</td></tr></table></td></tr></table>>];
+c5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c5 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "goat"</td></tr></table></td></tr></table>>];
+c6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c6 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "wolf"</td></tr></table></td></tr></table>>];
+b7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b7 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "right"</td></tr></table></td></tr></table>>];
+
+r8 -- r9 [headlabel = "states" taillabel = "parent"];
+r8 -- r10 [headlabel = "states" taillabel = "parent"];
+r9 -- r10 [headlabel = "successor" taillabel = "predecessor"];
+r9 -- r1 [headlabel = "graphRoot" taillabel = ""];
+r10 -- r11 [headlabel = "graphRoot" taillabel = ""];
+r11 -- b12 [headlabel = "banks" taillabel = "river"];
+r11 -- b17 [headlabel = "banks" taillabel = "river"];
+r11 -- b13 [headlabel = "boat" taillabel = "river"];
+b12 -- b13 [headlabel = "boat" taillabel = "bank"];
+b12 -- c15 [headlabel = "cargos" taillabel = "bank"];
+b12 -- c16 [headlabel = "cargos" taillabel = "bank"];
+b13 -- c14 [headlabel = "cargo" taillabel = "boat"];
+r1 -- b2 [headlabel = "banks" taillabel = "river"];
+r1 -- b7 [headlabel = "banks" taillabel = "river"];
+r1 -- b3 [headlabel = "boat" taillabel = "river"];
+b2 -- b3 [headlabel = "boat" taillabel = "bank"];
+b2 -- c4 [headlabel = "cargos" taillabel = "bank"];
+b2 -- c5 [headlabel = "cargos" taillabel = "bank"];
+b2 -- c6 [headlabel = "cargos" taillabel = "bank"];
+}

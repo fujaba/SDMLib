@@ -1,0 +1,19 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _River [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/patterns/example/ferrmansproblem/River.java">River</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Boat [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/patterns/example/ferrmansproblem/Boat.java">Boat</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Bank [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java">Bank</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>age :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Cargo [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java">Cargo</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _River -> _Boat [headlabel = "boat" taillabel = "river" arrowhead = "none" ];
+    _Boat -> _Bank [headlabel = "bank" taillabel = "boat" arrowhead = "none" ];
+    _River -> _Bank [headlabel = "banks *" taillabel = "river" arrowhead = "none" ];
+    _Bank -> _Cargo [headlabel = "cargos *" taillabel = "bank" arrowhead = "none" ];
+    _Cargo -> _Boat [headlabel = "boat" taillabel = "cargo" arrowhead = "none" ];
+}
