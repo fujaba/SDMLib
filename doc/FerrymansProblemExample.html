@@ -1,0 +1,76 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<body>
+<p>Scenario <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphFerrymansProblemExample.java' type='text/x-java'>FerrymansProblemExample</a></p>
+<pre>initial situation:</pre>
+<embed type="image/svg+xml" src='FerrymansProblemExample3.svg'>
+<pre>compute certificates</pre>
+<pre>{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Bank",
+  "prop":{
+    "name":"left",
+    "boat":{"id":"#3"},
+    "river":{"id":"#7"},
+    "cargos":[
+      {"id":"#4"},
+      {"id":"#5"},
+      {"id":"#6"}
+    ]
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Bank",
+  "prop":{
+    "name":"right",
+    "river":{"id":"#7"}
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Boat",
+  "prop":{
+    "bank":{"id":"#1"},
+    "river":{"id":"#7"}
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Cargo",
+  "prop":{
+    "name":"cabbage",
+    "bank":{"id":"#1"}
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Cargo",
+  "prop":{
+    "name":"goat",
+    "bank":{"id":"#1"}
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Cargo",
+  "prop":{
+    "name":"wolf",
+    "bank":{"id":"#1"}
+  }
+}*1
+{
+  "class":"org.sdmlib.models.patterns.example.ferrmansproblem.River",
+  "prop":{
+    "banks":[
+      {"id":"#1"},
+      {"id":"#2"}
+    ],
+    "boat":{"id":"#3"}
+  }
+}*1
+</pre>
+<embed type="image/svg+xml"src='loadBoat.svg'>
+<embed type="image/svg+xml"src='moveBoat.svg'>
+<pre>Number of States: 27</pre>
+<pre>Small reachbility graph with hyperlinks to states: </pre>
+<embed type="image/svg+xml" src='ferrymansproblemRG.svg'>
+<pre>large reachbility graph with embedded states: </pre>
+<embed type="image/svg+xml" src='FerrymansProblemExample12.svg'>
+
+</body>
+</html>
