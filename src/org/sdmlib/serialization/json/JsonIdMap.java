@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2013 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.serialization.json;
 
 /*
@@ -49,11 +70,13 @@ import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.creator.JsonArrayCreator;
 import org.sdmlib.serialization.json.creator.JsonObjectCreator;
+import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 /**
  * The Class JsonIdMap.
  */
 
-public class JsonIdMap extends IdMap {
+public class JsonIdMap extends IdMap implements PropertyChangeInterface {
    /** The Constant CLASS. */
    public static final String CLASS = "class";
 
@@ -62,6 +85,9 @@ public class JsonIdMap extends IdMap {
 
    /** The Constant JSON_PROPS. */
    public static final String JSON_PROPS = "prop";
+
+   /** The Constant JSON_PROPS. */
+   public static final String JSON_HYPERREF = "hyperref";
 
    /** The Constant MAINITEM. */
    public static final String MAINITEM = "main";
@@ -240,13 +266,24 @@ public class JsonIdMap extends IdMap {
          }
          SendableEntityCreator valueCreater = getCreatorClasses(className);
 
-         if (valueCreater != null) {
-            if (filter.isConvertable(this, entity, property, item, true) && !getCounter().isSimpleObject()) {
+         if (valueCreater != null) 
+         {
+            JsonObject jsonObject = new JsonObject(ID, getId(entity));
+            if ( ! filter.checkProperty(this, JsonFilter.HYPERREFERENCE, property, entity))
+            {
+               // create a hyperref
+               jsonObject.put(JsonIdMap.JSON_HYPERREF, true);
+               return jsonObject;
+            }
+            if (filter.isConvertable(this, entity, property, item, true) && !getCounter().isSimpleObject()) 
+            {
                String subId = this.getKey(entity);
                if (valueCreater instanceof NoIndexCreator || subId == null
-                     || !visitedObjects.contains(subId)) {
+                     || !visitedObjects.contains(subId)) 
+               {
                   int oldValue = filter.setDeep(IdMapFilter.DEEPER);
-                  if (jsonArray == null) {
+                  if (jsonArray == null) 
+                  {
                      JsonObject result = toJsonObject(entity, filter,
                         className, visitedObjects);
                      filter.setDeep(oldValue);
@@ -257,9 +294,10 @@ public class JsonIdMap extends IdMap {
                   filter.setDeep(oldValue);
                }
             }
-            return new JsonObject(ID, getId(entity));
+            return jsonObject;
          }
-         if (typSave) {
+         if (typSave) 
+         {
             JsonObject returnValue = new JsonObject(CLASS, className);
             returnValue.put(VALUE, entity);
             return returnValue;
@@ -820,4 +858,39 @@ public class JsonIdMap extends IdMap {
       return this;
    }
 
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }
+

@@ -52,7 +52,8 @@ public class PatternModelCodeGen
       Clazz pattern = new Clazz("Pattern",
          "currentSubPattern", "Pattern",
          "debugMode", R.INT, 
-         "trace", "StringBuilder")
+         "trace", "StringBuilder",
+         "name", R.STRING)
       .withSuperClass(patternElement);
       
       Clazz stringBuilderClazz = new Clazz(StringBuilder.class.getName()).withWrapped(true);
@@ -78,13 +79,13 @@ public class PatternModelCodeGen
       .withAttribute("tgtRoleName", "String")
       .withAttribute("hostGraphSrcObject", "Object");
       
-      new Association()
-      .withTarget(patternObject, "tgt", R.ONE)
-      .withSource(patternLink, "incomming", R.MANY);
-      
-      new Association()
-      .withTarget(patternObject, "src", R.ONE)
-      .withSource(patternLink, "outgoing", R.MANY);
+//      new Association()
+//      .withTarget(patternObject, "tgt", R.ONE)
+//      .withSource(patternLink, "incomming", R.MANY);
+//      
+//      new Association()
+//      .withTarget(patternObject, "src", R.ONE)
+//      .withSource(patternLink, "outgoing", R.MANY);
       
       Clazz attrConstraint = new Clazz("AttributeConstraint")
       .withSuperClass(patternElement)
@@ -136,8 +137,14 @@ public class PatternModelCodeGen
       
       Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
       
-      Clazz rState = reachabilityGraph.createClassAndAssoc("ReachableState", "states", R.MANY, "parent", R.ONE);
-      rState.withAssoc(rState, "successor", R.MANY, "predecessor", R.MANY);
+      Clazz rState = reachabilityGraph.createClassAndAssoc("ReachableState", "states", R.MANY, "parent", R.ONE)
+            .withAttributes("number", R.LONG, "graphRoot", "Object");
+      
+      Clazz ruleApplication = rState.createClassAndAssoc("RuleApplication", "ruleapplications", R.MANY, "src", R.ONE)
+            .withAttributes("description", R.STRING);
+      
+      ruleApplication.withAssoc(rState, "tgt", R.ONE, "resultOf", R.MANY);
+      
       reachabilityGraph.withAssoc(rState, "todo", R.MANY, "master", R.ONE);
       
       reachabilityGraph.withAssoc(pattern, "rules", R.MANY, "rgraph", R.ONE);

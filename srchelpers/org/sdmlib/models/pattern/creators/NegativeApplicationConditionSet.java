@@ -34,6 +34,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import java.util.List;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -309,7 +310,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet withName(String value)
+   {
+      for (NegativeApplicationCondition obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

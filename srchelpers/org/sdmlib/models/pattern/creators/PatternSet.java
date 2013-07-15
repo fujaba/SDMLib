@@ -33,6 +33,7 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import java.util.List;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {
@@ -307,7 +308,30 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Pattern obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public PatternSet withName(String value)
+   {
+      for (Pattern obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

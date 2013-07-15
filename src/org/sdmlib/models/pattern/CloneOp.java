@@ -35,9 +35,9 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
 
    private PatternObject firstPO;
    
-   private ReachableState origGraph;
+   private Object origGraph;
 
-   private ReachableState cloneGraph;
+   private Object cloneGraph;
 
    //==========================================================================
    @Override
@@ -55,11 +55,11 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
             
             firstPO = (PatternObject) this.getPattern().getElements().first();
             
-            origGraph = (ReachableState) firstPO.getCurrentMatch();
+            origGraph = firstPO.getCurrentMatch();
             
             JsonArray jsonArray = origMap.toJsonArray(origGraph);
             
-            cloneGraph = (ReachableState) cloneMap.readJson(jsonArray);
+            cloneGraph = cloneMap.readJson(jsonArray);
             
             // change matches to point to the new nodes
             for (PatternElement pe : this.getPattern().getElements())
@@ -105,13 +105,6 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
                   break;
                }
             }
-            
-            // add / unify new graph
-            ReachabilityGraph rgraph = origGraph.getParent();
-            
-            origGraph.withSuccessor(cloneGraph);
-            
-            rgraph.withStates(cloneGraph).withTodo(cloneGraph);
             
             return false;
          }

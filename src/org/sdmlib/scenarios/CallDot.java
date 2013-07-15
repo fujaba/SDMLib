@@ -8,6 +8,19 @@ import java.io.IOException;
 public class CallDot {
 	private static void writeToFile(String imgName, String fileText) throws IOException
 	{
+	   File docDir = new File("doc");
+      
+      docDir.mkdir();
+      
+      int lastSlash = imgName.lastIndexOf('/');
+      if (lastSlash >= 0)
+      {
+         String subDir = imgName.substring(0, lastSlash);
+         docDir = new File("doc/"+subDir);
+         
+         docDir.mkdirs();
+      }
+	   
 		BufferedWriter out;
 		out = new BufferedWriter(new FileWriter("doc/" + imgName + ".dot"));
 
@@ -22,6 +35,15 @@ public class CallDot {
 	      File docDir = new File("doc");
 	      
 	      docDir.mkdir();
+	      
+	      int lastSlash = imgName.lastIndexOf('/');
+	      if (lastSlash >= 0)
+	      {
+	         String subDir = imgName.substring(0, lastSlash);
+	         docDir = new File("doc/"+subDir);
+	         
+	         docDir.mkdirs();
+	      }
 
 	      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
 	     	  command = new String [] {"../SDMLib/tools/makeimage.bat", imgName};

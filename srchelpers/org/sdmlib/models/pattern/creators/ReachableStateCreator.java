@@ -10,9 +10,11 @@ public class ReachableStateCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       ReachableState.PROPERTY_PARENT,
-      ReachableState.PROPERTY_SUCCESSOR,
-      ReachableState.PROPERTY_PREDECESSOR,
       ReachableState.PROPERTY_MASTER,
+      ReachableState.PROPERTY_GRAPHROOT,
+      ReachableState.PROPERTY_NUMBER,
+      ReachableState.PROPERTY_RULEAPPLICATIONS,
+      ReachableState.PROPERTY_RESULTOF,
    };
    
    public String[] getProperties()
@@ -53,5 +55,8 @@ public class ReachableStateCreator extends EntityFactory
       ((ReachableState) entity).removeYou();
    }
 }
+
+
+
 
 

@@ -33,6 +33,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import java.util.List;
 
 public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
 {
@@ -320,7 +321,30 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet withName(String value)
+   {
+      for (OptionalSubPattern obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

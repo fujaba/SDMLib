@@ -409,6 +409,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return getExcluders();
       }
 
+
+
       return super.get(attrName);
    }
 
@@ -604,7 +606,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
    private PatternLinkSet incomming = null;
 
-   private PatternLinkSet getIncomming()
+   PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
       {

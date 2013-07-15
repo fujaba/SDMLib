@@ -19,6 +19,7 @@ public class PatternCreator extends EntityFactory
       PatternElement.PROPERTY_PATTERN,
       Pattern.PROPERTY_TRACE,
       Pattern.PROPERTY_RGRAPH,
+      Pattern.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -55,6 +56,7 @@ public class PatternCreator extends EntityFactory
       ((Pattern) entity).removeYou();
    }
 }
+
 
 
 

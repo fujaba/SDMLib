@@ -22,15 +22,52 @@
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.models.pattern.creators.ReachableStateSet;
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeMap;
+
+import org.sdmlib.scenarios.JsonToImg;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.patterns.example.SimpleState;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
-
+   //==========================================================================
+   public String dumpDiagram(String name)
+   {
+      JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
+      
+      JsonArray jsonArray = masterMap.toJsonArray(this, jsonFilter);
+      
+      String imgLink = JsonToImg.get().toImg(name, jsonArray, true, null);
+      
+      // also add images for all graph roots
+      for (Object graphRoot : getStates().getGraphRoot())
+      {
+         JsonArray graphRootArray = masterMap.toJsonArray(graphRoot);
+         
+         String rootId = masterMap.getId(graphRoot);
+         
+         String imgName = name + "/" + rootId;
+         
+         String subLink = JsonToImg.get().toImg(imgName, graphRootArray);
+      }
+              
+      return imgLink;
+   }
+   
 
    //==========================================================================
 
@@ -130,8 +167,56 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    public static final String PROPERTY_STATES = "states";
 
-   private ReachableStateSet states = null;
+   private TreeMap<String, Object> stateMap = new TreeMap<String, Object>();
 
+   public ReachabilityGraph withStateMap(String certificate, ReachableState newState)
+   {
+      Object oldEntry = stateMap.get(certificate);
+      
+      if (oldEntry == null)
+      {
+         stateMap.put(certificate, newState);
+      }
+      else if (oldEntry instanceof ReachableState && oldEntry != newState)
+      {
+         ReachableStateSet newStateSet = new ReachableStateSet()
+         .with((ReachableState) oldEntry).with(newState);
+         stateMap.put(certificate, newStateSet);
+      }
+      else
+      {
+         ReachableStateSet oldStateSet = (ReachableStateSet) oldEntry;
+         oldStateSet.with(newState);
+      }
+      
+      return this;
+   }
+   
+   private static ReachableStateSet emptyStatesSet = new ReachableStateSet();
+   private ReachableStateSet oneElemSet = new ReachableStateSet();
+   
+   public ReachableStateSet getStateMap(String certificate)
+   {
+      Object oldEntry = stateMap.get(certificate);
+      
+      if (oldEntry == null)
+      {
+         return emptyStatesSet;
+      }
+      else if (oldEntry instanceof ReachableState)
+      {
+         oneElemSet.clear();
+         oneElemSet.add((ReachableState) oldEntry);
+         return oneElemSet;
+      }
+      else
+      {
+         return (ReachableStateSet) oldEntry;
+      }
+   }
+   
+   private ReachableStateSet states = null;
+   
    public ReachableStateSet getStates()
    {
       if (this.states == null)
@@ -399,16 +484,21 @@ public class ReachabilityGraph implements PropertyChangeInterface
    }
 
 
-   public void explore()
+   public long explore()
    {
-      explore(Long.MAX_VALUE);
-
+      return explore(Long.MAX_VALUE);
    }
 
    private long noOfNewStates;
 
-   public void explore(long maxNoOfNewStates)
+   public long explore(long maxNoOfNewStates)
    {
+      long currentStateNum = 1;
+      
+      // add cloneOps to rules, where missing
+      
+      // all states without successors become todo states
+      
       // take a todo state and apply all rules at all places until maxNoOfNewStates 
       // is reached
       noOfNewStates = 0;
@@ -416,6 +506,10 @@ public class ReachabilityGraph implements PropertyChangeInterface
       while (!getTodo().isEmpty() && noOfNewStates < maxNoOfNewStates)
       {
          ReachableState first = getTodo().first();
+         
+         first.withNumber((int) currentStateNum);
+         
+         currentStateNum++;
 
          this.withoutTodo(first);
 
@@ -425,14 +519,250 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
             rule.resetSearch();
 
-            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(first);
+            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(first.getGraphRoot());
 
             while (rule.findMatch())
             {
-               // do all matches           
+               // for each match get the new reachable state and add it to the reachability graph
+               Object newGraphRoot = firstPO.getCurrentMatch();
+               
+               ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
+
+               // is the new graph already known?
+               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap().getCreators());
+               newJsonIdMap.setSessionId("s");
+               String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
+               
+               ReachableStateSet candidateStates = this.getStateMap(newCertificate);
+               
+               LinkedHashMap<String, String> match = null;
+               
+               for( ReachableState oldState : candidateStates)
+               {
+                  match = match(oldState, newReachableState);
+                  
+                  if (match != null)
+                  {
+                     // newReachableState is isomorphic to oldState. Just add a link from first to oldState
+                     first.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                     break;
+                  }
+               }
+               
+               if (match == null)
+               {
+                  // no isomorphic old state, add new state
+                  this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate, newReachableState);
+                  first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+               }
+               
             }
          }
       }
+      
+      return currentStateNum;
+   }
+
+   public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
+   {
+      
+      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
+      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
+      
+      map1.setSessionId("s");
+      map2.setSessionId("s");
+
+      LinkedHashMap<String, String> fwdmapping = new LinkedHashMap<String, String>();
+      LinkedHashMap<String, String> bwdmapping = new LinkedHashMap<String, String>();
+
+      String key1 = map1.getId(s1.getGraphRoot());
+      String key2 = map2.getId(s2.getGraphRoot());
+      
+      fwdmapping.put(key1, key2);
+      bwdmapping.put(key2, key1);
+
+      JsonArray ja1 = map1.toJsonArray(s1.getGraphRoot());
+      JsonArray ja2 = map2.toJsonArray(s2.getGraphRoot());
+
+      LinkedHashMap<String, JsonObject> joMap1 = null;
+      LinkedHashMap<String, JsonObject> joMap2 = null;
+      
+      joMap1 = new LinkedHashMap<String, JsonObject>();
+
+      for (Object object : ja1)
+      {
+         JsonObject jo = (JsonObject) object;
+
+         String key = jo.getString(JsonIdMap.ID);
+
+         joMap1.put(key, jo);
+      }
+
+      joMap2 = new LinkedHashMap<String, JsonObject>();
+
+      for (Object object : ja2)
+      {
+         JsonObject jo = (JsonObject) object;
+
+         String key = jo.getString(JsonIdMap.ID);
+
+         joMap2.put(key, jo);
+      }
+
+      boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, key1, fwdmapping, bwdmapping);
+
+      return match ? fwdmapping : null;
+   }
+
+   
+   public boolean match(ReachableState s1, JsonArray ja1, LinkedHashMap<String, JsonObject> joMap1, 
+         ReachableState s2, JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2,
+         String cn1, LinkedHashMap<String, String> fwdmapping, LinkedHashMap<String, String> bwdmapping)
+   {
+      String cn2 = fwdmapping.get(cn1);
+
+      // a mapping for currentNode has just been added. Validate it and compute mappings for neighbors
+      JsonObject currentJo1 = joMap1.get(cn1);
+      JsonObject currentJo2 = joMap2.get(cn2);
+
+      // certificates are equal, only check refs
+      // go through properties
+      JsonObject currentProps1 = currentJo1.getJsonObject(JsonIdMap.JSON_PROPS);
+      JsonObject currentProps2 = currentJo2.getJsonObject(JsonIdMap.JSON_PROPS);
+
+      for (Iterator<String> iter = currentProps1.keys(); iter.hasNext();)
+      {
+         String key = iter.next();
+
+         Object value = currentProps1.get(key);
+
+         if (value instanceof JsonObject)
+         {
+            JsonObject ref = (JsonObject) value;
+            String tgt1 = ref.getString(JsonIdMap.ID);
+
+            String tgt2 = currentProps2.getJsonObject(key).getString(JsonIdMap.ID);
+
+            String mappingOfTgt1 = fwdmapping.get(tgt1);
+
+            if (mappingOfTgt1 != null)
+            {
+               // already mapped. consistent?
+                     if ( ! tgt2.equals(mappingOfTgt1))
+                     {
+                        // inconsistent mapping 
+                        return false;
+                     }
+            }
+            else
+            {
+               // not yet mapped, thus add mapping and check it.
+               fwdmapping.put(tgt1, tgt2);
+               bwdmapping.put(tgt2, tgt1);
+
+               boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
+
+               if ( ! match )
+               {
+                  // did not work
+                  fwdmapping.remove(tgt1);
+                  bwdmapping.remove(tgt2);
+               }
+            }
+         }
+         else if (value instanceof JsonArray)
+         {
+            // many refs loop through them, match each
+            obj1RefLoop: for (Object object : (JsonArray) value)
+            {
+               JsonObject ref = (JsonObject) object;
+
+               String tgt1 = ref.getString(JsonIdMap.ID);
+
+               // might already have been matched
+               String tgt1Map = fwdmapping.get(tgt1);
+
+               if (tgt1Map != null)
+               {
+                  // consistent? 
+                  for (Object o : currentProps2.getJsonArray(key))
+                  {
+                     ref = (JsonObject) o;
+                     String tgt2 = ref.getString(JsonIdMap.ID);
+
+                     if (tgt2.equals(tgt1Map))
+                     {
+                        continue obj1RefLoop; // <==================== this ref has a match, handle next ref in outer loop
+                     }
+                  }
+
+                  // inconsistent
+                  return false; // <========================== did not work out
+               }
+
+               // loop through the  refs of the other object
+               for (Object o : currentProps2.getJsonArray(key))
+               {
+                  ref = (JsonObject) o;
+                  String tgt2 = ref.getString(JsonIdMap.ID);
+
+                  // already used for other match?
+                  if (bwdmapping.get(tgt2) != null )
+                  {
+                     continue; // <=========================== this one is not a match candidate, try another
+                  }
+
+                  // does the certificate match? 
+                  String cert1 = s1.getNode2certificates().get(tgt1);
+                  String cert2 = s2.getNode2certificates().get(tgt2);
+
+                  if (cert1.equals(cert2))
+                  {
+                     // might be a candidate, match it
+                     fwdmapping.put(tgt1, tgt2);
+                     bwdmapping.put(tgt2, tgt1);
+
+                     boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
+
+                     if ( ! match )
+                     {
+                        // did not work
+                        fwdmapping.remove(tgt1);
+                        bwdmapping.remove(tgt2);
+                     }
+                     else
+                     {
+                        continue obj1RefLoop; // <==================== this ref has a match, handle next ref in outer loop
+                     }
+                  }
+               }
+
+               // did not find a match for current ref
+               return false;
+            }
+         }
+      }
+
+      return true;
+   }
+
+   private JsonIdMap masterMap = null;
+   
+   public JsonIdMap getMasterMap()
+   {
+      return masterMap;
+   }
+   
+   public void setMasterMap(JsonIdMap newMasterMap)
+   {
+      masterMap = newMasterMap;
+   }
+   
+   public ReachabilityGraph withMasterMap(JsonIdMap map)
+   {
+      setMasterMap(map);
+      
+      return this;
    } 
 }
 

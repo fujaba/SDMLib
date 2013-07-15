@@ -39,6 +39,8 @@ import org.sdmlib.models.pattern.creators.CloneOpPO;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.creators.UnifyGraphsOpPO;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.creators.RuleApplicationPO;
+import org.sdmlib.models.pattern.RuleApplication;
 
 public class ModelPattern extends Pattern
 {
@@ -509,7 +511,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public RuleApplicationPO hasElementRuleApplicationPO()
+   {
+      RuleApplicationPO value = new RuleApplicationPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public RuleApplicationPO hasElementRuleApplicationPO(RuleApplication hostGraphObject)
+   {
+      RuleApplicationPO value = new RuleApplicationPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

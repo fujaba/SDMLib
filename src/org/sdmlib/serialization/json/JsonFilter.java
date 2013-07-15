@@ -49,6 +49,9 @@ public class JsonFilter extends IdMapFilter {
 	/** The Constant Cut the Association. */
 	public static final String CUTREFERENCE = "-";
 
+	/** The hyperref ref. */
+   public static final String HYPERREFERENCE = "@";
+
 	/** Check if property starts with Model-Prefix */
 	private boolean checkModelValue = true;
 
@@ -90,7 +93,8 @@ public class JsonFilter extends IdMapFilter {
 		for (String value : filters) {
 			if (value != null && value.length() > 0) {
 				if (value.startsWith(REFERENCE)
-						|| value.startsWith(CUTREFERENCE)) {
+						|| value.startsWith(CUTREFERENCE)
+						|| value.startsWith(HYPERREFERENCE)) {
 					items.add(value);
 				} else {
 					items.add(REFERENCE + value);

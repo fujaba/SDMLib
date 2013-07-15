@@ -11,7 +11,7 @@ public class ReachabilityGraphCreator extends EntityFactory
    {
       ReachabilityGraph.PROPERTY_STATES,
       ReachabilityGraph.PROPERTY_TODO,
-      ReachabilityGraph.PROPERTY_RULES,
+      // ReachabilityGraph.PROPERTY_RULES,
    };
    
    public String[] getProperties()

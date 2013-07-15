@@ -101,7 +101,7 @@ public class JsonToImg
       
       StringBuilder edgeBuilder = new StringBuilder();
       
-      fillNodeAndEdgeBuilders(objects, nodeBuilder, edgeBuilder, omitRoot, aggregationRoles);
+      fillNodeAndEdgeBuilders(imgName, objects, nodeBuilder, edgeBuilder, omitRoot, aggregationRoles);
       
       fileText = fileText.replaceFirst("<nodes>", Matcher.quoteReplacement(nodeBuilder.toString()));
       
@@ -115,7 +115,7 @@ public class JsonToImg
    }
 
 
-   public static void fillNodeAndEdgeBuilders(JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder, boolean omitRoot, String... aggregationRoles)
+   public static void fillNodeAndEdgeBuilders(String imgName, JsonArray objects, StringBuilder nodeBuilder, StringBuilder edgeBuilder, boolean omitRoot, String... aggregationRoles)
    {
       String omittedId = "";
       // collect all edges
@@ -201,7 +201,7 @@ public class JsonToImg
 
 
       // list of nodes
-      listOfNodes(nodeBuilder, omittedId, edgeMap, knownIds, aggregationMap, jsonObjectMap);
+      listOfNodes(nodeBuilder, omittedId, edgeMap, knownIds, aggregationMap, jsonObjectMap, imgName);
       
       
       // now generate edges from edgeMap
@@ -234,7 +234,7 @@ public class JsonToImg
    private static void listOfNodes(StringBuilder nodeBuilder, String omittedId,
          LinkedHashMap<String, EdgeLabels> edgeMap, Set<String> knownIds,
          LinkedHashMap<String, LinkedHashSet<String>> aggregationMap,
-         LinkedHashMap<String, JsonObject> jsonObjectMap)
+         LinkedHashMap<String, JsonObject> jsonObjectMap, String imgName)
    {
       for (String topId : knownIds)
       {         
@@ -281,7 +281,7 @@ public class JsonToImg
          boolean addAttrText = false;
          for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
          {
-            String key = (String) iter.next();
+            String key = iter.next();
             
             if (! JsonIdMap.ID.equals(key) && ! JsonIdMap.CLASS.equals(key))
             {
@@ -303,7 +303,18 @@ public class JsonToImg
                {
                   JsonObject tgtJsonObject = (JsonObject) value;
                   String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
-                  if ( ! omittedId.equals(tgtId))
+                  if (tgtJsonObject.get(JsonIdMap.JSON_HYPERREF) != null)
+                  {
+                     addAttrText = true;
+
+                     // add hyper ref line
+                     String attrLine = "<tr><td href=\"<key>\">\"<value>\"</td></tr>";
+                     attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(imgName + "/" + tgtId + ".svg"));
+                     attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(imgName + "/" + tgtId + ".svg"));
+
+                     attrText = attrText.replaceFirst("</table>", Matcher.quoteReplacement(attrLine + "</table>"));
+                  }
+                  else if ( ! omittedId.equals(tgtId))
                   {
                      tgtId = lastPartLow(tgtId);
                      addToEdges(edgeMap, jsonId, tgtId, key);
@@ -349,7 +360,7 @@ public class JsonToImg
          if (isCluster)
          {
             // call recursive
-            listOfNodes(nodeBuilder, omittedId, edgeMap, aggregationMap.get(topId), aggregationMap, jsonObjectMap);
+            listOfNodes(nodeBuilder, omittedId, edgeMap, aggregationMap.get(topId), aggregationMap, jsonObjectMap, imgName);
             
             nodeBuilder.append("}\n");
          }

@@ -334,7 +334,40 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
       return null;
    }
 
+   public OptionalSubPatternPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(OptionalSubPattern.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((OptionalSubPattern) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public OptionalSubPatternPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((OptionalSubPattern) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

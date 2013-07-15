@@ -320,7 +320,40 @@ public class NegativeApplicationConditionPO extends PatternObject
       return null;
    }
 
+   public NegativeApplicationConditionPO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(NegativeApplicationCondition.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((NegativeApplicationCondition) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public NegativeApplicationConditionPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((NegativeApplicationCondition) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

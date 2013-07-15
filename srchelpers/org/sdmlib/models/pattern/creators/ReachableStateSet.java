@@ -22,11 +22,21 @@
 package org.sdmlib.models.pattern.creators;
 
 import java.util.LinkedHashSet;
+import java.util.TreeMap;
+
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.creators.ReachableStateSet;
+import org.sdmlib.models.modelsets.intList;
+
+import java.util.List;
+
+import org.sdmlib.models.pattern.creators.RuleApplicationSet;
+import org.sdmlib.models.pattern.RuleApplication;
 
 public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -84,70 +94,6 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       return this;
    }
 
-   public ReachableStateSet getSuccessor()
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.addAll(obj.getSuccessor());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withSuccessor(ReachableState value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withSuccessor(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet withoutSuccessor(ReachableState value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withoutSuccessor(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet getPredecessor()
-   {
-      ReachableStateSet result = new ReachableStateSet();
-      
-      for (ReachableState obj : this)
-      {
-         result.addAll(obj.getPredecessor());
-      }
-      
-      return result;
-   }
-
-   public ReachableStateSet withPredecessor(ReachableState value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withPredecessor(value);
-      }
-      
-      return this;
-   }
-
-   public ReachableStateSet withoutPredecessor(ReachableState value)
-   {
-      for (ReachableState obj : this)
-      {
-         obj.withoutPredecessor(value);
-      }
-      
-      return this;
-   }
-
    public ReachabilityGraphSet getMaster()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
@@ -181,6 +127,117 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       return null;
    }
 
+   public ObjectSet getGraphRoot()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.getGraphRoot());
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet withGraphRoot(Object value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setGraphRoot(value);
+      }
+      
+      return this;
+   }
+
+   public longList getNumber()
+   {
+      longList result = new longList();
+      
+      for (ReachableState obj : this)
+      {
+         result.add(obj.getNumber());
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet withNumber(int value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setNumber(value);
+      }
+      
+      return this;
+   }
+
+   public RuleApplicationSet getRuleapplications()
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.addAll(obj.getRuleapplications());
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet withRuleapplications(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withRuleapplications(value);
+      }
+      
+      return this;
+   }
+
+   public ReachableStateSet withoutRuleapplications(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withoutRuleapplications(value);
+      }
+      
+      return this;
+   }
+
+   public RuleApplicationSet getResultOf()
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (ReachableState obj : this)
+      {
+         result.addAll(obj.getResultOf());
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet withResultOf(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withResultOf(value);
+      }
+      
+      return this;
+   }
+
+   public ReachableStateSet withoutResultOf(RuleApplication value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.withoutResultOf(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
 
 

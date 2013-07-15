@@ -38,6 +38,7 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.utils.StrUtil;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
 {
@@ -286,6 +287,11 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       {
          return getRgraph();
       }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
       
       return null;
    }
@@ -358,6 +364,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
       {
          setRgraph((ReachabilityGraph) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
          return true;
       }
 
@@ -586,7 +598,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       {
          JsonArray jsonArray = jsonIdMap.toJsonArray(matchedObjects.iterator().next()); 
       
-         JsonToImg.fillNodeAndEdgeBuilders(jsonArray, nodeBuilder, edgeBuilder, false);
+         JsonToImg.fillNodeAndEdgeBuilders(diagramName, jsonArray, nodeBuilder, edgeBuilder, false);
       }
       
       fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
@@ -984,6 +996,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       _.append(" ").append(this.getDebugMode());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
@@ -1058,7 +1071,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             System.out.print(line);
          }
          
-         if (traceLength >= 50)
+         if (traceLength >= 9)
          {
             traceLength = traceLength + 0; // break here to stop on trace step i
          }
@@ -1127,6 +1140,34 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       ReachabilityGraph value = new ReachabilityGraph();
       withRgraph(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Pattern withName(String value)
+   {
+      setName(value);
+      return this;
    } 
 }
 
