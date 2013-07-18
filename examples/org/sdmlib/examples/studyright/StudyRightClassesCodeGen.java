@@ -21,15 +21,16 @@
 
 package org.sdmlib.examples.studyright;
 
+import static org.sdmlib.models.classes.Role.R.INT;
 import static org.sdmlib.models.classes.Role.R.MANY;
 import static org.sdmlib.models.classes.Role.R.ONE;
+import static org.sdmlib.models.classes.Role.R.STRING;
 
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -37,13 +38,10 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.scenarios.ScenarioManager;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
 {
-   private static final String INT = int.class.getSimpleName();
-private static final String STRING = String.class.getSimpleName();
 
 
 @Test
@@ -308,102 +306,6 @@ private static final String STRING = String.class.getSimpleName();
    }
 
    @Test
-   public void testStudyRightObjectScenarios()
-   {
-      Scenario scenario = new Scenario("examples", "StudyRightObjectScenarios");
-
-      scenario.add("Start situation: use University class to build object structure",
-         BACKLOG, "zuendorf", "25.03.2012 21:37:46", 0, 0);
-
-      University uni = new University()
-      .withName("StudyRight");
-
-      Student albert = new Student()
-      .withMatrNo(4242)
-      .withName("Albert")
-      .withUni(uni);
-
-      Student nina = new Student()
-      .withMatrNo(2323)
-      .withName("Nina")
-      .withUni(uni);
-
-      Room mathRoom = new Room()
-      .withRoomNo("math")
-      .withCredits(42)  
-      .withStudents(albert)
-      .withUni(uni); 
-
-      Room artsRoom = new Room()
-      .withRoomNo("arts")
-      .withCredits(23)
-      .withNeighbors(mathRoom)
-      .withUni(uni); 
-
-      Room sportsRoom = new Room()
-      .withRoomNo("sports")
-      .withCredits(23)
-      .withNeighbors(mathRoom)
-      .withNeighbors(artsRoom)
-      .withUni(uni); 
-
-      Room examRoom = new Room()
-      .withRoomNo("exam")
-      .withCredits(0)
-      .withNeighbors(sportsRoom)
-      .withNeighbors(artsRoom)
-      .withUni(uni);
-      
-      Room progMeth = new Room().withRoomNo("ProgMeth").withCredits(42).withNeighbors(artsRoom).withUni(uni);
-
-      scenario.add("step 1: dump object diagram", 
-         BACKLOG, "zuendorf joern alex", "21.05.2012 17:55:42", 1, 0);
-
-      JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
-      scenario.addObjectDiag(idMap, uni);
-
-      scenario.assertEquals("Number of students: " , 2, uni.getStudents().size()); 
-
-      scenario.add("step 2: add support for path navigation\n      call ");
-
-      scenario.markCodeStart();
-      int sum = albert.getUni().getRooms().getCredits().sum();
-      scenario.addCode("examples");
-
-      scenario.add(
-         "      shall compute to 88\n" +
-               "      Path classes are generated.", 
-               DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
-
-      // Assert.assertEquals("credits sum error", 88, sum);
-
-      scenario.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
-
-      scenario.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
-            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
-            DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
-
-      // scenario.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
-
-      scenario.add("step 3: call ");
-
-      scenario.recordSystemOut();
-
-      scenario.markCodeStart();
-      mathRoom.findPath("", 88);
-      scenario.addCode("examples");
-
-      scenario.add("System.out: \n" + scenario.getSystemOut());
-
-
-      ScenarioManager.get()
-      .add(scenario)
-      .dumpHTML();
-   }
-
-   @Test
    public void testStudyRightClassesCodeGen()
    {
       Scenario scenario = new Scenario("examples", "StudyRightClassesCodeGen");
@@ -412,9 +314,9 @@ private static final String STRING = String.class.getSimpleName();
       //============================================================
       scenario.add("1. generate class University");
 
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.studyright");
 
-      Clazz uniClass = new Clazz("org.sdmlib.examples.studyright.University")
+      Clazz uniClass = new Clazz("University")
       .withAttribute("name", STRING);
 
       scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses01"));
@@ -424,7 +326,7 @@ private static final String STRING = String.class.getSimpleName();
       scenario.add("2. generate class Student with new notation", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
-      Clazz studClass = new Clazz("org.sdmlib.examples.studyright.Student")
+      Clazz studClass = new Clazz("Student")
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
@@ -444,7 +346,7 @@ private static final String STRING = String.class.getSimpleName();
       //============================================================
       scenario.add("4. add uni --> room");
 
-      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      Clazz roomClass = new Clazz("Room")
       .withAttribute("roomNo", STRING)
       .withAttribute("credits", INT);
 
@@ -462,6 +364,18 @@ private static final String STRING = String.class.getSimpleName();
       .withTarget("in", roomClass, ONE);
 
       scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
+
+      
+      //============================================================
+      scenario.add("add assignments:");
+      
+      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
+            .withAttributes("name", STRING, "points", INT);
+      
+      studClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
+      .withAttributes("credits", INT, "motivation", INT);
+
+      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
 
       
       //============================================================
@@ -653,6 +567,14 @@ private static final String STRING = String.class.getSimpleName();
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   //==========================================================================
+   
+   public void testStudyRightObjectScenarios(  )
+   {
+      
    }
 }
 

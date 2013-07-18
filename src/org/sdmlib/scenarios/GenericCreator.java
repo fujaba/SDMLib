@@ -3,6 +3,7 @@ package org.sdmlib.scenarios;
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.utils.StrUtil;
 
@@ -61,13 +62,18 @@ public class GenericCreator extends EntityFactory
          {
             String methodName = method.getName();
             
-            if (methodName.startsWith("get") && ! methodName.equals("getClass"))
+            if (methodName.startsWith("get") 
+                  && ! methodName.equals("getClass")
+                  && ! methodName.equals("getPropertyChangeSupport"))
             {
                methodName = methodName.substring(3);
 
                methodName = StrUtil.downFirstChar(methodName);
                
-               fieldNames.add(methodName);
+               if ( ! "".equals(methodName.trim()))
+               {
+                  fieldNames.add(methodName);
+               }
             }
             
          }
@@ -85,16 +91,35 @@ public class GenericCreator extends EntityFactory
       return super.getProperties();
    }
 
+   private Object protoType = null;
    @Override
    public Object getSendableInstance(boolean prototyp)
    {
-      // TODO Auto-generated method stub
-      return super.getSendableInstance(prototyp);
+      if (protoType == null)
+      {
+         try
+         {
+            Class<?> clazz = Class.forName(className);
+            protoType = clazz.newInstance();
+         }
+         catch (Exception e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+      
+      return protoType;
    }
+
 
    @Override
    public Object getValue(Object entity, String attribute)
    {
+      if (entity == null)
+      {
+         return null;
+      }
       try
       {
          Class<?> clazz = Class.forName(className);

@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-390 125,-390 125,5 -4,5"/>
 <!-- _River -->
 <g id="node1" class="node"><title>_River</title>
-<a xlink:href="../src/org/sdmlib/models/patterns/example/ferrmansproblem/River.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/org/sdmlib/models/patterns/example/ferrmansproblem/River.java" xlink:target="stateGraph" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="51,-364 51,-381 80,-381 80,-364 51,-364"/>
 <text text-anchor="start" x="54.5" y="-370.5" font-family="Times New Roman,serif" font-size="10.00">River</text>
 </a>

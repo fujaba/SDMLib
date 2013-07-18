@@ -14,7 +14,7 @@ public class StudyRightClassesCodeGenPOCreator extends PatternObjectCreator
       return ((StudyRightClassesCodeGenPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((StudyRightClassesCodeGenPO) target).set(attrName, value);
    }

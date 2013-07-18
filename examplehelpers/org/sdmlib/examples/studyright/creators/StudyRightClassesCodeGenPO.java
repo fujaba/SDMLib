@@ -1,10 +1,27 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
+import org.sdmlib.examples.studyright.creators.StudyRightClassesCodeGenSet;
 
-public class StudyRightClassesCodeGenPO extends PatternObject
+public class StudyRightClassesCodeGenPO extends PatternObject<StudyRightClassesCodeGenPO, StudyRightClassesCodeGen>
 {
+   public StudyRightClassesCodeGenSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      StudyRightClassesCodeGenSet matches = new StudyRightClassesCodeGenSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((StudyRightClassesCodeGen) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+   
    
    //==========================================================================
    
@@ -61,5 +78,4 @@ public class StudyRightClassesCodeGenPO extends PatternObject
    }
 
 }
-
 

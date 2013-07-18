@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,56 +22,14 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyright.Professor;
 import org.sdmlib.examples.studyright.Topic;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.examples.studyright.creators.ProfessorSet;
+import org.sdmlib.examples.studyright.Professor;
 
-public class TopicSet extends LinkedHashSet<Topic>
+public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getTitle()
-   {
-      StringList result = new StringList();
-      
-      for (Topic obj : this)
-      {
-         result.add(obj.getTitle());
-      }
-      
-      return result;
-   }
-
-   public ProfessorSet getProf()
-   {
-      ProfessorSet result = new ProfessorSet();
-      
-      for (Topic obj : this)
-      {
-         result.add(obj.getProf());
-      }
-      
-      return result;
-   }
-   public TopicSet withTitle(String value)
-   {
-      for (Topic obj : this)
-      {
-         obj.withTitle(value);
-      }
-      
-      return this;
-   }
-
-   public TopicSet withProf(Professor value)
-   {
-      for (Topic obj : this)
-      {
-         obj.withProf(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
@@ -87,6 +45,12 @@ public class TopicSet extends LinkedHashSet<Topic>
    }
 
 
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyright.Topic";
+   }
+
+
    public TopicSet with(Topic value)
    {
       this.add(value);
@@ -98,14 +62,49 @@ public class TopicSet extends LinkedHashSet<Topic>
       this.remove(value);
       return this;
    }
-
-
-   public String getEntryType()
+   public StringList getTitle()
    {
-      return "org.sdmlib.examples.studyright.Topic";
+      StringList result = new StringList();
+      
+      for (Topic obj : this)
+      {
+         result.add(obj.getTitle());
+      }
+      
+      return result;
    }
+
+   public TopicSet withTitle(String value)
+   {
+      for (Topic obj : this)
+      {
+         obj.setTitle(value);
+      }
+      
+      return this;
+   }
+
+   public ProfessorSet getProf()
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Topic obj : this)
+      {
+         result.add(obj.getProf());
+      }
+      
+      return result;
+   }
+
+   public TopicSet withProf(Professor value)
+   {
+      for (Topic obj : this)
+      {
+         obj.withProf(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
 

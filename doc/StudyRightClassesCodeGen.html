@@ -6,7 +6,8 @@
 <embed type="image/svg+xml" src='StudyRightClasses01.svg'><pre>2. generate class Student with new notation</pre>
 <embed type="image/svg+xml" src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
 <embed type="image/svg+xml" src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
-<embed type="image/svg+xml" src='StudyRightClasses04.svg'><pre>5. generate generic set for attributes and assocs</pre>
+<embed type="image/svg+xml" src='StudyRightClasses04.svg'><pre>add assignments:</pre>
+<embed type="image/svg+xml" src='StudyRightClasses04b.svg'><pre>5. generate generic set for attributes and assocs</pre>
 <pre>Check: found method set(String,Object) in class student</pre>
 <pre>Check: found symtab entry for method set(String,Object) method:set(String,Object):boolean</pre>
 <pre>   public boolean set(String attrName, Object value)
@@ -32,6 +33,30 @@
       if (PROPERTY_IN.equalsIgnoreCase(attrName))
       {
          setIn((Room) value);
+         return true;
+      }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         addToDone((Assignment) value);
+         return true;
+      }
+      
+      if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromDone((Assignment) value);
+         return true;
+      }
+
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         setCredits(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      {
+         setMotivation(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -69,6 +94,21 @@
       {
          return getIn();
       }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         return getDone();
+      }
+
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         return getCredits();
+      }
+
+      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      {
+         return getMotivation();
+      }
       
       return null;
    }</pre>
@@ -76,9 +116,14 @@
 <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><pre>8. generate imports</pre>
 <pre>import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;</pre>
+import org.sdmlib.utils.StrUtil;
+
+import java.util.LinkedHashSet;
+
+import org.sdmlib.serialization.json.JsonIdMap;</pre>
 <pre>9. generate property change support</pre>
 <pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
 <pre>10. generate removeYou method</pre>
@@ -88,6 +133,7 @@ import org.sdmlib.utils.StrUtil;</pre>
    {
       setUni(null);
       setIn(null);
+      removeAllFromDone();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }</pre>
 <pre>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</pre>

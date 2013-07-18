@@ -21,7 +21,6 @@
     _Person ->  _Female [dir = "back" arrowtail = "empty"];
     _Person ->  _Male [dir = "back" arrowtail = "empty"];
     _Male ->  _Student [dir = "back" arrowtail = "empty"];
-    _Room -> _Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
     _Lecture -> _Room [headlabel = "in" taillabel = "lecture *" arrowhead = "none" ];
     _Room -> _University [headlabel = "uni" taillabel = "rooms *" arrowhead = "none" ];
     _Lecture -> _Professor [headlabel = "has" taillabel = "lecture *" arrowhead = "none" ];

@@ -24,11 +24,13 @@ package org.sdmlib.examples.studyright;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 
 public class Room implements PropertyChangeInterface
 {
@@ -85,6 +87,11 @@ public class Room implements PropertyChangeInterface
       {
          return getStudents();
       }
+
+      if (PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attrName))
+      {
+         return getAssignments();
+      }
       
       return null;
    }
@@ -136,6 +143,18 @@ public class Room implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attrName))
+      {
+         addToAssignments((Assignment) value);
+         return true;
+      }
+      
+      if ((PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromAssignments((Assignment) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -157,6 +176,7 @@ public class Room implements PropertyChangeInterface
       setUni(null);
       removeAllFromNeighbors();
       removeAllFromStudents();
+      removeAllFromAssignments();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -450,5 +470,98 @@ public class Room implements PropertyChangeInterface
       _.append(" ").append(this.getRoomNo());
       _.append(" ").append(this.getCredits());
       return _.substring(1);
-   }}
+   }
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Room ----------------------------------- Assignment
+    *              room                   assignments
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ASSIGNMENTS = "assignments";
+   
+   private AssignmentSet assignments = null;
+   
+   public AssignmentSet getAssignments()
+   {
+      if (this.assignments == null)
+      {
+         return Assignment.EMPTY_SET;
+      }
+   
+      return this.assignments;
+   }
+   
+   public boolean addToAssignments(Assignment value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.assignments == null)
+         {
+            this.assignments = new AssignmentSet();
+         }
+         
+         changed = this.assignments.add (value);
+         
+         if (changed)
+         {
+            value.withRoom(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromAssignments(Assignment value)
+   {
+      boolean changed = false;
+      
+      if ((this.assignments != null) && (value != null))
+      {
+         changed = this.assignments.remove (value);
+         
+         if (changed)
+         {
+            value.setRoom(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Room withAssignments(Assignment value)
+   {
+      addToAssignments(value);
+      return this;
+   } 
+   
+   public Room withoutAssignments(Assignment value)
+   {
+      removeFromAssignments(value);
+      return this;
+   } 
+   
+   public void removeAllFromAssignments()
+   {
+      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getAssignments());
+   
+      for (Assignment value : tmpSet)
+      {
+         this.removeFromAssignments(value);
+      }
+   }
+   
+   public Assignment createAssignments()
+   {
+      Assignment value = new Assignment();
+      withAssignments(value);
+      return value;
+   } 
+}
 

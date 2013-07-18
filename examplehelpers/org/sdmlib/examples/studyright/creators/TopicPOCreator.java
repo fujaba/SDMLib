@@ -14,7 +14,7 @@ public class TopicPOCreator extends PatternObjectCreator
       return ((TopicPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((TopicPO) target).set(attrName, value);
    }

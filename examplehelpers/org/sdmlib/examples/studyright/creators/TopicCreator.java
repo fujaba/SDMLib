@@ -1,8 +1,9 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.Topic;
+import org.sdmlib.examples.studyright.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.Topic;
 
 public class TopicCreator extends EntityFactory
 {
@@ -29,6 +30,10 @@ public class TopicCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Topic) target).set(attrName, value);
    }
    
@@ -46,5 +51,4 @@ public class TopicCreator extends EntityFactory
       ((Topic) entity).removeYou();
    }
 }
-
 

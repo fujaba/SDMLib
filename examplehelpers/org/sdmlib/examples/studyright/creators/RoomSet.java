@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,18 +22,64 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.creators.UniversitySet;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
+import org.sdmlib.examples.studyright.Assignment;
 
-public class RoomSet extends LinkedHashSet<Room>
+public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
-	private static final long serialVersionUID = 1L;
 
-public StringList getRoomNo()
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Room elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyright.Room";
+   }
+
+
+   public RoomSet with(Room value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public RoomSet without(Room value)
+   {
+      this.remove(value);
+      return this;
+   }
+   
+   //==========================================================================
+   
+   public RoomSet findPath(String p0, int p1)
+   {
+      for (Room obj : this)
+      {
+         obj.findPath( p0,  p1);
+      }
+      return this;
+   }
+
+   public StringList getRoomNo()
    {
       StringList result = new StringList();
       
@@ -43,6 +89,16 @@ public StringList getRoomNo()
       }
       
       return result;
+   }
+
+   public RoomSet withRoomNo(String value)
+   {
+      for (Room obj : this)
+      {
+         obj.setRoomNo(value);
+      }
+      
+      return this;
    }
 
    public intList getCredits()
@@ -57,6 +113,16 @@ public StringList getRoomNo()
       return result;
    }
 
+   public RoomSet withCredits(int value)
+   {
+      for (Room obj : this)
+      {
+         obj.setCredits(value);
+      }
+      
+      return this;
+   }
+
    public UniversitySet getUni()
    {
       UniversitySet result = new UniversitySet();
@@ -67,55 +133,6 @@ public StringList getRoomNo()
       }
       
       return result;
-   }
-   public RoomSet getNeighbors()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         result.addAll(obj.getNeighbors());
-      }
-      
-      return result;
-   }
-   public StudentSet getStudents()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Room obj : this)
-      {
-         result.addAll(obj.getStudents());
-      }
-      
-      return result;
-   }
-
-   public void findPath(String path, int i)
-   {
-      for (Room room : this)
-      {
-         room.findPath(path, i);
-      }
-   }
-   public RoomSet withRoomNo(String value)
-   {
-      for (Room obj : this)
-      {
-         obj.withRoomNo(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet withCredits(int value)
-   {
-      for (Room obj : this)
-      {
-         obj.withCredits(value);
-      }
-      
-      return this;
    }
 
    public RoomSet withUni(University value)
@@ -128,24 +145,16 @@ public StringList getRoomNo()
       return this;
    }
 
-   public RoomSet withNeighbors(Room value)
+   public StudentSet getStudents()
    {
+      StudentSet result = new StudentSet();
+      
       for (Room obj : this)
       {
-         obj.withNeighbors(value);
+         result.addAll(obj.getStudents());
       }
       
-      return this;
-   }
-
-   public RoomSet withoutNeighbors(Room value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutNeighbors(value);
-      }
-      
-      return this;
+      return result;
    }
 
    public RoomSet withStudents(Student value)
@@ -168,40 +177,37 @@ public StringList getRoomNo()
       return this;
    }
 
-
-
-   public String toString()
+   public AssignmentSet getAssignments()
    {
-      StringList stringList = new StringList();
+      AssignmentSet result = new AssignmentSet();
       
-      for (Room elem : this)
+      for (Room obj : this)
       {
-         stringList.add(elem.toString());
+         result.addAll(obj.getAssignments());
       }
       
-      return "(" + stringList.concat(", ") + ")";
+      return result;
    }
 
-
-   public RoomSet with(Room value)
+   public RoomSet withAssignments(Assignment value)
    {
-      this.add(value);
-      return this;
-   }
-   
-   public RoomSet without(Room value)
-   {
-      this.remove(value);
+      for (Room obj : this)
+      {
+         obj.withAssignments(value);
+      }
+      
       return this;
    }
 
-
-   public String getEntryType()
+   public RoomSet withoutAssignments(Assignment value)
    {
-      return "org.sdmlib.examples.studyright.Room";
+      for (Room obj : this)
+      {
+         obj.withoutAssignments(value);
+      }
+      
+      return this;
    }
+
 }
-
-
-
 

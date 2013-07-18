@@ -22,7 +22,7 @@
     _JsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/JsonIdMap.java">JsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SDMLibJsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/SDMLibJsonIdMap.java">SDMLibJsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _ReachabilityGraph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachabilityGraph.java">ReachabilityGraph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _ReachableState [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachableState.java">ReachableState</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>number :int</td></tr> <tr><td align='left'>graphRoot :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReachableState [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachableState.java">ReachableState</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>number :long</td></tr> <tr><td align='left'>graphRoot :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _RuleApplication [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/RuleApplication.java">RuleApplication</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>description :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
@@ -50,7 +50,6 @@
     _ReachableState -> _RuleApplication [headlabel = "ruleapplications *" taillabel = "src" arrowhead = "none" ];
     _RuleApplication -> _ReachableState [headlabel = "tgt" taillabel = "resultOf *" arrowhead = "none" ];
     _ReachabilityGraph -> _ReachableState [headlabel = "todo *" taillabel = "master" arrowhead = "none" ];
-    _ReachabilityGraph -> _Pattern [headlabel = "rules *" taillabel = "rgraph" arrowhead = "none" ];
     _Pattern -> _Pattern [headlabel = "currentSubPattern" taillabel = "" arrowhead = "vee" ];
     _Pattern -> _StringBuilder [headlabel = "trace" taillabel = "" arrowhead = "vee" ];
     _PatternObject -> _Object [headlabel = "currentMatch" taillabel = "" arrowhead = "vee" ];

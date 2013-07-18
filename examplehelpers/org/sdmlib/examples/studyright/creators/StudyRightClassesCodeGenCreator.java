@@ -1,9 +1,9 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 
 public class StudyRightClassesCodeGenCreator extends EntityFactory
 {
@@ -28,6 +28,10 @@ public class StudyRightClassesCodeGenCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((StudyRightClassesCodeGen) target).set(attrName, value);
    }
    
@@ -45,5 +49,4 @@ public class StudyRightClassesCodeGenCreator extends EntityFactory
       ((StudyRightClassesCodeGen) entity).removeYou();
    }
 }
-
 

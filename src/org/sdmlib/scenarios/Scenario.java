@@ -428,17 +428,12 @@ public class Scenario
    public void markCodeStart()
    {
       // store code start line number
-      try
-      {
-         throw new RuntimeException();
-      }
-      catch (Exception e)
-      {
-         StackTraceElement[] stackTrace = e.getStackTrace();
-         StackTraceElement callEntry = stackTrace[1];
-         codeStartLineNumber = callEntry.getLineNumber();
-      }
       
+      Exception e = new RuntimeException();
+      
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      codeStartLineNumber = callEntry.getLineNumber();
    }
 
    public void addCode(String rootDir)
@@ -446,19 +441,15 @@ public class Scenario
       String className = "";
       // store code end line number
       int codeEndLineNumber = -1;
-      try
-      {
-         throw new RuntimeException();
-      }
-      catch (Exception e)
-      {
-         StackTraceElement[] stackTrace = e.getStackTrace();
-         StackTraceElement callEntry = stackTrace[1];
-         codeEndLineNumber = callEntry.getLineNumber();
-         
-         className = callEntry.getClassName();
-      }
-      
+
+      Exception e = new RuntimeException();
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      codeEndLineNumber = callEntry.getLineNumber();
+
+      className = callEntry.getClassName();
+
+
       // open java file and copy code lines
       String fileName = rootDir + "/" + className.replaceAll("\\.", "/") + ".java";
       File file = new File(fileName);
@@ -495,9 +486,9 @@ public class Scenario
                }
             }
          }
-         catch (Exception e)
+         catch (Exception ioe)
          {
-            e.printStackTrace();
+            ioe.printStackTrace();
          }
       }
    }

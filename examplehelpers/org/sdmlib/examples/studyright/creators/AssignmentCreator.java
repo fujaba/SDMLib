@@ -3,14 +3,16 @@ package org.sdmlib.examples.studyright.creators;
 import org.sdmlib.examples.studyright.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.studyright.Professor;
+import org.sdmlib.examples.studyright.Assignment;
 
-public class ProfessorCreator extends EntityFactory
+public class AssignmentCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Professor.PROPERTY_NAME,
-      Professor.PROPERTY_TOPIC,
+      Assignment.PROPERTY_NAME,
+      Assignment.PROPERTY_POINTS,
+      Assignment.PROPERTY_ROOM,
+      Assignment.PROPERTY_STUDENTS,
    };
    
    public String[] getProperties()
@@ -20,12 +22,12 @@ public class ProfessorCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Professor();
+      return new Assignment();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Professor) target).get(attrName);
+      return ((Assignment) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
@@ -34,7 +36,7 @@ public class ProfessorCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-      return ((Professor) target).set(attrName, value);
+      return ((Assignment) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -48,7 +50,7 @@ public class ProfessorCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Professor) entity).removeYou();
+      ((Assignment) entity).removeYou();
    }
 }
 

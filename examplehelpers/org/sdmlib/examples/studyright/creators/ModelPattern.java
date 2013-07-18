@@ -1,11 +1,18 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.Professor;
-import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.Topic;
-import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.examples.studyright.creators.UniversityPO;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.creators.StudentPO;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.creators.RoomPO;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.AssignmentPO;
+import org.sdmlib.examples.studyright.Assignment;
+import org.sdmlib.examples.studyright.creators.ProfessorPO;
+import org.sdmlib.examples.studyright.Professor;
+import org.sdmlib.examples.studyright.creators.TopicPO;
+import org.sdmlib.examples.studyright.Topic;
 
 public class ModelPattern extends Pattern
 {
@@ -82,6 +89,30 @@ public class ModelPattern extends Pattern
    public RoomPO hasElementRoomPO(Room hostGraphObject)
    {
       RoomPO value = new RoomPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public AssignmentPO hasElementAssignmentPO()
+   {
+      AssignmentPO value = new AssignmentPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public AssignmentPO hasElementAssignmentPO(Assignment hostGraphObject)
+   {
+      AssignmentPO value = new AssignmentPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
       

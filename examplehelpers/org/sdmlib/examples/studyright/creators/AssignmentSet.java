@@ -22,15 +22,16 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.Assignment;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
-import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.Student;
 
-public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
+public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -38,7 +39,7 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
    {
       StringList stringList = new StringList();
       
-      for (University elem : this)
+      for (Assignment elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -49,17 +50,17 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.University";
+      return "org.sdmlib.examples.studyright.Assignment";
    }
 
 
-   public UniversitySet with(University value)
+   public AssignmentSet with(Assignment value)
    {
       this.add(value);
       return this;
    }
    
-   public UniversitySet without(University value)
+   public AssignmentSet without(Assignment value)
    {
       this.remove(value);
       return this;
@@ -68,7 +69,7 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
    {
       StringList result = new StringList();
       
-      for (University obj : this)
+      for (Assignment obj : this)
       {
          result.add(obj.getName());
       }
@@ -76,11 +77,55 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return result;
    }
 
-   public UniversitySet withName(String value)
+   public AssignmentSet withName(String value)
    {
-      for (University obj : this)
+      for (Assignment obj : this)
       {
          obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public intList getPoints()
+   {
+      intList result = new intList();
+      
+      for (Assignment obj : this)
+      {
+         result.add(obj.getPoints());
+      }
+      
+      return result;
+   }
+
+   public AssignmentSet withPoints(int value)
+   {
+      for (Assignment obj : this)
+      {
+         obj.setPoints(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet getRoom()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Assignment obj : this)
+      {
+         result.add(obj.getRoom());
+      }
+      
+      return result;
+   }
+
+   public AssignmentSet withRoom(Room value)
+   {
+      for (Assignment obj : this)
+      {
+         obj.withRoom(value);
       }
       
       return this;
@@ -90,61 +135,19 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
    {
       StudentSet result = new StudentSet();
       
-      for (University obj : this)
+      for (Assignment obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.add(obj.getStudents());
       }
       
       return result;
    }
 
-   public UniversitySet withStudents(Student value)
+   public AssignmentSet withStudents(Student value)
    {
-      for (University obj : this)
+      for (Assignment obj : this)
       {
          obj.withStudents(value);
-      }
-      
-      return this;
-   }
-
-   public UniversitySet withoutStudents(Student value)
-   {
-      for (University obj : this)
-      {
-         obj.withoutStudents(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet getRooms()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (University obj : this)
-      {
-         result.addAll(obj.getRooms());
-      }
-      
-      return result;
-   }
-
-   public UniversitySet withRooms(Room value)
-   {
-      for (University obj : this)
-      {
-         obj.withRooms(value);
-      }
-      
-      return this;
-   }
-
-   public UniversitySet withoutRooms(Room value)
-   {
-      for (University obj : this)
-      {
-         obj.withoutRooms(value);
       }
       
       return this;

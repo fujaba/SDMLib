@@ -312,10 +312,17 @@ public class UpdateListener implements PropertyChangeListener {
 						setValue(creator, masterObj, key, removeJsonObject,
 								IdMap.REMOVE);
 					} else {
-						if (checkValue(value, key, remove)) {
-							setValue(creator, masterObj, key,
-									creator.getValue(refObject, key),
+						if (checkValue(value, key, remove)) 
+						{
+						   if (value instanceof String)
+						   {
+						      setValue(creator, masterObj, key, null, IdMap.UPDATE);
+						   }
+						   else
+						   {
+						      setValue(creator, masterObj, key, creator.getValue(refObject, key),
 									IdMap.REMOVE);
+						   }
 						} else if (checkPrio(prio)) {
 							// RESET TO DEFAULTVALUE
 							setValue(creator, masterObj, key,

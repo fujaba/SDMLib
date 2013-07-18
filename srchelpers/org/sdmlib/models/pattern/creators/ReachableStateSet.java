@@ -235,7 +235,18 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       return this;
    }
 
+   public ReachableStateSet withNumber(long value)
+   {
+      for (ReachableState obj : this)
+      {
+         obj.setNumber(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

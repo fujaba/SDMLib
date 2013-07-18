@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,12 +22,43 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyright.StudyRightClassesCodeGen;
 import org.sdmlib.models.modelsets.StringList;
 
-public class StudyRightClassesCodeGenSet extends LinkedHashSet<StudyRightClassesCodeGen>
+public class StudyRightClassesCodeGenSet extends LinkedHashSet<StudyRightClassesCodeGen> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (StudyRightClassesCodeGen elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyright.StudyRightClassesCodeGen";
+   }
+
+
+   public StudyRightClassesCodeGenSet with(StudyRightClassesCodeGen value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public StudyRightClassesCodeGenSet without(StudyRightClassesCodeGen value)
+   {
+      this.remove(value);
+      return this;
+   }
    
    //==========================================================================
    
@@ -88,39 +119,5 @@ public class StudyRightClassesCodeGenSet extends LinkedHashSet<StudyRightClasses
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (StudyRightClassesCodeGen elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public StudyRightClassesCodeGenSet with(StudyRightClassesCodeGen value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public StudyRightClassesCodeGenSet without(StudyRightClassesCodeGen value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyright.StudyRightClassesCodeGen";
-   }
 }
-
-
 

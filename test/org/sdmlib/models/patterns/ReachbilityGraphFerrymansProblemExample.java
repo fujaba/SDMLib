@@ -1,6 +1,7 @@
 package org.sdmlib.models.patterns;
 
 import org.junit.Test;
+import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
@@ -11,6 +12,7 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatPO;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CargoPO;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CreatorCreator;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPatternCreator;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.RiverPO;
 import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -55,10 +57,15 @@ public class ReachbilityGraphFerrymansProblemExample
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
       .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
       
-      
+      //================================================
+      //      map.withCreator(new ModelPatternCreator());
+      //      FlipBook flipBook = new FlipBook().withMap(map); 
+      //      String id = map.getId(reachabilityGraph);
+      //      
       //================================================
       // load boat rule
       ModelPattern loadPattern = (ModelPattern) new ModelPattern().withName("load");
+      map.getId(loadPattern);
       
       RiverPO riverPO = loadPattern.hasElementRiverPO();
       

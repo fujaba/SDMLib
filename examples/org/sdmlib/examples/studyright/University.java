@@ -123,12 +123,22 @@ public class University implements PropertyChangeInterface
    }
 
    
+
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
+   
    //==========================================================================
    
    public static final String PROPERTY_NAME = "name";
    
    private String name;
-   
+
    public String getName()
    {
       return this.name;
@@ -235,6 +245,13 @@ public class University implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
+   
+   public Student createStudents()
+   {
+      Student value = new Student();
+      withStudents(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -321,12 +338,12 @@ public class University implements PropertyChangeInterface
          this.removeFromRooms(value);
       }
    }
-
-   public String toString()
+   
+   public Room createRooms()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      return _.substring(1);
-   }}
+      Room value = new Room();
+      withRooms(value);
+      return value;
+   } 
+}
 

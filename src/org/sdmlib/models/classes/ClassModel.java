@@ -230,7 +230,7 @@ public class ClassModel implements PropertyChangeInterface
 			
 			for (LocalVarTableEntry entry : localVarTable.values()) {
 			
-				if (entry.getType().equals("Clazz")) {
+				if (entry.getType() != null && entry.getType().equals("Clazz")) {
 					String type = entry.getInitSequence().get(0).get(1).replace("\"", "");
 					
 					if (clazzType.endsWith(type)) {

@@ -1,8 +1,9 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.Room;
 
 public class RoomCreator extends EntityFactory
 {
@@ -11,8 +12,9 @@ public class RoomCreator extends EntityFactory
       Room.PROPERTY_ROOMNO,
       Room.PROPERTY_CREDITS,
       Room.PROPERTY_UNI,
-      Room.PROPERTY_NEIGHBORS,
       Room.PROPERTY_STUDENTS,
+      Room.PROPERTY_ASSIGNMENTS,
+      Room.PROPERTY_NEIGHBORS,
    };
    
    public String[] getProperties()
@@ -32,6 +34,10 @@ public class RoomCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Room) target).set(attrName, value);
    }
    
@@ -49,55 +55,4 @@ public class RoomCreator extends EntityFactory
       ((Room) entity).removeYou();
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

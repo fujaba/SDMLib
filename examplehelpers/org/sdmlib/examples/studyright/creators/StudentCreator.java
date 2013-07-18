@@ -1,8 +1,9 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.Student;
 
 public class StudentCreator extends EntityFactory
 {
@@ -10,8 +11,11 @@ public class StudentCreator extends EntityFactory
    {
       Student.PROPERTY_NAME,
       Student.PROPERTY_MATRNO,
+      Student.PROPERTY_CREDITS,
+      Student.PROPERTY_MOTIVATION,
       Student.PROPERTY_UNI,
       Student.PROPERTY_IN,
+      Student.PROPERTY_DONE,
    };
    
    public String[] getProperties()
@@ -31,6 +35,10 @@ public class StudentCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Student) target).set(attrName, value);
    }
    
@@ -48,5 +56,4 @@ public class StudentCreator extends EntityFactory
       ((Student) entity).removeYou();
    }
 }
-
 

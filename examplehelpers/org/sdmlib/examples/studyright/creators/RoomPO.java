@@ -1,15 +1,39 @@
 package org.sdmlib.examples.studyright.creators;
 
-import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.University;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.RoomSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.studyright.creators.UniversityPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.studyright.creators.RoomPO;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.creators.StudentPO;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.creators.AssignmentPO;
+import org.sdmlib.examples.studyright.Assignment;
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
 
-public class RoomPO extends PatternObject
+public class RoomPO extends PatternObject<RoomPO, Room>
 {
+   public RoomSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      RoomSet matches = new RoomSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Room) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+   
    
    //==========================================================================
    
@@ -27,176 +51,11 @@ public class RoomPO extends PatternObject
       .withAttrName(Room.PROPERTY_ROOMNO)
       .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
       
-      return this;
-   }
-   
-   public RoomPO withRoomNo(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) getCurrentMatch()).withRoomNo(value);
-      }
-      return this;
-   }
-   
-   public RoomPO hasCredits(int value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RoomPO withCredits(int value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) getCurrentMatch()).withCredits(value);
-      }
-      return this;
-   }
-   
-   public UniversityPO hasUni()
-   {
-      UniversityPO result = new UniversityPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Room.PROPERTY_UNI)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
-   
-   public RoomPO hasUni(UniversityPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_UNI)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RoomPO withUni(UniversityPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) this.getCurrentMatch()).withUni((University) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public RoomPO hasNeighbors()
-   {
-      RoomPO result = new RoomPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Room.PROPERTY_NEIGHBORS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
-   
-   public RoomPO hasNeighbors(RoomPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_NEIGHBORS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RoomPO withNeighbors(RoomPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) this.getCurrentMatch()).withNeighbors((Room) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public RoomPO withoutNeighbors(RoomPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) this.getCurrentMatch()).withoutNeighbors((Room) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public StudentPO hasStudents()
-   {
-      StudentPO result = new StudentPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(Room.PROPERTY_STUDENTS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
-      
-      return result;
-   }
-   
-   public RoomPO hasStudents(StudentPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_STUDENTS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RoomPO withStudents(StudentPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) this.getCurrentMatch()).withStudents((Student) tgtPO.getCurrentMatch());
-      }
-      return this;
-   }
-   
-   public RoomPO withoutStudents(StudentPO tgtPO)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) this.getCurrentMatch()).withoutStudents((Student) tgtPO.getCurrentMatch());
-      }
       return this;
    }
    
@@ -209,6 +68,29 @@ public class RoomPO extends PatternObject
       return null;
    }
    
+   public RoomPO withRoomNo(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Room) getCurrentMatch()).setRoomNo(value);
+      }
+      return this;
+   }
+   
+   public RoomPO hasCredits(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -218,6 +100,39 @@ public class RoomPO extends PatternObject
       return 0;
    }
    
+   public RoomPO withCredits(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Room) getCurrentMatch()).setCredits(value);
+      }
+      return this;
+   }
+   
+   public UniversityPO hasUni()
+   {
+      UniversityPO result = new UniversityPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Room.PROPERTY_UNI, result);
+      
+      return result;
+   }
+
+   public RoomPO hasUni(UniversityPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_UNI)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
    public University getUni()
    {
       if (this.getPattern().getHasMatch())
@@ -226,16 +141,31 @@ public class RoomPO extends PatternObject
       }
       return null;
    }
-   
-   public RoomSet getNeighbors()
+
+   public StudentPO hasStudents()
    {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) this.getCurrentMatch()).getNeighbors();
-      }
-      return null;
+      StudentPO result = new StudentPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Room.PROPERTY_STUDENTS, result);
+      
+      return result;
    }
-   
+
+   public RoomPO hasStudents(StudentPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_STUDENTS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
    public StudentSet getStudents()
    {
       if (this.getPattern().getHasMatch())
@@ -244,8 +174,39 @@ public class RoomPO extends PatternObject
       }
       return null;
    }
-   
+
+   public AssignmentPO hasAssignments()
+   {
+      AssignmentPO result = new AssignmentPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Room.PROPERTY_ASSIGNMENTS, result);
+      
+      return result;
+   }
+
+   public RoomPO hasAssignments(AssignmentPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_ASSIGNMENTS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public AssignmentSet getAssignments()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getAssignments();
+      }
+      return null;
+   }
+
 }
-
-
 

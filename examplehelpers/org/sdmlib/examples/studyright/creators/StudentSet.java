@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,102 +22,19 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.creators.UniversitySet;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.creators.RoomSet;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
+import org.sdmlib.examples.studyright.Assignment;
 
-public class StudentSet extends LinkedHashSet<Student>
+public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
-	private static final long serialVersionUID = 1L;
-public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Student obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public intList getMatrNo()
-   {
-      intList result = new intList();
-      
-      for (Student obj : this)
-      {
-         result.add(obj.getMatrNo());
-      }
-      
-      return result;
-   }
-
-   public UniversitySet getUni()
-   {
-      UniversitySet result = new UniversitySet();
-      
-      for (Student obj : this)
-      {
-         result.add(obj.getUni());
-      }
-      
-      return result;
-   }
-   public RoomSet getIn()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Student obj : this)
-      {
-         result.add(obj.getIn());
-      }
-      
-      return result;
-   }
-   public StudentSet withName(String value)
-   {
-      for (Student obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet withMatrNo(int value)
-   {
-      for (Student obj : this)
-      {
-         obj.withMatrNo(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet withUni(University value)
-   {
-      for (Student obj : this)
-      {
-         obj.withUni(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet withIn(Room value)
-   {
-      for (Student obj : this)
-      {
-         obj.withIn(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
@@ -133,6 +50,12 @@ public StringList getName()
    }
 
 
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyright.Student";
+   }
+
+
    public StudentSet with(Student value)
    {
       this.add(value);
@@ -144,14 +67,169 @@ public StringList getName()
       this.remove(value);
       return this;
    }
-
-
-   public String getEntryType()
+   public StringList getName()
    {
-      return "org.sdmlib.examples.studyright.Student";
+      StringList result = new StringList();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
    }
+
+   public StudentSet withName(String value)
+   {
+      for (Student obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public intList getMatrNo()
+   {
+      intList result = new intList();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getMatrNo());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withMatrNo(int value)
+   {
+      for (Student obj : this)
+      {
+         obj.setMatrNo(value);
+      }
+      
+      return this;
+   }
+
+   public intList getCredits()
+   {
+      intList result = new intList();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getCredits());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withCredits(int value)
+   {
+      for (Student obj : this)
+      {
+         obj.setCredits(value);
+      }
+      
+      return this;
+   }
+
+   public intList getMotivation()
+   {
+      intList result = new intList();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getMotivation());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withMotivation(int value)
+   {
+      for (Student obj : this)
+      {
+         obj.setMotivation(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet getUni()
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getUni());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withUni(University value)
+   {
+      for (Student obj : this)
+      {
+         obj.withUni(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet getIn()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getIn());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withIn(Room value)
+   {
+      for (Student obj : this)
+      {
+         obj.withIn(value);
+      }
+      
+      return this;
+   }
+
+   public AssignmentSet getDone()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Student obj : this)
+      {
+         result.addAll(obj.getDone());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withoutDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withoutDone(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
 

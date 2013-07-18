@@ -1,5 +1,6 @@
 package org.sdmlib.scenarios;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
@@ -15,6 +16,16 @@ public class GenericIdMap extends SDMLibJsonIdMap
       else if (className.startsWith("java.lang."))
       {
          return null;
+      }
+      else if (className.endsWith("Set"))
+      {
+         String packageName = CGUtil.packageName(className);
+         
+         if (packageName.endsWith(".creators"))
+         {
+            return null;
+         }
+         
       }
       
       SendableEntityCreator sendableEntityCreator = this.creators.get(className);

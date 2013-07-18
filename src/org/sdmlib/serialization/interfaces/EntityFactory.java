@@ -20,7 +20,7 @@ public class EntityFactory implements SendableEntityCreator
    @Override
    public String[] getProperties()
    {
-      return null;
+      return new String[] {};
    }
 
    @Override

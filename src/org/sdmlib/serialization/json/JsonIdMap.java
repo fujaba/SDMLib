@@ -59,6 +59,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapFilter;
 import org.sdmlib.serialization.ReferenceObject;
@@ -71,6 +73,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.creator.JsonArrayCreator;
 import org.sdmlib.serialization.json.creator.JsonObjectCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 /**
  * The Class JsonIdMap.
@@ -891,6 +894,15 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   public FlipBook createFlipBook()
+   {
+      FlipBook flipBook = new FlipBook().init(this);
+      
+      this.withUpdateMsgListener(flipBook);
+
+      return flipBook;
    }
 }
 
