@@ -228,6 +228,11 @@ public class Role implements PropertyChangeInterface
          }
       }
       
+      //import partner role class if package name has changed
+      if(!StrUtil.stringEquals(clazz.getName().substring(0, clazz.getName().lastIndexOf(".")), partnerRole.getClazz().getName().substring(0, partnerRole.getClazz().getName().lastIndexOf(".")))){
+    	  clazz.insertImport(partnerRole.getClazz().getName());
+      }
+      
       insertCaseInGenericGet(clazz, myParser, partnerRole, rootDir);
 
       if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
