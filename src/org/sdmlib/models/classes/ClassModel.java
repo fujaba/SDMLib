@@ -847,10 +847,12 @@ public class ClassModel implements PropertyChangeInterface
 
 	public void updateFromCode(String includePathes, String packages)
 	{
-		// find java files
+		// find java files in parent directory
 		String binDir = getClass().getClassLoader().getResource(".").getPath();
-		String srcDir = binDir.substring(0, binDir.length() - 4);
-		File srcFolder = new File(srcDir);
+		
+		File binFolder = new File(binDir);
+		
+		File srcFolder = binFolder.getParentFile();
 
 		if (srcFolder != null)
 		{
