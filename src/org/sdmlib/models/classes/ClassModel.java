@@ -840,19 +840,28 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
+	@Deprecated
 	public void updateFromCode(String noLongerUsed, String includePathes, String packages)
 	{
 		updateFromCode(includePathes, packages);
 	}
 
-	public void updateFromCode(String includePathes, String packages)
+	public void updateFromCode(String includePathes, String packages){
+		String binDir = getClass().getClassLoader().getResource(".").getPath();
+		File binFolder = new File(binDir);
+		File srcFolder = binFolder.getParentFile();
+		
+		updateFromCode(includePathes,packages, srcFolder);
+	}
+	
+/*
+ * usage for maven project 
+ * model.updateFromCode("java", "org.package.name", new File((new File(this.getClass().getResource(".").getPath())).getParentFile().getParent() + "/src/main/" ));
+ */
+	
+	public void updateFromCode(String includePathes, String packages, File srcFolder)
 	{
 		// find java files in parent directory
-		String binDir = getClass().getClassLoader().getResource(".").getPath();
-		
-		File binFolder = new File(binDir);
-		
-		File srcFolder = binFolder.getParentFile();
 
 		if (srcFolder != null)
 		{
