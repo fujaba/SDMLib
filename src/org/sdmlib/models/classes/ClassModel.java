@@ -853,12 +853,12 @@ public class ClassModel implements PropertyChangeInterface
 		
 		updateFromCode(includePathes,packages, srcFolder);
 	}
-	
-/*
- * usage for maven project 
- * model.updateFromCode("java", "org.package.name", new File((new File(this.getClass().getResource(".").getPath())).getParentFile().getParent() + "/src/main/" ));
- */
-	
+
+	/*
+	 * usage for maven project 
+	 * model.updateFromCode("java", "org.package.name", new File((new File(this.getClass().getResource(".").getPath())).getParentFile().getParent() + "/src/main/" ));
+	 */
+
 	public void updateFromCode(String includePathes, String packages, File srcFolder)
 	{
 		// find java files in parent directory

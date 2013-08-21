@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -501,7 +502,12 @@ public class Clazz implements PropertyChangeInterface
                      "\n   {" +
                      "\n      return listeners;" +
                      "\n   }" +
-                     "\n"
+                     "\n   " +
+                     "\n   public void addPropertyChangeListener(PropertyChangeListener listener) " + 
+                     "\n   {" + 
+                     "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" + 
+                     "\n   }" +
+                     "\n"  
                      );
 
          parser.getFileBody().insert(pos, text.toString());
@@ -509,6 +515,7 @@ public class Clazz implements PropertyChangeInterface
       }
 
       insertImport(PropertyChangeSupport.class.getName());
+      insertImport(PropertyChangeListener.class.getName());
    }
 
    private void insertImplementsClauseForPropertyChangeInterface()
