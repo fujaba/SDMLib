@@ -31,6 +31,7 @@ import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Attribute implements PropertyChangeInterface 
 {
@@ -114,21 +115,29 @@ public class Attribute implements PropertyChangeInterface
       return this;
    }
 
+   public static final String PROPERTY_TYPE = "type";
+   
    private String type = null;
+
+   public void setType(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.type, value))
+      {
+         String oldValue = this.type;
+         this.type = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
+      }
+   }
+   
+   public Attribute withType(String value)
+   {
+      setType(value);
+      return this;
+   } 
 
    public String getType()
    {
       return type;
-   }
-
-   public void setType(String type)
-   {
-      this.type = type;
-   }
-   public Attribute withType(String string)
-   {
-      setType(string);
-      return this;
    }
 
    public Attribute generate(String rootDir, String helpersDir)
@@ -1207,6 +1216,11 @@ public class Attribute implements PropertyChangeInterface
          return getClazz();
       }
 
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return getType();
+      }
+
       return null;
    }
 
@@ -1239,6 +1253,12 @@ public class Attribute implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         setType((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -1257,6 +1277,7 @@ public class Attribute implements PropertyChangeInterface
    {
    	// StringBuilder _ = new StringBuilder();
    	// _.append(" ").append(this.getInitialization());
+      // _.append(" ").append(this.getType());
       return "" + name + " : " + type;
    }
    
@@ -1267,7 +1288,6 @@ public class Attribute implements PropertyChangeInterface
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 
 }
 

@@ -24,6 +24,7 @@ package org.sdmlib.models.classes;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -995,6 +996,32 @@ public class Clazz implements PropertyChangeInterface
                CGUtil.replaceAll(text, 
                   "((entitiyClassName) target).get(attrName)", "null", 
                   "((entitiyClassName) target).set(attrName, value)", "false");
+               
+               // check if it has a constructor
+               ClassLoader classLoader = this.getClass().getClassLoader();
+               
+               boolean hasConstructor = false;
+               
+               try
+               {
+                  Class<?> loadClass = classLoader.loadClass(this.getName());
+                  
+                  if (loadClass != null)
+                  {
+                     Constructor<?> constructor = loadClass.getConstructor(null);
+                     
+                     hasConstructor = constructor != null;
+                  }
+               }
+               catch (Exception e)
+               {
+               }
+               
+               if (! hasConstructor)
+               {
+                  CGUtil.replaceAll(text, 
+                     "new entitiyClassName()", "null"); 
+               }
             }
 
             CGUtil.replaceAll(text, 

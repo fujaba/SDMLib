@@ -55,6 +55,7 @@ import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface
 {
@@ -109,13 +110,14 @@ public class ClassModel implements PropertyChangeInterface
 
 	public ClassModel generate(String rootDir, String helpersDir)
 	{
-		Exception e = new RuntimeException();
-		attributNameConsistenceCheck(e, rootDir);
-		
 		resetParsers();
+		
+		addHelperClassesForUnknownAttributeTypes();
+
 		generateCreatorCreatorClass(helpersDir);
 		generateModelPatternClass(helpersDir);
-
+		
+		
 		for (Clazz clazz : getClasses())
 		{
 			clazz.generate(rootDir, helpersDir);
@@ -126,10 +128,35 @@ public class ClassModel implements PropertyChangeInterface
 			assoc.generate(rootDir, helpersDir, false);
 		}
 
+		Exception e = new RuntimeException();
+
+      attributNameConsistenceCheck(e, rootDir);
+	   
 		return this;
 	}
 
-	private void attributNameConsistenceCheck(Exception e, String rootDir) {
+	private void addHelperClassesForUnknownAttributeTypes()
+   {
+      // for attribute types like java.util.Date we add a class with that name and mark it as wrapped. This generates the required DateSet class.
+      for (String typeName : this.getClasses().getAttributes().getType())
+      {
+         int pos = "int float double long String boolean".indexOf(typeName);
+         
+         if (pos < 0)
+         {
+            // seems to be a non trivial type. We should have a clazz with that type
+            Clazz clazz = this.getClazz(typeName);
+            
+            if (clazz == null)
+            {
+               // class is missing, create it.
+               createClazz(typeName).withWrapped(true);
+            }
+         }
+      }
+   }
+
+   private void attributNameConsistenceCheck(Exception e, String rootDir) {
 	
 		StackTraceElement[] stackTrace = e.getStackTrace();
 		StackTraceElement secondStackTraceElement = stackTrace[1];
@@ -591,7 +618,9 @@ public class ClassModel implements PropertyChangeInterface
 
 		// add classes
 		StringBuilder modelClassesText = new StringBuilder();
-
+		
+		addHelperClassesForUnknownAttributeTypes();
+		
 		for (Clazz clazz : this.getClasses())
 		{
 			StringBuilder modelClassText = new StringBuilder(

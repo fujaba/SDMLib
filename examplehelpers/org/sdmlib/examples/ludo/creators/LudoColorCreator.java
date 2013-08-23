@@ -3,16 +3,12 @@ package org.sdmlib.examples.ludo.creators;
 import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 
-public class LudoCreator extends EntityFactory
+public class LudoColorCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Ludo.PROPERTY_DATE,
-      Ludo.PROPERTY_PLAYERS,
-      Ludo.PROPERTY_DICE,
-      Ludo.PROPERTY_FIELDS,
    };
    
    public String[] getProperties()
@@ -22,12 +18,12 @@ public class LudoCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Ludo();
+      return null;
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Ludo) target).get(attrName);
+      return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
@@ -36,7 +32,7 @@ public class LudoCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-      return ((Ludo) target).set(attrName, value);
+      return false;
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -50,7 +46,7 @@ public class LudoCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Ludo) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }
 

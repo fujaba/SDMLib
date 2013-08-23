@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.ludo;
 
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.examples.ludo.creators.PawnSet;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.ludo.creators.PawnSet;
 
 public class Pawn implements PropertyChangeInterface
 {
@@ -35,25 +35,17 @@ public class Pawn implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_COLOR.equalsIgnoreCase(attribute))
+      if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
       {
          return getColor();
       }
 
-      if (PROPERTY_X.equalsIgnoreCase(attribute))
+      if (PROPERTY_X.equalsIgnoreCase(attrName))
       {
          return getX();
       }
 
-      if (PROPERTY_Y.equalsIgnoreCase(attribute))
+      if (PROPERTY_Y.equalsIgnoreCase(attrName))
       {
          return getY();
       }
@@ -67,7 +59,7 @@ public class Pawn implements PropertyChangeInterface
       {
          return getPos();
       }
-      
+
       return null;
    }
 
@@ -118,6 +110,11 @@ public class Pawn implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -156,6 +153,17 @@ public class Pawn implements PropertyChangeInterface
       setColor(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getColor());
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      return _.substring(1);
+   }
+
 
    
    //==========================================================================
@@ -333,16 +341,5 @@ public class Pawn implements PropertyChangeInterface
       withPos(value);
       return value;
    } 
-
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getColor());
-      _.append(" ").append(this.getX());
-      _.append(" ").append(this.getY());
-      return _.substring(1);
-   }
-
 }
 

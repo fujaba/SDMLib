@@ -1,8 +1,9 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.Field;
 
 public class FieldCreator extends EntityFactory
 {
@@ -12,6 +13,7 @@ public class FieldCreator extends EntityFactory
       Field.PROPERTY_KIND,
       Field.PROPERTY_X,
       Field.PROPERTY_Y,
+      Field.PROPERTY_POINT,
       Field.PROPERTY_GAME,
       Field.PROPERTY_NEXT,
       Field.PROPERTY_PREV,
@@ -40,6 +42,10 @@ public class FieldCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Field) target).set(attrName, value);
    }
    

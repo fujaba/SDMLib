@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,14 @@
    
 package org.sdmlib.examples.ludo;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.ludo.creators.PawnSet;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.creators.PawnSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Player implements PropertyChangeInterface
 {
@@ -38,30 +38,27 @@ public class Player implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_COLOR.equalsIgnoreCase(attribute))
+      if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
       {
          return getColor();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attrName))
+      {
+         return getEnumColor();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
       }
 
-      if (PROPERTY_X.equalsIgnoreCase(attribute))
+      if (PROPERTY_X.equalsIgnoreCase(attrName))
       {
          return getX();
       }
 
-      if (PROPERTY_Y.equalsIgnoreCase(attribute))
+      if (PROPERTY_Y.equalsIgnoreCase(attrName))
       {
          return getY();
       }
@@ -106,11 +103,6 @@ public class Player implements PropertyChangeInterface
          return getPawns();
       }
 
-      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attribute))
-      {
-         return getEnumColor();
-      }
-
       return null;
    }
 
@@ -122,6 +114,12 @@ public class Player implements PropertyChangeInterface
       if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
       {
          setColor((String) value);
+         return true;
+      }
+
+      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attrName))
+      {
+         setEnumColor((org.sdmlib.examples.ludo.LudoModel.LudoColor) value);
          return true;
       }
 
@@ -197,12 +195,6 @@ public class Player implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_ENUMCOLOR.equalsIgnoreCase(attrName))
-      {
-         setEnumColor((org.sdmlib.examples.ludo.LudoModel.LudoColor) value);
-         return true;
-      }
-
       return false;
    }
 
@@ -214,6 +206,11 @@ public class Player implements PropertyChangeInterface
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -257,6 +254,46 @@ public class Player implements PropertyChangeInterface
    public Player withColor(String value)
    {
       setColor(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getColor());
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      return _.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ENUMCOLOR = "enumColor";
+   
+   private org.sdmlib.examples.ludo.LudoModel.LudoColor enumColor;
+
+   public org.sdmlib.examples.ludo.LudoModel.LudoColor getEnumColor()
+   {
+      return this.enumColor;
+   }
+   
+   public void setEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   {
+      if (this.enumColor != value)
+      {
+         org.sdmlib.examples.ludo.LudoModel.LudoColor oldValue = this.enumColor;
+         this.enumColor = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMCOLOR, oldValue, value);
+      }
+   }
+   
+   public Player withEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   {
+      setEnumColor(value);
       return this;
    } 
 
@@ -852,45 +889,5 @@ public class Player implements PropertyChangeInterface
       withPawns(value);
       return value;
    } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_ENUMCOLOR = "enumColor";
-   
-   private org.sdmlib.examples.ludo.LudoModel.LudoColor enumColor;
-
-   public org.sdmlib.examples.ludo.LudoModel.LudoColor getEnumColor()
-   {
-      return this.enumColor;
-   }
-   
-   public void setEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
-   {
-      if (this.enumColor != value)
-      {
-         org.sdmlib.examples.ludo.LudoModel.LudoColor oldValue = this.enumColor;
-         this.enumColor = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMCOLOR, oldValue, value);
-      }
-   }
-   
-   public Player withEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
-   {
-      setEnumColor(value);
-      return this;
-   } 
-
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getColor());
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getX());
-      _.append(" ").append(this.getY());
-      return _.substring(1);
-   }
-
 }
 

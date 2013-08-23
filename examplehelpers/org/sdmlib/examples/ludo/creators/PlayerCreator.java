@@ -1,14 +1,16 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.Player;
 
 public class PlayerCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
       Player.PROPERTY_COLOR,
+      Player.PROPERTY_ENUMCOLOR,
       Player.PROPERTY_NAME,
       Player.PROPERTY_X,
       Player.PROPERTY_Y,
@@ -20,7 +22,6 @@ public class PlayerCreator extends EntityFactory
       Player.PROPERTY_BASE,
       Player.PROPERTY_LANDING,
       Player.PROPERTY_PAWNS,
-      Player.PROPERTY_ENUMCOLOR,
    };
    
    public String[] getProperties()
@@ -40,6 +41,10 @@ public class PlayerCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Player) target).set(attrName, value);
    }
    
@@ -57,6 +62,4 @@ public class PlayerCreator extends EntityFactory
       ((Player) entity).removeYou();
    }
 }
-
-
 

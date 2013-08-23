@@ -1,8 +1,9 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.Pawn;
 
 public class PawnCreator extends EntityFactory
 {
@@ -32,6 +33,10 @@ public class PawnCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Pawn) target).set(attrName, value);
    }
    

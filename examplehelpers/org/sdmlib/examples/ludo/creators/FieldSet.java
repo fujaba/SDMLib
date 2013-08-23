@@ -1,16 +1,75 @@
+/*
+   Copyright (c) 2013 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Pawn;
-import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.PointSet;
+import java.awt.Point;
+import org.sdmlib.examples.ludo.creators.LudoSet;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.examples.ludo.creators.PawnSet;
+import org.sdmlib.examples.ludo.Pawn;
 
-public class FieldSet extends LinkedHashSet<Field>
+public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Field elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Field";
+   }
+
+
+   public FieldSet with(Field value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FieldSet without(Field value)
+   {
+      this.remove(value);
+      return this;
+   }
    public StringList getColor()
    {
       StringList result = new StringList();
@@ -27,7 +86,7 @@ public class FieldSet extends LinkedHashSet<Field>
    {
       for (Field obj : this)
       {
-         obj.withColor(value);
+         obj.setColor(value);
       }
       
       return this;
@@ -49,7 +108,7 @@ public class FieldSet extends LinkedHashSet<Field>
    {
       for (Field obj : this)
       {
-         obj.withKind(value);
+         obj.setKind(value);
       }
       
       return this;
@@ -71,7 +130,7 @@ public class FieldSet extends LinkedHashSet<Field>
    {
       for (Field obj : this)
       {
-         obj.withX(value);
+         obj.setX(value);
       }
       
       return this;
@@ -93,7 +152,29 @@ public class FieldSet extends LinkedHashSet<Field>
    {
       for (Field obj : this)
       {
-         obj.withY(value);
+         obj.setY(value);
+      }
+      
+      return this;
+   }
+
+   public PointSet getPoint()
+   {
+      PointSet result = new PointSet();
+      
+      for (Field obj : this)
+      {
+         result.add(obj.getPoint());
+      }
+      
+      return result;
+   }
+
+   public FieldSet withPoint(Point value)
+   {
+      for (Field obj : this)
+      {
+         obj.setPoint(value);
       }
       
       return this;
@@ -110,6 +191,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withGame(Ludo value)
    {
       for (Field obj : this)
@@ -131,6 +213,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withNext(Field value)
    {
       for (Field obj : this)
@@ -152,6 +235,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withPrev(Field value)
    {
       for (Field obj : this)
@@ -173,6 +257,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withLanding(Field value)
    {
       for (Field obj : this)
@@ -194,6 +279,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withEntry(Field value)
    {
       for (Field obj : this)
@@ -215,6 +301,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withStarter(Player value)
    {
       for (Field obj : this)
@@ -236,6 +323,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withBaseowner(Player value)
    {
       for (Field obj : this)
@@ -257,6 +345,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withLander(Player value)
    {
       for (Field obj : this)
@@ -278,6 +367,7 @@ public class FieldSet extends LinkedHashSet<Field>
       
       return result;
    }
+
    public FieldSet withPawns(Pawn value)
    {
       for (Field obj : this)
@@ -298,39 +388,5 @@ public class FieldSet extends LinkedHashSet<Field>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Field elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public FieldSet with(Field value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public FieldSet without(Field value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.ludo.Field";
-   }
 }
-
-
 

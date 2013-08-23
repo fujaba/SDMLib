@@ -5,6 +5,8 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.creators.AttributeSet;
+import org.sdmlib.models.classes.creators.ClazzPO;
 
 public class AttributePO extends PatternObject
 {
@@ -88,5 +90,38 @@ public class AttributePO extends PatternObject
       return null;
    }
    
+   public AttributePO hasType(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Attribute.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getType()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Attribute) getCurrentMatch()).getType();
+      }
+      return null;
+   }
+   
+   public AttributePO withType(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Attribute) getCurrentMatch()).setType(value);
+      }
+      return this;
+   }
+   
 }
+
 

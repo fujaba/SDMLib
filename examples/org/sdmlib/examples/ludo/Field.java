@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,14 @@
    
 package org.sdmlib.examples.ludo;
 
+import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
+import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
 import org.sdmlib.examples.ludo.creators.FieldSet;
 import org.sdmlib.examples.ludo.creators.PawnSet;
+import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
 
 public class Field implements PropertyChangeInterface
 {
@@ -38,32 +38,29 @@ public class Field implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_COLOR.equalsIgnoreCase(attribute))
+      if (PROPERTY_COLOR.equalsIgnoreCase(attrName))
       {
          return getColor();
       }
 
-      if (PROPERTY_KIND.equalsIgnoreCase(attribute))
+      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
          return getKind();
       }
 
-      if (PROPERTY_X.equalsIgnoreCase(attribute))
+      if (PROPERTY_X.equalsIgnoreCase(attrName))
       {
          return getX();
       }
 
-      if (PROPERTY_Y.equalsIgnoreCase(attribute))
+      if (PROPERTY_Y.equalsIgnoreCase(attrName))
       {
          return getY();
+      }
+
+      if (PROPERTY_POINT.equalsIgnoreCase(attrName))
+      {
+         return getPoint();
       }
 
       if (PROPERTY_GAME.equalsIgnoreCase(attrName))
@@ -110,7 +107,7 @@ public class Field implements PropertyChangeInterface
       {
          return getPawns();
       }
-      
+
       return null;
    }
 
@@ -140,6 +137,12 @@ public class Field implements PropertyChangeInterface
       if (PROPERTY_Y.equalsIgnoreCase(attrName))
       {
          setY(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_POINT.equalsIgnoreCase(attrName))
+      {
+         setPoint((java.awt.Point) value);
          return true;
       }
 
@@ -215,6 +218,11 @@ public class Field implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -260,6 +268,18 @@ public class Field implements PropertyChangeInterface
       setColor(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getColor());
+      _.append(" ").append(this.getKind());
+      _.append(" ").append(this.getX());
+      _.append(" ").append(this.getY());
+      return _.substring(1);
+   }
+
 
    
    //==========================================================================
@@ -342,6 +362,34 @@ public class Field implements PropertyChangeInterface
    public Field withY(int value)
    {
       setY(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_POINT = "point";
+   
+   private java.awt.Point point;
+
+   public java.awt.Point getPoint()
+   {
+      return this.point;
+   }
+   
+   public void setPoint(java.awt.Point value)
+   {
+      if (this.point != value)
+      {
+         java.awt.Point oldValue = this.point;
+         this.point = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_POINT, oldValue, value);
+      }
+   }
+   
+   public Field withPoint(java.awt.Point value)
+   {
+      setPoint(value);
       return this;
    } 
 
@@ -912,17 +960,5 @@ public class Field implements PropertyChangeInterface
       withPawns(value);
       return value;
    } 
-
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getColor());
-      _.append(" ").append(this.getKind());
-      _.append(" ").append(this.getX());
-      _.append(" ").append(this.getY());
-      return _.substring(1);
-   }
-
 }
 

@@ -1,11 +1,16 @@
 package org.sdmlib.examples.ludo.creators;
 
-import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Player;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.ludo.Dice;
+import org.sdmlib.examples.ludo.creators.DiceSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.ludo.creators.LudoPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.ludo.creators.DicePO;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.creators.PlayerPO;
+import org.sdmlib.examples.ludo.Player;
 
 public class DicePO extends PatternObject<DicePO, Dice>
 {
@@ -48,6 +53,15 @@ public class DicePO extends PatternObject<DicePO, Dice>
       return 0;
    }
    
+   public DicePO withValue(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Dice) getCurrentMatch()).setValue(value);
+      }
+      return this;
+   }
+   
    public LudoPO hasGame()
    {
       LudoPO result = new LudoPO();
@@ -57,7 +71,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       
       return result;
    }
-   
+
    public DicePO hasGame(LudoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -71,7 +85,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       
       return this;
    }
-   
+
    public Ludo getGame()
    {
       if (this.getPattern().getHasMatch())
@@ -80,7 +94,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       }
       return null;
    }
-   
+
    public PlayerPO hasPlayer()
    {
       PlayerPO result = new PlayerPO();
@@ -90,7 +104,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       
       return result;
    }
-   
+
    public DicePO hasPlayer(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -104,7 +118,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       
       return this;
    }
-   
+
    public Player getPlayer()
    {
       if (this.getPattern().getHasMatch())
@@ -113,6 +127,6 @@ public class DicePO extends PatternObject<DicePO, Dice>
       }
       return null;
    }
-   
+
 }
 

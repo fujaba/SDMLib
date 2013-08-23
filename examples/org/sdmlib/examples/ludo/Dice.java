@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,9 +21,9 @@
    
 package org.sdmlib.examples.ludo;
 
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
 public class Dice implements PropertyChangeInterface
 {
@@ -33,34 +33,21 @@ public class Dice implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-         attrName= attrName.substring(pos+1);
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
+      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
          return getValue();
       }
 
-      if (PROPERTY_GAME.equalsIgnoreCase(attribute))
+      if (PROPERTY_GAME.equalsIgnoreCase(attrName))
       {
-         Ludo value=getGame();
-         if(value!=null&&pos>0){
-           return value.get(attrName); 
-         }
-         return value;
+         return getGame();
       }
 
-      if (PROPERTY_PLAYER.equalsIgnoreCase(attribute))
+      if (PROPERTY_PLAYER.equalsIgnoreCase(attrName))
       {
          return getPlayer();
       }
-      
+
       return null;
    }
 
@@ -98,6 +85,11 @@ public class Dice implements PropertyChangeInterface
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -137,6 +129,15 @@ public class Dice implements PropertyChangeInterface
       setValue(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getValue());
+      return _.substring(1);
+   }
+
 
    
    /********************************************************************
@@ -255,14 +256,5 @@ public class Dice implements PropertyChangeInterface
       withPlayer(value);
       return value;
    } 
-
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getValue());
-      return _.substring(1);
-   }
-
 }
 

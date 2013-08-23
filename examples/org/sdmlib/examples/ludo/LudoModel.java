@@ -4,6 +4,7 @@ import static org.sdmlib.models.classes.Role.R.MANY;
 import static org.sdmlib.models.classes.Role.R.ONE;
 
 import java.awt.Point;
+import java.util.Date;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
@@ -41,7 +42,7 @@ public class LudoModel
       
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
             
-      Clazz ludo = model.createClazz("Ludo");
+      Clazz ludo = model.createClazz("Ludo").withAttribute("date", Date.class.getName());
       
       Clazz point = model.createClazz(Point.class.getName(),
          "x", INT,
@@ -59,16 +60,6 @@ public class LudoModel
          "x", INT,
          "y", INT);
 
-      player.withAttributes(
-         "color", "String",
-         /*add attribut*/
-         "enumColor", "org.sdmlib.examples.ludo.LudoModel.LudoColor",
-         /*add attribut*/
-         "name", "String",
-         /*add attribut*/
-         "x", "int",
-         /*add attribut*/
-         "y", "int");
       
       player.withAssoc(player, "next", ONE, "prev", ONE);
       
@@ -78,15 +69,14 @@ public class LudoModel
       
       player.withAssoc(dice, "dice", ONE, "player", ONE);
       
-      // player.withAssoc(dice, "dice", MANY, "player", ONE);
-      
       Clazz field = ludo.createClassAndAssoc("Field", "fields", MANY, "game", ONE);
       
       field.withAttributes(
          "color", STRING,
          "kind", STRING,
          "x", INT,
-         "y", INT);
+         "y", INT, 
+         "point", point.getName());
       
       field.withAssoc(field, "next", ONE, "prev", ONE);
       
@@ -99,22 +89,7 @@ public class LudoModel
       player.withAssoc(field, "landing", ONE, "lander", ONE);
       
       Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", MANY, "player", ONE);
-
-
-      Clazz pointClass = new Clazz("java.awt.Point")
-      .withAttribute("x", "int")
-      .withAttribute("y", "int").withWrapped(true);
-
-      Clazz ludoScenarioClass = new Clazz("org.sdmlib.examples.ludo.LudoScenario");
-
-      new Method()
-			.withClazz(ludoScenarioClass)
-			.withSignature("testLudoScenario()");
-
-      new Method()
-			.withClazz(ludoScenarioClass)
-			.withSignature("testLudoScenarioManual()");
-         
+               
       pawn.withAttributes(   
          "color", STRING,
          "x", INT,
@@ -122,9 +97,9 @@ public class LudoModel
 
       pawn.withAssoc(field, "pos", ONE, "pawns", MANY);
       
-      model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");
+      // model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");
 
-      model.insertModelCreationCodeHere("examples");
+      // model.insertModelCreationCodeHere("examples");
 
       
       scenario.addImage(model.dumpClassDiag("examples", "LudoModel01"));

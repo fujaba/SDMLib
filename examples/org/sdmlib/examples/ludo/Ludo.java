@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.ludo;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.ludo.creators.FieldSet;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.ludo.creators.FieldSet;
 
 public class Ludo implements PropertyChangeInterface
 {
@@ -37,12 +37,9 @@ public class Ludo implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
+      if (PROPERTY_DATE.equalsIgnoreCase(attrName))
       {
-         attribute = attrName.substring(0, pos);
+         return getDate();
       }
 
       if (PROPERTY_PLAYERS.equalsIgnoreCase(attrName))
@@ -59,7 +56,7 @@ public class Ludo implements PropertyChangeInterface
       {
          return getFields();
       }
-      
+
       return null;
    }
 
@@ -68,6 +65,12 @@ public class Ludo implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_DATE.equalsIgnoreCase(attrName))
+      {
+         setDate((java.util.Date) value);
+         return true;
+      }
+
       if (PROPERTY_PLAYERS.equalsIgnoreCase(attrName))
       {
          addToPlayers((Player) value);
@@ -110,6 +113,11 @@ public class Ludo implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -121,6 +129,34 @@ public class Ludo implements PropertyChangeInterface
       removeAllFromFields();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_DATE = "date";
+   
+   private java.util.Date date;
+
+   public java.util.Date getDate()
+   {
+      return this.date;
+   }
+   
+   public void setDate(java.util.Date value)
+   {
+      if (this.date != value)
+      {
+         java.util.Date oldValue = this.date;
+         this.date = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
+      }
+   }
+   
+   public Ludo withDate(java.util.Date value)
+   {
+      setDate(value);
+      return this;
+   } 
 
    
    /********************************************************************

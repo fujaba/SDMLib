@@ -19,67 +19,21 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 
-public class AttributeSet extends LinkedHashSet<Attribute>
+public class LudoColorSet extends LinkedHashSet<LudoColor> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getInitialization()
-   {
-      StringList result = new StringList();
-      
-      for (Attribute obj : this)
-      {
-         result.add(obj.getInitialization());
-      }
-      
-      return result;
-   }
-
-   public AttributeSet withInitialization(String value)
-   {
-      for (Attribute obj : this)
-      {
-         obj.withInitialization(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getClazz()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Attribute obj : this)
-      {
-         result.add(obj.getClazz());
-      }
-      
-      return result;
-   }
-   public AttributeSet withClazz(Clazz value)
-   {
-      for (Attribute obj : this)
-      {
-         obj.withClazz(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (Attribute elem : this)
+      for (LudoColor elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -90,45 +44,20 @@ public class AttributeSet extends LinkedHashSet<Attribute>
 
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.Attribute";
+      return "org.sdmlib.examples.ludo.LudoModel.LudoColor";
    }
 
 
-   public AttributeSet with(Attribute value)
+   public LudoColorSet with(LudoColor value)
    {
       this.add(value);
       return this;
    }
    
-   public AttributeSet without(Attribute value)
+   public LudoColorSet without(LudoColor value)
    {
       this.remove(value);
       return this;
    }
-   
-   public StringList getType()
-   {
-      StringList result = new StringList();
-      
-      for (Attribute obj : this)
-      {
-         result.add(obj.getType());
-      }
-      
-      return result;
-   }
-
-   public AttributeSet withType(String value)
-   {
-      for (Attribute obj : this)
-      {
-         obj.setType(value);
-      }
-      
-      return this;
-   }
-
 }
-
-
 

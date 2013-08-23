@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,57 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.LudoModel.LudoColor;
-import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import java.util.ArrayList;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.LudoSet;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.creators.DiceSet;
+import org.sdmlib.examples.ludo.Dice;
+import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.creators.PawnSet;
+import org.sdmlib.examples.ludo.Pawn;
 
-public class PlayerSet extends LinkedHashSet<Player>
+public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Player elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Player";
+   }
+
+
+   public PlayerSet with(Player value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PlayerSet without(Player value)
+   {
+      this.remove(value);
+      return this;
+   }
    public StringList getColor()
    {
       StringList result = new StringList();
@@ -51,7 +88,29 @@ public class PlayerSet extends LinkedHashSet<Player>
    {
       for (Player obj : this)
       {
-         obj.withColor(value);
+         obj.setColor(value);
+      }
+      
+      return this;
+   }
+
+   public ArrayList<LudoColor> getEnumColor()
+   {
+      ArrayList<LudoColor> result = new ArrayList<LudoColor>();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getEnumColor());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withEnumColor(LudoColor value)
+   {
+      for (Player obj : this)
+      {
+         obj.setEnumColor(value);
       }
       
       return this;
@@ -73,7 +132,7 @@ public class PlayerSet extends LinkedHashSet<Player>
    {
       for (Player obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
@@ -95,7 +154,7 @@ public class PlayerSet extends LinkedHashSet<Player>
    {
       for (Player obj : this)
       {
-         obj.withX(value);
+         obj.setX(value);
       }
       
       return this;
@@ -117,7 +176,7 @@ public class PlayerSet extends LinkedHashSet<Player>
    {
       for (Player obj : this)
       {
-         obj.withY(value);
+         obj.setY(value);
       }
       
       return this;
@@ -134,6 +193,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withGame(Ludo value)
    {
       for (Player obj : this)
@@ -155,6 +215,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withNext(Player value)
    {
       for (Player obj : this)
@@ -176,6 +237,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withPrev(Player value)
    {
       for (Player obj : this)
@@ -197,6 +259,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withDice(Dice value)
    {
       for (Player obj : this)
@@ -218,6 +281,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withStart(Field value)
    {
       for (Player obj : this)
@@ -239,6 +303,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withBase(Field value)
    {
       for (Player obj : this)
@@ -260,6 +325,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withLanding(Field value)
    {
       for (Player obj : this)
@@ -281,6 +347,7 @@ public class PlayerSet extends LinkedHashSet<Player>
       
       return result;
    }
+
    public PlayerSet withPawns(Pawn value)
    {
       for (Player obj : this)
@@ -301,67 +368,5 @@ public class PlayerSet extends LinkedHashSet<Player>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Player elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public PlayerSet with(Player value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PlayerSet without(Player value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.ludo.Player";
-   }
-
-   public ArrayList<LudoColor> getEnumColor()
-   {
-      ArrayList<LudoColor> result = new ArrayList<LudoColor>();
-      
-      for (Player obj : this)
-      {
-         result.add(obj.getEnumColor());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet withEnumColor(LudoColor value)
-   {
-      for (Player obj : this)
-      {
-         obj.withEnumColor(value);
-      }
-      
-      return this;
-   }
-
 }
-
-
-
-
-
-
-
 
