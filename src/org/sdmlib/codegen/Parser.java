@@ -1356,17 +1356,27 @@ public class Parser
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
          int startPos = currentRealToken.startPos;
-         if (currentRealTokenEquals("if"))
+         if ("if while catch".indexOf(currentRealWord()) >= 0)
          {
             lastIfStart = startPos;
 
-            currentStatement = new StatementEntry().withKind("if").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+            currentStatement = new StatementEntry().withKind(currentRealWord()).withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
 
-            readToken("if");
+            readToken();
 
             parseBracketExpressionDetails();
             currentParentStatement = currentStatement;
-            parseBlockDetails();
+
+            if (currentRealKindEquals('{'))
+            {
+               parseBlockDetails();
+            }
+            else
+            {
+               checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
+
+               parseSimpleStatementDetails();
+            }
             currentParentStatement = currentParentStatement.getParent();
 
             lastIfEnd = previousRealToken.startPos;
@@ -1393,6 +1403,22 @@ public class Parser
          {
             // local var decl with simple type
             parseLocalVarDeclDetails();
+         }
+         else if (currentRealKindEquals('v') 
+               && lookAheadRealToken.kind == '{')
+         {
+            // skip keyword
+            readToken();
+            parseBlockDetails();
+         }
+         else if (currentRealKindEquals('v') 
+               && lookAheadRealToken.kind == ':')
+         {
+            // skip keyword
+            readToken();
+            
+            // skip colon
+            readToken();            
          }
          else if (currentRealKindEquals('v'))
          {
