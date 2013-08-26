@@ -4,6 +4,9 @@ import static org.sdmlib.models.classes.Role.R.MANY;
 import static org.sdmlib.models.classes.Role.R.ONE;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 
 import org.junit.Test;
@@ -100,8 +103,7 @@ public class LudoModel
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");
 
       // model.insertModelCreationCodeHere("examples");
-
-      
+     
       scenario.addImage(model.dumpClassDiag("examples", "LudoModel01"));
 
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");

@@ -1,24 +1,24 @@
 /*
    Copyright (c) 2012 zuendorf 
-   
+
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
    furnished to do so, subject to the following conditions: 
-   
+
    The above copyright notice and this permission notice shall be included in all copies or 
    substantial portions of the Software. 
-   
+
    The Software shall be used for Good, not Evil. 
-   
+
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-  */
-   
+ */
+
 package org.sdmlib.codegen;
 
 import java.util.ArrayList;
@@ -30,16 +30,16 @@ import org.sdmlib.utils.StrUtil;
 public class Parser
 {
 
-	 public static final char EOF = Character.MIN_VALUE;
+   public static final char EOF = Character.MIN_VALUE;
 
    public static final String VOID = "void";
 
    public static final String CLASS = "class";
-   
+
    public static final String INTERFACE = "interface";
 
    public static final String ENUM = "enum";
-   
+
    public static final char COMMENT_START = 'c';
 
    public static final String PACKAGE = "package";
@@ -49,7 +49,7 @@ public class Parser
    public static final String ATTRIBUTE = "attribute";
 
    public static final String METHOD = "method";
-   
+
    public static final String IMPORT = "import";
 
    public static final String CLASS_END = "classEnd";
@@ -67,7 +67,7 @@ public class Parser
    public static final String EXTENDS = "extends";
 
    public static char NEW_LINE = '\n';
-   
+
    private StringBuilder fileBody = null;
 
    private Token lookAheadToken = null;
@@ -77,42 +77,42 @@ public class Parser
    private char currentChar;
 
    private int index;
-   
+
    private LinkedHashMap<String, SymTabEntry> symTab;
-   
+
    public LinkedHashMap<String, SymTabEntry> getSymTab()
    {
       return symTab;
    }
-   
+
    private LinkedHashMap<String, LocalVarTableEntry> localVarTable;
-   
+
    private StatementEntry currentParentStatement;
-   
+
    private StatementEntry currentStatement = null; 
-   
+
    public StatementEntry getCurrentStatement()
    {
       return currentStatement;
    }
-   
+
    public StatementEntry getStatementList()
    {
       return currentParentStatement;
    }
-   
+
    public LinkedHashMap<String, LocalVarTableEntry> getLocalVarTable()
    {
-  	 return localVarTable;
+      return localVarTable;
    }
-   
+
    private boolean verbose = false;
-   
+
    public void setVerbose(boolean verbose)
    {
       this.verbose = verbose;
    }
-   
+
    public boolean isVerbose()
    {
       return verbose;
@@ -137,40 +137,40 @@ public class Parser
    private int endOfExtendsClause;
 
    private int endOfImports;  
-   
+
    public int getEndOfImports()
    {
       return endOfImports;
    }
-   
+
    public int getEndOfExtendsClause()
    {
       return endOfExtendsClause;
    }
-   
+
    public int getEndOfClassName()
    {
       return endOfClassName;
    }
-   
+
    public int getEndOfImplementsClause()
    {
       return endOfImplementsClause;
    }
-   
+
    public int getEndOfAttributeInitialization()
    {
       return endOfAttributeInitialization;
    }
-   
+
    public int getMethodBodyStartPos()
    {
       return methodBodyStartPos;
    }
-   
+
    class SearchStringFoundException extends RuntimeException {
-	 private static final long serialVersionUID = 1L; }
-   
+      private static final long serialVersionUID = 1L; }
+
    public StringBuilder getFileBody()
    {
       return fileBody;
@@ -181,11 +181,11 @@ public class Parser
       this.fileBody = fileBody;
       return this;
    }
-   
+
    private Parser withInit(int startPos, int endPos) 
    {
       double result = 0;
-      
+
       if (symTab == null)
       {
          symTab = new LinkedHashMap<String, SymTabEntry>();
@@ -194,56 +194,56 @@ public class Parser
       {
          symTab.clear();
       }
-      
+
       if (localVarTable == null)
       {
-      	localVarTable = new LinkedHashMap<String, LocalVarTableEntry>();
+         localVarTable = new LinkedHashMap<String, LocalVarTableEntry>();
       }
       else
       {
-      	localVarTable.clear();
+         localVarTable.clear();
       }
-      
+
       currentParentStatement = new StatementEntry();
-      
+
       methodBodyQualifiedNames.clear();
-      
-      
+
+
       currentChar = 0;
-      
+
       index = startPos-1;
       lookAheadIndex = startPos-1;
-      
+
       this.endPos = endPos;
-      
+
       nextChar(); 
       nextChar();
-      
+
       currentToken = new Token ();
       lookAheadToken = new Token ();
       previousToken = new Token ();
-      
+
       nextToken();
       nextToken();
-      
+
       currentRealToken = new Token();
       lookAheadRealToken = new Token();
       previousRealToken = new Token();
-      
+
       nextRealToken();
       nextRealToken();
-      
+
       return this;
    }
 
    public int indexOf(String searchString)
    {
       indexOfResult = -1;
-      
+
       withInit(0, fileBody.length());
-      
+
       this.searchString = searchString;
-      
+
       try
       {
          parseFile();
@@ -257,7 +257,7 @@ public class Parser
          // problem with parsing. Return not found
          e.printStackTrace();
       }
-      
+
       return indexOfResult;
    }
 
@@ -268,68 +268,68 @@ public class Parser
       {
          parsePackageDecl();
       }
-      
+
       int startPos = currentRealToken.startPos;
-      
+
       while (currentRealTokenEquals(IMPORT))
       {
          parseImport();
       }
-      
+
       endOfImports = previousRealToken.endPos;
-      
+
       checkSearchStringFound(IMPORT, startPos);
-      
+
       parseClassDecl();
    }
- 
+
    private void parseClassDecl()
    {
       // modifiers class name classbody
       parseModifiers();
-      
+
       // skip keyword
-//      skip ("class");
-      
+      //      skip ("class");
+
       //class or interface
       parseClassType();
-      
+
       className = currentRealWord();
       endOfClassName = currentRealToken.endPos;
-      
+
       // skip name
       nextRealToken();
-      
+
       parseGenericTypeSpec();
-      
+
       // extends 
       if ("extends".equals(currentRealWord()))
       {
-      	int startPos = currentRealToken.startPos;
-      	
+         int startPos = currentRealToken.startPos;
+
          skip ("extends");
-         
+
          symTab.put(EXTENDS + ":" + currentRealWord(), 
-             new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
-             .withKind(EXTENDS)
-             .withMemberName(currentRealWord())
-             .withEndPos(currentRealToken.endPos));
-         
+            new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
+            .withKind(EXTENDS)
+            .withMemberName(currentRealWord())
+            .withEndPos(currentRealToken.endPos));
+
          // skip superclass name
          parseTypeRef(); 
-         
+
          endOfExtendsClause = previousRealToken.endPos;
-         
+
          checkSearchStringFound(EXTENDS, startPos);
       }
-      
+
       // implements 
       if ("implements".equals(currentRealWord()))
       {
          int startPos = currentRealToken.startPos;
-         
+
          skip ("implements");
-         
+
          while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('{'))
          {
             symTab.put(IMPLEMENTS + ":" + currentRealWord(), 
@@ -337,21 +337,21 @@ public class Parser
                .withKind(IMPLEMENTS)
                .withMemberName(currentRealWord())
                .withEndPos(currentRealToken.endPos));
-            
+
             // skip interface name
             nextRealToken(); 
-            
+
             if (currentRealKindEquals(','))
             {
                nextRealToken();
             }
          }
- 
+
          endOfImplementsClause = previousRealToken.endPos;
-         
+
          checkSearchStringFound(IMPLEMENTS, startPos);
       }
-      
+
       parseClassBody();     
    }
 
@@ -367,22 +367,22 @@ public class Parser
    }
 
    private String parseClassType()
-  {
-  	 
-     if ("class".equals(currentRealWord()) ) {
-    	 skip("class");
-    	 classType = "class";
-     }
-     
-     else if ("interface".equals(currentRealWord()) ) {
-    	 skip("interface");
-    	 classType = "interface";
-     }
-     
-     return classType;
-  }
+   {
 
-	private void parseClassBody()
+      if ("class".equals(currentRealWord()) ) {
+         skip("class");
+         classType = "class";
+      }
+
+      else if ("interface".equals(currentRealWord()) ) {
+         skip("interface");
+         classType = "interface";
+      }
+
+      return classType;
+   }
+
+   private void parseClassBody()
    {
       // { classBodyDecl* }
       skip("{");
@@ -390,7 +390,7 @@ public class Parser
       {
          parseMemberDecl();
       }
-      
+
       if (currentRealKindEquals('}'))
       {
          checkSearchStringFound(CLASS_END, currentRealToken.startPos);
@@ -401,13 +401,13 @@ public class Parser
    private void parseMemberDecl()
    {
       // modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
-      
+
       // TODO: annotations
-      
+
       int startPos = currentRealToken.startPos;
-      
+
       String modifiers = parseModifiers();
-      
+
       if (currentRealTokenEquals("<"))
       {
          // generic type decl
@@ -415,18 +415,18 @@ public class Parser
          nextRealToken();
          skip(">");
       }
-      
+
       if (currentRealTokenEquals(CLASS))
       {
          // parse nested class
          // throw new RuntimeException("class "  + className + " has nested class. " + " Can't parse it.");
          // System.err.println("class "  + fileName + " has nested class in line " + getLineIndexOf(currentRealToken.startPos) + "  Can't parse it. Skip it.");
          while (!currentRealTokenEquals("{")) {
-        	 nextRealToken();
+            nextRealToken();
          }
          skipBody();
          if (currentRealTokenEquals("}")) 
-        	 return;
+            return;
          modifiers = parseModifiers();
       }
       else if (currentRealTokenEquals(ENUM))
@@ -439,7 +439,7 @@ public class Parser
             return;
          modifiers = parseModifiers();
       }
-      
+
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
       {
          // TODO: constructor
@@ -453,7 +453,7 @@ public class Parser
 
          String memberName = currentRealWord();
          verbose("parsing member: " + memberName);
-         
+
          nextRealToken();
 
          if (currentRealKindEquals('='))
@@ -462,98 +462,98 @@ public class Parser
             skip("=");
 
             parseExpression();
-            
+
             endOfAttributeInitialization = previousRealToken.startPos;
 
             skip(";");
 
             symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
-               .withMemberName(memberName)
-               .withKind(ATTRIBUTE)
-               .withType(type)
-               .withModifiers(modifiers)
-               );
-            
+            .withMemberName(memberName)
+            .withKind(ATTRIBUTE)
+            .withType(type)
+            .withModifiers(modifiers)
+                  );
+
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
          }
          else if (currentRealKindEquals(';'))
          {
             // field declaration
-        	 checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
+            checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
             skip(";");
-            
+
             symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
-               .withMemberName(memberName)
-               .withKind(ATTRIBUTE)
-               .withType(type)
-               .withModifiers(modifiers)
-               );
+            .withMemberName(memberName)
+            .withKind(ATTRIBUTE)
+            .withType(type)
+            .withModifiers(modifiers)
+                  );
 
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
          }
          else if (currentRealKindEquals('('))
          {
-            
+
             String params = parseFormalParamList();
-            
+
             // FIXME : skip annotations 
             if("@".equals(type))
-            	return;
-            
+               return;
+
             methodBodyStartPos = currentRealToken.startPos;
             // skip throws
             if (currentRealTokenEquals("throws")) 
             {
-            	skipTo('{');
+               skipTo('{');
             }
-            
+
             if (currentRealKindEquals('{'))
             {
-            	parseBlock();
+               parseBlock();
             }
-            
+
             else if (currentRealKindEquals(';'))
-            	skip(';');
-            
+               skip(';');
+
             String methodSignature = Parser.METHOD + ":" + memberName + params;
-                    
+
             symTab.put(methodSignature, 
                new SymTabEntry()
-               .withMemberName(methodSignature)
-               .withKind(METHOD)
-               .withType(methodSignature + ":" + type)
-               .withStartPos(startPos)
-               .withEndPos(previousRealToken.startPos)
-               .withBodyStartPos(methodBodyStartPos)
-               .withModifiers(modifiers)
-               );
+            .withMemberName(methodSignature)
+            .withKind(METHOD)
+            .withType(methodSignature + ":" + type)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.startPos)
+            .withBodyStartPos(methodBodyStartPos)
+            .withModifiers(modifiers)
+                  );
 
             checkSearchStringFound(methodSignature, startPos);
             //System.out.println(className + " :  " +  methodSignature);
-            }
+         }
       }
    }
 
-private void skipTo(char c) {
-	while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
-		nextRealToken();
-	}
-}
+   private void skipTo(char c) {
+      while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
+         nextRealToken();
+      }
+   }
 
-private void skipBody() {
-	int index = 1;
-	 nextRealToken();
-	 while (index > 0 && ! currentRealKindEquals(EOF)) {
-		 nextRealToken();
-		 if (currentRealTokenEquals("{"))
-			 index++;
-		 else if (currentRealTokenEquals("}"))
-			 index--;
-	 }   
-	 nextRealToken();
-}
+   private void skipBody() {
+      int index = 1;
+      nextRealToken();
+      while (index > 0 && ! currentRealKindEquals(EOF)) {
+         nextRealToken();
+         if (currentRealTokenEquals("{"))
+            index++;
+         else if (currentRealTokenEquals("}"))
+            index--;
+      }   
+      nextRealToken();
+   }
 
    private void verbose(String string)
    {
@@ -583,7 +583,7 @@ private void skipBody() {
    {
       // { stat ... }
       skip("{");
-      
+
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
          if (currentRealKindEquals('{'))
@@ -595,14 +595,14 @@ private void skipBody() {
             nextRealToken();
          }
       }
-      
+
       skip("}");      
    }
 
    private String parseTypeRef()
    {
       StringBuilder typeString = new StringBuilder();
-      
+
       // (void | qualifiedName) <T1, T2> [] ...  
       String typeName = VOID;
       if (currentRealTokenEquals(VOID))
@@ -614,21 +614,21 @@ private void skipBody() {
       {
          typeName = parseQualifiedName();
       }
-      
+
       typeString.append(typeName);
-      
+
       if (currentRealKindEquals('<'))
       {
          parseGenericTypeDefPart(typeString);
       }
-      
+
       if (currentRealKindEquals('['))
       {
          typeString.append("[]");
          skip("[");
          skip("]");
       }
-      
+
       if (currentRealKindEquals('.'))
       {
          typeString.append("...");
@@ -636,19 +636,19 @@ private void skipBody() {
          skip(".");
          skip(".");
       }
-      
+
       if ("extends".equals(lookAheadRealToken.text.toString()) )
       {
-    	  typeString.append(currentRealToken.text);
-    	  nextRealToken();
-    	  typeString.append(currentRealToken.text);
-    	  nextRealToken();
-    	  typeString.append(currentRealToken.text);
-    	  nextRealToken();
-    	  typeString.append(currentRealToken.text);
-    	  
+         typeString.append(currentRealToken.text);
+         nextRealToken();
+         typeString.append(currentRealToken.text);
+         nextRealToken();
+         typeString.append(currentRealToken.text);
+         nextRealToken();
+         typeString.append(currentRealToken.text);
+
       }
-      
+
       // phew
       return typeString.toString();
    }
@@ -657,11 +657,11 @@ private void skipBody() {
    {
       // <T, T, ...>
       skip("<"); typeString.append('<');
-      
+
       // skip first name
       typeString.append(currentRealWord());
       nextRealToken();
-      
+
       while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
       {
          if (currentRealKindEquals('<'))
@@ -674,7 +674,7 @@ private void skipBody() {
             nextRealToken();
          }
       }
-      
+
       // should be a < now
       typeString.append(">");
       skip(">");
@@ -683,38 +683,38 @@ private void skipBody() {
    private String parseFormalParamList()
    {
       StringBuilder paramList = new StringBuilder().append('(');
-      
+
       // '(' (type name[,] )* ') [throws type , (type,)*] 
       skip("(");
-      
+
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(')'))
       {
          int typeStartPos = currentRealToken.startPos;
-         
+
          parseTypeRef();
-         
+
          int typeEndPos = currentRealToken.startPos-1;
-         
+
          paramList.append(fileBody.substring(typeStartPos, typeEndPos));
-         
+
          // parameter ends
          if (currentRealKindEquals(')'))
-        	 break;
-         
+            break;
+
          // skip param name
          nextRealToken();
-         
+
          if (currentRealKindEquals(','))
          {
             skip(",");
             paramList.append(',');
          }
       }
-      
+
       skip(")");
-      
+
       paramList.append(')');
-      
+
       return paramList.toString();
    }
 
@@ -743,7 +743,7 @@ private void skipBody() {
          result += currentRealWord() + " ";
          nextRealToken();
       }
-      
+
       return result;
    }
 
@@ -752,25 +752,25 @@ private void skipBody() {
       // import qualifiedName [. *];
       int startPos = currentRealToken.startPos;
       nextRealToken();
-      
+
       String modifier = parseModifiers();
-      
-     // if (!modifier.isEmpty())
-     //  System.out.println("static import");
-      
+
+      // if (!modifier.isEmpty())
+      //  System.out.println("static import");
+
       String importName = parseQualifiedName();
-      
+
       if (currentRealToken.kind == '*')
       {
          skip("*");
       }
-      
+
       symTab.put(IMPORT + ":" + importName, 
          new SymTabEntry().withMemberName(importName)
          .withModifiers(modifier)
          .withStartPos(startPos)
          .withEndPos(previousRealToken.endPos));
-      
+
       skip(";");
    }
 
@@ -797,20 +797,20 @@ private void skipBody() {
       // return dotted name
       int startPos = currentRealToken.startPos;
       int endPos = currentRealToken.endPos;
-      
+
       checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentToken.startPos);
       nextRealToken();
-      
+
       while (currentRealKindEquals('.') && ! (lookAheadRealToken.kind == '.') && ! currentRealKindEquals(EOF))
       {
          skip(".");
-         
+
          // read next name
          endPos = currentRealToken.endPos;
          checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentToken.startPos);
          nextRealToken();
       }
-      
+
       return fileBody.substring(startPos, endPos + 1);
    }
 
@@ -822,13 +822,13 @@ private void skipBody() {
       }
       else
       { 
-      	 System.err.println( "Parser Error: \'" + currentRealToken.kind + "\' :"  
- 		 					+  " but \'" + c + "\' expected in " + className + ".java  at line " 
- 		 					+ getLineIndexOf(currentRealToken.startPos));
+         System.err.println( "Parser Error: \'" + currentRealToken.kind + "\' :"  
+               +  " but \'" + c + "\' expected in " + className + ".java  at line " 
+               + getLineIndexOf(currentRealToken.startPos));
          throw new RuntimeException("parse error");
       }
    }
-   
+
    private void skip(String string)
    {
       if (currentRealTokenEquals(string))
@@ -837,80 +837,80 @@ private void skipBody() {
       }
       else
       {
-         
+
          System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() 
             + " at pos " + currentRealToken.startPos + " at line " + getLineIndexOf(currentRealToken.startPos, fileBody)
             + " in file \n" + fileName);
-       
+
          throw new RuntimeException("parse error");
       }
    }
 
-	private long getLineIndexOf(int startPos, StringBuilder fileBody)
-	{
-		long count = 1;
-		String substring = fileBody.substring(0, startPos);
-		for (int index = 0; index < substring.length() - 1; ++index)
-		{
-			final char firstChar = substring.charAt(index);
-			if (firstChar == NEW_LINE)
-				count++;
-		}
-		return count;
-	}
-	
-	public long getLineIndexOf(int startPos)
-	{
-		if(startPos < 0)
-			return -1;
-		long count = 1;
-		String substring = fileBody.substring(0, startPos);
-		for (int index = 0; index < substring.length() - 1; ++index)
-		{
-			final char firstChar = substring.charAt(index);
-			if (firstChar == NEW_LINE)
-				count++;
-		}
-		return count;
-	}
+   private long getLineIndexOf(int startPos, StringBuilder fileBody)
+   {
+      long count = 1;
+      String substring = fileBody.substring(0, startPos);
+      for (int index = 0; index < substring.length() - 1; ++index)
+      {
+         final char firstChar = substring.charAt(index);
+         if (firstChar == NEW_LINE)
+            count++;
+      }
+      return count;
+   }
 
-	public Token currentRealToken; 
-	public Token lookAheadRealToken;
-	public Token previousRealToken;
+   public long getLineIndexOf(int startPos)
+   {
+      if(startPos < 0)
+         return -1;
+      long count = 1;
+      String substring = fileBody.substring(0, startPos);
+      for (int index = 0; index < substring.length() - 1; ++index)
+      {
+         final char firstChar = substring.charAt(index);
+         if (firstChar == NEW_LINE)
+            count++;
+      }
+      return count;
+   }
 
-	public int indexOfResult;
+   public Token currentRealToken; 
+   public Token lookAheadRealToken;
+   public Token previousRealToken;
 
-	private Token previousToken;
+   public int indexOfResult;
 
-	private String className;
-	private String classType;
-	public String getClassType()
-  {
-	  return classType;
-  }
+   private Token previousToken;
 
-	public int lastIfStart;
-	public int lastIfEnd;
+   private String className;
+   private String classType;
+   public String getClassType()
+   {
+      return classType;
+   }
 
-	private int lastReturnStart;
+   public int lastIfStart;
+   public int lastIfEnd;
 
-	private LinkedHashMap<String, Integer > methodBodyQualifiedNames = new LinkedHashMap<String, Integer >();
+   private int lastReturnStart;
 
-	public LinkedHashMap<String, Integer> getMethodBodyQualifiedNamesMap() {
-		return methodBodyQualifiedNames;
-	}
-	
-	public Set<String> getMethodBodyQualifiedNames() {
-		return methodBodyQualifiedNames.keySet();
-	}
-	
+   private LinkedHashMap<String, Integer > methodBodyQualifiedNames = new LinkedHashMap<String, Integer >();
+
+   public LinkedHashMap<String, Integer> getMethodBodyQualifiedNamesMap() {
+      return methodBodyQualifiedNames;
+   }
+
+   public Set<String> getMethodBodyQualifiedNames() {
+      return methodBodyQualifiedNames.keySet();
+   }
+
    public int getLastReturnStart()
    {
       return lastReturnStart;
    }
 
-   
-   
+
+
    private void nextRealToken()
    {
       Token tmp = previousRealToken;
@@ -919,8 +919,8 @@ private void skipBody() {
       lookAheadRealToken = tmp;
       lookAheadRealToken.kind = EOF;
       lookAheadRealToken.text.delete(0, lookAheadRealToken.text.length());
-      
-      
+
+
       // parse comments and skip new lines
       while (currentToken.kind == COMMENT_START || currentToken.kind == NEW_LINE)
       {
@@ -937,14 +937,14 @@ private void skipBody() {
             nextToken();
          }
       }
-      
+
       // parse string constants as one real token
       if (currentToken.kind == '"')
       {
          int constStartPos = currentToken.startPos;
 
          parseStringConstant();
-         
+
          lookAheadRealToken.kind = '"';
          lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos+1));
          lookAheadRealToken.startPos = constStartPos;
@@ -955,7 +955,7 @@ private void skipBody() {
          int constStartPos = currentToken.startPos;
 
          parseCharConstant();
-         
+
          lookAheadRealToken.kind = '\'';
          lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos+1));
          lookAheadRealToken.startPos = constStartPos;
@@ -971,18 +971,18 @@ private void skipBody() {
          nextToken();
       }
    }
-   
+
    private void parseCharConstant()
    {
       // " 'c' or '\c' "
       skipBasicToken('\'');
-      
+
       // skip \ 
       if (currentToken.kind == '\\')
       {
          nextToken();
       }
-      
+
       // skip c
       nextToken();
 
@@ -992,15 +992,15 @@ private void skipBody() {
    private void parseLineComment()
    {
       // '//' ... \n
-      
+
       // skip //
       nextToken();
-      
+
       while (currentToken.kind != EOF && currentToken.kind != '\n')
       {
          nextToken();
       }
-      
+
       // skip \n 
       nextToken();
    }
@@ -1009,7 +1009,7 @@ private void skipBody() {
    {
       // " ... \" ... "
       skipBasicToken('"');
-      
+
       // read until next "
       while (currentToken.kind != EOF && currentToken.kind != '"')
       {
@@ -1035,14 +1035,14 @@ private void skipBody() {
    private void parseLongComment()
    {
       // parse /* ... */ (nested?) 
-      
+
       // skip /*
       nextToken();
       while (currentToken.kind != EOF && currentToken.kind != LONG_COMMENT_END)
       {
          nextToken();
       }
-      
+
       // skip */
       nextToken();
    }
@@ -1052,13 +1052,13 @@ private void skipBody() {
       Token tmp = previousToken;
       previousToken = currentToken;
       currentToken = lookAheadToken;
-      
+
       lookAheadToken = tmp;
       lookAheadToken.kind = EOF;
       lookAheadToken.text.delete(0, lookAheadToken.text.length());
-      
+
       char state = 'i';
-      
+
       while (true)
       {
          switch (state) 
@@ -1127,7 +1127,7 @@ private void skipBody() {
             else if (Character.isWhitespace(currentChar))
             {
             }
-            
+
             break;
 
          case '9':
@@ -1145,15 +1145,15 @@ private void skipBody() {
                return;
             }
             break;
-         
+
          case '8':
             if ( ! Character.isDigit(currentChar))
-           {
+            {
                lookAheadToken.endPos = index-1;
                return;
             }
             break;
-         
+
          case 'v':
             if (Character.isLetter(currentChar) 
                   || Character.isDigit(currentChar)
@@ -1168,12 +1168,12 @@ private void skipBody() {
                return; // <==== sudden death
             }
             break;
-            
+
          default:
             break;
          }
-         
-         
+
+
          nextChar();
       }
    }
@@ -1183,11 +1183,11 @@ private void skipBody() {
       currentChar = lookAheadChar;
       index = lookAheadIndex;
       lookAheadChar = 0;
-      
+
       while ( lookAheadChar == 0 && lookAheadIndex < endPos-1) 
       {
          lookAheadIndex++;    
-         
+
          lookAheadChar = fileBody.charAt(lookAheadIndex);         
       }
    }
@@ -1197,12 +1197,12 @@ private void skipBody() {
       indexOfResult = -1;
       lastIfStart = -1;
       lastIfEnd = -1;
-      
+
       // initialize parser to start reading at pos
       withInit(searchStartPos, fileBody.length());
-      
+
       this.searchString = searchString;
-      
+
       try
       {
          parseBlockDetails();
@@ -1226,12 +1226,12 @@ private void skipBody() {
       indexOfResult = -1;
       lastIfStart = -1;
       lastIfEnd = -1;
-      
+
       // initialize parser to start reading at pos
       withInit(searchStartPos, searchEndPos);
-      
+
       this.searchString = searchString;
-      
+
       try
       {
          parseBlockDetails();
@@ -1249,18 +1249,18 @@ private void skipBody() {
 
       return indexOfResult;
    }
-   
+
    public int indexOfInMethodBody(String searchString, int searchStartPos, int searchEndPos)
    {
       indexOfResult = -1;
       lastIfStart = -1;
       lastIfEnd = -1;
-      
+
       // initialize parser to start reading at pos
       withInit(searchStartPos, searchEndPos);
-      
+
       this.searchString = searchString;
-      
+
       try
       {
          parseInnerBlockDetails();
@@ -1295,28 +1295,28 @@ private void skipBody() {
       .withKind("simple")
       .withStartPos(currentRealToken.startPos)
       .withParent(currentParentStatement);
-      
+
       parseExpressionDetails();
-      
+
       skip(';');
-      
+
    }
 
    private void parseForLoopDetails()
    {
       readToken("for");
-      
+
       readToken('(');
-      
+
       // should start with declartion of loop variable
       String type = parseTypeRef();
-      
+
       String varname = currentRealWord();
       localVarTable.put(varname, new LocalVarTableEntry().withName(varname).withType(type));
       currentStatement.setAssignTargetVarName(varname);
-      
+
       readToken();
-      
+
       // might be a for (:) loop or the classical for (;;)
       if (currentRealKindEquals(':'))
       {
@@ -1343,7 +1343,7 @@ private void skipBody() {
    private void readToken(String string)
    {
       skip(string);
-      
+
       if (currentStatement != null)
       {
          currentStatement.withToken(string, currentRealToken.endPos);
@@ -1351,77 +1351,77 @@ private void skipBody() {
    }
 
 
-	private void parseInnerBlockDetails()
-  {
-	  while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
-	  {
-	  	 int startPos = currentRealToken.startPos;
-	     if (currentRealTokenEquals("if"))
-	     {
-	    	 lastIfStart = startPos;
-         
-         currentStatement = new StatementEntry().withKind("if").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
-         
-         readToken("if");
-         
-         parseBracketExpressionDetails();
-         currentParentStatement = currentStatement;
-         parseBlockDetails();
-         currentParentStatement = currentParentStatement.getParent();
-         
-         lastIfEnd = previousRealToken.startPos;
-	     }
-	     else if (currentRealTokenEquals("for"))
-       {
-          currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
-          parseForLoopDetails();
-       }
-	     else if (currentRealTokenEquals("return"))
-	     {
-	    	 currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
-	    	 
-	        lastReturnStart = startPos;
-	        
-	        readToken("return");
-	        
-	        parseExpressionDetails();
-	        
-	        skip(';');
-	     }
-	     else if (currentRealKindEquals('v')
-	           && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '='))
-	     {
-	        // local var decl with simple type
-	        parseLocalVarDeclDetails();
-	     }
-	     else if (currentRealKindEquals('v'))
-	     {
-	        checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
-	        
-	        parseSimpleStatementDetails();
-	        
-//	        String qualifiedName = parseQualifiedName();   
-//	        methodBodyQualifiedNames.put(qualifiedName, startPos);
-	     }
-	     else if (currentRealKindEquals('{'))
-	     {
-	        parseBlockDetails();
-	     }
-	     else if (currentRealKindEquals(';'))
-	     {
-	       checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
-	       skip(';');
-	     }
-	     else if (currentRealKindEquals('('))
-	     {
-	        parseBracketExpressionDetails();
-	     }
-	     else
-	     {
-	        nextRealToken();
-	     }
-	  }
-  }
+   private void parseInnerBlockDetails()
+   {
+      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+      {
+         int startPos = currentRealToken.startPos;
+         if (currentRealTokenEquals("if"))
+         {
+            lastIfStart = startPos;
+
+            currentStatement = new StatementEntry().withKind("if").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+
+            readToken("if");
+
+            parseBracketExpressionDetails();
+            currentParentStatement = currentStatement;
+            parseBlockDetails();
+            currentParentStatement = currentParentStatement.getParent();
+
+            lastIfEnd = previousRealToken.startPos;
+         }
+         else if (currentRealTokenEquals("for"))
+         {
+            currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+            parseForLoopDetails();
+         }
+         else if (currentRealTokenEquals("return"))
+         {
+            currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+
+            lastReturnStart = startPos;
+
+            readToken("return");
+
+            parseExpressionDetails();
+
+            skip(';');
+         }
+         else if (currentRealKindEquals('v')
+               && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '='))
+         {
+            // local var decl with simple type
+            parseLocalVarDeclDetails();
+         }
+         else if (currentRealKindEquals('v'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
+
+            parseSimpleStatementDetails();
+
+            //	        String qualifiedName = parseQualifiedName();   
+            //	        methodBodyQualifiedNames.put(qualifiedName, startPos);
+         }
+         else if (currentRealKindEquals('{'))
+         {
+            parseBlockDetails();
+         }
+         else if (currentRealKindEquals(';'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), startPos);
+            skip(';');
+         }
+         else if (currentRealKindEquals('('))
+         {
+            parseBracketExpressionDetails();
+         }
+         else
+         {
+            nextRealToken();
+         }
+      }
+   }
 
    private void parseLocalVarDeclDetails()
    {
@@ -1431,198 +1431,198 @@ private void skipBody() {
       {
          nextRealToken();
       }
-      
+
       // parse type
       String type = null;
-      
+
       if (lookAheadRealToken.kind == 'v')
       {
          type = parseTypeRef();
       }
-      
+
       String varName = currentRealWord();
-      
+
       checkSearchStringFound(NAME_TOKEN + ":" + varName, previousRealToken.startPos);
-      
+
       nextRealToken();
-      
+
       int startPos = currentRealToken.startPos;
-			if (currentRealKindEquals('='))
+      if (currentRealKindEquals('='))
       {
-        currentStatement = new StatementEntry()
-        .withKind("assign")
-        .withAssignTargetVarName(varName)
-        .withStartPos(currentRealToken.startPos)
-        .withParent(currentParentStatement);
-				
+         currentStatement = new StatementEntry()
+         .withKind("assign")
+         .withAssignTargetVarName(varName)
+         .withStartPos(currentRealToken.startPos)
+         .withParent(currentParentStatement);
+
          skip('=');
-         
+
          ArrayList<ArrayList<String>> initCallSequence = new ArrayList<ArrayList<String>>();
-         
+
          while (! currentRealKindEquals(Parser.EOF)
                && ! currentRealKindEquals(';'))
          {
-        	 if (currentRealKindEquals('v'))
-           {
-              ArrayList<String> methodClassDetails = parseMethodCallDetails();
-              if (!methodClassDetails.isEmpty())
-              {
-                 initCallSequence.add(methodClassDetails);
-              }
-           } else if ( ! currentRealKindEquals(';'))
-           {
-           	readToken();
-           }
+            if (currentRealKindEquals('v'))
+            {
+               ArrayList<String> methodClassDetails = parseMethodCallDetails();
+               if (!methodClassDetails.isEmpty())
+               {
+                  initCallSequence.add(methodClassDetails);
+               }
+            } else if ( ! currentRealKindEquals(';'))
+            {
+               readToken();
+            }
          }
-         
+
          if (!initCallSequence.isEmpty()) { 
-        	 LocalVarTableEntry initSequence = 
-        			 new LocalVarTableEntry()
-        	 			.withName(varName)
-        	 			.withType(type)
-        	 			.withInitSequence(initCallSequence)
-        	 			.withStartPos(startPos)
-        	 			.withEndPos(previousRealToken.endPos);
-					localVarTable.put(varName, initSequence);	
+            LocalVarTableEntry initSequence = 
+                  new LocalVarTableEntry()
+            .withName(varName)
+            .withType(type)
+            .withInitSequence(initCallSequence)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.endPos);
+            localVarTable.put(varName, initSequence);	
          }
-         
+
          checkSearchStringFound(NAME_TOKEN + ":;", currentRealToken.startPos);
-         
+
          skip(';');
       }
 
-		else if (currentRealKindEquals('('))
-		{
-			ArrayList<ArrayList<String>> initElements = new ArrayList<ArrayList<String>>();
-			skip('(');
-			while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(')'))
-			{
-				int paramStartPos = currentRealToken.startPos;
-				parseExpressionDetails();
-				int paramEndPos = previousRealToken.endPos;
+      else if (currentRealKindEquals('('))
+      {
+         ArrayList<ArrayList<String>> initElements = new ArrayList<ArrayList<String>>();
+         skip('(');
+         while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(')'))
+         {
+            int paramStartPos = currentRealToken.startPos;
+            parseExpressionDetails();
+            int paramEndPos = previousRealToken.endPos;
 
-				String name = fileBody.substring(paramStartPos, paramEndPos + 1);
-				ArrayList<String> nameList = new ArrayList<String>();
-				nameList.add(name);
-				initElements.add(nameList);
+            String name = fileBody.substring(paramStartPos, paramEndPos + 1);
+            ArrayList<String> nameList = new ArrayList<String>();
+            nameList.add(name);
+            initElements.add(nameList);
 
-				if (currentRealKindEquals(','))
-				{
-					skip(',');
-				}
-			}
-			skip(')');
-			while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(';'))
-			{
-				if (currentRealKindEquals('.'))
-				{
-					skip('.');
-				}
-				ArrayList<String> methodInitDetails = parseInitCallDetails();
-        if (!methodInitDetails.isEmpty())
-        {
-        	initElements.add(methodInitDetails);
-        }		
-			}
-			
-			LocalVarTableEntry initSequence = 
-   			 new LocalVarTableEntry()
-   	 			.withName("")
-   	 			.withType(varName)
-   	 			.withInitSequence(initElements)
-   	 			.withStartPos(startPos)
-   	 			.withEndPos(previousRealToken.endPos);
-			
-			String nameString = varName+"_"+initSequence.hashCode();
-			localVarTable.put(nameString, initSequence);
-				
-		}
+            if (currentRealKindEquals(','))
+            {
+               skip(',');
+            }
+         }
+         skip(')');
+         while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(';'))
+         {
+            if (currentRealKindEquals('.'))
+            {
+               skip('.');
+            }
+            ArrayList<String> methodInitDetails = parseInitCallDetails();
+            if (!methodInitDetails.isEmpty())
+            {
+               initElements.add(methodInitDetails);
+            }		
+         }
+
+         LocalVarTableEntry initSequence = 
+               new LocalVarTableEntry()
+         .withName("")
+         .withType(varName)
+         .withInitSequence(initElements)
+         .withStartPos(startPos)
+         .withEndPos(previousRealToken.endPos);
+
+         String nameString = varName+"_"+initSequence.hashCode();
+         localVarTable.put(nameString, initSequence);
+
+      }
    }
 
-	private ArrayList<String> parseInitCallDetails()
-	{
-		ArrayList<String> methodInitDetails = new ArrayList<String>();
-		methodInitDetails.add(".");
-		while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(')'))
-		{
-			String text = currentRealToken.text.toString();
-//			System.out.println(text);
-			methodInitDetails.add(text);
-			nextRealToken();
-		}
-		methodInitDetails.add(")");
-		skip(')');
-		return methodInitDetails;
-	}
+   private ArrayList<String> parseInitCallDetails()
+   {
+      ArrayList<String> methodInitDetails = new ArrayList<String>();
+      methodInitDetails.add(".");
+      while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(')'))
+      {
+         String text = currentRealToken.text.toString();
+         //			System.out.println(text);
+         methodInitDetails.add(text);
+         nextRealToken();
+      }
+      methodInitDetails.add(")");
+      skip(')');
+      return methodInitDetails;
+   }
 
-	 private ArrayList<String> parseMethodCallDetails()
+   private ArrayList<String> parseMethodCallDetails()
    {
       ArrayList<String> methodCallElements = new ArrayList<String>();
       if ("new".equals(currentRealWord()))
       {
          // constructor call
          readToken("new");
-         
+
          String type = parseTypeRef();
-         
+
          methodCallElements.add("new " + type);
          currentStatement.withToken(type, currentRealToken.endPos);
-     
+
          readToken('(');
-         
+
          while (! currentRealKindEquals(Parser.EOF)
                && ! currentRealKindEquals(')'))
          {
             int paramStartPos = currentRealToken.startPos;
             parseExpressionDetails();
             int paramEndPos = previousRealToken.endPos;
-            
+
             methodCallElements.add(fileBody.substring(paramStartPos, paramEndPos + 1));
-            
+
             if (currentRealKindEquals(','))
             {
                readToken (',');
             }
          }
-         
+
          readToken (')');
       }
       else if (currentRealKindEquals('v'))
       {
-      	// its a word, might be a method name
-      	String qualifiedName = parseQualifiedName();
-      	currentStatement.withToken(qualifiedName, currentRealToken.endPos);
-      	
+         // its a word, might be a method name
+         String qualifiedName = parseQualifiedName();
+         currentStatement.withToken(qualifiedName, currentRealToken.endPos);
+
          if (currentRealKindEquals('('))
-      	{
-      	   methodCallElements.add(qualifiedName);
+         {
+            methodCallElements.add(qualifiedName);
 
-      	   readToken('(');
+            readToken('(');
 
-      	   while (! currentRealKindEquals(Parser.EOF)
-      	         && ! currentRealKindEquals(')'))
-      	   {
-      	      int paramStartPos = currentRealToken.startPos;
-      	      parseExpressionDetails();
-      	      int paramEndPos = previousRealToken.endPos;
+            while (! currentRealKindEquals(Parser.EOF)
+                  && ! currentRealKindEquals(')'))
+            {
+               int paramStartPos = currentRealToken.startPos;
+               parseExpressionDetails();
+               int paramEndPos = previousRealToken.endPos;
 
-      	      methodCallElements.add(previousRealToken.text.toString());
+               methodCallElements.add(previousRealToken.text.toString());
 
-      	      if (currentRealKindEquals(','))
-      	      {
-      	         readToken (',');
-      	      }
-      	   }
+               if (currentRealKindEquals(','))
+               {
+                  readToken (',');
+               }
+            }
 
-      	   readToken (')');
-      	}
+            readToken (')');
+         }
       }
       else
       {
-      	// seems to be a number or something like this, keep it and stop
-      	parseExpressionDetails();
+         // seems to be a number or something like this, keep it and stop
+         parseExpressionDetails();
       }
-      
+
       return methodCallElements;
    }
 
@@ -1645,9 +1645,9 @@ private void skipBody() {
          else if (currentRealKindEquals('v'))
          {
             checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
-            
+
             String qualifiedName = parseQualifiedName();
-            
+
             methodBodyQualifiedNames.put(qualifiedName, currentRealToken.startPos);
             currentStatement.withToken(qualifiedName, currentRealToken.endPos);
          }
@@ -1662,9 +1662,9 @@ private void skipBody() {
    private void parseBracketExpressionDetails()
    {
       readToken('(');
-      
+
       while ( ! currentRealKindEquals(EOF) 
-         && ! currentRealKindEquals(')'))
+            && ! currentRealKindEquals(')'))
       {
          if (currentRealKindEquals('('))
          {
@@ -1673,9 +1673,9 @@ private void skipBody() {
          else if (currentRealKindEquals('v'))
          {
             checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
-            
+
             String qualifiedName = parseQualifiedName();
-            
+
             methodBodyQualifiedNames.put(qualifiedName, currentRealToken.startPos);
             currentStatement.withToken(qualifiedName, currentRealToken.endPos);
          }
@@ -1684,10 +1684,10 @@ private void skipBody() {
             readToken();
          }
       }
-      
+
       readToken(')');      
    }
-   
+
    private void readToken()
    {
       if (currentStatement != null)
@@ -1700,7 +1700,7 @@ private void skipBody() {
    private void readToken(char c)
    {
       skip(c);
-      
+
       if (currentStatement != null)
       {
          currentStatement.withToken("" + c, currentRealToken.endPos);
@@ -1708,58 +1708,58 @@ private void skipBody() {
    }
 
    private String fileName;
-   
+
    public String getFileName()
    {
       return fileName;
    }
-   
+
    public void setFileName(String fileName)
    {
       this.fileName = fileName;
    }
-   
+
    public Parser withFileName(String fileName)
    {
       setFileName(fileName);
       return this;
    }
 
-	public void parseMethodBody(SymTabEntry symTabEntry)
-  {
-		if ( symTabEntry.getMemberName().startsWith(METHOD+":") )
-			indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() +1, symTabEntry.getEndPos() -1); 
-  }
+   public void parseMethodBody(SymTabEntry symTabEntry)
+   {
+      if ( symTabEntry.getMemberName().startsWith(METHOD+":") )
+         indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() +1, symTabEntry.getEndPos() -1); 
+   }
 
-	public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature) {
-		ArrayList<SymTabEntry> entries = new ArrayList<SymTabEntry>();
-		Set<String> keySet = symTab.keySet();
-		for (String key : keySet) {
-			if (key.contains(signature))
-				entries.add(symTab.get(key));
-		}
-		return entries;
-	}
+   public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature) {
+      ArrayList<SymTabEntry> entries = new ArrayList<SymTabEntry>();
+      Set<String> keySet = symTab.keySet();
+      for (String key : keySet) {
+         if (key.contains(signature))
+            entries.add(symTab.get(key));
+      }
+      return entries;
+   }
 
-	public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
-		ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);
-		for (SymTabEntry symTabEntry : symTabEntries) {
-			long lineIndexOfStart = getLineIndexOf(symTabEntry.getStartPos());
-			long lineIndexOfEnd = getLineIndexOf(symTabEntry.getEndPos());
-			if ( lineIndexOfStart <= callMethodLineNumber && lineIndexOfEnd >= callMethodLineNumber) {
-				return symTabEntry;
-			}
-		}
-		return null;
-	}
+   public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
+      ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);
+      for (SymTabEntry symTabEntry : symTabEntries) {
+         long lineIndexOfStart = getLineIndexOf(symTabEntry.getStartPos());
+         long lineIndexOfEnd = getLineIndexOf(symTabEntry.getEndPos());
+         if ( lineIndexOfStart <= callMethodLineNumber && lineIndexOfEnd >= callMethodLineNumber) {
+            return symTabEntry;
+         }
+      }
+      return null;
+   }
 
-	public String getSignatureFor(SymTabEntry symTabEntry) {	
-		Set<String> keySet = symTab.keySet();
-		for (String key : keySet) {
-			if (symTab.get(key) == symTabEntry)
-				return key;
-		}
-		return "";
-	}
+   public String getSignatureFor(SymTabEntry symTabEntry) {	
+      Set<String> keySet = symTab.keySet();
+      for (String key : keySet) {
+         if (symTab.get(key) == symTabEntry)
+            return key;
+      }
+      return "";
+   }
 }
 
