@@ -6,8 +6,8 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":18,
-      "hoursSpend":184,
+      "hoursRemaining":16,
+      "hoursSpend":176,
       "subentries":[
         {"id":"KE.K103"},
         {"id":"KE.K175"},
@@ -32,12 +32,8 @@
         {"id":"KE.K221"},
         {"id":"KE.K160"},
         {"id":"KE.K198"},
-        {"id":"KE.K207"},
-        {"id":"KE.K213"},
         {"id":"KE.K2"},
         {"id":"KE.K189"},
-        {"id":"KE.K223"},
-        {"id":"KE.K187"},
         {"id":"KE.K225"},
         {"id":"KE.K136"},
         {"id":"KE.K235"},
@@ -104,7 +100,8 @@
         {"id":"KE.L243"},
         {"id":"KE.L249"},
         {"id":"KE.L250"},
-        {"id":"KE.L251"}
+        {"id":"KE.L251"},
+        {"id":"KE.L253"}
       ]
     }
   },
@@ -115,15 +112,14 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
-      "hoursSpend":60,
+      "hoursRemaining":2,
+      "hoursSpend":52,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K3"},
         {"id":"KE.K4"},
         {"id":"KE.K5"},
         {"id":"KE.K6"},
-        {"id":"KE.K9"},
         {"id":"KE.K7"},
         {"id":"KE.K10"},
         {"id":"KE.K8"},
@@ -159,7 +155,8 @@
         {"id":"KE.L98"},
         {"id":"KE.L101"},
         {"id":"KE.L105"},
-        {"id":"KE.L244"}
+        {"id":"KE.L244"},
+        {"id":"KE.L252"}
       ]
     }
   },
@@ -272,23 +269,6 @@
       "logEntries":[
         {"id":"KE.L69"},
         {"id":"KE.L72"}
-      ],
-      "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
-    }
-  },
-  {
-    "id":"KE.K9",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"GroupAccountRuleRecognition",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":8,
-      "parent":{"id":"KE.K2"},
-      "logEntries":[
-        {"id":"KE.L93"},
-        {"id":"KE.L94"}
       ],
       "files":"examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java"
     }
@@ -407,7 +387,6 @@
       "subentries":[
         {"id":"KE.K99"},
         {"id":"KE.K104"},
-        {"id":"KE.K116"},
         {"id":"KE.K154"}
       ],
       "logEntries":[
@@ -434,16 +413,6 @@
         {"id":"KE.L171"}
       ],
       "files":"examples/org/sdmlib/examples/ludo/LudoScenario.java"
-    }
-  },
-  {
-    "id":"KE.K116",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"PatternModel",
-      "phase":"backlog",
-      "parent":{"id":"KE.K103"},
-      "files":"test/org/sdmlib/models/patterns/PatternModelCodeGen.java"
     }
   },
   {
@@ -638,19 +607,6 @@
     }
   },
   {
-    "id":"KE.K187",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"peerToPeerChatModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L188"}
-      ]
-    }
-  },
-  {
     "id":"KE.K189",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
@@ -707,19 +663,6 @@
     }
   },
   {
-    "id":"KE.K207",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"PeerToServerChatScenario",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L208"}
-      ]
-    }
-  },
-  {
     "id":"KE.K209",
     "class":"org.sdmlib.scenarios.KanbanEntry",
     "prop":{
@@ -731,19 +674,6 @@
       "logEntries":[
         {"id":"KE.L210"},
         {"id":"KE.L212"}
-      ]
-    }
-  },
-  {
-    "id":"KE.K213",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"PeerToPeerNetworkChatScenario",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L214"}
       ]
     }
   },
@@ -785,19 +715,6 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L222"}
-      ]
-    }
-  },
-  {
-    "id":"KE.K223",
-    "class":"org.sdmlib.scenarios.KanbanEntry",
-    "prop":{
-      "name":"MauMauModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L224"}
       ]
     }
   },
@@ -1865,31 +1782,6 @@
     }
   },
   {
-    "id":"KE.L93",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"04.04.2012 00:26:59",
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
-    }
-  },
-  {
-    "id":"KE.L94",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":8,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: We will call updateBalances() to compute the correct balances.\nTherefore, show updateBalances() first as code and then as a graphical model transformation operation diagram."
-    }
-  },
-  {
     "id":"KE.L95",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
@@ -2766,16 +2658,6 @@
     }
   },
   {
-    "id":"KE.L188",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"21.09.2012 12:00:00",
-      "kanbanEntry":{"id":"KE.K187"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
     "id":"KE.L190",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
@@ -2942,16 +2824,6 @@
     }
   },
   {
-    "id":"KE.L208",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"15.11.2012 12:00:00",
-      "kanbanEntry":{"id":"KE.K207"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
     "id":"KE.L210",
     "class":"org.sdmlib.scenarios.LogEntry",
     "prop":{
@@ -2984,16 +2856,6 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Simple object without properties creates object diagram,  now"
-    }
-  },
-  {
-    "id":"KE.L214",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"02.01.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K213"},
-      "developer":"zuendorf",
-      "phase":"backlog"
     }
   },
   {
@@ -3047,16 +2909,6 @@
     "prop":{
       "date":"01.06.2013 12:00:00",
       "kanbanEntry":{"id":"KE.K221"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L224",
-    "class":"org.sdmlib.scenarios.LogEntry",
-    "prop":{
-      "date":"11.06.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K223"},
       "developer":"zuendorf",
       "phase":"backlog"
     }
@@ -3272,6 +3124,32 @@
     "prop":{
       "date":"03.09.2013 12:00:00",
       "hoursRemainingInTotal":18,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountScenario1: null"
+    }
+  },
+  {
+    "id":"KE.L252",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"19.08.2012 23:04:42",
+      "hoursSpend":-8,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K2"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L253",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"03.09.2013 12:00:00",
+      "hoursSpend":-8,
+      "hoursRemainingInTotal":16,
       "kanbanEntry":{"id":"KE.K1"},
       "developer":"zuendorf",
       "phase":"active",
