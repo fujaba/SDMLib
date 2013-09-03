@@ -15,8 +15,8 @@
     totalvaluesum [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>total = value.sum()</td></tr></table>>];
     sharetotalpersonssize [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>share = total / persons.size()</td></tr></table>>];
     foreachperson [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>foreach person</td></tr></table>>];
-    myCostsvaluesum [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>myCosts = value.sum()</td></tr></table>>];
-    personsetBalancemyCostsshare [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>person.setBalance(myCosts - share)</td></tr></table>>];
+    personTotalvaluesum [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>personTotal = value.sum()</td></tr></table>>];
+    personwithBalancepersonBalance [label=<<table border='0' cellborder='0' cellspacing='0'><tr><td>person.withBalance(personBalance)</td></tr></table>>];
     
     
     this -> items [headlabel = "get" taillabel = "" arrowhead = "none" ];
@@ -28,10 +28,10 @@
     items -> totalvaluesum [style = "dotted" arrowhead = "none"];
     sharetotalpersonssize -> foreachperson [style = "dotted", arrowhead = "vee"];
     persons -> sharetotalpersonssize [style = "dotted" arrowhead = "none"];
-    foreachperson -> myCostsvaluesum [style = "dotted", arrowhead = "vee"];
+    foreachperson -> personTotalvaluesum [style = "dotted", arrowhead = "vee"];
     person -> foreachperson [style = "dotted" arrowhead = "none"];
     persons -> foreachperson [style = "dotted" arrowhead = "none"];
-    myCostsvaluesum -> personsetBalancemyCostsshare [style = "dotted", arrowhead = "vee"];
-    items2 -> myCostsvaluesum [style = "dotted" arrowhead = "none"];
-    person -> personsetBalancemyCostsshare [style = "dotted" arrowhead = "none"];
+    personTotalvaluesum -> personwithBalancepersonBalance [style = "dotted", arrowhead = "vee"];
+    items2 -> personTotalvaluesum [style = "dotted" arrowhead = "none"];
+    person -> personwithBalancepersonBalance [style = "dotted" arrowhead = "none"];
 }

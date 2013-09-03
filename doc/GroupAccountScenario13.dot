@@ -1,0 +1,23 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GroupAccount</u></td></tr></table>>];
+p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p2 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Albert"</td></tr></table></td></tr></table>>];
+i3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>i3 :Item</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>description = "Beer"</td></tr><tr><td>value = 12.0</td></tr></table></td></tr></table>>];
+p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p4 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Nina"</td></tr></table></td></tr></table>>];
+i5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>i5 :Item</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>description = "Bread"</td></tr><tr><td>value = 3.0</td></tr></table></td></tr></table>>];
+p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Artjom"</td></tr></table></td></tr></table>>];
+i7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>i7 :Item</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>description = "Meat"</td></tr><tr><td>value = 6.0</td></tr></table></td></tr></table>>];
+
+g1 -- p2 [headlabel = "persons" taillabel = "parent"];
+g1 -- p4 [headlabel = "persons" taillabel = "parent"];
+g1 -- p6 [headlabel = "persons" taillabel = "parent"];
+g1 -- i3 [headlabel = "items" taillabel = "parent"];
+g1 -- i5 [headlabel = "items" taillabel = "parent"];
+g1 -- i7 [headlabel = "items" taillabel = "parent"];
+p2 -- i3 [headlabel = "items" taillabel = "buyer"];
+p4 -- i5 [headlabel = "items" taillabel = "buyer"];
+p6 -- i7 [headlabel = "items" taillabel = "buyer"];
+}

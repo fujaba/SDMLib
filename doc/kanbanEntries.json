@@ -6,8 +6,8 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":16,
-      "hoursSpend":176,
+      "hoursRemaining":18,
+      "hoursSpend":184,
       "subentries":[
         {"id":"KE.K103"},
         {"id":"KE.K175"},
@@ -45,7 +45,8 @@
         {"id":"KE.K241"},
         {"id":"KE.K215"},
         {"id":"KE.K239"},
-        {"id":"KE.K126"}
+        {"id":"KE.K126"},
+        {"id":"KE.K245"}
       ],
       "logEntries":[
         {"id":"KE.L100"},
@@ -100,7 +101,10 @@
         {"id":"KE.L232"},
         {"id":"KE.L61"},
         {"id":"KE.L74"},
-        {"id":"KE.L243"}
+        {"id":"KE.L243"},
+        {"id":"KE.L249"},
+        {"id":"KE.L250"},
+        {"id":"KE.L251"}
       ]
     }
   },
@@ -889,6 +893,23 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L242"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K245",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountScenario1",
+      "phase":"modeling",
+      "lastDeveloper":"zuendorf",
+      "hoursRemaining":2,
+      "hoursSpend":8,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L246"},
+        {"id":"KE.L247"},
+        {"id":"KE.L248"}
       ]
     }
   },
@@ -3183,6 +3204,78 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"StudyRightObjectScenarios: Achieved: Feature Request: model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
+    }
+  },
+  {
+    "id":"KE.L246",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"03.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K245"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L247",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.04.2012 00:26:59",
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K245"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
+    }
+  },
+  {
+    "id":"KE.L248",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"15.04.2012 17:18:42",
+      "hoursSpend":8,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K245"},
+      "developer":"zuendorf",
+      "phase":"modeling",
+      "comment":"Achieved: We will call updateBalances() to compute the correct balances.\n"
+    }
+  },
+  {
+    "id":"KE.L249",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"03.09.2013 12:00:00",
+      "hoursSpend":8,
+      "hoursRemainingInTotal":18,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountScenario1: null"
+    }
+  },
+  {
+    "id":"KE.L250",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"03.09.2013 12:00:00",
+      "hoursRemainingInTotal":20,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountScenario1: null"
+    }
+  },
+  {
+    "id":"KE.L251",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"03.09.2013 12:00:00",
+      "hoursRemainingInTotal":18,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountScenario1: null"
     }
   }
 ]
