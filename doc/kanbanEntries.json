@@ -42,7 +42,9 @@
         {"id":"KE.K215"},
         {"id":"KE.K239"},
         {"id":"KE.K126"},
-        {"id":"KE.K245"}
+        {"id":"KE.K245"},
+        {"id":"KE.K254"},
+        {"id":"KE.K256"}
       ],
       "logEntries":[
         {"id":"KE.L100"},
@@ -827,6 +829,32 @@
         {"id":"KE.L246"},
         {"id":"KE.L247"},
         {"id":"KE.L248"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K254",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"StudyRight with assignments class generation",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L255"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K256",
+    "class":"org.sdmlib.scenarios.KanbanEntry",
+    "prop":{
+      "name":"StudyRight with assignments storyboard",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L257"}
       ]
     }
   },
@@ -3154,6 +3182,26 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"GroupAccountScenario1: null"
+    }
+  },
+  {
+    "id":"KE.L255",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K254"},
+      "developer":"ulno",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L257",
+    "class":"org.sdmlib.scenarios.LogEntry",
+    "prop":{
+      "date":"04.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K256"},
+      "developer":"ulno",
+      "phase":"backlog"
     }
   }
 ]
