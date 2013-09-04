@@ -367,13 +367,19 @@ public class Scenario
       newLogEntries.put(entry.getDate(), entry);
    }
 
+   /**
+    * Add an image to your storyboard.
+    * Example: scenario.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
+    * @param image
+    */
    public void addImage(String imageFile)
    {
       steps.add("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");     
    }
 
    /**
-    *  Example scenario.addToDo("ExtendScenarioByAddToDoMethod", BACKLOG, "zuendorf", "21.08.2012 15:57:42", 0, 1);
+    * Add an entry to your Kanban board TODO: document this, add phase entries to some generic class not into the example!!!
+    *  Example scenario.add("ExtendScenarioByAddToDoMethod", BACKLOG, "zuendorf", "21.08.2012 15:57:42", 0, 1);
     * @param string
     * @param phase
     * @param developer
