@@ -1,0 +1,35 @@
+- Why should the class creation be a test?
+- Can I rename scenario into storyboard?
+- Why does addObjectDiag need a jsonIDMap? -> why can't we do just a dump like in the classdiagram?
+- Why should creators be separated?
+- Why can't we specify real types as parameters in withAttribute?
+- StudyRight: why neighbors and not from/to (or fromRooms, to Rooms)?
+- What is this:
+in GenerateClasses.java:  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Student
+		at line 61    
+		Attribute motivation : int
+- Why:
+      Room mathRoom = university.createRooms()
+      .withRoomNo("math")
+      .withCredits(42)  
+      .withStudents(karli)
+      .withAssignments(a1)
+      .withAssignments(a2)
+      .withAssignments(a3);
+And not:
+      Room mathRoom = university.createRooms()
+      .withRoomNo("math")
+      .withCredits(42)  
+      .withStudents(karli)
+      .withAssignments(a1,a2,a3);
+?
+Why is the number-id in an object diagram unique? Why is there not r1 and a1? It is very confusing, if you refer to them from the scenario text as they never have the same name as in the code (why not?)..
+How can I limit the objects printed in an object-diagram?
+Why is there no text wrapping for Text added to the scenario?
+Why are integer with value 0 not displayed (pretty sad not to see that Karli has no creditpoints)?
+How can I regenerate the code for class diagrams? Changing names adds instead replaces, so it's safer to re-generate.
+
+Remarks:
+New workflow -> teaching-paper for ICSE
+
+
