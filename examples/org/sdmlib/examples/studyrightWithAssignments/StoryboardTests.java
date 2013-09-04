@@ -49,7 +49,6 @@ public class StoryboardTests {
       .withId("4242")
       .withName("Karli");
 
-
       Assignment a1 = new Assignment()
       .withContent("Matrix Multiplication")
       .withPoints(5);
@@ -143,7 +142,7 @@ public class StoryboardTests {
       //===============================================================================================
       scenario.assertEquals("Karli's credits: ", 17, karli.getCredits()); 
       scenario.assertEquals("Karli's assignment points: ", 0, karli.getAssignmentPoints()); 
-     scenario.assertEquals("Number of students: ", 1, university.getStudents().size()); 
+      scenario.assertEquals("Number of students: ", 1, university.getStudents().size()); 
 
 
       //================ Create HTML
