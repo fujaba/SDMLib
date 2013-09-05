@@ -58,7 +58,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withAttribute("name", STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
-      .withAttribute("title", STRING);
+      .withAttribute("title", STRING); 
 
       new Association()
       .withSource("prof", professorClass, ONE)
@@ -118,11 +118,9 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withTarget("uni", universityClass, ONE);
 
 
+      // model.updateFromCode("examples test src", "org.sdmlib.examples.studyright");
 
-
-      model.updateFromCode("examples test src", "org.sdmlib.examples.studyright");
-
-      model.insertModelCreationCodeHere("examples");
+      // model.insertModelCreationCodeHere("examples");
 
       scenario.addImage(model.dumpClassDiag("examples", "StudyRightReverseClassModel"));
 

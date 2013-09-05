@@ -1,13 +1,37 @@
 - Why should the class creation be a test?
+  You can do this code where ever you want, e.g. in a main method. 
+  For storyboardds I usually prefer tests as you may have more than one test in a class but only one main method. 
+  Thus, I do the model creation code into a test just because I use tests in all other storyboards. 
+  However, many people mentioned this. In addition, it is not cool to have the model creation code and some storyboard using the same model in one class. 
+  If the generated model code does not compile or you have just deleted it in order to generate a fresh new version, the class containing storyboard and model 
+  creation code will no longer compile and you have difficulties to generate the model code again.  
+
 - Can I rename scenario into storyboard?
+  Yes. Go for it. 
+  Hm, shall we offer both possibilities?
+  
 - Why does addObjectDiag need a jsonIDMap? -> why can't we do just a dump like in the classdiagram?
+  Yes you can. 
+
 - Why should creators be separated?
+  Matter of taste. I just did not want to polute the directory containing the core model classes with all the helper classes. 
+  
 - Why can't we specify real types as parameters in withAttribute?
-- StudyRight: why neighbors and not from/to (or fromRooms, to Rooms)?
+  Hm, how do I access the real type of "int". Ah, you may write int.class. 
+  Yes, we might add this. 
+   
+- StudyRight: why neighbors and not from/to (or fromRooms, toRooms)?
+  Tricky one: well, if you use the same role name for both directions, the implementation becomes totally symetric. That is cool. 
+  If you use fromRooms--toRooms and you have rooms math and arts and you do math.addToToRooms(arts) you navigate from math to arts via math.getToRooms()
+  but arts.getToRoom() is the empty set. Then you may either add a reverse link or on navigation you always need to query for both directions.   
+
 - What is this:
 in GenerateClasses.java:  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Student
 		at line 61    
 		Attribute motivation : int
+  In GenerateClasses in line 116 you add the attribute motivation to the clazz Student a second time. 		
+		
+		
 - Why:
       Room mathRoom = university.createRooms()
       .withRoomNo("math")
@@ -23,13 +47,33 @@ And not:
       .withStudents(karli)
       .withAssignments(a1,a2,a3);
 ?
-Why is the number-id in an object diagram unique? Why is there not r1 and a1? It is very confusing, if you refer to them from the scenario text as they never have the same name as in the code (why not?)..
-How can I limit the objects printed in an object-diagram?
-Why is there no text wrapping for Text added to the scenario?
-Why are integer with value 0 not displayed (pretty sad not to see that Karli has no creditpoints)?
-How can I regenerate the code for class diagrams? Changing names adds instead replaces, so it's safer to re-generate.
+  Pretty cool. We should do that. 
+
+- Why is the number-id in an object diagram unique? Why is there not r1 and a1? It is very confusing, if you refer to them from the scenario text as they never have the same name as in the code (why not?)..
+  First of all it is simple to implement: just one counter and not one counter per first letter. 
+  If we use one counter per first letter, we still run into problems if we have two classes with the same first letter, e.g. Player and Pawn. 
+  Well, I always wanted to enable the storyboard coder to provide names to be used in the object diagrams. I think this is possible, have to find it. 
+  Would that help? 
+
+- How can I limit the objects printed in an object-diagram?
+  You can use a Filter attached to a JsonIdMap. However, I always need to ask Stefan Lindel how to use these. There should be some examples in the TTCHelloWorld cases. 
+  
+- Why is there no text wrapping for Text added to the scenario?
+  Currently the text is added using <pre> tags. Thus no wrapping. Hm, we might change that. 
+  
+- Why are integer with value 0 not displayed (pretty sad not to see that Karli has no creditpoints)?
+  Generally, attributes having their default values are not shown. Keeps the diagram smaller. JsonIdMap does not contain such entries in the Json description (to save space)
+  and thus the object diagram dumper does not get this information. 
+  A workaround might be to give the attribute an intial value like -1. Than a 0 is shown. 
+   
+- How can I regenerate the code for class diagrams? Changing names adds instead replaces, so it's safer to re-generate.
+  You  may add something like 
+    model.removeAllGeneratedCode(rootDir, srcDir, helpersDir);
+  to your model creation code just before model.generate()
+  
+  
 
 Remarks:
-New workflow -> teaching-paper for ICSE
+-New workflow -> teaching-paper for ICSE
 
 
