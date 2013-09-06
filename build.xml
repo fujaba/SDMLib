@@ -3,65 +3,73 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="SDMLib">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="SDMLib">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../ProgrammeAlbert/eclipseindigo3.7.2"/>
-    <property name="ConfNet.location" value="../ConfNet"/>
-    <property name="ConfNetGUI.location" value="../ConfNetGUI"/>
+    <property name="ECLIPSE_HOME" value="../../../../../ProgrammeAlbert/eclipse4.3.0"/>
+    <property name="DuaneDemo.location" value="../DuaneDemo"/>
+    <property name="JavaFXExamples.location" value="../JavaFXExamples"/>
+    <property name="ObjectsFirstBook.location" value="../../../work/fm/ObjectsFirstBook"/>
+    <property name="SDMLibExampleProject.location" value="../SDMLibExampleProject"/>
+    <property name="SDMLibFujabaCoop.location" value="../SDMLibFujabaCoop"/>
+    <property name="SDMLibTTC2013PetriNet2Statechart.location" value="../SDMLibTTC2013PetriNet2Statechart"/>
+    <property name="SDMLibTTCLiveContest.location" value="../SDMLibTTCLiveContest"/>
+    <property name="SimpleUniProject.location" value="../../../work/fm/ObjectsFirstBook/models/SimpleUniProject"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+    <path id="Plug-in Dependencies.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
-    <path id="Plug-in Dependencies.libraryclasspath"/>
     <path id="SDMLib.classpath">
         <pathelement location="bin"/>
-        <path refid="JUnit 4.libraryclasspath"/>
         <pathelement location="lib/jcommon-1.0.17.jar"/>
         <pathelement location="lib/jfreechart-1.0.14.jar"/>
         <pathelement location="lib/gwtx-1.5.2.jar"/>
-        <pathelement location="../../../../../Program Files/Java/jdk1.6.0_31/lib/tools.jar"/>
-        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="lib/junit.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="test">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="examples">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="srchelpers">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="examplehelpers">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="testhelpers">
                 <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -74,40 +82,61 @@
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="SDMLib.classpath"/>
-        </javac>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
             <src path="test"/>
-            <classpath refid="SDMLib.classpath"/>
-        </javac>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
             <src path="examples"/>
-            <classpath refid="SDMLib.classpath"/>
-        </javac>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
             <src path="srchelpers"/>
-            <classpath refid="SDMLib.classpath"/>
-        </javac>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
             <src path="examplehelpers"/>
-            <classpath refid="SDMLib.classpath"/>
-        </javac>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
             <src path="testhelpers"/>
             <classpath refid="SDMLib.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
-        <ant antfile="build.xml" dir="${ConfNet.location}" inheritAll="false" target="clean"/>
-        <ant antfile="build.xml" dir="${ConfNet.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${DuaneDemo.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${DuaneDemo.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="build.xml" dir="${ConfNetGUI.location}" inheritAll="false" target="clean"/>
-        <ant antfile="build.xml" dir="${ConfNetGUI.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${JavaFXExamples.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${JavaFXExamples.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${ObjectsFirstBook.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${ObjectsFirstBook.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SDMLibExampleProject.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SDMLibExampleProject.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SDMLibFujabaCoop.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SDMLibFujabaCoop.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SDMLibTTC2013PetriNet2Statechart.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SDMLibTTC2013PetriNet2Statechart.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SDMLibTTCLiveContest.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SDMLibTTCLiveContest.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="build.xml" dir="${SimpleUniProject.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${SimpleUniProject.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
@@ -125,6 +154,19 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="Adam (1)">
+        <java classname="org.sdmlib.examples.adamandeve.Adam" failonerror="true" fork="yes">
+            <classpath refid="SDMLib.classpath"/>
+        </java>
+    </target>
+    <target name="AdamAndEveModel (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.adamandeve.AdamAndEveModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
     </target>
     <target name="ChartTest (1)">
         <mkdir dir="${junit.output.dir}"/>
@@ -150,6 +192,27 @@
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
+    <target name="EMFStudyRightModel">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.emfstudyright.EMFStudyRightModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="EmptyClassTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.model.classes.EmptyClassTest" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="Eve (1)">
+        <java classname="org.sdmlib.examples.adamandeve.Eve" failonerror="true" fork="yes">
+            <classpath refid="SDMLib.classpath"/>
+        </java>
+    </target>
     <target name="GenericObjectsTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -166,7 +229,12 @@
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
-    <target name="GroupAccountTests">
+    <target name="GroupAccountFXGui">
+        <java classname="org.sdmlib.examples.groupAccount.GroupAccountFXGui" failonerror="true" fork="yes">
+            <classpath refid="SDMLib.classpath"/>
+        </java>
+    </target>
+    <target name="GroupAccountTests (1)">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -222,6 +290,14 @@
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
+    <target name="LudoReverseModel">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.ludoreverse.LudoReverseModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
     <target name="LudoScenario">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -253,6 +329,14 @@
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
+    <target name="PatternModelCodeGen.testPatternModelCodegen">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.models.patterns.PatternModelCodeGen" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
     <target name="ProjectBoard">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -260,6 +344,40 @@
             <test name="org.sdmlib.kanban.ProjectBoard" todir="${junit.output.dir}"/>
             <classpath refid="SDMLib.classpath"/>
         </junit>
+    </target>
+    <target name="ReachbilityGraphFerrymansProblemExample">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.models.patterns.ReachbilityGraphFerrymansProblemExample" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="ReachbilityGraphModels">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.models.patterns.ReachbilityGraphModels" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="ReachbilityGraphSimpleExamples">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.models.patterns.ReachbilityGraphSimpleExamples" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="ReplicationModel">
+        <java classname="org.sdmlib.replication.ReplicationModel" failonerror="true" fork="yes">
+            <classpath refid="SDMLib.classpath"/>
+        </java>
+    </target>
+    <target name="ReplicationServer">
+        <java classname="org.sdmlib.replication.ReplicationServer" failonerror="true" fork="yes">
+            <classpath refid="SDMLib.classpath"/>
+        </java>
     </target>
     <target name="ReverseClassModelTest">
         <mkdir dir="${junit.output.dir}"/>
@@ -285,11 +403,59 @@
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
+    <target name="StudyRightScenarios">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.studyright.StudyRightScenarios" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="TaskFlowModel">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.model.taskflows.TaskFlowModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="TaskFlowModel.taskFlowModel">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.model.taskflows.TaskFlowModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="TrainModel">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.patternrewriteops.TrainModel" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="TrainScenarios">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.patternrewriteops.TrainScenarios" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
     <target name="TransformationsCodeGen">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="org.sdmlib.models.transformations.TransformationsCodeGen" todir="${junit.output.dir}"/>
+            <classpath refid="SDMLib.classpath"/>
+        </junit>
+    </target>
+    <target name="StoryboardTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.sdmlib.examples.studyrightWithAssignments.StoryboardTests" todir="${junit.output.dir}"/>
             <classpath refid="SDMLib.classpath"/>
         </junit>
     </target>
