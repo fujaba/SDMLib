@@ -1,6 +1,6 @@
 - Why should the class creation be a test?
   You can do this code where ever you want, e.g. in a main method. 
-  For storyboardds I usually prefer tests as you may have more than one test in a class but only one main method. 
+  For storyboards I usually prefer tests as you may have more than one test in a class but only one main method. 
   Thus, I do the model creation code into a test just because I use tests in all other storyboards. 
   However, many people mentioned this. In addition, it is not cool to have the model creation code and some storyboard using the same model in one class. 
   If the generated model code does not compile or you have just deleted it in order to generate a fresh new version, the class containing storyboard and model 
@@ -9,19 +9,20 @@
 - Can I rename scenario into storyboard?
   Yes. Go for it. 
   Hm, shall we offer both possibilities?
+  Just refactored - no scenario left.
   
 - Why does addObjectDiag need a jsonIDMap? -> why can't we do just a dump like in the classdiagram?
   Yes you can. 
 
 - Why should creators be separated?
-  Matter of taste. I just did not want to polute the directory containing the core model classes with all the helper classes. 
+  Matter of taste. I just did not want to pollute the directory containing the core model classes with all the helper classes. 
   
 - Why can't we specify real types as parameters in withAttribute?
   Hm, how do I access the real type of "int". Ah, you may write int.class. 
   Yes, we might add this. 
    
 - StudyRight: why neighbors and not from/to (or fromRooms, toRooms)?
-  Tricky one: well, if you use the same role name for both directions, the implementation becomes totally symetric. That is cool. 
+  Tricky one: well, if you use the same role name for both directions, the implementation becomes totally symmetric. That is cool. 
   If you use fromRooms--toRooms and you have rooms math and arts and you do math.addToToRooms(arts) you navigate from math to arts via math.getToRooms()
   but arts.getToRoom() is the empty set. Then you may either add a reverse link or on navigation you always need to query for both directions.   
 
@@ -29,7 +30,15 @@
 in GenerateClasses.java:  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Student
 		at line 61    
 		Attribute motivation : int
-  In GenerateClasses in line 116 you add the attribute motivation to the clazz Student a second time. 		
+  In GenerateClasses in line 116 you add the attribute motivation to the clazz Student a second time.
+  Still getting:
+  in GenerateClasses.java  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Room
+	  	at line 84    
+		Role door many
+  in GenerateClasses.java  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Room
+	  	at line 84    
+		Role door many
+  THi sis a feature as discussed in neighbors? 		
 		
 		
 - Why:
@@ -64,7 +73,7 @@ And not:
 - Why are integer with value 0 not displayed (pretty sad not to see that Karli has no creditpoints)?
   Generally, attributes having their default values are not shown. Keeps the diagram smaller. JsonIdMap does not contain such entries in the Json description (to save space)
   and thus the object diagram dumper does not get this information. 
-  A workaround might be to give the attribute an intial value like -1. Than a 0 is shown. 
+  A workaround might be to give the attribute an initial value like -1. Than a 0 is shown. 
    
 - How can I regenerate the code for class diagrams? Changing names adds instead replaces, so it's safer to re-generate.
   You  may add something like 
