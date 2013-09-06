@@ -12,6 +12,8 @@
     _LogEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../swtsrc/org/sdmlib/model/taskflows/LogEntry.java">LogEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>nodeName :String</td></tr> <tr><td align='left'>taskName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Timer [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../swtsrc/java/util/Timer.java">Timer</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SDMTimer [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../swtsrc/org/sdmlib/model/taskflows/SDMTimer.java">SDMTimer</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>schedule(TimerTask)</td></tr>  </table></td></tr> </table>>];
+    _SDMLibJsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../swtsrc/org/sdmlib/serialization/json/SDMLibJsonIdMap.java">SDMLibJsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Object [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../swtsrc/org/sdmlib/model/taskflows/Object.java">Object</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
@@ -19,6 +21,13 @@
     _TaskFlow ->  _Logger [dir = "back" arrowtail = "empty"];
     _Timer ->  _SDMTimer [dir = "back" arrowtail = "empty"];
     _TaskFlow -> _TaskFlow [headlabel = "subFlow" taillabel = "parent" arrowhead = "none" ];
-    _Logger -> _LogEntry [headlabel = "entries" taillabel = "logger" arrowhead = "none" ];
-    _LogEntry -> _LogEntry [headlabel = "children" taillabel = "parent" arrowhead = "none" ];
+    _Logger -> _LogEntry [headlabel = "entries *" taillabel = "logger" arrowhead = "none" ];
+    _LogEntry -> _LogEntry [headlabel = "children *" taillabel = "parent" arrowhead = "none" ];
+    _TaskFlow -> _SDMLibJsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _PeerProxy -> _SDMLibJsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _SocketThread -> _SDMLibJsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _SocketThread -> _Object [headlabel = "defaultTargetThread" taillabel = "" arrowhead = "vee" ];
+    _FetchFileFlow -> _PeerProxy [headlabel = "fileServer" taillabel = "" arrowhead = "vee" ];
+    _FetchFileFlow -> _SDMLibJsonIdMap [headlabel = "idMap" taillabel = "" arrowhead = "vee" ];
+    _Logger -> _PeerProxy [headlabel = "startPeer" taillabel = "" arrowhead = "vee" ];
 }

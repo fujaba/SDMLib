@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/emma_ant.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/emma.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

@@ -12,7 +12,9 @@ Bundle-ClassPath: SDMLib.jar,
  swing2swt.jar,
  lib/junit.jar,
  .,
- lib/org.hamcrest.core_1.3.0.v201303031735.jar
+ lib/org.hamcrest.core_1.3.0.v201303031735.jar,
+ lib/emma_ant.jar,
+ lib/emma.jar
 Export-Package: com.googlecode.gwtx,
  com.googlecode.gwtx.java,
  com.googlecode.gwtx.java.beans.emul,

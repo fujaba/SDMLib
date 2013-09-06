@@ -7,7 +7,7 @@
       "phase":"active",
       "lastDeveloper":"ulno",
       "hoursRemaining":12,
-      "hoursSpend":37,
+      "hoursSpend":43,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K4"},
@@ -31,7 +31,10 @@
         {"id":"KE.K58"},
         {"id":"KE.K61"},
         {"id":"KE.K65"},
-        {"id":"KE.K70"}
+        {"id":"KE.K70"},
+        {"id":"KE.K82"},
+        {"id":"KE.K85"},
+        {"id":"KE.K88"}
       ],
       "logEntries":[
         {"id":"KE.L7"},
@@ -43,7 +46,9 @@
         {"id":"KE.L57"},
         {"id":"KE.L64"},
         {"id":"KE.L69"},
-        {"id":"KE.L81"}
+        {"id":"KE.L81"},
+        {"id":"KE.L84"},
+        {"id":"KE.L87"}
       ]
     }
   },
@@ -378,6 +383,47 @@
         {"id":"KE.L78"},
         {"id":"KE.L79"},
         {"id":"KE.L80"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K82",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"WrapExistingClasses",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":5,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L83"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K85",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"SortIndex",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L86"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K88",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"taskFlowModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L89"}
       ]
     }
   },
@@ -1024,6 +1070,64 @@
       "developer":"ulno",
       "phase":"active",
       "comment":"LudoStoryboardManual: null"
+    }
+  },
+  {
+    "id":"KE.L83",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"02.11.2012 13:42:42",
+      "hoursSpend":5,
+      "kanbanEntry":{"id":"KE.K82"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L84",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"06.09.2013 12:00:00",
+      "hoursSpend":5,
+      "hoursRemainingInTotal":12,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"ulno",
+      "phase":"active",
+      "comment":"LudoStoryboardManual: null"
+    }
+  },
+  {
+    "id":"KE.L86",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"01.11.2012 14:43:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K85"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L87",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"06.09.2013 12:00:00",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":12,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"ulno",
+      "phase":"active",
+      "comment":"LudoStoryboardManual: null"
+    }
+  },
+  {
+    "id":"KE.L89",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"06.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K88"},
+      "developer":"zuendorf",
+      "phase":"backlog"
     }
   }
 ]

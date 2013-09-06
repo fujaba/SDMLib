@@ -19,49 +19,102 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
+	<property name="coverage.meta.dir" value="emma" />
+	<property name="coverage.report.dir" value="emmareports" />
+	<property name="emma.filter" value="" />
+	<property name="emma.enabled" value="true" />
+
 	<path id="Plug-in Dependencies.libraryclasspath">
 		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar" />
 		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar" />
 	</path>
-	<path id="SDMLib.classpath">
-		<pathelement location="bin" />
+	<path id="SDMLib.libs">
 		<pathelement location="lib/jcommon-1.0.17.jar" />
 		<pathelement location="lib/jfreechart-1.0.14.jar" />
 		<pathelement location="lib/gwtx-1.5.2.jar" />
 		<pathelement location="lib/junit.jar" />
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
+		<pathelement location="lib/emma.jar" />
+		<pathelement location="lib/emma_ant.jar" />
 	</path>
+
+	<path id="SDMLib.classpath">
+		<pathelement location="bin" />
+		<path refid="SDMLib.libs" />
+	</path>
+
+	<taskdef resource="emma_ant.properties" classpathref="SDMLib.classpath" />
+
 	<target name="AllTests" depends="build">
 		<delete dir="${junit.output.dir}" />
 		<mkdir dir="${junit.output.dir}" />
-		<junit printsummary="yes" haltonfailure="yes">
+		<!-- Emma instrumentation -->
+
+		<emma enabled="${emma.enabled}" verbosity="verbose">
+			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata.emma" merge="true" mode="fullcopy" />
+			<!--filter value="${emma.filter}" />
+			    </instr-->
+		</emma>
+		<junit printsummary="yes" haltonfailure="no">
 			<classpath>
-			        <pathelement location="lib/junit.jar"/>
-			    </classpath>
+				<pathelement location="binInst/classes" />
+				<path refid="SDMLib.libs" />
+			</classpath>
 
 			<formatter type="xml" />
-			<classpath refid="SDMLib.classpath" />
 			<batchtest fork="yes" todir="${junit.output.dir}">
 				<fileset dir="examples">
 					<include name="**/*Model.java" />
 				</fileset>
 			</batchtest>
+			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
+			<jvmarg value="-Demma.coverage.out.merge=false" />
 		</junit>
 		<antcall target="build" />
-		<junit printsummary="yes" haltonfailure="yes">
-					<classpath>
-					        <pathelement location="lib/junit.jar"/>
-					    </classpath>
+		<!-- Emma instrumentation -->
+		<emma enabled="${emma.enabled}" verbosity="verbose">
+			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata.emma" merge="true" mode="fullcopy">
+				<filter value="${emma.filter}" />
+			</instr>
+		</emma>
+		<junit printsummary="yes" haltonfailure="no">
+			<classpath>
+				<pathelement location="binInst/classes" />
+				<path refid="SDMLib.libs" />
+			</classpath>
 
-					<formatter type="xml" />
-					<classpath refid="SDMLib.classpath" />
-					<batchtest fork="yes" todir="${junit.output.dir}">
-						<fileset dir="examples">
-							<include name="**/*Storyboard.java" />
-						</fileset>
-					</batchtest>
-				</junit>
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${junit.output.dir}">
+				<fileset dir="examples">
+					<include name="**/*Storyboard.java" />
+				</fileset>
+			</batchtest>
+			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage2.ec" />
+			<jvmarg value="-Demma.coverage.out.merge=false" />
+		</junit>
+		<emma enabled="${emma.enabled}" verbosity="verbose">
+			<report>
+				<sourcepath>
+					<dirset dir="${basedir}">
+						<include name="src" />
+						<include name="test" />
+						<include name="examples" />
+						<include name="srchelpers" />
+						<include name="examplehelpers" />
+						<include name="testhelpers" />
+					</dirset>
+				</sourcepath>
+				<fileset dir="${coverage.meta.dir}">
+					<include name="*.emma" />
+					<include name="*.ec" />
+				</fileset>
+				<xml outfile="${coverage.report.dir}/report.xml" />
+				<txt outfile="${coverage.report.dir}/report.txt" />
+				<html outfile="${coverage.report.dir}/report.html" />
+			</report>
+		</emma>
 	</target>
+
 	<target name="init">
 		<mkdir dir="bin" />
 		<copy includeemptydirs="false" todir="bin">
