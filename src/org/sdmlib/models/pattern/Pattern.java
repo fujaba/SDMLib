@@ -39,6 +39,7 @@ import org.sdmlib.storyboards.JsonToImg;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
 {
