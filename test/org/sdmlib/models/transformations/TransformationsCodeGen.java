@@ -93,7 +93,7 @@ public class TransformationsCodeGen
       .withTarget("statements", statementClass, R.MANY);
       
       
-      storyboard.addImage(model.dumpClassDiag("src", "TransformationClasses01"));
+      storyboard.addImage(model.dumpClassDiagram("src", "TransformationClasses01"));
       
       model.generate("src", "srchelpers");
       

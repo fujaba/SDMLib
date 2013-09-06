@@ -104,7 +104,7 @@ public class LudoModel
 
       // model.insertModelCreationCodeHere("examples");
      
-      storyboard.addImage(model.dumpClassDiag("examples", "LudoModel01"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "LudoModel01"));
 
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
       

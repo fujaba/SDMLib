@@ -87,7 +87,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTarget(genericLinkClazz, "links", R.MANY)
       .withSource(genericGraph, "graph", R.ONE);
       
-      storyboard.addImage(genericModel.dumpClassDiag("src", "GenericObjectStructureClasses"));
+      storyboard.addImage(genericModel.dumpClassDiagram("src", "GenericObjectStructureClasses"));
      
       // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
@@ -142,7 +142,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       ClassModel learnedModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
       
-      storyboard.addImage(learnedModel.dumpClassDiag("test", "DerivedFromGenericObjectsClassDiag"));
+      storyboard.addImage(learnedModel.dumpClassDiagram("test", "DerivedFromGenericObjectsClassDiag"));
       
       //====================================================================================================
       storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
@@ -167,7 +167,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       learnedModel.insertModelCreationCodeHere("test");
       storyboard.addCode("test");
       
-      storyboard.addImage(model.dumpClassDiag("test", "ManuallyImprovedLearnedClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("test", "ManuallyImprovedLearnedClassDiag"));
       
       //====================================================================================================
       storyboard.add("Step 6: generate code from the learned class diagram ");

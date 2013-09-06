@@ -52,7 +52,7 @@ public class GenerateClasses {
 	      Clazz universityClass = new Clazz("University")
 	      .withAttribute("name", STRING);
 
-	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 01"));
+	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 01"));
 
 
 	      //============================================================
@@ -64,7 +64,7 @@ public class GenerateClasses {
 	      .withAttribute("assignmentPoints", INT)
 	      .withAttribute("motivation", INT);
 
-	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
+	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 02"));
 
 
 	      //============================================================
@@ -75,7 +75,7 @@ public class GenerateClasses {
 	      .withSource("university", universityClass, ONE)
 	      .withTarget("students", studentClass, MANY); 
 
-	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 03"));
+	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 03"));
 
 
 	      //============================================================
@@ -103,7 +103,7 @@ public class GenerateClasses {
 	      .withSource("students", studentClass, MANY)
 	      .withTarget("in", roomClass, ONE);
 
-	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
+	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04"));
 
 	      
 	      //============================================================
@@ -114,7 +114,7 @@ public class GenerateClasses {
 	      
 	      studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE);
 
-	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
+	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04b"));
 
 	      
 	      //============================================================

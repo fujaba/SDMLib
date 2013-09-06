@@ -88,7 +88,7 @@ public class ReplicationModel
       
       model.generate("src");
       
-      storyboard.addImage(model.dumpClassDiag("src", "ReplicationModel01"));
+      storyboard.addImage(model.dumpClassDiagram("src", "ReplicationModel01"));
       
       storyboard.dumpHTML();
    }

@@ -176,7 +176,7 @@ public class ProjectBoard
       .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
       .withTarget("logEntries", logEntryClass, R.MANY);
       
-      storyboard.addImage(model.dumpClassDiag("src", "StoryboardClasses.001"));
+      storyboard.addImage(model.dumpClassDiagram("src", "StoryboardClasses.001"));
       model.generate("src", "srchelpers");
 
       storyboard.add(" Editing the log entries works now fine as part of the add method. " , 

@@ -73,7 +73,7 @@
 		<antcall target="build" />
 		<!-- Emma instrumentation -->
 		<emma enabled="${emma.enabled}" verbosity="verbose">
-			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata.emma" merge="true" mode="fullcopy">
+			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata2.emma" merge="true" mode="fullcopy">
 				<filter value="${emma.filter}" />
 			</instr>
 		</emma>

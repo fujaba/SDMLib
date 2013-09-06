@@ -122,7 +122,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       // model.insertModelCreationCodeHere("examples");
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightReverseClassModel"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightReverseClassModel"));
 
       storyboard.add("Bug: running the test multiple times inserts the code multiple times \n" +
             "Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
@@ -296,7 +296,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       model.generate("examples", "examplehelpers");
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightExtendsReverseClassModel"));
 
       StoryboardManager.get()
       .add(storyboard)
@@ -317,7 +317,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       Clazz uniClass = new Clazz("University")
       .withAttribute("name", STRING);
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses01"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses01"));
 
 
       //============================================================
@@ -328,7 +328,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses02"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses02"));
 
 
       //============================================================
@@ -338,7 +338,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("uni", uniClass, ONE)
       .withTarget("students", studClass, MANY); 
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses03"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses03"));
 
 
       //============================================================
@@ -361,7 +361,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("students", studClass, MANY)
       .withTarget("in", roomClass, ONE);
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04"));
 
       
       //============================================================
@@ -373,7 +373,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       studClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
       .withAttributes("credits", INT, "motivation", INT);
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04b"));
 
       
       //============================================================
@@ -506,7 +506,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("prof", profClass, ONE)
       .withTarget("topic", topicClass, ONE);
 
-      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightOneToOneAssoc01"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightOneToOneAssoc01"));
 
       model.generate("examples", "examplehelpers");
 

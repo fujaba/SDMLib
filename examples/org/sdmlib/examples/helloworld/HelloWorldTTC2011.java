@@ -61,7 +61,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
       
       
       //==========================================================================
@@ -141,7 +141,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
       
       
       //==========================================================================
@@ -285,7 +285,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
       
       
       //==========================================================================
@@ -563,7 +563,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
       
       
       //==========================================================================
@@ -600,7 +600,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
       
       
       //==========================================================================
@@ -618,7 +618,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
       
 
       //==========================================================================
@@ -736,7 +736,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
+      storyboard.addImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
       
       graph = createExampleGraph();
       

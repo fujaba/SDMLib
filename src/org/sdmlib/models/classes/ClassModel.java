@@ -595,12 +595,12 @@ public class ClassModel implements PropertyChangeInterface
 		}
 	}
 
-	public String dumpClassDiag(String diagName)
+	public String dumpClassDiagram(String diagName)
 	{
-		return dumpClassDiag("src", diagName);
+		return dumpClassDiagram("src", diagName);
 	}
 
-	public String dumpClassDiag(String rootdir, String diagName)
+	public String dumpClassDiagram(String rootdir, String diagName)
 	{
 		// generate dot file
 		StringBuilder dotFileText = new StringBuilder(

@@ -152,7 +152,7 @@ public class PatternModelCodeGen
       
       model.generate("src", "srchelpers");
       
-      storyboard.addImage(model.dumpClassDiag("src", "PatternModel01"));
+      storyboard.addImage(model.dumpClassDiagram("src", "PatternModel01"));
            
       StoryboardManager.get()
       .add(storyboard)
