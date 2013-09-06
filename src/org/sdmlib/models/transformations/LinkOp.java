@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class LinkOp implements PropertyChangeInterface
 {
@@ -344,5 +345,15 @@ public class LinkOp implements PropertyChangeInterface
       setTransformOp(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSrcText());
+      _.append(" ").append(this.getTgtText());
+      return _.substring(1);
+   }
+
 }
 

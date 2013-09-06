@@ -40,6 +40,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.CallDot;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class TransformOp implements PropertyChangeInterface
 {
@@ -860,5 +861,14 @@ public class TransformOp implements PropertyChangeInterface
       CallDot.callDot(diagName, dotFileText.toString());
 
       return diagName + ".svg";   }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
+
 }
 

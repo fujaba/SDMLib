@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.transformations.creators.AttributeOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class AttributeOp implements PropertyChangeInterface
 {
@@ -177,5 +178,14 @@ public class AttributeOp implements PropertyChangeInterface
       setOperationObject(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 

@@ -31,6 +31,7 @@ import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class OperationObject implements PropertyChangeInterface
 {
@@ -676,5 +677,15 @@ public class OperationObject implements PropertyChangeInterface
          this.removeFromIncomings(value);
       }
    }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getType());
+      return _.substring(1);
+   }
+
 }
 
