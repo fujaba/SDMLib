@@ -38,7 +38,7 @@ in GenerateClasses.java:  duplicate name found in definition for org.sdmlib.exam
   in GenerateClasses.java  duplicate name found in definition for org.sdmlib.examples.studyrightWithAssignments.Room
 	  	at line 84    
 		Role door many
-  THi sis a feature as discussed in neighbors? 		
+  This is a feature as discussed in neighbors? 		
 		
 		
 - Why:
@@ -63,6 +63,7 @@ And not:
   If we use one counter per first letter, we still run into problems if we have two classes with the same first letter, e.g. Player and Pawn. 
   Well, I always wanted to enable the storyboard coder to provide names to be used in the object diagrams. I think this is possible, have to find it. 
   Would that help? 
+  Yes!
 
 - How can I limit the objects printed in an object-diagram?
   You can use a Filter attached to a JsonIdMap. However, I always need to ask Stefan Lindel how to use these. There should be some examples in the TTCHelloWorld cases. 
@@ -74,6 +75,7 @@ And not:
   Generally, attributes having their default values are not shown. Keeps the diagram smaller. JsonIdMap does not contain such entries in the Json description (to save space)
   and thus the object diagram dumper does not get this information. 
   A workaround might be to give the attribute an initial value like -1. Than a 0 is shown. 
+  This is not a nice solution. We should find a better way for dumping object diagrams.
    
 - How can I regenerate the code for class diagrams? Changing names adds instead replaces, so it's safer to re-generate.
   You  may add something like 
