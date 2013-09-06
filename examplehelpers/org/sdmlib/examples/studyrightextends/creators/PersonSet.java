@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,12 +22,43 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.modelsets.StringList;
 
-public class PersonSet extends LinkedHashSet<Person>
+public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Person elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.Person";
+   }
+
+
+   public PersonSet with(Person value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
    
    //==========================================================================
    
@@ -64,42 +95,5 @@ public class PersonSet extends LinkedHashSet<Person>
       return this;
    }
 
-   
- 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Person elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public PersonSet with(Person value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PersonSet without(Person value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Person";
-   }
 }
-
-
-
 

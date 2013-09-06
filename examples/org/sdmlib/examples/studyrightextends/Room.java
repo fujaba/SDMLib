@@ -29,6 +29,7 @@ import org.sdmlib.examples.studyrightextends.creators.RoomSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Room implements PropertyChangeInterface
 {

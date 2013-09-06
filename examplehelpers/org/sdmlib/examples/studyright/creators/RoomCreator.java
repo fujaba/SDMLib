@@ -12,9 +12,9 @@ public class RoomCreator extends EntityFactory
       Room.PROPERTY_ROOMNO,
       Room.PROPERTY_CREDITS,
       Room.PROPERTY_UNI,
+      Room.PROPERTY_NEIGHBORS,
       Room.PROPERTY_STUDENTS,
       Room.PROPERTY_ASSIGNMENTS,
-      Room.PROPERTY_NEIGHBORS,
    };
    
    public String[] getProperties()

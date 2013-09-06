@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,20 +27,42 @@ import org.sdmlib.examples.studyrightextends.Female;
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.modelsets.StringList;
 
-public class FemaleSet extends LinkedHashSet<Female>
+import java.util.List;
+
+public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getName()
+
+
+   public String toString()
    {
-      StringList result = new StringList();
+      StringList stringList = new StringList();
       
-      for (Female obj : this)
+      for (Female elem : this)
       {
-         result.add(obj.getName());
+         stringList.add(elem.toString());
       }
       
-      return result;
+      return "(" + stringList.concat(", ") + ")";
    }
 
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.Female";
+   }
+
+
+   public FemaleSet with(Female value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public FemaleSet without(Female value)
+   {
+      this.remove(value);
+      return this;
+   }
    
    //==========================================================================
    
@@ -77,50 +99,27 @@ public class FemaleSet extends LinkedHashSet<Female>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Female obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
    public FemaleSet withName(String value)
    {
       for (Female obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Female elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public FemaleSet with(Female value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public FemaleSet without(Female value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Female";
-   }
 }
-
-
-
 

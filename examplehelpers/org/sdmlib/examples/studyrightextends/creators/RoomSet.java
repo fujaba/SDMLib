@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,60 +22,49 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import java.util.List;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.examples.studyrightextends.Lecture;
+import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
+import org.sdmlib.examples.studyrightextends.University;
 
-public class RoomSet extends LinkedHashSet<Room>
+public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getRoomNo()
+
+
+   public String toString()
    {
-      StringList result = new StringList();
+      StringList stringList = new StringList();
       
-      for (Room obj : this)
+      for (Room elem : this)
       {
-         result.add(obj.getRoomNo());
+         stringList.add(elem.toString());
       }
       
-      return result;
+      return "(" + stringList.concat(", ") + ")";
    }
 
-   public intList getCredits()
+
+   public String getEntryType()
    {
-      intList result = new intList();
-      
-      for (Room obj : this)
-      {
-         result.add(obj.getCredits());
-      }
-      
-      return result;
+      return "org.sdmlib.examples.studyrightextends.Room";
    }
 
-   public LectureSet getLecture()
+
+   public RoomSet with(Room value)
    {
-      LectureSet result = new LectureSet();
-      
-      for (Room obj : this)
-      {
-         result.addAll(obj.getLecture());
-      }
-      
-      return result;
+      this.add(value);
+      return this;
    }
-   public UniversitySet getUni()
+   
+   public RoomSet without(Room value)
    {
-      UniversitySet result = new UniversitySet();
-      
-      for (Room obj : this)
-      {
-         result.add(obj.getUni());
-      }
-      
-      return result;
+      this.remove(value);
+      return this;
    }
    
    //==========================================================================
@@ -90,21 +79,45 @@ public class RoomSet extends LinkedHashSet<Room>
       return result;
    }
 
+   public StringList getRoomNo()
+   {
+      StringList result = new StringList();
+      
+      for (Room obj : this)
+      {
+         result.add(obj.getRoomNo());
+      }
+      
+      return result;
+   }
+
    public RoomSet withRoomNo(String value)
    {
       for (Room obj : this)
       {
-         obj.withRoomNo(value);
+         obj.setRoomNo(value);
       }
       
       return this;
+   }
+
+   public intList getCredits()
+   {
+      intList result = new intList();
+      
+      for (Room obj : this)
+      {
+         result.add(obj.getCredits());
+      }
+      
+      return result;
    }
 
    public RoomSet withCredits(int value)
    {
       for (Room obj : this)
       {
-         obj.withCredits(value);
+         obj.setCredits(value);
       }
       
       return this;
@@ -121,6 +134,7 @@ public class RoomSet extends LinkedHashSet<Room>
       
       return result;
    }
+
    public RoomSet withNeighbors(Room value)
    {
       for (Room obj : this)
@@ -139,6 +153,18 @@ public class RoomSet extends LinkedHashSet<Room>
       }
       
       return this;
+   }
+
+   public LectureSet getLecture()
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Room obj : this)
+      {
+         result.addAll(obj.getLecture());
+      }
+      
+      return result;
    }
 
    public RoomSet withLecture(Lecture value)
@@ -161,6 +187,18 @@ public class RoomSet extends LinkedHashSet<Room>
       return this;
    }
 
+   public UniversitySet getUni()
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (Room obj : this)
+      {
+         result.add(obj.getUni());
+      }
+      
+      return result;
+   }
+
    public RoomSet withUni(University value)
    {
       for (Room obj : this)
@@ -171,40 +209,5 @@ public class RoomSet extends LinkedHashSet<Room>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Room elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public RoomSet with(Room value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RoomSet without(Room value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Room";
-   }
 }
-
-
-
 

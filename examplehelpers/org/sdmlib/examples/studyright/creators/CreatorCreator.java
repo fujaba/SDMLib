@@ -14,6 +14,10 @@ public class CreatorCreator
       if (creatorSet == null)
       {
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
+         creatorSet.add(new org.sdmlib.examples.studyright.creators.ProfessorCreator());
+         creatorSet.add(new org.sdmlib.examples.studyright.creators.ProfessorPOCreator());
+         creatorSet.add(new org.sdmlib.examples.studyright.creators.TopicCreator());
+         creatorSet.add(new org.sdmlib.examples.studyright.creators.TopicPOCreator());
          creatorSet.add(new org.sdmlib.examples.studyright.creators.UniversityCreator());
          creatorSet.add(new org.sdmlib.examples.studyright.creators.UniversityPOCreator());
          creatorSet.add(new org.sdmlib.examples.studyright.creators.StudentCreator());
@@ -22,10 +26,6 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.studyright.creators.RoomPOCreator());
          creatorSet.add(new org.sdmlib.examples.studyright.creators.AssignmentCreator());
          creatorSet.add(new org.sdmlib.examples.studyright.creators.AssignmentPOCreator());
-         creatorSet.add(new org.sdmlib.examples.studyright.creators.ProfessorCreator());
-         creatorSet.add(new org.sdmlib.examples.studyright.creators.ProfessorPOCreator());
-         creatorSet.add(new org.sdmlib.examples.studyright.creators.TopicCreator());
-         creatorSet.add(new org.sdmlib.examples.studyright.creators.TopicPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       

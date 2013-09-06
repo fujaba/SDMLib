@@ -6,7 +6,7 @@
       "name":"Project",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":12,
+      "hoursRemaining":6,
       "hoursSpend":123,
       "subentries":[
         {"id":"KE.K2"},
@@ -50,7 +50,8 @@
         {"id":"KE.L81"},
         {"id":"KE.L84"},
         {"id":"KE.L87"},
-        {"id":"KE.L93"}
+        {"id":"KE.L93"},
+        {"id":"KE.L94"}
       ]
     }
   },
@@ -119,7 +120,7 @@
       "name":"StudyRightObjectStoryboards",
       "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":8,
+      "hoursRemaining":2,
       "hoursSpend":5,
       "parent":{"id":"KE.K1"},
       "logEntries":[
@@ -571,7 +572,7 @@
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"25.03.2012 21:37:46",
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K16"},
       "developer":"zuendorf",
       "phase":"backlog",
@@ -584,7 +585,7 @@
     "prop":{
       "date":"19.05.2012 20:40:42",
       "hoursSpend":1,
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K16"},
       "developer":"zuendorf joern alex",
       "phase":"done",
@@ -596,7 +597,7 @@
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.05.2012 20:42:42",
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K16"},
       "developer":"zuendorf",
       "phase":"backlog",
@@ -609,7 +610,7 @@
     "prop":{
       "date":"19.08.2012 23:04:42",
       "hoursSpend":4,
-      "hoursRemainingInTotal":8,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K16"},
       "developer":"zuendorf",
       "phase":"done",
@@ -1176,6 +1177,18 @@
       "date":"07.09.2013 12:00:00",
       "hoursSpend":80,
       "hoursRemainingInTotal":12,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"PatternModelCodegen: null"
+    }
+  },
+  {
+    "id":"KE.L94",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.09.2013 12:00:00",
+      "hoursRemainingInTotal":6,
       "kanbanEntry":{"id":"KE.K1"},
       "developer":"zuendorf",
       "phase":"active",

@@ -1,8 +1,9 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.University;
+import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightextends.University;
 
 public class UniversityCreator extends EntityFactory
 {
@@ -29,6 +30,10 @@ public class UniversityCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((University) target).set(attrName, value);
    }
    
@@ -46,5 +51,4 @@ public class UniversityCreator extends EntityFactory
       ((University) entity).removeYou();
    }
 }
-
 

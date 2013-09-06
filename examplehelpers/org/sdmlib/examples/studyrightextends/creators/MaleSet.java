@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,11 +22,10 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyrightextends.Male;
 import org.sdmlib.models.modelsets.StringList;
 
-public class MaleSet extends LinkedHashSet<Male>
+public class MaleSet extends LinkedHashSet<Male> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -43,6 +42,12 @@ public class MaleSet extends LinkedHashSet<Male>
    }
 
 
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.Male";
+   }
+
+
    public MaleSet with(Male value)
    {
       this.add(value);
@@ -54,13 +59,5 @@ public class MaleSet extends LinkedHashSet<Male>
       this.remove(value);
       return this;
    }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Male";
-   }
 }
-
-
 

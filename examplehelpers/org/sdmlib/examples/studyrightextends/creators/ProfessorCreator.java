@@ -1,15 +1,17 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.Professor;
+import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightextends.Professor;
+import org.sdmlib.examples.studyrightextends.Female;
 
 public class ProfessorCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
       Professor.PROPERTY_PERSNR,
-      Professor.PROPERTY_NAME,
+      Female.PROPERTY_NAME,
       Professor.PROPERTY_LECTURE,
    };
    
@@ -30,6 +32,10 @@ public class ProfessorCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Professor) target).set(attrName, value);
    }
    
@@ -47,5 +53,4 @@ public class ProfessorCreator extends EntityFactory
       ((Professor) entity).removeYou();
    }
 }
-
 

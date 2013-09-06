@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class Professor extends Female implements PropertyChangeInterface
 {

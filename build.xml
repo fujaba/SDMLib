@@ -87,6 +87,7 @@
 			<batchtest fork="yes" todir="${junit.output.dir}">
 				<fileset dir="examples">
 					<include name="**/*Storyboard.java" />
+					<include name="**/*Storyboards.java" />
 				</fileset>
 			</batchtest>
 			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage2.ec" />

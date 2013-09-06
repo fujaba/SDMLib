@@ -28,11 +28,11 @@ import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyright.creators.UniversitySet;
 import org.sdmlib.examples.studyright.University;
+import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
 import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.Assignment;
-import org.sdmlib.examples.studyright.creators.RoomSet;
 
 public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -146,6 +146,38 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
+   public RoomSet getNeighbors()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         result.addAll(obj.getNeighbors());
+      }
+      
+      return result;
+   }
+
+   public RoomSet withNeighbors(Room value)
+   {
+      for (Room obj : this)
+      {
+         obj.withNeighbors(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet withoutNeighbors(Room value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutNeighbors(value);
+      }
+      
+      return this;
+   }
+
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
@@ -210,38 +242,5 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
-   public RoomSet getNeighbors()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         result.addAll(obj.getNeighbors());
-      }
-      
-      return result;
-   }
-
-   public RoomSet withNeighbors(Room value)
-   {
-      for (Room obj : this)
-      {
-         obj.withNeighbors(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet withoutNeighbors(Room value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutNeighbors(value);
-      }
-      
-      return this;
-   }
-
 }
-
 

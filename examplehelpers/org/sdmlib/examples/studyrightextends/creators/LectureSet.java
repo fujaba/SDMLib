@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,100 +22,18 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.examples.studyrightextends.Professor;
-import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import org.sdmlib.examples.studyrightextends.Room;
+import org.sdmlib.examples.studyrightextends.creators.ProfessorSet;
+import org.sdmlib.examples.studyrightextends.Professor;
+import org.sdmlib.examples.studyrightextends.creators.StudentSet;
+import org.sdmlib.examples.studyrightextends.Student;
 
-public class LectureSet extends LinkedHashSet<Lecture>
+public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getTitle()
-   {
-      StringList result = new StringList();
-      
-      for (Lecture obj : this)
-      {
-         result.add(obj.getTitle());
-      }
-      
-      return result;
-   }
-
-   public RoomSet getIn()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Lecture obj : this)
-      {
-         result.add(obj.getIn());
-      }
-      
-      return result;
-   }
-   public ProfessorSet getHas()
-   {
-      ProfessorSet result = new ProfessorSet();
-      
-      for (Lecture obj : this)
-      {
-         result.add(obj.getHas());
-      }
-      
-      return result;
-   }
-   public StudentSet getListen()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Lecture obj : this)
-      {
-         result.add(obj.getListen());
-      }
-      
-      return result;
-   }
-   public LectureSet withTitle(String value)
-   {
-      for (Lecture obj : this)
-      {
-         obj.withTitle(value);
-      }
-      
-      return this;
-   }
-
-   public LectureSet withIn(Room value)
-   {
-      for (Lecture obj : this)
-      {
-         obj.withIn(value);
-      }
-      
-      return this;
-   }
-
-   public LectureSet withHas(Professor value)
-   {
-      for (Lecture obj : this)
-      {
-         obj.withHas(value);
-      }
-      
-      return this;
-   }
-
-   public LectureSet withListen(Student value)
-   {
-      for (Lecture obj : this)
-      {
-         obj.withListen(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
@@ -131,6 +49,12 @@ public class LectureSet extends LinkedHashSet<Lecture>
    }
 
 
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.Lecture";
+   }
+
+
    public LectureSet with(Lecture value)
    {
       this.add(value);
@@ -142,15 +66,93 @@ public class LectureSet extends LinkedHashSet<Lecture>
       this.remove(value);
       return this;
    }
-
-
-   public String getEntryType()
+   public StringList getTitle()
    {
-      return "org.sdmlib.examples.studyrightextends.Lecture";
+      StringList result = new StringList();
+      
+      for (Lecture obj : this)
+      {
+         result.add(obj.getTitle());
+      }
+      
+      return result;
    }
+
+   public LectureSet withTitle(String value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.setTitle(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet getIn()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Lecture obj : this)
+      {
+         result.add(obj.getIn());
+      }
+      
+      return result;
+   }
+
+   public LectureSet withIn(Room value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withIn(value);
+      }
+      
+      return this;
+   }
+
+   public ProfessorSet getHas()
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Lecture obj : this)
+      {
+         result.add(obj.getHas());
+      }
+      
+      return result;
+   }
+
+   public LectureSet withHas(Professor value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withHas(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet getListen()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Lecture obj : this)
+      {
+         result.add(obj.getListen());
+      }
+      
+      return result;
+   }
+
+   public LectureSet withListen(Student value)
+   {
+      for (Lecture obj : this)
+      {
+         obj.withListen(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
-
 

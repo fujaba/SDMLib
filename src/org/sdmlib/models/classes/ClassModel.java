@@ -218,6 +218,11 @@ public class ClassModel implements PropertyChangeInterface
 
 			for( Role role : roles) {
             String name = role.getName();
+            if (name.equals(role.getPartnerRole().getName()))
+            {
+               // no problem, 
+               continue;
+            }
             if (attributs.containsKey(name)) {
                duplicateEntries.add(role);
                duplicateEntries.add(attributs.get(name));

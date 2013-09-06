@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,14 +22,47 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import java.util.List;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.examples.studyrightextends.Lecture;
 
-public class ProfessorSet extends LinkedHashSet<Professor>
+public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Professor elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.Professor";
+   }
+
+
+   public ProfessorSet with(Professor value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public ProfessorSet without(Professor value)
+   {
+      this.remove(value);
+      return this;
+   }
    public intList getPersNr()
    {
       intList result = new intList();
@@ -40,6 +73,16 @@ public class ProfessorSet extends LinkedHashSet<Professor>
       }
       
       return result;
+   }
+
+   public ProfessorSet withPersNr(int value)
+   {
+      for (Professor obj : this)
+      {
+         obj.setPersNr(value);
+      }
+      
+      return this;
    }
 
    public StringList getName()
@@ -54,6 +97,16 @@ public class ProfessorSet extends LinkedHashSet<Professor>
       return result;
    }
 
+   public ProfessorSet withName(String value)
+   {
+      for (Professor obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
    public LectureSet getLecture()
    {
       LectureSet result = new LectureSet();
@@ -64,25 +117,6 @@ public class ProfessorSet extends LinkedHashSet<Professor>
       }
       
       return result;
-   }
-   public ProfessorSet withPersNr(int value)
-   {
-      for (Professor obj : this)
-      {
-         obj.withPersNr(value);
-      }
-      
-      return this;
-   }
-
-   public ProfessorSet withName(String value)
-   {
-      for (Professor obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
    }
 
    public ProfessorSet withLecture(Lecture value)
@@ -105,40 +139,5 @@ public class ProfessorSet extends LinkedHashSet<Professor>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Professor elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public ProfessorSet with(Professor value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ProfessorSet without(Professor value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Professor";
-   }
 }
-
-
-
 

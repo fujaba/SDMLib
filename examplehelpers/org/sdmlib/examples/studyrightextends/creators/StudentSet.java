@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,48 +23,49 @@ package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
+
+import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import org.sdmlib.examples.studyrightextends.Lecture;
 
-public class StudentSet extends LinkedHashSet<Student>
+public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getName()
+
+
+   public String toString()
    {
-      StringList result = new StringList();
+      StringList stringList = new StringList();
       
-      for (Student obj : this)
+      for (Student elem : this)
       {
-         result.add(obj.getName());
+         stringList.add(elem.toString());
       }
       
-      return result;
+      return "(" + stringList.concat(", ") + ")";
    }
 
-   public intList getMatrNo()
+
+   public String getEntryType()
    {
-      intList result = new intList();
-      
-      for (Student obj : this)
-      {
-         result.add(obj.getMatrNo());
-      }
-      
-      return result;
+      return "org.sdmlib.examples.studyrightextends.Student";
    }
 
-   public LectureSet getLecture()
+
+   public StudentSet with(Student value)
    {
-      LectureSet result = new LectureSet();
-      
-      for (Student obj : this)
-      {
-         result.addAll(obj.getLecture());
-      }
-      
-      return result;
+      this.add(value);
+      return this;
+   }
+   
+   public StudentSet without(Student value)
+   {
+      this.remove(value);
+      return this;
    }
    
    //==========================================================================
@@ -102,28 +103,37 @@ public class StudentSet extends LinkedHashSet<Student>
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public StudentSet setName(String p0)
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Student obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public StudentSet withName(String value)
    {
       for (Student obj : this)
       {
-         obj.setName( p0);
+         obj.setName(value);
       }
+      
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public PersonSet withName(String p0)
+   public intList getMatrNo()
    {
-      PersonSet result = new PersonSet();
+      intList result = new intList();
+      
       for (Student obj : this)
       {
-         result.add(obj.withName( p0));
+         result.add(obj.getMatrNo());
       }
+      
       return result;
    }
 
@@ -131,10 +141,22 @@ public class StudentSet extends LinkedHashSet<Student>
    {
       for (Student obj : this)
       {
-         obj.withMatrNo(value);
+         obj.setMatrNo(value);
       }
       
       return this;
+   }
+
+   public LectureSet getLecture()
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Student obj : this)
+      {
+         result.addAll(obj.getLecture());
+      }
+      
+      return result;
    }
 
    public StudentSet withLecture(Lecture value)
@@ -157,40 +179,5 @@ public class StudentSet extends LinkedHashSet<Student>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Student elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public StudentSet with(Student value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public StudentSet without(Student value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.Student";
-   }
 }
-
-
-
 

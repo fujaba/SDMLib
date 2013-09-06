@@ -2,28 +2,28 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
-<pre>adding flipbook to protocol changes.</pre>
-<pre>Start situation: use University class to build object structure</pre>
-<pre>step 1: dump object diagram</pre>
+<p>adding flipbook to protocol changes.</p>
+<p>Start situation: use University class to build object structure</p>
+<p>step 1: dump object diagram</p>
 <embed type="image/svg+xml" src='StudyRightObjectStoryboards5.svg'>
-<pre>Test flipbook, undo last step: </pre>
+<p>Test flipbook, undo last step: </p>
 <embed type="image/svg+xml" src='StudyRightObjectStoryboards7.svg'>
-<pre>Check: Number of students: 2</pre>
-<pre>step 2: add support for path navigation
-      call </pre>
-<pre>      int sum = albert.getUni().getRooms().getCredits().sum();
-</pre>
-<pre>      shall compute to 88
-      Path classes are generated.</pre>
-<pre>Feature Request: model sets need to provide a navigation to any neighbors
-e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </pre>
-<pre>Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
-e.g.: room.getNeighbors().findPath(path, motivation); </pre>
-<pre>step 3: call </pre>
-<pre>      mathRoom.findPath("", 88);
-</pre>
-<pre>System.out: 
-</pre>
+<p>Check: Number of students: 2</p>
+<p>step 2: add support for path navigation
+      call </p>
+<p>      int sum = albert.getUni().getRooms().getCredits().sum();
+</p>
+<p>      shall compute to 88
+      Path classes are generated.</p>
+<p>Feature Request: model sets need to provide a navigation to any neighbors
+e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
+<p>Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
+e.g.: room.getNeighbors().findPath(path, motivation); </p>
+<p>step 3: call </p>
+<p>      mathRoom.findPath("", 88);
+</p>
+<p>System.out: 
+</p>
 
 </body>
 </html>

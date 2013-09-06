@@ -1,11 +1,29 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightextends.Female;
+import org.sdmlib.examples.studyrightextends.Person;
+import org.sdmlib.examples.studyrightextends.creators.FemaleSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
-public class FemalePO extends PatternObject
+public class FemalePO extends PatternObject<FemalePO, Female>
 {
+   public FemaleSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      FemaleSet matches = new FemaleSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Female) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+   
    
    //==========================================================================
    
@@ -13,7 +31,7 @@ public class FemalePO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Female) getCurrentMatch()).findMyPosition();
+          ((Person) getCurrentMatch()).findMyPosition();
       }
    }
 
@@ -24,7 +42,7 @@ public class FemalePO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Female) getCurrentMatch()).findMyPosition( p0);
+          ((Person) getCurrentMatch()).findMyPosition( p0);
       }
    }
 
@@ -35,7 +53,7 @@ public class FemalePO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Female) getCurrentMatch()).findMyPosition( p0,  p1);
+          ((Person) getCurrentMatch()).findMyPosition( p0,  p1);
       }
    }
 
@@ -45,19 +63,11 @@ public class FemalePO extends PatternObject
       .withAttrName(Female.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
       this.getPattern().findMatch();
       
-      return this;
-   }
-   
-   public FemalePO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Female) getCurrentMatch()).withName(value);
-      }
       return this;
    }
    
@@ -70,8 +80,14 @@ public class FemalePO extends PatternObject
       return null;
    }
    
+   public FemalePO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Female) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
-
-
-
 

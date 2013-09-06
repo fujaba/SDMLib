@@ -1,16 +1,16 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightClassesCodeGen.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
-<pre>1. generate class University</pre>
-<embed type="image/svg+xml" src='StudyRightClasses01.svg'><pre>2. generate class Student with new notation</pre>
-<embed type="image/svg+xml" src='StudyRightClasses02.svg'><pre>3. add uni --> stud assoc</pre>
-<embed type="image/svg+xml" src='StudyRightClasses03.svg'><pre>4. add uni --> room</pre>
-<embed type="image/svg+xml" src='StudyRightClasses04.svg'><pre>add assignments:</pre>
-<embed type="image/svg+xml" src='StudyRightClasses04b.svg'><pre>5. generate generic set for attributes and assocs</pre>
-<pre>Check: found method set(String,Object) in class student</pre>
-<pre>Check: found symtab entry for method set(String,Object) method:set(String,Object):boolean</pre>
-<pre>   public boolean set(String attrName, Object value)
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
+<p>1. generate class University</p>
+<embed type="image/svg+xml" src='StudyRightClasses01.svg'><p>2. generate class Student with new notation</p>
+<embed type="image/svg+xml" src='StudyRightClasses02.svg'><p>3. add uni --> stud assoc</p>
+<embed type="image/svg+xml" src='StudyRightClasses03.svg'><p>4. add uni --> room</p>
+<embed type="image/svg+xml" src='StudyRightClasses04.svg'><p>add assignments:</p>
+<embed type="image/svg+xml" src='StudyRightClasses04b.svg'><p>5. generate generic set for attributes and assocs</p>
+<p>Check: found method set(String,Object) in class student</p>
+<p>Check: found symtab entry for method set(String,Object) method:set(String,Object):boolean</p>
+<p>   public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
@@ -61,11 +61,11 @@
       }
 
       return false;
-   }</pre>
-<pre>6. generate generic get for attributes and assocs</pre>
-<pre>Check: found method get(String) in class student</pre>
-<pre>Check: found symtab entry for method get(String) method:get(String):Object</pre>
-<pre>   public Object get(String attrName)
+   }</p>
+<p>6. generate generic get for attributes and assocs</p>
+<p>Check: found method get(String) in class student</p>
+<p>Check: found symtab entry for method get(String) method:get(String):Object</p>
+<p>   public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
@@ -111,10 +111,10 @@
       }
       
       return null;
-   }</pre>
-<pre>7. generate creator classes</pre>
-<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><pre>8. generate imports</pre>
-<pre>import java.beans.PropertyChangeSupport;
+   }</p>
+<p>7. generate creator classes</p>
+<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
+<p>import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
@@ -124,22 +124,22 @@ import org.sdmlib.utils.StrUtil;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.json.JsonIdMap;
-import java.beans.PropertyChangeListener;</pre>
-<pre>9. generate property change support</pre>
-<pre>Caution: property change support needs not to be generated if the parent class does this already.</pre>
-<pre>10. generate removeYou method</pre>
-<pre>Check: found method removeYou) in class student</pre>
-<pre>Check: found symtab entry for method removeYou() method:removeYou():void</pre>
-<pre>   public void removeYou()
+import java.beans.PropertyChangeListener;</p>
+<p>9. generate property change support</p>
+<p>Caution: property change support needs not to be generated if the parent class does this already.</p>
+<p>10. generate removeYou method</p>
+<p>Check: found method removeYou) in class student</p>
+<p>Check: found symtab entry for method removeYou() method:removeYou():void</p>
+<p>   public void removeYou()
    {
       setUni(null);
       setIn(null);
       removeAllFromDone();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }</pre>
-<pre>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</pre>
-<pre>generic set now works for double. Perhabs boolean and other are still missing</pre>
-<pre>Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</pre>
+   }</p>
+<p>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+<p>generic set now works for double. Perhabs boolean and other are still missing</p>
+<p>Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
 
 </body>
 </html>

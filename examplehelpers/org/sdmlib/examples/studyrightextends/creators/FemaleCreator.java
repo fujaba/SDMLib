@@ -1,8 +1,9 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.Female;
+import org.sdmlib.examples.studyrightextends.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightextends.Female;
 
 public class FemaleCreator extends EntityFactory
 {
@@ -28,6 +29,10 @@ public class FemaleCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Female) target).set(attrName, value);
    }
    
@@ -45,5 +50,4 @@ public class FemaleCreator extends EntityFactory
       ((Female) entity).removeYou();
    }
 }
-
 

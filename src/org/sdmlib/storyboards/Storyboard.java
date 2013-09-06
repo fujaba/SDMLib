@@ -251,14 +251,14 @@ public class Storyboard
 				}
 				else
 				{
-					text.append("<pre>" + object + "</pre>\n");
+					text.append("<p>" + object + "</p>\n");
 				}
 			}
 			else 
 			{
 				// in general serialize it to JSON
-				String json = "don't know what to do"; // new JsonObject(object).toString(2);
-				text.append("<pre>" + json + "</pre>\n");
+				String json = "don't know what to do with " + object; // new JsonObject(object).toString(2);
+				text.append("<p>" + json + "</p>\n");
 			}
 		} // for
 		

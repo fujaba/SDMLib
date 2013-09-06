@@ -1,10 +1,27 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
-import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightextends.Person;
+import org.sdmlib.examples.studyrightextends.creators.PersonSet;
 
-public class PersonPO extends PatternObject
+public class PersonPO extends PatternObject<PersonPO, Person>
 {
+   public PersonSet allMatches()
+   {
+      this.setDoAllMatches(true);
+      
+      PersonSet matches = new PersonSet();
+
+      while (this.getPattern().getHasMatch())
+      {
+         matches.add((Person) this.getCurrentMatch());
+         
+         this.getPattern().findMatch();
+      }
+      
+      return matches;
+   }
+   
    
    //==========================================================================
    
@@ -39,5 +56,4 @@ public class PersonPO extends PatternObject
    }
 
 }
-
 

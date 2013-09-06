@@ -40,11 +40,9 @@ import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class StudyRightClassesCodeGen implements PropertyChangeInterface 
+public class StudyRightModel implements PropertyChangeInterface 
 {
-
-
-@Test
+   @Test
    public void testStudyRightReverseClassModel()
    {
 
@@ -84,28 +82,6 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("in", roomClass, ONE)
       .withTarget("students", studentClass, MANY);
 
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightOneToOneAssoc()");
-
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightReverseClassModel()");
-
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightExtendsReverseClassModel()");
-
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightObjectStoryboards()");
-
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightClassesCodeGen()");
-
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
       .withAttribute("name", STRING);
 
@@ -124,8 +100,8 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightReverseClassModel"));
 
-      storyboard.add("Bug: running the test multiple times inserts the code multiple times \n" +
-            "Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
+      storyboard.add("Bug: running the test multiple times inserts the code multiple times <br>" +
+            "Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>" +
             "Hm, might be added to future work. ", DONE, "zuendorf", "19.05.2012 19:39:42", 1, 0);
 
 
@@ -204,33 +180,6 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       new Association()
       .withSource("rooms", roomClass, MANY)
       .withTarget("uni", universityClass, ONE);
-
-      Clazz studyRightClassesCodeGenClass = new Clazz("org.sdmlib.examples.studyright.StudyRightClassesCodeGen");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightOneToOneAssoc()")
-      .withReturnType("void");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightClassesCodeGen()")
-      .withReturnType("void");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightObjectStoryboards()")
-      .withReturnType("void");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightExtendsReverseClassModel()")
-      .withReturnType("void");
-      /* add method */
-      new Method()
-      .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightReverseClassModel()")
-      .withReturnType("void");
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
       .withInterfaces(personClass)

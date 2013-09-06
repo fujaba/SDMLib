@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,13 +22,46 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import org.sdmlib.examples.studyrightextends.Room;
 
-public class UniversitySet extends LinkedHashSet<University>
+public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
 {
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (University elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+
+
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.studyrightextends.University";
+   }
+
+
+   public UniversitySet with(University value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public UniversitySet without(University value)
+   {
+      this.remove(value);
+      return this;
+   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -41,6 +74,16 @@ public class UniversitySet extends LinkedHashSet<University>
       return result;
    }
 
+   public UniversitySet withName(String value)
+   {
+      for (University obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
    public RoomSet getRooms()
    {
       RoomSet result = new RoomSet();
@@ -51,15 +94,6 @@ public class UniversitySet extends LinkedHashSet<University>
       }
       
       return result;
-   }
-   public UniversitySet withName(String value)
-   {
-      for (University obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
    }
 
    public UniversitySet withRooms(Room value)
@@ -82,40 +116,5 @@ public class UniversitySet extends LinkedHashSet<University>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (University elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public UniversitySet with(University value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public UniversitySet without(University value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.studyrightextends.University";
-   }
 }
-
-
-
 
