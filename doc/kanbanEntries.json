@@ -5,9 +5,9 @@
     "prop":{
       "name":"Project",
       "phase":"active",
-      "lastDeveloper":"ulno",
+      "lastDeveloper":"zuendorf",
       "hoursRemaining":12,
-      "hoursSpend":43,
+      "hoursSpend":123,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K4"},
@@ -34,7 +34,8 @@
         {"id":"KE.K70"},
         {"id":"KE.K82"},
         {"id":"KE.K85"},
-        {"id":"KE.K88"}
+        {"id":"KE.K88"},
+        {"id":"KE.K90"}
       ],
       "logEntries":[
         {"id":"KE.L7"},
@@ -48,7 +49,8 @@
         {"id":"KE.L69"},
         {"id":"KE.L81"},
         {"id":"KE.L84"},
-        {"id":"KE.L87"}
+        {"id":"KE.L87"},
+        {"id":"KE.L93"}
       ]
     }
   },
@@ -424,6 +426,21 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L89"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K90",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"PatternModelCodegen",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":80,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L91"},
+        {"id":"KE.L92"}
       ]
     }
   },
@@ -1128,6 +1145,41 @@
       "kanbanEntry":{"id":"KE.K88"},
       "developer":"zuendorf",
       "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L91",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K90"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L92",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:52:42",
+      "hoursSpend":80,
+      "kanbanEntry":{"id":"KE.K90"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L93",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.09.2013 12:00:00",
+      "hoursSpend":80,
+      "hoursRemainingInTotal":12,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"PatternModelCodegen: null"
     }
   }
 ]
