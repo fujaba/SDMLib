@@ -11,7 +11,8 @@ Bundle-ClassPath: SDMLib.jar,
  Java/jdk1.6.0_31/lib/tools.jar,
  swing2swt.jar,
  lib/junit.jar,
- .
+ .,
+ lib/org.hamcrest.core_1.3.0.v201303031735.jar
 Export-Package: com.googlecode.gwtx,
  com.googlecode.gwtx.java,
  com.googlecode.gwtx.java.beans.emul,
