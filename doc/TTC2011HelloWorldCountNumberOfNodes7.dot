@@ -1,6 +1,7 @@
 graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
+   compound=true;
 
 n2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n2 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "n1"</td></tr></table></td></tr></table>>];
 e3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e3 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e10"</td></tr></table></td></tr></table>>];
@@ -21,20 +22,20 @@ n17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n17 :
 e18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e18 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e16"</td></tr></table></td></tr></table>>];
 e19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>e19 :Edge</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "e17"</td></tr></table></td></tr></table>>];
 
-e10 -- n11 [headlabel = "tgt" taillabel = "inEdges"];
+n2 -- e3 [headlabel = "outEdges" taillabel = "src"];
+n2 -- e7 [headlabel = "inEdges" taillabel = "tgt"];
 e3 -- n4 [headlabel = "tgt" taillabel = "inEdges"];
+n4 -- e5 [headlabel = "outEdges" taillabel = "src"];
 e5 -- n6 [headlabel = "tgt" taillabel = "inEdges"];
+n6 -- e7 [headlabel = "outEdges" taillabel = "src"];
+n6 -- e8 [headlabel = "outEdges" taillabel = "src"];
+n6 -- e13 [headlabel = "inEdges" taillabel = "tgt"];
 e8 -- n9 [headlabel = "tgt" taillabel = "inEdges"];
+n9 -- e10 [headlabel = "outEdges" taillabel = "src"];
+e10 -- n11 [headlabel = "tgt" taillabel = "inEdges"];
 n11 -- e12 [headlabel = "outEdges" taillabel = "src"];
 n11 -- e13 [headlabel = "outEdges" taillabel = "src"];
 n11 -- e14 [headlabel = "inEdges" taillabel = "tgt"];
 n17 -- e18 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
 n17 -- e19 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
-n2 -- e3 [headlabel = "outEdges" taillabel = "src"];
-n2 -- e7 [headlabel = "inEdges" taillabel = "tgt"];
-n4 -- e5 [headlabel = "outEdges" taillabel = "src"];
-n6 -- e13 [headlabel = "inEdges" taillabel = "tgt"];
-n6 -- e7 [headlabel = "outEdges" taillabel = "src"];
-n6 -- e8 [headlabel = "outEdges" taillabel = "src"];
-n9 -- e10 [headlabel = "outEdges" taillabel = "src"];
 }

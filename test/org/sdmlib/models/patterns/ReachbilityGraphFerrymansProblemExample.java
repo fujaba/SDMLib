@@ -14,19 +14,19 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CreatorCreato
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPatternCreator;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.RiverPO;
-import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
 
 public class ReachbilityGraphFerrymansProblemExample
 {
    @Test
    public void FerrymansProblemExample()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
       
       //================================================
-      scenario.add("initial situation:");
+      storyboard.add("initial situation:");
       
       River river = new River();
   
@@ -40,9 +40,9 @@ public class ReachbilityGraphFerrymansProblemExample
       
       river.createBanks().withName("right");
       
-      scenario.addObjectDiag(river);
+      storyboard.addObjectDiagram(river);
             
-      scenario.add("compute certificates");
+      storyboard.add("compute certificates");
       
       ReachableState rs1 = new ReachableState().withGraphRoot(river);
       
@@ -52,7 +52,7 @@ public class ReachbilityGraphFerrymansProblemExample
       
       String s1cert = rs1.computeCertificate(map);
       
-      scenario.add(s1cert);
+      storyboard.add(s1cert);
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph()
       .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
@@ -87,7 +87,7 @@ public class ReachbilityGraphFerrymansProblemExample
       
       boatPO.startCreate().hasCargo(cargoPO).endCreate();
       
-      scenario.add(loadPattern.dumpDiagram("loadBoat"));
+      storyboard.add(loadPattern.dumpDiagram("loadBoat"));
       
       reachabilityGraph.addToRules(loadPattern);
       
@@ -120,7 +120,7 @@ public class ReachbilityGraphFerrymansProblemExample
       
       cargoPO.startCreate().hasBank(newBankPO).endCreate().endSubPattern();
       
-      scenario.add(movePattern.dumpDiagram("moveBoat"));
+      storyboard.add(movePattern.dumpDiagram("moveBoat"));
       
       reachabilityGraph.addToRules(movePattern);
       
@@ -128,14 +128,14 @@ public class ReachbilityGraphFerrymansProblemExample
       //================================================
       long size = reachabilityGraph.explore();
       
-      scenario.add("Number of States: " + size);
+      storyboard.add("Number of States: " + size);
       
-      scenario.add("Small reachbility graph with hyperlinks to states: ");
-      scenario.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));   
+      storyboard.add("Small reachbility graph with hyperlinks to states: ");
+      storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));   
       
-      scenario.add("large reachbility graph with embedded states: ");
-      scenario.addObjectDiag(map, reachabilityGraph, true);
+      storyboard.add("large reachbility graph with embedded states: ");
+      storyboard.addObjectDiag(map, reachabilityGraph, true);
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }

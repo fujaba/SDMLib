@@ -26,17 +26,17 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
    
 public class TransformationsCodeGen 
 {
    @Test
    public void testTransformationsCodegen()
    {
-      Scenario scenario = new Scenario("test", "TransformationsCodegen");
+      Storyboard storyboard = new Storyboard("test", "TransformationsCodegen");
       
-      scenario.add("classes for model transformations:",
+      storyboard.add("classes for model transformations:",
          MODELING, "zuendorf", "05.04.2012 16:24:42", 2, 0);
       
       ClassModel model = new ClassModel();
@@ -93,11 +93,11 @@ public class TransformationsCodeGen
       .withTarget("statements", statementClass, R.MANY);
       
       
-      scenario.addImage(model.dumpClassDiag("src", "TransformationClasses01"));
+      storyboard.addImage(model.dumpClassDiag("src", "TransformationClasses01"));
       
       model.generate("src", "srchelpers");
       
-      scenario.add("create some example transformOp:",
+      storyboard.add("create some example transformOp:",
          MODELING, "zuendorf", "05.04.2012 16:31:42", 1, 0);
       
       TransformOp transformOp = new TransformOp();
@@ -181,13 +181,13 @@ public class TransformationsCodeGen
       .withPrev(myCostsStat)
       .withTransformOp(transformOp);
       
-      scenario.add("dump an image from the transformOp:",
+      storyboard.add("dump an image from the transformOp:",
          MODELING, "zuendorf", "06.04.2012 15:19:42", 4, 0);
       
-      scenario.addImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
+      storyboard.addImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
       
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 

@@ -36,8 +36,8 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class StudyRightClassesCodeGen implements PropertyChangeInterface 
@@ -48,9 +48,9 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightReverseClassModel()
    {
 
-      Scenario scenario = new Scenario("examples", "StudyRightReverseClassModel");
+      Storyboard storyboard = new Storyboard("examples", "StudyRightReverseClassModel");
 
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
@@ -100,7 +100,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       new Method()
       .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightObjectScenarios()");
+      .withSignature("testStudyRightObjectStoryboards()");
 
       new Method()
       .withClazz(studyRightClassesCodeGenClass)
@@ -122,15 +122,15 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       // model.insertModelCreationCodeHere("examples");
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightReverseClassModel"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightReverseClassModel"));
 
-      scenario.add("Bug: running the test multiple times inserts the code multiple times \n" +
+      storyboard.add("Bug: running the test multiple times inserts the code multiple times \n" +
             "Bug solved: there was no bug, there were just two classes with the same name in different packages. \n" +
             "Hm, might be added to future work. ", DONE, "zuendorf", "19.05.2012 19:39:42", 1, 0);
 
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 
@@ -138,9 +138,9 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    public void testStudyRightExtendsReverseClassModel()
    {
 
-      Scenario scenario = new Scenario("examples", "StudyRightExtendsReverseClassModel");
+      Storyboard storyboard = new Storyboard("examples", "StudyRightExtendsReverseClassModel");
 
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
@@ -219,7 +219,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       /* add method */
       new Method()
       .withClazz(studyRightClassesCodeGenClass)
-      .withSignature("testStudyRightObjectScenarios()")
+      .withSignature("testStudyRightObjectStoryboards()")
       .withReturnType("void");
       /* add method */
       new Method()
@@ -296,53 +296,53 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
 
       model.generate("examples", "examplehelpers");
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 
    @Test
    public void testStudyRightClassesCodeGen()
    {
-      Scenario scenario = new Scenario("examples", "StudyRightClassesCodeGen");
+      Storyboard storyboard = new Storyboard("examples", "StudyRightClassesCodeGen");
 
 
       //============================================================
-      scenario.add("1. generate class University");
+      storyboard.add("1. generate class University");
 
       ClassModel model = new ClassModel("org.sdmlib.examples.studyright");
 
       Clazz uniClass = new Clazz("University")
       .withAttribute("name", STRING);
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses01"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses01"));
 
 
       //============================================================
-      scenario.add("2. generate class Student with new notation", 
+      storyboard.add("2. generate class Student with new notation", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Clazz studClass = new Clazz("Student")
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses02"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses02"));
 
 
       //============================================================
-      scenario.add("3. add uni --> stud assoc");
+      storyboard.add("3. add uni --> stud assoc");
 
       Association uniToStud = new Association()
       .withSource("uni", uniClass, ONE)
       .withTarget("students", studClass, MANY); 
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses03"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses03"));
 
 
       //============================================================
-      scenario.add("4. add uni --> room");
+      storyboard.add("4. add uni --> room");
 
       Clazz roomClass = new Clazz("Room")
       .withAttribute("roomNo", STRING)
@@ -361,11 +361,11 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("students", studClass, MANY)
       .withTarget("in", roomClass, ONE);
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
 
       
       //============================================================
-      scenario.add("add assignments:");
+      storyboard.add("add assignments:");
       
       Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
             .withAttributes("name", STRING, "points", INT);
@@ -373,99 +373,99 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       studClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
       .withAttributes("credits", INT, "motivation", INT);
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
 
       
       //============================================================
       model.generate("examples", "examplehelpers");
 
-      scenario.add("5. generate generic set for attributes and assocs", 
+      storyboard.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Parser parser = studClass.getOrCreateParser("examples");
 
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
-      scenario.assertTrue("found method set(String,Object) in class student", pos >= 0);
+      storyboard.assertTrue("found method set(String,Object) in class student", pos >= 0);
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":set(String,Object)");
 
-      scenario.assertNotNull("found symtab entry for method set(String,Object) ", symTabEntry);
+      storyboard.assertNotNull("found symtab entry for method set(String,Object) ", symTabEntry);
 
       String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 
-      scenario.add(methodText);
+      storyboard.add(methodText);
 
 
       //============================================================
-      scenario.add("6. generate generic get for attributes and assocs", 
+      storyboard.add("6. generate generic get for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "22.03.2012 14:40:42", 1, 0);
 
       pos = parser.indexOf(Parser.METHOD + ":get(String)");
 
-      scenario.assertTrue("found method get(String) in class student", pos >= 0);
+      storyboard.assertTrue("found method get(String) in class student", pos >= 0);
 
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":get(String)");
 
-      scenario.assertNotNull("found symtab entry for method get(String) ", symTabEntry);
+      storyboard.assertNotNull("found symtab entry for method get(String) ", symTabEntry);
 
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 
-      scenario.add(methodText);
+      storyboard.add(methodText);
 
       //============================================================
-      scenario.add("7. generate creator classes", 
+      storyboard.add("7. generate creator classes", 
          IMPLEMENTATION, "zuendorf joern alex", "25.03.2012 22:32:42", 1, 0);
 
-      scenario.add("<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br>");
+      storyboard.add("<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br>");
 
       //============================================================
-      scenario.add("8. generate imports", 
+      storyboard.add("8. generate imports", 
          IMPLEMENTATION, "zuendorf", "25.03.2012 22:37:42", 1, 0);
 
       pos = parser.indexOf(Parser.IMPORT);
       methodText = parser.getFileBody().substring(pos, parser.getEndOfImports() + 1);
 
-      scenario.add(methodText);
+      storyboard.add(methodText);
 
       //============================================================
-      scenario.add("9. generate property change support", 
+      storyboard.add("9. generate property change support", 
          IMPLEMENTATION, "zuendorf", "25.03.2012 22:39:42", 2, 0);      
 
-      scenario.add("Caution: property change support needs not to be generated if the parent class does this already.");
+      storyboard.add("Caution: property change support needs not to be generated if the parent class does this already.");
 
       //============================================================
-      scenario.add("10. generate removeYou method", 
+      storyboard.add("10. generate removeYou method", 
          IMPLEMENTATION, "zuendorf", "26.03.2012 22:20:42", 2, 0);
 
       pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
-      scenario.assertTrue("found method removeYou) in class student", pos >= 0);
+      storyboard.assertTrue("found method removeYou) in class student", pos >= 0);
 
       symTabEntry = parser.getSymTab().get(Parser.METHOD + ":removeYou()");
 
-      scenario.assertNotNull("found symtab entry for method removeYou() ", symTabEntry);
+      storyboard.assertNotNull("found symtab entry for method removeYou() ", symTabEntry);
 
       methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
 
-      scenario.add(methodText);
+      storyboard.add(methodText);
 
 
       //============================================================
-      scenario.add("Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel", 
+      storyboard.add("Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel", 
          IMPLEMENTATION, "zuendorf", "19.05.2012 19:59:42", 1, 0);
 
 
-      scenario.add("generic set now works for double. Perhabs boolean and other are still missing", 
+      storyboard.add("generic set now works for double. Perhabs boolean and other are still missing", 
          IMPLEMENTATION, "zuendorf", "19.05.2012 13:51:42", 1, 0);
 
 
       //============================================================
-      scenario.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets", 
+      storyboard.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets", 
          DONE, "zuendorf", "20.05.2012 20:01:42", 2, 0);
 
       // removed compile to get rid of tools.jar dependency. AZ
-      //      scenario.add("next. compile University.java");
+      //      storyboard.add("next. compile University.java");
       //
       //      String javaClassPath = System.getProperty("java.class.path");
       //
@@ -481,18 +481,18 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       //
       //      Assert.assertEquals("compile did not work: ", 0, compResult);
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 
    @Test
    public void testStudyRightOneToOneAssoc()
    {
-      Scenario scenario = new Scenario("examples", "StudyRightOneToOneAssoc");
+      Storyboard storyboard = new Storyboard("examples", "StudyRightOneToOneAssoc");
 
       //============================================================
-      scenario.add("Add class Prof --gives-- Topic");
+      storyboard.add("Add class Prof --gives-- Topic");
 
       ClassModel model = new ClassModel();
 
@@ -506,14 +506,14 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
       .withSource("prof", profClass, ONE)
       .withTarget("topic", topicClass, ONE);
 
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightOneToOneAssoc01"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightOneToOneAssoc01"));
 
       model.generate("examples", "examplehelpers");
 
-      scenario.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
+      storyboard.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 
@@ -570,7 +570,7 @@ public class StudyRightClassesCodeGen implements PropertyChangeInterface
    
    //==========================================================================
    
-   public void testStudyRightObjectScenarios(  )
+   public void testStudyRightObjectStoryboards(  )
    {
       
    }

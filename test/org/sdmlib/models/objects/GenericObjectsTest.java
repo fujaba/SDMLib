@@ -29,9 +29,9 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.objects.creators.CreatorCreator;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 import de.kassel.roombook.Building;
@@ -42,13 +42,13 @@ public class GenericObjectsTest implements PropertyChangeInterface
    public void testGenericObjectDiagram()
    {
       //====================================================================================================
-      Scenario scenario = new Scenario("test", "GenericObjectDiagram");
+      Storyboard storyboard = new Storyboard("test", "GenericObjectDiagram");
       
-      scenario.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
+      storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
          DONE, "zuendorf", "28.05.2012 23:51:42", 4, 0);
       
       
-      scenario.add("Step 1: We build a generic class model for object structures: ");
+      storyboard.add("Step 1: We build a generic class model for object structures: ");
 
       ClassModel genericModel = new ClassModel();
       
@@ -87,7 +87,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTarget(genericLinkClazz, "links", R.MANY)
       .withSource(genericGraph, "graph", R.ONE);
       
-      scenario.addImage(genericModel.dumpClassDiag("src", "GenericObjectStructureClasses"));
+      storyboard.addImage(genericModel.dumpClassDiag("src", "GenericObjectStructureClasses"));
      
       // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
@@ -95,7 +95,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       
       //====================================================================================================
-      scenario.add("Step 2: We just build our example object structure with generic objects: ");
+      storyboard.add("Step 2: We just build our example object structure with generic objects: ");
       
       GenericGraph graph = new GenericGraph();
       
@@ -128,27 +128,27 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTgtLabel("has");
       
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("go");
-      scenario.addObjectDiag(jsonIdMap, graph);
+      storyboard.addObjectDiagram(jsonIdMap, graph);
 
       
       //====================================================================================================
-      scenario.add("Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: ");
+      storyboard.add("Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: ");
       
-      scenario.addGenericObjectDiag("specificgenericobjectdiag", graph);
+      storyboard.addGenericObjectDiag("specificgenericobjectdiag", graph);
       
       
       //====================================================================================================
-      scenario.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
+      storyboard.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
       
       ClassModel learnedModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
       
-      scenario.addImage(learnedModel.dumpClassDiag("test", "DerivedFromGenericObjectsClassDiag"));
+      storyboard.addImage(learnedModel.dumpClassDiag("test", "DerivedFromGenericObjectsClassDiag"));
       
       //====================================================================================================
-      scenario.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
+      storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
          DONE, "zuendorf", "31.05.2012 13:51:42", 1, 0);
       
-      scenario.markCodeStart();
+      storyboard.markCodeStart();
       ClassModel model = new ClassModel();
 
       Clazz buildingClass = new Clazz("de.kassel.roombook.Building")
@@ -165,37 +165,37 @@ public class GenericObjectsTest implements PropertyChangeInterface
 			.withTarget("has", floorClass, R.MANY);
 
       learnedModel.insertModelCreationCodeHere("test");
-      scenario.addCode("test");
+      storyboard.addCode("test");
       
-      scenario.addImage(model.dumpClassDiag("test", "ManuallyImprovedLearnedClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("test", "ManuallyImprovedLearnedClassDiag"));
       
       //====================================================================================================
-      scenario.add("Step 6: generate code from the learned class diagram ");
+      storyboard.add("Step 6: generate code from the learned class diagram ");
       model.generate("test", "test");
       
       //====================================================================================================
-      scenario.add("Step 7: derive non-generic objects from the generic objects ",
+      storyboard.add("Step 7: derive non-generic objects from the generic objects ",
          DONE, "zuendorf", "31.05.2012 15:15:42", 1, 0);
       
       JsonIdMap createIdMap = de.kassel.roombook.creators.CreatorCreator.createIdMap("gen2spec");
       
       Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", graph);
       
-      scenario.addObjectDiag(createIdMap, specificBuilding);
+      storyboard.addObjectDiagram(createIdMap, specificBuilding);
       
-      scenario.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
+      storyboard.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
          BUG, "zuendorf", "31.05.2012 15:22:42", 0, 0);
       
-      scenario.add("New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model ",
+      storyboard.add("New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model ",
          IMPLEMENTATION, "zuendorf", "05.08.2012 15:43:42", 4, 0);
       
       GenericGraph gengraph = new Specific2Generic()
       .convert(de.kassel.roombook.creators.CreatorCreator.createIdMap("spec2gen"), specificBuilding);
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("go"), gengraph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("go"), gengraph);
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
    

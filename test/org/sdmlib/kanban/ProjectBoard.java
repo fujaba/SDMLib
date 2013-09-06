@@ -27,22 +27,22 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.KanbanEntry;
-import org.sdmlib.scenarios.LogEntry;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.KanbanEntry;
+import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class ProjectBoard
 {
    @Test
-   public void testExtendScenarioByAddToDoMethod()
+   public void testExtendStoryboardByAddToDoMethod()
    {
-      Scenario scenario = new Scenario("test", "ExtendScenarioByAddToDoMethod");
+      Storyboard storyboard = new Storyboard("test", "ExtendStoryboardByAddToDoMethod");
       
-      scenario.add("Start situation: ",
+      storyboard.add("Start situation: ",
          DONE, "zuendorf", "01.11.2012 12:33:42", 1, 0);
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
    public static final String MODELING = "modeling";
@@ -54,7 +54,7 @@ public class ProjectBoard
    @Test
    public void testAdmin()
    {
-      ScenarioManager man = ScenarioManager.get();
+      StoryboardManager man = StoryboardManager.get();
       
       
       KanbanEntry kanbanBoard = man.loadOldKanbanEntries()
@@ -66,7 +66,7 @@ public class ProjectBoard
             .withPhase(ACTIVE)
             .withParent(kanbanBoard);
       
-      KanbanEntry entry = kanbanBoard.findOrCreate("ScenarioInfrastructure")
+      KanbanEntry entry = kanbanBoard.findOrCreate("StoryboardInfrastructure")
             .withParent(sprint1);
 
       LogEntry logEntry;
@@ -82,7 +82,7 @@ public class ProjectBoard
       entry = kanbanBoard.findOrCreate("StudyRightClassesCodeGen")
             .withParent(sprint1);
       
-      entry = kanbanBoard.findOrCreate("StudyRightObjectScenarios")
+      entry = kanbanBoard.findOrCreate("StudyRightObjectStoryboards")
             .withParent(sprint1);
       // entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
       
@@ -128,9 +128,9 @@ public class ProjectBoard
       //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoModel", entry.getName())
             ;
 
-      entry = kanbanBoard.findOrCreate("LudoScenario")
+      entry = kanbanBoard.findOrCreate("LudoStoryboard")
             .withParent(sprint2)
-      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoScenario", entry.getName())
+      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoStoryboard", entry.getName())
             ;
 
       man.dumpKanban();
@@ -139,53 +139,53 @@ public class ProjectBoard
    @Test
    public void testTodoEntries()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
-      scenario.add("It should be possible to add todo entries to the kanban board without adding a scenario for them. "
+      storyboard.add("It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
          , MODELING, "zuendorf", "21.08.2012 15:57:42", 0, 4);
       
-      scenario.addToDo("ExtendScenarioByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
+      storyboard.addToDo("ExtendStoryboardByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
       .linkToTest("test", this.getClass().getName());
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
    
    
    @Test
-   public void testScenarioInfrastructure()
+   public void testStoryboardInfrastructure()
    {
-      Scenario scenario = new Scenario("test", "ScenarioInfrastructure");
+      Storyboard storyboard = new Storyboard("test", "StoryboardInfrastructure");
       
-      scenario.add("This scenario tests the scenario infrastructure. ");
-      scenario.add("At first creating the html file just with text should work. ");
-      scenario.add("Next we need to create some class model. This will be done in a parallel activity.");
-      scenario.add("With the class model we create an object model and try to dump it here.");
-      scenario.add("Well, dumping the class model would be great, either.");
+      storyboard.add("This storyboard tests the storyboard infrastructure. ");
+      storyboard.add("At first creating the html file just with text should work. ");
+      storyboard.add("Next we need to create some class model. This will be done in a parallel activity.");
+      storyboard.add("With the class model we create an object model and try to dump it here.");
+      storyboard.add("Well, dumping the class model would be great, either.");
 
-      scenario.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
+      storyboard.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
             "(has been below phase entries before.)\n" +
             "phase entries will be used for planning, in future");
       
       ClassModel model = new ClassModel(); 
       
-      Clazz kanbanEntryClass = new Clazz("org.sdmlib.scenarios.KanbanEntry");
+      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry");
 
-      Clazz logEntryClass = new Clazz("org.sdmlib.scenarios.LogEntry");
+      Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
       
       new Association()
       .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
       .withTarget("logEntries", logEntryClass, R.MANY);
       
-      scenario.addImage(model.dumpClassDiag("src", "ScenarioClasses.001"));
+      storyboard.addImage(model.dumpClassDiag("src", "StoryboardClasses.001"));
       model.generate("src", "srchelpers");
 
-      scenario.add(" Editing the log entries works now fine as part of the add method. " , 
+      storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
             DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
       
-      scenario.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
+      storyboard.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
          DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
    
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }
 

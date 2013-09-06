@@ -33,12 +33,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.sdmlib.scenarios.JsonToImg;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.JsonToImg;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.patterns.example.SimpleState;
 

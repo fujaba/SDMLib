@@ -1,0 +1,35 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<body>
+<p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
+<pre>Start situation: </pre>
+<embed type="image/svg+xml" src='LudoStoryboard3.svg'>
+<pre>now the pawn may move to Tom's start field</pre>
+<pre>      // build move operation with SDM model transformations
+      ModelPattern p = new ModelPattern();
+      
+      PawnPO pawnPO = (PawnPO) p.hasElementPawnPO(p2);
+      
+      PlayerPO playerPO = pawnPO.hasPlayer();
+      
+      DicePO dicePO = playerPO.hasDice().hasValue(6);
+      
+      FieldPO baseField = pawnPO.hasPos().hasKind("base");
+      
+      playerPO.hasBase(baseField);
+      
+      FieldPO startFieldPO = playerPO.hasStart();
+      
+      startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
+</pre>
+<embed type="image/svg+xml"src='LudoMoveWithMatch01.svg'>
+<pre>      p.startDestroy();
+      pawnPO.hasPos(baseField);
+      
+      p.startCreate();
+      pawnPO.hasPos(startFieldPO);
+</pre>
+<embed type="image/svg+xml"src='LudoMoveAfterSetPos02.svg'>
+
+</body>
+</html>

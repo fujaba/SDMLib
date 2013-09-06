@@ -6,7 +6,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.scenarios.Scenario;
+import org.sdmlib.storyboards.Storyboard;
 
 public class ReplicationModel
 {
@@ -15,7 +15,7 @@ public class ReplicationModel
 
    public static void main(String[] args)
    {
-      Scenario scenario = new Scenario("src", "ReplicationModel");
+      Storyboard storyboard = new Storyboard("src", "ReplicationModel");
       
       ClassModel model = new ClassModel("org.sdmlib.replication");
       
@@ -88,8 +88,8 @@ public class ReplicationModel
       
       model.generate("src");
       
-      scenario.addImage(model.dumpClassDiag("src", "ReplicationModel01"));
+      storyboard.addImage(model.dumpClassDiag("src", "ReplicationModel01"));
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }

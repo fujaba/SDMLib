@@ -1,6 +1,7 @@
 graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
+   compound=true;
 
 
 }

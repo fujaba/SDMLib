@@ -28,18 +28,18 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
    
 public class PatternModelCodeGen 
 {
    @Test
    public void testPatternModelCodegen()
    {
-      Scenario scenario = new Scenario("test", "PatternModelCodegen");
+      Storyboard storyboard = new Storyboard("test", "PatternModelCodegen");
       
-      scenario.add("Start situation: ",
+      storyboard.add("Start situation: ",
          DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.models.pattern");
@@ -152,10 +152,10 @@ public class PatternModelCodeGen
       
       model.generate("src", "srchelpers");
       
-      scenario.addImage(model.dumpClassDiag("src", "PatternModel01"));
+      storyboard.addImage(model.dumpClassDiag("src", "PatternModel01"));
            
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 

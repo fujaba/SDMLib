@@ -11,18 +11,18 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.patterns.example.Node;
 import org.sdmlib.models.patterns.example.SimpleState;
 import org.sdmlib.models.patterns.example.creators.CreatorCreator;
-import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
 
 public class ReachbilityGraphSimpleExamples
 {
    @Test
    public void SimpleReachabilityGraphIsomorphismTest()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
-      scenario.add("create two rings of three nodes with a mark at one node");
+      storyboard.add("create two rings of three nodes with a mark at one node");
       
       // graph 1
       SimpleState s11 = new SimpleState();
@@ -44,11 +44,11 @@ public class ReachbilityGraphSimpleExamples
       
       n13.withNum(42);
       
-      scenario.addObjectDiag(s11);
+      storyboard.addObjectDiagram(s11);
       
-      scenario.addObjectDiag(s21);
+      storyboard.addObjectDiagram(s21);
       
-      scenario.add("compute certificates");
+      storyboard.add("compute certificates");
       
       ReachableState rs1 = new ReachableState().withGraphRoot(s11);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21);
@@ -56,51 +56,51 @@ public class ReachbilityGraphSimpleExamples
       String s1cert = rs1.computeCertificate(map);
       String s2cert = rs2.computeCertificate(map2);
       
-      scenario.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
+      storyboard.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
       
-      scenario.add(s1cert);
+      storyboard.add(s1cert);
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.setMasterMap(CreatorCreator.createIdMap("s"));
       
       LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
       
-      scenario.add("Graphs are isomorphic:");
-      scenario.add(match.toString());
+      storyboard.add("Graphs are isomorphic:");
+      storyboard.add(match.toString());
       
       
-      scenario.add("removing the num");
+      storyboard.add("removing the num");
       
       n21.withNum(0);
       
       n13.withNum(0);
       
-      scenario.addObjectDiag(s11);
+      storyboard.addObjectDiagram(s11);
       
-      scenario.addObjectDiag(s21);
+      storyboard.addObjectDiagram(s21);
       
       s1cert = rs1.computeCertificate(map);
       s2cert = rs2.computeCertificate(map2);
       
-      scenario.add("Both certificates are again equal: " + (s1cert.equals(s2cert)));
+      storyboard.add("Both certificates are again equal: " + (s1cert.equals(s2cert)));
       
-      scenario.add(s1cert);
+      storyboard.add(s1cert);
 
       match = reachabilityGraph.match(rs1, rs2);
       
-      scenario.add("Graphs are isomorphic:");
-      scenario.add(match.toString());
+      storyboard.add("Graphs are isomorphic:");
+      storyboard.add(match.toString());
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
-      scenario.add("graph 1 two rings of two nodes");
-      scenario.add("graph 2 one ring of four nodes");
+      storyboard.add("graph 1 two rings of two nodes");
+      storyboard.add("graph 2 one ring of four nodes");
       
       // graph 1
       SimpleState s11 = new SimpleState();
@@ -120,11 +120,11 @@ public class ReachbilityGraphSimpleExamples
       JsonIdMap map = CreatorCreator.createIdMap("s");
       JsonIdMap map2 = CreatorCreator.createIdMap("t");
       
-      scenario.addObjectDiag(s11);
+      storyboard.addObjectDiagram(s11);
       
-      scenario.addObjectDiag(s21);
+      storyboard.addObjectDiagram(s21);
       
-      scenario.add("compute certificates");
+      storyboard.add("compute certificates");
       
       ReachableState rs1 = new ReachableState().withGraphRoot(s11);
       ReachableState rs2 = new ReachableState().withGraphRoot(s21);
@@ -132,19 +132,19 @@ public class ReachbilityGraphSimpleExamples
       String s1cert = rs1.computeCertificate(map);
       String s2cert = rs2.computeCertificate(map2);
       
-      scenario.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
+      storyboard.add("Both certificates are equal: " + (s1cert.equals(s2cert)));
       
-      scenario.add(s1cert);
+      storyboard.add(s1cert);
       
       ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
       reachabilityGraph.setMasterMap(CreatorCreator.createIdMap("s"));
       
       LinkedHashMap<String, String> match = reachabilityGraph.match(rs1, rs2);
       
-      scenario.add("Graphs are not isomorphic:");
-      scenario.add("" + match);
+      storyboard.add("Graphs are not isomorphic:");
+      storyboard.add("" + match);
             
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
 }

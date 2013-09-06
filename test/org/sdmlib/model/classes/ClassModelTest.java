@@ -30,8 +30,8 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class ClassModelTest
 {
@@ -42,14 +42,14 @@ public class ClassModelTest
    @Test
    public void testClassModelCodeGen()
    {
-      Scenario scenario = new Scenario("test", "ClassModelCodeGen");
+      Storyboard storyboard = new Storyboard("test", "ClassModelCodeGen");
 
       //=======================================================================
-      scenario.add("This test generates some classes with some elements. ");
+      storyboard.add("This test generates some classes with some elements. ");
 
 
       //=======================================================================
-      scenario.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
+      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
       ClassModel model = new ClassModel();
       
@@ -159,25 +159,25 @@ public class ClassModelTest
       .withTarget("bodyStats", statementEntry, MANY);
       
       
-      scenario.add("Basic bootstrap done.", 
+      storyboard.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
       
-      scenario.addImage(model.dumpClassDiag("src", "ClassModelClasses01"));
+      storyboard.addImage(model.dumpClassDiag("src", "ClassModelClasses01"));
       
-      scenario.add("Generate generic get and set and removeYou.", 
+      storyboard.add("Generate generic get and set and removeYou.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);
 
-      scenario.add("Generate creator classes.", 
+      storyboard.add("Generate creator classes.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
-      scenario.add("Generate PatternObject classes.", 
+      storyboard.add("Generate PatternObject classes.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
 
       
       model.generate("src", "srcHelpers");
       
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();      
    }
 

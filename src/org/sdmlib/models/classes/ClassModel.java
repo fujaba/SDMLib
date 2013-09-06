@@ -51,10 +51,11 @@ import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.scenarios.CallDot;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.CallDot;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface

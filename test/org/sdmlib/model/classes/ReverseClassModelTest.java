@@ -32,8 +32,8 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class ReverseClassModelTest implements PropertyChangeInterface
@@ -43,18 +43,18 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    @Test
    public void testStudyRightExtendsReverseClassModelFromJavaFilesToDSL()
    {
-      Scenario scenario = new Scenario("test", "StudyRightExtendsReverseClassModel");
+      Storyboard storyboard = new Storyboard("test", "StudyRightExtendsReverseClassModel");
 
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
       model.updateFromCode("examples", "examples test", "org.sdmlib.examples.studyrightextends");
 //      model.insertModelCreationCodeHere("test");
-      scenario.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
+      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightExtendsReverseClassModel"));
 
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
 
    }
@@ -176,8 +176,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       model.generate("test", "testhelpers");
 
-      Scenario scenario = new Scenario("test", "MethodsClassesCodeGen");
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      Storyboard storyboard = new Storyboard("test", "MethodsClassesCodeGen");
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
       //----------------------------------------------
 
@@ -206,10 +206,10 @@ public class ReverseClassModelTest implements PropertyChangeInterface
          }
       }
 
-      //     scenario.addImage(model.dumpClassDiag("MethodsClassesCodeGen"));
+      //     storyboard.addImage(model.dumpClassDiag("MethodsClassesCodeGen"));
       //     
-      //     ScenarioManager.get()
-      //     .add(scenario)
+      //     StoryboardManager.get()
+      //     .add(storyboard)
       //     .dumpHTML();
 
 
@@ -235,8 +235,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       model.generate("test", "testhelpers");
 
-      Scenario scenario = new Scenario("test", "SuperClassesCodeGen");
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      Storyboard storyboard = new Storyboard("test", "SuperClassesCodeGen");
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
       //----------------------------------------------
       model = new ClassModel();
@@ -266,10 +266,10 @@ public class ReverseClassModelTest implements PropertyChangeInterface
       }
 
 
-      //    scenario.addImage(model.dumpClassDiag("SuperClassesCodeGen"));
+      //    storyboard.addImage(model.dumpClassDiag("SuperClassesCodeGen"));
       //    
-      //    ScenarioManager.get()
-      //    .add(scenario)
+      //    StoryboardManager.get()
+      //    .add(storyboard)
       //    .dumpHTML();
 
 
@@ -299,8 +299,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       model.generate("test", "testhelpers");
 
-      Scenario scenario = new Scenario("test", "InterfacesCodeGen");
-      scenario.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      Storyboard storyboard = new Storyboard("test", "InterfacesCodeGen");
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
       model = new ClassModel();
 
@@ -333,10 +333,10 @@ public class ReverseClassModelTest implements PropertyChangeInterface
          }
       }
 
-      //    scenario.addImage(model.dumpClassDiag("InterfacesCodeGen"));
+      //    storyboard.addImage(model.dumpClassDiag("InterfacesCodeGen"));
       //    
-      //    ScenarioManager.get()
-      //    .add(scenario)
+      //    StoryboardManager.get()
+      //    .add(storyboard)
       //    .dumpHTML();
 
    }

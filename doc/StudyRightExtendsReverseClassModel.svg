@@ -150,7 +150,7 @@
 <polygon fill="none" stroke="black" points="391,-380 391,-456 611,-456 611,-380 391,-380"/>
 <text text-anchor="start" x="396" y="-443.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightOneToOneAssoc()</text>
 <text text-anchor="start" x="396" y="-429.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightClassesCodeGen()</text>
-<text text-anchor="start" x="396" y="-415.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightObjectScenarios()</text>
+<text text-anchor="start" x="396" y="-415.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightObjectStoryboards()</text>
 <text text-anchor="start" x="396" y="-401.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightExtendsReverseClassModel()</text>
 <text text-anchor="start" x="396" y="-387.667" font-family="Times Roman,serif" font-size="10.00">testStudyRightReverseClassModel()</text>
 </g>

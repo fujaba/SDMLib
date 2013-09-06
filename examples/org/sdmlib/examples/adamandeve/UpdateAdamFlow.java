@@ -32,6 +32,7 @@ import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
 {
@@ -347,5 +348,14 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
       setEve(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
 }
 

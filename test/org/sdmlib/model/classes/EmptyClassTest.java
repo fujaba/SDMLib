@@ -5,14 +5,14 @@ import org.sdmlib.model.classes.test.NoProperties;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.Scenario;
+import org.sdmlib.storyboards.Storyboard;
 
 public class EmptyClassTest
 {
    @Test
    public void testEmptyClass()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
       ClassModel model = new ClassModel("org.sdmlib.model.classes.test");
       
@@ -28,15 +28,15 @@ public class EmptyClassTest
 
       model.generate("test");
       
-      scenario.addImage(model.dumpClassDiag("test", "EmptyClassTestClasses01"));
+      storyboard.addImage(model.dumpClassDiag("test", "EmptyClassTestClasses01"));
       
       NoProperties noPropertiesObj = new NoProperties();
       
-      scenario.addObjectDiag(org.sdmlib.model.classes.test.creators.CreatorCreator.createIdMap("test"), noPropertiesObj);
+      storyboard.addObjectDiagram(org.sdmlib.model.classes.test.creators.CreatorCreator.createIdMap("test"), noPropertiesObj);
       
-      scenario.add("Simple object without properties creates object diagram,  now", 
+      storyboard.add("Simple object without properties creates object diagram,  now", 
          "done", "zuendorf", "30.11.2012 22:55:42", 1, 0);
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }

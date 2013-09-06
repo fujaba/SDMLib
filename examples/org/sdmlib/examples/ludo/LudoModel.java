@@ -14,8 +14,8 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class LudoModel
 {
@@ -38,9 +38,9 @@ public class LudoModel
    @Test
    public void testLudoModel()
    {
-      Scenario scenario = new Scenario("examples", "LudoModel");
+      Storyboard storyboard = new Storyboard("examples", "LudoModel");
       
-      //      scenario.add("The model: ",
+      //      storyboard.add("The model: ",
       //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
@@ -104,14 +104,14 @@ public class LudoModel
 
       // model.insertModelCreationCodeHere("examples");
      
-      scenario.addImage(model.dumpClassDiag("examples", "LudoModel01"));
+      storyboard.addImage(model.dumpClassDiag("examples", "LudoModel01"));
 
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
       
       model.generate("examples", "examplehelpers");
       
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 }

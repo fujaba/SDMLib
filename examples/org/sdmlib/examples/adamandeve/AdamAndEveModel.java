@@ -5,15 +5,15 @@ import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
 
 public class AdamAndEveModel
 {
    @Test
    public void adamAndEveModel()
    {
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
 
       ClassModel model = new ClassModel("org.sdmlib.examples.adamandeve");
       
@@ -42,8 +42,8 @@ public class AdamAndEveModel
       
       model.generate("examples");
 
-      scenario.addImage(model.dumpClassDiag("examples", "AdamAndEveModel"));
+      storyboard.addImage(model.dumpClassDiag("examples", "AdamAndEveModel"));
 
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }

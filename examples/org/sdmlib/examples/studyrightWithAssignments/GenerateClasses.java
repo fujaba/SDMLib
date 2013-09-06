@@ -32,8 +32,8 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class GenerateClasses {
 
@@ -42,21 +42,21 @@ public class GenerateClasses {
 		  * StudyRight with Assignments example in the Story Driven Modeling book
 		  */
 
-	      Scenario scenario = new Scenario("examples", "StudyRight with assignments class generation");
+	      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments class generation");
 
 	      //============================================================
-	      scenario.add("1. generate class University");
+	      storyboard.add("1. generate class University");
 
 	      ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments");
 
 	      Clazz universityClass = new Clazz("University")
 	      .withAttribute("name", STRING);
 
-	      scenario.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 01"));
+	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 01"));
 
 
 	      //============================================================
-	      scenario.add("2. generate class Student");
+	      storyboard.add("2. generate class Student");
 
 	      Clazz studentClass = new Clazz("Student")
 	      .withAttribute("name", STRING)
@@ -64,22 +64,22 @@ public class GenerateClasses {
 	      .withAttribute("assignmentPoints", INT)
 	      .withAttribute("motivation", INT);
 
-	      scenario.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
+	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
 
 
 	      //============================================================
-	      scenario.add("3. add University --> Student association");
+	      storyboard.add("3. add University --> Student association");
 
 	      //Association universityToStudent = 
 	      new Association()
 	      .withSource("university", universityClass, ONE)
 	      .withTarget("students", studentClass, MANY); 
 
-	      scenario.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 03"));
+	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 03"));
 
 
 	      //============================================================
-	      scenario.add("4. add University --> Room association");
+	      storyboard.add("4. add University --> Room association");
 
 	      Clazz roomClass = new Clazz("Room")
 	      .withAttribute("name", STRING)
@@ -103,11 +103,11 @@ public class GenerateClasses {
 	      .withSource("students", studentClass, MANY)
 	      .withTarget("in", roomClass, ONE);
 
-	      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
+	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04"));
 
 	      
 	      //============================================================
-	      scenario.add("5. add assignments:");
+	      storyboard.add("5. add assignments:");
 	      
 	      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
 	            .withAttributes("content", STRING, "points", INT);
@@ -115,16 +115,16 @@ public class GenerateClasses {
 	      studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
 	      .withAttributes("credits", INT, "motivation", INT);
 
-	      scenario.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
+	      storyboard.addImage(model.dumpClassDiag("examples", "StudyRightClasses04b"));
 
 	      
 	      //============================================================
-	      scenario.add("6. generate class source files.");
+	      storyboard.add("6. generate class source files.");
 	      model.generate("examples"); // usually don't specify anything here, then it goes into src
 
 
-	      ScenarioManager.get()
-	      .add(scenario)
+	      StoryboardManager.get()
+	      .add(storyboard)
 	      .dumpHTML();
 
 	}

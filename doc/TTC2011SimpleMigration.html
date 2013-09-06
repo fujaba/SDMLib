@@ -1,12 +1,13 @@
 <html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
-<p>Scenario <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
 <hr/><pre>Source model:</pre>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationSourceClassDiag.svg'><hr/><pre>Target model:</pre>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationTargetClassDiag.svg'><hr/><pre>Migration extension:</pre>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationExtensionClassDiag.svg'><hr/><pre>Create example source graph: </pre>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration13.svg'>
-<hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Scenario scenario)
+<hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       //==========================================================================
       ModelPattern migrateGraph = new ModelPattern();
@@ -17,7 +18,7 @@
       
       GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
       
-      scenario.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
+      storyboard.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
       
       //==========================================================================
       int noOfMatches = 0;
@@ -47,7 +48,7 @@
       
       systemout = "Number of migrated nodes: " + noOfMatches;
       
-      scenario.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
+      storyboard.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
       
       //==========================================================================
       noOfMatches = 0;
@@ -103,11 +104,11 @@
 
       systemout += "nNumber of migrated Edges: " + noOfMatches;
       
-      scenario.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
+      storyboard.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
       
-      scenario.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
+      storyboard.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
       
-      scenario.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
+      storyboard.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
    }</pre>
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateGraph.svg'>
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateNodesPattern.svg'>
@@ -187,7 +188,7 @@ Number of migrated Edges: 10</pre>
    }</pre>
 <pre>Result graph: </pre>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration35.svg'>
-<hr/><h2>Migrate using JSON Array repräsentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
+<hr/><h2>Migrate using JSON Array reprï¿½sentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
    {
       JsonIdMap idMap = CreatorCreator.createIdMap("hg");
       
@@ -251,11 +252,12 @@ Number of migrated Edges: 10</pre>
    }</pre>
 <pre>Result graph: </pre>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration40.svg'>
-<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Scenario scenario)
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
-      GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
-      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -267,7 +269,7 @@ Number of migrated Edges: 10</pre>
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
       
       // rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -279,9 +281,9 @@ Number of migrated Edges: 10</pre>
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
 
-      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
@@ -294,9 +296,10 @@ Number of migrated Edges: 10</pre>
 <pre>Result graph: </pre>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration49.svg'>
 <hr/><h2>Even more evolved graph model : </h2><embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag.svg'><embed type="image/svg+xml" src='TTC2011SimpleMigration53.svg'>
-<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Scenario scenario)
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
-      GenericGraph genGraph = new Specific2Generic().convert(CreatorCreator.createIdMap("g1"), origGraph);
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -308,7 +311,7 @@ Number of migrated Edges: 10</pre>
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
       
       // replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -334,7 +337,7 @@ Number of migrated Edges: 10</pre>
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
       
       // destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -346,7 +349,7 @@ Number of migrated Edges: 10</pre>
       
       danglingPO.allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       

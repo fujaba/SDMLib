@@ -22,15 +22,15 @@ package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.junit.Test;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
-import org.sdmlib.scenarios.Scenario;
-import org.sdmlib.scenarios.ScenarioManager;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class StoryboardTests {
   @Test
-   public void testStudyRightObjectScenarios()
+   public void testStudyRightObjectStoryboards()
    {
-      Scenario scenario = new Scenario("examples", "StudyRight with assignments storyboard");
+      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments storyboard");
       
       
       //=============================================================
@@ -38,7 +38,7 @@ public class StoryboardTests {
 
       
       //=============================================================
-      scenario.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
+      storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
     		  +"in the math room. Karli has no credits yet and still a motivation of 214. ");
 
       University university = new University()
@@ -98,32 +98,32 @@ public class StoryboardTests {
 
       softwareEngineering.withDoor(examRoom);
       
-      scenario.addObjectDiag(idMap, university);
+      storyboard.addObjectDiagram(idMap, university);
 
       //===============================================================================================
-      scenario.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points \n"
+      storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points \n"
     		  +"(general rule: the student earns always full points for doing an assignment). \n"
     		  +"Karli's motivation is reduced by 5 points to now 209."); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
-      scenario.addObjectDiag(idMap, university);
+      storyboard.addObjectDiagram(idMap, university);
 
       //===============================================================================================
-      scenario.add("3. Karli does assignment a2 on Series and earns another 6 points. \n"
+      storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. \n"
     		  +"Thus Karli has 11 points now. Motivation is reduced to 203.");
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
-      scenario.addObjectDiag(idMap, university);
+      storyboard.addObjectDiagram(idMap, university);
 
       //===============================================================================================
-	  scenario.add("4. Karli does the third assignment on Integrals, earns \n"
+	  storyboard.add("4. Karli does the third assignment on Integrals, earns \n"
     		  +"another 8 points and thus Karli has now 19 points and a motivation of 195."); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      scenario.addObjectDiag(idMap, university);
+      storyboard.addObjectDiagram(idMap, university);
 
       //===============================================================================================
-	  scenario.add("5. Since 19 points are more than the 17 points required \n"
+	  storyboard.add("5. Since 19 points are more than the 17 points required \n"
     		  +"for the 17 math credits, Karli hands the points in and earns the credits \n"
     		  +"and has his assignmnet points reset to 0. \n"
     		  +"(General rule: if the points earned by the assignments are higher or equal than \n"
@@ -134,20 +134,20 @@ public class StoryboardTests {
 		  karli.setCredits(karli.getCredits() + mathRoom.getCredits() );
 		  karli.setAssignmentPoints(0);
 	  }
-      scenario.addObjectDiag(idMap, university);
+      storyboard.addObjectDiagram(idMap, university);
 
       //===============================================================================================
-	  scenario.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 
+	  storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 
       
       //===============================================================================================
-      scenario.assertEquals("Karli's credits: ", 17, karli.getCredits()); 
-      scenario.assertEquals("Karli's assignment points: ", 0, karli.getAssignmentPoints()); 
-      scenario.assertEquals("Number of students: ", 1, university.getStudents().size()); 
+      storyboard.assertEquals("Karli's credits: ", 17, karli.getCredits()); 
+      storyboard.assertEquals("Karli's assignment points: ", 0, karli.getAssignmentPoints()); 
+      storyboard.assertEquals("Number of students: ", 1, university.getStudents().size()); 
 
 
       //================ Create HTML
-      ScenarioManager.get()
-      .add(scenario)
+      StoryboardManager.get()
+      .add(storyboard)
       .dumpHTML();
    }
 }

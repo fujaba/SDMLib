@@ -127,8 +127,6 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.models.transformations.creators,
  org.sdmlib.replication,
  org.sdmlib.replication.creators,
- org.sdmlib.scenarios,
- org.sdmlib.scenarios.creators,
  org.sdmlib.serialization,
  org.sdmlib.serialization.bytes,
  org.sdmlib.serialization.bytes.checksum,
@@ -147,6 +145,8 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.serialization.xml,
  org.sdmlib.serialization.xml.creator,
  org.sdmlib.serialization.yuml,
+ org.sdmlib.storyboards,
+ org.sdmlib.storyboards.creators,
  org.sdmlib.utils
 Require-Bundle: 
  org.junit

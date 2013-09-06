@@ -86,11 +86,11 @@ public class StudyRightClassesCodeGenSet extends LinkedHashSet<StudyRightClasses
    
    //==========================================================================
    
-   public StudyRightClassesCodeGenSet testStudyRightObjectScenarios()
+   public StudyRightClassesCodeGenSet testStudyRightObjectStoryboards()
    {
       for (StudyRightClassesCodeGen obj : this)
       {
-         obj.testStudyRightObjectScenarios();
+         obj.testStudyRightObjectStoryboards();
       }
       return this;
    }

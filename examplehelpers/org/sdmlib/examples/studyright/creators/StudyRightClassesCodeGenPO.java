@@ -47,11 +47,11 @@ public class StudyRightClassesCodeGenPO extends PatternObject<StudyRightClassesC
    
    //==========================================================================
    
-   public void testStudyRightObjectScenarios()
+   public void testStudyRightObjectStoryboards()
    {
       if (this.getPattern().getHasMatch())
       {
-          ((StudyRightClassesCodeGen) getCurrentMatch()).testStudyRightObjectScenarios();
+          ((StudyRightClassesCodeGen) getCurrentMatch()).testStudyRightObjectStoryboards();
       }
    }
 

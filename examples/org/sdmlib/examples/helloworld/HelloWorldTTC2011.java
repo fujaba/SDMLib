@@ -26,10 +26,10 @@ import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.storyboards.Storyboard;
 
 public class HelloWorldTTC2011
 {
@@ -44,13 +44,13 @@ public class HelloWorldTTC2011
    @Test
    public void testConstantTransformation1()
    {
-      Scenario scenario = new Scenario("examples", "TTC2011HelloWorldConstantTransformation1")
+      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation1")
       .with("A constant transformation that creates a Greeting object");
       
       
       //==========================================================================
       
-      scenario.add("Create class model and generate implementation:");
+      storyboard.add("Create class model and generate implementation:");
       
       ClassModel model = new ClassModel();
       
@@ -61,33 +61,33 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
       
       
       //==========================================================================
       
-      scenario.add("The code that builds and runs the transformation / pattern looks like: ");
-      scenario.markCodeStart();
+      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
+      storyboard.markCodeStart();
       ModelPattern p = new ModelPattern().startCreate();
       
       PatternObject greetingPO = p.hasElementGreetingPO()
                                   .hasText("Hello World");
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1", false));
+      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1", false));
       
-      scenario.assertTrue("Constant transformation has match", p.getHasMatch());
+      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
       
-      scenario.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
+      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       
-      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1AfterTransformation"));
+      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation1AfterTransformation"));
       
       
       //==========================================================================
       
-      scenario.add("For completeness just the host graph:");
+      storyboard.add("For completeness just the host graph:");
 
-      scenario.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
+      storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
       
       int noOfMatches = p.allMatches();
       
@@ -96,14 +96,14 @@ public class HelloWorldTTC2011
       
       //==========================================================================
       
-      scenario.add("For fairness, the java code that does this transformation looks like: ");
-      scenario.markCodeStart();
+      storyboard.add("For fairness, the java code that does this transformation looks like: ");
+      storyboard.markCodeStart();
       Greeting greeting = new Greeting()
       .withText("Hello World");
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
 
@@ -111,13 +111,13 @@ public class HelloWorldTTC2011
    @Test
    public void testConstantTransformation2()
    {
-      Scenario scenario = new Scenario("examples", "TTC2011HelloWorldConstantTransformation2WithReferences")
+      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation2WithReferences")
       .with("A constant transformation that creates a Greeting object structure with references");
       
       
       //==========================================================================
       
-      scenario.add("Create class model and generate implementation:");
+      storyboard.add("Create class model and generate implementation:");
       
       ClassModel model = new ClassModel();
       
@@ -141,13 +141,13 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
       
       
       //==========================================================================
       
-      scenario.add("The code that builds and runs the transformation / pattern looks like: ");
-      scenario.markCodeStart();
+      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
+      storyboard.markCodeStart();
       ModelPattern p = new ModelPattern().startCreate();
       
       GreetingPO greetingPO = p.hasElementGreetingPO();
@@ -157,30 +157,30 @@ public class HelloWorldTTC2011
       
       PersonPO personPO = greetingPO.hasPerson()
       .hasName("TTC Participants");
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2", false));
+      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2", false));
       
-      scenario.assertTrue("Constant transformation has match", p.getHasMatch());
+      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
       
-      scenario.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
+      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       
-      // scenario.addObjectDiag(p.getJsonIdMap(), greetingPO);
+      // storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO);
       
-      scenario.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2AfterTransformation"));
+      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2AfterTransformation"));
       
       
       //==========================================================================
       
-      scenario.add("For completeness just the host graph:");
+      storyboard.add("For completeness just the host graph:");
 
-      scenario.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
       
       //==========================================================================
       
-      scenario.add("For fairness, the java code that does this transformation looks like: ");
+      storyboard.add("For fairness, the java code that does this transformation looks like: ");
       
-      scenario.markCodeStart();
+      storyboard.markCodeStart();
       Greeting greeting = new Greeting();
       
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
@@ -188,9 +188,9 @@ public class HelloWorldTTC2011
       
       Person person = greeting.createPerson()
       .withName("TTC Participants");
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
       
       
@@ -198,11 +198,11 @@ public class HelloWorldTTC2011
    @Test
    public void testModelToTextTransformation()
    {  
-      Scenario scenario = new Scenario("examples", "TTC2011HelloWorldModelToText")
+      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldModelToText")
       .with("For model to text transformation we provide a simple template mechanism. ");
       
-      scenario.add("The model transformation that builds our object model looks like: ");
-      scenario.markCodeStart();
+      storyboard.add("The model transformation that builds our object model looks like: ");
+      storyboard.markCodeStart();
       ModelPattern p = new ModelPattern().startCreate();
       
       GreetingPO greetingPO = p.hasElementGreetingPO();
@@ -212,15 +212,15 @@ public class HelloWorldTTC2011
       
       PersonPO personPO = greetingPO.hasPerson()
       .hasName("TTC Participants");
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.add("The created object model looks like: ");
+      storyboard.add("The created object model looks like: ");
       
-      scenario.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
       
-      scenario.add("The model to text transfromation template mechanism is used like this: ");
+      storyboard.add("The model to text transfromation template mechanism is used like this: ");
       
-      scenario.markCodeStart();
+      storyboard.markCodeStart();
       StringBuilder text = new StringBuilder("message name");
       
       CGUtil.replaceAll(text, 
@@ -228,19 +228,19 @@ public class HelloWorldTTC2011
          "name", personPO.getName());
       
       systemout = text.toString();
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.add("systemout: \n" + systemout);
+      storyboard.add("systemout: \n" + systemout);
       
       //==========================================================================
       
-      scenario.add("Alternatively, plain java code that does this model to text transformation looks like: ");
+      storyboard.add("Alternatively, plain java code that does this model to text transformation looks like: ");
       
-      scenario.markCodeStart();
+      storyboard.markCodeStart();
       systemout = greetingMessagePO.getText() + " " + personPO.getName();
-      scenario.addCode("examples");
+      storyboard.addCode("examples");
       
-      scenario.dumpHTML();  
+      storyboard.dumpHTML();  
    }
    
    
@@ -248,12 +248,12 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldCountNumberOfNodes()
    {  
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("Simple Graph application classes: ");
+      storyboard.add("<hr/>");
+      storyboard.add("Simple Graph application classes: ");
       
       ClassModel model = new ClassModel();
       
@@ -285,173 +285,173 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("create example graph: ");
+      storyboard.add("<hr/>");
+      storyboard.add("create example graph: ");
       
       Graph graph = createExampleGraph();
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph, true);
+      storyboard.addObjectDiag(CreatorCreator.createIdMap("hg"), graph, true);
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Count nodes in graph direct: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count nodes in graph direct: </h2>");
       
       countNodesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesInJava(Graph)"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("Count nodes in graph per pattern: ");
+      storyboard.add("Count nodes in graph per pattern: ");
       
       countNodesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
       
-      // scenario.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
+      // storyboard.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRule", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRule", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRuleWithMatch"));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRuleWithMatch"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("Retrieve set of matching nodes per pattern and count its elements: ");
+      storyboard.add("Retrieve set of matching nodes per pattern and count its elements: ");
       
       countNodesPerNodeSet(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSet", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSet", false));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSetWithMatch"));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSetWithMatch"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Retrieve set of looping edges per pattern and count its elements: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Retrieve set of looping edges per pattern and count its elements: </h2>");
       
       countLoopingEdgesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPattern", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPattern", false));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPatternWithMatch"));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPatternWithMatch"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
-      scenario.add("For comparison a Java solution: ");
+      storyboard.add("For comparison a Java solution: ");
       
       countLoopingEdgesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Retrieve isolated nodes and count them: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Retrieve isolated nodes and count them: </h2>");
       
       countIsolatedNodesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPattern", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPattern", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPatternWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPatternWithMatch", true));
 
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
-      scenario.add("For comparison a Java solution: ");
+      storyboard.add("For comparison a Java solution: ");
       
       countIsolatedNodesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Count circles of three nodes: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count circles of three nodes: </h2>");
       
       countCirclesOfThreeNodesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPattern", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPattern", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternWithMatch", true));
 
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
-      scenario.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
+      storyboard.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
       
       countCirclesOfThreeNodesPerPatternReportMatches(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatches", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatches", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatchesWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatchesWithMatch", true));
 
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
-      scenario.add("Just for comparison, a plain java implementation: ");
+      storyboard.add("Just for comparison, a plain java implementation: ");
       
       countCirclesOfThreeNodesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
       
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Count dangling edges per pattern: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count dangling edges per pattern: </h2>");
       
       countDanglingEdgesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPattern", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPattern", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPatternWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPatternWithMatch", true));
 
-      scenario.add("systemout: " + systemout);
+      storyboard.add("systemout: " + systemout);
       
-      scenario.add("Count dangling edges in Java: ");
+      storyboard.add("Count dangling edges in Java: ");
       
       countDanglingEdgesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
       
-      scenario.add("systemout: " + systemout);
-      
-      
+      storyboard.add("systemout: " + systemout);
       
       
-      scenario.dumpHTML();
+      
+      
+      storyboard.dumpHTML();
    }
 
 
@@ -473,53 +473,53 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldReverseEdges()
    {  
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("create example graph: ");
+      storyboard.add("<hr/>");
+      storyboard.add("create example graph: ");
       
       Graph graph = createExampleGraph();
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Reverse Edges per pattern: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Reverse Edges per pattern: </h2>");
       
       reverseEdgesPerPattern(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPattern", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPattern", false));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPatternWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPatternWithMatch", true));
 
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
-      scenario.add(systemout);
+      storyboard.add(systemout);
       
       //==========================================================================
       
-      scenario.add("<h2>Reverse Edges (back) in Java: </h2>: ");
+      storyboard.add("<h2>Reverse Edges (back) in Java: </h2>: ");
     
       reverseEdgesInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
-      scenario.add(systemout);
+      storyboard.add(systemout);
       
 
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
 
@@ -528,10 +528,10 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigration()
    {  
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
       
-      scenario.add("<hr/>");
-      scenario.add("Source model:");
+      storyboard.add("<hr/>");
+      storyboard.add("Source model:");
       
       ClassModel model = new ClassModel();
       
@@ -563,13 +563,13 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("Target model:");
+      storyboard.add("<hr/>");
+      storyboard.add("Target model:");
       
       model = new ClassModel();
       
@@ -600,13 +600,13 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("Migration extension:");
+      storyboard.add("<hr/>");
+      storyboard.add("Migration extension:");
       
       model = new ClassModel();
       
@@ -618,106 +618,106 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
       
 
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("Create example source graph: ");
+      storyboard.add("<hr/>");
+      storyboard.add("Create example source graph: ");
       
       Graph graph = createExampleGraph();
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Migrate per pattern: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate per pattern: </h2>");
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Scenario)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Storyboard)"));
       
-      simpleMigrationPerPattern(graph, scenario);
+      simpleMigrationPerPattern(graph, storyboard);
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
-      scenario.add(systemout);
+      storyboard.add(systemout);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Migrate in Java: </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate in Java: </h2>");
       
       graph = createExampleGraph();
       
       simpleMigrationInJava(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
       
-      scenario.add(systemout);
+      storyboard.add(systemout);
 
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Migrate using Serialisation / Clone : </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Serialisation / Clone : </h2>");
       
       graph = createExampleGraph();
       
       graph = simpleMigrationByCloning(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
       
       //==========================================================================
       
-      scenario.add("<hr/>");
-      scenario.add("<h2>Migrate using JSON Array repräsentation : </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using JSON Array reprï¿½sentation : </h2>");
       
       graph = createExampleGraph();
       
       graph = simpleMigrationByJsonArray(graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
       
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
       
-      scenario.addObjectDiag(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
       
       
       //==========================================================================
 
-      scenario.add("<hr/>");
-      scenario.add("<h2>Migrate using Generic Graph representation : </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
 
       graph = createExampleGraph();
 
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Scenario)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
       
-      Graph tgtGraph = simpleMigrationByGenericGraph(graph, scenario);
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
 
-      scenario.addObjectDiag(CreatorCreator.createIdMap("tg"), tgtGraph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("tg"), tgtGraph);
 
    
       //==========================================================================
 
-      scenario.add("<hr/>");
-      scenario.add("<h2>Even more evolved graph model : </h2>");
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Even more evolved graph model : </h2>");
 
       model = new ClassModel();
       
@@ -736,24 +736,24 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      scenario.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
       
       graph = createExampleGraph();
       
       JsonIdMap createIdMap = CreatorCreator.createIdMap("eg");
       
-      scenario.addObjectDiag(createIdMap, graph);
+      storyboard.addObjectDiagram(createIdMap, graph);
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Scenario)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
       
-      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, scenario);
+      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
 
-      scenario.add("Result graph: ");
+      storyboard.add("Result graph: ");
 
-      scenario.addObjectDiag(CreatorCreator.createIdMap("tg"), tgtGraph);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("tg"), tgtGraph);
 
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
    
    
@@ -761,12 +761,12 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
       
-      scenario.add("<hr/>");
-      scenario.add("Delete node with name n1 and its incidemnt edges.");
+      storyboard.add("<hr/>");
+      storyboard.add("Delete node with name n1 and its incidemnt edges.");
       
-      scenario.add("Start graph:");
+      storyboard.add("Start graph:");
       
       Graph graph = createExampleGraph();
       
@@ -775,22 +775,22 @@ public class HelloWorldTTC2011
       
       JsonIdMap createIdMap = CreatorCreator.createIdMap("sg");
       
-      scenario.addObjectDiag(createIdMap, graph);
+      storyboard.addObjectDiagram(createIdMap, graph);
       
-      scenario.add("Transformation:");
+      storyboard.add("Transformation:");
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
 
       deleteNodeWithNameN1(graph);
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
       
-      scenario.add("Result graph:");
+      storyboard.add("Result graph:");
       
-      scenario.addObjectDiag(createIdMap, graph);
+      storyboard.addObjectDiagram(createIdMap, graph);
       
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
 
@@ -798,40 +798,40 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011InsertTransitiveEdges()
    {  
-      Scenario scenario = new Scenario("examples");
+      Storyboard storyboard = new Storyboard("examples");
       
-      scenario.add("<hr/>");
-      scenario.add("Insert transitive edges.");
+      storyboard.add("<hr/>");
+      storyboard.add("Insert transitive edges.");
       
-      scenario.add("Start graph:");
+      storyboard.add("Start graph:");
       
       Graph graph = createExampleGraph();
       
       JsonIdMap createIdMap = CreatorCreator.createIdMap("sg");
       
-      scenario.addObjectDiag(createIdMap, graph);
+      storyboard.addObjectDiagram(createIdMap, graph);
       
       int noOfMatches = insertTransitiveEdges(graph);
 
-      scenario.add("Transformation:");
+      storyboard.add("Transformation:");
       
-      scenario.add(scenario.getMethodText("examples", this.getClass().getName(), "insertTransitiveEdges(Graph)"));
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "insertTransitiveEdges(Graph)"));
 
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdges", false));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdges", false));
       
-      scenario.add("Transformation with matches:");
+      storyboard.add("Transformation with matches:");
       
-      scenario.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdgesWithMatch", true));
+      storyboard.add(ModelPattern.lastPattern.dumpDiagram("insertTransitiveEdgesWithMatch", true));
       
-      scenario.add("We have inserted " + noOfMatches + " new transitive edges. Result graph:");
+      storyboard.add("We have inserted " + noOfMatches + " new transitive edges. Result graph:");
       
-      scenario.addObjectDiag(createIdMap, graph);
+      storyboard.addObjectDiagram(createIdMap, graph);
       
-      scenario.add("For comparison a Java solution: ");
+      storyboard.add("For comparison a Java solution: ");
       
       
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 
    
@@ -889,7 +889,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Scenario scenario)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(CreatorCreator.createIdMap("g1"), origGraph);
@@ -904,7 +904,7 @@ public class HelloWorldTTC2011
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
       
       // replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -930,7 +930,7 @@ public class HelloWorldTTC2011
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
       
       // destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -942,7 +942,7 @@ public class HelloWorldTTC2011
       
       danglingPO.allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
@@ -950,12 +950,12 @@ public class HelloWorldTTC2011
    }
    
    
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, Scenario scenario)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
-      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -967,7 +967,7 @@ public class HelloWorldTTC2011
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
       
       // rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -979,9 +979,9 @@ public class HelloWorldTTC2011
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      scenario.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
 
-      scenario.addObjectDiag(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
@@ -1121,7 +1121,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private void simpleMigrationPerPattern(Graph graph, Scenario scenario)
+   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       //==========================================================================
       ModelPattern migrateGraph = new ModelPattern();
@@ -1132,7 +1132,7 @@ public class HelloWorldTTC2011
       
       GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
       
-      scenario.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
+      storyboard.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
       
       //==========================================================================
       int noOfMatches = 0;
@@ -1162,7 +1162,7 @@ public class HelloWorldTTC2011
       
       systemout = "Number of migrated nodes: " + noOfMatches;
       
-      scenario.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
+      storyboard.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
       
       //==========================================================================
       noOfMatches = 0;
@@ -1218,11 +1218,11 @@ public class HelloWorldTTC2011
 
       systemout += "\nNumber of migrated Edges: " + noOfMatches;
       
-      scenario.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
+      storyboard.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
       
-      scenario.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
+      storyboard.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
       
-      scenario.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
+      storyboard.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
    }
 
 

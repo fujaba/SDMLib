@@ -7,7 +7,7 @@ n2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 allMatches_n2 [label=allMatches];
 subgraph cluster_n3 
 {
-   label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
    color=grey;
 
 e4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> e4 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
@@ -15,7 +15,7 @@ e4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 
 subgraph cluster_n5 
 {
-   label=<<table border='0' cellborder='0'><tr><td><img src='forbiddensign.svg'/></td><td>NAC n5</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n5</td></tr></table>>;
    color=grey;
 
 e6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> e6 :EdgePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
@@ -49,20 +49,6 @@ e4 -- e10 [headlabel = "candidate" style="dotted" color="black" fontcolor="black
 g1 -- n2 [headlabel = "nodes" taillabel = "" color="black" fontcolor="black"];
 n2 -- e4 [headlabel = "outEdges" taillabel = "" color="black" fontcolor="black"];
 n2 -- e6 [headlabel = "inEdges" taillabel = "" color="black" fontcolor="black"];
-e12 -- n13 [headlabel = "tgt" taillabel = "inEdges"];
-e14 -- n15 [headlabel = "tgt" taillabel = "inEdges"];
-e17 -- n18 [headlabel = "tgt" taillabel = "inEdges"];
-e19 -- n20 [headlabel = "tgt" taillabel = "inEdges"];
-g7 -- e10 [headlabel = "edges" taillabel = "graph"];
-g7 -- e12 [headlabel = "edges" taillabel = "graph"];
-g7 -- e14 [headlabel = "edges" taillabel = "graph"];
-g7 -- e16 [headlabel = "edges" taillabel = "graph"];
-g7 -- e17 [headlabel = "edges" taillabel = "graph"];
-g7 -- e19 [headlabel = "edges" taillabel = "graph"];
-g7 -- e21 [headlabel = "edges" taillabel = "graph"];
-g7 -- e22 [headlabel = "edges" taillabel = "graph"];
-g7 -- e23 [headlabel = "edges" taillabel = "graph"];
-g7 -- e9 [headlabel = "edges" taillabel = "graph"];
 g7 -- n11 [headlabel = "nodes" taillabel = "graph"];
 g7 -- n13 [headlabel = "nodes" taillabel = "graph"];
 g7 -- n15 [headlabel = "nodes" taillabel = "graph"];
@@ -71,16 +57,30 @@ g7 -- n20 [headlabel = "nodes" taillabel = "graph"];
 g7 -- n24 [headlabel = "nodes" taillabel = "graph"];
 g7 -- n25 [headlabel = "nodes" taillabel = "graph"];
 g7 -- n8 [headlabel = "nodes" taillabel = "graph"];
+g7 -- e21 [headlabel = "edges" taillabel = "graph"];
+g7 -- e23 [headlabel = "edges" taillabel = "graph"];
+g7 -- e12 [headlabel = "edges" taillabel = "graph"];
+g7 -- e14 [headlabel = "edges" taillabel = "graph"];
+g7 -- e16 [headlabel = "edges" taillabel = "graph"];
+g7 -- e17 [headlabel = "edges" taillabel = "graph"];
+g7 -- e19 [headlabel = "edges" taillabel = "graph"];
+g7 -- e22 [headlabel = "edges" taillabel = "graph"];
+g7 -- e9 [headlabel = "edges" taillabel = "graph"];
+g7 -- e10 [headlabel = "edges" taillabel = "graph"];
 n11 -- e12 [headlabel = "outEdges" taillabel = "src"];
 n11 -- e16 [headlabel = "inEdges" taillabel = "tgt"];
+e12 -- n13 [headlabel = "tgt" taillabel = "inEdges"];
 n13 -- e14 [headlabel = "outEdges" taillabel = "src"];
+e14 -- n15 [headlabel = "tgt" taillabel = "inEdges"];
 n15 -- e16 [headlabel = "outEdges" taillabel = "src"];
 n15 -- e17 [headlabel = "outEdges" taillabel = "src"];
 n15 -- e22 [headlabel = "inEdges" taillabel = "tgt"];
+e17 -- n18 [headlabel = "tgt" taillabel = "inEdges"];
 n18 -- e19 [headlabel = "outEdges" taillabel = "src"];
+e19 -- n20 [headlabel = "tgt" taillabel = "inEdges"];
 n20 -- e21 [headlabel = "outEdges" taillabel = "src"];
 n20 -- e22 [headlabel = "outEdges" taillabel = "src"];
 n20 -- e23 [headlabel = "inEdges" taillabel = "tgt"];
-n8 -- e10 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
 n8 -- e9 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n8 -- e10 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
 }

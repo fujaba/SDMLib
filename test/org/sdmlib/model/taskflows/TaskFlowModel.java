@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.scenarios.Scenario;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.Storyboard;
 
 public class TaskFlowModel 
 {
@@ -19,7 +19,7 @@ public class TaskFlowModel
 @Test
    public void taskFlowModel()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
       ClassModel model = new ClassModel("org.sdmlib.model.taskflows");
       
@@ -62,16 +62,16 @@ public class TaskFlowModel
       model.createClazz("SDMTimer").withSuperClass(timerClass)
       .withMethods(new Method("schedule(TimerTask)", "void"));
       
-      scenario.addImage(model.dumpClassDiag("swtsrc", "taskflowmodeldiag"));
+      storyboard.addImage(model.dumpClassDiag("swtsrc", "taskflowmodeldiag"));
       
       
       model.generate("swtsrc", "swtsrc"); 
       
-      scenario.addToDo("WrapExistingClasses", "backlog", "zuendorf", "02.11.2012 13:42:42", 5, 0);
+      storyboard.addToDo("WrapExistingClasses", "backlog", "zuendorf", "02.11.2012 13:42:42", 5, 0);
       
-      scenario.addToDo("SortIndex", "done", "zuendorf", "01.11.2012 14:43:42", 1, 0);
+      storyboard.addToDo("SortIndex", "done", "zuendorf", "01.11.2012 14:43:42", 1, 0);
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
   
 }

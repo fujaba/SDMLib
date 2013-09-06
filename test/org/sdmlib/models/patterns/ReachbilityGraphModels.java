@@ -5,14 +5,14 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.scenarios.Scenario;
+import org.sdmlib.storyboards.Storyboard;
 
 public class ReachbilityGraphModels
 {
    @Test
    public void SimpleReachabilityGraphModel()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
       ClassModel model = new ClassModel("org.sdmlib.models.patterns.example");
       
@@ -23,17 +23,17 @@ public class ReachbilityGraphModels
       
       node.withAssoc(node, "next", R.MANY, "prev", R.MANY);
       
-      scenario.addImage(model.dumpClassDiag("simpleReachableState"));
+      storyboard.addImage(model.dumpClassDiag("simpleReachableState"));
       
       model.generate("test");
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
    
    @Test
    public void FerryMansProblemModel()
    {
-      Scenario scenario = new Scenario("test");
+      Storyboard storyboard = new Storyboard("test");
       
       ClassModel model = new ClassModel("org.sdmlib.models.patterns.example.ferrmansproblem");
       
@@ -53,10 +53,10 @@ public class ReachbilityGraphModels
       
       cargo.withAssoc(boat, "boat", R.ONE, "cargo", R.ONE);
       
-      scenario.addImage(model.dumpClassDiag("FerryMansProblemModel"));
+      storyboard.addImage(model.dumpClassDiag("FerryMansProblemModel"));
       
       model.generate("test");
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
    }
 }

@@ -208,5 +208,39 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
+   public RoomPO hasNeighbors()
+   {
+      RoomPO result = new RoomPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Room.PROPERTY_NEIGHBORS, result);
+      
+      return result;
+   }
+
+   public RoomPO hasNeighbors(RoomPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_NEIGHBORS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public RoomSet getNeighbors()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getNeighbors();
+      }
+      return null;
+   }
+
 }
+
 

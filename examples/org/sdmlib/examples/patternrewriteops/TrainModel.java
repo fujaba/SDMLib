@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.scenarios.Scenario;
+import org.sdmlib.storyboards.Storyboard;
 
 public class TrainModel
 {
@@ -12,10 +12,10 @@ public class TrainModel
 	@Test 
 	public void makeModel()
 	{
-      Scenario scenario = new Scenario("examples", "TrainModel");
+      Storyboard storyboard = new Storyboard("examples", "TrainModel");
       
-      scenario.add("Example model for testing destroy with model patterns: ",
-      		Scenario.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
+      storyboard.add("Example model for testing destroy with model patterns: ",
+      		Storyboard.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops");
             
@@ -31,10 +31,10 @@ public class TrainModel
       
       stationClass.createClassAndAssoc("SignalFlag", "flag", R.ONE, "station", R.MANY);
       
-      scenario.addImage(model.dumpClassDiag("examples", "TrainModelClassDiag"));
+      storyboard.addImage(model.dumpClassDiag("examples", "TrainModelClassDiag"));
       
       model.generate("examples");
       
-      scenario.dumpHTML();
+      storyboard.dumpHTML();
 	}
 }
