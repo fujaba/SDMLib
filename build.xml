@@ -64,7 +64,6 @@
 			<formatter type="xml" />
 			<batchtest fork="yes" todir="${junit.output.dir}">
 				<fileset dir="examples">
-					<include name="**/*Model.java" />
 					<include name="**/*Classes.java" />
 				</fileset>
 			</batchtest>
@@ -88,9 +87,11 @@
 			<batchtest fork="yes" todir="${junit.output.dir}">
 				<fileset dir="examples">
 					<include name="**/*Storyboard.java" />
+					<include name="**/*Model.java" />
 					<include name="**/*Storyboards.java" />
 					<include name="**/*Test.java" />
 					<include name="**/*Tests.java" />
+					<include name="**/HelloWorld*.java" />
 				</fileset>
 			</batchtest>
 			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage2.ec" />
