@@ -34,6 +34,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.creators.LogEntrySet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
 {

@@ -30,6 +30,7 @@ import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class GenericObject implements PropertyChangeInterface
 {

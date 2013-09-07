@@ -1,11 +1,16 @@
 package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.transformations.AttributeOp;
-import org.sdmlib.models.transformations.LinkOp;
-import org.sdmlib.models.transformations.OperationObject;
-import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.creators.TransformOpPO;
 import org.sdmlib.models.transformations.TransformOp;
+import org.sdmlib.models.transformations.creators.OperationObjectPO;
+import org.sdmlib.models.transformations.OperationObject;
+import org.sdmlib.models.transformations.creators.AttributeOpPO;
+import org.sdmlib.models.transformations.AttributeOp;
+import org.sdmlib.models.transformations.creators.LinkOpPO;
+import org.sdmlib.models.transformations.LinkOp;
+import org.sdmlib.models.transformations.creators.StatementPO;
+import org.sdmlib.models.transformations.Statement;
 
 public class ModelPattern extends Pattern
 {

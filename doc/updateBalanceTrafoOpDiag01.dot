@@ -29,4 +29,3 @@
     personItems -> myCostssum [style = "dotted" arrowhead = "none"];
     person -> setBalancemyCostsshare [style = "dotted" arrowhead = "none"];
 }
-

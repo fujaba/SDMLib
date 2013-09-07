@@ -1,33 +1,33 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
-<p>Scenario <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphSimpleExamples.java' type='text/x-java'>SimpleReachabilityGraphIsomorphismTest</a></p>
-<pre>create two rings of three nodes with a mark at one node</pre>
+<p>Storyboard <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphSimpleExamples.java' type='text/x-java'>SimpleReachabilityGraphIsomorphismTest</a></p>
+<p>create two rings of three nodes with a mark at one node</p>
 <embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest3.svg'>
 <embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest4.svg'>
-<pre>compute certificates</pre>
-<pre>Both certificates are equal: true</pre>
-<pre>{
+<p>compute certificates</p>
+<p>Both certificates are equal: true</p>
+<p>{
   "class":"org.sdmlib.models.patterns.example.Node",
   "prop":{
-    "graph":{"id":"#3"},
+    "graph":{"id":"#7"},
     "next":[
-      {"id":"#1"}
+      {"id":"#5"}
     ],
     "prev":[
-      {"id":"#2"}
+      {"id":"#6"}
     ]
   }
 }*1
 {
   "class":"org.sdmlib.models.patterns.example.Node",
   "prop":{
-    "graph":{"id":"#3"},
+    "graph":{"id":"#7"},
     "next":[
-      {"id":"#2"}
+      {"id":"#6"}
     ],
     "prev":[
-      {"id":"#1"}
+      {"id":"#4"}
     ]
   }
 }*1
@@ -35,53 +35,53 @@
   "class":"org.sdmlib.models.patterns.example.Node",
   "prop":{
     "num":42,
-    "graph":{"id":"#3"},
+    "graph":{"id":"#7"},
     "next":[
-      {"id":"#1"}
+      {"id":"#4"}
     ],
     "prev":[
-      {"id":"#1"}
+      {"id":"#5"}
     ]
   }
 }*1
 {
   "class":"org.sdmlib.models.patterns.example.SimpleState",
   "prop":{"nodes":[
-      {"id":"#1"},
-      {"id":"#1"},
-      {"id":"#2"}
+      {"id":"#4"},
+      {"id":"#5"},
+      {"id":"#6"}
     ]}
 }*1
-</pre>
-<pre>Graphs are isomorphic:</pre>
-<pre>{s.S1=t.S1, s.N2=t.N3, s.N3=t.N4, s.N4=t.N2}</pre>
-<pre>removing the num</pre>
+</p>
+<p>Graphs are isomorphic:</p>
+<p>{s.S1=s.S1, s.N2=s.N3, s.N3=s.N4, s.N4=s.N2}</p>
+<p>removing the num</p>
 <embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest11.svg'>
 <embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest12.svg'>
-<pre>Both certificates are again equal: true</pre>
-<pre>{
+<p>Both certificates are again equal: true</p>
+<p>{
   "class":"org.sdmlib.models.patterns.example.Node",
   "prop":{
-    "graph":{"id":"#2"},
+    "graph":{"id":"#4"},
     "next":[
-      {"id":"#1"}
+      {"id":"#3"}
     ],
     "prev":[
-      {"id":"#1"}
+      {"id":"#3"}
     ]
   }
 }*3
 {
   "class":"org.sdmlib.models.patterns.example.SimpleState",
   "prop":{"nodes":[
-      {"id":"#1"},
-      {"id":"#1"},
-      {"id":"#1"}
+      {"id":"#3"},
+      {"id":"#3"},
+      {"id":"#3"}
     ]}
 }*1
-</pre>
-<pre>Graphs are isomorphic:</pre>
-<pre>{s.S1=t.S1, s.N2=t.N2, s.N3=t.N3, s.N4=t.N4}</pre>
+</p>
+<p>Graphs are isomorphic:</p>
+<p>{s.S1=s.S1, s.N2=s.N2, s.N3=s.N3, s.N4=s.N4}</p>
 
 </body>
 </html>

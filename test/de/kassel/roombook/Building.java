@@ -29,6 +29,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 import de.kassel.roombook.creators.FloorSet;
+import java.beans.PropertyChangeListener;
 
 public class Building implements PropertyChangeInterface
 {

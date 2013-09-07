@@ -1,6 +1,7 @@
 graph ObjectDiagram {
    node [shape = none, fontsize = 10];
    edge [fontsize = 10];
+   compound=true;
 
 g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g1 :GenericGraph</u></td></tr></table>>];
 g2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g2 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "WilliAllee"</td></tr><tr><td>type = "Building"</td></tr></table></td></tr></table>>];
@@ -16,10 +17,10 @@ g11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g11 :
 g12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g12 :GenericAttribute</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "guest"</td></tr><tr><td>value = "Ulrich"</td></tr></table></td></tr></table>>];
 
 g1 -- g2 [headlabel = "objects" taillabel = "graph"];
-g1 -- g4 [headlabel = "links" taillabel = "graph"];
 g1 -- g5 [headlabel = "objects" taillabel = "graph"];
-g1 -- g8 [headlabel = "links" taillabel = "graph"];
 g1 -- g9 [headlabel = "objects" taillabel = "graph"];
+g1 -- g4 [headlabel = "links" taillabel = "graph"];
+g1 -- g8 [headlabel = "links" taillabel = "graph"];
 g2 -- g3 [headlabel = "attrs" taillabel = "owner"];
 g2 -- g4 [headlabel = "outgoingLinks" taillabel = "src"];
 g2 -- g8 [headlabel = "outgoingLinks" taillabel = "src"];

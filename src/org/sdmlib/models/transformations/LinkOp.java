@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.models.transformations;
 
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.transformations.creators.LinkOpSet;
 
 public class LinkOp implements PropertyChangeInterface
 {
@@ -36,14 +35,6 @@ public class LinkOp implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_SRCTEXT.equalsIgnoreCase(attrName))
       {
          return getSrcText();
@@ -68,7 +59,7 @@ public class LinkOp implements PropertyChangeInterface
       {
          return getTransformOp();
       }
-      
+
       return null;
    }
 
@@ -113,11 +104,16 @@ public class LinkOp implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -136,8 +132,8 @@ public class LinkOp implements PropertyChangeInterface
    
    public static final String PROPERTY_SRCTEXT = "srcText";
    
-   private String srcText = "";
-   
+   private String srcText;
+
    public String getSrcText()
    {
       return this.srcText;
@@ -159,13 +155,23 @@ public class LinkOp implements PropertyChangeInterface
       return this;
    } 
 
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSrcText());
+      _.append(" ").append(this.getTgtText());
+      return _.substring(1);
+   }
+
+
    
    //==========================================================================
    
    public static final String PROPERTY_TGTTEXT = "tgtText";
    
-   private String tgtText = "";
-   
+   private String tgtText;
+
    public String getTgtText()
    {
       return this.tgtText;
@@ -241,6 +247,13 @@ public class LinkOp implements PropertyChangeInterface
       setSrc(value);
       return this;
    } 
+   
+   public OperationObject createSrc()
+   {
+      OperationObject value = new OperationObject();
+      withSrc(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -292,6 +305,13 @@ public class LinkOp implements PropertyChangeInterface
    {
       setTgt(value);
       return this;
+   } 
+   
+   public OperationObject createTgt()
+   {
+      OperationObject value = new OperationObject();
+      withTgt(value);
+      return value;
    } 
 
    
@@ -345,15 +365,12 @@ public class LinkOp implements PropertyChangeInterface
       setTransformOp(value);
       return this;
    } 
-
-   public String toString()
+   
+   public TransformOp createTransformOp()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getSrcText());
-      _.append(" ").append(this.getTgtText());
-      return _.substring(1);
-   }
-
+      TransformOp value = new TransformOp();
+      withTransformOp(value);
+      return value;
+   } 
 }
 

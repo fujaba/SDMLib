@@ -14,7 +14,7 @@ public class OperationObjectPOCreator extends PatternObjectCreator
       return ((OperationObjectPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((OperationObjectPO) target).set(attrName, value);
    }

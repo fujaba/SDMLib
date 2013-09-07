@@ -146,6 +146,15 @@ public class ClassModel implements PropertyChangeInterface
          if (pos < 0)
          {
             // seems to be a non trivial type. We should have a clazz with that type
+            
+            // it may be an instance of a generic type like ArrayList<String>, cut off generic part
+            pos = typeName.indexOf('<');
+            
+            if (pos >= 0)
+            {
+               typeName = typeName.substring(0, pos);
+            }
+            
             Clazz clazz = this.getClazz(typeName);
             
             if (clazz == null)

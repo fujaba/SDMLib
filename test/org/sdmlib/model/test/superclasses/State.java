@@ -25,6 +25,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class State extends Continent implements PropertyChangeInterface
 {
@@ -109,5 +110,14 @@ public class State extends Continent implements PropertyChangeInterface
       setTest(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTest());
+      return _.substring(1);
+   }
+
 }
 

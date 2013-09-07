@@ -11,8 +11,10 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-418 180,-418 180,5 -4,5"/>
 <!-- _TransformOp -->
 <g id="node1" class="node"><title>_TransformOp</title>
+<a xlink:href="../src/org/sdmlib/models/transformations/TransformOp.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="62,-392 62,-409 123,-409 123,-392 62,-392"/>
 <text text-anchor="start" x="65.5" y="-398.5" font-family="Times New Roman,serif" font-size="10.00">TransformOp</text>
+</a>
 <polygon fill="none" stroke="black" points="62,-372 62,-392 123,-392 123,-372 62,-372"/>
 <text text-anchor="start" x="67" y="-380" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <polygon fill="none" stroke="black" points="62,-352 62,-372 123,-372 123,-352 62,-352"/>
@@ -20,8 +22,10 @@
 </g>
 <!-- _OperationObject -->
 <g id="node2" class="node"><title>_OperationObject</title>
+<a xlink:href="../src/org/sdmlib/models/transformations/OperationObject.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="55,-188 55,-205 129,-205 129,-188 55,-188"/>
 <text text-anchor="start" x="58.5" y="-194.5" font-family="Times New Roman,serif" font-size="10.00">OperationObject</text>
+</a>
 <polygon fill="none" stroke="black" points="55,-140 55,-188 129,-188 129,-140 55,-140"/>
 <text text-anchor="start" x="60" y="-176" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
 <text text-anchor="start" x="60" y="-162" font-family="Times New Roman,serif" font-size="10.00">type :String</text>
@@ -37,8 +41,10 @@
 </g>
 <!-- _LinkOp -->
 <g id="node4" class="node"><title>_LinkOp</title>
+<a xlink:href="../src/org/sdmlib/models/transformations/LinkOp.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="99,-58 99,-75 168,-75 168,-58 99,-58"/>
 <text text-anchor="start" x="118.5" y="-64.5" font-family="Times New Roman,serif" font-size="10.00">LinkOp</text>
+</a>
 <polygon fill="none" stroke="black" points="99,-24 99,-58 168,-58 168,-24 99,-24"/>
 <text text-anchor="start" x="104" y="-46" font-family="Times New Roman,serif" font-size="10.00">srcText :String</text>
 <text text-anchor="start" x="104" y="-32" font-family="Times New Roman,serif" font-size="10.00">tgtText :String</text>
@@ -53,8 +59,10 @@
 </g>
 <!-- _Statement -->
 <g id="node5" class="node"><title>_Statement</title>
+<a xlink:href="../src/org/sdmlib/models/transformations/Statement.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="65,-290 65,-307 119,-307 119,-290 65,-290"/>
 <text text-anchor="start" x="72" y="-296.5" font-family="Times New Roman,serif" font-size="10.00">Statement</text>
+</a>
 <polygon fill="none" stroke="black" points="65,-270 65,-290 119,-290 119,-270 65,-270"/>
 <text text-anchor="start" x="70" y="-278" font-family="Times New Roman,serif" font-size="10.00">text :String</text>
 <polygon fill="none" stroke="black" points="65,-250 65,-270 119,-270 119,-250 65,-250"/>
@@ -68,8 +76,10 @@
 </g>
 <!-- _AttributeOp -->
 <g id="node3" class="node"><title>_AttributeOp</title>
+<a xlink:href="../src/org/sdmlib/models/transformations/AttributeOp.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-51 8,-68 64,-68 64,-51 8,-51"/>
 <text text-anchor="start" x="11.5" y="-57.5" font-family="Times New Roman,serif" font-size="10.00">AttributeOp</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-31 8,-51 64,-51 64,-31 8,-31"/>
 <text text-anchor="start" x="13" y="-39" font-family="Times New Roman,serif" font-size="10.00">text :String</text>
 <polygon fill="none" stroke="black" points="8,-11 8,-31 64,-31 64,-11 8,-11"/>

@@ -22,56 +22,14 @@
 package org.sdmlib.models.transformations.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.transformations.AttributeOp;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.OperationObject;
 
-public class AttributeOpSet extends LinkedHashSet<AttributeOp>
+public class AttributeOpSet extends LinkedHashSet<AttributeOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getText()
-   {
-      StringList result = new StringList();
-      
-      for (AttributeOp obj : this)
-      {
-         result.add(obj.getText());
-      }
-      
-      return result;
-   }
-
-   public AttributeOpSet withText(String value)
-   {
-      for (AttributeOp obj : this)
-      {
-         obj.withText(value);
-      }
-      
-      return this;
-   }
-
-   public OperationObjectSet getOperationObject()
-   {
-      OperationObjectSet result = new OperationObjectSet();
-      
-      for (AttributeOp obj : this)
-      {
-         result.add(obj.getOperationObject());
-      }
-      
-      return result;
-   }
-   public AttributeOpSet withOperationObject(OperationObject value)
-   {
-      for (AttributeOp obj : this)
-      {
-         obj.withOperationObject(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
@@ -104,6 +62,49 @@ public class AttributeOpSet extends LinkedHashSet<AttributeOp>
       this.remove(value);
       return this;
    }
-}
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (AttributeOp obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
 
+   public AttributeOpSet withText(String value)
+   {
+      for (AttributeOp obj : this)
+      {
+         obj.setText(value);
+      }
+      
+      return this;
+   }
+
+   public OperationObjectSet getOperationObject()
+   {
+      OperationObjectSet result = new OperationObjectSet();
+      
+      for (AttributeOp obj : this)
+      {
+         result.add(obj.getOperationObject());
+      }
+      
+      return result;
+   }
+
+   public AttributeOpSet withOperationObject(OperationObject value)
+   {
+      for (AttributeOp obj : this)
+      {
+         obj.withOperationObject(value);
+      }
+      
+      return this;
+   }
+
+}
 

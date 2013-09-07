@@ -25,6 +25,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Town extends State implements PropertyChangeInterface
 {
@@ -109,5 +110,14 @@ public class Town extends State implements PropertyChangeInterface
       setTest(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTest());
+      return _.substring(1);
+   }
+
 }
 

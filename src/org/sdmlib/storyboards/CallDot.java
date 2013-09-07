@@ -1,9 +1,12 @@
 package org.sdmlib.storyboards;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class CallDot {
 	private static void writeToFile(String imgName, String fileText) throws IOException
@@ -59,10 +62,18 @@ public class CallDot {
 	    	  ProcessBuilder processBuilder =  new ProcessBuilder(command);
 	    	  processBuilder.redirectErrorStream(true);
 	    	  Process child = processBuilder.start();
-	    	  int returnValue = child.waitFor();
-	    	  if (returnValue != 0 ) {
-				System.err.println("execute dot failed");
+	    	  InputStream inputStream = child.getInputStream();
+	    	  BufferedReader buf = new BufferedReader(new InputStreamReader(inputStream));
+	    	  String line = null; 
+	    	  while ((line = buf.readLine()) != null)
+	    	  {
+	    	     System.out.println(line);
 	    	  }
+	    	  
+	    	  // int returnValue = child.waitFor();
+	    	  // if (returnValue != 0 ) {
+			  //    System.err.println("execute dot failed");
+	    	  // }
 	      } catch (Exception e) {
 	    	  e.printStackTrace();
 	      }

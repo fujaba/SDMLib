@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class GenericLink implements PropertyChangeInterface
 {

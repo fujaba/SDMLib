@@ -1,0 +1,21 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+r76 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r76 :River</u></td></tr></table>>];
+b223 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b223 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "left"</td></tr></table></td></tr></table>>];
+b224 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b224 :Boat</u></td></tr></table>>];
+c225 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c225 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "goat"</td></tr></table></td></tr></table>>];
+b226 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b226 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "right"</td></tr></table></td></tr></table>>];
+c227 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c227 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "cabbage"</td></tr></table></td></tr></table>>];
+c228 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c228 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "wolf"</td></tr></table></td></tr></table>>];
+
+r76 -- b223 [headlabel = "banks" taillabel = "river"];
+r76 -- b226 [headlabel = "banks" taillabel = "river"];
+r76 -- b224 [headlabel = "boat" taillabel = "river"];
+b223 -- b224 [headlabel = "boat" taillabel = "bank"];
+b223 -- c225 [headlabel = "cargos" taillabel = "bank"];
+b226 -- c227 [headlabel = "cargos" taillabel = "bank"];
+b226 -- c228 [headlabel = "cargos" taillabel = "bank"];
+}

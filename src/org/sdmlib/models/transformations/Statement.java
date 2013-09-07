@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,14 @@
    
 package org.sdmlib.models.transformations;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.transformations.creators.OperationObjectSet;
-import org.sdmlib.models.transformations.creators.StatementSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.transformations.creators.StatementSet;
 
 public class Statement implements PropertyChangeInterface
 {
@@ -39,14 +38,6 @@ public class Statement implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
          return getText();
@@ -71,7 +62,7 @@ public class Statement implements PropertyChangeInterface
       {
          return getTransformOp();
       }
-      
+
       return null;
    }
 
@@ -122,11 +113,16 @@ public class Statement implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -147,7 +143,7 @@ public class Statement implements PropertyChangeInterface
    public static final String PROPERTY_TEXT = "text";
    
    private String text;
-   
+
    public String getText()
    {
       return this.text;
@@ -168,6 +164,15 @@ public class Statement implements PropertyChangeInterface
       setText(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 
    
    /********************************************************************
@@ -198,7 +203,7 @@ public class Statement implements PropertyChangeInterface
          if (this.next != null)
          {
             this.next = null;
-            oldValue.withPrev(null);
+            oldValue.setPrev(null);
          }
          
          this.next = value;
@@ -219,6 +224,13 @@ public class Statement implements PropertyChangeInterface
    {
       setNext(value);
       return this;
+   } 
+   
+   public Statement createNext()
+   {
+      Statement value = new Statement();
+      withNext(value);
+      return value;
    } 
 
    
@@ -250,7 +262,7 @@ public class Statement implements PropertyChangeInterface
          if (this.prev != null)
          {
             this.prev = null;
-            oldValue.withNext(null);
+            oldValue.setNext(null);
          }
          
          this.prev = value;
@@ -271,6 +283,13 @@ public class Statement implements PropertyChangeInterface
    {
       setPrev(value);
       return this;
+   } 
+   
+   public Statement createPrev()
+   {
+      Statement value = new Statement();
+      withPrev(value);
+      return value;
    } 
 
    
@@ -337,17 +356,23 @@ public class Statement implements PropertyChangeInterface
       return changed;   
    }
    
-   public Statement withOperationObjects(OperationObject value)
+   public Statement withOperationObjects(OperationObject... value)
    {
-      addToOperationObjects(value);
+      for (OperationObject item : value)
+      {
+         addToOperationObjects(item);
+      }
       return this;
    } 
    
-   public Statement withoutOperationObjects(OperationObject value)
+   public Statement withoutOperationObjects(OperationObject... value)
    {
-      removeFromOperationObjects(value);
+      for (OperationObject item : value)
+      {
+         removeFromOperationObjects(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromOperationObjects()
    {
@@ -358,6 +383,13 @@ public class Statement implements PropertyChangeInterface
          this.removeFromOperationObjects(value);
       }
    }
+   
+   public OperationObject createOperationObjects()
+   {
+      OperationObject value = new OperationObject();
+      withOperationObjects(value);
+      return value;
+   } 
 
    
    public static final StatementSet EMPTY_SET = new StatementSet();
@@ -413,14 +445,12 @@ public class Statement implements PropertyChangeInterface
       setTransformOp(value);
       return this;
    } 
-
-   public String toString()
+   
+   public TransformOp createTransformOp()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getText());
-      return _.substring(1);
-   }
-
+      TransformOp value = new TransformOp();
+      withTransformOp(value);
+      return value;
+   } 
 }
 

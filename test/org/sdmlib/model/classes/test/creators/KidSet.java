@@ -26,6 +26,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.model.classes.test.Kid;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.model.classes.test.creators.UncleSet;
+import org.sdmlib.model.classes.test.Uncle;
 
 public class KidSet extends LinkedHashSet<Kid> implements ModelSet
 {
@@ -83,5 +85,28 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       return this;
    }
 
+   public UncleSet getUncle()
+   {
+      UncleSet result = new UncleSet();
+      
+      for (Kid obj : this)
+      {
+         result.add(obj.getUncle());
+      }
+      
+      return result;
+   }
+
+   public KidSet withUncle(Uncle value)
+   {
+      for (Kid obj : this)
+      {
+         obj.withUncle(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

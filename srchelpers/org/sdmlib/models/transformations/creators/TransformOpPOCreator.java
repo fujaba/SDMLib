@@ -14,7 +14,7 @@ public class TransformOpPOCreator extends PatternObjectCreator
       return ((TransformOpPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((TransformOpPO) target).set(attrName, value);
    }

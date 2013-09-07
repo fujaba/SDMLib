@@ -1,8 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.transformations.Statement;
 
 public class StatementCreator extends EntityFactory
 {
@@ -32,6 +33,10 @@ public class StatementCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
       return ((Statement) target).set(attrName, value);
    }
    
@@ -49,16 +54,4 @@ public class StatementCreator extends EntityFactory
       ((Statement) entity).removeYou();
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

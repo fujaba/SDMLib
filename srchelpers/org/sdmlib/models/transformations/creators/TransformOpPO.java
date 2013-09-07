@@ -1,24 +1,28 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.TransformOp;
+import org.sdmlib.models.transformations.creators.TransformOpSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.transformations.creators.OperationObjectPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.transformations.creators.TransformOpPO;
+import org.sdmlib.models.transformations.OperationObject;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.LinkOpPO;
+import org.sdmlib.models.transformations.LinkOp;
+import org.sdmlib.models.transformations.creators.LinkOpSet;
+import org.sdmlib.models.transformations.creators.StatementPO;
+import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.creators.StatementSet;
 
-public class TransformOpPO extends PatternObject
+public class TransformOpPO extends PatternObject<TransformOpPO, TransformOp>
 {
-   public TransformOpPO startNAC()
-   {
-      return (TransformOpPO) super.startNAC();
-   }
-   
-   public TransformOpPO endNAC()
-   {
-      return (TransformOpPO) super.endNAC();
-   }
-   
    public TransformOpSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       TransformOpSet matches = new TransformOpSet();
 
       while (this.getPattern().getHasMatch())
@@ -54,6 +58,15 @@ public class TransformOpPO extends PatternObject
       return null;
    }
    
+   public TransformOpPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((TransformOp) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
    public OperationObjectPO hasOpObjects()
    {
       OperationObjectPO result = new OperationObjectPO();
@@ -63,7 +76,7 @@ public class TransformOpPO extends PatternObject
       
       return result;
    }
-   
+
    public TransformOpPO hasOpObjects(OperationObjectPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -77,7 +90,7 @@ public class TransformOpPO extends PatternObject
       
       return this;
    }
-   
+
    public OperationObjectSet getOpObjects()
    {
       if (this.getPattern().getHasMatch())
@@ -86,7 +99,7 @@ public class TransformOpPO extends PatternObject
       }
       return null;
    }
-   
+
    public LinkOpPO hasLinkOps()
    {
       LinkOpPO result = new LinkOpPO();
@@ -96,7 +109,7 @@ public class TransformOpPO extends PatternObject
       
       return result;
    }
-   
+
    public TransformOpPO hasLinkOps(LinkOpPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -110,7 +123,7 @@ public class TransformOpPO extends PatternObject
       
       return this;
    }
-   
+
    public LinkOpSet getLinkOps()
    {
       if (this.getPattern().getHasMatch())
@@ -119,7 +132,7 @@ public class TransformOpPO extends PatternObject
       }
       return null;
    }
-   
+
    public StatementPO hasStatements()
    {
       StatementPO result = new StatementPO();
@@ -129,7 +142,7 @@ public class TransformOpPO extends PatternObject
       
       return result;
    }
-   
+
    public TransformOpPO hasStatements(StatementPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -143,7 +156,7 @@ public class TransformOpPO extends PatternObject
       
       return this;
    }
-   
+
    public StatementSet getStatements()
    {
       if (this.getPattern().getHasMatch())
@@ -152,6 +165,6 @@ public class TransformOpPO extends PatternObject
       }
       return null;
    }
-   
+
 }
 

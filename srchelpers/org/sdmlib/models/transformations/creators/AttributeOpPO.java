@@ -1,25 +1,21 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.AttributeOp;
+import org.sdmlib.models.transformations.creators.AttributeOpSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.transformations.creators.OperationObjectPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.transformations.creators.AttributeOpPO;
 import org.sdmlib.models.transformations.OperationObject;
 
-public class AttributeOpPO extends PatternObject
+public class AttributeOpPO extends PatternObject<AttributeOpPO, AttributeOp>
 {
-   public AttributeOpPO startNAC()
-   {
-      return (AttributeOpPO) super.startNAC();
-   }
-   
-   public AttributeOpPO endNAC()
-   {
-      return (AttributeOpPO) super.endNAC();
-   }
-   
    public AttributeOpSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       AttributeOpSet matches = new AttributeOpSet();
 
       while (this.getPattern().getHasMatch())
@@ -55,6 +51,15 @@ public class AttributeOpPO extends PatternObject
       return null;
    }
    
+   public AttributeOpPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((AttributeOp) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
    public OperationObjectPO hasOperationObject()
    {
       OperationObjectPO result = new OperationObjectPO();
@@ -64,7 +69,7 @@ public class AttributeOpPO extends PatternObject
       
       return result;
    }
-   
+
    public AttributeOpPO hasOperationObject(OperationObjectPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -78,7 +83,7 @@ public class AttributeOpPO extends PatternObject
       
       return this;
    }
-   
+
    public OperationObject getOperationObject()
    {
       if (this.getPattern().getHasMatch())
@@ -87,6 +92,6 @@ public class AttributeOpPO extends PatternObject
       }
       return null;
    }
-   
+
 }
 

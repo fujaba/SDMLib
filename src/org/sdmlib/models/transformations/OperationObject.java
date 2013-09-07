@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,17 +21,16 @@
    
 package org.sdmlib.models.transformations;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.transformations.creators.AttributeOpSet;
-import org.sdmlib.models.transformations.creators.LinkOpSet;
-import org.sdmlib.models.transformations.creators.OperationObjectSet;
-import org.sdmlib.models.transformations.creators.StatementSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.AttributeOpSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.transformations.creators.LinkOpSet;
+import org.sdmlib.models.transformations.creators.StatementSet;
 
 public class OperationObject implements PropertyChangeInterface
 {
@@ -41,14 +40,6 @@ public class OperationObject implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
@@ -59,19 +50,14 @@ public class OperationObject implements PropertyChangeInterface
          return getType();
       }
 
-      if (PROPERTY_TRANSFORMOP.equalsIgnoreCase(attrName))
-      {
-         return getTransformOp();
-      }
-
-      if (PROPERTY_STATEMENTS.equalsIgnoreCase(attrName))
-      {
-         return getStatements();
-      }
-
       if (PROPERTY_SET.equalsIgnoreCase(attrName))
       {
          return getSet();
+      }
+
+      if (PROPERTY_TRANSFORMOP.equalsIgnoreCase(attrName))
+      {
+         return getTransformOp();
       }
 
       if (PROPERTY_ATTRIBUTEOPS.equalsIgnoreCase(attrName))
@@ -88,7 +74,12 @@ public class OperationObject implements PropertyChangeInterface
       {
          return getIncomings();
       }
-      
+
+      if (PROPERTY_STATEMENTS.equalsIgnoreCase(attrName))
+      {
+         return getStatements();
+      }
+
       return null;
    }
 
@@ -109,27 +100,15 @@ public class OperationObject implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_TRANSFORMOP.equalsIgnoreCase(attrName))
-      {
-         setTransformOp((TransformOp) value);
-         return true;
-      }
-
-      if (PROPERTY_STATEMENTS.equalsIgnoreCase(attrName))
-      {
-         addToStatements((Statement) value);
-         return true;
-      }
-      
-      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromStatements((Statement) value);
-         return true;
-      }
-
       if (PROPERTY_SET.equalsIgnoreCase(attrName))
       {
          setSet((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_TRANSFORMOP.equalsIgnoreCase(attrName))
+      {
+         setTransformOp((TransformOp) value);
          return true;
       }
 
@@ -169,17 +148,34 @@ public class OperationObject implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_STATEMENTS.equalsIgnoreCase(attrName))
+      {
+         addToStatements((Statement) value);
+         return true;
+      }
+      
+      if ((PROPERTY_STATEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromStatements((Statement) value);
+         return true;
+      }
+
       return false;
    }
 
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -188,10 +184,10 @@ public class OperationObject implements PropertyChangeInterface
    public void removeYou()
    {
       setTransformOp(null);
-      removeAllFromStatements();
       removeAllFromAttributeOps();
       removeAllFromOutgoings();
       removeAllFromIncomings();
+      removeAllFromStatements();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -201,7 +197,7 @@ public class OperationObject implements PropertyChangeInterface
    public static final String PROPERTY_NAME = "name";
    
    private String name;
-   
+
    public String getName()
    {
       return this.name;
@@ -223,13 +219,23 @@ public class OperationObject implements PropertyChangeInterface
       return this;
    } 
 
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getType());
+      return _.substring(1);
+   }
+
+
    
    //==========================================================================
    
    public static final String PROPERTY_TYPE = "type";
    
    private String type;
-   
+
    public String getType()
    {
       return this.type;
@@ -248,6 +254,34 @@ public class OperationObject implements PropertyChangeInterface
    public OperationObject withType(String value)
    {
       setType(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_SET = "set";
+   
+   private boolean set;
+
+   public boolean getSet()
+   {
+      return this.set;
+   }
+   
+   public void setSet(boolean value)
+   {
+      if (this.set != value)
+      {
+         boolean oldValue = this.set;
+         this.set = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SET, oldValue, value);
+      }
+   }
+   
+   public OperationObject withSet(boolean value)
+   {
+      setSet(value);
       return this;
    } 
 
@@ -305,119 +339,12 @@ public class OperationObject implements PropertyChangeInterface
       setTransformOp(value);
       return this;
    } 
-
    
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * OperationObject ----------------------------------- Statement
-    *              operationObjects                   statements
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STATEMENTS = "statements";
-   
-   private StatementSet statements = null;
-   
-   public StatementSet getStatements()
+   public TransformOp createTransformOp()
    {
-      if (this.statements == null)
-      {
-         return Statement.EMPTY_SET;
-      }
-   
-      return this.statements;
-   }
-   
-   public boolean addToStatements(Statement value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.statements == null)
-         {
-            this.statements = new StatementSet();
-         }
-         
-         changed = this.statements.add (value);
-         
-         if (changed)
-         {
-            value.withOperationObjects(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATEMENTS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public boolean removeFromStatements(Statement value)
-   {
-      boolean changed = false;
-      
-      if ((this.statements != null) && (value != null))
-      {
-         changed = this.statements.remove (value);
-         
-         if (changed)
-         {
-            value.withoutOperationObjects(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATEMENTS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public OperationObject withStatements(Statement value)
-   {
-      addToStatements(value);
-      return this;
-   } 
-   
-   public OperationObject withoutStatements(Statement value)
-   {
-      removeFromStatements(value);
-      return this;
-   } 
-   
-   public void removeAllFromStatements()
-   {
-      LinkedHashSet<Statement> tmpSet = new LinkedHashSet<Statement>(this.getStatements());
-   
-      for (Statement value : tmpSet)
-      {
-         this.removeFromStatements(value);
-      }
-   }
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_SET = "set";
-   
-   private boolean set;
-   
-   public boolean getSet()
-   {
-      return this.set;
-   }
-   
-   public void setSet(boolean value)
-   {
-      if (this.set != value)
-      {
-         boolean oldValue = this.set;
-         this.set = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SET, oldValue, value);
-      }
-   }
-   
-   public OperationObject withSet(boolean value)
-   {
-      setSet(value);
-      return this;
+      TransformOp value = new TransformOp();
+      withTransformOp(value);
+      return value;
    } 
 
    
@@ -484,17 +411,23 @@ public class OperationObject implements PropertyChangeInterface
       return changed;   
    }
    
-   public OperationObject withAttributeOps(AttributeOp value)
+   public OperationObject withAttributeOps(AttributeOp... value)
    {
-      addToAttributeOps(value);
+      for (AttributeOp item : value)
+      {
+         addToAttributeOps(item);
+      }
       return this;
    } 
    
-   public OperationObject withoutAttributeOps(AttributeOp value)
+   public OperationObject withoutAttributeOps(AttributeOp... value)
    {
-      removeFromAttributeOps(value);
+      for (AttributeOp item : value)
+      {
+         removeFromAttributeOps(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromAttributeOps()
    {
@@ -505,6 +438,13 @@ public class OperationObject implements PropertyChangeInterface
          this.removeFromAttributeOps(value);
       }
    }
+   
+   public AttributeOp createAttributeOps()
+   {
+      AttributeOp value = new AttributeOp();
+      withAttributeOps(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -570,17 +510,23 @@ public class OperationObject implements PropertyChangeInterface
       return changed;   
    }
    
-   public OperationObject withOutgoings(LinkOp value)
+   public OperationObject withOutgoings(LinkOp... value)
    {
-      addToOutgoings(value);
+      for (LinkOp item : value)
+      {
+         addToOutgoings(item);
+      }
       return this;
    } 
    
-   public OperationObject withoutOutgoings(LinkOp value)
+   public OperationObject withoutOutgoings(LinkOp... value)
    {
-      removeFromOutgoings(value);
+      for (LinkOp item : value)
+      {
+         removeFromOutgoings(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromOutgoings()
    {
@@ -591,6 +537,13 @@ public class OperationObject implements PropertyChangeInterface
          this.removeFromOutgoings(value);
       }
    }
+   
+   public LinkOp createOutgoings()
+   {
+      LinkOp value = new LinkOp();
+      withOutgoings(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -656,17 +609,23 @@ public class OperationObject implements PropertyChangeInterface
       return changed;   
    }
    
-   public OperationObject withIncomings(LinkOp value)
+   public OperationObject withIncomings(LinkOp... value)
    {
-      addToIncomings(value);
+      for (LinkOp item : value)
+      {
+         addToIncomings(item);
+      }
       return this;
    } 
    
-   public OperationObject withoutIncomings(LinkOp value)
+   public OperationObject withoutIncomings(LinkOp... value)
    {
-      removeFromIncomings(value);
+      for (LinkOp item : value)
+      {
+         removeFromIncomings(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromIncomings()
    {
@@ -677,15 +636,111 @@ public class OperationObject implements PropertyChangeInterface
          this.removeFromIncomings(value);
       }
    }
-
-   public String toString()
+   
+   public LinkOp createIncomings()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getType());
-      return _.substring(1);
-   }
+      LinkOp value = new LinkOp();
+      withIncomings(value);
+      return value;
+   } 
 
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * OperationObject ----------------------------------- Statement
+    *              operationObjects                   statements
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STATEMENTS = "statements";
+   
+   private StatementSet statements = null;
+   
+   public StatementSet getStatements()
+   {
+      if (this.statements == null)
+      {
+         return Statement.EMPTY_SET;
+      }
+   
+      return this.statements;
+   }
+   
+   public boolean addToStatements(Statement value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.statements == null)
+         {
+            this.statements = new StatementSet();
+         }
+         
+         changed = this.statements.add (value);
+         
+         if (changed)
+         {
+            value.withOperationObjects(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATEMENTS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromStatements(Statement value)
+   {
+      boolean changed = false;
+      
+      if ((this.statements != null) && (value != null))
+      {
+         changed = this.statements.remove (value);
+         
+         if (changed)
+         {
+            value.withoutOperationObjects(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATEMENTS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public OperationObject withStatements(Statement... value)
+   {
+      for (Statement item : value)
+      {
+         addToStatements(item);
+      }
+      return this;
+   } 
+   
+   public OperationObject withoutStatements(Statement... value)
+   {
+      for (Statement item : value)
+      {
+         removeFromStatements(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromStatements()
+   {
+      LinkedHashSet<Statement> tmpSet = new LinkedHashSet<Statement>(this.getStatements());
+   
+      for (Statement value : tmpSet)
+      {
+         this.removeFromStatements(value);
+      }
+   }
+   
+   public Statement createStatements()
+   {
+      Statement value = new Statement();
+      withStatements(value);
+      return value;
+   } 
 }
 

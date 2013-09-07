@@ -51,7 +51,7 @@ public class ClassModelTest
       //=======================================================================
       storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.models.classes");
       
       Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel",
     		  "packageName", String.class.getSimpleName());
@@ -116,10 +116,6 @@ public class ClassModelTest
       new Association()
       .withSource("assoc", associationClass, ONE)
       .withTarget("source", roleClass, ONE);
-
-      new Association()
-      .withSource("assoc", associationClass, ONE)
-      .withTarget("target", roleClass, ONE);
 
       //      //=======================================================================
       //      Clazz codeGenUtilClass = new Clazz()

@@ -14,7 +14,7 @@ public class StatementPOCreator extends PatternObjectCreator
       return ((StatementPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((StatementPO) target).set(attrName, value);
    }

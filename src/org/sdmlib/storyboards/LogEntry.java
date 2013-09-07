@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.storyboards.creators.LogEntrySet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 
 // should have a creator class

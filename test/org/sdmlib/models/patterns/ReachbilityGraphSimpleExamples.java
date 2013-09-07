@@ -37,7 +37,7 @@ public class ReachbilityGraphSimpleExamples
       Node n23 = s21.createNodes().withPrev(n22).withNext(n21);
       
       JsonIdMap map = CreatorCreator.createIdMap("s");
-      JsonIdMap map2 = CreatorCreator.createIdMap("t");
+      JsonIdMap map2 = CreatorCreator.createIdMap("s");
       
       // mark them at different places
       n21.withNum(42);

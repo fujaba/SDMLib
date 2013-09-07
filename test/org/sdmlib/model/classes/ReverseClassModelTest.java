@@ -218,7 +218,7 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    @Test
    public void testSuperClassesCodeGen()
    {
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.model.test.superclasses");
 
       Clazz continentClass = new Clazz("org.sdmlib.model.test.superclasses.Continent")
       .withAttribute("test", "String") ;

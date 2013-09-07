@@ -311,7 +311,7 @@ Number of migrated Edges: 10</p>
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      // storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
       
       // replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -337,7 +337,7 @@ Number of migrated Edges: 10</p>
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
-      // storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
       
       // destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
@@ -349,14 +349,17 @@ Number of migrated Edges: 10</p>
       
       danglingPO.allMatches();
       
-      // storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
       return tgtGraph;
    }</p>
+<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
+<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges.svg'>
+<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges.svg'>
 <p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration56.svg'>
+<embed type="image/svg+xml" src='TTC2011SimpleMigration59.svg'>
 
 </body>
 </html>

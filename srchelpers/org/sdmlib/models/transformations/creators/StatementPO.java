@@ -1,25 +1,24 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.creators.StatementSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.transformations.creators.StatementPO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.transformations.creators.OperationObjectPO;
+import org.sdmlib.models.transformations.OperationObject;
+import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.creators.TransformOpPO;
 import org.sdmlib.models.transformations.TransformOp;
 
-public class StatementPO extends PatternObject
+public class StatementPO extends PatternObject<StatementPO, Statement>
 {
-   public StatementPO startNAC()
-   {
-      return (StatementPO) super.startNAC();
-   }
-   
-   public StatementPO endNAC()
-   {
-      return (StatementPO) super.endNAC();
-   }
-   
    public StatementSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       StatementSet matches = new StatementSet();
 
       while (this.getPattern().getHasMatch())
@@ -55,6 +54,15 @@ public class StatementPO extends PatternObject
       return null;
    }
    
+   public StatementPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Statement) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
    public StatementPO hasNext()
    {
       StatementPO result = new StatementPO();
@@ -64,7 +72,7 @@ public class StatementPO extends PatternObject
       
       return result;
    }
-   
+
    public StatementPO hasNext(StatementPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -78,7 +86,7 @@ public class StatementPO extends PatternObject
       
       return this;
    }
-   
+
    public Statement getNext()
    {
       if (this.getPattern().getHasMatch())
@@ -87,7 +95,7 @@ public class StatementPO extends PatternObject
       }
       return null;
    }
-   
+
    public StatementPO hasPrev()
    {
       StatementPO result = new StatementPO();
@@ -97,7 +105,7 @@ public class StatementPO extends PatternObject
       
       return result;
    }
-   
+
    public StatementPO hasPrev(StatementPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -111,7 +119,7 @@ public class StatementPO extends PatternObject
       
       return this;
    }
-   
+
    public Statement getPrev()
    {
       if (this.getPattern().getHasMatch())
@@ -120,7 +128,7 @@ public class StatementPO extends PatternObject
       }
       return null;
    }
-   
+
    public OperationObjectPO hasOperationObjects()
    {
       OperationObjectPO result = new OperationObjectPO();
@@ -130,7 +138,7 @@ public class StatementPO extends PatternObject
       
       return result;
    }
-   
+
    public StatementPO hasOperationObjects(OperationObjectPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -144,7 +152,7 @@ public class StatementPO extends PatternObject
       
       return this;
    }
-   
+
    public OperationObjectSet getOperationObjects()
    {
       if (this.getPattern().getHasMatch())
@@ -153,7 +161,7 @@ public class StatementPO extends PatternObject
       }
       return null;
    }
-   
+
    public TransformOpPO hasTransformOp()
    {
       TransformOpPO result = new TransformOpPO();
@@ -163,7 +171,7 @@ public class StatementPO extends PatternObject
       
       return result;
    }
-   
+
    public StatementPO hasTransformOp(TransformOpPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
@@ -177,7 +185,7 @@ public class StatementPO extends PatternObject
       
       return this;
    }
-   
+
    public TransformOp getTransformOp()
    {
       if (this.getPattern().getHasMatch())
@@ -186,6 +194,6 @@ public class StatementPO extends PatternObject
       }
       return null;
    }
-   
+
 }
 

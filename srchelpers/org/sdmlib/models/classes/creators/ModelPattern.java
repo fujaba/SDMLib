@@ -1,5 +1,7 @@
 package org.sdmlib.models.classes.creators;
 
+import java.util.ArrayList;
+
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
@@ -13,6 +15,13 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.classes.creators.ClassModelPO;
+import org.sdmlib.models.classes.creators.ClazzPO;
+import org.sdmlib.models.classes.creators.AttributePO;
+import org.sdmlib.models.classes.creators.MethodPO;
+import org.sdmlib.models.classes.creators.AssociationPO;
+import org.sdmlib.models.classes.creators.RolePO;
+import org.sdmlib.models.classes.creators.ArrayListPO;
 
 public class ModelPattern extends Pattern
 {
@@ -243,6 +252,35 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public ArrayListPO hasElementArrayListPO()
+   {
+      ArrayListPO value = new ArrayListPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ArrayListPO hasElementArrayListPO(ArrayList hostGraphObject)
+   {
+      ArrayListPO value = new ArrayListPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
+
+
+
 
 

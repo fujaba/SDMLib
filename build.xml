@@ -85,6 +85,18 @@
 
 			<formatter type="xml" />
 			<batchtest fork="yes" todir="${junit.output.dir}">
+				<fileset dir="test">
+					<include name="**/*Storyboard.java" />
+					<include name="**/*Model.java" />
+					<include name="**/*Models.java" />
+					<include name="**/*Storyboards.java" />
+					<include name="**/*Test.java" />
+					<include name="**/*Tests.java" />
+					<include name="**/*Example.java" />
+					<include name="**/*Examples.java" />
+					<include name="**/*CodeGen.java" />
+					<include name="**/ProjectBoard.java" />
+				</fileset>
 				<fileset dir="examples">
 					<include name="**/*Storyboard.java" />
 					<include name="**/*Model.java" />

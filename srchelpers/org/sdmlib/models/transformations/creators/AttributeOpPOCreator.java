@@ -14,7 +14,7 @@ public class AttributeOpPOCreator extends PatternObjectCreator
       return ((AttributeOpPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((AttributeOpPO) target).set(attrName, value);
    }
