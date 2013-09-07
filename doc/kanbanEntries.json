@@ -6,7 +6,7 @@
       "name":"Project",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":6,
+      "hoursRemaining":4,
       "hoursSpend":123,
       "subentries":[
         {"id":"KE.K2"},
@@ -51,7 +51,8 @@
         {"id":"KE.L84"},
         {"id":"KE.L87"},
         {"id":"KE.L93"},
-        {"id":"KE.L94"}
+        {"id":"KE.L94"},
+        {"id":"KE.L95"}
       ]
     }
   },
@@ -295,7 +296,7 @@
       "name":"GroupAccountStoryboard1",
       "phase":"modeling",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
+      "hoursRemaining":2,
       "hoursSpend":8,
       "parent":{"id":"KE.K1"},
       "logEntries":[
@@ -777,7 +778,7 @@
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"04.04.2012 00:26:59",
-      "hoursRemainingInTotal":4,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K48"},
       "developer":"zuendorf",
       "phase":"modeling",
@@ -790,7 +791,7 @@
     "prop":{
       "date":"15.04.2012 17:18:42",
       "hoursSpend":8,
-      "hoursRemainingInTotal":4,
+      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K48"},
       "developer":"zuendorf",
       "phase":"modeling",
@@ -1189,6 +1190,18 @@
     "prop":{
       "date":"07.09.2013 12:00:00",
       "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"PatternModelCodegen: null"
+    }
+  },
+  {
+    "id":"KE.L95",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.09.2013 12:00:00",
+      "hoursRemainingInTotal":4,
       "kanbanEntry":{"id":"KE.K1"},
       "developer":"zuendorf",
       "phase":"active",

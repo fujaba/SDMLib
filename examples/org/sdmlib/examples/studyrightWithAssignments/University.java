@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 ulno 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -220,17 +220,23 @@ public class University implements PropertyChangeInterface
       return changed;   
    }
    
-   public University withStudents(Student value)
+   public University withStudents(Student... value)
    {
-      addToStudents(value);
+      for (Student item : value)
+      {
+         addToStudents(item);
+      }
       return this;
    } 
    
-   public University withoutStudents(Student value)
+   public University withoutStudents(Student... value)
    {
-      removeFromStudents(value);
+      for (Student item : value)
+      {
+         removeFromStudents(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromStudents()
    {
@@ -313,17 +319,23 @@ public class University implements PropertyChangeInterface
       return changed;   
    }
    
-   public University withRooms(Room value)
+   public University withRooms(Room... value)
    {
-      addToRooms(value);
+      for (Room item : value)
+      {
+         addToRooms(item);
+      }
       return this;
    } 
    
-   public University withoutRooms(Room value)
+   public University withoutRooms(Room... value)
    {
-      removeFromRooms(value);
+      for (Room item : value)
+      {
+         removeFromRooms(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromRooms()
    {

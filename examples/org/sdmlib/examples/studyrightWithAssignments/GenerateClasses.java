@@ -27,6 +27,7 @@ import static org.sdmlib.models.classes.Role.R.MANY;
 import static org.sdmlib.models.classes.Role.R.ONE;
 import static org.sdmlib.models.classes.Role.R.STRING;
 
+import org.junit.Test;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -58,11 +59,12 @@ public class GenerateClasses {
 	      //============================================================
 	      storyboard.add("2. generate class Student");
 
-	      Clazz studentClass = new Clazz("Student")
-	      .withAttribute("name", STRING)
-	      .withAttribute("id", STRING)
-	      .withAttribute("assignmentPoints", INT)
-	      .withAttribute("motivation", INT);
+	      Clazz studentClass = new Clazz("Student").withAttributes(
+	         "name", STRING,
+	         "id", STRING,
+	         "assignmentPoints", INT,
+	         "motivation", INT, 
+	         "credits", INT);
 
 	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 02"));
 
@@ -95,8 +97,8 @@ public class GenerateClasses {
 
 	      //Association doors = 
 	      new Association()
-	      .withSource("door", roomClass, MANY)
-	      .withTarget("door", roomClass, MANY);
+	      .withSource("doors", roomClass, MANY)
+	      .withTarget("doors", roomClass, MANY);
 
 	      //Association studentsInRoom = 
 	      new Association()
@@ -119,13 +121,21 @@ public class GenerateClasses {
 	      
 	      //============================================================
 	      storyboard.add("6. generate class source files.");
+
+	      model.removeAllGeneratedCode("examples");
+	      
 	      model.generate("examples"); // usually don't specify anything here, then it goes into src
 
 
 	      StoryboardManager.get()
 	      .add(storyboard)
 	      .dumpHTML();
-
 	}
 
+	@Test
+	public void testMain()
+	{
+	   main(null);
+	}
+	
 }

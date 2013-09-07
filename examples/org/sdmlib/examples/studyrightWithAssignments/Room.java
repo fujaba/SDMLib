@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 ulno 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -59,9 +59,9 @@ public class Room implements PropertyChangeInterface
          return getUniversity();
       }
 
-      if (PROPERTY_DOOR.equalsIgnoreCase(attrName))
+      if (PROPERTY_DOORS.equalsIgnoreCase(attrName))
       {
-         return getDoor();
+         return getDoors();
       }
 
       if (PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
@@ -106,15 +106,15 @@ public class Room implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_DOOR.equalsIgnoreCase(attrName))
+      if (PROPERTY_DOORS.equalsIgnoreCase(attrName))
       {
-         addToDoor((Room) value);
+         addToDoors((Room) value);
          return true;
       }
       
-      if ((PROPERTY_DOOR + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         removeFromDoor((Room) value);
+         removeFromDoors((Room) value);
          return true;
       }
 
@@ -166,7 +166,7 @@ public class Room implements PropertyChangeInterface
    public void removeYou()
    {
       setUniversity(null);
-      removeAllFromDoor();
+      removeAllFromDoors();
       removeAllFromStudents();
       removeAllFromAssignments();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -342,91 +342,97 @@ public class Room implements PropertyChangeInterface
     * <pre>
     *              many                       many
     * Room ----------------------------------- Room
-    *              door                   door
+    *              doors                   doors
     * </pre>
     */
    
-   public static final String PROPERTY_DOOR = "door";
+   public static final String PROPERTY_DOORS = "doors";
    
-   private RoomSet door = null;
+   private RoomSet doors = null;
    
-   public RoomSet getDoor()
+   public RoomSet getDoors()
    {
-      if (this.door == null)
+      if (this.doors == null)
       {
          return Room.EMPTY_SET;
       }
    
-      return this.door;
+      return this.doors;
    }
    
-   public boolean addToDoor(Room value)
+   public boolean addToDoors(Room value)
    {
       boolean changed = false;
       
       if (value != null)
       {
-         if (this.door == null)
+         if (this.doors == null)
          {
-            this.door = new RoomSet();
+            this.doors = new RoomSet();
          }
          
-         changed = this.door.add (value);
+         changed = this.doors.add (value);
          
          if (changed)
          {
-            value.withDoor(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOOR, null, value);
+            value.withDoors(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null, value);
          }
       }
          
       return changed;   
    }
    
-   public boolean removeFromDoor(Room value)
+   public boolean removeFromDoors(Room value)
    {
       boolean changed = false;
       
-      if ((this.door != null) && (value != null))
+      if ((this.doors != null) && (value != null))
       {
-         changed = this.door.remove (value);
+         changed = this.doors.remove (value);
          
          if (changed)
          {
-            value.withoutDoor(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOOR, value, null);
+            value.withoutDoors(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, value, null);
          }
       }
          
       return changed;   
    }
    
-   public Room withDoor(Room value)
+   public Room withDoors(Room... value)
    {
-      addToDoor(value);
+      for (Room item : value)
+      {
+         addToDoors(item);
+      }
       return this;
    } 
    
-   public Room withoutDoor(Room value)
+   public Room withoutDoors(Room... value)
    {
-      removeFromDoor(value);
+      for (Room item : value)
+      {
+         removeFromDoors(item);
+      }
       return this;
-   } 
+   }
    
-   public void removeAllFromDoor()
+   public void removeAllFromDoors()
    {
-      LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getDoor());
+      LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getDoors());
    
       for (Room value : tmpSet)
       {
-         this.removeFromDoor(value);
+         this.removeFromDoors(value);
       }
    }
    
-   public Room createDoor()
+   public Room createDoors()
    {
       Room value = new Room();
-      withDoor(value);
+      withDoors(value);
       return value;
    } 
 
@@ -494,17 +500,23 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
    
-   public Room withStudents(Student value)
+   public Room withStudents(Student... value)
    {
-      addToStudents(value);
+      for (Student item : value)
+      {
+         addToStudents(item);
+      }
       return this;
    } 
    
-   public Room withoutStudents(Student value)
+   public Room withoutStudents(Student... value)
    {
-      removeFromStudents(value);
+      for (Student item : value)
+      {
+         removeFromStudents(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromStudents()
    {
@@ -587,17 +599,23 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
    
-   public Room withAssignments(Assignment value)
+   public Room withAssignments(Assignment... value)
    {
-      addToAssignments(value);
+      for (Assignment item : value)
+      {
+         addToAssignments(item);
+      }
       return this;
    } 
    
-   public Room withoutAssignments(Assignment value)
+   public Room withoutAssignments(Assignment... value)
    {
-      removeFromAssignments(value);
+      for (Assignment item : value)
+      {
+         removeFromAssignments(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromAssignments()
    {

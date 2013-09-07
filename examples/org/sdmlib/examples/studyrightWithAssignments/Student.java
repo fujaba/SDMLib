@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 ulno 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -507,17 +507,23 @@ public class Student implements PropertyChangeInterface
       return changed;   
    }
    
-   public Student withDone(Assignment value)
+   public Student withDone(Assignment... value)
    {
-      addToDone(value);
+      for (Assignment item : value)
+      {
+         addToDone(item);
+      }
       return this;
    } 
    
-   public Student withoutDone(Assignment value)
+   public Student withoutDone(Assignment... value)
    {
-      removeFromDone(value);
+      for (Assignment item : value)
+      {
+         removeFromDone(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromDone()
    {

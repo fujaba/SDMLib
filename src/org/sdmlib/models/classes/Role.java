@@ -956,17 +956,23 @@ public class Role implements PropertyChangeInterface
             "\n      return changed;   " +
             "\n   }" +
             "\n   " +
-            "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
+            "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
             "\n   {" +
-            "\n      addToPartnerRoleName(value);" +
+            "\n      for (partnerClassName item : value)" +
+            "\n      {" +
+            "\n         addToPartnerRoleName(item);" +
+            "\n      }" +
             "\n      return this;" +
             "\n   } " +
             "\n   " +
-            "\n   public myClassName withoutPartnerRoleName(partnerClassName value)" +
+            "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
             "\n   {" +
-            "\n      removeFromPartnerRoleName(value);" +
+            "\n      for (partnerClassName item : value)" +
+            "\n      {" +
+            "\n         removeFromPartnerRoleName(item);" +
+            "\n      }" +
             "\n      return this;" +
-            "\n   } " +
+            "\n   }" +
             "\n   " +
             "\n   public void removeAllFromPartnerRoleName()" +
             "\n   {" +

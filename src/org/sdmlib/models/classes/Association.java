@@ -125,6 +125,7 @@ public class Association implements PropertyChangeInterface
 	      
 	      // open target class and get or insert role implementation
 	      getTarget().generate(rootDir, helperDir, getSource(), doGenerate);
+	      
 	      // also for subclasses
          for (Clazz kidClass : getTarget().getClazz()
                .getKidClassesClosure())

@@ -13,7 +13,7 @@ public class RoomCreator extends EntityFactory
       Room.PROPERTY_TOPIC,
       Room.PROPERTY_CREDITS,
       Room.PROPERTY_UNIVERSITY,
-      Room.PROPERTY_DOOR,
+      Room.PROPERTY_DOORS,
       Room.PROPERTY_STUDENTS,
       Room.PROPERTY_ASSIGNMENTS,
    };

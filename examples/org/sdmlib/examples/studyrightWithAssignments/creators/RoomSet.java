@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 ulno 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -168,33 +168,33 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
-   public RoomSet getDoor()
+   public RoomSet getDoors()
    {
       RoomSet result = new RoomSet();
       
       for (Room obj : this)
       {
-         result.addAll(obj.getDoor());
+         result.addAll(obj.getDoors());
       }
       
       return result;
    }
 
-   public RoomSet withDoor(Room value)
+   public RoomSet withDoors(Room value)
    {
       for (Room obj : this)
       {
-         obj.withDoor(value);
+         obj.withDoors(value);
       }
       
       return this;
    }
 
-   public RoomSet withoutDoor(Room value)
+   public RoomSet withoutDoors(Room value)
    {
       for (Room obj : this)
       {
-         obj.withoutDoor(value);
+         obj.withoutDoors(value);
       }
       
       return this;

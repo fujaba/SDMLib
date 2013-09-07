@@ -174,20 +174,20 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
-   public RoomPO hasDoor()
+   public RoomPO hasDoors()
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(Room.PROPERTY_DOOR, result);
+      super.hasLink(Room.PROPERTY_DOORS, result);
       
       return result;
    }
 
-   public RoomPO hasDoor(RoomPO tgt)
+   public RoomPO hasDoors(RoomPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_DOOR)
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_DOORS)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -198,11 +198,11 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
 
-   public RoomSet getDoor()
+   public RoomSet getDoors()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Room) this.getCurrentMatch()).getDoor();
+         return ((Room) this.getCurrentMatch()).getDoors();
       }
       return null;
    }

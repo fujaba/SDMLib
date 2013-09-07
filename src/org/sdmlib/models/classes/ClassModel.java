@@ -2771,6 +2771,16 @@ public class ClassModel implements PropertyChangeInterface
 		return this;
 	}
 
+	public void removeAllGeneratedCode()
+   {
+      removeAllGeneratedCode("src", "src", "src");
+   }
+	
+	public void removeAllGeneratedCode(String rootDir)
+   {
+	   removeAllGeneratedCode(rootDir, rootDir, rootDir);
+   }
+	
 	public void removeAllGeneratedCode(String rootDir, String srcDir, String helpersDir)
 	{
 		turnRemoveCallToComment(rootDir);

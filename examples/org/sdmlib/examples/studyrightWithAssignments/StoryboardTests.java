@@ -32,19 +32,13 @@ public class StoryboardTests {
    {
       Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments storyboard");
       
-      
-      //=============================================================
-      JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
-
-      
       //=============================================================
       storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
     		  +"in the math room. Karli has no credits yet and still a motivation of 214. ");
 
       University university = new University()
       .withName("StudyRight");
-      idMap.getId(university);
-
+      
       Student karli = university.createStudents()
       .withId("4242")
       .withName("Karli");
@@ -66,66 +60,60 @@ public class StoryboardTests {
       .withTopic("math")
       .withCredits(17)  
       .withStudents(karli)
-      .withAssignments(a1)
-      .withAssignments(a2)
-      .withAssignments(a3);
+      .withAssignments(a1, a2, a3);
 
       Room artsRoom = university.createRooms()
       .withName("7522")
       .withTopic("arts")
       .withCredits(16)
-      .withDoor(mathRoom); 
+      .withDoors(mathRoom); 
 
       Room sportsRoom = university.createRooms()
       .withName("gymnasium")
       .withTopic("sports")
       .withCredits(25)
-      .withDoor(mathRoom)
-      .withDoor(artsRoom); 
+      .withDoors(mathRoom, artsRoom); 
 
       Room examRoom = university.createRooms()
       .withName("The End")
       .withTopic("exam")
       .withCredits(0)
-      .withDoor(sportsRoom)
-      .withDoor(artsRoom);
+      .withDoors(sportsRoom, artsRoom);
       
       Room softwareEngineering = university.createRooms()
       .withName("7422")
       .withTopic("Software Engineering")
       .withCredits(42)
-      .withDoor(artsRoom);
-
-      softwareEngineering.withDoor(examRoom);
+      .withDoors(artsRoom, examRoom);
       
-      storyboard.addObjectDiagram(idMap, university);
+      storyboard.addObjectDiagram(university);
 
       //===============================================================================================
-      storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points \n"
-    		  +"(general rule: the student earns always full points for doing an assignment). \n"
-    		  +"Karli's motivation is reduced by 5 points to now 209."); 
+      storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"
+    		  +"(general rule: the student earns always full points for doing an assignment). <br>\n"
+    		  +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
-      storyboard.addObjectDiagram(idMap, university);
+      storyboard.addObjectDiagram(university);
 
       //===============================================================================================
-      storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. \n"
-    		  +"Thus Karli has 11 points now. Motivation is reduced to 203.");
+      storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
+    		  +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
-      storyboard.addObjectDiagram(idMap, university);
+      storyboard.addObjectDiagram(university);
 
       //===============================================================================================
-	  storyboard.add("4. Karli does the third assignment on Integrals, earns \n"
-    		  +"another 8 points and thus Karli has now 19 points and a motivation of 195."); 
+	  storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
+    		  +"another 8 points and thus Karli has now 19 points and a motivation of 195.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      storyboard.addObjectDiagram(idMap, university);
+      storyboard.addObjectDiagram(university);
 
       //===============================================================================================
 	  storyboard.add("5. Since 19 points are more than the 17 points required \n"
     		  +"for the 17 math credits, Karli hands the points in and earns the credits \n"
-    		  +"and has his assignmnet points reset to 0. \n"
+    		  +"and has his assignmnet points reset to 0. <br>\n"
     		  +"(General rule: if the points earned by the assignments are higher or equal than \n"
     		  +"the credit points, the credit points will be awarded to the student.)"); 
 
@@ -134,7 +122,8 @@ public class StoryboardTests {
 		  karli.setCredits(karli.getCredits() + mathRoom.getCredits() );
 		  karli.setAssignmentPoints(0);
 	  }
-      storyboard.addObjectDiagram(idMap, university);
+	  
+	  storyboard.addObjectDiagram(university);
 
       //===============================================================================================
 	  storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 
