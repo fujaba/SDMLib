@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2012 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.transformations;
 
-import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.models.transformations.creators.AttributeOpSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class AttributeOp implements PropertyChangeInterface
 {
@@ -35,6 +36,14 @@ public class AttributeOp implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
          return getText();
@@ -44,7 +53,7 @@ public class AttributeOp implements PropertyChangeInterface
       {
          return getOperationObject();
       }
-
+      
       return null;
    }
 
@@ -71,16 +80,11 @@ public class AttributeOp implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -98,7 +102,7 @@ public class AttributeOp implements PropertyChangeInterface
    public static final String PROPERTY_TEXT = "text";
    
    private String text;
-
+   
    public String getText()
    {
       return this.text;
@@ -119,15 +123,6 @@ public class AttributeOp implements PropertyChangeInterface
       setText(value);
       return this;
    } 
-
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getText());
-      return _.substring(1);
-   }
-
 
    
    public static final AttributeOpSet EMPTY_SET = new AttributeOpSet();
@@ -183,12 +178,14 @@ public class AttributeOp implements PropertyChangeInterface
       setOperationObject(value);
       return this;
    } 
-   
-   public OperationObject createOperationObject()
+
+   public String toString()
    {
-      OperationObject value = new OperationObject();
-      withOperationObject(value);
-      return value;
-   } 
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
 }
 
