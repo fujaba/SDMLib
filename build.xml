@@ -94,7 +94,6 @@
 					<include name="**/*Tests.java" />
 					<include name="**/*Example.java" />
 					<include name="**/*Examples.java" />
-					<include name="**/*CodeGen.java" />
 					<include name="**/ProjectBoard.java" />
 				</fileset>
 				<fileset dir="examples">

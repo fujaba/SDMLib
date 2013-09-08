@@ -31,10 +31,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.utils.StrUtil;
 
 
 public class JsonToImg
@@ -264,7 +266,7 @@ public class JsonToImg
             nodeLine = nodeLine.replaceFirst("<optionalImage>", "");
          }
          
-         String jsonId = lastPartLow(jsonObject.getString(JsonIdMap.ID));
+         String jsonId = lastPartStartLow(jsonObject.getString(JsonIdMap.ID));
          nodeLine = nodeLine.replaceAll("<id>", Matcher.quoteReplacement(jsonId));
          
          String className = lastPart(jsonObject.getString(JsonIdMap.CLASS));
@@ -316,7 +318,7 @@ public class JsonToImg
                   }
                   else if ( ! omittedId.equals(tgtId))
                   {
-                     tgtId = lastPartLow(tgtId);
+                     tgtId = lastPartStartLow(tgtId);
                      addToEdges(edgeMap, jsonId, tgtId, key);
                   }
                }
@@ -330,7 +332,7 @@ public class JsonToImg
                      String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
                      if ( ! omittedId.equals(tgtId))
                      {
-                        tgtId = lastPartLow(tgtId);
+                        tgtId = lastPartStartLow(tgtId);
                         addToEdges(edgeMap, jsonId, tgtId, key);
                      }
                   }
@@ -404,9 +406,9 @@ public class JsonToImg
       String taillabel = "";
    }
    
-   private static String lastPartLow(String dottedName)
+   private static String lastPartStartLow(String dottedName)
    {
-      return lastPart(dottedName).toLowerCase();
+      return StrUtil.downFirstChar(lastPart(dottedName));
    }
    
    private static String lastPart(String dottedName)

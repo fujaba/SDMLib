@@ -295,30 +295,127 @@ public class Storyboard
    }
 
    
-   public void addObjectDiagram(Object root) 
+   public void coverage4GeneratedModelCode(Object root) 
    {
-   	// derive creator class from root and create idMap
-   	String className = root.getClass().getName();
-   	String packageName = CGUtil.packageName(className) + ".creators";
-   	className = packageName + ".CreatorCreator";
-   	
-   	Object idMap = null;
-   	try 
-   	{
-   		Class<?> creatorClass = Class.forName(className);
-   		Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-   	
-   		idMap = method.invoke(null, "debug");
-   	
-   	}
-   	catch (Exception e)
-   	{
-   		// cannot find creator creator class, use generic idMap instead;
-   	   idMap = new GenericIdMap();
-   	}
+      // derive creator class from root and create idMap
+      String className = root.getClass().getName();
+      String packageName = CGUtil.packageName(className) + ".creators";
+      className = packageName + ".CreatorCreator";
+      
+      Object idMap = null;
+      try 
+      {
+         Class<?> creatorClass = Class.forName(className);
+         Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+      
+         idMap = method.invoke(null, "debug");
+      
+         JsonIdMap jsonIdMap = (JsonIdMap) idMap;
+         
+         JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+         
+         JsonIdMap copyMap = (JsonIdMap) method.invoke(null, "debug");
+         
+         copyMap.readJson(jsonArray);
+         
+         for (String key : copyMap.getKeys())
+         {
+            Object object = copyMap.getObject(key);
+            
+            object.toString();
+            
+            Class<? extends Object> objectClass = object.getClass();
+            
+            Method removeMethod = objectClass.getMethod("removeYou");
+            
+            removeMethod.invoke(object);
+         }
+         
+      }
+      catch (Exception e)
+      {
+         // cannot find creator creator class, sorry;
+      }
+   }
 
-      addObjectDiagram((JsonIdMap) idMap, root);
+   private JsonIdMap jsonIdMap = null;
 
+   public void addObjectDiagram(Object... elems) 
+   {
+      String objectName;
+      Object object;
+      Object root = null;
+      
+      // go through all diagram elems
+      int i = 0;
+      
+      while (i < elems.length)
+      {
+         objectName = null; 
+         object = null;
+         
+         if (elems[i] instanceof String)
+         {
+            // name for an object
+            objectName = (String) elems[i];
+            
+            i++;
+            
+            if ( ! (i < elems.length) )
+            {
+               // ups no object for this name.
+               break;
+            }
+         }
+         
+         object = elems[i];
+         i++;
+         
+         if (object.getClass().isPrimitive())
+         {
+            // not an object
+            continue;
+         }
+         
+         if (root == null)
+         {
+            root = object;
+         }
+         
+         // do we have a JsonIdMap?
+         if (jsonIdMap == null)
+         {
+            String className = object.getClass().getName();
+            String packageName = CGUtil.packageName(className) + ".creators";
+            className = packageName + ".CreatorCreator";
+            
+            Object idMap = null;
+            try 
+            {
+               Class<?> creatorClass = Class.forName(className);
+               Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+            
+               idMap = method.invoke(null, "debug");
+            
+            }
+            catch (Exception e)
+            {
+               // cannot find creator creator class, use generic idMap instead;
+               idMap = new GenericIdMap();
+            }
+            
+            jsonIdMap = (JsonIdMap) idMap;
+         }
+         
+         // add to jsonIdMap
+         if (objectName != null)
+         {
+            jsonIdMap.put(objectName, object);
+         }         
+      }
+   	
+      // all names collected, dump it
+      addObjectDiagram(jsonIdMap, root);
    }
 
 
@@ -331,7 +428,7 @@ public class Storyboard
       steps.add(imgLink);
    }
 
-   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
+   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
       
@@ -340,7 +437,7 @@ public class Storyboard
       steps.add(imgLink);
    }
 
-   public void addObjectDiag(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
+   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);
       

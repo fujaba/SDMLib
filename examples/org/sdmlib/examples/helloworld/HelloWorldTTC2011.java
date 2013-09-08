@@ -87,7 +87,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("For completeness just the host graph:");
 
-      storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
       
       int noOfMatches = p.allMatches();
       
@@ -295,7 +295,7 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      storyboard.addObjectDiag(CreatorCreator.createIdMap("hg"), graph, true);
+      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph, true);
       
       //==========================================================================
       

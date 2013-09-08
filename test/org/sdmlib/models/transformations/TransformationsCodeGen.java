@@ -95,8 +95,6 @@ public class TransformationsCodeGen
       
       storyboard.addImage(model.dumpClassDiagram("src", "TransformationClasses01"));
       
-      // model.removeAllGeneratedCode("test", "src", "srchelpers");
-      
       model.generate("src", "srchelpers");
       
       storyboard.add("create some example transformOp:",

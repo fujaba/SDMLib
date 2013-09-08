@@ -59,11 +59,10 @@ public class GroupAccountTests implements PropertyChangeInterface
       .withName("Artjom")
       .withParent(g1);
 
-      Item beer = new Item()
+      Item beer = g1.createItems()
       .withBuyer(albert)
       .withDescription("Beer")
-      .withValue(12)
-      .withParent(g1);
+      .withValue(12);
       
       Item bread = new Item()
       .withBuyer(nina)
@@ -86,6 +85,9 @@ public class GroupAccountTests implements PropertyChangeInterface
       storyboard.markCodeStart();
       g1.updateBalances();
       storyboard.addCode("examples");
+      
+      // just to improve test coverage
+      storyboard.coverage4GeneratedModelCode(g1);
       
       storyboard.add("Now see updateBalances() as code: ");
       

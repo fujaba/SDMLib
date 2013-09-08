@@ -86,7 +86,8 @@ public class StoryboardTests {
       .withCredits(42)
       .withDoors(artsRoom, examRoom);
       
-      storyboard.addObjectDiagram(university);
+      storyboard.addObjectDiagram("studyRight", university, "karli", karli,"mathRoom", mathRoom, "artsRoom", artsRoom,
+         "sportsRoom", sportsRoom, "examRoom", examRoom, "placeToBe", softwareEngineering);
 
       //===============================================================================================
       storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"
@@ -94,6 +95,7 @@ public class StoryboardTests {
     		  +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
+      
       storyboard.addObjectDiagram(university);
 
       //===============================================================================================
@@ -101,6 +103,7 @@ public class StoryboardTests {
     		  +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
+      
       storyboard.addObjectDiagram(university);
 
       //===============================================================================================

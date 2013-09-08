@@ -134,7 +134,7 @@ public class ReachbilityGraphFerrymansProblemExample
       storyboard.add(reachabilityGraph.dumpDiagram("ferrymansproblemRG"));   
       
       storyboard.add("large reachbility graph with embedded states: ");
-      storyboard.addObjectDiag(map, reachabilityGraph, true);
+      storyboard.addObjectDiagram(map, reachabilityGraph, true);
       
       storyboard.dumpHTML();
    }
