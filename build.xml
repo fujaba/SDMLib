@@ -92,14 +92,12 @@
 		<emma enabled="${emma.enabled}" verbosity="verbose">
 			<report>
 				<sourcepath>
-					<dirset dir="${basedir}">
-						<include name="src" />
-						<include name="test" />
-						<include name="examples" />
-						<include name="srchelpers" />
-						<include name="examplehelpers" />
-						<include name="testhelpers" />
-					</dirset>
+					<pathelement path="${basedir}/examples"/>
+					<pathelement path="${basedir}/src"/>
+					<pathelement path="${basedir}/test"/>
+					<pathelement path="${basedir}/srchelpers"/>
+					<pathelement path="${basedir}/testhelpers"/>
+					<pathelement path="${basedir}/examplehelpers"/>
 				</sourcepath>
 				<fileset dir="${coverage.meta.dir}">
 					<include name="*.emma" />

@@ -268,6 +268,8 @@ public class Storyboard
       htmlText = htmlText.replaceFirst("\\$text", text.toString());
 
       writeToFile(shortFileName, htmlText);
+      
+      coverage4GeneratedModelCode(largestRoot);
    }
 
    private void writeToFile(String imgName, String fileText)
@@ -464,6 +466,7 @@ public class Storyboard
       public RestrictToFilter(LinkedHashSet<Object> explicitElems)
       {
          this.explicitElems = explicitElems;
+         withFullSerialization(true);
       }
 
       @Override
@@ -484,7 +487,8 @@ public class Storyboard
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+      JsonFilter jsonFilter = (JsonFilter) new JsonFilter().withFullSerialization(true);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, jsonFilter);
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -499,7 +503,8 @@ public class Storyboard
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+      JsonFilter jsonFilter = (JsonFilter) new JsonFilter().withFullSerialization(true);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, jsonFilter);
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -860,9 +865,6 @@ public class Storyboard
       StoryboardManager.get()
       .add(this)
       .dumpHTML();
-
-      // do some model testing to improve coverage
-      coverage4GeneratedModelCode(largestRoot);
    }
 
    public void assertEquals(String message, double expected, double actual, double delta)

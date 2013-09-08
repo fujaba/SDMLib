@@ -212,7 +212,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
          boolean encoding = filter.isFullSerialization();
          if (!encoding) {
             Object refValue = prototyp.getValue(referenceObject, property);
-            encoding = !value.equals(refValue);
+            encoding = ! value.equals(refValue);
          }
          if (encoding) {
             SendableEntityCreator referenceCreator = getCreatorClass(value);

@@ -3,7 +3,7 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Karli"</td></tr><tr><td>assignmentPoints = 19</td></tr></table></td></tr></table>>];
+karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Karli"</td></tr><tr><td>assignmentPoints = 19</td></tr><tr><td>motivation = 0</td></tr><tr><td>credits = 0</td></tr></table></td></tr></table>>];
 mathRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>mathRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "senate"</td></tr><tr><td>topic = "math"</td></tr><tr><td>credits = 17</td></tr></table></td></tr></table>>];
 a1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a1 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Matrix Multiplication"</td></tr><tr><td>points = 5</td></tr></table></td></tr></table>>];
 a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a2 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Series"</td></tr><tr><td>points = 6</td></tr></table></td></tr></table>>];
