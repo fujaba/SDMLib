@@ -48,36 +48,14 @@
 	<target name="AllTests" depends="build">
 		<delete dir="${junit.output.dir}" />
 		<mkdir dir="${junit.output.dir}" />
-		<!-- Emma instrumentation -->
-
-		<emma enabled="${emma.enabled}" verbosity="verbose">
-			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata.emma" merge="true" mode="fullcopy" />
-			<!--filter value="${emma.filter}" />
-			    </instr-->
-		</emma>
-		<junit printsummary="yes" haltonfailure="no">
-			<classpath>
-				<pathelement location="binInst/classes" />
-				<path refid="SDMLib.libs" />
-			</classpath>
-
-			<formatter type="xml" />
-			<batchtest fork="yes" todir="${junit.output.dir}">
-				<fileset dir="examples">
-					<include name="**/*Classes.java" />
-				</fileset>
-			</batchtest>
-			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
-			<jvmarg value="-Demma.coverage.out.merge=false" />
-		</junit>
-		<antcall target="build" />
-		<!-- Emma instrumentation -->
+		
 		<emma enabled="${emma.enabled}" verbosity="verbose">
 			<instr instrpath="bin" destdir="binInst" metadatafile="${coverage.meta.dir}/metadata2.emma" merge="true" mode="fullcopy">
 				<filter value="${emma.filter}" />
 			</instr>
 		</emma>
-		<junit printsummary="yes" haltonfailure="no">
+		
+		<junit printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
 			<classpath>
 				<pathelement location="binInst/classes" />
 				<path refid="SDMLib.libs" />
@@ -94,7 +72,9 @@
 					<include name="**/*Tests.java" />
 					<include name="**/*Example.java" />
 					<include name="**/*Examples.java" />
+					<include name="**/*CodeGen.java" />
 					<include name="**/ProjectBoard.java" />
+					<exclude name="**/ReverseClassModelTest.java" />
 				</fileset>
 				<fileset dir="examples">
 					<include name="**/*Storyboard.java" />
@@ -537,11 +517,11 @@
 			<classpath refid="SDMLib.classpath" />
 		</junit>
 	</target>
-	<target name="TrainScenarios">
+	<target name="TrainStoryboards">
 		<mkdir dir="${junit.output.dir}" />
 		<junit fork="yes" printsummary="withOutAndErr">
 			<formatter type="xml" />
-			<test name="org.sdmlib.examples.patternrewriteops.TrainScenarios" todir="${junit.output.dir}" />
+			<test name="org.sdmlib.examples.patternrewriteops.TrainStoryboards" todir="${junit.output.dir}" />
 			<classpath refid="SDMLib.classpath" />
 		</junit>
 	</target>

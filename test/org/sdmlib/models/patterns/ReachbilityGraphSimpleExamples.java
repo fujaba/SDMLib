@@ -22,7 +22,7 @@ public class ReachbilityGraphSimpleExamples
    {
       Storyboard storyboard = new Storyboard("test");
       
-      storyboard.add("create two rings of three nodes with a mark at one node");
+      storyboard.add("Create two rings of three nodes with a mark at one node.");
       
       // graph 1
       SimpleState s11 = new SimpleState();
