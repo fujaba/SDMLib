@@ -63,118 +63,118 @@ public class Storyboard
    public static final String DONE = "done";
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
-   
+
 
    private String name;
 
    private String javaTestFileName; 
-   
+
    public String getName()
    {
       return name;
    }
-   
+
    public void setName(String name)
    {
       this.name = name;
    }
-   
+
    public Storyboard withName(String name)
    {
       setName(name);
       return this;
    }
-   
+
    public Storyboard()
    {
       Exception e = new RuntimeException();
-      
+
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
       javaTestFileName = "../src/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
-       
+
       String methodName = stackTrace[1].getMethodName();
-      
+
       if (methodName.startsWith("test"))
       {
          methodName = methodName.substring(4);
       }
-      
+
       setName(methodName);
-       
+
       steps.add(name);
-       
-       
+
+
    }
-   
+
    public Storyboard(String rootDir)
    {
-     Exception e = new RuntimeException();
-     
-     StackTraceElement[] stackTrace = e.getStackTrace();
-     StackTraceElement callEntry = stackTrace[1];
-     javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
-      
-     String methodName = stackTrace[1].getMethodName();
-     
-     if (methodName.startsWith("test"))
-     {
-        methodName = methodName.substring(4);
-     }
-     
-     setName(methodName);
-      
-     steps.add(name);
-      
-      
+      Exception e = new RuntimeException();
+
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
+
+      String methodName = stackTrace[1].getMethodName();
+
+      if (methodName.startsWith("test"))
+      {
+         methodName = methodName.substring(4);
+      }
+
+      setName(methodName);
+
+      steps.add(name);
+
+
    }
-   
+
    public Storyboard(String rootDir, String name)
    {
       setName(name);
-      
+
       steps.add(name);
-      
+
       Exception e =  new RuntimeException();
-      
+
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
       javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
-   
-	public Vector<String> steps = new Vector<String>();
 
-	private static String backlog = "backlog";;
+   public Vector<String> steps = new Vector<String>();
 
-	public void dumpHTML(KanbanEntry kanbanBoard) 
-	{
-	   // get kanbanEntry
-		KanbanEntry kanbanEntry = kanbanBoard.findOldEntry(this.getName()); 
-		
+   private static String backlog = "backlog";;
+
+   public void dumpHTML(KanbanEntry kanbanBoard) 
+   {
+      // get kanbanEntry
+      KanbanEntry kanbanEntry = kanbanBoard.findOldEntry(this.getName()); 
+
       if (kanbanEntry == null)
-		{
+      {
          Date today = new Date(System.currentTimeMillis());
          SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
          String todayString = df.format(today);
-		   kanbanEntry = new KanbanEntry()
-		   .withName(this.getName())
-		   .withPhase(backlog)
-		   .withParent(kanbanBoard)
-		   .withLogEntries(		         
-		      new LogEntry()
-		      .withDate(todayString)
-		      .withPhase(backlog)
-		      .withDeveloper(System.getProperty("user.name"))
-		      .withHoursRemainingInTotal(0.0));
-		}
-      
+         kanbanEntry = new KanbanEntry()
+         .withName(this.getName())
+         .withPhase(backlog)
+         .withParent(kanbanBoard)
+         .withLogEntries(		         
+            new LogEntry()
+            .withDate(todayString)
+            .withPhase(backlog)
+            .withDeveloper(System.getProperty("user.name"))
+            .withHoursRemainingInTotal(0.0));
+      }
+
       // compute total remaining time
       double sumOfRemainingTime = 0.0;
       for (LogEntry newEntry : newLogEntries.values())
       {
          sumOfRemainingTime += newEntry.getHoursRemainingInTotal();
       }
-		
+
       // update log entries
       for (LogEntry oldEntry : kanbanEntry.getLogEntries())
       {
@@ -195,16 +195,16 @@ public class Storyboard
             newLogEntries.remove(oldDate);
          }
       }    
-      
+
       for (String key : newLogEntries.keySet())
       {
          LogEntry newLogEntry = newLogEntries.get(key);
          newLogEntry.setHoursRemainingInTotal(sumOfRemainingTime);
          kanbanEntry.addToLogEntries(newLogEntry);
       }
-      
+
       // generate the html text
-		String htmlText = "<html>\n" +
+      String htmlText = "<html>\n" +
             "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
             "<body>\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
@@ -212,64 +212,64 @@ public class Storyboard
             "</body>\n" +
             "</html>\n";
 
-		String storyboardName = (String) steps.get(0);
-		
-		htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
-		htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
+      String storyboardName = (String) steps.get(0);
+
+      htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
+      htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
       kanbanEntry.setName(storyboardName);
-		
-		String shortFileName = "" + storyboardName + ".html";
-		String pathname = "doc/" + shortFileName;
 
-		StringBuffer text = new StringBuffer();
-		
-		for (int i = 1; i < steps.size(); i++)
-		{
-			// steps may be strings
-			Object object = steps.get(i);
+      String shortFileName = "" + storyboardName + ".html";
+      String pathname = "doc/" + shortFileName;
 
-			if (object instanceof String)
-			{
-				String content = (String) object;
+      StringBuffer text = new StringBuffer();
 
-				if (content.startsWith("["))
-				{
-					// yuml object diagram text, wrap into img
-					String imgText = "<img src='http://yuml.me/diagram/scale:80/class/objDiagramText' />\n";
-					imgText = imgText.replaceFirst("objDiagramText", content);
-					text.append(imgText);
-				}
-				else if (content.startsWith("<"))
+      for (int i = 1; i < steps.size(); i++)
+      {
+         // steps may be strings
+         Object object = steps.get(i);
+
+         if (object instanceof String)
+         {
+            String content = (String) object;
+
+            if (content.startsWith("["))
             {
-				   // already html
-				   text.append(content);
+               // yuml object diagram text, wrap into img
+               String imgText = "<img src='http://yuml.me/diagram/scale:80/class/objDiagramText' />\n";
+               imgText = imgText.replaceFirst("objDiagramText", content);
+               text.append(imgText);
             }
-				else if (content.startsWith("screendump="))
-				{
-					String[] split = content.split("=");
-					content = split.clone()[1];
-					String imgText = "<img src='" + content + "' />\n";
-					
-					text.append(imgText);
-				}
-				else
-				{
-					text.append("<p>" + object + "</p>\n");
-				}
-			}
-			else 
-			{
-				// in general serialize it to JSON
-				String json = "don't know what to do with " + object; // new JsonObject(object).toString(2);
-				text.append("<p>" + json + "</p>\n");
-			}
-		} // for
-		
-		htmlText = htmlText.replaceFirst("\\$text", text.toString());
-		
-		writeToFile(shortFileName, htmlText);
-	}
-	
+            else if (content.startsWith("<"))
+            {
+               // already html
+               text.append(content);
+            }
+            else if (content.startsWith("screendump="))
+            {
+               String[] split = content.split("=");
+               content = split.clone()[1];
+               String imgText = "<img src='" + content + "' />\n";
+
+               text.append(imgText);
+            }
+            else
+            {
+               text.append("<p>" + object + "</p>\n");
+            }
+         }
+         else 
+         {
+            // in general serialize it to JSON
+            String json = "don't know what to do with " + object; // new JsonObject(object).toString(2);
+            text.append("<p>" + json + "</p>\n");
+         }
+      } // for
+
+      htmlText = htmlText.replaceFirst("\\$text", text.toString());
+
+      writeToFile(shortFileName, htmlText);
+   }
+
    private void writeToFile(String imgName, String fileText)
    {
       try
@@ -284,7 +284,7 @@ public class Storyboard
          e.printStackTrace();
       }
    }
-   
+
 
 
    public void add(String string)
@@ -297,43 +297,56 @@ public class Storyboard
       steps.add(string);      
    }
 
-   
+
    public void coverage4GeneratedModelCode(Object root) 
    {
+      if (root == null)
+      {
+         return; 
+      }
+
+
+
       // derive creator class from root and create idMap
       String className = root.getClass().getName();
       String packageName = CGUtil.packageName(className) + ".creators";
       className = packageName + ".CreatorCreator";
-      
+
       Object idMap = null;
       try 
       {
-         Class<?> creatorClass = Class.forName(className);
-         Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-      
-         idMap = method.invoke(null, "debug");
-      
-         JsonIdMap jsonIdMap = (JsonIdMap) idMap;
+         if (jsonIdMap == null)
+         {
+            Class<?> creatorClass = Class.forName(className);
+            Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+
+            idMap = method.invoke(null, "debug");
+
+            jsonIdMap = (JsonIdMap) idMap;
+         }
+
+         if (largestJsonArray == null)
+         {
+            largestJsonArray = jsonIdMap.toJsonArray(root);
+         }
+
+         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap.getCreators());
          
-         JsonArray jsonArray = jsonIdMap.toJsonArray(root);
-         
-         JsonIdMap copyMap = (JsonIdMap) method.invoke(null, "debug");
-         
-         copyMap.readJson(jsonArray);
-         
+         copyMap.readJson(largestJsonArray);
+
          for (String key : copyMap.getKeys())
          {
             Object object = copyMap.getObject(key);
-            
+
             object.toString();
-            
+
             Class<? extends Object> objectClass = object.getClass();
-            
+
             Method removeMethod = objectClass.getMethod("removeYou");
-            
+
             removeMethod.invoke(object);
          }
-         
+
       }
       catch (Exception e)
       {
@@ -350,87 +363,87 @@ public class Storyboard
       Object root = null;
       LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
       boolean restrictToExplicitElems = false;
-      
+
       // go through all diagram elems
       int i = 0;
-      
+
       while (i < elems.length)
       {
          objectName = null; 
          object = null;
-         
+
          if (elems[i] instanceof String)
          {
             // name for an object
             objectName = (String) elems[i];
-            
+
             i++;
-            
+
             if ( ! (i < elems.length) )
             {
                // ups no object for this name.
                break;
             }
          }
-         
+
          object = elems[i];
          i++;
-         
+
          if (object.equals(true))
          {
             restrictToExplicitElems = true;
          }
-         
+
          if (object.getClass().isPrimitive())
          {
             // not an object
             continue;
          }
-         
+
          if (object instanceof Collection)
          {
             explicitElems.addAll((Collection) object);
          }
-         
+
          explicitElems.add(object);
-         
+
          if (root == null)
          {
             root = object;
          }
-         
+
          // do we have a JsonIdMap?
          if (jsonIdMap == null)
          {
             String className = object.getClass().getName();
             String packageName = CGUtil.packageName(className) + ".creators";
             className = packageName + ".CreatorCreator";
-            
+
             Object idMap = null;
             try 
             {
                Class<?> creatorClass = Class.forName(className);
                Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-            
+
                idMap = method.invoke(null, "debug");
-            
+
             }
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
                idMap = new GenericIdMap();
             }
-            
+
             jsonIdMap = (JsonIdMap) idMap;
          }
-         
+
          // add to jsonIdMap
          if (objectName != null)
          {
             jsonIdMap.put(objectName, object);
          }         
       }
-   	
+
       // all names collected, dump it
       if (restrictToExplicitElems)
       {
@@ -442,7 +455,7 @@ public class Storyboard
          addObjectDiagram(jsonIdMap, root);
       }
    }
-   
+
    class RestrictToFilter extends JsonFilter
    {
 
@@ -452,7 +465,7 @@ public class Storyboard
       {
          this.explicitElems = explicitElems;
       }
-      
+
       @Override
       public boolean isRegard(IdMap map, Object entity, String property,
             Object value, boolean isMany)
@@ -465,47 +478,68 @@ public class Storyboard
       }
    }
 
+   private JsonArray largestJsonArray = null;
+
+   private Object largestRoot = null;
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
-      
+
+      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
+      {
+         largestJsonArray = jsonArray;
+         largestRoot = root;
+      }
+
       String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
-      
+
       steps.add(imgLink);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root);
-      
+
+      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
+      {
+         largestJsonArray = jsonArray;
+         largestRoot = root;
+      }
+
       String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, omitRoot, null);
-      
+
       steps.add(imgLink);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);
-      
+
+      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
+      {
+         largestJsonArray = jsonArray;
+         largestRoot = root;
+      }
+
       String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, false, aggregationRoles);
-      
+
       steps.add(imgLink);
    }
 
    public void setKanbanPhase(String string)
    {
       // TODO Auto-generated method stub
-      
+
    }
-   
+
    private LinkedHashMap<String,LogEntry> newLogEntries = new LinkedHashMap<String,LogEntry>();
 
    public LinkedHashMap<String, LogEntry> getNewLogEntries()
    {
       return newLogEntries;
    }
-   
+
    public void addLogEntry(LogEntry entry)
    {
       newLogEntries.put(entry.getDate(), entry);
@@ -542,12 +576,12 @@ public class Storyboard
       .withHoursRemainingInTotal(hoursRemaining)
       .withComment("Achieved: " + string));
    }
-   
+
    public KanbanEntry addToDo(String entryName, String phase, String developer,
          String date, double hoursSpend, double hoursRemaining)
    {
       StoryboardManager man = StoryboardManager.get();
-      
+
       KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
 
       KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
@@ -559,9 +593,9 @@ public class Storyboard
             .withPhase(phase)
             .withHoursRemainingInTotal(hoursRemaining)
             .withHoursSpend(hoursSpend);
-      
+
       man.dumpKanban();
-      
+
       return todoEntry;
    }  
 
@@ -569,18 +603,18 @@ public class Storyboard
    private int codeStartLineNumber = -1;
 
    private ByteArrayOutputStream systemOutRecorder;
-   
+
    public ByteArrayOutputStream getSystemOut()
    {
       return systemOutRecorder;
    }
-   
+
    public void markCodeStart()
    {
       // store code start line number
-      
+
       Exception e = new RuntimeException();
-      
+
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
       codeStartLineNumber = callEntry.getLineNumber();
@@ -603,31 +637,31 @@ public class Storyboard
       // open java file and copy code lines
       String fileName = rootDir + "/" + className.replaceAll("\\.", "/") + ".java";
       File file = new File(fileName);
-      
+
       if (file.exists())
       {
          try
          {
             BufferedReader in = new BufferedReader(new FileReader(file));
-            
+
             String line = "";
             int lineNo = 0;
-            
+
             StringBuilder buf = new StringBuilder();
-            
+
             while (true)
             {
                line = in.readLine();
-               
+
                if (line != null)
                {
                   lineNo++;
-                  
+
                   if (lineNo > codeStartLineNumber && lineNo < codeEndLineNumber)
                   {
                      buf.append(line).append('\n');
                   }
-                  
+
                   if (lineNo >= codeEndLineNumber)
                   {
                      this.add(buf.toString());
@@ -652,11 +686,11 @@ public class Storyboard
    public String getMethodText(String rootDir, String className, String methodSignature)
    {
       ClassModel model = new ClassModel();
-      
+
       Clazz clazz = new Clazz(className);
-      
+
       Parser parser = clazz.getOrCreateParser(rootDir);
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
@@ -670,30 +704,30 @@ public class Storyboard
    {
       this.addGenericObjectDiag(graph, GenericObject.EMPTY_SET);
    }
-   
+
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.steps.size(), graph, hiddenObjects);
    }
-   
+
    private int objNo;
-   
+
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
       this.addGenericObjectDiag(diagramName, graph, GenericObject.EMPTY_SET);
    }
-   
+
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       objNo = 0;
-      
+
       // name all objects 
       LinkedHashMap<GenericObject, String> allObjects = new LinkedHashMap<GenericObject, String>();
-      
+
       // String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);      
       String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
       link = link.replaceFirst("<imagename>", diagramName + ".svg");
-      
+
       // generate dot file
       String fileText = "graph ObjectDiagram {\n" +
             "   node [shape = none, fontsize = 10];\n" +
@@ -701,7 +735,7 @@ public class Storyboard
             "<nodes>\n" +
             "<edges>" +
             "}\n";
-            
+
       // list of nodes
       StringBuilder nodeBuilder = new StringBuilder();
       for (GenericObject currentObject : graph.getObjects())
@@ -710,35 +744,35 @@ public class Storyboard
          {
             continue;
          }
-         
-         
+
+
          StringBuilder nodeLine = new StringBuilder(
             "<id> [label=<<table border='0' cellborder='borderSize' cellspacing='0'> iconrow<tr> <td> <u><id> :<classname></u></td></tr>attrText</table>>];\n"
-            );
-        
+               );
+
          String borderSize = "1";
-         
+
          allObjects.put(currentObject, findNameFor(currentObject));
-         
+
          String iconRow = "";
-         
+
          if (currentObject.getIcon() != null)
          {
             iconRow = "<tr><td border='0'><img src=\"" + currentObject.getIcon() + "\"/></td></tr>";
             borderSize = "0";
          }
-         
+
          String type = "_"; 
          if (currentObject.getType() != null)
          {
             type = currentObject.getType();
          }
-         
+
          // go through attributes
          String attrText = "<tr><td border='borderSize'><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
-         
+
          attrText = attrText.replaceFirst("borderSize", borderSize);
-         
+
          for (GenericAttribute attr : currentObject.getAttrs())
          {
             String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
@@ -748,25 +782,25 @@ public class Storyboard
 
             attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
          }
-         
+
          if ( currentObject.getAttrs().isEmpty())
          {
             attrText = "";
          }
-         
+
          CGUtil.replaceAll(nodeLine, 
             "iconrow", iconRow,
             "<id>", allObjects.get(currentObject),
             "<classname>", type, 
             "attrText", attrText, 
             "borderSize", borderSize
-            );
-         
+               );
+
          nodeBuilder.append(nodeLine.toString());
       }
-      
+
       fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
-      
+
       // now generate edges from edgeMap
       StringBuilder edgeBuilder = new StringBuilder();
       for (GenericLink currentLink : graph.getLinks())
@@ -775,7 +809,7 @@ public class Storyboard
          {
             continue;
          }
-         
+
          String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
          edgeLine = edgeLine.replaceFirst("<srcId>", allObjects.get(currentLink.getSrc()));
          edgeLine = edgeLine.replaceFirst("<tgtId>", allObjects.get(currentLink.getTgt()));
@@ -791,12 +825,12 @@ public class Storyboard
             taillabel = " ";
          }
          edgeLine = edgeLine.replaceFirst("<taillabel>", taillabel);
-         
+
          edgeBuilder.append(edgeLine);
       }
-      
+
       fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
-      
+
       CallDot.callDot(diagramName,fileText);
 
 
@@ -809,9 +843,9 @@ public class Storyboard
       {
          return currentObject.getName();
       }
-      
+
       objNo++;
-      
+
       return "_" + objNo;
    }
 
@@ -826,6 +860,9 @@ public class Storyboard
       StoryboardManager.get()
       .add(this)
       .dumpHTML();
+
+      // do some model testing to improve coverage
+      coverage4GeneratedModelCode(largestRoot);
    }
 
    public void assertEquals(String message, double expected, double actual, double delta)

@@ -4,14 +4,14 @@
     edge [fontsize = 10];
     
     
-    _University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyright/University.java">University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyright/Student.java">Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>matrNo :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyright/Room.java">Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>roomNo :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findPath(String,int)</td></tr>  </table></td></tr> </table>>];
+    _University [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyrightWithAssignments/University.java">University</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Student [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java">Student</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>id :String</td></tr> <tr><td align='left'>assignmentPoints :int</td></tr> <tr><td align='left'>motivation :int</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Room [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java">Room</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>topic :String</td></tr> <tr><td align='left'>credits :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>findPath(String,int)</td></tr>  </table></td></tr> </table>>];
     
     
     
-    _University -> _Student [headlabel = "students *" taillabel = "uni" arrowhead = "none" ];
-    _University -> _Room [headlabel = "rooms *" taillabel = "uni" arrowhead = "none" ];
-    _Room -> _Room [headlabel = "neighbors *" taillabel = "neighbors *" arrowhead = "none" ];
+    _University -> _Student [headlabel = "students *" taillabel = "university" arrowhead = "none" ];
+    _University -> _Room [headlabel = "rooms *" taillabel = "university" arrowhead = "none" ];
+    _Room -> _Room [headlabel = "doors *" taillabel = "doors *" arrowhead = "none" ];
     _Student -> _Room [headlabel = "in" taillabel = "students *" arrowhead = "none" ];
 }

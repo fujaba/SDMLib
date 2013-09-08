@@ -86,9 +86,6 @@ public class GroupAccountTests implements PropertyChangeInterface
       g1.updateBalances();
       storyboard.addCode("examples");
       
-      // just to improve test coverage
-      storyboard.coverage4GeneratedModelCode(g1);
-      
       storyboard.add("Now see updateBalances() as code: ");
       
       String methodText = storyboard.getMethodText("examples", "org.sdmlib.examples.groupAccount.GroupAccount", "updateBalances()");

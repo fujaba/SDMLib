@@ -82,6 +82,7 @@
 					<include name="**/*Storyboards.java" />
 					<include name="**/*Test.java" />
 					<include name="**/*Tests.java" />
+					<include name="**/*Classes.java" />
 					<include name="**/HelloWorld*.java" />
 				</fileset>
 			</batchtest>
