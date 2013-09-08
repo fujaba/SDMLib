@@ -96,7 +96,7 @@ public class StoryboardTests {
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
       
-      storyboard.addObjectDiagram(university);
+      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
 
       //===============================================================================================
       storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
@@ -104,17 +104,18 @@ public class StoryboardTests {
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
       
-      storyboard.addObjectDiagram(university);
+      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
 
       //===============================================================================================
-	  storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
+ 	   storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
     		  +"another 8 points and thus Karli has now 19 points and a motivation of 195.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      storyboard.addObjectDiagram(university);
+
+      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
 
       //===============================================================================================
-	  storyboard.add("5. Since 19 points are more than the 17 points required \n"
+	   storyboard.add("5. Since 19 points are more than the 17 points required \n"
     		  +"for the 17 math credits, Karli hands the points in and earns the credits \n"
     		  +"and has his assignmnet points reset to 0. <br>\n"
     		  +"(General rule: if the points earned by the assignments are higher or equal than \n"
@@ -126,7 +127,7 @@ public class StoryboardTests {
 		  karli.setAssignmentPoints(0);
 	  }
 	  
-	  storyboard.addObjectDiagram(university);
+     storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
 
       //===============================================================================================
 	  storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 

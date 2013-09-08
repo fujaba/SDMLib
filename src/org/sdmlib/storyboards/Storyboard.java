@@ -32,8 +32,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Vector;
 
 import org.junit.Assert;
@@ -47,6 +49,7 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -345,6 +348,8 @@ public class Storyboard
       String objectName;
       Object object;
       Object root = null;
+      LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
+      boolean restrictToExplicitElems = false;
       
       // go through all diagram elems
       int i = 0;
@@ -371,11 +376,23 @@ public class Storyboard
          object = elems[i];
          i++;
          
+         if (object.equals(true))
+         {
+            restrictToExplicitElems = true;
+         }
+         
          if (object.getClass().isPrimitive())
          {
             // not an object
             continue;
          }
+         
+         if (object instanceof Collection)
+         {
+            explicitElems.addAll((Collection) object);
+         }
+         
+         explicitElems.add(object);
          
          if (root == null)
          {
@@ -415,7 +432,37 @@ public class Storyboard
       }
    	
       // all names collected, dump it
-      addObjectDiagram(jsonIdMap, root);
+      if (restrictToExplicitElems)
+      {
+         JsonFilter jsonFilter = new RestrictToFilter(explicitElems);
+         addObjectDiagram(jsonIdMap, root, jsonFilter);
+      }
+      else
+      {
+         addObjectDiagram(jsonIdMap, root);
+      }
+   }
+   
+   class RestrictToFilter extends JsonFilter
+   {
+
+      private LinkedHashSet<Object> explicitElems;
+
+      public RestrictToFilter(LinkedHashSet<Object> explicitElems)
+      {
+         this.explicitElems = explicitElems;
+      }
+      
+      @Override
+      public boolean isRegard(IdMap map, Object entity, String property,
+            Object value, boolean isMany)
+      {
+         if (value != null && ("Integer Float Double Long Boolean String".indexOf(value.getClass().getSimpleName()) >= 0))
+         {
+            return true;
+         }
+         return explicitElems.contains(value);
+      }
    }
 
 

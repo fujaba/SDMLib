@@ -3,32 +3,14 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-studyRight [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>studyRight :University</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "StudyRight"</td></tr></table></td></tr></table>>];
 karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Karli"</td></tr><tr><td>assignmentPoints = 19</td></tr></table></td></tr></table>>];
 mathRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>mathRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "senate"</td></tr><tr><td>topic = "math"</td></tr><tr><td>credits = 17</td></tr></table></td></tr></table>>];
-artsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>artsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "7522"</td></tr><tr><td>topic = "arts"</td></tr><tr><td>credits = 16</td></tr></table></td></tr></table>>];
-sportsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>sportsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "gymnasium"</td></tr><tr><td>topic = "sports"</td></tr><tr><td>credits = 25</td></tr></table></td></tr></table>>];
-examRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>examRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "The End"</td></tr><tr><td>topic = "exam"</td></tr></table></td></tr></table>>];
-placeToBe [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>placeToBe :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "7422"</td></tr><tr><td>topic = "Software Engineering"</td></tr><tr><td>credits = 42</td></tr></table></td></tr></table>>];
 a1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a1 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Matrix Multiplication"</td></tr><tr><td>points = 5</td></tr></table></td></tr></table>>];
 a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a2 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Series"</td></tr><tr><td>points = 6</td></tr></table></td></tr></table>>];
 a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a3 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Integrals"</td></tr><tr><td>points = 8</td></tr></table></td></tr></table>>];
 
-studyRight -- karli [headlabel = "students" taillabel = "university"];
-studyRight -- mathRoom [headlabel = "rooms" taillabel = "university"];
-studyRight -- artsRoom [headlabel = "rooms" taillabel = "university"];
-studyRight -- sportsRoom [headlabel = "rooms" taillabel = "university"];
-studyRight -- examRoom [headlabel = "rooms" taillabel = "university"];
-studyRight -- placeToBe [headlabel = "rooms" taillabel = "university"];
 karli -- mathRoom [headlabel = "in" taillabel = "students"];
-mathRoom -- artsRoom [headlabel = "doors" taillabel = "doors"];
-mathRoom -- sportsRoom [headlabel = "doors" taillabel = "doors"];
 mathRoom -- a1 [headlabel = "assignments" taillabel = "room"];
 mathRoom -- a2 [headlabel = "assignments" taillabel = "room"];
 mathRoom -- a3 [headlabel = "assignments" taillabel = "room"];
-artsRoom -- sportsRoom [headlabel = "doors" taillabel = "doors"];
-artsRoom -- examRoom [headlabel = "doors" taillabel = "doors"];
-artsRoom -- placeToBe [headlabel = "doors" taillabel = "doors"];
-sportsRoom -- examRoom [headlabel = "doors" taillabel = "doors"];
-examRoom -- placeToBe [headlabel = "doors" taillabel = "doors"];
 }
