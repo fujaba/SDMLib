@@ -295,7 +295,7 @@ public class JsonToImg
                   addAttrText = true;
                   
                   // add attribute line
-                  String attrLine = "<tr><td><key> = <value></td></tr>";
+                  String attrLine = "<tr><td align='left'><key> = <value></td></tr>";
                   attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(key));
                   attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(value.toString()));
                   
@@ -310,7 +310,7 @@ public class JsonToImg
                      addAttrText = true;
 
                      // add hyper ref line
-                     String attrLine = "<tr><td href=\"<key>\">\"<value>\"</td></tr>";
+                     String attrLine = "<tr><td align='left' href=\"<key>\">\"<value>\"</td></tr>";
                      attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(imgName + "/" + tgtId + ".svg"));
                      attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(imgName + "/" + tgtId + ".svg"));
 
@@ -342,7 +342,7 @@ public class JsonToImg
                   addAttrText = true;
 
                   // add attribute line
-                  String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
+                  String attrLine = "<tr><td align='left'><key> = \"<value>\"</td></tr>";
                   attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(key));
                   attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(value.toString()));
 

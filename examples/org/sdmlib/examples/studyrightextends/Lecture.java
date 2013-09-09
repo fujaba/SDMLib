@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 
 public class Lecture implements PropertyChangeInterface
 {
@@ -36,14 +35,6 @@ public class Lecture implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_TITLE.equalsIgnoreCase(attrName))
       {
          return getTitle();
@@ -63,7 +54,7 @@ public class Lecture implements PropertyChangeInterface
       {
          return getListen();
       }
-      
+
       return null;
    }
 
@@ -108,6 +99,11 @@ public class Lecture implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -147,6 +143,15 @@ public class Lecture implements PropertyChangeInterface
       setTitle(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTitle());
+      return _.substring(1);
+   }
+
 
    
    /********************************************************************
@@ -198,6 +203,13 @@ public class Lecture implements PropertyChangeInterface
    {
       setIn(value);
       return this;
+   } 
+   
+   public Room createIn()
+   {
+      Room value = new Room();
+      withIn(value);
+      return value;
    } 
 
    
@@ -254,6 +266,13 @@ public class Lecture implements PropertyChangeInterface
       setHas(value);
       return this;
    } 
+   
+   public Professor createHas()
+   {
+      Professor value = new Professor();
+      withHas(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -306,12 +325,12 @@ public class Lecture implements PropertyChangeInterface
       setListen(value);
       return this;
    } 
-
-   public String toString()
+   
+   public Student createListen()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getTitle());
-      return _.substring(1);
-   }}
+      Student value = new Student();
+      withListen(value);
+      return value;
+   } 
+}
 

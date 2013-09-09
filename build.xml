@@ -56,39 +56,23 @@
 		</emma>
 		
 		<junit printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
-			<classpath>
-				<pathelement location="binInst/classes" />
-				<path refid="SDMLib.libs" />
-			</classpath>
+					<classpath>
+						<pathelement location="binInst/classes" />
+						<path refid="SDMLib.libs" />
+					</classpath>
 
-			<formatter type="xml" />
-			<batchtest fork="yes" todir="${junit.output.dir}">
-				<fileset dir="test">
-					<include name="**/*Storyboard.java" />
-					<include name="**/*Model.java" />
-					<include name="**/*Models.java" />
-					<include name="**/*Storyboards.java" />
-					<include name="**/*Test.java" />
-					<include name="**/*Tests.java" />
-					<include name="**/*Example.java" />
-					<include name="**/*Examples.java" />
-					<include name="**/*CodeGen.java" />
-					<include name="**/ProjectBoard.java" />
-					<exclude name="**/ReverseClassModelTest.java" />
-				</fileset>
-				<fileset dir="examples">
-					<include name="**/*Storyboard.java" />
-					<include name="**/*Model.java" />
-					<include name="**/*Storyboards.java" />
-					<include name="**/*Test.java" />
-					<include name="**/*Tests.java" />
-					<include name="**/*Classes.java" />
-					<include name="**/HelloWorld*.java" />
-				</fileset>
-			</batchtest>
-			<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage2.ec" />
-			<jvmarg value="-Demma.coverage.out.merge=false" />
-		</junit>
+					<formatter type="xml" />
+					<batchtest fork="yes" todir="${junit.output.dir}">
+						<fileset dir="examples" includes="**/*.java">
+							<contains text="@Test"/>
+						</fileset>
+						<fileset dir="test" includes="**/*.java">
+							<contains text="@Test"/>
+						</fileset>
+					</batchtest>
+					<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
+					<jvmarg value="-Demma.coverage.out.merge=true" />
+				</junit>
 		<emma enabled="${emma.enabled}" verbosity="verbose">
 			<report>
 				<sourcepath>
@@ -104,7 +88,6 @@
 					<include name="*.ec" />
 				</fileset>
 				<xml outfile="${coverage.report.dir}/report.xml" />
-				<txt outfile="${coverage.report.dir}/report.txt" />
 				<html outfile="${coverage.report.dir}/report.html" />
 			</report>
 		</emma>

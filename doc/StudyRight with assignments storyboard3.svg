@@ -15,7 +15,7 @@
 <text text-anchor="start" x="510.5" y="-704.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="513.5" y="-704.5" font-family="Times New Roman,serif" font-size="10.00">studyRight :University</text>
 <polygon fill="none" stroke="black" points="507,-678 507,-698 609,-698 609,-678 507,-678"/>
-<text text-anchor="start" x="515" y="-686" font-family="Times New Roman,serif" font-size="10.00">name = &quot;StudyRight&quot;</text>
+<text text-anchor="start" x="512" y="-686" font-family="Times New Roman,serif" font-size="10.00">name = &quot;StudyRight&quot;</text>
 </g>
 <!-- karli -->
 <g id="node2" class="node"><title>karli</title>
@@ -23,10 +23,10 @@
 <text text-anchor="start" x="396.5" y="-622.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="399.5" y="-622.5" font-family="Times New Roman,serif" font-size="10.00">karli :Student</text>
 <polygon fill="none" stroke="black" points="376,-554 376,-616 473,-616 473,-554 376,-554"/>
-<text text-anchor="start" x="395" y="-604" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="381.5" y="-590" font-family="Times New Roman,serif" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="395.5" y="-576" font-family="Times New Roman,serif" font-size="10.00">motivation = 0</text>
-<text text-anchor="start" x="403.5" y="-562" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="381" y="-604" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Karli&quot;</text>
+<text text-anchor="start" x="381" y="-590" font-family="Times New Roman,serif" font-size="10.00">assignmentPoints = 0</text>
+<text text-anchor="start" x="381" y="-576" font-family="Times New Roman,serif" font-size="10.00">motivation = 0</text>
+<text text-anchor="start" x="381" y="-562" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
 </g>
 <!-- studyRight&#45;&#45;karli -->
 <g id="edge2" class="edge"><title>studyRight&#45;&#45;karli</title>
@@ -40,9 +40,9 @@
 <text text-anchor="start" x="342.5" y="-498.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="345.5" y="-498.5" font-family="Times New Roman,serif" font-size="10.00">mathRoom :Room</text>
 <polygon fill="none" stroke="black" points="339,-444 339,-492 420,-492 420,-444 339,-444"/>
-<text text-anchor="start" x="346" y="-480" font-family="Times New Roman,serif" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="350" y="-466" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;math&quot;</text>
-<text text-anchor="start" x="356.5" y="-452" font-family="Times New Roman,serif" font-size="10.00">credits = 17</text>
+<text text-anchor="start" x="344" y="-480" font-family="Times New Roman,serif" font-size="10.00">name = &quot;senate&quot;</text>
+<text text-anchor="start" x="344" y="-466" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="344" y="-452" font-family="Times New Roman,serif" font-size="10.00">credits = 17</text>
 </g>
 <!-- studyRight&#45;&#45;mathRoom -->
 <g id="edge4" class="edge"><title>studyRight&#45;&#45;mathRoom</title>
@@ -56,9 +56,9 @@
 <text text-anchor="start" x="11.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-388.5" font-family="Times New Roman,serif" font-size="10.00">artsRoom :Room</text>
 <polygon fill="none" stroke="black" points="8,-334 8,-382 85,-382 85,-334 8,-334"/>
-<text text-anchor="start" x="17.5" y="-370" font-family="Times New Roman,serif" font-size="10.00">name = &quot;7522&quot;</text>
-<text text-anchor="start" x="19" y="-356" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;arts&quot;</text>
-<text text-anchor="start" x="23.5" y="-342" font-family="Times New Roman,serif" font-size="10.00">credits = 16</text>
+<text text-anchor="start" x="13" y="-370" font-family="Times New Roman,serif" font-size="10.00">name = &quot;7522&quot;</text>
+<text text-anchor="start" x="13" y="-356" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;arts&quot;</text>
+<text text-anchor="start" x="13" y="-342" font-family="Times New Roman,serif" font-size="10.00">credits = 16</text>
 </g>
 <!-- studyRight&#45;&#45;artsRoom -->
 <g id="edge6" class="edge"><title>studyRight&#45;&#45;artsRoom</title>
@@ -72,9 +72,9 @@
 <text text-anchor="start" x="129.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="132.5" y="-278.5" font-family="Times New Roman,serif" font-size="10.00">sportsRoom :Room</text>
 <polygon fill="none" stroke="black" points="121,-224 121,-272 218,-272 218,-224 121,-224"/>
-<text text-anchor="start" x="126.5" y="-260" font-family="Times New Roman,serif" font-size="10.00">name = &quot;gymnasium&quot;</text>
-<text text-anchor="start" x="137" y="-246" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;sports&quot;</text>
-<text text-anchor="start" x="146.5" y="-232" font-family="Times New Roman,serif" font-size="10.00">credits = 25</text>
+<text text-anchor="start" x="126" y="-260" font-family="Times New Roman,serif" font-size="10.00">name = &quot;gymnasium&quot;</text>
+<text text-anchor="start" x="126" y="-246" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;sports&quot;</text>
+<text text-anchor="start" x="126" y="-232" font-family="Times New Roman,serif" font-size="10.00">credits = 25</text>
 </g>
 <!-- studyRight&#45;&#45;sportsRoom -->
 <g id="edge8" class="edge"><title>studyRight&#45;&#45;sportsRoom</title>
@@ -88,9 +88,9 @@
 <text text-anchor="start" x="132.5" y="-168.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="135.5" y="-168.5" font-family="Times New Roman,serif" font-size="10.00">examRoom :Room</text>
 <polygon fill="none" stroke="black" points="127,-114 127,-162 212,-162 212,-114 127,-114"/>
-<text text-anchor="start" x="132.5" y="-150" font-family="Times New Roman,serif" font-size="10.00">name = &quot;The End&quot;</text>
-<text text-anchor="start" x="140" y="-136" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;exam&quot;</text>
-<text text-anchor="start" x="148.5" y="-122" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="132" y="-150" font-family="Times New Roman,serif" font-size="10.00">name = &quot;The End&quot;</text>
+<text text-anchor="start" x="132" y="-136" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;exam&quot;</text>
+<text text-anchor="start" x="132" y="-122" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
 </g>
 <!-- studyRight&#45;&#45;examRoom -->
 <g id="edge10" class="edge"><title>studyRight&#45;&#45;examRoom</title>
@@ -104,9 +104,9 @@
 <text text-anchor="start" x="132" y="-58.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="135" y="-58.5" font-family="Times New Roman,serif" font-size="10.00">placeToBe :Room</text>
 <polygon fill="none" stroke="black" points="101,-4 101,-52 237,-52 237,-4 101,-4"/>
-<text text-anchor="start" x="140" y="-40" font-family="Times New Roman,serif" font-size="10.00">name = &quot;7422&quot;</text>
-<text text-anchor="start" x="106.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
-<text text-anchor="start" x="146" y="-12" font-family="Times New Roman,serif" font-size="10.00">credits = 42</text>
+<text text-anchor="start" x="106" y="-40" font-family="Times New Roman,serif" font-size="10.00">name = &quot;7422&quot;</text>
+<text text-anchor="start" x="106" y="-26" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
+<text text-anchor="start" x="106" y="-12" font-family="Times New Roman,serif" font-size="10.00">credits = 42</text>
 </g>
 <!-- studyRight&#45;&#45;placeToBe -->
 <g id="edge12" class="edge"><title>studyRight&#45;&#45;placeToBe</title>
@@ -138,8 +138,8 @@
 <text text-anchor="start" x="197.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="200.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00">a1 :Assignment</text>
 <polygon fill="none" stroke="black" points="158,-341 158,-375 303,-375 303,-341 158,-341"/>
-<text text-anchor="start" x="163.5" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Matrix Multiplication&quot;</text>
-<text text-anchor="start" x="210.5" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 5</text>
+<text text-anchor="start" x="163" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Matrix Multiplication&quot;</text>
+<text text-anchor="start" x="163" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 5</text>
 </g>
 <!-- mathRoom&#45;&#45;a1 -->
 <g id="edge20" class="edge"><title>mathRoom&#45;&#45;a1</title>
@@ -153,8 +153,8 @@
 <text text-anchor="start" x="346.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="349.5" y="-381.5" font-family="Times New Roman,serif" font-size="10.00">a2 :Assignment</text>
 <polygon fill="none" stroke="black" points="337,-341 337,-375 422,-375 422,-341 337,-341"/>
-<text text-anchor="start" x="342.5" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Series&quot;</text>
-<text text-anchor="start" x="359.5" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 6</text>
+<text text-anchor="start" x="342" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Series&quot;</text>
+<text text-anchor="start" x="342" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 6</text>
 </g>
 <!-- mathRoom&#45;&#45;a2 -->
 <g id="edge22" class="edge"><title>mathRoom&#45;&#45;a2</title>
@@ -168,8 +168,8 @@
 <text text-anchor="start" x="471" y="-381.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="474" y="-381.5" font-family="Times New Roman,serif" font-size="10.00">a3 :Assignment</text>
 <polygon fill="none" stroke="black" points="456,-341 456,-375 552,-375 552,-341 456,-341"/>
-<text text-anchor="start" x="461.5" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Integrals&quot;</text>
-<text text-anchor="start" x="484" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 8</text>
+<text text-anchor="start" x="461" y="-363" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Integrals&quot;</text>
+<text text-anchor="start" x="461" y="-349" font-family="Times New Roman,serif" font-size="10.00">points = 8</text>
 </g>
 <!-- mathRoom&#45;&#45;a3 -->
 <g id="edge24" class="edge"><title>mathRoom&#45;&#45;a3</title>

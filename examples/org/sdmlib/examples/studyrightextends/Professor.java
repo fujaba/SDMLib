@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightextends.Female;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Professor extends Female implements PropertyChangeInterface
 {
@@ -37,14 +37,6 @@ public class Professor extends Female implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_PERSNR.equalsIgnoreCase(attrName))
       {
          return getPersNr();
@@ -59,7 +51,7 @@ public class Professor extends Female implements PropertyChangeInterface
       {
          return getLecture();
       }
-      
+
       return null;
    }
 
@@ -104,6 +96,11 @@ public class Professor extends Female implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -112,6 +109,7 @@ public class Professor extends Female implements PropertyChangeInterface
    {
       removeAllFromLecture();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      super.removeYou();
    }
 
    
@@ -141,6 +139,16 @@ public class Professor extends Female implements PropertyChangeInterface
       setPersNr(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getPersNr());
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
+
 
    
    /********************************************************************
@@ -206,17 +214,23 @@ public class Professor extends Female implements PropertyChangeInterface
       return changed;   
    }
    
-   public Professor withLecture(Lecture value)
+   public Professor withLecture(Lecture... value)
    {
-      addToLecture(value);
+      for (Lecture item : value)
+      {
+         addToLecture(item);
+      }
       return this;
    } 
    
-   public Professor withoutLecture(Lecture value)
+   public Professor withoutLecture(Lecture... value)
    {
-      removeFromLecture(value);
+      for (Lecture item : value)
+      {
+         removeFromLecture(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromLecture()
    {
@@ -227,13 +241,12 @@ public class Professor extends Female implements PropertyChangeInterface
          this.removeFromLecture(value);
       }
    }
-
-   public String toString()
+   
+   public Lecture createLecture()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getPersNr());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
-   }}
+      Lecture value = new Lecture();
+      withLecture(value);
+      return value;
+   } 
+}
 

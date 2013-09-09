@@ -1,8 +1,6 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-
-import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.examples.studyrightextends.creators.StudentSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
@@ -38,7 +36,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition();
+          ((Student) getCurrentMatch()).findMyPosition();
       }
    }
 
@@ -49,7 +47,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition( p0);
+          ((Student) getCurrentMatch()).findMyPosition( p0);
       }
    }
 
@@ -60,7 +58,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition( p0,  p1);
+          ((Student) getCurrentMatch()).findMyPosition( p0,  p1);
       }
    }
 

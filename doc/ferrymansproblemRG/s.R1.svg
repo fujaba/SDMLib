@@ -21,7 +21,7 @@
 <text text-anchor="start" x="110" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="113" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">b2 :Bank</text>
 <polygon fill="none" stroke="black" points="97,-86 97,-106 161,-106 161,-86 97,-86"/>
-<text text-anchor="start" x="102.5" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;left&quot;</text>
+<text text-anchor="start" x="102" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;left&quot;</text>
 </g>
 <!-- r1&#45;&#45;b2 -->
 <g id="edge2" class="edge"><title>r1&#45;&#45;b2</title>
@@ -47,7 +47,7 @@
 <text text-anchor="start" x="211" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="214" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">b7 :Bank</text>
 <polygon fill="none" stroke="black" points="195,-86 195,-106 265,-106 265,-86 195,-86"/>
-<text text-anchor="start" x="200.5" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;right&quot;</text>
+<text text-anchor="start" x="200" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;right&quot;</text>
 </g>
 <!-- r1&#45;&#45;b7 -->
 <g id="edge4" class="edge"><title>r1&#45;&#45;b7</title>
@@ -67,7 +67,7 @@
 <text text-anchor="start" x="109" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="112" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c4 :Cargo</text>
 <polygon fill="none" stroke="black" points="87,-4 87,-24 172,-24 172,-4 87,-4"/>
-<text text-anchor="start" x="92.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;cabbage&quot;</text>
+<text text-anchor="start" x="92" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;cabbage&quot;</text>
 </g>
 <!-- b2&#45;&#45;c4 -->
 <g id="edge10" class="edge"><title>b2&#45;&#45;c4</title>
@@ -81,7 +81,7 @@
 <text text-anchor="start" x="220" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="223" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c5 :Cargo</text>
 <polygon fill="none" stroke="black" points="206,-4 206,-24 275,-24 275,-4 206,-4"/>
-<text text-anchor="start" x="211.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;goat&quot;</text>
+<text text-anchor="start" x="211" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;goat&quot;</text>
 </g>
 <!-- b2&#45;&#45;c5 -->
 <g id="edge12" class="edge"><title>b2&#45;&#45;c5</title>
@@ -95,7 +95,7 @@
 <text text-anchor="start" x="323" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="326" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c6 :Cargo</text>
 <polygon fill="none" stroke="black" points="309,-4 309,-24 378,-24 378,-4 309,-4"/>
-<text text-anchor="start" x="314.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;wolf&quot;</text>
+<text text-anchor="start" x="314" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;wolf&quot;</text>
 </g>
 <!-- b2&#45;&#45;c6 -->
 <g id="edge14" class="edge"><title>b2&#45;&#45;c6</title>

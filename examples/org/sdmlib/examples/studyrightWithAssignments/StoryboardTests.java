@@ -96,7 +96,7 @@ public class StoryboardTests {
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
 
-      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
+      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
@@ -104,7 +104,7 @@ public class StoryboardTests {
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
 
-      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
+      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
@@ -112,7 +112,7 @@ public class StoryboardTests {
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
 
-      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
+      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("5. Since 19 points are more than the 17 points required \n"
@@ -127,7 +127,7 @@ public class StoryboardTests {
          karli.setAssignmentPoints(0);
       }
 
-      storyboard.addObjectDiagram(karli, mathRoom, mathRoom.getAssignments(), true);
+      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 

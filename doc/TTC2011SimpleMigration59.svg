@@ -21,7 +21,7 @@
 <text text-anchor="start" x="59" y="-358.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="62" y="-358.5" font-family="Times New Roman,serif" font-size="10.00">n2 :Node</text>
 <polygon fill="none" stroke="black" points="52,-332 52,-352 106,-352 106,-332 52,-332"/>
-<text text-anchor="start" x="57.5" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n1&quot;</text>
+<text text-anchor="start" x="57" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n1&quot;</text>
 </g>
 <!-- g1&#45;&#45;n2 -->
 <g id="edge2" class="edge"><title>g1&#45;&#45;n2</title>
@@ -35,7 +35,7 @@
 <text text-anchor="start" x="15" y="-276.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="18" y="-276.5" font-family="Times New Roman,serif" font-size="10.00">n3 :Node</text>
 <polygon fill="none" stroke="black" points="8,-250 8,-270 62,-270 62,-250 8,-250"/>
-<text text-anchor="start" x="13.5" y="-258" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n2&quot;</text>
+<text text-anchor="start" x="13" y="-258" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n2&quot;</text>
 </g>
 <!-- g1&#45;&#45;n3 -->
 <g id="edge4" class="edge"><title>g1&#45;&#45;n3</title>
@@ -49,7 +49,7 @@
 <text text-anchor="start" x="78" y="-194.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="81" y="-194.5" font-family="Times New Roman,serif" font-size="10.00">n4 :Node</text>
 <polygon fill="none" stroke="black" points="71,-168 71,-188 125,-188 125,-168 71,-168"/>
-<text text-anchor="start" x="76.5" y="-176" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n3&quot;</text>
+<text text-anchor="start" x="76" y="-176" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n3&quot;</text>
 </g>
 <!-- g1&#45;&#45;n4 -->
 <g id="edge6" class="edge"><title>g1&#45;&#45;n4</title>
@@ -63,7 +63,7 @@
 <text text-anchor="start" x="135" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="138" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">n5 :Node</text>
 <polygon fill="none" stroke="black" points="128,-86 128,-106 182,-106 182,-86 128,-86"/>
-<text text-anchor="start" x="133.5" y="-94" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n4&quot;</text>
+<text text-anchor="start" x="133" y="-94" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n4&quot;</text>
 </g>
 <!-- g1&#45;&#45;n5 -->
 <g id="edge8" class="edge"><title>g1&#45;&#45;n5</title>
@@ -77,7 +77,7 @@
 <text text-anchor="start" x="135" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="138" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">n6 :Node</text>
 <polygon fill="none" stroke="black" points="128,-4 128,-24 182,-24 182,-4 128,-4"/>
-<text text-anchor="start" x="133.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n5&quot;</text>
+<text text-anchor="start" x="133" y="-12" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n5&quot;</text>
 </g>
 <!-- g1&#45;&#45;n6 -->
 <g id="edge10" class="edge"><title>g1&#45;&#45;n6</title>
@@ -91,7 +91,7 @@
 <text text-anchor="start" x="261" y="-358.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="264" y="-358.5" font-family="Times New Roman,serif" font-size="10.00">n7 :Node</text>
 <polygon fill="none" stroke="black" points="254,-332 254,-352 308,-352 308,-332 254,-332"/>
-<text text-anchor="start" x="259.5" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n6&quot;</text>
+<text text-anchor="start" x="259" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n6&quot;</text>
 </g>
 <!-- g1&#45;&#45;n7 -->
 <g id="edge12" class="edge"><title>g1&#45;&#45;n7</title>
@@ -105,7 +105,7 @@
 <text text-anchor="start" x="349" y="-358.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="352" y="-358.5" font-family="Times New Roman,serif" font-size="10.00">n8 :Node</text>
 <polygon fill="none" stroke="black" points="342,-332 342,-352 396,-352 396,-332 342,-332"/>
-<text text-anchor="start" x="347.5" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n7&quot;</text>
+<text text-anchor="start" x="347" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n7&quot;</text>
 </g>
 <!-- g1&#45;&#45;n8 -->
 <g id="edge14" class="edge"><title>g1&#45;&#45;n8</title>
@@ -119,7 +119,7 @@
 <text text-anchor="start" x="437" y="-358.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="440" y="-358.5" font-family="Times New Roman,serif" font-size="10.00">n9 :Node</text>
 <polygon fill="none" stroke="black" points="430,-332 430,-352 484,-352 484,-332 430,-332"/>
-<text text-anchor="start" x="435.5" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n8&quot;</text>
+<text text-anchor="start" x="435" y="-340" font-family="Times New Roman,serif" font-size="10.00">text = &quot;n8&quot;</text>
 </g>
 <!-- g1&#45;&#45;n9 -->
 <g id="edge16" class="edge"><title>g1&#45;&#45;n9</title>

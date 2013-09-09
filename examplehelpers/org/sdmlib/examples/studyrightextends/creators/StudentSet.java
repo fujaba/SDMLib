@@ -22,13 +22,9 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
-
 import java.util.List;
-
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import org.sdmlib.examples.studyrightextends.Lecture;
@@ -72,7 +68,7 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
    
    public StudentSet findMyPosition()
    {
-      for (Person obj : this)
+      for (Student obj : this)
       {
          obj.findMyPosition();
       }
@@ -84,7 +80,7 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
    
    public StudentSet findMyPosition(String p0)
    {
-      for (Person obj : this)
+      for (Student obj : this)
       {
          obj.findMyPosition( p0);
       }
@@ -96,7 +92,7 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
    
    public StudentSet findMyPosition(String p0, int p1)
    {
-      for (Person obj : this)
+      for (Student obj : this)
       {
          obj.findMyPosition( p0,  p1);
       }

@@ -3,11 +3,11 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "Karli"</td></tr><tr><td>assignmentPoints = 19</td></tr><tr><td>motivation = 0</td></tr><tr><td>credits = 0</td></tr></table></td></tr></table>>];
-mathRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>mathRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "senate"</td></tr><tr><td>topic = "math"</td></tr><tr><td>credits = 17</td></tr></table></td></tr></table>>];
-a1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a1 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Matrix Multiplication"</td></tr><tr><td>points = 5</td></tr></table></td></tr></table>>];
-a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a2 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Series"</td></tr><tr><td>points = 6</td></tr></table></td></tr></table>>];
-a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a3 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>content = "Integrals"</td></tr><tr><td>points = 8</td></tr></table></td></tr></table>>];
+karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Karli"</td></tr><tr><td align='left'>assignmentPoints = 19</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+mathRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>mathRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "senate"</td></tr><tr><td align='left'>topic = "math"</td></tr><tr><td align='left'>credits = 17</td></tr></table></td></tr></table>>];
+a1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a1 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Matrix Multiplication"</td></tr><tr><td align='left'>points = 5</td></tr></table></td></tr></table>>];
+a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a2 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Series"</td></tr><tr><td align='left'>points = 6</td></tr></table></td></tr></table>>];
+a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>a3 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Integrals"</td></tr><tr><td align='left'>points = 8</td></tr></table></td></tr></table>>];
 
 karli -- mathRoom [headlabel = "in" taillabel = "students"];
 mathRoom -- a1 [headlabel = "assignments" taillabel = "room"];

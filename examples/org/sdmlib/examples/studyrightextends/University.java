@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.creators.RoomSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class University implements PropertyChangeInterface
 {
@@ -38,14 +37,6 @@ public class University implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
@@ -55,7 +46,7 @@ public class University implements PropertyChangeInterface
       {
          return getRooms();
       }
-      
+
       return null;
    }
 
@@ -94,6 +85,11 @@ public class University implements PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -131,6 +127,15 @@ public class University implements PropertyChangeInterface
       setName(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
+
 
    
    /********************************************************************
@@ -196,17 +201,23 @@ public class University implements PropertyChangeInterface
       return changed;   
    }
    
-   public University withRooms(Room value)
+   public University withRooms(Room... value)
    {
-      addToRooms(value);
+      for (Room item : value)
+      {
+         addToRooms(item);
+      }
       return this;
    } 
    
-   public University withoutRooms(Room value)
+   public University withoutRooms(Room... value)
    {
-      removeFromRooms(value);
+      for (Room item : value)
+      {
+         removeFromRooms(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromRooms()
    {
@@ -217,12 +228,12 @@ public class University implements PropertyChangeInterface
          this.removeFromRooms(value);
       }
    }
-
-   public String toString()
+   
+   public Room createRooms()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      return _.substring(1);
-   }}
+      Room value = new Room();
+      withRooms(value);
+      return value;
+   } 
+}
 

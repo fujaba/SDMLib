@@ -319,7 +319,7 @@ public class Method implements PropertyChangeInterface
          String importType = type;
          if ("void".equals(type))
          {
-            type = CGUtil.shortClassName(this.getClazz().getName()) + "Set";
+            type = CGUtil.shortClassName(clazz2.getName()) + "Set";
          }
          else
          {
@@ -358,7 +358,7 @@ public class Method implements PropertyChangeInterface
             "modifiers", "public", 
             "returnType", type,
             "methodName", methodName,
-            "memberType", CGUtil.shortClassName(this.getClazz().getName()),
+            "memberType", CGUtil.shortClassName(clazz2.getName()),
             "formalParameter", formalParameter,
             "actualParameter", actualParameter
                );
@@ -464,7 +464,7 @@ public class Method implements PropertyChangeInterface
             "      returnStat\n", returnStat,
             "returnType", type,
             "methodName", methodName,
-            "memberType", CGUtil.shortClassName(this.getClazz().getName()),
+            "memberType", CGUtil.shortClassName(clazz2.getName()),
             "formalParameter", formalParameter,
             "actualParameter", actualParameter
                );
@@ -491,15 +491,21 @@ public class Method implements PropertyChangeInterface
                (  "\n   " +
                      "\n   //==========================================================================" +
                      "\n   " +
-                     "\n   modifiers returnType mehodName( parameter )\n" +
-                     "   {\n" +
-                     "      returnClause\n" +
-                     "   }" +
-                     "\n"
-                     );
+                     "\n   modifiers returnType mehodName( parameter )");
 
          if ( clazz.isInterfaze())
-            CGUtil.replaceAll(text, "\n   {\n   }", ";");
+         {
+            text.append(";\n");
+         }
+         else
+         {
+            text.append(
+                     "\n   {" +
+                     "\n      returnClause" +
+                     "\n   }" +
+                     "\n"
+                  );
+         }
 
          String methodName = signature.substring(0, signature.indexOf("("));
 

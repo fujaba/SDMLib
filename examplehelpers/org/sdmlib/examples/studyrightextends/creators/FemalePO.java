@@ -2,7 +2,6 @@ package org.sdmlib.examples.studyrightextends.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.examples.studyrightextends.creators.FemaleSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
@@ -31,7 +30,7 @@ public class FemalePO extends PatternObject<FemalePO, Female>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition();
+          ((Female) getCurrentMatch()).findMyPosition();
       }
    }
 
@@ -42,7 +41,7 @@ public class FemalePO extends PatternObject<FemalePO, Female>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition( p0);
+          ((Female) getCurrentMatch()).findMyPosition( p0);
       }
    }
 
@@ -53,7 +52,7 @@ public class FemalePO extends PatternObject<FemalePO, Female>
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Person) getCurrentMatch()).findMyPosition( p0,  p1);
+          ((Female) getCurrentMatch()).findMyPosition( p0,  p1);
       }
    }
 

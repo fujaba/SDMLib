@@ -4,12 +4,12 @@ graph ObjectDiagram {
    compound=true;
 
 r13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r13 :River</u></td></tr></table>>];
-b97 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b97 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "left"</td></tr></table></td></tr></table>>];
+b97 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b97 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "left"</td></tr></table></td></tr></table>>];
 b98 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b98 :Boat</u></td></tr></table>>];
-c99 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c99 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "goat"</td></tr></table></td></tr></table>>];
-c100 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c100 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "cabbage"</td></tr></table></td></tr></table>>];
-c101 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c101 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "wolf"</td></tr></table></td></tr></table>>];
-b102 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b102 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "right"</td></tr></table></td></tr></table>>];
+c99 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c99 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "goat"</td></tr></table></td></tr></table>>];
+c100 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c100 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "cabbage"</td></tr></table></td></tr></table>>];
+c101 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c101 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "wolf"</td></tr></table></td></tr></table>>];
+b102 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b102 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "right"</td></tr></table></td></tr></table>>];
 
 r13 -- b97 [headlabel = "banks" taillabel = "river"];
 r13 -- b102 [headlabel = "banks" taillabel = "river"];

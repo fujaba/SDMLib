@@ -141,22 +141,6 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSignature("findMyPosition(String,int)")
       .withReturnType("void");
 
-      // commented as generated code does not work, interface should have an attr instead of attr access methods
-      //      new Method()
-      //			.withClazz(personClass)
-      //			.withSignature("getName()")
-      //         .withReturnType("String");
-      //
-      //      new Method()
-      //			.withClazz(personClass)
-      //			.withSignature("setName(String)")
-      //         .withReturnType("void");
-      //
-      //      new Method()
-      //			.withClazz(personClass)
-      //			.withSignature("withName(String)")
-      //         .withReturnType("Person");
-
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
       .withAttribute("roomNo", STRING)
       .withAttribute("credits", INT);
@@ -242,6 +226,8 @@ public class StudyRightModel implements PropertyChangeInterface
       // model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
 
       // model.insertModelCreationCodeHere("examples");
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
 
       model.generate("examples", "examplehelpers");
 

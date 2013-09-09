@@ -32,10 +32,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.Assert;
@@ -356,6 +359,14 @@ public class Storyboard
       }
    }
 
+   public void addObjectDiagramWith(Object... elems) 
+   {
+      ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
+      tempElems.add(true);
+      Object[] moreElems = tempElems.toArray();
+      addObjectDiagram(moreElems);
+   }
+   
    private JsonIdMap jsonIdMap = null;
 
    public void addObjectDiagram(Object... elems) 

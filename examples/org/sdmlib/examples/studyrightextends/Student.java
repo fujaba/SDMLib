@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,15 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightextends.Male;
+import org.sdmlib.examples.studyrightextends.Female;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Student extends Female implements Male, PropertyChangeInterface
 {
@@ -38,14 +39,6 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
@@ -60,7 +53,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
       {
          return getLecture();
       }
-      
+
       return null;
    }
 
@@ -105,6 +98,11 @@ public class Student extends Female implements Male, PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -113,6 +111,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
    {
       removeAllFromLecture();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      super.removeYou();
    }
 
    
@@ -120,6 +119,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    public void findMyPosition(  )
    {
+      
    }
 
    
@@ -127,6 +127,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    public void findMyPosition( String p0 )
    {
+      
    }
 
    
@@ -134,6 +135,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    public void findMyPosition( String p0, int p1 )
    {
+      
    }
 
    
@@ -163,6 +165,16 @@ public class Student extends Female implements Male, PropertyChangeInterface
       setName(value);
       return this;
    } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getMatrNo());
+      return _.substring(1);
+   }
+
 
    
    //==========================================================================
@@ -256,17 +268,23 @@ public class Student extends Female implements Male, PropertyChangeInterface
       return changed;   
    }
    
-   public Student withLecture(Lecture value)
+   public Student withLecture(Lecture... value)
    {
-      addToLecture(value);
+      for (Lecture item : value)
+      {
+         addToLecture(item);
+      }
       return this;
    } 
    
-   public Student withoutLecture(Lecture value)
+   public Student withoutLecture(Lecture... value)
    {
-      removeFromLecture(value);
+      for (Lecture item : value)
+      {
+         removeFromLecture(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromLecture()
    {
@@ -277,13 +295,12 @@ public class Student extends Female implements Male, PropertyChangeInterface
          this.removeFromLecture(value);
       }
    }
-
-   public String toString()
+   
+   public Lecture createLecture()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getMatrNo());
-      return _.substring(1);
-   }}
+      Lecture value = new Lecture();
+      withLecture(value);
+      return value;
+   } 
+}
 

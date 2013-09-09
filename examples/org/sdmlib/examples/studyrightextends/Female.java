@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.studyrightextends;
 
-import java.beans.PropertyChangeSupport;
-
+import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.utils.StrUtil;
 
 public class Female implements Person, PropertyChangeInterface
 {
@@ -35,19 +35,11 @@ public class Female implements Person, PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
       }
-      
+
       return null;
    }
 
@@ -74,6 +66,11 @@ public class Female implements Person, PropertyChangeInterface
    {
       return listeners;
    }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -88,6 +85,7 @@ public class Female implements Person, PropertyChangeInterface
    
    public void findMyPosition(  )
    {
+      
    }
 
    
@@ -95,6 +93,7 @@ public class Female implements Person, PropertyChangeInterface
    
    public void findMyPosition( String p0 )
    {
+      
    }
 
    
@@ -102,6 +101,7 @@ public class Female implements Person, PropertyChangeInterface
    
    public void findMyPosition( String p0, int p1 )
    {
+      
    }
 
    
@@ -138,5 +138,7 @@ public class Female implements Person, PropertyChangeInterface
       
       _.append(" ").append(this.getName());
       return _.substring(1);
-   }}
+   }
+
+}
 

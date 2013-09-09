@@ -21,8 +21,8 @@
 <text text-anchor="start" x="204.5" y="-332.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="207.5" y="-332.5" font-family="Times New Roman,serif" font-size="10.00">g2 :GenericObject</text>
 <polygon fill="none" stroke="black" points="196,-292 196,-326 287,-326 287,-292 196,-292"/>
-<text text-anchor="start" x="201.5" y="-314" font-family="Times New Roman,serif" font-size="10.00">name = &quot;WilliAllee&quot;</text>
-<text text-anchor="start" x="206" y="-300" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Building&quot;</text>
+<text text-anchor="start" x="201" y="-314" font-family="Times New Roman,serif" font-size="10.00">name = &quot;WilliAllee&quot;</text>
+<text text-anchor="start" x="201" y="-300" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Building&quot;</text>
 </g>
 <!-- g1&#45;&#45;g2 -->
 <g id="edge2" class="edge"><title>g1&#45;&#45;g2</title>
@@ -36,7 +36,7 @@
 <text text-anchor="start" x="89.5" y="-229.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="92.5" y="-229.5" font-family="Times New Roman,serif" font-size="10.00">g4 :GenericLink</text>
 <polygon fill="none" stroke="black" points="83,-203 83,-223 161,-223 161,-203 83,-203"/>
-<text text-anchor="start" x="88.5" y="-211" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
+<text text-anchor="start" x="88" y="-211" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g1&#45;&#45;g4 -->
 <g id="edge8" class="edge"><title>g1&#45;&#45;g4</title>
@@ -50,8 +50,8 @@
 <text text-anchor="start" x="131.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="134.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">g5 :GenericObject</text>
 <polygon fill="none" stroke="black" points="128,-100 128,-134 209,-134 209,-100 128,-100"/>
-<text text-anchor="start" x="133.5" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;seFloor&quot;</text>
-<text text-anchor="start" x="139.5" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Floor&quot;</text>
+<text text-anchor="start" x="133" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;seFloor&quot;</text>
+<text text-anchor="start" x="133" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Floor&quot;</text>
 </g>
 <!-- g1&#45;&#45;g5 -->
 <g id="edge4" class="edge"><title>g1&#45;&#45;g5</title>
@@ -65,7 +65,7 @@
 <text text-anchor="start" x="365.5" y="-229.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="368.5" y="-229.5" font-family="Times New Roman,serif" font-size="10.00">g8 :GenericLink</text>
 <polygon fill="none" stroke="black" points="359,-203 359,-223 437,-223 437,-203 359,-203"/>
-<text text-anchor="start" x="364.5" y="-211" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
+<text text-anchor="start" x="364" y="-211" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g1&#45;&#45;g8 -->
 <g id="edge10" class="edge"><title>g1&#45;&#45;g8</title>
@@ -79,8 +79,8 @@
 <text text-anchor="start" x="413.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="416.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">g9 :GenericObject</text>
 <polygon fill="none" stroke="black" points="402,-100 402,-134 499,-134 499,-100 402,-100"/>
-<text text-anchor="start" x="407.5" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;digitalFloor&quot;</text>
-<text text-anchor="start" x="421.5" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Floor&quot;</text>
+<text text-anchor="start" x="407" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;digitalFloor&quot;</text>
+<text text-anchor="start" x="407" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;Floor&quot;</text>
 </g>
 <!-- g1&#45;&#45;g9 -->
 <g id="edge6" class="edge"><title>g1&#45;&#45;g9</title>
@@ -94,8 +94,8 @@
 <text text-anchor="start" x="198.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="201.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">g3 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="195,-196 195,-230 287,-230 287,-196 195,-196"/>
-<text text-anchor="start" x="210.5" y="-218" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
-<text text-anchor="start" x="207.5" y="-204" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA73&quot;</text>
+<text text-anchor="start" x="200" y="-218" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
+<text text-anchor="start" x="200" y="-204" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA73&quot;</text>
 </g>
 <!-- g2&#45;&#45;g3 -->
 <g id="edge12" class="edge"><title>g2&#45;&#45;g3</title>
@@ -127,8 +127,8 @@
 <text text-anchor="start" x="137.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="140.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g6 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="134,-4 134,-38 226,-38 226,-4 134,-4"/>
-<text text-anchor="start" x="149.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
-<text text-anchor="start" x="146.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA13&quot;</text>
+<text text-anchor="start" x="139" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
+<text text-anchor="start" x="139" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA13&quot;</text>
 </g>
 <!-- g5&#45;&#45;g6 -->
 <g id="edge20" class="edge"><title>g5&#45;&#45;g6</title>
@@ -142,8 +142,8 @@
 <text text-anchor="start" x="11.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g7 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="8,-4 8,-38 100,-38 100,-4 8,-4"/>
-<text text-anchor="start" x="24.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;level&quot;</text>
-<text text-anchor="start" x="31" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;1&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;level&quot;</text>
+<text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;1&quot;</text>
 </g>
 <!-- g5&#45;&#45;g7 -->
 <g id="edge22" class="edge"><title>g5&#45;&#45;g7</title>
@@ -163,8 +163,8 @@
 <text text-anchor="start" x="275.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="278.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g10 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="272,-4 272,-38 368,-38 368,-4 272,-4"/>
-<text text-anchor="start" x="289.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
-<text text-anchor="start" x="286.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA03&quot;</text>
+<text text-anchor="start" x="277" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
+<text text-anchor="start" x="277" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA03&quot;</text>
 </g>
 <!-- g9&#45;&#45;g10 -->
 <g id="edge26" class="edge"><title>g9&#45;&#45;g10</title>
@@ -178,8 +178,8 @@
 <text text-anchor="start" x="405.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="408.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g11 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="402,-4 402,-38 498,-38 498,-4 402,-4"/>
-<text text-anchor="start" x="420.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;level&quot;</text>
-<text text-anchor="start" x="427" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;0&quot;</text>
+<text text-anchor="start" x="407" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;level&quot;</text>
+<text text-anchor="start" x="407" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;0&quot;</text>
 </g>
 <!-- g9&#45;&#45;g11 -->
 <g id="edge28" class="edge"><title>g9&#45;&#45;g11</title>
@@ -193,8 +193,8 @@
 <text text-anchor="start" x="535.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="538.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g12 :GenericAttribute</text>
 <polygon fill="none" stroke="black" points="532,-4 532,-38 628,-38 628,-4 532,-4"/>
-<text text-anchor="start" x="548.5" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;guest&quot;</text>
-<text text-anchor="start" x="547.5" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;Ulrich&quot;</text>
+<text text-anchor="start" x="537" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;guest&quot;</text>
+<text text-anchor="start" x="537" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;Ulrich&quot;</text>
 </g>
 <!-- g9&#45;&#45;g12 -->
 <g id="edge30" class="edge"><title>g9&#45;&#45;g12</title>

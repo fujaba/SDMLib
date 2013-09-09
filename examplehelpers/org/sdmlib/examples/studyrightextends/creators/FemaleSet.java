@@ -22,11 +22,8 @@
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.LinkedHashSet;
-
 import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.modelsets.StringList;
-
 import java.util.List;
 
 public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.models.modelsets.ModelSet
@@ -68,7 +65,7 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
    
    public FemaleSet findMyPosition()
    {
-      for (Person obj : this)
+      for (Female obj : this)
       {
          obj.findMyPosition();
       }
@@ -80,7 +77,7 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
    
    public FemaleSet findMyPosition(String p0)
    {
-      for (Person obj : this)
+      for (Female obj : this)
       {
          obj.findMyPosition( p0);
       }
@@ -92,7 +89,7 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
    
    public FemaleSet findMyPosition(String p0, int p1)
    {
-      for (Person obj : this)
+      for (Female obj : this)
       {
          obj.findMyPosition( p0,  p1);
       }

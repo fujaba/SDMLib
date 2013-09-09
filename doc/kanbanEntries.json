@@ -6,19 +6,20 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":8,
-      "hoursSpend":156,
+      "hoursRemaining":2,
+      "hoursSpend":158,
       "subentries":[
+        {"id":"KE.K85"},
+        {"id":"KE.K36"},
+        {"id":"KE.K23"},
         {"id":"KE.K2"},
         {"id":"KE.K4"},
         {"id":"KE.K12"},
-        {"id":"KE.K23"},
         {"id":"KE.K26"},
         {"id":"KE.K28"},
         {"id":"KE.K30"},
         {"id":"KE.K32"},
         {"id":"KE.K34"},
-        {"id":"KE.K36"},
         {"id":"KE.K38"},
         {"id":"KE.K40"},
         {"id":"KE.K42"},
@@ -27,7 +28,6 @@
         {"id":"KE.K58"},
         {"id":"KE.K61"},
         {"id":"KE.K82"},
-        {"id":"KE.K85"},
         {"id":"KE.K88"},
         {"id":"KE.K90"},
         {"id":"KE.K102"},
@@ -40,16 +40,17 @@
         {"id":"KE.K127"},
         {"id":"KE.K139"},
         {"id":"KE.K143"},
-        {"id":"KE.K145"}
+        {"id":"KE.K145"},
+        {"id":"KE.K154"}
       ],
       "logEntries":[
+        {"id":"KE.L57"},
         {"id":"KE.L7"},
         {"id":"KE.L11"},
         {"id":"KE.L15"},
         {"id":"KE.L22"},
         {"id":"KE.L25"},
         {"id":"KE.L52"},
-        {"id":"KE.L57"},
         {"id":"KE.L64"},
         {"id":"KE.L69"},
         {"id":"KE.L81"},
@@ -65,7 +66,8 @@
         {"id":"KE.L136"},
         {"id":"KE.L138"},
         {"id":"KE.L142"},
-        {"id":"KE.L153"}
+        {"id":"KE.L153"},
+        {"id":"KE.L161"}
       ]
     }
   },
@@ -87,13 +89,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoStoryboardManual",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
       "hoursSpend":1,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L5"},
-        {"id":"KE.L6"}
+        {"id":"KE.L6"},
+        {"id":"KE.L5"}
       ]
     }
   },
@@ -102,13 +104,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoStoryboard",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
       "hoursSpend":4,
       "parent":{"id":"KE.K127"},
       "logEntries":[
-        {"id":"KE.L9"},
-        {"id":"KE.L10"}
+        {"id":"KE.L10"},
+        {"id":"KE.L9"}
       ]
     }
   },
@@ -117,13 +119,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"TrainModel",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
       "hoursSpend":3,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L13"},
-        {"id":"KE.L14"}
+        {"id":"KE.L14"},
+        {"id":"KE.L13"}
       ]
     }
   },
@@ -132,17 +134,17 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightObjectStoryboards",
-      "phase":"done",
+      "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":2,
       "hoursSpend":5,
       "parent":{"id":"KE.K123"},
       "logEntries":[
+        {"id":"KE.L21"},
+        {"id":"KE.L19"},
         {"id":"KE.L17"},
         {"id":"KE.L18"},
-        {"id":"KE.L19"},
-        {"id":"KE.L20"},
-        {"id":"KE.L21"}
+        {"id":"KE.L20"}
       ]
     }
   },
@@ -307,15 +309,14 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GroupAccountStoryboard1",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
       "hoursSpend":8,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L49"},
+        {"id":"KE.L51"},
         {"id":"KE.L50"},
-        {"id":"KE.L51"}
+        {"id":"KE.L49"}
       ]
     }
   },
@@ -341,11 +342,11 @@
     "prop":{
       "name":"StudyRightExtendsReverseClassModel",
       "phase":"backlog",
-      "lastDeveloper":"ajahl",
+      "lastDeveloper":"ulno",
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L59"},
-        {"id":"KE.L60"}
+        {"id":"KE.L60"},
+        {"id":"KE.L59"}
       ]
     }
   },
@@ -369,14 +370,14 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightReverseClassModel",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
+      "phase":"backlog",
+      "lastDeveloper":"ulno",
       "hoursSpend":1,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L66"},
+        {"id":"KE.L68"},
         {"id":"KE.L67"},
-        {"id":"KE.L68"}
+        {"id":"KE.L66"}
       ]
     }
   },
@@ -385,21 +386,21 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightClassesCodeGen",
-      "phase":"done",
+      "phase":"implementation",
       "lastDeveloper":"zuendorf",
       "hoursSpend":12,
       "parent":{"id":"KE.K123"},
       "logEntries":[
+        {"id":"KE.L80"},
+        {"id":"KE.L75"},
+        {"id":"KE.L77"},
         {"id":"KE.L71"},
         {"id":"KE.L72"},
-        {"id":"KE.L73"},
         {"id":"KE.L74"},
-        {"id":"KE.L75"},
-        {"id":"KE.L76"},
-        {"id":"KE.L77"},
         {"id":"KE.L78"},
-        {"id":"KE.L79"},
-        {"id":"KE.L80"}
+        {"id":"KE.L76"},
+        {"id":"KE.L73"},
+        {"id":"KE.L79"}
       ]
     }
   },
@@ -426,6 +427,9 @@
       "lastDeveloper":"zuendorf",
       "hoursSpend":1,
       "parent":{"id":"KE.K1"},
+      "subentries":[
+        {"id":"KE.K155"}
+      ],
       "logEntries":[
         {"id":"KE.L86"}
       ]
@@ -449,13 +453,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"PatternModelCodegen",
-      "phase":"done",
+      "phase":"backlog",
       "lastDeveloper":"zuendorf",
       "hoursSpend":80,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L91"},
-        {"id":"KE.L92"}
+        {"id":"KE.L92"},
+        {"id":"KE.L91"}
       ]
     }
   },
@@ -470,9 +474,9 @@
       "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L97"},
-        {"id":"KE.L98"},
+        {"id":"KE.L100"},
         {"id":"KE.L99"},
-        {"id":"KE.L100"}
+        {"id":"KE.L98"}
       ]
     }
   },
@@ -513,9 +517,9 @@
       "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L107"},
-        {"id":"KE.L108"},
-        {"id":"KE.L109"},
         {"id":"KE.L110"},
+        {"id":"KE.L109"},
+        {"id":"KE.L108"},
         {"id":"KE.L111"}
       ]
     }
@@ -558,8 +562,8 @@
       "hoursSpend":3,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L120"},
         {"id":"KE.L121"},
+        {"id":"KE.L120"},
         {"id":"KE.L137"}
       ]
     }
@@ -581,13 +585,13 @@
         {"id":"KE.K70"},
         {"id":"KE.K96"},
         {"id":"KE.K106"},
-        {"id":"KE.K124"},
         {"id":"KE.K126"},
+        {"id":"KE.K124"},
         {"id":"KE.K129"}
       ],
       "logEntries":[
-        {"id":"KE.L130"},
         {"id":"KE.L135"},
+        {"id":"KE.L130"},
         {"id":"KE.L152"}
       ]
     }
@@ -602,8 +606,8 @@
       "hoursSpend":1,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L133"},
-        {"id":"KE.L134"}
+        {"id":"KE.L134"},
+        {"id":"KE.L133"}
       ]
     }
   },
@@ -662,16 +666,16 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GenericObjectDiagram",
-      "phase":"implementation",
+      "phase":"bug",
       "lastDeveloper":"zuendorf",
       "hoursSpend":10,
       "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L147"},
-        {"id":"KE.L148"},
+        {"id":"KE.L151"},
         {"id":"KE.L149"},
-        {"id":"KE.L150"},
-        {"id":"KE.L151"}
+        {"id":"KE.L148"},
+        {"id":"KE.L150"}
       ]
     }
   },
@@ -680,13 +684,12 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"TodoEntries",
-      "phase":"modeling",
+      "phase":"backlog",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":4,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L140"},
-        {"id":"KE.L141"}
+        {"id":"KE.L141"},
+        {"id":"KE.L140"}
       ]
     }
   },
@@ -713,6 +716,37 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L146"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K154",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ExtendStoryboardByAddToDoMethod",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":2,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L156"},
+        {"id":"KE.L160"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K155",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StoryboardInfrastructure",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K85"},
+      "logEntries":[
+        {"id":"KE.L157"},
+        {"id":"KE.L158"},
+        {"id":"KE.L159"}
       ]
     }
   },
@@ -1953,6 +1987,73 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"PatternModelCodegen: null"
+    }
+  },
+  {
+    "id":"KE.L156",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"09.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K154"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L157",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"09.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K155"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L158",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.05.2012 23:36:42",
+      "kanbanEntry":{"id":"KE.K155"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
+    }
+  },
+  {
+    "id":"KE.L159",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.05.2012 19:22:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K155"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
+    }
+  },
+  {
+    "id":"KE.L160",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"21.08.2012 17:53:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K154"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L161",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"09.09.2013 12:00:00",
+      "hoursSpend":2,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ExtendStoryboardByAddToDoMethod: null"
     }
   }
 ]

@@ -15,18 +15,18 @@ subgraph cluster_n11
 p12 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> p12 :PawnPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 }
 
-p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p2 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr></table></td></tr></table>>];
-p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p4 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>enumColor = blue</td></tr><tr><td>name = "Tom"</td></tr></table></td></tr></table>>];
-d6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>d6 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>value = 6</td></tr></table></td></tr></table>>];
-f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "start"</td></tr></table></td></tr></table>>];
+p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p2 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr></table></td></tr></table>>];
+p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p4 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>enumColor = blue</td></tr><tr><td align='left'>name = "Tom"</td></tr></table></td></tr></table>>];
+d6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>d6 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>value = 6</td></tr></table></td></tr></table>>];
+f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
 f14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f14 :Field</u></td></tr></table>>];
 f15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f15 :Field</u></td></tr></table>>];
 f16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f16 :Field</u></td></tr></table>>];
 f17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f17 :Field</u></td></tr></table>>];
-p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p13 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr></table></td></tr></table>>];
-p18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p18 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>enumColor = red</td></tr><tr><td>name = "Sabine"</td></tr></table></td></tr></table>>];
-f19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f19 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "red"</td></tr><tr><td>kind = "start"</td></tr></table></td></tr></table>>];
-f8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f8 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>color = "blue"</td></tr><tr><td>kind = "base"</td></tr></table></td></tr></table>>];
+p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p13 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr></table></td></tr></table>>];
+p18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p18 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>enumColor = red</td></tr><tr><td align='left'>name = "Sabine"</td></tr></table></td></tr></table>>];
+f19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f19 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
+f8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>f8 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "base"</td></tr></table></td></tr></table>>];
 
 p1 -- p2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 p3 -- p4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
