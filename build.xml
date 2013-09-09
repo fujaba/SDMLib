@@ -68,6 +68,7 @@
 						</fileset>
 						<fileset dir="test" includes="**/*.java">
 							<contains text="@Test"/>
+							<exclude name="**/ReverseClassModelTest.java"/>
 						</fileset>
 					</batchtest>
 					<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />

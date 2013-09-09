@@ -7,7 +7,7 @@
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":2,
-      "hoursSpend":158,
+      "hoursSpend":159,
       "subentries":[
         {"id":"KE.K85"},
         {"id":"KE.K36"},
@@ -67,7 +67,8 @@
         {"id":"KE.L138"},
         {"id":"KE.L142"},
         {"id":"KE.L153"},
-        {"id":"KE.L161"}
+        {"id":"KE.L161"},
+        {"id":"KE.L163"}
       ]
     }
   },
@@ -427,9 +428,6 @@
       "lastDeveloper":"zuendorf",
       "hoursSpend":1,
       "parent":{"id":"KE.K1"},
-      "subentries":[
-        {"id":"KE.K155"}
-      ],
       "logEntries":[
         {"id":"KE.L86"}
       ]
@@ -576,7 +574,7 @@
       "phase":"active",
       "lastDeveloper":"zuendorf",
       "hoursRemaining":2,
-      "hoursSpend":49,
+      "hoursSpend":50,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K16"},
@@ -587,12 +585,14 @@
         {"id":"KE.K106"},
         {"id":"KE.K126"},
         {"id":"KE.K124"},
-        {"id":"KE.K129"}
+        {"id":"KE.K129"},
+        {"id":"KE.K155"}
       ],
       "logEntries":[
         {"id":"KE.L135"},
         {"id":"KE.L130"},
-        {"id":"KE.L152"}
+        {"id":"KE.L152"},
+        {"id":"KE.L162"}
       ]
     }
   },
@@ -742,7 +742,7 @@
       "phase":"done",
       "lastDeveloper":"zuendorf",
       "hoursSpend":1,
-      "parent":{"id":"KE.K85"},
+      "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L157"},
         {"id":"KE.L158"},
@@ -2054,6 +2054,32 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L162",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"09.09.2013 12:00:00",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K123"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StoryboardInfrastructure: null"
+    }
+  },
+  {
+    "id":"KE.L163",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"09.09.2013 12:00:00",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: StoryboardInfrastructure: null"
     }
   }
 ]
