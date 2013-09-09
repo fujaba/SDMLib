@@ -310,8 +310,6 @@ public class Storyboard
          return; 
       }
 
-
-
       // derive creator class from root and create idMap
       String className = root.getClass().getName();
       String packageName = CGUtil.packageName(className) + ".creators";
@@ -355,7 +353,7 @@ public class Storyboard
       }
       catch (Exception e)
       {
-         // cannot find creator creator class, sorry;
+         // cannot find creator creator class, sorry.
       }
    }
 

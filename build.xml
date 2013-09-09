@@ -47,6 +47,8 @@
 
 	<target name="AllTests" depends="build">
 		<delete dir="${junit.output.dir}" />
+		<delete dir="${coverage.meta.dir}" />
+		<delete dir="${coverage.report.dir}" />
 		<mkdir dir="${junit.output.dir}" />
 		
 		<emma enabled="${emma.enabled}" verbosity="verbose">
