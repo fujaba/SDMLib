@@ -47,15 +47,18 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.utils.StrUtil;
 
 
 
@@ -349,12 +352,101 @@ public class Storyboard
 
             removeMethod.invoke(object);
          }
+         
+         coverSetClasses();
 
       }
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
       }
+   }
+
+   private void coverSetClasses()
+   {
+      // loop through objects in jsonIdMap, pack them into package, read and write all attributes
+      for (String key : jsonIdMap.keySet())
+      {
+         Object object = jsonIdMap.getObject(key);
+         
+         SendableEntityCreator creatorClass = jsonIdMap.getCreatorClass(object);
+         
+         String className = object.getClass().getName();
+         String packageName = CGUtil.packageName(className) + ".creators";
+         String setClassName = packageName + "." + CGUtil.shortClassName(className) + "Set";
+         
+         try
+         {
+            Class setClass = Class.forName(setClassName);
+            ModelSet setObject = (ModelSet) setClass.newInstance();
+            
+            // cover ModelSet methods
+            String entryType = setObject.getEntryType();
+            
+            // add entry 
+            Method withMethod = setClass.getMethod("with", object.getClass());
+            withMethod.invoke(setObject, object);
+            
+            // toString
+            String text = setObject.toString();
+            
+            // loop through attributes
+            for (String attrName : creatorClass.getProperties())
+            {
+               try
+               {
+                  // call getter
+                  Method getMethod = setClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                  Object value = getMethod.invoke(setObject);
+                  
+                  // get direct value
+                  if (value instanceof Collection)
+                  {
+                     value = ((Collection) value).iterator().next();
+                  }
+                  
+                  Class valueClass = value.getClass();
+                  
+                  if (value instanceof Integer)
+                  {
+                     valueClass = int.class;
+                  }
+                  else if (value instanceof Double)
+                  {
+                     valueClass = double.class;
+                  }
+                  else if (value instanceof Long)
+                  {
+                     valueClass = long.class;
+                  }
+                  else if (value instanceof Float)
+                  {
+                     valueClass = float.class;
+                  }
+                  
+                  // call setter
+                  Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
+                  setMethod.invoke(setObject, value);
+
+                  Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
+                  unsetMethod.invoke(setObject, value);
+}
+               catch (Exception e)
+               {
+                  // no prolem, go on with next attr
+               }
+            }
+            
+            // del entry
+            Method withoutMethod = setClass.getMethod("without", object.getClass());
+            withoutMethod.invoke(setObject, object);
+         }
+         catch (Exception e)
+         {
+            // no prolem, just lower coverage
+         }
+      }
+      
    }
 
    public void addObjectDiagramWith(Object... elems) 
