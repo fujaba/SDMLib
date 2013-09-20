@@ -21,23 +21,23 @@
    
 package org.sdmlib.replication;
 
-import java.beans.PropertyChangeEvent;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-public class TaskHandler implements PropertyChangeInterface
+public class SharedModelRoot implements PropertyChangeInterface
 {
-   public boolean handle(BoardTask oldTask, BoardTask newTask)
-   {
-      return false;
-   }
 
    
    //==========================================================================
    
    public Object get(String attrName)
    {
+      if (PROPERTY_CONTENT.equalsIgnoreCase(attrName))
+      {
+         return getContent();
+      }
+
       return null;
    }
 
@@ -46,6 +46,12 @@ public class TaskHandler implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_CONTENT.equalsIgnoreCase(attrName))
+      {
+         setContent((java.lang.Object) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -71,5 +77,33 @@ public class TaskHandler implements PropertyChangeInterface
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CONTENT = "content";
+   
+   private java.lang.Object content;
+
+   public java.lang.Object getContent()
+   {
+      return this.content;
+   }
+   
+   public void setContent(java.lang.Object value)
+   {
+      if (this.content != value)
+      {
+         java.lang.Object oldValue = this.content;
+         this.content = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CONTENT, oldValue, value);
+      }
+   }
+   
+   public SharedModelRoot withContent(java.lang.Object value)
+   {
+      setContent(value);
+      return this;
+   } 
 }
 

@@ -53,7 +53,16 @@ public class JsonToImg
       return theInstance;
    }
    
-   private JsonIdMap lastIdMap = null; 
+   private static String rootDir = "src";
+   
+   public JsonToImg withRootDir(String rootDir)
+   {
+      this.rootDir = rootDir; 
+      return this;
+   }
+   
+   private JsonIdMap lastIdMap = null;
+   private static LinkedHashMap<String, String> iconMap; 
    
    public void setLastIdMap(JsonIdMap lastIdMap)
    {
@@ -241,7 +250,7 @@ public class JsonToImg
       for (String topId : knownIds)
       {         
          JsonObject jsonObject = jsonObjectMap.get(topId);
-         String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <optionalImage><tr> <td> <u><id> :<classname></u></td></tr></table>>];\n";
+         String nodeLine = "<id> [label=<<table border='0' cellborder='1' cellspacing='0'> <optionalImage><tr> <td href=\"<classRef>\"> <u><id> :<classname></u></td></tr></table>>];\n";
         
          boolean isCluster = false;
          if (aggregationMap.get(topId).size() > 0)
@@ -259,7 +268,10 @@ public class JsonToImg
          if (imageFile.exists())
          {
             nodeLine = nodeLine.replaceFirst("<optionalImage>", "<tr><td border='0'><IMG src=\"" + imageName + "\" /></td></tr>");
-
+         }
+         else if (iconMap != null && iconMap.get(topId) != null)
+         {
+            nodeLine = nodeLine.replaceFirst("<optionalImage>", "<tr><td border='0'><IMG src=\"" + iconMap.get(topId) + "\" /></td></tr>");
          }
          else
          {
@@ -269,7 +281,25 @@ public class JsonToImg
          String jsonId = lastPartStartLow(jsonObject.getString(JsonIdMap.ID));
          nodeLine = nodeLine.replaceAll("<id>", Matcher.quoteReplacement(jsonId));
          
-         String className = lastPart(jsonObject.getString(JsonIdMap.CLASS));
+         String className = jsonObject.getString(JsonIdMap.CLASS);
+         String classFileName = className;
+         if (classFileName.indexOf('$') >= 0)
+         {
+            // inner class, cut down to real class
+            classFileName = classFileName.substring(0, classFileName.indexOf('$'));
+         }
+         classFileName = classFileName.replaceAll("\\.", "/") + ".java";
+         String localFileName = "./" + rootDir + "/" + classFileName;
+         if (new File(localFileName).exists())
+         {
+            classFileName = "../" + rootDir + "/" + classFileName;
+         }
+         else
+         {
+            classFileName = "../../SDMLib/src/" + classFileName;
+         }
+         nodeLine = nodeLine.replaceAll("<classRef>", Matcher.quoteReplacement(classFileName));
+         className = lastPart(className);
          nodeLine = nodeLine.replaceAll("<classname>", Matcher.quoteReplacement(className));
          
          // go through attributes
@@ -416,5 +446,12 @@ public class JsonToImg
       int dotPos = dottedName.lastIndexOf('.');
       dottedName = dottedName.substring(dotPos+1);
       return dottedName;
+   }
+
+   
+   public JsonToImg withIconMap(LinkedHashMap<String, String> iconMap)
+   {
+      this.iconMap = iconMap;
+      return this;
    }
 }

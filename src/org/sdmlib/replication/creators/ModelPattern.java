@@ -31,6 +31,14 @@ import org.sdmlib.replication.creators.ExecutorPO;
 import org.sdmlib.replication.Executor;
 import org.sdmlib.replication.creators.BoardTaskPO;
 import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.creators.ObjectPO;
+import java.lang.Object;
+import org.sdmlib.replication.creators.PropertyChangeSupportPO;
+import java.beans.PropertyChangeSupport;
+import org.sdmlib.replication.creators.SharedModelRootPO;
+import org.sdmlib.replication.SharedModelRoot;
+import org.sdmlib.replication.creators.TaskHandlerPO;
+import org.sdmlib.replication.TaskHandler;
 
 public class ModelPattern extends Pattern
 {
@@ -405,7 +413,107 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public ObjectPO hasElementObjectPO()
+   {
+      ObjectPO value = new ObjectPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ObjectPO hasElementObjectPO(Object hostGraphObject)
+   {
+      ObjectPO value = new ObjectPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public PropertyChangeSupportPO hasElementPropertyChangeSupportPO()
+   {
+      PropertyChangeSupportPO value = new PropertyChangeSupportPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PropertyChangeSupportPO hasElementPropertyChangeSupportPO(PropertyChangeSupport hostGraphObject)
+   {
+      PropertyChangeSupportPO value = new PropertyChangeSupportPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public SharedModelRootPO hasElementSharedModelRootPO()
+   {
+      SharedModelRootPO value = new SharedModelRootPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public SharedModelRootPO hasElementSharedModelRootPO(SharedModelRoot hostGraphObject)
+   {
+      SharedModelRootPO value = new SharedModelRootPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public TaskHandlerPO hasElementTaskHandlerPO()
+   {
+      TaskHandlerPO value = new TaskHandlerPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public TaskHandlerPO hasElementTaskHandlerPO(TaskHandler hostGraphObject)
+   {
+      TaskHandlerPO value = new TaskHandlerPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
+
+
+
 
 
 

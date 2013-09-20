@@ -22,18 +22,12 @@
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.replication.Lane;
+import org.sdmlib.replication.SharedModelRoot;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.replication.creators.TaskFlowBoardSet;
-import org.sdmlib.replication.TaskFlowBoard;
-import org.sdmlib.replication.creators.BoardTaskSet;
-import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.creators.ObjectSet;
 import java.lang.Object;
-import java.beans.PropertyChangeSupport;
 
-public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.modelsets.ModelSet
+public class SharedModelRootSet extends LinkedHashSet<SharedModelRoot> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -41,7 +35,7 @@ public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.mo
    {
       StringList stringList = new StringList();
       
-      for (Lane elem : this)
+      for (SharedModelRoot elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -52,98 +46,42 @@ public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.mo
 
    public String getEntryType()
    {
-      return "org.sdmlib.replication.Lane";
+      return "org.sdmlib.replication.SharedModelRoot";
    }
 
 
-   public LaneSet with(Lane value)
+   public SharedModelRootSet with(SharedModelRoot value)
    {
       this.add(value);
       return this;
    }
    
-   public LaneSet without(Lane value)
+   public SharedModelRootSet without(SharedModelRoot value)
    {
       this.remove(value);
       return this;
    }
-   public StringList getName()
+   public ObjectSet getContent()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
-      for (Lane obj : this)
+      for (SharedModelRoot obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getContent());
       }
       
       return result;
    }
 
-   public LaneSet withName(String value)
+   public SharedModelRootSet withContent(Object value)
    {
-      for (Lane obj : this)
+      for (SharedModelRoot obj : this)
       {
-         obj.setName(value);
-      }
-      
-      return this;
-   }
-
-   public TaskFlowBoardSet getBoard()
-   {
-      TaskFlowBoardSet result = new TaskFlowBoardSet();
-      
-      for (Lane obj : this)
-      {
-         result.add(obj.getBoard());
-      }
-      
-      return result;
-   }
-
-   public LaneSet withBoard(TaskFlowBoard value)
-   {
-      for (Lane obj : this)
-      {
-         obj.withBoard(value);
-      }
-      
-      return this;
-   }
-
-   public BoardTaskSet getTasks()
-   {
-      BoardTaskSet result = new BoardTaskSet();
-      
-      for (Lane obj : this)
-      {
-         result.addAll(obj.getTasks());
-      }
-      
-      return result;
-   }
-
-   public LaneSet withTasks(BoardTask value)
-   {
-      for (Lane obj : this)
-      {
-         obj.withTasks(value);
-      }
-      
-      return this;
-   }
-
-   public LaneSet withoutTasks(BoardTask value)
-   {
-      for (Lane obj : this)
-      {
-         obj.withoutTasks(value);
+         obj.setContent(value);
       }
       
       return this;
    }
 
 }
-
-
 

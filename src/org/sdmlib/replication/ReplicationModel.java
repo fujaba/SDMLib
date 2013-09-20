@@ -1,20 +1,29 @@
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeSupport;
 import java.net.Socket;
 
+import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.Storyboard;
-
+// 
 public class ReplicationModel
 {
    private static final String CHANGE_HISTORY = "ChangeHistory";
    private static final String REPLICATION_NODE = "ReplicationNode";
+   
+   @Test
+   public void testReplicationModel()
+   {
+      main(null);
+   }
 
    public static void main(String[] args)
    {
+      // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/ReplicationModel.html
       Storyboard storyboard = new Storyboard("src", "ReplicationModel");
       
       ClassModel model = new ClassModel("org.sdmlib.replication");
@@ -85,10 +94,11 @@ public class ReplicationModel
       
       lane.withAssoc(boardTask, "tasks", R.MANY, "lane", R.ONE);
       
+      model.createClazz("TaskHandler");
       
       model.generate("src");
       
-      storyboard.addImage(model.dumpClassDiagram("src", "ReplicationModel01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("src", "ReplicationModel01"));
       
       storyboard.dumpHTML();
    }

@@ -3,15 +3,12 @@ package org.sdmlib.replication.creators;
 import org.sdmlib.replication.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.replication.Lane;
+import java.lang.Object;
 
-public class LaneCreator extends EntityFactory
+public class ObjectCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Lane.PROPERTY_NAME,
-      Lane.PROPERTY_BOARD,
-      Lane.PROPERTY_TASKS,
    };
    
    public String[] getProperties()
@@ -21,12 +18,12 @@ public class LaneCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Lane();
+      return new Object();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Lane) target).get(attrName);
+      return null;
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
@@ -35,7 +32,7 @@ public class LaneCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-      return ((Lane) target).set(attrName, value);
+      return false;
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -49,8 +46,7 @@ public class LaneCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Lane) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }
-
 

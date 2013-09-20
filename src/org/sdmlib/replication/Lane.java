@@ -28,6 +28,7 @@ import org.sdmlib.replication.creators.LaneSet;
 import org.sdmlib.replication.creators.BoardTaskSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class Lane implements PropertyChangeInterface
 {
@@ -298,5 +299,6 @@ public class Lane implements PropertyChangeInterface
       withTasks(value);
       return value;
    } 
+
 }
 

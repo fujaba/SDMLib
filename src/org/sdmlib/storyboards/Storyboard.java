@@ -21,7 +21,6 @@
 
 package org.sdmlib.storyboards;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -59,10 +58,15 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.utils.PropertyChangeInterface;
 
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
+import org.sdmlib.storyboards.creators.StoryboardStepSet;
 
-public class Storyboard 
+// file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
+public class Storyboard implements PropertyChangeInterface 
 {
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
@@ -90,14 +94,67 @@ public class Storyboard
       setName(name);
       return this;
    }
+   
+   public String findRootDir()
+   {
+      if (rootDir == null)
+      {
+         this.rootDir = "src";
+         
+         Exception e = new RuntimeException();
+         
+         StackTraceElement[] stackTrace = e.getStackTrace();
+         StackTraceElement callEntry = stackTrace[1];
+      
+         // find first method outside Storyboard
+         int i = 1;
+         
+         while (true)
+         {
+            callEntry = stackTrace[i];
+            
+            if (callEntry.getClassName().equals(Storyboard.class.getName()))
+            {
+               i++;
+               continue;
+            }
+            else
+            {
+               break;
+            }
+         }
+
+         javaTestFileName = callEntry.getClassName().replaceAll("\\.", "/") + ".java";
+
+         // search for a subdirectory containing the javaTestFile of the execution directory and search for the subdi
+         File projectDir = new File(".");
+         for (File subDir : projectDir.listFiles())
+         {
+            if (subDir.isDirectory())
+            {
+               if (new File(subDir.getName() + "/" + javaTestFileName).exists())
+               {
+                  // got it
+                  this.rootDir = subDir.getName();
+                  javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
+
+                  break;
+               }
+            }
+         }
+         
+      }
+      
+      return this.rootDir;
+   }
 
    public Storyboard()
    {
+      findRootDir();
+      
       Exception e = new RuntimeException();
-
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      javaTestFileName = "../src/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
 
       String methodName = stackTrace[1].getMethodName();
 
@@ -108,13 +165,20 @@ public class Storyboard
 
       setName(methodName);
 
-      steps.add(name);
-
-
+      this.addToSteps(name);
    }
+   
+   private void addToSteps(String text)
+   {
+      this.createStoryboardSteps().withText(text);
+   }
+
+   // private String rootDir = null;
 
    public Storyboard(String rootDir)
    {
+      this.rootDir = rootDir;
+      
       Exception e = new RuntimeException();
 
       StackTraceElement[] stackTrace = e.getStackTrace();
@@ -130,16 +194,17 @@ public class Storyboard
 
       setName(methodName);
 
-      steps.add(name);
+      this.addToSteps(name);
 
 
    }
 
    public Storyboard(String rootDir, String name)
    {
+      this.rootDir = rootDir;
       setName(name);
 
-      steps.add(name);
+      this.addToSteps(name);
 
       Exception e =  new RuntimeException();
 
@@ -148,9 +213,7 @@ public class Storyboard
       javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
 
-   public Vector<String> steps = new Vector<String>();
-
-   private static String backlog = "backlog";;
+   private static String backlog = "backlog";
 
    public void dumpHTML(KanbanEntry kanbanBoard) 
    {
@@ -218,7 +281,7 @@ public class Storyboard
             "</body>\n" +
             "</html>\n";
 
-      String storyboardName = (String) steps.get(0);
+      String storyboardName = this.getStoryboardSteps().getFirst().getText();
 
       htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
       htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
@@ -229,45 +292,34 @@ public class Storyboard
 
       StringBuffer text = new StringBuffer();
 
-      for (int i = 1; i < steps.size(); i++)
+      for (StoryboardStep step : this.getStoryboardSteps())
       {
-         // steps may be strings
-         Object object = steps.get(i);
+         String content = step.getText();
 
-         if (object instanceof String)
+         //            if (content.startsWith("["))
+         //            {
+         //               // yuml object diagram text, wrap into img
+         //               String imgText = "<img src='http://yuml.me/diagram/scale:80/class/objDiagramText' />\n";
+         //               imgText = imgText.replaceFirst("objDiagramText", content);
+         //               text.append(imgText);
+         //            }
+         //            else 
+         if (content.startsWith("<"))
          {
-            String content = (String) object;
-
-            if (content.startsWith("["))
-            {
-               // yuml object diagram text, wrap into img
-               String imgText = "<img src='http://yuml.me/diagram/scale:80/class/objDiagramText' />\n";
-               imgText = imgText.replaceFirst("objDiagramText", content);
-               text.append(imgText);
-            }
-            else if (content.startsWith("<"))
-            {
-               // already html
-               text.append(content);
-            }
-            else if (content.startsWith("screendump="))
-            {
-               String[] split = content.split("=");
-               content = split.clone()[1];
-               String imgText = "<img src='" + content + "' />\n";
-
-               text.append(imgText);
-            }
-            else
-            {
-               text.append("<p>" + object + "</p>\n");
-            }
+            // already html
+            text.append(content);
          }
-         else 
+         else if (content.startsWith("screendump="))
          {
-            // in general serialize it to JSON
-            String json = "don't know what to do with " + object; // new JsonObject(object).toString(2);
-            text.append("<p>" + json + "</p>\n");
+            String[] split = content.split("=");
+            content = split.clone()[1];
+            String imgText = "<img src='" + content + "' />\n";
+
+            text.append(imgText);
+         }
+         else
+         {
+            text.append("<p>" + content + "</p>\n");
          }
       } // for
 
@@ -293,16 +345,39 @@ public class Storyboard
       }
    }
 
-
+   // private int stepCounter = 0;
+   
+   public void addStep(String txt)
+   {
+      if (stepCounter == 0)
+      {
+         this.add("Start: " + txt);
+         this.setStepCounter(this.getStepCounter() + 1);
+         stepCounter++;
+      }
+      else
+      {
+         StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>");
+         CGUtil.replaceAll(buf, 
+               "stepCounter", "" + stepCounter, 
+               "text", txt);
+         this.add(buf.toString());
+         this.setStepCounter(this.getStepCounter() + 1);
+      }
+   }
 
    public void add(String string)
    {
-      steps.add(string);      
+      this.addToSteps(string);   
+      synchronized (this)
+      {
+         this.notifyAll();
+      }
    }
 
    public void addText(String string)
    {
-      steps.add(string);      
+      this.add(string);      
    }
 
 
@@ -449,6 +524,11 @@ public class Storyboard
       
    }
 
+   public void addClassDiagram(ClassModel model)
+   {
+      model.dumpClassDiagram(this.getRootDir(), this.getName() + "ClassDiagram" + this.getStoryboardSteps().size());
+   }
+   
    public void addObjectDiagramWith(Object... elems) 
    {
       ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
@@ -458,10 +538,13 @@ public class Storyboard
    }
    
    private JsonIdMap jsonIdMap = null;
-
+   
+   private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
+   
    public void addObjectDiagram(Object... elems) 
    {
       String objectName;
+      String objectIcon;
       Object object;
       Object root = null;
       LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
@@ -473,20 +556,31 @@ public class Storyboard
       while (i < elems.length)
       {
          objectName = null; 
+         objectIcon = null;
          object = null;
 
-         if (elems[i] instanceof String)
+         while (i < elems.length && elems[i] instanceof String)
          {
-            // name for an object
-            objectName = (String) elems[i];
-
-            i++;
-
-            if ( ! (i < elems.length) )
+            String txt = (String) elems[i];
+            String suffix = CGUtil.shortClassName(txt);
+            
+            if (txt.indexOf('.') >= 0 && "png gif tif".indexOf(suffix) >= 0)
             {
-               // ups no object for this name.
-               break;
+               // it is a file name 
+               objectIcon = txt;
             }
+            else
+            {
+               // name for an object
+               objectName = (String) elems[i];
+            }
+            i++;
+         }
+
+         if ( ! (i < elems.length) )
+         {
+            // ups no object for this name.
+            break;
          }
 
          object = elems[i];
@@ -495,6 +589,7 @@ public class Storyboard
          if (object.equals(true))
          {
             restrictToExplicitElems = true;
+            continue;
          }
 
          if (object.getClass().isPrimitive())
@@ -507,9 +602,12 @@ public class Storyboard
          {
             explicitElems.addAll((Collection) object);
          }
-
-         explicitElems.add(object);
-
+         else
+         {
+            // plain object
+            explicitElems.add(object);
+         }
+         
          if (root == null)
          {
             root = object;
@@ -518,6 +616,8 @@ public class Storyboard
          // do we have a JsonIdMap?
          if (jsonIdMap == null)
          {
+            jsonIdMap = new GenericIdMap();
+
             String className = object.getClass().getName();
             String packageName = CGUtil.packageName(className) + ".creators";
             className = packageName + ".CreatorCreator";
@@ -530,32 +630,42 @@ public class Storyboard
 
                idMap = method.invoke(null, "debug");
 
+               jsonIdMap.withCreator((((JsonIdMap)idMap).getCreators()));
             }
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
-               idMap = new GenericIdMap();
             }
-
-            jsonIdMap = (JsonIdMap) idMap;
          }
 
          // add to jsonIdMap
          if (objectName != null)
          {
             jsonIdMap.put(objectName, object);
-         }         
+         }  
+         else
+         {
+            objectName = jsonIdMap.getId(object);
+         }
+         
+         
+         if (objectIcon != null)
+         {
+            iconMap.put(objectName, objectIcon);
+         }
+
+         
       }
 
       // all names collected, dump it
       if (restrictToExplicitElems)
       {
          JsonFilter jsonFilter = new RestrictToFilter(explicitElems);
-         addObjectDiagram(jsonIdMap, root, jsonFilter);
+         addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
       }
       else
       {
-         addObjectDiagram(jsonIdMap, root);
+         addObjectDiagram(jsonIdMap, explicitElems);
       }
    }
 
@@ -597,9 +707,9 @@ public class Storyboard
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);
+      String imgLink = JsonToImg.get().withRootDir(rootDir).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
 
-      steps.add(imgLink);
+      this.addToSteps(imgLink);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
@@ -613,9 +723,9 @@ public class Storyboard
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, omitRoot, null);
+      String imgLink = JsonToImg.get().withRootDir(rootDir).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
 
-      steps.add(imgLink);
+      this.addToSteps(imgLink);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
@@ -628,9 +738,9 @@ public class Storyboard
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray, false, aggregationRoles);
+      String imgLink = JsonToImg.get().withRootDir(rootDir).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
 
-      steps.add(imgLink);
+      this.addToSteps(imgLink);
    }
 
    public void setKanbanPhase(String string)
@@ -656,9 +766,14 @@ public class Storyboard
     * Example: storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
     * @param image
     */
+   public void addSVGImage(String imageFile)
+   {
+      this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");     
+   }
+
    public void addImage(String imageFile)
    {
-      steps.add("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");     
+      this.addToSteps("<img src='" + imageFile + "'>");     
    }
 
    /**
@@ -753,7 +868,7 @@ public class Storyboard
             String line = "";
             int lineNo = 0;
 
-            StringBuilder buf = new StringBuilder();
+            StringBuilder buf = new StringBuilder("<pre>");
 
             while (true)
             {
@@ -770,7 +885,7 @@ public class Storyboard
 
                   if (lineNo >= codeEndLineNumber)
                   {
-                     this.add(buf.toString());
+                     this.add(buf.toString() + "</pre>");
                      return;
                   }
                }
@@ -801,7 +916,7 @@ public class Storyboard
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
-      String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      String methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
 
       return methodText;
    }
@@ -813,7 +928,7 @@ public class Storyboard
 
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
-      this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.steps.size(), graph, hiddenObjects);
+      this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph, hiddenObjects);
    }
 
    private int objNo;
@@ -940,7 +1055,7 @@ public class Storyboard
       CallDot.callDot(diagramName,fileText);
 
 
-      steps.add(link);
+      this.addToSteps(link);
    }
 
    private String findNameFor(GenericObject currentObject)
@@ -992,4 +1107,322 @@ public class Storyboard
       Assert.assertNotNull("FAILED: " + message, obj);
    }
 
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
+      {
+         return getStoryboardSteps();
+      }
+
+      if (PROPERTY_WALL.equalsIgnoreCase(attrName))
+      {
+         return getWall();
+      }
+
+      if (PROPERTY_ROOTDIR.equalsIgnoreCase(attrName))
+      {
+         return getRootDir();
+      }
+
+      if (PROPERTY_STEPCOUNTER.equalsIgnoreCase(attrName))
+      {
+         return getStepCounter();
+      }
+
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
+      {
+         addToStoryboardSteps((StoryboardStep) value);
+         return true;
+      }
+      
+      if ((PROPERTY_STORYBOARDSTEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromStoryboardSteps((StoryboardStep) value);
+         return true;
+      }
+
+      if (PROPERTY_WALL.equalsIgnoreCase(attrName))
+      {
+         setWall((StoryboardWall) value);
+         return true;
+      }
+
+      if (PROPERTY_ROOTDIR.equalsIgnoreCase(attrName))
+      {
+         setRootDir((String) value);
+         return true;
+      }
+
+      if (PROPERTY_STEPCOUNTER.equalsIgnoreCase(attrName))
+      {
+         setStepCounter(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      return false;
+   }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   
+   //==========================================================================
+   
+   public void removeYou()
+   {
+      removeAllFromStoryboardSteps();
+      setWall(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append("Storyboard" + this.getStoryboardSteps().getFirst());
+      _.append(" ").append(this.getRootDir());
+      _.append(" ").append(this.getStepCounter());
+      return _.substring(1);
+   }
+
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Storyboard ----------------------------------- StoryboardStep
+    *              storyboard                   storyboardSteps
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STORYBOARDSTEPS = "storyboardSteps";
+   
+   private StoryboardStepSet storyboardSteps = null;
+   
+   public StoryboardStepSet getStoryboardSteps()
+   {
+      if (this.storyboardSteps == null)
+      {
+         return StoryboardStep.EMPTY_SET;
+      }
+   
+      return this.storyboardSteps;
+   }
+   
+   public boolean addToStoryboardSteps(StoryboardStep value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.storyboardSteps == null)
+         {
+            this.storyboardSteps = new StoryboardStepSet();
+         }
+         
+         changed = this.storyboardSteps.add (value);
+         
+         if (changed)
+         {
+            value.withStoryboard(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARDSTEPS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromStoryboardSteps(StoryboardStep value)
+   {
+      boolean changed = false;
+      
+      if ((this.storyboardSteps != null) && (value != null))
+      {
+         changed = this.storyboardSteps.remove (value);
+         
+         if (changed)
+         {
+            value.setStoryboard(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARDSTEPS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Storyboard withStoryboardSteps(StoryboardStep... value)
+   {
+      for (StoryboardStep item : value)
+      {
+         addToStoryboardSteps(item);
+      }
+      return this;
+   } 
+   
+   public Storyboard withoutStoryboardSteps(StoryboardStep... value)
+   {
+      for (StoryboardStep item : value)
+      {
+         removeFromStoryboardSteps(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromStoryboardSteps()
+   {
+      LinkedHashSet<StoryboardStep> tmpSet = new LinkedHashSet<StoryboardStep>(this.getStoryboardSteps());
+   
+      for (StoryboardStep value : tmpSet)
+      {
+         this.removeFromStoryboardSteps(value);
+      }
+   }
+   
+   public StoryboardStep createStoryboardSteps()
+   {
+      StoryboardStep value = new StoryboardStep();
+      withStoryboardSteps(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Storyboard ----------------------------------- StoryboardWall
+    *              storyboard                   wall
+    * </pre>
+    */
+   
+   public static final String PROPERTY_WALL = "wall";
+   
+   private StoryboardWall wall = null;
+   
+   public StoryboardWall getWall()
+   {
+      return this.wall;
+   }
+   
+   public boolean setWall(StoryboardWall value)
+   {
+      boolean changed = false;
+      
+      if (this.wall != value)
+      {
+         StoryboardWall oldValue = this.wall;
+         
+         if (this.wall != null)
+         {
+            this.wall = null;
+            oldValue.setStoryboard(null);
+         }
+         
+         this.wall = value;
+         
+         if (value != null)
+         {
+            value.withStoryboard(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Storyboard withWall(StoryboardWall value)
+   {
+      setWall(value);
+      return this;
+   } 
+   
+   public StoryboardWall createWall()
+   {
+      StoryboardWall value = new StoryboardWall();
+      withWall(value);
+      return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ROOTDIR = "rootDir";
+   
+   private String rootDir = null;
+
+   public String getRootDir()
+   {
+      return this.rootDir;
+   }
+   
+   public void setRootDir(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.rootDir, value))
+      {
+         String oldValue = this.rootDir;
+         this.rootDir = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOTDIR, oldValue, value);
+      }
+   }
+   
+   public Storyboard withRootDir(String value)
+   {
+      setRootDir(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STEPCOUNTER = "stepCounter";
+   
+   private int stepCounter;
+
+   public int getStepCounter()
+   {
+      return this.stepCounter;
+   }
+   
+   public void setStepCounter(int value)
+   {
+      if (this.stepCounter != value)
+      {
+         int oldValue = this.stepCounter;
+         this.stepCounter = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPCOUNTER, oldValue, value);
+      }
+   }
+   
+   public Storyboard withStepCounter(int value)
+   {
+      setStepCounter(value);
+      return this;
+   } 
 }
+

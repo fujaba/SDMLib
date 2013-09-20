@@ -105,7 +105,7 @@ public class GenericCreator extends EntityFactory
          catch (Exception e)
          {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
          }
       }
       
@@ -133,7 +133,7 @@ public class GenericCreator extends EntityFactory
       catch (Exception e)
       {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+         // e.printStackTrace();
       }
       
       return super.getValue(entity, attribute);

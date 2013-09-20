@@ -42,6 +42,14 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.replication.creators.ExecutorPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.BoardTaskCreator());
          creatorSet.add(new org.sdmlib.replication.creators.BoardTaskPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ObjectCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ObjectPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.PropertyChangeSupportCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.PropertyChangeSupportPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.SharedModelRootCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.SharedModelRootPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.TaskHandlerCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.TaskHandlerPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -57,4 +65,8 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
+
+
+
 

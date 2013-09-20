@@ -553,13 +553,20 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       }
    }
 
-   private long getNewHistoryIdNumber()
+   public long getNewHistoryIdNumber()
    {
       lastChangeId++;
 
       return lastChangeId;
    }
 
+   public long getNewHistoryIdNumber(int increment)
+   {
+      lastChangeId += increment;
+
+      return lastChangeId;
+   }
+   
 
 
 
@@ -1057,6 +1064,6 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 		// TODO Auto-generated method stub
 		return readMessages;
 	}
-	
+
 }
 

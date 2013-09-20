@@ -19,25 +19,25 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.replication;
+package org.sdmlib.storyboards;
 
-import java.beans.PropertyChangeEvent;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-public class TaskHandler implements PropertyChangeInterface
+public class StoryboardWall implements PropertyChangeInterface
 {
-   public boolean handle(BoardTask oldTask, BoardTask newTask)
-   {
-      return false;
-   }
 
    
    //==========================================================================
    
    public Object get(String attrName)
    {
+      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
+      {
+         return getStoryboard();
+      }
+
       return null;
    }
 
@@ -46,6 +46,12 @@ public class TaskHandler implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
+      {
+         setStoryboard((Storyboard) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -69,7 +75,67 @@ public class TaskHandler implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setStoryboard(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * StoryboardWall ----------------------------------- Storyboard
+    *              wall                   storyboard
+    * </pre>
+    */
+   
+   public static final String PROPERTY_STORYBOARD = "storyboard";
+   
+   private Storyboard storyboard = null;
+   
+   public Storyboard getStoryboard()
+   {
+      return this.storyboard;
+   }
+   
+   public boolean setStoryboard(Storyboard value)
+   {
+      boolean changed = false;
+      
+      if (this.storyboard != value)
+      {
+         Storyboard oldValue = this.storyboard;
+         
+         if (this.storyboard != null)
+         {
+            this.storyboard = null;
+            oldValue.setWall(null);
+         }
+         
+         this.storyboard = value;
+         
+         if (value != null)
+         {
+            value.withWall(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public StoryboardWall withStoryboard(Storyboard value)
+   {
+      setStoryboard(value);
+      return this;
+   } 
+   
+   public Storyboard createStoryboard()
+   {
+      Storyboard value = new Storyboard();
+      withStoryboard(value);
+      return value;
+   } 
 }
 

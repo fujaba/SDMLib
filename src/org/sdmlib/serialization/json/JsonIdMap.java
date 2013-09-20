@@ -609,8 +609,8 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
       }
 
       LinkedHashSet<String> visited = new LinkedHashSet<String>();
-      if(object instanceof List<?>){
-         List<?> list = (List<?>) object;
+      if(object instanceof Collection<?>){
+         Collection<?> list = (Collection<?>) object;
          for(Iterator<?> i = list.iterator();i.hasNext();){
             Object item = i.next();
             toJsonArray(item, jsonArray, filter, visited);

@@ -19,57 +19,45 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.replication;
+package org.sdmlib.replication.creators;
 
-import java.beans.PropertyChangeEvent;
-import org.sdmlib.utils.PropertyChangeInterface;
+import java.util.LinkedHashSet;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
+import org.sdmlib.models.modelsets.StringList;
 
-public class TaskHandler implements PropertyChangeInterface
+public class PropertyChangeSupportSet extends LinkedHashSet<PropertyChangeSupport> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public boolean handle(BoardTask oldTask, BoardTask newTask)
+
+
+   public String toString()
    {
-      return false;
+      StringList stringList = new StringList();
+      
+      for (PropertyChangeSupport elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
    }
 
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
+
+   public String getEntryType()
    {
-      return null;
+      return "java.beans.PropertyChangeSupport";
    }
 
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      return false;
-   }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public PropertyChangeSupportSet with(PropertyChangeSupport value)
    {
-      return listeners;
+      this.add(value);
+      return this;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public PropertyChangeSupportSet without(PropertyChangeSupport value)
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
-   //==========================================================================
-   
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      this.remove(value);
+      return this;
    }
 }
 

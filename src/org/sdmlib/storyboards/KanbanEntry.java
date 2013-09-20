@@ -36,6 +36,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 import java.beans.PropertyChangeListener;
 
+// file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
 {
    public static final String PROPERTY_NAME = "name";
@@ -538,6 +539,12 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          return true;
       }
 
+      if (PROPERTY_OLDNOOFLOGENTRIES.equalsIgnoreCase(attrName))
+      {
+         setOldNoOfLogEntries(Integer.parseInt(value.toString()));
+         return true;
+      }
+
       else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
       {
          setPhase((String) value);
@@ -603,6 +610,11 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
       {
          return getLogEntries();
+      }
+
+      if (PROPERTY_OLDNOOFLOGENTRIES.equalsIgnoreCase(attrName))
+      {
+         return getOldNoOfLogEntries();
       }
       else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
       {
@@ -810,5 +822,42 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       
       return 0;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_OLDNOOFLOGENTRIES = "oldNoOfLogEntries";
+   
+   private int oldNoOfLogEntries;
+
+   public int getOldNoOfLogEntries()
+   {
+      return this.oldNoOfLogEntries;
+   }
+   
+   public void setOldNoOfLogEntries(int value)
+   {
+      if (this.oldNoOfLogEntries != value)
+      {
+         int oldValue = this.oldNoOfLogEntries;
+         this.oldNoOfLogEntries = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_OLDNOOFLOGENTRIES, oldValue, value);
+      }
+   }
+   
+   public KanbanEntry withOldNoOfLogEntries(int value)
+   {
+      setOldNoOfLogEntries(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getOldNoOfLogEntries());
+      return _.substring(1);
+   }
+
 }
 

@@ -320,6 +320,13 @@ public class StoryboardManager
 		
 		for (KanbanEntry kanbanEntry : allEntries)
       {
+		   if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
+		   {
+		      // no new log entry. Nothing to generate
+		      continue;
+		   }
+		   
+		   kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
 		   LogEntry lastLogEntry = null;
 		   double sumOfHoursSpend = 0;
 		   
