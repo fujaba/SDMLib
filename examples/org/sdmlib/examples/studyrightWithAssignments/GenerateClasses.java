@@ -38,104 +38,106 @@ import org.sdmlib.storyboards.StoryboardManager;
 
 public class GenerateClasses {
 
-	public static void main(String[] args) {
-		 /* This file will generate that necessary classes and class diagram for the
-		  * StudyRight with Assignments example in the Story Driven Modeling book
-		  */
+   public static void main(String[] args) 
+   {
+      /* This file will generate that necessary classes and class diagram for the
+       * StudyRight with Assignments example in the Story Driven Modeling book
+       */
 
-	      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments class generation");
+      // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
+      
+      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments class generation");
 
-	      //============================================================
-	      storyboard.add("1. generate class University");
+      //============================================================
+      storyboard.add("1. generate class University");
 
-	      ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments");
+      ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments");
 
-	      Clazz universityClass = new Clazz("University")
-	      .withAttribute("name", STRING);
+      Clazz universityClass = new Clazz("University")
+      .withAttribute("name", STRING);
 
-	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 01"));
+      storyboard.addClassDiagram(model);
 
+      //============================================================
+      storyboard.add("2. generate class Student");
 
-	      //============================================================
-	      storyboard.add("2. generate class Student");
+      Clazz studentClass = new Clazz("Student").withAttributes(
+         "name", STRING,
+         "id", STRING,
+         "assignmentPoints", INT,
+         "motivation", INT, 
+         "credits", INT);
 
-	      Clazz studentClass = new Clazz("Student").withAttributes(
-	         "name", STRING,
-	         "id", STRING,
-	         "assignmentPoints", INT,
-	         "motivation", INT, 
-	         "credits", INT);
-
-	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 02"));
-
-
-	      //============================================================
-	      storyboard.add("3. add University --> Student association");
-
-	      //Association universityToStudent = 
-	      new Association()
-	      .withSource("university", universityClass, ONE)
-	      .withTarget("students", studentClass, MANY); 
-
-	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRight with assignments class generation 03"));
+      storyboard.addClassDiagram(model);
 
 
-	      //============================================================
-	      storyboard.add("4. add University --> Room association");
+      //============================================================
+      storyboard.add("3. add University --> Student association");
 
-	      Clazz roomClass = new Clazz("Room")
-	      .withAttribute("name", STRING)
-	      .withAttribute("topic", STRING)
-	      .withAttribute("credits", INT);
+      //Association universityToStudent = 
+      new Association()
+      .withSource("university", universityClass, ONE)
+      .withTarget("students", studentClass, MANY); 
 
-	      new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
-
-	      //Association universityToRoom = 
-	      new Association()
-	      .withSource("university", universityClass, ONE, Role.AGGREGATION)
-	      .withTarget("rooms", roomClass, MANY); 
-
-	      //Association doors = 
-	      new Association()
-	      .withSource("doors", roomClass, MANY)
-	      .withTarget("doors", roomClass, MANY);
-
-	      //Association studentsInRoom = 
-	      new Association()
-	      .withSource("students", studentClass, MANY)
-	      .withTarget("in", roomClass, ONE);
-
-	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04"));
-
-	      
-	      //============================================================
-	      storyboard.add("5. add assignments:");
-	      
-	      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
-	            .withAttributes("content", STRING, "points", INT);
-	      
-	      studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE);
-
-	      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightClasses04b"));
-
-	      
-	      //============================================================
-	      storyboard.add("6. generate class source files.");
-
-	      model.removeAllGeneratedCode("examples");
-	      
-	      model.generate("examples"); // usually don't specify anything here, then it goes into src
+      storyboard.addClassDiagram(model);
 
 
-	      StoryboardManager.get()
-	      .add(storyboard)
-	      .dumpHTML();
-	}
+      //============================================================
+      storyboard.add("4. add University --> Room association");
 
-	@Test
-	public void testMain()
-	{
-	   main(null);
-	}
-	
+      Clazz roomClass = new Clazz("Room")
+      .withAttribute("name", STRING)
+      .withAttribute("topic", STRING)
+      .withAttribute("credits", INT);
+
+      new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
+
+      //Association universityToRoom = 
+      new Association()
+      .withSource("university", universityClass, ONE, Role.AGGREGATION)
+      .withTarget("rooms", roomClass, MANY); 
+
+      //Association doors = 
+      new Association()
+      .withSource("doors", roomClass, MANY)
+      .withTarget("doors", roomClass, MANY);
+
+      //Association studentsInRoom = 
+      new Association()
+      .withSource("students", studentClass, MANY)
+      .withTarget("in", roomClass, ONE);
+
+      storyboard.addClassDiagram(model);
+
+
+      //============================================================
+      storyboard.add("5. add assignments:");
+
+      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
+            .withAttributes("content", STRING, "points", INT);
+
+      studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE);
+
+      storyboard.addClassDiagram(model);
+
+
+      //============================================================
+      storyboard.add("6. generate class source files.");
+
+      model.removeAllGeneratedCode("examples");
+
+      model.generate("examples"); // usually don't specify anything here, then it goes into src
+
+
+      StoryboardManager.get()
+      .add(storyboard)
+      .dumpHTML();
+   }
+
+   @Test
+   public void testMain()
+   {
+      main(null);
+   }
+
 }

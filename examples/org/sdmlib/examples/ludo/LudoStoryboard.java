@@ -45,6 +45,7 @@ public class LudoStoryboard implements PropertyChangeInterface
    @Test
    public void testLudoStoryboard()
    {
+      // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
       Storyboard storyboard = new Storyboard("examples", "LudoStoryboard");
       
       storyboard.add("Start situation: ",

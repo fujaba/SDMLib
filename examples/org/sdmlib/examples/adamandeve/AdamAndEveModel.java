@@ -42,7 +42,7 @@ public class AdamAndEveModel
       
       model.generate("examples");
 
-      storyboard.addImage(model.dumpClassDiagram("examples", "AdamAndEveModel"));
+      storyboard.addSVGImage(model.dumpClassDiagram("examples", "AdamAndEveModel"));
 
       storyboard.dumpHTML();
    }

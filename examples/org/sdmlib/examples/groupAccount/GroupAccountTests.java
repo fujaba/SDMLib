@@ -146,7 +146,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       model.generate("examples", "examples");
       
-      storyboard.addImage(model.dumpClassDiagram("examples", "GroupAccountClassDiag01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("examples", "GroupAccountClassDiag01"));
 
       storyboard.add("Resolved Bug: creatorcreator class is no longer growing on each run. ",
          DONE, "zuendorf", "24.05.2012 00:16:18", 1, 0);

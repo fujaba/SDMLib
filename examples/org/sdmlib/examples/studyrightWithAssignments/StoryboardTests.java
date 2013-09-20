@@ -86,8 +86,16 @@ public class StoryboardTests {
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
 
-      storyboard.addObjectDiagram("studyRight", university, "karli", karli,"mathRoom", mathRoom, "artsRoom", artsRoom,
-         "sportsRoom", sportsRoom, "examRoom", examRoom, "placeToBe", softwareEngineering);
+      storyboard.addObjectDiagram(
+         "studyRight", university, 
+         "karli", "icons/karli.png", karli, 
+         "mathRoom", "icons/mathRoom.png", mathRoom, 
+         "artsRoom", artsRoom,
+         "sportsRoom", sportsRoom, 
+         "examRoom", examRoom, 
+         "placeToBe", softwareEngineering, 
+         "icons/matrix.png", a1, 
+         "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
 
       //===============================================================================================
       storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"

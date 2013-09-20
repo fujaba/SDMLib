@@ -31,7 +31,7 @@ public class TrainModel
       
       stationClass.createClassAndAssoc("SignalFlag", "flag", R.ONE, "station", R.MANY);
       
-      storyboard.addImage(model.dumpClassDiagram("examples", "TrainModelClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TrainModelClassDiag"));
       
       model.generate("examples");
       
