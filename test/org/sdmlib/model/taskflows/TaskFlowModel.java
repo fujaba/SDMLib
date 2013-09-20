@@ -62,7 +62,7 @@ public class TaskFlowModel
       model.createClazz("SDMTimer").withSuperClass(timerClass)
       .withMethods(new Method("schedule(TimerTask)", "void"));
       
-      storyboard.addImage(model.dumpClassDiagram("swtsrc", "taskflowmodeldiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("swtsrc", "taskflowmodeldiag"));
       
       
       model.generate("swtsrc", "swtsrc"); 

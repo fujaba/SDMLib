@@ -28,7 +28,7 @@ public class EmptyClassTest
 
       model.generate("test");
       
-      storyboard.addImage(model.dumpClassDiagram("test", "EmptyClassTestClasses01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("test", "EmptyClassTestClasses01"));
       
       NoProperties noPropertiesObj = new NoProperties();
       

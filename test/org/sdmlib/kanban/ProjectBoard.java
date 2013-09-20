@@ -21,6 +21,8 @@
 
 package org.sdmlib.kanban;
 
+import javax.print.DocFlavor.STRING;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
@@ -154,7 +156,8 @@ public class ProjectBoard
    @Test
    public void testStoryboardInfrastructure()
    {
-      Storyboard storyboard = new Storyboard("test", "StoryboardInfrastructure");
+      // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("This storyboard tests the storyboard infrastructure. ");
       storyboard.add("At first creating the html file just with text should work. ");
@@ -166,9 +169,9 @@ public class ProjectBoard
             "(has been below phase entries before.)\n" +
             "phase entries will be used for planning, in future");
       
-      ClassModel model = new ClassModel(); 
+      ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
       
-      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry");
+      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry", "oldNoOfLogEntries", R.INT);
 
       Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
       
@@ -176,7 +179,20 @@ public class ProjectBoard
       .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
       .withTarget("logEntries", logEntryClass, R.MANY);
       
-      storyboard.addImage(model.dumpClassDiagram("src", "StoryboardClasses.001"));
+      Clazz storyboardWallClass = model.createClazz("StoryboardWall");
+      
+      Clazz storyboardClass = model.createClazz(Storyboard.class.getName(), 
+               "rootDir", R.STRING,
+               "stepCounter", R.INT
+                  );
+      
+      storyboardWallClass.withAssoc(storyboardClass, "storyboard", R.ONE, "wall", R.ONE);
+      
+      Clazz storyboardStepClass = storyboardClass.createClassAndAssoc("StoryboardStep", "storyboardSteps", R.MANY, "storyboard", R.ONE)
+            .withAttributes("text", R.STRING);
+      
+      storyboard.addSVGImage(model.dumpClassDiagram("src", "StoryboardClasses.001"));
+      
       model.generate("src", "srchelpers");
 
       storyboard.add(" Editing the log entries works now fine as part of the add method. " , 

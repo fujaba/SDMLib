@@ -23,7 +23,7 @@ public class ReachbilityGraphModels
       
       node.withAssoc(node, "next", R.MANY, "prev", R.MANY);
       
-      storyboard.addImage(model.dumpClassDiagram("simpleReachableState"));
+      storyboard.addSVGImage(model.dumpClassDiagram("simpleReachableState"));
       
       model.generate("test");
       
@@ -53,7 +53,7 @@ public class ReachbilityGraphModels
       
       cargo.withAssoc(boat, "boat", R.ONE, "cargo", R.ONE);
       
-      storyboard.addImage(model.dumpClassDiagram("FerryMansProblemModel"));
+      storyboard.addSVGImage(model.dumpClassDiagram("FerryMansProblemModel"));
       
       model.generate("test");
       

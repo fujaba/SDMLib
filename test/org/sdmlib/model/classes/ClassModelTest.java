@@ -158,7 +158,7 @@ public class ClassModelTest
       storyboard.add("Basic bootstrap done.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
       
-      storyboard.addImage(model.dumpClassDiagram("src", "ClassModelClasses01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("src", "ClassModelClasses01"));
       
       storyboard.add("Generate generic get and set and removeYou.", 
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);

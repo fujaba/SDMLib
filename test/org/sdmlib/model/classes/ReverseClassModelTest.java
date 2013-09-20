@@ -51,7 +51,7 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       model.updateFromCode("examples", "examples test", "org.sdmlib.examples.studyrightextends");
 //      model.insertModelCreationCodeHere("test");
-      storyboard.addImage(model.dumpClassDiagram("examples", "StudyRightExtendsReverseClassModel"));
+      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightExtendsReverseClassModel"));
 
       StoryboardManager.get()
       .add(storyboard)

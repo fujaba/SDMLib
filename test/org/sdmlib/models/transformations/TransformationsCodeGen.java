@@ -93,7 +93,7 @@ public class TransformationsCodeGen
       .withTarget("statements", statementClass, R.MANY);
       
       
-      storyboard.addImage(model.dumpClassDiagram("src", "TransformationClasses01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("src", "TransformationClasses01"));
       
       model.generate("src", "srchelpers");
       
@@ -184,7 +184,7 @@ public class TransformationsCodeGen
       storyboard.add("dump an image from the transformOp:",
          MODELING, "zuendorf", "06.04.2012 15:19:42", 4, 0);
       
-      storyboard.addImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
+      storyboard.addSVGImage(transformOp.dumpTransformOpDiagram("updateBalanceTrafoOpDiag01"));
       
       StoryboardManager.get()
       .add(storyboard)
