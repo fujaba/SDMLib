@@ -1,24 +1,15 @@
 package org.sdmlib.storyboards.creators;
 
+import org.sdmlib.storyboards.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.KanbanEntry;
+import org.sdmlib.storyboards.StoryboardWall;
 
-public class KanbanEntryCreator extends EntityFactory
+public class StoryboardWallCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      KanbanEntry.PROPERTY_NAME,
-      KanbanEntry.PROPERTY_PHASE,
-      KanbanEntry.PROPERTY_LAST_DEVELOPER,
-      KanbanEntry.PROPERTY_HOURS_REMAINING,
-      KanbanEntry.PROPERTY_HOURS_SPEND,
-      KanbanEntry.PROPERTY_PARENT,
-      KanbanEntry.PROPERTY_SUBENTRIES,
-      KanbanEntry.PROPERTY_LOGENTRIES,
-      KanbanEntry.PROPERTY_PHASE_ENTRIES,
-      KanbanEntry.PROPERTY_FILES, 
-      KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES,
+      StoryboardWall.PROPERTY_STORYBOARD,
    };
    
    public String[] getProperties()
@@ -28,17 +19,21 @@ public class KanbanEntryCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new KanbanEntry();
+      return new StoryboardWall();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((KanbanEntry) target).get(attrName);
+      return ((StoryboardWall) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((KanbanEntry) target).set(attrName, value);
+      if (JsonIdMap.REMOVE.equals(type))
+      {
+         attrName = attrName + type;
+      }
+      return ((StoryboardWall) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -52,12 +47,7 @@ public class KanbanEntryCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((KanbanEntry) entity).removeYou();
+      ((StoryboardWall) entity).removeYou();
    }
 }
-
-
-
-
-
 

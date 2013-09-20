@@ -5,6 +5,9 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.creators.KanbanEntrySet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.storyboards.creators.LogEntryPO;
 
 public class KanbanEntryPO extends PatternObject
 {
@@ -65,6 +68,39 @@ public class KanbanEntryPO extends PatternObject
       return null;
    }
    
+   public KanbanEntryPO hasOldNoOfLogEntries(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getOldNoOfLogEntries()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((KanbanEntry) getCurrentMatch()).getOldNoOfLogEntries();
+      }
+      return 0;
+   }
+   
+   public KanbanEntryPO withOldNoOfLogEntries(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((KanbanEntry) getCurrentMatch()).setOldNoOfLogEntries(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

@@ -22,55 +22,20 @@
 package org.sdmlib.storyboards.creators;
 
 import java.util.LinkedHashSet;
-
+import org.sdmlib.storyboards.StoryboardWall;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
+import org.sdmlib.storyboards.creators.StoryboardSet;
+import org.sdmlib.storyboards.Storyboard;
 
-public class KanbanEntrySet extends LinkedHashSet<KanbanEntry>
+public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
-   public LogEntrySet getLogEntries()
-   {
-      LogEntrySet result = new LogEntrySet();
-      
-      for (KanbanEntry obj : this)
-      {
-         result.addAll(obj.getLogEntries());
-      }
-      
-      return result;
-   }
-   public KanbanEntrySet withLogEntries(LogEntry value)
-   {
-      for (KanbanEntry obj : this)
-      {
-         obj.withLogEntries(value);
-      }
-      
-      return this;
-   }
-
-   public KanbanEntrySet withoutLogEntries(LogEntry value)
-   {
-      for (KanbanEntry obj : this)
-      {
-         obj.withoutLogEntries(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (KanbanEntry elem : this)
+      for (StoryboardWall elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -81,45 +46,42 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry>
 
    public String getEntryType()
    {
-      return "org.sdmlib.storyboards.KanbanEntry";
+      return "org.sdmlib.storyboards.StoryboardWall";
    }
 
 
-   public KanbanEntrySet with(KanbanEntry value)
+   public StoryboardWallSet with(StoryboardWall value)
    {
       this.add(value);
       return this;
    }
    
-   public KanbanEntrySet without(KanbanEntry value)
+   public StoryboardWallSet without(StoryboardWall value)
    {
       this.remove(value);
       return this;
    }
-   public intList getOldNoOfLogEntries()
+   public StoryboardSet getStoryboard()
    {
-      intList result = new intList();
+      StoryboardSet result = new StoryboardSet();
       
-      for (KanbanEntry obj : this)
+      for (StoryboardWall obj : this)
       {
-         result.add(obj.getOldNoOfLogEntries());
+         result.add(obj.getStoryboard());
       }
       
       return result;
    }
 
-   public KanbanEntrySet withOldNoOfLogEntries(int value)
+   public StoryboardWallSet withStoryboard(Storyboard value)
    {
-      for (KanbanEntry obj : this)
+      for (StoryboardWall obj : this)
       {
-         obj.setOldNoOfLogEntries(value);
+         obj.withStoryboard(value);
       }
       
       return this;
    }
 
 }
-
-
-
 

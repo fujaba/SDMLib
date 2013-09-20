@@ -23,54 +23,23 @@ package org.sdmlib.storyboards.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.models.modelsets.intList;
+
 import java.util.List;
 
-public class KanbanEntrySet extends LinkedHashSet<KanbanEntry>
+import org.sdmlib.storyboards.creators.StoryboardSet;
+import org.sdmlib.storyboards.Storyboard;
+
+public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
-   public LogEntrySet getLogEntries()
-   {
-      LogEntrySet result = new LogEntrySet();
-      
-      for (KanbanEntry obj : this)
-      {
-         result.addAll(obj.getLogEntries());
-      }
-      
-      return result;
-   }
-   public KanbanEntrySet withLogEntries(LogEntry value)
-   {
-      for (KanbanEntry obj : this)
-      {
-         obj.withLogEntries(value);
-      }
-      
-      return this;
-   }
-
-   public KanbanEntrySet withoutLogEntries(LogEntry value)
-   {
-      for (KanbanEntry obj : this)
-      {
-         obj.withoutLogEntries(value);
-      }
-      
-      return this;
-   }
-
 
 
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (KanbanEntry elem : this)
+      for (StoryboardStep elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -81,45 +50,75 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry>
 
    public String getEntryType()
    {
-      return "org.sdmlib.storyboards.KanbanEntry";
+      return "org.sdmlib.storyboards.StoryboardStep";
    }
 
 
-   public KanbanEntrySet with(KanbanEntry value)
+   public StoryboardStepSet with(StoryboardStep value)
    {
       this.add(value);
       return this;
    }
    
-   public KanbanEntrySet without(KanbanEntry value)
+   public StoryboardStepSet without(StoryboardStep value)
    {
       this.remove(value);
       return this;
    }
-   public intList getOldNoOfLogEntries()
+   public StringList getText()
    {
-      intList result = new intList();
+      StringList result = new StringList();
       
-      for (KanbanEntry obj : this)
+      for (StoryboardStep obj : this)
       {
-         result.add(obj.getOldNoOfLogEntries());
+         result.add(obj.getText());
       }
       
       return result;
    }
 
-   public KanbanEntrySet withOldNoOfLogEntries(int value)
+   public StoryboardStepSet withText(String value)
    {
-      for (KanbanEntry obj : this)
+      for (StoryboardStep obj : this)
       {
-         obj.setOldNoOfLogEntries(value);
+         obj.setText(value);
       }
       
       return this;
    }
 
+   public StoryboardSet getStoryboard()
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (StoryboardStep obj : this)
+      {
+         result.add(obj.getStoryboard());
+      }
+      
+      return result;
+   }
+
+   public StoryboardStepSet withStoryboard(Storyboard value)
+   {
+      for (StoryboardStep obj : this)
+      {
+         obj.withStoryboard(value);
+      }
+      
+      return this;
+   }
+
+
+   public StoryboardStep getFirst()
+   {
+      for (StoryboardStep obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
+
 }
-
-
-
 
