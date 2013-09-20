@@ -11,15 +11,19 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-204 398,-204 398,5 -4,5"/>
 <!-- r57 -->
 <g id="node1" class="node"><title>r57</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/River.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="129,-173 129,-190 177,-190 177,-173 129,-173"/>
 <text text-anchor="start" x="132.5" y="-179.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="135.5" y="-179.5" font-family="Times New Roman,serif" font-size="10.00">r57 :River</text>
+</a>
 </g>
 <!-- b139 -->
 <g id="node2" class="node"><title>b139</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="35,-106 35,-123 99,-123 99,-106 35,-106"/>
 <text text-anchor="start" x="43.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="46.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">b139 :Bank</text>
+</a>
 <polygon fill="none" stroke="black" points="35,-86 35,-106 99,-106 99,-86 35,-86"/>
 <text text-anchor="start" x="40" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;left&quot;</text>
 </g>
@@ -31,9 +35,11 @@
 </g>
 <!-- b141 -->
 <g id="node4" class="node"><title>b141</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="201,-106 201,-123 271,-123 271,-106 201,-106"/>
 <text text-anchor="start" x="212.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="215.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">b141 :Bank</text>
+</a>
 <polygon fill="none" stroke="black" points="201,-86 201,-106 271,-106 271,-86 201,-86"/>
 <text text-anchor="start" x="206" y="-94" font-family="Times New Roman,serif" font-size="10.00">name = &quot;right&quot;</text>
 </g>
@@ -45,9 +51,11 @@
 </g>
 <!-- b142 -->
 <g id="node5" class="node"><title>b142</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Boat.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="127,-14 127,-31 180,-31 180,-14 127,-14"/>
 <text text-anchor="start" x="130.5" y="-20.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="133.5" y="-20.5" font-family="Times New Roman,serif" font-size="10.00">b142 :Boat</text>
+</a>
 </g>
 <!-- r57&#45;&#45;b142 -->
 <g id="edge6" class="edge"><title>r57&#45;&#45;b142</title>
@@ -57,9 +65,11 @@
 </g>
 <!-- c140 -->
 <g id="node3" class="node"><title>c140</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-24 8,-41 93,-41 93,-24 8,-24"/>
 <text text-anchor="start" x="25.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="28.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c140 :Cargo</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-4 8,-24 93,-24 93,-4 8,-4"/>
 <text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;cabbage&quot;</text>
 </g>
@@ -77,9 +87,11 @@
 </g>
 <!-- c143 -->
 <g id="node6" class="node"><title>c143</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="214,-24 214,-41 283,-41 283,-24 214,-24"/>
 <text text-anchor="start" x="223.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="226.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c143 :Cargo</text>
+</a>
 <polygon fill="none" stroke="black" points="214,-4 214,-24 283,-24 283,-4 214,-4"/>
 <text text-anchor="start" x="219" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;goat&quot;</text>
 </g>
@@ -91,9 +103,11 @@
 </g>
 <!-- c144 -->
 <g id="node7" class="node"><title>c144</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="317,-24 317,-41 386,-41 386,-24 317,-24"/>
 <text text-anchor="start" x="326.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="329.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">c144 :Cargo</text>
+</a>
 <polygon fill="none" stroke="black" points="317,-4 317,-24 386,-24 386,-4 317,-4"/>
 <text text-anchor="start" x="322" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;wolf&quot;</text>
 </g>

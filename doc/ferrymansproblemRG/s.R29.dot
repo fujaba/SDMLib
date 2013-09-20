@@ -3,13 +3,13 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-r29 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r29 :River</u></td></tr></table>>];
-b133 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b133 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "left"</td></tr></table></td></tr></table>>];
-c134 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c134 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "wolf"</td></tr></table></td></tr></table>>];
-b135 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b135 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "right"</td></tr></table></td></tr></table>>];
-b136 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b136 :Boat</u></td></tr></table>>];
-c137 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c137 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "goat"</td></tr></table></td></tr></table>>];
-c138 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c138 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "cabbage"</td></tr></table></td></tr></table>>];
+r29 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/River.java"> <u>r29 :River</u></td></tr></table>>];
+b133 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b133 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "left"</td></tr></table></td></tr></table>>];
+c134 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c134 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "wolf"</td></tr></table></td></tr></table>>];
+b135 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b135 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "right"</td></tr></table></td></tr></table>>];
+b136 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Boat.java"> <u>b136 :Boat</u></td></tr></table>>];
+c137 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c137 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "goat"</td></tr></table></td></tr></table>>];
+c138 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c138 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "cabbage"</td></tr></table></td></tr></table>>];
 
 r29 -- b133 [headlabel = "banks" taillabel = "river"];
 r29 -- b135 [headlabel = "banks" taillabel = "river"];
