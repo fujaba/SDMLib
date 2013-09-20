@@ -360,11 +360,9 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.examples.studyrightextends;uses:="org.sdmlib.examples.studyrightextends.creators,org.sdmlib.utils",
  org.sdmlib.examples.studyrightextends.creators;
   uses:="org.sdmlib.models.pattern,
-   org.sdmlib.examples.studyright.creators,
    org.sdmlib.models.pattern.creators,
    org.sdmlib.examples.studyrightextends,
    org.sdmlib.serialization.json,
-   org.sdmlib.examples.studyright,
    org.sdmlib.models.modelsets,
    org.sdmlib.serialization.interfaces",
  org.sdmlib.kanban,
@@ -399,6 +397,7 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.model.test.interfaces.creators;
   uses:="org.sdmlib.models.pattern,
    org.sdmlib.models.pattern.creators,
+   org.sdmlib.model.test.interfaces,
    org.sdmlib.serialization.json,
    org.sdmlib.serialization.interfaces",
  org.sdmlib.model.test.methods;uses:="org.sdmlib.utils",
@@ -500,6 +499,7 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.serialization.xml.creator;uses:="org.sdmlib.serialization,org.sdmlib.serialization.xml,org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.yuml;uses:="org.sdmlib.serialization",
  org.sdmlib.storyboards,
+ org.sdmlib.storyboards.creators,
  org.sdmlib.utils
 Import-Package: org.junit
 
