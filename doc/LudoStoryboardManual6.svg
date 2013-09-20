@@ -11,9 +11,11 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-642 323,-642 323,5 -4,5"/>
 <!-- p1 -->
 <g id="node1" class="node"><title>p1</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Player.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="137,-616 137,-633 206,-633 206,-616 137,-616"/>
 <text text-anchor="start" x="150" y="-622.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="153" y="-622.5" font-family="Times New Roman,serif" font-size="10.00">p1 :Player</text>
+</a>
 <polygon fill="none" stroke="black" points="137,-554 137,-616 206,-616 206,-554 137,-554"/>
 <text text-anchor="start" x="142" y="-604" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="142" y="-590" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Tom&quot;</text>
@@ -22,9 +24,11 @@
 </g>
 <!-- d2 -->
 <g id="node2" class="node"><title>d2</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Dice.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="20,-471 20,-488 68,-488 68,-471 20,-471"/>
 <text text-anchor="start" x="26" y="-477.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="29" y="-477.5" font-family="Times New Roman,serif" font-size="10.00">d2 :Dice</text>
+</a>
 <polygon fill="none" stroke="black" points="20,-451 20,-471 68,-471 68,-451 20,-451"/>
 <text text-anchor="start" x="25" y="-459" font-family="Times New Roman,serif" font-size="10.00">value = 6</text>
 </g>
@@ -36,9 +40,11 @@
 </g>
 <!-- f3 -->
 <g id="node3" class="node"><title>f3</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="102,-492 102,-509 170,-509 170,-492 102,-492"/>
 <text text-anchor="start" x="118.5" y="-498.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="121.5" y="-498.5" font-family="Times New Roman,serif" font-size="10.00">f3 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="102,-430 102,-492 170,-492 170,-430 102,-430"/>
 <text text-anchor="start" x="107" y="-480" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="107" y="-466" font-family="Times New Roman,serif" font-size="10.00">kind = &quot;start&quot;</text>
@@ -53,9 +59,11 @@
 </g>
 <!-- p11 -->
 <g id="node10" class="node"><title>p11</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Pawn.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="187,-368 187,-385 255,-385 255,-368 187,-368"/>
 <text text-anchor="start" x="199" y="-374.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="202" y="-374.5" font-family="Times New Roman,serif" font-size="10.00">p11 :Pawn</text>
+</a>
 <polygon fill="none" stroke="black" points="187,-320 187,-368 255,-368 255,-320 187,-320"/>
 <text text-anchor="start" x="192" y="-356" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="192" y="-342" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
@@ -69,9 +77,11 @@
 </g>
 <!-- f10 -->
 <g id="node11" class="node"><title>f10</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="242,-492 242,-509 310,-509 310,-492 242,-492"/>
 <text text-anchor="start" x="256" y="-498.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="259" y="-498.5" font-family="Times New Roman,serif" font-size="10.00">f10 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="242,-430 242,-492 310,-492 310,-430 242,-430"/>
 <text text-anchor="start" x="247" y="-480" font-family="Times New Roman,serif" font-size="10.00">color = &quot;blue&quot;</text>
 <text text-anchor="start" x="247" y="-466" font-family="Times New Roman,serif" font-size="10.00">kind = &quot;base&quot;</text>
@@ -86,9 +96,11 @@
 </g>
 <!-- f4 -->
 <g id="node4" class="node"><title>f4</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="10,-361 10,-378 52,-378 52,-361 10,-361"/>
 <text text-anchor="start" x="13.5" y="-367.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="16.5" y="-367.5" font-family="Times New Roman,serif" font-size="10.00">f4 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="10,-327 10,-361 52,-361 52,-327 10,-327"/>
 <text text-anchor="start" x="15" y="-349" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="15" y="-335" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
@@ -101,9 +113,11 @@
 </g>
 <!-- p8 -->
 <g id="node8" class="node"><title>p8</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Pawn.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="90,-368 90,-385 153,-385 153,-368 90,-368"/>
 <text text-anchor="start" x="101.5" y="-374.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="104.5" y="-374.5" font-family="Times New Roman,serif" font-size="10.00">p8 :Pawn</text>
+</a>
 <polygon fill="none" stroke="black" points="90,-320 90,-368 153,-368 153,-320 90,-320"/>
 <text text-anchor="start" x="95" y="-356" font-family="Times New Roman,serif" font-size="10.00">color = &quot;red&quot;</text>
 <text text-anchor="start" x="95" y="-342" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
@@ -123,9 +137,11 @@
 </g>
 <!-- f5 -->
 <g id="node5" class="node"><title>f5</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-244 8,-261 50,-261 50,-244 8,-244"/>
 <text text-anchor="start" x="11.5" y="-250.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-250.5" font-family="Times New Roman,serif" font-size="10.00">f5 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-210 8,-244 50,-244 50,-210 8,-210"/>
 <text text-anchor="start" x="13" y="-232" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="13" y="-218" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
@@ -138,9 +154,11 @@
 </g>
 <!-- f6 -->
 <g id="node6" class="node"><title>f6</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-134 8,-151 50,-151 50,-134 8,-134"/>
 <text text-anchor="start" x="11.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">f6 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-100 8,-134 50,-134 50,-100 8,-100"/>
 <text text-anchor="start" x="13" y="-122" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="13" y="-108" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
@@ -153,9 +171,11 @@
 </g>
 <!-- f7 -->
 <g id="node7" class="node"><title>f7</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-38 8,-55 50,-55 50,-38 8,-38"/>
 <text text-anchor="start" x="11.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">f7 :Field</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-4 8,-38 50,-38 50,-4 8,-4"/>
 <text text-anchor="start" x="13" y="-26" font-family="Times New Roman,serif" font-size="10.00">x = 0</text>
 <text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">y = 0</text>
@@ -168,9 +188,11 @@
 </g>
 <!-- p9 -->
 <g id="node9" class="node"><title>p9</title>
+<a xlink:href="../examples/org/sdmlib/examples/ludo/Player.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="84,-258 84,-275 162,-275 162,-258 84,-258"/>
 <text text-anchor="start" x="101.5" y="-264.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="104.5" y="-264.5" font-family="Times New Roman,serif" font-size="10.00">p9 :Player</text>
+</a>
 <polygon fill="none" stroke="black" points="84,-196 84,-258 162,-258 162,-196 84,-196"/>
 <text text-anchor="start" x="89" y="-246" font-family="Times New Roman,serif" font-size="10.00">color = &quot;red&quot;</text>
 <text text-anchor="start" x="89" y="-232" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Sabine&quot;</text>

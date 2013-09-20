@@ -11,15 +11,19 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-424 552,-424 552,5 -4,5"/>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericGraph.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="245,-393 245,-410 324,-410 324,-393 245,-393"/>
 <text text-anchor="start" x="248.5" y="-399.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="251.5" y="-399.5" font-family="Times New Roman,serif" font-size="10.00">g1 :GenericGraph</text>
+</a>
 </g>
 <!-- g2 -->
 <g id="node2" class="node"><title>g2</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="84,-326 84,-343 248,-343 248,-326 84,-326"/>
 <text text-anchor="start" x="129" y="-332.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="132" y="-332.5" font-family="Times New Roman,serif" font-size="10.00">g2 :GenericObject</text>
+</a>
 <polygon fill="none" stroke="black" points="84,-292 84,-326 248,-326 248,-292 84,-292"/>
 <text text-anchor="start" x="89" y="-314" font-family="Times New Roman,serif" font-size="10.00">name = &quot;spec2gen.B1&quot;</text>
 <text text-anchor="start" x="89" y="-300" font-family="Times New Roman,serif" font-size="10.00">type = &quot;de.kassel.roombook.Building&quot;</text>
@@ -32,9 +36,11 @@
 </g>
 <!-- g4 -->
 <g id="node4" class="node"><title>g4</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-230 8,-247 110,-247 110,-230 8,-230"/>
 <text text-anchor="start" x="26.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="29.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">g4 :GenericLink</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-196 8,-230 110,-230 110,-196 8,-196"/>
 <text text-anchor="start" x="13" y="-218" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 <text text-anchor="start" x="13" y="-204" font-family="Times New Roman,serif" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
@@ -47,9 +53,11 @@
 </g>
 <!-- g5 -->
 <g id="node5" class="node"><title>g5</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="37,-134 37,-151 188,-151 188,-134 37,-134"/>
 <text text-anchor="start" x="75.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="78.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">g5 :GenericObject</text>
+</a>
 <polygon fill="none" stroke="black" points="37,-100 37,-134 188,-134 188,-100 37,-100"/>
 <text text-anchor="start" x="42" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;spec2gen.F2&quot;</text>
 <text text-anchor="start" x="42" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;de.kassel.roombook.Floor&quot;</text>
@@ -62,9 +70,11 @@
 </g>
 <!-- g8 -->
 <g id="node8" class="node"><title>g8</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="314,-230 314,-247 416,-247 416,-230 314,-230"/>
 <text text-anchor="start" x="332.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="335.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">g8 :GenericLink</text>
+</a>
 <polygon fill="none" stroke="black" points="314,-196 314,-230 416,-230 416,-196 314,-196"/>
 <text text-anchor="start" x="319" y="-218" font-family="Times New Roman,serif" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 <text text-anchor="start" x="319" y="-204" font-family="Times New Roman,serif" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
@@ -77,9 +87,11 @@
 </g>
 <!-- g9 -->
 <g id="node9" class="node"><title>g9</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="333,-134 333,-151 484,-151 484,-134 333,-134"/>
 <text text-anchor="start" x="371.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="374.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">g9 :GenericObject</text>
+</a>
 <polygon fill="none" stroke="black" points="333,-100 333,-134 484,-134 484,-100 333,-100"/>
 <text text-anchor="start" x="338" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;spec2gen.F3&quot;</text>
 <text text-anchor="start" x="338" y="-108" font-family="Times New Roman,serif" font-size="10.00">type = &quot;de.kassel.roombook.Floor&quot;</text>
@@ -92,9 +104,11 @@
 </g>
 <!-- g3 -->
 <g id="node3" class="node"><title>g3</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="144,-230 144,-247 236,-247 236,-230 144,-230"/>
 <text text-anchor="start" x="147.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="150.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">g3 :GenericAttribute</text>
+</a>
 <polygon fill="none" stroke="black" points="144,-196 144,-230 236,-230 236,-196 144,-196"/>
 <text text-anchor="start" x="149" y="-218" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
 <text text-anchor="start" x="149" y="-204" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA73&quot;</text>
@@ -125,9 +139,11 @@
 </g>
 <!-- g6 -->
 <g id="node6" class="node"><title>g6</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-38 8,-55 100,-55 100,-38 8,-38"/>
 <text text-anchor="start" x="11.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g6 :GenericAttribute</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-4 8,-38 100,-38 100,-4 8,-4"/>
 <text text-anchor="start" x="13" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;level&quot;</text>
 <text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;1&quot;</text>
@@ -140,9 +156,11 @@
 </g>
 <!-- g7 -->
 <g id="node7" class="node"><title>g7</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="134,-38 134,-55 226,-55 226,-38 134,-38"/>
 <text text-anchor="start" x="137.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="140.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g7 :GenericAttribute</text>
+</a>
 <polygon fill="none" stroke="black" points="134,-4 134,-38 226,-38 226,-4 134,-4"/>
 <text text-anchor="start" x="139" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
 <text text-anchor="start" x="139" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA13&quot;</text>
@@ -161,9 +179,11 @@
 </g>
 <!-- g10 -->
 <g id="node10" class="node"><title>g10</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="313,-38 313,-55 409,-55 409,-38 313,-38"/>
 <text text-anchor="start" x="316.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="319.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g10 :GenericAttribute</text>
+</a>
 <polygon fill="none" stroke="black" points="313,-4 313,-38 409,-38 409,-4 313,-4"/>
 <text text-anchor="start" x="318" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;name&quot;</text>
 <text text-anchor="start" x="318" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;WA03&quot;</text>
@@ -176,9 +196,11 @@
 </g>
 <!-- g11 -->
 <g id="node11" class="node"><title>g11</title>
+<a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="443,-38 443,-55 539,-55 539,-38 443,-38"/>
 <text text-anchor="start" x="446.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="449.5" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">g11 :GenericAttribute</text>
+</a>
 <polygon fill="none" stroke="black" points="443,-4 443,-38 539,-38 539,-4 443,-4"/>
 <text text-anchor="start" x="448" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;guest&quot;</text>
 <text text-anchor="start" x="448" y="-12" font-family="Times New Roman,serif" font-size="10.00">value = &quot;Ulrich&quot;</text>

@@ -21,9 +21,11 @@
 </g>
 <!-- g2 -->
 <g id="node2" class="node"><title>g2</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Greeting.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="12,-24 12,-41 105,-41 105,-24 12,-24"/>
 <text text-anchor="start" x="32.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="35.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">g2 :Greeting</text>
+</a>
 <polygon fill="none" stroke="black" points="12,-4 12,-24 105,-24 105,-4 12,-4"/>
 <text text-anchor="start" x="17" y="-12" font-family="Times New Roman,serif" font-size="10.00">text = &quot;Hello World&quot;</text>
 </g>

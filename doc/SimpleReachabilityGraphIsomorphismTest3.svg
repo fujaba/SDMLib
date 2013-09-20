@@ -11,15 +11,19 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-286 132.423,-286 132.423,5 -4,5"/>
 <!-- s1 -->
 <g id="node1" class="node"><title>s1</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/SimpleState.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="45,-255 45,-272 116,-272 116,-255 45,-255"/>
 <text text-anchor="start" x="48.5" y="-261.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="51.5" y="-261.5" font-family="Times New Roman,serif" font-size="10.00">s1 :SimpleState</text>
+</a>
 </g>
 <!-- n2 -->
 <g id="node2" class="node"><title>n2</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="57,-188 57,-205 104,-205 104,-188 57,-188"/>
 <text text-anchor="start" x="60.5" y="-194.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="63.5" y="-194.5" font-family="Times New Roman,serif" font-size="10.00">n2 :Node</text>
+</a>
 <polygon fill="none" stroke="black" points="57,-168 57,-188 104,-188 104,-168 57,-168"/>
 <text text-anchor="start" x="62" y="-176" font-family="Times New Roman,serif" font-size="10.00">num = 0</text>
 </g>
@@ -31,9 +35,11 @@
 </g>
 <!-- n3 -->
 <g id="node3" class="node"><title>n3</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-106 8,-123 55,-123 55,-106 8,-106"/>
 <text text-anchor="start" x="11.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-112.5" font-family="Times New Roman,serif" font-size="10.00">n3 :Node</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-86 8,-106 55,-106 55,-86 8,-86"/>
 <text text-anchor="start" x="13" y="-94" font-family="Times New Roman,serif" font-size="10.00">num = 0</text>
 </g>
@@ -45,9 +51,11 @@
 </g>
 <!-- n4 -->
 <g id="node4" class="node"><title>n4</title>
+<a xlink:href="../test/org/sdmlib/models/patterns/example/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="67,-24 67,-41 115,-41 115,-24 67,-24"/>
 <text text-anchor="start" x="71" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="74" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">n4 :Node</text>
+</a>
 <polygon fill="none" stroke="black" points="67,-4 67,-24 115,-24 115,-4 67,-4"/>
 <text text-anchor="start" x="72" y="-12" font-family="Times New Roman,serif" font-size="10.00">num = 42</text>
 </g>

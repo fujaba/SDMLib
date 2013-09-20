@@ -11,13 +11,13 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-242 387,-242 387,5 -4,5"/>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="154,-182.5 154,-233.5 214,-233.5 214,-182.5 154,-182.5"/>
-<text text-anchor="start" x="186" y="-223.5" font-family="Times New Roman,serif" font-size="10.00" fill="green">«create»</text>
-<polygon fill="none" stroke="green" points="154,-202 154,-218 214,-218 214,-202 154,-202"/>
-<text text-anchor="start" x="157.5" y="-208" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="160.5" y="-208" font-family="Times New Roman,serif" font-size="10.00" fill="green"> g1 :GreetingPO </text>
-<polygon fill="none" stroke="green" points="154,-182 154,-202 214,-202 214,-182 154,-182"/>
-<text text-anchor="start" x="181.5" y="-190" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="146.5,-182.5 146.5,-233.5 221.5,-233.5 221.5,-182.5 146.5,-182.5"/>
+<text text-anchor="start" x="185" y="-223.5" font-family="Times New Roman,serif" font-size="10.00" fill="green">«create»</text>
+<polygon fill="none" stroke="green" points="147,-202 147,-218 222,-218 222,-202 147,-202"/>
+<text text-anchor="start" x="150.5" y="-208" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="153.5" y="-208" font-family="Times New Roman,serif" font-size="10.00" fill="green"> g1 :GreetingPO </text>
+<polygon fill="none" stroke="green" points="147,-182 147,-202 222,-202 222,-182 147,-182"/>
+<text text-anchor="start" x="182" y="-190" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- g2 -->
 <g id="node2" class="node"><title>g2</title>
@@ -46,14 +46,16 @@
 </g>
 <!-- g1&#45;&#45;p3 -->
 <g id="edge10" class="edge"><title>g1&#45;&#45;p3</title>
-<path fill="none" stroke="green" d="M222.104,-178.797C238.032,-167.008 256.512,-153.329 272.484,-141.508"/>
-<text text-anchor="middle" x="267.713" y="-147.797" font-family="Times New Roman,serif" font-size="10.00" fill="green">person</text>
+<path fill="none" stroke="green" d="M222.794,-178.286C238.551,-166.624 256.711,-153.182 272.443,-141.538"/>
+<text text-anchor="middle" x="267.673" y="-147.827" font-family="Times New Roman,serif" font-size="10.00" fill="green">person</text>
 </g>
 <!-- g4 -->
 <g id="node4" class="node"><title>g4</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Greeting.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="155,-103 155,-120 214,-120 214,-103 155,-103"/>
 <text text-anchor="start" x="158.5" y="-109.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="161.5" y="-109.5" font-family="Times New Roman,serif" font-size="10.00">g4 :Greeting</text>
+</a>
 </g>
 <!-- g1&#45;&#45;g4 -->
 <g id="edge2" class="edge"><title>g1&#45;&#45;g4</title>
@@ -62,9 +64,11 @@
 </g>
 <!-- g5 -->
 <g id="node5" class="node"><title>g5</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/GreetingMessage.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="43,-24 43,-41 138,-41 138,-24 43,-24"/>
 <text text-anchor="start" x="46.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="49.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">g5 :GreetingMessage</text>
+</a>
 <polygon fill="none" stroke="black" points="43,-4 43,-24 138,-24 138,-4 43,-4"/>
 <text text-anchor="start" x="48" y="-12" font-family="Times New Roman,serif" font-size="10.00">text = &quot;Hello&quot;</text>
 </g>
@@ -75,9 +79,11 @@
 </g>
 <!-- p6 -->
 <g id="node6" class="node"><title>p6</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="225,-24 225,-41 344,-41 344,-24 225,-24"/>
 <text text-anchor="start" x="261.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="264.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">p6 :Person</text>
+</a>
 <polygon fill="none" stroke="black" points="225,-4 225,-24 344,-24 344,-4 225,-4"/>
 <text text-anchor="start" x="230" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;TTC Participants&quot;</text>
 </g>

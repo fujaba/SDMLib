@@ -11,17 +11,21 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-654 383,-654 383,5 -4,5"/>
 <!-- u1 -->
 <g id="node1" class="node"><title>u1</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/University.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="103,-628 103,-645 200,-645 200,-628 103,-628"/>
 <text text-anchor="start" x="121.5" y="-634.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="124.5" y="-634.5" font-family="Times New Roman,serif" font-size="10.00">u1 :University</text>
+</a>
 <polygon fill="none" stroke="black" points="103,-608 103,-628 200,-628 200,-608 103,-608"/>
 <text text-anchor="start" x="108" y="-616" font-family="Times New Roman,serif" font-size="10.00">name = &quot;StudyRight&quot;</text>
 </g>
 <!-- s2 -->
 <g id="node2" class="node"><title>s2</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="113,-546 113,-563 190,-563 190,-546 113,-546"/>
 <text text-anchor="start" x="127" y="-552.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="130" y="-552.5" font-family="Times New Roman,serif" font-size="10.00">s2 :Student</text>
+</a>
 <polygon fill="none" stroke="black" points="113,-484 113,-546 190,-546 190,-484 113,-484"/>
 <text text-anchor="start" x="118" y="-534" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Albert&quot;</text>
 <text text-anchor="start" x="118" y="-520" font-family="Times New Roman,serif" font-size="10.00">matrNo = 4242</text>
@@ -36,9 +40,11 @@
 </g>
 <!-- r4 -->
 <g id="node3" class="node"><title>r4</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="91,-422 91,-439 173,-439 173,-422 91,-422"/>
 <text text-anchor="start" x="112.5" y="-428.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="115.5" y="-428.5" font-family="Times New Roman,serif" font-size="10.00">r4 :Room</text>
+</a>
 <polygon fill="none" stroke="black" points="91,-388 91,-422 173,-422 173,-388 91,-388"/>
 <text text-anchor="start" x="96" y="-410" font-family="Times New Roman,serif" font-size="10.00">roomNo = &quot;math&quot;</text>
 <text text-anchor="start" x="96" y="-396" font-family="Times New Roman,serif" font-size="10.00">credits = 42</text>
@@ -51,9 +57,11 @@
 </g>
 <!-- r5 -->
 <g id="node4" class="node"><title>r5</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="135,-326 135,-343 213,-343 213,-326 135,-326"/>
 <text text-anchor="start" x="154.5" y="-332.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="157.5" y="-332.5" font-family="Times New Roman,serif" font-size="10.00">r5 :Room</text>
+</a>
 <polygon fill="none" stroke="black" points="135,-292 135,-326 213,-326 213,-292 135,-292"/>
 <text text-anchor="start" x="140" y="-314" font-family="Times New Roman,serif" font-size="10.00">roomNo = &quot;arts&quot;</text>
 <text text-anchor="start" x="140" y="-300" font-family="Times New Roman,serif" font-size="10.00">credits = 23</text>
@@ -66,9 +74,11 @@
 </g>
 <!-- r6 -->
 <g id="node5" class="node"><title>r6</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="50,-230 50,-247 138,-247 138,-230 50,-230"/>
 <text text-anchor="start" x="74.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="77.5" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">r6 :Room</text>
+</a>
 <polygon fill="none" stroke="black" points="50,-196 50,-230 138,-230 138,-196 50,-196"/>
 <text text-anchor="start" x="55" y="-218" font-family="Times New Roman,serif" font-size="10.00">roomNo = &quot;sports&quot;</text>
 <text text-anchor="start" x="55" y="-204" font-family="Times New Roman,serif" font-size="10.00">credits = 23</text>
@@ -81,9 +91,11 @@
 </g>
 <!-- r7 -->
 <g id="node6" class="node"><title>r7</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="74,-134 74,-151 156,-151 156,-134 74,-134"/>
 <text text-anchor="start" x="95.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="98.5" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">r7 :Room</text>
+</a>
 <polygon fill="none" stroke="black" points="74,-100 74,-134 156,-134 156,-100 74,-100"/>
 <text text-anchor="start" x="79" y="-122" font-family="Times New Roman,serif" font-size="10.00">roomNo = &quot;exam&quot;</text>
 <text text-anchor="start" x="79" y="-108" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
@@ -96,9 +108,11 @@
 </g>
 <!-- r8 -->
 <g id="node7" class="node"><title>r8</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="161,-38 161,-55 264,-55 264,-38 161,-38"/>
 <text text-anchor="start" x="193" y="-44.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="196" y="-44.5" font-family="Times New Roman,serif" font-size="10.00">r8 :Room</text>
+</a>
 <polygon fill="none" stroke="black" points="161,-4 161,-38 264,-38 264,-4 161,-4"/>
 <text text-anchor="start" x="166" y="-26" font-family="Times New Roman,serif" font-size="10.00">roomNo = &quot;ProgMeth&quot;</text>
 <text text-anchor="start" x="166" y="-12" font-family="Times New Roman,serif" font-size="10.00">credits = 42</text>
@@ -111,9 +125,11 @@
 </g>
 <!-- s3 -->
 <g id="node8" class="node"><title>s3</title>
+<a xlink:href="../examples/org/sdmlib/examples/studyright/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="300,-546 300,-563 370,-563 370,-546 300,-546"/>
 <text text-anchor="start" x="310.5" y="-552.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="313.5" y="-552.5" font-family="Times New Roman,serif" font-size="10.00">s3 :Student</text>
+</a>
 <polygon fill="none" stroke="black" points="300,-484 300,-546 370,-546 370,-484 300,-484"/>
 <text text-anchor="start" x="305" y="-534" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Nina&quot;</text>
 <text text-anchor="start" x="305" y="-520" font-family="Times New Roman,serif" font-size="10.00">matrNo = 2323</text>

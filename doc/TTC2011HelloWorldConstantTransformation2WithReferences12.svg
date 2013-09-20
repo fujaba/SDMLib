@@ -11,15 +11,19 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-122 268,-122 268,5 -4,5"/>
 <!-- g4 -->
 <g id="node1" class="node"><title>g4</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Greeting.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="96,-91 96,-108 155,-108 155,-91 96,-91"/>
 <text text-anchor="start" x="99.5" y="-97.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="102.5" y="-97.5" font-family="Times New Roman,serif" font-size="10.00">g4 :Greeting</text>
+</a>
 </g>
 <!-- g5 -->
 <g id="node2" class="node"><title>g5</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/GreetingMessage.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-24 8,-41 103,-41 103,-24 8,-24"/>
 <text text-anchor="start" x="11.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">g5 :GreetingMessage</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-4 8,-24 103,-24 103,-4 8,-4"/>
 <text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">text = &quot;Hello&quot;</text>
 </g>
@@ -31,9 +35,11 @@
 </g>
 <!-- p6 -->
 <g id="node3" class="node"><title>p6</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="137,-24 137,-41 256,-41 256,-24 137,-24"/>
 <text text-anchor="start" x="173.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="176.5" y="-30.5" font-family="Times New Roman,serif" font-size="10.00">p6 :Person</text>
+</a>
 <polygon fill="none" stroke="black" points="137,-4 137,-24 256,-24 256,-4 137,-4"/>
 <text text-anchor="start" x="142" y="-12" font-family="Times New Roman,serif" font-size="10.00">name = &quot;TTC Participants&quot;</text>
 </g>

@@ -11,17 +11,21 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-160 211,-160 211,5 -4,5"/>
 <!-- b1 -->
 <g id="node1" class="node"><title>b1</title>
+<a xlink:href="../test/de/kassel/roombook/Building.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="64,-134 64,-151 142,-151 142,-134 64,-134"/>
 <text text-anchor="start" x="77" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="80" y="-140.5" font-family="Times New Roman,serif" font-size="10.00">b1 :Building</text>
+</a>
 <polygon fill="none" stroke="black" points="64,-114 64,-134 142,-134 142,-114 64,-114"/>
 <text text-anchor="start" x="69" y="-122" font-family="Times New Roman,serif" font-size="10.00">name = &quot;WA73&quot;</text>
 </g>
 <!-- f2 -->
 <g id="node2" class="node"><title>f2</title>
+<a xlink:href="../test/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-45 8,-62 86,-62 86,-45 8,-45"/>
 <text text-anchor="start" x="28.5" y="-51.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="31.5" y="-51.5" font-family="Times New Roman,serif" font-size="10.00">f2 :Floor</text>
+</a>
 <polygon fill="none" stroke="black" points="8,-11 8,-45 86,-45 86,-11 8,-11"/>
 <text text-anchor="start" x="13" y="-33" font-family="Times New Roman,serif" font-size="10.00">level = 1</text>
 <text text-anchor="start" x="13" y="-19" font-family="Times New Roman,serif" font-size="10.00">name = &quot;WA13&quot;</text>
@@ -34,9 +38,11 @@
 </g>
 <!-- f3 -->
 <g id="node3" class="node"><title>f3</title>
+<a xlink:href="../test/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="120,-52 120,-69 198,-69 198,-52 120,-52"/>
 <text text-anchor="start" x="140.5" y="-58.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="143.5" y="-58.5" font-family="Times New Roman,serif" font-size="10.00">f3 :Floor</text>
+</a>
 <polygon fill="none" stroke="black" points="120,-4 120,-52 198,-52 198,-4 120,-4"/>
 <text text-anchor="start" x="125" y="-40" font-family="Times New Roman,serif" font-size="10.00">level = 0</text>
 <text text-anchor="start" x="125" y="-26" font-family="Times New Roman,serif" font-size="10.00">name = &quot;WA03&quot;</text>

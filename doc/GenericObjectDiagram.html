@@ -2,6 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../test/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
+<p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
 <embed type="image/svg+xml" src='GenericObjectStructureClasses.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
@@ -10,7 +11,7 @@
 <embed type="image/svg+xml" src='specificgenericobjectdiag.svg'>
 <p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
 <embed type="image/svg+xml" src='DerivedFromGenericObjectsClassDiag.svg'><p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<p>      ClassModel model = new ClassModel();
+<pre>      ClassModel model = new ClassModel();
 
       Clazz buildingClass = new Clazz("de.kassel.roombook.Building")
       .withAttribute("name", "String");
@@ -26,8 +27,7 @@
 			.withTarget("has", floorClass, R.MANY);
 
       learnedModel.insertModelCreationCodeHere("test");
-</p>
-<embed type="image/svg+xml" src='ManuallyImprovedLearnedClassDiag.svg'><p>Step 6: generate code from the learned class diagram </p>
+</pre><embed type="image/svg+xml" src='ManuallyImprovedLearnedClassDiag.svg'><p>Step 6: generate code from the learned class diagram </p>
 <p>Step 7: derive non-generic objects from the generic objects </p>
 <embed type="image/svg+xml" src='GenericObjectDiagram16.svg'>
 <p>BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram </p>

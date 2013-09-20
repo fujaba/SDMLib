@@ -15,16 +15,16 @@ p8 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 allMatches_p8 [label=allMatches];
 }
 
-t2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>t2 :Train</u></td></tr></table>>];
-s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s4 :Station</u></td></tr></table>>];
-s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s9 :Station</u></td></tr></table>>];
-s10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s10 :Station</u></td></tr></table>>];
-s11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s11 :Station</u></td></tr></table>>];
-p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p12 :Person</u></td></tr></table>>];
-p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p13 :Person</u></td></tr></table>>];
-p14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p14 :Person</u></td></tr></table>>];
-p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p15 :Person</u></td></tr></table>>];
-p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p16 :Person</u></td></tr></table>>];
+t2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Train.java"> <u>t2 :Train</u></td></tr></table>>];
+s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Station.java"> <u>s4 :Station</u></td></tr></table>>];
+s9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Station.java"> <u>s9 :Station</u></td></tr></table>>];
+s10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Station.java"> <u>s10 :Station</u></td></tr></table>>];
+s11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Station.java"> <u>s11 :Station</u></td></tr></table>>];
+p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p12 :Person</u></td></tr></table>>];
+p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p13 :Person</u></td></tr></table>>];
+p14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p14 :Person</u></td></tr></table>>];
+p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p15 :Person</u></td></tr></table>>];
+p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p16 :Person</u></td></tr></table>>];
 
 t1 -- t2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 s3 -- s4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];

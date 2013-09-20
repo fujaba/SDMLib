@@ -2,11 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
+<p>TTC2011DeleteNodeWithSpecificName</p>
 <hr/><p>Delete node with name n1 and its incidemnt edges.</p>
 <p>Start graph:</p>
 <embed type="image/svg+xml" src='TTC2011DeleteNodeWithSpecificName5.svg'>
 <p>Transformation:</p>
-<p>   private void deleteNodeWithNameN1(Graph graph)
+<pre>   private void deleteNodeWithNameN1(Graph graph)
    {
       // find node
       NodePO nodeN1PO = new ModelPattern()
@@ -30,8 +31,7 @@
       
       // destroy the node
       nodeN1PO.destroy().allMatches();
-   }</p>
-<embed type="image/svg+xml"src='deleteNodeWithNameN1_nodeN1.svg'>
+   }</pre><embed type="image/svg+xml"src='deleteNodeWithNameN1_nodeN1.svg'>
 <p>Result graph:</p>
 <embed type="image/svg+xml" src='TTC2011DeleteNodeWithSpecificName10.svg'>
 

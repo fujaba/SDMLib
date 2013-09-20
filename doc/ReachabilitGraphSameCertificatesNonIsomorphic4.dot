@@ -3,11 +3,11 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-s1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>s1 :SimpleState</u></td></tr></table>>];
-n2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n2 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n3 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n4 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>n5 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
+s1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/SimpleState.java"> <u>s1 :SimpleState</u></td></tr></table>>];
+n2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n2 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
+n3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n3 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
+n4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n4 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
+n5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n5 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
 
 s1 -- n2 [headlabel = "nodes" taillabel = "graph"];
 s1 -- n3 [headlabel = "nodes" taillabel = "graph"];

@@ -2,9 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
+<p>TTC2011HelloWorldModelToText</p>
 <p>For model to text transformation we provide a simple template mechanism. </p>
 <p>The model transformation that builds our object model looks like: </p>
-<p>      ModelPattern p = new ModelPattern().startCreate();
+<pre>      ModelPattern p = new ModelPattern().startCreate();
       
       GreetingPO greetingPO = p.hasElementGreetingPO();
       
@@ -13,23 +14,20 @@
       
       PersonPO personPO = greetingPO.hasPerson()
       .hasName("TTC Participants");
-</p>
-<p>The created object model looks like: </p>
+</pre><p>The created object model looks like: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldModelToText6.svg'>
 <p>The model to text transfromation template mechanism is used like this: </p>
-<p>      StringBuilder text = new StringBuilder("message name");
+<pre>      StringBuilder text = new StringBuilder("message name");
       
       CGUtil.replaceAll(text, 
          "message", greetingMessagePO.getText(),
          "name", personPO.getName());
       
       systemout = text.toString();
-</p>
-<p>systemout: 
+</pre><p>systemout: 
 Hello TTC Participants</p>
 <p>Alternatively, plain java code that does this model to text transformation looks like: </p>
-<p>      systemout = greetingMessagePO.getText() + " " + personPO.getName();
-</p>
-
+<pre>      systemout = greetingMessagePO.getText() + " " + personPO.getName();
+</pre>
 </body>
 </html>

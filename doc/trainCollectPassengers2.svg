@@ -11,15 +11,19 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-328 577,-328 577,5 -4,5"/>
 <!-- t1 -->
 <g id="node1" class="node"><title>t1</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Train.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="318,-297 318,-314 362,-314 362,-297 318,-297"/>
 <text text-anchor="start" x="321.5" y="-303.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="324.5" y="-303.5" font-family="Times New Roman,serif" font-size="10.00">t1 :Train</text>
+</a>
 </g>
 <!-- s2 -->
 <g id="node2" class="node"><title>s2</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Station.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="314,-225 314,-242 367,-242 367,-225 314,-225"/>
 <text text-anchor="start" x="317.5" y="-231.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="320.5" y="-231.5" font-family="Times New Roman,serif" font-size="10.00">s2 :Station</text>
+</a>
 </g>
 <!-- t1&#45;&#45;s2 -->
 <g id="edge2" class="edge"><title>t1&#45;&#45;s2</title>
@@ -29,9 +33,11 @@
 </g>
 <!-- s3 -->
 <g id="node3" class="node"><title>s3</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Station.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="138,-153 138,-170 191,-170 191,-153 138,-153"/>
 <text text-anchor="start" x="141.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="144.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">s3 :Station</text>
+</a>
 </g>
 <!-- s2&#45;&#45;s3 -->
 <g id="edge4" class="edge"><title>s2&#45;&#45;s3</title>
@@ -41,9 +47,11 @@
 </g>
 <!-- p9 -->
 <g id="node9" class="node"><title>p9</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="225,-153 225,-170 278,-170 278,-153 225,-153"/>
 <text text-anchor="start" x="228.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="231.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">p9 :Person</text>
+</a>
 </g>
 <!-- s2&#45;&#45;p9 -->
 <g id="edge6" class="edge"><title>s2&#45;&#45;p9</title>
@@ -53,9 +61,11 @@
 </g>
 <!-- p10 -->
 <g id="node10" class="node"><title>p10</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="312,-153 312,-170 369,-170 369,-153 312,-153"/>
 <text text-anchor="start" x="315.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="318.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">p10 :Person</text>
+</a>
 </g>
 <!-- s2&#45;&#45;p10 -->
 <g id="edge8" class="edge"><title>s2&#45;&#45;p10</title>
@@ -65,9 +75,11 @@
 </g>
 <!-- p11 -->
 <g id="node11" class="node"><title>p11</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="403,-153 403,-170 460,-170 460,-153 403,-153"/>
 <text text-anchor="start" x="406.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="409.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">p11 :Person</text>
+</a>
 </g>
 <!-- s2&#45;&#45;p11 -->
 <g id="edge10" class="edge"><title>s2&#45;&#45;p11</title>
@@ -77,9 +89,11 @@
 </g>
 <!-- s12 -->
 <g id="node12" class="node"><title>s12</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/SignalFlag.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="494,-153 494,-170 565,-170 565,-153 494,-153"/>
 <text text-anchor="start" x="497.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="500.5" y="-159.5" font-family="Times New Roman,serif" font-size="10.00">s12 :SignalFlag</text>
+</a>
 </g>
 <!-- s2&#45;&#45;s12 -->
 <g id="edge12" class="edge"><title>s2&#45;&#45;s12</title>
@@ -89,9 +103,11 @@
 </g>
 <!-- s4 -->
 <g id="node4" class="node"><title>s4</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Station.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="138,-81 138,-98 191,-98 191,-81 138,-81"/>
 <text text-anchor="start" x="141.5" y="-87.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="144.5" y="-87.5" font-family="Times New Roman,serif" font-size="10.00">s4 :Station</text>
+</a>
 </g>
 <!-- s3&#45;&#45;s4 -->
 <g id="edge14" class="edge"><title>s3&#45;&#45;s4</title>
@@ -101,9 +117,11 @@
 </g>
 <!-- s5 -->
 <g id="node5" class="node"><title>s5</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Station.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-9 8,-26 61,-26 61,-9 8,-9"/>
 <text text-anchor="start" x="11.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="14.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00">s5 :Station</text>
+</a>
 </g>
 <!-- s4&#45;&#45;s5 -->
 <g id="edge16" class="edge"><title>s4&#45;&#45;s5</title>
@@ -113,9 +131,11 @@
 </g>
 <!-- p6 -->
 <g id="node6" class="node"><title>p6</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="95,-9 95,-26 148,-26 148,-9 95,-9"/>
 <text text-anchor="start" x="98.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="101.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00">p6 :Person</text>
+</a>
 </g>
 <!-- s4&#45;&#45;p6 -->
 <g id="edge18" class="edge"><title>s4&#45;&#45;p6</title>
@@ -125,9 +145,11 @@
 </g>
 <!-- p7 -->
 <g id="node7" class="node"><title>p7</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="182,-9 182,-26 235,-26 235,-9 182,-9"/>
 <text text-anchor="start" x="185.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="188.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00">p7 :Person</text>
+</a>
 </g>
 <!-- s4&#45;&#45;p7 -->
 <g id="edge20" class="edge"><title>s4&#45;&#45;p7</title>
@@ -137,9 +159,11 @@
 </g>
 <!-- s8 -->
 <g id="node8" class="node"><title>s8</title>
+<a xlink:href="../examples/org/sdmlib/examples/patternrewriteops/SignalFlag.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="269,-9 269,-26 335,-26 335,-9 269,-9"/>
 <text text-anchor="start" x="272.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <text text-anchor="start" x="275.5" y="-15.5" font-family="Times New Roman,serif" font-size="10.00">s8 :SignalFlag</text>
+</a>
 </g>
 <!-- s4&#45;&#45;s8 -->
 <g id="edge22" class="edge"><title>s4&#45;&#45;s8</title>

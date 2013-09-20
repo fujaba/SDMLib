@@ -3,9 +3,9 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-g4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g4 :Greeting</u></td></tr></table>>];
-g5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>g5 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = "Hello"</td></tr></table></td></tr></table>>];
-p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "TTC Participants"</td></tr></table></td></tr></table>>];
+g4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Greeting.java"> <u>g4 :Greeting</u></td></tr></table>>];
+g5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/GreetingMessage.java"> <u>g5 :GreetingMessage</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = "Hello"</td></tr></table></td></tr></table>>];
+p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Person.java"> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "TTC Participants"</td></tr></table></td></tr></table>>];
 
 g4 -- g5 [headlabel = "greetingMessage" taillabel = "greeting"];
 g4 -- p6 [headlabel = "person" taillabel = "greeting"];

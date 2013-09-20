@@ -2,9 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldReverseEdges</a></p>
+<p>TTC2011HelloWorldReverseEdges</p>
 <hr/><p>create example graph: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges4.svg'>
-<hr/><h2>Reverse Edges per pattern: </h2><p>   public void reverseEdgesPerPattern(Graph graph)
+<hr/><h2>Reverse Edges per pattern: </h2><pre>   public void reverseEdgesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -21,13 +22,12 @@
       edgesPO.hasTgt(srcPO);
       
       systemout = "Number of reversed edges: " + p.allMatches();
-   }</p>
-<embed type="image/svg+xml"src='reverseEdgesPerPattern.svg'>
+   }</pre><embed type="image/svg+xml"src='reverseEdgesPerPattern.svg'>
 <embed type="image/svg+xml"src='reverseEdgesPerPatternWithMatch.svg'>
 <p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges11.svg'>
 <p>Number of reversed edges: 8</p>
-<h2>Reverse Edges (back) in Java: </h2>: <p>   public void reverseEdgesInJava(Graph graph)
+<h2>Reverse Edges (back) in Java: </h2>: <pre>   public void reverseEdgesInJava(Graph graph)
    {
       int noOfMatches = 0;
       
@@ -45,8 +45,7 @@
       }
       
       systemout = "Number of reversed edges: " + noOfMatches;
-   }</p>
-<p>Result graph: </p>
+   }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges16.svg'>
 <p>Number of reversed edges: 10</p>
 

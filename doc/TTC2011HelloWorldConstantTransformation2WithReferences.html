@@ -2,10 +2,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
+<p>TTC2011HelloWorldConstantTransformation2WithReferences</p>
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2ClassDiag.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
-<p>      ModelPattern p = new ModelPattern().startCreate();
+<pre>      ModelPattern p = new ModelPattern().startCreate();
       
       GreetingPO greetingPO = p.hasElementGreetingPO();
       
@@ -14,22 +15,20 @@
       
       PersonPO personPO = greetingPO.hasPerson()
       .hasName("TTC Participants");
-</p>
-<embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2.svg'>
+</pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2AfterTransformation.svg'>
 <p>For completeness just the host graph:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2WithReferences12.svg'>
 <p>For fairness, the java code that does this transformation looks like: </p>
-<p>      Greeting greeting = new Greeting();
+<pre>      Greeting greeting = new Greeting();
       
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
       .withText("Hello");
       
       Person person = greeting.createPerson()
       .withName("TTC Participants");
-</p>
-
+</pre>
 </body>
 </html>

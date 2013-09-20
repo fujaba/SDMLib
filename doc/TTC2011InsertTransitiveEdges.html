@@ -2,11 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011InsertTransitiveEdges</a></p>
+<p>TTC2011InsertTransitiveEdges</p>
 <hr/><p>Insert transitive edges.</p>
 <p>Start graph:</p>
 <embed type="image/svg+xml" src='TTC2011InsertTransitiveEdges5.svg'>
 <p>Transformation:</p>
-<p>   private int insertTransitiveEdges(Graph graph)
+<pre>   private int insertTransitiveEdges(Graph graph)
    {
       ModelPattern p = new ModelPattern();
       
@@ -31,8 +32,7 @@
       startNodePO.hasOutEdges().hasTgt(endNodePO);
       
       return p.allMatches();
-}</p>
-<embed type="image/svg+xml"src='insertTransitiveEdges.svg'>
+}</pre><embed type="image/svg+xml"src='insertTransitiveEdges.svg'>
 <p>Transformation with matches:</p>
 <embed type="image/svg+xml"src='insertTransitiveEdgesWithMatch.svg'>
 <p>We have inserted 8 new transitive edges. Result graph:</p>

@@ -20,6 +20,7 @@
     _Step [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/Step.java">Step</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Executor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/Executor.java">Executor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _BoardTask [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/BoardTask.java">BoardTask</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _TaskHandler [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/TaskHandler.java">TaskHandler</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     

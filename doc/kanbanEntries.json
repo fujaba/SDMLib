@@ -6,70 +6,76 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":159,
+      "hoursRemaining":4,
+      "hoursSpend":160,
       "subentries":[
-        {"id":"KE.K85"},
+        {"id":"KE.K26"},
+        {"id":"KE.K30"},
+        {"id":"KE.K164"},
+        {"id":"KE.K28"},
+        {"id":"KE.K38"},
+        {"id":"KE.K113"},
+        {"id":"KE.K48"},
         {"id":"KE.K36"},
-        {"id":"KE.K23"},
+        {"id":"KE.K154"},
+        {"id":"KE.K104"},
+        {"id":"KE.K143"},
+        {"id":"KE.K44"},
+        {"id":"KE.K115"},
+        {"id":"KE.K102"},
         {"id":"KE.K2"},
+        {"id":"KE.K125"},
+        {"id":"KE.K58"},
+        {"id":"KE.K85"},
+        {"id":"KE.K23"},
         {"id":"KE.K4"},
         {"id":"KE.K12"},
-        {"id":"KE.K26"},
-        {"id":"KE.K28"},
-        {"id":"KE.K30"},
         {"id":"KE.K32"},
         {"id":"KE.K34"},
-        {"id":"KE.K38"},
         {"id":"KE.K40"},
         {"id":"KE.K42"},
-        {"id":"KE.K44"},
-        {"id":"KE.K48"},
-        {"id":"KE.K58"},
         {"id":"KE.K61"},
         {"id":"KE.K82"},
         {"id":"KE.K88"},
         {"id":"KE.K90"},
-        {"id":"KE.K102"},
-        {"id":"KE.K104"},
-        {"id":"KE.K113"},
-        {"id":"KE.K115"},
         {"id":"KE.K119"},
         {"id":"KE.K123"},
-        {"id":"KE.K125"},
         {"id":"KE.K127"},
         {"id":"KE.K139"},
-        {"id":"KE.K143"},
         {"id":"KE.K145"},
-        {"id":"KE.K154"}
+        {"id":"KE.K166"}
       ],
       "logEntries":[
-        {"id":"KE.L57"},
-        {"id":"KE.L7"},
-        {"id":"KE.L11"},
+        {"id":"KE.L84"},
+        {"id":"KE.L95"},
         {"id":"KE.L15"},
+        {"id":"KE.L94"},
+        {"id":"KE.L93"},
+        {"id":"KE.L87"},
+        {"id":"KE.L112"},
+        {"id":"KE.L122"},
+        {"id":"KE.L57"},
+        {"id":"KE.L118"},
+        {"id":"KE.L64"},
+        {"id":"KE.L163"},
+        {"id":"KE.L7"},
+        {"id":"KE.L138"},
+        {"id":"KE.L136"},
         {"id":"KE.L22"},
+        {"id":"KE.L101"},
+        {"id":"KE.L161"},
+        {"id":"KE.L11"},
         {"id":"KE.L25"},
         {"id":"KE.L52"},
-        {"id":"KE.L64"},
         {"id":"KE.L69"},
         {"id":"KE.L81"},
-        {"id":"KE.L84"},
-        {"id":"KE.L87"},
-        {"id":"KE.L93"},
-        {"id":"KE.L94"},
-        {"id":"KE.L95"},
-        {"id":"KE.L101"},
-        {"id":"KE.L112"},
-        {"id":"KE.L118"},
-        {"id":"KE.L122"},
-        {"id":"KE.L136"},
-        {"id":"KE.L138"},
         {"id":"KE.L142"},
         {"id":"KE.L153"},
-        {"id":"KE.L161"},
-        {"id":"KE.L163"}
-      ]
+        {"id":"KE.L170"},
+        {"id":"KE.L172"},
+        {"id":"KE.L179"}
+      ],
+      "oldNoOfLogEntries":28
     }
   },
   {
@@ -82,7 +88,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L3"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -97,7 +104,8 @@
       "logEntries":[
         {"id":"KE.L6"},
         {"id":"KE.L5"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -112,7 +120,8 @@
       "logEntries":[
         {"id":"KE.L10"},
         {"id":"KE.L9"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -120,14 +129,15 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"TrainModel",
-      "phase":"backlog",
-      "lastDeveloper":"ulno",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
       "hoursSpend":3,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L14"},
-        {"id":"KE.L13"}
-      ]
+        {"id":"KE.L13"},
+        {"id":"KE.L14"}
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -137,16 +147,20 @@
       "name":"StudyRightObjectStoryboards",
       "phase":"backlog",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":5,
+      "hoursSpend":1,
       "parent":{"id":"KE.K123"},
+      "subentries":[
+        {"id":"KE.K173"}
+      ],
       "logEntries":[
+        {"id":"KE.L18"},
         {"id":"KE.L21"},
         {"id":"KE.L19"},
         {"id":"KE.L17"},
-        {"id":"KE.L18"},
-        {"id":"KE.L20"}
-      ]
+        {"id":"KE.L20"},
+        {"id":"KE.L176"}
+      ],
+      "oldNoOfLogEntries":6
     }
   },
   {
@@ -159,7 +173,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L24"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -172,7 +187,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L27"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -185,7 +201,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L29"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -198,7 +215,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L31"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -211,7 +229,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L33"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -224,7 +243,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L35"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -237,7 +257,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L37"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -250,7 +271,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L39"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -263,7 +285,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L41"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -276,7 +299,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L43"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -289,7 +313,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L45"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -302,7 +327,8 @@
       "parent":{"id":"KE.K127"},
       "logEntries":[
         {"id":"KE.L47"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -318,7 +344,8 @@
         {"id":"KE.L51"},
         {"id":"KE.L50"},
         {"id":"KE.L49"}
-      ]
+      ],
+      "oldNoOfLogEntries":3
     }
   },
   {
@@ -332,9 +359,10 @@
       "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L54"},
-        {"id":"KE.L55"},
-        {"id":"KE.L56"}
-      ]
+        {"id":"KE.L56"},
+        {"id":"KE.L55"}
+      ],
+      "oldNoOfLogEntries":3
     }
   },
   {
@@ -348,7 +376,8 @@
       "logEntries":[
         {"id":"KE.L60"},
         {"id":"KE.L59"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -363,7 +392,8 @@
       "logEntries":[
         {"id":"KE.L62"},
         {"id":"KE.L63"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -372,14 +402,15 @@
     "prop":{
       "name":"StudyRightReverseClassModel",
       "phase":"backlog",
-      "lastDeveloper":"ulno",
+      "lastDeveloper":"ajahl",
       "hoursSpend":1,
       "parent":{"id":"KE.K123"},
       "logEntries":[
         {"id":"KE.L68"},
-        {"id":"KE.L67"},
-        {"id":"KE.L66"}
-      ]
+        {"id":"KE.L66"},
+        {"id":"KE.L67"}
+      ],
+      "oldNoOfLogEntries":3
     }
   },
   {
@@ -387,22 +418,23 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightClassesCodeGen",
-      "phase":"implementation",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
       "hoursSpend":12,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L80"},
-        {"id":"KE.L75"},
-        {"id":"KE.L77"},
-        {"id":"KE.L71"},
-        {"id":"KE.L72"},
-        {"id":"KE.L74"},
-        {"id":"KE.L78"},
-        {"id":"KE.L76"},
         {"id":"KE.L73"},
-        {"id":"KE.L79"}
-      ]
+        {"id":"KE.L79"},
+        {"id":"KE.L74"},
+        {"id":"KE.L75"},
+        {"id":"KE.L72"},
+        {"id":"KE.L78"},
+        {"id":"KE.L71"},
+        {"id":"KE.L77"},
+        {"id":"KE.L76"},
+        {"id":"KE.L80"}
+      ],
+      "oldNoOfLogEntries":10
     }
   },
   {
@@ -416,7 +448,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L83"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -430,7 +463,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L86"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -443,7 +477,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L89"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -458,7 +493,8 @@
       "logEntries":[
         {"id":"KE.L92"},
         {"id":"KE.L91"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -471,11 +507,12 @@
       "hoursSpend":7,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L97"},
         {"id":"KE.L100"},
+        {"id":"KE.L97"},
         {"id":"KE.L99"},
         {"id":"KE.L98"}
-      ]
+      ],
+      "oldNoOfLogEntries":4
     }
   },
   {
@@ -488,7 +525,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L103"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -501,7 +539,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L105"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -514,12 +553,13 @@
       "hoursSpend":11,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L107"},
-        {"id":"KE.L110"},
-        {"id":"KE.L109"},
         {"id":"KE.L108"},
+        {"id":"KE.L110"},
+        {"id":"KE.L107"},
+        {"id":"KE.L109"},
         {"id":"KE.L111"}
-      ]
+      ],
+      "oldNoOfLogEntries":5
     }
   },
   {
@@ -532,7 +572,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L114"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -547,7 +588,8 @@
       "logEntries":[
         {"id":"KE.L116"},
         {"id":"KE.L117"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -560,10 +602,11 @@
       "hoursSpend":3,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L121"},
         {"id":"KE.L120"},
+        {"id":"KE.L121"},
         {"id":"KE.L137"}
-      ]
+      ],
+      "oldNoOfLogEntries":3
     }
   },
   {
@@ -573,8 +616,7 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":50,
+      "hoursSpend":46,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K16"},
@@ -584,16 +626,18 @@
         {"id":"KE.K96"},
         {"id":"KE.K106"},
         {"id":"KE.K126"},
-        {"id":"KE.K124"},
         {"id":"KE.K129"},
-        {"id":"KE.K155"}
+        {"id":"KE.K155"},
+        {"id":"KE.K124"}
       ],
       "logEntries":[
         {"id":"KE.L135"},
         {"id":"KE.L130"},
         {"id":"KE.L152"},
-        {"id":"KE.L162"}
-      ]
+        {"id":"KE.L162"},
+        {"id":"KE.L178"}
+      ],
+      "oldNoOfLogEntries":5
     }
   },
   {
@@ -608,7 +652,8 @@
       "logEntries":[
         {"id":"KE.L134"},
         {"id":"KE.L133"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -618,10 +663,13 @@
       "name":"ProjectManagement",
       "phase":"active",
       "lastDeveloper":"zuendorf",
+      "hoursSpend":1,
       "parent":{"id":"KE.K1"},
       "logEntries":[
+        {"id":"KE.L169"},
         {"id":"KE.L131"}
-      ]
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -639,7 +687,7 @@
     "prop":{
       "name":"Sprint.002.Transformations",
       "phase":"active",
-      "lastDeveloper":"ulno",
+      "lastDeveloper":"zuendorf",
       "hoursSpend":4,
       "parent":{"id":"KE.K1"},
       "subentries":[
@@ -649,7 +697,8 @@
       ],
       "logEntries":[
         {"id":"KE.L132"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -671,12 +720,13 @@
       "hoursSpend":10,
       "parent":{"id":"KE.K123"},
       "logEntries":[
-        {"id":"KE.L147"},
         {"id":"KE.L151"},
-        {"id":"KE.L149"},
+        {"id":"KE.L147"},
         {"id":"KE.L148"},
+        {"id":"KE.L149"},
         {"id":"KE.L150"}
-      ]
+      ],
+      "oldNoOfLogEntries":5
     }
   },
   {
@@ -684,13 +734,15 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"TodoEntries",
-      "phase":"backlog",
+      "phase":"modeling",
       "lastDeveloper":"zuendorf",
+      "hoursRemaining":4,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L141"},
-        {"id":"KE.L140"}
-      ]
+        {"id":"KE.L140"},
+        {"id":"KE.L141"}
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -703,7 +755,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L144"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -716,7 +769,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L146"}
-      ]
+      ],
+      "oldNoOfLogEntries":1
     }
   },
   {
@@ -726,12 +780,14 @@
       "name":"ExtendStoryboardByAddToDoMethod",
       "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursSpend":2,
+      "hoursSpend":3,
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L156"},
-        {"id":"KE.L160"}
-      ]
+        {"id":"KE.L160"},
+        {"id":"KE.L177"}
+      ],
+      "oldNoOfLogEntries":3
     }
   },
   {
@@ -747,7 +803,55 @@
         {"id":"KE.L157"},
         {"id":"KE.L158"},
         {"id":"KE.L159"}
-      ]
+      ],
+      "oldNoOfLogEntries":3
+    }
+  },
+  {
+    "id":"KE.K164",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ReplicationModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L165"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K166",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ExtendStoryboardByAddToDoMethod",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":3,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L167"},
+        {"id":"KE.L171"},
+        {"id":"KE.L168"}
+      ],
+      "oldNoOfLogEntries":3
+    }
+  },
+  {
+    "id":"KE.K173",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ExtendStoryboardByAddToDoMethod",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K16"},
+      "logEntries":[
+        {"id":"KE.L174"},
+        {"id":"KE.L175"}
+      ],
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -2080,6 +2184,158 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"Sprint.001.Booting: StoryboardInfrastructure: null"
+    }
+  },
+  {
+    "id":"KE.L165",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"16.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K164"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L167",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K166"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L168",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"01.11.2012 12:33:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K166"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L169",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K125"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L170",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":1,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ProjectManagement: ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L171",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"21.08.2012 17:53:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K166"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L172",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":3,
+      "hoursRemainingInTotal":8,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ProjectManagement: ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L174",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K173"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L175",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"01.11.2012 12:33:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K173"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L176",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":-4,
+      "kanbanEntry":{"id":"KE.K16"},
+      "developer":"zuendorf",
+      "phase":"backlog",
+      "comment":"ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L177",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"01.11.2012 12:33:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K154"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L178",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":-4,
+      "kanbanEntry":{"id":"KE.K123"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectStoryboards: ExtendStoryboardByAddToDoMethod: null"
+    }
+  },
+  {
+    "id":"KE.L179",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.09.2013 12:00:00",
+      "hoursSpend":-3,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"ProjectManagement: ExtendStoryboardByAddToDoMethod: null"
     }
   }
 ]

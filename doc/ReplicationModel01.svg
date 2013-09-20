@@ -298,5 +298,16 @@
 <text text-anchor="middle" x="443.824" y="-103.618" font-family="Times New Roman,serif" font-size="10.00">tasks *</text>
 <text text-anchor="middle" x="474.355" y="-164.652" font-family="Times New Roman,serif" font-size="10.00">currentStep</text>
 </g>
+<!-- _TaskHandler -->
+<g id="node17" class="node"><title>_TaskHandler</title>
+<a xlink:href="../src/org/sdmlib/replication/TaskHandler.java" xlink:title="&lt;TABLE&gt;">
+<polygon fill="none" stroke="black" points="168,-680 168,-697 227,-697 227,-680 168,-680"/>
+<text text-anchor="start" x="171.5" y="-686.5" font-family="Times New Roman,serif" font-size="10.00">TaskHandler</text>
+</a>
+<polygon fill="none" stroke="black" points="168,-660 168,-680 227,-680 227,-660 168,-660"/>
+<text text-anchor="start" x="196" y="-668" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="168,-640 168,-660 227,-660 227,-640 168,-640"/>
+<text text-anchor="start" x="196" y="-648" font-family="Times New Roman,serif" font-size="10.00"> </text>
+</g>
 </g>
 </svg>

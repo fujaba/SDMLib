@@ -2,12 +2,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
+<p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationSourceClassDiag.svg'><hr/><p>Target model:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationTargetClassDiag.svg'><hr/><p>Migration extension:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationExtensionClassDiag.svg'><hr/><p>Create example source graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration13.svg'>
-<hr/><h2>Migrate per pattern: </h2><p>   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
+<hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       //==========================================================================
       ModelPattern migrateGraph = new ModelPattern();
@@ -109,8 +110,7 @@
       storyboard.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
       
       storyboard.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
-   }</p>
-<embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateGraph.svg'>
+   }</pre><embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateGraph.svg'>
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateNodesPattern.svg'>
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateEdgesPattern.svg'>
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateSrcHalfLinkPattern.svg'>
@@ -119,7 +119,7 @@
 <embed type="image/svg+xml" src='TTC2011SimpleMigration23.svg'>
 <p>Number of migrated nodes: 8
 Number of migrated Edges: 10</p>
-<hr/><h2>Migrate in Java: </h2><p>   private void simpleMigrationInJava(Graph origGraph)
+<hr/><h2>Migrate in Java: </h2><pre>   private void simpleMigrationInJava(Graph origGraph)
    {
       int noOfMatches = 0;
       
@@ -161,11 +161,10 @@ Number of migrated Edges: 10</p>
          }
       }
       
-   }</p>
-<p>Result graph: </p>
+   }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration29.svg'>
 <p>Number of migrated nodes: 8</p>
-<hr/><h2>Migrate using Serialisation / Clone : </h2><p>   private Graph simpleMigrationByCloning(Graph graph)
+<hr/><h2>Migrate using Serialisation / Clone : </h2><pre>   private Graph simpleMigrationByCloning(Graph graph)
    {
       JsonArray jsonArray = CreatorCreator.createIdMap("hg").toJsonArray(graph);
       
@@ -185,10 +184,9 @@ Number of migrated Edges: 10</p>
       }
 
       return copyGraph;
-   }</p>
-<p>Result graph: </p>
+   }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration35.svg'>
-<hr/><h2>Migrate using JSON Array repr?sentation : </h2><p>   private Graph simpleMigrationByJsonArray(Graph graph)
+<hr/><h2>Migrate using JSON Array repr?sentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
    {
       JsonIdMap idMap = CreatorCreator.createIdMap("hg");
       
@@ -249,10 +247,9 @@ Number of migrated Edges: 10</p>
       Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").readJson(jsonArray);
       
       return copyGraph;
-   }</p>
-<p>Result graph: </p>
+   }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration40.svg'>
-<hr/><h2>Migrate using Generic Graph representation : </h2><p>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(CreatorCreator.createIdMap("g1"), origGraph);
@@ -288,15 +285,14 @@ Number of migrated Edges: 10</p>
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
       return tgtGraph;
-   }</p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration44.svg'>
+   }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigration44.svg'>
 <embed type="image/svg+xml"src='simpleMigrationByGenericGraph_renameAttr.svg'>
 <embed type="image/svg+xml"src='simpleMigrationByGenericGraph_renameLink.svg'>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration47.svg'>
 <p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration49.svg'>
 <hr/><h2>Even more evolved graph model : </h2><embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag.svg'><embed type="image/svg+xml" src='TTC2011SimpleMigration53.svg'>
-<p>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(CreatorCreator.createIdMap("g1"), origGraph);
@@ -354,8 +350,7 @@ Number of migrated Edges: 10</p>
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       
       return tgtGraph;
-   }</p>
-<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
+   }</pre><embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
 <embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges.svg'>
 <embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges.svg'>
 <p>Result graph: </p>

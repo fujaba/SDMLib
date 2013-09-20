@@ -11,22 +11,22 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-338 360,-338 360,5 -4,5"/>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="166.5,-278.5 166.5,-329.5 261.5,-329.5 261.5,-278.5 166.5,-278.5"/>
-<text text-anchor="start" x="223" y="-319.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
-<polygon fill="none" stroke="black" points="167,-298 167,-314 262,-314 262,-298 167,-298"/>
-<text text-anchor="start" x="170.5" y="-304" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="173.5" y="-304" font-family="Times New Roman,serif" font-size="10.00"> g1 :GenericGraphPO </text>
-<polygon fill="none" stroke="black" points="167,-278 167,-298 262,-298 262,-278 167,-278"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="176.5,-278.5 176.5,-329.5 251.5,-329.5 251.5,-278.5 176.5,-278.5"/>
+<text text-anchor="start" x="222" y="-319.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
+<polygon fill="none" stroke="black" points="177,-298 177,-314 252,-314 252,-298 177,-298"/>
+<text text-anchor="start" x="180.5" y="-304" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="183.5" y="-304" font-family="Times New Roman,serif" font-size="10.00"> g1 :GenericGraphPO </text>
+<polygon fill="none" stroke="black" points="177,-278 177,-298 252,-298 252,-278 177,-278"/>
 <text text-anchor="start" x="212" y="-286" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- g2 -->
 <g id="node2" class="node"><title>g2</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="111.5,-196.5 111.5,-233.5 316.5,-233.5 316.5,-196.5 111.5,-196.5"/>
-<polygon fill="none" stroke="black" points="112,-216 112,-233 317,-233 317,-216 112,-216"/>
-<text text-anchor="start" x="169" y="-222.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="172" y="-222.5" font-family="Times New Roman,serif" font-size="10.00"> g2 :GenericObjectPO </text>
-<polygon fill="none" stroke="black" points="112,-196 112,-216 317,-216 317,-196 112,-196"/>
-<text text-anchor="start" x="117.5" y="-204" font-family="Times New Roman,serif" font-size="10.00"> type == &quot;org.sdmlib.examples.helloworld.Edge&quot; </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="139,-196.5 139,-233.5 289,-233.5 289,-196.5 139,-196.5"/>
+<polygon fill="none" stroke="black" points="139,-216 139,-233 289,-233 289,-216 139,-216"/>
+<text text-anchor="start" x="179" y="-222.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="182" y="-222.5" font-family="Times New Roman,serif" font-size="10.00"> g2 :GenericObjectPO </text>
+<polygon fill="none" stroke="black" points="139,-196 139,-216 289,-216 289,-196 139,-196"/>
+<text text-anchor="start" x="144.5" y="-204" font-family="Times New Roman,serif" font-size="10.00"> type == &quot;org.sdmlib.examples.helloworld.Edge&quot; </text>
 </g>
 <!-- g1&#45;&#45;g2 -->
 <g id="edge8" class="edge"><title>g1&#45;&#45;g2</title>
@@ -35,28 +35,28 @@
 </g>
 <!-- g3 -->
 <g id="node3" class="node"><title>g3</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="35.5,-100.5 35.5,-137.5 124.5,-137.5 124.5,-100.5 35.5,-100.5"/>
-<polygon fill="none" stroke="black" points="36,-120 36,-137 125,-137 125,-120 36,-120"/>
-<text text-anchor="start" x="39.5" y="-126.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="42.5" y="-126.5" font-family="Times New Roman,serif" font-size="10.00"> g3 :GenericLinkPO </text>
-<polygon fill="none" stroke="black" points="36,-100 36,-120 125,-120 125,-100 36,-100"/>
-<text text-anchor="start" x="43.5" y="-108" font-family="Times New Roman,serif" font-size="10.00"> tgtLabel == &quot;src&quot; </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="49.5,-100.5 49.5,-137.5 138.5,-137.5 138.5,-100.5 49.5,-100.5"/>
+<polygon fill="none" stroke="black" points="50,-120 50,-137 139,-137 139,-120 50,-120"/>
+<text text-anchor="start" x="53.5" y="-126.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="56.5" y="-126.5" font-family="Times New Roman,serif" font-size="10.00"> g3 :GenericLinkPO </text>
+<polygon fill="none" stroke="black" points="50,-100 50,-120 139,-120 139,-100 50,-100"/>
+<text text-anchor="start" x="57.5" y="-108" font-family="Times New Roman,serif" font-size="10.00"> tgtLabel == &quot;src&quot; </text>
 </g>
 <!-- g2&#45;&#45;g3 -->
 <g id="edge10" class="edge"><title>g2&#45;&#45;g3</title>
-<path fill="none" stroke="black" d="M183.258,-192.435C161.623,-177.258 132.769,-157.017 111.063,-141.791"/>
-<text text-anchor="middle" x="120.91" y="-141.036" font-family="Times New Roman,serif" font-size="10.00">outgoingLinks</text>
+<path fill="none" stroke="black" d="M186.47,-192.435C167.095,-177.258 141.256,-157.017 121.818,-141.791"/>
+<text text-anchor="middle" x="131.559" y="-141.553" font-family="Times New Roman,serif" font-size="10.00">outgoingLinks</text>
 </g>
 <!-- g4 -->
 <g id="node4" class="node"><title>g4</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="159,-86.5 159,-151.5 269,-151.5 269,-86.5 159,-86.5"/>
-<polygon fill="none" stroke="black" points="159,-134 159,-151 269,-151 269,-134 159,-134"/>
-<text text-anchor="start" x="173" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="176" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> g4 :GenericLinkPO </text>
-<polygon fill="none" stroke="black" points="159,-86 159,-134 269,-134 269,-86 159,-86"/>
-<text text-anchor="start" x="177.5" y="-122" font-family="Times New Roman,serif" font-size="10.00"> tgtLabel == &quot;tgt&quot; </text>
-<text text-anchor="start" x="164.5" y="-108" font-family="Times New Roman,serif" font-size="10.00" fill="green"> srcLabel := &quot;linksFrom&quot; </text>
-<text text-anchor="start" x="169.5" y="-94" font-family="Times New Roman,serif" font-size="10.00" fill="green"> tgtLabel := &quot;linksTo&quot; </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="173,-86.5 173,-151.5 255,-151.5 255,-86.5 173,-86.5"/>
+<polygon fill="none" stroke="black" points="173,-134 173,-151 255,-151 255,-134 173,-134"/>
+<text text-anchor="start" x="182" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="185" y="-140.5" font-family="Times New Roman,serif" font-size="10.00"> g4 :GenericLinkPO </text>
+<polygon fill="none" stroke="black" points="173,-86 173,-134 255,-134 255,-86 173,-86"/>
+<text text-anchor="start" x="188" y="-122" font-family="Times New Roman,serif" font-size="10.00"> tgtLabel == &quot;tgt&quot; </text>
+<text text-anchor="start" x="178.5" y="-108" font-family="Times New Roman,serif" font-size="10.00" fill="green"> srcLabel := &quot;linksFrom&quot; </text>
+<text text-anchor="start" x="182" y="-94" font-family="Times New Roman,serif" font-size="10.00" fill="green"> tgtLabel := &quot;linksTo&quot; </text>
 </g>
 <!-- g2&#45;&#45;g4 -->
 <g id="edge12" class="edge"><title>g2&#45;&#45;g4</title>
@@ -65,11 +65,11 @@
 </g>
 <!-- d7 -->
 <g id="node8" class="node"><title>d7</title>
-<text text-anchor="middle" x="322" y="-116.5" font-family="Times New Roman,serif" font-size="10.00" fill="red">destroy</text>
+<text text-anchor="middle" x="308" y="-116.5" font-family="Times New Roman,serif" font-size="10.00" fill="red">destroy</text>
 </g>
 <!-- g2&#45;&#45;d7 -->
 <g id="edge4" class="edge"><title>g2&#45;&#45;d7</title>
-<path fill="none" stroke="red" stroke-dasharray="1,5" d="M242.271,-192.369C255.788,-181.742 272.028,-168.548 286,-156 292.576,-150.094 299.508,-143.309 305.514,-137.233"/>
+<path fill="none" stroke="red" stroke-dasharray="1,5" d="M235.802,-192.198C252.506,-175.494 275.24,-152.76 290.704,-137.296"/>
 </g>
 <!-- g5 -->
 <g id="node6" class="node"><title>g5</title>
@@ -82,8 +82,8 @@
 </g>
 <!-- g3&#45;&#45;g5 -->
 <g id="edge14" class="edge"><title>g3&#45;&#45;g5</title>
-<path fill="none" stroke="black" d="M89.0454,-96.1982C95.346,-81.0123 103.714,-60.8435 110.004,-45.6835"/>
-<text text-anchor="middle" x="110.434" y="-53.1743" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
+<path fill="none" stroke="black" d="M99.7983,-96.1982C103.837,-81.0123 109.201,-60.8435 113.233,-45.6835"/>
+<text text-anchor="middle" x="114.988" y="-53.0284" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
 </g>
 <!-- d8 -->
 <g id="node9" class="node"><title>d8</title>
@@ -91,7 +91,7 @@
 </g>
 <!-- g3&#45;&#45;d8 -->
 <g id="edge6" class="edge"><title>g3&#45;&#45;d8</title>
-<path fill="none" stroke="red" stroke-dasharray="1,5" d="M67.7075,-96.1982C58.289,-79.4937 45.471,-56.7599 36.7519,-41.2958"/>
+<path fill="none" stroke="red" stroke-dasharray="1,5" d="M78.4604,-96.1982C66.554,-79.4937 50.3501,-56.7599 39.3279,-41.2958"/>
 </g>
 <!-- allMatches_g4 -->
 <g id="node5" class="node"><title>allMatches_g4</title>
