@@ -49,6 +49,10 @@ public class SharedSpace extends Thread
 implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 {
 
+   public static final String CURRENT_HISTORY_ID = "currentHistoryId";
+
+   public static final String TERMINATE = "terminate";
+
    private static final String RESEND_ID_HISTORY_PREFIX = "resendIdHistoryPrefix";
 
    private static final String RESEND_ID_HISTORY_NUMBER = "resendIdHistoryNumber";
@@ -71,17 +75,59 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
       public String msg;
    }
+   
+   private boolean firstMessage = true;
 
    public void enqueueMsg(ReplicationChannel channel, String msg)
    {
       try
       {
+         if (firstMessage)
+         {
+            firstMessage = false;
+            JsonObject jsonObject = new JsonObject(msg);
+            if (jsonObject.get(CURRENT_HISTORY_ID) != null)
+            {
+               long receivedId = jsonObject.getLong(CURRENT_HISTORY_ID);
+               if (receivedId > this.lastChangeId)
+               {
+                  this.lastChangeId = receivedId;
+                  synchronized (this)
+                  {
+                     this.notifyAll();
+                  }
+               }
+               return;
+            }
+         }
+
          ChannelMsg channelMsg = new ChannelMsg(channel, msg);
          msgQueue.put(channelMsg);
       }
       catch (InterruptedException e)
       {
          e.printStackTrace();
+      }
+   }
+   
+   
+   public void waitForCurrentHistoryId()
+   {
+      
+      while (this.lastChangeId == 0)
+      {
+         try
+         {
+            synchronized (this)
+            {
+               wait();
+            }
+         }
+         catch (InterruptedException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
       }
    }
 
@@ -93,6 +139,15 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          try
          {
             ChannelMsg msg = msgQueue.take();
+            
+            if (TERMINATE.equals(msg.msg))
+            {
+               for (ReplicationChannel c : getChannels())
+               {
+                  c.send(TERMINATE);
+               }
+               break;
+            }
 
             handleMessage(msg);
          }
@@ -122,7 +177,12 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          // check for initial message
          if (jsonObject.get("spaceId") != null)
          {
-            // initial message, send my changes
+            // initial message, send current historyId
+            JsonObject jsonHistoryId = new JsonObject();
+            jsonHistoryId.put(CURRENT_HISTORY_ID, this.lastChangeId);
+            msg.channel.send(jsonHistoryId.toString());
+            
+            // send my changes
             previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
             
             sendAllChangesSince(previousChange, msg.channel);

@@ -13,6 +13,7 @@ public class StoryboardCreator extends EntityFactory
       Storyboard.PROPERTY_WALL,
       Storyboard.PROPERTY_ROOTDIR,
       Storyboard.PROPERTY_STEPCOUNTER,
+      Storyboard.PROPERTY_STEPDONECOUNTER,
    };
    
    public String[] getProperties()
@@ -53,6 +54,7 @@ public class StoryboardCreator extends EntityFactory
       ((Storyboard) entity).removeYou();
    }
 }
+
 
 
 

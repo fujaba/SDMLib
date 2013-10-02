@@ -164,7 +164,30 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       return this;
    }
 
+   public intList getStepDoneCounter()
+   {
+      intList result = new intList();
+      
+      for (Storyboard obj : this)
+      {
+         result.add(obj.getStepDoneCounter());
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet withStepDoneCounter(int value)
+   {
+      for (Storyboard obj : this)
+      {
+         obj.setStepDoneCounter(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

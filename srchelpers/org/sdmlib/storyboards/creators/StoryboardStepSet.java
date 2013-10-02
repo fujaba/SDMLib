@@ -21,6 +21,8 @@
    
 package org.sdmlib.storyboards.creators;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.storyboards.StoryboardStep;
@@ -117,6 +119,17 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
          return obj;
       }
       
+      return null;
+   }
+
+
+   public StoryboardStep getLast()
+   {
+      Object[] array = this.toArray();
+      if (array.length > 0)
+      {
+         return (StoryboardStep) array[array.length - 1];
+      }
       return null;
    }
 

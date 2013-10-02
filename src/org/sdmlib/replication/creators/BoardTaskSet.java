@@ -164,5 +164,25 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
       return this;
    }
 
+
+   public BoardTask getFirst()
+   {
+      for (BoardTask t : this)
+      {
+         return t;
+      }
+      
+      return null;
+   }
+
+
+   public void removeYou()
+   {
+      for (BoardTask t : this)
+      {
+         t.removeYou();
+      }
+   }
+
 }
 

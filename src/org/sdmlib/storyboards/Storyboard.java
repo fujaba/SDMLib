@@ -170,7 +170,8 @@ public class Storyboard implements PropertyChangeInterface
    
    private void addToSteps(String text)
    {
-      this.createStoryboardSteps().withText(text);
+      StoryboardStep storyStep = new StoryboardStep().withText(text);
+      this.addToStoryboardSteps(storyStep);
    }
 
    // private String rootDir = null;
@@ -353,7 +354,6 @@ public class Storyboard implements PropertyChangeInterface
       {
          this.add("Start: " + txt);
          this.setStepCounter(this.getStepCounter() + 1);
-         stepCounter++;
       }
       else
       {
@@ -586,6 +586,11 @@ public class Storyboard implements PropertyChangeInterface
          object = elems[i];
          i++;
 
+         if (object == null)
+         {
+            continue;
+         }
+         
          if (object.equals(true))
          {
             restrictToExplicitElems = true;
@@ -1133,6 +1138,11 @@ public class Storyboard implements PropertyChangeInterface
          return getStepCounter();
       }
 
+      if (PROPERTY_STEPDONECOUNTER.equalsIgnoreCase(attrName))
+      {
+         return getStepDoneCounter();
+      }
+
       return null;
    }
 
@@ -1168,6 +1178,12 @@ public class Storyboard implements PropertyChangeInterface
       if (PROPERTY_STEPCOUNTER.equalsIgnoreCase(attrName))
       {
          setStepCounter(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_STEPDONECOUNTER.equalsIgnoreCase(attrName))
+      {
+         setStepDoneCounter(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -1207,6 +1223,7 @@ public class Storyboard implements PropertyChangeInterface
       _.append(" ").append("Storyboard" + this.getStoryboardSteps().getFirst());
       _.append(" ").append(this.getRootDir());
       _.append(" ").append(this.getStepCounter());
+      _.append(" ").append(this.getStepDoneCounter());
       return _.substring(1);
    }
 
@@ -1422,6 +1439,34 @@ public class Storyboard implements PropertyChangeInterface
    public Storyboard withStepCounter(int value)
    {
       setStepCounter(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
+   
+   private int stepDoneCounter;
+
+   public int getStepDoneCounter()
+   {
+      return this.stepDoneCounter;
+   }
+   
+   public void setStepDoneCounter(int value)
+   {
+      if (this.stepDoneCounter != value)
+      {
+         int oldValue = this.stepDoneCounter;
+         this.stepDoneCounter = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPDONECOUNTER, oldValue, value);
+      }
+   }
+   
+   public Storyboard withStepDoneCounter(int value)
+   {
+      setStepDoneCounter(value);
       return this;
    } 
 }

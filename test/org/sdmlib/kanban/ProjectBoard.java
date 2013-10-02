@@ -183,7 +183,8 @@ public class ProjectBoard
       
       Clazz storyboardClass = model.createClazz(Storyboard.class.getName(), 
                "rootDir", R.STRING,
-               "stepCounter", R.INT
+               "stepCounter", R.INT, 
+               "stepDoneCounter", R.INT
                   );
       
       storyboardWallClass.withAssoc(storyboardClass, "storyboard", R.ONE, "wall", R.ONE);

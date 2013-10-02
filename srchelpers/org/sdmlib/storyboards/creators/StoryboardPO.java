@@ -163,7 +163,40 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       return this;
    }
    
+   public StoryboardPO hasStepDoneCounter(int value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Storyboard.PROPERTY_STEPDONECOUNTER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public int getStepDoneCounter()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Storyboard) getCurrentMatch()).getStepDoneCounter();
+      }
+      return 0;
+   }
+   
+   public StoryboardPO withStepDoneCounter(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Storyboard) getCurrentMatch()).setStepDoneCounter(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 
