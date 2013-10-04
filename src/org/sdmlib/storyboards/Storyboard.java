@@ -526,7 +526,9 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addClassDiagram(ClassModel model)
    {
-      model.dumpClassDiagram(this.getRootDir(), this.getName() + "ClassDiagram" + this.getStoryboardSteps().size());
+      String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
+      diagName = model.dumpClassDiagram(this.getRootDir(), diagName);
+      this.addSVGImage(diagName);
    }
    
    public void addObjectDiagramWith(Object... elems) 
@@ -622,7 +624,12 @@ public class Storyboard implements PropertyChangeInterface
          if (jsonIdMap == null)
          {
             jsonIdMap = new GenericIdMap();
-
+         }
+         
+         SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);
+         
+         if (objectCreator == null || objectCreator instanceof GenericCreator)
+         {
             String className = object.getClass().getName();
             String packageName = CGUtil.packageName(className) + ".creators";
             className = packageName + ".CreatorCreator";
