@@ -31,7 +31,7 @@ public class UniversityCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }

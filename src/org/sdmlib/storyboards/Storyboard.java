@@ -52,6 +52,7 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
@@ -94,25 +95,25 @@ public class Storyboard implements PropertyChangeInterface
       setName(name);
       return this;
    }
-   
+
    public String findRootDir()
    {
       if (rootDir == null)
       {
          this.rootDir = "src";
-         
+
          Exception e = new RuntimeException();
-         
+
          StackTraceElement[] stackTrace = e.getStackTrace();
          StackTraceElement callEntry = stackTrace[1];
-      
+
          // find first method outside Storyboard
          int i = 1;
-         
+
          while (true)
          {
             callEntry = stackTrace[i];
-            
+
             if (callEntry.getClassName().equals(Storyboard.class.getName()))
             {
                i++;
@@ -142,16 +143,16 @@ public class Storyboard implements PropertyChangeInterface
                }
             }
          }
-         
+
       }
-      
+
       return this.rootDir;
    }
 
    public Storyboard()
    {
       findRootDir();
-      
+
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
@@ -167,7 +168,7 @@ public class Storyboard implements PropertyChangeInterface
 
       this.addToSteps(name);
    }
-   
+
    private void addToSteps(String text)
    {
       StoryboardStep storyStep = new StoryboardStep().withText(text);
@@ -179,7 +180,7 @@ public class Storyboard implements PropertyChangeInterface
    public Storyboard(String rootDir)
    {
       this.rootDir = rootDir;
-      
+
       Exception e = new RuntimeException();
 
       StackTraceElement[] stackTrace = e.getStackTrace();
@@ -327,7 +328,7 @@ public class Storyboard implements PropertyChangeInterface
       htmlText = htmlText.replaceFirst("\\$text", text.toString());
 
       writeToFile(shortFileName, htmlText);
-      
+
       coverage4GeneratedModelCode(largestRoot);
    }
 
@@ -347,7 +348,7 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    // private int stepCounter = 0;
-   
+
    public void addStep(String txt)
    {
       if (stepCounter == 0)
@@ -359,8 +360,8 @@ public class Storyboard implements PropertyChangeInterface
       {
          StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>");
          CGUtil.replaceAll(buf, 
-               "stepCounter", "" + stepCounter, 
-               "text", txt);
+            "stepCounter", "" + stepCounter, 
+            "text", txt);
          this.add(buf.toString());
          this.setStepCounter(this.getStepCounter() + 1);
       }
@@ -412,7 +413,7 @@ public class Storyboard implements PropertyChangeInterface
          }
 
          JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap.getCreators());
-         
+
          copyMap.readJson(largestJsonArray);
 
          for (String key : copyMap.getKeys())
@@ -427,7 +428,8 @@ public class Storyboard implements PropertyChangeInterface
 
             removeMethod.invoke(object);
          }
-         
+
+         coverPOClasses();
          coverSetClasses();
 
       }
@@ -437,33 +439,53 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   private void coverSetClasses()
+   private void coverPOClasses()
    {
-      // loop through objects in jsonIdMap, pack them into package, read and write all attributes
+      // loop through objects in jsonIdMap, pack them into pattern object, read and write all attributes
+
+      Pattern pattern = null;
+      Class patternClass = null;
+      
       for (String key : jsonIdMap.keySet())
       {
          Object object = jsonIdMap.getObject(key);
-         
+
          SendableEntityCreator creatorClass = jsonIdMap.getCreatorClass(object);
-         
+
          String className = object.getClass().getName();
          String packageName = CGUtil.packageName(className) + ".creators";
-         String setClassName = packageName + "." + CGUtil.shortClassName(className) + "Set";
-         
+
+         if (pattern == null)
+         {
+            String modelPatternClassName = packageName + ".ModelPattern";
+
+            try
+            {
+               patternClass = Class.forName(modelPatternClassName);
+               pattern = (Pattern) patternClass.newInstance();
+            }
+            catch (Exception e)
+            {
+
+            }
+         }
+
          try
          {
-            Class setClass = Class.forName(setClassName);
-            ModelSet setObject = (ModelSet) setClass.newInstance();
-            
-            // cover ModelSet methods
-            String entryType = setObject.getEntryType();
-            
+            // cover hasElement methods
+            String hasElemMethod = "hasElement" + CGUtil.shortClassName(className) + "PO";
+
             // add entry 
-            Method withMethod = setClass.getMethod("with", object.getClass());
-            withMethod.invoke(setObject, object);
+            Method method = patternClass.getMethod(hasElemMethod);
+            method.invoke(pattern);
             
-            // toString
-            String text = setObject.toString();
+            pattern.removeAllFromElements();
+            pattern.setHasMatch(true);
+            
+            // also the bound method
+            method = patternClass.getMethod(hasElemMethod, object.getClass());
+            Object patternObject = method.invoke(pattern, object);
+            Class patternObjectClass = patternObject.getClass();
             
             // loop through attributes
             for (String attrName : creatorClass.getProperties())
@@ -471,14 +493,8 @@ public class Storyboard implements PropertyChangeInterface
                try
                {
                   // call getter
-                  Method getMethod = setClass.getMethod("get" + StrUtil.upFirstChar(attrName));
-                  Object value = getMethod.invoke(setObject);
-                  
-                  // get direct value
-                  if (value instanceof Collection)
-                  {
-                     value = ((Collection) value).iterator().next();
-                  }
+                  method = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                  Object value = method.invoke(patternObject);
                   
                   Class valueClass = value.getClass();
                   
@@ -499,19 +515,148 @@ public class Storyboard implements PropertyChangeInterface
                      valueClass = float.class;
                   }
                   
+                  if (valueClass.isPrimitive() || valueClass == String.class)
+                  {
+                     // call with
+                     method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
+                     method.invoke(patternObject, value);
+                     
+                     // call has
+                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                     method.invoke(patternObject, value);
+                  }
+                  else
+                  {
+                     // model elem, 
+                     // call has
+                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
+                     value = method.invoke(patternObject);
+                     
+                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), value.getClass());
+                     value = method.invoke(patternObject, value);
+                  }
+                  
+               }
+               catch (Exception e)
+               {
+                  // no problem, go on with next attr
+               }
+            }
+            
+            // allMatches
+            method = patternObjectClass.getMethod("allMatches");
+            method.invoke(patternObject);
+            
+            pattern.removeAllFromElements();
+            pattern.setHasMatch(true);
+            
+            
+            
+                              
+            //
+            //                  // get direct value
+            //                  if (value instanceof Collection)
+            //                  {
+            //                     value = ((Collection) value).iterator().next();
+            //                  }
+            //
+                              
+            //
+            //                  // call setter
+            //                  Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
+            //                  setMethod.invoke(setObject, value);
+            //
+            //                  Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
+            //                  unsetMethod.invoke(setObject, value);
+                           
+            //
+            //            // del entry
+            //            Method withoutMethod = setClass.getMethod("without", object.getClass());
+            //            withoutMethod.invoke(setObject, object);
+         }
+         catch (Exception e)
+         {
+            // no prolem, just lower coverage
+         }
+      }
+
+   }
+
+   private void coverSetClasses()
+   {
+      // loop through objects in jsonIdMap, pack them into set, read and write all attributes
+      for (String key : jsonIdMap.keySet())
+      {
+         Object object = jsonIdMap.getObject(key);
+
+         SendableEntityCreator creatorClass = jsonIdMap.getCreatorClass(object);
+
+         String className = object.getClass().getName();
+         String packageName = CGUtil.packageName(className) + ".creators";
+         String setClassName = packageName + "." + CGUtil.shortClassName(className) + "Set";
+
+         try
+         {
+            Class setClass = Class.forName(setClassName);
+            ModelSet setObject = (ModelSet) setClass.newInstance();
+
+            // cover ModelSet methods
+            String entryType = setObject.getEntryType();
+
+            // add entry 
+            Method withMethod = setClass.getMethod("with", object.getClass());
+            withMethod.invoke(setObject, object);
+
+            // toString
+            String text = setObject.toString();
+
+            // loop through attributes
+            for (String attrName : creatorClass.getProperties())
+            {
+               try
+               {
+                  // call getter
+                  Method getMethod = setClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                  Object value = getMethod.invoke(setObject);
+
+                  // get direct value
+                  if (value instanceof Collection)
+                  {
+                     value = ((Collection) value).iterator().next();
+                  }
+
+                  Class valueClass = value.getClass();
+
+                  if (value instanceof Integer)
+                  {
+                     valueClass = int.class;
+                  }
+                  else if (value instanceof Double)
+                  {
+                     valueClass = double.class;
+                  }
+                  else if (value instanceof Long)
+                  {
+                     valueClass = long.class;
+                  }
+                  else if (value instanceof Float)
+                  {
+                     valueClass = float.class;
+                  }
+
                   // call setter
                   Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                   setMethod.invoke(setObject, value);
 
                   Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
                   unsetMethod.invoke(setObject, value);
-}
+               }
                catch (Exception e)
                {
                   // no prolem, go on with next attr
                }
             }
-            
+
             // del entry
             Method withoutMethod = setClass.getMethod("without", object.getClass());
             withoutMethod.invoke(setObject, object);
@@ -521,7 +666,7 @@ public class Storyboard implements PropertyChangeInterface
             // no prolem, just lower coverage
          }
       }
-      
+
    }
 
    public void addClassDiagram(ClassModel model)
@@ -530,7 +675,7 @@ public class Storyboard implements PropertyChangeInterface
       diagName = model.dumpClassDiagram(this.getRootDir(), diagName);
       this.addSVGImage(diagName);
    }
-   
+
    public void addObjectDiagramWith(Object... elems) 
    {
       ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
@@ -538,11 +683,11 @@ public class Storyboard implements PropertyChangeInterface
       Object[] moreElems = tempElems.toArray();
       addObjectDiagram(moreElems);
    }
-   
+
    private JsonIdMap jsonIdMap = null;
-   
+
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
-   
+
    public void addObjectDiagram(Object... elems) 
    {
       String objectName;
@@ -565,7 +710,7 @@ public class Storyboard implements PropertyChangeInterface
          {
             String txt = (String) elems[i];
             String suffix = CGUtil.shortClassName(txt);
-            
+
             if (txt.indexOf('.') >= 0 && "png gif tif".indexOf(suffix) >= 0)
             {
                // it is a file name 
@@ -592,7 +737,7 @@ public class Storyboard implements PropertyChangeInterface
          {
             continue;
          }
-         
+
          if (object.equals(true))
          {
             restrictToExplicitElems = true;
@@ -614,7 +759,7 @@ public class Storyboard implements PropertyChangeInterface
             // plain object
             explicitElems.add(object);
          }
-         
+
          if (root == null)
          {
             root = object;
@@ -625,9 +770,9 @@ public class Storyboard implements PropertyChangeInterface
          {
             jsonIdMap = new GenericIdMap();
          }
-         
+
          SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);
-         
+
          if (objectCreator == null || objectCreator instanceof GenericCreator)
          {
             String className = object.getClass().getName();
@@ -659,14 +804,14 @@ public class Storyboard implements PropertyChangeInterface
          {
             objectName = jsonIdMap.getId(object);
          }
-         
-         
+
+
          if (objectIcon != null)
          {
             iconMap.put(objectName, objectIcon);
          }
 
-         
+
       }
 
       // all names collected, dump it
@@ -1120,9 +1265,9 @@ public class Storyboard implements PropertyChangeInterface
    }
 
 
-   
+
    //==========================================================================
-   
+
    public Object get(String attrName)
    {
       if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
@@ -1153,9 +1298,9 @@ public class Storyboard implements PropertyChangeInterface
       return null;
    }
 
-   
+
    //==========================================================================
-   
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
@@ -1163,7 +1308,7 @@ public class Storyboard implements PropertyChangeInterface
          addToStoryboardSteps((StoryboardStep) value);
          return true;
       }
-      
+
       if ((PROPERTY_STORYBOARDSTEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStoryboardSteps((StoryboardStep) value);
@@ -1197,24 +1342,24 @@ public class Storyboard implements PropertyChangeInterface
       return false;
    }
 
-   
+
    //==========================================================================
-   
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
+
    public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
+
    //==========================================================================
-   
+
    public void removeYou()
    {
       removeAllFromStoryboardSteps();
@@ -1222,11 +1367,11 @@ public class Storyboard implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
+
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append("Storyboard" + this.getStoryboardSteps().getFirst());
       _.append(" ").append(this.getRootDir());
       _.append(" ").append(this.getStepCounter());
@@ -1235,7 +1380,7 @@ public class Storyboard implements PropertyChangeInterface
    }
 
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1243,62 +1388,62 @@ public class Storyboard implements PropertyChangeInterface
     *              storyboard                   storyboardSteps
     * </pre>
     */
-   
+
    public static final String PROPERTY_STORYBOARDSTEPS = "storyboardSteps";
-   
+
    private StoryboardStepSet storyboardSteps = null;
-   
+
    public StoryboardStepSet getStoryboardSteps()
    {
       if (this.storyboardSteps == null)
       {
          return StoryboardStep.EMPTY_SET;
       }
-   
+
       return this.storyboardSteps;
    }
-   
+
    public boolean addToStoryboardSteps(StoryboardStep value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.storyboardSteps == null)
          {
             this.storyboardSteps = new StoryboardStepSet();
          }
-         
+
          changed = this.storyboardSteps.add (value);
-         
+
          if (changed)
          {
             value.withStoryboard(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARDSTEPS, null, value);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public boolean removeFromStoryboardSteps(StoryboardStep value)
    {
       boolean changed = false;
-      
+
       if ((this.storyboardSteps != null) && (value != null))
       {
          changed = this.storyboardSteps.remove (value);
-         
+
          if (changed)
          {
             value.setStoryboard(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARDSTEPS, value, null);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public Storyboard withStoryboardSteps(StoryboardStep... value)
    {
       for (StoryboardStep item : value)
@@ -1307,7 +1452,7 @@ public class Storyboard implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Storyboard withoutStoryboardSteps(StoryboardStep... value)
    {
       for (StoryboardStep item : value)
@@ -1316,17 +1461,17 @@ public class Storyboard implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromStoryboardSteps()
    {
       LinkedHashSet<StoryboardStep> tmpSet = new LinkedHashSet<StoryboardStep>(this.getStoryboardSteps());
-   
+
       for (StoryboardStep value : tmpSet)
       {
          this.removeFromStoryboardSteps(value);
       }
    }
-   
+
    public StoryboardStep createStoryboardSteps()
    {
       StoryboardStep value = new StoryboardStep();
@@ -1334,7 +1479,7 @@ public class Storyboard implements PropertyChangeInterface
       return value;
    } 
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       one
@@ -1342,50 +1487,50 @@ public class Storyboard implements PropertyChangeInterface
     *              storyboard                   wall
     * </pre>
     */
-   
+
    public static final String PROPERTY_WALL = "wall";
-   
+
    private StoryboardWall wall = null;
-   
+
    public StoryboardWall getWall()
    {
       return this.wall;
    }
-   
+
    public boolean setWall(StoryboardWall value)
    {
       boolean changed = false;
-      
+
       if (this.wall != value)
       {
          StoryboardWall oldValue = this.wall;
-         
+
          if (this.wall != null)
          {
             this.wall = null;
             oldValue.setStoryboard(null);
          }
-         
+
          this.wall = value;
-         
+
          if (value != null)
          {
             value.withStoryboard(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Storyboard withWall(StoryboardWall value)
    {
       setWall(value);
       return this;
    } 
-   
+
    public StoryboardWall createWall()
    {
       StoryboardWall value = new StoryboardWall();
@@ -1393,18 +1538,18 @@ public class Storyboard implements PropertyChangeInterface
       return value;
    } 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_ROOTDIR = "rootDir";
-   
+
    private String rootDir = null;
 
    public String getRootDir()
    {
       return this.rootDir;
    }
-   
+
    public void setRootDir(String value)
    {
       if ( ! StrUtil.stringEquals(this.rootDir, value))
@@ -1414,25 +1559,25 @@ public class Storyboard implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOTDIR, oldValue, value);
       }
    }
-   
+
    public Storyboard withRootDir(String value)
    {
       setRootDir(value);
       return this;
    } 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_STEPCOUNTER = "stepCounter";
-   
+
    private int stepCounter;
 
    public int getStepCounter()
    {
       return this.stepCounter;
    }
-   
+
    public void setStepCounter(int value)
    {
       if (this.stepCounter != value)
@@ -1442,25 +1587,25 @@ public class Storyboard implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPCOUNTER, oldValue, value);
       }
    }
-   
+
    public Storyboard withStepCounter(int value)
    {
       setStepCounter(value);
       return this;
    } 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
-   
+
    private int stepDoneCounter;
 
    public int getStepDoneCounter()
    {
       return this.stepDoneCounter;
    }
-   
+
    public void setStepDoneCounter(int value)
    {
       if (this.stepDoneCounter != value)
@@ -1470,7 +1615,7 @@ public class Storyboard implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPDONECOUNTER, oldValue, value);
       }
    }
-   
+
    public Storyboard withStepDoneCounter(int value)
    {
       setStepDoneCounter(value);

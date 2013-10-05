@@ -103,6 +103,7 @@ public class StoryboardTests {
             +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
+      karli.addToDone(a1);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
@@ -111,6 +112,7 @@ public class StoryboardTests {
             +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
+      karli.addToDone(a2);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
@@ -119,6 +121,7 @@ public class StoryboardTests {
             +"another 8 points and thus Karli has now 19 points and a motivation of 195.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
+      karli.addToDone(a3);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 

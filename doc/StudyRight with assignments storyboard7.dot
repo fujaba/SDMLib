@@ -10,6 +10,8 @@ a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'>
 a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/integralAssignment.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a3 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Integrals"</td></tr><tr><td align='left'>points = 8</td></tr></table></td></tr></table>>];
 
 karli -- mathRoom [headlabel = "in" taillabel = "students"];
+karli -- a1 [headlabel = "done" taillabel = "students"];
+karli -- a2 [headlabel = "done" taillabel = "students"];
 mathRoom -- a1 [headlabel = "assignments" taillabel = "room"];
 mathRoom -- a2 [headlabel = "assignments" taillabel = "room"];
 mathRoom -- a3 [headlabel = "assignments" taillabel = "room"];

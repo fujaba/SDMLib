@@ -11,36 +11,36 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-460 415,-460 415,5 -4,5"/>
 <!-- karli -->
 <g id="node1" class="node"><title>karli</title>
-<image xlink:href="icons/karli.png" width="61px" height="46px" preserveAspectRatio="xMinYMin meet" x="198.5" y="-450"/>
+<image xlink:href="icons/karli.png" width="61px" height="46px" preserveAspectRatio="xMinYMin meet" x="204.5" y="-450"/>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="178,-386 178,-402 280,-402 280,-386 178,-386"/>
-<text text-anchor="start" x="201" y="-392" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="204" y="-392" font-family="Times New Roman,serif" font-size="10.00">karli :Student</text>
+<polygon fill="none" stroke="black" points="184,-386 184,-402 286,-402 286,-386 184,-386"/>
+<text text-anchor="start" x="207" y="-392" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="210" y="-392" font-family="Times New Roman,serif" font-size="10.00">karli :Student</text>
 </a>
-<polygon fill="none" stroke="black" points="178,-324 178,-386 280,-386 280,-324 178,-324"/>
-<text text-anchor="start" x="183" y="-374" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="183" y="-360" font-family="Times New Roman,serif" font-size="10.00">assignmentPoints = 11</text>
-<text text-anchor="start" x="183" y="-346" font-family="Times New Roman,serif" font-size="10.00">motivation = 0</text>
-<text text-anchor="start" x="183" y="-332" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
+<polygon fill="none" stroke="black" points="184,-324 184,-386 286,-386 286,-324 184,-324"/>
+<text text-anchor="start" x="189" y="-374" font-family="Times New Roman,serif" font-size="10.00">name = &quot;Karli&quot;</text>
+<text text-anchor="start" x="189" y="-360" font-family="Times New Roman,serif" font-size="10.00">assignmentPoints = 11</text>
+<text text-anchor="start" x="189" y="-346" font-family="Times New Roman,serif" font-size="10.00">motivation = 0</text>
+<text text-anchor="start" x="189" y="-332" font-family="Times New Roman,serif" font-size="10.00">credits = 0</text>
 </g>
 <!-- mathRoom -->
 <g id="node2" class="node"><title>mathRoom</title>
-<image xlink:href="icons/mathRoom.png" width="85px" height="63px" preserveAspectRatio="xMinYMin meet" x="187" y="-277"/>
+<image xlink:href="icons/mathRoom.png" width="85px" height="63px" preserveAspectRatio="xMinYMin meet" x="193" y="-277"/>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="185,-196 185,-212 274,-212 274,-196 185,-196"/>
-<text text-anchor="start" x="192.5" y="-202" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="195.5" y="-202" font-family="Times New Roman,serif" font-size="10.00">mathRoom :Room</text>
+<polygon fill="none" stroke="black" points="191,-196 191,-212 280,-212 280,-196 191,-196"/>
+<text text-anchor="start" x="198.5" y="-202" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="201.5" y="-202" font-family="Times New Roman,serif" font-size="10.00">mathRoom :Room</text>
 </a>
-<polygon fill="none" stroke="black" points="185,-148 185,-196 274,-196 274,-148 185,-148"/>
-<text text-anchor="start" x="190" y="-184" font-family="Times New Roman,serif" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="190" y="-170" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;math&quot;</text>
-<text text-anchor="start" x="190" y="-156" font-family="Times New Roman,serif" font-size="10.00">credits = 17</text>
+<polygon fill="none" stroke="black" points="191,-148 191,-196 280,-196 280,-148 191,-148"/>
+<text text-anchor="start" x="196" y="-184" font-family="Times New Roman,serif" font-size="10.00">name = &quot;senate&quot;</text>
+<text text-anchor="start" x="196" y="-170" font-family="Times New Roman,serif" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="196" y="-156" font-family="Times New Roman,serif" font-size="10.00">credits = 17</text>
 </g>
 <!-- karli&#45;&#45;mathRoom -->
 <g id="edge2" class="edge"><title>karli&#45;&#45;mathRoom</title>
-<path fill="none" stroke="black" d="M229,-319.515C229,-307.75 229,-295.501 229,-283.704"/>
-<text text-anchor="middle" x="233.226" y="-290.267" font-family="Times New Roman,serif" font-size="10.00">in</text>
-<text text-anchor="middle" x="224.774" y="-307.952" font-family="Times New Roman,serif" font-size="10.00">students</text>
+<path fill="none" stroke="black" d="M235,-319.515C235,-307.75 235,-295.501 235,-283.704"/>
+<text text-anchor="middle" x="239.226" y="-290.267" font-family="Times New Roman,serif" font-size="10.00">in</text>
+<text text-anchor="middle" x="230.774" y="-307.952" font-family="Times New Roman,serif" font-size="10.00">students</text>
 </g>
 <!-- a1 -->
 <g id="node3" class="node"><title>a1</title>
@@ -54,47 +54,59 @@
 <text text-anchor="start" x="13" y="-26" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Matrix Multiplication&quot;</text>
 <text text-anchor="start" x="13" y="-12" font-family="Times New Roman,serif" font-size="10.00">points = 5</text>
 </g>
-<!-- mathRoom&#45;&#45;a1 -->
-<g id="edge4" class="edge"><title>mathRoom&#45;&#45;a1</title>
-<path fill="none" stroke="black" d="M176.468,-157.295C161.387,-141.303 144.986,-123.912 130.059,-108.082"/>
-<text text-anchor="middle" x="139.351" y="-109.276" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
-<text text-anchor="middle" x="167.176" y="-151.101" font-family="Times New Roman,serif" font-size="10.00">room</text>
+<!-- karli&#45;&#45;a1 -->
+<g id="edge4" class="edge"><title>karli&#45;&#45;a1</title>
+<path fill="none" stroke="black" d="M192.609,-319.975C185.731,-308.164 178.929,-295.853 173,-284 143.726,-225.475 116.327,-155.413 98.9573,-108.329"/>
+<text text-anchor="middle" x="106.08" y="-112.847" font-family="Times New Roman,serif" font-size="10.00">done</text>
+<text text-anchor="middle" x="184.41" y="-311.75" font-family="Times New Roman,serif" font-size="10.00">students</text>
 </g>
 <!-- a2 -->
 <g id="node4" class="node"><title>a2</title>
-<image xlink:href="icons/limes.png" width="74px" height="35px" preserveAspectRatio="xMinYMin meet" x="192.5" y="-96"/>
+<image xlink:href="icons/limes.png" width="74px" height="35px" preserveAspectRatio="xMinYMin meet" x="323.5" y="-96"/>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="187,-43 187,-59 272,-59 272,-43 187,-43"/>
-<text text-anchor="start" x="196.5" y="-49" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="199.5" y="-49" font-family="Times New Roman,serif" font-size="10.00">a2 :Assignment</text>
+<polygon fill="none" stroke="black" points="318,-43 318,-59 403,-59 403,-43 318,-43"/>
+<text text-anchor="start" x="327.5" y="-49" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="330.5" y="-49" font-family="Times New Roman,serif" font-size="10.00">a2 :Assignment</text>
 </a>
-<polygon fill="none" stroke="black" points="187,-9 187,-43 272,-43 272,-9 187,-9"/>
-<text text-anchor="start" x="192" y="-31" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Series&quot;</text>
-<text text-anchor="start" x="192" y="-17" font-family="Times New Roman,serif" font-size="10.00">points = 6</text>
+<polygon fill="none" stroke="black" points="318,-9 318,-43 403,-43 403,-9 318,-9"/>
+<text text-anchor="start" x="323" y="-31" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Series&quot;</text>
+<text text-anchor="start" x="323" y="-17" font-family="Times New Roman,serif" font-size="10.00">points = 6</text>
+</g>
+<!-- karli&#45;&#45;a2 -->
+<g id="edge6" class="edge"><title>karli&#45;&#45;a2</title>
+<path fill="none" stroke="black" d="M278.124,-319.894C284.652,-308.197 290.899,-295.945 296,-284 321.778,-223.638 340.223,-149.918 350.5,-102.719"/>
+<text text-anchor="middle" x="352.652" y="-109.985" font-family="Times New Roman,serif" font-size="10.00">done</text>
+<text text-anchor="middle" x="278.812" y="-307.418" font-family="Times New Roman,serif" font-size="10.00">students</text>
+</g>
+<!-- mathRoom&#45;&#45;a1 -->
+<g id="edge8" class="edge"><title>mathRoom&#45;&#45;a1</title>
+<path fill="none" stroke="black" d="M182.524,-159.508C166.276,-142.946 148.385,-124.708 132.159,-108.168"/>
+<text text-anchor="middle" x="141.522" y="-109.178" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
+<text text-anchor="middle" x="173.16" y="-153.498" font-family="Times New Roman,serif" font-size="10.00">room</text>
 </g>
 <!-- mathRoom&#45;&#45;a2 -->
-<g id="edge6" class="edge"><title>mathRoom&#45;&#45;a2</title>
-<path fill="none" stroke="black" d="M229,-144.159C229,-130.188 229,-115.786 229,-102.74"/>
-<text text-anchor="middle" x="233.226" y="-109.303" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
-<text text-anchor="middle" x="224.774" y="-132.595" font-family="Times New Roman,serif" font-size="10.00">room</text>
+<g id="edge10" class="edge"><title>mathRoom&#45;&#45;a2</title>
+<path fill="none" stroke="black" d="M287.287,-146.909C299.062,-132.026 311.333,-116.515 322.369,-102.566"/>
+<text text-anchor="middle" x="320.06" y="-109.796" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
+<text text-anchor="middle" x="289.596" y="-134.679" font-family="Times New Roman,serif" font-size="10.00">room</text>
 </g>
 <!-- a3 -->
 <g id="node5" class="node"><title>a3</title>
-<image xlink:href="icons/integralAssignment.png" width="83px" height="36px" preserveAspectRatio="xMinYMin meet" x="312.5" y="-97"/>
+<image xlink:href="icons/integralAssignment.png" width="83px" height="36px" preserveAspectRatio="xMinYMin meet" x="193.5" y="-97"/>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="306,-43 306,-59 402,-59 402,-43 306,-43"/>
-<text text-anchor="start" x="321" y="-49" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="324" y="-49" font-family="Times New Roman,serif" font-size="10.00">a3 :Assignment</text>
+<polygon fill="none" stroke="black" points="187,-43 187,-59 283,-59 283,-43 187,-43"/>
+<text text-anchor="start" x="202" y="-49" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="205" y="-49" font-family="Times New Roman,serif" font-size="10.00">a3 :Assignment</text>
 </a>
-<polygon fill="none" stroke="black" points="306,-9 306,-43 402,-43 402,-9 306,-9"/>
-<text text-anchor="start" x="311" y="-31" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Integrals&quot;</text>
-<text text-anchor="start" x="311" y="-17" font-family="Times New Roman,serif" font-size="10.00">points = 8</text>
+<polygon fill="none" stroke="black" points="187,-9 187,-43 283,-43 283,-9 187,-9"/>
+<text text-anchor="start" x="192" y="-31" font-family="Times New Roman,serif" font-size="10.00">content = &quot;Integrals&quot;</text>
+<text text-anchor="start" x="192" y="-17" font-family="Times New Roman,serif" font-size="10.00">points = 8</text>
 </g>
 <!-- mathRoom&#45;&#45;a3 -->
-<g id="edge8" class="edge"><title>mathRoom&#45;&#45;a3</title>
-<path fill="none" stroke="black" d="M281.287,-146.909C292.928,-132.195 305.054,-116.867 315.992,-103.042"/>
-<text text-anchor="middle" x="313.683" y="-110.272" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
-<text text-anchor="middle" x="283.596" y="-134.679" font-family="Times New Roman,serif" font-size="10.00">room</text>
+<g id="edge12" class="edge"><title>mathRoom&#45;&#45;a3</title>
+<path fill="none" stroke="black" d="M235,-144.159C235,-130.354 235,-116.129 235,-103.207"/>
+<text text-anchor="middle" x="239.226" y="-109.77" font-family="Times New Roman,serif" font-size="10.00">assignments</text>
+<text text-anchor="middle" x="230.774" y="-132.595" font-family="Times New Roman,serif" font-size="10.00">room</text>
 </g>
 </g>
 </svg>
