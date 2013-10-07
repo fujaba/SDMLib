@@ -11,13 +11,13 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-246 117,-246 117,5 -4,5"/>
 <!-- g1 -->
 <g id="node1" class="node"><title>g1</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="13,-186.5 13,-237.5 99,-237.5 99,-186.5 13,-186.5"/>
-<text text-anchor="start" x="67" y="-227.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
-<polygon fill="none" stroke="black" points="13,-206 13,-222 99,-222 99,-206 13,-206"/>
-<text text-anchor="start" x="16.5" y="-212" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<text text-anchor="start" x="19.5" y="-212" font-family="Times New Roman,serif" font-size="10.00"> g1 :GenericGraphPO </text>
-<polygon fill="none" stroke="black" points="13,-186 13,-206 99,-206 99,-186 13,-186"/>
-<text text-anchor="start" x="53.5" y="-194" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="8.5,-186.5 8.5,-237.5 103.5,-237.5 103.5,-186.5 8.5,-186.5"/>
+<text text-anchor="start" x="65" y="-227.5" font-family="Times New Roman,serif" font-size="10.00">«bound»</text>
+<polygon fill="none" stroke="black" points="9,-206 9,-222 104,-222 104,-206 9,-206"/>
+<text text-anchor="start" x="12.5" y="-212" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="15.5" y="-212" font-family="Times New Roman,serif" font-size="10.00"> g1 :GenericGraphPO </text>
+<polygon fill="none" stroke="black" points="9,-186 9,-206 104,-206 104,-186 9,-186"/>
+<text text-anchor="start" x="54" y="-194" font-family="Times New Roman,serif" font-size="10.00"> &#160;</text>
 </g>
 <!-- g2 -->
 <g id="node2" class="node"><title>g2</title>

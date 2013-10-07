@@ -664,6 +664,7 @@ public class Storyboard implements PropertyChangeInterface
          catch (Exception e)
          {
             // no prolem, just lower coverage
+            e.printStackTrace();
          }
       }
 
@@ -998,6 +999,11 @@ public class Storyboard implements PropertyChangeInterface
       codeStartLineNumber = callEntry.getLineNumber();
    }
 
+   public void addCode()
+   {
+      addCode(this.getRootDir());
+   }   
+   
    public void addCode(String rootDir)
    {
       String className = "";
@@ -1007,6 +1013,10 @@ public class Storyboard implements PropertyChangeInterface
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
+      if (callEntry.getMethodName().startsWith("addCode"))
+      {
+         callEntry = stackTrace[2];
+      }
       codeEndLineNumber = callEntry.getLineNumber();
 
       className = callEntry.getClassName();

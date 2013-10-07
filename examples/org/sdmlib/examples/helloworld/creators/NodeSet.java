@@ -29,7 +29,7 @@ import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.helloworld.creators.GraphSet;
 
-public class NodeSet extends LinkedHashSet<Node>
+public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getName()
    {

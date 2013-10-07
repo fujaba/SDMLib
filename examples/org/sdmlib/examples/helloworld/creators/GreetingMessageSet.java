@@ -27,7 +27,7 @@ import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.models.modelsets.StringList;
 
-public class GreetingMessageSet extends LinkedHashSet<GreetingMessage>
+public class GreetingMessageSet extends LinkedHashSet<GreetingMessage> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getText()
    {

@@ -29,7 +29,7 @@ import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.helloworld.creators.GraphSet;
 
-public class EdgeSet extends LinkedHashSet<Edge>
+public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.modelsets.ModelSet
 {
    public GraphSet getGraph()
    {

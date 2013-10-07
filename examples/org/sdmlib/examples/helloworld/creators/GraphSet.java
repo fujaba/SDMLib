@@ -29,7 +29,7 @@ import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
 
-public class GraphSet extends LinkedHashSet<Graph>
+public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
 {
    public NodeSet getNodes()
    {

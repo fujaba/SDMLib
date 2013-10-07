@@ -17,15 +17,16 @@ p12 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcol
 
 p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Pawn.java"> <u>p2 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr></table></td></tr></table>>];
 p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Player.java"> <u>p4 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>enumColor = blue</td></tr><tr><td align='left'>name = "Tom"</td></tr></table></td></tr></table>>];
-d6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Dice.java"> <u>d6 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>value = 6</td></tr></table></td></tr></table>>];
-f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
-f14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f14 :Field</u></td></tr></table>>];
-f15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f15 :Field</u></td></tr></table>>];
-f16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f16 :Field</u></td></tr></table>>];
-f17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f17 :Field</u></td></tr></table>>];
+l14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Ludo.java"> <u>l14 :Ludo</u></td></tr></table>>];
+p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Player.java"> <u>p15 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>enumColor = red</td></tr><tr><td align='left'>name = "Sabine"</td></tr></table></td></tr></table>>];
+f16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f16 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
 p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Pawn.java"> <u>p13 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr></table></td></tr></table>>];
-p18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Player.java"> <u>p18 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>enumColor = red</td></tr><tr><td align='left'>name = "Sabine"</td></tr></table></td></tr></table>>];
-f19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f19 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
+f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
+f17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f17 :Field</u></td></tr></table>>];
+f18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f18 :Field</u></td></tr></table>>];
+f19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f19 :Field</u></td></tr></table>>];
+f20 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f20 :Field</u></td></tr></table>>];
+d6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Dice.java"> <u>d6 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>value = 6</td></tr></table></td></tr></table>>];
 f8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/ludo/Field.java"> <u>f8 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "base"</td></tr></table></td></tr></table>>];
 
 p1 -- p2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
@@ -43,14 +44,16 @@ f9 -- p12 [headlabel = "pawns" taillabel = "" color="black" fontcolor="black"];
 p12 -- p3 [headlabel = "player" taillabel = "" color="black" fontcolor="black"];
 p2 -- p4 [headlabel = "player" taillabel = "pawns"];
 p2 -- f8 [headlabel = "pos" taillabel = "pawns"];
+p4 -- l14 [headlabel = "game" taillabel = "players"];
 p4 -- d6 [headlabel = "dice" taillabel = "player"];
 p4 -- f10 [headlabel = "start" taillabel = "starter"];
 p4 -- f8 [headlabel = "base" taillabel = "baseowner"];
-f10 -- f14 [headlabel = "next" taillabel = "prev"];
-f10 -- p13 [headlabel = "pawns" taillabel = "pos"];
-f14 -- f15 [headlabel = "next" taillabel = "prev"];
-f15 -- f16 [headlabel = "next" taillabel = "prev"];
-f16 -- f17 [headlabel = "next" taillabel = "prev"];
-p13 -- p18 [headlabel = "player" taillabel = "pawns"];
-p18 -- f19 [headlabel = "start" taillabel = "starter"];
+l14 -- p15 [headlabel = "players" taillabel = "game"];
+p15 -- f16 [headlabel = "start" taillabel = "starter"];
+p15 -- p13 [headlabel = "pawns" taillabel = "player"];
+p13 -- f10 [headlabel = "pos" taillabel = "pawns"];
+f10 -- f17 [headlabel = "next" taillabel = "prev"];
+f17 -- f18 [headlabel = "next" taillabel = "prev"];
+f18 -- f19 [headlabel = "next" taillabel = "prev"];
+f19 -- f20 [headlabel = "next" taillabel = "prev"];
 }

@@ -5,8 +5,8 @@
 <p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationSourceClassDiag.svg'><hr/><p>Target model:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationTargetClassDiag.svg'><hr/><p>Migration extension:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationExtensionClassDiag.svg'><hr/><p>Create example source graph: </p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram6.svg'><hr/><p>Migration extension:</p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram9.svg'><hr/><p>Create example source graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration13.svg'>
 <hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
@@ -117,8 +117,8 @@
 <embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateTgtHalfLinkPattern.svg'>
 <p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration23.svg'>
-<p>Number of migrated nodes: 8
-Number of migrated Edges: 10</p>
+<p>Number of migrated nodes: 7
+Number of migrated Edges: 9</p>
 <hr/><h2>Migrate in Java: </h2><pre>   private void simpleMigrationInJava(Graph origGraph)
    {
       int noOfMatches = 0;
@@ -186,7 +186,7 @@ Number of migrated Edges: 10</p>
       return copyGraph;
    }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration35.svg'>
-<hr/><h2>Migrate using JSON Array repr?sentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
+<hr/><h2>Migrate using JSON Array repr�sentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
    {
       JsonIdMap idMap = CreatorCreator.createIdMap("hg");
       

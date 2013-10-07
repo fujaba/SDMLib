@@ -327,7 +327,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.assertNotNull("found symtab entry for method set(String,Object) ", symTabEntry);
 
-      String methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      String methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
 
       storyboard.add(methodText);
 
@@ -344,7 +344,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.assertNotNull("found symtab entry for method get(String) ", symTabEntry);
 
-      methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
 
       storyboard.add(methodText);
 
@@ -381,7 +381,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.assertNotNull("found symtab entry for method removeYou() ", symTabEntry);
 
-      methodText = "   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1);
+      methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
 
       storyboard.add(methodText);
 
@@ -441,7 +441,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource("prof", profClass, ONE)
       .withTarget("topic", topicClass, ONE);
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightOneToOneAssoc01"));
+      storyboard.addClassDiagram(model);
 
       model.generate("examples", "examplehelpers");
 

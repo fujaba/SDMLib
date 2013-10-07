@@ -21,10 +21,14 @@
    
 package org.sdmlib.examples.studyright.creators;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyright.creators.UniversitySet;
 import org.sdmlib.examples.studyright.University;
@@ -100,6 +104,23 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       }
       
       return this;
+   }
+   
+   public RoomSet hasRoomNo(String... values)
+   {
+      RoomSet result = new RoomSet();
+      
+      List<String> valueList = Arrays.asList(values);
+      
+      for (Room room : this)
+      {
+         if (valueList.contains(room.getRoomNo()))
+         {
+            result.add(room);
+         }
+      }
+      
+      return result;
    }
 
    public intList getCredits()

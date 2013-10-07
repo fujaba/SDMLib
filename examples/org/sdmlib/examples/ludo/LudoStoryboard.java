@@ -55,14 +55,16 @@ public class LudoStoryboard implements PropertyChangeInterface
       
       // create a simple ludo storyboard
       
-      Player tom = new Player().withName("Tom").withColor("blue").withEnumColor(LudoColor.blue);
+      Ludo ludo = new Ludo();
+      
+      Player tom = ludo.createPlayers().withName("Tom").withColor("blue").withEnumColor(LudoColor.blue);
       
       JsonArray jsonArray = jsonIdMap.toJsonArray(tom);
       
       System.out.println(jsonArray.toString(3));
       
       
-      Player sabine = new Player().withName("Sabine").withColor(RED).withEnumColor(LudoColor.red);
+      Player sabine = ludo.createPlayers().withName("Sabine").withColor(RED).withEnumColor(LudoColor.red);
       
       JsonIdMap jsonIdMapClone = CreatorCreator.createIdMap("l2");
 
@@ -88,7 +90,7 @@ public class LudoStoryboard implements PropertyChangeInterface
             .withPos(tomStartField);
       
       
-      storyboard.addObjectDiagram(jsonIdMap, tom);
+      storyboard.addObjectDiagram(ludo);
       
       storyboard.add("now the pawn may move to Tom's start field");
       

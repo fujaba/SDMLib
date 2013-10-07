@@ -1,0 +1,28 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<body>
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>Flipbook</a></p>
+<p>Flipbook</p>
+<p>adding flipbook to protocol changes.</p>
+<p>Start situation: use University class to build object structure</p>
+<p>step 1: dump object diagram</p>
+<embed type="image/svg+xml" src='Flipbook5.svg'>
+<p>Test flipbook, undo last step: </p>
+<embed type="image/svg+xml" src='Flipbook7.svg'>
+<p>Check: Number of students: 2</p>
+<p>step 2: add support for path navigation
+      call </p>
+<pre>      int sum = albert.getUni().getRooms().getCredits().sum();
+</pre><p>      shall compute to 88
+      Path classes are generated.</p>
+<p>Feature Request: model sets need to provide a navigation to any neighbors
+e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
+<p>Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
+e.g.: room.getNeighbors().findPath(path, motivation); </p>
+<p>step 3: call </p>
+<pre>      mathRoom.findPath("", 88);
+</pre><p>System.out: 
+</p>
+
+</body>
+</html>

@@ -27,7 +27,7 @@ import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.modelsets.StringList;
 
-public class GraphComponentSet extends LinkedHashSet<GraphComponent>
+public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getText()
    {

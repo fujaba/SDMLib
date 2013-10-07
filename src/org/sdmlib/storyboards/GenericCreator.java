@@ -143,7 +143,42 @@ public class GenericCreator extends EntityFactory
    public boolean setValue(Object entity, String attribute, Object value,
          String type)
    {
-      // TODO Auto-generated method stub
+      if (entity == null)
+      {
+         return false;
+      }
+      try
+      {
+         Class<?> clazz = Class.forName(className);
+         
+         Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), value.getClass());
+         
+         Object invoke = method.invoke(entity, value);
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         // TODO Auto-generated catch block
+         // e.printStackTrace();
+      }
+      
+      try
+      {
+         Class<?> clazz = Class.forName(className);
+         
+         Method method = clazz.getMethod("with" + StrUtil.upFirstChar(attribute), value.getClass());
+         
+         Object invoke = method.invoke(entity, value);
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         // TODO Auto-generated catch block
+         // e.printStackTrace();
+      }
+      
       return super.setValue(entity, attribute, value, type);
    }
    

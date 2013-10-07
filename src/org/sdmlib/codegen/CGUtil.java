@@ -26,9 +26,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
+
+import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.creators.PersonPO;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.GenericIdMap;
 
 public class CGUtil 
 {
+   public static final String SEARCH_POS = "__searchPos__";
+
    public static boolean isPrimitiveType(String type)
    {
       String primitiveTypes = "String long int char boolean byte float double";
@@ -95,6 +109,13 @@ public class CGUtil
       }
    }
 
+   public static String fill(String text, String... args)
+   {
+      StringBuilder builder = new StringBuilder(text);
+      replaceAll(builder, args);
+      return builder.toString();
+   }
+   
    public static void replaceAll(StringBuilder text, String... args)
    {
       int pos = -1 - args[0].length();
@@ -223,6 +244,149 @@ public class CGUtil
       return null;
    }
 
+   public static LinkedHashMap<String, String> find(String newText, int searchPos, String pattern, Object... objects)
+   {
+      // the pattern contains placeholders and constant text fragments. Match the constant fragments in the new text. 
+      // Assing the content in between to the placeholders
+      
+      LinkedHashMap<String, ObjectSet> placeholderTargets = new LinkedHashMap<String, ObjectSet>();
+      
+      // find placeholders
+      ObjectSet dummyTarget = new ObjectSet();
+      int i = 0;
+      while (i < objects.length)
+      {
+         if ( ! (objects[i] instanceof String))
+         {
+            i++;
+            continue;
+         }
+         
+         String placeholder = (String) objects[i];
+         i++;
+         
+         if (i + 1 < objects.length && ! (objects[i] instanceof String))
+         {
+            // target object and target attribute name
+            Object target = objects[i];
+            String attrName = (String) objects[i+1];
+            
+            placeholderTargets.put(placeholder, new ObjectSet().with(target, attrName));
+            
+            i += 2;
+         }
+         else
+         {
+           
+            placeholderTargets.put(placeholder, dummyTarget);
+         }
+      }
+   
+      // match placeholders in pattern
+      TreeMap<Integer, String> placeholderPositions = new TreeMap<Integer, String>();
+      for (String placeholder : placeholderTargets.keySet())
+      {
+         int pos = pattern.indexOf(placeholder);
+         if (pos >= 0)
+         {
+            placeholderPositions.put(pos, placeholder);
+         }
+      }
+      
+      // loop through placeholder positions and find constant fragments
+      StringList fragments = new StringList();
+      int fragmentPos = 0;
+      for (Integer placeholderPos : placeholderPositions.keySet())
+      {
+         String fragment = pattern.substring(fragmentPos, placeholderPos);
+         fragments.add(fragment);
+         
+         fragmentPos = placeholderPos + placeholderPositions.get(placeholderPos).length();
+      }
+      
+      fragments.add(pattern.substring(fragmentPos, pattern.length()));
+      
+      // now match fragments and placeholders to newText
+      Iterator<String> fragmentsIterator = fragments.iterator();
+      String fragment = fragmentsIterator.next();
+      
+      LinkedHashMap<String, String> placeholderValues = new LinkedHashMap<String, String>();
+      
+      placeholderValues.put(SEARCH_POS, "" + searchPos);
+      
+      // newText should start with first fragment
+      if (! newText.startsWith(fragment, searchPos))
+      {
+         // ups
+         return placeholderValues;
+      }
+      
+      searchPos += fragment.length();
+      // visit the placeholders in order of appearance
+      int previousFragmentPos = 0;
+      for (Integer placeholderPos : placeholderPositions.keySet())
+      {
+         // placeholder to be filled
+         String placeholder = placeholderPositions.get(placeholderPos);
+         
+         // content between searchpos and pos of next fragment
+         fragment = fragmentsIterator.next();
+         fragmentPos = newText.indexOf(fragment, searchPos);
+         
+         if (fragmentPos >= searchPos)
+         {
+            // did we find the previous fragment
+            if (previousFragmentPos >= 0)
+            {
+               String value = newText.substring(searchPos, fragmentPos);
+               placeholderValues.put(placeholder, value);
+            }
+            searchPos = fragmentPos + fragment.length();
+         }
+         previousFragmentPos = fragmentPos;
+      }
+      
+      placeholderValues.put(SEARCH_POS, "" + searchPos);
+      
+      JsonIdMap map = new GenericIdMap();
+      
+      // finally assign values to model objects
+      for ( String placeholder : placeholderTargets.keySet())
+      {
+         ObjectSet targetDescription = placeholderTargets.get(placeholder);
+         
+         if (targetDescription == dummyTarget)
+         {
+            continue;
+         }
+         
+         Iterator<Object> targetDescriptionIterator = targetDescription.iterator();
+         
+         Object target = targetDescriptionIterator.next();
+         String attrName = (String) targetDescriptionIterator.next();
+         
+         Object value = placeholderValues.get(placeholder);
+         
+         SendableEntityCreator creatorClass = map.getCreatorClass(target);
+         creatorClass.setValue(target, attrName, value, null);
+      }
+      
+      return placeholderValues;
+   }
+
+   public static String[] split(String list)
+   {
+      return split(list, "[", ", ", "]");
+   }
+   
+   public static String[] split(String list, String prefix, String separator,
+         String suffix)
+   {
+      list = list.substring(prefix.length(), list.length() - suffix.length());
+      String[] entries = list.split(separator);
+      
+      return entries;
+   }
 }
 
 

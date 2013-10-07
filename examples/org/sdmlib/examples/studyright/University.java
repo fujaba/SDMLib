@@ -29,6 +29,7 @@ import org.sdmlib.examples.studyright.creators.StudentSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class University implements PropertyChangeInterface
@@ -345,6 +346,19 @@ public class University implements PropertyChangeInterface
       Room value = new Room();
       withRooms(value);
       return value;
+   }
+
+
+   public Room getRooms(String roomName)
+   {
+      for (Room room : this.getRooms())
+      {
+         if (roomName.equals(room.getRoomNo()))
+         {
+            return room;
+         }
+      }
+      return null;
    } 
 }
 

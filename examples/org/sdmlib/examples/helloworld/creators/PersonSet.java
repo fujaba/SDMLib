@@ -27,7 +27,7 @@ import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.StringList;
 
-public class PersonSet extends LinkedHashSet<Person>
+public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getName()
    {

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,49 +21,24 @@
    
 package org.sdmlib.examples.studyright;
 
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyright.creators.AssignmentSet;
-import org.sdmlib.examples.studyright.creators.RoomSet;
-import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
+import org.sdmlib.utils.StrUtil;
+import org.sdmlib.examples.studyright.creators.RoomSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
 
 public class Room implements PropertyChangeInterface
 {
-   public void findPath(String path, int motivation)
-   {
-      if (StrUtil.stringEquals(this.getRoomNo(), "exam"))
-      {
-         if (motivation == 0)
-         {
-            System.out.println(path);
-         }
-      }
-      else if (this.getCredits() <= motivation)
-      {
-         path += " " + this.getRoomNo();
-         
-         this.getNeighbors().findPath(path, motivation - this.getCredits());
-      }
-   }
+
    
    //==========================================================================
    
    public Object get(String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
       if (PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
       {
          return getRoomNo();
@@ -93,7 +68,7 @@ public class Room implements PropertyChangeInterface
       {
          return getAssignments();
       }
-      
+
       return null;
    }
 
@@ -110,7 +85,7 @@ public class Room implements PropertyChangeInterface
 
       if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         setCredits((Integer) value);
+         setCredits(Integer.parseInt(value.toString()));
          return true;
       }
 
@@ -162,11 +137,16 @@ public class Room implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    
@@ -184,10 +164,29 @@ public class Room implements PropertyChangeInterface
    
    //==========================================================================
    
+   public void findPath(String path, int motivation)
+   {
+      if (StrUtil.stringEquals(this.getRoomNo(), "exam"))
+      {
+         if (motivation == 0)
+         {
+            System.out.println(path);
+         }
+      }
+      else if (this.getCredits() <= motivation)
+      {
+         path += " " + this.getRoomNo();
+         
+         this.getNeighbors().findPath(path, motivation - this.getCredits());
+      }
+   }
+   
+   //==========================================================================
+   
    public static final String PROPERTY_ROOMNO = "roomNo";
    
    private String roomNo;
-   
+
    public String getRoomNo()
    {
       return this.roomNo;
@@ -209,13 +208,23 @@ public class Room implements PropertyChangeInterface
       return this;
    } 
 
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getRoomNo());
+      _.append(" ").append(this.getCredits());
+      return _.substring(1);
+   }
+
+
    
    //==========================================================================
    
    public static final String PROPERTY_CREDITS = "credits";
    
    private int credits;
-   
+
    public int getCredits()
    {
       return this.credits;
@@ -291,6 +300,13 @@ public class Room implements PropertyChangeInterface
       setUni(value);
       return this;
    } 
+   
+   public University createUni()
+   {
+      University value = new University();
+      withUni(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -356,17 +372,23 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
    
-   public Room withNeighbors(Room value)
+   public Room withNeighbors(Room... value)
    {
-      addToNeighbors(value);
+      for (Room item : value)
+      {
+         addToNeighbors(item);
+      }
       return this;
    } 
    
-   public Room withoutNeighbors(Room value)
+   public Room withoutNeighbors(Room... value)
    {
-      removeFromNeighbors(value);
+      for (Room item : value)
+      {
+         removeFromNeighbors(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromNeighbors()
    {
@@ -377,6 +399,13 @@ public class Room implements PropertyChangeInterface
          this.removeFromNeighbors(value);
       }
    }
+   
+   public Room createNeighbors()
+   {
+      Room value = new Room();
+      withNeighbors(value);
+      return value;
+   } 
 
    
    /********************************************************************
@@ -442,17 +471,23 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
    
-   public Room withStudents(Student value)
+   public Room withStudents(Student... value)
    {
-      addToStudents(value);
+      for (Student item : value)
+      {
+         addToStudents(item);
+      }
       return this;
    } 
    
-   public Room withoutStudents(Student value)
+   public Room withoutStudents(Student... value)
    {
-      removeFromStudents(value);
+      for (Student item : value)
+      {
+         removeFromStudents(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromStudents()
    {
@@ -463,15 +498,14 @@ public class Room implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
-
-   public String toString()
+   
+   public Student createStudents()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getRoomNo());
-      _.append(" ").append(this.getCredits());
-      return _.substring(1);
-   }
+      Student value = new Student();
+      withStudents(value);
+      return value;
+   } 
+
    
    /********************************************************************
     * <pre>
@@ -536,17 +570,23 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
    
-   public Room withAssignments(Assignment value)
+   public Room withAssignments(Assignment... value)
    {
-      addToAssignments(value);
+      for (Assignment item : value)
+      {
+         addToAssignments(item);
+      }
       return this;
    } 
    
-   public Room withoutAssignments(Assignment value)
+   public Room withoutAssignments(Assignment... value)
    {
-      removeFromAssignments(value);
+      for (Assignment item : value)
+      {
+         removeFromAssignments(item);
+      }
       return this;
-   } 
+   }
    
    public void removeAllFromAssignments()
    {

@@ -26,7 +26,13 @@
       systemout = text.toString();
 </pre><p>systemout: 
 Hello TTC Participants</p>
-<p>Alternatively, plain java code that does this model to text transformation looks like: </p>
+<p>Assume we change the text manually to: Hi dudes</p>
+<pre>      CGUtil.find("Hi dudes", 0, "message name", 
+         "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
+         "name", personPO, Person.PROPERTY_NAME
+         );
+</pre><embed type="image/svg+xml" src='TTC2011HelloWorldModelToText12.svg'>
+<p>Alternatively, plain java code that does the model to text transformation looks like: </p>
 <pre>      systemout = greetingMessagePO.getText() + " " + personPO.getName();
 </pre>
 </body>

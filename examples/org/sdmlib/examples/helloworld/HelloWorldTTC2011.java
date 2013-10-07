@@ -87,11 +87,11 @@ public class HelloWorldTTC2011
       
       storyboard.add("For completeness just the host graph:");
 
-      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch(), true);
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
       
       int noOfMatches = p.allMatches();
       
-      System.out.println("TTC2011HelloWorldConstantTransformation1 number of matches is " + noOfMatches);
+      storyboard.add("TTC2011HelloWorldConstantTransformation1 number of matches is " + noOfMatches);
       
       
       //==========================================================================
@@ -174,7 +174,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("For completeness just the host graph:");
 
-      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
       
       //==========================================================================
       
@@ -232,9 +232,22 @@ public class HelloWorldTTC2011
       
       storyboard.add("systemout: \n" + systemout);
       
+      String newText = "Hi dudes";
+      
+      storyboard.add("Assume we change the text manually to: " + newText);
+      
+      storyboard.markCodeStart();
+      CGUtil.find("Hi dudes", 0, "message name", 
+         "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
+         "name", personPO, Person.PROPERTY_NAME
+         );
+      storyboard.addCode("examples");
+      
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      
       //==========================================================================
       
-      storyboard.add("Alternatively, plain java code that does this model to text transformation looks like: ");
+      storyboard.add("Alternatively, plain java code that does the model to text transformation looks like: ");
       
       storyboard.markCodeStart();
       systemout = greetingMessagePO.getText() + " " + personPO.getName();
@@ -255,14 +268,14 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Simple Graph application classes: ");
       
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld");
       
-      Clazz graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      Clazz graphClazz = new Clazz("Graph");
       
-      Clazz edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
+      Clazz edgeClazz = new Clazz("Edge")
       .withAttribute("name", "String");
 
-      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      Clazz nodeClazz = new Clazz("Node")
       .withAttribute("name", "String");
 
       new Association()
@@ -600,7 +613,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationTargetClassDiag"));
+      storyboard.addClassDiagram(model);
       
       
       //==========================================================================
@@ -616,9 +629,9 @@ public class HelloWorldTTC2011
       .withTarget(nodeClazz, "copy", R.ONE)
       .withSource(nodeClazz, "orig", R.ONE);
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationExtensionClassDiag"));
+      storyboard.addClassDiagram(model);
       
 
       //==========================================================================
@@ -628,9 +641,10 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
       
-      
+      storyboard.dumpHTML();
+
       //==========================================================================
       
       storyboard.add("<hr/>");
@@ -642,7 +656,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
       
       storyboard.add(systemout);
       
@@ -660,7 +674,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
       
       
       storyboard.add(systemout);
@@ -679,7 +693,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
       
       
       //==========================================================================
@@ -695,7 +709,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
       
       
       //==========================================================================
@@ -711,7 +725,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("tg"), tgtGraph);
+      storyboard.addObjectDiagram(tgtGraph);
 
    
       //==========================================================================
@@ -740,9 +754,7 @@ public class HelloWorldTTC2011
       
       graph = createExampleGraph();
       
-      JsonIdMap createIdMap = CreatorCreator.createIdMap("eg");
-      
-      storyboard.addObjectDiagram(createIdMap, graph);
+      storyboard.addObjectDiagram(graph);
       
       storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
       
@@ -750,7 +762,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagram(CreatorCreator.createIdMap("tg"), tgtGraph);
+      storyboard.addObjectDiagram(tgtGraph);
 
       
       storyboard.dumpHTML();
