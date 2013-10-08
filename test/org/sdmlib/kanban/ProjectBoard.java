@@ -21,7 +21,7 @@
 
 package org.sdmlib.kanban;
 
-import javax.print.DocFlavor.STRING;
+import java.util.LinkedHashMap;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
@@ -33,6 +33,7 @@ import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
+import org.sdmlib.storyboards.StoryboardWall;
 
 public class ProjectBoard
 {
@@ -143,8 +144,10 @@ public class ProjectBoard
    {
       Storyboard storyboard = new Storyboard("test");
       
+      storyboard.add("Internal things.");
+      
       storyboard.add("It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-         , MODELING, "zuendorf", "21.08.2012 15:57:42", 0, 4);
+         , DONE, "zuendorf", "08.10.2013 13:30:42", 1, 0);
       
       storyboard.addToDo("ExtendStoryboardByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
       .linkToTest("test", this.getClass().getName());
@@ -160,10 +163,10 @@ public class ProjectBoard
       Storyboard storyboard = new Storyboard();
       
       storyboard.add("This storyboard tests the storyboard infrastructure. ");
-      storyboard.add("At first creating the html file just with text should work. ");
-      storyboard.add("Next we need to create some class model. This will be done in a parallel activity.");
-      storyboard.add("With the class model we create an object model and try to dump it here.");
-      storyboard.add("Well, dumping the class model would be great, either.");
+      storyboard.addStep("At first creating the html file just with text should work. ");
+      storyboard.addStep("Next we need to create some class model. This will be done in a parallel activity.");
+      storyboard.addStep("With the class model we create an object model and try to dump it here.");
+      storyboard.addStep("Well, dumping the class model would be great, either.");
 
       storyboard.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
             "(has been below phase entries before.)\n" +
@@ -179,6 +182,8 @@ public class ProjectBoard
       .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
       .withTarget("logEntries", logEntryClass, R.MANY);
       
+      // Clazz phaseEntryClass = kanbanEntryClass.createClassAndAssoc(PhaseEntry.class.getName(), "phaseEntries", R.MANY, "kanbanEntry", R.ONE);
+      
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
       
       Clazz storyboardClass = model.createClazz(Storyboard.class.getName(), 
@@ -192,7 +197,7 @@ public class ProjectBoard
       Clazz storyboardStepClass = storyboardClass.createClassAndAssoc("StoryboardStep", "storyboardSteps", R.MANY, "storyboard", R.ONE)
             .withAttributes("text", R.STRING);
       
-      storyboard.addSVGImage(model.dumpClassDiagram("src", "StoryboardClasses.001"));
+      storyboard.addClassDiagram(model);
       
       model.generate("src", "srchelpers");
 
@@ -201,7 +206,49 @@ public class ProjectBoard
       
       storyboard.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
          DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
+      
+      storyboard.addStep("Show some internals");
+      
+      storyboard.add("Internally, the class model looks like:");
+      
+      storyboard.addObjectDiagram(model);
    
+      storyboard.dumpHTML();
+   }
+   
+   @Test
+   public void testStoryboardInfrastructureInternals()
+   {
+      Storyboard storyboard = new Storyboard("test");
+      
+      storyboard.add("Internals.");
+      
+      storyboard.add("Object diagram for storyboard and KanbanEntry:" , 
+         DONE, "zuendorf", "08.10.2013 13:22:42", 1, 0);
+      
+      StoryboardWall storyboardWall = new StoryboardWall().withStoryboard(storyboard);
+      
+      KanbanEntry parent = new KanbanEntry();
+      
+      KanbanEntry kanbanEntry = new KanbanEntry()
+      .withHoursRemaining(1)
+      .withHoursSpend(2)
+      .withLastDeveloper("zuendorf")
+      .withName("name")
+      .withPhase(DONE)
+      .withParent(parent);
+      
+      LinkedHashMap<String, LogEntry> newLogEntries = storyboard.getNewLogEntries();
+      for (LogEntry entry : newLogEntries.values())
+      {
+         kanbanEntry.addToLogEntries(entry);
+      }
+      
+      
+      
+      storyboard.addObjectDiagram(storyboardWall, kanbanEntry);
+      
+      
       storyboard.dumpHTML();
    }
 }

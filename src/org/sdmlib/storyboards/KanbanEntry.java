@@ -26,14 +26,15 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.storyboards.creators.KanbanEntrySet;
 import org.sdmlib.storyboards.creators.LogEntrySet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
@@ -181,7 +182,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
     */
 
    public static final String PROPERTY_SUBENTRIES = "subentries";
-   private LinkedHashSet<KanbanEntry> subentries;
+   private KanbanEntrySet subentries;
 
    public boolean addToSubentries (KanbanEntry value)
    {
@@ -191,7 +192,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       {
          if (this.subentries == null)
          {
-            this.subentries = new LinkedHashSet<KanbanEntry>();
+            this.subentries = new KanbanEntrySet();
          }
          changed = this.subentries.add (value);
          if (changed)
@@ -231,65 +232,10 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       }
    }
 
-   /**
-    * <pre>
-    *           1..1     0..n
-    * KanbanEntry ------------------------- PhaseEntry
-    *           kanbanEntry        &gt;       phaseEntries
-    * </pre>
-    */
-
-   public static final String PROPERTY_PHASE_ENTRIES = "phaseEntries";
-   private LinkedHashSet<PhaseEntry> phaseEntries;
-
-   public boolean addToPhaseEntries (PhaseEntry value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.phaseEntries == null)
-         {
-            this.phaseEntries = new LinkedHashSet<PhaseEntry> ();
-         }
-         changed = this.phaseEntries.add (value);
-         if (changed)
-         {
-            value.withKanbanEntry(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASE_ENTRIES, null, value);
-         }
-      }
-      return changed;
-   }
-
-   public boolean removeFromPhaseEntries (PhaseEntry value)	
-   {
-      boolean changed = false;
-
-      if ((this.phaseEntries != null) && (value != null))
-      {
-         changed = this.phaseEntries.remove (value);
-         if (changed)
-         {
-            value.setKanbanEntry(null);
-         }
-      }
-      return changed;
-   }
-
-   public void removeAllFromPhaseEntries ()
-   {
-      LinkedHashSet<PhaseEntry> tmpSet = new LinkedHashSet<PhaseEntry>(this.getPhaseEntries());
-      
-      for (PhaseEntry elem : tmpSet)
-      {
-         this.removeFromPhaseEntries(elem);
-      }
-   }
 
    public static final String PROPERTY_FILES = "files";
 
-   public static final Set<KanbanEntry> EMPTY_SET = new LinkedHashSet<KanbanEntry>();
+   public static final Set<KanbanEntry> EMPTY_SET = new KanbanEntrySet();
 
    private String files;
 
@@ -502,25 +448,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return this;
    }
 
-   public Set<PhaseEntry> getPhaseEntries() {
-      if (this.phaseEntries == null)
-      {
-         return PhaseEntry.EMPTY_SET;  
-      }
-
-      return this.phaseEntries;
-   }
-
-   public KanbanEntry withPhaseEntries(PhaseEntry newValue) {
-      this.addToPhaseEntries(newValue);
-      return this;
-   }
-
-   public KanbanEntry withoutPhaseEntries(PhaseEntry newValue) {
-      this.removeFromPhaseEntries(newValue);
-      return this;
-   }
-
    public boolean set(String attrName, Object value) {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName)) 
       {
@@ -580,11 +507,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          addToLogEntries((LogEntry) value);
          return true;
       } 
-      else   if (PROPERTY_PHASE_ENTRIES.equalsIgnoreCase(attrName)) 
-      {
-         addToPhaseEntries((PhaseEntry) value);
-         return true;
-      } 
       else   if (PROPERTY_FILES.equalsIgnoreCase(attrName)) 
       {
          setFiles((String) value);
@@ -616,6 +538,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       {
          return getOldNoOfLogEntries();
       }
+
       else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
       {
          return getPhase();
@@ -648,10 +571,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       else if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attribute))
       {
          return getLogEntries();
-      }
-      else if (PROPERTY_PHASE_ENTRIES.equalsIgnoreCase(attribute))
-      {
-         return getPhaseEntries();
       }
       else if (PROPERTY_FILES.equalsIgnoreCase(attribute))
       {
@@ -695,7 +614,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    {
       this.setParent (null);
       removeAllFromSubentries();
-      removeAllFromPhaseEntries();
       removeAllFromLogEntries();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -707,26 +625,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return listeners;
    }
 
-   public PhaseEntry getOrCreatePhaseEntry(String wantedPhase)
-   {
-      PhaseEntry result = null; 
-      
-      for (PhaseEntry phaseEntry : getPhaseEntries())
-      {
-         if (StrUtil.stringEquals(phaseEntry.getPhase(), wantedPhase))
-         {
-            return phaseEntry;
-         }  
-      }
-      
-      result = new PhaseEntry()
-      .withPhase(wantedPhase)
-      .withKanbanEntry(this);
-      
-      return result;
-   }
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -804,7 +702,8 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    
    public void removeAllFromLogEntries()
    {
-      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(this.getLogEntries());
+      LogEntrySet tmpSet = new LogEntrySet();
+      tmpSet.addAll(this.getLogEntries());
    
       for (LogEntry value : tmpSet)
       {

@@ -6,7 +6,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
 
-public class LogEntrySet extends LinkedHashSet<LogEntry>
+public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 

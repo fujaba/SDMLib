@@ -76,7 +76,11 @@ public class ClassModelTest
       .withTarget("kidClassesAsInterface", clazzClass, MANY);     
       
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
-      .withAttributes("initialization", STRING, "type", STRING);
+      .withAttributes(
+         "name", STRING,
+         "type", STRING,
+         "initialization", STRING 
+         );
       
       new Association()
       .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)

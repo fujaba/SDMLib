@@ -7,7 +7,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
 
-public class AssociationSet extends LinkedHashSet<Association>
+public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
    public ClassModelSet getModel()
    {

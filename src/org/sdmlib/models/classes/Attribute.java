@@ -97,16 +97,26 @@ public class Attribute implements PropertyChangeInterface
       return this;
    } 
 
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
    private String name = null;
 
    public String getName()
    {
       return name;
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
    }
 
    public Attribute withName(String string)
@@ -1221,6 +1231,11 @@ public class Attribute implements PropertyChangeInterface
          return getType();
       }
 
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       return null;
    }
 
@@ -1259,6 +1274,12 @@ public class Attribute implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -1278,6 +1299,7 @@ public class Attribute implements PropertyChangeInterface
    	// StringBuilder _ = new StringBuilder();
    	// _.append(" ").append(this.getInitialization());
       // _.append(" ").append(this.getType());
+      //_.append(" ").append(this.getName());
       return "" + name + " : " + type;
    }
    
@@ -1288,6 +1310,5 @@ public class Attribute implements PropertyChangeInterface
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 }
 

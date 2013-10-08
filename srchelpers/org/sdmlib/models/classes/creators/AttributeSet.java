@@ -28,7 +28,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 
-public class AttributeSet extends LinkedHashSet<Attribute>
+public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getInitialization()
    {
@@ -128,7 +128,30 @@ public class AttributeSet extends LinkedHashSet<Attribute>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Attribute obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public AttributeSet withName(String value)
+   {
+      for (Attribute obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

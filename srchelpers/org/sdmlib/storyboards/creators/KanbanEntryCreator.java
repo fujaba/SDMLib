@@ -16,7 +16,6 @@ public class KanbanEntryCreator extends EntityFactory
       KanbanEntry.PROPERTY_PARENT,
       KanbanEntry.PROPERTY_SUBENTRIES,
       KanbanEntry.PROPERTY_LOGENTRIES,
-      KanbanEntry.PROPERTY_PHASE_ENTRIES,
       KanbanEntry.PROPERTY_FILES, 
       KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES,
    };
@@ -55,6 +54,7 @@ public class KanbanEntryCreator extends EntityFactory
       ((KanbanEntry) entity).removeYou();
    }
 }
+
 
 
 

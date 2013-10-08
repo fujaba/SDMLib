@@ -180,7 +180,13 @@ public class CGUtil
    public static String shortClassName(String name)
    {
       int pos = name.lastIndexOf('.');
-      return name.substring(pos + 1);
+      name = name.substring(pos + 1);
+      pos = name.lastIndexOf('$');
+      if (pos >= 0)
+      {
+         name = name.substring(pos + 1);
+      }
+      return name;
    }
 
    public static String packageName(String name)

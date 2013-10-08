@@ -283,7 +283,7 @@ public class Storyboard implements PropertyChangeInterface
             "</body>\n" +
             "</html>\n";
 
-      String storyboardName = this.getStoryboardSteps().getFirst().getText();
+      String storyboardName = this.getName();
 
       htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
       htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
@@ -336,6 +336,10 @@ public class Storyboard implements PropertyChangeInterface
    {
       try
       {
+         if (imgName.startsWith("<"))
+         {
+            System.out.println("Ups");
+         }
          BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
 
          out.write(fileText);
@@ -343,7 +347,7 @@ public class Storyboard implements PropertyChangeInterface
       }
       catch (IOException e)
       {
-         e.printStackTrace();
+         // e.printStackTrace();
       }
    }
 
@@ -436,6 +440,7 @@ public class Storyboard implements PropertyChangeInterface
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
+         e.printStackTrace();
       }
    }
 
@@ -664,7 +669,7 @@ public class Storyboard implements PropertyChangeInterface
          catch (Exception e)
          {
             // no prolem, just lower coverage
-            e.printStackTrace();
+            // e.printStackTrace();
          }
       }
 

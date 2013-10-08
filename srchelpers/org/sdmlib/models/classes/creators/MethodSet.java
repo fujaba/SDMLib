@@ -28,7 +28,7 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 
-public class MethodSet extends LinkedHashSet<Method>
+public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getSignature()
    {

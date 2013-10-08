@@ -7,7 +7,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
 
-public class RoleSet extends LinkedHashSet<Role>
+public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getName()
    {

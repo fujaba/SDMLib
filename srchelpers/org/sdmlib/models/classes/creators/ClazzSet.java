@@ -32,7 +32,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
 
-public class ClazzSet extends LinkedHashSet<Clazz>
+public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getName()
    {

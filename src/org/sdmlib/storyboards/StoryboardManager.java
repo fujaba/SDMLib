@@ -69,167 +69,167 @@ public class StoryboardManager
    private static final String DOC_KANBAN_ENTRIES_JSON = "doc/kanbanEntries.json";
 
    private static StoryboardManager theCatalog = null;
-	
-	public static StoryboardManager get()
-	{
-		if (theCatalog == null)
-		{
-			theCatalog = new StoryboardManager();
-			theCatalog.getPhases().add(ACTIVE);
-			theCatalog.getPhases().add(BACKLOG);
-			theCatalog.getPhases().add(MODELING);
-			theCatalog.getPhases().add(IMPLEMENTATION);
-			theCatalog.getPhases().add(DONE);
-		}
-		return theCatalog;
-	}
-	
-	public Vector<Storyboard> storyboards = new Vector<Storyboard>();
-	
-	public TreeMap<String, TreeSet<String>> msgUsages = new TreeMap<String, TreeSet<String>>();
-	
-	public void addToMsgUsages(String type, String pathname) 
-	{
-		TreeSet<String> treeSet = msgUsages.get(type);
-		
-		if (treeSet == null)
-		{
-			treeSet = new TreeSet<String>();
-			msgUsages.put(type, treeSet);
-		}
-		treeSet.add(pathname);
-	}
-	
-	private KanbanEntry kanbanBoard;
+
+   public static StoryboardManager get()
+   {
+      if (theCatalog == null)
+      {
+         theCatalog = new StoryboardManager();
+         theCatalog.getPhases().add(ACTIVE);
+         theCatalog.getPhases().add(BACKLOG);
+         theCatalog.getPhases().add(MODELING);
+         theCatalog.getPhases().add(IMPLEMENTATION);
+         theCatalog.getPhases().add(DONE);
+      }
+      return theCatalog;
+   }
+
+   public Vector<Storyboard> storyboards = new Vector<Storyboard>();
+
+   public TreeMap<String, TreeSet<String>> msgUsages = new TreeMap<String, TreeSet<String>>();
+
+   public void addToMsgUsages(String type, String pathname) 
+   {
+      TreeSet<String> treeSet = msgUsages.get(type);
+
+      if (treeSet == null)
+      {
+         treeSet = new TreeSet<String>();
+         msgUsages.put(type, treeSet);
+      }
+      treeSet.add(pathname);
+   }
+
+   private KanbanEntry kanbanBoard;
 
    private JsonIdMap kanbanIdMap;
 
    private static LinkedHashSet<String> phases = new LinkedHashSet<String>(); 
-	
+
    public LinkedHashSet<String> getPhases()
    {
       return phases;
    }
-	
+
    public void dumpHTML()
    {
       loadOldKanbanEntries();
-      
+
       new File("doc").mkdirs();
-      
+
       dumpKanban();
    }
-   
-	public void dumpKanban() 
-	{
-		// dump the storyboards
-		TreeSet<String> fileSet = new TreeSet<String>();
-		for (Storyboard storyboard : storyboards) 
-		{
-			// get first component			
-			storyboard.dumpHTML(kanbanBoard);
-			String filename = storyboard.getName();
-			fileSet.add(filename);
-		}
-		
-		refColumnBody = new StringBuffer();
-		
-		dumpKanbanBoard();
-		
-		dumpIndexHtml();
-		
-		refColumnBody.append("<br>");
-		
-		TreeSet<KanbanEntry> allEntries = new TreeSet<KanbanEntry>(collectEntriesFromTree(kanbanBoard));
-		
-		for (KanbanEntry entry : allEntries)
+
+   public void dumpKanban() 
+   {
+      // dump the storyboards
+      TreeSet<String> fileSet = new TreeSet<String>();
+      for (Storyboard storyboard : storyboards) 
+      {
+         // get first component			
+         storyboard.dumpHTML(kanbanBoard);
+         String filename = storyboard.getName();
+         fileSet.add(filename);
+      }
+
+      refColumnBody = new StringBuffer();
+
+      dumpKanbanBoard();
+
+      dumpIndexHtml();
+
+      refColumnBody.append("<br>");
+
+      TreeSet<KanbanEntry> allEntries = new TreeSet<KanbanEntry>(collectEntriesFromTree(kanbanBoard));
+
+      for (KanbanEntry entry : allEntries)
       {
          if (entry.getSubentries().isEmpty())
          {
             File htmlFile = new File("doc/" + entry.getName() + ".html");
-            
+
             if (htmlFile.exists())
             {
                refColumnBody.append(refForFile(entry.getName()));
             }
          }
       }
-		
-		// build index 
-		String refHtml = "<html>\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n<body>\ntext\n</body>\n</html>\n";
-		
-		refHtml = refHtml.replaceFirst("text", refColumnBody.toString());
-				
-		File file = new File ("doc/refs.html");
-		try {
-			PrintStream out = new PrintStream(file);
-			out.println(refHtml);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		dumpKanbanEntriesToJson();
-	}
-	
-	private void dumpIndexHtml()
+
+      // build index 
+      String refHtml = "<html>\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n<body>\ntext\n</body>\n</html>\n";
+
+      refHtml = refHtml.replaceFirst("text", refColumnBody.toString());
+
+      File file = new File ("doc/refs.html");
+      try {
+         PrintStream out = new PrintStream(file);
+         out.println(refHtml);
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+
+      dumpKanbanEntriesToJson();
+   }
+
+   private void dumpIndexHtml()
    {
       // ensure index.html
-	   new File("doc").mkdirs();
-	   File file = new File("doc/index.html");
-	   
-	   if ( ! file.exists())
-	   {
-	      String text = 
-	            "<html>\n" +
-	            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-	      		"<frameset cols='250,*'>\n" +
-	      		"<frame src='refs.html' name='Index'>\n" +
-	      		"<frame name='Main'>a</frame>\n" +
-	      		"<noframes>\n" +
-	      		"  <body>\n" +
-	      		"     <h2><projectTitle></h2>\n" +
-	      		"        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
-	      		"  </body>\n" +
-	      		"</noframes>\n" +
-	      		"</frameset>\n" +
-	      		"</html>\n";
-	      
-	    text = text.replaceFirst("<projectTitle>", kanbanBoard.getName());
-	    
-	    printFile(file, text);
-	   }
+      new File("doc").mkdirs();
+      File file = new File("doc/index.html");
+
+      if ( ! file.exists())
+      {
+         String text = 
+               "<html>\n" +
+                     "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+                     "<frameset cols='250,*'>\n" +
+                     "<frame src='refs.html' name='Index'>\n" +
+                     "<frame name='Main'>a</frame>\n" +
+                     "<noframes>\n" +
+                     "  <body>\n" +
+                     "     <h2><projectTitle></h2>\n" +
+                     "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
+                     "  </body>\n" +
+                     "</noframes>\n" +
+                     "</frameset>\n" +
+                     "</html>\n";
+
+         text = text.replaceFirst("<projectTitle>", kanbanBoard.getName());
+
+         printFile(file, text);
+      }
    }
 
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-	   JsonArraySorted jsonSortedArray = new JsonArraySorted(new JsonIdComparator());
-	   JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, new JsonFilter());
-	   String jsonString = jsonArray.toString(2);
-     
-	   printFile(new File(DOC_KANBAN_ENTRIES_JSON), jsonString);
-     
-	   // generate html table for json data
-	   String htmlTableText = "<html>\n<body>\n</body>\n</html>\n";
-	   
-	   StringBuilder buf = new StringBuilder();
-	   // iterate through object
-	   for (int i = 0; i < jsonArray.size(); i++)
+      JsonArraySorted jsonSortedArray = new JsonArraySorted(new JsonIdComparator());
+      JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, new JsonFilter());
+      String jsonString = jsonArray.toString(2);
+
+      printFile(new File(DOC_KANBAN_ENTRIES_JSON), jsonString);
+
+      // generate html table for json data
+      String htmlTableText = "<html>\n<body>\n</body>\n</html>\n";
+
+      StringBuilder buf = new StringBuilder();
+      // iterate through object
+      for (int i = 0; i < jsonArray.size(); i++)
       {
          JsonObject jsonObject = jsonArray.getJSONObject(i);
-         
+
          String objectLine = "<a name='objectId'><p></p></a>\n";
          objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.ID));
-         
+
          // iterate through keys
          for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
          {
-            
+
             String key = (String) iter.next();
-            
+
             String cellString =  key + ": ";
             Object object = jsonObject.get(key);
-            
+
             if (object.toString().startsWith("KE."))
             {
                // its a reference create a link
@@ -253,44 +253,44 @@ public class StoryboardManager
          }
          buf.append(objectLine);
       }
-	   
-	   htmlTableText = htmlTableText.replaceFirst("</body>", buf.toString()+"</body>");
-	   
-	   printFile(new File("doc/objectData.html"), htmlTableText);
-	     
+
+      htmlTableText = htmlTableText.replaceFirst("</body>", buf.toString()+"</body>");
+
+      printFile(new File("doc/objectData.html"), htmlTableText);
+
    }
 
    public KanbanEntry loadOldKanbanEntries() 
-	{
-		// load catalog
-		File file = new File (DOC_KANBAN_ENTRIES_JSON);
-		
+   {
+      // load catalog
+      File file = new File (DOC_KANBAN_ENTRIES_JSON);
+
       kanbanIdMap = KanbanEntryCreator.createIdMap("KE");
-      
-		try 
-		{
-			URL catalogURL = file.toURI().toURL();
-			StringBuffer buf = new StringBuffer();
-			InputStream in = catalogURL.openStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			while (true)
-			{
-				String readLine = reader.readLine();
-				
-				if (readLine == null) break; 
-				
-				buf.append(readLine + '\n');
-			}
-			
-			JsonArray jsonObject = new JsonArray(buf.toString());
-			
-			kanbanBoard = (KanbanEntry) kanbanIdMap.readJson(jsonObject);
-		} 
-		catch (Exception e) 
-		{
-			// e.printStackTrace();
-		}
-		
+
+      try 
+      {
+         URL catalogURL = file.toURI().toURL();
+         StringBuffer buf = new StringBuffer();
+         InputStream in = catalogURL.openStream();
+         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+         while (true)
+         {
+            String readLine = reader.readLine();
+
+            if (readLine == null) break; 
+
+            buf.append(readLine + '\n');
+         }
+
+         JsonArray jsonObject = new JsonArray(buf.toString());
+
+         kanbanBoard = (KanbanEntry) kanbanIdMap.readJson(jsonObject);
+      } 
+      catch (Exception e) 
+      {
+         // e.printStackTrace();
+      }
+
       if (kanbanBoard == null)
       {
          kanbanBoard = new KanbanEntry()
@@ -299,90 +299,90 @@ public class StoryboardManager
       }
 
       return kanbanBoard;
-	}
+   }
 
 
-		
-	private void dumpKanbanBoard()
-	{
-		String userName = System.getProperty("user.name");
-		
+
+   private void dumpKanbanBoard()
+   {
+      String userName = System.getProperty("user.name");
+
       collectHours(kanbanBoard);
-      
-		// store entries into file for next run
-		JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
-		String text = jsonArray.toString(2);
-		File file = new File (DOC_KANBAN_ENTRIES_JSON);
-		printFile(file, text);
-		
-		// collect subentries from tree structure
-		LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
-		
-		for (KanbanEntry kanbanEntry : allEntries)
+
+      // store entries into file for next run
+      JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
+      String text = jsonArray.toString(2);
+      File file = new File (DOC_KANBAN_ENTRIES_JSON);
+      printFile(file, text);
+
+      // collect subentries from tree structure
+      LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
+
+      for (KanbanEntry kanbanEntry : allEntries)
       {
-		   if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
-		   {
-		      // no new log entry. Nothing to generate
-		      continue;
-		   }
-		   
-		   kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
-		   LogEntry lastLogEntry = null;
-		   double sumOfHoursSpend = 0;
-		   
-		   // initialize new entries
-		   if (kanbanEntry.getPhase() == null)
-		   {
-		      kanbanEntry.setPhase("backlog");
-		   }
-		   
-		   // prepare burnup chart series
-		   TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
-		   TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
-         
-		   for (LogEntry logEntry : kanbanEntry.getLogEntries())
-		   {
-		      phases.add(logEntry.getPhase());
-		      lastLogEntry = logEntry;
-		      sumOfHoursSpend += logEntry.getHoursSpend();
+         if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
+         {
+            // no new log entry. Nothing to generate
+            continue;
+         }
 
-		      try
-		      {
-		         repairDate(logEntry);
+         kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
+         LogEntry lastLogEntry = null;
+         double sumOfHoursSpend = 0;
 
-		         Date theDate = dateParser.parse(logEntry.getDate());
-		         Second theDay = new Second(theDate);
-		         double hoursEstimated = sumOfHoursSpend
-		               + Math.max(logEntry.getHoursRemainingInPhase(),
-		                  logEntry.getHoursRemainingInTotal());
-		         hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
-		         hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
-		      }
-		      catch (ParseException e)
-		      {
-		         e.printStackTrace();
-		      }
-		   }
-		   
-		   // create burnup chart for kanban entry
-		   createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
+         // initialize new entries
+         if (kanbanEntry.getPhase() == null)
+         {
+            kanbanEntry.setPhase("backlog");
+         }
 
-		   if (lastLogEntry != null)
+         // prepare burnup chart series
+         TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
+         TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
+
+         for (LogEntry logEntry : kanbanEntry.getLogEntries())
+         {
+            phases.add(logEntry.getPhase());
+            lastLogEntry = logEntry;
+            sumOfHoursSpend += logEntry.getHoursSpend();
+
+            try
+            {
+               repairDate(logEntry);
+
+               Date theDate = dateParser.parse(logEntry.getDate());
+               Second theDay = new Second(theDate);
+               double hoursEstimated = sumOfHoursSpend
+                     + Math.max(logEntry.getHoursRemainingInPhase(),
+                        logEntry.getHoursRemainingInTotal());
+               hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
+               hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
+            }
+            catch (ParseException e)
+            {
+               e.printStackTrace();
+            }
+         }
+
+         // create burnup chart for kanban entry
+         createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
+
+         if (lastLogEntry != null)
          {
             kanbanEntry
-                  .withLastDeveloper(lastLogEntry.getDeveloper())
-                  .withPhase(lastLogEntry.getPhase())
-                  .withHoursSpend(sumOfHoursSpend)
-                  .withHoursRemaining(
-                        Math.max(lastLogEntry.getHoursRemainingInPhase(),
-                              lastLogEntry.getHoursRemainingInTotal()));
+            .withLastDeveloper(lastLogEntry.getDeveloper())
+            .withPhase(lastLogEntry.getPhase())
+            .withHoursSpend(sumOfHoursSpend)
+            .withHoursRemaining(
+               Math.max(lastLogEntry.getHoursRemainingInPhase(),
+                  lastLogEntry.getHoursRemainingInTotal()));
          }
       }
-		
-		dumpTimeLinesFor(allEntries);
 
-		dumpBoardForKanbanEntry(kanbanBoard, kanbanBoard.getName()+"kanban");
-	}
+      dumpTimeLinesFor(allEntries);
+
+      dumpBoardForKanbanEntry(kanbanBoard, kanbanBoard.getName()+"kanban");
+   }
 
    private void dumpTimeLinesFor(LinkedHashSet<KanbanEntry> allEntries)
    {
@@ -403,17 +403,22 @@ public class StoryboardManager
 
             text.append(logLine);
          }
-         
+
+         if (kanbanEntry.getName().startsWith("<"))
+         {
+            System.out.println("ups");
+         }
          printFile(
-               new File("doc/"+kanbanEntry.getName()+"TimeLine.html"), 
-               "<html>\n<body>\n" +
-               "<p>Time line for " + kanbanEntry.getName() + "</p>" + 
-               text.toString() + 
+            new File("doc/"+kanbanEntry.getName()+"TimeLine.html"), 
+            "<html>\n<body>\n" +
+                  "<p>Time line for " + kanbanEntry.getName() + "</p>" + 
+                  text.toString() + 
                "</body>\n</html>");
+
       }
-      
-      
-      
+
+
+
    }
 
    private void dumpBoardForKanbanEntry(KanbanEntry rootEntry, String boardName)
@@ -421,9 +426,9 @@ public class StoryboardManager
       LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(rootEntry);
 
       // generate the kanban board
-		String buf = "<html>\n<body>\n<table border='3' frame='box'>\n<headerRow>\n<tableBody></table>\n</body>\n</html>";
-		
-		String headerRow = "<tr> </tr>";
+      String buf = "<html>\n<body>\n<table border='3' frame='box'>\n<headerRow>\n<tableBody></table>\n</body>\n</html>";
+
+      String headerRow = "<tr> </tr>";
       String tableBody = "<tr> </tr>\n";
 
       for (String phase : phases)
@@ -431,63 +436,63 @@ public class StoryboardManager
          headerRow = headerRow.replaceFirst("</tr>", "<th>" + phase + "</th> </tr>");
          tableBody = tableBody.replaceFirst("</tr>", "<td valign='top'><table border ='0'>" + phase + "</table></td>\n </tr>");
       }
-      
-      buf = buf.replaceFirst("<headerRow>", headerRow);
-      
-		for (KanbanEntry entry : allEntries)
-		{
-			String phaseName = entry.getPhase();
 
-			String cellText = "<tr><td><table border='1' rules='none' bgcolor='#fafad2'></table><tr><td>\n";
-			
-			if ( ! entry.getSubentries().isEmpty())
-			{
-			   // create link to sprint kanban board
+      buf = buf.replaceFirst("<headerRow>", headerRow);
+
+      for (KanbanEntry entry : allEntries)
+      {
+         String phaseName = entry.getPhase();
+
+         String cellText = "<tr><td><table border='1' rules='none' bgcolor='#fafad2'></table><tr><td>\n";
+
+         if ( ! entry.getSubentries().isEmpty())
+         {
+            // create link to sprint kanban board
             cellText = cellText.replaceFirst("</table>", 
-                  "<tr><td><a href='" + entry.getName() + "kanban.html'>" + 
-                        entry.getName()+"</a></td></tr>\n</table>");
-			}
-			else 
-			{
-            cellText = cellText.replaceFirst("</table>", 
-                  "<tr><td><a href='" + entry.getName() + ".html'>" + 
-                        entry.getName()+"</a></td></tr>\n</table>");
-			}
-			
-			if (entry.getParent() != null)
+               "<tr><td><a href='" + entry.getName() + "kanban.html'>" + 
+                     entry.getName()+"</a></td></tr>\n</table>");
+         }
+         else 
          {
             cellText = cellText.replaceFirst("</table>", 
-                  "<tr><td><a href='"+entry.getParent().getName()+"kanban.html'>"
-                  +entry.getParent().getName()+"</a></td></tr>\n</table>");
+               "<tr><td><a href='" + entry.getName() + ".html'>" + 
+                     entry.getName()+"</a></td></tr>\n</table>");
+         }
+
+         if (entry.getParent() != null)
+         {
+            cellText = cellText.replaceFirst("</table>", 
+               "<tr><td><a href='"+entry.getParent().getName()+"kanban.html'>"
+                     +entry.getParent().getName()+"</a></td></tr>\n</table>");
          }
          cellText = cellText.replaceFirst("</table>", "<tr><td>developer = "+entry.getLastDeveloper()+"</td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td>hours spend = "+entry.getHoursSpend()+"</td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td>hours remaining = "+entry.getHoursRemaining()+"</td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td><a href='" + entry.getName()+
-         		"BurnupChart.png'>burnup</a></td></tr>\n</table>");
+               "BurnupChart.png'>burnup</a></td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td><a href='" + entry.getName()+
                "TimeLine.html'>time line</a></td></tr>\n</table>");
-         
-			tableBody = tableBody.replaceFirst(phaseName + "</table>", cellText + phaseName + "</table>");
-			
-			if (entry != rootEntry && ! entry.getSubentries().isEmpty())
-			{
-			    dumpBoardForKanbanEntry(entry, entry.getName()+"kanban");
-			}			
-		}	
-		
-		// remove column placeholders
-		for (String phase : phases)
+
+         tableBody = tableBody.replaceFirst(phaseName + "</table>", cellText + phaseName + "</table>");
+
+         if (entry != rootEntry && ! entry.getSubentries().isEmpty())
+         {
+            dumpBoardForKanbanEntry(entry, entry.getName()+"kanban");
+         }			
+      }	
+
+      // remove column placeholders
+      for (String phase : phases)
       {
          tableBody = tableBody.replaceFirst(phase+"</table>", "</table>");
       }
-		
-		buf = buf.replaceFirst("<tableBody>", tableBody);		
-		
-		File kanbanFile = new File ("doc/" + boardName + ".html");
-		printFile(kanbanFile, buf);
-		
-		refColumnBody.insert(0, refForFile(boardName));
+
+      buf = buf.replaceFirst("<tableBody>", tableBody);		
+
+      File kanbanFile = new File ("doc/" + boardName + ".html");
+      printFile(kanbanFile, buf);
+
+      refColumnBody.insert(0, refForFile(boardName));
 
    }
 
@@ -495,7 +500,7 @@ public class StoryboardManager
    {
       double hoursSpendSum = 0;
       double hoursRemainingSum = 0;
-      
+
       if (! rootEntry.getSubentries().isEmpty())
       {
          LogEntry latestLogEntry = null;
@@ -506,21 +511,21 @@ public class StoryboardManager
             hoursRemainingSum += subentry.getHoursRemaining();
             latestLogEntry = findLatestLogEntry(latestLogEntry, subentry);
          }
-         
+
          double oldHoursSpend = rootEntry.getHoursSpend();
          double oldHoursRemaining = rootEntry.getHoursRemaining();
-         
+
          if (hoursSpendSum != oldHoursSpend || hoursRemainingSum != oldHoursRemaining)
          {
             // store new hours
             rootEntry.withHoursSpend(hoursSpendSum)
             .withHoursRemaining(hoursRemainingSum);
-             
+
             // create log entry
             String latestDate;
             String latestDeveloper;
             String latestComment = null;
-            
+
             if (latestLogEntry == null)
             {
                latestDate = dateParser.format(new Date(System.currentTimeMillis()));
@@ -533,7 +538,7 @@ public class StoryboardManager
                latestComment = latestLogEntry.getKanbanEntry().getName() + ": " 
                      + latestLogEntry.getComment();
             }
-            
+
             LogEntry newLogEntry = new LogEntry()
             .withHoursSpend(hoursSpendSum-oldHoursSpend)
             .withHoursRemainingInTotal(hoursRemainingSum)
@@ -549,17 +554,17 @@ public class StoryboardManager
          // collect hours from log entries
          double logHoursSpend = 0.0;
          double logHoursRemaining = 0.0;
-         
+
          for (LogEntry logEntry : rootEntry.getLogEntries())
          {
             logHoursSpend += logEntry.getHoursSpend();
             logHoursRemaining = Math.max(logEntry.getHoursRemainingInPhase(), logEntry.getHoursRemainingInTotal());
          }
- 
+
          hoursSpendSum = logHoursSpend;
          hoursRemainingSum = logHoursRemaining;
       }
-         
+
       rootEntry.setHoursSpend(hoursSpendSum);
       rootEntry.setHoursRemaining(hoursRemainingSum);
    }
@@ -601,7 +606,7 @@ public class StoryboardManager
    private void repairDate(LogEntry logEntry)
    {
       String dateText = logEntry.getDate();
-      
+
       if (dateText == null)
       {
          dateText = dateParser.format(new Date(System.currentTimeMillis()));
@@ -615,8 +620,8 @@ public class StoryboardManager
             logEntry.setDate(dateText);
          }
       }
-            
-      
+
+
    }
 
    private LinkedHashSet<KanbanEntry> collectEntriesFromTree(KanbanEntry rootEntry)
@@ -625,7 +630,7 @@ public class StoryboardManager
       LinkedHashSet<KanbanEntry> allEntries = new LinkedHashSet<KanbanEntry>();
       LinkedList<KanbanEntry> todo = new LinkedList<KanbanEntry>();
       todo.add(rootEntry);
-      
+
       while ( ! todo.isEmpty())
       {
          KanbanEntry pop = todo.pop();
@@ -644,83 +649,83 @@ public class StoryboardManager
       TimeSeriesCollection dataset = new TimeSeriesCollection();
       dataset.addSeries(hoursEstimatedSeries);
       dataset.addSeries(hoursSpendSeries);
-      
+
       // Generate the graph
       XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
       DateAxis dateaxis = new DateAxis("Date");
       NumberAxis numberaxis = new NumberAxis("Hours");
       XYPlot xyplot = new XYPlot(dataset, dateaxis, numberaxis, xyLineAndShapeRenderer);
-      
+
       JFreeChart chart = new JFreeChart("Burnup Chart for " + kanbanEntry.getName(), xyplot);
       String chartFileName = null;
       try {
          chartFileName = "doc/" + kanbanEntry.getName()+ "BurnupChart.png";
          ChartUtilities.saveChartAsPNG(new File(chartFileName), chart, 800,
-              700);
+            700);
       } catch (IOException e) {
-          System.err.println("Problem occurred creating chart.");
+         System.err.println("Problem occurred creating chart.");
       }
-      
+
       return chartFileName;
    }
 
-	public String refForFile(String filename) {
-		String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
-		ref = ref.replaceAll("filename", filename);
-		return ref;
-	}
+   public String refForFile(String filename) {
+      String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
+      ref = ref.replaceAll("filename", filename);
+      return ref;
+   }
 
-	protected String dumpMessagePage(Entry<String, TreeSet<String>> entry) 
-	{
-		String fileName = "Message_" + entry.getKey() + ".html";
-		
-		// list the component files
-		String page = "<html>\n<body>\ntext\n</body>\n</html>\n";
-		StringBuffer text = new StringBuffer();
-		String header = "<h2>Messages of type name are used by components: </h2>\n";
-		header = header.replaceAll("name", entry.getKey());
-		text.append(header);
-		
-		for (String file : entry.getValue()) 
-		{
-			String refForFile = StoryboardManager.get().refForFile(file);
-			text.append(refForFile);
-		}
-		
-		
-		
-		page = page.replaceAll("text", text.toString());
-		
-		File file = new File ("src/smartiocatalog/" + fileName);
-		printFile(file, page);
-		return fileName;
-	}
-	
-	
+   protected String dumpMessagePage(Entry<String, TreeSet<String>> entry) 
+   {
+      String fileName = "Message_" + entry.getKey() + ".html";
 
-	public static void printFile(File file, String text)
-	{
-		try {
-		   File parentFile = file.getParentFile();
-		   if ( ! parentFile.exists())
-		   {
-		      parentFile.mkdirs();
-		   }
-			PrintStream out = new PrintStream(file);
-			out.println(text);
-			out.flush();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static String readFile(File file)
-	{
+      // list the component files
+      String page = "<html>\n<body>\ntext\n</body>\n</html>\n";
+      StringBuffer text = new StringBuffer();
+      String header = "<h2>Messages of type name are used by components: </h2>\n";
+      header = header.replaceAll("name", entry.getKey());
+      text.append(header);
+
+      for (String file : entry.getValue()) 
+      {
+         String refForFile = StoryboardManager.get().refForFile(file);
+         text.append(refForFile);
+      }
+
+
+
+      page = page.replaceAll("text", text.toString());
+
+      File file = new File ("src/smartiocatalog/" + fileName);
+      printFile(file, page);
+      return fileName;
+   }
+
+
+
+   public static void printFile(File file, String text)
+   {
+      try {
+         File parentFile = file.getParentFile();
+         if ( ! parentFile.exists())
+         {
+            parentFile.mkdirs();
+         }
+         PrintStream out = new PrintStream(file);
+         out.println(text);
+         out.flush();
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+   }
+
+   public static String readFile(File file)
+   {
       StringBuilder result = new StringBuilder();
-	   try
+      try
       {
          BufferedReader in = new BufferedReader(new FileReader(file));
-         
+
          String line = in.readLine();
          while (line != null)
          {
@@ -732,9 +737,9 @@ public class StoryboardManager
       {
          e.printStackTrace();
       }
-	   
-	   return result.toString();
-	}
+
+      return result.toString();
+   }
 
    public StoryboardManager add(Storyboard storyboard)
    {
@@ -747,11 +752,11 @@ public class StoryboardManager
    private StringBuffer refColumnBody;
 
    public SimpleDateFormat dateParser  = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-   
+
    public void addEntry(KanbanEntry sprint1)
    {
       newEntries.add(sprint1);
    }
 
-	
+
 }

@@ -122,6 +122,39 @@ public class AttributePO extends PatternObject
       return this;
    }
    
+   public AttributePO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Attribute.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Attribute) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public AttributePO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Attribute) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

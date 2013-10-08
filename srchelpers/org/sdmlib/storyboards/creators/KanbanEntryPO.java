@@ -1,13 +1,11 @@
 package org.sdmlib.storyboards.creators;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.creators.KanbanEntrySet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.storyboards.creators.LogEntryPO;
 
 public class KanbanEntryPO extends PatternObject
 {
@@ -99,8 +97,8 @@ public class KanbanEntryPO extends PatternObject
       }
       return this;
    }
-   
 }
+
 
 
 

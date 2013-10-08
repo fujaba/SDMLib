@@ -11,6 +11,7 @@ public class AttributeCreator extends EntityFactory
       Attribute.PROPERTY_INITIALIZATION,
       Attribute.PROPERTY_CLAZZ,
       Attribute.PROPERTY_TYPE,
+      Attribute.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -47,6 +48,7 @@ public class AttributeCreator extends EntityFactory
       ((Attribute) entity).removeYou();
    }
 }
+
 
 
 
