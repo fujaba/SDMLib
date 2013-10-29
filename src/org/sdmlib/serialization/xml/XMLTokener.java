@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.xml;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -34,13 +34,8 @@ import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class XMLTokener extends Tokener {
-	public XMLTokener(String s) {
-		super(s);
-	}
-
 	/**
 	 * Get the next value. The value can be a Boolean, Double, Integer,
 	 * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
@@ -48,16 +43,17 @@ public class XMLTokener extends Tokener {
 	 * @return An object.
 	 */
 	@Override
-	public Object nextValue(JSIMEntity creator) {
+	public Object nextValue(BaseEntity creator) {
 		char c = nextClean();
 
 		switch (c) {
 		case '"':
 		case '\'':
-			return nextString(c, false, false);
+			next();
+			return nextString(c, false);
 		case '<':
 			back();
-			JSIMEntity element = creator.getNewObject();
+			BaseEntity element = creator.getNewObject();
 			if (element instanceof Entity) {
 				parseToEntity((Entity) element);
 			}
@@ -66,14 +62,22 @@ public class XMLTokener extends Tokener {
 			break;
 		}
 		back();
+		if(getCurrentChar()=='"'){
+			next();
+			next();
+			return "";
+		}
 		return super.nextValue(creator);
 	}
 
 	@Override
-	public void parseToEntity(BaseEntity entity) {
-		char c;
+	public void parseToEntity(BaseEntity entity) throws TextParsingException{
+		char c=getCurrentChar();
 
-		if (nextClean() != '<') {
+		if (c!= '<') {
+			c = nextClean();
+		}
+		if (c != '<') {
 			throw new TextParsingException("A XML text must begin with '<'",
 					this);
 		}
@@ -87,37 +91,35 @@ public class XMLTokener extends Tokener {
 			sb.append(c);
 			c = next();
 		}
-		back();
 		xmlEntity.setTag(sb.toString());
 		XMLEntity child;
 		while (true) {
-			c = nextClean();
+			c = nextStartClean();
 			if (c == 0) {
 				break;
 			} else if (c == '>') {
 				c = nextClean();
+				if(c==0){
+					return;
+				}
 				if (c != '<') {
-					back();
-					xmlEntity.setValue(nextString('<', false, false));
+					xmlEntity.setValue(nextString('<', false));
 					back();
 					continue;
 				}
 			}
 
 			if (c == '<') {
-				if (next() == '/') {
+				if (charAt(position()+1) == '/') {
 					stepPos(">", false, false);
-					next();
 					break;
 				} else {
-					back();
-					back();
 					if (getCurrentChar() == '<') {
 						child = (XMLEntity) xmlEntity.getNewObject();
 						parseToEntity((BaseEntity) child);
 						xmlEntity.addChild(child);
 					} else {
-						xmlEntity.setValue(nextString('<', false, false));
+						xmlEntity.setValue(nextString('<', false));
 						back();
 					}
 				}
@@ -127,21 +129,19 @@ public class XMLTokener extends Tokener {
 			} else {
 				back();
 				String key = nextValue(xmlEntity).toString();
-				if (key != null) {
-					// The key is followed by ':'. We will also tolerate '=' or
-					// '=>'.
-					c = nextClean();
-					if (c == '=') {
-						if (next() != '>') {
-							back();
-						}
-					}
+				if ( key.length()>0 ) {
 					xmlEntity.put(key, nextValue(xmlEntity));
 				}
 			}
 		}
 	}
 
+	@Override
+	public XMLTokener withText(String value) {
+		super.withText(value);
+		return this;
+	}
+	
 	@Override
 	public void parseToEntity(BaseEntityList entityList) {
 		// Do Nothing

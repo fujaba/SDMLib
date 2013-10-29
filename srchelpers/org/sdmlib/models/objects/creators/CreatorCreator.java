@@ -31,7 +31,7 @@ public class CreatorCreator
 
    public static JsonIdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);
+      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
       jsonIdMap.withCreator(getCreatorSet());
 

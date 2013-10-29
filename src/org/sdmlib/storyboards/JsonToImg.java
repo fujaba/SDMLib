@@ -22,20 +22,17 @@
 package org.sdmlib.storyboards;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.utils.StrUtil;
 
 
@@ -335,7 +332,7 @@ public class JsonToImg
                {
                   JsonObject tgtJsonObject = (JsonObject) value;
                   String tgtId = tgtJsonObject.getString(JsonIdMap.ID);
-                  if (tgtJsonObject.get(JsonIdMap.JSON_HYPERREF) != null)
+                  if (tgtJsonObject.get(SDMLibJsonIdMap.JSON_HYPERREF) != null)
                   {
                      addAttrText = true;
 

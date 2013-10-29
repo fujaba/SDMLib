@@ -21,6 +21,8 @@
 
 package org.sdmlib.storyboards;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -37,8 +39,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Vector;
 
 import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
@@ -53,18 +53,15 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.utils.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-
+import org.sdmlib.serialization.logic.Condition;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class Storyboard implements PropertyChangeInterface 
@@ -418,7 +415,7 @@ public class Storyboard implements PropertyChangeInterface
 
          JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap.getCreators());
 
-         copyMap.readJson(largestJsonArray);
+         copyMap.decode(largestJsonArray);
 
          for (String key : copyMap.getKeys())
          {
@@ -823,7 +820,7 @@ public class Storyboard implements PropertyChangeInterface
       // all names collected, dump it
       if (restrictToExplicitElems)
       {
-         JsonFilter jsonFilter = new RestrictToFilter(explicitElems);
+    	  RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
          addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
       }
       else
@@ -832,37 +829,32 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   class RestrictToFilter extends JsonFilter
-   {
+	class RestrictToFilter implements Condition {
+		private LinkedHashSet<Object> explicitElems;
 
-      private LinkedHashSet<Object> explicitElems;
+		public RestrictToFilter(LinkedHashSet<Object> explicitElems) {
+			this.explicitElems = explicitElems;
+		}
 
-      public RestrictToFilter(LinkedHashSet<Object> explicitElems)
-      {
-         this.explicitElems = explicitElems;
-         withFullSerialization(true);
-      }
-
-      @Override
-      public boolean isRegard(IdMap map, Object entity, String property,
-            Object value, boolean isMany)
-      {
-         if (value != null && ("Integer Float Double Long Boolean String".indexOf(value.getClass().getSimpleName()) >= 0))
-         {
-            return true;
-         }
-         return explicitElems.contains(value);
-      }
-   }
-
+		@Override
+		public boolean matches(IdMap map, Object entity, String property,
+				Object value, boolean isMany, int deep) {
+			if (value != null
+					&& ("Integer Float Double Long Boolean String"
+							.indexOf(value.getClass().getSimpleName()) >= 0)) {
+				return true;
+			}
+			return explicitElems.contains(value);
+		}
+	}   
+   
    private JsonArray largestJsonArray = null;
 
    private Object largestRoot = null;
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
-      JsonFilter jsonFilter = (JsonFilter) new JsonFilter().withFullSerialization(true);
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, jsonFilter);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -877,8 +869,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
    {
-      JsonFilter jsonFilter = (JsonFilter) new JsonFilter().withFullSerialization(true);
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, jsonFilter);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -891,9 +882,9 @@ public class Storyboard implements PropertyChangeInterface
       this.addToSteps(imgLink);
    }
 
-   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, JsonFilter filter, String... aggregationRoles)
+   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, RestrictToFilter filter, String... aggregationRoles)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, filter);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withPropertyRegard(filter));
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.exceptions;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -45,7 +45,7 @@ public class TextParsingException extends RuntimeException {
 	public TextParsingException(String message, Tokener tokener) {
 		this.message = message;
 		this.tokenerMsg = tokener.toString();
-		this.index = tokener.getIndex();
+		this.index = tokener.position();
 	}
 
 	public String getMessage() {

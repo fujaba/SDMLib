@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes.checksum;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -34,7 +34,7 @@ package org.sdmlib.serialization.bytes.checksum;
  * This is a 100% Java implementation.
  */
 
-public class Crc16 extends CRC {
+public class Crc16 extends CRCTable {
 	@Override
 	public int getPolynom() {
 		return 0x8005; // 1000000000000101

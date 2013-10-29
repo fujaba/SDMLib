@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -34,7 +34,7 @@ import java.util.HashMap;
  * The Class CloneFilter.
  */
 
-public class CloneFilter extends IdMapFilter {
+public class CloneFilter extends Filter {
 	/** The Constant OBJECT. */
 	public static final int OBJECT = 0;
 
@@ -52,12 +52,12 @@ public class CloneFilter extends IdMapFilter {
 
 	/**
 	 * Adds the object.
-	 * 
+	 *
 	 * @param reference
 	 *            the reference
 	 * @param newObject
 	 *            the new object
-	 * @return 
+	 * @return CloneFilter-Object
 	 */
 	public CloneFilter withObject(Object reference, Object newObject) {
 		this.assocs.put(reference, newObject);
@@ -66,7 +66,7 @@ public class CloneFilter extends IdMapFilter {
 
 	/**
 	 * Checks for object.
-	 * 
+	 *
 	 * @param objects
 	 *            the objects
 	 * @return true, if successful
@@ -77,7 +77,7 @@ public class CloneFilter extends IdMapFilter {
 
 	/**
 	 * Gets the object.
-	 * 
+	 *
 	 * @param objects
 	 *            the objects
 	 * @return the object
@@ -88,7 +88,7 @@ public class CloneFilter extends IdMapFilter {
 
 	/**
 	 * Gets the typ.
-	 * 
+	 *
 	 * @return the typ
 	 */
 	public int getTyp() {
@@ -97,16 +97,13 @@ public class CloneFilter extends IdMapFilter {
 
 	/**
 	 * Sets the typ.
-	 * 
-	 * @param typ
+	 *
+	 * @param value
 	 *            the new typ
-	 * @return 
+	 * @return CloneFilter-Object
 	 */
-	public CloneFilter withTyp(int typ) {
-		this.typ = typ;
-		if (typ == OBJECT) {
-			this.deep = LASTDEEP;
-		}
+	public CloneFilter withTyp(int value) {
+		this.typ = value;
 		return this;
 	}
 }

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -42,9 +42,6 @@ public class SimpleIdCounter implements IdMapCounter {
 	protected long number = 1;
 
 	private char splitter = '.';
-
-	/** The is id. */
-	protected boolean isId = true;
 
 	/** The prio Object mostly a Timestamp or int value. */
 	private Object prio;
@@ -151,29 +148,5 @@ public class SimpleIdCounter implements IdMapCounter {
 	public SimpleIdCounter withPrio(Object prio) {
 		this.prio = prio;
 		return this;
-	}
-
-	/**
-	 * Checks if is serialisable id.
-	 * 
-	 * @return true, if is id
-	 */
-	@Override
-	public boolean isId() {
-		return this.isId;
-	}
-
-	@Override
-	public IdMapCounter withId(boolean value) {
-		this.isId = value;
-		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see de.uniks.jism.interfaces.IdMapCounter#isSimpleObject()
-	 */
-	@Override
-	public boolean isSimpleObject() {
-		return false;
 	}
 }

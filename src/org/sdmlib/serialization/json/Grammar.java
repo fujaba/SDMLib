@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -30,6 +30,8 @@ package org.sdmlib.serialization.json;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Iterator;
+
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -66,7 +68,7 @@ public class Grammar {
 	}
 
 	public JsonObject getJsonObject(IdMap map, SendableEntityCreator prototyp,
-			String className, String id, JsonObject jsonProp, JsonFilter filter) {
+			String className, String id, JsonObject jsonProp, Filter filter) {
 		JsonObject json = new JsonObject();
 		if (prototyp instanceof NoIndexCreator) {
 			Iterator<String> keys = jsonProp.keys();
@@ -77,7 +79,7 @@ public class Grammar {
 			json.put(JsonIdMap.CLASS, className);
 			return json;
 		}
-		if (map.getCounter().isId() && filter.isId()) {
+		if (filter.isId(map, jsonProp, className)) {
 			json.put(IdMap.ID, id);
 		}
 		json.put(JsonIdMap.CLASS, className);
@@ -88,6 +90,9 @@ public class Grammar {
 		return json;
 	}
 	
+	public boolean hasValue(JsonObject json, String property){
+		return json.has(property);
+	}
 	public String getValue(JsonObject json, String property){
 		return json.getString(property);
 	}

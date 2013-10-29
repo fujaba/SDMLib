@@ -72,9 +72,9 @@ public class Adam implements PropertyChangeInterface
          
          in.close();
          
-         JsonArray jsonArray = new JsonArray(buf.toString());
+         JsonArray jsonArray = new JsonArray().withValue(buf.toString());
          
-         Object obj = idMap.readJson(jsonArray);
+         Object obj = idMap.decode(jsonArray);
          
          new File("bootTask.json").delete();
          

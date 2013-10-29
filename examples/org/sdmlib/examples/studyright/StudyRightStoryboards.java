@@ -7,9 +7,8 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.models.debug.FlipBook;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 
 public class StudyRightStoryboards
 {
@@ -109,7 +108,7 @@ public class StudyRightStoryboards
 
       //=============================================================
       storyboard.add("adding flipbook to protocol changes.");
-      JsonIdMap idMap = UniversityCreator.createIdMap("ajz");
+      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap("ajz");
       FlipBook flipBook = idMap.createFlipBook();
 
 

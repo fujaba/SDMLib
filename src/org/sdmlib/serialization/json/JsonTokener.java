@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -34,44 +34,35 @@ import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
+import org.sdmlib.serialization.interfaces.TextEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
 public class JsonTokener extends Tokener {
 	public final static String STOPCHARS = ",:]}/\\\"[{;=# ";
 
-	public JsonTokener() {
-		super();
-	}
-
-	public JsonTokener(String s) {
-		super(s);
-	}
-
 	@Override
-	public Object nextValue(JSIMEntity creator) {
-		char c = nextClean();
+	public Object nextValue(BaseEntity creator) {
+		char c = nextStartClean();
 
 		switch (c) {
 		case '"':
 		case '\'':
-			return nextString(c, false, false);
+			next();
+			return nextString(c, false);
 		case '{':
-			back();
-			JSIMEntity element = creator.getNewObject();
+			BaseEntity element = creator.getNewObject();
 			if (element instanceof Entity) {
 				this.parseToEntity((Entity) element);
 			}
 			return element;
 		case '[':
-			back();
 			BaseEntityList elementList = creator.getNewArray();
 			this.parseToEntity(elementList);
 			return elementList;
 		default:
 			break;
 		}
-		back();
+//		back();
 		return super.nextValue(creator);
 	}
 
@@ -160,89 +151,80 @@ public class JsonTokener extends Tokener {
 	}
 
 	@Override
-	public void parseToEntity(BaseEntity entity) {
+	public void parseToEntity(BaseEntity entity) throws TextParsingException{
+		if (!(entity instanceof TextEntity)) {
+			return;
+		}
 		char c;
 		String key;
-
-		if (nextClean() != '{') {
+		TextEntity item=(TextEntity)entity;
+		if (nextStartClean() != '{') {
 			throw new TextParsingException(
 					"A JsonObject text must begin with '{'", this);
 		}
+		next();
 		for (;;) {
-			c = nextClean();
+			c = nextStartClean();
 			switch (c) {
 			case 0:
 				throw new TextParsingException(
 						"A JsonObject text must end with '}'", this);
 			case '}':
+				next();
 				return;
+			case ',':
+				next();
+				key = nextValue(item).toString();
+				break;
 			default:
-				back();
-				key = nextValue(entity).toString();
+				key = nextValue(item).toString();
 			}
-			// The key is followed by ':'. We will also tolerate '=' or '=>'.
-			c = nextClean();
+			c = nextStartClean();
 			if (c == '=') {
-				if (next() != '>') {
-					back();
+				if (charAt(position()+1) == '>') {
+					next();
 				}
 			} else if (c != ':') {
 				throw new TextParsingException("Expected a ':' after a key ["
 						+ getNextString(30) + "]", this);
 			}
-			entity.put(key, nextValue(entity));
-
-			// Pairs are separated by ','. We will also tolerate ';'.
-			char nextClean = nextClean();
-			switch (nextClean) {
-			case ';':
-			case ',':
-				if (nextClean() == '}') {
-					return;
-				}
-				back();
-				break;
-			case '}':
-				return;
-			default:
-
-				throw new TextParsingException("Expected a ',' or '}' got a "
-						+ nextClean, this);
-			}
+			next();
+			item.put(key, nextValue(entity));
 		}
 	}
 
 	@Override
-	public void parseToEntity(BaseEntityList entityList) {
-		if (nextClean() != '[') {
+	public void parseToEntity(BaseEntityList entityList) throws TextParsingException{
+		char c=nextStartClean();
+		if (c != '[') {
 			throw new TextParsingException(
 					"A JSONArray text must start with '['", this);
 		}
-		if (nextClean() != ']') {
-			back();
+		if ((nextClean()) != ']') {
 			for (;;) {
-				if (nextClean() == ',') {
-					back();
+				c=getCurrentChar();
+				if (c == ',') {
 					entityList.put(null);
 				} else {
-					back();
 					entityList.put(nextValue(entityList));
 				}
-				switch (nextClean()) {
+				c = nextStartClean();
+				switch (c) {
 				case ';':
 				case ',':
 					if (nextClean() == ']') {
 						return;
 					}
-					back();
 					break;
 				case ']':
+					next();
 					return;
 				default:
-					throw new TextParsingException("Expected a ',' or ']'",
+					throw new TextParsingException("Expected a ',' or ']' not '"+getCurrentChar()+"'",
 							this);
 				}
 			}
 		}
+		next();
 	}
 }

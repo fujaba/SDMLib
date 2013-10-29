@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -54,7 +54,8 @@ public class JsonArrayCreator implements SendableEntityCreator, NoIndexCreator {
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String typ) {
-		return ((JsonArray) entity).setAllValue((String) value);
+		((JsonArray) entity).withValue((String) value);
+		return true;
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.event.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,13 +29,13 @@ package org.sdmlib.serialization.event.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import org.sdmlib.serialization.Style;
+import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class StyleCreator implements SendableEntityCreator{
 	private static final String[] props=new String[]{Style.PROPERTY_BOLD, Style.PROPERTY_ITALIC, Style.PROPERTY_FONTFAMILY, 
 													Style.PROPERTY_FONTSIZE, Style.PROPERTY_FORGROUND, Style.PROPERTY_BACKGROUND,
-													Style.PROPERTY_UNDERLINE, Style.PROPERTY_ALIGNMENT};
+													Style.PROPERTY_UNDERLINE, Style.PROPERTY_ALIGNMENT, Style.PROPERTY_WIDTH, Style.PROPERTY_HEIGHT};
 
 	@Override
 	public String[] getProperties() {

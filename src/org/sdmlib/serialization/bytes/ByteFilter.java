@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,33 +29,35 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import org.sdmlib.serialization.IdMapFilter;
+import org.sdmlib.serialization.Filter;
 
-public class ByteFilter extends IdMapFilter {
+public class ByteFilter extends Filter {
 	private boolean isDynamic;
 	private boolean isLenCheck;
-
-	public ByteFilter() {
-	}
-
-	public ByteFilter(boolean isLenCheck, boolean isDynamic) {
-		this.isLenCheck = isLenCheck;
-		this.isDynamic = isDynamic;
-	}
 
 	public boolean isLenCheck() {
 		return isLenCheck;
 	}
 
-	public void setLenCheck(boolean isLenCheck) {
-		this.isLenCheck = isLenCheck;
+	public ByteFilter withLenCheck(boolean value) {
+		this.isLenCheck = value;
+		return this;
 	}
 
 	public boolean isDynamic() {
 		return isDynamic;
 	}
 
-	public void setDynamic(boolean isDynamic) {
-		this.isDynamic = isDynamic;
+	public ByteFilter withDynamic(boolean value) {
+		this.isDynamic = value;
+		return this;
+	}
+	
+	@Override
+	public Filter clone() {
+		ByteFilter newInstance = (ByteFilter) super.clone(new ByteFilter());
+		newInstance.withDynamic(this.isDynamic);
+		newInstance.withLenCheck(this.isLenCheck);
+		return newInstance;
 	}
 }

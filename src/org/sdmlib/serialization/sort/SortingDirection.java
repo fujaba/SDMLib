@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.sort;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 

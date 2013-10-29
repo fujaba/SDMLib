@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,7 +29,6 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,13 +37,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.sdmlib.serialization.AbstractIdMap;
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.bytes.converter.ByteConverter;
+import org.sdmlib.serialization.bytes.converter.ByteConverterHTTP;
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.event.UnknownMessage;
 import org.sdmlib.serialization.event.creator.BasicMessageCreator;
 import org.sdmlib.serialization.exceptions.TextParsingException;
-import org.sdmlib.serialization.interfaces.ByteEntityCreator;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BufferedBytes;
+import org.sdmlib.serialization.interfaces.ByteCreator;
 import org.sdmlib.serialization.interfaces.ByteItem;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
@@ -55,14 +59,17 @@ public class ByteIdMap extends IdMap {
 	/** The SPLITTER. */
 	public static char SPLITTER = ' ';
 
+	/** The Constant FIXED VALUE. */
+	public static final byte DATATYPE_FIXED = 0x00;
+
 	/** The Constant NULL-VALUE. */
 	public static final byte DATATYPE_NULL = 0x22;
 
-	/** The Constant FIXED VALUE. */
-	public static final byte DATATYPE_FIXED = 0x23;
+	/** The Constant DATATYPE_MAP. */
+	public static final byte DATATYPE_CLAZZID = 0x23;
 
 	/** The Constant CLASS-VALUE. */
-	public static final byte DATATYPE_CLAZZ = 0x24;
+	public static final byte DATATYPE_CLAZZNAME = 0x24;
 
 	/**
 	 * SIMPLE TYPES The Constant DATATYPE_BYTE.
@@ -83,101 +90,52 @@ public class ByteIdMap extends IdMap {
 	public static final byte DATATYPE_DOUBLE = 0x29;
 
 	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_DATE = 0x2A;
-
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_ASSOC = 0x2B;
+	public static final byte DATATYPE_DATE = 0x30;
 
 	/** The Constant DATATYPE_BYTE. */
-	public static final byte DATATYPE_BYTE = 0x30;
+	public static final byte DATATYPE_BYTE = 0x31;
 
 	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_UNSIGNEDBYTE = 0x31;
-
+	public static final byte DATATYPE_UNSIGNEDBYTE = 0x32;
+	
 	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_BYTEARRAY = 0x32;
+	public static final byte DATATYPE_BYTEARRAY = 0x3A;
 
-	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_BYTEARRAYSHORT = 0x33;
-
-	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_BYTEARRAYMID = 0x34;
-
-	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_BYTEARRAYBIG = 0x35;
-
-	/** The Constant DATATYPE_BYTEARRAY. */
-	public static final byte DATATYPE_BYTEARRAYLAST = 0x36;
-
-	/** The Constant DATATYPE_BYTEARRAY. */
+	/** The Constant DATATYPE_CHAR. */
 	public static final byte DATATYPE_CHAR = 0x40;
 
 	/** The Constant DATATYPE_STRING. */
-	public static final byte DATATYPE_STRING = 0x42;
-
-	/** The Constant DATATYPE_STRING. */
-	public static final byte DATATYPE_STRINGSHORT = 0x43;
-
-	/** The Constant DATATYPE_MIDSTRING. */
-	public static final byte DATATYPE_STRINGMID = 0x44;
-
-	/** The Constant DATATYPE_STRING. */
-	public static final byte DATATYPE_STRINGBIG = 0x45;
-
-	/** The Constant DATATYPE_STRING. */
-	public static final byte DATATYPE_STRINGLAST = 0x46;
+	public static final byte DATATYPE_STRING = 0x4A;
 
 	/** The Constant DATATYPE_LIST. */
-	public static final byte DATATYPE_LIST = 0x52;
-
-	/** The Constant DATATYPE_SHORTLIST. */
-	public static final byte DATATYPE_LISTSHORT = 0x53;
-
-	/** The Constant DATATYPE_MIDLIST. */
-	public static final byte DATATYPE_LISTMID = 0x54;
-
-	/** The Constant DATATYPE_BIGLIST. */
-	public static final byte DATATYPE_LISTBIG = 0x55;
-
-	/** The Constant DATATYPE_LASTLIST. */
-	public static final byte DATATYPE_LISTLAST = 0x56;
+	public static final byte DATATYPE_LIST = 0x5A;
 
 	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_MAP = 0x62;
-
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_MAPSHORT = 0x63;
-
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_MAPMID = 0x64;
-
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_MAPBIG = 0x65;
-
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_MAPLAST = 0x66;
+	public static final byte DATATYPE_MAP = 0x6A;
 
 	/** The Constant CHECKTYPE. */
-	public static final byte DATATYPE_CHECK = 0x72;
+	public static final byte DATATYPE_CHECK = 0x7A;
 
-	/** The Constant DATATYPE_CHECKSHORT. */
-	public static final byte DATATYPE_CHECKSHORT = 0x73;
+	/** The Constant LEN_LITTLE. */
+	public static final byte LEN_LITTLE = 0x01;
 
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_CHECKMID = 0x74;
+	/** The Constant LEN_SHORT. */
+	public static final byte LEN_SHORT = 0x02;
 
-	/** The Constant DATATYPE_MAP. */
-	public static final byte DATATYPE_CHECKBIG = 0x75;
+	/** The Constant LEN_MID. */
+	public static final byte LEN_MID = 0x03;
 
+	/** The Constant LEN_BIG. */
+	public static final byte LEN_BIG = 0x04;
+
+	/** The Constant DATATYPE_LAST. */
+	public static final byte LEN_LAST = 0x05;
+
+	
 	/** The decoder map. */
-	protected HashMap<Byte, ByteEntityCreator> decoderMap;
+	protected HashMap<Byte, ByteCreator> decoderMap;
 
-	/**
-	 * Instantiates a new byte id map.
-	 */
-	public ByteIdMap() {
-
-	}
+	private ByteFilter filter=new ByteFilter();
 
 	/*
 	 * (non-Javadoc)
@@ -187,9 +145,9 @@ public class ByteIdMap extends IdMap {
 	 * interfaces.SendableEntityCreator)
 	 */
 	public boolean addCreator(SendableEntityCreator createrClass) {
-		if (createrClass instanceof ByteEntityCreator) {
+		if (createrClass instanceof ByteCreator) {
 			if(this.decoderMap != null){
-				if (this.decoderMap.containsKey(new Byte(((ByteEntityCreator) createrClass).getEventTyp()))) {
+				if (this.decoderMap.containsKey(new Byte(((ByteCreator) createrClass).getEventTyp()))) {
 					return false;
 				}
 			}
@@ -203,10 +161,10 @@ public class ByteIdMap extends IdMap {
 			SendableEntityCreator createrClass) {
 		super.withCreator(className, createrClass);
 
-		if (createrClass instanceof ByteEntityCreator) {
-			ByteEntityCreator byteCreator = (ByteEntityCreator) createrClass;
+		if (createrClass instanceof ByteCreator) {
+			ByteCreator byteCreator = (ByteCreator) createrClass;
 			if (this.decoderMap == null) {
-				this.decoderMap = new HashMap<Byte, ByteEntityCreator>();
+				this.decoderMap = new HashMap<Byte, ByteCreator>();
 			}
 
 			this.decoderMap.put(new Byte(byteCreator.getEventTyp()),
@@ -222,12 +180,12 @@ public class ByteIdMap extends IdMap {
 	 *            the entity
 	 * @return the byte entity message
 	 */
+	@Override
 	public ByteItem encode(Object entity) {
-		ByteFilter filter = new ByteFilter();
-		return encode(entity, filter);
+		return encode(entity, (ByteFilter)filter.clone());
 	}
 
-	public ByteItem encode(Object entity, ByteFilter filter) {
+	public ByteItem encode(Object entity, Filter filter) {
 		SendableEntityCreator creator;
 		if (this.parent != null) {
 			creator = this.parent.getCreatorClass(entity);
@@ -242,18 +200,17 @@ public class ByteIdMap extends IdMap {
 		if (creator instanceof BasicMessageCreator) {
 			BasicMessage basicEvent = (BasicMessage) entity;
 			String value = basicEvent.getValue();
-			ByteEntity byteEntity = new ByteEntity();
-			byteEntity.setValue(DATATYPE_FIXED, value.getBytes());
-			msg.add(byteEntity);
+			msg.add(new ByteEntity().withValue(DATATYPE_FIXED, value.getBytes()));
 			return msg;
 		}
 
-		if (creator instanceof ByteEntityCreator) {
-			msg.setTyp(((ByteEntityCreator) creator).getEventTyp(), false);
+		if (creator instanceof ByteCreator) {
+			long id=((ByteCreator) creator).getEventTyp();
+			msg.add(new ByteEntity().withValue(ByteIdMap.DATATYPE_CLAZZID, new byte[]{(byte) id}));
 		} else {
 			Object reference = creator.getSendableInstance(true);
 			ByteEntity byteEntity = new ByteEntity();
-			byteEntity.setValue(DATATYPE_CLAZZ, reference.getClass().getName()
+			byteEntity.withValue(DATATYPE_CLAZZNAME, reference.getClass().getName()
 					.getBytes());
 			msg.add(byteEntity);
 		}
@@ -262,8 +219,7 @@ public class ByteIdMap extends IdMap {
 			Object referenceObj = creator.getSendableInstance(true);
 			for (String property : properties) {
 				Object value = creator.getValue(entity, property);
-				if (!filter.isFullSerialization()
-						&& creator.getValue(referenceObj, property) == value) {
+				if (creator.getValue(referenceObj, property) == value) {
 					value = null;
 				}
 				ByteItem child = encodeValue(value, filter);
@@ -271,11 +227,30 @@ public class ByteIdMap extends IdMap {
 					msg.add(child);
 				}
 			}
+			
+			// Kill Empty Fields
+			Object[] array = msg.toArray();
+			for(int i=array.length-1;i>0;i--){
+				if(array[i] instanceof ByteEntity){
+					ByteEntity byteEntity = (ByteEntity)array[i];
+					if(byteEntity.getTyp()==ByteIdMap.DATATYPE_NULL){
+						msg.remove(i);
+					}else{
+						break;
+					}
+				}else if(array[i] instanceof ByteList){
+					if(((ByteList)array[i]).size()<1){
+						msg.remove(i);
+					}else{
+						break;
+					}
+				}
+			}
 		}
 		return msg;
 	}
 
-	public ByteItem encodeValue(Object value, ByteFilter filter) {
+	public ByteItem encodeValue(Object value, Filter filter) {
 		ByteEntity msgEntity = new ByteEntity();
 		if (msgEntity.setValues(value)) {
 			return msgEntity;
@@ -318,7 +293,7 @@ public class ByteIdMap extends IdMap {
 				ByteItem child = encode(value, filter);
 				if (child != null) {
 					ByteList byteList = new ByteList();
-					byteList.setTyp(ByteIdMap.DATATYPE_ASSOC);
+//					byteList.setTyp(ByteIdMap.DATATYPE_CLAZZ);
 					byteList.add(child);
 					return byteList;
 				}
@@ -335,7 +310,7 @@ public class ByteIdMap extends IdMap {
 	 *            the typ
 	 * @return the creator decoder class
 	 */
-	public ByteEntityCreator getCreatorDecoderClass(byte typ) {
+	public ByteCreator getCreatorDecoderClass(byte typ) {
 		return this.decoderMap.get(new Byte(typ));
 	}
 
@@ -372,28 +347,35 @@ public class ByteIdMap extends IdMap {
 	 * @return the object
 	 */
 	public Object decode(Object value) {
-		if (value instanceof ByteBuffer) {
-			return decode((ByteBuffer) value);
+		if (value instanceof BufferedBytes) {
+			return decode((BufferedBytes) value);
 		} else if (value instanceof byte[]) {
-			return decode(ByteBuffer.wrap((byte[]) value));
+			return decode(new BytesBuffer().withValue((byte[]) value));
 		}
 		return null;
 	}
 
+	@Override
+	public Object decode(BaseEntity value) {
+		if(value instanceof ByteEntity){
+			return decode(((ByteEntity)value).getValue());
+		}
+		return null;
+	}
+	
 	/**
 	 * Decode.
 	 * 
-	 * @param in
+	 * @param buffer
 	 *            the in
 	 * @return the object
 	 */
-	public Object decode(ByteBuffer in) {
-		if (in.remaining() < 1)
+	public Object decode(BufferedBytes buffer) throws TextParsingException{
+		if (buffer.remaining() < 1)
 			throw new TextParsingException("DecodeExpeption - Remaining:"
-					+ in.remaining(), in.remaining());
-
-		byte typ = in.get();
-		return decodeClazz(typ, in);
+					+ buffer.remaining(), buffer.remaining());
+		
+		return decodeValue(buffer, buffer.length());
 	}
 
 	/**
@@ -401,171 +383,147 @@ public class ByteIdMap extends IdMap {
 	 * 
 	 * @param typ
 	 *            of message
-	 * @param in
+	 * @param buffer
 	 *            the in
 	 * @return the object
 	 */
-	public Object decodeClazz(byte typ, ByteBuffer in) {
-		Object entity = null;
-
-		SendableEntityCreator eventCreater = null;
-		if (typ == ByteIdMap.DATATYPE_CLAZZ) {
-			String clazz = (String) getDecodeObject(ByteIdMap.DATATYPE_CLAZZ,
-					in);
-			eventCreater = getCreatorClasses(clazz);
-		} else {
-			eventCreater = getCreatorDecoderClass(typ);
-		}
+	public Object decodeClazz(BufferedBytes buffer, SendableEntityCreator eventCreater) {
 		if (eventCreater == null) {
 			UnknownMessage e = new UnknownMessage();
-			e.set(UnknownMessage.PROPERTY_VALUE, in.array());
-			entity = e;
-		} else {
-			entity = eventCreater.getSendableInstance(false);
-			String[] properties = eventCreater.getProperties();
-			if (properties != null) {
-				for (String property : properties) {
-					if (in.remaining() < 1) {
-						break;
-					}
-					byte typValue = in.get();
-					if (typValue == ByteIdMap.DATATYPE_CHECK) {
-						int len = in.getInt();
-						if (len > 0) {
-							if (in.remaining() != len)
-								throw new TextParsingException(
-										"DecodeExpeption - Remaining:"
-												+ in.remaining() + "!=" + len,
-										len);
+			e.set(UnknownMessage.PROPERTY_VALUE, buffer.array());
+			return e;
+		}
+		Object entity = eventCreater.getSendableInstance(false);
+		String[] properties = eventCreater.getProperties();
+		if (properties != null) {
+			for (String property : properties) {
+				if (buffer.remaining() < 1) {
+					break;
+				}
+				Object value = decodeValue(buffer, buffer.length() - buffer.position());
+				if(value != null){
+					if(value instanceof List<?>){
+						List<?> list=(List<?>) value;
+						for(Iterator<?> i=list.iterator();i.hasNext();){
+							Object item = i.next();
+							eventCreater.setValue(entity, property, item, IdMap.NEW);
 						}
-						typValue = in.get();
-					}
-					Object value = getDecodeObject(typValue, in);
-					if (value != null) {
-						eventCreater.setValue(entity, property, value,
-								IdMap.NEW);
+					}else{
+						eventCreater.setValue(entity, property, value, IdMap.NEW);
 					}
 				}
 			}
 		}
 		return entity;
 	}
-
+	
 	/**
 	 * Gets the decode object.
 	 * 
-	 * @param typValue
+	 * @param typ
 	 *            the typ value
-	 * @param in
+	 * @param buffer
 	 *            the in
 	 * @return the decode object
 	 */
-	public Object getDecodeObject(byte typValue, ByteBuffer in) {
-		if (in.remaining() < 1) {
+	public Object decodeValue(BufferedBytes buffer, int end) {
+		if (buffer.remaining() < 1 ){
 			return null;
-		} else if (typValue == ByteIdMap.DATATYPE_BYTE) {
-			return new Byte(in.get());
-		} else if (typValue == ByteIdMap.DATATYPE_CHAR) {
-			return new Character(in.getChar());
-		} else if (typValue == ByteIdMap.DATATYPE_SHORT) {
-			return new Short(in.getShort());
-		} else if (typValue == ByteIdMap.DATATYPE_INTEGER) {
-			return new Integer(in.getInt());
-		} else if (typValue == ByteIdMap.DATATYPE_LONG) {
-			return new Long(in.getLong());
-		} else if (typValue == ByteIdMap.DATATYPE_FLOAT) {
-			return new Float(in.getFloat());
-		} else if (typValue == ByteIdMap.DATATYPE_DOUBLE) {
-			return new Double(in.getDouble());
-		} else if (typValue == ByteIdMap.DATATYPE_DATE) {
-			return new Date(new Long(in.getInt()).longValue());
-		} else if (typValue == ByteIdMap.DATATYPE_CLAZZ) {
-			int len = in.get() - ByteIdMap.SPLITTER;
-			byte[] values = new byte[len];
-			in.get(values);
-			return new String(values);
-		} else {
-			byte group = getTyp(typValue, ByteIdMap.DATATYPE_STRING);
-			if (group == ByteIdMap.DATATYPE_STRING
-					|| group == ByteIdMap.DATATYPE_BYTEARRAY
-					|| group == ByteIdMap.DATATYPE_LIST
-					|| group == ByteIdMap.DATATYPE_MAP
-					|| group == ByteIdMap.DATATYPE_CHECK) {
-				byte subgroup = getTyp(ByteIdMap.DATATYPE_STRING, typValue);
-				byte[] values;
-				int len = 0;
-				if (subgroup == ByteIdMap.DATATYPE_STRINGSHORT) {
-					len = in.get() - ByteIdMap.SPLITTER;
-				} else if (subgroup == ByteIdMap.DATATYPE_STRING) {
-					len = in.get();
-				} else if (subgroup == ByteIdMap.DATATYPE_STRINGMID) {
-					len = in.getShort();
-				} else if (subgroup == ByteIdMap.DATATYPE_STRINGBIG) {
-					len = in.getInt();
-				} else if (subgroup == ByteIdMap.DATATYPE_STRINGLAST) {
-					len = in.remaining();
+		}
+		byte typ=buffer.getByte();
+		if(typ == ByteIdMap.DATATYPE_NULL) {
+			return null;
+		}
+		if (typ == ByteIdMap.DATATYPE_BYTE) {
+			return new Byte(buffer.getByte());
+		}
+		if (typ == ByteIdMap.DATATYPE_CHAR) {
+			return new Character(buffer.getChar());
+		}
+		if (typ == ByteIdMap.DATATYPE_SHORT) {
+			return new Short(buffer.getShort());
+		}
+		if (typ == ByteIdMap.DATATYPE_INTEGER) {
+			return new Integer(buffer.getInt());
+		}
+		if (typ == ByteIdMap.DATATYPE_LONG) {
+			return new Long(buffer.getLong());
+		}
+		if (typ == ByteIdMap.DATATYPE_FLOAT) {
+			return new Float(buffer.getFloat());
+		}
+		if (typ == ByteIdMap.DATATYPE_DOUBLE) {
+			return new Double(buffer.getDouble());
+		}
+		if (typ == ByteIdMap.DATATYPE_DATE) {
+			return new Date(new Long(buffer.getInt()).longValue());
+		}
+		if (typ == ByteIdMap.DATATYPE_CLAZZNAME) {
+			int len = buffer.getByte() - ByteIdMap.SPLITTER;
+			SendableEntityCreator eventCreater = getCreatorClasses(new String(buffer.getValue(len)));
+			return decodeClazz(buffer, eventCreater);
+		}
+		if (typ == ByteIdMap.DATATYPE_CLAZZID) {
+			typ = buffer.getByte();
+			SendableEntityCreator eventCreater = getCreatorDecoderClass(typ);
+			return decodeClazz(buffer, eventCreater);
+		}
+		if(ByteUtil.isGroup(typ)){
+			byte subgroup = ByteUtil.getSubGroup(typ);
+			int len = 0;
+			if (subgroup == ByteIdMap.LEN_LITTLE) {
+				len = buffer.getByte() - ByteIdMap.SPLITTER;
+			} else if (subgroup == ByteIdMap.LEN_SHORT) {
+				len = buffer.getByte();
+			} else if (subgroup == ByteIdMap.LEN_MID) {
+				len = buffer.getShort();
+			} else if (subgroup == ByteIdMap.LEN_BIG) {
+				len = buffer.getInt();
+			} else if (subgroup == ByteIdMap.LEN_LAST) {
+				len = end-1;
+			}
+			byte group = ByteUtil.getGroup(typ);
+			if (group == ByteIdMap.DATATYPE_STRING) {
+				return new String(buffer.getValue(len));
+			} else if (group == ByteIdMap.DATATYPE_BYTEARRAY) {
+				return buffer.getValue(len);
+			} else if (group == ByteIdMap.DATATYPE_LIST) {
+				int start = buffer.position();
+				ArrayList<Object> values=new ArrayList<Object>();
+				while(start+len-buffer.position()>0){
+					Object value = decodeValue(buffer, start+len-buffer.position());
+					if(value!=null){
+						values.add(value);
+					}
 				}
-				values = new byte[len];
-				in.get(values);
-				if (group == ByteIdMap.DATATYPE_STRING) {
-					return new String(values);
-				} else if (group == ByteIdMap.DATATYPE_BYTEARRAY) {
-					return values;
-				} else if (group == ByteIdMap.DATATYPE_LIST) {
-					ByteBuffer child = ByteBuffer.wrap(values);
-					ArrayList<Object> list = new ArrayList<Object>();
-					while (child.remaining() > 0) {
-						byte subType = child.get();
-						Object entity = getDecodeObject(subType, child);
-						if (entity != null) {
-							list.add(entity);
+				return values;
+			} else if (group == ByteIdMap.DATATYPE_MAP) {
+				int start = buffer.position();
+				ArrayList<Object> values=new ArrayList<Object>();
+				while(start+len-buffer.position()>0){
+					Object subValues = decodeValue(buffer, start+len-buffer.position());
+					if(subValues!=null && subValues instanceof List<?>){
+						List<?> list=(List<?>) subValues;
+						if(list.size()==2){
+							values.add(new MapEntry(list.get(0), list.get(1)));
 						}
+					}else{
+						break;
 					}
-					return list;
-				} else if (group == ByteIdMap.DATATYPE_MAP) {
-					ByteBuffer child = ByteBuffer.wrap(values);
-					// HashMap<Object, Object> map = new HashMap<Object,
-					// Object>();
-					MapEntry entry = null;
-					while (child.remaining() > 0) {
-						byte subType = child.get();
-						Object key = getDecodeObject(subType, child);
-						if (key != null) {
-							subType = child.get();
-							Object value = getDecodeObject(subType, child);
-							entry = new MapEntry(key, value);
-						}
-					}
-					return entry;
-				} else if (group == ByteIdMap.DATATYPE_CHECK) {
-					ByteBuffer childBuffer = ByteBuffer
-							.allocate(values.length - 1);
-					childBuffer.put(values, 1, values.length - 1);
-					childBuffer.flip();
-					Object obj = getDecodeObject(values[0], childBuffer);
-					if (childBuffer.remaining() > 0) {
-						in.position(in.position() - childBuffer.remaining());
-					}
-					return obj;
 				}
-			} else if (typValue == ByteIdMap.DATATYPE_ASSOC) {
-				return decode(in);
+				return values;
+			} else if (group == ByteIdMap.DATATYPE_CHECK) {
+				int start = buffer.position();
+				if(buffer.length()<start+len){
+					return null;
+				}
+				ArrayList<Object> values=new ArrayList<Object>();
+				while(start+len-buffer.position()>0){
+					values.add( decodeValue(buffer, start+len-buffer.position()) );
+				}
+				return values;
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * Gets the typ.
-	 * 
-	 * @param group
-	 *            the group
-	 * @param subgroup
-	 *            the subgroup
-	 * @return the typ
-	 */
-	private static byte getTyp(byte group, byte subgroup) {
-		byte returnValue = (byte) ((group / 16) * 16);
-		return (byte) (returnValue + (subgroup % 16));
 	}
 }

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -49,23 +49,6 @@ public abstract class Entity implements BaseEntity {
 			this.map = new LinkedHashMap<String, Object>();
 		}
 		return this.map;
-	}
-
-	/**
-	 * Construct an empty Entity.
-	 */
-	public Entity() {
-	}
-
-	/**
-	 * Construct a Entity from a Map.
-	 * 
-	 * @param map
-	 *            A map object that can be used to initialize the contents of
-	 *            the Entity.
-	 */
-	public Entity(Map<String, Object> map) {
-		initWithMap(map);
 	}
 
 	public Entity initWithMap(Map<String, Object> map) {
@@ -116,7 +99,7 @@ public abstract class Entity implements BaseEntity {
 	 *            An object to be accumulated under the key.
 	 * @return this.
 	 */
-	public Entity accumulate(String key, Object value) {
+	public Entity add(String key, Object value) {
 		EntityUtil.testValidity(value);
 		Object object = this.get(key);
 		if (object == null) {
@@ -131,74 +114,15 @@ public abstract class Entity implements BaseEntity {
 	}
 
 	/**
-	 * Append values to the array under a key. If the key does not exist in the
-	 * Entity, then the key is put in the Entity with its value being a
-	 * EntityList containing the value parameter. If the key was already
-	 * associated with a EntityList, then the value parameter is appended to it.
-	 * 
-	 * @param key
-	 *            A key string.
-	 * @param value
-	 *            An object to be accumulated under the key.
-	 * @return this.
-	 * @throws RuntimeException
-	 *             If the key is null or if the current value associated with
-	 *             the key is not a EntityList.
-	 */
-	public Entity append(String key, Object value) {
-		EntityUtil.testValidity(value);
-		Object object = this.get(key);
-		if (object == null) {
-			this.put(key, getNewArray().put(value));
-		} else if (object instanceof EntityList) {
-			this.put(key, ((EntityList) object).put(value));
-		} else {
-			throw new RuntimeException("Entity[" + key
-					+ "] is not a EntityList.");
-		}
-		return this;
-	}
-
-	/**
-	 * Produce a string from a double. The string "null" will be returned if the
-	 * number is not finite.
-	 * 
-	 * @param d
-	 *            A double.
-	 * @return A String.
-	 */
-	public static String doubleToString(double d) {
-		if (Double.isInfinite(d) || Double.isNaN(d)) {
-			return "null";
-		}
-
-		// Shave off trailing zeros and decimal point, if possible.
-
-		String string = Double.toString(d);
-		if (string.indexOf('.') > 0 && string.indexOf('e') < 0
-				&& string.indexOf('E') < 0) {
-			while (string.endsWith("0")) {
-				string = string.substring(0, string.length() - 1);
-			}
-			if (string.endsWith(".")) {
-				string = string.substring(0, string.length() - 1);
-			}
-		}
-		return string;
-	}
-
-	/**
 	 * Get the value object associated with a key.
 	 * 
 	 * @param key
 	 *            A key string.
 	 * @return The object associated with the key.
-	 * @throws RuntimeException
-	 *             if the key is not found.
 	 */
 	public Object get(String key) {
 		if (key == null) {
-			throw new RuntimeException("Null key.");
+			return null;
 		}
 		return getMap().get(key);
 	}
@@ -213,7 +137,7 @@ public abstract class Entity implements BaseEntity {
 	 *             if the value is not a Boolean or the String "true" or
 	 *             "false".
 	 */
-	public boolean getBoolean(String key) {
+	public boolean getBoolean(String key) throws RuntimeException{
 		Object object = this.get(key);
 		if (object == null
 				|| object.equals(Boolean.FALSE)
@@ -239,7 +163,7 @@ public abstract class Entity implements BaseEntity {
 	 *             if the key is not found or if the value is not a Number
 	 *             object and cannot be converted to a number.
 	 */
-	public double getDouble(String key) {
+	public double getDouble(String key) throws RuntimeException{
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number) object).doubleValue()
@@ -260,7 +184,7 @@ public abstract class Entity implements BaseEntity {
 	 *             if the key is not found or if the value cannot be converted
 	 *             to an integer.
 	 */
-	public int getInt(String key) {
+	public int getInt(String key) throws RuntimeException{
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number) object).intValue()
@@ -281,7 +205,7 @@ public abstract class Entity implements BaseEntity {
 	 *             if the key is not found or if the value cannot be converted
 	 *             to a long.
 	 */
-	public long getLong(String key) {
+	public long getLong(String key) throws RuntimeException{
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number) object).longValue()
@@ -321,7 +245,7 @@ public abstract class Entity implements BaseEntity {
 	 * @throws RuntimeException
 	 *             if there is no string value for the key.
 	 */
-	public String getString(String key) {
+	public String getString(String key) throws RuntimeException{
 		Object object = this.get(key);
 		if (object instanceof String) {
 			return (String) object;
@@ -374,7 +298,7 @@ public abstract class Entity implements BaseEntity {
 	 *             If there is already a property with this name that is not an
 	 *             Integer, Long, Double, or Float.
 	 */
-	public Entity increment(String key) {
+	public Entity increment(String key) throws RuntimeException{
 		Object value = this.get(key);
 		if (value == null) {
 			this.put(key, 1);
@@ -631,7 +555,13 @@ public abstract class Entity implements BaseEntity {
 		return null;
 	}
 
-	public void setValue(String key, Object value) {
+	/**
+	 * Set a Value to Entity 
+	 * With this Method it is possible to set a Value of a Set by using a [Number] or [L] for Last
+	 * @param key
+	 * @param value
+	 */
+	public Entity setValue(String key, Object value) {
 		int len = 0;
 		int end = 0;
 		int id = 0;
@@ -706,11 +636,13 @@ public abstract class Entity implements BaseEntity {
 		} else {
 			put(key.substring(0, len), value);
 		}
+		return this;
 	}
 
 	@Override
-	public void setVisible(boolean value) {
+	public Entity withVisible(boolean value) {
 		this.visible = value;
+		return this;
 	}
 
 	public boolean isVisible() {

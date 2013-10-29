@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.xml.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -28,30 +28,33 @@ package org.sdmlib.serialization.xml.creator;
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 import java.util.ArrayList;
+
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.interfaces.XMLEntityCreator;
+import org.sdmlib.serialization.interfaces.XMLCreator;
 import org.sdmlib.serialization.interfaces.XMLGrammar;
 import org.sdmlib.serialization.xml.XMLEntity;
 import org.sdmlib.serialization.xml.XSDEntity;
 
-public class XSDEntityCreator implements XMLEntityCreator, XMLGrammar {
-	private String nameSpace;
+public class XSDEntityCreator implements XMLCreator, XMLGrammar {
+	private String nameSpace = "";
 	private ArrayList<String> privateStack = new ArrayList<String>();
-	public static final String[] IGNORETAGS = new String[] {"annotation",
+	public static final String[] IGNORETAGS = new String[] { "annotation",
 			"documentation", "complextype", "simpletype" };
 
 	/**
-	 * @param namespace     the NameSpace for xsd
+	 * @param namespace
+	 *            the NameSpace for xsd
 	 */
-	public XSDEntityCreator(String namespace) {
+	public XSDEntityCreator withNameSpace(String namespace) {
 		this.nameSpace = namespace;
+		return this;
 	}
 
 	@Override
 	public String[] getProperties() {
-		return new String[] {XSDEntity.PROPERTY_CHOICE,
+		return new String[] { XSDEntity.PROPERTY_CHOICE,
 				XSDEntity.PROPERTY_SEQUENCE, XSDEntity.PROPERTY_ATTRIBUTE,
 				XSDEntity.PROPERTY_MINOCCURS, XSDEntity.PROPERTY_MAXOCCURS };
 	}

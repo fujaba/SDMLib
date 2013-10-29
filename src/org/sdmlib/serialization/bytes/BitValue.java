@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -36,34 +36,37 @@ public class BitValue {
 	private int orientation = 1;
 
 	public BitValue(int start, int len) {
-		this.start = new BitEntity(start);
-		this.len = new BitEntity(len);
+		this.start = new BitEntity().withValue(start);
+		this.len = new BitEntity().withValue(len);
 	}
 
 	public BitValue(String startTyp, String startValue, String lentyp,
 			String lenvalue) {
-		this.start = new BitEntity(startValue, startTyp);
-		this.len = new BitEntity(lenvalue, lentyp);
+		this.start = new BitEntity().withValue(startValue, startTyp);
+		this.len = new BitEntity().withValue(lenvalue, lentyp);
 	}
 
 	public BitEntity getStart() {
 		return start;
 	}
 
-	public void setStart(BitEntity start) {
+	public BitValue withStart(BitEntity start) {
 		this.start = start;
+		return this;
 	}
 
 	public BitEntity getLen() {
 		return len;
 	}
 
-	public void setLen(BitEntity len) {
+	public BitValue withLen(BitEntity len) {
 		this.len = len;
+		return this;
 	}
 
-	public void setOrientation(int value) {
+	public BitValue withOrientation(int value) {
 		this.orientation = value;
+		return this;
 	}
 
 	public int getOrientation() {

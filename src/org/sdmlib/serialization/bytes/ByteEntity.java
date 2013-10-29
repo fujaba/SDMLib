@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,16 +29,19 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.nio.ByteBuffer;
 import java.util.Date;
+
 import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.bytes.converter.ByteConverter;
+import org.sdmlib.serialization.bytes.converter.ByteConverterHTTP;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BufferedBytes;
 import org.sdmlib.serialization.interfaces.ByteItem;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
 /**
  * The Class ByteEntity.
  */
 
-public class ByteEntity implements JSIMEntity, ByteItem {
+public class ByteEntity implements BaseEntity, ByteItem {
 	/** The Constant BIT OF A BYTE. */
 	public final static int BITOFBYTE = 8;
 	public final static int TYPBYTE = 1;
@@ -49,25 +52,6 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 	/** The values. */
 	protected byte[] values;
 	private boolean visible;
-
-	/**
-	 * Instantiates a new byte entity.
-	 */
-	public ByteEntity() {
-
-	}
-
-	/**
-	 * Instantiates a new byte entity.
-	 * 
-	 * @param typ
-	 *            the typ
-	 * @param value
-	 *            the value
-	 */
-	public ByteEntity(byte typ, byte[] value) {
-		this.setValue(typ, value);
-	}
 
 	/*
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewArray()
@@ -81,7 +65,7 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewObject()
 	 */
 	@Override
-	public JSIMEntity getNewObject() {
+	public BaseEntity getNewObject() {
 		return new ByteEntity();
 	}
 
@@ -100,9 +84,10 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 	 * @param value
 	 *            the new value
 	 */
-	public void setValue(byte typ, byte[] value) {
+	public ByteEntity withValue(byte typ, byte[] value) {
 		this.typ = typ;
 		this.values = value;
+		return this;
 	}
 
 	/**
@@ -170,13 +155,15 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 	 * 
 	 * @return the bytes
 	 */
-	public ByteBuffer getBytes(boolean isDynamic) {
-		int len = calcLength(isDynamic);
-		byte typ = getTyp();
+	public void writeBytes(BufferedBytes buffer, boolean isDynamic, boolean last){
+//		int len = calcLength(isDynamic);
 		byte[] value = this.values;
+		int valueLen=0;
+		byte typ=getTyp();
 
 		if (isDynamic && value != null) {
-			ByteBuffer bb = ByteBuffer.wrap(value);
+			BytesBuffer bb = new BytesBuffer();
+			bb.withValue(value);
 			if (typ == ByteIdMap.DATATYPE_SHORT) {
 				short bufferValue = bb.getShort();
 				if (bufferValue >= Byte.MIN_VALUE
@@ -194,72 +181,82 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 				} else if (bufferValue >= Short.MIN_VALUE
 						&& bufferValue <= Short.MAX_VALUE) {
 					typ = ByteIdMap.DATATYPE_BYTE;
-					ByteBuffer buffer = ByteBuffer.allocate(Short.SIZE
-							/ BITOFBYTE);
-					buffer.putShort((short) bufferValue);
-					buffer.flip();
-					value = buffer.array();
+					BytesBuffer bbShort = BytesBuffer.allocate(Short.SIZE / BITOFBYTE);
+					bbShort.put((short) bufferValue);
+					bbShort.flip();
+					value = bbShort.array();
 				}
 			}
 		}
-		ByteBuffer buffer = ByteUtil.getBuffer(len, typ);
-
-		// Save the Len
-		if (value != null) {
+		if(value!=null){
+			valueLen= value.length;
+		}
+		typ = ByteUtil.getTyp(typ, valueLen, last);
+		
+		ByteUtil.writeByteHeader(buffer, typ, valueLen);
+		
+		// SAVE Length
+		if (valueLen>0) {
 			buffer.put(value);
 		}
+	}
+	
+	public BufferedBytes getBytes(boolean isDynamic) {
+		int len = calcLength(isDynamic);
+		BufferedBytes buffer = ByteUtil.getBuffer(len);
+		writeBytes(buffer, isDynamic, false);		
 		buffer.flip();
 		return buffer;
 	}
 
 	public boolean setValues(Object value) {
 		byte typ = 0;
-		ByteBuffer msgValue = null;
+		BytesBuffer msgValue = new BytesBuffer();
 		if (value == null) {
 			typ = ByteIdMap.DATATYPE_NULL;
 		}
 		if (value instanceof Short) {
 			typ = ByteIdMap.DATATYPE_SHORT;
-			msgValue = ByteBuffer.allocate(Short.SIZE / BITOFBYTE);
-			msgValue.putShort((Short) value);
+			msgValue.withLength(Short.SIZE / BITOFBYTE);
+			msgValue.put((Short) value);
 		} else if (value instanceof Integer) {
 			typ = ByteIdMap.DATATYPE_INTEGER;
-			msgValue = ByteBuffer.allocate(Integer.SIZE / BITOFBYTE);
-			msgValue.putInt((Integer) value);
+			msgValue.withLength(Integer.SIZE / BITOFBYTE);
+			msgValue.put((Integer) value);
 		} else if (value instanceof Long) {
 			typ = ByteIdMap.DATATYPE_LONG;
-			msgValue = ByteBuffer.allocate(Long.SIZE / BITOFBYTE);
-			msgValue.putLong((Long) value);
+			msgValue.withLength(Long.SIZE / BITOFBYTE);
+			msgValue.put((Long) value);
 		} else if (value instanceof Float) {
 			typ = ByteIdMap.DATATYPE_FLOAT;
-			msgValue = ByteBuffer.allocate(Float.SIZE / BITOFBYTE);
-			msgValue.putFloat((Float) value);
+			msgValue.withLength(Float.SIZE / BITOFBYTE);
+			msgValue.put((Float) value);
 		} else if (value instanceof Double) {
 			typ = ByteIdMap.DATATYPE_DOUBLE;
-			msgValue = ByteBuffer.allocate(Double.SIZE / BITOFBYTE);
-			msgValue.putDouble((Double) value);
+			msgValue.withLength(Double.SIZE / BITOFBYTE);
+			msgValue.put((Double) value);
 		} else if (value instanceof Byte) {
 			typ = ByteIdMap.DATATYPE_BYTE;
-			msgValue = ByteBuffer.allocate(Byte.SIZE / BITOFBYTE);
+			msgValue.withLength(Byte.SIZE / BITOFBYTE);
 			msgValue.put((Byte) value);
 		} else if (value instanceof Character) {
 			typ = ByteIdMap.DATATYPE_CHAR;
-			msgValue = ByteBuffer.allocate(Character.SIZE / BITOFBYTE);
-			msgValue.putChar((Character) value);
+			msgValue.withLength(Character.SIZE / BITOFBYTE);
+			msgValue.put((Character) value);
 		} else if (value instanceof String) {
 			typ = ByteIdMap.DATATYPE_STRING;
 			String newValue = (String) value;
-			msgValue = ByteBuffer.allocate(newValue.length());
+			msgValue.withLength(newValue.length());
 			msgValue.put(newValue.getBytes());
 		} else if (value instanceof Date) {
 			typ = ByteIdMap.DATATYPE_DATE;
-			msgValue = ByteBuffer.allocate(Integer.SIZE / BITOFBYTE);
+			msgValue.withLength(Integer.SIZE / BITOFBYTE);
 			Date newValue = (Date) value;
-			msgValue.putInt((int) newValue.getTime());
+			msgValue.put((int) newValue.getTime());
 		} else if (value instanceof Byte[] || value instanceof byte[]) {
 			typ = ByteIdMap.DATATYPE_BYTEARRAY;
 			byte[] newValue = (byte[]) value;
-			msgValue = ByteBuffer.allocate(newValue.length);
+			msgValue.withLength(newValue.length);
 			msgValue.put(newValue);
 		}
 		if (typ != 0) {
@@ -291,16 +288,15 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 	public int calcLength(boolean isDynamic) {
 		// Length calculate Sonderfaelle ermitteln
 		if (isDynamic && this.values != null) {
-			ByteBuffer bb = ByteBuffer.wrap(values);
 			if (typ == ByteIdMap.DATATYPE_SHORT) {
-				Short bufferValue = bb.getShort();
+				Short bufferValue = new BytesBuffer().withValue(values).getShort();
 				if (bufferValue >= Byte.MIN_VALUE
 						&& bufferValue <= Byte.MAX_VALUE) {
 					return TYPBYTE + Byte.SIZE / BITOFBYTE;
 				}
 			} else if (typ == ByteIdMap.DATATYPE_INTEGER
 					|| typ == ByteIdMap.DATATYPE_LONG) {
-				Integer bufferValue = bb.getInt();
+				Integer bufferValue = new BytesBuffer().withValue(values).getInt();
 				if (bufferValue >= Byte.MIN_VALUE
 						&& bufferValue <= Byte.MAX_VALUE) {
 					return TYPBYTE + Byte.SIZE / BITOFBYTE;
@@ -310,36 +306,18 @@ public class ByteEntity implements JSIMEntity, ByteItem {
 				}
 			}
 		}
-		int len = TYPBYTE + ByteUtil.getTypLen(getTyp());
+ 		int len = TYPBYTE;
 
 		if (this.values != null) {
+			len += ByteUtil.getTypLen(typ, values.length);
 			len += this.values.length;
 		}
 		return len;
 	}
 
-	/**
-	 * Sets the len check.
-	 * 
-	 * @param isLenCheck
-	 *            the is len check
-	 * @return true, if successful
-	 */
-	public boolean setLenCheck(boolean isLenCheck) {
-		if (!isLenCheck) {
-			if (typ / 16 == (ByteIdMap.DATATYPE_CHECK / 16)) {
-			} else if (ByteUtil.isGroup(typ)) {
-				this.typ = ByteUtil.getTyp(typ, ByteIdMap.DATATYPE_STRINGLAST);
-			}
-		} else {
-			int size = this.values.length - 1;
-			this.typ = ByteUtil.getTyp(getTyp(), size);
-		}
-		return true;
-	}
-
-	public void setVisible(boolean value) {
+	public ByteEntity withVisible(boolean value) {
 		this.visible = value;
+		return this;
 	}
 
 	public boolean isVisible() {

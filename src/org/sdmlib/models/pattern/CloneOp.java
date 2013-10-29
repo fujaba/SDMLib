@@ -59,7 +59,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
             
             JsonArray jsonArray = origMap.toJsonArray(origGraph);
             
-            cloneGraph = cloneMap.readJson(jsonArray);
+            cloneGraph = cloneMap.decode(jsonArray);
             
             // change matches to point to the new nodes
             for (PatternElement pe : this.getPattern().getElements())

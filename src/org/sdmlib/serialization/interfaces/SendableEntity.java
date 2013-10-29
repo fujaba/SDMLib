@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.interfaces;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -50,4 +50,6 @@ public interface SendableEntity {
 	public boolean addPropertyChangeListener(PropertyChangeListener listener);
 	
 	public boolean removePropertyChangeListener(PropertyChangeListener listener);
+	
+	public void propertyChange(String property, Object oldValue, Object newValue);
 }

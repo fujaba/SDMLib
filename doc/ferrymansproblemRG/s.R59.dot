@@ -3,19 +3,19 @@ graph ObjectDiagram {
    edge [fontsize = 10];
    compound=true;
 
-r59 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>r59 :River</u></td></tr></table>>];
-b156 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b156 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "left"</td></tr></table></td></tr></table>>];
-c157 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c157 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "cabbage"</td></tr></table></td></tr></table>>];
-b158 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b158 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "right"</td></tr></table></td></tr></table>>];
-b159 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>b159 :Boat</u></td></tr></table>>];
-c160 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c160 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "goat"</td></tr></table></td></tr></table>>];
-c161 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td> <u>c161 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td>name = "wolf"</td></tr></table></td></tr></table>>];
+r59 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/River.java"> <u>r59 :River</u></td></tr></table>>];
+b60 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b60 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "left"</td></tr></table></td></tr></table>>];
+c61 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c61 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "cabbage"</td></tr></table></td></tr></table>>];
+b62 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b62 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "right"</td></tr></table></td></tr></table>>];
+b63 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Boat.java"> <u>b63 :Boat</u></td></tr></table>>];
+c64 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c64 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "goat"</td></tr></table></td></tr></table>>];
+c65 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c65 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "wolf"</td></tr></table></td></tr></table>>];
 
-r59 -- b156 [headlabel = "banks" taillabel = "river"];
-r59 -- b158 [headlabel = "banks" taillabel = "river"];
-r59 -- b159 [headlabel = "boat" taillabel = "river"];
-b156 -- c157 [headlabel = "cargos" taillabel = "bank"];
-b158 -- b159 [headlabel = "boat" taillabel = "bank"];
-b158 -- c161 [headlabel = "cargos" taillabel = "bank"];
-b159 -- c160 [headlabel = "cargo" taillabel = "boat"];
+r59 -- b60 [headlabel = "banks" taillabel = "river"];
+r59 -- b62 [headlabel = "banks" taillabel = "river"];
+r59 -- b63 [headlabel = "boat" taillabel = "river"];
+b60 -- c61 [headlabel = "cargos" taillabel = "bank"];
+b62 -- b63 [headlabel = "boat" taillabel = "bank"];
+b62 -- c64 [headlabel = "cargos" taillabel = "bank"];
+b62 -- c65 [headlabel = "cargos" taillabel = "bank"];
 }

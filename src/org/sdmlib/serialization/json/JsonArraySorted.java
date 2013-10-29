@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -30,61 +30,116 @@ package org.sdmlib.serialization.json;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.SortedSet;
+
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
 
-public class JsonArraySorted extends JsonArray {
-	protected Comparator<? super Object> cpr;
-	
-	/**
-	 * Instantiates a new json sorted array.
-	 */
-	public JsonArraySorted(){
-		this.cpr = new EntityComparator(EntityComparator.HASHCODE, SortingDirection.ASC);
-	}
-	
-	/**
-	 * Instantiates a new json sorted array.
-	 * 
-	 * @param property
-	 *            the property
-	 */
-	public JsonArraySorted(String property) {
-		this.cpr = new EntityComparator(property, SortingDirection.ASC);
-	}
-	
-	/**
-	 * Instantiates a new json sorted array.
-	 * 
-	 * @param comparator
-	 *            the comparator
-	 */
-	public JsonArraySorted(Comparator<Object> comparator) {
-		this.cpr = comparator;
-	}
-
-	
-	
+public class JsonArraySorted extends JsonArray implements SortedSet<Object>{
+	protected Comparator<Object> cpr;
 	
 	@Override
 	protected void initMap() {
 		values = new LinkedList<Object>();
 	}
-	@Override
-	public void add(int index, Object element) {
-		// TODO Auto-generated method stub
-		super.add(index, element);
-	}
+
 	@Override
 	public boolean add(Object newValue) {
 		for (int i = 0; i < values.size(); i++) {
-			int result = cpr.compare(values.get(i), newValue);
+			int result = comparator().compare(values.get(i), newValue);
 			if (result >= 0) {
 				values.add(i, newValue);
 				return true;
 			}
 		}
 		return values.add(newValue);
+	}
+	
+	public JsonArraySorted withComparator(Comparator<Object> comparator){
+		this.cpr = comparator;
+		return this;
+	}
+	
+	@Override
+	public Comparator<? super Object> comparator() {
+		if(this.cpr==null){
+			this.cpr = new EntityComparator().withColumn(EntityComparator.HASHCODE).withDirection(SortingDirection.ASC);
+		}
+		return cpr;
+	}
+
+	@Override
+	public SortedSet<Object> subSet(Object fromElement, Object toElement) {
+		JsonArraySorted newList = new JsonArraySorted().withComparator(cpr);
+		
+		// PRE WHILE
+		Iterator<Object> iterator = iterator();
+		while(iterator.hasNext()){
+			Object item = iterator.next();
+			if(cpr.compare(item, fromElement)>=0){
+				newList.add(item);
+				break;
+			}
+		}
+		
+		// MUST COPY
+		while(iterator.hasNext()){
+			Object item = iterator.next();
+			if(cpr.compare(item, toElement)>=0){
+				break;
+			}
+			newList.add(item);
+		}
+		return newList;
+	}
+
+	@Override
+	public SortedSet<Object> headSet(Object toElement) {
+		Iterator<Object> iterator = iterator();
+		JsonArraySorted newList = new JsonArraySorted().withComparator(cpr);
+
+		// MUST COPY
+		while(iterator.hasNext()){
+			Object item = iterator.next();
+			if(cpr.compare(item, toElement)>=0){
+				break;
+			}
+			newList.add(item);
+		}
+		return newList;
+	}
+
+	@Override
+	public SortedSet<Object> tailSet(Object fromElement) {
+		Iterator<Object> iterator = iterator();
+		JsonArraySorted newList = new JsonArraySorted().withComparator(cpr);
+
+		// PRE WHILE
+		while(iterator.hasNext()){
+			Object item = iterator.next();
+			if(cpr.compare(item, fromElement)>=0){
+				newList.add(item);
+				break;
+			}
+		}
+	
+		// MUST COPY
+		while(iterator.hasNext()){
+			Object item = iterator.next();
+			newList.add(item);
+		}
+		return newList;
+	}
+
+	@Override
+	public Object first() {
+		return this.get(0);
+	}
+
+	@Override
+	public Object last() {
+		return this.get(this.size()-1);
 	}
 }

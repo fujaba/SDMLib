@@ -56,7 +56,7 @@ public class ReplicationChannel extends Thread implements
             if (sharedSpace == null)
             {
                // line should provide spaceId
-               JsonObject jsonObject = new JsonObject(line);
+               JsonObject jsonObject = new JsonObject().withValue(line);
                Object object = jsonObject.get(SharedSpace.PROPERTY_SPACEID);
 
                if (object != null && object instanceof String)

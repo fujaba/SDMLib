@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.xml;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -31,10 +31,14 @@ package org.sdmlib.serialization.xml;
 */
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.XMLGrammar;
+import org.sdmlib.serialization.xml.creator.XSDEntityCreator;
 
 public class XMLSimpleIdMap extends IdMap {
 	/** The Constant ENDTAG. */
@@ -83,25 +87,42 @@ public class XMLSimpleIdMap extends IdMap {
 		this.stopwords.add("!DOCTYPE");
 	}
 
-	public Object decode(String value, XMLGrammar factory) {
-		Object result = null;
-		XMLEntity temp = null;
-		this.value = new XMLTokener(value);
+	
+	@Override
+	public Object decode(BaseEntity value) {
+		return decode((XMLTokener) new XMLTokener().withText(value.toString()), null);
+	}
+	
+	public Object decode(XMLTokener entity, XMLGrammar factory) {
+		this.value = entity;
+		if(factory==null){
+			factory = new XSDEntityCreator();
+		}
 
 		this.stack.clear();
 		while (!this.value.isEnd()) {
 			if (this.value.stepPos("" + ITEMSTART, false, false)) {
-				XMLEntity entity = getEntity(factory);
-				if (entity != null) {
-					temp = findTag(entity, factory);
+				XMLEntity item = getEntity(factory);
+				if (item != null) {
+					return parse(item, factory, "");
 				}
 			}
-			if ( temp != null ) {
-				result = temp;
-			}
 		}
-		return result;
+		return null;
 	}
+	
+	
+	//FIXME new Functionality
+	@Override
+	public BaseEntity encode(Object value) {
+		return null;
+	}
+	
+	@Override
+	public BaseEntity encode(Object value, Filter filter) {
+		return null;
+	}
+
 
 	/**
 	 * Find tag.
@@ -114,7 +135,7 @@ public class XMLSimpleIdMap extends IdMap {
 	 * @param styleFormatCreator
 	 * @return the object
 	 */
-	private XMLEntity findTag(XMLEntity entity, XMLGrammar styleFormatCreator) {
+	protected Object parse(XMLEntity entity, XMLGrammar styleFormatCreator, String prefix) {
 		if (entity != null) {
 			// Parsing attributes
 			char myChar = this.value.getCurrentChar();
@@ -122,13 +143,13 @@ public class XMLSimpleIdMap extends IdMap {
 				if (myChar == SPACE) {
 					value.next();
 				}
-				int start = this.value.getIndex();
+				int start = this.value.position();
 				if (this.value.stepPos("=>", false, false)) {
 					myChar = this.value.getCurrentChar();
 					if (myChar == '=') {
 						String key = this.value.substring(start, -1);
 						this.value.skip(2);
-						start = this.value.getIndex();
+						start = this.value.position();
 						if (this.value.stepPos("\"", false, true)) {
 							String value = this.value.substring(start, -1);
 							this.value.next();
@@ -142,7 +163,7 @@ public class XMLSimpleIdMap extends IdMap {
 			}
 
 			// Add to StackTrace
-			this.stack.add(new ReferenceObject(entity.getTag(), entity));
+			this.stack.add(new ReferenceObject().withProperty(entity.getTag()).withEntity(entity));
 
 			// Parsing next Element
 			if (value.stepPos("/>", false, false)) {
@@ -158,7 +179,7 @@ public class XMLSimpleIdMap extends IdMap {
 				char quote = (char) ITEMSTART;
 				// Skip >
 				value.next();
-				String strvalue = value.nextString(quote, true, false);
+				String strvalue = value.nextString(quote, true);
 
 				// BACK TO <
 				value.back();
@@ -166,7 +187,7 @@ public class XMLSimpleIdMap extends IdMap {
 				XMLEntity newTag;
 				if (this.value.getCurrentChar() == ITEMSTART) {
 					// show next Tag
-					XMLEntity child = null;
+					Object child;
 					do {
 						boolean saveValue = true;
 						do {
@@ -198,9 +219,9 @@ public class XMLSimpleIdMap extends IdMap {
 								break;
 							}
 						} while (newTag != null);
-						child = findTag(newTag, styleFormatCreator);
-						if (child != null) {
-							styleFormatCreator.addChildren(entity, child);
+						child = parse(newTag, styleFormatCreator, "");
+						if (child != null && child instanceof XMLEntity) {
+							styleFormatCreator.addChildren(entity, (XMLEntity)child);
 						}
 					} while (child != null);
 				}
@@ -238,7 +259,7 @@ public class XMLSimpleIdMap extends IdMap {
 		boolean isEmpty = true;
 		do {
 			if (value.getCurrentChar() != ITEMSTART) {
-				String strValue = value.nextString(ITEMSTART, true, false);
+				String strValue = value.nextString(ITEMSTART, true);
 				if (strValue != null) {
 					value.back();
 					strValue = strValue.trim();

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
+import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -46,7 +46,7 @@ import org.sdmlib.serialization.json.UpdateListener;
  * The Class IdMap.
  */
 
-public class IdMap extends AbstractIdMap implements Map<String, Object> {
+public abstract class IdMap extends AbstractIdMap implements Map<String, Object> {
 	/** The Constant ID. */
 	public static final String ID = "id";
 
@@ -61,7 +61,7 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 
 	/** The Constant PRIO. */
 	public static final String PRIO = "prio";
-
+	
 	/** The keys. */
 	protected Map<Object, String> keys;
 
@@ -81,6 +81,8 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 
 	/** The updatelistener for Notification changes. */
 	protected PropertyChangeListener updatePropertylistener;
+	
+	protected Filter filter=new Filter();
 
 	/**
 	 * Instantiates a new id map.
@@ -132,8 +134,9 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 	 * @param value
 	 *            the new session id
 	 */
-	public void setSessionId(String value) {
+	public IdMap withSessionId(String value) {
 		getCounter().withPrefixId(value);
+		return this;
 	}
 
 	/**
@@ -152,7 +155,7 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 	 */
 	public String getPrefixSession() {
 		IdMapCounter counter = getCounter();
-		if (counter == null || !counter.isId()) {
+		if (counter == null ) {
 			return null;
 		}
 		return counter.getPrefixId() + counter.getSplitter();
@@ -207,9 +210,6 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 	public String getId(Object obj) {
 		if (obj == null) {
 			return "null";
-		}
-		if (!getCounter().isId()) {
-			return "";
 		}
 		if (this.parent != null) {
 			return this.parent.getId(obj);
@@ -358,7 +358,7 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 	 *            the filter
 	 * @return the object
 	 */
-	public Object cloneObject(Object reference, CloneFilter filter) {
+	public Object cloneObject(Object reference, CloneFilter filter, int deep) {
 		SendableEntityCreator creatorClass = getCreatorClass(reference);
 		Object newObject = null;
 		if (creatorClass != null) {
@@ -382,14 +382,11 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 								SendableEntityCreator childCreatorClass = getCreatorClass(item);
 								if (childCreatorClass != null) {
 									if (!filter.isConvertable(this, item,
-											property, value, true)) {
+											property, value, true, deep)) {
 										creatorClass.setValue(newObject,
 												property, item, IdMap.NEW);
 									} else {
-										int oldDeep = filter.setDeep(filter
-												.getDeep() - 1);
-										cloneObject(item, filter);
-										filter.setDeep(oldDeep);
+										cloneObject(item, filter, deep-1);
 									}
 								} else {
 									creatorClass.setValue(newObject, property,
@@ -409,14 +406,11 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 						SendableEntityCreator childCreatorClass = getCreatorClass(value);
 						if (childCreatorClass != null) {
 							if (!filter.isConvertable(this, value, property,
-									value, false)) {
+									value, false, deep)) {
 								creatorClass.setValue(newObject, property,
 										value, IdMap.NEW);
 							} else {
-								int oldDeep = filter
-										.setDeep(filter.getDeep() - 1);
-								cloneObject(value, filter);
-								filter.setDeep(oldDeep);
+								cloneObject(value, filter, deep-1);
 							}
 						} else {
 							creatorClass.setValue(newObject, property, value,
@@ -601,7 +595,18 @@ public class IdMap extends AbstractIdMap implements Map<String, Object> {
 		return values.entrySet();
 	}
 
-	public void setUpdateMsgListener(PropertyChangeListener listener) {
+	public IdMap withUpdateMsgListener(PropertyChangeListener listener) {
 		this.updatePropertylistener = listener;
+		return this;
 	}
+	
+	public IdMap withFilter(Filter filter){
+		this.filter = filter;
+		return parent;		
+	}
+	
+	public abstract BaseEntity encode(Object value);
+	public abstract BaseEntity encode(Object value, Filter filter);
+	
+	public abstract Object decode(BaseEntity value);
 }

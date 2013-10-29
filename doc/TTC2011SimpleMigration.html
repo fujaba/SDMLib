@@ -168,7 +168,7 @@ Number of migrated Edges: 9</p>
    {
       JsonArray jsonArray = CreatorCreator.createIdMap("hg").toJsonArray(graph);
       
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").readJson(jsonArray);
+      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
       
       GraphComponentSet gcs = new GraphComponentSet();
       gcs.addAll(copyGraph.getNodes());
@@ -244,7 +244,7 @@ Number of migrated Edges: 9</p>
          
       }
       
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").readJson(jsonArray);
+      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
       
       return copyGraph;
    }</pre><p>Result graph: </p>

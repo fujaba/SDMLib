@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -34,7 +34,8 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonObject;
 
 public class JsonObjectCreator implements SendableEntityCreator, NoIndexCreator {
-	private final String[] properties = new String[] { "VALUE" };
+	private final String VALUE="VALUE";
+	private final String[] properties = new String[] { VALUE };
 
 	@Override
 	public String[] getProperties() {
@@ -48,13 +49,16 @@ public class JsonObjectCreator implements SendableEntityCreator, NoIndexCreator 
 
 	@Override
 	public Object getValue(Object entity, String attribute) {
-		return entity.toString();
+		if(VALUE.equalsIgnoreCase(attribute)){
+			return entity.toString();
+		}
+		return ((JsonObject)entity).getValue(attribute);
 	}
 
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String typ) {
-		return ((JsonObject) entity).setAllValue((String) value);
+		((JsonObject) entity).withValue((String) value);
+		return true;
 	}
-
 }

@@ -23,11 +23,14 @@ package org.sdmlib.serialization.json;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
-	
+	/** The Constant JSON_PROPS. */
+	public static final String JSON_HYPERREF = "hyperref";
+
 	@Override
 	public boolean addListener(Object object) 
 	{
@@ -47,14 +50,6 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
 		
 	}
 	
-	public JsonIdMap withSessionId(String sessionId){
-		setSessionId(sessionId);
-		return this;
-	}
-
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
 //      int pos = attrName.indexOf('.');
@@ -93,5 +88,15 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+   
+   public FlipBook createFlipBook()
+   {
+      FlipBook flipBook = new FlipBook().init(this);
+      
+      this.withUpdateMsgListener(flipBook);
+
+      return flipBook;
+   }
+
 }
 

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes.checksum;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -30,7 +30,7 @@ package org.sdmlib.serialization.bytes.checksum;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public class Crc32 extends CRC {
+public class Crc32 extends CRCTable {
 	/** Make the table for a fast CRC. */
 	public int[] getGenTable() {
 		int[] crc_table = new int[256];

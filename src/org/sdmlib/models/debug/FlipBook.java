@@ -266,7 +266,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
          String line = in.readLine();
          in.close();
          
-         JsonObject jsonObject = new JsonObject(line);
+         JsonObject jsonObject = new JsonObject().withValue(line);
          
          long value = jsonObject.getLong("stopStep");
          

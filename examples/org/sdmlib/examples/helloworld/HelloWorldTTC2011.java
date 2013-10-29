@@ -1059,7 +1059,7 @@ public class HelloWorldTTC2011
          
       }
       
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").readJson(jsonArray);
+      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
       
       return copyGraph;
    }
@@ -1069,7 +1069,7 @@ public class HelloWorldTTC2011
    {
       JsonArray jsonArray = CreatorCreator.createIdMap("hg").toJsonArray(graph);
       
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").readJson(jsonArray);
+      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
       
       GraphComponentSet gcs = new GraphComponentSet();
       gcs.addAll(copyGraph.getNodes());

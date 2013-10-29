@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.xml.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,8 +29,8 @@ package org.sdmlib.serialization.xml.creator;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import org.sdmlib.serialization.Style;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.XMLGrammar;
 import org.sdmlib.serialization.xml.XMLEntity;

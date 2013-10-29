@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.interfaces;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,10 +29,9 @@ package org.sdmlib.serialization.interfaces;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.nio.ByteBuffer;
-import org.sdmlib.serialization.bytes.ByteConverter;
+import org.sdmlib.serialization.bytes.converter.ByteConverter;
 
-public interface ByteItem {
+public interface ByteItem extends BaseEntity{
 	/**
 	 * @return the ByteItem as String
 	 */
@@ -55,7 +54,9 @@ public interface ByteItem {
 	 * @param isDynamic ByteStream for minimize output
 	 * @return ByteStream 
 	 */
-	public ByteBuffer getBytes(boolean isDynamic);
+	public BufferedBytes getBytes(boolean isDynamic);
+	
+	public void writeBytes(BufferedBytes buffer, boolean isDynamic, boolean last);
 
 	/**
 	 * @param isDynamic ByteStream for minimize output

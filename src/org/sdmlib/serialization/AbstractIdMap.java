@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -33,20 +33,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Set;
+
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public abstract class AbstractIdMap {
 	/** The creators. */
-	protected HashMap<String, SendableEntityCreator> creators;
-
-	public AbstractIdMap() {
-		this.creators = new HashMap<String, SendableEntityCreator>();
-	}
+	protected HashMap<String, SendableEntityCreator> creators = new HashMap<String, SendableEntityCreator>();
 
 	/**
 	 * Gets the creator class.
-	 * 
+	 *
 	 * @param reference
 	 *            the reference
 	 * @return the creator class
@@ -58,6 +54,10 @@ public abstract class AbstractIdMap {
 		return getCreatorClasses(reference.getClass().getName());
 	}
 
+	/**
+	 * @param clazz Clazzname for search
+	 * @return return a Creator class for a clazz name
+	 */
 	public SendableEntityCreator getCreatorClassName(String clazz) {
 		clazz = "." + clazz;
 		for (Iterator<Entry<String, SendableEntityCreator>> i = this.creators
@@ -72,7 +72,7 @@ public abstract class AbstractIdMap {
 
 	/**
 	 * Gets the creator classes.
-	 * 
+	 *
 	 * @param className
 	 *            the class name
 	 * @return the creator classes
@@ -83,25 +83,25 @@ public abstract class AbstractIdMap {
 
 	/**
 	 * Adds the creator.
-	 * 
-	 * @param Set
-	 *            <createrClass> the creater class
+	 *
+	 * @param creatorSet the creater class
 	 * @return true, if successful
 	 */
-	public AbstractIdMap withCreator(Collection<SendableEntityCreator> collection) {
-		for (SendableEntityCreator sendableEntityCreator : collection) {
+	public AbstractIdMap withCreator(Collection<SendableEntityCreator> creatorSet) {
+		for (SendableEntityCreator sendableEntityCreator : creatorSet) {
 			withCreator(sendableEntityCreator);
 		}
 		return this;
 	}
 
 	/**
-	 * add a Creator to list
-	 * 
+	 * add a Creator to list of all creators.
+	 *
 	 * @param className
 	 *            the class name
 	 * @param creator
 	 *            the creator
+	 * @return AbstractIdMap to interlink arguments
 	 */
 	public AbstractIdMap withCreator(String className, SendableEntityCreator creator) {
 		this.creators.put(className, creator);
@@ -110,7 +110,7 @@ public abstract class AbstractIdMap {
 
 	/**
 	 * Adds the creator.
-	 * 
+	 *
 	 * @param createrClass
 	 *            the creater class
 	 * @return true, if successful
@@ -124,31 +124,9 @@ public abstract class AbstractIdMap {
 	}
 
 	/**
-	 * Clone object.
-	 * 
-	 * @param reference
-	 *            the reference
-	 * @return the object
-	 */
-	public Object cloneObject(Object reference) {
-		return cloneObject(reference, new CloneFilter().withTyp(CloneFilter.SIMPLE));
-	}
-
-	/**
-	 * Clone object.
-	 * 
-	 * @param reference
-	 *            the reference
-	 * @param filter
-	 *            the filter
-	 * @return the object
-	 */
-	public abstract Object cloneObject(Object reference, CloneFilter filter);
-	
-	/**
 	 * @return a Collection of All Creators
 	 */
-	public Collection<SendableEntityCreator> getCreators(){
+	public Collection<SendableEntityCreator> getCreators() {
 		return creators.values();
 	}
 

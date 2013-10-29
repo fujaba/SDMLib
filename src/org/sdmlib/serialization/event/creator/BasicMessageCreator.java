@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.event.creator;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -30,12 +30,12 @@ package org.sdmlib.serialization.event.creator;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import org.sdmlib.serialization.event.BasicMessage;
-import org.sdmlib.serialization.interfaces.ByteEntityCreator;
+import org.sdmlib.serialization.interfaces.ByteCreator;
 /**
  * The Class BasicMessageCreator.
  */
 
-public class BasicMessageCreator implements ByteEntityCreator {
+public class BasicMessageCreator implements ByteCreator {
 	/** The properties. */
 	protected final String[] properties = new String[] { BasicMessage.PROPERTY_VALUE };
 

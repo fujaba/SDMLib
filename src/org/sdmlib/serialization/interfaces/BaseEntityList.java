@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.interfaces;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -31,7 +31,7 @@ package org.sdmlib.serialization.interfaces;
 */
 import java.util.Collection;
 
-public interface BaseEntityList extends JSIMEntity {
+public interface BaseEntityList extends BaseEntity {
 	public BaseEntityList initWithMap(Collection<?> value);
 
 	public BaseEntityList put(Object value);

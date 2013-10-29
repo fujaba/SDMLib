@@ -30,7 +30,7 @@ public class JsonTest {
 		JsonIdMap map = new JsonIdMap();
 		map.withCreator(new ChatMessageCreator());
 		
-		ChatMessage newChatMsg = (ChatMessage) map.readJson(new JsonObject(msg));
+		ChatMessage newChatMsg = (ChatMessage) map.decode(new JsonObject().withValue(msg));
 		System.out.println(newChatMsg);
 		
 	}

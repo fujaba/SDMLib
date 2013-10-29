@@ -21,35 +21,32 @@
 
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.models.pattern.creators.ReachableStateSet;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.TreeMap;
 
+import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.creators.ReachableStateSet;
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.logic.Equals;
 import org.sdmlib.storyboards.JsonToImg;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.patterns.example.SimpleState;
+import org.sdmlib.utils.PropertyChangeInterface;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
    //==========================================================================
    public String dumpDiagram(String name)
    {
-      JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
-      
-      JsonArray jsonArray = masterMap.toJsonArray(this, jsonFilter);
+//      JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
+	   Filter filter = new Filter()
+	   			.withPropertyRegard(new Equals().withValue("graphRoot"))
+			   .withConvertable(new Equals().withValue("parent"));
+      JsonArray jsonArray = masterMap.toJsonArray(this, filter);
       
       String imgLink = JsonToImg.get().toImg(name, jsonArray, true, null);
       
@@ -530,7 +527,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
                // is the new graph already known?
                JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap().getCreators());
-               newJsonIdMap.setSessionId("s");
+               newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
                ReachableStateSet candidateStates = this.getStateMap(newCertificate);
@@ -569,8 +566,8 @@ public class ReachabilityGraph implements PropertyChangeInterface
       JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
       JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
       
-      map1.setSessionId("s");
-      map2.setSessionId("s");
+      map1.withSessionId("s");
+      map2.withSessionId("s");
 
       LinkedHashMap<String, String> fwdmapping = new LinkedHashMap<String, String>();
       LinkedHashMap<String, String> bwdmapping = new LinkedHashMap<String, String>();

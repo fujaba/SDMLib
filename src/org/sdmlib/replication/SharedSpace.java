@@ -85,7 +85,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          if (firstMessage)
          {
             firstMessage = false;
-            JsonObject jsonObject = new JsonObject(msg);
+            JsonObject jsonObject = new JsonObject().withValue(msg);
             if (jsonObject.get(CURRENT_HISTORY_ID) != null)
             {
                long receivedId = jsonObject.getLong(CURRENT_HISTORY_ID);
@@ -167,7 +167,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       try
       {
          // reconstruct change
-         JsonObject jsonObject = new JsonObject(msg.msg);
+         JsonObject jsonObject = new JsonObject().withValue(msg.msg);
          
          if (previousChange == null)
          {
@@ -203,7 +203,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
          JsonIdMap cmap = getChangeMap();
 
-         ReplicationChange change = (ReplicationChange) cmap.readJson(jsonObject);
+         ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
 
          // is change already known?
          if (getHistory().getChanges().contains(change))
@@ -293,7 +293,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
                   // undo higher changes, apply, redo higher changes
                   // find source object, property and earlier content object
                   String changeMsg = higher.getChangeMsg();
-                  JsonObject higherJson = new JsonObject(changeMsg);
+                  JsonObject higherJson = new JsonObject().withValue(changeMsg);
                   String sourceId = higherJson.getString(JsonIdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
                   JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
@@ -419,7 +419,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    private void applyChange(ReplicationChange change, ReplicationChannel sender)
    {
       // no conflict, apply change
-      JsonObject jsonUpdate = new JsonObject(change.getChangeMsg());
+      JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
       
       try
       {

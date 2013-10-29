@@ -4,10 +4,10 @@ graph ObjectDiagram {
    compound=true;
 
 s6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/SimpleState.java"> <u>s6 :SimpleState</u></td></tr></table>>];
-n7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n7 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n8 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n9 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
-n10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n10 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>num = 0</td></tr></table></td></tr></table>>];
+n7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n7 :Node</u></td></tr></table>>];
+n8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n8 :Node</u></td></tr></table>>];
+n9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n9 :Node</u></td></tr></table>>];
+n10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/Node.java"> <u>n10 :Node</u></td></tr></table>>];
 
 s6 -- n7 [headlabel = "nodes" taillabel = "graph"];
 s6 -- n8 [headlabel = "nodes" taillabel = "graph"];

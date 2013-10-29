@@ -22,8 +22,8 @@ class SDMTaskWrap implements Runnable
    {
       try
       {
-         Object obj = this.socketReader.socketThread.idMap.readJson(
-            new JsonArray(line));
+         Object obj = this.socketReader.socketThread.idMap.decode(
+            new JsonArray().withValue(line));
 
          if (obj instanceof FetchFileFlow)
          {

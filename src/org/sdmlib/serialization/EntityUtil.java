@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -32,7 +32,8 @@ package org.sdmlib.serialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
+
+import org.sdmlib.serialization.interfaces.BaseEntity;
 
 public class EntityUtil {
 	/**
@@ -41,12 +42,12 @@ public class EntityUtil {
 	 * @param number
 	 *            A Number
 	 * @return A String.
-	 * @throws RuntimeException
+	 * @throws IllegalArgumentException
 	 *             If n is a non-finite number.
 	 */
-	public static String numberToString(Number number) {
+	public static String valueToString(Number number) throws IllegalArgumentException{
 		if (number == null) {
-			throw new RuntimeException("Null pointer");
+			throw new IllegalArgumentException("Null pointer");
 		}
 		testValidity(number);
 
@@ -231,7 +232,7 @@ public class EntityUtil {
 	 *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
 	 *         brace)</small>.
 	 */
-	public static String valueToString(Object value, JSIMEntity reference) {
+	public static String valueToString(Object value, BaseEntity reference) {
 		return valueToString(value, false, reference);
 	}
 
@@ -244,22 +245,24 @@ public class EntityUtil {
 	 *            The value to be serialized.
 	 * @param indentFactor
 	 *            The number of spaces to add to each level of indentation.
-	 * @param indent
+	 * @param intent
 	 *            The indentation of the top level.
+	 * @param simpleText
+	 *            Boolean for switch between text and Escaped-Text
+	 * @param reference
+	 *            A Reference Object to generate new Objects like Factory Pattern
 	 * @return a printable, displayable, transmittable representation of the
 	 *         object, beginning with <code>{</code>&nbsp;<small>(left
 	 *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
 	 *         brace)</small>.
-	 * @throws JSONException
-	 *             If the object contains an invalid number.
 	 */
 	public static String valueToString(Object value, int indentFactor,
-			int intent, boolean simpleText, JSIMEntity reference) {
+			int intent, boolean simpleText, BaseEntity reference) {
 		if (value == null) {
 			return "null";
 		}
 		if (value instanceof Number) {
-			return numberToString((Number) value);
+			return valueToString((Number) value);
 		}
 		if (value instanceof Boolean) {
 			return value.toString();
@@ -295,12 +298,12 @@ public class EntityUtil {
 	}
 
 	public static String valueToString(Object value, boolean simpleText,
-			JSIMEntity reference) {
+			BaseEntity reference) {
 		if (value == null) {
 			return "null";
 		}
 		if (value instanceof Number) {
-			return numberToString((Number) value);
+			return valueToString((Number) value);
 		}
 		if (value instanceof Boolean) {
 			return value.toString();
@@ -347,7 +350,7 @@ public class EntityUtil {
 	 *            The object to wrap
 	 * @return The wrapped value
 	 */
-	public static Object wrap(Object object, JSIMEntity reference) {
+	public static Object wrap(Object object, BaseEntity reference) {
 		try {
 			if (object == null) {
 				return null;

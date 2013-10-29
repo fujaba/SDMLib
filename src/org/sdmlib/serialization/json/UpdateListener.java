@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.json;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -36,6 +36,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
@@ -161,7 +162,7 @@ public class UpdateListener implements PropertyChangeListener {
 			return;
 		}
 
-		JsonObject jsonObject = new JsonObject(JsonIdMap.ID,
+		JsonObject jsonObject = new JsonObject().withValue(JsonIdMap.ID,
 				this.map.getId(source));
 
 		Object oldValue = evt.getOldValue();
@@ -182,7 +183,7 @@ public class UpdateListener implements PropertyChangeListener {
 				String oldId = this.map.getId(oldValue);
 				if (oldId != null) {
 					gc = oldId;
-					child.put(propertyName, new JsonObject(JsonIdMap.ID, oldId));
+					child.put(propertyName, new JsonObject().withValue(JsonIdMap.ID, oldId));
 				}
 			} else {
 				child.put(propertyName, oldValue);
@@ -197,7 +198,7 @@ public class UpdateListener implements PropertyChangeListener {
 			if (creatorClass != null) {
 				String key = this.map.getKey(newValue);
 				if (key != null) {
-					JsonObject item = new JsonObject(JsonIdMap.ID, key);
+					JsonObject item = new JsonObject().withValue(JsonIdMap.ID, key);
 					countMessage(item);
 					child.put(propertyName, item);
 				} else {
@@ -251,7 +252,7 @@ public class UpdateListener implements PropertyChangeListener {
 	public boolean execute(JsonObject updateMessage) {
 		if (updateMessage.has(JsonIdMap.JSON_PROPS)) {
 			// its a new Object
-			this.map.readJson(updateMessage);
+			this.map.decode(updateMessage);
 			return true;
 		}
 
@@ -312,17 +313,10 @@ public class UpdateListener implements PropertyChangeListener {
 						setValue(creator, masterObj, key, removeJsonObject,
 								IdMap.REMOVE);
 					} else {
-						if (checkValue(value, key, remove)) 
-						{
-						   if (value instanceof String)
-						   {
-						      setValue(creator, masterObj, key, null, IdMap.UPDATE);
-						   }
-						   else
-						   {
-						      setValue(creator, masterObj, key, creator.getValue(refObject, key),
+						if (checkValue(value, key, remove)) {
+							setValue(creator, masterObj, key,
+									creator.getValue(refObject, key),
 									IdMap.REMOVE);
-						   }
 						} else if (checkPrio(prio)) {
 							// RESET TO DEFAULTVALUE
 							setValue(creator, masterObj, key,
@@ -334,7 +328,7 @@ public class UpdateListener implements PropertyChangeListener {
 					if (removeJsonObject != null
 							&& removeJsonObject instanceof JsonObject) {
 						JsonObject json = (JsonObject) removeJsonObject;
-						this.map.readMessages(key, masterObj, this.map.readJson(json), json, IdMap.REMOVE);
+						this.map.readMessages(key, masterObj, this.map.decode(json), json, IdMap.REMOVE);
 					}
 				}
 				return true;
@@ -439,7 +433,7 @@ public class UpdateListener implements PropertyChangeListener {
 					return false;
 				}
 			}
-			Object value = this.map.readJson(json);
+			Object value = this.map.decode(json);
 			if (value != null) {
 				creator.setValue(element, key, value, typ);
 				this.map.readMessages(key, element, value, json, typ);

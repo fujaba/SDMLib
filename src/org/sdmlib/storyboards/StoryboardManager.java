@@ -52,7 +52,6 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonArraySorted;
-import org.sdmlib.serialization.json.JsonFilter;
 import org.sdmlib.serialization.json.JsonIdComparator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -203,8 +202,8 @@ public class StoryboardManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-      JsonArraySorted jsonSortedArray = new JsonArraySorted(new JsonIdComparator());
-      JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, new JsonFilter());
+      JsonArraySorted jsonSortedArray = new JsonArraySorted().withComparator(new JsonIdComparator());
+      JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, null);
       String jsonString = jsonArray.toString(2);
 
       printFile(new File(DOC_KANBAN_ENTRIES_JSON), jsonString);
@@ -282,9 +281,9 @@ public class StoryboardManager
             buf.append(readLine + '\n');
          }
 
-         JsonArray jsonObject = new JsonArray(buf.toString());
+         JsonArray jsonObject = new JsonArray().withValue(buf.toString());
 
-         kanbanBoard = (KanbanEntry) kanbanIdMap.readJson(jsonObject);
+         kanbanBoard = (KanbanEntry) kanbanIdMap.decode(jsonObject);
       } 
       catch (Exception e) 
       {

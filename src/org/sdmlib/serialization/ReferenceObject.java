@@ -1,7 +1,7 @@
 package org.sdmlib.serialization;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -47,82 +47,33 @@ public class ReferenceObject {
 	/** The entity. */
 	private Object entity;
 
-	/** The map. */
-	private IdMap map;
-
-	/**
-	 * Instantiates a new reference object.
-	 * 
-	 * @param property
-	 *            the property
-	 */
-	public ReferenceObject(String property) {
-		this.property = property;
+	public ReferenceObject withId(String id){
+		this.jsonId = id;
+		return this;
 	}
-
-	/**
-	 * Instantiates a new reference object.
-	 * 
-	 * @param property
-	 *            the property
-	 * @param entity
-	 *            the entity
-	 */
-	public ReferenceObject(String property, Entity entity) {
-		this.property = property;
-		this.entity = entity;
+	
+	public ReferenceObject withCreator(SendableEntityCreator value){
+		this.creator = value;
+		return this;
 	}
-
-	/**
-	 * Instantiates a new reference object.
-	 * 
-	 * @param creator
-	 *            the creator
-	 * @param property
-	 *            the property
-	 * @param map
-	 *            the map
-	 * @param entity
-	 *            the entity
-	 */
-	public ReferenceObject(SendableEntityCreator creator, String property,
-			IdMap map, Object entity) {
-		this.creator = creator;
-		this.property = property;
-		this.entity = entity;
-		this.map = map;
+	
+	public ReferenceObject withProperty(String value){
+		this.property = value;
+		return this;
 	}
-
-	/**
-	 * Instantiates a new reference object.
-	 * 
-	 * @param jsonId
-	 *            the json id
-	 * @param creator
-	 *            the creator
-	 * @param property
-	 *            the property
-	 * @param map
-	 *            the map
-	 * @param entity
-	 *            the entity
-	 */
-	public ReferenceObject(String jsonId, SendableEntityCreator creator,
-			String property, IdMap map, Object entity) {
-		this.jsonId = jsonId;
-		this.creator = creator;
-		this.property = property;
-		this.entity = entity;
-		this.map = map;
+	
+	public ReferenceObject withEntity(Object value){
+		this.entity = value;
+		return this;
 	}
-
+	
 	/**
 	 * Execute.
 	 * 
 	 * @return true, if successful
 	 */
-	public boolean execute() {
-		Object assoc = this.map.getObject(this.jsonId);
+	public boolean execute(IdMap map) {
+		Object assoc = map.getObject(this.jsonId);
 		if (assoc != null) {
 			this.creator.setValue(this.entity, this.property, assoc, IdMap.NEW);
 			return true;

@@ -1,0 +1,21 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+r73 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/River.java"> <u>r73 :River</u></td></tr></table>>];
+b74 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b74 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "left"</td></tr></table></td></tr></table>>];
+c75 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c75 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "wolf"</td></tr></table></td></tr></table>>];
+b76 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Bank.java"> <u>b76 :Bank</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "right"</td></tr></table></td></tr></table>>];
+b77 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Boat.java"> <u>b77 :Boat</u></td></tr></table>>];
+c78 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c78 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "cabbage"</td></tr></table></td></tr></table>>];
+c79 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/Cargo.java"> <u>c79 :Cargo</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "goat"</td></tr></table></td></tr></table>>];
+
+r73 -- b74 [headlabel = "banks" taillabel = "river"];
+r73 -- b76 [headlabel = "banks" taillabel = "river"];
+r73 -- b77 [headlabel = "boat" taillabel = "river"];
+b74 -- c75 [headlabel = "cargos" taillabel = "bank"];
+b76 -- b77 [headlabel = "boat" taillabel = "bank"];
+b76 -- c79 [headlabel = "cargos" taillabel = "bank"];
+b77 -- c78 [headlabel = "cargo" taillabel = "boat"];
+}

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,12 +29,14 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.sdmlib.serialization.bytes.converter.ByteConverter;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.BufferedBytes;
 import org.sdmlib.serialization.interfaces.ByteItem;
 
 public class BitEntity implements BaseEntityList, ByteItem {
@@ -54,11 +56,7 @@ public class BitEntity implements BaseEntityList, ByteItem {
 	public static final String PROPERTY_TYP = "typ";
 	public static final String PROPERTY_ORIENTATION = "orientation";
 
-	public BitEntity() {
-
-	}
-
-	public BitEntity(Object value) {
+	public BitEntity withValue(Object value) {
 		if (value instanceof Byte) {
 			this.typ = BIT_BYTE;
 			this.property = "" + value;
@@ -69,25 +67,23 @@ public class BitEntity implements BaseEntityList, ByteItem {
 			this.typ = BIT_STRING;
 			this.property = "" + value;
 		}
+		return this;
 	}
 
-	public BitEntity(String property, String typ, int start, int len) {
+	public BitEntity withValue(String property, String typ) {
 		this.property = property;
 		this.typ = typ;
+		return this;
+	}
+	
+	public BitEntity withStartLen(int start, int len){
 		this.values.add(new BitValue(start, len));
+		return this;
 	}
 
-	public BitEntity(String property, String typ) {
-		this.property = property;
-		this.typ = typ;
-	}
-
-	public BitEntity(String field, String typ, int start, int len,
-			int orientation) {
-		this.property = field;
-		this.typ = typ;
+	public BitEntity withOrientation(int orientation) {
 		this.orientation = orientation;
-		this.values.add(new BitValue(start, len));
+		return this;
 	}
 
 	public boolean addValue(BitValue value) {
@@ -151,9 +147,14 @@ public class BitEntity implements BaseEntityList, ByteItem {
 	}
 
 	@Override
-	public ByteBuffer getBytes(boolean isDynamic) {
+	public BufferedBytes getBytes(boolean isDynamic) {
 		return null;
 	}
+	@Override
+	public void writeBytes(BufferedBytes buffer, boolean isDynamic, boolean last) {
+		// FIXME
+	}
+
 
 	@Override
 	public int calcLength(boolean isDynamic) {
@@ -188,8 +189,9 @@ public class BitEntity implements BaseEntityList, ByteItem {
 		return toString();
 	}
 
-	public void setVisible(boolean value) {
+	public BitEntity withVisible(boolean value) {
 		this.isVisible = value;
+		return this;
 	}
 
 	public boolean isVisible() {
@@ -222,9 +224,5 @@ public class BitEntity implements BaseEntityList, ByteItem {
 
 	public int getOrientation() {
 		return orientation;
-	}
-
-	public void setOrientation(int orientation) {
-		this.orientation = orientation;
 	}
 }

@@ -68,7 +68,7 @@ public class LudoStoryboard implements PropertyChangeInterface
       
       JsonIdMap jsonIdMapClone = CreatorCreator.createIdMap("l2");
 
-      Object clone = jsonIdMap.readJson(jsonArray);
+      Object clone = jsonIdMap.decode(jsonArray);
       
       Dice dice = tom.createDice().withValue(6);
       

@@ -1,7 +1,7 @@
 package org.sdmlib.serialization.bytes;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -29,23 +29,24 @@ package org.sdmlib.serialization.bytes;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.nio.ByteBuffer;
 import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.bytes.converter.ByteConverter;
+import org.sdmlib.serialization.bytes.converter.ByteConverterHTTP;
+import org.sdmlib.serialization.bytes.converter.ByteConverterString;
+import org.sdmlib.serialization.interfaces.BufferedBytes;
 import org.sdmlib.serialization.interfaces.ByteItem;
-import org.sdmlib.serialization.interfaces.JSIMEntity;
 
 public class ByteList extends EntityList implements ByteItem {
 	/** The children of the ByteEntity. */
 	private byte typ = 0;
-	private boolean isGroupable = true;
 
 	@Override
-	public EntityList getNewArray() {
+	public ByteList getNewArray() {
 		return new ByteList();
 	}
 
 	@Override
-	public JSIMEntity getNewObject() {
+	public ByteEntity getNewObject() {
 		return new ByteEntity();
 	}
 
@@ -91,88 +92,81 @@ public class ByteList extends EntityList implements ByteItem {
 		return converter.toString(this, dynamic);
 	}
 
-	public ByteBuffer getBytes(boolean isDynamic) {
+	public BufferedBytes getBytes(boolean isDynamic) {
 		int len = calcLength(isDynamic);
-		ByteBuffer buffer = ByteUtil.getBuffer(len, getTyp(), isGroupable());
-		if (buffer == null) {
-			return null;
-		}
-		for (Object value : values) {
-			ByteBuffer child = null;
-			if (value instanceof ByteItem) {
-				child = ((ByteItem) value).getBytes(isDynamic);
-			}
-			if (child == null) {
-				buffer.put(ByteIdMap.DATATYPE_NULL);
-			} else {
-				byte[] array = new byte[child.limit()];
-				child.get(array);
-				buffer.put(array);
-			}
-		}
+		BufferedBytes buffer = ByteUtil.getBuffer(len);
+		writeBytes(buffer, isDynamic, false);
 		buffer.flip();
 		return buffer;
 	}
+	
+
+	public void writeBytes(BufferedBytes buffer, boolean isDynamic, boolean last){
+		int size=calcChildren(isDynamic);
+		
+		byte typ = ByteUtil.getTyp(getTyp(), size, last);
+		ByteUtil.writeByteHeader(buffer, typ, size);
+	
+		for(int i=0;i<values.size();i++){
+			((ByteItem) values.get(i)).writeBytes(buffer, isDynamic, i==values.size()-1);
+		}
+	}
 
 	public int calcLength(boolean isDynamic) {
-		int length = 0;
 		if (size() == 0 ) {
-			return 0;
+			return 1;
 		}
+		int length = calcChildren(isDynamic);
+		// add The Headerlength
 		if (typ != 0) {
-			length = ByteUtil.getTypLen(typ) + ByteEntity.TYPBYTE;
-		}
-		Object[] valueList = this.values
-				.toArray(new Object[this.values.size()]);
-		boolean notLast = true;
-		for (int i = valueList.length - 1; i >= 0; i--) {
-			if (notLast) {
-				int len = 0;
-				if (valueList[i] instanceof ByteList) {
-					len = ((ByteList) valueList[i]).calcLength(isDynamic);
-					if (len < 1) {
-						this.values.remove(valueList[i]);
-					} else {
-						notLast = false;
-						length += len;
-					}
-				} else if (valueList[i] instanceof ByteEntity) {
-					ByteEntity entity = (ByteEntity) valueList[i];
-					len = entity.calcLength(isDynamic);
-					if (len == 1) {
-						this.values.remove(valueList[i]);
-					} else {
-						// SET the LastEntity
-						notLast = false;
-						if (entity.setLenCheck(false)) {
-							len = entity.calcLength(isDynamic);
-						}
-						length += len;
-					}
-				}
-			} else {
-				if (valueList[i] instanceof ByteItem) {
-					length += ((ByteItem) valueList[i]).calcLength(isDynamic);
-				}
-			}
+			length += ByteEntity.TYPBYTE + ByteUtil.getTypLen(typ, length);
 		}
 		return length;
 	}
+	
+	public int calcChildren(boolean isDynamic) {
+		int length, size=size();
+		if(size<1){
+			return 0;
+		}
+		Object[] valueList = this.values.toArray(new Object[size()]);
+		
+		// SonderFall Last Entity
+		int typLen;
+		int len;
+		if(valueList[size-1] instanceof ByteEntity){
+			ByteEntity entity =(ByteEntity) valueList[size-1];
+			len=entity.getValue().length;
+			typLen=ByteUtil.getTypLen(((ByteEntity)entity).getTyp(), len);
+		}else{
+			ByteList list = (ByteList) valueList[size-1];
+			len=list.calcChildren(isDynamic);
+			typLen=ByteUtil.getTypLen(((ByteList)list).getTyp(), len);
+		}
+		if(typLen>0){
+			// Must be a Group and not the optimize LastEntity
+			length=len+1;
+		}else{
+			length=((ByteItem)valueList[size-1]).calcLength(isDynamic);
+		}
+		for (int i = size - 2; i >= 0; i--) {
+			length += ((ByteItem)valueList[i]).calcLength(isDynamic);
+ 		}
+		return length;
+	}
 
-	public Byte getTyp() {
+	public byte getTyp() {
 		return typ;
 	}
 
-	public void setTyp(Byte typ) {
-		this.typ = typ;
+	public void setTyp(Byte value) {
+		this.typ = value;
 	}
 
-	public void setTyp(Byte typ, boolean isGroupable) {
-		this.typ = typ;
-		this.isGroupable = isGroupable;
-	}
-
-	public boolean isGroupable() {
-		return isGroupable;
+	@Override
+	public EntityList withValue(String value) {
+		ByteConverterString	converter = new ByteConverterString();
+		this.add(getNewObject().withValue(ByteIdMap.DATATYPE_FIXED, converter.decode(value)));
+		return this;
 	}
 }
