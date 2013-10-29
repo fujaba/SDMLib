@@ -22,12 +22,10 @@
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.replication.TaskFlowBoard;
+
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.replication.creators.LaneSet;
 import org.sdmlib.replication.Lane;
-import org.sdmlib.replication.creators.StepSet;
-import org.sdmlib.replication.Step;
+import org.sdmlib.replication.TaskFlowBoard;
 
 public class TaskFlowBoardSet extends LinkedHashSet<TaskFlowBoard> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -94,38 +92,5 @@ public class TaskFlowBoardSet extends LinkedHashSet<TaskFlowBoard> implements or
       
       return this;
    }
-
-   public StepSet getSteps()
-   {
-      StepSet result = new StepSet();
-      
-      for (TaskFlowBoard obj : this)
-      {
-         result.addAll(obj.getSteps());
-      }
-      
-      return result;
-   }
-
-   public TaskFlowBoardSet withSteps(Step value)
-   {
-      for (TaskFlowBoard obj : this)
-      {
-         obj.withSteps(value);
-      }
-      
-      return this;
-   }
-
-   public TaskFlowBoardSet withoutSteps(Step value)
-   {
-      for (TaskFlowBoard obj : this)
-      {
-         obj.withoutSteps(value);
-      }
-      
-      return this;
-   }
-
 }
 

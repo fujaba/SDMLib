@@ -22,15 +22,11 @@
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.replication.BoardTask;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.replication.creators.LogEntrySet;
-import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.creators.StepSet;
-import org.sdmlib.replication.Step;
-import org.sdmlib.replication.creators.LaneSet;
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
+import org.sdmlib.replication.LogEntry;
 
 public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -120,28 +116,6 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
       return this;
    }
 
-   public StepSet getCurrentStep()
-   {
-      StepSet result = new StepSet();
-      
-      for (BoardTask obj : this)
-      {
-         result.add(obj.getCurrentStep());
-      }
-      
-      return result;
-   }
-
-   public BoardTaskSet withCurrentStep(Step value)
-   {
-      for (BoardTask obj : this)
-      {
-         obj.withCurrentStep(value);
-      }
-      
-      return this;
-   }
-
    public LaneSet getLane()
    {
       LaneSet result = new LaneSet();
@@ -184,5 +158,92 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
       }
    }
 
+   public StringList getStatus()
+   {
+      StringList result = new StringList();
+      
+      for (BoardTask obj : this)
+      {
+         result.add(obj.getStatus());
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet withStatus(String value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.setStatus(value);
+      }
+      
+      return this;
+   }
+
+   public BoardTaskSet getNext()
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         result.addAll(obj.getNext());
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet withNext(BoardTask value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.withNext(value);
+      }
+      
+      return this;
+   }
+
+   public BoardTaskSet withoutNext(BoardTask value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.withoutNext(value);
+      }
+      
+      return this;
+   }
+
+   public BoardTaskSet getPrev()
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         result.addAll(obj.getPrev());
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet withPrev(BoardTask value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.withPrev(value);
+      }
+      
+      return this;
+   }
+
+   public BoardTaskSet withoutPrev(BoardTask value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.withoutPrev(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

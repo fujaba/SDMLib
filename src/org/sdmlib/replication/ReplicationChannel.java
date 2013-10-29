@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
@@ -33,7 +33,8 @@ import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class ReplicationChannel extends Thread implements PropertyChangeInterface
+public class ReplicationChannel extends Thread implements
+      PropertyChangeInterface
 {
    @Override
    public void run()
@@ -41,9 +42,9 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
       try
       {
          InputStream byteIn = socket.getInputStream();
-         
+
          InputStreamReader readerIn = new InputStreamReader(byteIn);
-         
+
          BufferedReader in = new BufferedReader(readerIn);
 
          String line = "";
@@ -51,21 +52,22 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
          while (line != null)
          {
             line = in.readLine();
-            
+
             if (sharedSpace == null)
             {
                // line should provide spaceId
                JsonObject jsonObject = new JsonObject(line);
                Object object = jsonObject.get(SharedSpace.PROPERTY_SPACEID);
-               
+
                if (object != null && object instanceof String)
                {
                   String spaceId = (String) object;
-                  
-                  SharedSpace matchingSharedSpace = replicationNode.getOrCreateSharedSpace(spaceId);
-                  
+
+                  SharedSpace matchingSharedSpace = replicationNode
+                     .getOrCreateSharedSpace(spaceId);
+
                   this.setSharedSpace(matchingSharedSpace);
-                  
+
                   sharedSpace.enqueueMsg(this, line);
                }
             }
@@ -80,17 +82,16 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
          System.out.println("Socket has been closed");
       }
    }
-   
 
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void send(String line)
    {
-      if ( ! line.endsWith("\n"))
+      if (!line.endsWith("\n"))
       {
          line = line + "\n";
       }
-      
+
       try
       {
          if (out == null)
@@ -104,11 +105,11 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
       {
          e.printStackTrace();
       }
-      
-   } 
 
-   //==========================================================================
-   
+   }
+
+   // ==========================================================================
+
    private ReplicationNode replicationNode;
 
    public ReplicationChannel(ReplicationNode replicationNode, Socket connection)
@@ -117,12 +118,10 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
       this.setSocket(connection);
    }
 
-
    public ReplicationChannel()
    {
       // blank
    }
-
 
    public Object get(String attrName)
    {
@@ -139,9 +138,8 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_SHAREDSPACE.equalsIgnoreCase(attrName))
@@ -159,29 +157,25 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setSharedSpace(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -189,64 +183,63 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
     *              channels                   sharedSpace
     * </pre>
     */
-   
+
    public static final String PROPERTY_SHAREDSPACE = "sharedSpace";
-   
+
    private SharedSpace sharedSpace = null;
-   
+
    public SharedSpace getSharedSpace()
    {
       return this.sharedSpace;
    }
-   
+
    public boolean setSharedSpace(SharedSpace value)
    {
       boolean changed = false;
-      
+
       if (this.sharedSpace != value)
       {
          SharedSpace oldValue = this.sharedSpace;
-         
+
          if (this.sharedSpace != null)
          {
             this.sharedSpace = null;
             oldValue.withoutChannels(this);
          }
-         
+
          this.sharedSpace = value;
-         
+
          if (value != null)
          {
             value.withChannels(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SHAREDSPACE, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SHAREDSPACE,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public ReplicationChannel withSharedSpace(SharedSpace value)
    {
       setSharedSpace(value);
       return this;
-   } 
-   
+   }
+
    public SharedSpace createSharedSpace()
    {
       SharedSpace value = new SharedSpace();
       withSharedSpace(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_SOCKET = "socket";
-   
-   private Socket socket;
 
+   private Socket socket;
 
    private OutputStreamWriter out;
 
@@ -254,27 +247,27 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
    {
       return this.socket;
    }
-   
+
    public void setSocket(Socket value)
    {
       if (this.socket != value)
       {
          Socket oldValue = this.socket;
          this.socket = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOCKET, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOCKET,
+            oldValue, value);
       }
    }
-   
+
    public ReplicationChannel withSocket(Socket value)
    {
       setSocket(value);
       return this;
    }
 
-
    public ReplicationChannel withConnect(String ip, int port)
    {
-      if (socket == null || ! socket.isConnected())
+      if (socket == null || !socket.isConnected())
       {
          try
          {
@@ -288,8 +281,16 @@ public class ReplicationChannel extends Thread implements PropertyChangeInterfac
             e.printStackTrace();
          }
       }
-      
+
       return this;
    }
-}
 
+   public void sendSpaceConnectionRequest(String spaceId)
+   {
+      JsonObject jsonObject = new JsonObject();
+      jsonObject.put(SharedSpace.PROPERTY_SPACEID, spaceId);
+
+      String line = jsonObject.toString();
+      this.send(line);
+   }
+}

@@ -1,20 +1,11 @@
 package org.sdmlib.replication.creators;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.creators.BoardTaskSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.replication.creators.LogEntryPO;
-import org.sdmlib.replication.Task;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.replication.creators.BoardTaskPO;
-import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.creators.LogEntrySet;
-import org.sdmlib.replication.creators.StepPO;
-import org.sdmlib.replication.Step;
-import org.sdmlib.replication.creators.LanePO;
 import org.sdmlib.replication.Lane;
+import org.sdmlib.replication.Task;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {
@@ -99,39 +90,6 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return null;
    }
 
-   public StepPO hasCurrentStep()
-   {
-      StepPO result = new StepPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(BoardTask.PROPERTY_CURRENTSTEP, result);
-      
-      return result;
-   }
-
-   public BoardTaskPO hasCurrentStep(StepPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_CURRENTSTEP)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public Step getCurrentStep()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((BoardTask) this.getCurrentMatch()).getCurrentStep();
-      }
-      return null;
-   }
-
    public LanePO hasLane()
    {
       LanePO result = new LanePO();
@@ -165,5 +123,104 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return null;
    }
 
+   public BoardTaskPO hasStatus(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STATUS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getStatus()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BoardTask) getCurrentMatch()).getStatus();
+      }
+      return null;
+   }
+   
+   public BoardTaskPO withStatus(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((BoardTask) getCurrentMatch()).setStatus(value);
+      }
+      return this;
+   }
+   
+   public BoardTaskPO hasNext()
+   {
+      BoardTaskPO result = new BoardTaskPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(BoardTask.PROPERTY_NEXT, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO hasNext(BoardTaskPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_NEXT)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public BoardTaskSet getNext()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BoardTask) this.getCurrentMatch()).getNext();
+      }
+      return null;
+   }
+
+   public BoardTaskPO hasPrev()
+   {
+      BoardTaskPO result = new BoardTaskPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(BoardTask.PROPERTY_PREV, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO hasPrev(BoardTaskPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_PREV)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public BoardTaskSet getPrev()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BoardTask) this.getCurrentMatch()).getPrev();
+      }
+      return null;
+   }
+
 }
+
 

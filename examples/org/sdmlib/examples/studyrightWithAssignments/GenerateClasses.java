@@ -53,7 +53,7 @@ public class GenerateClasses {
 
       ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments");
 
-      Clazz universityClass = new Clazz("University")
+      Clazz universityClass = model.createClazz("University")
       .withAttribute("name", STRING);
 
       storyboard.addClassDiagram(model);
@@ -61,7 +61,7 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("2. generate class Student");
 
-      Clazz studentClass = new Clazz("Student").withAttributes(
+      Clazz studentClass = model.createClazz("Student").withAttributes(
          "name", STRING,
          "id", STRING,
          "assignmentPoints", INT,

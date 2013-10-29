@@ -12,8 +12,10 @@ public class BoardTaskCreator extends EntityFactory
    {
       BoardTask.PROPERTY_NAME,
       Task.PROPERTY_LOGENTRIES,
-      BoardTask.PROPERTY_CURRENTSTEP,
       BoardTask.PROPERTY_LANE,
+      BoardTask.PROPERTY_STATUS,
+      BoardTask.PROPERTY_NEXT,
+      BoardTask.PROPERTY_PREV,
    };
    
    public String[] getProperties()
@@ -54,4 +56,5 @@ public class BoardTaskCreator extends EntityFactory
       ((BoardTask) entity).removeYou();
    }
 }
+
 

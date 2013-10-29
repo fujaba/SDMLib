@@ -119,6 +119,16 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
       return result;
    }
 
+
+   public ReplicationChannel first()
+   {
+      for (ReplicationChannel c : this)
+      {
+         return c;
+      }
+      return null;
+   }
+
 }
 
 

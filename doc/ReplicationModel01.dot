@@ -17,10 +17,7 @@
     _ReplicationChange [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/ReplicationChange.java">ReplicationChange</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>historyIdPrefix :String</td></tr> <tr><td align='left'>historyIdNumber :long</td></tr> <tr><td align='left'>targetObjectId :String</td></tr> <tr><td align='left'>targetProperty :String</td></tr> <tr><td align='left'>isToManyProperty :boolean</td></tr> <tr><td align='left'>changeMsg :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _TaskFlowBoard [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/TaskFlowBoard.java">TaskFlowBoard</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Lane [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/Lane.java">Lane</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Step [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/Step.java">Step</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Executor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/Executor.java">Executor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _BoardTask [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/BoardTask.java">BoardTask</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _TaskHandler [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/TaskHandler.java">TaskHandler</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _BoardTask [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/BoardTask.java">BoardTask</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>status :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
@@ -35,10 +32,8 @@
     _Task -> _LogEntry [headlabel = "logEntries *" taillabel = "task" arrowhead = "none" ];
     _ChangeHistory -> _ReplicationChange [headlabel = "changes *" taillabel = "history" arrowhead = "none" ];
     _TaskFlowBoard -> _Lane [headlabel = "lanes *" taillabel = "board" arrowhead = "none" ];
-    _TaskFlowBoard -> _Step [headlabel = "steps *" taillabel = "board" arrowhead = "none" ];
-    _Step -> _Executor [headlabel = "executor" taillabel = "step" arrowhead = "none" ];
-    _Step -> _BoardTask [headlabel = "tasks *" taillabel = "currentStep" arrowhead = "none" ];
     _Lane -> _BoardTask [headlabel = "tasks *" taillabel = "lane" arrowhead = "none" ];
+    _BoardTask -> _BoardTask [headlabel = "next *" taillabel = "prev *" arrowhead = "none" ];
     _SharedSpace -> _ChangeHistory [headlabel = "history" taillabel = "" arrowhead = "vee" ];
     _ReplicationChannel -> _Socket [headlabel = "socket" taillabel = "" arrowhead = "vee" ];
     _ServerSocketAcceptThread -> _ReplicationNode [headlabel = "replicationNode" taillabel = "" arrowhead = "vee" ];

@@ -43,7 +43,8 @@
         {"id":"KE.K149"},
         {"id":"KE.K153"},
         {"id":"KE.K157"},
-        {"id":"KE.K159"}
+        {"id":"KE.K159"},
+        {"id":"KE.K168"}
       ],
       "logEntries":[
         {"id":"KE.L5"},
@@ -804,6 +805,20 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L160"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K168",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ReplicationModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L169"}
       ],
       "oldNoOfLogEntries":1
     }
@@ -2191,6 +2206,16 @@
       "developer":"zuendorf",
       "phase":"active",
       "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
+    }
+  },
+  {
+    "id":"KE.L169",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"26.10.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K168"},
+      "developer":"zuendorf",
+      "phase":"backlog"
     }
   }
 ]

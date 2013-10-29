@@ -1,44 +1,21 @@
 package org.sdmlib.replication.creators;
 
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.replication.creators.ReplicationNodePO;
-import org.sdmlib.replication.ReplicationNode;
-import org.sdmlib.replication.creators.SharedSpacePO;
-import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.creators.ThreadPO;
-import java.lang.Thread;
-import org.sdmlib.replication.creators.ReplicationServerPO;
-import org.sdmlib.replication.ReplicationServer;
-import org.sdmlib.replication.creators.ServerSocketAcceptThreadPO;
-import org.sdmlib.replication.ServerSocketAcceptThread;
-import org.sdmlib.replication.creators.ReplicationChannelPO;
-import org.sdmlib.replication.ReplicationChannel;
-import org.sdmlib.replication.creators.ChangeHistoryPO;
-import org.sdmlib.replication.ChangeHistory;
-import org.sdmlib.replication.creators.ReplicationChangePO;
-import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.creators.TaskPO;
-import org.sdmlib.replication.Task;
-import org.sdmlib.replication.creators.LogEntryPO;
-import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.creators.TaskFlowBoardPO;
-import org.sdmlib.replication.TaskFlowBoard;
-import org.sdmlib.replication.creators.LanePO;
-import org.sdmlib.replication.Lane;
-import org.sdmlib.replication.creators.StepPO;
-import org.sdmlib.replication.Step;
-import org.sdmlib.replication.creators.ExecutorPO;
-import org.sdmlib.replication.Executor;
-import org.sdmlib.replication.creators.BoardTaskPO;
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.creators.ObjectPO;
-import java.lang.Object;
-import org.sdmlib.replication.creators.PropertyChangeSupportPO;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.replication.creators.SharedModelRootPO;
+
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.Lane;
+import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.ReplicationChange;
+import org.sdmlib.replication.ReplicationChannel;
+import org.sdmlib.replication.ReplicationNode;
+import org.sdmlib.replication.ReplicationServer;
+import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.replication.SharedModelRoot;
-import org.sdmlib.replication.creators.TaskHandlerPO;
-import org.sdmlib.replication.TaskHandler;
+import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.Task;
+import org.sdmlib.replication.TaskFlowBoard;
 
 public class ModelPattern extends Pattern
 {
@@ -341,54 +318,6 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
-   public StepPO hasElementStepPO()
-   {
-      StepPO value = new StepPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public StepPO hasElementStepPO(Step hostGraphObject)
-   {
-      StepPO value = new StepPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
-   public ExecutorPO hasElementExecutorPO()
-   {
-      ExecutorPO value = new ExecutorPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public ExecutorPO hasElementExecutorPO(Executor hostGraphObject)
-   {
-      ExecutorPO value = new ExecutorPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
    public BoardTaskPO hasElementBoardTaskPO()
    {
       BoardTaskPO value = new BoardTaskPO();
@@ -475,30 +404,6 @@ public class ModelPattern extends Pattern
    public SharedModelRootPO hasElementSharedModelRootPO(SharedModelRoot hostGraphObject)
    {
       SharedModelRootPO value = new SharedModelRootPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
-   public TaskHandlerPO hasElementTaskHandlerPO()
-   {
-      TaskHandlerPO value = new TaskHandlerPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public TaskHandlerPO hasElementTaskHandlerPO(TaskHandler hostGraphObject)
-   {
-      TaskHandlerPO value = new TaskHandlerPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
       

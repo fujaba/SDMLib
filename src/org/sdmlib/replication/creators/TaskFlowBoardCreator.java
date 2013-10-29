@@ -10,7 +10,6 @@ public class TaskFlowBoardCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       TaskFlowBoard.PROPERTY_LANES,
-      TaskFlowBoard.PROPERTY_STEPS,
    };
    
    public String[] getProperties()

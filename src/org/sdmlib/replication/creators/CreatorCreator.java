@@ -36,10 +36,6 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.replication.creators.TaskFlowBoardPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.LaneCreator());
          creatorSet.add(new org.sdmlib.replication.creators.LanePOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.StepCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.StepPOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ExecutorCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.ExecutorPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.BoardTaskCreator());
          creatorSet.add(new org.sdmlib.replication.creators.BoardTaskPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.ObjectCreator());
@@ -48,8 +44,6 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.replication.creators.PropertyChangeSupportPOCreator());
          creatorSet.add(new org.sdmlib.replication.creators.SharedModelRootCreator());
          creatorSet.add(new org.sdmlib.replication.creators.SharedModelRootPOCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.TaskHandlerCreator());
-         creatorSet.add(new org.sdmlib.replication.creators.TaskHandlerPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       

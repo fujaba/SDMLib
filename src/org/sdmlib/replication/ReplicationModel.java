@@ -83,18 +83,11 @@ public class ReplicationModel
       Clazz lane = taskFlowBoard.createClassAndAssoc("Lane", "lanes", R.MANY, "board", R.ONE)
             .withAttributes("name", R.STRING);
       
-      Clazz step = taskFlowBoard.createClassAndAssoc("Step", "steps", R.MANY, "board", R.ONE)
-            .withAttributes("name", R.STRING);
-      
-      Clazz executor = step.createClassAndAssoc("Executor", "executor", R.ONE, "step", R.ONE);
-
-      Clazz boardTask = step.createClassAndAssoc("BoardTask", "tasks", R.MANY, "currentStep", R.ONE)
+      Clazz boardTask = lane.createClassAndAssoc("BoardTask", "tasks", R.MANY, "lane", R.ONE)
       .withSuperClass(task)
-      .withAttributes("name", R.STRING);
+      .withAttributes("name", R.STRING, "status", R.STRING);
       
-      lane.withAssoc(boardTask, "tasks", R.MANY, "lane", R.ONE);
-      
-      model.createClazz("TaskHandler");
+      boardTask.withAssoc(boardTask, "next", R.MANY, "prev", R.MANY);
       
       model.generate("src");
       

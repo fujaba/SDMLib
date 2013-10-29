@@ -440,7 +440,7 @@ public class Storyboard implements PropertyChangeInterface
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
-         e.printStackTrace();
+         // e.printStackTrace();
       }
    }
 

@@ -30,7 +30,6 @@ import org.sdmlib.replication.creators.LaneSet;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.replication.creators.StepSet;
 
 public class TaskFlowBoard implements PropertyChangeInterface
 {
@@ -43,11 +42,6 @@ public class TaskFlowBoard implements PropertyChangeInterface
       if (PROPERTY_LANES.equalsIgnoreCase(attrName))
       {
          return getLanes();
-      }
-
-      if (PROPERTY_STEPS.equalsIgnoreCase(attrName))
-      {
-         return getSteps();
       }
 
       return null;
@@ -70,19 +64,7 @@ public class TaskFlowBoard implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_STEPS.equalsIgnoreCase(attrName))
-      {
-         addToSteps((Step) value);
-         return true;
-      }
-      
-      if ((PROPERTY_STEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromSteps((Step) value);
-         return true;
-      }
-
-      return false;
+       return false;
    }
 
    
@@ -101,7 +83,6 @@ public class TaskFlowBoard implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromLanes();
-      removeAllFromSteps();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -199,99 +180,6 @@ public class TaskFlowBoard implements PropertyChangeInterface
    } 
 
    
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * TaskFlowBoard ----------------------------------- Step
-    *              board                   steps
-    * </pre>
-    */
-   
-   public static final String PROPERTY_STEPS = "steps";
-   
-   private StepSet steps = null;
-   
-   public StepSet getSteps()
-   {
-      if (this.steps == null)
-      {
-         return Step.EMPTY_SET;
-      }
-   
-      return this.steps;
-   }
-   
-   public boolean addToSteps(Step value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.steps == null)
-         {
-            this.steps = new StepSet();
-         }
-         
-         changed = this.steps.add (value);
-         
-         if (changed)
-         {
-            value.withBoard(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public boolean removeFromSteps(Step value)
-   {
-      boolean changed = false;
-      
-      if ((this.steps != null) && (value != null))
-      {
-         changed = this.steps.remove (value);
-         
-         if (changed)
-         {
-            value.setBoard(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STEPS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public TaskFlowBoard withSteps(Step value)
-   {
-      addToSteps(value);
-      return this;
-   } 
-   
-   public TaskFlowBoard withoutSteps(Step value)
-   {
-      removeFromSteps(value);
-      return this;
-   } 
-   
-   public void removeAllFromSteps()
-   {
-      LinkedHashSet<Step> tmpSet = new LinkedHashSet<Step>(this.getSteps());
-   
-      for (Step value : tmpSet)
-      {
-         this.removeFromSteps(value);
-      }
-   }
-   
-   public Step createSteps()
-   {
-      Step value = new Step();
-      withSteps(value);
-      return value;
-   }
-
-
    public Lane getLanes(String name)
    {
       // TODO Auto-generated method stub
@@ -304,6 +192,28 @@ public class TaskFlowBoard implements PropertyChangeInterface
       }
       
       return null;
+   }
+
+   public BoardTask createTask(String laneName, String taskName)
+   {
+      Lane lane = this.getLanes(laneName);
+      
+      return lane.createTask(taskName);
+   }
+
+   public void startTask(String laneName, String taskName)
+   {
+      Lane lane = this.getLanes(laneName);
+      
+      lane.startTask(taskName);
+   }
+
+
+   public Lane createLanes(String name)
+   {
+      Lane lane = new Lane().withName(name);
+      this.addToLanes(lane);
+      return lane;
    }
 }
 

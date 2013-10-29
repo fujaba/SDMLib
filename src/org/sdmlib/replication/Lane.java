@@ -22,12 +22,17 @@
 package org.sdmlib.replication;
 
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.replication.creators.LaneSet;
 import org.sdmlib.replication.creators.BoardTaskSet;
+
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.json.JsonIdMap;
+
 import java.beans.PropertyChangeListener;
 
 public class Lane implements PropertyChangeInterface
@@ -298,6 +303,25 @@ public class Lane implements PropertyChangeInterface
       BoardTask value = new BoardTask();
       withTasks(value);
       return value;
+   }
+
+
+   public BoardTask createTask(String taskName)
+   {
+      BoardTask task = new BoardTask().withName(taskName);
+      
+      this.addToTasks(task);
+      
+      return task;
+   } 
+
+   public void startTask(String taskName)
+   {
+      BoardTask task = new BoardTask().withName(taskName);
+      
+      this.addToTasks(task);
+      
+      task.setStatus(BoardTask.START);
    } 
 
 }

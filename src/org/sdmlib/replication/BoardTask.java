@@ -23,10 +23,15 @@ package org.sdmlib.replication;
 
 import org.sdmlib.replication.Task;
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.replication.creators.BoardTaskSet;
+
+import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
 
 public class BoardTask extends Task implements PropertyChangeInterface
 {
@@ -46,14 +51,24 @@ public class BoardTask extends Task implements PropertyChangeInterface
          return getLogEntries();
       }
 
-      if (PROPERTY_CURRENTSTEP.equalsIgnoreCase(attrName))
-      {
-         return getCurrentStep();
-      }
-
       if (PROPERTY_LANE.equalsIgnoreCase(attrName))
       {
          return getLane();
+      }
+
+      if (PROPERTY_STATUS.equalsIgnoreCase(attrName))
+      {
+         return getStatus();
+      }
+
+      if (PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      {
+         return getNext();
+      }
+
+      if (PROPERTY_PREV.equalsIgnoreCase(attrName))
+      {
+         return getPrev();
       }
 
       return null;
@@ -82,15 +97,39 @@ public class BoardTask extends Task implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_CURRENTSTEP.equalsIgnoreCase(attrName))
-      {
-         setCurrentStep((Step) value);
-         return true;
-      }
-
       if (PROPERTY_LANE.equalsIgnoreCase(attrName))
       {
          setLane((Lane) value);
+         return true;
+      }
+
+      if (PROPERTY_STATUS.equalsIgnoreCase(attrName))
+      {
+         setStatus((String) value);
+         return true;
+      }
+
+      if (PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      {
+         addToNext((BoardTask) value);
+         return true;
+      }
+      
+      if ((PROPERTY_NEXT + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromNext((BoardTask) value);
+         return true;
+      }
+
+      if (PROPERTY_PREV.equalsIgnoreCase(attrName))
+      {
+         addToPrev((BoardTask) value);
+         return true;
+      }
+      
+      if ((PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromPrev((BoardTask) value);
          return true;
       }
 
@@ -113,8 +152,9 @@ public class BoardTask extends Task implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromLogEntries();
-      setCurrentStep(null);
       setLane(null);
+      removeAllFromNext();
+      removeAllFromPrev();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -152,71 +192,13 @@ public class BoardTask extends Task implements PropertyChangeInterface
       StringBuilder _ = new StringBuilder();
       
       _.append(" ").append(this.getName());
+      _.append(" ").append(this.getStatus());
       return _.substring(1);
    }
 
 
    
    public static final BoardTaskSet EMPTY_SET = new BoardTaskSet();
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * BoardTask ----------------------------------- Step
-    *              tasks                   currentStep
-    * </pre>
-    */
-   
-   public static final String PROPERTY_CURRENTSTEP = "currentStep";
-   
-   private Step currentStep = null;
-   
-   public Step getCurrentStep()
-   {
-      return this.currentStep;
-   }
-   
-   public boolean setCurrentStep(Step value)
-   {
-      boolean changed = false;
-      
-      if (this.currentStep != value)
-      {
-         Step oldValue = this.currentStep;
-         
-         if (this.currentStep != null)
-         {
-            this.currentStep = null;
-            oldValue.withoutTasks(this);
-         }
-         
-         this.currentStep = value;
-         
-         if (value != null)
-         {
-            value.withTasks(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTSTEP, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public BoardTask withCurrentStep(Step value)
-   {
-      setCurrentStep(value);
-      return this;
-   } 
-   
-   public Step createCurrentStep()
-   {
-      Step value = new Step();
-      withCurrentStep(value);
-      return value;
-   } 
 
    
    /********************************************************************
@@ -275,6 +257,240 @@ public class BoardTask extends Task implements PropertyChangeInterface
       Lane value = new Lane();
       withLane(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STATUS = "status";
+   
+   private String status;
+
+   public String getStatus()
+   {
+      return this.status;
+   }
+   
+   public void setStatus(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.status, value))
+      {
+         String oldValue = this.status;
+         this.status = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATUS, oldValue, value);
+      }
+   }
+   
+   public BoardTask withStatus(String value)
+   {
+      setStatus(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * BoardTask ----------------------------------- BoardTask
+    *              prev                   next
+    * </pre>
+    */
+   
+   public static final String PROPERTY_NEXT = "next";
+   
+   private BoardTaskSet next = null;
+   
+   public BoardTaskSet getNext()
+   {
+      if (this.next == null)
+      {
+         return BoardTask.EMPTY_SET;
+      }
+   
+      return this.next;
+   }
+   
+   public boolean addToNext(BoardTask value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.next == null)
+         {
+            this.next = new BoardTaskSet();
+         }
+         
+         changed = this.next.add (value);
+         
+         if (changed)
+         {
+            value.withPrev(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromNext(BoardTask value)
+   {
+      boolean changed = false;
+      
+      if ((this.next != null) && (value != null))
+      {
+         changed = this.next.remove (value);
+         
+         if (changed)
+         {
+            value.withoutPrev(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public BoardTask withNext(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         addToNext(item);
+      }
+      return this;
+   } 
+   
+   public BoardTask withoutNext(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         removeFromNext(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromNext()
+   {
+      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(this.getNext());
+   
+      for (BoardTask value : tmpSet)
+      {
+         this.removeFromNext(value);
+      }
+   }
+   
+   public BoardTask createNext()
+   {
+      BoardTask value = new BoardTask();
+      withNext(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * BoardTask ----------------------------------- BoardTask
+    *              next                   prev
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PREV = "prev";
+   
+   private BoardTaskSet prev = null;
+
+   public static final String START = "start";
+   
+   public BoardTaskSet getPrev()
+   {
+      if (this.prev == null)
+      {
+         return BoardTask.EMPTY_SET;
+      }
+   
+      return this.prev;
+   }
+   
+   public boolean addToPrev(BoardTask value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.prev == null)
+         {
+            this.prev = new BoardTaskSet();
+         }
+         
+         changed = this.prev.add (value);
+         
+         if (changed)
+         {
+            value.withNext(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromPrev(BoardTask value)
+   {
+      boolean changed = false;
+      
+      if ((this.prev != null) && (value != null))
+      {
+         changed = this.prev.remove (value);
+         
+         if (changed)
+         {
+            value.withoutNext(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public BoardTask withPrev(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         addToPrev(item);
+      }
+      return this;
+   } 
+   
+   public BoardTask withoutPrev(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         removeFromPrev(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromPrev()
+   {
+      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(this.getPrev());
+   
+      for (BoardTask value : tmpSet)
+      {
+         this.removeFromPrev(value);
+      }
+   }
+   
+   public BoardTask createPrev()
+   {
+      BoardTask value = new BoardTask();
+      withPrev(value);
+      return value;
+   }
+
+
+   public void start()
+   {
+      this.setStatus(BoardTask.START);
    } 
 }
 
