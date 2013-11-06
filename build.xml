@@ -58,7 +58,7 @@
 			</instr>
 		</emma>
 		
-		<junit showoutput="yes" printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
+		<junit printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
 					<classpath>
 						<pathelement location="binInst/classes" />
 						<path refid="SDMLib.libs" />
