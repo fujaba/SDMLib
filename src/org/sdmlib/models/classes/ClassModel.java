@@ -417,7 +417,7 @@ public class ClassModel implements PropertyChangeInterface
 										"\n" + 
 										"   public static JsonIdMap createIdMap(String sessionID)\n" + 
 										"   {\n" + 
-										"      JsonIdMap jsonIdMap = new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
+										"      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" + 
 										"      \n" + 
 										"      jsonIdMap.withCreator(getCreatorSet());\n" + 
 										"\n" + 
