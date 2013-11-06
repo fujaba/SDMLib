@@ -17,8 +17,8 @@
 	<property name="SimpleUniProject.location" value="../../../work/fm/ObjectsFirstBook/models/SimpleUniProject" />
 	<property name="junit.output.dir" value="junit" />
 	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.7" />
-	<property name="source" value="1.7" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
 	<property name="coverage.meta.dir" value="emma" />
 	<property name="coverage.report.dir" value="emmareports" />
 	<property name="emma.filter" value="" />
@@ -58,7 +58,7 @@
 			</instr>
 		</emma>
 		
-		<junit printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
+		<junit showoutput="yes" printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
 					<classpath>
 						<pathelement location="binInst/classes" />
 						<path refid="SDMLib.libs" />
@@ -76,6 +76,7 @@
 					</batchtest>
 					<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
 					<jvmarg value="-Demma.coverage.out.merge=true" />
+			        <jvmarg value="-XX:-UseSplitVerifier" />
 				</junit>
 		<emma enabled="${emma.enabled}" verbosity="verbose">
 			<report>
