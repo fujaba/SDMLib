@@ -854,7 +854,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true));
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
@@ -884,7 +884,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, RestrictToFilter filter, String... aggregationRoles)
    {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withPropertyRegard(filter));
+      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       {
