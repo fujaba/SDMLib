@@ -1952,10 +1952,6 @@ public class Clazz implements PropertyChangeInterface
          return;
       }
 
-      //      SymTabEntry symTabEntry = ccParser.getSymTab().get(Parser.METHOD + ":createIdMap(String)");
-      //      
-      //      ccParser.parseMethodBody(symTabEntry);
-
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = ccParser.getMethodBodyStartPos();
 
