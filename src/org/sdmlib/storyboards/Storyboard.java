@@ -63,7 +63,6 @@ import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-// file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class Storyboard implements PropertyChangeInterface 
 {
    public static final String MODELING = "modeling";
