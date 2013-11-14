@@ -31,7 +31,7 @@ public class StudyRightStoryboards
 
       Student nina = uni.createStudents()
             .withMatrNo(2323)
-            .withName("Nina");
+            .withName("Nina"); 
 
       Room mathRoom = uni.createRooms()
             .withRoomNo("math")

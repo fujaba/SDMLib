@@ -295,14 +295,6 @@ public class Storyboard implements PropertyChangeInterface
       {
          String content = step.getText();
 
-         //            if (content.startsWith("["))
-         //            {
-         //               // yuml object diagram text, wrap into img
-         //               String imgText = "<img src='http://yuml.me/diagram/scale:80/class/objDiagramText' />\n";
-         //               imgText = imgText.replaceFirst("objDiagramText", content);
-         //               text.append(imgText);
-         //            }
-         //            else 
          if (content.startsWith("<"))
          {
             // already html
@@ -417,6 +409,9 @@ public class Storyboard implements PropertyChangeInterface
 
          copyMap.decode(largestJsonArray);
 
+         coverPOClasses(copyMap);
+         coverSetClasses(copyMap);
+         
          for (String key : copyMap.getKeys())
          {
             Object object = copyMap.getObject(key);
@@ -430,9 +425,6 @@ public class Storyboard implements PropertyChangeInterface
             removeMethod.invoke(object);
          }
 
-         coverPOClasses();
-         coverSetClasses();
-
       }
       catch (Exception e)
       {
@@ -441,18 +433,18 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   private void coverPOClasses()
+   private void coverPOClasses(JsonIdMap copyMap)
    {
       // loop through objects in jsonIdMap, pack them into pattern object, read and write all attributes
 
       Pattern pattern = null;
       Class patternClass = null;
       
-      for (String key : jsonIdMap.keySet())
+      for (String key : copyMap.keySet())
       {
-         Object object = jsonIdMap.getObject(key);
+         Object object = copyMap.getObject(key);
 
-         SendableEntityCreator creatorClass = jsonIdMap.getCreatorClass(object);
+         SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
 
          String className = object.getClass().getName();
          String packageName = CGUtil.packageName(className) + ".creators";
@@ -552,9 +544,6 @@ public class Storyboard implements PropertyChangeInterface
             pattern.removeAllFromElements();
             pattern.setHasMatch(true);
             
-            
-            
-                              
             //
             //                  // get direct value
             //                  if (value instanceof Collection)
@@ -584,14 +573,14 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
-   private void coverSetClasses()
+   private void coverSetClasses(JsonIdMap copyMap)
    {
       // loop through objects in jsonIdMap, pack them into set, read and write all attributes
-      for (String key : jsonIdMap.keySet())
+      for (String key : copyMap.keySet())
       {
-         Object object = jsonIdMap.getObject(key);
+         Object object = copyMap.getObject(key);
 
-         SendableEntityCreator creatorClass = jsonIdMap.getCreatorClass(object);
+         SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
 
          String className = object.getClass().getName();
          String packageName = CGUtil.packageName(className) + ".creators";
@@ -665,7 +654,7 @@ public class Storyboard implements PropertyChangeInterface
          }
          catch (Exception e)
          {
-            // no prolem, just lower coverage
+            // no problem, just lower coverage
             // e.printStackTrace();
          }
       }
