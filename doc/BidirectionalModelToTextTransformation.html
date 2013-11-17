@@ -58,18 +58,18 @@ The students are:
 </pre></p>
 <p><a name = 'step_2'>Step 2: Text to model.</a></p><pre>      String otherUniDescription = 
             "The Study False University has many rooms and some students:n" + 
-            " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]n" + 
-            " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]n" + 
-            " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]n" + 
-            "The students are:n" + 
-            " - Bart has immatrikulation number 111 and is in the laws room.n" + 
-            " - Rosi has immatrikulation number 112.n";
+                  " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]n" + 
+                  " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]n" + 
+                  " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]n" + 
+                  "The students are:n" + 
+                  " - Bart has immatrikulation number 111 and is in the laws room.n" + 
+                  " - Rosi has immatrikulation number 112.n";
 
       LinkedHashMap<String, String> placeholderValues = CGUtil.find(otherUniDescription, 0,
          "The example University has 99 rooms and 88 students:n", 
          "example", 
          "99", 
-         "88");
+            "88");
 
       String uniName = placeholderValues.get("example");
 
@@ -84,7 +84,7 @@ The students are:
             " - The roomName room has 42 credits. It is connected to rooms: roomListn", 
             "roomName", 
             "42", 
-            "roomList");
+               "roomList");
 
          match = placeholderValues.size() > 1;
 
@@ -112,7 +112,7 @@ The students are:
             placeholderValues = CGUtil.find(otherUniDescription, searchPos,
                " - Lee has immatrikulation number 1234.n", 
                "Lee", 
-               "1234");
+                  "1234");
 
             match = placeholderValues.size() > 1;
 
@@ -128,8 +128,8 @@ The students are:
                placeholderValues = CGUtil.find(matrNo, 0,
                   "1234 and is in the math room", 
                   "1234", 
-                  "math");
-               
+                     "math");
+
                if (placeholderValues.size() > 1)
                {
                   student.withMatrNo(Integer.valueOf(placeholderValues.get("1234")))

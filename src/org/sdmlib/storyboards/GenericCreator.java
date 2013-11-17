@@ -120,6 +120,7 @@ public class GenericCreator extends EntityFactory
       {
          return null;
       }
+
       try
       {
          Class<?> clazz = Class.forName(className);
@@ -132,8 +133,22 @@ public class GenericCreator extends EntityFactory
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
-         // e.printStackTrace();
+         try
+         {
+            Class<?> clazz = Class.forName(className);
+            
+            Method method = clazz.getMethod(attribute);
+            
+            Object invoke = method.invoke(entity);
+            
+            return invoke;
+         }
+         catch (Exception e2)
+         {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+         }
+         
       }
       
       return super.getValue(entity, attribute);

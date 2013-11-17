@@ -24,6 +24,12 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.transformations.creators.LinkOpPOCreator());
          creatorSet.add(new org.sdmlib.models.transformations.creators.StatementCreator());
          creatorSet.add(new org.sdmlib.models.transformations.creators.StatementPOCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.TemplateCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.TemplatePOCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.PlaceHolderDescriptionCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPOCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.ObjectCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.ObjectPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -39,4 +45,5 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 

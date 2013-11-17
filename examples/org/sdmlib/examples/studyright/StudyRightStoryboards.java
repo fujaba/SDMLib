@@ -7,6 +7,7 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.models.debug.FlipBook;
+import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -314,18 +315,18 @@ public class StudyRightStoryboards
       storyboard.markCodeStart();
       String otherUniDescription = 
             "The Study False University has many rooms and some students:\n" + 
-            " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]\n" + 
-            " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]\n" + 
-            " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]\n" + 
-            "The students are:\n" + 
-            " - Bart has immatrikulation number 111 and is in the laws room.\n" + 
-            " - Rosi has immatrikulation number 112.\n";
+                  " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]\n" + 
+                  " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]\n" + 
+                  " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]\n" + 
+                  "The students are:\n" + 
+                  " - Bart has immatrikulation number 111 and is in the laws room.\n" + 
+                  " - Rosi has immatrikulation number 112.\n";
 
       LinkedHashMap<String, String> placeholderValues = CGUtil.find(otherUniDescription, 0,
          "The example University has 99 rooms and 88 students:\n", 
          "example", 
          "99", 
-         "88");
+            "88");
 
       String uniName = placeholderValues.get("example");
 
@@ -340,7 +341,7 @@ public class StudyRightStoryboards
             " - The roomName room has 42 credits. It is connected to rooms: roomList\n", 
             "roomName", 
             "42", 
-            "roomList");
+               "roomList");
 
          match = placeholderValues.size() > 1;
 
@@ -368,7 +369,7 @@ public class StudyRightStoryboards
             placeholderValues = CGUtil.find(otherUniDescription, searchPos,
                " - Lee has immatrikulation number 1234.\n", 
                "Lee", 
-               "1234");
+                  "1234");
 
             match = placeholderValues.size() > 1;
 
@@ -384,8 +385,8 @@ public class StudyRightStoryboards
                placeholderValues = CGUtil.find(matrNo, 0,
                   "1234 and is in the math room", 
                   "1234", 
-                  "math");
-               
+                     "math");
+
                if (placeholderValues.size() > 1)
                {
                   student.withMatrNo(Integer.valueOf(placeholderValues.get("1234")))
@@ -404,6 +405,80 @@ public class StudyRightStoryboards
       storyboard.add("Results in the following object structure:");
 
       storyboard.addObjectDiagram(falseUni);
+
+      storyboard.dumpHTML();
+   }
+
+   @Test
+   public void testBidirectionalModelToTextTransformation2()
+   {
+      Storyboard storyboard = new Storyboard("examples");
+
+
+      //=============================================================
+      storyboard.addStep("We start with the usual StudyRight object model.");
+
+      University uni = new University()
+      .withName("StudyRight");
+
+      Student albert = uni.createStudents()
+            .withMatrNo(4242)
+            .withName("Albert");
+
+      Student nina = uni.createStudents()
+            .withMatrNo(2323)
+            .withName("Nina");
+
+      Room mathRoom = uni.createRooms()
+            .withRoomNo("math")
+            .withCredits(42)  
+            .withStudents(albert); 
+
+      Room artsRoom = uni.createRooms()
+            .withRoomNo("arts")
+            .withCredits(23)
+            .withNeighbors(mathRoom); 
+
+      Room sportsRoom = uni.createRooms()
+            .withRoomNo("sports")
+            .withCredits(23)
+            .withNeighbors(mathRoom, artsRoom); 
+
+      Room examRoom = uni.createRooms()
+            .withRoomNo("exam")
+            .withCredits(0)
+            .withNeighbors(sportsRoom, artsRoom);
+
+      Room progMeth = uni.createRooms()
+            .withRoomNo("ProgMeth")
+            .withCredits(42)
+            .withNeighbors(artsRoom, examRoom);
+
+      storyboard.addObjectDiagram(uni);
+
+
+      //=============================================================
+      storyboard.addStep("Use text templates to generate a natural language description of the object model.");
+
+      storyboard.markCodeStart();
+
+      Template rootTemplate = new Template()
+      .with("The example University has 99 rooms and 88 students: roomList The students are: studentList ",
+            uni,
+            "example", "name", 
+            "99", "rooms.size", 
+            "88", "students.size");
+      
+      rootTemplate.generate();
+      
+      storyboard.addCode();
+
+      storyboard.addObjectDiagram(rootTemplate);
+
+      storyboard.add("Results in the following text:");
+      storyboard.add("<pre>" + rootTemplate.getExpandedText() + "</pre>");
+      
+
 
       storyboard.dumpHTML();
    }

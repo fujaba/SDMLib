@@ -44,7 +44,9 @@
         {"id":"KE.K153"},
         {"id":"KE.K157"},
         {"id":"KE.K159"},
-        {"id":"KE.K168"}
+        {"id":"KE.K168"},
+        {"id":"KE.K170"},
+        {"id":"KE.K172"}
       ],
       "logEntries":[
         {"id":"KE.L5"},
@@ -819,6 +821,34 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L169"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K170",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"BidirectionalModelToTextTransformation2",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L171"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K172",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"modelToTextToModelClassModel",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L173"}
       ],
       "oldNoOfLogEntries":1
     }
@@ -2214,6 +2244,26 @@
     "prop":{
       "date":"26.10.2013 12:00:00",
       "kanbanEntry":{"id":"KE.K168"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L171",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"16.11.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K170"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L173",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.11.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K172"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

@@ -11,6 +11,12 @@ import org.sdmlib.models.transformations.creators.LinkOpPO;
 import org.sdmlib.models.transformations.LinkOp;
 import org.sdmlib.models.transformations.creators.StatementPO;
 import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.creators.TemplatePO;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.creators.ObjectPO;
+import java.lang.Object;
 
 public class ModelPattern extends Pattern
 {
@@ -145,6 +151,79 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public TemplatePO hasElementTemplatePO()
+   {
+      TemplatePO value = new TemplatePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public TemplatePO hasElementTemplatePO(Template hostGraphObject)
+   {
+      TemplatePO value = new TemplatePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public PlaceHolderDescriptionPO hasElementPlaceHolderDescriptionPO()
+   {
+      PlaceHolderDescriptionPO value = new PlaceHolderDescriptionPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PlaceHolderDescriptionPO hasElementPlaceHolderDescriptionPO(PlaceHolderDescription hostGraphObject)
+   {
+      PlaceHolderDescriptionPO value = new PlaceHolderDescriptionPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public ObjectPO hasElementObjectPO()
+   {
+      ObjectPO value = new ObjectPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ObjectPO hasElementObjectPO(Object hostGraphObject)
+   {
+      ObjectPO value = new ObjectPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
