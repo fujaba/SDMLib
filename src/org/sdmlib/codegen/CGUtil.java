@@ -253,7 +253,7 @@ public class CGUtil
    public static LinkedHashMap<String, String> find(String newText, int searchPos, String pattern, Object... objects)
    {
       // the pattern contains placeholders and constant text fragments. Match the constant fragments in the new text. 
-      // Assing the content in between to the placeholders
+      // Assign the content in between to the placeholders
       
       LinkedHashMap<String, ObjectSet> placeholderTargets = new LinkedHashMap<String, ObjectSet>();
       

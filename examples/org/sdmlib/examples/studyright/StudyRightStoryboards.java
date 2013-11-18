@@ -7,6 +7,7 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.models.debug.FlipBook;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
@@ -464,22 +465,63 @@ public class StudyRightStoryboards
 
       Template rootTemplate = new Template()
       .with("The example University has 99 rooms and 88 students: roomList The students are: studentList ",
-            uni,
-            "example", "name", 
-            "99", "rooms.size", 
-            "88", "students.size");
+         uni,
+         "example", University.PROPERTY_NAME, 
+         "99", University.PROPERTY_ROOMS +  ".size", 
+         "88", University.PROPERTY_STUDENTS + ".size");
+
+      Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("roomList", University.PROPERTY_ROOMS)
+            .with(
+               " - The xy room has 42 credits. It is connected to rooms: neighbors",
+               null, 
+               "xy", Room.PROPERTY_ROOMNO,
+               "42", Room.PROPERTY_CREDITS)
+               .withList("\n", "\n", "\n");
+
+      Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("neighbors", Room.PROPERTY_NEIGHBORS)
+            .with(
+               "name",
+               null, 
+               "name", Room.PROPERTY_ROOMNO)
+               .withList("", ", ", ".");
       
-      rootTemplate.generate();
-      
-      storyboard.addCode();
+      Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("studentList", University.PROPERTY_STUDENTS)
+            .with(
+               " - Stud has student number 1234.",
+               null, 
+               "Stud", Student.PROPERTY_NAME,
+               "1234", Student.PROPERTY_MATRNO)
+               .withList("\n", "\n", "\n");
 
       storyboard.addObjectDiagram(rootTemplate);
 
+      rootTemplate.generate();
+
+      storyboard.addCode();
+
       storyboard.add("Results in the following text:");
       storyboard.add("<pre>" + rootTemplate.getExpandedText() + "</pre>");
+
+      storyboard.addStep("Use templates to parse text into object model");
       
+      storyboard.markCodeStart();
 
+      rootTemplate.setExpandedText(
+         "The Study False University has many rooms and some students:\n" + 
+               " - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n" + 
+               " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n" + 
+               " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n" + 
+               "The students are:\n" + 
+               " - Bart has immatrikulation number 111.\n" + 
+               " - Meggie has immatrikulation number 112.\n");
 
+      rootTemplate.parse();
+      
+      storyboard.addCode();
+      
       storyboard.dumpHTML();
    }
 

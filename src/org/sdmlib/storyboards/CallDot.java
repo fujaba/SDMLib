@@ -48,8 +48,15 @@ public class CallDot {
 	         docDir.mkdirs();
 	      }
 
-	      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
-	     	  command = new String [] {"../SDMLib.net/tools/makeimage.bat", imgName};
+	      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) 
+	      {
+	     	  String makeimageFile = "../SDMLib.net/tools/makeimage.bat";
+	     	  
+	     	  if ( ! new File(makeimageFile).exists())
+	     	  {
+	     	     makeimageFile = "../SDMLib/SDMLib.net/tools/makeimage2.bat";
+	     	  }
+	     	  command = new String [] {makeimageFile, imgName};
 	      }
 	      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
 	    	  command = new String [] {"../SDMLib.net/tools/Graphviz/osx_lion/makeimage.command", imgName};
