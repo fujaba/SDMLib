@@ -1,0 +1,63 @@
+package org.sdmlib.models.transformations.creators;
+
+import org.sdmlib.models.transformations.creators.CreatorCreator;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.transformations.Template;
+
+public class TemplateCreator extends EntityFactory
+{
+   private final String[] properties = new String[]
+   {
+      Template.PROPERTY_TEMPLATETEXT,
+      Template.PROPERTY_MODELOBJECT,
+      Template.PROPERTY_MODELCLASSNAME,
+      Template.PROPERTY_PLACEHOLDERS,
+      Template.PROPERTY_PLACEHOLDERDESCRIPTION,
+      Template.PROPERTY_EXPANDEDTEXT,
+      Template.PROPERTY_LISTSTART,
+      Template.PROPERTY_LISTSEPARATOR,
+      Template.PROPERTY_LISTEND,
+   };
+   
+   public String[] getProperties()
+   {
+      return properties;
+   }
+   
+   public Object getSendableInstance(boolean reference)
+   {
+      return new Template();
+   }
+   
+   public Object getValue(Object target, String attrName)
+   {
+      return ((Template) target).get(attrName);
+   }
+   
+   public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      return ((Template) target).set(attrName, value);
+   }
+   
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Template) entity).removeYou();
+   }
+}
+
+
+

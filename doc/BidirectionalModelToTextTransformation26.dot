@@ -1,0 +1,93 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+t9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t9 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = "The example University has 99 rooms and 88 students: roomList The students are: studentList "</td></tr><tr><td align='left'>modelClassName = "org.sdmlib.examples.studyright.University"</td></tr><tr><td align='left'>expandedText = "The StudyRight University has 5 rooms and 2 students: 
+ - The math room has 42 credits. It is connected to rooms: arts, sports.
+ - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
+ - The sports room has 23 credits. It is connected to rooms: math, arts, exam.
+ - The exam room has 0 credits. It is connected to rooms: sports, arts, ProgMeth.
+ - The ProgMeth room has 42 credits. It is connected to rooms: arts, exam.
+ The students are: 
+ - Albert has student number 4242.
+ - Nina has student number 2323.
+ "</td></tr><tr><td align='left'>listStart = ""</td></tr><tr><td align='left'>listSeparator = ""</td></tr><tr><td align='left'>listEnd = ""</td></tr></table></td></tr></table>>];
+u1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/University.java"> <u>u1 :University</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "StudyRight"</td></tr></table></td></tr></table>>];
+s2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Student.java"> <u>s2 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Albert"</td></tr><tr><td align='left'>matrNo = 4242</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 0</td></tr></table></td></tr></table>>];
+r3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r3 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "math"</td></tr><tr><td align='left'>credits = 42</td></tr></table></td></tr></table>>];
+r4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r4 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "arts"</td></tr><tr><td align='left'>credits = 23</td></tr></table></td></tr></table>>];
+r5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r5 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "sports"</td></tr><tr><td align='left'>credits = 23</td></tr></table></td></tr></table>>];
+r6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r6 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "exam"</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+r7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r7 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "ProgMeth"</td></tr><tr><td align='left'>credits = 42</td></tr></table></td></tr></table>>];
+s8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Student.java"> <u>s8 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Nina"</td></tr><tr><td align='left'>matrNo = 2323</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 0</td></tr></table></td></tr></table>>];
+p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p10 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "example"</td></tr><tr><td align='left'>attrName = "name"</td></tr></table></td></tr></table>>];
+p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p11 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "99"</td></tr><tr><td align='left'>attrName = "rooms.size"</td></tr></table></td></tr></table>>];
+p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p12 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "88"</td></tr><tr><td align='left'>attrName = "students.size"</td></tr></table></td></tr></table>>];
+p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p13 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "roomList"</td></tr><tr><td align='left'>attrName = "rooms"</td></tr></table></td></tr></table>>];
+t14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t14 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = " - The xy room has 42 credits. It is connected to rooms: neighbors"</td></tr><tr><td align='left'>modelClassName = "org.sdmlib.examples.studyright.Room"</td></tr><tr><td align='left'>expandedText = "
+ - The math room has 42 credits. It is connected to rooms: arts, sports.
+ - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
+ - The sports room has 23 credits. It is connected to rooms: math, arts, exam.
+ - The exam room has 0 credits. It is connected to rooms: sports, arts, ProgMeth.
+ - The ProgMeth room has 42 credits. It is connected to rooms: arts, exam.
+"</td></tr><tr><td align='left'>listStart = "
+"</td></tr><tr><td align='left'>listSeparator = "
+"</td></tr><tr><td align='left'>listEnd = "
+"</td></tr></table></td></tr></table>>];
+p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p15 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "xy"</td></tr><tr><td align='left'>attrName = "roomNo"</td></tr></table></td></tr></table>>];
+p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p16 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "42"</td></tr><tr><td align='left'>attrName = "credits"</td></tr></table></td></tr></table>>];
+p17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p17 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "neighbors"</td></tr><tr><td align='left'>attrName = "neighbors"</td></tr></table></td></tr></table>>];
+t18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t18 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = "name"</td></tr><tr><td align='left'>modelClassName = "org.sdmlib.examples.studyright.Room"</td></tr><tr><td align='left'>expandedText = "arts, exam."</td></tr><tr><td align='left'>listStart = ""</td></tr><tr><td align='left'>listSeparator = ", "</td></tr><tr><td align='left'>listEnd = "."</td></tr></table></td></tr></table>>];
+p19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p19 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "name"</td></tr><tr><td align='left'>attrName = "roomNo"</td></tr></table></td></tr></table>>];
+p20 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p20 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "studentList"</td></tr><tr><td align='left'>attrName = "students"</td></tr></table></td></tr></table>>];
+t21 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t21 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = " - Stud has student number 1234."</td></tr><tr><td align='left'>modelClassName = "org.sdmlib.examples.studyright.Student"</td></tr><tr><td align='left'>expandedText = "
+ - Albert has student number 4242.
+ - Nina has student number 2323.
+"</td></tr><tr><td align='left'>listStart = "
+"</td></tr><tr><td align='left'>listSeparator = "
+"</td></tr><tr><td align='left'>listEnd = "
+"</td></tr></table></td></tr></table>>];
+p22 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p22 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "Stud"</td></tr><tr><td align='left'>attrName = "name"</td></tr></table></td></tr></table>>];
+p23 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p23 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "1234"</td></tr><tr><td align='left'>attrName = "matrNo"</td></tr></table></td></tr></table>>];
+
+t9 -- u1 [headlabel = "modelObject" taillabel = ""];
+t9 -- p10 [headlabel = "placeholders" taillabel = "template"];
+t9 -- p11 [headlabel = "placeholders" taillabel = "template"];
+t9 -- p12 [headlabel = "placeholders" taillabel = "template"];
+t9 -- p13 [headlabel = "placeholders" taillabel = "template"];
+t9 -- p20 [headlabel = "placeholders" taillabel = "template"];
+u1 -- s2 [headlabel = "students" taillabel = "uni"];
+u1 -- s8 [headlabel = "students" taillabel = "uni"];
+u1 -- r3 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r4 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r5 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r6 [headlabel = "rooms" taillabel = "uni"];
+u1 -- r7 [headlabel = "rooms" taillabel = "uni"];
+s2 -- r3 [headlabel = "in" taillabel = "students"];
+r3 -- r4 [headlabel = "neighbors" taillabel = "neighbors"];
+r3 -- r5 [headlabel = "neighbors" taillabel = "neighbors"];
+r4 -- r5 [headlabel = "neighbors" taillabel = "neighbors"];
+r4 -- r6 [headlabel = "neighbors" taillabel = "neighbors"];
+r4 -- r7 [headlabel = "neighbors" taillabel = "neighbors"];
+r5 -- r6 [headlabel = "neighbors" taillabel = "neighbors"];
+r6 -- r7 [headlabel = "neighbors" taillabel = "neighbors"];
+p13 -- t14 [headlabel = "subTemplate" taillabel = "placeholderDescription"];
+t14 -- r3 [headlabel = "modelObject" taillabel = ""];
+t14 -- r4 [headlabel = "modelObject" taillabel = ""];
+t14 -- r5 [headlabel = "modelObject" taillabel = ""];
+t14 -- r6 [headlabel = "modelObject" taillabel = ""];
+t14 -- r7 [headlabel = "modelObject" taillabel = ""];
+t14 -- p15 [headlabel = "placeholders" taillabel = "template"];
+t14 -- p16 [headlabel = "placeholders" taillabel = "template"];
+t14 -- p17 [headlabel = "placeholders" taillabel = "template"];
+p17 -- t18 [headlabel = "subTemplate" taillabel = "placeholderDescription"];
+t18 -- r4 [headlabel = "modelObject" taillabel = ""];
+t18 -- r6 [headlabel = "modelObject" taillabel = ""];
+t18 -- p19 [headlabel = "placeholders" taillabel = "template"];
+p20 -- t21 [headlabel = "subTemplate" taillabel = "placeholderDescription"];
+t21 -- s2 [headlabel = "modelObject" taillabel = ""];
+t21 -- s8 [headlabel = "modelObject" taillabel = ""];
+t21 -- p22 [headlabel = "placeholders" taillabel = "template"];
+t21 -- p23 [headlabel = "placeholders" taillabel = "template"];
+}

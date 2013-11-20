@@ -1,0 +1,16 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _Template [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../test/org/sdmlib/models/transformations/Template.java">Template</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>templateText :String</td></tr> <tr><td align='left'>expandedText :String</td></tr> <tr><td align='left'>modelObject :Object</td></tr> <tr><td align='left'>modelClassName :String</td></tr> <tr><td align='left'>listStart :String</td></tr> <tr><td align='left'>listSeparator :String</td></tr> <tr><td align='left'>listEnd :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _PlaceHolderDescription [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../test/org/sdmlib/models/transformations/PlaceHolderDescription.java">PlaceHolderDescription</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>textFragment :String</td></tr> <tr><td align='left'>value :String</td></tr> <tr><td align='left'>attrName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Object [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../test/java/lang/Object.java">Object</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _Template -> _PlaceHolderDescription [headlabel = "placeholders *" taillabel = "template" arrowhead = "none" ];
+    _PlaceHolderDescription -> _Template [headlabel = "subTemplate" taillabel = "placeholderDescription" arrowhead = "none" ];
+    _Template -> _Object [headlabel = "modelObject" taillabel = "" arrowhead = "vee" ];
+}

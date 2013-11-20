@@ -1,0 +1,59 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<body>
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation2</a></p>
+<p>BidirectionalModelToTextTransformation2</p>
+<p>Start: We start with the usual StudyRight object model.</p>
+<embed type="image/svg+xml" src='BidirectionalModelToTextTransformation23.svg'>
+<p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><embed type="image/svg+xml" src='BidirectionalModelToTextTransformation25.svg'>
+<pre>
+      Template rootTemplate = new Template()
+      .with("The example University has 99 rooms and 88 students: roomList The students are: studentList ",
+         uni,
+         "example", University.PROPERTY_NAME, 
+         "99", University.PROPERTY_ROOMS +  ".size", 
+         "88", University.PROPERTY_STUDENTS + ".size");
+
+      Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("roomList", University.PROPERTY_ROOMS)
+            .with(
+               " - The xy room has 42 credits. It is connected to rooms: neighbors",
+               null, 
+               "xy", Room.PROPERTY_ROOMNO,
+               "42", Room.PROPERTY_CREDITS)
+               .withList("n", "n", "n");
+
+      Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("neighbors", Room.PROPERTY_NEIGHBORS)
+            .with(
+               "name",
+               null, 
+               "name", Room.PROPERTY_ROOMNO)
+               .withList("", ", ", ".");
+      
+      Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withPlaceholderDescription("studentList", University.PROPERTY_STUDENTS)
+            .with(
+               " - Stud has student number 1234.",
+               null, 
+               "Stud", Student.PROPERTY_NAME,
+               "1234", Student.PROPERTY_MATRNO)
+               .withList("n", "n", "n");
+
+      storyboard.addObjectDiagram(rootTemplate);
+
+      rootTemplate.generate();
+
+</pre><p>Results in the following text:</p>
+<pre>The StudyRight University has 5 rooms and 2 students: 
+ - The math room has 42 credits. It is connected to rooms: arts, sports.
+ - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
+ - The sports room has 23 credits. It is connected to rooms: math, arts, exam.
+ - The exam room has 0 credits. It is connected to rooms: sports, arts, ProgMeth.
+ - The ProgMeth room has 42 credits. It is connected to rooms: arts, exam.
+ The students are: 
+ - Albert has student number 4242.
+ - Nina has student number 2323.
+ </pre>
+</body>
+</html>
