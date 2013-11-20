@@ -22,6 +22,7 @@ package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.junit.Test;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
+import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
@@ -150,8 +151,116 @@ public class StoryboardTests {
 
 
       //================ Create HTML
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
+   }
+   
+   @Test
+   public void testStudyRightObjectModelSerialisation()
+   {
+      Storyboard storyboard = new Storyboard();
+      
+      storyboard.add("How to serialize an object model to json and how to read json into an object model");
+      
+      storyboard.addStep("Example object structure:");
+      
+      University university = new University()
+      .withName("StudyRight");
+
+      Student karli = university.createStudents()
+            .withId("4242")
+            .withName("Karli");
+
+      Assignment a1 = new Assignment()
+      .withContent("Matrix Multiplication")
+      .withPoints(5);
+
+      Assignment a2 = new Assignment()
+      .withContent("Series")
+      .withPoints(6);
+
+      Assignment a3 = new Assignment()
+      .withContent("Integrals")
+      .withPoints(8);
+
+      Room mathRoom = university.createRooms()
+            .withName("senate")
+            .withTopic("math")
+            .withCredits(17)  
+            .withStudents(karli)
+            .withAssignments(a1, a2, a3);
+
+      Room artsRoom = university.createRooms()
+            .withName("7522")
+            .withTopic("arts")
+            .withCredits(16)
+            .withDoors(mathRoom); 
+
+      Room sportsRoom = university.createRooms()
+            .withName("gymnasium")
+            .withTopic("sports")
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom); 
+
+      Room examRoom = university.createRooms()
+            .withName("The End")
+            .withTopic("exam")
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
+
+      Room softwareEngineering = university.createRooms()
+            .withName("7422")
+            .withTopic("Software Engineering")
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
+
+      storyboard.addObjectDiagram(
+         "studyRight", university, 
+         "karli", "icons/karli.png", karli, 
+         "mathRoom", "icons/mathRoom.png", mathRoom, 
+         "artsRoom", artsRoom,
+         "sportsRoom", sportsRoom, 
+         "examRoom", examRoom, 
+         "placeToBe", softwareEngineering, 
+         "icons/matrix.png", a1, 
+         "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
+
+      
+      //=====================================================
+      storyboard.addStep("Serialize to json:");
+      
+      storyboard.markCodeStart();
+      
+      JsonIdMap idMap = UniversityCreator.createIdMap("demo");
+      
+      JsonArray jsonArray = idMap.toJsonArray(university);
+      
+      String jsonText = jsonArray.toString(3);
+      
+      // you might write jsonText into a file
+      
+      storyboard.addCode();
+      
+      storyboard.add("Results in:");
+      
+      storyboard.add("<pre>" + jsonText + "</pre>");
+      
+      
+      //=====================================================
+      storyboard.addStep("Now read it back again");
+      
+      storyboard.markCodeStart();
+      
+      // read jsonText from file
+      JsonArray readJsonArray = new JsonArray().withValue(jsonText);
+      
+      JsonIdMap readerMap = UniversityCreator.createIdMap("demo");
+      
+      Object rootObject = readerMap.decode(readJsonArray);
+      
+      storyboard.addCode();
+      
+      storyboard.addObjectDiagram(rootObject);
+      
+      storyboard.dumpHTML();
    }
 }
