@@ -90,7 +90,7 @@ public class StoryboardTests {
       storyboard.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 
-         "mathRoom", "icons/mathRoom.png", mathRoom, 
+         "mathRoom", "icons/mathroom.png", mathRoom, 
          "artsRoom", artsRoom,
          "sportsRoom", sportsRoom, 
          "examRoom", examRoom, 
@@ -216,7 +216,7 @@ public class StoryboardTests {
       storyboard.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 
-         "mathRoom", "icons/mathRoom.png", mathRoom, 
+         "mathRoom", "icons/mathroom.png", mathRoom, 
          "artsRoom", artsRoom,
          "sportsRoom", sportsRoom, 
          "examRoom", examRoom, 

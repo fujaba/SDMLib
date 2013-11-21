@@ -25,7 +25,7 @@
 </g>
 <!-- mathRoom -->
 <g id="node2" class="node"><title>mathRoom</title>
-<image xlink:href="icons/mathRoom.png" width="85px" height="63px" preserveAspectRatio="xMinYMin meet" x="170" y="-277"/>
+<image xlink:href="icons/mathroom.png" width="85px" height="63px" preserveAspectRatio="xMinYMin meet" x="170" y="-277"/>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="168,-196 168,-212 257,-212 257,-196 168,-196"/>
 <text text-anchor="start" x="175.5" y="-202" font-family="Times New Roman,serif" font-size="10.00"> </text>
