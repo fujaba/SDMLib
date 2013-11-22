@@ -54,6 +54,19 @@
  The students are: 
  - Albert has student number 4242.
  - Nina has student number 2323.
- </pre>
+ </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
+      rootTemplate.setExpandedText(
+         "The Study False University has many rooms and some students: n" + 
+               " - The class diagrams room has 23 credits. It is connected to rooms: laws, business.n" + 
+               " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.n" + 
+               " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.n " + 
+               "The students are: n" + 
+               " - Bart has immatrikulation number 111.n" + 
+               " - Meggie has immatrikulation number 112.n");
+
+      rootTemplate.parse();
+      
+</pre><embed type="image/svg+xml" src='BidirectionalModelToTextTransformation211.svg'>
+
 </body>
 </html>

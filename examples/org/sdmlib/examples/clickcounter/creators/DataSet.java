@@ -26,6 +26,8 @@ import org.sdmlib.examples.clickcounter.Data;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import org.sdmlib.examples.clickcounter.creators.IntegerPropertySet;
+import javafx.beans.property.IntegerProperty;
 
 public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -83,5 +85,28 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
       return this;
    }
 
+   public IntegerPropertySet getFxnum()
+   {
+      IntegerPropertySet result = new IntegerPropertySet();
+      
+      for (Data obj : this)
+      {
+         result.add(obj.getFxnum());
+      }
+      
+      return result;
+   }
+
+   public DataSet withFxnum(IntegerProperty value)
+   {
+      for (Data obj : this)
+      {
+         obj.setFxnum(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

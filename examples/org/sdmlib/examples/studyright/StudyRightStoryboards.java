@@ -510,17 +510,19 @@ public class StudyRightStoryboards
       storyboard.markCodeStart();
 
       rootTemplate.setExpandedText(
-         "The Study False University has many rooms and some students:\n" + 
+         "The Study False University has many rooms and some students: \n" + 
                " - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n" + 
                " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n" + 
-               " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n" + 
-               "The students are:\n" + 
+               " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n " + 
+               "The students are: \n" + 
                " - Bart has immatrikulation number 111.\n" + 
                " - Meggie has immatrikulation number 112.\n");
 
       rootTemplate.parse();
       
       storyboard.addCode();
+      
+      storyboard.addObjectDiagram(rootTemplate.getModelObject());
       
       storyboard.dumpHTML();
    }

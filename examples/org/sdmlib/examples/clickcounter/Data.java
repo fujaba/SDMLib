@@ -38,6 +38,11 @@ public class Data implements PropertyChangeInterface
          return getNum();
       }
 
+      if (PROPERTY_FXNUM.equalsIgnoreCase(attrName))
+      {
+         return getFxnum();
+      }
+
       return null;
    }
 
@@ -49,6 +54,12 @@ public class Data implements PropertyChangeInterface
       if (PROPERTY_NUM.equalsIgnoreCase(attrName))
       {
          setNum(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_FXNUM.equalsIgnoreCase(attrName))
+      {
+         setFxnum((javafx.beans.property.IntegerProperty) value);
          return true;
       }
 
@@ -114,5 +125,33 @@ public class Data implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_FXNUM = "fxnum";
+   
+   private javafx.beans.property.IntegerProperty fxnum;
+
+   public javafx.beans.property.IntegerProperty getFxnum()
+   {
+      return this.fxnum;
+   }
+   
+   public void setFxnum(javafx.beans.property.IntegerProperty value)
+   {
+      if (this.fxnum != value)
+      {
+         javafx.beans.property.IntegerProperty oldValue = this.fxnum;
+         this.fxnum = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FXNUM, oldValue, value);
+      }
+   }
+   
+   public Data withFxnum(javafx.beans.property.IntegerProperty value)
+   {
+      setFxnum(value);
+      return this;
+   } 
 }
 

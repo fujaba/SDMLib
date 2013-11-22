@@ -210,7 +210,7 @@ public class Clazz implements PropertyChangeInterface
 
          insertConstants();
          
-         if ( !isInterfaze() )
+         if ( !isInterfaze())
          {
             insertGenericGetSet();
             insertSuperClass();
@@ -468,7 +468,7 @@ public class Clazz implements PropertyChangeInterface
                      "\n"
                      );
 
-         if (superClass != null) {
+         if (superClass != null && !superClass.isExternal()) {
 
             CGUtil.replaceAll(text,"\n   }",  "\n      super.removeYou();\n   }");
 

@@ -56,6 +56,12 @@ public class ClickCounter extends Application
      
       dataLabel.textProperty().bind(beanProperty.asString());
             
+      Label fxdataLabel = new Label();
+      
+      grid.add(fxdataLabel, 3, 0);
+      
+      fxdataLabel.textProperty().bind(data.getFxnum().asString());
+      
       Button button = new Button("Clicke Me");
       grid.add(button, 1, 1);
       

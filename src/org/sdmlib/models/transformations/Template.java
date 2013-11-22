@@ -309,9 +309,9 @@ public class Template implements PropertyChangeInterface
    public Template createPlaceHolderAndSubTemplate()
    {
       PlaceHolderDescription placeholder = this.createPlaceholders();
-      
+
       Template subTemplate = placeholder.createSubTemplate();
-      
+
       return subTemplate;
    }
 
@@ -501,78 +501,160 @@ public class Template implements PropertyChangeInterface
       setExpandedText(value);
       return this;
    }
-   
+
+
+   private  int valueStartPos = 0;
+
+   public Template withValueStartPos(int valueStartPos)
+   {
+      this.valueStartPos = valueStartPos;
+      return this;
+   }
 
    public void parse()
    {
+      if ("".equals(this.getListStart()+this.getListSeparator()+this.getListEnd()))
+      {
+         parseOnce();
+      }
+      else
+      {
+         // look for list start
+         int listStartPos = this.getExpandedText().indexOf(this.getListStart(), valueStartPos);
+
+         if (listStartPos >= 0)
+         {
+            valueStartPos = valueStartPos + getListStart().length();
+
+            LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<>();
+
+            boolean found = parseOnce();
+
+            while (found)
+            {  
+               // add to results
+               modelObjectSet.add(this.getModelObject());
+
+               // skip list separator
+               int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
+
+               found = listSeperatorPos >= 0;
+
+               if (found)
+               {
+                  // more to come
+                  found = parseOnce();
+               }
+            }
+
+            // skip list end
+            int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
+
+            if (listEndPos >= 0)
+            {
+               valueStartPos = valueStartPos + getListEnd().length();
+            }
+         }
+      }
+   }
+
+   public boolean parseOnce()
+   {
       // the templateText contains placeholders and constant text fragments. Match the constant fragments in the expanded text. 
       // Assign the content in between to the placeholders
-      
+
       int placeHolderPos = 0;
       int searchPos = 0;
-      
+
       int constantStartPos = 0;
-      int valueStartPos = 0;
-      int valueEndPos = 0;
-      int expandedSearchPos = 0;
-      
+
+
       PlaceHolderDescription previousPlaceHolder;
-      
+
       // split template text into fragments and identify fragments in expanded text
-      
+
       Iterator<PlaceHolderDescription> iterator = this.getPlaceholders().iterator();
       if (iterator.hasNext())
       {
          PlaceHolderDescription placeholder = iterator.next();
-         
+
          // find constant fragment before placeholder
          placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
-         
+
          String constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
-         
+
          searchPos = placeHolderPos + placeholder.getTextFragment().length();
-         
+
          // find fragment in expanded text
          constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
+
+         if (constantStartPos < 0)
+         {
+            return false;
+         }
+
          valueStartPos = constantStartPos + constfragment.length();
-         
+
          SendableEntityCreator creator = this.idMap.getCreatorClasses(this.getModelClassName());
- 
+
          boolean first = true;
 
          while (iterator.hasNext())
          {
             previousPlaceHolder = placeholder;
-            
+
             placeholder = iterator.next();
-            
-            // find constant fragment before placeholder
-            placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
-            
-            constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
-            
-            searchPos = placeHolderPos + placeholder.getTextFragment().length();
-            
-            // find fragment in expanded text
-            constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
-            
-            String value = this.getExpandedText().substring(valueStartPos, constantStartPos);
-            
-            valueStartPos = constantStartPos + constfragment.length();
-            
-            
-            if (first)
+
+            Template subTemplate = previousPlaceHolder.getSubTemplate();
+            if (subTemplate != null)
             {
-               first = false;
-               // create object and assign attribute
-            
-               this.setModelObject(creator.getSendableInstance(false));
+               // ask subtemplate to parse
+               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(valueStartPos)
+               .parse();
+
+               creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
             }
-            
-            creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+            else
+            {
+               // find constant fragment before placeholder
+               placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
+
+               constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
+
+               searchPos = placeHolderPos + placeholder.getTextFragment().length();
+
+               // find fragment in expanded text
+               constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
+
+               String value = this.getExpandedText().substring(valueStartPos, constantStartPos);
+
+               valueStartPos = constantStartPos + constfragment.length();
+
+
+               if (first)
+               {
+                  first = false;
+
+                  // look for object in idMap
+                  Object object = idMap.get(value);
+
+                  if (object == null)
+                  {
+                     // create object and assign attribute
+                     object = creator.getSendableInstance(false);
+                     
+                     idMap.put(value, object);
+                  }    
+
+                  this.setModelObject(object);
+               }
+
+               creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+            }
          }
       }
-      
+
+      return true;
    } 
 
 
@@ -595,7 +677,7 @@ public class Template implements PropertyChangeInterface
       }
 
       result.append(this.getListStart());
-      
+
       boolean first = true;
 
       for (Object root : rootObjects)
@@ -609,9 +691,9 @@ public class Template implements PropertyChangeInterface
          {
             result.append(this.getListSeparator());
          }
-         
+
          int searchPos = 0;
-         
+
          // expand template
          for (PlaceHolderDescription placeholder : this.getPlaceholders())
          {
@@ -645,13 +727,13 @@ public class Template implements PropertyChangeInterface
                searchPos = foundPos + placeholder.getTextFragment().length();
             }
          }
-         
+
          // append closing text fragment
          result.append(this.getTemplateText().substring(searchPos));
       }
 
       result.append(this.getListEnd());
-      
+
       this.setExpandedText(result.toString());
    }
 
@@ -795,7 +877,7 @@ public class Template implements PropertyChangeInterface
    public Template withPlaceholderDescription(String textFragment, String attrName)
    {
       this.getPlaceholderDescription().withTextFragment(textFragment).withAttrName(attrName);
-      
+
       return this;
    }
 

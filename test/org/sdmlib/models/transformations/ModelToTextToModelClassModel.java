@@ -30,7 +30,8 @@ public class ModelToTextToModelClassModel
             .withAttributes(
                "textFragment", R.STRING,
                "value", R.STRING,
-               "attrName", R.STRING);
+               "attrName", R.STRING,
+               "isKeyAttribute", R.BOOLEAN);
       
       placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "placeholderDescription", R.ONE);
       

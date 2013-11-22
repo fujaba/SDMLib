@@ -10,6 +10,7 @@ public class DataCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Data.PROPERTY_NUM,
+      Data.PROPERTY_FXNUM,
    };
    
    public String[] getProperties()
@@ -50,4 +51,5 @@ public class DataCreator extends EntityFactory
       ((Data) entity).removeYou();
    }
 }
+
 

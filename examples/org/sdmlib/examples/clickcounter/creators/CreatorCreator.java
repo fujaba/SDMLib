@@ -16,6 +16,8 @@ public class CreatorCreator
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
          creatorSet.add(new org.sdmlib.examples.clickcounter.creators.DataCreator());
          creatorSet.add(new org.sdmlib.examples.clickcounter.creators.DataPOCreator());
+         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyCreator());
+         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -31,4 +33,5 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 

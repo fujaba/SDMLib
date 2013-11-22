@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescription> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -172,5 +173,28 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return this;
    }
 
+   public booleanList getIsKeyAttribute()
+   {
+      booleanList result = new booleanList();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.add(obj.getIsKeyAttribute());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet withIsKeyAttribute(boolean value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.setIsKeyAttribute(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

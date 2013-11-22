@@ -14,6 +14,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       PlaceHolderDescription.PROPERTY_ATTRNAME,
       PlaceHolderDescription.PROPERTY_TEMPLATE,
       PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
+      PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE,
    };
    
    public String[] getProperties()
@@ -54,4 +55,5 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       ((PlaceHolderDescription) entity).removeYou();
    }
 }
+
 

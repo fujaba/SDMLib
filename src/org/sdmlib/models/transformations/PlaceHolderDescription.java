@@ -60,6 +60,11 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return getSubTemplate();
       }
 
+      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
+      {
+         return getIsKeyAttribute();
+      }
+
       return null;
    }
 
@@ -95,6 +100,12 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
       {
          setSubTemplate((Template) value);
+         return true;
+      }
+
+      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
+      {
+         setIsKeyAttribute((Boolean) value);
          return true;
       }
 
@@ -348,6 +359,34 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       Template value = new Template();
       withSubTemplate(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ISKEYATTRIBUTE = "isKeyAttribute";
+   
+   private boolean isKeyAttribute;
+
+   public boolean getIsKeyAttribute()
+   {
+      return this.isKeyAttribute;
+   }
+   
+   public void setIsKeyAttribute(boolean value)
+   {
+      if (this.isKeyAttribute != value)
+      {
+         boolean oldValue = this.isKeyAttribute;
+         this.isKeyAttribute = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ISKEYATTRIBUTE, oldValue, value);
+      }
+   }
+   
+   public PlaceHolderDescription withIsKeyAttribute(boolean value)
+   {
+      setIsKeyAttribute(value);
+      return this;
    } 
 }
 

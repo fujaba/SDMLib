@@ -190,5 +190,38 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
+   public PlaceHolderDescriptionPO hasIsKeyAttribute(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getIsKeyAttribute()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) getCurrentMatch()).getIsKeyAttribute();
+      }
+      return false;
+   }
+   
+   public PlaceHolderDescriptionPO withIsKeyAttribute(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((PlaceHolderDescription) getCurrentMatch()).setIsKeyAttribute(value);
+      }
+      return this;
+   }
+   
 }
+
 

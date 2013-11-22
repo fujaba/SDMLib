@@ -66,6 +66,28 @@ public class Method implements PropertyChangeInterface
       setSignature(value);
       return this;
    } 
+   
+ //==========================================================================
+
+   public static final String PROPERTY_MODIFIER = "modifier";
+
+   private String modifier = "public";
+
+   public String getModifier()
+   {
+      return this.modifier;
+   }
+
+   public void setModifier(String value)
+   {
+      this.modifier = value;
+   }
+
+   public Method withModifier(String value)
+   {
+      setModifier(value);
+      return this;
+   }
 
 
    public static final MethodSet EMPTY_SET = new MethodSet();
@@ -355,7 +377,7 @@ public class Method implements PropertyChangeInterface
             "returnSetAdd ", returnSetAdd,
             " returnSetAddEnd", returnSetAddEnd,
             "returnStat", returnStat,
-            "modifiers", "public", 
+            "modifiers", modifier, 
             "returnType", type,
             "methodName", methodName,
             "memberType", CGUtil.shortClassName(clazz2.getName()),
@@ -541,7 +563,7 @@ public class Method implements PropertyChangeInterface
          }
          
          CGUtil.replaceAll(text, 
-            "modifiers", "public", 
+            "modifiers", modifier, 
             "returnType", returnType,
             "mehodName", methodName,
             "parameter", parameter, 
