@@ -90,4 +90,3 @@ public class DataPO extends PatternObject<DataPO, Data>
    
 }
 
-
