@@ -17,8 +17,8 @@
 	<property name="SimpleUniProject.location" value="../../../work/fm/ObjectsFirstBook/models/SimpleUniProject" />
 	<property name="junit.output.dir" value="junit" />
 	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.6" />
-	<property name="source" value="1.6" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
 	<property name="coverage.meta.dir" value="emma" />
 	<property name="coverage.report.dir" value="emmareports" />
 	<property name="emma.filter" value="" />
