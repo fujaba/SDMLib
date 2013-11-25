@@ -504,6 +504,11 @@ public class Template implements PropertyChangeInterface
 
 
    private  int valueStartPos = 0;
+   
+   public int getValueStartPos()
+   {
+      return valueStartPos;
+   }
 
    public Template withValueStartPos(int valueStartPos)
    {
@@ -513,13 +518,15 @@ public class Template implements PropertyChangeInterface
 
    public void parse()
    {
-      if ("".equals(this.getListStart()+this.getListSeparator()+this.getListEnd()))
+      if ( ! isList())
       {
          parseOnce();
       }
       else
       {
-         // look for list start
+         int oldValueStartPos = 0;
+         
+            // look for list start
          int listStartPos = this.getExpandedText().indexOf(this.getListStart(), valueStartPos);
 
          if (listStartPos >= 0)
@@ -528,6 +535,7 @@ public class Template implements PropertyChangeInterface
 
             LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<>();
 
+            oldValueStartPos = valueStartPos;
             boolean found = parseOnce();
 
             while (found)
@@ -537,23 +545,35 @@ public class Template implements PropertyChangeInterface
 
                // skip list separator
                int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
+               int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
 
-               found = listSeperatorPos >= 0;
+               found = listSeperatorPos == valueStartPos;
 
                if (found)
                {
                   // more to come
+                  valueStartPos = valueStartPos + listSeparator.length();
+                  
+                  oldValueStartPos = valueStartPos;
                   found = parseOnce();
                }
+               else
+               {
+                  oldValueStartPos = valueStartPos;
+               }
             }
+            
+            valueStartPos = oldValueStartPos;
 
             // skip list end
             int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
 
-            if (listEndPos >= 0)
+            if (listEndPos == valueStartPos)
             {
                valueStartPos = valueStartPos + getListEnd().length();
             }
+            
+            this.setModelObject(modelObjectSet);
          }
       }
    }
@@ -572,7 +592,6 @@ public class Template implements PropertyChangeInterface
       PlaceHolderDescription previousPlaceHolder;
 
       // split template text into fragments and identify fragments in expanded text
-
       Iterator<PlaceHolderDescription> iterator = this.getPlaceholders().iterator();
       if (iterator.hasNext())
       {
@@ -599,33 +618,107 @@ public class Template implements PropertyChangeInterface
 
          boolean first = true;
 
-         while (iterator.hasNext())
+         while (true)
          {
             previousPlaceHolder = placeholder;
 
-            placeholder = iterator.next();
+            if (iterator.hasNext())
+            {
+               placeholder = iterator.next();
+            }
+            else 
+            {
+               placeholder = null;
+            }
+            
+            // find constant fragment before placeholder
+            if (placeholder != null)
+            {
+               placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
+            }
+            else
+            {
+               placeHolderPos = this.getTemplateText().length();
+            }
+            
+            constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
 
+            if (placeholder != null)
+            {
+               searchPos = placeHolderPos + placeholder.getTextFragment().length();
+            }
+
+            
+            
             Template subTemplate = previousPlaceHolder.getSubTemplate();
             if (subTemplate != null)
             {
                // ask subtemplate to parse
-               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(valueStartPos)
+               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(valueStartPos).withIdMap(idMap)
                .parse();
+               
+               if (subTemplate.isList())
+               {
+                  for (Object value : (Collection) subTemplate.getModelObject())
+                  {
+                     creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+                  }
+               }
+               else
+               {
+                  creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
+               }
+               
+               this.valueStartPos = subTemplate.getValueStartPos();
+               
+               // now the constant fragment should follow
+               constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
 
-               creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
+               if (constantStartPos < 0)
+               {
+                  return false;
+               }
+               
+               if (constantStartPos == valueStartPos)
+               {
+                  valueStartPos = valueStartPos + constfragment.length();
+               }
+               else 
+               {
+                  return false;
+               }
             }
             else
             {
-               // find constant fragment before placeholder
-               placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
-
-               constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
-
-               searchPos = placeHolderPos + placeholder.getTextFragment().length();
-
                // find fragment in expanded text
                constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
 
+               if (constantStartPos < 0)
+               {
+                  return false;
+               }
+               
+               if (constantStartPos == valueStartPos)
+               {
+                  // empty constfragment, look for list separator 
+                  int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
+                  int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
+                  
+                  if (listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
+                  {
+                     constantStartPos = listSeparatorPos;
+                  }
+                  else if (listEndPos >= 0)
+                  {
+                     constantStartPos = listEndPos;
+                  }
+                  else
+                  {
+                     return false;
+                  }
+               }
+
+               
                String value = this.getExpandedText().substring(valueStartPos, constantStartPos);
 
                valueStartPos = constantStartPos + constfragment.length();
@@ -636,7 +729,7 @@ public class Template implements PropertyChangeInterface
                   first = false;
 
                   // look for object in idMap
-                  Object object = idMap.get(value);
+                  Object object = idMap.getObject(value);
 
                   if (object == null)
                   {
@@ -651,11 +744,32 @@ public class Template implements PropertyChangeInterface
 
                creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
             }
+            
+            if (placeholder == null)
+            {
+               break;
+            }
          }
+         
+         
       }
 
       return true;
    } 
+
+
+   private boolean isList()
+   {
+      return ! "".equals(this.getListStart()+this.getListSeparator()+this.getListEnd());
+   }
+
+
+   private Template withIdMap(JsonIdMap idMap2)
+   {
+      this.idMap = idMap2;
+      
+      return this;
+   }
 
 
    public void generate()

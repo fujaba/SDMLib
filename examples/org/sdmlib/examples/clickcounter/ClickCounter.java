@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -46,7 +47,7 @@ public class ClickCounter extends Application
       GridPane grid = new GridPane();
       
       Label label = new Label("Button has been clicked: ");
-      grid.add(label, 0, 0);
+      grid.add(label, 1, 0);
       
       Label dataLabel = new Label();
       
@@ -58,12 +59,13 @@ public class ClickCounter extends Application
             
       Label fxdataLabel = new Label();
       
-      grid.add(fxdataLabel, 3, 0);
+      fxdataLabel.setTextAlignment(TextAlignment.RIGHT);
+      grid.add(fxdataLabel, 2, 1);
       
       fxdataLabel.textProperty().bind(data.getFxnum().asString());
       
       Button button = new Button("Clicke Me");
-      grid.add(button, 1, 1);
+      grid.add(button, 2, 2);
       
       button.setOnMouseClicked(new EventHandler<Event>()
       {
@@ -72,6 +74,9 @@ public class ClickCounter extends Application
          public void handle(Event arg0)
          {
             data.setNum(data.getNum() + 1);
+            
+            data.getFxnum().set(data.getFxnum().get()+1);
+            
             System.out.println("now: " + data.getNum());
          }
       });

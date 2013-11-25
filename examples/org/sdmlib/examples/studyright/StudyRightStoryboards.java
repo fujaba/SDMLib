@@ -424,7 +424,7 @@ public class StudyRightStoryboards
 
       Student albert = uni.createStudents()
             .withMatrNo(4242)
-            .withName("Albert");
+            .withName("Tom");
 
       Student nina = uni.createStudents()
             .withMatrNo(2323)
@@ -515,8 +515,8 @@ public class StudyRightStoryboards
                " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n" + 
                " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n " + 
                "The students are: \n" + 
-               " - Bart has immatrikulation number 111.\n" + 
-               " - Meggie has immatrikulation number 112.\n");
+               " - Bart has student number 111.\n" + 
+               " - Meggie has student number 112.\n ");
 
       rootTemplate.parse();
       

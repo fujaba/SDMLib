@@ -22,8 +22,11 @@
 package org.sdmlib.examples.clickcounter;
 
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Data implements PropertyChangeInterface
 {
@@ -131,7 +134,7 @@ public class Data implements PropertyChangeInterface
    
    public static final String PROPERTY_FXNUM = "fxnum";
    
-   private javafx.beans.property.IntegerProperty fxnum;
+   private javafx.beans.property.IntegerProperty fxnum = new SimpleIntegerProperty();
 
    public javafx.beans.property.IntegerProperty getFxnum()
    {

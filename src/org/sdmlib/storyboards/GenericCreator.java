@@ -93,9 +93,9 @@ public class GenericCreator extends EntityFactory
 
    private Object protoType = null;
    @Override
-   public Object getSendableInstance(boolean prototyp)
+   public Object getSendableInstance(boolean usePrototype)
    {
-      if (protoType == null)
+      if (protoType == null || usePrototype == false)
       {
          try
          {
@@ -162,6 +162,23 @@ public class GenericCreator extends EntityFactory
       {
          return false;
       }
+      
+      try
+      {
+         Class<?> clazz = Class.forName(className);
+         
+         Method method = clazz.getMethod("set", String.class, Object.class);
+         
+         Object invoke = method.invoke(entity, attribute, value);
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         // TODO Auto-generated catch block
+         // e.printStackTrace();
+      }
+      
       try
       {
          Class<?> clazz = Class.forName(className);
@@ -169,6 +186,24 @@ public class GenericCreator extends EntityFactory
          Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), value.getClass());
          
          Object invoke = method.invoke(entity, value);
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         // TODO Auto-generated catch block
+         // e.printStackTrace();
+      }
+      
+      // maybe a number
+      try
+      {
+         int intValue = Integer.parseInt((String) value);
+         Class<?> clazz = Class.forName(className);
+         
+         Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), int.class);
+         
+         Object invoke = method.invoke(entity, intValue);
          
          return true;
       }
