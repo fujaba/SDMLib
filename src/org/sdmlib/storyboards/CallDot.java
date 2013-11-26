@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 public class CallDot {
 	private static void writeToFile(String imgName, String fileText) throws IOException
@@ -50,13 +51,18 @@ public class CallDot {
 
 	      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) 
 	      {
-	     	  String makeimageFile = "../SDMLib.net/tools/makeimage.bat";
-	     	  
-	     	  if ( ! new File(makeimageFile).exists())
-	     	  {
-	     	     makeimageFile = "../SDMLib/SDMLib.net/tools/makeimage2.bat";
-	     	  }
-	     	  command = new String [] {makeimageFile, imgName};
+	    	  URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
+	    	  File root = new File(""+absolutePath).getParentFile().getParentFile().getParentFile();
+	    	  String rootPath = root.getPath().replace("file:\\", "");
+	    	  String makeimageFile = rootPath+"/tools/makeimage.bat";
+	    	  
+//	    	  makeimage.bat
+//	     	  String makeimageFile = "../SDMLib.net/tools/makeimage.bat";
+//	     	  if ( ! new File(makeimageFile).exists())
+//	     	  {
+//	     	     makeimageFile = "../SDMLib/SDMLib.net/tools/makeimage2.bat";
+//	     	  }
+	     	  command = new String [] {makeimageFile, imgName, rootPath};
 	      }
 	      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
 	    	  command = new String [] {"../SDMLib.net/tools/Graphviz/osx_lion/makeimage.command", imgName};
