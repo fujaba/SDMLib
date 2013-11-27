@@ -31,7 +31,6 @@ import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.beans.PropertyChangeListener;
 
 public class Attribute implements PropertyChangeInterface 
 {

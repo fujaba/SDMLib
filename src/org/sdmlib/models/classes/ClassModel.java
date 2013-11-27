@@ -56,8 +56,6 @@ import org.sdmlib.storyboards.CallDot;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-import java.beans.PropertyChangeListener;
-
 public class ClassModel implements PropertyChangeInterface
 {
 	public static ClassModel classModel = null;

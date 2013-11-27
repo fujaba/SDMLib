@@ -27,7 +27,6 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 
 public class Association implements PropertyChangeInterface

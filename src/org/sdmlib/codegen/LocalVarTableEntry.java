@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.beans.PropertyChangeListener;
 
 public class LocalVarTableEntry implements PropertyChangeInterface
 {
@@ -44,65 +43,65 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+	  int pos = attrName.indexOf('.');
+	  String attribute;
+	  if (pos > 0)
+      {
+		  attribute = attrName.substring(0, pos);
+      }else{
+    	  attribute = attrName;
+      }
+	  
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
       {
          return getInitSequence();
       }
 
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return getType();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
       }
 
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
       {
          return getInitSequence();
       }
 
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return getType();
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return getName();
+      }
+      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return getName();
       }
 
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return getType();
       }
 
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
+      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
       {
          return getInitSequence();
       }
 
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      if (PROPERTY_STARTPOS.equalsIgnoreCase(attribute))
       {
          return getStartPos();
       }
 
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      if (PROPERTY_ENDPOS.equalsIgnoreCase(attribute))
       {
          return getEndPos();
       }

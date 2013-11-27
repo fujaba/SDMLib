@@ -3,7 +3,6 @@ package org.sdmlib.storyboards;
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.utils.StrUtil;
 

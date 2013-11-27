@@ -30,13 +30,10 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
-import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.GenericIdMap;
 
 public class CGUtil 
@@ -63,6 +60,7 @@ public class CGUtil
          PrintStream out = new PrintStream(file);
          out.println(text);
          out.flush();
+         out.close();
       } catch (FileNotFoundException e) {
          e.printStackTrace();
       }
@@ -88,6 +86,7 @@ public class CGUtil
             result.append(line).append('\n');
             line = in.readLine();
          }
+         in.close();
       }
       catch (Exception e)
       {
