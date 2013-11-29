@@ -42,26 +42,14 @@ public class GridStyle extends Style implements SendableEntity{
 	
 	public int getRowEnd(){
 		if(heightExpression!=null){
-			RegCalculator calculator=new RegCalculator().withStandard();
-			calculator.withConstants(COUNT, grid.getCountRows());
-			calculator.withConstants(POSITION, row);
-			double result = (double)calculator.calculate(heightExpression);
-			int end = (int)result;
-			withRowSpan(end-row);
-			return end;
+			return 0;
 		}
 
 		return getRow()+getRowSpan()-1;
 	}
 	public int getColumnEnd(){
 		if(widthExpression!=null){
-			RegCalculator calculator=new RegCalculator().withStandard();
-			calculator.withConstants(COUNT, grid.getCountColumns());
-			calculator.withConstants(POSITION, column);
-			double result = (double)calculator.calculate(widthExpression);
-			int end = (int)result;
-			withColumnSpan(end-column);
-			return end;
+			return 0;
 		}
 		return getColumn()+getColumnSpan()-1;
 	}
