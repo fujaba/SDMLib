@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.gui.GUILine;
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.GUIPosition;
@@ -29,7 +28,7 @@ public class GridStyle extends Style implements SendableEntity{
 	private int columnSpan=1;
 	private int column;
 	private int row;
-	protected ValueGrid grid;
+	private ValueGrid grid;
 	private LinkedHashMap<String, ArrayList<PropertyChangeListener>> listeners=new LinkedHashMap<String, ArrayList<PropertyChangeListener>>();
 	private String selectedBackground=null;
 
@@ -43,14 +42,26 @@ public class GridStyle extends Style implements SendableEntity{
 	
 	public int getRowEnd(){
 		if(heightExpression!=null){
-			return 0;
+			RegCalculator calculator=new RegCalculator().withStandard();
+			calculator.withConstants(COUNT, grid.getCountRows());
+			calculator.withConstants(POSITION, row);
+			double result = (double)calculator.calculate(heightExpression);
+			int end = (int)result;
+			withRowSpan(end-row);
+			return end;
 		}
 
 		return getRow()+getRowSpan()-1;
 	}
 	public int getColumnEnd(){
 		if(widthExpression!=null){
-			return 0;
+			RegCalculator calculator=new RegCalculator().withStandard();
+			calculator.withConstants(COUNT, grid.getCountColumns());
+			calculator.withConstants(POSITION, column);
+			double result = (double)calculator.calculate(widthExpression);
+			int end = (int)result;
+			withColumnSpan(end-column);
+			return end;
 		}
 		return getColumn()+getColumnSpan()-1;
 	}
