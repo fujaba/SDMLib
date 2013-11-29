@@ -30,18 +30,29 @@ package org.sdmlib.serialization.sort;
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.Comparator;
+
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.gui.table.TableList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class EntityComparator implements Comparator<Object> {
 	public static String IDMAP = "%idmap%";
-	public static String HASHCODE = "%HASHCODE%";
+	public static String HASHCODE = "%hashcode%";
+	public static String LIST = "%list%";
 
 	private SortingDirection direction = SortingDirection.ASC;
 	private String column = IDMAP;
 	private IdMap map;
 	private EntityValueFactory cellCreator = new EntityValueFactory();
+	private TableList owner;
+	protected SendableEntityCreator creator;
+	
+	public EntityComparator withTableList(TableList owner){
+		this.owner = owner;
+		this.column = LIST;
+		return this;
+	}
 
 	@Override
 	public int compare(Object o1, Object o2) {
@@ -49,20 +60,19 @@ public class EntityComparator implements Comparator<Object> {
 	}
 
 	public int compareValue(Object o1, Object o2) {
- 		SendableEntityCreator c1 = null;
 		if (map != null) {
-			c1 = map.getCreatorClass(o1);
+			creator = map.getCreatorClass(o1);
 			SendableEntityCreator c2 = map.getCreatorClass(o2);
-			if (c1 != c2) {
-				c1 = null;
+			if (creator != c2) {
+				creator = null;
 			}
 		}
-		if (c1 == null) {
+		if (creator == null) {
 			return checkIntern(o1, o2);
 		}
 
-		Object v1 = cellCreator.getCellValue(o1, c1, column);
-		Object v2 = cellCreator.getCellValue(o2, c1, column);
+		Object v1 = cellCreator.getCellValue(o1, creator, column);
+		Object v2 = cellCreator.getCellValue(o2, creator, column);
 		if (v1 == null && v2 == null) {
 			return checkIntern(o1, o2);
 		}
@@ -108,7 +118,7 @@ public class EntityComparator implements Comparator<Object> {
 			}
 		} else if (v1 instanceof Boolean) {
 			Boolean valueA = (Boolean) v1;
-			Boolean valueB = (Boolean) cellCreator.getCellValue(o2, c1, column);
+			Boolean valueB = (Boolean) cellCreator.getCellValue(o2, creator, column);
 			if (valueA != null) {
 				if (valueB != null) {
 					int value = valueB.compareTo(valueA);
@@ -136,6 +146,10 @@ public class EntityComparator implements Comparator<Object> {
 
 		if (o1.equals(o2)) {
 			return 0;
+		}
+		
+		if(LIST.equalsIgnoreCase(column) && owner != null) {
+			return owner.indexOf(o1)-owner.indexOf(o2);
 		}
 
 		// KEY IN IDMAP

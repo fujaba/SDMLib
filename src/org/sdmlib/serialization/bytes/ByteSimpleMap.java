@@ -33,12 +33,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.sdmlib.serialization.AbstractIdMap;
+import org.sdmlib.serialization.AbstractMap;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.bytes.creator.BitEntityCreator;
 import org.sdmlib.serialization.interfaces.BufferedBytes;
 
-public class ByteSimpleMap extends AbstractIdMap {
+public class ByteSimpleMap extends AbstractMap {
 	public Object decode(BufferedBytes buffer, BitEntityCreator creator) {
 		HashMap<String, Object> values = new HashMap<String, Object>();
 		BitEntity[] bitProperties = creator.getBitProperties();

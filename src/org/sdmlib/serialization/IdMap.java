@@ -46,7 +46,7 @@ import org.sdmlib.serialization.json.UpdateListener;
  * The Class IdMap.
  */
 
-public abstract class IdMap extends AbstractIdMap implements Map<String, Object> {
+public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	/** The Constant ID. */
 	public static final String ID = "id";
 
@@ -424,7 +424,7 @@ public abstract class IdMap extends AbstractIdMap implements Map<String, Object>
 	}
 
 	@Override
-	public AbstractIdMap withCreator(String className, SendableEntityCreator creator) {
+	public AbstractMap withCreator(String className, SendableEntityCreator creator) {
 		if (this.parent != null) {
 			this.parent.withCreator(className, creator);
 			return this;

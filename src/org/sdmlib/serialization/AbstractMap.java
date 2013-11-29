@@ -35,8 +35,12 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+/**
+ *AbstractIdMap embedded all methods for all formats.
+ *
+ */
 
-public abstract class AbstractIdMap {
+public abstract class AbstractMap {
 	/** The creators. */
 	protected HashMap<String, SendableEntityCreator> creators = new HashMap<String, SendableEntityCreator>();
 
@@ -87,7 +91,7 @@ public abstract class AbstractIdMap {
 	 * @param creatorSet the creater class
 	 * @return true, if successful
 	 */
-	public AbstractIdMap withCreator(Collection<SendableEntityCreator> creatorSet) {
+	public AbstractMap withCreator(Collection<SendableEntityCreator> creatorSet) {
 		for (SendableEntityCreator sendableEntityCreator : creatorSet) {
 			withCreator(sendableEntityCreator);
 		}
@@ -103,7 +107,7 @@ public abstract class AbstractIdMap {
 	 *            the creator
 	 * @return AbstractIdMap to interlink arguments
 	 */
-	public AbstractIdMap withCreator(String className, SendableEntityCreator creator) {
+	public AbstractMap withCreator(String className, SendableEntityCreator creator) {
 		this.creators.put(className, creator);
 		return this;
 	}
@@ -115,7 +119,7 @@ public abstract class AbstractIdMap {
 	 *            the creater class
 	 * @return true, if successful
 	 */
-	public AbstractIdMap withCreator(SendableEntityCreator createrClass) {
+	public AbstractMap withCreator(SendableEntityCreator createrClass) {
 		Object reference = createrClass.getSendableInstance(true);
 		if (reference != null) {
 			withCreator(reference.getClass().getName(), createrClass);

@@ -36,7 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.sdmlib.serialization.AbstractIdMap;
+import org.sdmlib.serialization.AbstractMap;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.bytes.converter.ByteConverter;
@@ -157,7 +157,7 @@ public class ByteIdMap extends IdMap {
 	}
 
 	@Override
-	public AbstractIdMap withCreator(String className,
+	public AbstractMap withCreator(String className,
 			SendableEntityCreator createrClass) {
 		super.withCreator(className, createrClass);
 

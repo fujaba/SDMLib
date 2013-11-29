@@ -1,9 +1,5 @@
 package org.sdmlib.serialization.gui;
 
-import java.util.HashMap;
-
-import org.sdmlib.serialization.interfaces.GUIPosition;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 /*
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
@@ -33,6 +29,9 @@ import org.sdmlib.serialization.interfaces.PeerMessage;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import java.util.HashMap;
+import org.sdmlib.serialization.interfaces.GUIPosition;
+import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class Style implements PeerMessage, Cloneable{
 	/** The Constant PROPERTY_BOLD for Bold Attribute */
@@ -75,11 +74,12 @@ public class Style implements PeerMessage, Cloneable{
 	/** The Underline value. */
 	private String alignment;
 	
-	
+	/** The Constant PROPERTY_WIDTH for Width of Width */
 	public static final String PROPERTY_WIDTH = "width";
 	/** The Width value. */
 	private double width;
 
+	/** The Constant PROPERTY_HEIGHT for Height of Height */
 	public static final String PROPERTY_HEIGHT = "height";
 	/** The Height value. */
 	private double height;
@@ -256,6 +256,12 @@ public class Style implements PeerMessage, Cloneable{
 		return alignment;
 	}
 
+	public Style withAlignment(GUIPosition value) {
+		String oldValue = this.alignment;
+		this.alignment = ""+value;
+		propertyChange(PROPERTY_ALIGNMENT, oldValue, value);
+		return this;
+	}
 	public Style withAlignment(String value) {
 		String oldValue = this.alignment;
 		this.alignment = value;

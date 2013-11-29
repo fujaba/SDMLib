@@ -33,7 +33,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import org.sdmlib.serialization.AbstractIdMap;
+
+import org.sdmlib.serialization.AbstractMap;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
@@ -94,7 +95,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	}
 	
 	@Override
-	public AbstractIdMap withCreator(String className,
+	public AbstractMap withCreator(String className,
 			SendableEntityCreator createrClass) {
 		super.withCreator(className, createrClass);
 
