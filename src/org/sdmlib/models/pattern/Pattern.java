@@ -446,7 +446,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             if (value instanceof Pattern)
             {
                this.setCurrentSubPattern((Pattern) value);
-               ((Pattern) value).setJsonIdMap(jsonIdMap);
+               ((Pattern) value).setJsonIdMap(this.getJsonIdMap());
             }
          }
       }
@@ -502,7 +502,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public PatternObject bind(Object hostGraphObject)
    {
-      SendableEntityCreator creatorClass = jsonIdMap.getCreatorClasses(getPOClassName(hostGraphObject.getClass().getName()));
+      SendableEntityCreator creatorClass = getJsonIdMap().getCreatorClasses(getPOClassName(hostGraphObject.getClass().getName()));
       
       PatternObject po = (PatternObject) creatorClass.getSendableInstance(false);
       
@@ -529,8 +529,8 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       // generate dot file
       String fileText = "graph ObjectDiagram {\n" +
-            "   node [shape = none, fontsize = 10];\n" +
-            "   edge [fontsize = 10];\n\n" +
+            "   node [shape = none, fontsize = 10, fontname = \"Arial\"];\n" +
+            "   edge [fontsize = 10, fontname = \"Arial\"];\n\n" +
             "<nodes>\n" +
             "<edges>" +
             "}\n";
@@ -597,7 +597,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       // hostgraph
       if ( showMatch && ! matchedObjects.isEmpty())
       {
-         JsonArray jsonArray = jsonIdMap.toJsonArray(matchedObjects.iterator().next()); 
+         JsonArray jsonArray = getJsonIdMap().toJsonArray(matchedObjects.iterator().next()); 
       
          JsonToImg.fillNodeAndEdgeBuilders(diagramName, jsonArray, nodeBuilder, edgeBuilder, false);
       }
@@ -857,7 +857,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             StringBuilder nacBuilder = new StringBuilder(
                "subgraph cluster_nacId \n" + 
                "{\n" + 
-               "   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC nacId</td></tr></table>>;\n" + 
+               "   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib.net/doc/forbiddensign.svg'/></td><td>NAC nacId</td></tr></table>>;\n" + 
                "   color=grey;\n" +
                "\n");
             
@@ -907,7 +907,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             return patObj.getPatternObjectName();
          }
       }
-      return jsonIdMap.getId(patElem).split("\\.")[1].toLowerCase();
+      return getJsonIdMap().getId(patElem).split("\\.")[1].toLowerCase();
    }
 
    private void dumpDiagram(String diagramName, String fileText)

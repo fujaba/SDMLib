@@ -9,7 +9,7 @@ b4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 m5 [label="{b4 != b3}"]
 subgraph cluster_n6 
 {
-   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n6</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib.net/doc/forbiddensign.svg'/></td><td>NAC n6</td></tr></table>>;
    color=grey;
 
 c7 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c7 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> name == "goat" </font></td></tr></table></td></tr></table>>];

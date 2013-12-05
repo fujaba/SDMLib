@@ -33,6 +33,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
@@ -209,7 +210,7 @@ public class Clazz implements PropertyChangeInterface
          insertInterfaces();
 
          insertConstants();
-         
+
          if ( !isInterfaze())
          {
             insertGenericGetSet();
@@ -431,7 +432,7 @@ public class Clazz implements PropertyChangeInterface
                      "   }" +
                      "\n"
                      );
-         
+
          if (getWrapped())
          {
             CGUtil.replaceAll(text,
@@ -820,12 +821,12 @@ public class Clazz implements PropertyChangeInterface
 
 
    Parser parser = null;
-   
+
    public void setParser(Parser parser)
-	{
-		this.parser = parser;
-	}
-   
+   {
+      this.parser = parser;
+   }
+
    Parser creatorParser = null;
 
    private File javaFile;
@@ -858,50 +859,50 @@ public class Clazz implements PropertyChangeInterface
          // try to find existing file
          int pos = name.lastIndexOf('.');
 
-               String packageName = name.substring(0, pos);
-               String fileName = name;
+         String packageName = name.substring(0, pos);
+         String fileName = name;
 
-               String className = name.substring(pos+1);
+         String className = name.substring(pos+1);
 
-               fileName = fileName.replaceAll("\\.", "/");
+         fileName = fileName.replaceAll("\\.", "/");
 
-               fileName = rootDir + "/" + fileName + ".java";
+         fileName = rootDir + "/" + fileName + ".java";
 
-               javaFile = new File(fileName);
+         javaFile = new File(fileName);
 
-               // found old one?
-               if (javaFile.exists())
-               {
-                  fileBody = CGUtil.readFile(javaFile);
-               }
-               else
-               {
-                  System.out.println("generate/modify file for " + fileName);
-                  fileBody = new StringBuilder();
+         // found old one?
+         if (javaFile.exists())
+         {
+            fileBody = CGUtil.readFile(javaFile);
+         }
+         else
+         {
+            System.out.println("generate/modify file for " + fileName);
+            fileBody = new StringBuilder();
 
-                  StringBuilder text = new StringBuilder(
-                     "package packageName;\n" +
-                           "\n" +
-                           "public class className\n" +
-                           "{\n" +
-                        "}\n");
+            StringBuilder text = new StringBuilder(
+               "package packageName;\n" +
+                     "\n" +
+                     "public class className\n" +
+                     "{\n" +
+                  "}\n");
 
-                  if (isInterfaze()) {
-                     CGUtil.replaceAll(text, "public class className", "public interface className");
-                  }
+            if (isInterfaze()) {
+               CGUtil.replaceAll(text, "public class className", "public interface className");
+            }
 
-                  CGUtil.replaceAll(text, 
-                     "className", className, 
-                     "packageName", packageName);
+            CGUtil.replaceAll(text, 
+               "className", className, 
+               "packageName", packageName);
 
-                  fileBody.append(text.toString());
+            fileBody.append(text.toString());
 
-                  setFileHasChanged(true);
-               }
+            setFileHasChanged(true);
+         }
 
-               parser = new Parser()
-               .withFileName(fileName)
-               .withFileBody(fileBody);         
+         parser = new Parser()
+         .withFileName(fileName)
+         .withFileBody(fileBody);         
       }
 
       return parser;
@@ -989,34 +990,34 @@ public class Clazz implements PropertyChangeInterface
                   "}\n");
 
             CGUtil.replaceAll(text, "CreatorCreatorClass", classModel.getCreatorCreatorClassName());
-            
+
             if (getWrapped())
             {
                // wrapped class does not provide generic get / set
                CGUtil.replaceAll(text, 
                   "((entitiyClassName) target).get(attrName)", "null", 
                   "((entitiyClassName) target).set(attrName, value)", "false");
-               
+
                // check if it has a constructor
                ClassLoader classLoader = this.getClass().getClassLoader();
-               
+
                boolean hasConstructor = false;
-               
+
                try
                {
                   Class<?> loadClass = classLoader.loadClass(this.getName());
-                  
+
                   if (loadClass != null)
                   {
                      Constructor<?> constructor = loadClass.getConstructor(null);
-                     
+
                      hasConstructor = constructor != null;
                   }
                }
                catch (Exception e)
                {
                }
-               
+
                if (! hasConstructor)
                {
                   CGUtil.replaceAll(text, 
@@ -1102,21 +1103,33 @@ public class Clazz implements PropertyChangeInterface
          {
             modelSetFileBody = new StringBuilder();
 
-            StringBuilder text = new StringBuilder(
-               "package packageName;\n" +
-                     "\n" +
-                     "import java.util.LinkedHashSet;\n" +
-                     "import fullEntityClassName;\n" +
-                     "\n" +
-                     "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements org.sdmlib.models.modelsets.ModelSet\n" +
-                     "{\n" +
+            StringBuilder text = new StringBuilder("" + 
+                  "package packageName;\n" +
+                  "\n" +
+                  "import java.util.LinkedHashSet;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements org.sdmlib.models.modelsets.ModelSet\n" +
+                  "{\n" + 
+                  "   public Item first()\n" + 
+                  "   {\n" + 
+                  "      for (Item obj : this)\n" + 
+                  "      {\n" + 
+                  "         return obj;\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return null;\n" + 
+                  "   }\n" + 
+                  "" +
                   "}\n");
 
             CGUtil.replaceAll(text, 
                "modelSetClassName", modelSetClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
-               "packageName", packageName);
+               "packageName", packageName,
+               "Item", entitiyClassName
+                  );
 
             modelSetFileBody.append(text.toString());
 
@@ -2042,7 +2055,7 @@ public class Clazz implements PropertyChangeInterface
    }
 
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -2468,17 +2481,17 @@ public class Clazz implements PropertyChangeInterface
    }
 
    private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
-   
+
    public Clazz withConstant(String name, int i)
    {
       StringBuilder decl = new StringBuilder(
          "   public static int string = number;\n"
-         );
-      
+            );
+
       CGUtil.replaceAll(decl, "string", name, "number", "" + i);
-      
+
       constantDecls.put(name, decl.toString());
-      
+
       return this;
    }
 
@@ -2486,12 +2499,12 @@ public class Clazz implements PropertyChangeInterface
    {
       StringBuilder decl = new StringBuilder(
          "   public static String name = \"value\";\n"
-         );
-      
+            );
+
       CGUtil.replaceAll(decl, "name", name, "value", value);
-      
+
       constantDecls.put(name, decl.toString());
-      
+
       return this;
    }
 
@@ -2503,40 +2516,40 @@ public class Clazz implements PropertyChangeInterface
          withConstant(string, i);
          i++;
       }
-      
+
       return this;
    }
 
    public ClazzSet getKidClassesClosure()
    {
       ClazzSet result = this.getKidClasses();
-      
+
       int oldSize = 0;
-      
+
       int newSize = result.size();
-      
+
       while (newSize > oldSize)
       {
          result.addAll(result.getKidClasses());
          oldSize = newSize;
          newSize = result.size();
       }
-      
+
       return result;
    } 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_FILEPATH = "filePath";
-   
+
    private String filePath;
 
    public String getFilePath()
    {
       return this.filePath;
    }
-   
+
    public void setFilePath(String value)
    {
       if ( ! StrUtil.stringEquals(this.filePath, value))
@@ -2546,7 +2559,7 @@ public class Clazz implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_FILEPATH, oldValue, value);
       }
    }
-   
+
    public Clazz withFilePath(String value)
    {
       setFilePath(value);
@@ -2556,7 +2569,7 @@ public class Clazz implements PropertyChangeInterface
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       // _.append(" ").append(this.getFilePath());
       return _.substring(1);

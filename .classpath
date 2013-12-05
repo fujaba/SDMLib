@@ -19,6 +19,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
-	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.7.0_45/jre/lib/jfxrt.jar" sourcepath="/rt-6f8cf45127c6"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

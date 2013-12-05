@@ -47,7 +47,9 @@
         {"id":"KE.K168"},
         {"id":"KE.K170"},
         {"id":"KE.K172"},
-        {"id":"KE.K174"}
+        {"id":"KE.K174"},
+        {"id":"KE.K176"},
+        {"id":"KE.K178"}
       ],
       "logEntries":[
         {"id":"KE.L5"},
@@ -864,6 +866,34 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L175"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K176",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"TTC2011SimpleMigrationViaGenericGraphs",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L177"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K178",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"BanfM2MTransformation",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L179"}
       ],
       "oldNoOfLogEntries":1
     }
@@ -2289,6 +2319,26 @@
     "prop":{
       "date":"20.11.2013 12:00:00",
       "kanbanEntry":{"id":"KE.K174"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L177",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"02.12.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K176"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L179",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"02.12.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K178"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

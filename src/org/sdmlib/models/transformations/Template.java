@@ -34,6 +34,7 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.GenericCreator;
@@ -614,7 +615,7 @@ public class Template implements PropertyChangeInterface
 
          valueStartPos = constantStartPos + constfragment.length();
 
-         SendableEntityCreator creator = this.idMap.getCreatorClasses(this.getModelClassName());
+         SendableEntityCreator creator = this.getIdMap().getCreatorClasses(this.getModelClassName());
 
          boolean first = true;
 
@@ -756,6 +757,16 @@ public class Template implements PropertyChangeInterface
 
       return true;
    } 
+
+
+   private IdMap getIdMap()
+   {
+      if (this.idMap == null)
+      {
+         this.idMap = new GenericIdMap();
+      }
+      return idMap;
+   }
 
 
    private boolean isList()

@@ -22,6 +22,7 @@ import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
@@ -771,6 +772,156 @@ public class HelloWorldTTC2011
    
    //==========================================================================
    @Test
+   public void testTTC2011SimpleMigrationViaGenericGraphs()
+   {  
+      Storyboard storyboard = new Storyboard();
+      
+      storyboard.add("Class diagram for source model:");
+      
+      ClassModel model = new ClassModel();
+      
+      Clazz graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      
+      Clazz edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
+      .withAttribute("name", "String");
+
+      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("name", "String");
+
+      new Association()
+      .withTarget(nodeClazz, "nodes", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", R.ONE)
+      .withSource(edgeClazz, "outEdges", R.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", R.ONE)
+      .withSource(edgeClazz, "inEdges", R.MANY);
+      
+      model.generate("examples", "examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Class diagram for target model:");
+      
+      model = new ClassModel();
+      
+      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      
+      Clazz graphComponentClazz = new Clazz("org.sdmlib.examples.helloworld.GraphComponent")
+      .withAttribute("text", "String");
+      
+      edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
+      .withSuperClass(graphComponentClazz);
+
+      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      .withSuperClass(graphComponentClazz);
+
+      new Association()
+      .withTarget(graphComponentClazz, "gcs", R.MANY)
+      .withSource(graphClazz, "parent", R.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", R.ONE)
+      .withSource(edgeClazz, "outEdges", R.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", R.ONE)
+      .withSource(edgeClazz, "inEdges", R.MANY);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples", "examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Create example source graph: ");
+      
+      Graph graph = createExampleGraph();
+      
+      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());;
+      
+      storyboard.dumpHTML();
+
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
+
+      graph = createExampleGraph();
+
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagramWith(tgtGraph.getNodes(), tgtGraph.getGcs());
+
+   
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Even more evolved class diagram : </h2>");
+
+      model = new ClassModel();
+      
+      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+
+      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("text", "String");
+
+      new Association()
+      .withTarget(nodeClazz, "nodes", R.MANY)
+      .withSource(graphClazz, "graph", R.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "linksTo", R.MANY)
+      .withSource(nodeClazz, "linksFrom", R.MANY);
+      
+      model.generate("examples", "examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      storyboard.add("<hr/>");
+      
+      storyboard.add("Again the input graph:");
+      
+      graph = createExampleGraph();
+      
+      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());
+      
+      storyboard.add("The transformation code:");
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      
+      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagramWith(tgtGraph.getNodes(), tgtGraph.getEdges());
+
+      
+      storyboard.dumpHTML();
+   }
+   
+   
+   //==========================================================================
+   @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
       Storyboard storyboard = new Storyboard("examples");
@@ -967,7 +1118,7 @@ public class HelloWorldTTC2011
       GenericGraph genGraph = new Specific2Generic()
       .convert(CreatorCreator.createIdMap("g1"), origGraph);
       
-      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       // rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
@@ -981,6 +1132,8 @@ public class HelloWorldTTC2011
       
       storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
       
+      // storyboard.add("<hr/>");
+      
       // rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
@@ -991,9 +1144,23 @@ public class HelloWorldTTC2011
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
 
-      storyboard.addObjectDiagram(org.sdmlib.models.objects.creators.CreatorCreator.createIdMap("gg"), genGraph);
+      // storyboard.add("<hr/>");
+      
+      // rename graph--edges links to parent--gcs links
+      new org.sdmlib.models.objects.creators.ModelPattern()
+      .hasElementGenericGraphPO(genGraph)
+      .hasLinks()
+      .hasSrcLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasSrcLabel(Node.PROPERTY_PARENT)
+      .hasTgtLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
       

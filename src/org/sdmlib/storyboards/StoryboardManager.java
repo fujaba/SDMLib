@@ -155,7 +155,18 @@ public class StoryboardManager
       }
 
       // build index 
-      String refHtml = "<html>\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n<body>\ntext\n</body>\n</html>\n";
+      String refHtml = "<html>\n" +
+         "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+         "<style>\n" + 
+         "p\n" + 
+         "{\n" + 
+         "font-family:\"Arial\";\n" + 
+         "}\n" + 
+         "</style>\n" +
+         "<body>\n" + 
+         "text\n" + 
+         "</body>\n" + 
+         "</html>\n";
 
       refHtml = refHtml.replaceFirst("text", refColumnBody.toString());
 
@@ -181,6 +192,12 @@ public class StoryboardManager
          String text = 
                "<html>\n" +
                      "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+                     "<style>\n" + 
+                     "p\n" + 
+                     "{\n" + 
+                     "font-family:\"Arial\";\n" + 
+                     "}\n" + 
+                     "</style>\n" +
                      "<frameset cols='250,*'>\n" +
                      "<frame src='refs.html' name='Index'>\n" +
                      "<frame name='Main'>a</frame>\n" +

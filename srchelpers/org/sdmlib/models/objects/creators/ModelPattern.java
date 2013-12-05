@@ -5,6 +5,7 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class ModelPattern extends Pattern
 {
@@ -12,11 +13,29 @@ public class ModelPattern extends Pattern
    
    public ModelPattern()
    {
-      super(CreatorCreator.createIdMap("hg"));
+      super();
       
       lastPattern = this;
    }
    
+   
+   
+   @Override
+   public JsonIdMap getJsonIdMap()
+   {
+      JsonIdMap jsonIdMap = super.getJsonIdMap();
+      
+      if (jsonIdMap == null)
+      {
+         jsonIdMap = CreatorCreator.createIdMap("hg");
+         setJsonIdMap(jsonIdMap);
+      }
+      
+      return jsonIdMap;
+   }
+
+
+
    public ModelPattern startCreate()
    {
       super.startCreate();

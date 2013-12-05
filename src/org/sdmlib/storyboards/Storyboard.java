@@ -273,6 +273,12 @@ public class Storyboard implements PropertyChangeInterface
       // generate the html text
       String htmlText = "<html>\n" +
             "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+            "<style>\n" + 
+            "p\n" + 
+            "{\n" + 
+            "font-family:\"Arial\";\n" + 
+            "}\n" + 
+            "</style>\n" +
             "<body>\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
             "$text\n" +

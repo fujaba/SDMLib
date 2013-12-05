@@ -96,8 +96,8 @@ public class JsonToImg
       
       // generate dot file
       String fileText = "graph ObjectDiagram {\n" +
-      		"   node [shape = none, fontsize = 10];\n" +
-      		"   edge [fontsize = 10];\n" +
+      		"   node [shape = none, fontsize = 10, fontname = \"Arial\"];\n" +
+      		"   edge [fontsize = 10, fontname = \"Arial\"];\n" +
       		"   compound=true;\n" +
       		"\n" +
       		"<nodes>\n" +

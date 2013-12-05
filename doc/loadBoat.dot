@@ -6,7 +6,7 @@ r1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 b2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> b2 :BoatPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 subgraph cluster_n3 
 {
-   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib.net/doc/forbiddensign.svg'/></td><td>NAC n3</td></tr></table>>;
    color=grey;
 
 c4 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c4 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
@@ -16,7 +16,7 @@ b5 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolo
 c6 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c6 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
 subgraph cluster_n7 
 {
-   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib/doc/forbiddensign.svg'/></td><td>NAC n7</td></tr></table>>;
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib.net/doc/forbiddensign.svg'/></td><td>NAC n7</td></tr></table>>;
    color=grey;
 
 c8 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> c8 :CargoPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> name == "goat" </font></td></tr></table></td></tr></table>>];

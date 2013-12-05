@@ -45,6 +45,30 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       
       return result;
    }
+   
+   public AttributeConstraintSet hasAttrName(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint attributeConstraint : this)
+      {
+         if (attributeConstraint.getAttrName().equals(value))
+         {
+            result.add(attributeConstraint);
+         }
+      }
+      return result;
+   }
+   
+   public AttributeConstraint first()
+   {
+      for (AttributeConstraint obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
    public LinkedHashSet<Object> getTgtValue()
    {

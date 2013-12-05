@@ -21,18 +21,27 @@
    
 package org.sdmlib.examples.groupAccount.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.groupAccount.Item;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.creators.GroupAccountSet;
+
 import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import org.sdmlib.examples.groupAccount.Item;
 import org.sdmlib.examples.groupAccount.Person;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.doubleList;
 
 public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.modelsets.ModelSet
 {
+   public Item first()
+   {
+      for (Item obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
 
    public String toString()
@@ -77,6 +86,21 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       return result;
    }
 
+   public ItemSet hasDescription(String value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value.equals(obj.getDescription()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ItemSet withDescription(String value)
    {
       for (Item obj : this)
@@ -94,6 +118,21 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       for (Item obj : this)
       {
          result.add(obj.getValue());
+      }
+      
+      return result;
+   }
+
+   public ItemSet hasValue(double value)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -121,6 +160,32 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       return result;
    }
 
+   public ItemSet hasParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ItemSet answer = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (neighbors.contains(obj.getParent()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public ItemSet withParent(GroupAccount value)
    {
       for (Item obj : this)
@@ -141,6 +206,32 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       }
       
       return result;
+   }
+
+   public ItemSet hasBuyer(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ItemSet answer = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (neighbors.contains(obj.getBuyer()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public ItemSet withBuyer(Person value)

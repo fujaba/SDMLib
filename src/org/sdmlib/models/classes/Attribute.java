@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -490,8 +491,8 @@ public class Attribute implements PropertyChangeInterface
       if (pos < 0) {
          // need to add property to string array
 
-         StringBuilder text = new StringBuilder(
-            "   public ModelSetType getName()\n"
+         StringBuilder text = new StringBuilder(""
+                  + "   public ModelSetType getName()\n"
                   + "   {\n"
                   + "      ModelSetType result = new ModelSetType();\n"
                   + "      \n"
@@ -501,7 +502,23 @@ public class Attribute implements PropertyChangeInterface
                   + "      }\n" + "      \n"
                   + "      return result;\n" 
                   + "   }\n" 
-                  + "\n");
+                  + "\n"
+                  + 
+                  "   public ObjectSetType hasName(AttrType value)\n" + 
+                  "   {\n" + 
+                  "      ObjectSetType result = new ObjectSetType();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         if (valueComparison)\n" + 
+                  "         {\n" + 
+                  "            result.add(obj);\n" + 
+                  "         }\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return result;\n" + 
+                  "   }\n" + 
+                  "\n");
 
          String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(getType());
@@ -559,13 +576,24 @@ public class Attribute implements PropertyChangeInterface
             }
          }
             
+         String objectSetType = CGUtil.shortClassName(ownerClazz.getName() + "Set");
 
-
+         String valueComparison = "value.equals(obj.get" + StrUtil.upFirstChar(this.getName() + "())");
+         
+         if ( ! R.STRING.equals(this.getType()))
+         {
+            valueComparison = "value == obj.get" + StrUtil.upFirstChar(getName()) + "()";
+         }
+         
          CGUtil.replaceAll(text, "ContentType",
             CGUtil.shortClassName(ownerClazz.getName()),
             "ModelSetType", modelSetType, 
             "Name", StrUtil.upFirstChar(getName()), 
-            "add", add);
+            "add", add, 
+            "ObjectSetType", objectSetType, 
+            "AttrType", this.getType(),
+            "valueComparison", valueComparison
+            );
 
          //			importClassesFromTypes.addAll(checkImportClassesFromType(fullModelSetType));
          //			

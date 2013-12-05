@@ -617,8 +617,8 @@ public class ClassModel implements PropertyChangeInterface
 		// generate dot file
 		StringBuilder dotFileText = new StringBuilder(
 				"\n digraph ClassDiagram {" 
-						+ "\n    node [shape = none, fontsize = 10]; " 
-						+ "\n    edge [fontsize = 10];" 
+						+ "\n    node [shape = none, fontsize = 10, fontname = \"Arial\"]; " 
+						+ "\n    edge [fontsize = 10, fontname = \"Arial\"];" 
 						+ "\n    "
 						+ "\n    modelClasses" 
 						+ "\n    " +

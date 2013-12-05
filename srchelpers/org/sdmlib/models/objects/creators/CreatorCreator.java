@@ -23,6 +23,7 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.objects.creators.GenericAttributePOCreator());
          creatorSet.add(new org.sdmlib.models.objects.creators.GenericLinkCreator());
          creatorSet.add(new org.sdmlib.models.objects.creators.GenericLinkPOCreator());
+         creatorSet.add(new org.sdmlib.models.objects.creators.ModelPatternCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       

@@ -26,12 +26,24 @@ import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.examples.groupAccount.Item;
 
 public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.sdmlib.models.modelsets.ModelSet
 {
+   public GroupAccount first()
+   {
+      for (GroupAccount obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
 
    public String toString()
@@ -101,6 +113,32 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
       return result;
    }
 
+   public GroupAccountSet hasPersons(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GroupAccountSet answer = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getPersons()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public GroupAccountSet withPersons(Person value)
    {
       for (GroupAccount obj : this)
@@ -131,6 +169,32 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
       }
       
       return result;
+   }
+
+   public GroupAccountSet hasItems(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GroupAccountSet answer = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getItems()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public GroupAccountSet withItems(Item value)

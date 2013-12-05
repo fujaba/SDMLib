@@ -22,11 +22,14 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -339,9 +342,46 @@ public class Role implements PropertyChangeInterface
             "      }\n" + 
             "      \n" + 
             "      return result;\n" + 
-            "   }\n\n"
+            "   }\n" + 
+            "\n" + 
+            "   public ContentTypeSet hasName(Object value)\n" + 
+            "   {\n" + 
+            "      ObjectSet neighbors = new ObjectSet();\n" + 
+            "\n" + 
+            "      if (value instanceof Collection)\n" + 
+            "      {\n" + 
+            "         neighbors.addAll((Collection) value);\n" + 
+            "      }\n" + 
+            "      else\n" + 
+            "      {\n" + 
+            "         neighbors.add(value);\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      ContentTypeSet answer = new ContentTypeSet();\n" + 
+            "      \n" + 
+            "      for (ContentType obj : this)\n" + 
+            "      {\n" + 
+            "         if (containsClause)\n" + 
+            "         {\n" + 
+            "            answer.add(obj);\n" + 
+            "         }\n" + 
+            "      }\n" + 
+            "      \n" + 
+            "      return answer;\n" + 
+            "   }\n" + 
+            "\n" + 
+            ""
             );
 
+         String containsClause = "neighbors.contains(obj.get"
+               + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+         
+         if (partnerRole.getCard().equals(R.MANY.toString()))
+         {
+            containsClause = " ! Collections.disjoint(neighbors, obj.get" 
+                  + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+         }
+         
          String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
          String modelSetType = CGUtil.shortClassName(fullModelSetType);
          
@@ -356,7 +396,8 @@ public class Role implements PropertyChangeInterface
             "ContentType", CGUtil.shortClassName(tgtClass.getName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set",
             "Name", StrUtil.upFirstChar(partnerRole.getName()),
-            "result.add", adderCall
+            "result.add", adderCall,
+            "containsClause", containsClause
             );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
@@ -365,6 +406,9 @@ public class Role implements PropertyChangeInterface
          tgtClass.setModelSetFileHasChanged(true);
          
          tgtClass.insertImport(parser, fullModelSetType);
+         tgtClass.insertImport(parser, Collection.class.getName());
+         tgtClass.insertImport(parser, Collections.class.getName());
+         tgtClass.insertImport(parser, ObjectSet.class.getName());
       }
    }
 

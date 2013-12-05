@@ -27,12 +27,24 @@ import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.examples.groupAccount.creators.GroupAccountSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.examples.groupAccount.Item;
 
 public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
 {
+   public Person first()
+   {
+      for (Person obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
 
    public String toString()
@@ -77,6 +89,21 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return result;
    }
 
+   public PersonSet hasName(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PersonSet withName(String value)
    {
       for (Person obj : this)
@@ -94,6 +121,21 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       for (Person obj : this)
       {
          result.add(obj.getBalance());
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasBalance(double value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value == obj.getBalance())
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -121,6 +163,32 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return result;
    }
 
+   public PersonSet hasParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (neighbors.contains(obj.getParent()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public PersonSet withParent(GroupAccount value)
    {
       for (Person obj : this)
@@ -141,6 +209,32 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       }
       
       return result;
+   }
+
+   public PersonSet hasItems(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getItems()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public PersonSet withItems(Item value)
