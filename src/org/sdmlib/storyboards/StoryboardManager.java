@@ -156,19 +156,14 @@ public class StoryboardManager
 
       // build index 
       String refHtml = "<html>\n" +
-         "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-         "<style>\n" + 
-         "p\n" + 
-         "{\n" + 
-         "font-family:\"Arial\";\n" + 
-         "}\n" + 
-         "</style>\n" +
-         "<body>\n" + 
-         "text\n" + 
-         "</body>\n" + 
-         "</html>\n";
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<body>\n" + 
+            "bodytext\n" + 
+            "</body>\n" + 
+            "</html>\n";
 
-      refHtml = refHtml.replaceFirst("text", refColumnBody.toString());
+      refHtml = refHtml.replaceFirst("bodytext", refColumnBody.toString());
 
       File file = new File ("doc/refs.html");
       try {
@@ -183,8 +178,34 @@ public class StoryboardManager
 
    private void dumpIndexHtml()
    {
-      // ensure index.html
       new File("doc").mkdirs();
+      
+      // ensure style file
+      File styleFile = new File("doc/style.css");
+
+      if ( ! styleFile.exists())
+      {
+         String text = "" + 
+               "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" + 
+               "B {font-weight:bold;}\n" + 
+               "\n" + 
+               "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "\n" + 
+               "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" + 
+               "\n" + 
+               "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "\n" + 
+               "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "";
+         
+         printFile(styleFile, text);
+      }
+
+      // ensure index.html
       File file = new File("doc/index.html");
 
       if ( ! file.exists())
@@ -192,12 +213,7 @@ public class StoryboardManager
          String text = 
                "<html>\n" +
                      "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-                     "<style>\n" + 
-                     "p\n" + 
-                     "{\n" + 
-                     "font-family:\"Arial\";\n" + 
-                     "}\n" + 
-                     "</style>\n" +
+                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
                      "<frameset cols='250,*'>\n" +
                      "<frame src='refs.html' name='Index'>\n" +
                      "<frame name='Main'>a</frame>\n" +
