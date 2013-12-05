@@ -101,4 +101,16 @@ public class StrUtil
 
 		return stringBuilder.toString();
 	}
+	
+	
+	public static String htmlEncode(String input)
+	{
+	   return input
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll("\"", "&quot;")
+            .replaceAll("'", "&#x27;")
+            .replaceAll("/", "&#x2F;");
+ 	}
 }

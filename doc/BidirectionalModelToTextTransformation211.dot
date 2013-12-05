@@ -1,21 +1,14 @@
 graph ObjectDiagram {
-   node [shape = none, fontsize = 10];
-   edge [fontsize = 10];
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
 u24 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/University.java"> <u>u24 :University</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Study False"</td></tr></table></td></tr></table>>];
-s32 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Student.java"> <u>s32 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Bart"</td></tr><tr><td align='left'>matrNo = 111</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 0</td></tr></table></td></tr></table>>];
-s33 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Student.java"> <u>s33 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Meggie"</td></tr><tr><td align='left'>matrNo = 112</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 0</td></tr></table></td></tr></table>>];
 r25 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r25 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "class diagrams"</td></tr><tr><td align='left'>credits = 23</td></tr></table></td></tr></table>>];
-r26 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r26 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "laws"</td></tr><tr><td align='left'>credits = 24</td></tr></table></td></tr></table>>];
-r27 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r27 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "business"</td></tr><tr><td align='left'>credits = 3</td></tr></table></td></tr></table>>];
+r26 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r26 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "laws"</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>uni = ""</td></tr></table></td></tr></table>>];
+r27 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/Room.java"> <u>r27 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "business"</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>uni = ""</td></tr></table></td></tr></table>>];
 
-u24 -- s32 [headlabel = "students" taillabel = "uni"];
-u24 -- s33 [headlabel = "students" taillabel = "uni"];
 u24 -- r25 [headlabel = "rooms" taillabel = "uni"];
-u24 -- r26 [headlabel = "rooms" taillabel = "uni"];
-u24 -- r27 [headlabel = "rooms" taillabel = "uni"];
 r25 -- r26 [headlabel = "neighbors" taillabel = "neighbors"];
 r25 -- r27 [headlabel = "neighbors" taillabel = "neighbors"];
-r26 -- r27 [headlabel = "neighbors" taillabel = "neighbors"];
 }

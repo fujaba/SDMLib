@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
+import org.jfree.text.TextUtilities;
 import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
@@ -1025,7 +1026,7 @@ public class Storyboard implements PropertyChangeInterface
             String line = "";
             int lineNo = 0;
 
-            StringBuilder buf = new StringBuilder("<pre>");
+            StringBuilder buf = new StringBuilder();
 
             while (true)
             {
@@ -1042,7 +1043,7 @@ public class Storyboard implements PropertyChangeInterface
 
                   if (lineNo >= codeEndLineNumber)
                   {
-                     this.add(buf.toString() + "</pre>");
+                     this.add("<pre>" + StrUtil.htmlEncode(buf.toString()) + "</pre>");
                      return;
                   }
                }
@@ -1073,7 +1074,9 @@ public class Storyboard implements PropertyChangeInterface
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
-      String methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
+      String methodText = "<pre>   " + 
+      StrUtil.htmlEncode(parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1)) 
+      + "</pre>";
 
       return methodText;
    }
@@ -1620,6 +1623,14 @@ public class Storyboard implements PropertyChangeInterface
    {
       setStepDoneCounter(value);
       return this;
+   }
+
+   public void addPreformatted(String expandedText)
+   {
+      expandedText = StrUtil.htmlEncode(expandedText);
+         
+      this.add("<pre>" + expandedText + "</pre>");
+      
    } 
 }
 

@@ -548,7 +548,7 @@ public class Template implements PropertyChangeInterface
                int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
                int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
 
-               found = listSeperatorPos == valueStartPos;
+               found = listSeperatorPos == valueStartPos && listSeperatorPos < listEndPos;
 
                if (found)
                {
