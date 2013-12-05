@@ -1,0 +1,19 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10, fontname = "Arial"]; 
+    edge [fontsize = 10, fontname = "Arial"];
+    
+    
+    _Graph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/m2m/Graph.java">Graph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GraphComponent [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/m2m/GraphComponent.java">GraphComponent</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/m2m/Person.java">Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Relation [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/m2m/Relation.java">Relation</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _GraphComponent ->  _Person [dir = "back" arrowtail = "empty"];
+    _GraphComponent ->  _Relation [dir = "back" arrowtail = "empty"];
+    _Graph -> _GraphComponent [headlabel = "gcs *" taillabel = "parent" arrowhead = "none" ];
+    _Relation -> _Person [headlabel = "src" taillabel = "outEdges *" arrowhead = "none" ];
+    _Relation -> _Person [headlabel = "tgt" taillabel = "inEdges *" arrowhead = "none" ];
+}

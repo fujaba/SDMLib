@@ -1,0 +1,22 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10];
+   edge [fontsize = 10];
+   compound=true;
+
+n120 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n120 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n1"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n121 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n121 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n2"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n122 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n122 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n3"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n123 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n123 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n4"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n124 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n124 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n5"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n125 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n125 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n6"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n126 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n126 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n7"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n127 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n127 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n8"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+
+n120 -- n121 [headlabel = "linksTo" taillabel = "linksFrom"];
+n120 -- n122 [headlabel = "linksFrom" taillabel = "linksTo"];
+n121 -- n122 [headlabel = "linksTo" taillabel = "linksFrom"];
+n122 -- n123 [headlabel = "linksTo" taillabel = "linksFrom"];
+n122 -- n124 [headlabel = "linksFrom" taillabel = "linksTo"];
+n123 -- n124 [headlabel = "linksTo" taillabel = "linksFrom"];
+n127 -- n127 [headlabel = "linksTo_linksFrom" taillabel = ""];
+}

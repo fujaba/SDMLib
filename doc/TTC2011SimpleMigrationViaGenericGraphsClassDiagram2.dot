@@ -1,0 +1,17 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _Graph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/helloworld/Graph.java">Graph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Edge [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/helloworld/Edge.java">Edge</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Node [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/helloworld/Node.java">Node</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _Graph -> _Node [headlabel = "nodes *" taillabel = "graph" arrowhead = "none" ];
+    _Graph -> _Edge [headlabel = "edges *" taillabel = "graph" arrowhead = "none" ];
+    _Edge -> _Node [headlabel = "src" taillabel = "outEdges *" arrowhead = "none" ];
+    _Edge -> _Node [headlabel = "tgt" taillabel = "inEdges *" arrowhead = "none" ];
+}
