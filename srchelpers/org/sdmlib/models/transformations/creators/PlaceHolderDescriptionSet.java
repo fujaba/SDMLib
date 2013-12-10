@@ -25,12 +25,24 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
-import org.sdmlib.models.transformations.creators.TemplateSet;
-import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.transformations.creators.TemplateSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.Template;
 
 public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescription> implements org.sdmlib.models.modelsets.ModelSet
 {
+   public PlaceHolderDescription first()
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
 
    public String toString()
@@ -75,6 +87,21 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return result;
    }
 
+   public PlaceHolderDescriptionSet hasTextFragment(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getTextFragment()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PlaceHolderDescriptionSet withTextFragment(String value)
    {
       for (PlaceHolderDescription obj : this)
@@ -92,6 +119,21 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getValue());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasValue(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getValue()))
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -119,55 +161,26 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return result;
    }
 
+   public PlaceHolderDescriptionSet hasAttrName(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getAttrName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PlaceHolderDescriptionSet withAttrName(String value)
    {
       for (PlaceHolderDescription obj : this)
       {
          obj.setAttrName(value);
-      }
-      
-      return this;
-   }
-
-   public TemplateSet getTemplate()
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         result.add(obj.getTemplate());
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet withTemplate(Template value)
-   {
-      for (PlaceHolderDescription obj : this)
-      {
-         obj.withTemplate(value);
-      }
-      
-      return this;
-   }
-
-   public TemplateSet getSubTemplate()
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         result.add(obj.getSubTemplate());
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet withSubTemplate(Template value)
-   {
-      for (PlaceHolderDescription obj : this)
-      {
-         obj.withSubTemplate(value);
       }
       
       return this;
@@ -185,6 +198,21 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return result;
    }
 
+   public PlaceHolderDescriptionSet hasIsKeyAttribute(boolean value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value == obj.getIsKeyAttribute())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PlaceHolderDescriptionSet withIsKeyAttribute(boolean value)
    {
       for (PlaceHolderDescription obj : this)
@@ -195,6 +223,111 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return this;
    }
 
-}
+   public TemplateSet getOwners()
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.addAll(obj.getOwners());
+      }
+      
+      return result;
+   }
 
+   public PlaceHolderDescriptionSet hasOwners(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getOwners()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PlaceHolderDescriptionSet withOwners(Template value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.withOwners(value);
+      }
+      
+      return this;
+   }
+
+   public PlaceHolderDescriptionSet withoutOwners(Template value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.withoutOwners(value);
+      }
+      
+      return this;
+   }
+
+   public TemplateSet getSubTemplate()
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.add(obj.getSubTemplate());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasSubTemplate(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (neighbors.contains(obj.getSubTemplate()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PlaceHolderDescriptionSet withSubTemplate(Template value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.withSubTemplate(value);
+      }
+      
+      return this;
+   }
+
+}
 

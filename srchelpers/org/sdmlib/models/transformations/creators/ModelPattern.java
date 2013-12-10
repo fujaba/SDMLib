@@ -17,6 +17,8 @@ import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.ObjectPO;
 import java.lang.Object;
+import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
+import org.sdmlib.models.transformations.ChoiceTemplate;
 
 public class ModelPattern extends Pattern
 {
@@ -223,7 +225,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public ChoiceTemplatePO hasElementChoiceTemplatePO()
+   {
+      ChoiceTemplatePO value = new ChoiceTemplatePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ChoiceTemplatePO hasElementChoiceTemplatePO(ChoiceTemplate hostGraphObject)
+   {
+      ChoiceTemplatePO value = new ChoiceTemplatePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

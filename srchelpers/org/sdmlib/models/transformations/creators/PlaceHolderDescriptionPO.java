@@ -9,6 +9,7 @@ import org.sdmlib.models.transformations.creators.TemplatePO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.creators.TemplateSet;
 
 public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescriptionPO, PlaceHolderDescription>
 {
@@ -124,20 +125,52 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return this;
    }
    
-   public TemplatePO hasTemplate()
+   public PlaceHolderDescriptionPO hasIsKeyAttribute(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getIsKeyAttribute()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) getCurrentMatch()).getIsKeyAttribute();
+      }
+      return false;
+   }
+   
+   public PlaceHolderDescriptionPO withIsKeyAttribute(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((PlaceHolderDescription) getCurrentMatch()).setIsKeyAttribute(value);
+      }
+      return this;
+   }
+   
+   public TemplatePO hasOwners()
    {
       TemplatePO result = new TemplatePO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(PlaceHolderDescription.PROPERTY_TEMPLATE, result);
+      super.hasLink(PlaceHolderDescription.PROPERTY_OWNERS, result);
       
       return result;
    }
 
-   public PlaceHolderDescriptionPO hasTemplate(TemplatePO tgt)
+   public PlaceHolderDescriptionPO hasOwners(TemplatePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_TEMPLATE)
+      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_OWNERS)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -148,11 +181,11 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return this;
    }
 
-   public Template getTemplate()
+   public TemplateSet getOwners()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((PlaceHolderDescription) this.getCurrentMatch()).getTemplate();
+         return ((PlaceHolderDescription) this.getCurrentMatch()).getOwners();
       }
       return null;
    }
@@ -190,38 +223,5 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
-   public PlaceHolderDescriptionPO hasIsKeyAttribute(boolean value)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public boolean getIsKeyAttribute()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PlaceHolderDescription) getCurrentMatch()).getIsKeyAttribute();
-      }
-      return false;
-   }
-   
-   public PlaceHolderDescriptionPO withIsKeyAttribute(boolean value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((PlaceHolderDescription) getCurrentMatch()).setIsKeyAttribute(value);
-      }
-      return this;
-   }
-   
 }
-
 

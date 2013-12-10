@@ -1,11 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
-<style>
-p
-{
-font-family:"Arial";
-}
-</style>
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation2</a></p>
 <p>BidirectionalModelToTextTransformation2</p>
@@ -14,34 +9,31 @@ font-family:"Arial";
 <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><embed type="image/svg+xml" src='BidirectionalModelToTextTransformation25.svg'>
 <pre>
       Template rootTemplate = new Template()
+      .withModelObject(uni)
       .with(&quot;The example University has 99 rooms and 88 students: roomList The students are: studentList &quot;,
-         uni,
          &quot;example&quot;, University.PROPERTY_NAME, 
          &quot;99&quot;, University.PROPERTY_ROOMS +  &quot;.size&quot;, 
          &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
 
       Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription(&quot;roomList&quot;, University.PROPERTY_ROOMS)
+            .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
             .with(
                &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
-               null, 
                &quot;xy&quot;, Room.PROPERTY_ROOMNO,
                &quot;42&quot;, Room.PROPERTY_CREDITS)
                .withList(&quot;n&quot;, &quot;n&quot;, &quot;n&quot;);
 
       Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
+            .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
             .with(
                &quot;name&quot;,
-               null, 
                &quot;name&quot;, Room.PROPERTY_ROOMNO)
                .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
       
       Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
+            .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
             .with(
                &quot; - Stud has student number 1234.&quot;,
-               null, 
                &quot;Stud&quot;, Student.PROPERTY_NAME,
                &quot;1234&quot;, Student.PROPERTY_MATRNO)
                .withList(&quot;n&quot;, &quot;n&quot;, &quot;n&quot;);

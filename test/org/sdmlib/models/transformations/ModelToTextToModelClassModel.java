@@ -26,14 +26,18 @@ public class ModelToTextToModelClassModel
                "listEnd", R.STRING
                  );
       
-      Clazz placeholderDescription = template.createClassAndAssoc("PlaceHolderDescription", "placeholders", R.MANY, "template", R.ONE)
+      Clazz placeholderDescription = template.createClassAndAssoc("PlaceHolderDescription", "placeholders", R.MANY, "owners", R.MANY)
             .withAttributes(
                "textFragment", R.STRING,
                "value", R.STRING,
                "attrName", R.STRING,
                "isKeyAttribute", R.BOOLEAN);
       
-      placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "placeholderDescription", R.ONE);
+      Clazz choiceTemplate = model.createClazz("ChoiceTemplate")
+            .withSuperClass(template)
+            .withAssoc(template, "choices", R.MANY, "chooser", R.ONE);
+      
+      placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "parent", R.ONE);
       
       storyboard.addClassDiagram(model);
       

@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
 <p>BidirectionalModelToTextTransformation</p>
@@ -7,40 +8,40 @@
 <embed type="image/svg+xml" src='BidirectionalModelToTextTransformation3.svg'>
 <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><pre>      StringBuilder modelDescription = new StringBuilder();
 
-      // first the university object itself
+      &#x2F;&#x2F; first the university object itself
       String objectDescription = CGUtil.fill(
-         "The example University has 99 rooms and 88 students:n", 
-         "example", uni.getName(),
-         "99", "" + uni.getRooms().size(),
-         "88", "" + uni.getStudents().size());
+         &quot;The example University has 99 rooms and 88 students:n&quot;, 
+         &quot;example&quot;, uni.getName(),
+         &quot;99&quot;, &quot;&quot; + uni.getRooms().size(),
+         &quot;88&quot;, &quot;&quot; + uni.getStudents().size());
 
       modelDescription.append(objectDescription);
 
-      // now the rooms
+      &#x2F;&#x2F; now the rooms
       for (Room room : uni.getRooms())
       {
          objectDescription = CGUtil.fill(
-            " - The roomName room has 42 credits. It is connected to rooms: roomListn", 
-            "roomName", room.getRoomNo(),
-            "42", "" + room.getCredits(), 
-            "roomList", room.getNeighbors().getRoomNo().toString());
+            &quot; - The roomName room has 42 credits. It is connected to rooms: roomListn&quot;, 
+            &quot;roomName&quot;, room.getRoomNo(),
+            &quot;42&quot;, &quot;&quot; + room.getCredits(), 
+            &quot;roomList&quot;, room.getNeighbors().getRoomNo().toString());
 
          modelDescription.append(objectDescription);
       }
 
-      // now the students
-      modelDescription.append("The students are:n");
+      &#x2F;&#x2F; now the students
+      modelDescription.append(&quot;The students are:n&quot;);
       for (Student student : uni.getStudents())
       {
          objectDescription = CGUtil.fill(
-            " - Lee has immatrikulation number 1234.n", 
-            "Lee", student.getName(),
-            "1234", "" + student.getMatrNo());
+            &quot; - Lee has immatrikulation number 1234.n&quot;, 
+            &quot;Lee&quot;, student.getName(),
+            &quot;1234&quot;, &quot;&quot; + student.getMatrNo());
 
          if (student.getIn() != null)
          {
             objectDescription = CGUtil.fill(objectDescription, 
-               ".", CGUtil.fill(" and is in the math room.", "math", student.getIn().getRoomNo()));
+               &quot;.&quot;, CGUtil.fill(&quot; and is in the math room.&quot;, &quot;math&quot;, student.getIn().getRoomNo()));
          }
 
          modelDescription.append(objectDescription);
@@ -57,83 +58,83 @@ The students are:
  - Nina has immatrikulation number 2323.
 </pre></p>
 <p><a name = 'step_2'>Step 2: Text to model.</a></p><pre>      String otherUniDescription = 
-            "The Study False University has many rooms and some students:n" + 
-                  " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]n" + 
-                  " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]n" + 
-                  " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]n" + 
-                  "The students are:n" + 
-                  " - Bart has immatrikulation number 111 and is in the laws room.n" + 
-                  " - Rosi has immatrikulation number 112.n";
+            &quot;The Study False University has many rooms and some students:n&quot; + 
+                  &quot; - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]n&quot; + 
+                  &quot; - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]n&quot; + 
+                  &quot; - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]n&quot; + 
+                  &quot;The students are:n&quot; + 
+                  &quot; - Bart has immatrikulation number 111 and is in the laws room.n&quot; + 
+                  &quot; - Rosi has immatrikulation number 112.n&quot;;
 
-      LinkedHashMap<String, String> placeholderValues = CGUtil.find(otherUniDescription, 0,
-         "The example University has 99 rooms and 88 students:n", 
-         "example", 
-         "99", 
-            "88");
+      LinkedHashMap&lt;String, String&gt; placeholderValues = CGUtil.find(otherUniDescription, 0,
+         &quot;The example University has 99 rooms and 88 students:n&quot;, 
+         &quot;example&quot;, 
+         &quot;99&quot;, 
+            &quot;88&quot;);
 
-      String uniName = placeholderValues.get("example");
+      String uniName = placeholderValues.get(&quot;example&quot;);
 
       University falseUni = new University().withName(uniName);
 
-      // read rooms
+      &#x2F;&#x2F; read rooms
       boolean match = true;
       int searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
       while (match)
       {
          placeholderValues = CGUtil.find(otherUniDescription, searchPos,
-            " - The roomName room has 42 credits. It is connected to rooms: roomListn", 
-            "roomName", 
-            "42", 
-               "roomList");
+            &quot; - The roomName room has 42 credits. It is connected to rooms: roomListn&quot;, 
+            &quot;roomName&quot;, 
+            &quot;42&quot;, 
+               &quot;roomList&quot;);
 
-         match = placeholderValues.size() > 1;
+         match = placeholderValues.size() &gt; 1;
 
          if (match)
          {
             searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
 
             Room room = falseUni.createRooms()
-                  .withRoomNo(placeholderValues.get("roomName"))
-                  .withCredits(Integer.valueOf(placeholderValues.get("42")));
+                  .withRoomNo(placeholderValues.get(&quot;roomName&quot;))
+                  .withCredits(Integer.valueOf(placeholderValues.get(&quot;42&quot;)));
 
-            String[] roomNames = CGUtil.split(placeholderValues.get("roomList"));
+            String[] roomNames = CGUtil.split(placeholderValues.get(&quot;roomList&quot;));
             RoomSet neighbors = falseUni.getRooms().hasRoomNo(roomNames);
             room.withNeighbors(neighbors.toArray(new Room[] {}));
          }
       }
 
-      // now the students
-      if (otherUniDescription.startsWith("The students are:n", searchPos))
+      &#x2F;&#x2F; now the students
+      if (otherUniDescription.startsWith(&quot;The students are:n&quot;, searchPos))
       {
-         searchPos += "The students are:n".length();
+         searchPos += &quot;The students are:n&quot;.length();
          match = true;
          while (match)
          {
             placeholderValues = CGUtil.find(otherUniDescription, searchPos,
-               " - Lee has immatrikulation number 1234.n", 
-               "Lee", 
-                  "1234");
+               &quot; - Lee has immatrikulation number 1234.n&quot;, 
+               &quot;Lee&quot;, 
+                  &quot;1234&quot;);
 
-            match = placeholderValues.size() > 1;
+            match = placeholderValues.size() &gt; 1;
 
             if (match)
             {
                searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
 
                Student student = falseUni.createStudents()
-                     .withName(placeholderValues.get("Lee"));
+                     .withName(placeholderValues.get(&quot;Lee&quot;));
 
-               String matrNo = placeholderValues.get("1234");
+               String matrNo = placeholderValues.get(&quot;1234&quot;);
 
                placeholderValues = CGUtil.find(matrNo, 0,
-                  "1234 and is in the math room", 
-                  "1234", 
-                     "math");
+                  &quot;1234 and is in the math room&quot;, 
+                  &quot;1234&quot;, 
+                     &quot;math&quot;);
 
-               if (placeholderValues.size() > 1)
+               if (placeholderValues.size() &gt; 1)
                {
-                  student.withMatrNo(Integer.valueOf(placeholderValues.get("1234")))
-                  .withIn(falseUni.getRooms(placeholderValues.get("math")));
+                  student.withMatrNo(Integer.valueOf(placeholderValues.get(&quot;1234&quot;)))
+                  .withIn(falseUni.getRooms(placeholderValues.get(&quot;math&quot;)));
                }
                else
                {

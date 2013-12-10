@@ -22,7 +22,7 @@
 package org.sdmlib.models.transformations.creators;
 
 import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.transformations.creators.ObjectSet;
@@ -31,14 +31,15 @@ import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
-import org.sdmlib.models.transformations.ChoiceTemplate;
 
-public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.models.modelsets.ModelSet
+public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public Template first()
+   public ChoiceTemplate first()
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          return obj;
       }
@@ -51,7 +52,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList stringList = new StringList();
       
-      for (Template elem : this)
+      for (ChoiceTemplate elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -62,17 +63,17 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
 
    public String getEntryType()
    {
-      return "org.sdmlib.models.transformations.Template";
+      return "org.sdmlib.models.transformations.ChoiceTemplate";
    }
 
 
-   public TemplateSet with(Template value)
+   public ChoiceTemplateSet with(ChoiceTemplate value)
    {
       this.add(value);
       return this;
    }
    
-   public TemplateSet without(Template value)
+   public ChoiceTemplateSet without(ChoiceTemplate value)
    {
       this.remove(value);
       return this;
@@ -81,7 +82,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getTemplateText());
       }
@@ -89,11 +90,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasTemplateText(String value)
+   public ChoiceTemplateSet hasTemplateText(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getTemplateText()))
          {
@@ -104,9 +105,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withTemplateText(String value)
+   public ChoiceTemplateSet withTemplateText(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setTemplateText(value);
       }
@@ -118,7 +119,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getExpandedText());
       }
@@ -126,11 +127,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasExpandedText(String value)
+   public ChoiceTemplateSet hasExpandedText(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getExpandedText()))
          {
@@ -141,9 +142,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withExpandedText(String value)
+   public ChoiceTemplateSet withExpandedText(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setExpandedText(value);
       }
@@ -155,7 +156,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       ObjectSet result = new ObjectSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getModelObject());
       }
@@ -163,11 +164,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasModelObject(java.lang.Object value)
+   public ChoiceTemplateSet hasModelObject(java.lang.Object value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value == obj.getModelObject())
          {
@@ -178,9 +179,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withModelObject(Object value)
+   public ChoiceTemplateSet withModelObject(Object value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setModelObject(value);
       }
@@ -192,7 +193,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getModelClassName());
       }
@@ -200,11 +201,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasModelClassName(String value)
+   public ChoiceTemplateSet hasModelClassName(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getModelClassName()))
          {
@@ -215,9 +216,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withModelClassName(String value)
+   public ChoiceTemplateSet withModelClassName(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setModelClassName(value);
       }
@@ -229,7 +230,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListStart());
       }
@@ -237,11 +238,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasListStart(String value)
+   public ChoiceTemplateSet hasListStart(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListStart()))
          {
@@ -252,9 +253,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withListStart(String value)
+   public ChoiceTemplateSet withListStart(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setListStart(value);
       }
@@ -266,7 +267,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListSeparator());
       }
@@ -274,11 +275,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasListSeparator(String value)
+   public ChoiceTemplateSet hasListSeparator(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListSeparator()))
          {
@@ -289,9 +290,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withListSeparator(String value)
+   public ChoiceTemplateSet withListSeparator(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setListSeparator(value);
       }
@@ -303,7 +304,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       StringList result = new StringList();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListEnd());
       }
@@ -311,11 +312,11 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasListEnd(String value)
+   public ChoiceTemplateSet hasListEnd(String value)
    {
-      TemplateSet result = new TemplateSet();
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListEnd()))
          {
@@ -326,9 +327,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet withListEnd(String value)
+   public ChoiceTemplateSet withListEnd(String value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.setListEnd(value);
       }
@@ -340,7 +341,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.addAll(obj.getPlaceholders());
       }
@@ -348,7 +349,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasPlaceholders(Object value)
+   public ChoiceTemplateSet hasPlaceholders(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -361,9 +362,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
          neighbors.add(value);
       }
       
-      TemplateSet answer = new TemplateSet();
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if ( ! Collections.disjoint(neighbors, obj.getPlaceholders()))
          {
@@ -374,9 +375,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return answer;
    }
 
-   public TemplateSet withPlaceholders(PlaceHolderDescription value)
+   public ChoiceTemplateSet withPlaceholders(PlaceHolderDescription value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.withPlaceholders(value);
       }
@@ -384,9 +385,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
-   public TemplateSet withoutPlaceholders(PlaceHolderDescription value)
+   public ChoiceTemplateSet withoutPlaceholders(PlaceHolderDescription value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.withoutPlaceholders(value);
       }
@@ -394,19 +395,19 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
-   public ChoiceTemplateSet getChooser()
+   public TemplateSet getChoices()
    {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      TemplateSet result = new TemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
-         result.add(obj.getChooser());
+         result.addAll(obj.getChoices());
       }
       
       return result;
    }
 
-   public TemplateSet hasChooser(Object value)
+   public ChoiceTemplateSet hasChoices(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -419,9 +420,67 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
          neighbors.add(value);
       }
       
-      TemplateSet answer = new TemplateSet();
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getChoices()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ChoiceTemplateSet withChoices(Template value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withChoices(value);
+      }
+      
+      return this;
+   }
+
+   public ChoiceTemplateSet withoutChoices(Template value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withoutChoices(value);
+      }
+      
+      return this;
+   }
+
+   public ChoiceTemplateSet getChooser()
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.add(obj.getChooser());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasChooser(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
       {
          if (neighbors.contains(obj.getChooser()))
          {
@@ -432,9 +491,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return answer;
    }
 
-   public TemplateSet withChooser(ChoiceTemplate value)
+   public ChoiceTemplateSet withChooser(ChoiceTemplate value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.withChooser(value);
       }
@@ -446,7 +505,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          result.add(obj.getParent());
       }
@@ -454,7 +513,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasParent(Object value)
+   public ChoiceTemplateSet hasParent(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -467,9 +526,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
          neighbors.add(value);
       }
       
-      TemplateSet answer = new TemplateSet();
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
       
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          if (neighbors.contains(obj.getParent()))
          {
@@ -480,9 +539,9 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return answer;
    }
 
-   public TemplateSet withParent(PlaceHolderDescription value)
+   public ChoiceTemplateSet withParent(PlaceHolderDescription value)
    {
-      for (Template obj : this)
+      for (ChoiceTemplate obj : this)
       {
          obj.withParent(value);
       }

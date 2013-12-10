@@ -1,30 +1,31 @@
 package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import java.lang.Object;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.transformations.creators.TemplatePO;
+import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
-import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.creators.TemplatePO;
+import org.sdmlib.models.transformations.creators.TemplateSet;
 
-public class TemplatePO extends PatternObject<TemplatePO, Template>
+public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemplate>
 {
-   public TemplateSet allMatches()
+   public ChoiceTemplateSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      TemplateSet matches = new TemplateSet();
+      ChoiceTemplateSet matches = new ChoiceTemplateSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Template) this.getCurrentMatch());
+         matches.add((ChoiceTemplate) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -32,10 +33,10 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return matches;
    }
    
-   public TemplatePO hasTemplateText(String value)
+   public ChoiceTemplatePO hasTemplateText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_TEMPLATETEXT)
+      .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -50,24 +51,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getTemplateText();
+         return ((ChoiceTemplate) getCurrentMatch()).getTemplateText();
       }
       return null;
    }
    
-   public TemplatePO withTemplateText(String value)
+   public ChoiceTemplatePO withTemplateText(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setTemplateText(value);
+         ((ChoiceTemplate) getCurrentMatch()).setTemplateText(value);
       }
       return this;
    }
    
-   public TemplatePO hasExpandedText(String value)
+   public ChoiceTemplatePO hasExpandedText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
+      .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -82,24 +83,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getExpandedText();
+         return ((ChoiceTemplate) getCurrentMatch()).getExpandedText();
       }
       return null;
    }
    
-   public TemplatePO withExpandedText(String value)
+   public ChoiceTemplatePO withExpandedText(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setExpandedText(value);
+         ((ChoiceTemplate) getCurrentMatch()).setExpandedText(value);
       }
       return this;
    }
    
-   public TemplatePO hasModelObject(Object value)
+   public ChoiceTemplatePO hasModelObject(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELOBJECT)
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELOBJECT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -114,24 +115,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getModelObject();
+         return ((ChoiceTemplate) getCurrentMatch()).getModelObject();
       }
       return null;
    }
    
-   public TemplatePO withModelObject(Object value)
+   public ChoiceTemplatePO withModelObject(Object value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setModelObject(value);
+         ((ChoiceTemplate) getCurrentMatch()).setModelObject(value);
       }
       return this;
    }
    
-   public TemplatePO hasModelClassName(String value)
+   public ChoiceTemplatePO hasModelClassName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELCLASSNAME)
+      .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -146,24 +147,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getModelClassName();
+         return ((ChoiceTemplate) getCurrentMatch()).getModelClassName();
       }
       return null;
    }
    
-   public TemplatePO withModelClassName(String value)
+   public ChoiceTemplatePO withModelClassName(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setModelClassName(value);
+         ((ChoiceTemplate) getCurrentMatch()).setModelClassName(value);
       }
       return this;
    }
    
-   public TemplatePO hasListStart(String value)
+   public ChoiceTemplatePO hasListStart(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSTART)
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -178,24 +179,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getListStart();
+         return ((ChoiceTemplate) getCurrentMatch()).getListStart();
       }
       return null;
    }
    
-   public TemplatePO withListStart(String value)
+   public ChoiceTemplatePO withListStart(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setListStart(value);
+         ((ChoiceTemplate) getCurrentMatch()).setListStart(value);
       }
       return this;
    }
    
-   public TemplatePO hasListSeparator(String value)
+   public ChoiceTemplatePO hasListSeparator(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSEPARATOR)
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -210,24 +211,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getListSeparator();
+         return ((ChoiceTemplate) getCurrentMatch()).getListSeparator();
       }
       return null;
    }
    
-   public TemplatePO withListSeparator(String value)
+   public ChoiceTemplatePO withListSeparator(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setListSeparator(value);
+         ((ChoiceTemplate) getCurrentMatch()).setListSeparator(value);
       }
       return this;
    }
    
-   public TemplatePO hasListEnd(String value)
+   public ChoiceTemplatePO hasListEnd(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTEND)
+      .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -242,16 +243,16 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Template) getCurrentMatch()).getListEnd();
+         return ((ChoiceTemplate) getCurrentMatch()).getListEnd();
       }
       return null;
    }
    
-   public TemplatePO withListEnd(String value)
+   public ChoiceTemplatePO withListEnd(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Template) getCurrentMatch()).setListEnd(value);
+         ((ChoiceTemplate) getCurrentMatch()).setListEnd(value);
       }
       return this;
    }
@@ -266,7 +267,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return result;
    }
 
-   public TemplatePO hasPlaceholders(PlaceHolderDescriptionPO tgt)
+   public ChoiceTemplatePO hasPlaceholders(PlaceHolderDescriptionPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Template.PROPERTY_PLACEHOLDERS)
@@ -289,6 +290,39 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return null;
    }
 
+   public TemplatePO hasChoices()
+   {
+      TemplatePO result = new TemplatePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(ChoiceTemplate.PROPERTY_CHOICES, result);
+      
+      return result;
+   }
+
+   public ChoiceTemplatePO hasChoices(TemplatePO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(ChoiceTemplate.PROPERTY_CHOICES)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TemplateSet getChoices()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ChoiceTemplate) this.getCurrentMatch()).getChoices();
+      }
+      return null;
+   }
+
    public ChoiceTemplatePO hasChooser()
    {
       ChoiceTemplatePO result = new ChoiceTemplatePO();
@@ -299,7 +333,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return result;
    }
 
-   public TemplatePO hasChooser(ChoiceTemplatePO tgt)
+   public ChoiceTemplatePO hasChooser(ChoiceTemplatePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Template.PROPERTY_CHOOSER)
@@ -332,7 +366,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return result;
    }
 
-   public TemplatePO hasParent(PlaceHolderDescriptionPO tgt)
+   public ChoiceTemplatePO hasParent(PlaceHolderDescriptionPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
       .withTgt(tgt).withTgtRoleName(Template.PROPERTY_PARENT)

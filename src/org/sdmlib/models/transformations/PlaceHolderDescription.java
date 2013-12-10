@@ -26,6 +26,9 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.creators.TemplateSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class PlaceHolderDescription implements PropertyChangeInterface
 {
@@ -50,19 +53,19 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return getAttrName();
       }
 
-      if (PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
+      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
       {
-         return getTemplate();
+         return getIsKeyAttribute();
+      }
+
+      if (PROPERTY_OWNERS.equalsIgnoreCase(attrName))
+      {
+         return getOwners();
       }
 
       if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
       {
          return getSubTemplate();
-      }
-
-      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
-      {
-         return getIsKeyAttribute();
       }
 
       return null;
@@ -91,21 +94,27 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
+     if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
       {
-         setTemplate((Template) value);
+         setIsKeyAttribute((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_OWNERS.equalsIgnoreCase(attrName))
+      {
+         addToOwners((Template) value);
+         return true;
+      }
+      
+      if ((PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromOwners((Template) value);
          return true;
       }
 
       if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
       {
          setSubTemplate((Template) value);
-         return true;
-      }
-
-      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
-      {
-         setIsKeyAttribute((Boolean) value);
          return true;
       }
 
@@ -132,7 +141,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    
    public void removeYou()
    {
-      setTemplate(null);
+      removeAllFromOwners();
       setSubTemplate(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -244,125 +253,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet();
 
    
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * PlaceHolderDescription ----------------------------------- Template
-    *              placeholders                   template
-    * </pre>
-    */
-   
-   public static final String PROPERTY_TEMPLATE = "template";
-   
-   private Template template = null;
-   
-   public Template getTemplate()
-   {
-      return this.template;
-   }
-   
-   public boolean setTemplate(Template value)
-   {
-      boolean changed = false;
-      
-      if (this.template != value)
-      {
-         Template oldValue = this.template;
-         
-         if (this.template != null)
-         {
-            this.template = null;
-            oldValue.withoutPlaceholders(this);
-         }
-         
-         this.template = value;
-         
-         if (value != null)
-         {
-            value.withPlaceholders(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEMPLATE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public PlaceHolderDescription withTemplate(Template value)
-   {
-      setTemplate(value);
-      return this;
-   } 
-   
-   public Template createTemplate()
-   {
-      Template value = new Template();
-      withTemplate(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * PlaceHolderDescription ----------------------------------- Template
-    *              placeholderDescription                   subTemplate
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SUBTEMPLATE = "subTemplate";
-   
-   private Template subTemplate = null;
-   
-   public Template getSubTemplate()
-   {
-      return this.subTemplate;
-   }
-   
-   public boolean setSubTemplate(Template value)
-   {
-      boolean changed = false;
-      
-      if (this.subTemplate != value)
-      {
-         Template oldValue = this.subTemplate;
-         
-         if (this.subTemplate != null)
-         {
-            this.subTemplate = null;
-            oldValue.setPlaceholderDescription(null);
-         }
-         
-         this.subTemplate = value;
-         
-         if (value != null)
-         {
-            value.withPlaceholderDescription(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public PlaceHolderDescription withSubTemplate(Template value)
-   {
-      setSubTemplate(value);
-      return this;
-   } 
-   
-   public Template createSubTemplate()
-   {
-      Template value = new Template();
-      withSubTemplate(value);
-      return value;
-   } 
-
-   
-   //==========================================================================
+    //==========================================================================
    
    public static final String PROPERTY_ISKEYATTRIBUTE = "isKeyAttribute";
    
@@ -387,6 +278,166 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    {
       setIsKeyAttribute(value);
       return this;
+   } 
+
+   
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * PlaceHolderDescription ----------------------------------- Template
+    *              placeholders                   owners
+    * </pre>
+    */
+   
+   public static final String PROPERTY_OWNERS = "owners";
+   
+   private TemplateSet owners = null;
+   
+   public TemplateSet getOwners()
+   {
+      if (this.owners == null)
+      {
+         return Template.EMPTY_SET;
+      }
+   
+      return this.owners;
+   }
+   
+   public boolean addToOwners(Template value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.owners == null)
+         {
+            this.owners = new TemplateSet();
+         }
+         
+         changed = this.owners.add (value);
+         
+         if (changed)
+         {
+            value.withPlaceholders(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromOwners(Template value)
+   {
+      boolean changed = false;
+      
+      if ((this.owners != null) && (value != null))
+      {
+         changed = this.owners.remove (value);
+         
+         if (changed)
+         {
+            value.withoutPlaceholders(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public PlaceHolderDescription withOwners(Template... value)
+   {
+      for (Template item : value)
+      {
+         addToOwners(item);
+      }
+      return this;
+   } 
+   
+   public PlaceHolderDescription withoutOwners(Template... value)
+   {
+      for (Template item : value)
+      {
+         removeFromOwners(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromOwners()
+   {
+      LinkedHashSet<Template> tmpSet = new LinkedHashSet<Template>(this.getOwners());
+   
+      for (Template value : tmpSet)
+      {
+         this.removeFromOwners(value);
+      }
+   }
+   
+   public Template createOwners()
+   {
+      Template value = new Template();
+      withOwners(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * PlaceHolderDescription ----------------------------------- Template
+    *              parent                   subTemplate
+    * </pre>
+    */
+   
+   public static final String PROPERTY_SUBTEMPLATE = "subTemplate";
+   
+   private Template subTemplate = null;
+   
+   public Template getSubTemplate()
+   {
+      return this.subTemplate;
+   }
+   
+   public boolean setSubTemplate(Template value)
+   {
+      boolean changed = false;
+      
+      if (this.subTemplate != value)
+      {
+         Template oldValue = this.subTemplate;
+         
+         if (this.subTemplate != null)
+         {
+            this.subTemplate = null;
+            oldValue.setParent(null);
+         }
+         
+         this.subTemplate = value;
+         
+         if (value != null)
+         {
+            value.withParent(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public PlaceHolderDescription withSubTemplate(Template value)
+   {
+      setSubTemplate(value);
+      return this;
+   } 
+   
+   public Template createSubTemplate()
+   {
+      Template value = new Template();
+      withSubTemplate(value);
+      return value;
    } 
 }
 

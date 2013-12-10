@@ -41,6 +41,7 @@ import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.models.transformations.creators.TemplateSet;
 
 public class Template implements PropertyChangeInterface
 {
@@ -65,16 +66,6 @@ public class Template implements PropertyChangeInterface
          return getModelClassName();
       }
 
-      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
-      {
-         return getPlaceholders();
-      }
-
-      if (PROPERTY_PLACEHOLDERDESCRIPTION.equalsIgnoreCase(attrName))
-      {
-         return getPlaceholderDescription();
-      }
-
       if (PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
       {
          return getExpandedText();
@@ -93,6 +84,21 @@ public class Template implements PropertyChangeInterface
       if (PROPERTY_LISTEND.equalsIgnoreCase(attrName))
       {
          return getListEnd();
+      }
+
+      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      {
+         return getPlaceholders();
+      }
+
+      if (PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      {
+         return getChooser();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
       }
 
       return null;
@@ -121,24 +127,6 @@ public class Template implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
-      {
-         addToPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if ((PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if (PROPERTY_PLACEHOLDERDESCRIPTION.equalsIgnoreCase(attrName))
-      {
-         setPlaceholderDescription((PlaceHolderDescription) value);
-         return true;
-      }
-
       if (PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
       {
          setExpandedText((String) value);
@@ -160,6 +148,30 @@ public class Template implements PropertyChangeInterface
       if (PROPERTY_LISTEND.equalsIgnoreCase(attrName))
       {
          setListEnd((String) value);
+         return true;
+      }
+
+      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      {
+         addToPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+
+      if (PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      {
+         setChooser((ChoiceTemplate) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((PlaceHolderDescription) value);
          return true;
       }
 
@@ -187,7 +199,8 @@ public class Template implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromPlaceholders();
-      setPlaceholderDescription(null);
+      setChooser(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -232,11 +245,11 @@ public class Template implements PropertyChangeInterface
       return _.substring(1);
    }
 
-   public Template with(String templateText, Object modelObject, String... placeholderAttrNamePairs)
+
+   public Template with(String templateText, String... placeholderAttrNamePairs)
    {
       this.setTemplateText(templateText);
-      this.setModelObject(modelObject);
-
+      
       for (int i = 0; i + 2 <= placeholderAttrNamePairs.length; i += 2)
       {
          this.createPlaceholders().withTextFragment(placeholderAttrNamePairs[i]).withAttrName(placeholderAttrNamePairs[i+1]);
@@ -316,171 +329,13 @@ public class Template implements PropertyChangeInterface
       return subTemplate;
    }
 
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Template ----------------------------------- PlaceHolderDescription
-    *              template                   placeholders
-    * </pre>
-    */
-
-   public static final String PROPERTY_PLACEHOLDERS = "placeholders";
-
-   private PlaceHolderDescriptionSet placeholders = null;
-
-   public PlaceHolderDescriptionSet getPlaceholders()
-   {
-      if (this.placeholders == null)
-      {
-         return PlaceHolderDescription.EMPTY_SET;
-      }
-
-      return this.placeholders;
-   }
-
-   public boolean addToPlaceholders(PlaceHolderDescription value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.placeholders == null)
-         {
-            this.placeholders = new PlaceHolderDescriptionSet();
-         }
-
-         changed = this.placeholders.add (value);
-
-         if (changed)
-         {
-            value.withTemplate(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public boolean removeFromPlaceholders(PlaceHolderDescription value)
-   {
-      boolean changed = false;
-
-      if ((this.placeholders != null) && (value != null))
-      {
-         changed = this.placeholders.remove (value);
-
-         if (changed)
-         {
-            value.setTemplate(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, value, null);
-         }
-      }
-
-      return changed;   
-   }
-
-   public Template withPlaceholders(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         addToPlaceholders(item);
-      }
-      return this;
-   } 
-
-   public Template withoutPlaceholders(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         removeFromPlaceholders(item);
-      }
-      return this;
-   }
-
-   public void removeAllFromPlaceholders()
-   {
-      LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getPlaceholders());
-
-      for (PlaceHolderDescription value : tmpSet)
-      {
-         this.removeFromPlaceholders(value);
-      }
-   }
-
-   public PlaceHolderDescription createPlaceholders()
-   {
-      PlaceHolderDescription value = new PlaceHolderDescription();
-      withPlaceholders(value);
-      return value;
-   } 
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Template ----------------------------------- PlaceHolderDescription
-    *              subTemplate                   placeholderDescription
-    * </pre>
-    */
-
-   public static final String PROPERTY_PLACEHOLDERDESCRIPTION = "placeholderDescription";
-
-   private PlaceHolderDescription placeholderDescription = null;
-
-   public PlaceHolderDescription getPlaceholderDescription()
-   {
-      return this.placeholderDescription;
-   }
-
-   public boolean setPlaceholderDescription(PlaceHolderDescription value)
-   {
-      boolean changed = false;
-
-      if (this.placeholderDescription != value)
-      {
-         PlaceHolderDescription oldValue = this.placeholderDescription;
-
-         if (this.placeholderDescription != null)
-         {
-            this.placeholderDescription = null;
-            oldValue.setSubTemplate(null);
-         }
-
-         this.placeholderDescription = value;
-
-         if (value != null)
-         {
-            value.withSubTemplate(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERDESCRIPTION, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Template withPlaceholderDescription(PlaceHolderDescription value)
-   {
-      setPlaceholderDescription(value);
-      return this;
-   } 
-
-   public PlaceHolderDescription createPlaceholderDescription()
-   {
-      PlaceHolderDescription value = new PlaceHolderDescription();
-      withPlaceholderDescription(value);
-      return value;
-   } 
-
-
    //==========================================================================
 
    public static final String PROPERTY_EXPANDEDTEXT = "expandedText";
 
    private String expandedText;
 
-   private JsonIdMap idMap;
+   protected JsonIdMap idMap;
 
    public String getExpandedText()
    {
@@ -504,16 +359,18 @@ public class Template implements PropertyChangeInterface
    }
 
 
-   private  int valueStartPos = 0;
+   protected  int currentPosInExpandedText = 0;
+
+   protected String constFragmentFollowingAfterList;
    
    public int getValueStartPos()
    {
-      return valueStartPos;
+      return currentPosInExpandedText;
    }
 
    public Template withValueStartPos(int valueStartPos)
    {
-      this.valueStartPos = valueStartPos;
+      this.currentPosInExpandedText = valueStartPos;
       return this;
    }
 
@@ -528,15 +385,15 @@ public class Template implements PropertyChangeInterface
          int oldValueStartPos = 0;
          
             // look for list start
-         int listStartPos = this.getExpandedText().indexOf(this.getListStart(), valueStartPos);
+         int listStartPos = this.getExpandedText().indexOf(this.getListStart(), currentPosInExpandedText);
 
          if (listStartPos >= 0)
          {
-            valueStartPos = valueStartPos + getListStart().length();
+            currentPosInExpandedText = currentPosInExpandedText + getListStart().length();
 
             LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<>();
 
-            oldValueStartPos = valueStartPos;
+            oldValueStartPos = currentPosInExpandedText;
             boolean found = parseOnce();
 
             while (found)
@@ -545,33 +402,39 @@ public class Template implements PropertyChangeInterface
                modelObjectSet.add(this.getModelObject());
 
                // skip list separator
-               int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
-               int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
+               int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
+               int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
+               
+               if ("".equals(this.getListEnd()))
+               {
+                  // there is no good list end symbol use constFragment behind list placeholder instead
+                  listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
+               }
 
-               found = listSeperatorPos == valueStartPos && listSeperatorPos < listEndPos;
+               found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos < listEndPos;
 
                if (found)
                {
                   // more to come
-                  valueStartPos = valueStartPos + listSeparator.length();
+                  currentPosInExpandedText = currentPosInExpandedText + listSeparator.length();
                   
-                  oldValueStartPos = valueStartPos;
+                  oldValueStartPos = currentPosInExpandedText;
                   found = parseOnce();
                }
                else
                {
-                  oldValueStartPos = valueStartPos;
+                  oldValueStartPos = currentPosInExpandedText;
                }
             }
             
-            valueStartPos = oldValueStartPos;
+            currentPosInExpandedText = oldValueStartPos;
 
             // skip list end
-            int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
+            int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
 
-            if (listEndPos == valueStartPos)
+            if (listEndPos == currentPosInExpandedText)
             {
-               valueStartPos = valueStartPos + getListEnd().length();
+               currentPosInExpandedText = currentPosInExpandedText + getListEnd().length();
             }
             
             this.setModelObject(modelObjectSet);
@@ -584,10 +447,10 @@ public class Template implements PropertyChangeInterface
       // the templateText contains placeholders and constant text fragments. Match the constant fragments in the expanded text. 
       // Assign the content in between to the placeholders
 
-      int placeHolderPos = 0;
-      int searchPos = 0;
+      int placeHolderPosInTemplateText = 0;
+      int currentPosInTemplateText = 0;
 
-      int constantStartPos = 0;
+      int constantStartPosInExpandedText = 0;
 
 
       PlaceHolderDescription previousPlaceHolder;
@@ -599,21 +462,21 @@ public class Template implements PropertyChangeInterface
          PlaceHolderDescription placeholder = iterator.next();
 
          // find constant fragment before placeholder
-         placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
+         placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
 
-         String constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
+         String constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
 
-         searchPos = placeHolderPos + placeholder.getTextFragment().length();
+         currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
 
          // find fragment in expanded text
-         constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
+         constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
-         if (constantStartPos < 0)
+         if (constantStartPosInExpandedText != currentPosInExpandedText)
          {
             return false;
          }
 
-         valueStartPos = constantStartPos + constfragment.length();
+         currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
 
          SendableEntityCreator creator = this.getIdMap().getCreatorClasses(this.getModelClassName());
 
@@ -635,18 +498,18 @@ public class Template implements PropertyChangeInterface
             // find constant fragment before placeholder
             if (placeholder != null)
             {
-               placeHolderPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
+               placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
             }
             else
             {
-               placeHolderPos = this.getTemplateText().length();
+               placeHolderPosInTemplateText = this.getTemplateText().length();
             }
             
-            constfragment = this.getTemplateText().substring(searchPos, placeHolderPos);
+            constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
 
             if (placeholder != null)
             {
-               searchPos = placeHolderPos + placeholder.getTextFragment().length();
+               currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
             }
 
             
@@ -655,7 +518,8 @@ public class Template implements PropertyChangeInterface
             if (subTemplate != null)
             {
                // ask subtemplate to parse
-               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(valueStartPos).withIdMap(idMap)
+               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
+               .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
                .parse();
                
                if (subTemplate.isList())
@@ -670,19 +534,19 @@ public class Template implements PropertyChangeInterface
                   creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
                }
                
-               this.valueStartPos = subTemplate.getValueStartPos();
+               this.currentPosInExpandedText = subTemplate.getValueStartPos();
                
                // now the constant fragment should follow
-               constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
+               constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
-               if (constantStartPos < 0)
+               if (constantStartPosInExpandedText < 0)
                {
                   return false;
                }
                
-               if (constantStartPos == valueStartPos)
+               if (constantStartPosInExpandedText == currentPosInExpandedText)
                {
-                  valueStartPos = valueStartPos + constfragment.length();
+                  currentPosInExpandedText = currentPosInExpandedText + constfragment.length();
                }
                else 
                {
@@ -692,26 +556,32 @@ public class Template implements PropertyChangeInterface
             else
             {
                // find fragment in expanded text
-               constantStartPos = this.getExpandedText().indexOf(constfragment, valueStartPos);
+               constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
-               if (constantStartPos < 0)
+               if (constantStartPosInExpandedText < 0)
                {
                   return false;
                }
                
-               if (constantStartPos == valueStartPos)
+               if (constantStartPosInExpandedText == currentPosInExpandedText)
                {
                   // empty constfragment, look for list separator 
-                  int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), valueStartPos);
-                  int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), valueStartPos);
+                  int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
+                  int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
                   
-                  if (listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
+                  if ("".equals(this.getListEnd()))
                   {
-                     constantStartPos = listSeparatorPos;
+                     // there is no good list end symbol use constFragment behind list placeholder instead
+                     listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
+                  }
+                  
+                  if ( ! "".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
+                  {
+                     constantStartPosInExpandedText = listSeparatorPos;
                   }
                   else if (listEndPos >= 0)
                   {
-                     constantStartPos = listEndPos;
+                     constantStartPosInExpandedText = listEndPos;
                   }
                   else
                   {
@@ -720,9 +590,9 @@ public class Template implements PropertyChangeInterface
                }
 
                
-               String value = this.getExpandedText().substring(valueStartPos, constantStartPos);
+               String value = this.getExpandedText().substring(currentPosInExpandedText, constantStartPosInExpandedText);
 
-               valueStartPos = constantStartPos + constfragment.length();
+               currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
 
 
                if (first)
@@ -759,6 +629,13 @@ public class Template implements PropertyChangeInterface
    } 
 
 
+   protected Template withConstFragmentFollowingAfterList(String constfragment)
+   {
+      this.constFragmentFollowingAfterList = constfragment;
+      return this;
+   }
+
+
    private IdMap getIdMap()
    {
       if (this.idMap == null)
@@ -775,7 +652,7 @@ public class Template implements PropertyChangeInterface
    }
 
 
-   private Template withIdMap(JsonIdMap idMap2)
+   protected Template withIdMap(JsonIdMap idMap2)
    {
       this.idMap = idMap2;
       
@@ -999,12 +876,232 @@ public class Template implements PropertyChangeInterface
    }
 
 
-   public Template withPlaceholderDescription(String textFragment, String attrName)
+   public Template withParent(String textFragment, String attrName)
    {
-      this.getPlaceholderDescription().withTextFragment(textFragment).withAttrName(attrName);
+      this.getParent().withTextFragment(textFragment).withAttrName(attrName);
 
       return this;
    }
 
+
+   
+   public static final TemplateSet EMPTY_SET = new TemplateSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Template ----------------------------------- PlaceHolderDescription
+    *              owners                   placeholders
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PLACEHOLDERS = "placeholders";
+   
+   private PlaceHolderDescriptionSet placeholders = null;
+   
+   public PlaceHolderDescriptionSet getPlaceholders()
+   {
+      if (this.placeholders == null)
+      {
+         return PlaceHolderDescription.EMPTY_SET;
+      }
+   
+      return this.placeholders;
+   }
+   
+   public boolean addToPlaceholders(PlaceHolderDescription value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.placeholders == null)
+         {
+            this.placeholders = new PlaceHolderDescriptionSet();
+         }
+         
+         changed = this.placeholders.add (value);
+         
+         if (changed)
+         {
+            value.withOwners(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromPlaceholders(PlaceHolderDescription value)
+   {
+      boolean changed = false;
+      
+      if ((this.placeholders != null) && (value != null))
+      {
+         changed = this.placeholders.remove (value);
+         
+         if (changed)
+         {
+            value.withoutOwners(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Template withPlaceholders(PlaceHolderDescription... value)
+   {
+      for (PlaceHolderDescription item : value)
+      {
+         addToPlaceholders(item);
+      }
+      return this;
+   } 
+   
+   public Template withoutPlaceholders(PlaceHolderDescription... value)
+   {
+      for (PlaceHolderDescription item : value)
+      {
+         removeFromPlaceholders(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromPlaceholders()
+   {
+      LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getPlaceholders());
+   
+      for (PlaceHolderDescription value : tmpSet)
+      {
+         this.removeFromPlaceholders(value);
+      }
+   }
+   
+   public PlaceHolderDescription createPlaceholders()
+   {
+      PlaceHolderDescription value = new PlaceHolderDescription();
+      withPlaceholders(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Template ----------------------------------- ChoiceTemplate
+    *              choices                   chooser
+    * </pre>
+    */
+   
+   public static final String PROPERTY_CHOOSER = "chooser";
+   
+   private ChoiceTemplate chooser = null;
+   
+   public ChoiceTemplate getChooser()
+   {
+      return this.chooser;
+   }
+   
+   public boolean setChooser(ChoiceTemplate value)
+   {
+      boolean changed = false;
+      
+      if (this.chooser != value)
+      {
+         ChoiceTemplate oldValue = this.chooser;
+         
+         if (this.chooser != null)
+         {
+            this.chooser = null;
+            oldValue.withoutChoices(this);
+         }
+         
+         this.chooser = value;
+         
+         if (value != null)
+         {
+            value.withChoices(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOOSER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Template withChooser(ChoiceTemplate value)
+   {
+      setChooser(value);
+      return this;
+   } 
+   
+   public ChoiceTemplate createChooser()
+   {
+      ChoiceTemplate value = new ChoiceTemplate();
+      withChooser(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Template ----------------------------------- PlaceHolderDescription
+    *              subTemplate                   parent
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PARENT = "parent";
+   
+   private PlaceHolderDescription parent = null;
+   
+   public PlaceHolderDescription getParent()
+   {
+      return this.parent;
+   }
+   
+   public boolean setParent(PlaceHolderDescription value)
+   {
+      boolean changed = false;
+      
+      if (this.parent != value)
+      {
+         PlaceHolderDescription oldValue = this.parent;
+         
+         if (this.parent != null)
+         {
+            this.parent = null;
+            oldValue.setSubTemplate(null);
+         }
+         
+         this.parent = value;
+         
+         if (value != null)
+         {
+            value.withSubTemplate(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public Template withParent(PlaceHolderDescription value)
+   {
+      setParent(value);
+      return this;
+   } 
+   
+   public PlaceHolderDescription createParent()
+   {
+      PlaceHolderDescription value = new PlaceHolderDescription();
+      withParent(value);
+      return value;
+   } 
 }
 

@@ -464,34 +464,31 @@ public class StudyRightStoryboards
       storyboard.markCodeStart();
 
       Template rootTemplate = new Template()
+      .withModelObject(uni)
       .with("The example University has 99 rooms and 88 students: roomList The students are: studentList ",
-         uni,
          "example", University.PROPERTY_NAME, 
          "99", University.PROPERTY_ROOMS +  ".size", 
          "88", University.PROPERTY_STUDENTS + ".size");
 
       Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription("roomList", University.PROPERTY_ROOMS)
+            .withParent("roomList", University.PROPERTY_ROOMS)
             .with(
                " - The xy room has 42 credits. It is connected to rooms: neighbors",
-               null, 
                "xy", Room.PROPERTY_ROOMNO,
                "42", Room.PROPERTY_CREDITS)
                .withList("\n", "\n", "\n");
 
       Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription("neighbors", Room.PROPERTY_NEIGHBORS)
+            .withParent("neighbors", Room.PROPERTY_NEIGHBORS)
             .with(
                "name",
-               null, 
                "name", Room.PROPERTY_ROOMNO)
                .withList("", ", ", ".");
       
       Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withPlaceholderDescription("studentList", University.PROPERTY_STUDENTS)
+            .withParent("studentList", University.PROPERTY_STUDENTS)
             .with(
                " - Stud has student number 1234.",
-               null, 
                "Stud", Student.PROPERTY_NAME,
                "1234", Student.PROPERTY_MATRNO)
                .withList("\n", "\n", "\n");

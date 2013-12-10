@@ -10,14 +10,15 @@ public class TemplateCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Template.PROPERTY_TEMPLATETEXT,
+      Template.PROPERTY_EXPANDEDTEXT,
       Template.PROPERTY_MODELOBJECT,
       Template.PROPERTY_MODELCLASSNAME,
-      Template.PROPERTY_PLACEHOLDERS,
-      Template.PROPERTY_PLACEHOLDERDESCRIPTION,
-      Template.PROPERTY_EXPANDEDTEXT,
       Template.PROPERTY_LISTSTART,
       Template.PROPERTY_LISTSEPARATOR,
       Template.PROPERTY_LISTEND,
+      Template.PROPERTY_PLACEHOLDERS,
+      Template.PROPERTY_CHOOSER,
+      Template.PROPERTY_PARENT,
    };
    
    public String[] getProperties()
@@ -58,6 +59,4 @@ public class TemplateCreator extends EntityFactory
       ((Template) entity).removeYou();
    }
 }
-
-
 
