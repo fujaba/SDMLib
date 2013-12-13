@@ -25,7 +25,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
-import org.sdmlib.models.transformations.creators.ObjectSet;
 import java.lang.Object;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import java.util.Collection;
@@ -33,6 +32,9 @@ import java.util.Collections;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.creators.MatchSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.Match;
 
 public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -490,5 +492,64 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
+   public MatchSet getMatches()
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Template obj : this)
+      {
+         result.addAll(obj.getMatches());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasMatches(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withMatches(Match value)
+   {
+      for (Template obj : this)
+      {
+         obj.withMatches(value);
+      }
+      
+      return this;
+   }
+
+   public TemplateSet withoutMatches(Match value)
+   {
+      for (Template obj : this)
+      {
+         obj.withoutMatches(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

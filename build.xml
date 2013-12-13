@@ -31,8 +31,8 @@
 	<path id="SDMLib.libs">
 		<pathelement location="lib/jcommon-1.0.17.jar" />
 		<pathelement location="lib/jfreechart-1.0.14.jar" />
-		<pathelement location="lib/jfxrt.jar" />
 		<pathelement location="lib/gwtx-1.5.2.jar" />
+		<pathelement location="${JAVA_HOME}/lib/fxrt.jar" />
 		<pathelement location="lib/junit.jar" />
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="lib/emma.jar" />

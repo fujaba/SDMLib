@@ -32,6 +32,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.transformations.creators.ObjectPOCreator());
          creatorSet.add(new org.sdmlib.models.transformations.creators.ChoiceTemplateCreator());
          creatorSet.add(new org.sdmlib.models.transformations.creators.ChoiceTemplatePOCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.MatchCreator());
+         creatorSet.add(new org.sdmlib.models.transformations.creators.MatchPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -47,6 +49,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

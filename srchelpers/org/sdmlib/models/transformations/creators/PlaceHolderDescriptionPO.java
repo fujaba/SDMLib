@@ -10,6 +10,9 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.creators.MatchPO;
+import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescriptionPO, PlaceHolderDescription>
 {
@@ -223,5 +226,39 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
+   public MatchPO hasMatches()
+   {
+      MatchPO result = new MatchPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(PlaceHolderDescription.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionPO hasMatches(MatchPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_MATCHES)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public MatchSet getMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) this.getCurrentMatch()).getMatches();
+      }
+      return null;
+   }
+
 }
+
 

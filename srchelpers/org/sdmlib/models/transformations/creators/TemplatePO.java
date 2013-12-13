@@ -13,6 +13,9 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
 import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.creators.MatchPO;
+import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class TemplatePO extends PatternObject<TemplatePO, Template>
 {
@@ -355,5 +358,39 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return null;
    }
 
+   public MatchPO hasMatches()
+   {
+      MatchPO result = new MatchPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Template.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
+   public TemplatePO hasMatches(MatchPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Template.PROPERTY_MATCHES)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public MatchSet getMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) this.getCurrentMatch()).getMatches();
+      }
+      return null;
+   }
+
 }
+
 

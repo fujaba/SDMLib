@@ -1,17 +1,18 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboardManual</a></p>
 <p>LudoStoryboardManual</p>
 <p>Start situation: </p>
 <embed type="image/svg+xml" src='LudoStoryboardManual3.svg'>
 <p>now the pawn may move to Tom's start field</p>
-<pre>      // build move operation with SDM model transformations
+<pre>      &#x2F;&#x2F; build move operation with SDM model transformations
       Player player = p8.getPlayer();
       
-      if (player.getDice() != null && player.getDice().getValue() == 6
-            && p8.getPos() != null && "base".equals(p8.getPos().getKind())
-            && p8.getPos() == player.getBase())
+      if (player.getDice() != null &amp;&amp; player.getDice().getValue() == 6
+            &amp;&amp; p8.getPos() != null &amp;&amp; &quot;base&quot;.equals(p8.getPos().getKind())
+            &amp;&amp; p8.getPos() == player.getBase())
       {
          Field startField = player.getStart();
          boolean hasOtherOwnPawn = false;

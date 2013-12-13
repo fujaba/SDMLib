@@ -31,6 +31,8 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.creators.MatchSet;
+import org.sdmlib.models.transformations.Match;
 
 public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescription> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -329,5 +331,64 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return this;
    }
 
+   public MatchSet getMatches()
+   {
+      MatchSet result = new MatchSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.addAll(obj.getMatches());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasMatches(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PlaceHolderDescriptionSet withMatches(Match value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.withMatches(value);
+      }
+      
+      return this;
+   }
+
+   public PlaceHolderDescriptionSet withoutMatches(Match value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.withoutMatches(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

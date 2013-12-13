@@ -24,6 +24,7 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -42,6 +43,7 @@ import org.sdmlib.storyboards.GenericIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class Template implements PropertyChangeInterface
 {
@@ -99,6 +101,11 @@ public class Template implements PropertyChangeInterface
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          return getParent();
+      }
+
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         return getMatches();
       }
 
       return null;
@@ -175,6 +182,18 @@ public class Template implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         addToMatches((Match) value);
+         return true;
+      }
+      
+      if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromMatches((Match) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -201,6 +220,7 @@ public class Template implements PropertyChangeInterface
       removeAllFromPlaceholders();
       setChooser(null);
       setParent(null);
+      removeAllFromMatches();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -209,7 +229,7 @@ public class Template implements PropertyChangeInterface
 
    public static final String PROPERTY_TEMPLATETEXT = "templateText";
 
-   private String templateText;
+   private String templateText = "";
 
    public String getTemplateText()
    {
@@ -374,11 +394,18 @@ public class Template implements PropertyChangeInterface
       return this;
    }
 
-   public void parse()
+   public MatchSet parse()
    {
+      MatchSet result = new MatchSet();
+
       if ( ! isList())
       {
-         parseOnce();
+         Match subMatch = parseOnce();
+         
+         if (subMatch != null)
+         {
+            result.add(subMatch);
+         }
       }
       else
       {
@@ -394,12 +421,13 @@ public class Template implements PropertyChangeInterface
             LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<>();
 
             oldValueStartPos = currentPosInExpandedText;
-            boolean found = parseOnce();
+            Match subMatch = parseOnce();
 
-            while (found)
+            while (subMatch != null)
             {  
                // add to results
                modelObjectSet.add(this.getModelObject());
+               result.add(subMatch);
 
                // skip list separator
                int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
@@ -410,16 +438,17 @@ public class Template implements PropertyChangeInterface
                   // there is no good list end symbol use constFragment behind list placeholder instead
                   listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
                }
-
-               found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos < listEndPos;
+               
+               boolean found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos <= listEndPos;
 
                if (found)
                {
                   // more to come
+                  oldValueStartPos = currentPosInExpandedText;
+
                   currentPosInExpandedText = currentPosInExpandedText + listSeparator.length();
                   
-                  oldValueStartPos = currentPosInExpandedText;
-                  found = parseOnce();
+                  subMatch = parseOnce();
                }
                else
                {
@@ -440,9 +469,11 @@ public class Template implements PropertyChangeInterface
             this.setModelObject(modelObjectSet);
          }
       }
+      
+      return result;
    }
 
-   public boolean parseOnce()
+   public Match parseOnce()
    {
       // the templateText contains placeholders and constant text fragments. Match the constant fragments in the expanded text. 
       // Assign the content in between to the placeholders
@@ -452,6 +483,11 @@ public class Template implements PropertyChangeInterface
 
       int constantStartPosInExpandedText = 0;
 
+      int matchStartPos = currentPosInExpandedText;
+      
+      Match templateMatch = new Match()
+      .withFullText(this.getExpandedText())
+      .withStartPos(matchStartPos);
 
       PlaceHolderDescription previousPlaceHolder;
 
@@ -473,7 +509,7 @@ public class Template implements PropertyChangeInterface
 
          if (constantStartPosInExpandedText != currentPosInExpandedText)
          {
-            return false;
+            return null;
          }
 
          currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
@@ -518,7 +554,7 @@ public class Template implements PropertyChangeInterface
             if (subTemplate != null)
             {
                // ask subtemplate to parse
-               subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
+               MatchSet subMatches = subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
                .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
                .parse();
                
@@ -534,6 +570,21 @@ public class Template implements PropertyChangeInterface
                   creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
                }
                
+               if ( ! subMatches.isEmpty())
+               {
+                  // create placeholderMatch
+                  Match placeholderMatch = new Match()
+                  .withPlaceholder(previousPlaceHolder)
+                  .withModelObject(this.getModelObject())
+                  .withFullText(this.getExpandedText())
+                  .withStartPos(currentPosInExpandedText)
+                  .withEndPos(subTemplate.getValueStartPos()-1)
+                  .withParentMatch(templateMatch)
+                  .withSubMatches(subMatches.toArray(new Match[]{}))
+                  ;
+
+               }
+               
                this.currentPosInExpandedText = subTemplate.getValueStartPos();
                
                // now the constant fragment should follow
@@ -541,7 +592,7 @@ public class Template implements PropertyChangeInterface
 
                if (constantStartPosInExpandedText < 0)
                {
-                  return false;
+                  return null;
                }
                
                if (constantStartPosInExpandedText == currentPosInExpandedText)
@@ -550,7 +601,7 @@ public class Template implements PropertyChangeInterface
                }
                else 
                {
-                  return false;
+                  return null;
                }
             }
             else
@@ -560,7 +611,7 @@ public class Template implements PropertyChangeInterface
 
                if (constantStartPosInExpandedText < 0)
                {
-                  return false;
+                  return null;
                }
                
                if (constantStartPosInExpandedText == currentPosInExpandedText)
@@ -585,12 +636,14 @@ public class Template implements PropertyChangeInterface
                   }
                   else
                   {
-                     return false;
+                     return null;
                   }
                }
 
                
                String value = this.getExpandedText().substring(currentPosInExpandedText, constantStartPosInExpandedText);
+               
+               int valueStartPos = currentPosInExpandedText;
 
                currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
 
@@ -600,20 +653,31 @@ public class Template implements PropertyChangeInterface
                   first = false;
 
                   // look for object in idMap
-                  Object object = idMap.getObject(value);
+                  String key = getModelClassName() + "_" + value;
+                  Object object = idMap.getObject(key);
 
                   if (object == null)
                   {
                      // create object and assign attribute
                      object = creator.getSendableInstance(false);
                      
-                     idMap.put(value, object);
+                     idMap.put(key, object);
                   }    
 
                   this.setModelObject(object);
                }
 
                creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+               
+               // create placeholderMatch
+               Match placeholderMatch = new Match()
+               .withPlaceholder(previousPlaceHolder)
+               .withModelObject(this.getModelObject())
+               .withFullText(this.getExpandedText())
+               .withStartPos(valueStartPos)
+               .withEndPos(constantStartPosInExpandedText-1)
+               .withParentMatch(templateMatch)
+               ;
             }
             
             if (placeholder == null)
@@ -621,11 +685,15 @@ public class Template implements PropertyChangeInterface
                break;
             }
          }
-         
-         
       }
 
-      return true;
+      // found a match, protocol it
+      templateMatch.withEndPos(currentPosInExpandedText-1)
+      .withTemplate(this)
+      .withModelObject(this.getModelObject())
+      ;
+      
+      return templateMatch;
    } 
 
 
@@ -1101,6 +1169,105 @@ public class Template implements PropertyChangeInterface
    {
       PlaceHolderDescription value = new PlaceHolderDescription();
       withParent(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Template ----------------------------------- Match
+    *              template                   matches
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MATCHES = "matches";
+   
+   private MatchSet matches = null;
+   
+   public MatchSet getMatches()
+   {
+      if (this.matches == null)
+      {
+         return Match.EMPTY_SET;
+      }
+   
+      return this.matches;
+   }
+   
+   public boolean addToMatches(Match value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.matches == null)
+         {
+            this.matches = new MatchSet();
+         }
+         
+         changed = this.matches.add (value);
+         
+         if (changed)
+         {
+            value.withTemplate(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromMatches(Match value)
+   {
+      boolean changed = false;
+      
+      if ((this.matches != null) && (value != null))
+      {
+         changed = this.matches.remove (value);
+         
+         if (changed)
+         {
+            value.setTemplate(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Template withMatches(Match... value)
+   {
+      for (Match item : value)
+      {
+         addToMatches(item);
+      }
+      return this;
+   } 
+   
+   public Template withoutMatches(Match... value)
+   {
+      for (Match item : value)
+      {
+         removeFromMatches(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromMatches()
+   {
+      LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
+   
+      for (Match value : tmpSet)
+      {
+         this.removeFromMatches(value);
+      }
+   }
+   
+   public Match createMatches()
+   {
+      Match value = new Match();
+      withMatches(value);
       return value;
    } 
 }
