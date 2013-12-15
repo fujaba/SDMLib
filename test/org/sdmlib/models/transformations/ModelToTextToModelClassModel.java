@@ -37,6 +37,17 @@ public class ModelToTextToModelClassModel
             .withSuperClass(template)
             .withAssoc(template, "choices", R.MANY, "chooser", R.ONE);
       
+      Clazz matchClazz = model.createClazz("Match", 
+         "startPos", R.INT, 
+         "endPos", R.INT, 
+         "fullText", R.STRING, 
+         "matchText", R.STRING);
+      
+      matchClazz.withAssoc(template, "template", R.ONE, "matches", R.MANY);
+      matchClazz.withAssoc(placeholderDescription, "placeholder", R.ONE, "matches", R.MANY);
+      matchClazz.withAttribute("modelObject", "Object");
+      matchClazz.withAssoc(matchClazz, "subMatches", R.MANY, "parentMatch", R.ONE);
+      
       placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "parent", R.ONE);
       
       storyboard.addClassDiagram(model);

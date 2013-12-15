@@ -36,26 +36,26 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
    //==========================================================================
    
    @Override
-   public boolean parseOnce()
+   public Match parseOnce()
    {
       // loop through choices and pick first that works
       for (Template altTemplate : this.getChoices())
       {
-         boolean hasMatch = altTemplate
+         Match match = altTemplate
                .withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
                .withIdMap(idMap).withConstFragmentFollowingAfterList(constFragmentFollowingAfterList)
                .withList(this.getListStart(), this.getListSeparator(), this.getListEnd())
                .parseOnce();
          
-         if (hasMatch)
+         if (match != null)
          {
             this.currentPosInExpandedText = altTemplate.currentPosInExpandedText;
             this.setModelObject(altTemplate.getModelObject());
-            return true;
+            return match;
          }
       }
       
-      return false;
+      return null;
    }
 
 
@@ -114,6 +114,11 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          return getParent();
+      }
+
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         return getMatches();
       }
 
       return null;
@@ -202,6 +207,18 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         addToMatches((Match) value);
+         return true;
+      }
+      
+      if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromMatches((Match) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -229,6 +246,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       removeAllFromChoices();
       setChooser(null);
       setParent(null);
+      removeAllFromMatches();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }

@@ -29,6 +29,7 @@ import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.creators.TemplateSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class PlaceHolderDescription implements PropertyChangeInterface
 {
@@ -66,6 +67,11 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
       {
          return getSubTemplate();
+      }
+
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         return getMatches();
       }
 
       return null;
@@ -118,6 +124,18 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         addToMatches((Match) value);
+         return true;
+      }
+      
+      if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromMatches((Match) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -143,6 +161,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    {
       removeAllFromOwners();
       setSubTemplate(null);
+      removeAllFromMatches();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -437,6 +456,105 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    {
       Template value = new Template();
       withSubTemplate(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * PlaceHolderDescription ----------------------------------- Match
+    *              placeholder                   matches
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MATCHES = "matches";
+   
+   private MatchSet matches = null;
+   
+   public MatchSet getMatches()
+   {
+      if (this.matches == null)
+      {
+         return Match.EMPTY_SET;
+      }
+   
+      return this.matches;
+   }
+   
+   public boolean addToMatches(Match value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.matches == null)
+         {
+            this.matches = new MatchSet();
+         }
+         
+         changed = this.matches.add (value);
+         
+         if (changed)
+         {
+            value.withPlaceholder(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromMatches(Match value)
+   {
+      boolean changed = false;
+      
+      if ((this.matches != null) && (value != null))
+      {
+         changed = this.matches.remove (value);
+         
+         if (changed)
+         {
+            value.setPlaceholder(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public PlaceHolderDescription withMatches(Match... value)
+   {
+      for (Match item : value)
+      {
+         addToMatches(item);
+      }
+      return this;
+   } 
+   
+   public PlaceHolderDescription withoutMatches(Match... value)
+   {
+      for (Match item : value)
+      {
+         removeFromMatches(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromMatches()
+   {
+      LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
+   
+      for (Match value : tmpSet)
+      {
+         this.removeFromMatches(value);
+      }
+   }
+   
+   public Match createMatches()
+   {
+      Match value = new Match();
+      withMatches(value);
       return value;
    } 
 }

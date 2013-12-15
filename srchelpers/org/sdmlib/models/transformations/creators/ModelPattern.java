@@ -19,6 +19,8 @@ import org.sdmlib.models.transformations.creators.ObjectPO;
 import java.lang.Object;
 import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
 import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.creators.MatchPO;
+import org.sdmlib.models.transformations.Match;
 
 public class ModelPattern extends Pattern
 {
@@ -249,7 +251,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public MatchPO hasElementMatchPO()
+   {
+      MatchPO value = new MatchPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public MatchPO hasElementMatchPO(Match hostGraphObject)
+   {
+      MatchPO value = new MatchPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

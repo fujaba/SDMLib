@@ -21,19 +21,15 @@
    
 package org.sdmlib.models.transformations.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.transformations.creators.ObjectSet;
-import java.lang.Object;
-import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 
 public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -549,5 +545,64 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return this;
    }
 
+   public MatchSet getMatches()
+   {
+      MatchSet result = new MatchSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.addAll(obj.getMatches());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasMatches(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ChoiceTemplateSet withMatches(Match value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withMatches(value);
+      }
+      
+      return this;
+   }
+
+   public ChoiceTemplateSet withoutMatches(Match value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withoutMatches(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
