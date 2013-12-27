@@ -21,36 +21,17 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
-import org.sdmlib.examples.studyrightWithAssignments.University;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.Student;
-import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.Room;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.examples.studyrightWithAssignments.University;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
-public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
+public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Room elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightWithAssignments.Room";
@@ -262,6 +243,21 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       }
       
       return this;
+   }
+
+
+   public RoomPO startModelPattern()
+   {
+      ModelPattern pattern = (ModelPattern) new ModelPattern();
+      
+      RoomPO roomPO = pattern.hasElementRoomPO();
+      
+      roomPO.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return roomPO;
    }
 
 }

@@ -17,6 +17,7 @@ public class StudentCreator extends EntityFactory
       Student.PROPERTY_UNIVERSITY,
       Student.PROPERTY_IN,
       Student.PROPERTY_DONE,
+      Student.PROPERTY_FRIENDS,
    };
    
    public String[] getProperties()
@@ -57,4 +58,5 @@ public class StudentCreator extends EntityFactory
       ((Student) entity).removeYou();
    }
 }
+
 

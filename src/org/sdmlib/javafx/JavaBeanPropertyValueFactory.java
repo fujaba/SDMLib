@@ -5,6 +5,7 @@ import org.omg.CORBA.TCKind;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanObjectProperty;
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.beans.value.ObservableValue;
@@ -44,7 +45,7 @@ public class JavaBeanPropertyValueFactory<S, T> extends PropertyValueFactory<S, 
          }
          else
          {
-            throw new RuntimeException("bean property type: " + tClass.getName() + " not yet supported");
+            beanProperty = JavaBeanObjectPropertyBuilder.create().bean(param.getValue()).name(getProperty()).build();
          }
       }
       catch (NoSuchMethodException e)

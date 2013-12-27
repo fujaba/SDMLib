@@ -49,7 +49,8 @@
         {"id":"KE.K172"},
         {"id":"KE.K174"},
         {"id":"KE.K176"},
-        {"id":"KE.K178"}
+        {"id":"KE.K178"},
+        {"id":"KE.K180"}
       ],
       "logEntries":[
         {"id":"KE.L5"},
@@ -894,6 +895,20 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L179"}
+      ],
+      "oldNoOfLogEntries":1
+    }
+  },
+  {
+    "id":"KE.K180",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRightObjectModelNavigationAndQueries",
+      "phase":"backlog",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L181"}
       ],
       "oldNoOfLogEntries":1
     }
@@ -2339,6 +2354,16 @@
     "prop":{
       "date":"02.12.2013 12:00:00",
       "kanbanEntry":{"id":"KE.K178"},
+      "developer":"zuendorf",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L181",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"26.12.2013 12:00:00",
+      "kanbanEntry":{"id":"KE.K180"},
       "developer":"zuendorf",
       "phase":"backlog"
     }

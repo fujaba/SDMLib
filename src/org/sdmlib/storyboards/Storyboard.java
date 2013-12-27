@@ -45,6 +45,7 @@ import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.ModelSet;
@@ -1626,6 +1627,14 @@ public class Storyboard implements PropertyChangeInterface
          
       this.add("<pre>" + expandedText + "</pre>");
       
+   }
+
+   public void addPattern(Pattern pattern, boolean b)
+   {
+      String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();
+      
+      String link = pattern.dumpDiagram(diagName, b);
+      this.add(link);
    } 
 }
 

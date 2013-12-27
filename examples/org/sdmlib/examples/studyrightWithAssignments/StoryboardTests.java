@@ -21,7 +21,17 @@
 package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.junit.Test;
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
@@ -263,4 +273,168 @@ public class StoryboardTests {
       
       storyboard.dumpHTML();
    }
+
+   @Test
+   public void testStudyRightObjectModelNavigationAndQueries()
+   {
+      Storyboard storyboard = new Storyboard();
+      
+      storyboard.add("Extend the class model:");
+      
+      ClassModel model = new ClassModel();
+      
+      Clazz studentClass = model.createClazz(Student.class.getName());
+ 
+      studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
+      
+      storyboard.addClassDiagram(model);
+      
+      model.generate("examples");
+      
+      storyboard.add("How to navigate and query an object model.");
+      
+      storyboard.addStep("Example object structure:");
+      
+      University university = new University()
+      .withName("StudyRight");
+
+      Student karli = university.createStudents()
+            .withId("4242")
+            .withName("Karli");
+      
+      Student abu = university.createStudents()
+            .withId("1337")
+            .withName("Abu");
+      
+      Student alice = university.createStudents()
+            .withId("2323")
+            .withName("Alice");
+      
+      abu.withFriends(alice);
+
+      Assignment a1 = new Assignment()
+      .withContent("Matrix Multiplication")
+      .withPoints(5);
+
+      Assignment a2 = new Assignment()
+      .withContent("Series")
+      .withPoints(6);
+
+      Assignment a3 = new Assignment()
+      .withContent("Integrals")
+      .withPoints(8);
+      
+      karli.withDone(a1, a2);
+
+      Room mathRoom = university.createRooms()
+            .withName("senate")
+            .withTopic("math")
+            .withCredits(17)  
+            .withStudents(karli)
+            .withAssignments(a1, a2, a3);
+
+      Room artsRoom = university.createRooms()
+            .withName("7522")
+            .withTopic("arts")
+            .withCredits(16)
+            .withDoors(mathRoom); 
+
+      Room sportsRoom = university.createRooms()
+            .withName("gymnasium")
+            .withTopic("sports")
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom)
+            .withStudents(abu, alice); 
+      
+      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
+
+      Room examRoom = university.createRooms()
+            .withName("The End")
+            .withTopic("exam")
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
+
+      Room softwareEngineering = university.createRooms()
+            .withName("7422")
+            .withTopic("Software Engineering")
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
+
+      storyboard.addObjectDiagram(
+         "studyRight", university, 
+         "karli", "icons/karli.png", karli, 
+         "abu", "icons/karli.png", abu, 
+         "alice", "icons/karli.png", alice, 
+         "mathRoom", "icons/mathroom.png", mathRoom, 
+         "artsRoom", artsRoom,
+         "sportsRoom", sportsRoom, 
+         "examRoom", examRoom, 
+         "placeToBe", softwareEngineering, 
+         "icons/matrix.png", a1, 
+         "icons/limes.png", a2 , 
+         "icons/integralAssignment.png", a3, 
+         a4);
+
+      
+      //=====================================================
+      storyboard.addStep("Simple set based navigation:");
+      
+      storyboard.markCodeStart();
+ 
+      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      
+      int donePoints = university.getStudents().getDone().getPoints().sum();
+      
+      storyboard.addCode();
+      
+      storyboard.add("Results in:");
+      
+      StringBuilder text = new StringBuilder(
+         "      Sum of assignment points: 42. \n      Sum of points of assignments that have been done by at least one students: 23."
+            );
+      
+      CGUtil.replaceAll(text, "42", "" + assignmentPoints, "23", "" + donePoints);
+      
+      storyboard.addPreformatted(text.toString());
+      
+      
+      //=====================================================
+      storyboard.addStep("Rooms with assignments not yet done by Karli:");
+      
+      storyboard.markCodeStart();
+      
+      AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
+      
+      RoomSet rooms = availableAssignments.getRoom();
+      
+      storyboard.addCode();
+     
+      storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + rooms.toString());
+      
+      //=====================================================
+      storyboard.addStep("Rooms with two students that are friends (and need supervision): ");
+      
+      storyboard.markCodeStart();
+      
+      RoomPO roomPO = university.getRooms().startModelPattern();
+            
+      StudentPO stud1PO = roomPO.hasStudents();      
+      
+      roomPO.hasStudents().hasFriends(stud1PO);
+      
+      rooms = roomPO.allMatches();
+      
+      storyboard.addCode();
+     
+      storyboard.addPattern(roomPO.getPattern(), false);
+      
+      storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + rooms.toString());
+      
+      storyboard.dumpHTML();
+   }
+
 }

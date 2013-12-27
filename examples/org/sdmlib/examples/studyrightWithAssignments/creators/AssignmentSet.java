@@ -21,33 +21,16 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
-public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdmlib.models.modelsets.ModelSet
+public class AssignmentSet extends SDMSet<Assignment>
 {
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Assignment elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightWithAssignments.Assignment";

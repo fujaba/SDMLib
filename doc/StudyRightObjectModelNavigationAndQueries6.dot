@@ -1,0 +1,46 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+   compound=true;
+
+studyRight [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/University.java"> <u>studyRight :University</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "StudyRight"</td></tr></table></td></tr></table>>];
+karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/karli.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java"> <u>karli :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Karli"</td></tr><tr><td align='left'>assignmentPoints = 0</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+mathRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/mathroom.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>mathRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "senate"</td></tr><tr><td align='left'>topic = "math"</td></tr><tr><td align='left'>credits = 17</td></tr></table></td></tr></table>>];
+artsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>artsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "7522"</td></tr><tr><td align='left'>topic = "arts"</td></tr><tr><td align='left'>credits = 16</td></tr></table></td></tr></table>>];
+sportsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>sportsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "gymnasium"</td></tr><tr><td align='left'>topic = "sports"</td></tr><tr><td align='left'>credits = 25</td></tr></table></td></tr></table>>];
+examRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>examRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "The End"</td></tr><tr><td align='left'>topic = "exam"</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+placeToBe [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>placeToBe :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "7422"</td></tr><tr><td align='left'>topic = "Software Engineering"</td></tr><tr><td align='left'>credits = 42</td></tr></table></td></tr></table>>];
+abu [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/karli.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java"> <u>abu :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Abu"</td></tr><tr><td align='left'>assignmentPoints = 0</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+a4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a4 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Pushups"</td></tr><tr><td align='left'>points = 4</td></tr></table></td></tr></table>>];
+alice [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/karli.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java"> <u>alice :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Alice"</td></tr><tr><td align='left'>assignmentPoints = 0</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
+a1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/matrix.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a1 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Matrix Multiplication"</td></tr><tr><td align='left'>points = 5</td></tr></table></td></tr></table>>];
+a2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/limes.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a2 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Series"</td></tr><tr><td align='left'>points = 6</td></tr></table></td></tr></table>>];
+a3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/integralAssignment.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a3 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Integrals"</td></tr><tr><td align='left'>points = 8</td></tr><tr><td align='left'>students = ""</td></tr></table></td></tr></table>>];
+
+studyRight -- karli [headlabel = "students" taillabel = "university"];
+studyRight -- abu [headlabel = "students" taillabel = "university"];
+studyRight -- alice [headlabel = "students" taillabel = "university"];
+studyRight -- mathRoom [headlabel = "rooms" taillabel = "university"];
+studyRight -- artsRoom [headlabel = "rooms" taillabel = "university"];
+studyRight -- sportsRoom [headlabel = "rooms" taillabel = "university"];
+studyRight -- examRoom [headlabel = "rooms" taillabel = "university"];
+studyRight -- placeToBe [headlabel = "rooms" taillabel = "university"];
+karli -- mathRoom [headlabel = "in" taillabel = "students"];
+karli -- a1 [headlabel = "done" taillabel = "students"];
+karli -- a2 [headlabel = "done" taillabel = "students"];
+mathRoom -- artsRoom [headlabel = "doors" taillabel = "doors"];
+mathRoom -- sportsRoom [headlabel = "doors" taillabel = "doors"];
+mathRoom -- a1 [headlabel = "assignments" taillabel = "room"];
+mathRoom -- a2 [headlabel = "assignments" taillabel = "room"];
+mathRoom -- a3 [headlabel = "assignments" taillabel = "room"];
+artsRoom -- sportsRoom [headlabel = "doors" taillabel = "doors"];
+artsRoom -- examRoom [headlabel = "doors" taillabel = "doors"];
+artsRoom -- placeToBe [headlabel = "doors" taillabel = "doors"];
+sportsRoom -- examRoom [headlabel = "doors" taillabel = "doors"];
+sportsRoom -- abu [headlabel = "students" taillabel = "in"];
+sportsRoom -- alice [headlabel = "students" taillabel = "in"];
+sportsRoom -- a4 [headlabel = "assignments" taillabel = "room"];
+examRoom -- placeToBe [headlabel = "doors" taillabel = "doors"];
+abu -- a4 [headlabel = "done" taillabel = "students"];
+abu -- alice [headlabel = "friends" taillabel = "friends"];
+}

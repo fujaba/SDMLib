@@ -22,9 +22,13 @@
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
@@ -32,22 +36,13 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
-public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
+public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Student elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
 
 
    public String getEntryType()
@@ -253,5 +248,77 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public String toString()
+   {
+      StringList stringList = new StringList();
+      
+      for (Student elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
+   }
+   public StudentSet getFriends()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         result.addAll(obj.getFriends());
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasFriends(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public StudentSet withFriends(Student value)
+   {
+      for (Student obj : this)
+      {
+         obj.withFriends(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withoutFriends(Student value)
+   {
+      for (Student obj : this)
+      {
+         obj.withoutFriends(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

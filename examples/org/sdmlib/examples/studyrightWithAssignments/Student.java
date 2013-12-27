@@ -78,6 +78,11 @@ public class Student implements PropertyChangeInterface
          return getDone();
       }
 
+      if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
+      {
+         return getFriends();
+      }
+
       return null;
    }
 
@@ -140,6 +145,18 @@ public class Student implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
+      {
+         addToFriends((Student) value);
+         return true;
+      }
+      
+      if ((PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromFriends((Student) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -166,6 +183,7 @@ public class Student implements PropertyChangeInterface
       setUniversity(null);
       setIn(null);
       removeAllFromDone();
+      removeAllFromFriends();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -539,6 +557,105 @@ public class Student implements PropertyChangeInterface
    {
       Assignment value = new Assignment();
       withDone(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Student ----------------------------------- Student
+    *              friends                   friends
+    * </pre>
+    */
+   
+   public static final String PROPERTY_FRIENDS = "friends";
+   
+   private StudentSet friends = null;
+   
+   public StudentSet getFriends()
+   {
+      if (this.friends == null)
+      {
+         return Student.EMPTY_SET;
+      }
+   
+      return this.friends;
+   }
+   
+   public boolean addToFriends(Student value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.friends == null)
+         {
+            this.friends = new StudentSet();
+         }
+         
+         changed = this.friends.add (value);
+         
+         if (changed)
+         {
+            value.withFriends(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromFriends(Student value)
+   {
+      boolean changed = false;
+      
+      if ((this.friends != null) && (value != null))
+      {
+         changed = this.friends.remove (value);
+         
+         if (changed)
+         {
+            value.withoutFriends(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Student withFriends(Student... value)
+   {
+      for (Student item : value)
+      {
+         addToFriends(item);
+      }
+      return this;
+   } 
+   
+   public Student withoutFriends(Student... value)
+   {
+      for (Student item : value)
+      {
+         removeFromFriends(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromFriends()
+   {
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getFriends());
+   
+      for (Student value : tmpSet)
+      {
+         this.removeFromFriends(value);
+      }
+   }
+   
+   public Student createFriends()
+   {
+      Student value = new Student();
+      withFriends(value);
       return value;
    } 
 }

@@ -1,0 +1,37 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
+<body>
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
+<p>StudyRightObjectModelNavigationAndQueries</p>
+<p>Extend the class model:</p>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueriesClassDiagram2.svg'><p>How to navigate and query an object model.</p>
+<p>Start: Example object structure:</p>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries6.svg'>
+<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
+      int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+      
+      int donePoints = university.getStudents().getDone().getPoints().sum();
+      
+</pre><p>Results in:</p>
+<pre>      Sum of assignment points: 23. 
+      Sum of points of assignments that have been done by at least one students: 15.</pre><p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
+      AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
+      
+      RoomSet rooms = availableAssignments.getRoom();
+      
+</pre><p>Results in:</p>
+<pre>      (senate math 17, gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Rooms with two students that are friends (and need supervision): </a></p><pre>      
+      RoomPO roomPO = university.getRooms().startModelPattern();
+            
+      StudentPO stud1PO = roomPO.hasStudents();      
+      
+      roomPO.hasStudents().hasFriends(stud1PO);
+      
+      rooms = roomPO.allMatches();
+      
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram16.svg'>
+<p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre>
+</body>
+</html>
