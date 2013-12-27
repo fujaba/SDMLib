@@ -21,16 +21,50 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import org.sdmlib.examples.studyrightWithAssignments.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.Student;
-import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyrightWithAssignments.University;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 
-public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets.ModelSet
+public class RoomSet extends SDMSet<Room>
 {
+   public Room first()
+   {
+      for (Room obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
+
+
+   public RoomPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
+      
+      RoomPO patternObject = pattern.hasElementRoomPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
    @Override
    public String getEntryType()
    {
@@ -73,6 +107,21 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       return result;
    }
 
+   public RoomSet hasName(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withName(String value)
    {
       for (Room obj : this)
@@ -90,6 +139,21 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       for (Room obj : this)
       {
          result.add(obj.getTopic());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasTopic(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getTopic()))
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -117,6 +181,21 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       return result;
    }
 
+   public RoomSet hasCredits(int value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withCredits(int value)
    {
       for (Room obj : this)
@@ -139,6 +218,32 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       return result;
    }
 
+   public RoomSet hasUniversity(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (neighbors.contains(obj.getUniversity()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public RoomSet withUniversity(University value)
    {
       for (Room obj : this)
@@ -159,6 +264,32 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       }
       
       return result;
+   }
+
+   public RoomSet hasDoors(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDoors()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public RoomSet withDoors(Room value)
@@ -193,6 +324,32 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       return result;
    }
 
+   public RoomSet hasStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public RoomSet withStudents(Student value)
    {
       for (Room obj : this)
@@ -225,6 +382,32 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       return result;
    }
 
+   public RoomSet hasAssignments(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAssignments()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public RoomSet withAssignments(Assignment value)
    {
       for (Room obj : this)
@@ -243,21 +426,6 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       }
       
       return this;
-   }
-
-
-   public RoomPO startModelPattern()
-   {
-      ModelPattern pattern = (ModelPattern) new ModelPattern();
-      
-      RoomPO roomPO = pattern.hasElementRoomPO();
-      
-      roomPO.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return roomPO;
    }
 
 }

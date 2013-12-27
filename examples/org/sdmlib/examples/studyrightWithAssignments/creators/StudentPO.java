@@ -327,4 +327,3 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
 }
 
-

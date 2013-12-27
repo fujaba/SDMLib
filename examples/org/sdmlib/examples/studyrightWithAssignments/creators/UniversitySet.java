@@ -21,32 +21,47 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import java.util.LinkedHashSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
 
-public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
+public class UniversitySet extends SDMSet<University>
 {
-
-
-   public String toString()
+   public University first()
    {
-      StringList stringList = new StringList();
-      
-      for (University elem : this)
+      for (University obj : this)
       {
-         stringList.add(elem.toString());
+         return obj;
       }
       
-      return "(" + stringList.concat(", ") + ")";
+      return null;
    }
 
 
+   public UniversityPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
+      
+      UniversityPO patternObject = pattern.hasElementUniversityPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightWithAssignments.University";
@@ -76,6 +91,21 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return result;
    }
 
+   public UniversitySet hasName(String value)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public UniversitySet withName(String value)
    {
       for (University obj : this)
@@ -96,6 +126,32 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       }
       
       return result;
+   }
+
+   public UniversitySet hasStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public UniversitySet withStudents(Student value)
@@ -128,6 +184,32 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       }
       
       return result;
+   }
+
+   public UniversitySet hasRooms(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getRooms()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public UniversitySet withRooms(Room value)

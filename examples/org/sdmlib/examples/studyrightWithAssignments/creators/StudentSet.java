@@ -21,30 +21,51 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.models.modelsets.StringList;
-
 import java.util.List;
-
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
-import java.util.Collection;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
 
-public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.modelsets.ModelSet
+public class StudentSet extends SDMSet<Student>
 {
+   public Student first()
+   {
+      for (Student obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
 
 
+   public StudentPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
+      
+      StudentPO patternObject = pattern.hasElementStudentPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightWithAssignments.Student";
@@ -74,6 +95,21 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return result;
    }
 
+   public StudentSet hasName(String value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withName(String value)
    {
       for (Student obj : this)
@@ -91,6 +127,21 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       for (Student obj : this)
       {
          result.add(obj.getId());
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasId(String value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value.equals(obj.getId()))
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -118,6 +169,21 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return result;
    }
 
+   public StudentSet hasAssignmentPoints(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getAssignmentPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withAssignmentPoints(int value)
    {
       for (Student obj : this)
@@ -135,6 +201,21 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       for (Student obj : this)
       {
          result.add(obj.getMotivation());
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasMotivation(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getMotivation())
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -162,6 +243,21 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return result;
    }
 
+   public StudentSet hasCredits(int value)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withCredits(int value)
    {
       for (Student obj : this)
@@ -182,6 +278,32 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       }
       
       return result;
+   }
+
+   public StudentSet hasUniversity(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (neighbors.contains(obj.getUniversity()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public StudentSet withUniversity(University value)
@@ -206,6 +328,32 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return result;
    }
 
+   public StudentSet hasIn(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (neighbors.contains(obj.getIn()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public StudentSet withIn(Room value)
    {
       for (Student obj : this)
@@ -228,6 +376,32 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return result;
    }
 
+   public StudentSet hasDone(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public StudentSet withDone(Assignment value)
    {
       for (Student obj : this)
@@ -248,19 +422,6 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Student elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
@@ -320,5 +481,4 @@ public class StudentSet extends SDMSet<Student> implements org.sdmlib.models.mod
    }
 
 }
-
 

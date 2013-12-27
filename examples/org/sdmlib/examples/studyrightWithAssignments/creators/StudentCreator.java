@@ -59,4 +59,3 @@ public class StudentCreator extends EntityFactory
    }
 }
 
-

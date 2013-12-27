@@ -21,15 +21,47 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
-import org.sdmlib.examples.studyrightWithAssignments.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyrightWithAssignments.Room;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {
+   public Assignment first()
+   {
+      for (Assignment obj : this)
+      {
+         return obj;
+      }
+      
+      return null;
+   }
+
+
+   public AssignmentPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
+      
+      AssignmentPO patternObject = pattern.hasElementAssignmentPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
    @Override
    public String getEntryType()
    {
@@ -60,6 +92,21 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
+   public AssignmentSet hasContent(String value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value.equals(obj.getContent()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public AssignmentSet withContent(String value)
    {
       for (Assignment obj : this)
@@ -77,6 +124,21 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          result.add(obj.getPoints());
+      }
+      
+      return result;
+   }
+
+   public AssignmentSet hasPoints(int value)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (value == obj.getPoints())
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -104,6 +166,32 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
+   public AssignmentSet hasRoom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AssignmentSet answer = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (neighbors.contains(obj.getRoom()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
    public AssignmentSet withRoom(Room value)
    {
       for (Assignment obj : this)
@@ -124,6 +212,32 @@ public class AssignmentSet extends SDMSet<Assignment>
       }
       
       return result;
+   }
+
+   public AssignmentSet hasStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AssignmentSet answer = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (neighbors.contains(obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public AssignmentSet withStudents(Student value)

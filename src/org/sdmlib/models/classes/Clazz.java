@@ -34,6 +34,8 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.examples.groupAccount.Item;
+import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
@@ -1106,10 +1108,10 @@ public class Clazz implements PropertyChangeInterface
             StringBuilder text = new StringBuilder("" + 
                   "package packageName;\n" +
                   "\n" +
-                  "import java.util.LinkedHashSet;\n" +
+                  "import org.sdmlib.models.modelsets.SDMSet;\n" +
                   "import fullEntityClassName;\n" +
                   "\n" +
-                  "public class modelSetClassName extends LinkedHashSet<entitiyClassName> implements org.sdmlib.models.modelsets.ModelSet\n" +
+                  "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
                   "{\n" + 
                   "   public Item first()\n" + 
                   "   {\n" + 
@@ -1142,7 +1144,7 @@ public class Clazz implements PropertyChangeInterface
 
          insertLicense(modelSetParser);
 
-         insertSetToString(modelSetParser);
+         insertSetStartModelPattern(modelSetParser);
 
          insertSetEntryType(modelSetParser);
 
@@ -1185,30 +1187,37 @@ public class Clazz implements PropertyChangeInterface
       }
    }
 
-   private void insertSetToString(Parser parser)
+   private void insertSetStartModelPattern(Parser parser)
    {
-      String searchString = Parser.METHOD + ":toString()";
+      String searchString = Parser.METHOD + ":startModelPattern()";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
             "\n\n" + 
-                  "   public String toString()\n" + 
+                  "   public ModelPO startModelPattern()\n" + 
                   "   {\n" + 
-                  "      StringList stringList = new StringList();\n" + 
+                  "      ModelPatternClass pattern = new ModelPatternClass();\n" + 
                   "      \n" + 
-                  "      for (ModelType elem : this)\n" + 
-                  "      {\n" + 
-                  "         stringList.add(elem.toString());\n" + 
-                  "      }\n" + 
+                  "      ModelPO patternObject = pattern.hasElementModelPO();\n" + 
                   "      \n" + 
-                  "      return \"(\" + stringList.concat(\", \") + \")\";\n" + 
+                  "      patternObject.withCandidates(this);\n" + 
+                  "      \n" + 
+                  "      pattern.setHasMatch(true);\n" + 
+                  "      pattern.findMatch();\n" + 
+                  "      \n" + 
+                  "      return patternObject;\n" + 
+                  "" + 
                   "   }\n"
                );
-
+         
+         String packageName = CGUtil.packageName(this.getName());
+         
          CGUtil.replaceAll(text, 
-            "ModelType", CGUtil.shortClassName(this.getName()));
+            "ModelPO", CGUtil.shortClassName(this.getName()) + "PO",
+            "ModelPatternClass", packageName + ".creators.ModelPattern"
+               );
 
          insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -1227,6 +1236,7 @@ public class Clazz implements PropertyChangeInterface
       {
          StringBuilder text = new StringBuilder(
             "\n\n" + 
+                  "   @Override\n" +
                   "   public String getEntryType()\n" + 
                   "   {\n" + 
                   "      return \"ModelType\";\n" + 

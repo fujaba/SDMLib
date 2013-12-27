@@ -33,6 +33,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 
@@ -119,8 +120,9 @@ public class GenerateClasses {
       studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE);
 
       storyboard.addClassDiagram(model);
-
-
+      
+      studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
+      
       //============================================================
       storyboard.add("6. generate class source files.");
 
