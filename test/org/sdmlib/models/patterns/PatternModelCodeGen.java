@@ -132,6 +132,9 @@ public class PatternModelCodeGen
       .withAssoc(patternObject, "src", R.ONE, "matchOtherThen", R.MANY)
       .withAssoc(patternObject, "forbidden", R.ONE, "excluders", R.MANY);
       
+      Clazz genericConstraint = new Clazz("GenericConstraint")
+      .withSuperClass(patternElement);
+      
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       
       model.createClazz(SDMLibJsonIdMap.class.getName());

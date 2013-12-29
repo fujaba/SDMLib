@@ -41,6 +41,8 @@ import org.sdmlib.models.pattern.creators.UnifyGraphsOpPO;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
 import org.sdmlib.models.pattern.creators.RuleApplicationPO;
 import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.creators.GenericConstraintPO;
+import org.sdmlib.models.pattern.GenericConstraint;
 
 public class ModelPattern extends Pattern
 {
@@ -535,7 +537,32 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public GenericConstraintPO hasElementGenericConstraintPO()
+   {
+      GenericConstraintPO value = new GenericConstraintPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public GenericConstraintPO hasElementGenericConstraintPO(GenericConstraint hostGraphObject)
+   {
+      GenericConstraintPO value = new GenericConstraintPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 
 

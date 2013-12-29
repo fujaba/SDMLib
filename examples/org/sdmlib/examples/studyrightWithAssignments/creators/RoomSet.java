@@ -56,7 +56,7 @@ public class RoomSet extends SDMSet<Room>
       
       RoomPO patternObject = pattern.hasElementRoomPO();
       
-      patternObject.withCandidates(this);
+      patternObject.withCandidates(this.clone());
       
       pattern.setHasMatch(true);
       pattern.findMatch();

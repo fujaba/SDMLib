@@ -32,6 +32,8 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
@@ -289,7 +291,7 @@ public class StoryboardTests {
       
       storyboard.addClassDiagram(model);
       
-      model.generate("examples");
+      // model.generate("examples");
       
       storyboard.add("How to navigate and query an object model.");
       
@@ -413,6 +415,43 @@ public class StoryboardTests {
       
       storyboard.addPreformatted("      " + rooms.toString());
       
+      storyboard.add("Filter for attribute:");
+      
+      storyboard.markCodeStart();
+      
+      RoomSet rooms17 = rooms.hasCredits(17);
+
+      storyboard.addCode();
+      
+      storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + rooms17.toString());
+      
+      storyboard.add("Filter for attribute greater than:");
+      
+      storyboard.markCodeStart();
+      
+      // Java 8:
+      // (Room elem) -> elem.getCredits() > 20
+      
+      RoomSet roomsGT = rooms.has(rooms.new Condition() {
+
+         @Override
+         public boolean check(Room elem)
+         {
+            return elem.getCredits() > 20;
+         }
+         
+      });
+
+      storyboard.addCode();
+      
+      storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + roomsGT.toString());
+      
+      
+      
       //=====================================================
       storyboard.addStep("Rooms with two students that are friends (and need supervision): ");
       
@@ -422,7 +461,7 @@ public class StoryboardTests {
             
       StudentPO stud1PO = roomPO.hasStudents();      
       
-      roomPO.hasStudents().hasFriends(stud1PO);
+      roomPO.hasStudents().hasMotivation(0).hasFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -434,6 +473,42 @@ public class StoryboardTests {
       
       storyboard.addPreformatted("      " + rooms.toString());
       
+
+      //=====================================================
+      storyboard.addStep("Rooms with two students with low motivation that are friends (and need supervision): ");
+      
+      storyboard.markCodeStart();
+      
+      roomPO = university.getRooms().startModelPattern();
+            
+      stud1PO = roomPO.hasStudents();      
+      
+      final StudentPO stud2PO = roomPO.hasStudents();
+      
+      // Java 8: 
+      // stud2PO.has( () -> stud2PO.getMotivation() < 10);
+      
+      stud2PO.has(new GenericConstraint.Condition()
+      {
+         @Override
+         public boolean check()
+         {
+            return stud2PO.getMotivation() < 10;
+         }
+      });
+      
+      stud2PO.hasFriends(stud1PO);
+      
+      rooms = roomPO.allMatches();
+      
+      storyboard.addCode();
+     
+      storyboard.addPattern(roomPO.getPattern(), false);
+      
+      storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + rooms.toString());
+
       storyboard.dumpHTML();
    }
 

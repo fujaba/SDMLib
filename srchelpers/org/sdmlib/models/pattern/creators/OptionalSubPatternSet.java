@@ -343,7 +343,23 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       return this;
    }
 
+
+
+   public OptionalSubPatternPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      OptionalSubPatternPO patternObject = pattern.hasElementOptionalSubPatternPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

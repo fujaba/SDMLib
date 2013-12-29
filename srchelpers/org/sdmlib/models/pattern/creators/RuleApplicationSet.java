@@ -128,5 +128,21 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       return this;
    }
 
+
+
+   public RuleApplicationPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      RuleApplicationPO patternObject = pattern.hasElementRuleApplicationPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

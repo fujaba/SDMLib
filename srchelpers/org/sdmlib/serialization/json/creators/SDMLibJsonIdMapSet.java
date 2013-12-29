@@ -60,6 +60,13 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       this.remove(value);
       return this;
    }
+
+
+   public SDMLibJsonIdMapPO startModelPattern()
+   {
+      return null;
+   }
 }
+
 
 

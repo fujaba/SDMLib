@@ -173,7 +173,23 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       return this;
    }
 
+
+
+   public MatchIsomorphicConstraintPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      MatchIsomorphicConstraintPO patternObject = pattern.hasElementMatchIsomorphicConstraintPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

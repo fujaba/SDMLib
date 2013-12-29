@@ -47,5 +47,24 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
       return result;
    }
 
+   public <ST extends SDMSet<T>> ST has(Condition condition)
+   {
+      ST result = (ST) this.clone();
+      
+      for (T elem : this)
+      {
+         if ( ! condition.check(elem))
+         {
+            result.remove(elem);
+         }
+      };
+      
+      return result;
+   }
+   
+   public abstract class Condition
+   {
+      public abstract boolean check(T elem);
+   }
 
 }

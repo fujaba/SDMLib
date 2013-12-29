@@ -61,5 +61,12 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
       this.remove(value);
       return this;
    }
+
+
+   public JsonIdMapPO startModelPattern()
+   {
+      return null;
+   }
 }
+
 

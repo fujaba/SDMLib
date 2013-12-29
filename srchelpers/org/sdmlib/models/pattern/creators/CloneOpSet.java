@@ -173,5 +173,21 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public CloneOpPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      CloneOpPO patternObject = pattern.hasElementCloneOpPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

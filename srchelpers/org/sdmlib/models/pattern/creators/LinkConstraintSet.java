@@ -264,7 +264,23 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       return this;
    }
 
+
+
+   public LinkConstraintPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      LinkConstraintPO patternObject = pattern.hasElementLinkConstraintPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

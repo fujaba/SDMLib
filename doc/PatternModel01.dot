@@ -1,7 +1,7 @@
 
  digraph ClassDiagram {
-    node [shape = none, fontsize = 10]; 
-    edge [fontsize = 10];
+    node [shape = none, fontsize = 10, fontname = "Arial"]; 
+    edge [fontsize = 10, fontname = "Arial"];
     
     
     _PatternElement [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/PatternElement.java">PatternElement</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>modifier :String</td></tr> <tr><td align='left'>hasMatch :boolean</td></tr> <tr><td align='left'>patternObjectName :String</td></tr> <tr><td align='left'>doAllMatches :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
@@ -19,6 +19,7 @@
     _DestroyObjectElem [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/DestroyObjectElem.java">DestroyObjectElem</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _CardinalityConstraint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/CardinalityConstraint.java">CardinalityConstraint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>tgtRoleName :String</td></tr> <tr><td align='left'>hostGraphSrcObject :Object</td></tr> <tr><td align='left'>minCard :long</td></tr> <tr><td align='left'>maxCard :long</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _MatchOtherThen [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/MatchOtherThen.java">MatchOtherThen</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>hostGraphSrcObject :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _GenericConstraint [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/GenericConstraint.java">GenericConstraint</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _JsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/JsonIdMap.java">JsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _SDMLibJsonIdMap [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/serialization/json/SDMLibJsonIdMap.java">SDMLibJsonIdMap</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _ReachabilityGraph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/models/pattern/ReachabilityGraph.java">ReachabilityGraph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
@@ -40,6 +41,7 @@
     _PatternElement ->  _DestroyObjectElem [dir = "back" arrowtail = "empty"];
     _PatternElement ->  _CardinalityConstraint [dir = "back" arrowtail = "empty"];
     _PatternElement ->  _MatchOtherThen [dir = "back" arrowtail = "empty"];
+    _PatternElement ->  _GenericConstraint [dir = "back" arrowtail = "empty"];
     _Pattern -> _PatternElement [headlabel = "elements *" taillabel = "pattern" arrowhead = "none" ];
     _AttributeConstraint -> _PatternObject [headlabel = "src" taillabel = "attrConstraints *" arrowhead = "none" ];
     _DestroyObjectElem -> _PatternObject [headlabel = "patternObject" taillabel = "destroyElem" arrowhead = "none" ];

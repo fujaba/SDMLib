@@ -26,6 +26,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
@@ -911,6 +913,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          .findMatch();
       }
    }
+   
+   public POC has(GenericConstraint.Condition condition)
+   {
+      GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
+      .withCondition(condition)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+ 
+      return (POC) this;
+   }
+
 
    
    //==========================================================================

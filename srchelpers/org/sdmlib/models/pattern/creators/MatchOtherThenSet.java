@@ -242,5 +242,21 @@ public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements 
       return this;
    }
 
+
+
+   public MatchOtherThenPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      MatchOtherThenPO patternObject = pattern.hasElementMatchOtherThenPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

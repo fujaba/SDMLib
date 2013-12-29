@@ -57,6 +57,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.models.pattern.creators.UnifyGraphsOpPOCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.RuleApplicationCreator());
          creatorSet.add(new org.sdmlib.models.pattern.creators.RuleApplicationPOCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.GenericConstraintCreator());
+         creatorSet.add(new org.sdmlib.models.pattern.creators.GenericConstraintPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -72,6 +74,7 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
 
 

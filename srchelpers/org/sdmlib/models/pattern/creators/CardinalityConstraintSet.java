@@ -288,5 +288,21 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       return this;
    }
 
+
+
+   public CardinalityConstraintPO startModelPattern()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      CardinalityConstraintPO patternObject = pattern.hasElementCardinalityConstraintPO();
+      
+      patternObject.withCandidates(this);
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

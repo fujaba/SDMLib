@@ -59,5 +59,12 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
       this.remove(value);
       return this;
    }
+
+
+   public StringBuilderPO startModelPattern()
+   {
+      return null;
+   }
 }
+
 

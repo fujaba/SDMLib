@@ -21,16 +21,62 @@
       RoomSet rooms = availableAssignments.getRoom();
       
 </pre><p>Results in:</p>
-<pre>      (senate math 17, gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Rooms with two students that are friends (and need supervision): </a></p><pre>      
+<pre>      (senate math 17, gymnasium sports 25)</pre><p>Filter for attribute:</p>
+<pre>      
+      RoomSet rooms17 = rooms.hasCredits(17);
+
+</pre><p>Results in:</p>
+<pre>      (senate math 17)</pre><p>Filter for attribute greater than:</p>
+<pre>      
+      &#x2F;&#x2F; Java 8:
+      &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
+      
+      RoomSet roomsGT = rooms.has(rooms.new Condition() {
+
+         @Override
+         public boolean check(Room elem)
+         {
+            return elem.getCredits() &gt; 20;
+         }
+         
+      });
+
+</pre><p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Rooms with two students that are friends (and need supervision): </a></p><pre>      
       RoomPO roomPO = university.getRooms().startModelPattern();
             
       StudentPO stud1PO = roomPO.hasStudents();      
       
-      roomPO.hasStudents().hasFriends(stud1PO);
+      roomPO.hasStudents().hasMotivation(0).hasFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram16.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram24.svg'>
+<p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_4'>Step 4: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
+      roomPO = university.getRooms().startModelPattern();
+            
+      stud1PO = roomPO.hasStudents();      
+      
+      final StudentPO stud2PO = roomPO.hasStudents();
+      
+      &#x2F;&#x2F; Java 8: 
+      &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 10);
+      
+      stud2PO.has(new GenericConstraint.Condition()
+      {
+         @Override
+         public boolean check()
+         {
+            return stud2PO.getMotivation() &lt; 10;
+         }
+      });
+      
+      stud2PO.hasFriends(stud1PO);
+      
+      rooms = roomPO.allMatches();
+      
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram29.svg'>
 <p>Results in:</p>
 <pre>      (gymnasium sports 25)</pre>
 </body>
