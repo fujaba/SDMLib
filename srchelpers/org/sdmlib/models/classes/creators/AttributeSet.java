@@ -63,6 +63,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       
       return result;
    }
+   
    public AttributeSet withClazz(Clazz value)
    {
       for (Attribute obj : this)

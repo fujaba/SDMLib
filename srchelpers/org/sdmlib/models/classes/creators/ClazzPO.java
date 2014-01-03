@@ -177,39 +177,6 @@ public class ClazzPO extends PatternObject
       return null;
    }
    
-   public ClazzPO hasKindClassesAsInterface()
-   {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Clazz.PROPERTY_KIDCLASSESASINTERFACE, result);
-      
-      return result;
-   }
-   
-   public ClazzPO hasKindClassesAsInterface(ClazzPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSESASINTERFACE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public ClazzSet getKindClassesAsInterface()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ClazzSet) this.getCurrentMatch()).getKindClassesAsInterface();
-      }
-      return null;
-   }
-   
    public ClazzPO hasInterfaces()
    {
       ClazzPO result = new ClazzPO();

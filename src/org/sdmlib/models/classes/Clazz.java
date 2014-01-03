@@ -33,9 +33,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.groupAccount.Item;
-import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
@@ -72,6 +69,10 @@ public class Clazz implements PropertyChangeInterface
          if(name.indexOf('.') < 0)
          {
             name = "" + getClassModel().getPackageName()  + "." + name;
+         }
+         else if (getClassModel().getPackageName() == null)
+         {
+            getClassModel().setPackageName(CGUtil.packageName(name));
          }
       }
       setName(name);
@@ -126,15 +127,31 @@ public class Clazz implements PropertyChangeInterface
       return superClass;
    }
 
-   public void setSuperClass(Clazz superClass)
+   public void setSuperClass(Clazz newSuperClass)
    {
-      this.superClass = superClass;
+      if (this.superClass != newSuperClass)
+      {
+         Clazz oldSuperClass = this.superClass;
+         if (this.superClass != null)
+         {
+            this.superClass = null;
+            oldSuperClass.removeFromKidClasses(oldSuperClass);
+         }
+         
+         this.superClass = newSuperClass;
+         
+         if (newSuperClass != null)
+         {
+            newSuperClass.addToKidClasses(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, oldSuperClass, newSuperClass);
+      }
    }
 
    public Clazz withSuperClass(Clazz superClass)
    {
       setSuperClass(superClass);
-      superClass.addToKidClasses(this);
       return this;
    }
 
@@ -218,8 +235,8 @@ public class Clazz implements PropertyChangeInterface
             insertGenericGetSet();
             insertSuperClass();
             insertPropertyChangeSupport();
-            insertRemoveYourMethod();
             insertInterfaceMethods(this, rootDir, helpersDir);
+            insertRemoveYouMethod();
             insertInterfaceAttributesInCreatorClass(this, rootDir, helpersDir);
          }
 
@@ -334,7 +351,7 @@ public class Clazz implements PropertyChangeInterface
          {
             for (Attribute attr : interfaze.getAttributes())
             {
-               attr.generateMethodsInKindClass(this, rootDir, helpersDir, false);
+               attr.generate(this, rootDir, helpersDir);
             }
 
             for (Method method : interfaze.getMethods())
@@ -450,7 +467,7 @@ public class Clazz implements PropertyChangeInterface
    }
 
 
-   private void insertRemoveYourMethod()
+   private void insertRemoveYouMethod()
    {
       String searchString = Parser.METHOD + ":removeYou()";
       int pos = parser.indexOf(searchString);
@@ -968,7 +985,7 @@ public class Clazz implements PropertyChangeInterface
                      "   \n" +
                      "   public Object getSendableInstance(boolean reference)\n" +
                      "   {\n" +
-                     "      return new entitiyClassName();\n" +
+                     "      return instanceCreationClause;\n" +
                      "   }\n" +
                      "   \n" +
                      "   public Object getValue(Object target, String attrName)\n" +
@@ -1023,15 +1040,31 @@ public class Clazz implements PropertyChangeInterface
                if (! hasConstructor)
                {
                   CGUtil.replaceAll(text, 
-                     "new entitiyClassName()", "null"); 
+                     "instanceCreationClause", "null"); 
                }
+            }
+            
+            String instanceCreationClause = "new " + entitiyClassName + "()";
+            
+            String modelPackage = CGUtil.packageName(this.name);
+            
+            if (this.getName().endsWith("Impl") && modelPackage.endsWith(".impl"))
+            {
+               // emf style get package and name prefix
+               modelPackage = CGUtil.packageName(modelPackage);
+               String modelName = CGUtil.shortClassName(modelPackage);
+               
+               String basicClassName = entitiyClassName.substring(0, entitiyClassName.length() - 4);
+               
+               instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName+ "()";
             }
 
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
-               "packageName", packageName);
+               "packageName", packageName,
+               "instanceCreationClause", instanceCreationClause);
 
             creatorFileBody.append(text.toString());
 
@@ -1213,6 +1246,11 @@ public class Clazz implements PropertyChangeInterface
                );
          
          String packageName = CGUtil.packageName(this.getName());
+         
+         if (this.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+         {
+            packageName = packageName.substring(0, packageName.length()-5);
+         }
          
          CGUtil.replaceAll(text, 
             "ModelPO", CGUtil.shortClassName(this.getName()) + "PO",
@@ -2184,15 +2222,15 @@ public class Clazz implements PropertyChangeInterface
     * <pre>
     *              many                       many
     * Clazz ----------------------------------- Clazz
-    *              interfaces                   kindClassesAsInterface
+    *              interfaces                   kidClassesAsInterface
     * </pre>
     */
 
    public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
 
-   private LinkedHashSet<Clazz> kidClassesAsInterface = null;
+   private ClazzSet kidClassesAsInterface = null;
 
-   public LinkedHashSet<Clazz> getKidClassesAsInterface()
+   public ClazzSet getKidClassesAsInterface()
    {
       if (this.kidClassesAsInterface == null)
       {
@@ -2210,7 +2248,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.kidClassesAsInterface == null)
          {
-            this.kidClassesAsInterface = new LinkedHashSet<Clazz>();
+            this.kidClassesAsInterface = new ClazzSet();
          }
 
          changed = this.kidClassesAsInterface.add (value);
@@ -2257,7 +2295,7 @@ public class Clazz implements PropertyChangeInterface
 
    public void removeAllFromKidClassesAsInterface()
    {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getInterfaces());
+      ClazzSet tmpSet = (ClazzSet) this.getInterfaces().clone();
 
       for (Clazz value : tmpSet)
       {
@@ -2275,9 +2313,9 @@ public class Clazz implements PropertyChangeInterface
 
    public static final String PROPERTY_INTERFACES = "interfaces";
 
-   private LinkedHashSet<Clazz> interfaces = null;
+   private ClazzSet interfaces = null;
 
-   public LinkedHashSet<Clazz> getInterfaces()
+   public ClazzSet getInterfaces()
    {
       if (this.interfaces == null)
       {
@@ -2295,7 +2333,7 @@ public class Clazz implements PropertyChangeInterface
       {
          if (this.interfaces == null)
          {
-            this.interfaces = new LinkedHashSet<Clazz>();
+            this.interfaces = new ClazzSet();
          }
 
          changed = this.interfaces.add (value);

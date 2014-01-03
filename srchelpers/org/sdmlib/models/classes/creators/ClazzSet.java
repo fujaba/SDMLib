@@ -28,11 +28,13 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.utils.StrUtil;
 
-public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.modelsets.ModelSet
+public class ClazzSet extends SDMSet<Clazz> 
 {
    public StringList getName()
    {
@@ -55,6 +57,21 @@ public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.
       
       return this;
    }
+   
+   public ClazzSet hasName(String value)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz clazz : this)
+      {
+         if (value.indexOf(clazz.getName()) >= 0)
+         {
+            result.add(clazz);
+         }
+      }
+      
+      return result;
+   }
 
    public booleanSet getInterfaze()
    {
@@ -66,16 +83,6 @@ public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.
       }
       
       return result;
-   }
-
-   public ClazzSet withInterfaze(Boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withInterfaze(value);
-      }
-      
-      return this;
    }
 
    public ClassModelSet getClassModel()
@@ -146,37 +153,6 @@ public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.
       for (Clazz obj : this)
       {
          obj.withSuperClass(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getKindClassesAsInterface()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getKidClassesAsInterface());
-      }
-      
-      return result;
-   }
-   public ClazzSet withKindClassesAsInterface(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withKidClassesAsInterface(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutKindClassesAsInterface(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutKidClassesAsInterface(value);
       }
       
       return this;
@@ -349,16 +325,6 @@ public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.
       return result;
    }
 
-   public ClazzSet withExternal(Boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withExternal(value);
-      }
-      
-      return this;
-   }
-
    public ClazzSet withInterfaze(boolean value)
    {
       for (Clazz obj : this)
@@ -466,6 +432,34 @@ public class ClazzSet extends LinkedHashSet<Clazz> implements org.sdmlib.models.
       
       return result;
    }
+   
+   public ClazzSet getKidClassesAsInterfaceTransitive()
+   {
+      // transitive includes start classes
+      ClazzSet result = (ClazzSet) this.clone();
+      
+      ClazzSet todo = (ClazzSet) this.clone();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz first = todo.first();
+         
+         ClazzSet newKids = first.getKidClassesAsInterface();
+         
+         newKids.removeAll(result); // already known
+         
+         result.addAll(newKids);
+         
+         todo.addAll(newKids);
+         
+         todo.remove(first);
+      }
+      
+      return result;
+   }
+   
+   
+   
    public ClazzSet withKidClassesAsInterface(Clazz value)
    {
       for (Clazz obj : this)

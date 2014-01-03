@@ -17,6 +17,16 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
       
       return "(" + stringList.concat(", ") + ")";
    }
+   
+   public T first()
+   {
+      for (T elem : this)
+      {
+         return elem;
+      }
+      
+      return null;
+   }
 
    public <ST extends SDMSet<T>> ST union(ST other)
    {

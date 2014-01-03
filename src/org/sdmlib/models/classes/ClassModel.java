@@ -324,7 +324,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		for (Clazz clazz : getClasses())
 		{
-			if (!clazz.isInterfaze() && ! clazz.isExternal()) 
+			if (! clazz.isExternal()) 
 				clazz.insertHasMethodsInModelPattern(modelPatternParser);
 		}
 
@@ -637,16 +637,27 @@ public class ClassModel implements PropertyChangeInterface
 		for (Clazz clazz : this.getClasses())
 		{
 			StringBuilder modelClassText = new StringBuilder(
-					"\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF=\"classfilename\">className</td> </tr> attrCompartment methodCompartment </table>>];");
+					"\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> "
+					+ "<tr> <td HREF=\"classfilename\">className stereotypes</td> </tr> attrCompartment methodCompartment </table>>];");
 
 			if (clazz.isInterfaze())
+			{
 				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
-
+			}
+			
+			String stereotypes = "";
+			
+			if (clazz.isExternal())
+			{
+			   stereotypes = " external";
+			}
+			
 			CGUtil.replaceAll(modelClassText, 
 					"className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
 					"classfilename", "../" + rootdir + "/" + clazz.getName().replaceAll("\\.", "/") + ".java", 
 					"attrCompartment", dumpAttributes(clazz), 
-					"methodCompartment", dumpMethods(clazz));
+					"methodCompartment", dumpMethods(clazz),
+					" stereotypes", stereotypes);
 
 			modelClassesText.append(modelClassText.toString());
 		}
@@ -893,7 +904,7 @@ public class ClassModel implements PropertyChangeInterface
 		File binFolder = new File(binDir);
 		File srcFolder = binFolder.getParentFile();
 		
-		updateFromCode(includePathes,packages, srcFolder);
+		updateFromCode(includePathes, packages, srcFolder);
 	}
 
 	/*
@@ -916,7 +927,7 @@ public class ClassModel implements PropertyChangeInterface
 			}			
 
 			// parse each java file
-			for (Clazz clazz : getClasses())
+			for (Clazz clazz : (ClazzSet) getClasses().clone())
 			{
 				handleMember(clazz, clazz.getFilePath());
 			}
@@ -1028,8 +1039,9 @@ public class ClassModel implements PropertyChangeInterface
 				}
 
 			}
-			// remove getter with setter or addTo removeFrom removeAllFrom without
 		}
+
+		// remove getter with setter or addTo removeFrom removeAllFrom without
 		for (String memberName : memberNames)
 		{
 			// remove getter with setter or addTo removeFrom removeAllFrom without
@@ -1104,7 +1116,6 @@ public class ClassModel implements PropertyChangeInterface
 				addMemberAsSuperClass(clazz, memberName, parser);
 			}
 		}
-
 		else if (memberName.startsWith(Parser.IMPLEMENTS))
 		{
 			addMemberAsInterface(clazz, memberName, parser);
@@ -1152,9 +1163,12 @@ public class ClassModel implements PropertyChangeInterface
 	private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
 	{
 		Clazz memberClass = findMemberClass(clazz, memberName, parser);
+		
+		if (memberClass != null) 
+		{
+		   memberClass.withInterfaze(true);
 
-		if (memberClass != null) {
-			clazz.addToInterfaces(memberClass);
+		   clazz.addToInterfaces(memberClass);
 		}
 	}
 
@@ -1171,22 +1185,42 @@ public class ClassModel implements PropertyChangeInterface
 
 			if (key.startsWith(Parser.IMPORT + ":") && importName.endsWith(signature))
 			{
-				LinkedHashSet<Clazz> classes = getClasses();
+			   Clazz modelClass = findClassInModel(importName);
 
-				for (Clazz eClazz : classes)
-				{
-					if (eClazz.getName().equals(importName))
-					{
-						return eClazz;
-					}
-				}
-			}		
+			   if (modelClass != null)
+			   {
+			      return modelClass;
+			   }
+			   else
+			   {
+			      Clazz externClass = this.createClazz(importName).withExternal(true);
+			      return externClass;
+			   }
+			}
+			else if (key.startsWith(Parser.IMPORT + ":") && importName.endsWith("*"))
+			{
+			   // might work
+			   importName = importName.substring(0, importName.length() - 1) + signature;
+			   
+			   Clazz modelClass = findClassInModel(importName);
+
+            if (modelClass != null)
+            {
+               return modelClass;
+            }
+			}
 		}
+		
 		String name = clazz.getName();
 		int lastIndex = name.lastIndexOf('.');
 		name = name.substring(0, lastIndex + 1) + signature;
 
-		LinkedHashSet<Clazz> classes = getClasses();
+		return findClassInModel(name);
+	}
+
+   private Clazz findClassInModel(String name)
+   {
+      LinkedHashSet<Clazz> classes = getClasses();
 
 		for (Clazz eClazz : classes) {
 			if (eClazz.getName().equals(name)) {
@@ -1195,7 +1229,7 @@ public class ClassModel implements PropertyChangeInterface
 		}
 
 		return null;
-	}
+   }
 
 
 
@@ -1252,7 +1286,7 @@ public class ClassModel implements PropertyChangeInterface
 		for (File file : javaFiles)
 		{
 			String filePath = file.getAbsolutePath();
-			filePath = filePath.replace(srcFolder.getPath(), "");
+			filePath = filePath.replace(srcFolder.getAbsolutePath(), "");
 			filePath = filePath.replace(File.separatorChar, '.').substring(1);
 			filePath = filePath.substring(0, filePath.length() - 5);
 			addClassToClasses(filePath, packages);	
