@@ -21,13 +21,11 @@
       RoomSet rooms = availableAssignments.getRoom();
       
 </pre><p>Results in:</p>
-<pre>      (senate math 17, gymnasium sports 25)</pre><p>Filter for attribute:</p>
-<pre>      
+<pre>      (senate math 17, gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
       RoomSet rooms17 = rooms.hasCredits(17);
 
 </pre><p>Results in:</p>
-<pre>      (senate math 17)</pre><p>Filter for attribute greater than:</p>
-<pre>      
+<pre>      (senate math 17)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
@@ -42,18 +40,22 @@
       });
 
 </pre><p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Rooms with two students that are friends (and need supervision): </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_5'>Step 5: Write operations on sets: </a></p><pre>      
+      university.getStudents().withMotivation(42);
+      
+</pre><embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries25.svg'>
+<p><a name = 'step_6'>Step 6: Rooms with two students that are friends (and need supervision): </a></p><pre>      
       RoomPO roomPO = university.getRooms().startModelPattern();
             
       StudentPO stud1PO = roomPO.hasStudents();      
       
-      roomPO.hasStudents().hasMotivation(0).hasFriends(stud1PO);
+      roomPO.hasStudents().hasMotivation(42).hasFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram24.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram27.svg'>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_4'>Step 4: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_7'>Step 7: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
       roomPO = university.getRooms().startModelPattern();
             
       stud1PO = roomPO.hasStudents();      
@@ -61,14 +63,14 @@
       final StudentPO stud2PO = roomPO.hasStudents();
       
       &#x2F;&#x2F; Java 8: 
-      &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 10);
+      &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 50);
       
       stud2PO.has(new GenericConstraint.Condition()
       {
          @Override
          public boolean check()
          {
-            return stud2PO.getMotivation() &lt; 10;
+            return stud2PO.getMotivation() &lt; 50;
          }
       });
       
@@ -76,8 +78,24 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram29.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram32.svg'>
 <p>Results in:</p>
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
+      roomPO = university.getRooms().startModelPattern();
+            
+      stud1PO = roomPO.hasStudents();      
+      
+      roomPO.hasStudents().hasFriends(stud1PO);
+      
+      roomPO.startNAC().hasTas().endNAC();
+      
+      roomPO.startCreate().hasTas().endCreate();
+      
+      rooms = roomPO.allMatches();
+      
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram37.svg'>
+<p>Results in:</p>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries40.svg'>
 <pre>      (gymnasium sports 25)</pre>
 </body>
 </html>

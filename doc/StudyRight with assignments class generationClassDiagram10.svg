@@ -82,7 +82,7 @@
 <g id="edge12" class="edge"><title>_Student&#45;&gt;_Assignment</title>
 <path fill="none" stroke="black" d="M145.782,-246.26C146.245,-208.489 144.455,-158.88 135,-116 132.33,-103.892 127.833,-91.2463 123.08,-79.8628"/>
 <text text-anchor="middle" x="130.431" y="-84.1421" font-family="Arial" font-size="10.00">done *</text>
-<text text-anchor="middle" x="141.607" y="-234.674" font-family="Arial" font-size="10.00">students</text>
+<text text-anchor="middle" x="141.607" y="-234.674" font-family="Arial" font-size="10.00">students *</text>
 </g>
 <!-- _Room&#45;&gt;_Room -->
 <g id="edge6" class="edge"><title>_Room&#45;&gt;_Room</title>

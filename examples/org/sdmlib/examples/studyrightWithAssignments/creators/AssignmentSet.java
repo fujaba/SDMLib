@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -36,15 +36,6 @@ import org.sdmlib.examples.studyrightWithAssignments.Student;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {
-   public Assignment first()
-   {
-      for (Assignment obj : this)
-      {
-         return obj;
-      }
-      
-      return null;
-   }
 
 
    public AssignmentPO startModelPattern()
@@ -53,7 +44,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       AssignmentPO patternObject = pattern.hasElementAssignmentPO();
       
-      patternObject.withCandidates(this);
+      patternObject.withCandidates(this.clone());
       
       pattern.setHasMatch(true);
       pattern.findMatch();
@@ -208,7 +199,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.add(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       
       return result;
@@ -231,7 +222,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         if (neighbors.contains(obj.getStudents()))
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
          {
             answer.add(obj);
          }
@@ -245,6 +236,16 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          obj.withStudents(value);
+      }
+      
+      return this;
+   }
+
+   public AssignmentSet withoutStudents(Student value)
+   {
+      for (Assignment obj : this)
+      {
+         obj.withoutStudents(value);
       }
       
       return this;

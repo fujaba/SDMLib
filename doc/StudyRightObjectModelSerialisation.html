@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelSerialisation</a></p>
 <p>StudyRightObjectModelSerialisation</p>
@@ -7,13 +8,13 @@
 <p>Start: Example object structure:</p>
 <embed type="image/svg+xml" src='StudyRightObjectModelSerialisation4.svg'>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
-      JsonIdMap idMap = UniversityCreator.createIdMap("demo");
+      JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       JsonArray jsonArray = idMap.toJsonArray(university);
       
       String jsonText = jsonArray.toString(3);
       
-      // you might write jsonText into a file
+      &#x2F;&#x2F; you might write jsonText into a file
       
 </pre><p>Results in:</p>
 <pre>[
@@ -153,10 +154,10 @@
       }
    }
 ]</pre><p><a name = 'step_2'>Step 2: Now read it back again</a></p><pre>      
-      // read jsonText from file
+      &#x2F;&#x2F; read jsonText from file
       JsonArray readJsonArray = new JsonArray().withValue(jsonText);
       
-      JsonIdMap readerMap = UniversityCreator.createIdMap("demo");
+      JsonIdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
       Object rootObject = readerMap.decode(readJsonArray);
       

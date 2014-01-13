@@ -15,6 +15,9 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentPO;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
+import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 
 public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -273,5 +276,39 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return null;
    }
 
+   public TeachingAssistantPO hasTas()
+   {
+      TeachingAssistantPO result = new TeachingAssistantPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Room.PROPERTY_TAS, result);
+      
+      return result;
+   }
+
+   public RoomPO hasTas(TeachingAssistantPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Room.PROPERTY_TAS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public TeachingAssistantSet getTas()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getTas();
+      }
+      return null;
+   }
+
 }
+
 

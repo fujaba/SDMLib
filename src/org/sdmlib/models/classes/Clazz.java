@@ -1146,16 +1146,6 @@ public class Clazz implements PropertyChangeInterface
                   "\n" +
                   "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
                   "{\n" + 
-                  "   public Item first()\n" + 
-                  "   {\n" + 
-                  "      for (Item obj : this)\n" + 
-                  "      {\n" + 
-                  "         return obj;\n" + 
-                  "      }\n" + 
-                  "      \n" + 
-                  "      return null;\n" + 
-                  "   }\n" + 
-                  "" +
                   "}\n");
 
             CGUtil.replaceAll(text, 
@@ -1235,7 +1225,7 @@ public class Clazz implements PropertyChangeInterface
                   "      \n" + 
                   "      ModelPO patternObject = pattern.hasElementModelPO();\n" + 
                   "      \n" + 
-                  "      patternObject.withCandidates(this);\n" + 
+                  "      patternObject.withCandidates(this.clone());\n" + 
                   "      \n" + 
                   "      pattern.setHasMatch(true);\n" + 
                   "      pattern.findMatch();\n" + 

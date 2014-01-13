@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,6 +26,9 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Assignment implements PropertyChangeInterface
 {
@@ -83,7 +86,13 @@ public class Assignment implements PropertyChangeInterface
 
       if (PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
       {
-         setStudents((Student) value);
+         addToStudents((Student) value);
+         return true;
+      }
+      
+      if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromStudents((Student) value);
          return true;
       }
 
@@ -111,7 +120,7 @@ public class Assignment implements PropertyChangeInterface
    public void removeYou()
    {
       setRoom(null);
-      setStudents(null);
+      removeAllFromStudents();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -246,7 +255,7 @@ public class Assignment implements PropertyChangeInterface
    
    /********************************************************************
     * <pre>
-    *              many                       one
+    *              many                       many
     * Assignment ----------------------------------- Student
     *              done                   students
     * </pre>
@@ -254,46 +263,86 @@ public class Assignment implements PropertyChangeInterface
    
    public static final String PROPERTY_STUDENTS = "students";
    
-   private Student students = null;
+   private StudentSet students = null;
    
-   public Student getStudents()
+   public StudentSet getStudents()
    {
+      if (this.students == null)
+      {
+         return Student.EMPTY_SET;
+      }
+   
       return this.students;
    }
    
-   public boolean setStudents(Student value)
+   public boolean addToStudents(Student value)
    {
       boolean changed = false;
       
-      if (this.students != value)
+      if (value != null)
       {
-         Student oldValue = this.students;
-         
-         if (this.students != null)
+         if (this.students == null)
          {
-            this.students = null;
-            oldValue.withoutDone(this);
+            this.students = new StudentSet();
          }
          
-         this.students = value;
+         changed = this.students.add (value);
          
-         if (value != null)
+         if (changed)
          {
             value.withDone(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, oldValue, value);
-         changed = true;
       }
-      
-      return changed;
+         
+      return changed;   
    }
    
-   public Assignment withStudents(Student value)
+   public boolean removeFromStudents(Student value)
    {
-      setStudents(value);
+      boolean changed = false;
+      
+      if ((this.students != null) && (value != null))
+      {
+         changed = this.students.remove (value);
+         
+         if (changed)
+         {
+            value.withoutDone(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Assignment withStudents(Student... value)
+   {
+      for (Student item : value)
+      {
+         addToStudents(item);
+      }
       return this;
    } 
+   
+   public Assignment withoutStudents(Student... value)
+   {
+      for (Student item : value)
+      {
+         removeFromStudents(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromStudents()
+   {
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
+   
+      for (Student value : tmpSet)
+      {
+         this.removeFromStudents(value);
+      }
+   }
    
    public Student createStudents()
    {

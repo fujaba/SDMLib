@@ -11,6 +11,7 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentPO;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 
 public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 {
@@ -151,7 +152,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
 
-   public Student getStudents()
+   public StudentSet getStudents()
    {
       if (this.getPattern().getHasMatch())
       {

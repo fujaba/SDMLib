@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -36,18 +36,11 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
+import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 
 public class RoomSet extends SDMSet<Room>
 {
-   public Room first()
-   {
-      for (Room obj : this)
-      {
-         return obj;
-      }
-      
-      return null;
-   }
 
 
    public RoomPO startModelPattern()
@@ -428,5 +421,64 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
+   public TeachingAssistantSet getTas()
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (Room obj : this)
+      {
+         result.addAll(obj.getTas());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasTas(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getTas()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RoomSet withTas(TeachingAssistant value)
+   {
+      for (Room obj : this)
+      {
+         obj.withTas(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet withoutTas(TeachingAssistant value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutTas(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

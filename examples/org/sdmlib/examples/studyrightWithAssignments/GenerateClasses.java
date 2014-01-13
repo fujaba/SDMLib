@@ -117,7 +117,7 @@ public class GenerateClasses {
       Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
             .withAttributes("content", STRING, "points", INT);
 
-      studentClass.withAssoc(assignmentClass, "done", MANY, "students", ONE);
+      studentClass.withAssoc(assignmentClass, "done", MANY, "students", MANY);
 
       storyboard.addClassDiagram(model);
       

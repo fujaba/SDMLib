@@ -1,6 +1,6 @@
 graph ObjectDiagram {
-   node [shape = none, fontsize = 10];
-   edge [fontsize = 10];
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
 u4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/University.java"> <u>u4 :University</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "StudyRight"</td></tr></table></td></tr></table>>];
@@ -10,9 +10,9 @@ r7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../e
 r8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>r8 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "gymnasium"</td></tr><tr><td align='left'>topic = "sports"</td></tr><tr><td align='left'>credits = 25</td></tr></table></td></tr></table>>];
 r9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>r9 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "The End"</td></tr><tr><td align='left'>topic = "exam"</td></tr><tr><td align='left'>credits = 0</td></tr></table></td></tr></table>>];
 r10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>r10 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "7422"</td></tr><tr><td align='left'>topic = "Software Engineering"</td></tr><tr><td align='left'>credits = 42</td></tr></table></td></tr></table>>];
-a11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a11 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Matrix Multiplication"</td></tr><tr><td align='left'>points = 5</td></tr></table></td></tr></table>>];
-a12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a12 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Series"</td></tr><tr><td align='left'>points = 6</td></tr></table></td></tr></table>>];
-a13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a13 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Integrals"</td></tr><tr><td align='left'>points = 8</td></tr></table></td></tr></table>>];
+a11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a11 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Matrix Multiplication"</td></tr><tr><td align='left'>points = 5</td></tr><tr><td align='left'>students = ""</td></tr></table></td></tr></table>>];
+a12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a12 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Series"</td></tr><tr><td align='left'>points = 6</td></tr><tr><td align='left'>students = ""</td></tr></table></td></tr></table>>];
+a13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a13 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Integrals"</td></tr><tr><td align='left'>points = 8</td></tr><tr><td align='left'>students = ""</td></tr></table></td></tr></table>>];
 
 u4 -- s5 [headlabel = "students" taillabel = "university"];
 u4 -- r6 [headlabel = "rooms" taillabel = "university"];

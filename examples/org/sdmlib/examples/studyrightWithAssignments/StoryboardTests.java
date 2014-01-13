@@ -289,6 +289,10 @@ public class StoryboardTests {
  
       studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
       
+      Clazz roomClass = model.createClazz(Room.class.getName());
+      
+      roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE);
+      
       storyboard.addClassDiagram(model);
       
       // model.generate("examples");
@@ -316,7 +320,8 @@ public class StoryboardTests {
 
       Assignment a1 = new Assignment()
       .withContent("Matrix Multiplication")
-      .withPoints(5);
+      .withPoints(5)
+      .withStudents(abu);
 
       Assignment a2 = new Assignment()
       .withContent("Series")
@@ -415,7 +420,7 @@ public class StoryboardTests {
       
       storyboard.addPreformatted("      " + rooms.toString());
       
-      storyboard.add("Filter for attribute:");
+      storyboard.addStep("Filter for attribute:");
       
       storyboard.markCodeStart();
       
@@ -427,7 +432,7 @@ public class StoryboardTests {
       
       storyboard.addPreformatted("      " + rooms17.toString());
       
-      storyboard.add("Filter for attribute greater than:");
+      storyboard.addStep("Filter for attribute greater than:");
       
       storyboard.markCodeStart();
       
@@ -451,6 +456,17 @@ public class StoryboardTests {
       storyboard.addPreformatted("      " + roomsGT.toString());
       
       
+      //====================================================
+      storyboard.addStep("Write operations on sets: ");
+      
+      storyboard.markCodeStart();
+      
+      university.getStudents().withMotivation(42);
+      
+      storyboard.addCode();
+      
+      storyboard.addObjectDiagramWith(university.getStudents());
+      
       
       //=====================================================
       storyboard.addStep("Rooms with two students that are friends (and need supervision): ");
@@ -461,7 +477,7 @@ public class StoryboardTests {
             
       StudentPO stud1PO = roomPO.hasStudents();      
       
-      roomPO.hasStudents().hasMotivation(0).hasFriends(stud1PO);
+      roomPO.hasStudents().hasMotivation(42).hasFriends(stud1PO);
       
       rooms = roomPO.allMatches();
       
@@ -486,14 +502,14 @@ public class StoryboardTests {
       final StudentPO stud2PO = roomPO.hasStudents();
       
       // Java 8: 
-      // stud2PO.has( () -> stud2PO.getMotivation() < 10);
+      // stud2PO.has( () -> stud2PO.getMotivation() < 50);
       
       stud2PO.has(new GenericConstraint.Condition()
       {
          @Override
          public boolean check()
          {
-            return stud2PO.getMotivation() < 10;
+            return stud2PO.getMotivation() < 50;
          }
       });
       
@@ -506,6 +522,33 @@ public class StoryboardTests {
       storyboard.addPattern(roomPO.getPattern(), false);
       
       storyboard.add("Results in:");
+      
+      storyboard.addPreformatted("      " + rooms.toString());
+
+      //=====================================================
+      storyboard.addStep("Rooms with two students without supervision that are friends and add teaching assistance: ");
+      
+      storyboard.markCodeStart();
+      
+      roomPO = university.getRooms().startModelPattern();
+            
+      stud1PO = roomPO.hasStudents();      
+      
+      roomPO.hasStudents().hasFriends(stud1PO);
+      
+      roomPO.startNAC().hasTas().endNAC();
+      
+      roomPO.startCreate().hasTas().endCreate();
+      
+      rooms = roomPO.allMatches();
+      
+      storyboard.addCode();
+     
+      storyboard.addPattern(roomPO.getPattern(), false);
+      
+      storyboard.add("Results in:");
+      
+      storyboard.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());
       
       storyboard.addPreformatted("      " + rooms.toString());
 

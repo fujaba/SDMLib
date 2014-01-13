@@ -16,5 +16,5 @@
     _Room -> _Room [headlabel = "doors *" taillabel = "doors *" arrowhead = "none" ];
     _Student -> _Room [headlabel = "in" taillabel = "students *" arrowhead = "none" ];
     _Room -> _Assignment [headlabel = "assignments *" taillabel = "room" arrowhead = "none" ];
-    _Student -> _Assignment [headlabel = "done *" taillabel = "students" arrowhead = "none" ];
+    _Student -> _Assignment [headlabel = "done *" taillabel = "students *" arrowhead = "none" ];
 }
