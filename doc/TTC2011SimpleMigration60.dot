@@ -1,0 +1,31 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+   compound=true;
+
+g229 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Graph.java"> <u>g229 :Graph</u></td></tr></table>>];
+n230 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n230 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n1"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n231 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n231 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n2"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n232 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n232 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n3"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n233 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n233 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n4"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n234 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n234 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n5"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n235 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n235 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n6"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n236 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n236 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n7"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+n237 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n237 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>text = "n8"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+
+g229 -- n230 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n231 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n232 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n233 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n234 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n235 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n236 [headlabel = "nodes" taillabel = "graph"];
+g229 -- n237 [headlabel = "nodes" taillabel = "graph"];
+n230 -- n231 [headlabel = "linksTo" taillabel = "linksFrom"];
+n230 -- n232 [headlabel = "linksFrom" taillabel = "linksTo"];
+n231 -- n232 [headlabel = "linksTo" taillabel = "linksFrom"];
+n232 -- n233 [headlabel = "linksTo" taillabel = "linksFrom"];
+n232 -- n234 [headlabel = "linksFrom" taillabel = "linksTo"];
+n233 -- n234 [headlabel = "linksTo" taillabel = "linksFrom"];
+n237 -- n237 [headlabel = "linksTo_linksFrom" taillabel = ""];
+}
