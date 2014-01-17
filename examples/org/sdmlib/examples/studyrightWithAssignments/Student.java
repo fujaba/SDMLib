@@ -26,9 +26,9 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 
 public class Student implements PropertyChangeInterface
 {
@@ -73,14 +73,14 @@ public class Student implements PropertyChangeInterface
          return getIn();
       }
 
-      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         return getDone();
-      }
-
       if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
       {
          return getFriends();
+      }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         return getDone();
       }
 
       return null;
@@ -133,18 +133,6 @@ public class Student implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         addToDone((Assignment) value);
-         return true;
-      }
-      
-      if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromDone((Assignment) value);
-         return true;
-      }
-
       if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
       {
          addToFriends((Student) value);
@@ -154,6 +142,18 @@ public class Student implements PropertyChangeInterface
       if ((PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromFriends((Student) value);
+         return true;
+      }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         addToDone((Assignment) value);
+         return true;
+      }
+      
+      if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromDone((Assignment) value);
          return true;
       }
 
@@ -182,8 +182,8 @@ public class Student implements PropertyChangeInterface
    {
       setUniversity(null);
       setIn(null);
-      removeAllFromDone();
       removeAllFromFriends();
+      removeAllFromDone();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -465,105 +465,6 @@ public class Student implements PropertyChangeInterface
    /********************************************************************
     * <pre>
     *              many                       many
-    * Student ----------------------------------- Assignment
-    *              students                   done
-    * </pre>
-    */
-   
-   public static final String PROPERTY_DONE = "done";
-   
-   private AssignmentSet done = null;
-   
-   public AssignmentSet getDone()
-   {
-      if (this.done == null)
-      {
-         return Assignment.EMPTY_SET;
-      }
-   
-      return this.done;
-   }
-   
-   public boolean addToDone(Assignment value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.done == null)
-         {
-            this.done = new AssignmentSet();
-         }
-         
-         changed = this.done.add (value);
-         
-         if (changed)
-         {
-            value.withStudents(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public boolean removeFromDone(Assignment value)
-   {
-      boolean changed = false;
-      
-      if ((this.done != null) && (value != null))
-      {
-         changed = this.done.remove (value);
-         
-         if (changed)
-         {
-            value.withoutStudents(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public Student withDone(Assignment... value)
-   {
-      for (Assignment item : value)
-      {
-         addToDone(item);
-      }
-      return this;
-   } 
-   
-   public Student withoutDone(Assignment... value)
-   {
-      for (Assignment item : value)
-      {
-         removeFromDone(item);
-      }
-      return this;
-   }
-   
-   public void removeAllFromDone()
-   {
-      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getDone());
-   
-      for (Assignment value : tmpSet)
-      {
-         this.removeFromDone(value);
-      }
-   }
-   
-   public Assignment createDone()
-   {
-      Assignment value = new Assignment();
-      withDone(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
     * Student ----------------------------------- Student
     *              friends                   friends
     * </pre>
@@ -656,6 +557,105 @@ public class Student implements PropertyChangeInterface
    {
       Student value = new Student();
       withFriends(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * Student ----------------------------------- Assignment
+    *              students                   done
+    * </pre>
+    */
+   
+   public static final String PROPERTY_DONE = "done";
+   
+   private AssignmentSet done = null;
+   
+   public AssignmentSet getDone()
+   {
+      if (this.done == null)
+      {
+         return Assignment.EMPTY_SET;
+      }
+   
+      return this.done;
+   }
+   
+   public boolean addToDone(Assignment value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.done == null)
+         {
+            this.done = new AssignmentSet();
+         }
+         
+         changed = this.done.add (value);
+         
+         if (changed)
+         {
+            value.withStudents(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromDone(Assignment value)
+   {
+      boolean changed = false;
+      
+      if ((this.done != null) && (value != null))
+      {
+         changed = this.done.remove (value);
+         
+         if (changed)
+         {
+            value.withoutStudents(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Student withDone(Assignment... value)
+   {
+      for (Assignment item : value)
+      {
+         addToDone(item);
+      }
+      return this;
+   } 
+   
+   public Student withoutDone(Assignment... value)
+   {
+      for (Assignment item : value)
+      {
+         removeFromDone(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromDone()
+   {
+      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getDone());
+   
+      for (Assignment value : tmpSet)
+      {
+         this.removeFromDone(value);
+      }
+   }
+   
+   public Assignment createDone()
+   {
+      Assignment value = new Assignment();
+      withDone(value);
       return value;
    } 
 }

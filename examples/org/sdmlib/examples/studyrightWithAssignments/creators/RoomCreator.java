@@ -15,8 +15,8 @@ public class RoomCreator extends EntityFactory
       Room.PROPERTY_UNIVERSITY,
       Room.PROPERTY_DOORS,
       Room.PROPERTY_STUDENTS,
-      Room.PROPERTY_ASSIGNMENTS,
       Room.PROPERTY_TAS,
+      Room.PROPERTY_ASSIGNMENTS,
    };
    
    public String[] getProperties()
@@ -57,5 +57,4 @@ public class RoomCreator extends EntityFactory
       ((Room) entity).removeYou();
    }
 }
-
 

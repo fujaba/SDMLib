@@ -338,7 +338,7 @@ public class Role implements PropertyChangeInterface
             "      \n" + 
             "      for (ContentType obj : this)\n" + 
             "      {\n" + 
-            "         result.add(obj.getName());\n" + 
+            "         result.with(obj.getName());\n" + 
             "      }\n" + 
             "      \n" + 
             "      return result;\n" + 
@@ -385,18 +385,11 @@ public class Role implements PropertyChangeInterface
          String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
          String modelSetType = CGUtil.shortClassName(fullModelSetType);
          
-         String adderCall = "result.add";
-         
-         if (partnerRole.getCard().equals(R.MANY.toString()))
-         {
-            adderCall = "result.addAll";
-         }
          
          CGUtil.replaceAll(text, 
             "ContentType", CGUtil.shortClassName(tgtClass.getName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set",
             "Name", StrUtil.upFirstChar(partnerRole.getName()),
-            "result.add", adderCall,
             "containsClause", containsClause
             );
 

@@ -6,8 +6,8 @@
       "name":"SDMLibProject",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":6,
-      "hoursSpend":163,
+      "hoursRemaining":2,
+      "hoursSpend":209,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K6"},
@@ -79,9 +79,12 @@
         {"id":"KE.L146"},
         {"id":"KE.L152"},
         {"id":"KE.L156"},
-        {"id":"KE.L167"}
+        {"id":"KE.L167"},
+        {"id":"KE.L183"},
+        {"id":"KE.L185"},
+        {"id":"KE.L188"}
       ],
-      "oldNoOfLogEntries":27
+      "oldNoOfLogEntries":30
     }
   },
   {
@@ -108,8 +111,7 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":49,
+      "hoursSpend":51,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K7"},
@@ -132,9 +134,10 @@
         {"id":"KE.L119"},
         {"id":"KE.L127"},
         {"id":"KE.L145"},
-        {"id":"KE.L166"}
+        {"id":"KE.L166"},
+        {"id":"KE.L187"}
       ],
-      "oldNoOfLogEntries":10
+      "oldNoOfLogEntries":11
     }
   },
   {
@@ -195,18 +198,18 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightObjectStoryboards",
-      "phase":"done",
+      "phase":"backlog",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":5,
+      "hoursSpend":7,
       "parent":{"id":"KE.K6"},
       "logEntries":[
         {"id":"KE.L57"},
         {"id":"KE.L58"},
         {"id":"KE.L59"},
-        {"id":"KE.L60"}
+        {"id":"KE.L60"},
+        {"id":"KE.L186"}
       ],
-      "oldNoOfLogEntries":4
+      "oldNoOfLogEntries":5
     }
   },
   {
@@ -642,17 +645,17 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GroupAccountStoryboard1",
-      "phase":"modeling",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":8,
+      "hoursSpend":12,
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L113"},
         {"id":"KE.L114"},
-        {"id":"KE.L115"}
+        {"id":"KE.L115"},
+        {"id":"KE.L184"}
       ],
-      "oldNoOfLogEntries":3
+      "oldNoOfLogEntries":4
     }
   },
   {
@@ -904,13 +907,15 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightObjectModelNavigationAndQueries",
-      "phase":"backlog",
+      "phase":"done",
       "lastDeveloper":"zuendorf",
+      "hoursSpend":40,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L181"}
+        {"id":"KE.L181"},
+        {"id":"KE.L182"}
       ],
-      "oldNoOfLogEntries":1
+      "oldNoOfLogEntries":2
     }
   },
   {
@@ -1299,7 +1304,6 @@
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"06.10.2013 21:37:46",
-      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K10"},
       "developer":"zuendorf",
       "phase":"done",
@@ -1312,7 +1316,6 @@
     "prop":{
       "date":"19.05.2012 20:40:42",
       "hoursSpend":1,
-      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K10"},
       "developer":"zuendorf joern alex",
       "phase":"done",
@@ -1337,7 +1340,6 @@
     "prop":{
       "date":"19.08.2012 23:04:42",
       "hoursSpend":4,
-      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K10"},
       "developer":"zuendorf",
       "phase":"done",
@@ -1794,7 +1796,6 @@
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"04.04.2012 00:26:59",
-      "hoursRemainingInTotal":2,
       "kanbanEntry":{"id":"KE.K112"},
       "developer":"zuendorf",
       "phase":"modeling",
@@ -2366,6 +2367,93 @@
       "kanbanEntry":{"id":"KE.K180"},
       "developer":"zuendorf",
       "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L182",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:35:42",
+      "hoursSpend":40,
+      "kanbanEntry":{"id":"KE.K180"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Extend the class model:"
+    }
+  },
+  {
+    "id":"KE.L183",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:35:42",
+      "hoursSpend":40,
+      "hoursRemainingInTotal":6,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectModelNavigationAndQueries: Achieved: Extend the class model:"
+    }
+  },
+  {
+    "id":"KE.L184",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:39:42",
+      "hoursSpend":4,
+      "kanbanEntry":{"id":"KE.K112"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: We call updateBalances() to compute the correct balances.\n"
+    }
+  },
+  {
+    "id":"KE.L185",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:39:42",
+      "hoursSpend":4,
+      "hoursRemainingInTotal":4,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"GroupAccountStoryboard1: Achieved: We call updateBalances() to compute the correct balances.\n"
+    }
+  },
+  {
+    "id":"KE.L186",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:42:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K10"},
+      "developer":"zuendorf",
+      "phase":"backlog",
+      "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+    }
+  },
+  {
+    "id":"KE.L187",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:42:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K6"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"StudyRightObjectStoryboards: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+    }
+  },
+  {
+    "id":"KE.L188",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"17.01.2014 16:42:42",
+      "hoursSpend":2,
+      "hoursRemainingInTotal":2,
+      "kanbanEntry":{"id":"KE.K1"},
+      "developer":"zuendorf",
+      "phase":"active",
+      "comment":"Sprint.001.Booting: StudyRightObjectStoryboards: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   }
 ]

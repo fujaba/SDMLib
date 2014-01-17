@@ -59,9 +59,17 @@ public class UniversitySet extends SDMSet<University>
    }
 
 
-   public UniversitySet with(University value)
+   public UniversitySet with(Object value)
    {
-      this.add(value);
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<University>)value);
+      }
+      else if (value != null)
+      {
+         this.add((University) value);
+      }
+      
       return this;
    }
    
@@ -70,6 +78,7 @@ public class UniversitySet extends SDMSet<University>
       this.remove(value);
       return this;
    }
+
    public StringList getName()
    {
       StringList result = new StringList();
@@ -113,7 +122,7 @@ public class UniversitySet extends SDMSet<University>
       
       for (University obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;
@@ -171,7 +180,7 @@ public class UniversitySet extends SDMSet<University>
       
       for (University obj : this)
       {
-         result.addAll(obj.getRooms());
+         result.with(obj.getRooms());
       }
       
       return result;

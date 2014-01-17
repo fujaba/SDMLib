@@ -149,55 +149,52 @@
 <!-- a11 -->
 <g id="node8" class="node"><title>a11</title>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="156,-382 156,-399 306,-399 306,-382 156,-382"/>
-<text text-anchor="start" x="192" y="-388.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="196" y="-388.5" font-family="Arial" font-size="10.00">a11 :Assignment</text>
+<polygon fill="none" stroke="black" points="156,-375 156,-392 306,-392 306,-375 156,-375"/>
+<text text-anchor="start" x="192" y="-381.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="196" y="-381.5" font-family="Arial" font-size="10.00">a11 :Assignment</text>
 </a>
-<polygon fill="none" stroke="black" points="156,-334 156,-382 306,-382 306,-334 156,-334"/>
-<text text-anchor="start" x="161" y="-370" font-family="Arial" font-size="10.00">content = &quot;Matrix Multiplication&quot;</text>
-<text text-anchor="start" x="161" y="-356" font-family="Arial" font-size="10.00">points = 5</text>
-<text text-anchor="start" x="161" y="-342" font-family="Arial" font-size="10.00">students = &quot;&quot;</text>
+<polygon fill="none" stroke="black" points="156,-341 156,-375 306,-375 306,-341 156,-341"/>
+<text text-anchor="start" x="161" y="-363" font-family="Arial" font-size="10.00">content = &quot;Matrix Multiplication&quot;</text>
+<text text-anchor="start" x="161" y="-349" font-family="Arial" font-size="10.00">points = 5</text>
 </g>
 <!-- r6&#45;&#45;a11 -->
 <g id="edge20" class="edge"><title>r6&#45;&#45;a11</title>
-<path fill="none" stroke="black" d="M335.676,-440.935C318.527,-428.987 299.345,-415.621 282.134,-403.629"/>
-<text text-anchor="middle" x="291.986" y="-402.842" font-family="Arial" font-size="10.00">assignments</text>
+<path fill="none" stroke="black" d="M335.676,-440.935C315.08,-426.584 291.551,-410.19 272.025,-396.585"/>
+<text text-anchor="middle" x="281.877" y="-395.799" font-family="Arial" font-size="10.00">assignments</text>
 <text text-anchor="middle" x="325.824" y="-436.722" font-family="Arial" font-size="10.00">room</text>
 </g>
 <!-- a12 -->
 <g id="node9" class="node"><title>a12</title>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="341,-382 341,-399 432,-399 432,-382 341,-382"/>
-<text text-anchor="start" x="347.5" y="-388.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="351.5" y="-388.5" font-family="Arial" font-size="10.00">a12 :Assignment</text>
+<polygon fill="none" stroke="black" points="341,-375 341,-392 432,-392 432,-375 341,-375"/>
+<text text-anchor="start" x="347.5" y="-381.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="351.5" y="-381.5" font-family="Arial" font-size="10.00">a12 :Assignment</text>
 </a>
-<polygon fill="none" stroke="black" points="341,-334 341,-382 432,-382 432,-334 341,-334"/>
-<text text-anchor="start" x="346" y="-370" font-family="Arial" font-size="10.00">content = &quot;Series&quot;</text>
-<text text-anchor="start" x="346" y="-356" font-family="Arial" font-size="10.00">points = 6</text>
-<text text-anchor="start" x="346" y="-342" font-family="Arial" font-size="10.00">students = &quot;&quot;</text>
+<polygon fill="none" stroke="black" points="341,-341 341,-375 432,-375 432,-341 341,-341"/>
+<text text-anchor="start" x="346" y="-363" font-family="Arial" font-size="10.00">content = &quot;Series&quot;</text>
+<text text-anchor="start" x="346" y="-349" font-family="Arial" font-size="10.00">points = 6</text>
 </g>
 <!-- r6&#45;&#45;a12 -->
 <g id="edge22" class="edge"><title>r6&#45;&#45;a12</title>
-<path fill="none" stroke="black" d="M386,-440.337C386,-428.541 386,-415.419 386,-403.625"/>
-<text text-anchor="middle" x="390.226" y="-410.188" font-family="Arial" font-size="10.00">assignments</text>
+<path fill="none" stroke="black" d="M386,-440.337C386,-426.206 386,-410.173 386,-396.799"/>
+<text text-anchor="middle" x="390.226" y="-403.362" font-family="Arial" font-size="10.00">assignments</text>
 <text text-anchor="middle" x="381.774" y="-428.774" font-family="Arial" font-size="10.00">room</text>
 </g>
 <!-- a13 -->
 <g id="node10" class="node"><title>a13</title>
 <a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="466,-382 466,-399 566,-399 566,-382 466,-382"/>
-<text text-anchor="start" x="477" y="-388.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="481" y="-388.5" font-family="Arial" font-size="10.00">a13 :Assignment</text>
+<polygon fill="none" stroke="black" points="466,-375 466,-392 566,-392 566,-375 466,-375"/>
+<text text-anchor="start" x="477" y="-381.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="481" y="-381.5" font-family="Arial" font-size="10.00">a13 :Assignment</text>
 </a>
-<polygon fill="none" stroke="black" points="466,-334 466,-382 566,-382 566,-334 466,-334"/>
-<text text-anchor="start" x="471" y="-370" font-family="Arial" font-size="10.00">content = &quot;Integrals&quot;</text>
-<text text-anchor="start" x="471" y="-356" font-family="Arial" font-size="10.00">points = 8</text>
-<text text-anchor="start" x="471" y="-342" font-family="Arial" font-size="10.00">students = &quot;&quot;</text>
+<polygon fill="none" stroke="black" points="466,-341 466,-375 566,-375 566,-341 466,-341"/>
+<text text-anchor="start" x="471" y="-363" font-family="Arial" font-size="10.00">content = &quot;Integrals&quot;</text>
+<text text-anchor="start" x="471" y="-349" font-family="Arial" font-size="10.00">points = 8</text>
 </g>
 <!-- r6&#45;&#45;a13 -->
 <g id="edge24" class="edge"><title>r6&#45;&#45;a13</title>
-<path fill="none" stroke="black" d="M428.927,-440.337C443.127,-428.541 458.922,-415.419 473.118,-403.625"/>
-<text text-anchor="middle" x="468.847" y="-410.167" font-family="Arial" font-size="10.00">assignments</text>
+<path fill="none" stroke="black" d="M428.927,-440.337C445.937,-426.206 465.236,-410.173 481.334,-396.799"/>
+<text text-anchor="middle" x="477.064" y="-403.341" font-family="Arial" font-size="10.00">assignments</text>
 <text text-anchor="middle" x="433.198" y="-428.795" font-family="Arial" font-size="10.00">room</text>
 </g>
 <!-- r7&#45;&#45;r8 -->

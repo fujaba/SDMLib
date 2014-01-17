@@ -81,7 +81,7 @@ public class StudyRightStoryboards
 
       storyboard.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
             "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
+            BACKLOG, "zuendorf", "17.01.2014 16:42:42", 2, 0);
 
       storyboard.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
             "e.g.: room.getNeighbors().findPath(path, motivation); ", 

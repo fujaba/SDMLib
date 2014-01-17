@@ -1180,24 +1180,33 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertSetWithWithout(Parser parser)
    {
-      String searchString = Parser.METHOD + ":with(" + CGUtil.shortClassName(this.getName()) + ")";
+      String searchString = Parser.METHOD + ":with(Object)";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "\n\n" + 
-                  "   public ModelTypeSet with(ModelType value)\n" + 
-                  "   {\n" + 
-                  "      this.add(value);\n" + 
-                  "      return this;\n" + 
+            "\n\n" 
+                  + "   public ModelTypeSet with(Object value)\n" 
+                  + "   {\n"
+                  + "      if (value instanceof java.util.Collection)\n"
+                  + "      {\n" 
+                  + "         this.addAll((Collection<ModelType>)value);\n" 
+                  + "      }\n"
+                  + "      else if (value != null)\n"
+                  + "      {\n" 
+                  + "         this.add((ModelType) value);\n"
+                  + "      }\n"
+                  + "      \n" 
+                  + "      return this;\n" + 
                   "   }\n" + 
                   "   \n" + 
                   "   public ModelTypeSet without(ModelType value)\n" + 
                   "   {\n" + 
                   "      this.remove(value);\n" + 
                   "      return this;\n" + 
-                  "   }\n" 
+                  "   }\n"
+                  + "\n" 
                );
 
          CGUtil.replaceAll(text, 

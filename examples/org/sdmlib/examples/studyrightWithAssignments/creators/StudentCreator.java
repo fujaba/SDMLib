@@ -16,8 +16,8 @@ public class StudentCreator extends EntityFactory
       Student.PROPERTY_CREDITS,
       Student.PROPERTY_UNIVERSITY,
       Student.PROPERTY_IN,
-      Student.PROPERTY_DONE,
       Student.PROPERTY_FRIENDS,
+      Student.PROPERTY_DONE,
    };
    
    public String[] getProperties()

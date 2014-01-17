@@ -22,12 +22,18 @@
 package org.sdmlib.models.transformations;
 
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.utils.StrUtil;
+
 import java.lang.Object;
+
 import org.sdmlib.models.transformations.creators.MatchSet;
+
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Match implements PropertyChangeInterface
@@ -254,7 +260,7 @@ public class Match implements PropertyChangeInterface
    
    public static final String PROPERTY_FULLTEXT = "fullText";
    
-   private String fullText;
+   private String fullText = "";
 
    public String getFullText()
    {
@@ -288,7 +294,7 @@ public class Match implements PropertyChangeInterface
    {
       if (this.matchText == null)
       {
-         this.matchText = this.fullText.substring(startPos, endPos+1);
+         this.matchText = this.fullText.substring(startPos, Math.max(startPos, Math.min(endPos+1, this.fullText.length())));
       }
       return this.matchText;
    }

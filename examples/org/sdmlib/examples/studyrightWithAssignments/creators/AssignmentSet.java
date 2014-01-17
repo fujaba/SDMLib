@@ -60,9 +60,17 @@ public class AssignmentSet extends SDMSet<Assignment>
    }
 
 
-   public AssignmentSet with(Assignment value)
+   public AssignmentSet with(Object value)
    {
-      this.add(value);
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Assignment>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Assignment) value);
+      }
+      
       return this;
    }
    
@@ -71,6 +79,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       this.remove(value);
       return this;
    }
+
    public StringList getContent()
    {
       StringList result = new StringList();
@@ -151,7 +160,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.add(obj.getRoom());
+         result.with(obj.getRoom());
       }
       
       return result;
@@ -199,7 +208,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;

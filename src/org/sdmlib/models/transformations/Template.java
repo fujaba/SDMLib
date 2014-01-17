@@ -451,7 +451,8 @@ public class Template implements PropertyChangeInterface
                   subMatch = parseOnce();
                }
                else
-               {
+               { 
+                  subMatch = null;
                   oldValueStartPos = currentPosInExpandedText;
                }
             }

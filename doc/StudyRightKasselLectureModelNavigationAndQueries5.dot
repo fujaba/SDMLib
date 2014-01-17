@@ -1,0 +1,18 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+   compound=true;
+
+a5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a5 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Extra"</td></tr><tr><td align='left'>points = 23</td></tr></table></td></tr></table>>];
+artsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>artsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "7522"</td></tr><tr><td align='left'>topic = "arts"</td></tr><tr><td align='left'>credits = 16</td></tr></table></td></tr></table>>];
+sportsRoom [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>sportsRoom :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "gymnasium"</td></tr><tr><td align='left'>topic = "sports"</td></tr><tr><td align='left'>credits = 25</td></tr></table></td></tr></table>>];
+a6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a6 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Extra"</td></tr><tr><td align='left'>points = 23</td></tr></table></td></tr></table>>];
+placeToBe [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java"> <u>placeToBe :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "7422"</td></tr><tr><td align='left'>topic = "Software Engineering"</td></tr><tr><td align='left'>credits = 42</td></tr></table></td></tr></table>>];
+a7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java"> <u>a7 :Assignment</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>content = "Extra"</td></tr><tr><td align='left'>points = 23</td></tr></table></td></tr></table>>];
+
+a5 -- artsRoom [headlabel = "room" taillabel = "assignments"];
+artsRoom -- sportsRoom [headlabel = "doors" taillabel = "doors"];
+artsRoom -- placeToBe [headlabel = "doors" taillabel = "doors"];
+sportsRoom -- a6 [headlabel = "assignments" taillabel = "room"];
+placeToBe -- a7 [headlabel = "assignments" taillabel = "room"];
+}

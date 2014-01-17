@@ -33,9 +33,9 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 
 public class StudentSet extends SDMSet<Student>
 {
@@ -63,9 +63,17 @@ public class StudentSet extends SDMSet<Student>
    }
 
 
-   public StudentSet with(Student value)
+   public StudentSet with(Object value)
    {
-      this.add(value);
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Student>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Student) value);
+      }
+      
       return this;
    }
    
@@ -74,6 +82,7 @@ public class StudentSet extends SDMSet<Student>
       this.remove(value);
       return this;
    }
+
    public StringList getName()
    {
       StringList result = new StringList();
@@ -265,7 +274,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.add(obj.getUniversity());
+         result.with(obj.getUniversity());
       }
       
       return result;
@@ -313,7 +322,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.add(obj.getIn());
+         result.with(obj.getIn());
       }
       
       return result;
@@ -355,71 +364,13 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
-   public AssignmentSet getDone()
-   {
-      AssignmentSet result = new AssignmentSet();
-      
-      for (Student obj : this)
-      {
-         result.addAll(obj.getDone());
-      }
-      
-      return result;
-   }
-
-   public StudentSet hasDone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      StudentSet answer = new StudentSet();
-      
-      for (Student obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getDone()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public StudentSet withDone(Assignment value)
-   {
-      for (Student obj : this)
-      {
-         obj.withDone(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet withoutDone(Assignment value)
-   {
-      for (Student obj : this)
-      {
-         obj.withoutDone(value);
-      }
-      
-      return this;
-   }
-
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
       
       for (Student obj : this)
       {
-         result.addAll(obj.getFriends());
+         result.with(obj.getFriends());
       }
       
       return result;
@@ -466,6 +417,64 @@ public class StudentSet extends SDMSet<Student>
       for (Student obj : this)
       {
          obj.withoutFriends(value);
+      }
+      
+      return this;
+   }
+
+   public AssignmentSet getDone()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Student obj : this)
+      {
+         result.with(obj.getDone());
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasDone(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public StudentSet withDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withoutDone(Assignment value)
+   {
+      for (Student obj : this)
+      {
+         obj.withoutDone(value);
       }
       
       return this;

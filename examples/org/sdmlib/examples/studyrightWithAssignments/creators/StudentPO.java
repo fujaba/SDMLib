@@ -259,39 +259,6 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return null;
    }
 
-   public AssignmentPO hasDone()
-   {
-      AssignmentPO result = new AssignmentPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Student.PROPERTY_DONE, result);
-      
-      return result;
-   }
-
-   public StudentPO hasDone(AssignmentPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_DONE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public AssignmentSet getDone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) this.getCurrentMatch()).getDone();
-      }
-      return null;
-   }
-
    public StudentPO hasFriends()
    {
       StudentPO result = new StudentPO();
@@ -321,6 +288,39 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       if (this.getPattern().getHasMatch())
       {
          return ((Student) this.getCurrentMatch()).getFriends();
+      }
+      return null;
+   }
+
+   public AssignmentPO hasDone()
+   {
+      AssignmentPO result = new AssignmentPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Student.PROPERTY_DONE, result);
+      
+      return result;
+   }
+
+   public StudentPO hasDone(AssignmentPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_DONE)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public AssignmentSet getDone()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) this.getCurrentMatch()).getDone();
       }
       return null;
    }

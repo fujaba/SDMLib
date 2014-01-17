@@ -20,10 +20,10 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.StudentPOCreator());
          creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.RoomCreator());
          creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.RoomPOCreator());
-         creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentCreator());
-         creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentPOCreator());
          creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantCreator());
          creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPOCreator());
+         creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentCreator());
+         creatorSet.add(new org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -39,5 +39,4 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
-
 

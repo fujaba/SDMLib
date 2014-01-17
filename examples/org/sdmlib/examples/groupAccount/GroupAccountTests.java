@@ -81,7 +81,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       storyboard.addObjectDiagram(g1);
       
       storyboard.add("We call updateBalances() to compute the correct balances.\n",
-         MODELING, "zuendorf", "15.04.2012 17:18:42", 8, 2);
+         DONE, "zuendorf", "17.01.2014 16:39:42", 4, 0);
       
       storyboard.markCodeStart();
       g1.updateBalances();

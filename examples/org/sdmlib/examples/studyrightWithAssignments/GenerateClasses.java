@@ -109,8 +109,9 @@ public class GenerateClasses {
       .withTarget("in", roomClass, ONE);
 
       storyboard.addClassDiagram(model);
-
-
+      
+      
+      
       //============================================================
       storyboard.add("5. add assignments:");
 
@@ -123,6 +124,13 @@ public class GenerateClasses {
       
       studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
       
+      
+      // some more classes for model navigation tests
+      studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
+      
+      roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE);
+      
+
       //============================================================
       storyboard.add("6. generate class source files.");
 

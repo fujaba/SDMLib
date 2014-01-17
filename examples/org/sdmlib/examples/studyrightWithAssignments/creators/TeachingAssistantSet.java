@@ -56,9 +56,17 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    }
 
 
-   public TeachingAssistantSet with(TeachingAssistant value)
+   public TeachingAssistantSet with(Object value)
    {
-      this.add(value);
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<TeachingAssistant>)value);
+      }
+      else if (value != null)
+      {
+         this.add((TeachingAssistant) value);
+      }
+      
       return this;
    }
    
@@ -67,13 +75,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       this.remove(value);
       return this;
    }
+
    public RoomSet getRoom()
    {
       RoomSet result = new RoomSet();
       
       for (TeachingAssistant obj : this)
       {
-         result.add(obj.getRoom());
+         result.with(obj.getRoom());
       }
       
       return result;

@@ -281,7 +281,7 @@ public class StoryboardTests {
    {
       Storyboard storyboard = new Storyboard();
       
-      storyboard.add("Extend the class model:");
+      storyboard.add("Extend the class model:", Storyboard.DONE, "zuendorf", "17.01.2014 16:35:42", 40, 0);
       
       ClassModel model = new ClassModel();
       

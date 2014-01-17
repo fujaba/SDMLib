@@ -34,10 +34,10 @@ import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
-import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
+import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Assignment;
 
 public class RoomSet extends SDMSet<Room>
 {
@@ -65,9 +65,17 @@ public class RoomSet extends SDMSet<Room>
    }
 
 
-   public RoomSet with(Room value)
+   public RoomSet with(Object value)
    {
-      this.add(value);
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Room>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Room) value);
+      }
+      
       return this;
    }
    
@@ -76,6 +84,7 @@ public class RoomSet extends SDMSet<Room>
       this.remove(value);
       return this;
    }
+
    
    //==========================================================================
    
@@ -205,7 +214,7 @@ public class RoomSet extends SDMSet<Room>
       
       for (Room obj : this)
       {
-         result.add(obj.getUniversity());
+         result.with(obj.getUniversity());
       }
       
       return result;
@@ -253,7 +262,7 @@ public class RoomSet extends SDMSet<Room>
       
       for (Room obj : this)
       {
-         result.addAll(obj.getDoors());
+         result.with(obj.getDoors());
       }
       
       return result;
@@ -311,7 +320,7 @@ public class RoomSet extends SDMSet<Room>
       
       for (Room obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;
@@ -363,71 +372,13 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   public AssignmentSet getAssignments()
-   {
-      AssignmentSet result = new AssignmentSet();
-      
-      for (Room obj : this)
-      {
-         result.addAll(obj.getAssignments());
-      }
-      
-      return result;
-   }
-
-   public RoomSet hasAssignments(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAssignments()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public RoomSet withAssignments(Assignment value)
-   {
-      for (Room obj : this)
-      {
-         obj.withAssignments(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet withoutAssignments(Assignment value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutAssignments(value);
-      }
-      
-      return this;
-   }
-
    public TeachingAssistantSet getTas()
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
       
       for (Room obj : this)
       {
-         result.addAll(obj.getTas());
+         result.with(obj.getTas());
       }
       
       return result;
@@ -479,6 +430,63 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-}
+   public AssignmentSet getAssignments()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Room obj : this)
+      {
+         result.with(obj.getAssignments());
+      }
+      
+      return result;
+   }
 
+   public RoomSet hasAssignments(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAssignments()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RoomSet withAssignments(Assignment value)
+   {
+      for (Room obj : this)
+      {
+         obj.withAssignments(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet withoutAssignments(Assignment value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutAssignments(value);
+      }
+      
+      return this;
+   }
+
+}
 
