@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation1</a></p>
 <p>TTC2011HelloWorldConstantTransformation1</p>
@@ -9,7 +10,7 @@
 <pre>      ModelPattern p = new ModelPattern().startCreate();
       
       PatternObject greetingPO = p.hasElementGreetingPO()
-                                  .hasText("Hello World");
+                                  .hasText(&quot;Hello World&quot;);
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
@@ -19,7 +20,7 @@
 <p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting()
-      .withText("Hello World");
+      .withText(&quot;Hello World&quot;);
 </pre>
 </body>
 </html>

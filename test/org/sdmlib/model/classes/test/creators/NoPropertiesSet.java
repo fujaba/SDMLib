@@ -21,6 +21,7 @@
    
 package org.sdmlib.model.classes.test.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.model.classes.test.NoProperties;
@@ -50,9 +51,32 @@ public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements Mode
    }
 
 
-   public NoPropertiesSet with(NoProperties value)
+   public NoPropertiesPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      NoPropertiesPO patternObject = pattern.hasElementNoPropertiesPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public NoPropertiesSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<NoProperties>)value);
+      }
+      else if (value != null)
+      {
+         this.add((NoProperties) value);
+      }
+      
       return this;
    }
    
@@ -61,5 +85,7 @@ public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements Mode
       this.remove(value);
       return this;
    }
+
 }
+
 

@@ -21,18 +21,16 @@
    
 package org.sdmlib.models.transformations.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.transformations.creators.TemplateSet;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.creators.MatchSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Template;
 
 public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescription> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -66,17 +64,6 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
    }
 
 
-   public PlaceHolderDescriptionSet with(PlaceHolderDescription value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PlaceHolderDescriptionSet without(PlaceHolderDescription value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getTextFragment()
    {
       StringList result = new StringList();
@@ -389,6 +376,44 @@ public class PlaceHolderDescriptionSet extends LinkedHashSet<PlaceHolderDescript
       return this;
    }
 
+
+
+   public PlaceHolderDescriptionPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      PlaceHolderDescriptionPO patternObject = pattern.hasElementPlaceHolderDescriptionPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PlaceHolderDescriptionSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PlaceHolderDescription>)value);
+      }
+      else if (value != null)
+      {
+         this.add((PlaceHolderDescription) value);
+      }
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionSet without(PlaceHolderDescription value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

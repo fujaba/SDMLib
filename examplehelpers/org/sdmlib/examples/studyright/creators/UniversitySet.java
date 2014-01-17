@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.studyright.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.creators.RoomSet;
-import org.sdmlib.examples.studyright.Room;
 
 public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -150,5 +149,37 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return this;
    }
 
+
+
+   public UniversityPO startModelPattern()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      UniversityPO patternObject = pattern.hasElementUniversityPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public UniversitySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<University>)value);
+      }
+      else if (value != null)
+      {
+         this.add((University) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 

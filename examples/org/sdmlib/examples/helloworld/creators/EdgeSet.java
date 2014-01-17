@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.helloworld.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.creators.GraphSet;
 
 public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -159,17 +159,6 @@ public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.mo
    }
 
 
-   public EdgeSet with(Edge value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public EdgeSet without(Edge value)
-   {
-      this.remove(value);
-      return this;
-   }
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
@@ -192,7 +181,45 @@ public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public EdgePO startModelPattern()
+   {
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      EdgePO patternObject = pattern.hasElementEdgePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public EdgeSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Edge>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Edge) value);
+      }
+      
+      return this;
+   }
+   
+   public EdgeSet without(Edge value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

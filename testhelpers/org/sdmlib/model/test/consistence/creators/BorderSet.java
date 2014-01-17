@@ -21,12 +21,12 @@
    
 package org.sdmlib.model.test.consistence.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.model.test.consistence.Border;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.model.test.consistence.creators.FieldSet;
 import org.sdmlib.model.test.consistence.Field;
+import org.sdmlib.models.modelsets.StringList;
 
 public class BorderSet extends LinkedHashSet<Border> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -214,6 +214,39 @@ public class BorderSet extends LinkedHashSet<Border> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public BorderPO startModelPattern()
+   {
+      org.sdmlib.model.test.consistence.creators.ModelPattern pattern = new org.sdmlib.model.test.consistence.creators.ModelPattern();
+      
+      BorderPO patternObject = pattern.hasElementBorderPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public BorderSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Border>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Border) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 
 

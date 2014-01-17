@@ -152,5 +152,43 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread> implements org.
       return this;
    }
 
+
+
+   public SocketThreadPO startModelPattern()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      SocketThreadPO patternObject = pattern.hasElementSocketThreadPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public SocketThreadSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SocketThread>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SocketThread) value);
+      }
+      
+      return this;
+   }
+   
+   public SocketThreadSet without(SocketThread value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

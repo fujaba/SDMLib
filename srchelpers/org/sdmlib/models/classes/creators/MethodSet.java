@@ -21,12 +21,12 @@
    
 package org.sdmlib.models.classes.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 
 public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -116,17 +116,6 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
    }
 
 
-   public MethodSet with(Method value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public MethodSet without(Method value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getBody()
    {
       StringList result = new StringList();
@@ -149,7 +138,45 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public MethodPO startModelPattern()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      MethodPO patternObject = pattern.hasElementMethodPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public MethodSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Method>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Method) value);
+      }
+      
+      return this;
+   }
+   
+   public MethodSet without(Method value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

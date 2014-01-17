@@ -21,6 +21,7 @@
    
 package org.sdmlib.storyboards.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -84,17 +85,6 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
    }
 
 
-   public KanbanEntrySet with(KanbanEntry value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public KanbanEntrySet without(KanbanEntry value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getOldNoOfLogEntries()
    {
       intList result = new intList();
@@ -117,7 +107,45 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return this;
    }
 
+
+
+   public KanbanEntryPO startModelPattern()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      KanbanEntryPO patternObject = pattern.hasElementKanbanEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public KanbanEntrySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<KanbanEntry>)value);
+      }
+      else if (value != null)
+      {
+         this.add((KanbanEntry) value);
+      }
+      
+      return this;
+   }
+   
+   public KanbanEntrySet without(KanbanEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

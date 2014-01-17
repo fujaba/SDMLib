@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
 <p>TTC2011HelloWorldModelToText</p>
@@ -10,30 +11,30 @@
       GreetingPO greetingPO = p.hasElementGreetingPO();
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-      .hasText("Hello");
+      .hasText(&quot;Hello&quot;);
       
       PersonPO personPO = greetingPO.hasPerson()
-      .hasName("TTC Participants");
+      .hasName(&quot;TTC Participants&quot;);
 </pre><p>The created object model looks like: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldModelToText6.svg'>
 <p>The model to text transfromation template mechanism is used like this: </p>
-<pre>      StringBuilder text = new StringBuilder("message name");
+<pre>      StringBuilder text = new StringBuilder(&quot;message name&quot;);
       
       CGUtil.replaceAll(text, 
-         "message", greetingMessagePO.getText(),
-         "name", personPO.getName());
+         &quot;message&quot;, greetingMessagePO.getText(),
+         &quot;name&quot;, personPO.getName());
       
       systemout = text.toString();
 </pre><p>systemout: 
 Hello TTC Participants</p>
 <p>Assume we change the text manually to: Hi dudes</p>
-<pre>      CGUtil.find("Hi dudes", 0, "message name", 
-         "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
-         "name", personPO, Person.PROPERTY_NAME
+<pre>      CGUtil.find(&quot;Hi dudes&quot;, 0, &quot;message name&quot;, 
+         &quot;message&quot;, greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
+         &quot;name&quot;, personPO, Person.PROPERTY_NAME
          );
 </pre><embed type="image/svg+xml" src='TTC2011HelloWorldModelToText12.svg'>
 <p>Alternatively, plain java code that does the model to text transformation looks like: </p>
-<pre>      systemout = greetingMessagePO.getText() + " " + personPO.getName();
+<pre>      systemout = greetingMessagePO.getText() + &quot; &quot; + personPO.getName();
 </pre>
 </body>
 </html>

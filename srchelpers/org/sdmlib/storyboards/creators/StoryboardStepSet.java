@@ -21,17 +21,12 @@
    
 package org.sdmlib.storyboards.creators;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.models.modelsets.StringList;
-
-import java.util.List;
-
-import org.sdmlib.storyboards.creators.StoryboardSet;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardStep;
 
 public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -133,5 +128,38 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       return null;
    }
 
+
+
+   public StoryboardStepPO startModelPattern()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      StoryboardStepPO patternObject = pattern.hasElementStoryboardStepPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StoryboardStepSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<StoryboardStep>)value);
+      }
+      else if (value != null)
+      {
+         this.add((StoryboardStep) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

@@ -21,14 +21,13 @@
    
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
+
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CargoSet;
+import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.RiverSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.River;
 
 public class BoatSet extends LinkedHashSet<Boat> implements org.sdmlib.models.modelsets.ModelSet
@@ -131,6 +130,38 @@ public class BoatSet extends LinkedHashSet<Boat> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public BoatPO startModelPattern()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      BoatPO patternObject = pattern.hasElementBoatPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public BoatSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Boat>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Boat) value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

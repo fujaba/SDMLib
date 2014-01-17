@@ -21,22 +21,18 @@
    
 package org.sdmlib.examples.ludo.creators;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.ludo.Dice;
+import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.examples.ludo.Ludo;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
+import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import java.util.ArrayList;
-import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.ludo.creators.LudoSet;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.examples.ludo.creators.DiceSet;
-import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.creators.FieldSet;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.creators.PawnSet;
-import org.sdmlib.examples.ludo.Pawn;
 
 public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -61,17 +57,6 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
    }
 
 
-   public PlayerSet with(Player value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PlayerSet without(Player value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getColor()
    {
       StringList result = new StringList();
@@ -368,5 +353,43 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PlayerPO startModelPattern()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      PlayerPO patternObject = pattern.hasElementPlayerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PlayerSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Player>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Player) value);
+      }
+      
+      return this;
+   }
+   
+   public PlayerSet without(Player value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

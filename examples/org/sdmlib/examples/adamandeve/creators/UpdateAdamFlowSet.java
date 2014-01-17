@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.adamandeve.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.adamandeve.UpdateAdamFlow;
@@ -187,7 +188,40 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
    {
       return "org.sdmlib.examples.adamandeve.UpdateAdamFlow";
    }
+
+
+   public UpdateAdamFlowPO startModelPattern()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      UpdateAdamFlowPO patternObject = pattern.hasElementUpdateAdamFlowPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public UpdateAdamFlowSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<UpdateAdamFlow>)value);
+      }
+      else if (value != null)
+      {
+         this.add((UpdateAdamFlow) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 
 
 

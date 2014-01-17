@@ -29,8 +29,8 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 
 public class Room implements PropertyChangeInterface
 {
@@ -70,14 +70,14 @@ public class Room implements PropertyChangeInterface
          return getStudents();
       }
 
-      if (PROPERTY_TAS.equalsIgnoreCase(attrName))
-      {
-         return getTas();
-      }
-
       if (PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attrName))
       {
          return getAssignments();
+      }
+
+      if (PROPERTY_TAS.equalsIgnoreCase(attrName))
+      {
+         return getTas();
       }
 
       return null;
@@ -136,18 +136,6 @@ public class Room implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_TAS.equalsIgnoreCase(attrName))
-      {
-         addToTas((TeachingAssistant) value);
-         return true;
-      }
-      
-      if ((PROPERTY_TAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromTas((TeachingAssistant) value);
-         return true;
-      }
-
       if (PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attrName))
       {
          addToAssignments((Assignment) value);
@@ -157,6 +145,18 @@ public class Room implements PropertyChangeInterface
       if ((PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromAssignments((Assignment) value);
+         return true;
+      }
+
+      if (PROPERTY_TAS.equalsIgnoreCase(attrName))
+      {
+         addToTas((TeachingAssistant) value);
+         return true;
+      }
+      
+      if ((PROPERTY_TAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromTas((TeachingAssistant) value);
          return true;
       }
 
@@ -186,8 +186,8 @@ public class Room implements PropertyChangeInterface
       setUniversity(null);
       removeAllFromDoors();
       removeAllFromStudents();
-      removeAllFromTas();
       removeAllFromAssignments();
+      removeAllFromTas();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -558,105 +558,6 @@ public class Room implements PropertyChangeInterface
    /********************************************************************
     * <pre>
     *              one                       many
-    * Room ----------------------------------- TeachingAssistant
-    *              room                   tas
-    * </pre>
-    */
-   
-   public static final String PROPERTY_TAS = "tas";
-   
-   private TeachingAssistantSet tas = null;
-   
-   public TeachingAssistantSet getTas()
-   {
-      if (this.tas == null)
-      {
-         return TeachingAssistant.EMPTY_SET;
-      }
-   
-      return this.tas;
-   }
-   
-   public boolean addToTas(TeachingAssistant value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.tas == null)
-         {
-            this.tas = new TeachingAssistantSet();
-         }
-         
-         changed = this.tas.add (value);
-         
-         if (changed)
-         {
-            value.withRoom(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public boolean removeFromTas(TeachingAssistant value)
-   {
-      boolean changed = false;
-      
-      if ((this.tas != null) && (value != null))
-      {
-         changed = this.tas.remove (value);
-         
-         if (changed)
-         {
-            value.setRoom(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-   
-   public Room withTas(TeachingAssistant... value)
-   {
-      for (TeachingAssistant item : value)
-      {
-         addToTas(item);
-      }
-      return this;
-   } 
-   
-   public Room withoutTas(TeachingAssistant... value)
-   {
-      for (TeachingAssistant item : value)
-      {
-         removeFromTas(item);
-      }
-      return this;
-   }
-   
-   public void removeAllFromTas()
-   {
-      LinkedHashSet<TeachingAssistant> tmpSet = new LinkedHashSet<TeachingAssistant>(this.getTas());
-   
-      for (TeachingAssistant value : tmpSet)
-      {
-         this.removeFromTas(value);
-      }
-   }
-   
-   public TeachingAssistant createTas()
-   {
-      TeachingAssistant value = new TeachingAssistant();
-      withTas(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
     * Room ----------------------------------- Assignment
     *              room                   assignments
     * </pre>
@@ -749,6 +650,105 @@ public class Room implements PropertyChangeInterface
    {
       Assignment value = new Assignment();
       withAssignments(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Room ----------------------------------- TeachingAssistant
+    *              room                   tas
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TAS = "tas";
+   
+   private TeachingAssistantSet tas = null;
+   
+   public TeachingAssistantSet getTas()
+   {
+      if (this.tas == null)
+      {
+         return TeachingAssistant.EMPTY_SET;
+      }
+   
+      return this.tas;
+   }
+   
+   public boolean addToTas(TeachingAssistant value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.tas == null)
+         {
+            this.tas = new TeachingAssistantSet();
+         }
+         
+         changed = this.tas.add (value);
+         
+         if (changed)
+         {
+            value.withRoom(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromTas(TeachingAssistant value)
+   {
+      boolean changed = false;
+      
+      if ((this.tas != null) && (value != null))
+      {
+         changed = this.tas.remove (value);
+         
+         if (changed)
+         {
+            value.setRoom(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Room withTas(TeachingAssistant... value)
+   {
+      for (TeachingAssistant item : value)
+      {
+         addToTas(item);
+      }
+      return this;
+   } 
+   
+   public Room withoutTas(TeachingAssistant... value)
+   {
+      for (TeachingAssistant item : value)
+      {
+         removeFromTas(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromTas()
+   {
+      LinkedHashSet<TeachingAssistant> tmpSet = new LinkedHashSet<TeachingAssistant>(this.getTas());
+   
+      for (TeachingAssistant value : tmpSet)
+      {
+         this.removeFromTas(value);
+      }
+   }
+   
+   public TeachingAssistant createTas()
+   {
+      TeachingAssistant value = new TeachingAssistant();
+      withTas(value);
       return value;
    } 
 }

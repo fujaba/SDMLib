@@ -66,18 +66,6 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       return "org.sdmlib.models.pattern.GenericConstraint";
    }
 
-
-   public GenericConstraintSet with(GenericConstraint value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GenericConstraintSet without(GenericConstraint value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getModifier()
    {
       StringList result = new StringList();
@@ -274,5 +262,28 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       return this;
    }
 
+
+
+   public GenericConstraintSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<GenericConstraint>)value);
+      }
+      else if (value != null)
+      {
+         this.add((GenericConstraint) value);
+      }
+      
+      return this;
+   }
+   
+   public GenericConstraintSet without(GenericConstraint value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

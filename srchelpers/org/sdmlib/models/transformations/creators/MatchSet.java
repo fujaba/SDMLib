@@ -63,17 +63,6 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
    }
 
 
-   public MatchSet with(Match value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public MatchSet without(Match value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getStartPos()
    {
       intList result = new intList();
@@ -476,6 +465,44 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return result;
    }
 
+
+
+   public MatchPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      MatchPO patternObject = pattern.hasElementMatchPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public MatchSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Match>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Match) value);
+      }
+      
+      return this;
+   }
+   
+   public MatchSet without(Match value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

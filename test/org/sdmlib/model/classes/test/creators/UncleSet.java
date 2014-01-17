@@ -21,6 +21,7 @@
    
 package org.sdmlib.model.classes.test.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.model.classes.test.Parent;
@@ -83,5 +84,38 @@ public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
       return this;
    }
 
+
+
+   public UnclePO startModelPattern()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      UnclePO patternObject = pattern.hasElementUnclePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public UncleSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Uncle>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Uncle) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

@@ -21,18 +21,15 @@
    
 package org.sdmlib.examples.m2m.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.m2m.Person;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.m2m.creators.GraphSet;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.m2m.Graph;
-import org.sdmlib.examples.m2m.creators.RelationSet;
+import org.sdmlib.examples.m2m.Person;
 import org.sdmlib.examples.m2m.Relation;
-import org.sdmlib.examples.m2m.creators.PersonSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -65,18 +62,6 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return "org.sdmlib.examples.m2m.Person";
    }
 
-
-   public PersonSet with(Person value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PersonSet without(Person value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getFirstName()
    {
       StringList result = new StringList();
@@ -421,7 +406,45 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PersonPO startModelPattern()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      PersonPO patternObject = pattern.hasElementPersonPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PersonSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

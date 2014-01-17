@@ -1,11 +1,11 @@
 graph ObjectDiagram {
-   node [shape = none, fontsize = 10];
-   edge [fontsize = 10];
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
 b1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/de/kassel/roombook/Building.java"> <u>b1 :Building</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "WA73"</td></tr></table></td></tr></table>>];
-f2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/de/kassel/roombook/Floor.java"> <u>f2 :Floor</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>level = 1</td></tr><tr><td align='left'>name = "WA13"</td></tr></table></td></tr></table>>];
-f3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/de/kassel/roombook/Floor.java"> <u>f3 :Floor</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "WA03"</td></tr><tr><td align='left'>guest = "Ulrich"</td></tr></table></td></tr></table>>];
+f2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/de/kassel/roombook/Floor.java"> <u>f2 :Floor</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>level = 1</td></tr><tr><td align='left'>name = "WA13"</td></tr><tr><td align='left'>guest = ""</td></tr></table></td></tr></table>>];
+f3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/de/kassel/roombook/Floor.java"> <u>f3 :Floor</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>level = 0</td></tr><tr><td align='left'>name = "WA03"</td></tr><tr><td align='left'>guest = "Ulrich"</td></tr></table></td></tr></table>>];
 
 b1 -- f2 [headlabel = "has" taillabel = "buildings"];
 b1 -- f3 [headlabel = "has" taillabel = "buildings"];

@@ -21,18 +21,16 @@
    
 package org.sdmlib.examples.m2m.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.m2m.Graph;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.m2m.creators.PersonSet;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.m2m.Person;
-import org.sdmlib.examples.m2m.creators.RelationSet;
-import org.sdmlib.examples.m2m.Relation;
-import org.sdmlib.examples.m2m.creators.GraphComponentSet;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.m2m.Graph;
 import org.sdmlib.examples.m2m.GraphComponent;
+import org.sdmlib.examples.m2m.Person;
+import org.sdmlib.examples.m2m.Relation;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -66,17 +64,6 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
    }
 
 
-   public GraphSet with(Graph value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GraphSet without(Graph value)
-   {
-      this.remove(value);
-      return this;
-   }
    public PersonSet getPersons()
    {
       PersonSet result = new PersonSet();
@@ -251,6 +238,44 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public GraphPO startModelPattern()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      GraphPO patternObject = pattern.hasElementGraphPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public GraphSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Graph>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Graph) value);
+      }
+      
+      return this;
+   }
+   
+   public GraphSet without(Graph value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

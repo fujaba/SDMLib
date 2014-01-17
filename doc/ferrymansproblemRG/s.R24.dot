@@ -1,6 +1,6 @@
 graph ObjectDiagram {
-   node [shape = none, fontsize = 10];
-   edge [fontsize = 10];
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
 r24 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../test/org/sdmlib/models/patterns/example/ferrmansproblem/River.java"> <u>r24 :River</u></td></tr></table>>];

@@ -21,17 +21,16 @@
    
 package org.sdmlib.examples.groupAccount.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.groupAccount.GroupAccount;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.groupAccount.Person;
-import org.sdmlib.examples.groupAccount.creators.ItemSet;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.examples.groupAccount.Item;
+import org.sdmlib.examples.groupAccount.Person;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.doubleList;
 
 public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -65,18 +64,6 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
    }
 
 
-   public GroupAccountSet with(GroupAccount value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GroupAccountSet without(GroupAccount value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
    //==========================================================================
    
    public doubleList initAccounts(double p0, String p1)
@@ -217,5 +204,43 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
       return this;
    }
 
+
+
+   public GroupAccountPO startModelPattern()
+   {
+      org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
+      
+      GroupAccountPO patternObject = pattern.hasElementGroupAccountPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public GroupAccountSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<GroupAccount>)value);
+      }
+      else if (value != null)
+      {
+         this.add((GroupAccount) value);
+      }
+      
+      return this;
+   }
+   
+   public GroupAccountSet without(GroupAccount value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

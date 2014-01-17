@@ -63,17 +63,6 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
    }
 
 
-   public ItemSet with(Item value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ItemSet without(Item value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getDescription()
    {
       StringList result = new StringList();
@@ -244,5 +233,43 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public ItemPO startModelPattern()
+   {
+      org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
+      
+      ItemPO patternObject = pattern.hasElementItemPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ItemSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Item>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Item) value);
+      }
+      
+      return this;
+   }
+   
+   public ItemSet without(Item value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

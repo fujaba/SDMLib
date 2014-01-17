@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.helloworld.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.helloworld.Greeting;
@@ -115,9 +116,32 @@ public class GreetingSet extends LinkedHashSet<Greeting> implements org.sdmlib.m
    }
 
 
-   public GreetingSet with(Greeting value)
+   public GreetingPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      GreetingPO patternObject = pattern.hasElementGreetingPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public GreetingSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Greeting>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Greeting) value);
+      }
+      
       return this;
    }
    
@@ -126,7 +150,9 @@ public class GreetingSet extends LinkedHashSet<Greeting> implements org.sdmlib.m
       this.remove(value);
       return this;
    }
+
 }
+
 
 
 

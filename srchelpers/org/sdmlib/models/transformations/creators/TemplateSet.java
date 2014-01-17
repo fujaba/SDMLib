@@ -21,20 +21,16 @@
    
 package org.sdmlib.models.transformations.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import java.lang.Object;
-import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.creators.MatchSet;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Template;
 
 public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -68,17 +64,6 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
    }
 
 
-   public TemplateSet with(Template value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public TemplateSet without(Template value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getTemplateText()
    {
       StringList result = new StringList();
@@ -550,6 +535,44 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public TemplatePO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      TemplatePO patternObject = pattern.hasElementTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public TemplateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Template>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Template) value);
+      }
+      
+      return this;
+   }
+   
+   public TemplateSet without(Template value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

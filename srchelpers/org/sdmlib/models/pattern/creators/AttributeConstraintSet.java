@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -30,6 +31,7 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+
 import java.util.List;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
@@ -324,7 +326,25 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       
       return patternObject;
    }
+
+
+   public AttributeConstraintSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<AttributeConstraint>)value);
+      }
+      else if (value != null)
+      {
+         this.add((AttributeConstraint) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 
 
 

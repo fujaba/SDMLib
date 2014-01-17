@@ -114,15 +114,15 @@
       "hoursSpend":51,
       "parent":{"id":"KE.K1"},
       "subentries":[
-        {"id":"KE.K7"},
-        {"id":"KE.K9"},
         {"id":"KE.K10"},
         {"id":"KE.K11"},
         {"id":"KE.K12"},
         {"id":"KE.K13"},
         {"id":"KE.K14"},
         {"id":"KE.K15"},
-        {"id":"KE.K18"}
+        {"id":"KE.K18"},
+        {"id":"KE.K7"},
+        {"id":"KE.K9"}
       ],
       "logEntries":[
         {"id":"KE.L28"},

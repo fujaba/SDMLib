@@ -21,21 +21,14 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.TreeMap;
 
-import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.creators.ReachableStateSet;
-import org.sdmlib.models.modelsets.intList;
-
-import java.util.List;
-
-import org.sdmlib.models.pattern.creators.RuleApplicationSet;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 
 public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
@@ -61,17 +54,6 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
    }
 
 
-   public ReachableStateSet with(ReachableState value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ReachableStateSet without(ReachableState value)
-   {
-      this.remove(value);
-      return this;
-   }
    public ReachabilityGraphSet getParent()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
@@ -260,7 +242,30 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       
       return patternObject;
    }
+
+
+   public ReachableStateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReachableState>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReachableState) value);
+      }
+      
+      return this;
+   }
+   
+   public ReachableStateSet without(ReachableState value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

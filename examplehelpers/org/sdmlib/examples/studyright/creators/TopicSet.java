@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.studyright.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyright.Professor;
 import org.sdmlib.examples.studyright.Topic;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.studyright.creators.ProfessorSet;
-import org.sdmlib.examples.studyright.Professor;
 
 public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -106,5 +106,37 @@ public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public TopicPO startModelPattern()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      TopicPO patternObject = pattern.hasElementTopicPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public TopicSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Topic>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Topic) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 

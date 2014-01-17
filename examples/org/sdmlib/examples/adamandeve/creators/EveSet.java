@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.adamandeve.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.adamandeve.Eve;
@@ -41,11 +42,38 @@ public class EveSet extends LinkedHashSet<Eve>
    }
 
 
-
-
-   public EveSet with(Eve value)
+   public String getEntryType()
    {
-      this.add(value);
+      return "org.sdmlib.examples.adamandeve.Eve";
+   }
+
+
+   public EvePO startModelPattern()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      EvePO patternObject = pattern.hasElementEvePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public EveSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Eve>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Eve) value);
+      }
+      
       return this;
    }
    
@@ -55,12 +83,8 @@ public class EveSet extends LinkedHashSet<Eve>
       return this;
    }
 
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.adamandeve.Eve";
-   }
 }
+
 
 
 

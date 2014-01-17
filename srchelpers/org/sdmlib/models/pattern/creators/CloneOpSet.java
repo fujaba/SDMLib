@@ -21,12 +21,12 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.CloneOp;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
 
 public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
@@ -52,17 +52,6 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
    }
 
 
-   public CloneOpSet with(CloneOp value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public CloneOpSet without(CloneOp value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getModifier()
    {
       StringList result = new StringList();
@@ -188,6 +177,29 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       
       return patternObject;
    }
+
+
+   public CloneOpSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<CloneOp>)value);
+      }
+      else if (value != null)
+      {
+         this.add((CloneOp) value);
+      }
+      
+      return this;
+   }
+   
+   public CloneOpSet without(CloneOp value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

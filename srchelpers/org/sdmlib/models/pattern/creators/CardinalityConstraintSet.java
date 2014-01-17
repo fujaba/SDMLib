@@ -21,17 +21,15 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.PatternObjectSet;
 import org.sdmlib.models.pattern.PatternObject;
 
 public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
@@ -57,17 +55,6 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
    }
 
 
-   public CardinalityConstraintSet with(CardinalityConstraint value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public CardinalityConstraintSet without(CardinalityConstraint value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getTgtRoleName()
    {
       StringList result = new StringList();
@@ -303,6 +290,29 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       
       return patternObject;
    }
+
+
+   public CardinalityConstraintSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<CardinalityConstraint>)value);
+      }
+      else if (value != null)
+      {
+         this.add((CardinalityConstraint) value);
+      }
+      
+      return this;
+   }
+   
+   public CardinalityConstraintSet without(CardinalityConstraint value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

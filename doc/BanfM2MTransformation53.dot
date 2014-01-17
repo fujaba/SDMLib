@@ -22,5 +22,5 @@ p92 -- r93 [headlabel = "inEdges" taillabel = "tgt"];
 r93 -- p94 [headlabel = "src" taillabel = "outEdges"];
 p94 -- r95 [headlabel = "inEdges" taillabel = "tgt"];
 r96 -- p97 [headlabel = "tgt" taillabel = "inEdges"];
-p98 -- r99 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+p98 -- r99 [headlabel = "inEdges_outEdges" taillabel = "src_tgt"];
 }

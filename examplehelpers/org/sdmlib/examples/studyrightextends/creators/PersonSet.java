@@ -21,7 +21,9 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.modelsets.StringList;
 
@@ -47,18 +49,6 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return "org.sdmlib.examples.studyrightextends.Person";
    }
 
-
-   public PersonSet with(Person value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PersonSet without(Person value)
-   {
-      this.remove(value);
-      return this;
-   }
    
    //==========================================================================
    
@@ -95,5 +85,43 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PersonPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      PersonPO patternObject = pattern.hasElementPersonPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PersonSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

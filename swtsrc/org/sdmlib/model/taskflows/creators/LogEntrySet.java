@@ -183,5 +183,43 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public LogEntryPO startModelPattern()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LogEntrySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LogEntry>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LogEntry) value);
+      }
+      
+      return this;
+   }
+   
+   public LogEntrySet without(LogEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

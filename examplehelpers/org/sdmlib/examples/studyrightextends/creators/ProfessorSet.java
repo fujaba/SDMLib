@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
-import org.sdmlib.examples.studyrightextends.Lecture;
 
 public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -51,18 +51,6 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
       return "org.sdmlib.examples.studyrightextends.Professor";
    }
 
-
-   public ProfessorSet with(Professor value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ProfessorSet without(Professor value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getPersNr()
    {
       intList result = new intList();
@@ -139,5 +127,43 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
       return this;
    }
 
+
+
+   public ProfessorPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      ProfessorPO patternObject = pattern.hasElementProfessorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ProfessorSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Professor>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Professor) value);
+      }
+      
+      return this;
+   }
+   
+   public ProfessorSet without(Professor value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

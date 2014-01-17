@@ -22,6 +22,7 @@
 package org.sdmlib.examples.ludoreverse.model.creators;
 
 import java.awt.Point;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -49,18 +50,6 @@ public class PointSet extends LinkedHashSet<Point> implements org.sdmlib.models.
       return "java.awt.Point";
    }
 
-
-   public PointSet with(Point value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PointSet without(Point value)
-   {
-      this.remove(value);
-      return this;
-   }
    
    public intList getX()
    {
@@ -106,5 +95,43 @@ public class PointSet extends LinkedHashSet<Point> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public PointPO startModelPattern()
+   {
+      ModelPattern pattern = new ModelPattern();
+      
+      PointPO patternObject = pattern.hasElementPointPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PointSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Point>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Point) value);
+      }
+      
+      return this;
+   }
+   
+   public PointSet without(Point value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

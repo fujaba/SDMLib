@@ -21,11 +21,12 @@
    
 package org.sdmlib.storyboards.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.storyboards.StoryboardWall;
+
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.storyboards.creators.StoryboardSet;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -83,5 +84,38 @@ public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements 
       return this;
    }
 
+
+
+   public StoryboardWallPO startModelPattern()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      StoryboardWallPO patternObject = pattern.hasElementStoryboardWallPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StoryboardWallSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<StoryboardWall>)value);
+      }
+      else if (value != null)
+      {
+         this.add((StoryboardWall) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

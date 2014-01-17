@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.helloworld.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.helloworld.Greeting;
@@ -93,9 +94,32 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
    }
 
 
-   public PersonSet with(Person value)
+   public PersonPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      PersonPO patternObject = pattern.hasElementPersonPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PersonSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
       return this;
    }
    
@@ -104,6 +128,8 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       this.remove(value);
       return this;
    }
+
 }
+
 
 

@@ -21,6 +21,7 @@
    
 package org.sdmlib.model.classes.test.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.model.classes.test.Parent;
@@ -50,18 +51,6 @@ public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
       return "org.sdmlib.model.classes.test.Parent";
    }
 
-
-   public ParentSet with(Parent value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ParentSet without(Parent value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -105,5 +94,43 @@ public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
       return this;
    }
 
+
+
+   public ParentPO startModelPattern()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      ParentPO patternObject = pattern.hasElementParentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ParentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Parent>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Parent) value);
+      }
+      
+      return this;
+   }
+   
+   public ParentSet without(Parent value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

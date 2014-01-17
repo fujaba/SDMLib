@@ -259,39 +259,6 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return null;
    }
 
-   public StudentPO hasFriends()
-   {
-      StudentPO result = new StudentPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Student.PROPERTY_FRIENDS, result);
-      
-      return result;
-   }
-
-   public StudentPO hasFriends(StudentPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_FRIENDS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public StudentSet getFriends()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) this.getCurrentMatch()).getFriends();
-      }
-      return null;
-   }
-
    public AssignmentPO hasDone()
    {
       AssignmentPO result = new AssignmentPO();
@@ -321,6 +288,39 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       if (this.getPattern().getHasMatch())
       {
          return ((Student) this.getCurrentMatch()).getDone();
+      }
+      return null;
+   }
+
+   public StudentPO hasFriends()
+   {
+      StudentPO result = new StudentPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      
+      return result;
+   }
+
+   public StudentPO hasFriends(StudentPO tgt)
+   {
+      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_FRIENDS)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier());
+      
+      this.getPattern().addToElements(patternLink);
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+
+   public StudentSet getFriends()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) this.getCurrentMatch()).getFriends();
       }
       return null;
    }

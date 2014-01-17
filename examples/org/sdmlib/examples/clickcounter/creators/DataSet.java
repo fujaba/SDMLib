@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.clickcounter.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import javafx.beans.property.IntegerProperty;
+
 import org.sdmlib.examples.clickcounter.Data;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.examples.clickcounter.creators.IntegerPropertySet;
-import javafx.beans.property.IntegerProperty;
 
 public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -52,17 +53,6 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
    }
 
 
-   public DataSet with(Data value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public DataSet without(Data value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getNum()
    {
       intList result = new intList();
@@ -107,5 +97,43 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public DataPO startModelPattern()
+   {
+      org.sdmlib.examples.clickcounter.creators.ModelPattern pattern = new org.sdmlib.examples.clickcounter.creators.ModelPattern();
+      
+      DataPO patternObject = pattern.hasElementDataPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public DataSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Data>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Data) value);
+      }
+      
+      return this;
+   }
+   
+   public DataSet without(Data value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

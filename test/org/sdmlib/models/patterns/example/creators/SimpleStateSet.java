@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.patterns.example.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.patterns.example.SimpleState;
+
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.patterns.example.creators.NodeSet;
 import org.sdmlib.models.patterns.example.Node;
+import org.sdmlib.models.patterns.example.SimpleState;
 
 public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -93,5 +94,37 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sd
       return this;
    }
 
+
+
+   public SimpleStatePO startModelPattern()
+   {
+      org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
+      
+      SimpleStatePO patternObject = pattern.hasElementSimpleStatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public SimpleStateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SimpleState>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SimpleState) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 

@@ -21,19 +21,16 @@
    
 package org.sdmlib.models.transformations.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.OperationObject;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.transformations.creators.TransformOpSet;
-import org.sdmlib.models.transformations.TransformOp;
-import org.sdmlib.models.transformations.creators.AttributeOpSet;
 import org.sdmlib.models.transformations.AttributeOp;
-import org.sdmlib.models.transformations.creators.LinkOpSet;
 import org.sdmlib.models.transformations.LinkOp;
-import org.sdmlib.models.transformations.creators.StatementSet;
+import org.sdmlib.models.transformations.OperationObject;
 import org.sdmlib.models.transformations.Statement;
+import org.sdmlib.models.transformations.TransformOp;
 
 public class OperationObjectSet extends LinkedHashSet<OperationObject> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -58,17 +55,6 @@ public class OperationObjectSet extends LinkedHashSet<OperationObject> implement
    }
 
 
-   public OperationObjectSet with(OperationObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public OperationObjectSet without(OperationObject value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -285,5 +271,43 @@ public class OperationObjectSet extends LinkedHashSet<OperationObject> implement
       return this;
    }
 
+
+
+   public OperationObjectPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      OperationObjectPO patternObject = pattern.hasElementOperationObjectPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public OperationObjectSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<OperationObject>)value);
+      }
+      else if (value != null)
+      {
+         this.add((OperationObject) value);
+      }
+      
+      return this;
+   }
+   
+   public OperationObjectSet without(OperationObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

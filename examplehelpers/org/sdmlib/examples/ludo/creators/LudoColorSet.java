@@ -21,7 +21,9 @@
    
 package org.sdmlib.examples.ludo.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.StringList;
 
@@ -48,9 +50,33 @@ public class LudoColorSet extends LinkedHashSet<LudoColor> implements org.sdmlib
    }
 
 
-   public LudoColorSet with(LudoColor value)
+
+   public LudoColorPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      LudoColorPO patternObject = pattern.hasElementLudoColorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LudoColorSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LudoColor>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LudoColor) value);
+      }
+      
       return this;
    }
    
@@ -59,5 +85,7 @@ public class LudoColorSet extends LinkedHashSet<LudoColor> implements org.sdmlib
       this.remove(value);
       return this;
    }
+
 }
+
 

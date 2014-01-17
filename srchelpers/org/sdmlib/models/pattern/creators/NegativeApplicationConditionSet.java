@@ -21,20 +21,17 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import java.util.List;
 
 public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
 {
@@ -179,17 +176,6 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
    }
 
 
-   public NegativeApplicationConditionSet with(NegativeApplicationCondition value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public NegativeApplicationConditionSet without(NegativeApplicationCondition value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getDebugMode()
    {
       intList result = new intList();
@@ -347,7 +333,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       
       return patternObject;
    }
+
+
+   public NegativeApplicationConditionSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<NegativeApplicationCondition>)value);
+      }
+      else if (value != null)
+      {
+         this.add((NegativeApplicationCondition) value);
+      }
+      
+      return this;
+   }
+   
+   public NegativeApplicationConditionSet without(NegativeApplicationCondition value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

@@ -21,7 +21,9 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightextends.Male;
 import org.sdmlib.models.modelsets.StringList;
 
@@ -48,9 +50,33 @@ public class MaleSet extends LinkedHashSet<Male> implements org.sdmlib.models.mo
    }
 
 
-   public MaleSet with(Male value)
+
+   public MalePO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      MalePO patternObject = pattern.hasElementMalePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public MaleSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Male>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Male) value);
+      }
+      
       return this;
    }
    
@@ -59,5 +85,7 @@ public class MaleSet extends LinkedHashSet<Male> implements org.sdmlib.models.mo
       this.remove(value);
       return this;
    }
+
 }
+
 

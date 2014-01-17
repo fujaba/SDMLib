@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.studyright.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyright.Professor;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.studyright.creators.TopicSet;
 import org.sdmlib.examples.studyright.Topic;
+import org.sdmlib.models.modelsets.StringList;
 
 public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -51,17 +51,6 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
    }
 
 
-   public ProfessorSet with(Professor value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ProfessorSet without(Professor value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -106,5 +95,43 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
       return this;
    }
 
+
+
+   public ProfessorPO startModelPattern()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      ProfessorPO patternObject = pattern.hasElementProfessorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ProfessorSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Professor>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Professor) value);
+      }
+      
+      return this;
+   }
+   
+   public ProfessorSet without(Professor value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

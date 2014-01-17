@@ -21,16 +21,14 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.studyrightextends.creators.RoomSet;
-import org.sdmlib.examples.studyrightextends.Room;
-import org.sdmlib.examples.studyrightextends.creators.ProfessorSet;
 import org.sdmlib.examples.studyrightextends.Professor;
-import org.sdmlib.examples.studyrightextends.creators.StudentSet;
+import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.Student;
+import org.sdmlib.models.modelsets.StringList;
 
 public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -55,17 +53,6 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
    }
 
 
-   public LectureSet with(Lecture value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public LectureSet without(Lecture value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getTitle()
    {
       StringList result = new StringList();
@@ -154,5 +141,43 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public LecturePO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      LecturePO patternObject = pattern.hasElementLecturePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LectureSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Lecture>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Lecture) value);
+      }
+      
+      return this;
+   }
+   
+   public LectureSet without(Lecture value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

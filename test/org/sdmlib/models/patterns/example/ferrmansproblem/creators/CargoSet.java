@@ -21,14 +21,13 @@
    
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
+import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
 
 public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -53,17 +52,6 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
    }
 
 
-   public CargoSet with(Cargo value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public CargoSet without(Cargo value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -130,5 +118,43 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public CargoPO startModelPattern()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      CargoPO patternObject = pattern.hasElementCargoPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public CargoSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Cargo>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Cargo) value);
+      }
+      
+      return this;
+   }
+   
+   public CargoSet without(Cargo value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

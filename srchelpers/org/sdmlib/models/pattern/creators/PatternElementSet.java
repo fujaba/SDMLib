@@ -22,6 +22,7 @@
 package org.sdmlib.models.pattern.creators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
@@ -174,19 +175,6 @@ public class PatternElementSet extends ArrayList<PatternElement>
       return "org.sdmlib.models.pattern.PatternElement";
    }
 
-
-   public PatternElementSet with(PatternElement value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PatternElementSet without(PatternElement value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
    public PatternElement first()
    {
       for (PatternElement pe : this)
@@ -211,7 +199,30 @@ public class PatternElementSet extends ArrayList<PatternElement>
       
       return patternObject;
    }
+
+
+   public PatternElementSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PatternElement>)value);
+      }
+      else if (value != null)
+      {
+         this.add((PatternElement) value);
+      }
+      
+      return this;
+   }
+   
+   public PatternElementSet without(PatternElement value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

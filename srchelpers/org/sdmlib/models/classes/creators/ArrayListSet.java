@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes.creators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -49,9 +50,32 @@ public class ArrayListSet extends LinkedHashSet<ArrayList> implements org.sdmlib
    }
 
 
-   public ArrayListSet with(ArrayList value)
+   public ArrayListPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      ArrayListPO patternObject = pattern.hasElementArrayListPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ArrayListSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ArrayList>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ArrayList) value);
+      }
+      
       return this;
    }
    
@@ -60,5 +84,7 @@ public class ArrayListSet extends LinkedHashSet<ArrayList> implements org.sdmlib
       this.remove(value);
       return this;
    }
+
 }
+
 

@@ -21,16 +21,15 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.PatternObjectSet;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
 {
@@ -187,17 +186,6 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
    }
 
 
-   public LinkConstraintSet with(LinkConstraint value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public LinkConstraintSet without(LinkConstraint value)
-   {
-      this.remove(value);
-      return this;
-   }
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
@@ -279,7 +267,30 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
       
       return patternObject;
    }
+
+
+   public LinkConstraintSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LinkConstraint>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LinkConstraint) value);
+      }
+      
+      return this;
+   }
+   
+   public LinkConstraintSet without(LinkConstraint value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

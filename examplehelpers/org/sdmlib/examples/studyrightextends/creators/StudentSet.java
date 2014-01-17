@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
-import org.sdmlib.examples.studyrightextends.Lecture;
 
 public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -175,5 +175,38 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public StudentPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      StudentPO patternObject = pattern.hasElementStudentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StudentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Student>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Student) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

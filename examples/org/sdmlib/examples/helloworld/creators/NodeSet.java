@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.helloworld.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.creators.GraphSet;
 
 public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -283,17 +283,6 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
    }
 
 
-   public NodeSet with(Node value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public NodeSet without(Node value)
-   {
-      this.remove(value);
-      return this;
-   }
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
@@ -316,7 +305,45 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public NodePO startModelPattern()
+   {
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      NodePO patternObject = pattern.hasElementNodePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public NodeSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Node>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Node) value);
+      }
+      
+      return this;
+   }
+   
+   public NodeSet without(Node value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

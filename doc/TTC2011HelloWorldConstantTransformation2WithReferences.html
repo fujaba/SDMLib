@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
 <p>TTC2011HelloWorldConstantTransformation2WithReferences</p>
@@ -11,10 +12,10 @@
       GreetingPO greetingPO = p.hasElementGreetingPO();
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-      .hasText("Hello");
+      .hasText(&quot;Hello&quot;);
       
       PersonPO personPO = greetingPO.hasPerson()
-      .hasName("TTC Participants");
+      .hasName(&quot;TTC Participants&quot;);
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
@@ -25,10 +26,10 @@
 <pre>      Greeting greeting = new Greeting();
       
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
-      .withText("Hello");
+      .withText(&quot;Hello&quot;);
       
       Person person = greeting.createPerson()
-      .withName("TTC Participants");
+      .withName(&quot;TTC Participants&quot;);
 </pre>
 </body>
 </html>

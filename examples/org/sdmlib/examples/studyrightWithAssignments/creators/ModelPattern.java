@@ -7,10 +7,10 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
-import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentPO;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
+import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 
 public class ModelPattern extends Pattern
 {
@@ -97,30 +97,6 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
-   public TeachingAssistantPO hasElementTeachingAssistantPO()
-   {
-      TeachingAssistantPO value = new TeachingAssistantPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public TeachingAssistantPO hasElementTeachingAssistantPO(TeachingAssistant hostGraphObject)
-   {
-      TeachingAssistantPO value = new TeachingAssistantPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
    public AssignmentPO hasElementAssignmentPO()
    {
       AssignmentPO value = new AssignmentPO();
@@ -135,6 +111,30 @@ public class ModelPattern extends Pattern
    public AssignmentPO hasElementAssignmentPO(Assignment hostGraphObject)
    {
       AssignmentPO value = new AssignmentPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public TeachingAssistantPO hasElementTeachingAssistantPO()
+   {
+      TeachingAssistantPO value = new TeachingAssistantPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public TeachingAssistantPO hasElementTeachingAssistantPO(TeachingAssistant hostGraphObject)
+   {
+      TeachingAssistantPO value = new TeachingAssistantPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
       

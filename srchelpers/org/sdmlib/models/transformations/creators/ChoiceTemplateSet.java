@@ -63,17 +63,6 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
    }
 
 
-   public ChoiceTemplateSet with(ChoiceTemplate value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ChoiceTemplateSet without(ChoiceTemplate value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getTemplateText()
    {
       StringList result = new StringList();
@@ -603,6 +592,44 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return this;
    }
 
+
+
+   public ChoiceTemplatePO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ChoiceTemplateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ChoiceTemplate>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ChoiceTemplate) value);
+      }
+      
+      return this;
+   }
+   
+   public ChoiceTemplateSet without(ChoiceTemplate value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

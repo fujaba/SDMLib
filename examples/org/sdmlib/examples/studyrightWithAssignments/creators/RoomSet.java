@@ -24,20 +24,20 @@ package org.sdmlib.examples.studyrightWithAssignments.creators;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
-import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
-import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
-import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
+import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 
 public class RoomSet extends SDMSet<Room>
 {
@@ -372,64 +372,6 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   public TeachingAssistantSet getTas()
-   {
-      TeachingAssistantSet result = new TeachingAssistantSet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getTas());
-      }
-      
-      return result;
-   }
-
-   public RoomSet hasTas(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getTas()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public RoomSet withTas(TeachingAssistant value)
-   {
-      for (Room obj : this)
-      {
-         obj.withTas(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet withoutTas(TeachingAssistant value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutTas(value);
-      }
-      
-      return this;
-   }
-
    public AssignmentSet getAssignments()
    {
       AssignmentSet result = new AssignmentSet();
@@ -483,6 +425,64 @@ public class RoomSet extends SDMSet<Room>
       for (Room obj : this)
       {
          obj.withoutAssignments(value);
+      }
+      
+      return this;
+   }
+
+   public TeachingAssistantSet getTas()
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (Room obj : this)
+      {
+         result.with(obj.getTas());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasTas(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getTas()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RoomSet withTas(TeachingAssistant value)
+   {
+      for (Room obj : this)
+      {
+         obj.withTas(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet withoutTas(TeachingAssistant value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutTas(value);
       }
       
       return this;

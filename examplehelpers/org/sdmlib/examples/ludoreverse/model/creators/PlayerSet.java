@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.ludoreverse.model.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.ludoreverse.model.Ludo;
@@ -51,17 +52,6 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
    }
 
 
-   public PlayerSet with(Player value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PlayerSet without(Player value)
-   {
-      this.remove(value);
-      return this;
-   }
    public LudoSet getGame()
    {
       LudoSet result = new LudoSet();
@@ -127,6 +117,44 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
       return this;
    }
 
+
+
+   public PlayerPO startModelPattern()
+   {
+      org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
+      
+      PlayerPO patternObject = pattern.hasElementPlayerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PlayerSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Player>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Player) value);
+      }
+      
+      return this;
+   }
+   
+   public PlayerSet without(Player value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

@@ -21,11 +21,13 @@
    
 package org.sdmlib.models.classes.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
 
 public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
@@ -151,7 +153,39 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return this;
    }
 
+
+
+   public AttributePO startModelPattern()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      AttributePO patternObject = pattern.hasElementAttributePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public AttributeSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Attribute>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Attribute) value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

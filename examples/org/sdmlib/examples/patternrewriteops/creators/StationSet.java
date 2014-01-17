@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.patternrewriteops.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.patternrewriteops.Person;
@@ -193,6 +194,38 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public StationPO startModelPattern()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      StationPO patternObject = pattern.hasElementStationPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StationSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Station>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Station) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 
 

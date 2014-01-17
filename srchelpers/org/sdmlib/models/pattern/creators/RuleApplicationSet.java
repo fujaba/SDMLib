@@ -21,12 +21,12 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.pattern.RuleApplication;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.pattern.creators.ReachableStateSet;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
 
 public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -51,17 +51,6 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
    }
 
 
-   public RuleApplicationSet with(RuleApplication value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RuleApplicationSet without(RuleApplication value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getDescription()
    {
       StringList result = new StringList();
@@ -143,6 +132,29 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       
       return patternObject;
    }
+
+
+   public RuleApplicationSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<RuleApplication>)value);
+      }
+      else if (value != null)
+      {
+         this.add((RuleApplication) value);
+      }
+      
+      return this;
+   }
+   
+   public RuleApplicationSet without(RuleApplication value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

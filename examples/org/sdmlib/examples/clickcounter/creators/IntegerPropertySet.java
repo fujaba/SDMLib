@@ -21,8 +21,11 @@
    
 package org.sdmlib.examples.clickcounter.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import javafx.beans.property.IntegerProperty;
+
 import org.sdmlib.models.modelsets.StringList;
 
 public class IntegerPropertySet extends LinkedHashSet<IntegerProperty> implements org.sdmlib.models.modelsets.ModelSet
@@ -48,9 +51,33 @@ public class IntegerPropertySet extends LinkedHashSet<IntegerProperty> implement
    }
 
 
-   public IntegerPropertySet with(IntegerProperty value)
+
+   public IntegerPropertyPO startModelPattern()
    {
-      this.add(value);
+      ModelPattern pattern = new ModelPattern();
+      
+      IntegerPropertyPO patternObject = pattern.hasElementIntegerPropertyPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public IntegerPropertySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<IntegerProperty>)value);
+      }
+      else if (value != null)
+      {
+         this.add((IntegerProperty) value);
+      }
+      
       return this;
    }
    
@@ -59,5 +86,7 @@ public class IntegerPropertySet extends LinkedHashSet<IntegerProperty> implement
       this.remove(value);
       return this;
    }
+
 }
+
 

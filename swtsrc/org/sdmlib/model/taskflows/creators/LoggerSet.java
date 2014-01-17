@@ -211,5 +211,43 @@ public class LoggerSet extends LinkedHashSet<Logger> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public LoggerPO startModelPattern()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      LoggerPO patternObject = pattern.hasElementLoggerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LoggerSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Logger>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Logger) value);
+      }
+      
+      return this;
+   }
+   
+   public LoggerSet without(Logger value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

@@ -21,20 +21,16 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.ludo.creators.PointSet;
 import java.awt.Point;
-import org.sdmlib.examples.ludo.creators.LudoSet;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.ludo.Field;
 import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.creators.FieldSet;
-import org.sdmlib.examples.ludo.creators.PlayerSet;
-import org.sdmlib.examples.ludo.Player;
-import org.sdmlib.examples.ludo.creators.PawnSet;
 import org.sdmlib.examples.ludo.Pawn;
+import org.sdmlib.examples.ludo.Player;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -59,17 +55,6 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
    }
 
 
-   public FieldSet with(Field value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public FieldSet without(Field value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getColor()
    {
       StringList result = new StringList();
@@ -388,5 +373,43 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public FieldPO startModelPattern()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      FieldPO patternObject = pattern.hasElementFieldPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public FieldSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Field>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Field) value);
+      }
+      
+      return this;
+   }
+   
+   public FieldSet without(Field value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

@@ -13,6 +13,10 @@ import org.sdmlib.examples.studyrightextends.creators.ProfessorPO;
 import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.examples.studyrightextends.creators.StudentPO;
 import org.sdmlib.examples.studyrightextends.Student;
+import org.sdmlib.examples.studyrightextends.creators.PersonPO;
+import org.sdmlib.examples.studyrightextends.Person;
+import org.sdmlib.examples.studyrightextends.creators.MalePO;
+import org.sdmlib.examples.studyrightextends.Male;
 
 public class ModelPattern extends Pattern
 {
@@ -171,6 +175,55 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public PersonPO hasElementPersonPO()
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PersonPO hasElementPersonPO(Person hostGraphObject)
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public MalePO hasElementMalePO()
+   {
+      MalePO value = new MalePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public MalePO hasElementMalePO(Male hostGraphObject)
+   {
+      MalePO value = new MalePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 

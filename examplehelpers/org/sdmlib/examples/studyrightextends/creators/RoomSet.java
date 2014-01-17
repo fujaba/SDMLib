@@ -21,16 +21,14 @@
    
 package org.sdmlib.examples.studyrightextends.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Room;
+import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.List;
-import org.sdmlib.examples.studyrightextends.creators.RoomSet;
-import org.sdmlib.examples.studyrightextends.creators.LectureSet;
-import org.sdmlib.examples.studyrightextends.Lecture;
-import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
-import org.sdmlib.examples.studyrightextends.University;
 
 public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -55,17 +53,6 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
    }
 
 
-   public RoomSet with(Room value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RoomSet without(Room value)
-   {
-      this.remove(value);
-      return this;
-   }
    
    //==========================================================================
    
@@ -209,5 +196,43 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public RoomPO startModelPattern()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      RoomPO patternObject = pattern.hasElementRoomPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public RoomSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Room>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Room) value);
+      }
+      
+      return this;
+   }
+   
+   public RoomSet without(Room value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

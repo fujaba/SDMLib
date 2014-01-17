@@ -211,5 +211,43 @@ public class FetchFileFlowSet extends LinkedHashSet<FetchFileFlow> implements or
       return this;
    }
 
+
+
+   public FetchFileFlowPO startModelPattern()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      FetchFileFlowPO patternObject = pattern.hasElementFetchFileFlowPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public FetchFileFlowSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<FetchFileFlow>)value);
+      }
+      else if (value != null)
+      {
+         this.add((FetchFileFlow) value);
+      }
+      
+      return this;
+   }
+   
+   public FetchFileFlowSet without(FetchFileFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

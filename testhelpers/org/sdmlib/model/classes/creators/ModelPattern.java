@@ -1,5 +1,7 @@
 package org.sdmlib.model.classes.creators;
 
+import org.sdmlib.codegen.creators.StatementEntryPO;
+import org.sdmlib.codegen.creators.SymTabEntryPO;
 import org.sdmlib.model.classes.ReverseClassModelTest;
 import org.sdmlib.model.test.interfaces.Student;
 import org.sdmlib.model.test.interfaces.creators.StudentPO;
@@ -64,6 +66,18 @@ public class ModelPattern extends Pattern
       this.findMatch();
       
       return value;
+   }
+
+   public SymTabEntryPO hasElementSymTabEntryPO()
+   {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public StatementEntryPO hasElementStatementEntryPO()
+   {
+      // TODO Auto-generated method stub
+      return null;
    } 
 
 }

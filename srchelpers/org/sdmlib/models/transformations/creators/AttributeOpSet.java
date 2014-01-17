@@ -21,10 +21,14 @@
    
 package org.sdmlib.models.transformations.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.models.transformations.AttributeOp;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.OperationObject;
 
@@ -106,5 +110,37 @@ public class AttributeOpSet extends LinkedHashSet<AttributeOp> implements org.sd
       return this;
    }
 
+
+
+   public AttributeOpPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      AttributeOpPO patternObject = pattern.hasElementAttributeOpPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public AttributeOpSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<AttributeOp>)value);
+      }
+      else if (value != null)
+      {
+         this.add((AttributeOp) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 

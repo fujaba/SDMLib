@@ -21,10 +21,14 @@
    
 package org.sdmlib.models.transformations.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.models.transformations.Statement;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.models.transformations.creators.StatementSet;
 import org.sdmlib.models.transformations.creators.OperationObjectSet;
 import org.sdmlib.models.transformations.OperationObject;
@@ -185,5 +189,38 @@ public class StatementSet extends LinkedHashSet<Statement> implements org.sdmlib
       return this;
    }
 
+
+
+   public StatementPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      StatementPO patternObject = pattern.hasElementStatementPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StatementSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Statement>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Statement) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

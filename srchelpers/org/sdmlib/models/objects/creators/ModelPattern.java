@@ -136,6 +136,14 @@ public class ModelPattern extends Pattern
       this.findMatch();
       
       return value;
+   }
+
+
+
+   public GenericObjectsTestPO hasElementGenericObjectsTestPO()
+   {
+      // TODO Auto-generated method stub
+      return null;
    } 
 
 }

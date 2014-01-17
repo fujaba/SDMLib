@@ -21,17 +21,15 @@
    
 package org.sdmlib.examples.studyright.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyright.creators.UniversitySet;
-import org.sdmlib.examples.studyright.University;
-import org.sdmlib.examples.studyright.creators.RoomSet;
-import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.creators.AssignmentSet;
+
 import org.sdmlib.examples.studyright.Assignment;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -231,5 +229,38 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public StudentPO startModelPattern()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      StudentPO patternObject = pattern.hasElementStudentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StudentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Student>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Student) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

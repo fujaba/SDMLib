@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.adamandeve.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.adamandeve.Adam;
@@ -41,9 +42,38 @@ public class AdamSet extends LinkedHashSet<Adam>
    }
 
 
-   public AdamSet with(Adam value)
+   public String getEntryType()
    {
-      this.add(value);
+      return "org.sdmlib.examples.adamandeve.Adam";
+   }
+
+
+   public AdamPO startModelPattern()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      AdamPO patternObject = pattern.hasElementAdamPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public AdamSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Adam>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Adam) value);
+      }
+      
       return this;
    }
    
@@ -53,12 +83,8 @@ public class AdamSet extends LinkedHashSet<Adam>
       return this;
    }
 
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.adamandeve.Adam";
-   }
 }
+
 
 
 

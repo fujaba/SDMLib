@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigrationViaGenericGraphs</a></p>
 <p>TTC2011SimpleMigrationViaGenericGraphs</p>
@@ -10,11 +11,11 @@
 <hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
-      .convert(CreatorCreator.createIdMap("g1"), origGraph);
+      .convert(CreatorCreator.createIdMap(&quot;g1&quot;), origGraph);
       
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
-      // rename name to text attributes
+      &#x2F;&#x2F; rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasObjects()
@@ -24,11 +25,11 @@
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameAttr&quot;, false));
       
-      // storyboard.add("<hr/>");
+      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
       
-      // rename graph--nodes links to parent--gcs links
+      &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasLinks()
@@ -38,11 +39,11 @@
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameLink1&quot;, false));
 
-      // storyboard.add("<hr/>");
+      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
       
-      // rename graph--edges links to parent--gcs links
+      &#x2F;&#x2F; rename graph--edges links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasLinks()
@@ -52,11 +53,11 @@
       .hasTgtLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameLink2&quot;, false));
 
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap(&quot;tg&quot;), null, genGraph);
       
       return tgtGraph;
    }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigrationViaGenericGraphs13.svg'>
@@ -72,9 +73,9 @@
 <pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
-      .convert(CreatorCreator.createIdMap("g1"), origGraph);
+      .convert(CreatorCreator.createIdMap(&quot;g1&quot;), origGraph);
       
-      // rename name to text attributes
+      &#x2F;&#x2F; rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasObjects()
@@ -84,9 +85,9 @@
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr&quot;, false));
       
-      // replace n.l.e.l.n by n.l.n
+      &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasObjects()
@@ -110,9 +111,9 @@
       .hasTgtLabel(Node.PROPERTY_LINKSTO)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges&quot;, false));
       
-      // destroy dangling edges
+      &#x2F;&#x2F; destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
       .hasElementGenericGraphPO(genGraph)
       .hasObjects()
@@ -122,9 +123,9 @@
       
       danglingPO.allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges&quot;, false));
       
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap(&quot;tg&quot;), null, genGraph);
       
       return tgtGraph;
    }</pre><embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>

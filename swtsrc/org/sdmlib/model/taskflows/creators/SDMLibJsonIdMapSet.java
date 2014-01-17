@@ -59,5 +59,43 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap> implement
       this.remove(value);
       return this;
    }
+
+
+   public SDMLibJsonIdMapPO startModelPattern()
+   {
+      org.sdmlib.serialization.json.creators.ModelPattern pattern = new org.sdmlib.serialization.json.creators.ModelPattern();
+      
+      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public SDMLibJsonIdMapSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SDMLibJsonIdMap>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SDMLibJsonIdMap) value);
+      }
+      
+      return this;
+   }
+   
+   public SDMLibJsonIdMapSet without(SDMLibJsonIdMap value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

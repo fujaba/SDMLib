@@ -1,6 +1,6 @@
 graph ObjectDiagram {
-   node [shape = none, fontsize = 10];
-   edge [fontsize = 10];
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
 g24 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java"> <u>g24 :GenericObject</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "g1.G1"</td></tr><tr><td align='left'>type = "org.sdmlib.examples.helloworld.Graph"</td></tr><tr><td align='left'>icon = ""</td></tr></table></td></tr></table>>];

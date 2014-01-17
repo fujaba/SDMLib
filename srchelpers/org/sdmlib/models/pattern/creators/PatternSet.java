@@ -21,19 +21,17 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import java.util.List;
 
 public class PatternSet extends LinkedHashSet<Pattern>
 {
@@ -208,18 +206,6 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return "org.sdmlib.models.pattern.Pattern";
    }
 
-
-   public PatternSet with(Pattern value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PatternSet without(Pattern value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getDebugMode()
    {
       intList result = new intList();
@@ -345,7 +331,30 @@ public class PatternSet extends LinkedHashSet<Pattern>
       
       return patternObject;
    }
+
+
+   public PatternSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Pattern>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Pattern) value);
+      }
+      
+      return this;
+   }
+   
+   public PatternSet without(Pattern value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

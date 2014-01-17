@@ -59,5 +59,21 @@ public class ObjectSet extends LinkedHashSet<Object> implements org.sdmlib.model
       this.remove(value);
       return this;
    }
+
+
+   public ObjectPO startModelPattern()
+   {
+      ModelPattern pattern = new ModelPattern();
+      
+      ObjectPO patternObject = pattern.hasElementObjectPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

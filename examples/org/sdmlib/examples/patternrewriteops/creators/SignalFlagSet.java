@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.patternrewriteops.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
@@ -49,18 +50,6 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       return "org.sdmlib.examples.patternrewriteops.SignalFlag";
    }
 
-
-   public SignalFlagSet with(SignalFlag value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public SignalFlagSet without(SignalFlag value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StationSet getStation()
    {
       StationSet result = new StationSet();
@@ -93,5 +82,43 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       return this;
    }
 
+
+
+   public SignalFlagPO startModelPattern()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      SignalFlagPO patternObject = pattern.hasElementSignalFlagPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public SignalFlagSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SignalFlag>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SignalFlag) value);
+      }
+      
+      return this;
+   }
+   
+   public SignalFlagSet without(SignalFlag value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

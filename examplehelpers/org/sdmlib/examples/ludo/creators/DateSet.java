@@ -21,8 +21,10 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.LinkedHashSet;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.models.modelsets.StringList;
 
 public class DateSet extends LinkedHashSet<Date> implements org.sdmlib.models.modelsets.ModelSet
@@ -48,9 +50,32 @@ public class DateSet extends LinkedHashSet<Date> implements org.sdmlib.models.mo
    }
 
 
-   public DateSet with(Date value)
+   public DatePO startModelPattern()
    {
-      this.add(value);
+      ModelPattern pattern = new ModelPattern();
+      
+      DatePO patternObject = pattern.hasElementDatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public DateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Date>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Date) value);
+      }
+      
       return this;
    }
    
@@ -59,5 +84,7 @@ public class DateSet extends LinkedHashSet<Date> implements org.sdmlib.models.mo
       this.remove(value);
       return this;
    }
+
 }
+
 

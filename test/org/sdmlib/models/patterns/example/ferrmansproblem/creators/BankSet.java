@@ -21,10 +21,14 @@
    
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
@@ -187,5 +191,38 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public BankPO startModelPattern()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      BankPO patternObject = pattern.hasElementBankPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public BankSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Bank>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Bank) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

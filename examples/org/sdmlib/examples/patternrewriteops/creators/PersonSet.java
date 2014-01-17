@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.patternrewriteops.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.patternrewriteops.Person;
@@ -51,17 +52,6 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
    }
 
 
-   public PersonSet with(Person value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PersonSet without(Person value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StationSet getStation()
    {
       StationSet result = new StationSet();
@@ -106,5 +96,43 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PersonPO startModelPattern()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      PersonPO patternObject = pattern.hasElementPersonPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PersonSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
+      return this;
+   }
+   
+   public PersonSet without(Person value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

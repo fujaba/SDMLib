@@ -22,21 +22,16 @@
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.models.modelsets.StringList;
-
 import java.util.List;
 
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.studyright.creators.UniversitySet;
-import org.sdmlib.examples.studyright.University;
-import org.sdmlib.examples.studyright.creators.RoomSet;
-import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.Assignment;
+import org.sdmlib.examples.studyright.Room;
+import org.sdmlib.examples.studyright.Student;
+import org.sdmlib.examples.studyright.University;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -60,18 +55,6 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return "org.sdmlib.examples.studyright.Room";
    }
 
-
-   public RoomSet with(Room value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RoomSet without(Room value)
-   {
-      this.remove(value);
-      return this;
-   }
    
    //==========================================================================
    
@@ -263,5 +246,43 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public RoomPO startModelPattern()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      RoomPO patternObject = pattern.hasElementRoomPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public RoomSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Room>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Room) value);
+      }
+      
+      return this;
+   }
+   
+   public RoomSet without(Room value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

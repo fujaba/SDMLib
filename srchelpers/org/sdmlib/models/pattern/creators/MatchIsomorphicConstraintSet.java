@@ -21,13 +21,13 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.Pattern;
 
 public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicConstraint>
 {
@@ -139,18 +139,6 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       return "org.sdmlib.models.pattern.MatchIsomorphicConstraint";
    }
 
-
-   public MatchIsomorphicConstraintSet with(MatchIsomorphicConstraint value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public MatchIsomorphicConstraintSet without(MatchIsomorphicConstraint value)
-   {
-      this.remove(value);
-      return this;
-   }
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
@@ -188,7 +176,30 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       
       return patternObject;
    }
+
+
+   public MatchIsomorphicConstraintSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<MatchIsomorphicConstraint>)value);
+      }
+      else if (value != null)
+      {
+         this.add((MatchIsomorphicConstraint) value);
+      }
+      
+      return this;
+   }
+   
+   public MatchIsomorphicConstraintSet without(MatchIsomorphicConstraint value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

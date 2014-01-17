@@ -1,5 +1,6 @@
 <html>
 <meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
 <p>TTC2011DeleteNodeWithSpecificName</p>
@@ -9,27 +10,27 @@
 <p>Transformation:</p>
 <pre>   private void deleteNodeWithNameN1(Graph graph)
    {
-      // find node
+      &#x2F;&#x2F; find node
       NodePO nodeN1PO = new ModelPattern()
       .hasElementGraphPO(graph)
       .hasNodes()
-      .hasName("n1");
+      .hasName(&quot;n1&quot;);
       
-      // destroy all leaving edges
+      &#x2F;&#x2F; destroy all leaving edges
       nodeN1PO.startSubPattern()
       .hasOutEdges()
       .destroy()
       .endSubPattern()
       .allMatches();
 
-      // destroy all incoming edges
+      &#x2F;&#x2F; destroy all incoming edges
       nodeN1PO.startSubPattern()
       .hasInEdges()
       .destroy()
       .endSubPattern()
       .allMatches();
       
-      // destroy the node
+      &#x2F;&#x2F; destroy the node
       nodeN1PO.destroy().allMatches();
    }</pre><embed type="image/svg+xml"src='deleteNodeWithNameN1_nodeN1.svg'>
 <p>Result graph:</p>

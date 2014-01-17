@@ -21,13 +21,13 @@
    
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.patterns.example.ferrmansproblem.River;
+
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
-import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
+import org.sdmlib.models.patterns.example.ferrmansproblem.River;
 
 public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -51,18 +51,6 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       return "org.sdmlib.models.patterns.example.ferrmansproblem.River";
    }
 
-
-   public RiverSet with(River value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RiverSet without(River value)
-   {
-      this.remove(value);
-      return this;
-   }
    public BankSet getBanks()
    {
       BankSet result = new BankSet();
@@ -117,6 +105,44 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public RiverPO startModelPattern()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      RiverPO patternObject = pattern.hasElementRiverPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public RiverSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<River>)value);
+      }
+      else if (value != null)
+      {
+         this.add((River) value);
+      }
+      
+      return this;
+   }
+   
+   public RiverSet without(River value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

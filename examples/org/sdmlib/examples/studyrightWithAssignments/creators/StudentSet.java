@@ -24,18 +24,18 @@ package org.sdmlib.examples.studyrightWithAssignments.creators;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
-import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightWithAssignments.University;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 
 public class StudentSet extends SDMSet<Student>
 {
@@ -364,64 +364,6 @@ public class StudentSet extends SDMSet<Student>
       return this;
    }
 
-   public StudentSet getFriends()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Student obj : this)
-      {
-         result.with(obj.getFriends());
-      }
-      
-      return result;
-   }
-
-   public StudentSet hasFriends(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      StudentSet answer = new StudentSet();
-      
-      for (Student obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public StudentSet withFriends(Student value)
-   {
-      for (Student obj : this)
-      {
-         obj.withFriends(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet withoutFriends(Student value)
-   {
-      for (Student obj : this)
-      {
-         obj.withoutFriends(value);
-      }
-      
-      return this;
-   }
-
    public AssignmentSet getDone()
    {
       AssignmentSet result = new AssignmentSet();
@@ -475,6 +417,64 @@ public class StudentSet extends SDMSet<Student>
       for (Student obj : this)
       {
          obj.withoutDone(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet getFriends()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         result.with(obj.getFriends());
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasFriends(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StudentSet answer = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public StudentSet withFriends(Student value)
+   {
+      for (Student obj : this)
+      {
+         obj.withFriends(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet withoutFriends(Student value)
+   {
+      for (Student obj : this)
+      {
+         obj.withoutFriends(value);
       }
       
       return this;

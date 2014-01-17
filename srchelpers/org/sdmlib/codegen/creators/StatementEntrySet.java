@@ -22,6 +22,7 @@
 package org.sdmlib.codegen.creators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.StatementEntry;
@@ -224,7 +225,39 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
       return this;
    }
 
+
+
+   public StatementEntryPO startModelPattern()
+   {
+      org.sdmlib.model.classes.creators.ModelPattern pattern = new org.sdmlib.model.classes.creators.ModelPattern();
+      
+      StatementEntryPO patternObject = pattern.hasElementStatementEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StatementEntrySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<StatementEntry>)value);
+      }
+      else if (value != null)
+      {
+         this.add((StatementEntry) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 
 
 

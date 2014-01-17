@@ -21,7 +21,7 @@
    
 package org.sdmlib.models.classes.creators;
 
-import java.util.LinkedHashSet;
+import java.util.Collection;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
@@ -32,7 +32,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.utils.StrUtil;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {
@@ -366,17 +365,6 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
 
-   public ClazzSet with(Clazz value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ClazzSet without(Clazz value)
-   {
-      this.remove(value);
-      return this;
-   }
    public booleanList getWrapped()
    {
       booleanList result = new booleanList();
@@ -480,7 +468,45 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
+
+
+   public ClazzPO startModelPattern()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      ClazzPO patternObject = pattern.hasElementClazzPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ClazzSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Clazz>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Clazz) value);
+      }
+      
+      return this;
+   }
+   
+   public ClazzSet without(Clazz value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

@@ -6,15 +6,6 @@
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="SDMLib">
 	<property environment="env" />
-	<property name="ECLIPSE_HOME" value="../../../../../ProgrammeAlbert/eclipse4.3.0" />
-	<property name="DuaneDemo.location" value="../DuaneDemo" />
-	<property name="JavaFXExamples.location" value="../JavaFXExamples" />
-	<property name="ObjectsFirstBook.location" value="../../../work/fm/ObjectsFirstBook" />
-	<property name="SDMLibExampleProject.location" value="../SDMLibExampleProject" />
-	<property name="SDMLibFujabaCoop.location" value="../SDMLibFujabaCoop" />
-	<property name="SDMLibTTC2013PetriNet2Statechart.location" value="../SDMLibTTC2013PetriNet2Statechart" />
-	<property name="SDMLibTTCLiveContest.location" value="../SDMLibTTCLiveContest" />
-	<property name="SimpleUniProject.location" value="../../../work/fm/ObjectsFirstBook/models/SimpleUniProject" />
 	<property name="junit.output.dir" value="junit" />
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.7" />
@@ -24,21 +15,18 @@
 	<property name="emma.filter" value="" />
 	<property name="emma.enabled" value="true" />
 
-	<path id="Plug-in Dependencies.libraryclasspath">
-		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar" />
-		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar" />
-	</path>
 	<path id="SDMLib.libs">
 		<pathelement location="lib/jcommon-1.0.17.jar" />
 		<pathelement location="lib/jfreechart-1.0.14.jar" />
 		<pathelement location="lib/gwtx-1.5.2.jar" />
-		<pathelement location="${JAVA_HOME}/lib/fxrt.jar" />
+		<pathelement location="${env.JAVA_HOME}/jre/lib/jfxrt.jar" />
 		<pathelement location="lib/junit.jar" />
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="lib/emma.jar" />
 		<pathelement location="lib/emma_ant.jar" />
 	</path>
-
+	
+	
 	<path id="SDMLib.classpath">
 		<pathelement location="bin" />
 		<path refid="SDMLib.libs" />
@@ -57,13 +45,11 @@
 				<filter value="${emma.filter}" />
 			</instr>
 		</emma>
-		
 		<junit printsummary="yes" haltonfailure="no" fork="true" dir="${basedir}">
 					<classpath>
 						<pathelement location="binInst/classes" />
 						<path refid="SDMLib.libs" />
 					</classpath>
-
 					<formatter type="xml" />
 					<batchtest fork="yes" todir="${junit.output.dir}">
 						<fileset dir="examples" includes="**/*.java">
@@ -77,7 +63,7 @@
 					<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
 					<jvmarg value="-Demma.coverage.out.merge=true" />
 			        <jvmarg value="-XX:-UseSplitVerifier" />
-				</junit>
+	    </junit>
 		<emma enabled="${emma.enabled}" verbosity="verbose">
 			<report>
 				<sourcepath>

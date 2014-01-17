@@ -1215,6 +1215,9 @@ public class Clazz implements PropertyChangeInterface
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
+         
+         this.insertImport(parser, "java.util.Collection");
+         
          setModelSetFileHasChanged(true);
       }
    }
@@ -2620,5 +2623,37 @@ public class Clazz implements PropertyChangeInterface
       _.append(" ").append(this.getName());
       // _.append(" ").append(this.getFilePath());
       return _.substring(1);
-   }}
+   }
+   
+   //==========================================================================
+   
+   public boolean getInterfaze()
+   {
+      return this.interfaze;
+   }
+   
+   public void setInterfaze(boolean value)
+   {
+      if (this.interfaze != value)
+      {
+         boolean oldValue = this.interfaze;
+         this.interfaze = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+      }
+   }
+   
+   public Clazz withInterfaze(boolean value)
+   {
+      setInterfaze(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public boolean getExternal()
+   {
+      return this.external;
+   }
+   }
 

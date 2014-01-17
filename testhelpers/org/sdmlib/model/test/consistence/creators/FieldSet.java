@@ -21,11 +21,12 @@
    
 package org.sdmlib.model.test.consistence.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.model.test.consistence.Border;
 import org.sdmlib.model.test.consistence.Field;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.model.test.consistence.creators.BorderSet;
-import org.sdmlib.model.test.consistence.Border;
 
 public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -49,18 +50,6 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return "org.sdmlib.model.test.consistence.Field";
    }
 
-
-   public FieldSet with(Field value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public FieldSet without(Field value)
-   {
-      this.remove(value);
-      return this;
-   }
    public BorderSet getBorder()
    {
       BorderSet result = new BorderSet();
@@ -83,5 +72,43 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public FieldPO startModelPattern()
+   {
+      org.sdmlib.model.test.consistence.creators.ModelPattern pattern = new org.sdmlib.model.test.consistence.creators.ModelPattern();
+      
+      FieldPO patternObject = pattern.hasElementFieldPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public FieldSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Field>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Field) value);
+      }
+      
+      return this;
+   }
+   
+   public FieldSet without(Field value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

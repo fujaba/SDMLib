@@ -21,13 +21,12 @@
    
 package org.sdmlib.models.transformations.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.models.transformations.LinkOp;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.transformations.creators.OperationObjectSet;
+import org.sdmlib.models.transformations.LinkOp;
 import org.sdmlib.models.transformations.OperationObject;
-import org.sdmlib.models.transformations.creators.TransformOpSet;
 import org.sdmlib.models.transformations.TransformOp;
 
 public class LinkOpSet extends LinkedHashSet<LinkOp> implements org.sdmlib.models.modelsets.ModelSet
@@ -52,18 +51,6 @@ public class LinkOpSet extends LinkedHashSet<LinkOp> implements org.sdmlib.model
       return "org.sdmlib.models.transformations.LinkOp";
    }
 
-
-   public LinkOpSet with(LinkOp value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public LinkOpSet without(LinkOp value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getSrcText()
    {
       StringList result = new StringList();
@@ -174,5 +161,43 @@ public class LinkOpSet extends LinkedHashSet<LinkOp> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public LinkOpPO startModelPattern()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      LinkOpPO patternObject = pattern.hasElementLinkOpPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LinkOpSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LinkOp>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LinkOp) value);
+      }
+      
+      return this;
+   }
+   
+   public LinkOpSet without(LinkOp value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

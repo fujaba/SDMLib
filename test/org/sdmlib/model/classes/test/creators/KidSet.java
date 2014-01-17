@@ -21,13 +21,13 @@
    
 package org.sdmlib.model.classes.test.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.model.classes.test.Kid;
+import org.sdmlib.model.classes.test.Uncle;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.model.classes.test.creators.UncleSet;
-import org.sdmlib.model.classes.test.Uncle;
 
 public class KidSet extends LinkedHashSet<Kid> implements ModelSet
 {
@@ -51,18 +51,6 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       return "org.sdmlib.model.classes.test.Kid";
    }
 
-
-   public KidSet with(Kid value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public KidSet without(Kid value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -107,6 +95,44 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       return this;
    }
 
+
+
+   public KidPO startModelPattern()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      KidPO patternObject = pattern.hasElementKidPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public KidSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Kid>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Kid) value);
+      }
+      
+      return this;
+   }
+   
+   public KidSet without(Kid value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

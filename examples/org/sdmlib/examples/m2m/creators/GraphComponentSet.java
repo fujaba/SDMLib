@@ -21,15 +21,13 @@
    
 package org.sdmlib.examples.m2m.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.m2m.GraphComponent;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.m2m.creators.GraphSet;
 import java.util.Collection;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.m2m.Graph;
+import org.sdmlib.examples.m2m.GraphComponent;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -63,17 +61,6 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
    }
 
 
-   public GraphComponentSet with(GraphComponent value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public GraphComponentSet without(GraphComponent value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getText()
    {
       StringList result = new StringList();
@@ -159,5 +146,43 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       return this;
    }
 
+
+
+   public GraphComponentPO startModelPattern()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public GraphComponentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<GraphComponent>)value);
+      }
+      else if (value != null)
+      {
+         this.add((GraphComponent) value);
+      }
+      
+      return this;
+   }
+   
+   public GraphComponentSet without(GraphComponent value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

@@ -50,7 +50,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       storyboard.add("Step 1: We build a generic class model for object structures: ");
 
-      ClassModel genericModel = new ClassModel();
+      ClassModel genericModel = new ClassModel("org.sdmlib.models.objects");
       
       Clazz genericGraph = new Clazz("org.sdmlib.models.objects.GenericGraph");
       

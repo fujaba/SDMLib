@@ -21,21 +21,18 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.creators.PatternSet;
+import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {
@@ -305,18 +302,6 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return "org.sdmlib.models.pattern.PatternObject";
    }
 
-
-   public PatternObjectSet with(PatternObject value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public PatternObjectSet without(PatternObject value)
-   {
-      this.remove(value);
-      return this;
-   }
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
@@ -509,7 +494,30 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       
       return patternObject;
    }
+
+
+   public PatternObjectSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PatternObject>)value);
+      }
+      else if (value != null)
+      {
+         this.add((PatternObject) value);
+      }
+      
+      return this;
+   }
+   
+   public PatternObjectSet without(PatternObject value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

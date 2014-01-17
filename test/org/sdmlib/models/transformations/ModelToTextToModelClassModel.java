@@ -1,6 +1,7 @@
 package org.sdmlib.models.transformations;
 
 import org.junit.Test;
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
@@ -19,7 +20,7 @@ public class ModelToTextToModelClassModel
             .withAttributes(
                "templateText", R.STRING, 
                "expandedText", R.STRING,
-               "modelObject", Object.class.getName(), 
+               "modelObject", CGUtil.shortClassName(Object.class.getName()), 
                "modelClassName", R.STRING,
                "listStart", R.STRING,
                "listSeparator", R.STRING,

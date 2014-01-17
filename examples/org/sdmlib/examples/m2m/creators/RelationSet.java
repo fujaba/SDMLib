@@ -21,17 +21,14 @@
    
 package org.sdmlib.examples.m2m.creators;
 
-import java.util.LinkedHashSet;
-import org.sdmlib.examples.m2m.Relation;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.examples.m2m.creators.GraphSet;
 import java.util.Collection;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.m2m.Graph;
-import org.sdmlib.examples.m2m.creators.PersonSet;
 import org.sdmlib.examples.m2m.Person;
+import org.sdmlib.examples.m2m.Relation;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -64,18 +61,6 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       return "org.sdmlib.examples.m2m.Relation";
    }
 
-
-   public RelationSet with(Relation value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public RelationSet without(Relation value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getKind()
    {
       StringList result = new StringList();
@@ -342,6 +327,44 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public RelationPO startModelPattern()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      RelationPO patternObject = pattern.hasElementRelationPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public RelationSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Relation>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Relation) value);
+      }
+      
+      return this;
+   }
+   
+   public RelationSet without(Relation value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

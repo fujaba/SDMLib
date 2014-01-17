@@ -21,15 +21,14 @@
    
 package org.sdmlib.storyboards.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.storyboards.Storyboard;
+
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
-import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.creators.StoryboardWallSet;
-import org.sdmlib.storyboards.StoryboardWall;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardStep;
+import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -186,7 +185,39 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       return this;
    }
 
+
+
+   public StoryboardPO startModelPattern()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      StoryboardPO patternObject = pattern.hasElementStoryboardPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StoryboardSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Storyboard>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Storyboard) value);
+      }
+      
+      return this;
+   }
+   
 }
+
 
 
 

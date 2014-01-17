@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.patternrewriteops.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.patternrewriteops.Person;
@@ -116,5 +117,38 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public TrainPO startModelPattern()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      TrainPO patternObject = pattern.hasElementTrainPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public TrainSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Train>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Train) value);
+      }
+      
+      return this;
+   }
+   
+
 }
+
 

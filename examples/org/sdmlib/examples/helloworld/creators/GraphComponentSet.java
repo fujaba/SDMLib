@@ -21,6 +21,7 @@
    
 package org.sdmlib.examples.helloworld.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.helloworld.Graph;
@@ -93,9 +94,32 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements
    }
 
 
-   public GraphComponentSet with(GraphComponent value)
+   public GraphComponentPO startModelPattern()
    {
-      this.add(value);
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public GraphComponentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<GraphComponent>)value);
+      }
+      else if (value != null)
+      {
+         this.add((GraphComponent) value);
+      }
+      
       return this;
    }
    
@@ -104,6 +128,8 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements
       this.remove(value);
       return this;
    }
+
 }
+
 
 

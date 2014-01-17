@@ -21,10 +21,11 @@
    
 package org.sdmlib.serialization.json.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
 {
@@ -49,9 +50,23 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
    }
 
 
-   public SDMLibJsonIdMapSet with(SDMLibJsonIdMap value)
+   public SDMLibJsonIdMapPO startModelPattern()
    {
-      this.add(value);
+      return null;
+   }
+
+
+   public SDMLibJsonIdMapSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SDMLibJsonIdMap>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SDMLibJsonIdMap) value);
+      }
+      
       return this;
    }
    
@@ -61,12 +76,8 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       return this;
    }
 
-
-   public SDMLibJsonIdMapPO startModelPattern()
-   {
-      return null;
-   }
 }
+
 
 
 

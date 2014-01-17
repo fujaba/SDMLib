@@ -21,19 +21,16 @@
    
 package org.sdmlib.models.pattern.creators;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.pattern.creators.PatternElementSet;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import java.util.List;
 
 public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
 {
@@ -189,18 +186,6 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       return "org.sdmlib.models.pattern.OptionalSubPattern";
    }
 
-
-   public OptionalSubPatternSet with(OptionalSubPattern value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public OptionalSubPatternSet without(OptionalSubPattern value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getDebugMode()
    {
       intList result = new intList();
@@ -358,7 +343,30 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       
       return patternObject;
    }
+
+
+   public OptionalSubPatternSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<OptionalSubPattern>)value);
+      }
+      else if (value != null)
+      {
+         this.add((OptionalSubPattern) value);
+      }
+      
+      return this;
+   }
+   
+   public OptionalSubPatternSet without(OptionalSubPattern value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 
