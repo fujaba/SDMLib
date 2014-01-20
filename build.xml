@@ -35,6 +35,7 @@
 	<taskdef resource="emma_ant.properties" classpathref="SDMLib.classpath" />
 
 	<target name="AllTests" depends="build">
+		<echoproperties/>
 		<delete dir="${junit.output.dir}" />
 		<delete dir="${coverage.meta.dir}" />
 		<delete dir="${coverage.report.dir}" />
