@@ -35,7 +35,6 @@
 	<taskdef resource="emma_ant.properties" classpathref="SDMLib.classpath" />
 
 	<target name="AllTests" depends="build">
-		<echoproperties/>
 		<delete dir="${junit.output.dir}" />
 		<delete dir="${coverage.meta.dir}" />
 		<delete dir="${coverage.report.dir}" />
@@ -137,6 +136,7 @@
 	<target depends="build-subprojects,build-project" name="build" />
 	<target name="build-subprojects" />
 	<target depends="init" name="build-project">
+		<echoproperties/>
 		<echo message="${ant.project.name}: ${ant.file}" />
 		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src" />
