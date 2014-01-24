@@ -39,6 +39,7 @@ import org.sdmlib.storyboards.JsonToImg;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
@@ -694,13 +695,21 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                   }
                   
                   Object tgtValue = attrConstr.getTgtValue();
+                  String value = "" + (tgtValue instanceof String ?
+                                 "\"" + tgtValue + "\"" :
+                                 tgtValue);
+
+                  if (attrConstr.getUpperTgtValue() != null)
+                  {
+                     op = "in";
+                     value = "" + tgtValue + ".." + attrConstr.getUpperTgtValue();
+                  }
+                  
                   CGUtil.replaceAll(oneAttrLine, 
                 		  "attrName", attrConstr.getAttrName(),
                 		  "black", color, 
                 		  "Op", op,
-                		  "value", "" + (tgtValue instanceof String ?
-                				  			"\"" + tgtValue + "\"" :
-                				  			tgtValue)
+                		  "value", value
                 		  );
 
                   allAttrLines.append(oneAttrLine.toString());

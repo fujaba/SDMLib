@@ -29,6 +29,8 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
+import java.beans.PropertyChangeListener;
+
 public class AttributeConstraint extends PatternElement implements PropertyChangeInterface
 {
 
@@ -76,6 +78,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             if (cmpOp != null && cmpOp.equals("!="))
             {
                itWorks = (value == null && tgtValue != null || value != null && ! value.equals(tgtValue));
+            }
+            
+            if (upperTgtValue != null)
+            {
+               Comparable comparable = (Comparable) value;
+               itWorks = comparable.compareTo(tgtValue) >= 0 && comparable.compareTo(upperTgtValue) <= 0;
             }
             
             if (itWorks)
@@ -189,6 +197,11 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       {
          return getCmpOp();
       }
+
+      if (PROPERTY_UPPERTGTVALUE.equalsIgnoreCase(attrName))
+      {
+         return getUpperTgtValue();
+      }
       
       return null;
    }
@@ -255,6 +268,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       if (PROPERTY_CMPOP.equalsIgnoreCase(attrName))
       {
          setCmpOp((String) value);
+         return true;
+      }
+
+      if (PROPERTY_UPPERTGTVALUE.equalsIgnoreCase(attrName))
+      {
+         setUpperTgtValue((Object) value);
          return true;
       }
 
@@ -461,6 +480,34 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
    public AttributeConstraint withCmpOp(String value)
    {
       setCmpOp(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_UPPERTGTVALUE = "upperTgtValue";
+   
+   private Object upperTgtValue;
+
+   public Object getUpperTgtValue()
+   {
+      return this.upperTgtValue;
+   }
+   
+   public void setUpperTgtValue(Object value)
+   {
+      if (this.upperTgtValue != value)
+      {
+         Object oldValue = this.upperTgtValue;
+         this.upperTgtValue = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UPPERTGTVALUE, oldValue, value);
+      }
+   }
+   
+   public AttributeConstraint withUpperTgtValue(Object value)
+   {
+      setUpperTgtValue(value);
       return this;
    } 
 }

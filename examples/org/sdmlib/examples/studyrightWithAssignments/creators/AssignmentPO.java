@@ -45,6 +45,21 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
+   public AssignmentPO hasContent(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_CONTENT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public String getContent()
    {
       if (this.getPattern().getHasMatch())
@@ -68,6 +83,21 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Assignment.PROPERTY_POINTS)
       .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public AssignmentPO hasPoints(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Assignment.PROPERTY_POINTS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
@@ -107,16 +137,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 
    public AssignmentPO hasRoom(RoomPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Assignment.PROPERTY_ROOM)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_ROOM);
    }
 
    public Room getRoom()
@@ -140,16 +161,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 
    public AssignmentPO hasStudents(StudentPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Assignment.PROPERTY_STUDENTS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
    }
 
    public StudentSet getStudents()

@@ -46,6 +46,21 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return this;
    }
    
+   public UniversityPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -76,16 +91,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
    public UniversityPO hasStudents(StudentPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(University.PROPERTY_STUDENTS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, University.PROPERTY_STUDENTS);
    }
 
    public StudentSet getStudents()
@@ -109,16 +115,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
    public UniversityPO hasRooms(RoomPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(University.PROPERTY_ROOMS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, University.PROPERTY_ROOMS);
    }
 
    public RoomSet getRooms()

@@ -28,6 +28,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -35,6 +36,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
@@ -507,16 +509,7 @@ public class Role implements PropertyChangeInterface
          StringBuilder text = new StringBuilder(
             "   public ModelPOType hasName(PatternObjectType tgt)\n" + 
             "   {\n" + 
-            "      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()\n" + 
-            "      .withTgt(tgt).withTgtRoleName(ModelClass.PROPERTY_NAME)\n" + 
-            "      .withSrc(this)\n" + 
-            "      .withModifier(this.getPattern().getModifier());\n" + 
-            "      \n" + 
-            "      this.getPattern().addToElements(patternLink);\n" + 
-            "      \n" + 
-            "      this.getPattern().findMatch();\n" + 
-            "      \n" + 
-            "      return this;\n" + 
+            "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" + 
             "   }\n\n");
 
          clazz.insertImport(parser, LinkConstraint.class.getName());

@@ -92,6 +92,7 @@ public class PatternModelCodeGen
       .withSuperClass(patternElement)
       .withAttribute("attrName", "String")
       .withAttribute("tgtValue", "Object")
+      .withAttribute("upperTgtValue", "Object")
       .withAttribute("cmpOp", R.STRING)
       .withAttribute("hostGraphSrcObject", "Object");
       

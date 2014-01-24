@@ -39,16 +39,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    public TeachingAssistantPO hasRoom(RoomPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(TeachingAssistant.PROPERTY_ROOM)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, TeachingAssistant.PROPERTY_ROOM);
    }
 
    public Room getRoom()

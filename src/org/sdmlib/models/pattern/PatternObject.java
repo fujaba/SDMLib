@@ -26,8 +26,10 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.examples.studyrightWithAssignments.Room;
 import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
@@ -41,6 +43,13 @@ import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
+   public POC nextMatch()
+   {
+      this.getPattern().findNextMatch();
+      
+      return (POC) this;
+   }
+   
    @Override
    public boolean findNextMatch()
    {
@@ -1127,6 +1136,38 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       withCardConstraints(value);
       return value;
    } 
+   
+   public POC hasLinkConstraint(PatternObject tgt, String roleName)
+   {
+      if (tgt == null)
+      {
+         this.startNAC();
+         
+         PatternObject result = new PatternObject();
+         
+         result.setModifier(this.getPattern().getModifier());
+         
+         this.hasLink(roleName, result);
+         
+         this.endNAC();
+      }
+      else
+      {
+         LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
+         .withTgt(tgt).withTgtRoleName(roleName)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
+         this.getPattern().addToElements(patternLink);
+
+         this.getPattern().findMatch();
+      }
+      
+      return (POC) this;
+   } 
+   
+   
+
 
    
    /********************************************************************

@@ -60,19 +60,19 @@
             
       stud1PO = roomPO.hasStudents();      
       
-      final StudentPO stud2PO = roomPO.hasStudents();
+      final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
       
       &#x2F;&#x2F; Java 8: 
       &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 50);
       
-      stud2PO.has(new GenericConstraint.Condition()
-      {
-         @Override
-         public boolean check()
-         {
-            return stud2PO.getMotivation() &lt; 50;
-         }
-      });
+      &#x2F;&#x2F;      stud2PO.has(new GenericConstraint.Condition()
+      &#x2F;&#x2F;      {
+      &#x2F;&#x2F;         @Override
+      &#x2F;&#x2F;         public boolean check()
+      &#x2F;&#x2F;         {
+      &#x2F;&#x2F;            return stud2PO.getMotivation() &lt; 50;
+      &#x2F;&#x2F;         }
+      &#x2F;&#x2F;      });
       
       stud2PO.hasFriends(stud1PO);
       
@@ -87,7 +87,7 @@
       
       roomPO.hasStudents().hasFriends(stud1PO);
       
-      roomPO.startNAC().hasTas().endNAC();
+      roomPO.hasTas(null);
       
       roomPO.startCreate().hasTas().endCreate();
       

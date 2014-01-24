@@ -266,6 +266,11 @@ public class Template implements PropertyChangeInterface
    }
 
 
+   public Template withSimple(String propertyName)
+   {
+      return with("_", "_", propertyName);
+   }
+   
    public Template with(String templateText, String... placeholderAttrNamePairs)
    {
       this.setTemplateText(templateText);
@@ -728,7 +733,8 @@ public class Template implements PropertyChangeInterface
       return this;
    }
 
-
+   public static int expansionStep = 0;
+   
    public void generate()
    {
       // expand all placeholder descriptions
@@ -783,11 +789,17 @@ public class Template implements PropertyChangeInterface
                if (subTemplate == null)
                {
                   // use value direct
+                  expansionStep++;
                   result.append(attrValue);
                }
                else 
                {
                   // use subtemplate
+                  expansionStep++;
+                  if (expansionStep >= 87)
+                  {
+                     System.out.println("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
+                  }
                   subTemplate.withModelObject(attrValue)
                   .generate();
 

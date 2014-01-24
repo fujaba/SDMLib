@@ -55,6 +55,7 @@ import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -1629,6 +1630,11 @@ public class Storyboard implements PropertyChangeInterface
       
    }
 
+   public void addPattern(PatternObject patternObject, boolean b)
+   {
+      addPattern(patternObject.getPattern(), b);
+   }
+      
    public void addPattern(Pattern pattern, boolean b)
    {
       String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();

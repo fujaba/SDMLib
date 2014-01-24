@@ -343,7 +343,45 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
    }
    
 
+   public ObjectSet getUpperTgtValue()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         result.add(obj.getUpperTgtValue());
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasUpperTgtValue(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getUpperTgtValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet withUpperTgtValue(Object value)
+   {
+      for (AttributeConstraint obj : this)
+      {
+         obj.setUpperTgtValue(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

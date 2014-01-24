@@ -47,6 +47,21 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -70,6 +85,21 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Student.PROPERTY_ID)
       .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public StudentPO hasId(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_ID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
@@ -111,6 +141,21 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO hasAssignmentPoints(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_ASSIGNMENTPOINTS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public int getAssignmentPoints()
    {
       if (this.getPattern().getHasMatch())
@@ -134,6 +179,21 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(Student.PROPERTY_MOTIVATION)
       .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public StudentPO hasMotivation(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
@@ -175,6 +235,21 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO hasCredits(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_CREDITS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -205,16 +280,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
    public StudentPO hasUniversity(UniversityPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_UNIVERSITY)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
    }
 
    public University getUniversity()
@@ -238,16 +304,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
    public StudentPO hasIn(RoomPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_IN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Student.PROPERTY_IN);
    }
 
    public Room getIn()
@@ -271,16 +328,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
    public StudentPO hasDone(AssignmentPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_DONE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
    }
 
    public AssignmentSet getDone()
@@ -304,16 +352,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
    public StudentPO hasFriends(StudentPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_FRIENDS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
    }
 
    public StudentSet getFriends()

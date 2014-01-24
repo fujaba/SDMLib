@@ -326,7 +326,40 @@ public class AttributeConstraintPO extends PatternObject
       return this;
    }
    
+   public AttributeConstraintPO hasUpperTgtValue(Object value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public Object getUpperTgtValue()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((AttributeConstraint) getCurrentMatch()).getUpperTgtValue();
+      }
+      return null;
+   }
+   
+   public AttributeConstraintPO withUpperTgtValue(Object value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((AttributeConstraint) getCurrentMatch()).setUpperTgtValue(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

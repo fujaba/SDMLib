@@ -499,19 +499,19 @@ public class StoryboardTests {
             
       stud1PO = roomPO.hasStudents();      
       
-      final StudentPO stud2PO = roomPO.hasStudents();
+      final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
       
       // Java 8: 
       // stud2PO.has( () -> stud2PO.getMotivation() < 50);
       
-      stud2PO.has(new GenericConstraint.Condition()
-      {
-         @Override
-         public boolean check()
-         {
-            return stud2PO.getMotivation() < 50;
-         }
-      });
+      //      stud2PO.has(new GenericConstraint.Condition()
+      //      {
+      //         @Override
+      //         public boolean check()
+      //         {
+      //            return stud2PO.getMotivation() < 50;
+      //         }
+      //      });
       
       stud2PO.hasFriends(stud1PO);
       
@@ -536,7 +536,7 @@ public class StoryboardTests {
       
       roomPO.hasStudents().hasFriends(stud1PO);
       
-      roomPO.startNAC().hasTas().endNAC();
+      roomPO.hasTas(null);
       
       roomPO.startCreate().hasTas().endCreate();
       

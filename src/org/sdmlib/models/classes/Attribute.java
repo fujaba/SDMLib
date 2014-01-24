@@ -616,6 +616,62 @@ public class Attribute implements PropertyChangeInterface
 
    private void insertHasMethodInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
+      insertHasMethodInPatternObjectClassOneParam(parser, ownerClazz);
+      insertHasMethodInPatternObjectClassRange(parser, ownerClazz);
+   }
+   
+   private void insertHasMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz) 
+   {
+      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String key = Parser.METHOD + ":has"
+            + StrUtil.upFirstChar(this.getName()) + "(" + attrType + "," + attrType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0) {
+         // need to add property to string array
+
+         StringBuilder text = new StringBuilder(
+            "   public PatternObjectType hasName(AttrType lower, AttrType upper)\n" + 
+                  "   {\n" + 
+                  "      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()\n" + 
+                  "      .withAttrName(ModelClass.PROPERTY_NAME)\n" + 
+                  "      .withTgtValue(lower)\n" + 
+                  "      .withUpperTgtValue(upper)\n" + 
+                  "      .withSrc(this)\n" +
+                  "      .withModifier(this.getPattern().getModifier())\n" + 
+                  "      .withPattern(this.getPattern());\n" + 
+                  "      \n" + 
+                  "      this.getPattern().findMatch();\n" + 
+                  "      \n" + 
+                  "      return this;\n" + 
+                  "   }\n" +
+               "   \n");
+
+         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
+
+         String modelClass = ownerClazz.shortNameAndImport(ownerClazz.getName(), parser);
+         
+         if (ownerClazz.getWrapped())
+         {
+            modelClass = modelClass + "Creator";
+         }
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "hasName", "has" + StrUtil.upFirstChar(getName()), 
+            "AttrType", attrType, 
+            "ModelClass", modelClass,
+            "PROPERTY_NAME", "PROPERTY_" + getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         ownerClazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
+   private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
+   {
       String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
