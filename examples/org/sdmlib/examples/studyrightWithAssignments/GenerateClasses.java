@@ -128,7 +128,8 @@ public class GenerateClasses {
       // some more classes for model navigation tests
       studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
       
-      roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE);
+      roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE)
+      .withSuperClass(studentClass);
       
 
       //============================================================

@@ -43,6 +43,14 @@ import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
+   public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
+   {
+      // add a pattern link that checks the type of the source object and the target object passed as subclassPO
+      this.hasLink("instanceof", subclassPO);
+      return subclassPO;
+   }
+   
+   
    public POC nextMatch()
    {
       this.getPattern().findNextMatch();

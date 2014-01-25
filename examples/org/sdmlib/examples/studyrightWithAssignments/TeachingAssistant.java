@@ -21,12 +21,14 @@
    
 package org.sdmlib.examples.studyrightWithAssignments;
 
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 
-public class TeachingAssistant implements PropertyChangeInterface
+public class TeachingAssistant extends Student implements PropertyChangeInterface
 {
 
    
@@ -34,6 +36,51 @@ public class TeachingAssistant implements PropertyChangeInterface
    
    public Object get(String attrName)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
+      if (PROPERTY_ID.equalsIgnoreCase(attrName))
+      {
+         return getId();
+      }
+
+      if (PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
+      {
+         return getAssignmentPoints();
+      }
+
+      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      {
+         return getMotivation();
+      }
+
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         return getCredits();
+      }
+
+      if (PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      {
+         return getUniversity();
+      }
+
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         return getIn();
+      }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         return getDone();
+      }
+
+      if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
+      {
+         return getFriends();
+      }
+
       if (PROPERTY_ROOM.equalsIgnoreCase(attrName))
       {
          return getRoom();
@@ -47,6 +94,72 @@ public class TeachingAssistant implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_ID.equalsIgnoreCase(attrName))
+      {
+         setId((String) value);
+         return true;
+      }
+
+      if (PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
+      {
+         setAssignmentPoints(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      {
+         setMotivation(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         setCredits(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      {
+         setUniversity((University) value);
+         return true;
+      }
+
+      if (PROPERTY_IN.equalsIgnoreCase(attrName))
+      {
+         setIn((Room) value);
+         return true;
+      }
+
+      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
+      {
+         addToDone((Assignment) value);
+         return true;
+      }
+      
+      if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromDone((Assignment) value);
+         return true;
+      }
+
+      if (PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
+      {
+         addToFriends((Student) value);
+         return true;
+      }
+      
+      if ((PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromFriends((Student) value);
+         return true;
+      }
+
       if (PROPERTY_ROOM.equalsIgnoreCase(attrName))
       {
          setRoom((Room) value);
@@ -76,9 +189,27 @@ public class TeachingAssistant implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setUniversity(null);
+      setIn(null);
+      removeAllFromDone();
+      removeAllFromFriends();
       setRoom(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      super.removeYou();
    }
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getId());
+      _.append(" ").append(this.getAssignmentPoints());
+      _.append(" ").append(this.getMotivation());
+      _.append(" ").append(this.getCredits());
+      return _.substring(1);
+   }
+
 
    
    public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet();

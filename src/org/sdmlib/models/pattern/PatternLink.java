@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.PatternElement;
@@ -50,8 +51,34 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
          
          if (hostGraphSrcObject != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
-            Object value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
+            Object value = null;
+            
+            if (tgtRoleName.equals("instanceof"))
+            {
+               // if the type is correct
+               Class hostGraphScrObjectClass = hostGraphSrcObject.getClass();
+               String fullTgtClassName = this.getTgt().getClass().getName();
+               fullTgtClassName = CGUtil.baseClassName(fullTgtClassName, "PO");
+               try
+               {
+                  Class tgtPOClass = hostGraphScrObjectClass.getClassLoader().loadClass(fullTgtClassName);
+                  
+                  if (tgtPOClass.isAssignableFrom(hostGraphScrObjectClass))
+                  {
+                     value = hostGraphSrcObject;
+                  }
+               }
+               catch (ClassNotFoundException e)
+               {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+               }
+            }
+            else
+            {
+               SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+               value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
+            }
             if (value != null && value instanceof Collection)
             {
                this.getTgt().setCandidates(new LinkedHashSet((Collection)value));

@@ -4,11 +4,21 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 
 public class TeachingAssistantCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
+      Student.PROPERTY_NAME,
+      Student.PROPERTY_ID,
+      Student.PROPERTY_ASSIGNMENTPOINTS,
+      Student.PROPERTY_MOTIVATION,
+      Student.PROPERTY_CREDITS,
+      Student.PROPERTY_UNIVERSITY,
+      Student.PROPERTY_IN,
+      Student.PROPERTY_DONE,
+      Student.PROPERTY_FRIENDS,
       TeachingAssistant.PROPERTY_ROOM,
    };
    

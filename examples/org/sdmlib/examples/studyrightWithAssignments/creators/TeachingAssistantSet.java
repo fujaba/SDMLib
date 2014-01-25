@@ -25,10 +25,18 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
+import java.util.List;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyrightWithAssignments.University;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.Room;
+import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.Student;
 
 public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
@@ -73,6 +81,403 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    public TeachingAssistantSet without(TeachingAssistant value)
    {
       this.remove(value);
+      return this;
+   }
+
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasName(String value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withName(String value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getId()
+   {
+      StringList result = new StringList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getId());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasId(String value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value.equals(obj.getId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withId(String value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setId(value);
+      }
+      
+      return this;
+   }
+
+   public intList getAssignmentPoints()
+   {
+      intList result = new intList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getAssignmentPoints());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasAssignmentPoints(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getAssignmentPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withAssignmentPoints(int value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setAssignmentPoints(value);
+      }
+      
+      return this;
+   }
+
+   public intList getMotivation()
+   {
+      intList result = new intList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getMotivation());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasMotivation(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getMotivation())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withMotivation(int value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setMotivation(value);
+      }
+      
+      return this;
+   }
+
+   public intList getCredits()
+   {
+      intList result = new intList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getCredits());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasCredits(int value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withCredits(int value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setCredits(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet getUniversity()
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getUniversity());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasUniversity(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (neighbors.contains(obj.getUniversity()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TeachingAssistantSet withUniversity(University value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withUniversity(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet getIn()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getIn());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasIn(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (neighbors.contains(obj.getIn()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TeachingAssistantSet withIn(Room value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withIn(value);
+      }
+      
+      return this;
+   }
+
+   public AssignmentSet getDone()
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getDone());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasDone(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TeachingAssistantSet withDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withDone(value);
+      }
+      
+      return this;
+   }
+
+   public TeachingAssistantSet withoutDone(Assignment value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withoutDone(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet getFriends()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.with(obj.getFriends());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasFriends(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TeachingAssistantSet answer = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TeachingAssistantSet withFriends(Student value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withFriends(value);
+      }
+      
+      return this;
+   }
+
+   public TeachingAssistantSet withoutFriends(Student value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.withoutFriends(value);
+      }
+      
       return this;
    }
 

@@ -28,6 +28,8 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
 import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
+import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -304,9 +306,10 @@ public class StoryboardTests {
       University university = new University()
       .withName("StudyRight");
 
-      Student karli = university.createStudents()
+      Student karli = new TeachingAssistant();
+      university.withStudents(karli
             .withId("4242")
-            .withName("Karli");
+            .withName("Karli"));
       
       Student abu = university.createStudents()
             .withId("1337")
@@ -551,6 +554,26 @@ public class StoryboardTests {
       storyboard.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());
       
       storyboard.addPreformatted("      " + rooms.toString());
+      
+      //=====================================================
+      storyboard.addStep("TAs as students in a room: ");
+      
+      storyboard.markCodeStart();
+      
+      roomPO = university.getRooms().startModelPattern();
+      
+      stud1PO = roomPO.hasStudents();
+      
+      TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
+      
+      TeachingAssistantSet taSet = taPO.allMatches();
+      
+      storyboard.addCode();
+
+      storyboard.addPattern(roomPO, false);
+      
+      storyboard.addObjectDiagramWith(taSet, taSet.getRoom());
+
 
       storyboard.dumpHTML();
    }

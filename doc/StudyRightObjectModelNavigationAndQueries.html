@@ -96,6 +96,17 @@
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram37.svg'>
 <p>Results in:</p>
 <embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries40.svg'>
-<pre>      (gymnasium sports 25)</pre>
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: TAs as students in a room: </a></p><pre>      
+      roomPO = university.getRooms().startModelPattern();
+      
+      stud1PO = roomPO.hasStudents();
+      
+      TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
+      
+      TeachingAssistantSet taSet = taPO.allMatches();
+      
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram43.svg'>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries45.svg'>
+
 </body>
 </html>
