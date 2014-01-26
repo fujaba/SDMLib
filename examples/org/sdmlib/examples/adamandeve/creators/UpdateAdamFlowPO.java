@@ -6,6 +6,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.examples.adamandeve.creators.UpdateAdamFlowSet;
 
 public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdamFlow>
 {
@@ -165,6 +166,82 @@ public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdam
       return this;
    }
    
+   public UpdateAdamFlowPO hasAdam(PeerProxy lower, PeerProxy upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_ADAM)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public UpdateAdamFlowPO hasEve(PeerProxy lower, PeerProxy upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_EVE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public UpdateAdamFlowPO hasIdMap(SDMLibJsonIdMap lower, SDMLibJsonIdMap upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_IDMAP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public UpdateAdamFlowPO hasAdamJarAtEveSiteLastModified(long lower, long upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_ADAMJARATEVESITELASTMODIFIED)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public UpdateAdamFlowPO hasTaskNo(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(UpdateAdamFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 

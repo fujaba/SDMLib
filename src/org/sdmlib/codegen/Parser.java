@@ -412,7 +412,10 @@ public class Parser
       {
          // generic type decl
          skip("<");
-         nextRealToken();
+         while  (!currentRealTokenEquals(">"))
+         {
+            nextRealToken();
+         }
          skip(">");
       }
 

@@ -64,7 +64,7 @@
 </g>
 <!-- _Object -->
 <g id="node5" class="node"><title>_Object</title>
-<a xlink:href="../test/java/lang/Object.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../test/org/sdmlib/models/transformations/Object.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="267,-65 267,-82 303,-82 303,-65 267,-65"/>
 <text text-anchor="start" x="270.5" y="-71.5" font-family="Arial" font-size="10.00">Object</text>
 </a>

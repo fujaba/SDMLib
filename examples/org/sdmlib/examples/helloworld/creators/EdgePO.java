@@ -7,6 +7,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.GraphPO;
+import org.sdmlib.examples.helloworld.creators.NodePO;
 
 public class EdgePO extends PatternObject<EdgePO, Edge>
 {
@@ -214,7 +217,39 @@ public class EdgePO extends PatternObject<EdgePO, Edge>
       return null;
    }
 
+   public EdgePO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public EdgePO hasText(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Edge.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
+
 
 
 

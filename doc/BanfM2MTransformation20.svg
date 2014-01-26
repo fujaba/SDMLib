@@ -18,8 +18,8 @@
 </a>
 <polygon fill="none" stroke="black" points="83,-554 83,-602 156,-602 156,-554 83,-554"/>
 <text text-anchor="start" x="88" y="-590" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
-<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
-<text text-anchor="start" x="88" y="-562" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r59 -->
 <g id="node2" class="node"><title>r59</title>
@@ -84,8 +84,8 @@
 </a>
 <polygon fill="none" stroke="black" points="9,-334 9,-382 81,-382 81,-334 9,-334"/>
 <text text-anchor="start" x="14" y="-370" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
-<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
-<text text-anchor="start" x="14" y="-342" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r59&#45;&#45;p60 -->
 <g id="edge8" class="edge"><title>r59&#45;&#45;p60</title>
@@ -120,8 +120,8 @@
 </a>
 <polygon fill="none" stroke="black" points="10,-114 10,-162 82,-162 82,-114 10,-114"/>
 <text text-anchor="start" x="15" y="-150" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
-<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r61&#45;&#45;p62 -->
 <g id="edge12" class="edge"><title>r61&#45;&#45;p62</title>
@@ -144,8 +144,8 @@
 </a>
 <polygon fill="none" stroke="black" points="157,-334 157,-382 229,-382 229,-334 157,-334"/>
 <text text-anchor="start" x="162" y="-370" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
-<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
-<text text-anchor="start" x="162" y="-342" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r64&#45;&#45;p65 -->
 <g id="edge16" class="edge"><title>r64&#45;&#45;p65</title>
@@ -162,8 +162,8 @@
 </a>
 <polygon fill="none" stroke="black" points="266,-554 266,-602 338,-602 338,-554 266,-554"/>
 <text text-anchor="start" x="271" y="-590" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
-<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
-<text text-anchor="start" x="271" y="-562" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r67 -->
 <g id="node10" class="node"><title>r67</title>

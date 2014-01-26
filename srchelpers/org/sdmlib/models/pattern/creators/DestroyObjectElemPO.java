@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.creators.DestroyObjectElemSet;
+import org.sdmlib.models.pattern.creators.PatternObjectPO;
 
 public class DestroyObjectElemPO extends PatternObject
 {
@@ -192,7 +194,68 @@ public class DestroyObjectElemPO extends PatternObject
       return null;
    }
 
+   public DestroyObjectElemPO hasModifier(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO hasHasMatch(boolean lower, boolean upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO hasPatternObjectName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public DestroyObjectElemPO hasDoAllMatches(boolean lower, boolean upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 
 

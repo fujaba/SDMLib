@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.GraphComponent;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
+import org.sdmlib.examples.helloworld.creators.GraphPO;
+import org.sdmlib.examples.helloworld.creators.EdgePO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {
@@ -345,7 +348,39 @@ public class NodePO extends PatternObject<NodePO, Node>
       return null;
    }
 
+   public NodePO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public NodePO hasText(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
+
 
 
 

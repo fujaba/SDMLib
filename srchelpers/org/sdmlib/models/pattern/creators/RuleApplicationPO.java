@@ -126,5 +126,21 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return null;
    }
 
+   public RuleApplicationPO hasDescription(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 

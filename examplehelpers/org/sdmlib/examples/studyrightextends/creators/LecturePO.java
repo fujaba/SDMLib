@@ -163,5 +163,21 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       return null;
    }
 
+   public LecturePO hasTitle(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Lecture.PROPERTY_TITLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 

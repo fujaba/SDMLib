@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.creators.PersonSet;
+import org.sdmlib.examples.helloworld.creators.GreetingPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -117,7 +119,23 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
    
+   public PersonPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 
 

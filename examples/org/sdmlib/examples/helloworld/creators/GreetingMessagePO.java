@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.creators.GreetingMessageSet;
+import org.sdmlib.examples.helloworld.creators.GreetingPO;
 
 public class GreetingMessagePO extends PatternObject
 {
@@ -117,7 +119,23 @@ public class GreetingMessagePO extends PatternObject
       return null;
    }
    
+   public GreetingMessagePO hasText(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GreetingMessage.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 
 

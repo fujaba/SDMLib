@@ -4,6 +4,9 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.creators.ClassModelSet;
+import org.sdmlib.models.classes.creators.ClazzPO;
+import org.sdmlib.models.classes.creators.AssociationPO;
 
 public class ClassModelPO extends PatternObject
 {
@@ -120,6 +123,22 @@ public class ClassModelPO extends PatternObject
       return null;
    }
    
+   public ClassModelPO hasPackageName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 

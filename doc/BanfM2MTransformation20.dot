@@ -22,5 +22,5 @@ p60 -- r61 [headlabel = "inEdges" taillabel = "tgt"];
 r61 -- p62 [headlabel = "src" taillabel = "outEdges"];
 p62 -- r63 [headlabel = "inEdges" taillabel = "tgt"];
 r64 -- p65 [headlabel = "tgt" taillabel = "inEdges"];
-p66 -- r67 [headlabel = "inEdges_outEdges" taillabel = "src_tgt"];
+p66 -- r67 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
 }

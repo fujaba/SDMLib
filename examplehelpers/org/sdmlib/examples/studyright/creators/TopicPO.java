@@ -93,5 +93,21 @@ public class TopicPO extends PatternObject<TopicPO, Topic>
       return null;
    }
 
+   public TopicPO hasTitle(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Topic.PROPERTY_TITLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 

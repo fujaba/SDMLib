@@ -166,5 +166,21 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       return null;
    }
 
+   public LudoPO hasDate(Date lower, Date upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_DATE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 

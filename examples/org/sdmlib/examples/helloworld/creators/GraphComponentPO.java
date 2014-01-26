@@ -5,6 +5,8 @@ import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
+import org.sdmlib.examples.helloworld.creators.GraphPO;
 
 public class GraphComponentPO extends PatternObject
 {
@@ -88,5 +90,21 @@ public class GraphComponentPO extends PatternObject
       return null;
    }
    
+   public GraphComponentPO hasText(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GraphComponent.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
