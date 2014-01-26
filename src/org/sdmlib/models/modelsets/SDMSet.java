@@ -3,6 +3,8 @@ package org.sdmlib.models.modelsets;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.codegen.CGUtil;
+
 
 public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet 
 {
@@ -28,6 +30,29 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
       return null;
    }
 
+   public <ST extends SDMSet> ST instanceOf(ST target)
+   {
+      String className = target.getClass().getName();
+      className = CGUtil.baseClassName(className, "Set");
+      try
+      {
+         Class targetClass = target.getClass().getClassLoader().loadClass(className);
+         for (T elem : this)
+         {
+            if (targetClass.isAssignableFrom(elem.getClass()))
+            {
+               target.add(elem);
+            }
+         }
+      }
+      catch (ClassNotFoundException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      return target;
+   }
+   
    public <ST extends SDMSet<T>> ST union(ST other)
    {
       ST result = (ST) this.clone();

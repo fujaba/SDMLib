@@ -462,6 +462,16 @@ public class StoryboardTests {
       storyboard.addPreformatted("      " + roomsGT);
       storyboard.addPreformatted("      " + roomsInRange);
       
+      //====================================================
+      storyboard.addStep("Filter for type: ");
+      
+      storyboard.markCodeStart();
+      
+      TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
+      
+      storyboard.addCode();
+      
+      storyboard.addPreformatted("" + taStudents);
       
       //====================================================
       storyboard.addStep("Write operations on sets: ");
