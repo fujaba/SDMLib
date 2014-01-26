@@ -518,7 +518,23 @@ public class Attribute implements PropertyChangeInterface
                   "      \n" + 
                   "      return result;\n" + 
                   "   }\n" + 
-                  "\n");
+                  "\n" +
+                  "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
+                  "   {\n" + 
+                  "      ObjectSetType result = new ObjectSetType();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         if (rangeCheck)\n" + 
+                  "         {\n" + 
+                  "            result.add(obj);\n" + 
+                  "         }\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return result;\n" + 
+                  "   }\n"
+                  + "\n"    
+               );
 
          String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(getType());
@@ -578,11 +594,13 @@ public class Attribute implements PropertyChangeInterface
             
          String objectSetType = CGUtil.shortClassName(ownerClazz.getName() + "Set");
 
-         String valueComparison = "value.equals(obj.get" + StrUtil.upFirstChar(this.getName() + "())");
+         String valueComparison = "value.equals(obj.get" + StrUtil.upFirstChar(this.getName()) + "())";
+         String rangeCheck = "lower.compareTo(obj.get" + StrUtil.upFirstChar(this.getName()) + "()) <= 0 && obj.get" + StrUtil.upFirstChar(this.getName()) + "().compareTo(upper) <= 0";
          
          if ( ! R.STRING.equals(this.getType()))
          {
             valueComparison = "value == obj.get" + StrUtil.upFirstChar(getName()) + "()";
+            rangeCheck = "lower <= obj.get" + StrUtil.upFirstChar(getName()) + "() && obj.get" + StrUtil.upFirstChar(getName()) + "() <= upper";
          }
          
          CGUtil.replaceAll(text, "ContentType",
@@ -592,7 +610,8 @@ public class Attribute implements PropertyChangeInterface
             "add", add, 
             "ObjectSetType", objectSetType, 
             "AttrType", this.getType(),
-            "valueComparison", valueComparison
+            "valueComparison", valueComparison,
+            "rangeCheck", rangeCheck
             );
 
          //			importClassesFromTypes.addAll(checkImportClassesFromType(fullModelSetType));

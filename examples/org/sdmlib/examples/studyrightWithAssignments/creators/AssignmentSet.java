@@ -107,6 +107,21 @@ public class AssignmentSet extends SDMSet<Assignment>
       return result;
    }
 
+   public AssignmentSet hasContent(String lower, String upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower.compareTo(obj.getContent()) <= 0 && obj.getContent().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public AssignmentSet withContent(String value)
    {
       for (Assignment obj : this)
@@ -136,6 +151,21 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          if (value == obj.getPoints())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AssignmentSet hasPoints(int lower, int upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower <= obj.getPoints() && obj.getPoints() <= upper)
          {
             result.add(obj);
          }

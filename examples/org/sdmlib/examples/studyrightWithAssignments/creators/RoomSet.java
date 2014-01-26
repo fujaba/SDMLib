@@ -124,6 +124,21 @@ public class RoomSet extends SDMSet<Room>
       return result;
    }
 
+   public RoomSet hasName(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withName(String value)
    {
       for (Room obj : this)
@@ -161,6 +176,21 @@ public class RoomSet extends SDMSet<Room>
       return result;
    }
 
+   public RoomSet hasTopic(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getTopic()) <= 0 && obj.getTopic().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withTopic(String value)
    {
       for (Room obj : this)
@@ -190,6 +220,21 @@ public class RoomSet extends SDMSet<Room>
       for (Room obj : this)
       {
          if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasCredits(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
          {
             result.add(obj);
          }

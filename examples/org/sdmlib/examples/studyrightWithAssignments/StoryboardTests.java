@@ -451,12 +451,16 @@ public class StoryboardTests {
          }
          
       });
+      
+      // or easier now
+      RoomSet roomsInRange = rooms.hasCredits(21, Integer.MAX_VALUE);
 
       storyboard.addCode();
       
       storyboard.add("Results in:");
       
-      storyboard.addPreformatted("      " + roomsGT.toString());
+      storyboard.addPreformatted("      " + roomsGT);
+      storyboard.addPreformatted("      " + roomsInRange);
       
       
       //====================================================
