@@ -113,6 +113,19 @@
       
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram47.svg'>
 <embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries49.svg'>
+<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
+      roomPO = university.getRooms().startModelPattern();
+      
+      stud1PO = roomPO.hasStudents();
+
+      for (Match match : (Iterable&lt;Match&gt;) stud1PO.getPattern())
+      {
+         stud1PO.withMotivation(stud1PO.getMotivation() * 2);
+         System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + stud1PO.getCurrentMatch() + &quot; in room &quot; + roomPO.getCurrentMatch());
+      }
+      
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram51.svg'>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries53.svg'>
 
 </body>
 </html>

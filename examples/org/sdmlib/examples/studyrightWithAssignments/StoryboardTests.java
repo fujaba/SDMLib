@@ -35,6 +35,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.Match;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -588,6 +589,27 @@ public class StoryboardTests {
       
       storyboard.addObjectDiagramWith(taSet, taSet.getRoom());
 
+
+      //=====================================================
+      storyboard.addStep("Double motivation of all students: ");
+      
+      storyboard.markCodeStart();
+      
+      roomPO = university.getRooms().startModelPattern();
+      
+      stud1PO = roomPO.hasStudents();
+
+      for (Match match : (Iterable<Match>) stud1PO.getPattern())
+      {
+         stud1PO.withMotivation(stud1PO.getMotivation() * 2);
+         System.out.println("match " + match.number + ": " + stud1PO.getCurrentMatch() + " in room " + roomPO.getCurrentMatch());
+      }
+      
+      storyboard.addCode();
+
+      storyboard.addPattern(roomPO, false);
+      
+      storyboard.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
 
       storyboard.dumpHTML();
    }

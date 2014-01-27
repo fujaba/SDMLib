@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -42,7 +43,7 @@ import org.sdmlib.utils.StrUtil;
 
 import java.beans.PropertyChangeListener;
 
-public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface
+public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";
@@ -1178,6 +1179,45 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    {
       setName(value);
       return this;
+   }
+
+   @Override
+   public Iterator<Match> iterator()
+   {
+      // TODO Auto-generated method stub
+      return new Iterator<Match>()
+      {
+         private boolean needsNewMatch = false;
+         
+         int i = 0;
+         
+         @Override
+         public boolean hasNext()
+         {
+            if (needsNewMatch)
+            {
+               findNextMatch();
+               needsNewMatch = false;
+            }
+            
+            return getHasMatch();
+         }
+
+         @Override
+         public Match next()
+         {
+            needsNewMatch = true;
+            i++;
+            return new Match().withNumber(i);
+         }
+
+         @Override
+         public void remove()
+         {
+            // blank
+         }
+         
+      };
    } 
 }
 
