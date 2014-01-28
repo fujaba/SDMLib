@@ -65,7 +65,12 @@ public class CallDot {
 	     	  command = new String [] {makeimageFile, imgName, rootPath};
 	      }
 	      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-	    	  command = new String [] {"../SDMLib.net/tools/Graphviz/osx_lion/makeimage.command", imgName};
+	    	  URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
+	    	  File root = new File(""+absolutePath).getParentFile().getParentFile().getParentFile();
+	    	  String rootPath = root.getPath().replace("file:", "");
+	    	  String makeimageFile = rootPath+"/tools/Graphviz/osx_lion/makeimage.command";
+	    	  
+	    	  command = new String [] {makeimageFile, imgName, rootPath};
 	      }
 	      else { // let's assume it's linux'ish (works also for mac)
 	    	  command = new String [] {"dot","doc/"+imgName+".dot","-Tsvg","-o","doc/"+imgName+".svg"};
