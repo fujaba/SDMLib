@@ -518,7 +518,9 @@ public class Attribute implements PropertyChangeInterface
                   "      \n" + 
                   "      return result;\n" + 
                   "   }\n" + 
-                  "\n" +
+                  "\n" );
+         if(this.getType().equalsIgnoreCase("boolean")){
+        	 text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
                   "   {\n" + 
                   "      ObjectSetType result = new ObjectSetType();\n" + 
@@ -535,7 +537,7 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n"
                   + "\n"    
                );
-
+         }
          String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(getType());
 
