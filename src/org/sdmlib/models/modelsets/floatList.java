@@ -31,7 +31,7 @@ public class floatList extends ArrayList<Float>
 	}
 	
 	public float min() {
-		float min = Float.MAX_VALUE
+		float min = Float.MAX_VALUE;
 
 		for (float x : this) {
 			if (x < min) {

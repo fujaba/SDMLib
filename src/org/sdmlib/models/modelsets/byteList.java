@@ -56,7 +56,7 @@ public class byteList extends ArrayList<Byte> implements PropertyChangeInterface
 	}
 	
 	public byte min() {
-		int min = Byte.MAX_VALUE;
+	   byte min = Byte.MAX_VALUE;
 
 		for (byte x : this) {
 			if (x < min) {
