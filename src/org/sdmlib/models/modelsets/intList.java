@@ -43,7 +43,29 @@ public class intList extends ArrayList<Integer> implements PropertyChangeInterfa
       return result;
    }
    
+	public int max() {
+		int max = 0;
 
+		for (int x : this) {
+			if (x > max) {
+				max = x;
+			}
+		}
+		
+		return max;
+	}
+	
+	public int min() {
+		int min = Integer.MAX_VALUE;
+
+		for (int x : this) {
+			if (x < min) {
+				min = x;
+			}
+		}
+		
+		return min;
+	}
    
    //==========================================================================
    public Object get(String attrName)

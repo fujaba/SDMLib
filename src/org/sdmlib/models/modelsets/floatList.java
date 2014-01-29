@@ -17,5 +17,29 @@ public class floatList extends ArrayList<Float>
       
       return result;
    }
+   
+	public float max() {
+		float max = 0;
+
+		for (float x : this) {
+			if (x > max) {
+				max = x;
+			}
+		}
+		
+		return max;
+	}
+	
+	public float min() {
+		float min = Float.MAX_VALUE
+
+		for (float x : this) {
+			if (x < min) {
+				min = x;
+			}
+		}
+		
+		return min;
+	}
 
 }
