@@ -36,6 +36,11 @@ public class TeachingAssistant extends Student implements PropertyChangeInterfac
    
    public Object get(String attrName)
    {
+      if (PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
+      {
+         return getCertified();
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          return getName();
@@ -94,6 +99,12 @@ public class TeachingAssistant extends Student implements PropertyChangeInterfac
    
    public boolean set(String attrName, Object value)
    {
+      if (PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
+      {
+         setCertified((Boolean) value);
+         return true;
+      }
+
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
@@ -197,6 +208,34 @@ public class TeachingAssistant extends Student implements PropertyChangeInterfac
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CERTIFIED = "certified";
+   
+   private boolean certified;
+
+   public boolean getCertified()
+   {
+      return this.certified;
+   }
+   
+   public void setCertified(boolean value)
+   {
+      if (this.certified != value)
+      {
+         boolean oldValue = this.certified;
+         this.certified = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
+      }
+   }
+   
+   public TeachingAssistant withCertified(boolean value)
+   {
+      setCertified(value);
+      return this;
+   } 
 
    public String toString()
    {

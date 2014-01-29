@@ -25,6 +25,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
+import org.sdmlib.models.modelsets.booleanList;
 import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightWithAssignments.creators.UniversitySet;
@@ -81,6 +82,43 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    public TeachingAssistantSet without(TeachingAssistant value)
    {
       this.remove(value);
+      return this;
+   }
+
+   public booleanList getCertified()
+   {
+      booleanList result = new booleanList();
+      
+      for (TeachingAssistant obj : this)
+      {
+         result.add(obj.getCertified());
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasCertified(boolean value)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (value == obj.getCertified())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet withCertified(boolean value)
+   {
+      for (TeachingAssistant obj : this)
+      {
+         obj.setCertified(value);
+      }
+      
       return this;
    }
 

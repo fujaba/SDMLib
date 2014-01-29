@@ -15,21 +15,21 @@ class SocketReader extends Thread
    Socket connection;
    Object defaultTargetThread;
 
-   
-   
+
+
    public SocketReader (SocketThread socketThread, Socket connection)
    {
       this.socketThread = socketThread;
       this.connection = connection;
    }
-   
+
    @Override
    public void run()
    {
       try
       {
          InputStream byteIn = connection.getInputStream();
-         
+
          InputStreamReader readerIn = new InputStreamReader(
             byteIn);
          BufferedReader in = new BufferedReader(
@@ -41,15 +41,15 @@ class SocketReader extends Thread
          while (line != null)
          {
             line = in.readLine();
-            
+
             SDMTaskWrap sdmTaskWrap = new SDMTaskWrap(this, line);
-            
+
             //            if (this.socketThread.defaultTargetThread != null && this.socketThread.defaultTargetThread instanceof Display)
             //            {
             //               ((Display) this.socketThread.defaultTargetThread).asyncExec(sdmTaskWrap);
             //            }
             //            else 
-               if (this.socketThread.defaultTargetThread != null && this.socketThread.defaultTargetThread instanceof SDMThread)
+            if (this.socketThread.defaultTargetThread != null && this.socketThread.defaultTargetThread instanceof SDMThread)
             {
                ((SDMThread) this.socketThread.defaultTargetThread).enqueueTask(sdmTaskWrap);
             }

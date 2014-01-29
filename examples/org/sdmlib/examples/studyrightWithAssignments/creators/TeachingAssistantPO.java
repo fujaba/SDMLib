@@ -36,6 +36,38 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return matches;
    }
    
+   public TeachingAssistantPO hasCertified(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_CERTIFIED)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getCertified()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TeachingAssistant) getCurrentMatch()).getCertified();
+      }
+      return false;
+   }
+   
+   public TeachingAssistantPO withCertified(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((TeachingAssistant) getCurrentMatch()).setCertified(value);
+      }
+      return this;
+   }
+   
    public TeachingAssistantPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()

@@ -129,7 +129,8 @@ public class GenerateClasses {
       studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
       
       roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE)
-      .withSuperClass(studentClass);
+      .withSuperClass(studentClass)
+      .withAttributes("certified", R.BOOLEAN);
       
 
       //============================================================

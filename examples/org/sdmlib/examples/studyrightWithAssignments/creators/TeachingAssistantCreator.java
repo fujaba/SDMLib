@@ -10,6 +10,7 @@ public class TeachingAssistantCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
+      TeachingAssistant.PROPERTY_CERTIFIED,
       Student.PROPERTY_NAME,
       Student.PROPERTY_ID,
       Student.PROPERTY_ASSIGNMENTPOINTS,
