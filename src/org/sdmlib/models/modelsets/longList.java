@@ -17,5 +17,29 @@ public class longList extends ArrayList<Long>
       
       return result;
    }
+   
+	public long max() {
+		long max = 0;
+
+		for (long x : this) {
+			if (x > max) {
+				max = x;
+			}
+		}
+		
+		return max;
+	}
+	
+	public long min() {
+		long min = Long.MAX_VALUE;
+
+		for (long x : this) {
+			if (x < min) {
+				min = x;
+			}
+		}
+		
+		return min;
+	}
 
 }
