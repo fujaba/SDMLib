@@ -49,9 +49,12 @@ public class CallDot {
 	         docDir.mkdirs();
 	      }
 
+	      URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
+	      if(absolutePath==null){
+	    	  return;
+	      }
 	      if ((System.getProperty("os.name").toLowerCase()).contains("windows")) 
 	      {
-	    	  URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
 	    	  File root = new File(""+absolutePath).getParentFile().getParentFile().getParentFile();
 	    	  String rootPath = root.getPath().replace("file:\\", "");
 	    	  String makeimageFile = rootPath+"/tools/makeimage.bat";
@@ -65,7 +68,7 @@ public class CallDot {
 	     	  command = new String [] {makeimageFile, imgName, rootPath};
 	      }
 	      else if ((System.getProperty("os.name").toLowerCase()).contains("mac")) {
-	    	  URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
+	    	  
 	    	  File root = new File(""+absolutePath).getParentFile().getParentFile().getParentFile();
 	    	  String rootPath = root.getPath().replace("file:", "");
 	    	  String makeimageFile = rootPath+"/tools/Graphviz/osx_lion/makeimage.command";
