@@ -11,6 +11,8 @@
 	<classpathentry kind="src" path="srchelpers"/>
 	<classpathentry kind="src" path="examplehelpers"/>
 	<classpathentry kind="src" path="testhelpers"/>
+	<classpathentry kind="src" path="guisrc"/>
+	<classpathentry kind="src" path="replicationsrc"/>
 	<classpathentry exported="true" kind="lib" path="lib/emma_ant.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/emma.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
