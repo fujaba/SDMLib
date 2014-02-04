@@ -33,6 +33,7 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.xml.HTMLEntities;
 import org.sdmlib.utils.StrUtil;
 
 
@@ -371,8 +372,11 @@ public class JsonToImg
                   // add attribute line
                   String attrLine = "<tr><td align='left'><key> = \"<value>\"</td></tr>";
                   attrLine = attrLine.replaceFirst("<key>", Matcher.quoteReplacement(key));
-                  attrLine = attrLine.replaceFirst("<value>", Matcher.quoteReplacement(value.toString()));
-
+                  String encode = new HTMLEntities().encode(value.toString());
+                  int pos = attrLine.indexOf("<value>");
+                  attrLine = attrLine.substring(0, pos)
+                        + encode + attrLine.substring(pos + "<value>".length());
+                  
                   attrText = attrText.replaceFirst("</table>", Matcher.quoteReplacement(attrLine + "</table>"));
                }
             }

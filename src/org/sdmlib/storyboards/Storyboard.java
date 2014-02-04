@@ -62,6 +62,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.logic.Condition;
+import org.sdmlib.serialization.xml.HTMLEntities;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -317,7 +318,11 @@ public class Storyboard implements PropertyChangeInterface
          }
       } // for
 
-      htmlText = htmlText.replaceFirst("\\$text", text.toString());
+      int pos = htmlText.indexOf("$text");
+      
+      htmlText = htmlText.substring(0, pos)
+            + text.toString() 
+            + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
 

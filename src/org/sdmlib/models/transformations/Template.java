@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -436,7 +437,35 @@ public class Template implements PropertyChangeInterface
 
                // skip list separator
                int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
+               int behindListSeparatorPos = listSeperatorPos + this.getListSeparator().length();
                int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
+               
+               if (" ".equals(this.getListSeparator()))
+               {
+                  int length = this.getExpandedText().length();
+                  boolean startFound = false;
+                  for (int i = currentPosInExpandedText; i < length; i++)
+                  {
+                     char charAt = expandedText.charAt(i);
+                     if (! startFound && Character.isWhitespace(charAt))
+                     {
+                        startFound = true;
+                        listSeperatorPos = i;
+                        behindListSeparatorPos = i + 1;
+                     }
+                     else if (startFound)
+                     {
+                        if (Character.isWhitespace(charAt))
+                        {
+                           behindListSeparatorPos = i + 1;
+                        }
+                        else
+                        {
+                           break;
+                        }
+                     }
+                  }
+               }
                
                if ("".equals(this.getListEnd()))
                {
@@ -451,7 +480,7 @@ public class Template implements PropertyChangeInterface
                   // more to come
                   oldValueStartPos = currentPosInExpandedText;
 
-                  currentPosInExpandedText = currentPosInExpandedText + listSeparator.length();
+                  currentPosInExpandedText = behindListSeparatorPos;
                   
                   subMatch = parseOnce();
                }
@@ -526,6 +555,12 @@ public class Template implements PropertyChangeInterface
 
          while (true)
          {
+            if (currentPosInExpandedText >= 770)
+            {
+               System.out.print("Parsing at: " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 30, getExpandedText().length())));
+               System.out.println();
+            }
+            
             previousPlaceHolder = placeholder;
 
             if (iterator.hasNext())
@@ -796,7 +831,7 @@ public class Template implements PropertyChangeInterface
                {
                   // use subtemplate
                   expansionStep++;
-                  if (expansionStep >= 87)
+                  if (expansionStep >= 187)
                   {
                      System.out.println("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
                   }
