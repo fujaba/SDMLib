@@ -676,6 +676,13 @@ public class Storyboard implements PropertyChangeInterface
       this.addSVGImage(diagName);
    }
 
+   public void addClassDiagram(ClassModel model, String rootDir)
+   {
+      String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
+      diagName = model.dumpClassDiagram(rootDir, diagName);
+      this.addSVGImage(diagName);
+   }
+
    public void addObjectDiagramWith(Object... elems) 
    {
       ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
@@ -859,7 +866,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(rootDir).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
 
       this.addToSteps(imgLink);
    }
@@ -874,7 +881,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(rootDir).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
+      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
 
       this.addToSteps(imgLink);
    }
@@ -889,7 +896,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(rootDir).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
+      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
 
       this.addToSteps(imgLink);
    }
@@ -1568,6 +1575,38 @@ public class Storyboard implements PropertyChangeInterface
    public Storyboard withRootDir(String value)
    {
       setRootDir(value);
+      return this;
+   } 
+
+
+   //==========================================================================
+
+   public static final String PROPERTY_MODELROOTDIR = "modelRootDir";
+
+   private String modelRootDir = null;
+
+   public String getModelRootDir()
+   {
+      if (modelRootDir == null)
+      {
+         return this.rootDir;
+      }
+      return this.modelRootDir;
+   }
+
+   public void setModelRootDir(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.modelRootDir, value))
+      {
+         String oldValue = this.modelRootDir;
+         this.modelRootDir = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELROOTDIR, oldValue, value);
+      }
+   }
+
+   public Storyboard withModelRootDir(String value)
+   {
+      setModelRootDir(value);
       return this;
    } 
 
