@@ -516,7 +516,7 @@ public class Template implements PropertyChangeInterface
       int placeHolderPosInTemplateText = 0;
       int currentPosInTemplateText = 0;
 
-      int constantStartPosInExpandedText = 0;
+      // int constantStartPosInExpandedText = 0;
 
       int matchStartPos = currentPosInExpandedText;
       
@@ -540,14 +540,16 @@ public class Template implements PropertyChangeInterface
          currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
 
          // find fragment in expanded text
-         constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
+         int endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
+         
+         // constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
-         if (constantStartPosInExpandedText != currentPosInExpandedText)
+         if (endOfMatchInExpandedText < currentPosInExpandedText)
          {
             return null;
          }
 
-         currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
+         currentPosInExpandedText = endOfMatchInExpandedText;
 
          SendableEntityCreator creator = this.getIdMap().getCreatorClasses(this.getModelClassName());
 
@@ -555,9 +557,9 @@ public class Template implements PropertyChangeInterface
 
          while (true)
          {
-            if (currentPosInExpandedText >= 770)
+            if (currentPosInExpandedText >= 3338)
             {
-               System.out.print("Parsing at: " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 30, getExpandedText().length())));
+               System.out.print("Parsing at " + currentPosInExpandedText + ": " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
                System.out.println();
             }
             
@@ -629,64 +631,60 @@ public class Template implements PropertyChangeInterface
                this.currentPosInExpandedText = subTemplate.getValueStartPos();
                
                // now the constant fragment should follow
-               constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
+               endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
 
-               if (constantStartPosInExpandedText < 0)
+               // constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
+
+               if (endOfMatchInExpandedText < 0)
                {
                   return null;
                }
                
-               if (constantStartPosInExpandedText == currentPosInExpandedText)
-               {
-                  currentPosInExpandedText = currentPosInExpandedText + constfragment.length();
-               }
-               else 
-               {
-                  return null;
-               }
+               currentPosInExpandedText = endOfMatchInExpandedText;
             }
             else
             {
                // find fragment in expanded text
-               constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
+               endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
 
-               if (constantStartPosInExpandedText < 0)
+
+               if (endOfMatchInExpandedText < 0)
                {
                   return null;
                }
-               
-               if (constantStartPosInExpandedText == currentPosInExpandedText)
+
+               if (constfragment.equals(""))
                {
-                  // empty constfragment, look for list separator 
+               // empty constfragment, look for list separator 
                   int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
                   int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
-                  
+
                   if ("".equals(this.getListEnd()))
                   {
                      // there is no good list end symbol use constFragment behind list placeholder instead
                      listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
                   }
                   
+
                   if ( ! "".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
                   {
-                     constantStartPosInExpandedText = listSeparatorPos;
+                     endOfMatchInExpandedText = listSeparatorPos;
                   }
                   else if (listEndPos >= 0)
                   {
-                     constantStartPosInExpandedText = listEndPos;
+                     endOfMatchInExpandedText = listEndPos;
                   }
                   else
                   {
                      return null;
                   }
                }
-
                
-               String value = this.getExpandedText().substring(currentPosInExpandedText, constantStartPosInExpandedText);
+               String value = this.getExpandedText().substring(currentPosInExpandedText, startOfMatch);
                
                int valueStartPos = currentPosInExpandedText;
 
-               currentPosInExpandedText = constantStartPosInExpandedText + constfragment.length();
+               currentPosInExpandedText = endOfMatchInExpandedText;
 
 
                if (first)
@@ -716,7 +714,7 @@ public class Template implements PropertyChangeInterface
                .withModelObject(this.getModelObject())
                .withFullText(this.getExpandedText())
                .withStartPos(valueStartPos)
-               .withEndPos(constantStartPosInExpandedText-1)
+               .withEndPos(endOfMatchInExpandedText-1)
                .withParentMatch(templateMatch)
                ;
             }
@@ -736,6 +734,57 @@ public class Template implements PropertyChangeInterface
       
       return templateMatch;
    } 
+
+   private int startOfMatch = -1;
+
+   private int matchConstantFragmentToExpandedText(String constfragment, int currentPosInExpandedText)
+   {
+      int currentPosInConstFragment = 0;
+      
+      int blankPos = constfragment.indexOf(' ');
+      
+      if (blankPos <= 0)
+      {
+         // no blank, take it all
+         blankPos = constfragment.length();
+      }
+         
+      // search for real prefix in text
+      currentPosInExpandedText = this.expandedText.indexOf(constfragment.substring(0, blankPos), currentPosInExpandedText);
+      
+      if (currentPosInExpandedText < 0)
+      {
+         return -1;
+      }
+      
+      startOfMatch = currentPosInExpandedText;
+      
+      while (currentPosInConstFragment < constfragment.length())
+      {
+         char constFragmentChar = constfragment.charAt(currentPosInConstFragment);
+         
+         if (constFragmentChar == ' ')
+         {
+            while (currentPosInExpandedText < expandedText.length() && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText)))
+            {
+               currentPosInExpandedText++;
+            }
+            
+            currentPosInConstFragment++;
+         }
+         else
+         {
+             if (expandedText.charAt(currentPosInExpandedText) != constFragmentChar)
+             {
+                return -1;
+             }
+             currentPosInConstFragment++;
+             currentPosInExpandedText++;
+         }
+      }
+      
+      return currentPosInExpandedText;
+   }
 
 
    protected Template withConstFragmentFollowingAfterList(String constfragment)
