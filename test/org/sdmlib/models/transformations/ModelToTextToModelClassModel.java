@@ -49,7 +49,7 @@ public class ModelToTextToModelClassModel
       matchClazz.withAttribute("modelObject", "Object");
       matchClazz.withAssoc(matchClazz, "subMatches", R.MANY, "parentMatch", R.ONE);
       
-      placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "parent", R.ONE);
+      placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "parents", R.MANY);
       
       storyboard.addClassDiagram(model);
       

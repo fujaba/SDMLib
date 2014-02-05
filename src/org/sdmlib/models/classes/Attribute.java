@@ -646,9 +646,9 @@ public class Attribute implements PropertyChangeInterface
    
    private void insertHasMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz) 
    {
-      if (this.getType().equals(R.BOOLEAN))
+      if ("int long float double String".indexOf(this.getType()) < 0)
       {
-         // no range query for boolean
+         // range query only for numbers and strings
          return;
       }
       

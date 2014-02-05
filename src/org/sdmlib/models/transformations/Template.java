@@ -99,14 +99,14 @@ public class Template implements PropertyChangeInterface
          return getChooser();
       }
 
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         return getParent();
-      }
-
       if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
          return getMatches();
+      }
+
+      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         return getParents();
       }
 
       return null;
@@ -177,12 +177,6 @@ public class Template implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((PlaceHolderDescription) value);
-         return true;
-      }
-
       if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
          addToMatches((Match) value);
@@ -192,6 +186,18 @@ public class Template implements PropertyChangeInterface
       if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMatches((Match) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         addToParents((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromParents((PlaceHolderDescription) value);
          return true;
       }
 
@@ -220,8 +226,8 @@ public class Template implements PropertyChangeInterface
    {
       removeAllFromPlaceholders();
       setChooser(null);
-      setParent(null);
       removeAllFromMatches();
+      removeAllFromParents();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -557,7 +563,7 @@ public class Template implements PropertyChangeInterface
 
          while (true)
          {
-            if (currentPosInExpandedText >= 3338)
+            if (currentPosInExpandedText >= 6957)
             {
                System.out.print("Parsing at " + currentPosInExpandedText + ": " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
                System.out.println();
@@ -1043,7 +1049,7 @@ public class Template implements PropertyChangeInterface
 
    public Template withParent(String textFragment, String attrName)
    {
-      this.getParent().withTextFragment(textFragment).withAttrName(attrName);
+      this.getParents().first().withTextFragment(textFragment).withAttrName(attrName);
 
       return this;
    }
@@ -1213,65 +1219,6 @@ public class Template implements PropertyChangeInterface
    
    /********************************************************************
     * <pre>
-    *              one                       one
-    * Template ----------------------------------- PlaceHolderDescription
-    *              subTemplate                   parent
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PARENT = "parent";
-   
-   private PlaceHolderDescription parent = null;
-   
-   public PlaceHolderDescription getParent()
-   {
-      return this.parent;
-   }
-   
-   public boolean setParent(PlaceHolderDescription value)
-   {
-      boolean changed = false;
-      
-      if (this.parent != value)
-      {
-         PlaceHolderDescription oldValue = this.parent;
-         
-         if (this.parent != null)
-         {
-            this.parent = null;
-            oldValue.setSubTemplate(null);
-         }
-         
-         this.parent = value;
-         
-         if (value != null)
-         {
-            value.withSubTemplate(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Template withParent(PlaceHolderDescription value)
-   {
-      setParent(value);
-      return this;
-   } 
-   
-   public PlaceHolderDescription createParent()
-   {
-      PlaceHolderDescription value = new PlaceHolderDescription();
-      withParent(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
     *              one                       many
     * Template ----------------------------------- Match
     *              template                   matches
@@ -1369,5 +1316,104 @@ public class Template implements PropertyChangeInterface
    } 
 
    
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Template ----------------------------------- PlaceHolderDescription
+    *              subTemplate                   parents
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PARENTS = "parents";
+   
+   private PlaceHolderDescriptionSet parents = null;
+   
+   public PlaceHolderDescriptionSet getParents()
+   {
+      if (this.parents == null)
+      {
+         return PlaceHolderDescription.EMPTY_SET;
+      }
+   
+      return this.parents;
+   }
+   
+   public boolean addToParents(PlaceHolderDescription value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.parents == null)
+         {
+            this.parents = new PlaceHolderDescriptionSet();
+         }
+         
+         changed = this.parents.add (value);
+         
+         if (changed)
+         {
+            value.withSubTemplate(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromParents(PlaceHolderDescription value)
+   {
+      boolean changed = false;
+      
+      if ((this.parents != null) && (value != null))
+      {
+         changed = this.parents.remove (value);
+         
+         if (changed)
+         {
+            value.setSubTemplate(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public Template withParents(PlaceHolderDescription... value)
+   {
+      for (PlaceHolderDescription item : value)
+      {
+         addToParents(item);
+      }
+      return this;
+   } 
+   
+   public Template withoutParents(PlaceHolderDescription... value)
+   {
+      for (PlaceHolderDescription item : value)
+      {
+         removeFromParents(item);
+      }
+      return this;
+   }
+   
+   public void removeAllFromParents()
+   {
+      LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getParents());
+   
+      for (PlaceHolderDescription value : tmpSet)
+      {
+         this.removeFromParents(value);
+      }
+   }
+   
+   public PlaceHolderDescription createParents()
+   {
+      PlaceHolderDescription value = new PlaceHolderDescription();
+      withParents(value);
+      return value;
+   } 
 }
 

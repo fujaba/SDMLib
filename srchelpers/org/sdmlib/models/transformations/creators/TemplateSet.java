@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,46 +23,59 @@ package org.sdmlib.models.transformations.creators;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 
-public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.models.modelsets.ModelSet
+public class TemplateSet extends SDMSet<Template>
 {
-   public Template first()
+
+
+   public TemplatePO startModelPattern()
    {
-      for (Template obj : this)
-      {
-         return obj;
-      }
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
       
-      return null;
+      TemplatePO patternObject = pattern.hasElementTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Template elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.transformations.Template";
    }
 
+
+   public TemplateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Template>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Template) value);
+      }
+      
+      return this;
+   }
+   
+   public TemplateSet without(Template value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public StringList getTemplateText()
    {
@@ -83,6 +96,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       for (Template obj : this)
       {
          if (value.equals(obj.getTemplateText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasTemplateText(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -128,6 +156,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
+   public TemplateSet hasExpandedText(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TemplateSet withExpandedText(String value)
    {
       for (Template obj : this)
@@ -150,7 +193,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
-   public TemplateSet hasModelObject(java.lang.Object value)
+   public TemplateSet hasModelObject(Object value)
    {
       TemplateSet result = new TemplateSet();
       
@@ -202,6 +245,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
+   public TemplateSet hasModelClassName(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TemplateSet withModelClassName(String value)
    {
       for (Template obj : this)
@@ -231,6 +289,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       for (Template obj : this)
       {
          if (value.equals(obj.getListStart()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasListStart(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -276,6 +349,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
+   public TemplateSet hasListSeparator(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TemplateSet withListSeparator(String value)
    {
       for (Template obj : this)
@@ -313,6 +401,21 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return result;
    }
 
+   public TemplateSet hasListEnd(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TemplateSet withListEnd(String value)
    {
       for (Template obj : this)
@@ -329,7 +432,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       
       for (Template obj : this)
       {
-         result.addAll(obj.getPlaceholders());
+         result.with(obj.getPlaceholders());
       }
       
       return result;
@@ -387,7 +490,7 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       
       for (Template obj : this)
       {
-         result.add(obj.getChooser());
+         result.with(obj.getChooser());
       }
       
       return result;
@@ -429,61 +532,13 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
-   public PlaceHolderDescriptionSet getParent()
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (Template obj : this)
-      {
-         result.add(obj.getParent());
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasParent(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TemplateSet answer = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (neighbors.contains(obj.getParent()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TemplateSet withParent(PlaceHolderDescription value)
-   {
-      for (Template obj : this)
-      {
-         obj.withParent(value);
-      }
-      
-      return this;
-   }
-
    public MatchSet getMatches()
    {
       MatchSet result = new MatchSet();
       
       for (Template obj : this)
       {
-         result.addAll(obj.getMatches());
+         result.with(obj.getMatches());
       }
       
       return result;
@@ -535,44 +590,63 @@ public class TemplateSet extends LinkedHashSet<Template> implements org.sdmlib.m
       return this;
    }
 
-
-
-   public TemplatePO startModelPattern()
+   public PlaceHolderDescriptionSet getParents()
    {
-      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
       
-      TemplatePO patternObject = pattern.hasElementTemplatePO();
+      for (Template obj : this)
+      {
+         result.with(obj.getParents());
+      }
       
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return result;
    }
 
-
-   public TemplateSet with(Object value)
+   public TemplateSet hasParents(Object value)
    {
-      if (value instanceof java.util.Collection)
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
       {
-         this.addAll((Collection<Template>)value);
+         neighbors.addAll((Collection) value);
       }
-      else if (value != null)
+      else
       {
-         this.add((Template) value);
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getParents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withParents(PlaceHolderDescription value)
+   {
+      for (Template obj : this)
+      {
+         obj.withParents(value);
       }
       
       return this;
    }
-   
-   public TemplateSet without(Template value)
+
+   public TemplateSet withoutParents(PlaceHolderDescription value)
    {
-      this.remove(value);
+      for (Template obj : this)
+      {
+         obj.withoutParents(value);
+      }
+      
       return this;
    }
 
 }
-
-
 

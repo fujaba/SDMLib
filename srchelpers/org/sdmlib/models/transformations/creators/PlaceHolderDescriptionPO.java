@@ -46,6 +46,21 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return this;
    }
    
+   public PlaceHolderDescriptionPO hasTextFragment(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_TEXTFRAGMENT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public String getTextFragment()
    {
       if (this.getPattern().getHasMatch())
@@ -78,6 +93,21 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return this;
    }
    
+   public PlaceHolderDescriptionPO hasValue(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_VALUE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
    public String getValue()
    {
       if (this.getPattern().getHasMatch())
@@ -101,6 +131,21 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
       .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO hasAttrName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
@@ -172,16 +217,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
 
    public PlaceHolderDescriptionPO hasOwners(TemplatePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_OWNERS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_OWNERS);
    }
 
    public TemplateSet getOwners()
@@ -189,39 +225,6 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       if (this.getPattern().getHasMatch())
       {
          return ((PlaceHolderDescription) this.getCurrentMatch()).getOwners();
-      }
-      return null;
-   }
-
-   public TemplatePO hasSubTemplate()
-   {
-      TemplatePO result = new TemplatePO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(PlaceHolderDescription.PROPERTY_SUBTEMPLATE, result);
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionPO hasSubTemplate(TemplatePO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_SUBTEMPLATE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-
-   public Template getSubTemplate()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PlaceHolderDescription) this.getCurrentMatch()).getSubTemplate();
       }
       return null;
    }
@@ -238,16 +241,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
 
    public PlaceHolderDescriptionPO hasMatches(MatchPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PlaceHolderDescription.PROPERTY_MATCHES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_MATCHES);
    }
 
    public MatchSet getMatches()
@@ -259,67 +253,29 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
-   public PlaceHolderDescriptionPO hasTextFragment(String lower, String upper)
+   public TemplatePO hasSubTemplate()
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PlaceHolderDescription.PROPERTY_TEXTFRAGMENT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
+      TemplatePO result = new TemplatePO();
+      result.setModifier(this.getPattern().getModifier());
       
-      this.getPattern().findMatch();
+      super.hasLink(PlaceHolderDescription.PROPERTY_SUBTEMPLATE, result);
       
-      return this;
+      return result;
    }
-   
-   public PlaceHolderDescriptionPO hasValue(String lower, String upper)
+
+   public PlaceHolderDescriptionPO hasSubTemplate(TemplatePO tgt)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PlaceHolderDescription.PROPERTY_VALUE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PlaceHolderDescription.PROPERTY_SUBTEMPLATE);
    }
-   
-   public PlaceHolderDescriptionPO hasAttrName(String lower, String upper)
+
+   public Template getSubTemplate()
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PlaceHolderDescription.PROPERTY_ATTRNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) this.getCurrentMatch()).getSubTemplate();
+      }
+      return null;
    }
-   
-   public PlaceHolderDescriptionPO hasIsKeyAttribute(boolean lower, boolean upper)
-   {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
+
 }
-
-
 

@@ -18,7 +18,7 @@
     _Match -> _Template [headlabel = "template" taillabel = "matches *" arrowhead = "none" ];
     _Match -> _PlaceHolderDescription [headlabel = "placeholder" taillabel = "matches *" arrowhead = "none" ];
     _Match -> _Match [headlabel = "subMatches *" taillabel = "parentMatch" arrowhead = "none" ];
-    _PlaceHolderDescription -> _Template [headlabel = "subTemplate" taillabel = "parent" arrowhead = "none" ];
+    _PlaceHolderDescription -> _Template [headlabel = "subTemplate" taillabel = "parents *" arrowhead = "none" ];
     _Template -> _Object [headlabel = "modelObject" taillabel = "" arrowhead = "vee" ];
     _Match -> _Object [headlabel = "modelObject" taillabel = "" arrowhead = "vee" ];
 }

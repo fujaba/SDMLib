@@ -403,65 +403,6 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    
    /********************************************************************
     * <pre>
-    *              one                       one
-    * PlaceHolderDescription ----------------------------------- Template
-    *              parent                   subTemplate
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SUBTEMPLATE = "subTemplate";
-   
-   private Template subTemplate = null;
-   
-   public Template getSubTemplate()
-   {
-      return this.subTemplate;
-   }
-   
-   public boolean setSubTemplate(Template value)
-   {
-      boolean changed = false;
-      
-      if (this.subTemplate != value)
-      {
-         Template oldValue = this.subTemplate;
-         
-         if (this.subTemplate != null)
-         {
-            this.subTemplate = null;
-            oldValue.setParent(null);
-         }
-         
-         this.subTemplate = value;
-         
-         if (value != null)
-         {
-            value.withParent(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public PlaceHolderDescription withSubTemplate(Template value)
-   {
-      setSubTemplate(value);
-      return this;
-   } 
-   
-   public Template createSubTemplate()
-   {
-      Template value = new Template();
-      withSubTemplate(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
     *              one                       many
     * PlaceHolderDescription ----------------------------------- Match
     *              placeholder                   matches
@@ -555,6 +496,65 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    {
       Match value = new Match();
       withMatches(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * PlaceHolderDescription ----------------------------------- Template
+    *              parents                   subTemplate
+    * </pre>
+    */
+   
+   public static final String PROPERTY_SUBTEMPLATE = "subTemplate";
+   
+   private Template subTemplate = null;
+   
+   public Template getSubTemplate()
+   {
+      return this.subTemplate;
+   }
+   
+   public boolean setSubTemplate(Template value)
+   {
+      boolean changed = false;
+      
+      if (this.subTemplate != value)
+      {
+         Template oldValue = this.subTemplate;
+         
+         if (this.subTemplate != null)
+         {
+            this.subTemplate = null;
+            oldValue.withoutParents(this);
+         }
+         
+         this.subTemplate = value;
+         
+         if (value != null)
+         {
+            value.withParents(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+   
+   public PlaceHolderDescription withSubTemplate(Template value)
+   {
+      setSubTemplate(value);
+      return this;
+   } 
+   
+   public Template createSubTemplate()
+   {
+      Template value = new Template();
+      withSubTemplate(value);
       return value;
    } 
 }

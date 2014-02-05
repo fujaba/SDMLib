@@ -111,14 +111,14 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          return getChooser();
       }
 
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         return getParent();
-      }
-
       if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
          return getMatches();
+      }
+
+      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         return getParents();
       }
 
       return null;
@@ -201,12 +201,6 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((PlaceHolderDescription) value);
-         return true;
-      }
-
       if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
          addToMatches((Match) value);
@@ -216,6 +210,18 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMatches((Match) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         addToParents((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromParents((PlaceHolderDescription) value);
          return true;
       }
 
@@ -245,8 +251,8 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       removeAllFromPlaceholders();
       removeAllFromChoices();
       setChooser(null);
-      setParent(null);
       removeAllFromMatches();
+      removeAllFromParents();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }

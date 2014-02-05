@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,47 +21,66 @@
    
 package org.sdmlib.models.transformations.creators;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import java.util.List;
+import org.sdmlib.models.transformations.creators.ObjectSet;
+import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import java.util.Collections;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
+import org.sdmlib.models.transformations.creators.MatchSet;
+import org.sdmlib.models.transformations.Match;
 
-public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements org.sdmlib.models.modelsets.ModelSet
+public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
-   public ChoiceTemplate first()
+
+
+   public ChoiceTemplatePO startModelPattern()
    {
-      for (ChoiceTemplate obj : this)
-      {
-         return obj;
-      }
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
       
-      return null;
+      ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (ChoiceTemplate elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.transformations.ChoiceTemplate";
    }
 
+
+   public ChoiceTemplateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ChoiceTemplate>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ChoiceTemplate) value);
+      }
+      
+      return this;
+   }
+   
+   public ChoiceTemplateSet without(ChoiceTemplate value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public StringList getTemplateText()
    {
@@ -82,6 +101,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getTemplateText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasTemplateText(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -127,6 +161,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return result;
    }
 
+   public ChoiceTemplateSet hasExpandedText(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ChoiceTemplateSet withExpandedText(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -149,7 +198,7 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return result;
    }
 
-   public ChoiceTemplateSet hasModelObject(java.lang.Object value)
+   public ChoiceTemplateSet hasModelObject(Object value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
       
@@ -201,6 +250,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return result;
    }
 
+   public ChoiceTemplateSet hasModelClassName(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ChoiceTemplateSet withModelClassName(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -230,6 +294,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListStart()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasListStart(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -275,6 +354,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return result;
    }
 
+   public ChoiceTemplateSet hasListSeparator(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ChoiceTemplateSet withListSeparator(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -312,6 +406,21 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return result;
    }
 
+   public ChoiceTemplateSet hasListEnd(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ChoiceTemplateSet withListEnd(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -328,7 +437,7 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       
       for (ChoiceTemplate obj : this)
       {
-         result.addAll(obj.getPlaceholders());
+         result.with(obj.getPlaceholders());
       }
       
       return result;
@@ -386,7 +495,7 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       
       for (ChoiceTemplate obj : this)
       {
-         result.addAll(obj.getChoices());
+         result.with(obj.getChoices());
       }
       
       return result;
@@ -444,7 +553,7 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       
       for (ChoiceTemplate obj : this)
       {
-         result.add(obj.getChooser());
+         result.with(obj.getChooser());
       }
       
       return result;
@@ -486,61 +595,13 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return this;
    }
 
-   public PlaceHolderDescriptionSet getParent()
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         result.add(obj.getParent());
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasParent(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (neighbors.contains(obj.getParent()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ChoiceTemplateSet withParent(PlaceHolderDescription value)
-   {
-      for (ChoiceTemplate obj : this)
-      {
-         obj.withParent(value);
-      }
-      
-      return this;
-   }
-
    public MatchSet getMatches()
    {
       MatchSet result = new MatchSet();
       
       for (ChoiceTemplate obj : this)
       {
-         result.addAll(obj.getMatches());
+         result.with(obj.getMatches());
       }
       
       return result;
@@ -592,44 +653,63 @@ public class ChoiceTemplateSet extends LinkedHashSet<ChoiceTemplate> implements 
       return this;
    }
 
-
-
-   public ChoiceTemplatePO startModelPattern()
+   public PlaceHolderDescriptionSet getParents()
    {
-      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
       
-      ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
+      for (ChoiceTemplate obj : this)
+      {
+         result.with(obj.getParents());
+      }
       
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return result;
    }
 
-
-   public ChoiceTemplateSet with(Object value)
+   public ChoiceTemplateSet hasParents(Object value)
    {
-      if (value instanceof java.util.Collection)
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
       {
-         this.addAll((Collection<ChoiceTemplate>)value);
+         neighbors.addAll((Collection) value);
       }
-      else if (value != null)
+      else
       {
-         this.add((ChoiceTemplate) value);
+         neighbors.add(value);
+      }
+      
+      ChoiceTemplateSet answer = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getParents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ChoiceTemplateSet withParents(PlaceHolderDescription value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withParents(value);
       }
       
       return this;
    }
-   
-   public ChoiceTemplateSet without(ChoiceTemplate value)
+
+   public ChoiceTemplateSet withoutParents(PlaceHolderDescription value)
    {
-      this.remove(value);
+      for (ChoiceTemplate obj : this)
+      {
+         obj.withoutParents(value);
+      }
+      
       return this;
    }
 
 }
-
-
 

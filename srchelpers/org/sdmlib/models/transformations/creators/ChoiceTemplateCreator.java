@@ -20,8 +20,8 @@ public class ChoiceTemplateCreator extends EntityFactory
       Template.PROPERTY_PLACEHOLDERS,
       ChoiceTemplate.PROPERTY_CHOICES,
       Template.PROPERTY_CHOOSER,
-      Template.PROPERTY_PARENT,
       Template.PROPERTY_MATCHES,
+      Template.PROPERTY_PARENTS,
    };
    
    public String[] getProperties()
@@ -62,5 +62,4 @@ public class ChoiceTemplateCreator extends EntityFactory
       ((ChoiceTemplate) entity).removeYou();
    }
 }
-
 

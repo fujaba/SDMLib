@@ -83,7 +83,7 @@
 <g id="edge14" class="edge"><title>_PlaceHolderDescription&#45;&gt;_Template</title>
 <path fill="none" stroke="black" d="M110.749,-107.668C119.998,-119.301 129.729,-131.833 139.075,-144.131"/>
 <text text-anchor="middle" x="130.222" y="-136.981" font-family="Arial" font-size="10.00">subTemplate</text>
-<text text-anchor="middle" x="119.692" y="-109.643" font-family="Arial" font-size="10.00">parent</text>
+<text text-anchor="middle" x="119.692" y="-109.643" font-family="Arial" font-size="10.00">parents *</text>
 </g>
 <!-- _ChoiceTemplate&#45;&gt;_Template -->
 <g id="edge6" class="edge"><title>_ChoiceTemplate&#45;&gt;_Template</title>
