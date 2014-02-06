@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.models.classes.creators.ModelPattern;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
@@ -229,7 +230,7 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
 
    public StatementEntryPO startModelPattern()
    {
-      org.sdmlib.model.classes.creators.ModelPattern pattern = new org.sdmlib.model.classes.creators.ModelPattern();
+      ModelPattern pattern = new ModelPattern();
       
       StatementEntryPO patternObject = pattern.hasElementStatementEntryPO();
       

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_jar" name="Create Runnable Jar for Project SDMLib">
+	<macrodef name="copy_latest">
+		<attribute name="tofile" />
+		<attribute name="dir" />
+		<attribute name="name" />
+		<sequential>
+			<copy tofile="@{tofile}">
+				<last>
+					<sort>
+						<date xmlns="antlib:org.apache.tools.ant.types.resources.comparators" />
+						<resources>
+							<fileset dir="@{dir}">
+								<include name="@{name}" />
+							</fileset>
+						</resources>
+					</sort>
+				</last>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<target name="init">
+		<mkdir dir="build/temp/" />
+		<mkdir dir="build/lib/" />
+		<copy_latest tofile="build/lib/jfreechart.jar" dir="lib" name="jfreechart-*.jar" />
+		<copy_latest tofile="build/lib/jcommon.jar" dir="lib" name="jcommon-*.jar" />
+		<javac srcdir="src:srchelpers" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
+			<classpath>
+				<pathelement location="build/lib/jfreechart.jar"/>
+				<pathelement location="build/lib/jcommon.jar"/>
+				<pathelement location="lib/junit.jar"/>
+			</classpath>			
+		</javac>
+	</target>
+
+	<target name="create_jar" depends="init">
+		<delete file="build/lib/SDMLib.jar" />
+		<jar destfile="build/SDMLib.jar">
+			<manifest>
+				<attribute name="Class-Path" value="." />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${revisionVersion}" />
+				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
+			</manifest>
+			<fileset dir="build/temp/" />
+			<zipfileset casesensitive="false" src="build/lib/jfreechart.jar" />
+			<zipfileset casesensitive="false" src="build/lib/jcommon.jar" />
+		</jar>
+		<delete dir="build/lib"></delete>
+		<delete dir="build/temp"></delete>
+	</target>
+</project>

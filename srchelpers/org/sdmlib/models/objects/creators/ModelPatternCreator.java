@@ -1,7 +1,6 @@
 package org.sdmlib.models.objects.creators;
 
 import org.sdmlib.models.pattern.creators.PatternCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class ModelPatternCreator extends PatternCreator
 {

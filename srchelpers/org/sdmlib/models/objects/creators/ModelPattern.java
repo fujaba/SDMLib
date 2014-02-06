@@ -140,7 +140,7 @@ public class ModelPattern extends Pattern
 
 
 
-   public GenericObjectsTestPO hasElementGenericObjectsTestPO()
+   public GenericObjectPO hasElementGenericObjectsTestPO()
    {
       // TODO Auto-generated method stub
       return null;

@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.creators.ModelPattern;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
@@ -220,7 +221,7 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
 
    public SymTabEntryPO startModelPattern()
    {
-      org.sdmlib.model.classes.creators.ModelPattern pattern = new org.sdmlib.model.classes.creators.ModelPattern();
+      ModelPattern pattern = new ModelPattern();
       
       SymTabEntryPO patternObject = pattern.hasElementSymTabEntryPO();
       

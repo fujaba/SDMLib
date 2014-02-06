@@ -6,8 +6,6 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.codegen.creators.StatementEntrySet;
-import org.sdmlib.codegen.creators.StatementEntryPO;
 
 public class StatementEntryPO extends PatternObject
 {
