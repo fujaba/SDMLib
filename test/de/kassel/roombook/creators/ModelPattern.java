@@ -1,10 +1,9 @@
 package de.kassel.roombook.creators;
 
-import org.sdmlib.models.objects.GenericObjectsTest;
-import org.sdmlib.models.objects.creators.GenericObjectsTestPO;
 import org.sdmlib.models.pattern.Pattern;
-
+import de.kassel.roombook.creators.BuildingPO;
 import de.kassel.roombook.Building;
+import de.kassel.roombook.creators.FloorPO;
 import de.kassel.roombook.Floor;
 
 public class ModelPattern extends Pattern
@@ -17,12 +16,6 @@ public class ModelPattern extends Pattern
    public ModelPattern startCreate()
    {
       super.startCreate();
-      return this;
-   }
-
-   public ModelPattern startDestroy()
-   {
-      super.startDestroy();
       return this;
    }
 
@@ -41,7 +34,7 @@ public class ModelPattern extends Pattern
    {
       BuildingPO value = new BuildingPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       
@@ -65,31 +58,7 @@ public class ModelPattern extends Pattern
    {
       FloorPO value = new FloorPO();
       this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
-   public GenericObjectsTestPO hasElementGenericObjectsTestPO()
-   {
-      GenericObjectsTestPO value = new GenericObjectsTestPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public GenericObjectsTestPO hasElementGenericObjectsTestPO(GenericObjectsTest hostGraphObject)
-   {
-      GenericObjectsTestPO value = new GenericObjectsTestPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
+      value.setModifier(Pattern.BOUND);
       
       value.setCurrentMatch(hostGraphObject);
       

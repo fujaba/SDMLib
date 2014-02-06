@@ -21,39 +21,62 @@
    
 package de.kassel.roombook.creators;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import de.kassel.roombook.Building;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import java.util.List;
+import de.kassel.roombook.creators.FloorSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import de.kassel.roombook.Floor;
 
-public class BuildingSet extends LinkedHashSet<Building>
+public class BuildingSet extends SDMSet<Building>
 {
-   public StringList getId()
+
+
+   public BuildingPO startModelPattern()
    {
-      StringList result = new StringList();
+      de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
       
-      for (Building obj : this)
-      {
-         result.add(obj.getId());
-      }
+      BuildingPO patternObject = pattern.hasElementBuildingPO();
       
-      return result;
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
-   public FloorSet getHas()
+
+   @Override
+   public String getEntryType()
    {
-      FloorSet result = new FloorSet();
-      
-      for (Building obj : this)
+      return "de.kassel.roombook.Building";
+   }
+
+
+   public BuildingSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
       {
-         result.addAll(obj.getHas());
+         this.addAll((Collection<Building>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Building) value);
       }
       
-      return result;
+      return this;
    }
+   
+   public BuildingSet without(Building value)
+   {
+      this.remove(value);
+      return this;
+   }
+
    public StringList getName()
    {
       StringList result = new StringList();
@@ -66,14 +89,82 @@ public class BuildingSet extends LinkedHashSet<Building>
       return result;
    }
 
+   public BuildingSet hasName(String value)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BuildingSet hasName(String lower, String upper)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public BuildingSet withName(String value)
    {
       for (Building obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
+   }
+
+   public FloorSet getHas()
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Building obj : this)
+      {
+         result.with(obj.getHas());
+      }
+      
+      return result;
+   }
+
+   public BuildingSet hasHas(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BuildingSet answer = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getHas()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public BuildingSet withHas(Floor value)
@@ -96,71 +187,5 @@ public class BuildingSet extends LinkedHashSet<Building>
       return this;
    }
 
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Building elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public String getEntryType()
-   {
-      return "de.kassel.roombook.Building";
-   }
-
-
-   public BuildingSet without(Building value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-   public BuildingPO startModelPattern()
-   {
-      de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
-      
-      BuildingPO patternObject = pattern.hasElementBuildingPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public BuildingSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Building>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Building) value);
-      }
-      
-      return this;
-   }
-   
-
 }
-
-
-
-
-
-
-
-
 

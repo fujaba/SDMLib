@@ -5,6 +5,10 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.objects.creators.GenericGraphPO;
+import org.sdmlib.models.objects.creators.GenericAttributePO;
+import org.sdmlib.models.objects.creators.GenericLinkPO;
 
 public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
@@ -221,7 +225,53 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return null;
    }
    
+   public GenericObjectPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericObjectPO hasType(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_TYPE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericObjectPO hasIcon(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericObject.PROPERTY_ICON)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 
 

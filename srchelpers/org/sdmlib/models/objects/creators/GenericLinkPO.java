@@ -6,6 +6,9 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.creators.GenericLinkSet;
+import org.sdmlib.models.objects.creators.GenericObjectPO;
+import org.sdmlib.models.objects.creators.GenericGraphPO;
 
 public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
@@ -168,6 +171,37 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
       return result;
    }
    
+   public GenericLinkPO hasTgtLabel(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_TGTLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericLinkPO hasSrcLabel(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericLink.PROPERTY_SRCLABEL)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
 }
+
 
 

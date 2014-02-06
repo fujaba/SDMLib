@@ -108,7 +108,12 @@ public class ClassModel implements PropertyChangeInterface
 		return generate(rootDir, rootDir);
 	}
 
-	public ClassModel generate(String rootDir, String helpersDir)
+   public ClassModel generate(String rootDir, String helpersDir)
+   {
+      return generate(rootDir, helpersDir, rootDir);
+   }
+   
+   public ClassModel generate(String rootDir, String helpersDir, String modelCreationDir)
 	{
 		resetParsers();
 		
@@ -130,7 +135,7 @@ public class ClassModel implements PropertyChangeInterface
 
 		Exception e = new RuntimeException();
 
-      attributNameConsistenceCheck(e, rootDir);
+      attributNameConsistenceCheck(e, modelCreationDir);
 	   
 		return this;
 	}
@@ -1652,8 +1657,8 @@ public class ClassModel implements PropertyChangeInterface
 
 		creatorCreatorParser = modelCreationClass.getOrCreateParser(rootDir);
 
-		removeFromClasses(modelCreationClass);
-
+		modelCreationClass.getClassModel().removeFromClasses(modelCreationClass);
+		
 		String signature = Parser.METHOD + ":" + methodName + "(";
 
 		rescanCode();

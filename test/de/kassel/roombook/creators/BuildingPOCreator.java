@@ -14,7 +14,7 @@ public class BuildingPOCreator extends PatternObjectCreator
       return ((BuildingPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((BuildingPO) target).set(attrName, value);
    }

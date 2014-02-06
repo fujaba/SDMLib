@@ -14,7 +14,7 @@ public class FloorPOCreator extends PatternObjectCreator
       return ((FloorPO) target).get(attrName);
    }
    
-   public boolean setValue(Object target, String attrName, Object value)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((FloorPO) target).set(attrName, value);
    }

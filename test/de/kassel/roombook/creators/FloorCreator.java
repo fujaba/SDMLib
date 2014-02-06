@@ -1,19 +1,18 @@
 package de.kassel.roombook.creators;
 
+import de.kassel.roombook.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-
 import de.kassel.roombook.Floor;
 
 public class FloorCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Floor.PROPERTY_ID,
       Floor.PROPERTY_LEVEL,
-      Floor.PROPERTY_BUILDINGS,
       Floor.PROPERTY_NAME,
       Floor.PROPERTY_GUEST,
+      Floor.PROPERTY_BUILDINGS,
    };
    
    public String[] getProperties()
@@ -33,6 +32,10 @@ public class FloorCreator extends EntityFactory
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
       return ((Floor) target).set(attrName, value);
    }
    
@@ -50,7 +53,4 @@ public class FloorCreator extends EntityFactory
       ((Floor) entity).removeYou();
    }
 }
-
-
-
 

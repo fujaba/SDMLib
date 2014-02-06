@@ -91,7 +91,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
      
       // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
-      genericModel.generate("src", "srchelpers");
+      genericModel.generate("src", "srchelpers", "test");
       
       
       //====================================================================================================

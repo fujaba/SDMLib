@@ -21,138 +21,19 @@
    
 package de.kassel.roombook.creators;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-
-import de.kassel.roombook.Building;
+import org.sdmlib.models.modelsets.SDMSet;
 import de.kassel.roombook.Floor;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.intList;
+import java.util.List;
+import de.kassel.roombook.creators.BuildingSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import de.kassel.roombook.Building;
 
-public class FloorSet extends LinkedHashSet<Floor>
+public class FloorSet extends SDMSet<Floor>
 {
-   public StringList getId()
-   {
-      StringList result = new StringList();
-      
-      for (Floor obj : this)
-      {
-         result.add(obj.getId());
-      }
-      
-      return result;
-   }
-
-   public intList getLevel()
-   {
-      intList result = new intList();
-      
-      for (Floor obj : this)
-      {
-         result.add(obj.getLevel());
-      }
-      
-      return result;
-   }
-
-   public BuildingSet getBuildings()
-   {
-      BuildingSet result = new BuildingSet();
-      
-      for (Floor obj : this)
-      {
-         result.add(obj.getBuildings());
-      }
-      
-      return result;
-   }
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Floor obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public FloorSet withLevel(int value)
-   {
-      for (Floor obj : this)
-      {
-         obj.withLevel(value);
-      }
-      
-      return this;
-   }
-
-   public FloorSet withName(String value)
-   {
-      for (Floor obj : this)
-      {
-         obj.withName(value);
-      }
-      
-      return this;
-   }
-
-   public FloorSet withBuildings(Building value)
-   {
-      for (Floor obj : this)
-      {
-         obj.withBuildings(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Floor elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-
-
-   public String getEntryType()
-   {
-      return "de.kassel.roombook.Floor";
-   }
-
-   public StringList getGuest()
-   {
-      StringList result = new StringList();
-      
-      for (Floor obj : this)
-      {
-         result.add(obj.getGuest());
-      }
-      
-      return result;
-   }
-
-   public FloorSet withGuest(String value)
-   {
-      for (Floor obj : this)
-      {
-         obj.withGuest(value);
-      }
-      
-      return this;
-   }
-
 
 
    public FloorPO startModelPattern()
@@ -167,6 +48,13 @@ public class FloorSet extends LinkedHashSet<Floor>
       pattern.findMatch();
       
       return patternObject;
+   }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "de.kassel.roombook.Floor";
    }
 
 
@@ -190,13 +78,209 @@ public class FloorSet extends LinkedHashSet<Floor>
       return this;
    }
 
+   public intList getLevel()
+   {
+      intList result = new intList();
+      
+      for (Floor obj : this)
+      {
+         result.add(obj.getLevel());
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasLevel(int value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value == obj.getLevel())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasLevel(int lower, int upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower <= obj.getLevel() && obj.getLevel() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet withLevel(int value)
+   {
+      for (Floor obj : this)
+      {
+         obj.setLevel(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Floor obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasName(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasName(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet withName(String value)
+   {
+      for (Floor obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getGuest()
+   {
+      StringList result = new StringList();
+      
+      for (Floor obj : this)
+      {
+         result.add(obj.getGuest());
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasGuest(String value)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (value.equals(obj.getGuest()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasGuest(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getGuest()) <= 0 && obj.getGuest().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet withGuest(String value)
+   {
+      for (Floor obj : this)
+      {
+         obj.setGuest(value);
+      }
+      
+      return this;
+   }
+
+   public BuildingSet getBuildings()
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Floor obj : this)
+      {
+         result.with(obj.getBuildings());
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasBuildings(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FloorSet answer = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (neighbors.contains(obj.getBuildings()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public FloorSet withBuildings(Building value)
+   {
+      for (Floor obj : this)
+      {
+         obj.withBuildings(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
-
-
-
-
-
 
