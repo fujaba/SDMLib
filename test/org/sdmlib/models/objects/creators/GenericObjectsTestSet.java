@@ -53,14 +53,14 @@ public class GenericObjectsTestSet extends LinkedHashSet<GenericObjectsTest>
    {
       ModelPattern pattern = new ModelPattern();
       
-      GenericObjectsTestPO patternObject = pattern.hasElementGenericObjectsTestPO();
+      GenericObjectPO patternObject = pattern.hasElementGenericObjectsTestPO();
       
       patternObject.withCandidates(this.clone());
       
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
-      return patternObject;
+      return null;
+//FIXME Stefan to Albert bitte Korrigieren ist falsch      return patternObject;
    }
 
 
