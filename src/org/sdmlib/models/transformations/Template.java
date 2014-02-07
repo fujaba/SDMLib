@@ -834,6 +834,12 @@ public class Template implements PropertyChangeInterface
 
       LinkedHashSet<Object> rootObjects = new LinkedHashSet<Object>();
 
+      if (modelObject == null)
+      {
+         this.setExpandedText("");
+         return;
+      }
+      
       if (modelObject instanceof Collection)
       {
          rootObjects.addAll((Collection) modelObject);
@@ -937,14 +943,14 @@ public class Template implements PropertyChangeInterface
 
    private void provideIdMap()
    {
-      String className = modelObject.getClass().getName();
-      String packageName = CGUtil.packageName(className) + ".creators";
-      className = packageName + ".CreatorCreator";
-
       try 
       {
          if (idMap == null)
          {
+            String className = modelObject.getClass().getName();
+            String packageName = CGUtil.packageName(className) + ".creators";
+            className = packageName + ".CreatorCreator";
+
             idMap = new GenericIdMap();
 
             Class<?> creatorClass = Class.forName(className);
