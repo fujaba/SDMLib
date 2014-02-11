@@ -24,12 +24,8 @@
 		<mkdir dir="build/temp/" />
 		<mkdir dir="build/lib/" />
 		<mkdir dir="build/javadoc/" />
-		<copy_latest tofile="build/lib/jfreechart.jar" dir="lib" name="jfreechart-*.jar" />
-		<copy_latest tofile="build/lib/jcommon.jar" dir="lib" name="jcommon-*.jar" />
 		<javac srcdir="src:srchelpers" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
 			<classpath>
-				<pathelement location="build/lib/jfreechart.jar"/>
-				<pathelement location="build/lib/jcommon.jar"/>
 				<pathelement location="lib/junit.jar"/>
 			</classpath>			
 		</javac>
@@ -45,8 +41,6 @@
 				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
 			</manifest>
 			<fileset dir="build/temp/" />
-			<zipfileset casesensitive="false" src="build/lib/jfreechart.jar" />
-			<zipfileset casesensitive="false" src="build/lib/jcommon.jar" />
 		</jar>
 		
 		<jar destfile="build/SDMLib-source.jar">
@@ -57,12 +51,11 @@
 				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
 			</manifest>
 			<fileset dir="build/temp/" />
-			<fileset dir="build/javadoc/" />
 			<fileset dir="./src"/>
-			<zipfileset casesensitive="false" src="build/lib/jfreechart.jar" />
-			<zipfileset casesensitive="false" src="build/lib/jcommon.jar" />
+			<fileset dir="./srchelpers"/>
 		</jar>
-		<javadoc sourcepath="./src" destdir="build/javadoc/"/>
+		<javadoc destdir="build/javadoc/" sourcepath="src:srchelpers">
+		</javadoc>
 		<jar destfile="build/SDMLib-javadoc.jar">
 			<manifest>
 				<attribute name="Class-Path" value="." />
