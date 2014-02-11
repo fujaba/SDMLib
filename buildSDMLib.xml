@@ -23,6 +23,7 @@
 	<target name="init">
 		<mkdir dir="build/temp/" />
 		<mkdir dir="build/lib/" />
+		<mkdir dir="build/javadoc/" />
 		<copy_latest tofile="build/lib/jfreechart.jar" dir="lib" name="jfreechart-*.jar" />
 		<copy_latest tofile="build/lib/jcommon.jar" dir="lib" name="jcommon-*.jar" />
 		<javac srcdir="src:srchelpers" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
@@ -47,7 +48,32 @@
 			<zipfileset casesensitive="false" src="build/lib/jfreechart.jar" />
 			<zipfileset casesensitive="false" src="build/lib/jcommon.jar" />
 		</jar>
+		
+		<jar destfile="build/SDMLib-source.jar">
+			<manifest>
+				<attribute name="Class-Path" value="." />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${revisionVersion}" />
+				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
+			</manifest>
+			<fileset dir="build/temp/" />
+			<fileset dir="build/javadoc/" />
+			<fileset dir="./src"/>
+			<zipfileset casesensitive="false" src="build/lib/jfreechart.jar" />
+			<zipfileset casesensitive="false" src="build/lib/jcommon.jar" />
+		</jar>
+		<javadoc sourcepath="./src" destdir="build/javadoc/"/>
+		<jar destfile="build/SDMLib-javadoc.jar">
+			<manifest>
+				<attribute name="Class-Path" value="." />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${revisionVersion}" />
+				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
+			</manifest>
+			<fileset dir="build/javadoc/" />
+		</jar>
 		<delete dir="build/lib"></delete>
 		<delete dir="build/temp"></delete>
+		<delete dir="build/javadoc"></delete>
 	</target>
 </project>
