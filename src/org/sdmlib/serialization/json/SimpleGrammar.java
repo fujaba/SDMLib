@@ -22,23 +22,22 @@ package org.sdmlib.serialization.json;
  permissions and limitations under the Licence.
 */
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
-import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class Grammar {
+public class SimpleGrammar extends Grammar{
+	public static final String ID="@ID";
 	/**
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */
 	public JsonObject getReadProperties(JsonObject jsonObject, IdMap map) {
-		if (jsonObject.has(JsonIdMap.JSON_PROPS)) {
-			return jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-		}
-		return null;
+		jsonObject.remove(ID);
+		return jsonObject;
 	}
 
 	/**
@@ -47,50 +46,58 @@ public class Grammar {
 	 */
 	public SendableEntityCreator getReadCreator(JsonObject jsonObject,
 			IdMap map) {
-		Object className = jsonObject.get(JsonIdMap.CLASS);
-		return map.getCreatorClasses((String) className);
-	}
-
-	/**
-	 * @param jsonObject
-	 * @return the Creator for this JsonObject
-	 */
-	public SendableEntityCreator getWriteCreator(Object modelItem,
-			String className, IdMap map) {
-		return map.getCreatorClasses(className);
+		String idString = jsonObject.getString(ID);
+		String className = "."+idString.substring(0, idString.indexOf(map.getCounter().getSplitter()));
+		
+		// Find Item for LastName
+		for(Iterator<SendableEntityCreator> iterator = map.getCreators().iterator();iterator.hasNext();){
+			SendableEntityCreator item = iterator.next();
+			if(item.getSendableInstance(true).getClass().getName().endsWith(className)){
+				return item;
+			}
+		}
+		return null;
 	}
 
 	public JsonObject getWriteObject(IdMap map, SendableEntityCreator prototyp,
 			String className, String id, JsonObject jsonProp, Filter filter) {
 		JsonObject json = new JsonObject();
-		if (prototyp instanceof NoIndexCreator) {
-			Iterator<String> keys = jsonProp.keys();
-			while (keys.hasNext()) {
-				String key = keys.next();
-				json.put(key, jsonProp.get(key));
-			}
-			json.put(JsonIdMap.CLASS, className);
-			return json;
-		}
-		if (filter.isId(map, jsonProp, className)) {
-			json.put(IdMap.ID, id);
-		}
-		json.put(JsonIdMap.CLASS, className);
+		
+		json.put(ID, id);
 
 		if (jsonProp.size() > 0) {
-			json.put(JsonIdMap.JSON_PROPS, jsonProp);
+			for(Iterator<Entry<String, Object>> iterator = jsonProp.iterator();iterator.hasNext();){
+				Entry<String, Object> item = iterator.next();
+				json.put(item.getKey(), item.getValue());
+			}
 		}
 		return json;
 	}
 	
-	public boolean hasReadValue(JsonObject json, String property){
-		return json.has(property);
+	@Override
+	public String getWriteId(Object obj, IdMapCounter counter) {
+		String name = obj.getClass().getName();
+		int pos = name.lastIndexOf(".");
+		counter.withPrefixId(null);
+		if(pos>0){
+			return name.substring(pos+1)+counter.getSplitter()+counter.getId(obj);
+		}else{
+			return name+counter.getSplitter()+counter.getId(obj);
+		}
 	}
+	
 	public String getReadValue(JsonObject json, String property){
+		if(JsonIdMap.ID.equals(property)){
+			return json.getString(ID);
+		}
 		return json.getString(property);
 	}
-
-	public String getWriteId(Object obj, IdMapCounter counter) {
-		return null;
+	
+	public boolean hasReadValue(JsonObject json, String property){
+		if(JsonIdMap.ID.equals(property)){
+			return true;
+		}
+		return json.has(property);
 	}
+
 }

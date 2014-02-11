@@ -4,31 +4,24 @@ package org.sdmlib.serialization.bytes;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,7 +50,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class ByteIdMap extends IdMap {
 	/** The SPLITTER. */
-	public static char SPLITTER = ' ';
+	public static final char SPLITTER = ' ';
 
 	/** The Constant FIXED VALUE. */
 	public static final byte DATATYPE_FIXED = 0x00;
@@ -147,7 +140,7 @@ public class ByteIdMap extends IdMap {
 	public boolean addCreator(SendableEntityCreator createrClass) {
 		if (createrClass instanceof ByteCreator) {
 			if(this.decoderMap != null){
-				if (this.decoderMap.containsKey(new Byte(((ByteCreator) createrClass).getEventTyp()))) {
+				if (this.decoderMap.containsKey(Byte.valueOf(((ByteCreator) createrClass).getEventTyp()))) {
 					return false;
 				}
 			}
@@ -167,7 +160,7 @@ public class ByteIdMap extends IdMap {
 				this.decoderMap = new HashMap<Byte, ByteCreator>();
 			}
 
-			this.decoderMap.put(new Byte(byteCreator.getEventTyp()),
+			this.decoderMap.put(Byte.valueOf(byteCreator.getEventTyp()),
 					byteCreator);
 		}
 		return this;
@@ -182,7 +175,7 @@ public class ByteIdMap extends IdMap {
 	 */
 	@Override
 	public ByteItem encode(Object entity) {
-		return encode(entity, (ByteFilter)filter.clone());
+		return encode(entity, (ByteFilter)filter.cloneObj());
 	}
 
 	public ByteItem encode(Object entity, Filter filter) {
@@ -200,7 +193,13 @@ public class ByteIdMap extends IdMap {
 		if (creator instanceof BasicMessageCreator) {
 			BasicMessage basicEvent = (BasicMessage) entity;
 			String value = basicEvent.getValue();
-			msg.add(new ByteEntity().withValue(DATATYPE_FIXED, value.getBytes()));
+			try {
+				if(filter instanceof ByteFilter){
+					msg.add(new ByteEntity().withValue(DATATYPE_CLAZZNAME, value
+							.getBytes(((ByteFilter) filter).getCharset())));
+				}
+			} catch (UnsupportedEncodingException e) {
+			}
 			return msg;
 		}
 
@@ -210,8 +209,13 @@ public class ByteIdMap extends IdMap {
 		} else {
 			Object reference = creator.getSendableInstance(true);
 			ByteEntity byteEntity = new ByteEntity();
-			byteEntity.withValue(DATATYPE_CLAZZNAME, reference.getClass().getName()
-					.getBytes());
+			try {
+				if(filter instanceof ByteFilter){
+					byteEntity.withValue(DATATYPE_CLAZZNAME, reference.getClass().getName()
+							.getBytes(((ByteFilter) filter).getCharset()));
+				}
+			} catch (UnsupportedEncodingException e) {
+			}
 			msg.add(byteEntity);
 		}
 		String[] properties = creator.getProperties();
@@ -311,7 +315,7 @@ public class ByteIdMap extends IdMap {
 	 * @return the creator decoder class
 	 */
 	public ByteCreator getCreatorDecoderClass(byte typ) {
-		return this.decoderMap.get(new Byte(typ));
+		return this.decoderMap.get(Byte.valueOf(typ));
 	}
 
 	/**
@@ -435,33 +439,38 @@ public class ByteIdMap extends IdMap {
 			return null;
 		}
 		if (typ == ByteIdMap.DATATYPE_BYTE) {
-			return new Byte(buffer.getByte());
+			return Byte.valueOf(buffer.getByte());
 		}
 		if (typ == ByteIdMap.DATATYPE_CHAR) {
-			return new Character(buffer.getChar());
+			return Character.valueOf(buffer.getChar());
 		}
 		if (typ == ByteIdMap.DATATYPE_SHORT) {
-			return new Short(buffer.getShort());
+			return Short.valueOf(buffer.getShort());
 		}
 		if (typ == ByteIdMap.DATATYPE_INTEGER) {
-			return new Integer(buffer.getInt());
+			return Integer.valueOf(buffer.getInt());
 		}
 		if (typ == ByteIdMap.DATATYPE_LONG) {
-			return new Long(buffer.getLong());
+			return Long.valueOf(buffer.getLong());
 		}
 		if (typ == ByteIdMap.DATATYPE_FLOAT) {
-			return new Float(buffer.getFloat());
+			return Float.valueOf(buffer.getFloat());
 		}
 		if (typ == ByteIdMap.DATATYPE_DOUBLE) {
-			return new Double(buffer.getDouble());
+			return Double.valueOf(buffer.getDouble());
 		}
 		if (typ == ByteIdMap.DATATYPE_DATE) {
-			return new Date(new Long(buffer.getInt()).longValue());
+			return new Date(Long.valueOf(buffer.getInt()).longValue());
 		}
 		if (typ == ByteIdMap.DATATYPE_CLAZZNAME) {
 			int len = buffer.getByte() - ByteIdMap.SPLITTER;
-			SendableEntityCreator eventCreater = getCreatorClasses(new String(buffer.getValue(len)));
-			return decodeClazz(buffer, eventCreater);
+			SendableEntityCreator eventCreater;
+			try {
+				eventCreater = getCreatorClasses(new String(buffer.getValue(len), filter.getCharset()));
+				return decodeClazz(buffer, eventCreater);
+			} catch (UnsupportedEncodingException e) {
+			}
+			return null;
 		}
 		if (typ == ByteIdMap.DATATYPE_CLAZZID) {
 			typ = buffer.getByte();
@@ -484,7 +493,11 @@ public class ByteIdMap extends IdMap {
 			}
 			byte group = ByteUtil.getGroup(typ);
 			if (group == ByteIdMap.DATATYPE_STRING) {
-				return new String(buffer.getValue(len));
+				try {
+					return new String(buffer.getValue(len), filter.getCharset());
+				} catch (UnsupportedEncodingException e) {
+					return "";
+				}
 			} else if (group == ByteIdMap.DATATYPE_BYTEARRAY) {
 				return buffer.getValue(len);
 			} else if (group == ByteIdMap.DATATYPE_LIST) {
@@ -505,7 +518,7 @@ public class ByteIdMap extends IdMap {
 					if(subValues!=null && subValues instanceof List<?>){
 						List<?> list=(List<?>) subValues;
 						if(list.size()==2){
-							values.add(new MapEntry(list.get(0), list.get(1)));
+							values.add(new MapEntry().with(list.get(0), list.get(1)));
 						}
 					}else{
 						break;

@@ -169,8 +169,11 @@ public class AES {
 	}
 
 	public String encode(String data) {
-		while((data.length() % 32) != 0) data += " ";
-		return _cryptAll(data, 1);
+		StringBuilder sb=new StringBuilder(data);
+		while((sb.length() % 32) != 0){
+			sb.append(" ");
+		}
+		return cryptAll(sb, 1);
 	}
 
 	/**
@@ -247,7 +250,8 @@ public class AES {
 	}
 
 	public String decode(String data) {
-		return _cryptAll(data, 2).trim();
+		StringBuilder sb=new StringBuilder(data);
+		return cryptAll(sb, 2).trim();
 	}
 	
 	public byte[] decodeString(String value) {
@@ -412,11 +416,12 @@ public class AES {
 		}
 	}
 
-	public String _cryptAll(String data, int mode)  {
+	public String cryptAll(StringBuilder data, int mode)  {
 		if(data.length()/16 > ((int) data.length()/16)) {
 			int rest = data.length()-((int) data.length()/16)*16;
-			for(int i=0; i<rest; i++)
-				data += " ";
+			for(int i=0; i<rest; i++){
+				data.append(" ");
+			}
 		}
 		int nParts = (int) data.length()/16;
 		byte[] res = new byte[data.length()];

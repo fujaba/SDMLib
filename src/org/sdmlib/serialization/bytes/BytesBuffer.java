@@ -4,30 +4,22 @@ package org.sdmlib.serialization.bytes;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import org.sdmlib.serialization.interfaces.Buffer;
 import org.sdmlib.serialization.interfaces.BufferedBytes;
@@ -60,7 +52,7 @@ public class BytesBuffer implements BufferedBytes {
 		for(int i=0;i<length;i++){
 			sub[i]=buffer[startTag+length];
 		}
-		return new String(sub);
+		return String.valueOf(sub);
 	}
 
 	@Override
@@ -99,7 +91,7 @@ public class BytesBuffer implements BufferedBytes {
 
 	@Override
 	public String toText() {
-		return new String(buffer);
+		return String.valueOf(buffer);
 	}
 
 	@Override
@@ -126,27 +118,31 @@ public class BytesBuffer implements BufferedBytes {
 	@Override
 	public char getChar() {
 		byte[] bytes= converter(Character.SIZE);
-		return (char) ((bytes[0]<<8)+bytes[1]);
+		char result=(char)bytes[0];
+		result = (char) (result<<8 + (char)bytes[1]);
+		return result;
 	}
 
 	@Override
 	public short getShort() {
 		byte[] bytes= converter(Short.SIZE);
-		return (short) ((bytes[0]<<8)+bytes[1]);
+		short result = bytes[0];
+		result = (short) (result << 8 + bytes[1]);
+		return result;
 	}
 
 	@Override
 	public long getLong() {
 		byte[] bytes= converter(Long.SIZE);
-		return (long) (
-					(bytes[0]<<56)+
-					(bytes[1]<<48)+
-					(bytes[2]<<40)+
-					(bytes[3]<<32)+
-					(bytes[4]<<24)+
-					(bytes[5]<<16)+
-					(bytes[6]<<8)+
-					bytes[7]);
+		long result=bytes[0];
+		result = result<<8+bytes[1];
+		result = result<<8+bytes[2];
+		result = result<<8+bytes[3];
+		result = result<<8+bytes[4];
+		result = result<<8+bytes[5];
+		result = result<<8+bytes[6];
+		result = result<<8+bytes[7];
+		return result;
 	}
 
 	@Override
@@ -293,7 +289,7 @@ public class BytesBuffer implements BufferedBytes {
 	}
 	
 	public BytesBuffer withValue(byte[] array){
-		this.buffer=array;
+		this.buffer=array.clone();
 		return this;
 	}
 }

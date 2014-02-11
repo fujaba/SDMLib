@@ -30,17 +30,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.ArrayList;
-
 import org.sdmlib.serialization.StringTokener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TableFilterView {
 	private String[] lastSearchCriteriaItems;
-	protected boolean lastSearchDetails;
 	private ArrayList<String> searchProperties = new ArrayList<String>();
 	protected TableComponentInterface component;
 	private Column updateField;
-	private String lastSearchCriteria = "####";
+	protected boolean lastSearchDetails;
+	protected String lastSearchCriteria="##";
+
 
 	public TableFilterView(TableComponentInterface tableComponent) {
 		this.component = tableComponent;
@@ -64,7 +64,6 @@ public class TableFilterView {
 		// if search did not change do nothing
 		if (searchCriteria == null)
 			return; // <========= sudden death
-
 		lastSearchDetails = searchCriteria.contains(lastSearchCriteria);
 		lastSearchCriteria=searchCriteria;
 
@@ -96,17 +95,16 @@ public class TableFilterView {
 		if(lastSearchCriteriaItems==null){
 			return true;
 		}
-		String fullText = "";
+		StringBuilder fullText = new StringBuilder();
 		SendableEntityCreator creatorClass = component.getMap().getCreatorClass(item);
 		// SEARCH FOR #ID:3
 		if(creatorClass!=null){
 			for (String property : searchProperties) {
 				Object value = creatorClass.getValue(item, property);
 				if(value!=null){
-					fullText += " " + value.toString().toLowerCase();
+					fullText.append(" " + value.toString().toLowerCase());
 				}
 			}
-			fullText = fullText.trim();
 		}
 
 		Boolean matches = true;

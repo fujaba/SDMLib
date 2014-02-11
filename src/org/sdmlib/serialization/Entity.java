@@ -4,30 +4,22 @@ package org.sdmlib.serialization;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import java.util.Collection;
 import java.util.Iterator;
@@ -49,6 +41,10 @@ public abstract class Entity implements BaseEntity {
 			this.map = new LinkedHashMap<String, Object>();
 		}
 		return this.map;
+	}
+	
+	public Iterator<Entry<String, Object>> iterator(){
+		return getMap().entrySet().iterator();
 	}
 
 	public Entity initWithMap(Map<String, Object> map) {
@@ -112,6 +108,40 @@ public abstract class Entity implements BaseEntity {
 		}
 		return this;
 	}
+	
+	public Entity insert(int pos, String key, Object value){
+		EntityUtil.testValidity(value);
+		Object object = this.get(key);
+		if (object != null) {
+			this.put(key, value);
+		}else{
+			Map<String, Object> entries = getMap();
+			if(pos<0){pos=0;}
+			if(pos>getMap().size()){pos=entries.size();}
+			
+			Object[] list = entries.entrySet().toArray();
+			entries.clear();
+			int z=0;
+			for(;z<list.length;z++){
+				if(z==pos){
+					entries.put(key, value);
+				}
+				
+				if(list[z] instanceof Entry<?, ?>){
+					Object itemKey = ((Entry<?, ?>) list[z]).getKey();
+					Object itemValue = ((Entry<?, ?>) list[z]).getValue();
+					if(itemKey instanceof String){
+						entries.put(""+itemKey, itemValue);
+					}
+				}
+			}
+			if(z==pos){
+				entries.put(key, value);
+			}
+		}
+		return this;
+	}
+
 
 	/**
 	 * Get the value object associated with a key.
@@ -242,18 +272,15 @@ public abstract class Entity implements BaseEntity {
 	 * @param key
 	 *            A key string.
 	 * @return A string which is the value.
-	 * @throws RuntimeException
-	 *             if there is no string value for the key.
 	 */
-	public String getString(String key) throws RuntimeException{
+	public String getString(String key) {
 		Object object = this.get(key);
 		if (object instanceof String) {
 			return (String) object;
 		} else if (object instanceof Entity) {
 			return object.toString();
 		}
-		throw new RuntimeException("Entity[" + EntityUtil.quote(key)
-				+ "] not a string.");
+		return null;
 	}
 
 	/**
@@ -266,11 +293,9 @@ public abstract class Entity implements BaseEntity {
 	 * @return A string which is the value or defaultValue
 	 */
 	public String getString(String key, String defaultValue) {
-		Object object = this.get(key);
-		if (object instanceof String) {
-			return (String) object;
-		} else if (object instanceof Entity) {
-			return object.toString();
+		String object = getString(key);
+		if (object!=null) {
+			return object;
 		}
 		return defaultValue;
 	}
@@ -406,7 +431,7 @@ public abstract class Entity implements BaseEntity {
 	 * @return this.
 	 */
 	public Entity put(String key, int value) {
-		this.put(key, new Integer(value));
+		this.put(key, Integer.valueOf(value));
 		return this;
 	}
 
@@ -420,7 +445,7 @@ public abstract class Entity implements BaseEntity {
 	 * @return this.
 	 */
 	public Entity put(String key, long value) {
-		this.put(key, new Long(value));
+		this.put(key, Long.valueOf(value));
 		return this;
 	}
 
@@ -463,6 +488,8 @@ public abstract class Entity implements BaseEntity {
 			this.remove(key);
 		}
 	}
+	
+	
 
 	/**
 	 * Remove a name and its value, if present.

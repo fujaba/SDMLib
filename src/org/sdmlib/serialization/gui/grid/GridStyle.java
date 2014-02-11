@@ -1,14 +1,33 @@
 package org.sdmlib.serialization.gui.grid;
 
+/*
+ NetworkParser
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
+
+ http://ec.europa.eu/idabc/eupl5
+
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
+*/
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import org.sdmlib.serialization.gui.GUILine;
 import org.sdmlib.serialization.gui.Style;
-import org.sdmlib.serialization.interfaces.GUIPosition;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 
 public class GridStyle extends Style implements SendableEntity{
@@ -18,7 +37,6 @@ public class GridStyle extends Style implements SendableEntity{
 	public static final String PROPERTY_COLUMNSPAN = "gridpane-column-span";
 	public static final String PROPERTY_HEIGHTEXPRESSION="height_expression";
 	public static final String PROPERTY_WIDTHEXPRESSION="width_expression";
-	public static final String PROPERTY_BORDER="border";
 	public static final String COUNT="count";
 	public static final String POSITION="position";
 	public static final String MAXIMIZE="maximize";
@@ -28,7 +46,7 @@ public class GridStyle extends Style implements SendableEntity{
 	private int columnSpan=1;
 	private int column;
 	private int row;
-	private ValueGrid grid;
+	protected ValueGrid grid;
 	private LinkedHashMap<String, ArrayList<PropertyChangeListener>> listeners=new LinkedHashMap<String, ArrayList<PropertyChangeListener>>();
 	private String selectedBackground=null;
 
@@ -39,17 +57,21 @@ public class GridStyle extends Style implements SendableEntity{
 	public int getRow() {
 		return row;
 	}
-	
+		
 	public int getRowEnd(){
 		if(heightExpression!=null){
-			return 0;
+			int end = (int)0;
+			withRowSpan(end-row);
+			return end;
 		}
 
 		return getRow()+getRowSpan()-1;
 	}
 	public int getColumnEnd(){
 		if(widthExpression!=null){
-			return 0;
+			int end = (int)0;
+			withColumnSpan(end-column);
+			return end;
 		}
 		return getColumn()+getColumnSpan()-1;
 	}
@@ -178,23 +200,6 @@ public class GridStyle extends Style implements SendableEntity{
 			}
 		}
 		return result;
-	}
-	
-	public void setBorder(GUIPosition position, String width, String color){
-		GUILine border = this.borders.get(position);
-		if(width!=null){
-			if(border==null){
-				this.borders.put(position, new GUILine().withColor(color).withWidth(width));
-				this.propertyChange(PROPERTY_BORDER, null, this.borders);
-			}else{
-				border.withColor(color);
-				border.withWidth(width);
-				this.propertyChange(PROPERTY_BORDER, null, this.borders);
-			}
-		}else if(border!=null){
-			this.borders.remove(position);
-			this.propertyChange(PROPERTY_BORDER, null, this.borders);
-		}
 	}
 	
 	public void select(){

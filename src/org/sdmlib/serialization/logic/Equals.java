@@ -4,45 +4,40 @@ package org.sdmlib.serialization.logic;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.Buffer;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class Equals implements Condition {
+public class Equals extends ConditionMap implements SendableEntityCreator {
+	public static final String STRINGVALUE="stringvalue";
+	public static final String POSITION="position";
+	public static final String BYTEVALUE="bytevalue";
+	
 	private String strValue;
 	// Position of the Byte or -1 for currentPosition
 	private int position = -1;
 	private Byte bytevalue;
-
+	
 	@Override
-	public boolean matches(IdMap map, Object entity, String property,
-			Object value, boolean isMany, int deep) {
-		if(entity instanceof Buffer){
-			Buffer buffer = (Buffer) entity;
+	public boolean matches(ValuesMap values) {
+		if(values.entity instanceof Buffer){
+			Buffer buffer = (Buffer) values.entity;
 			int pos;
 			if (position < 0) {
 				pos = buffer.position();
@@ -51,29 +46,84 @@ public class Equals implements Condition {
 			}
 			return buffer.byteAt(pos) == bytevalue;
 		}
-		if(value==null){
+		if(values.value==null){
 			return (strValue==null);
 		}
-		return value.equals(strValue);
+		return values.value.equals(strValue);
 	}
 
 	public Equals withPosition(int value){
 		this.position = value;
 		return this;
 	}
+
+	public int getPosition() {
+		return position;
+	}
 	
 	public Equals withValue(Byte value){
 		this.bytevalue = value;
 		return this;
 	}
+	public Byte getBytevalue() {
+		return bytevalue;
+	}
+
 	public Equals withValue(String value){
 		this.strValue = value;
 		return this;
 	}
+	
+	public String getStringvalue() {
+		return strValue;
+	}
+	
 	public String toString(){
 		if(strValue!=null){
 			return "=="+strValue+" ";
 		}
 		return "=="+bytevalue+" ";
+	}
+
+	@Override
+	public String[] getProperties() {
+		return new String[]{STRINGVALUE, POSITION, BYTEVALUE};
+	}
+
+	@Override
+	public Object getSendableInstance(boolean prototyp) {
+		return new Equals();
+	}
+
+	@Override
+	public Object getValue(Object entity, String attribute) {
+		if(STRINGVALUE.equalsIgnoreCase(attribute)){
+			return ((Equals)entity).getStringvalue();
+		}
+		if(POSITION.equalsIgnoreCase(attribute)){
+			return ((Equals)entity).getPosition();
+		}
+		if(BYTEVALUE.equalsIgnoreCase(attribute)){
+			return ((Equals)entity).getBytevalue();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type) {
+		if(STRINGVALUE.equalsIgnoreCase(attribute)){
+			((Equals)entity).withValue(String.valueOf(value));
+			return true;
+		}
+		if(POSITION.equalsIgnoreCase(attribute)){
+			((Equals)entity).withPosition(Integer.parseInt(""+value));
+			return true;
+		}
+		if(BYTEVALUE.equalsIgnoreCase(attribute)){
+			((Equals)entity).withValue((Byte) value);
+			return true;
+		}
+		return false;
 	}
 }

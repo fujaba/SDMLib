@@ -4,33 +4,24 @@ package org.sdmlib.serialization.date;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import java.util.HashMap;
-
 import org.sdmlib.serialization.DefaultTextItems;
 import org.sdmlib.serialization.StringTokener;
 import org.sdmlib.serialization.TextItems;
@@ -128,7 +119,7 @@ public class DateTimeEntity  {
 		this.fields.put(DateField.MILLISECONDS, time);
 		this.fields.put(DateField.MILLISECOND, time%ONE_SECOND);
 
-		time += ONE_HOUR;
+//		time += ONE_HOUR;
 		this.fields.put(DateField.MILLISECONDSREAL, time);
 
 		
@@ -218,7 +209,7 @@ public class DateTimeEntity  {
 	}
 
 	public DateTimeEntity withTime(Long value) {
-		if(value!=this.time){
+		if((this.time==null&&value!=null)||(this.time!=null&&!this.time.equals(value))){
 			this.time = value;
 			this.dirty = true;
 		}
@@ -238,7 +229,7 @@ public class DateTimeEntity  {
 	}
 
 	public DateTimeEntity withTimezone(Long value) {
-		if(value!=this.timeZone){
+		if((this.timeZone==null&&value!=null)||(this.timeZone!=null&&!this.timeZone.equals(value))){
 			this.timeZone = value;
 			this.dirty = true;
 		}
@@ -324,9 +315,9 @@ public class DateTimeEntity  {
 	 *            date as String
 	 */
 	public DateTimeEntity withValue(String date) {
-		this.withYear( Integer.valueOf( date.substring(6, 9) ) );
-		this.withMonth( Integer.valueOf( date.substring(3, 4) ) );
-		this.withDate( Integer.valueOf( date.substring(0, 1) ) );
+		this.withYear( Integer.parseInt( date.substring(6, 9) ) );
+		this.withMonth( Integer.parseInt( date.substring(3, 4) ) );
+		this.withDate( Integer.parseInt( date.substring(0, 1) ) );
 		return this;
 	}
 
@@ -435,8 +426,8 @@ public class DateTimeEntity  {
 				sub = sub.replace("ddd",  this.weekDays[(int)get(DateField.DAY_OF_WEEK)].substring(0, 2));
 				sub = sub.replace("dd",   strZero(get(DateField.DAY_OF_MONTH), 2));
 				sub = sub.replace("d",    String.valueOf(get(DateField.DAY_OF_MONTH)));
-				sub = sub.replace("mmmm", this.monthOfYear[(int)get(DateField.MONTH)]);
-				sub = sub.replace("mmm",  this.monthOfYear[(int)get(DateField.MONTH)].substring(0, 3));
+				sub = sub.replace("mmmm", this.monthOfYear[(int)get(DateField.MONTH)-1]);
+				sub = sub.replace("mmm",  this.monthOfYear[(int)get(DateField.MONTH)-1].substring(0, 3));
 				sub = sub.replace("mm",   strZero(get(DateField.MONTH), 2));
 				sub = sub.replace("m",    String.valueOf(get(DateField.MONTH)));
 				sub = sub.replace("yyyy", String.valueOf(get(DateField.YEAR)));
@@ -585,7 +576,7 @@ public class DateTimeEntity  {
 		} else if (field==DateField.WEEK_OF_MONTH || field==DateField.WEEK_OF_YEAR){
 			return value * DateTimeEntity.ONE_WEEK;
 		} else if (field==DateField.YEAR){
-			int year=Integer.valueOf(""+value);
+			int year=Integer.parseInt(""+value);
 			int schaltjahre=((year-1)-1968)/4 - ((year-1)-1900)/100 + ((year-1)-1600)/400;
 			return (year-schaltjahre)*DateTimeEntity.ONE_YEAR + (schaltjahre*DateTimeEntity.ONE_YEAR_LY);
 		}

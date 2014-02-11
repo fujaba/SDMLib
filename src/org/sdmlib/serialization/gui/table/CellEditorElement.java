@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.gui.grid;
+package org.sdmlib.serialization.gui.table;
 
 /*
  NetworkParser
@@ -21,11 +21,16 @@ package org.sdmlib.serialization.gui.grid;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import java.beans.PropertyChangeListener;
 
-public interface GridGUITable {
-	public void add(Object cell);
-	public void move(Object cell);
-	public GridStyle getNewStyle();
-	public PropertyChangeListener getNewCell(Object node);
+public interface CellEditorElement {
+	public CellEditorElement withColumn(Column column);
+	public void cancel();
+	public boolean setFocus(boolean value);
+	public boolean onActive(boolean value);
+	public boolean nextFocus();
+	public void apply();
+	public Object getValue(boolean convert);
+	public CellEditorElement withValue(Object value);
+	public FieldTyp getControllForTyp(Object value);
+	public void dispose();
 }

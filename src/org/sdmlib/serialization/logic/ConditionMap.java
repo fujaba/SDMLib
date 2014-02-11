@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.gui.grid;
+package org.sdmlib.serialization.logic;
 
 /*
  NetworkParser
@@ -21,11 +21,15 @@ package org.sdmlib.serialization.gui.grid;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import java.beans.PropertyChangeListener;
 
-public interface GridGUITable {
-	public void add(Object cell);
-	public void move(Object cell);
-	public GridStyle getNewStyle();
-	public PropertyChangeListener getNewCell(Object node);
+public abstract class ConditionMap implements Condition {
+	@Override
+	public boolean matches(ValuesSimple values) {
+		if(values instanceof ValuesMap){
+			return matches((ValuesMap) values);
+		}
+		return false;
+	}
+	
+	public abstract boolean matches(ValuesMap values);
 }

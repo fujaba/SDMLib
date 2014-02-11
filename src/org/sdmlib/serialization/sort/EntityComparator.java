@@ -4,42 +4,33 @@ package org.sdmlib.serialization.sort;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import java.util.Comparator;
-
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.gui.table.TableList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class EntityComparator implements Comparator<Object> {
-	public static String IDMAP = "%idmap%";
-	public static String HASHCODE = "%hashcode%";
-	public static String LIST = "%list%";
+	public static final String IDMAP = "%idmap%";
+	public static final String HASHCODE = "%hashcode%";
+	public static final String LIST = "%list%";
 
 	private SortingDirection direction = SortingDirection.ASC;
 	private String column = IDMAP;
@@ -73,64 +64,57 @@ public class EntityComparator implements Comparator<Object> {
 
 		Object v1 = cellCreator.getCellValue(o1, creator, column);
 		Object v2 = cellCreator.getCellValue(o2, creator, column);
-		if (v1 == null && v2 == null) {
-			return checkIntern(o1, o2);
+		if (v1 == null ){
+			if(v2 == null) {
+				return checkIntern(o1, o2);
+			}
+			return checkValues(v1, v2);
 		}
-
+		return checkValues(v2, v1)*-1;
+	}
+	
+	private int checkValues(Object v1, Object v2){
 		if (v1 instanceof String) {
 			String valueA = (String) v1;
-			String valueB = (String) v2;
-			if (valueA != null) {
-				if (valueB != null) {
-					int value = valueB.compareTo(valueA);
-
-					if (value < 1) {
-						return -1;
-					}
+			if (v2 != null) {
+				String valueB = (String) v2;
+				int value = valueB.compareTo(valueA);
+				if (value < 1) {
+					return -1;
 				}
-				return 1;
 			}
 		} else if (v1 instanceof Integer) {
 			Integer valueA = (Integer) v1;
-			Integer valueB = (Integer) v2;
-			if (valueA != null) {
-				if (valueB != null) {
-					int value = valueB.compareTo(valueA);
+			if(v2 != null) {
+				Integer valueB = (Integer) v2;
+				int value = valueB.compareTo(valueA);
 
-					if (value < 1) {
-						return -1;
-					}
+				if (value < 1) {
+					return -1;
 				}
-				return 1;
 			}
+			return 1;
 		} else if (v1 instanceof Long) {
 			Long valueA = (Long) v1;
-			Long valueB = (Long) v2;
-			if (valueA != null) {
-				if (valueB != null) {
-					int value = valueB.compareTo(valueA);
+			if(v2 != null) {
+				Long valueB = (Long) v2;
+				int value = valueB.compareTo(valueA);
 
-					if (value < 1) {
-						return -1;
-					}
+				if (value < 1) {
+					return -1;
 				}
-				return 1;
 			}
 		} else if (v1 instanceof Boolean) {
 			Boolean valueA = (Boolean) v1;
-			Boolean valueB = (Boolean) cellCreator.getCellValue(o2, creator, column);
-			if (valueA != null) {
-				if (valueB != null) {
-					int value = valueB.compareTo(valueA);
-
-					if (value < 1) {
-						return -1;
-					}
+			Boolean valueB = (Boolean) v2;
+			if (valueB != null) {
+				int value = valueB.compareTo(valueA);
+				if (value < 1) {
+					return -1;
 				}
-				return 1;
 			}
 		}
-		return -1;
+		return 1;
 	}
 
 	private int checkIntern(Object o1, Object o2) {

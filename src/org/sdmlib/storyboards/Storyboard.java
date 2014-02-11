@@ -55,11 +55,11 @@ import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.logic.Condition;
+import org.sdmlib.serialization.logic.ConditionMap;
+import org.sdmlib.serialization.logic.ValuesMap;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
@@ -830,7 +830,7 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-	class RestrictToFilter implements Condition {
+	class RestrictToFilter extends ConditionMap {
 		private LinkedHashSet<Object> explicitElems;
 
 		public RestrictToFilter(LinkedHashSet<Object> explicitElems) {
@@ -838,14 +838,13 @@ public class Storyboard implements PropertyChangeInterface
 		}
 
 		@Override
-		public boolean matches(IdMap map, Object entity, String property,
-				Object value, boolean isMany, int deep) {
-			if (value != null
+		public boolean matches(ValuesMap values) {
+			if (values.value != null
 					&& ("Integer Float Double Long Boolean String"
-							.indexOf(value.getClass().getSimpleName()) >= 0)) {
+							.indexOf(values.value.getClass().getSimpleName()) >= 0)) {
 				return true;
 			}
-			return explicitElems.contains(value);
+			return explicitElems.contains(values.value);
 		}
 	}   
    
