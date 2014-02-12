@@ -21,7 +21,6 @@ package org.sdmlib.serialization.interfaces;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import org.sdmlib.serialization.bytes.converter.ByteConverter;
 
 public interface ByteItem extends BaseEntity{
 	/**

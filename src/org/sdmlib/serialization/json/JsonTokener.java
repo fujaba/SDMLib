@@ -22,8 +22,8 @@ package org.sdmlib.serialization.json;
  permissions and limitations under the Licence.
 */
 import org.sdmlib.serialization.Entity;
+import org.sdmlib.serialization.TextParsingException;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.interfaces.TextEntity;

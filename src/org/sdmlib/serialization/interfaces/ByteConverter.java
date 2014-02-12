@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.bytes.checksum;
+package org.sdmlib.serialization.interfaces;
 
 /*
  NetworkParser
@@ -21,39 +21,21 @@ package org.sdmlib.serialization.bytes.checksum;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-/**
- * A class that can be used to compute the CRC-16 of a data stream. This is a
- * 100% Java implementation.
- */
 
-public class CCITT16 extends CRC {
-	public CCITT16(){
-		value = 0x0000;
+public abstract class ByteConverter {
+	public String toString(ByteItem item, boolean dynamic) {
+		return toString(item.getBytes(dynamic));
 	}
 
-	@Override
-	public int getPolynom() {
-		return 0x1021; // 1000000000000101
+	public String toString(BufferedBytes bufferedBytes) {
+		return toString(bufferedBytes.array(), bufferedBytes.length());
 	}
+
+	public abstract String toString(byte[] values, int size);
 	
-	public void update(int b) {
-		super.update(b);
-		
-        for (int i = 0; i < 8; i++) {
-            boolean bit = ((b   >> (7-i) & 1) == 1);
-            boolean c15 = ((value >> 15    & 1) == 1);
-            value <<= 1;
-            if (c15 ^ bit) value ^= getPolynom();
-         }
+	public String toString(byte[] values){
+		return toString(values, values.length);
 	}
 
-	@Override
-	public boolean isReflect() {
-		return true;
-	}
-
-	@Override
-	public int getOrder() {
-		return 16;
-	}
+	public abstract byte[] decode(String value);
 }

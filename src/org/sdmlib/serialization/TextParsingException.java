@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.bytes.checksum;
+package org.sdmlib.serialization;
 
 /*
  NetworkParser
@@ -21,26 +21,33 @@ package org.sdmlib.serialization.bytes.checksum;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-/**
- * A class that can be used to compute the Adler32 of a data stream.
- * This implementation uses the class java.util.zip.Adler32 from the Java Standard API.
- */
 
-public class Adler32 extends Checksum {
-	private static final int BASE = 65521;
+public class TextParsingException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+	private String message;
+	private String tokenerMsg;
+	private int index;
 
-	public void update(int b) {
-		super.update(b);
-		int s1 = (int) value & 0xffff;
-		int s2 = (int) value >>> 16;
-		s1 = (s1 + (b & 0xFF)) % BASE;
-		s2 = (s1 + s2) % BASE;
-
-		value = (s2 << 16) + s1;
+	public TextParsingException(String message, int index) {
+		this.message = message;
+		this.index = index;
 	}
 
-	@Override
-	public int getOrder() {
-		return 32;
+	public TextParsingException(String message, Tokener tokener) {
+		this.message = message;
+		this.tokenerMsg = tokener.toString();
+		this.index = tokener.position();
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public String getTokenerMsg() {
+		return tokenerMsg;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 }

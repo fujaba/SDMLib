@@ -23,10 +23,11 @@ package org.sdmlib.serialization.json;
 */
 import java.util.Collection;
 import java.util.Iterator;
+
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
+import org.sdmlib.serialization.TextParsingException;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.exceptions.TextParsingException;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a
