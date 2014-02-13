@@ -514,6 +514,8 @@ public class Template implements PropertyChangeInterface
       return result;
    }
 
+   public static int logStartPos = 1300;
+   
    public Match parseOnce()
    {
       // the templateText contains placeholders and constant text fragments. Match the constant fragments in the expanded text. 
@@ -550,7 +552,7 @@ public class Template implements PropertyChangeInterface
          
          // constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
-         if (endOfMatchInExpandedText < currentPosInExpandedText)
+         if (startOfMatch != currentPosInExpandedText || endOfMatchInExpandedText < currentPosInExpandedText)
          {
             return null;
          }
@@ -560,10 +562,12 @@ public class Template implements PropertyChangeInterface
          SendableEntityCreator creator = this.getIdMap().getCreatorClasses(this.getModelClassName());
 
          boolean first = true;
+         
+         
 
          while (true)
          {
-            if (currentPosInExpandedText >= 6957)
+            if (currentPosInExpandedText >= logStartPos)
             {
                System.out.print("Parsing at " + currentPosInExpandedText + ": " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
                System.out.println();
@@ -701,14 +705,16 @@ public class Template implements PropertyChangeInterface
                   String key = getModelClassName() + "_" + value;
                   Object object = idMap.getObject(key);
 
-                  if (object == null)
+                  if (object != null)
                   {
-                     // create object and assign attribute
-                     object = creator.getSendableInstance(false);
+                     System.out.println("Warning: two objects with id: " + key);
+                  }                     
+                 
+                  // create object and assign attribute
+                  object = creator.getSendableInstance(false);
                      
-                     idMap.put(key, object);
-                  }    
-
+                  idMap.put(key, object);
+                  
                   this.setModelObject(object);
                }
 
@@ -886,15 +892,21 @@ public class Template implements PropertyChangeInterface
                {
                   // use value direct
                   expansionStep++;
+                  if (expansionStep >= logStartStep)
+                  {
+                     System.out.print("Expansion step " + expansionStep + ": " + this + " " + attrValue);
+                     System.out.println();
+                  }
                   result.append(attrValue);
                }
                else 
                {
                   // use subtemplate
                   expansionStep++;
-                  if (expansionStep >= 187)
+                  if (expansionStep >= logStartStep)
                   {
-                     System.out.println("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
+                     System.out.print("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
+                     System.out.println();
                   }
                   subTemplate.withModelObject(attrValue)
                   .generate();
@@ -915,6 +927,8 @@ public class Template implements PropertyChangeInterface
 
       this.setExpandedText(result.toString());
    }
+   
+   public static int logStartStep = 360;
 
 
    private Object getValue(PlaceHolderDescription placeholder, Object root)
