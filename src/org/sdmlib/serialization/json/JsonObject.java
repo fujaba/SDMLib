@@ -4,35 +4,26 @@ package org.sdmlib.serialization.json;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
@@ -176,21 +167,18 @@ public class JsonObject extends Entity implements TextEntity {
 			return "{Item with " + map.size() + " values}";
 		}
 
-		Iterator<String> keys = map.keySet().iterator();
-
-		Object key = keys.next();
-		Object value = map.get(key);
-		StringBuilder sb = new StringBuilder();
-		sb = new StringBuilder("{");
-		sb.append(EntityUtil.quote(key.toString()));
+		StringBuilder sb = new StringBuilder("{");
+		Iterator<Entry<String, Object>> i = map.entrySet().iterator();
+		Entry<String, Object> item = i.next();
+		sb.append(EntityUtil.quote(item.getKey().toString()));
 		sb.append(":");
-		sb.append(EntityUtil.valueToString(value, false, this));
-		while (keys.hasNext()) {
-			key = keys.next();
+		sb.append(EntityUtil.valueToString(item.getValue(), false, this));
+		while (i.hasNext()) {
+			item = i.next();
 			sb.append(",");
-			sb.append(EntityUtil.quote(key.toString()));
+			sb.append(EntityUtil.quote(item.getKey().toString()));
 			sb.append(":");
-			sb.append(EntityUtil.valueToString(map.get(key), false, this));
+			sb.append(EntityUtil.valueToString(item.getValue(), false, this));
 		}
 		sb.append("}");
 		return sb.toString();
@@ -226,10 +214,10 @@ public class JsonObject extends Entity implements TextEntity {
 			return "{" + map.size() + " values}";
 		}
 
-		Iterator<String> keys = map.keySet().iterator();
-
+		Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
+		
 		int newindent = indent + indentFactor;
-		String prefix = "";
+		String prefix = null;
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < indentFactor; i++) {
 			sb.append(' ');
@@ -245,24 +233,24 @@ public class JsonObject extends Entity implements TextEntity {
 			prefix = CRLF;
 		}
 
-		Object key = keys.next();
-		Object value = map.get(key);
+		Entry<String, Object> item = iterator.next();
+		Object value = item.getValue();
 		if (length == 1 && !(value instanceof Entity)) {
 			sb = new StringBuilder("{");
 		} else {
 			sb = new StringBuilder("{" + prefix + step);
 		}
 
-		sb.append(EntityUtil.quote(key.toString()));
+		sb.append(EntityUtil.quote(item.getKey().toString()));
 		sb.append(":");
 		sb.append(EntityUtil.valueToString(value, indentFactor, newindent,
 				false, this));
-		while (keys.hasNext()) {
-			key = keys.next();
+		while (iterator.hasNext()) {
+			item = iterator.next();
 			sb.append("," + prefix + step);
-			sb.append(EntityUtil.quote(key.toString()));
+			sb.append(EntityUtil.quote(item.getKey().toString()));
 			sb.append(":");
-			sb.append(EntityUtil.valueToString(map.get(key), indentFactor,
+			sb.append(EntityUtil.valueToString(item.getValue(), indentFactor,
 					newindent, false, this));
 		}
 		if (length == 1 && !(value instanceof Entity)) {

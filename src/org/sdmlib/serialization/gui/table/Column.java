@@ -4,33 +4,24 @@ package org.sdmlib.serialization.gui.table;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- 3. All advertising materials mentioning features or use of this software
- must display the following acknowledgement:
- This product includes software developed by Stefan Lindel.
- 4. Neither the name of contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
+ http://ec.europa.eu/idabc/eupl5
 
- THE SOFTWARE 'AS IS' IS PROVIDED BY STEFAN LINDEL ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL STEFAN LINDEL BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
 */
 import java.util.Comparator;
-
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.GUIPosition;
@@ -50,7 +41,7 @@ public class Column implements PeerMessage{
 	public static final String PROPERTY_MOVABLE="movable";
 	public static final String PROPERTY_ALTTEXT="altText";
 	public static final String PROPERTY_BROWSERID="browserid";
-	public static final String PROPERTY_VALUEFROMDROPDOWNLIST="valuefromdropdown";
+	public static final String PROPERTY_FIELDTYP="fieldTyp";
 	
 	public static final String DATE="%DATE%";
 	private Style style;
@@ -65,11 +56,11 @@ public class Column implements PeerMessage{
 	private boolean isVisible=true;
 	private boolean isMovable=true;
 	private String altAttribute;
-	private Object item;
+	private FieldTyp fieldTyp;
 	private GUIPosition browserId=GUIPosition.CENTER;
-	private boolean getDropDownListFromMap=false;
 	protected ColumnListener handler;
 	private Comparator<TableCellValue> comparator;
+	
 	
 	/**
 	 * @return the label
@@ -182,14 +173,6 @@ public class Column implements PeerMessage{
 		return altAttribute;
 	}
 
-	public Column withItem(Object item) {
-		this.item=item;
-		return this;
-	}
-	public Object getItem() {
-		return item;
-	}
-
 	public boolean isMovable() {
 		return isMovable;
 	}
@@ -208,12 +191,12 @@ public class Column implements PeerMessage{
 		return this;
 	}
 	
-	public boolean isGetDropDownListFromMap() {
-		return getDropDownListFromMap;
+	public FieldTyp getFieldTyp() {
+		return fieldTyp;
 	}
 	
-	public Column withGetDropDownListFromMap(boolean getDropDownListFromMap) {
-		this.getDropDownListFromMap = getDropDownListFromMap;
+	public Column withFieldTyp(FieldTyp fieldTyp) {
+		this.fieldTyp = fieldTyp;
 		return this;
 	}
 	
@@ -257,8 +240,8 @@ public class Column implements PeerMessage{
 			return this.getAltAttribute();
 		if (attrName.equalsIgnoreCase(PROPERTY_BROWSERID))
 			return this.getBrowserId();
-		if (attrName.equalsIgnoreCase(PROPERTY_VALUEFROMDROPDOWNLIST))
-			return this.isGetDropDownListFromMap();
+		if (attrName.equalsIgnoreCase(PROPERTY_FIELDTYP))
+			return this.getFieldTyp();
 		return null;
 	}
 	
@@ -312,8 +295,8 @@ public class Column implements PeerMessage{
 			withBrowserId(GUIPosition.valueOf((String)value));
 			return true;
 		}
-		if (attribute.equalsIgnoreCase(PROPERTY_VALUEFROMDROPDOWNLIST)) {
-			withGetDropDownListFromMap((Boolean) value);
+		if (attribute.equalsIgnoreCase(PROPERTY_FIELDTYP)) {
+			withFieldTyp(FieldTyp.valueOf(""+value));
 			return true;
 		}
 		return false;
@@ -345,9 +328,13 @@ public class Column implements PeerMessage{
 	
 	public ColumnListener getListener(){
 		if(handler==null){
-			handler = new ColumnHandler().withColumn(this);
+			withListener(getDefaultListener());
 		}
 		return handler;
+	}
+	
+	public ColumnListener getDefaultListener(){
+		return new ColumnListener();
 	}
 
 	public Comparator<TableCellValue> getComparator() {

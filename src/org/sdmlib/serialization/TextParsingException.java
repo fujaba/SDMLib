@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.gui.grid;
+package org.sdmlib.serialization;
 
 /*
  NetworkParser
@@ -21,11 +21,33 @@ package org.sdmlib.serialization.gui.grid;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import java.beans.PropertyChangeListener;
 
-public interface GridGUITable {
-	public void add(Object cell);
-	public void move(Object cell);
-	public GridStyle getNewStyle();
-	public PropertyChangeListener getNewCell(Object node);
+public class TextParsingException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+	private String message;
+	private String tokenerMsg;
+	private int index;
+
+	public TextParsingException(String message, int index) {
+		this.message = message;
+		this.index = index;
+	}
+
+	public TextParsingException(String message, Tokener tokener) {
+		this.message = message;
+		this.tokenerMsg = tokener.toString();
+		this.index = tokener.position();
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public String getTokenerMsg() {
+		return tokenerMsg;
+	}
+
+	public int getIndex() {
+		return index;
+	}
 }

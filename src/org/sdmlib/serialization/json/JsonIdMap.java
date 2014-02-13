@@ -1,26 +1,51 @@
-/*
-   Copyright (c) 2013 zuendorf 
-   
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
-   
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
-   
-   The Software shall be used for Good, not Evil. 
-   
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
- */
-   
 package org.sdmlib.serialization.json;
 
+/*
+ NetworkParser
+ Copyright (c) 2011 - 2013, Stefan Lindel
+ All rights reserved.
+ 
+ Licensed under the EUPL, Version 1.1 or – as soon they
+ will be approved by the European Commission - subsequent
+ versions of the EUPL (the "Licence");
+ You may not use this work except in compliance with the Licence.
+ You may obtain a copy of the Licence at:
+
+ http://ec.europa.eu/idabc/eupl5
+
+ Unless required by applicable law or agreed to in
+ writing, software distributed under the Licence is
+ distributed on an "AS IS" basis,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied.
+ See the Licence for the specific language governing
+ permissions and limitations under the Licence.
+*/
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+
+import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.Filter;
+import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.ReferenceObject;
+import org.sdmlib.serialization.event.MapEntry;
+import org.sdmlib.serialization.event.creator.DateCreator;
+import org.sdmlib.serialization.event.creator.MapEntryCreator;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.MapUpdateListener;
+import org.sdmlib.serialization.interfaces.NoIndexCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.json.creator.JsonArrayCreator;
+import org.sdmlib.serialization.json.creator.JsonObjectCreator;
+import org.sdmlib.serialization.logic.Deep;
+import org.sdmlib.serialization.sort.EntityComparator;
 /*
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
@@ -50,33 +75,7 @@ package org.sdmlib.serialization.json;
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
 
-import org.sdmlib.serialization.EntityList;
-import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.ReferenceObject;
-import org.sdmlib.serialization.event.MapEntry;
-import org.sdmlib.serialization.event.creator.DateCreator;
-import org.sdmlib.serialization.event.creator.MapEntryCreator;
-import org.sdmlib.serialization.interfaces.BaseEntity;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
-import org.sdmlib.serialization.interfaces.NoIndexCreator;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.creator.JsonArrayCreator;
-import org.sdmlib.serialization.json.creator.JsonObjectCreator;
-import org.sdmlib.serialization.logic.Deep;
-import org.sdmlib.serialization.sort.EntityComparator;
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 /*
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
@@ -110,7 +109,7 @@ import java.beans.PropertyChangeSupport;
  * The Class JsonIdMap.
  */
 
-public class JsonIdMap extends IdMap implements PropertyChangeInterface {
+public class JsonIdMap extends IdMap {
 	/** The Constant CLASS. */
 	public static final String CLASS = "class";
 
@@ -131,8 +130,6 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	/** If this is true the IdMap save the Typ of primary datatypes. */
 	protected boolean typSave;
 	
-	private Filter filter = new Filter();
-
 	/**
 	 * Instantiates a new json id map.
 	 */
@@ -159,7 +156,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	 * @return the json object
 	 */
 	public JsonObject toJsonObject(Object object) {
-		return toJsonObject(object, filter.clone());
+		return toJsonObject(object, filter.cloneObj());
 	}
 
 	/**
@@ -191,7 +188,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	 */
 	protected JsonObject toJsonObject(Object entity, Filter filter, String className, int deep) throws RuntimeException{
 		String id = null;
-		SendableEntityCreator prototyp = grammar.getObjectCreator(entity,
+		SendableEntityCreator prototyp = grammar.getWriteCreator(entity,
 				className, this);
 		if (prototyp == null) {
 			return null;
@@ -205,7 +202,6 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 		}
 		
 		JsonObject jsonProp = getPrototyp();
-		
 
 		String[] properties = prototyp.getProperties();
 		if (properties != null) {
@@ -222,8 +218,17 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 			}
 		}
 
-		return grammar.getJsonObject(this, prototyp, className, id, jsonProp,
+		return grammar.getWriteObject(this, prototyp, className, id, jsonProp,
 				filter);
+	}
+	
+	public String getId(Object obj) {
+		String key = grammar.getWriteId(obj, getCounter());
+		if(key!=null){
+			put(key, obj);
+			return key;
+		}
+		return super.getId(obj);
 	}
 
 	protected Object parseProperty(SendableEntityCreator prototyp,
@@ -371,7 +376,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
 		for (int i = 0; i <= len; i++) {
 			JsonObject kidObject = jsonArray.getJSONObject(i);
-			Object tmp = decode(kidObject, refs, this.filter.clone());
+			Object tmp = decode(kidObject, refs, this.filter.cloneObj());
 			if (kidObject.has(MAINITEM)) {
 				result = tmp;
 			} else if (i == 0) {
@@ -432,7 +437,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	public Object decode(Object target, JsonObject jsonObject, Filter filter) {
 		LinkedHashSet<ReferenceObject> refs = new LinkedHashSet<ReferenceObject>();
 		if(filter==null){
-			filter=this.filter.clone();
+			filter=this.filter.cloneObj();
 		}
 		Object mainItem = decode(target, jsonObject, refs, filter.withStandard(this.filter));
 		for (ReferenceObject ref : refs) {
@@ -455,16 +460,16 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	private Object decode(JsonObject jsonObject,
 			LinkedHashSet<ReferenceObject> refs, Filter filter) {
 		Object result = null;
-		SendableEntityCreator typeInfo = grammar.getJsonObjectCreator(
+		SendableEntityCreator typeInfo = grammar.getReadCreator(
 				jsonObject, this);
 		
 		if(filter==null){
-			filter=this.filter.clone();
+			filter=this.filter.cloneObj();
 		}
 
 		if (typeInfo != null) {
-			if(grammar.hasValue(jsonObject, ID)){
-				String jsonId = grammar.getValue(jsonObject, ID);
+			if(grammar.hasReadValue(jsonObject, ID)){
+				String jsonId = grammar.getReadValue(jsonObject, ID);
 				if (jsonId != null) {
 					result = getObject(jsonId);
 				}
@@ -509,16 +514,16 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 			LinkedHashSet<ReferenceObject> refs, Filter filter) {
 		// JSONArray jsonArray;
 		if (filter.isId(this, target, target.getClass().getName())) {
-			String jsonId =  grammar.getValue(jsonObject, ID);
+			String jsonId =  grammar.getReadValue(jsonObject, ID);
 			if (jsonId == null) {
 				return target;
 			}
 			put(jsonId, target);
 			getCounter().readId(jsonId);
 		}
-		JsonObject jsonProp = grammar.getJsonObjectProperties(jsonObject, this);
+		JsonObject jsonProp = grammar.getReadProperties(jsonObject, this);
 		if (jsonProp != null) {
-			SendableEntityCreator prototyp = grammar.getObjectCreator(target,
+			SendableEntityCreator prototyp = grammar.getWriteCreator(target,
 					target.getClass().getName(), this);
 			String[] properties = prototyp.getProperties();
 			if (properties != null) {
@@ -591,21 +596,17 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 								creator.setValue(
 										target,
 										property,
-										new MapEntry(
-												key,
-												decode((JsonObject) entryValue)),
+										new MapEntry().with(key, decode((JsonObject) entryValue)),
 										NEW);
 							} else if (entryValue instanceof JsonArray) {
 								creator.setValue(
 										target,
 										property,
-										new MapEntry(
-												key,
-												decode((JsonArray) entryValue)),
+										new MapEntry().with(key, decode((JsonArray) entryValue)),
 										NEW);
 							} else {
 								creator.setValue(target, property,
-										new MapEntry(key, entryValue), NEW);
+										new MapEntry().with(key, entryValue), NEW);
 							}
 						}
 					} else if (className == null && jsonId != null) {
@@ -648,7 +649,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	public JsonArray toJsonArray(Object object, Filter filter) {
 		JsonArray jsonArray = getPrototyp().getNewArray();
 		if (filter == null) {
-			filter = this.filter.clone();
+			filter = this.filter.cloneObj();
 		}
 		
 		if(object instanceof Collection<?>){
@@ -674,7 +675,7 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 	 */
 	public JsonArray toJsonSortedArray(Object object, String property) {
 		JsonArraySorted jsonArray = new JsonArraySorted().withComparator(new EntityComparator().withColumn(property).withMap(this));
-		toJsonArray(object, jsonArray, filter.clone());
+		toJsonArray(object, jsonArray, filter.cloneObj());
 		return jsonArray;
 	}
 
@@ -906,44 +907,4 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 		this.typSave = typSave;
 		return this;
 	}
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
-   //==========================================================================
-   
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
 }
-

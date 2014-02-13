@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.gui.grid;
+package org.sdmlib.serialization.interfaces;
 
 /*
  NetworkParser
@@ -21,11 +21,21 @@ package org.sdmlib.serialization.gui.grid;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import java.beans.PropertyChangeListener;
 
-public interface GridGUITable {
-	public void add(Object cell);
-	public void move(Object cell);
-	public GridStyle getNewStyle();
-	public PropertyChangeListener getNewCell(Object node);
+public abstract class ByteConverter {
+	public String toString(ByteItem item, boolean dynamic) {
+		return toString(item.getBytes(dynamic));
+	}
+
+	public String toString(BufferedBytes bufferedBytes) {
+		return toString(bufferedBytes.array(), bufferedBytes.length());
+	}
+
+	public abstract String toString(byte[] values, int size);
+	
+	public String toString(byte[] values){
+		return toString(values, values.length);
+	}
+
+	public abstract byte[] decode(String value);
 }

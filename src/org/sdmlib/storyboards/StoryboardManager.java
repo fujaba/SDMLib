@@ -25,7 +25,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -40,16 +39,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
-
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.time.Second;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonArraySorted;
 import org.sdmlib.serialization.json.JsonIdComparator;
@@ -350,66 +339,66 @@ public class StoryboardManager
       // collect subentries from tree structure
       LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
 
-      for (KanbanEntry kanbanEntry : allEntries)
-      {
-         if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
-         {
-            // no new log entry. Nothing to generate
-            continue;
-         }
-
-         kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
-         LogEntry lastLogEntry = null;
-         double sumOfHoursSpend = 0;
-
-         // initialize new entries
-         if (kanbanEntry.getPhase() == null)
-         {
-            kanbanEntry.setPhase("backlog");
-         }
-
-         // prepare burnup chart series
-         TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
-         TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
-
-         for (LogEntry logEntry : kanbanEntry.getLogEntries())
-         {
-            phases.add(logEntry.getPhase());
-            lastLogEntry = logEntry;
-            sumOfHoursSpend += logEntry.getHoursSpend();
-
-            try
-            {
-               repairDate(logEntry);
-
-               Date theDate = dateParser.parse(logEntry.getDate());
-               Second theDay = new Second(theDate);
-               double hoursEstimated = sumOfHoursSpend
-                     + Math.max(logEntry.getHoursRemainingInPhase(),
-                        logEntry.getHoursRemainingInTotal());
-               hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
-               hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
-            }
-            catch (ParseException e)
-            {
-               e.printStackTrace();
-            }
-         }
-
-         // create burnup chart for kanban entry
-         createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
-
-         if (lastLogEntry != null)
-         {
-            kanbanEntry
-            .withLastDeveloper(lastLogEntry.getDeveloper())
-            .withPhase(lastLogEntry.getPhase())
-            .withHoursSpend(sumOfHoursSpend)
-            .withHoursRemaining(
-               Math.max(lastLogEntry.getHoursRemainingInPhase(),
-                  lastLogEntry.getHoursRemainingInTotal()));
-         }
-      }
+//      for (KanbanEntry kanbanEntry : allEntries)
+//      {
+//         if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
+//         {
+//            // no new log entry. Nothing to generate
+//            continue;
+//         }
+//
+//         kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
+//         LogEntry lastLogEntry = null;
+//         double sumOfHoursSpend = 0;
+//
+//         // initialize new entries
+//         if (kanbanEntry.getPhase() == null)
+//         {
+//            kanbanEntry.setPhase("backlog");
+//         }
+//
+//         // prepare burnup chart series
+//         TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
+//         TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
+//
+//         for (LogEntry logEntry : kanbanEntry.getLogEntries())
+//         {
+//            phases.add(logEntry.getPhase());
+//            lastLogEntry = logEntry;
+//            sumOfHoursSpend += logEntry.getHoursSpend();
+//
+//            try
+//            {
+//               repairDate(logEntry);
+//
+//               Date theDate = dateParser.parse(logEntry.getDate());
+//               Second theDay = new Second(theDate);
+//               double hoursEstimated = sumOfHoursSpend
+//                     + Math.max(logEntry.getHoursRemainingInPhase(),
+//                        logEntry.getHoursRemainingInTotal());
+//               hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
+//               hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
+//            }
+//            catch (ParseException e)
+//            {
+//               e.printStackTrace();
+//            }
+//         }
+//
+//         // create burnup chart for kanban entry
+////         createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
+//
+//         if (lastLogEntry != null)
+//         {
+//            kanbanEntry
+//            .withLastDeveloper(lastLogEntry.getDeveloper())
+//            .withPhase(lastLogEntry.getPhase())
+//            .withHoursSpend(sumOfHoursSpend)
+//            .withHoursRemaining(
+//               Math.max(lastLogEntry.getHoursRemainingInPhase(),
+//                  lastLogEntry.getHoursRemainingInTotal()));
+//         }
+//      }
 
       dumpTimeLinesFor(allEntries);
 
@@ -675,31 +664,31 @@ public class StoryboardManager
       return allEntries;
    }
 
-   private String createBurnupChart(KanbanEntry kanbanEntry,
-         TimeSeries hoursEstimatedSeries, TimeSeries hoursSpendSeries)
-   {
-      TimeSeriesCollection dataset = new TimeSeriesCollection();
-      dataset.addSeries(hoursEstimatedSeries);
-      dataset.addSeries(hoursSpendSeries);
-
-      // Generate the graph
-      XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
-      DateAxis dateaxis = new DateAxis("Date");
-      NumberAxis numberaxis = new NumberAxis("Hours");
-      XYPlot xyplot = new XYPlot(dataset, dateaxis, numberaxis, xyLineAndShapeRenderer);
-
-      JFreeChart chart = new JFreeChart("Burnup Chart for " + kanbanEntry.getName(), xyplot);
-      String chartFileName = null;
-      try {
-         chartFileName = "doc/" + kanbanEntry.getName()+ "BurnupChart.png";
-         ChartUtilities.saveChartAsPNG(new File(chartFileName), chart, 800,
-            700);
-      } catch (IOException e) {
-         System.err.println("Problem occurred creating chart.");
-      }
-
-      return chartFileName;
-   }
+//   private String createBurnupChart(KanbanEntry kanbanEntry,
+//         TimeSeries hoursEstimatedSeries, TimeSeries hoursSpendSeries)
+//   {
+//      TimeSeriesCollection dataset = new TimeSeriesCollection();
+//      dataset.addSeries(hoursEstimatedSeries);
+//      dataset.addSeries(hoursSpendSeries);
+//
+//      // Generate the graph
+//      XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
+//      DateAxis dateaxis = new DateAxis("Date");
+//      NumberAxis numberaxis = new NumberAxis("Hours");
+//      XYPlot xyplot = new XYPlot(dataset, dateaxis, numberaxis, xyLineAndShapeRenderer);
+//
+//      JFreeChart chart = new JFreeChart("Burnup Chart for " + kanbanEntry.getName(), xyplot);
+//      String chartFileName = null;
+//      try {
+//         chartFileName = "doc/" + kanbanEntry.getName()+ "BurnupChart.png";
+//         ChartUtilities.saveChartAsPNG(new File(chartFileName), chart, 800,
+//            700);
+//      } catch (IOException e) {
+//         System.err.println("Problem occurred creating chart.");
+//      }
+//
+//      return chartFileName;
+//   }
 
    public String refForFile(String filename) {
       String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
