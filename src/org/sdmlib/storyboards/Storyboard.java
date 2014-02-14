@@ -44,6 +44,8 @@ import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.gui.GuiAdapter;
+import org.sdmlib.gui.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.ModelSet;
@@ -72,11 +74,23 @@ public class Storyboard implements PropertyChangeInterface
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
 
-
    private String name;
-
+   private GuiAdapter adapter;
    private String javaTestFileName; 
 
+   
+	public GuiAdapter getAdapter() {
+		if(adapter==null){
+			adapter = new JsonToGraphViz();
+		}
+		return adapter;
+	}
+	
+	public Storyboard withAdapter(GuiAdapter adapter) {
+		this.adapter = adapter;
+		return this;
+	} 
+   
    public String getName()
    {
       return name;
@@ -862,7 +876,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
 
       this.addToSteps(imgLink);
    }
@@ -877,7 +891,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
 
       this.addToSteps(imgLink);
    }
@@ -892,7 +906,7 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = JsonToImg.get().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
 
       this.addToSteps(imgLink);
    }
@@ -1096,8 +1110,6 @@ public class Storyboard implements PropertyChangeInterface
       this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph, hiddenObjects);
    }
 
-   private int objNo;
-
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
    {
       this.addGenericObjectDiag(diagramName, graph, GenericObject.EMPTY_SET);
@@ -1105,134 +1117,8 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
-      objNo = 0;
-
-      // name all objects 
-      LinkedHashMap<GenericObject, String> allObjects = new LinkedHashMap<GenericObject, String>();
-
-      // String imgLink = JsonToImg.get().toImg(this.getName() + (this.steps.size()+1), jsonArray);      
-      String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
-      link = link.replaceFirst("<imagename>", diagramName + ".svg");
-
-      // generate dot file
-      String fileText = "graph ObjectDiagram {\n" +
-            "   node [shape = none, fontsize = 10];\n" +
-            "   edge [fontsize = 10];\n\n" +
-            "<nodes>\n" +
-            "<edges>" +
-            "}\n";
-
-      // list of nodes
-      StringBuilder nodeBuilder = new StringBuilder();
-      for (GenericObject currentObject : graph.getObjects())
-      {
-         if (hiddenObjects.contains(currentObject))
-         {
-            continue;
-         }
-
-
-         StringBuilder nodeLine = new StringBuilder(
-            "<id> [label=<<table border='0' cellborder='borderSize' cellspacing='0'> iconrow<tr> <td> <u><id> :<classname></u></td></tr>attrText</table>>];\n"
-               );
-
-         String borderSize = "1";
-
-         allObjects.put(currentObject, findNameFor(currentObject));
-
-         String iconRow = "";
-
-         if (currentObject.getIcon() != null)
-         {
-            iconRow = "<tr><td border='0'><img src=\"" + currentObject.getIcon() + "\"/></td></tr>";
-            borderSize = "0";
-         }
-
-         String type = "_"; 
-         if (currentObject.getType() != null)
-         {
-            type = currentObject.getType();
-         }
-
-         // go through attributes
-         String attrText = "<tr><td border='borderSize'><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
-
-         attrText = attrText.replaceFirst("borderSize", borderSize);
-
-         for (GenericAttribute attr : currentObject.getAttrs())
-         {
-            String attrLine = "<tr><td><key> = \"<value>\"</td></tr>";
-            attrLine = attrLine.replaceFirst("<key>", attr.getName());
-            attrLine = attrLine.replaceFirst("<value>", attr.getValue());
-            attrLine = attrLine.replaceFirst("borderSize", borderSize);
-
-            attrText = attrText.replaceFirst("</table>", attrLine + "</table>");
-         }
-
-         if ( currentObject.getAttrs().isEmpty())
-         {
-            attrText = "";
-         }
-
-         CGUtil.replaceAll(nodeLine, 
-            "iconrow", iconRow,
-            "<id>", allObjects.get(currentObject),
-            "<classname>", type, 
-            "attrText", attrText, 
-            "borderSize", borderSize
-               );
-
-         nodeBuilder.append(nodeLine.toString());
-      }
-
-      fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
-
-      // now generate edges from edgeMap
-      StringBuilder edgeBuilder = new StringBuilder();
-      for (GenericLink currentLink : graph.getLinks())
-      {
-         if (hiddenObjects.contains(currentLink.getSrc()) || hiddenObjects.contains(currentLink.getTgt()))
-         {
-            continue;
-         }
-
-         String edgeLine = "<srcId> -- <tgtId> [headlabel = \"<headlabel>\" taillabel = \"<taillabel>\"];\n";
-         edgeLine = edgeLine.replaceFirst("<srcId>", allObjects.get(currentLink.getSrc()));
-         edgeLine = edgeLine.replaceFirst("<tgtId>", allObjects.get(currentLink.getTgt()));
-         String headLabel = currentLink.getTgtLabel();
-         if (headLabel == null)
-         {
-            headLabel = " ";
-         }
-         edgeLine = edgeLine.replaceFirst("<headlabel>", currentLink.getTgtLabel());
-         String taillabel = currentLink.getSrcLabel();
-         if (taillabel == null)
-         {
-            taillabel = " ";
-         }
-         edgeLine = edgeLine.replaceFirst("<taillabel>", taillabel);
-
-         edgeBuilder.append(edgeLine);
-      }
-
-      fileText = fileText.replaceFirst("<edges>", edgeBuilder.toString());
-
-      CallDot.callDot(diagramName,fileText);
-
-
-      this.addToSteps(link);
-   }
-
-   private String findNameFor(GenericObject currentObject)
-   {
-      if (currentObject.getName() != null)
-      {
-         return currentObject.getName();
-      }
-
-      objNo++;
-
-      return "_" + objNo;
+	   String link = this.getAdapter().addGenericObjectDiag(diagramName, graph, hiddenObjects);
+	   this.addToSteps(link);
    }
 
    public Storyboard with(String string)

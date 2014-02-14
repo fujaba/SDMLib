@@ -27,11 +27,11 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.gui.GraphViz.JsonToGraphViz;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import org.sdmlib.model.taskflows.creators.LoggerSet;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.CallDot;
 import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
 
@@ -98,27 +98,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
    private void dumpDiagram() 
    {
-      // 
-      StringBuilder text = new StringBuilder(
-         " digraph TaskFlowDiagram {\n" + 
-               "    \n" + 
-               "swimlanes\n" +
-               "    \n" +
-               "links\n"  +
-            "}");
-
-
-      StringBuilder swimlanesText = dumpSwimlanes();
-
-      StringBuilder linksText = dumpLinks();
-
-      CGUtil.replaceAll(text,  
-         "swimlanes", swimlanesText.toString(),
-         "links", linksText.toString());
-
-      // StoryboardManager.printFile(new File("doc/Logger.dot"), text.toString());
-
-      CallDot.callDot(getSubFlow().getClass().getSimpleName(), text.toString());
+	   new JsonToGraphViz().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
    }
 
    private StringBuilder dumpSwimlanes() {

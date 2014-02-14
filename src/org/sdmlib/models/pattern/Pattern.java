@@ -25,23 +25,19 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.gui.GuiAdapter;
+import org.sdmlib.gui.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.CallDot;
-import org.sdmlib.storyboards.JsonToImg;
 import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.utils.StrUtil;
-
-import java.beans.PropertyChangeListener;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
@@ -50,6 +46,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    public static final String BOUND = "bound";
    
    private JsonIdMap jsonIdMap;
+	private GuiAdapter adapter;
+
+	public GuiAdapter getAdapter() {
+		if (adapter == null) {
+			adapter = new JsonToGraphViz();
+		}
+		return adapter;
+	}
    
    public JsonIdMap getJsonIdMap()
    {
@@ -601,7 +605,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       {
          JsonArray jsonArray = getJsonIdMap().toJsonArray(matchedObjects.iterator().next()); 
       
-         JsonToImg.fillNodeAndEdgeBuilders(diagramName, jsonArray, nodeBuilder, edgeBuilder, false);
+         getAdapter().fillNodeAndEdgeBuilders(diagramName, jsonArray, nodeBuilder, edgeBuilder, false);
       }
       
       fileText = fileText.replaceFirst("<nodes>", nodeBuilder.toString());
@@ -926,7 +930,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       docDir.mkdir();
       
-      CallDot.callDot(diagramName, fileText);
+      getAdapter().dumpDiagram(diagramName, fileText);
       
    }
    

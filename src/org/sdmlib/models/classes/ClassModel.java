@@ -44,6 +44,7 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.gui.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
@@ -52,10 +53,8 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.CallDot;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface
 {
@@ -140,7 +139,7 @@ public class ClassModel implements PropertyChangeInterface
 		return this;
 	}
 
-	private void addHelperClassesForUnknownAttributeTypes()
+	public void addHelperClassesForUnknownAttributeTypes()
    {
       // for attribute types like java.util.Date we add a class with that name and mark it as wrapped. This generates the required DateSet class.
       for (String typeName : this.getClasses().getAttributes().getType())
@@ -618,139 +617,14 @@ public class ClassModel implements PropertyChangeInterface
 		return dumpClassDiagram("src", diagName);
 	}
 
-	public String dumpClassDiagram(String rootdir, String diagName)
+	public String dumpClassDiagram(String rootDir, String diagName)
 	{
-		// generate dot file
-		StringBuilder dotFileText = new StringBuilder(
-				"\n digraph ClassDiagram {" 
-						+ "\n    node [shape = none, fontsize = 10, fontname = \"Arial\"]; " 
-						+ "\n    edge [fontsize = 10, fontname = \"Arial\"];" 
-						+ "\n    "
-						+ "\n    modelClasses" 
-						+ "\n    " +
-						// "\n    g1 -- p2 " +
-						// "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
-						"\n    " 
-						+ "\n    modelAssocs" 
-						+ "\n}" 
-						+ "\n");
-
-		// add classes
-		StringBuilder modelClassesText = new StringBuilder();
+		JsonToGraphViz graphViz = new JsonToGraphViz().withRootDir(rootDir);
 		
-		addHelperClassesForUnknownAttributeTypes();
-		
-		for (Clazz clazz : this.getClasses())
-		{
-			StringBuilder modelClassText = new StringBuilder(
-					"\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> "
-					+ "<tr> <td HREF=\"classfilename\">className stereotypes</td> </tr> attrCompartment methodCompartment </table>>];");
-
-			if (clazz.isInterfaze())
-			{
-				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
-			}
-			
-			String stereotypes = "";
-			
-			if (clazz.isExternal())
-			{
-			   stereotypes = " external";
-			}
-			
-			CGUtil.replaceAll(modelClassText, 
-					"className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
-					"classfilename", "../" + rootdir + "/" + clazz.getName().replaceAll("\\.", "/") + ".java", 
-					"attrCompartment", dumpAttributes(clazz), 
-					"methodCompartment", dumpMethods(clazz),
-					" stereotypes", stereotypes);
-
-			modelClassesText.append(modelClassText.toString());
-		}
-
-
-		StringBuilder allAssocsText = new StringBuilder();
-
-		// add class inheritance	
-		for (Clazz clazz : this.getClasses())
-		{
-			if (clazz.getSuperClass() != null)
-			{
-
-				StringBuilder oneSuperClassText = new StringBuilder("\n    _superClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
-
-				CGUtil.replaceAll(oneSuperClassText, "superClass", CGUtil.shortClassName(clazz.getSuperClass().getName())
-						, "mClass", CGUtil.shortClassName(clazz.getName()));
-
-				allAssocsText.append(oneSuperClassText.toString());
-			}
-		}
-
-		// add interface inheritance
-		for (Clazz clazz : this.getClasses())
-		{
-			for (Clazz interfaceClass : clazz.getInterfaces())
-			{	
-				if (interfaceClass.isInterfaze())
-				{
-					StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
-
-					CGUtil.replaceAll(oneSuperClassText, 
-							"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
-							"mClass", CGUtil.shortClassName(clazz.getName()));
-
-					allAssocsText.append(oneSuperClassText.toString());
-				}
-			}
-		}
-
-		// add associations
-		for (Association assoc : getAssociations())
-		{
-			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
-
-			CGUtil.replaceAll(oneAssocText, 
-					"sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), 
-					"targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), 
-					"sourceRole", labelForRole(assoc.getSource()), 
-					"targetRole", labelForRole(assoc.getTarget()));
-
-			allAssocsText.append(oneAssocText.toString());
-		}
-
-		// add assocs for complex attributes
-		for (Attribute attr : getClasses().getAttributes())
-		{
-
-			if (CGUtil.isPrimitiveType(attr.getType()))
-			{
-				continue;
-			}
-
-			R tgtCard = findRoleCard(attr.getType());
-			String tgtClassName = findPartnerClassName(attr.getType());
-			tgtClassName = CGUtil.shortClassName(tgtClassName);
-
-			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
-
-			CGUtil.replaceAll(oneAssocText, 
-					"sourceClass", CGUtil.shortClassName(attr.getClazz().getName()), 
-					"targetClass", tgtClassName, 
-					"sourceRole", "", 
-					"targetRole", attr.getName());
-
-			allAssocsText.append(oneAssocText.toString());
-		}
-
-		CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
-
-		// write dot file
-		CallDot.callDot(diagName, dotFileText.toString());
-
-		return diagName + ".svg";
+		return graphViz.dumpClassDiagram(rootDir, diagName, this);
 	}
 
-	private String labelForRole(Role role)
+	public String labelForRole(Role role)
 	{
 		String result = role.getName();
 
@@ -760,56 +634,6 @@ public class ClassModel implements PropertyChangeInterface
 		}
 
 		return result;
-	}
-
-	private String dumpMethods(Clazz clazz)
-	{
-		StringBuilder allMethodsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");
-
-		if (clazz.getMethods().size() > 0)
-		{
-			for (Method method : clazz.getMethods())
-			{
-				StringBuilder oneMethodText = new StringBuilder("<tr><td align='left'>methodDecl</td></tr>");
-
-				CGUtil.replaceAll(oneMethodText, "methodDecl", CGUtil.shortClassNameHTMLEncoded(method.getSignature()));
-
-				CGUtil.replaceAll(allMethodsText, "methodRow", oneMethodText.append(" methodRow").toString());
-			}
-
-			CGUtil.replaceAll(allMethodsText, "methodRow", "");
-		}
-		else
-		{
-			CGUtil.replaceAll(allMethodsText, "methodRow", "<tr><td> </td></tr>");
-		}
-
-		return allMethodsText.toString();
-	}
-
-	private String dumpAttributes(Clazz clazz)
-	{
-		StringBuilder allAttrsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> attrRow </table></td></tr>");
-
-		if (clazz.getAttributes().size() > 0)
-		{
-			for (Attribute attr : clazz.getAttributes())
-			{
-				StringBuilder oneAttrText = new StringBuilder("<tr><td align='left'>attrDecl</td></tr>");
-
-				CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :" + CGUtil.shortClassNameHTMLEncoded(attr.getType()));
-
-				CGUtil.replaceAll(allAttrsText, "attrRow", oneAttrText.append(" attrRow").toString());
-			}
-
-			CGUtil.replaceAll(allAttrsText, "attrRow", "");
-		}
-		else
-		{
-			CGUtil.replaceAll(allAttrsText, "attrRow", "<tr><td> </td></tr>");
-		}
-
-		return allAttrsText.toString();
 	}
 
 	/********************************************************************
@@ -1459,7 +1283,7 @@ public class ClassModel implements PropertyChangeInterface
 		return null;
 	}
 
-	private String findPartnerClassName(String partnerTypeName)
+	public String findPartnerClassName(String partnerTypeName)
 	{
 		String partnerClassName;
 		int openAngleBracket = partnerTypeName.indexOf("<");

@@ -27,6 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
 
+import org.sdmlib.gui.GuiAdapter;
+import org.sdmlib.gui.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachableStateSet;
 import org.sdmlib.serialization.Filter;
@@ -34,7 +36,6 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.Equals;
-import org.sdmlib.storyboards.JsonToImg;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 public class ReachabilityGraph implements PropertyChangeInterface
@@ -48,7 +49,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
 			   .withConvertable(new Equals().withValue("parent"));
       JsonArray jsonArray = masterMap.toJsonArray(this, filter);
       
-      String imgLink = JsonToImg.get().toImg(name, jsonArray, true, null);
+      String imgLink = getAdapter().toImg(name, jsonArray, true, null);
       
       // also add images for all graph roots
       for (Object graphRoot : getStates().getGraphRoot())
@@ -59,12 +60,19 @@ public class ReachabilityGraph implements PropertyChangeInterface
          
          String imgName = name + "/" + rootId;
          
-         String subLink = JsonToImg.get().toImg(imgName, graphRootArray);
+         String subLink = getAdapter().toImg(imgName, graphRootArray);
       }
               
       return imgLink;
    }
+   private GuiAdapter adapter;
    
+   public GuiAdapter getAdapter(){
+	   if(adapter==null){
+		   adapter = new JsonToGraphViz();
+	   }
+	   return adapter;
+   }
 
    //==========================================================================
 
