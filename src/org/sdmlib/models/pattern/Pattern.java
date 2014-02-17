@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.DocAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
@@ -46,9 +46,9 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    public static final String BOUND = "bound";
    
    private JsonIdMap jsonIdMap;
-	private GuiAdapter adapter;
+	private DocAdapter adapter;
 
-	public GuiAdapter getAdapter() {
+	public DocAdapter getAdapter() {
 		if (adapter == null) {
 			adapter = new JsonToGraphViz();
 		}

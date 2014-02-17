@@ -44,7 +44,7 @@ import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.DocAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -75,18 +75,18 @@ public class Storyboard implements PropertyChangeInterface
    public static final String BACKLOG = "backlog";
 
    private String name;
-   private GuiAdapter adapter;
+   private DocAdapter adapter;
    private String javaTestFileName; 
 
    
-	public GuiAdapter getAdapter() {
+	public DocAdapter getAdapter() {
 		if(adapter==null){
 			adapter = new JsonToGraphViz();
 		}
 		return adapter;
 	}
 	
-	public Storyboard withAdapter(GuiAdapter adapter) {
+	public Storyboard withAdapter(DocAdapter adapter) {
 		this.adapter = adapter;
 		return this;
 	} 

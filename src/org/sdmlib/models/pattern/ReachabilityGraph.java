@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
 
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.DocAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachableStateSet;
@@ -65,9 +65,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
               
       return imgLink;
    }
-   private GuiAdapter adapter;
+   private DocAdapter adapter;
    
-   public GuiAdapter getAdapter(){
+   public DocAdapter getAdapter(){
 	   if(adapter==null){
 		   adapter = new JsonToGraphViz();
 	   }

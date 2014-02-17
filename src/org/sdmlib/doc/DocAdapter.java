@@ -9,9 +9,9 @@ import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.serialization.json.JsonArray;
 
-public interface GuiAdapter {
-	public GuiAdapter withRootDir(String rootDir);
-	public GuiAdapter withIconMap(LinkedHashMap<String, String> iconMap);
+public interface DocAdapter {
+	public DocAdapter withRootDir(String rootDir);
+	public DocAdapter withIconMap(LinkedHashMap<String, String> iconMap);
 	public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects);
     public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot, String[] aggregationRoles);
     public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects);
