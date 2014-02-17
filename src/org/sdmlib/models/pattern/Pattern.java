@@ -28,8 +28,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.gui.GuiAdapter;
-import org.sdmlib.gui.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.models.pattern.creators.PatternSet;

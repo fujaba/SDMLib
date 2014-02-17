@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.gui.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import org.sdmlib.model.taskflows.creators.LoggerSet;
 import org.sdmlib.serialization.json.JsonArray;

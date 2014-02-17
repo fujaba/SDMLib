@@ -1,4 +1,4 @@
-package org.sdmlib.gui;
+package org.sdmlib.doc;
 
 import java.util.LinkedHashMap;
 

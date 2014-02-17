@@ -1,4 +1,4 @@
-package org.sdmlib.gui.GraphViz;
+package org.sdmlib.doc.GraphViz;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

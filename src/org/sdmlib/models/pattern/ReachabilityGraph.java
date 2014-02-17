@@ -27,8 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
 
-import org.sdmlib.gui.GuiAdapter;
-import org.sdmlib.gui.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachableStateSet;
 import org.sdmlib.serialization.Filter;

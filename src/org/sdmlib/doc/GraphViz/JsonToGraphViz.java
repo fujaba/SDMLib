@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.sdmlib.gui.GraphViz;
+package org.sdmlib.doc.GraphViz;
 
 import java.io.File;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.gui.GuiAdapter;
+import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;

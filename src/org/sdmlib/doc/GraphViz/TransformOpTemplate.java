@@ -1,4 +1,4 @@
-package org.sdmlib.gui.GraphViz;
+package org.sdmlib.doc.GraphViz;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.transformations.AttributeOp;

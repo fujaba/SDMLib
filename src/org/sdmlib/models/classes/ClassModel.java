@@ -44,7 +44,7 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.gui.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.models.classes.creators.ClazzSet;
