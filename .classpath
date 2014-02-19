@@ -13,10 +13,14 @@
 	<classpathentry exported="true" kind="lib" path="lib/emma.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/batik-1.7/batik.jar"/>
+	<classpathentry kind="lib" path="lib/jgraphx.jar" sourcepath="/Users/christian/Downloads/jgraphx/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
+	<referencedentry kind="lib" path="lib/jung2-2_0_1/jung-algorithms-2.0.1.jar" sourcepath="lib/jung2-2_0_1-sources/jung-algorithms-2.0.1-sources.jar"/>
+	<referencedentry kind="lib" path="lib/jung2-2_0_1/jung-api-2.0.1.jar" sourcepath="lib/jung2-2_0_1-sources/jung-api-2.0.1-sources.jar"/>
 </classpath>

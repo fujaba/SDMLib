@@ -45,13 +45,11 @@ import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.doc.DocAdapter;
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.svg.JsonToSvg;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.ModelSet;
-import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
@@ -81,7 +79,7 @@ public class Storyboard implements PropertyChangeInterface
    
 	public DocAdapter getAdapter() {
 		if(adapter==null){
-			adapter = new JsonToGraphViz();
+			adapter = new JsonToSvg();
 		}
 		return adapter;
 	}
