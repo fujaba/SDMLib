@@ -31,7 +31,6 @@ import org.sdmlib.examples.groupAccount.creators.PersonSet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -44,9 +43,6 @@ public class GroupAccountTests implements PropertyChangeInterface
    public void testGroupAccountStoryboard1()
    {
       Storyboard storyboard = new Storyboard("examples");
-      
-      storyboard.add("Start situation: classes have been generated. Now create some example object structure",
-         MODELING, "zuendorf", "04.04.2012 00:26:59", 0, 0);
       
       GroupAccount g1 = new GroupAccount();
       

@@ -40,7 +40,6 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
-import org.sdmlib.models.transformations.TransformOp;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -655,14 +654,6 @@ public class JsonToGraphViz implements GuiAdapter {
 		return diagName + ".svg";
 	}
 
-	@Override
-	public String dumpTransformOp(String diagName, TransformOp model) {
-		StringBuilder dotFileText = new TransformOpTemplate().dump(model);
-		// write dot file
-		CallDot.callDot(diagName, dotFileText.toString());
-
-		return diagName + ".svg";
-	}
 
 	@Override
 	public String dumpDiagram(String diagramName, String fileText) {
