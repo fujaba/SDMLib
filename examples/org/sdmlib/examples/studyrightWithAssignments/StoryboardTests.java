@@ -599,10 +599,15 @@ public class StoryboardTests {
       
       stud1PO = roomPO.hasStudents();
 
-      for (Match match : (Iterable<Match>) stud1PO.getPattern())
+      for (Match match : (Iterable<Match>) roomPO.getPattern())
       {
+         Student currentMatch = stud1PO.getCurrentMatch();
+         
+         currentMatch.withMotivation(currentMatch.getMotivation() * 2);
+         
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
-         System.out.println("match " + match.number + ": " + stud1PO.getCurrentMatch() + " in room " + roomPO.getCurrentMatch());
+        
+         System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
       }
       
       storyboard.addCode();

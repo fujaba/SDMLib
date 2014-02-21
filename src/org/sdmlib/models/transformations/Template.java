@@ -46,6 +46,7 @@ import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.models.transformations.creators.MatchSet;
 
+
 public class Template implements PropertyChangeInterface
 {
 
@@ -278,14 +279,22 @@ public class Template implements PropertyChangeInterface
       return with("_", "_", propertyName);
    }
    
-   public Template with(String templateText, String... placeholderAttrNamePairs)
+   public Template withReplacements(String... placeholderAttrNamePairs)
    {
-      this.setTemplateText(templateText);
-      
       for (int i = 0; i + 2 <= placeholderAttrNamePairs.length; i += 2)
       {
          this.createPlaceholders().withTextFragment(placeholderAttrNamePairs[i]).withAttrName(placeholderAttrNamePairs[i+1]);
       }
+      
+      return this;
+   }
+   
+   public Template with(String templateText, String... placeholderAttrNamePairs)
+   {
+      this.setTemplateText(templateText);
+      
+      this.withReplacements(placeholderAttrNamePairs);
+      
       return this;
    }
 
@@ -514,7 +523,7 @@ public class Template implements PropertyChangeInterface
       return result;
    }
 
-   public static int logStartPos = 1300;
+   public static int logStartPos = 9999;
    
    public Match parseOnce()
    {
@@ -928,7 +937,7 @@ public class Template implements PropertyChangeInterface
       this.setExpandedText(result.toString());
    }
    
-   public static int logStartStep = 360;
+   public static int logStartStep = 9999;
 
 
    private Object getValue(PlaceHolderDescription placeholder, Object root)
@@ -1434,6 +1443,43 @@ public class Template implements PropertyChangeInterface
       PlaceHolderDescription value = new PlaceHolderDescription();
       withParents(value);
       return value;
+   }
+
+
+   public Template createPlaceHolderAndSubTemplate(String textFragment,
+         String attrName, String templateText, String listStart, String listSeparator, String listEnd)
+   {
+      Template subTemplate = this.createPlaceHolderAndSubTemplate(textFragment, attrName, templateText)
+            .withList(listStart, listSeparator, listEnd);
+      
+      return subTemplate;
+   }
+
+      
+   public Template createPlaceHolderAndSubTemplate(String textFragment,
+         String attrName, String templateText)
+   {
+      Template subTemplate = this.createPlaceHolderAndSubTemplate()
+      .withParent(textFragment, attrName)
+      .withTemplateText(templateText);
+      
+      return subTemplate;
+   }
+
+
+   public Template withMultiStep(String textFragment, String... properties)
+   {
+      Template subTemplate = this.createPlaceHolderAndSubTemplate()
+      .withParent(textFragment, properties[0]);
+      
+      for (int i = 1; i < properties.length - 1; i++)
+      {
+         subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
+      }
+      
+      subTemplate.withSimple(properties[properties.length - 1]);
+      
+      return this;
    } 
 }
 
