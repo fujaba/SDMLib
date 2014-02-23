@@ -40,7 +40,7 @@ public class ProjectBoard
    @Test
    public void testExtendStoryboardByAddToDoMethod()
    {
-      Storyboard storyboard = new Storyboard("test", "ExtendStoryboardByAddToDoMethod");
+      Storyboard storyboard = new Storyboard("test");
       
       storyboard.add("Start situation: ",
          DONE, "zuendorf", "01.11.2012 12:33:42", 1, 0);
@@ -107,9 +107,11 @@ public class ProjectBoard
             .withParent(sprint1);
       // entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
       
-      entry = kanbanBoard.findOrCreate("TransformationsCodegen")
-            .withParent(sprint1);
-      // entry.linkToTest("test", "org.sdmlib.models.transformations.TransformationsCodeGen", entry.getName());
+      entry = kanbanBoard.findOldEntry("TransformationsCodegen");
+      if (entry != null)
+      {
+         entry.removeYou();
+      }
       
       KanbanEntry sprint2 = kanbanBoard.findOrCreate("Sprint.002.Transformations")
             .withLastDeveloper("zuendorf")
@@ -174,7 +176,9 @@ public class ProjectBoard
       
       ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
       
-      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry", "oldNoOfLogEntries", R.INT);
+      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry", 
+         "oldNoOfLogEntries", R.INT, 
+         "phases", R.STRING);
 
       Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
       

@@ -6,6 +6,8 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.creators.KanbanEntrySet;
+import org.sdmlib.storyboards.creators.LogEntryPO;
 
 public class KanbanEntryPO extends PatternObject
 {
@@ -97,7 +99,71 @@ public class KanbanEntryPO extends PatternObject
       }
       return this;
    }
+   public KanbanEntryPO hasOldNoOfLogEntries(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public KanbanEntryPO hasPhases(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_PHASES)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public KanbanEntryPO hasPhases(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(KanbanEntry.PROPERTY_PHASES)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getPhases()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((KanbanEntry) getCurrentMatch()).getPhases();
+      }
+      return null;
+   }
+   
+   public KanbanEntryPO withPhases(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((KanbanEntry) getCurrentMatch()).setPhases(value);
+      }
+      return this;
+   }
+   
 }
+
+
 
 
 

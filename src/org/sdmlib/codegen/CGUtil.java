@@ -115,6 +115,13 @@ public class CGUtil
       return builder.toString();
    }
    
+   public static String replaceAll(String text, String... args)
+   {
+      StringBuilder buf = new StringBuilder(text);
+      replaceAll(buf, args);
+      return buf.toString();
+   }
+   
    public static void replaceAll(StringBuilder text, String... args)
    {
       int pos = -1 - args[0].length();

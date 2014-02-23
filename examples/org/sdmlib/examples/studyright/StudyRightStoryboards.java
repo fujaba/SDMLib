@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
@@ -228,202 +229,6 @@ public class StudyRightStoryboards
 
       Student albert = uni.createStudents()
             .withMatrNo(4242)
-            .withName("Albert");
-
-      Student nina = uni.createStudents()
-            .withMatrNo(2323)
-            .withName("Nina");
-
-      Room mathRoom = uni.createRooms()
-            .withRoomNo("math")
-            .withCredits(42)  
-            .withStudents(albert); 
-
-      Room artsRoom = uni.createRooms()
-            .withRoomNo("arts")
-            .withCredits(23)
-            .withNeighbors(mathRoom); 
-
-      Room sportsRoom = uni.createRooms()
-            .withRoomNo("sports")
-            .withCredits(23)
-            .withNeighbors(mathRoom, artsRoom); 
-
-      Room examRoom = uni.createRooms()
-            .withRoomNo("exam")
-            .withCredits(0)
-            .withNeighbors(sportsRoom, artsRoom);
-
-      Room progMeth = uni.createRooms()
-            .withRoomNo("ProgMeth")
-            .withCredits(42)
-            .withNeighbors(artsRoom, examRoom);
-
-      storyboard.addObjectDiagram(uni);
-
-
-      //=============================================================
-      storyboard.addStep("Use text templates to generate a natural language description of the object model.");
-
-      storyboard.markCodeStart();
-      StringBuilder modelDescription = new StringBuilder();
-
-      // first the university object itself
-      String objectDescription = CGUtil.fill(
-         "The example University has 99 rooms and 88 students:\n", 
-         "example", uni.getName(),
-         "99", "" + uni.getRooms().size(),
-         "88", "" + uni.getStudents().size());
-
-      modelDescription.append(objectDescription);
-
-      // now the rooms
-      for (Room room : uni.getRooms())
-      {
-         objectDescription = CGUtil.fill(
-            " - The roomName room has 42 credits. It is connected to rooms: roomList\n", 
-            "roomName", room.getRoomNo(),
-            "42", "" + room.getCredits(), 
-            "roomList", room.getNeighbors().getRoomNo().toString());
-
-         modelDescription.append(objectDescription);
-      }
-
-      // now the students
-      modelDescription.append("The students are:\n");
-      for (Student student : uni.getStudents())
-      {
-         objectDescription = CGUtil.fill(
-            " - Lee has immatrikulation number 1234.\n", 
-            "Lee", student.getName(),
-            "1234", "" + student.getMatrNo());
-
-         if (student.getIn() != null)
-         {
-            objectDescription = CGUtil.fill(objectDescription, 
-               ".", CGUtil.fill(" and is in the math room.", "math", student.getIn().getRoomNo()));
-         }
-
-         modelDescription.append(objectDescription);
-      }
-
-      storyboard.addCode();
-
-      storyboard.add("The resulting text: <pre>" + modelDescription.toString() + "</pre>");
-
-      storyboard.addStep("Text to model.");
-
-      storyboard.markCodeStart();
-      String otherUniDescription = 
-            "The Study False University has many rooms and some students:\n" + 
-                  " - The class diagrams room has 23 credits. It is connected to rooms: [laws, business]\n" + 
-                  " - The laws room has 24 credits. It is connected to rooms: [class diagrams, business]\n" + 
-                  " - The business room has 3 credits. It is connected to rooms: [laws, class diagrams]\n" + 
-                  "The students are:\n" + 
-                  " - Bart has immatrikulation number 111 and is in the laws room.\n" + 
-                  " - Rosi has immatrikulation number 112.\n";
-
-      LinkedHashMap<String, String> placeholderValues = CGUtil.find(otherUniDescription, 0,
-         "The example University has 99 rooms and 88 students:\n", 
-         "example", 
-         "99", 
-            "88");
-
-      String uniName = placeholderValues.get("example");
-
-      University falseUni = new University().withName(uniName);
-
-      // read rooms
-      boolean match = true;
-      int searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
-      while (match)
-      {
-         placeholderValues = CGUtil.find(otherUniDescription, searchPos,
-            " - The roomName room has 42 credits. It is connected to rooms: roomList\n", 
-            "roomName", 
-            "42", 
-               "roomList");
-
-         match = placeholderValues.size() > 1;
-
-         if (match)
-         {
-            searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
-
-            Room room = falseUni.createRooms()
-                  .withRoomNo(placeholderValues.get("roomName"))
-                  .withCredits(Integer.valueOf(placeholderValues.get("42")));
-
-            String[] roomNames = CGUtil.split(placeholderValues.get("roomList"));
-            RoomSet neighbors = falseUni.getRooms().hasRoomNo(roomNames);
-            room.withNeighbors(neighbors.toArray(new Room[] {}));
-         }
-      }
-
-      // now the students
-      if (otherUniDescription.startsWith("The students are:\n", searchPos))
-      {
-         searchPos += "The students are:\n".length();
-         match = true;
-         while (match)
-         {
-            placeholderValues = CGUtil.find(otherUniDescription, searchPos,
-               " - Lee has immatrikulation number 1234.\n", 
-               "Lee", 
-                  "1234");
-
-            match = placeholderValues.size() > 1;
-
-            if (match)
-            {
-               searchPos = Integer.valueOf(placeholderValues.get(CGUtil.SEARCH_POS));
-
-               Student student = falseUni.createStudents()
-                     .withName(placeholderValues.get("Lee"));
-
-               String matrNo = placeholderValues.get("1234");
-
-               placeholderValues = CGUtil.find(matrNo, 0,
-                  "1234 and is in the math room", 
-                  "1234", 
-                     "math");
-
-               if (placeholderValues.size() > 1)
-               {
-                  student.withMatrNo(Integer.valueOf(placeholderValues.get("1234")))
-                  .withIn(falseUni.getRooms(placeholderValues.get("math")));
-               }
-               else
-               {
-                  student.withMatrNo(Integer.valueOf(matrNo));
-               }
-            }
-         }
-      }
-
-      storyboard.addCode();
-
-      storyboard.add("Results in the following object structure:");
-
-      storyboard.addObjectDiagram(falseUni);
-
-      storyboard.dumpHTML();
-   }
-
-   @Test
-   public void testBidirectionalModelToTextTransformation2()
-   {
-      Storyboard storyboard = new Storyboard("examples");
-
-
-      //=============================================================
-      storyboard.addStep("We start with the usual StudyRight object model.");
-
-      University uni = new University()
-      .withName("StudyRight");
-
-      Student albert = uni.createStudents()
-            .withMatrNo(4242)
             .withName("Tom");
 
       Student nina = uni.createStudents()
@@ -465,21 +270,23 @@ public class StudyRightStoryboards
 
       Template rootTemplate = new Template()
       .withModelObject(uni)
-      .with("The example University has 99 rooms and 88 students: roomList The students are: studentList ",
+      .with("The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList ",
          "example", University.PROPERTY_NAME, 
          "99", University.PROPERTY_ROOMS +  ".size", 
          "88", University.PROPERTY_STUDENTS + ".size");
 
       Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withReferenceLookup(true)
             .withParent("roomList", University.PROPERTY_ROOMS)
             .with(
                " - The xy room has 42 credits. It is connected to rooms: neighbors",
                "xy", Room.PROPERTY_ROOMNO,
                "42", Room.PROPERTY_CREDITS)
-               .withList("\n", "\n", "\n");
+               .withList("", "\n", "\n");
 
       Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
             .withParent("neighbors", Room.PROPERTY_NEIGHBORS)
+            .withReferenceLookup(true)
             .with(
                "name",
                "name", Room.PROPERTY_ROOMNO)
@@ -491,13 +298,13 @@ public class StudyRightStoryboards
                " - Stud has student number 1234.",
                "Stud", Student.PROPERTY_NAME,
                "1234", Student.PROPERTY_MATRNO)
-               .withList("\n", "\n", "\n");
+               .withList("", "\n", "\n");
 
       storyboard.addObjectDiagram(rootTemplate);
 
       rootTemplate.generate();
 
-      storyboard.addCode();
+      storyboard.addCode("examples");
 
       storyboard.add("Results in the following text:");
       storyboard.add("<pre>" + rootTemplate.getExpandedText() + "</pre>");
@@ -520,6 +327,10 @@ public class StudyRightStoryboards
       storyboard.addCode();
       
       storyboard.addObjectDiagram(rootTemplate.getModelObject());
+
+      storyboard.addLogEntry(R.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
+
+      storyboard.addLogEntry(R.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
       
       storyboard.dumpHTML();
    }

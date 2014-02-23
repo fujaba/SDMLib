@@ -32,11 +32,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -236,8 +239,7 @@ public class Storyboard implements PropertyChangeInterface
       if (kanbanEntry == null)
       {
          Date today = new Date(System.currentTimeMillis());
-         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-         String todayString = df.format(today);
+         String todayString = DateFormat.getInstance().format(today);
          kanbanEntry = new KanbanEntry()
          .withName(this.getName())
          .withPhase(backlog)
@@ -249,41 +251,82 @@ public class Storyboard implements PropertyChangeInterface
             .withDeveloper(System.getProperty("user.name"))
             .withHoursRemainingInTotal(0.0));
       }
+      
+      if (this.kanbanWorkFlow != null)
+      {
+         kanbanEntry.setPhases(this.kanbanWorkFlow);
+         
+         KanbanEntry parent = kanbanEntry.getParent();
+         
+         while (parent != null)
+         {
+            parent.setPhases(this.kanbanWorkFlow);
+            parent = parent.getParent();
+         }
+      }
+      
+      if (sprintName != null)
+      {
+         KanbanEntry sprintEntry = kanbanBoard.findOrCreate(sprintName);
+         kanbanEntry.setParent(sprintEntry);
+         
+         if (sprintEntry.getParent() == null)
+         {
+            sprintEntry.setParent(kanbanBoard.findOrCreate("Project"));
+         }
+         
+         if (sprintEntry.getPhase() == null)
+         {
+            sprintEntry.setPhase(ACTIVE);
+         }
+      }
 
-      // compute total remaining time
-      double sumOfRemainingTime = 0.0;
+      // reuse old logentries to keep kanban.json stable
+      double remainingTime = 0.0;
+      double hoursSpend = 0.0;
+      Iterator<LogEntry> oldLogEntriesIter = ((HashSet<LogEntry>) kanbanEntry.getLogEntries().clone()).iterator();
+      Date latestEntryTime = null;
+      
       for (LogEntry newEntry : newLogEntries.values())
       {
-         sumOfRemainingTime += newEntry.getHoursRemainingInTotal();
-      }
-
-      // update log entries
-      for (LogEntry oldEntry : kanbanEntry.getLogEntries())
-      {
-         // do I have a new entry for this date
-         String oldDate = oldEntry.getDate();
-         LogEntry newLogEntry = newLogEntries.get(oldDate);
-
-         if (newLogEntry != null)
+         if (latestEntryTime == null)
          {
-            // transfer values
-            oldEntry.withDeveloper(newLogEntry.getDeveloper())
-            .withHoursRemainingInPhase(newLogEntry.getHoursRemainingInPhase())
-            .withHoursRemainingInTotal(sumOfRemainingTime)
-            .withHoursSpend(newLogEntry.getHoursSpend())
-            .withPhase(newLogEntry.getPhase());
-
-            // remove from newLogEntries
-            newLogEntries.remove(oldDate);
+            latestEntryTime = newEntry.getParsedDate();
+            remainingTime = newEntry.getHoursRemainingInTotal();
          }
-      }    
-
-      for (String key : newLogEntries.keySet())
-      {
-         LogEntry newLogEntry = newLogEntries.get(key);
-         newLogEntry.setHoursRemainingInTotal(sumOfRemainingTime);
-         kanbanEntry.addToLogEntries(newLogEntry);
+         else if (latestEntryTime.compareTo(newEntry.getParsedDate()) < 0)
+         {
+            latestEntryTime = newEntry.getParsedDate();
+            remainingTime = newEntry.getHoursRemainingInTotal();
+         }
+         
+         hoursSpend += newEntry.getHoursSpend();
+         
+         if (oldLogEntriesIter.hasNext())
+         {
+            LogEntry oldEntry = oldLogEntriesIter.next();
+            oldEntry.withDeveloper(newEntry.getDeveloper())
+            .withDate(newEntry.getDate())
+            .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
+            .withHoursSpend(newEntry.getHoursSpend())
+            .withPhase(newEntry.getPhase());
+         }
+         else
+         {
+            // out of old entries, just add new entry
+            kanbanEntry.addToLogEntries(newEntry);
+         }
       }
+      
+      kanbanEntry.setHoursRemaining(remainingTime);
+
+      // remove obsolet oldLogEntries
+      while (oldLogEntriesIter.hasNext())
+      {
+         LogEntry oldEntry = oldLogEntriesIter.next();
+         kanbanEntry.removeFromLogEntries(oldEntry);
+      }
+      
 
       // generate the html text
       String htmlText = "<html>\n" +
@@ -876,7 +919,9 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+            .toImg(
+               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
 
       this.addToSteps(imgLink);
    }
@@ -924,6 +969,20 @@ public class Storyboard implements PropertyChangeInterface
       return newLogEntries;
    }
 
+   public void addLogEntry(String phase, String developer, String date, double hoursSpend, double hoursRemaining, String comment)
+   {
+      LogEntry logEntry = new LogEntry()
+      .withDate(date)
+      .withPhase(phase)
+      .withDeveloper(developer)
+      .withHoursSpend(hoursSpend)
+      .withHoursRemainingInTotal(hoursRemaining)
+      .withComment(comment);
+      
+      
+      this.addLogEntry(logEntry);
+   }
+   
    public void addLogEntry(LogEntry entry)
    {
       newLogEntries.put(entry.getDate(), entry);
@@ -1567,6 +1626,29 @@ public class Storyboard implements PropertyChangeInterface
       
       String link = pattern.dumpDiagram(diagName, b);
       this.add(link);
+   }
+
+   private String sprintName = null;
+   
+   public void setSprint(String string)
+   {
+      this.sprintName = string;
+   }
+
+   public void removeFromProject()
+   {
+      // load the kanban board and remove entry and logs and generate and store
+      StoryboardManager.get()
+      .remove(this)
+      .dumpHTML();
+
+   }
+   
+   private String kanbanWorkFlow = null;
+
+   public void setKanbanWorkFlow(String string)
+   {
+      this.kanbanWorkFlow = string;
    } 
 }
 

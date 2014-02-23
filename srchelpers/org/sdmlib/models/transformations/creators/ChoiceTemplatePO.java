@@ -484,5 +484,38 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
       return null;
    }
 
+   public ChoiceTemplatePO hasReferenceLookup(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_REFERENCELOOKUP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getReferenceLookup()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ChoiceTemplate) getCurrentMatch()).getReferenceLookup();
+      }
+      return false;
+   }
+   
+   public ChoiceTemplatePO withReferenceLookup(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ChoiceTemplate) getCurrentMatch()).setReferenceLookup(value);
+      }
+      return this;
+   }
+   
 }
+
 

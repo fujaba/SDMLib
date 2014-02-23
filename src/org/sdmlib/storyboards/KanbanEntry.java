@@ -24,6 +24,7 @@ package org.sdmlib.storyboards;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -472,6 +473,12 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          return true;
       }
 
+      if (PROPERTY_PHASES.equalsIgnoreCase(attrName))
+      {
+         setPhases((String) value);
+         return true;
+      }
+
       else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
       {
          setPhase((String) value);
@@ -537,6 +544,11 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       if (PROPERTY_OLDNOOFLOGENTRIES.equalsIgnoreCase(attrName))
       {
          return getOldNoOfLogEntries();
+      }
+
+      if (PROPERTY_PHASES.equalsIgnoreCase(attrName))
+      {
+         return getPhases();
       }
 
       else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
@@ -754,9 +766,53 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    {
       StringBuilder _ = new StringBuilder();
       
+      _.append(" ").append(this.getName());
       _.append(" ").append(this.getOldNoOfLogEntries());
+      _.append(" ").append(this.getPhases());
       return _.substring(1);
    }
 
+   public ArrayList<LogEntry> getAllLogEntries()
+   {
+      ArrayList<LogEntry> allLogEntries = new ArrayList<LogEntry>();
+      
+      allLogEntries.addAll(this.getLogEntries());
+      
+      for (KanbanEntry subEntry : this.getSubentries())
+      {
+         allLogEntries.addAll(subEntry.getAllLogEntries());
+      }
+      
+      return allLogEntries;
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PHASES = "phases";
+   
+   private String phases;
+
+   public String getPhases()
+   {
+      return this.phases;
+   }
+   
+   public void setPhases(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.phases, value))
+      {
+         String oldValue = this.phases;
+         this.phases = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASES, oldValue, value);
+      }
+   }
+   
+   public KanbanEntry withPhases(String value)
+   {
+      setPhases(value);
+      return this;
+   } 
 }
 

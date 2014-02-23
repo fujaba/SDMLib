@@ -276,6 +276,8 @@ public class StoryboardTests {
       
       storyboard.addObjectDiagram(rootObject);
       
+      storyboard.addLogEntry(R.DONE, "stefan", "11.11.2012 12:00:00 EST", 80, 0, "Serialisation via JSON works great.");
+      
       storyboard.dumpHTML();
    }
 

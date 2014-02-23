@@ -4,67 +4,7 @@
 <body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation2</a></p>
 <p>BidirectionalModelToTextTransformation2</p>
-<p>Start: We start with the usual StudyRight object model.</p>
-<embed type="image/svg+xml" src='BidirectionalModelToTextTransformation23.svg'>
-<p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><embed type="image/svg+xml" src='BidirectionalModelToTextTransformation25.svg'>
-<pre>
-      Template rootTemplate = new Template()
-      .withModelObject(uni)
-      .with(&quot;The example University has 99 rooms and 88 students: roomList The students are: studentList &quot;,
-         &quot;example&quot;, University.PROPERTY_NAME, 
-         &quot;99&quot;, University.PROPERTY_ROOMS +  &quot;.size&quot;, 
-         &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
-
-      Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
-            .with(
-               &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
-               &quot;xy&quot;, Room.PROPERTY_ROOMNO,
-               &quot;42&quot;, Room.PROPERTY_CREDITS)
-               .withList(&quot;n&quot;, &quot;n&quot;, &quot;n&quot;);
-
-      Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
-            .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
-            .with(
-               &quot;name&quot;,
-               &quot;name&quot;, Room.PROPERTY_ROOMNO)
-               .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
-      
-      Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
-            .with(
-               &quot; - Stud has student number 1234.&quot;,
-               &quot;Stud&quot;, Student.PROPERTY_NAME,
-               &quot;1234&quot;, Student.PROPERTY_MATRNO)
-               .withList(&quot;n&quot;, &quot;n&quot;, &quot;n&quot;);
-
-      storyboard.addObjectDiagram(rootTemplate);
-
-      rootTemplate.generate();
-
-</pre><p>Results in the following text:</p>
-<pre>The StudyRight University has 5 rooms and 2 students: 
- - The math room has 42 credits. It is connected to rooms: arts, sports.
- - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
- - The sports room has 23 credits. It is connected to rooms: math, arts, exam.
- - The exam room has 0 credits. It is connected to rooms: sports, arts, ProgMeth.
- - The ProgMeth room has 42 credits. It is connected to rooms: arts, exam.
- The students are: 
- - Tom has student number 4242.
- - Nina has student number 2323.
- </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
-      rootTemplate.setExpandedText(
-         &quot;The Study False University has many rooms and some students: n&quot; + 
-               &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.n&quot; + 
-               &quot; - The laws room has 24 credits. It is connected to rooms: class diagrams, business.n&quot; + 
-               &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.n &quot; + 
-               &quot;The students are: n&quot; + 
-               &quot; - Bart has student number 111.n&quot; + 
-               &quot; - Meggie has student number 112.n &quot;);
-
-      rootTemplate.parse();
-      
-</pre><embed type="image/svg+xml" src='BidirectionalModelToTextTransformation211.svg'>
+<p>CANCELED</p>
 
 </body>
 </html>

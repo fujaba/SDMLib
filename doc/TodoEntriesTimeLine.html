@@ -1,6 +1,50 @@
 <html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+<script> 
+$(function () { 
+    $('#container').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Burn Down'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Hours'
+            }
+        },
+        series: [{
+            name: 'hours done',
+            data: [
+               [1381231800000, 1.0]
+               ]
+        }, {
+            name: 'hours planned',
+            data: [
+               [1381231800000, 1.0]
+               ]
+        }]
+    });
+});
+</script>
+
+</head>
 <body>
-<p>Time line for TodoEntries</p><p>08.10.2013 12:00:00 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
-<p>08.10.2013 13:30:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. </p>
+<p>Burn Down and Time Line for <a href='TodoEntries.html' type='text/x-java'>TodoEntries</a></p>
+
+<div id="container" style="width:100%; height:600px;">Hallo</div>
+
+<p>08.10.2013 13:30:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+
 </body>
 </html>

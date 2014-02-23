@@ -27,11 +27,15 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.storyboards.creators.LogEntrySet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 
 // should have a creator class
-public class LogEntry implements PropertyChangeInterface
+public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
 {
    
    public LogEntry()
@@ -46,11 +50,29 @@ public class LogEntry implements PropertyChangeInterface
 
    private String date;
 
+   private Date parsedDate = null;
+   
+   public Date getParsedDate()
+   {
+      return parsedDate;
+   }
+
    public void setDate(String value) {
       if ( StrUtil.stringCompare (this.date, value) != 0 )
       {
          String oldValue = this.date;
          this.date = value;
+         
+         DateFormat dateFormat = DateFormat.getInstance();
+         try
+         {
+            this.parsedDate = dateFormat.parse(this.date);
+         }
+         catch (ParseException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
       }
    }
@@ -74,22 +96,7 @@ public class LogEntry implements PropertyChangeInterface
    public double getHoursSpend() {
       return this.hoursSpend;
    }
-   public static final String PROPERTY_HOURS_REMAINING_IN_PHASE = "hoursRemainingInPhase";
 
-   private double hoursRemainingInPhase;
-
-   public void setHoursRemainingInPhase(double value) {
-      if ( this.hoursRemainingInPhase != value )
-      {
-         double oldValue = this.hoursRemainingInPhase;
-         this.hoursRemainingInPhase = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_REMAINING_IN_PHASE, oldValue, value);
-      }
-   }
-
-   public double getHoursRemainingInPhase() {
-      return this.hoursRemainingInPhase;
-   }
    public static final String PROPERTY_HOURS_REMAINING_IN_TOTAL = "hoursRemainingInTotal";
 
    private double hoursRemainingInTotal;
@@ -180,11 +187,6 @@ public class LogEntry implements PropertyChangeInterface
          setHoursSpend(Double.parseDouble(value.toString()));
          return true;
       }
-      else   if (PROPERTY_HOURS_REMAINING_IN_PHASE.equalsIgnoreCase(attrName)) 
-      {
-         setHoursRemainingInPhase(Double.parseDouble(value.toString()));
-         return true;
-      }
       else   if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attrName)) 
       {
          setHoursRemainingInTotal(Double.parseDouble(value.toString()));
@@ -236,10 +238,6 @@ public class LogEntry implements PropertyChangeInterface
       {
          return getHoursSpend();
       }
-      else     if (PROPERTY_HOURS_REMAINING_IN_PHASE.equalsIgnoreCase(attribute)) 
-      {
-         return getHoursRemainingInPhase();
-      }
       else     if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attribute)) 
       {
          return getHoursRemainingInTotal();
@@ -273,13 +271,6 @@ public class LogEntry implements PropertyChangeInterface
    public LogEntry withHoursSpend(double newValue)
    {
       this.setHoursSpend(newValue);
-      return this;
-   }
-
-
-   public LogEntry withHoursRemainingInPhase(double newValue)
-   {
-      this.setHoursRemainingInPhase(newValue);
       return this;
    }
 
@@ -370,6 +361,12 @@ public class LogEntry implements PropertyChangeInterface
    {
       setKanbanEntry(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   @Override
+   public int compareTo(LogEntry o)
+   {
+      return this.getParsedDate().compareTo(o.getParsedDate());
    }
 }
 

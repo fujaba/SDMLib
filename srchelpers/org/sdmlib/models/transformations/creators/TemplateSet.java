@@ -30,6 +30,8 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.modelsets.booleanList;
+import java.util.List;
 
 public class TemplateSet extends SDMSet<Template>
 {
@@ -648,5 +650,43 @@ public class TemplateSet extends SDMSet<Template>
       return this;
    }
 
+   public booleanList getReferenceLookup()
+   {
+      booleanList result = new booleanList();
+      
+      for (Template obj : this)
+      {
+         result.add(obj.getReferenceLookup());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasReferenceLookup(boolean value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value == obj.getReferenceLookup())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TemplateSet withReferenceLookup(boolean value)
+   {
+      for (Template obj : this)
+      {
+         obj.setReferenceLookup(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

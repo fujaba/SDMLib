@@ -20,6 +20,7 @@ public class TemplateCreator extends EntityFactory
       Template.PROPERTY_CHOOSER,
       Template.PROPERTY_MATCHES,
       Template.PROPERTY_PARENTS,
+      Template.PROPERTY_REFERENCELOOKUP,
    };
    
    public String[] getProperties()
@@ -60,4 +61,5 @@ public class TemplateCreator extends EntityFactory
       ((Template) entity).removeYou();
    }
 }
+
 

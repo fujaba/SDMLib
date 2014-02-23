@@ -12,7 +12,7 @@ public class ModelToTextToModelClassModel
    @Test
    public void modelToTextToModelClassModel()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard story = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
       
@@ -24,7 +24,8 @@ public class ModelToTextToModelClassModel
                "modelClassName", R.STRING,
                "listStart", R.STRING,
                "listSeparator", R.STRING,
-               "listEnd", R.STRING
+               "listEnd", R.STRING, 
+               "referenceLookup", R.BOOLEAN
                  );
       
       Clazz placeholderDescription = template.createClassAndAssoc("PlaceHolderDescription", "placeholders", R.MANY, "owners", R.MANY)
@@ -51,10 +52,12 @@ public class ModelToTextToModelClassModel
       
       placeholderDescription.withAssoc(template, "subTemplate", R.ONE, "parents", R.MANY);
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
       model.generate("src", "srchelpers");
       
-      storyboard.dumpHTML();
+      story.addLogEntry(R.DONE, "zuendorf", "23.02.2014 17:50:42", 50, 0, "Solving tricky parsing issue. Enabling reference lookup on demand");
+      
+      story.dumpHTML();
    }
 }

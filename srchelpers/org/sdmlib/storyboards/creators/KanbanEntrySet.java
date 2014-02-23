@@ -28,6 +28,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
+import java.util.List;
 
 public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -144,7 +145,60 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return this;
    }
 
+   public StringList getPhases()
+   {
+      StringList result = new StringList();
+      
+      for (KanbanEntry obj : this)
+      {
+         result.add(obj.getPhases());
+      }
+      
+      return result;
+   }
+
+   public KanbanEntrySet hasPhases(String value)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (value.equals(obj.getPhases()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public KanbanEntrySet hasPhases(String lower, String upper)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (lower.compareTo(obj.getPhases()) <= 0 && obj.getPhases().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public KanbanEntrySet withPhases(String value)
+   {
+      for (KanbanEntry obj : this)
+      {
+         obj.setPhases(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

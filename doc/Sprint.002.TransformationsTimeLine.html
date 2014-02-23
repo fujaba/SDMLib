@@ -1,5 +1,49 @@
 <html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+<script> 
+$(function () { 
+    $('#container').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Burn Down'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Hours'
+            }
+        },
+        series: [{
+            name: 'hours done',
+            data: [
+               
+               ]
+        }, {
+            name: 'hours planned',
+            data: [
+               
+               ]
+        }]
+    });
+});
+</script>
+
+</head>
 <body>
-<p>Time line for Sprint.002.Transformations</p><p>19.08.2012 22:59:05 zuendorf hours spend: 4.0 hours remaining: 0.0 LudoStoryboard: Achieved: Start situation: </p>
+<p>Burn Down and Time Line for <a href='Sprint.002.Transformationskanban.html' type='text/x-java'>Sprint.002.Transformations</a></p>
+
+<div id="container" style="width:100%; height:600px;">Hallo</div>
+
+
 </body>
 </html>

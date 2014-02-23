@@ -5,2455 +5,506 @@
     "prop":{
       "name":"SDMLibProject",
       "phase":"active",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":209,
+      "hoursSpend":228,
       "subentries":[
         {"id":"KE.K2"},
-        {"id":"KE.K6"},
-        {"id":"KE.K8"},
-        {"id":"KE.K16"},
-        {"id":"KE.K22"},
-        {"id":"KE.K32"},
+        {"id":"KE.K3"},
+        {"id":"KE.K5"},
+        {"id":"KE.K7"},
+        {"id":"KE.K12"},
+        {"id":"KE.K19"},
+        {"id":"KE.K21"},
+        {"id":"KE.K23"},
+        {"id":"KE.K30"},
         {"id":"KE.K36"},
-        {"id":"KE.K43"},
-        {"id":"KE.K47"},
-        {"id":"KE.K54"},
-        {"id":"KE.K63"},
-        {"id":"KE.K70"},
-        {"id":"KE.K72"},
-        {"id":"KE.K74"},
-        {"id":"KE.K76"},
-        {"id":"KE.K78"},
-        {"id":"KE.K80"},
-        {"id":"KE.K82"},
-        {"id":"KE.K84"},
-        {"id":"KE.K87"},
-        {"id":"KE.K106"},
-        {"id":"KE.K108"},
-        {"id":"KE.K110"},
-        {"id":"KE.K112"},
-        {"id":"KE.K121"},
-        {"id":"KE.K129"},
-        {"id":"KE.K131"},
-        {"id":"KE.K133"},
-        {"id":"KE.K136"},
-        {"id":"KE.K139"},
-        {"id":"KE.K147"},
-        {"id":"KE.K149"},
-        {"id":"KE.K153"},
-        {"id":"KE.K157"},
-        {"id":"KE.K159"},
-        {"id":"KE.K168"},
-        {"id":"KE.K170"},
-        {"id":"KE.K172"},
-        {"id":"KE.K174"},
-        {"id":"KE.K176"},
-        {"id":"KE.K178"},
-        {"id":"KE.K180"}
-      ],
-      "logEntries":[
-        {"id":"KE.L5"},
-        {"id":"KE.L25"},
-        {"id":"KE.L29"},
-        {"id":"KE.L31"},
-        {"id":"KE.L35"},
-        {"id":"KE.L39"},
-        {"id":"KE.L42"},
-        {"id":"KE.L46"},
-        {"id":"KE.L53"},
-        {"id":"KE.L56"},
-        {"id":"KE.L62"},
-        {"id":"KE.L66"},
-        {"id":"KE.L67"},
-        {"id":"KE.L69"},
-        {"id":"KE.L90"},
-        {"id":"KE.L94"},
-        {"id":"KE.L105"},
-        {"id":"KE.L116"},
-        {"id":"KE.L120"},
-        {"id":"KE.L123"},
-        {"id":"KE.L128"},
-        {"id":"KE.L135"},
-        {"id":"KE.L138"},
-        {"id":"KE.L146"},
-        {"id":"KE.L152"},
-        {"id":"KE.L156"},
-        {"id":"KE.L167"},
-        {"id":"KE.L183"},
-        {"id":"KE.L185"},
-        {"id":"KE.L188"}
-      ],
-      "oldNoOfLogEntries":30
+        {"id":"KE.K40"},
+        {"id":"KE.K42"}
+      ]
     }
   },
   {
     "id":"KE.K2",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"ExtendStoryboardByAddToDoMethod",
+      "name":"StudyRightObjectModelSerialisation",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":3,
+      "hoursSpend":80,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L3"},
-        {"id":"KE.L4"},
-        {"id":"KE.L30"}
-      ],
-      "oldNoOfLogEntries":3
+        {"id":"KE.L18"}
+      ]
     }
   },
   {
-    "id":"KE.K6",
+    "id":"KE.K3",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"Sprint.001.Booting",
-      "phase":"active",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":51,
+      "name":"StudyRightObjectModelNavigationAndQueries",
+      "phase":"done",
+      "hoursSpend":40,
       "parent":{"id":"KE.K1"},
-      "subentries":[
-        {"id":"KE.K10"},
-        {"id":"KE.K11"},
-        {"id":"KE.K12"},
-        {"id":"KE.K13"},
-        {"id":"KE.K14"},
-        {"id":"KE.K15"},
-        {"id":"KE.K18"},
-        {"id":"KE.K7"},
-        {"id":"KE.K9"}
-      ],
       "logEntries":[
-        {"id":"KE.L28"},
-        {"id":"KE.L61"},
-        {"id":"KE.L64"},
-        {"id":"KE.L68"},
-        {"id":"KE.L93"},
-        {"id":"KE.L104"},
-        {"id":"KE.L119"},
-        {"id":"KE.L127"},
-        {"id":"KE.L145"},
-        {"id":"KE.L166"},
-        {"id":"KE.L187"}
-      ],
-      "oldNoOfLogEntries":11
+        {"id":"KE.L4"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K5",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRight with assignments storyboard",
+      "phase":"backlog",
+      "parent":{"id":"KE.K1"}
     }
   },
   {
     "id":"KE.K7",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"StoryboardInfrastructure",
+      "name":"Flipbook",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":1,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L26"},
-        {"id":"KE.L27"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K8",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"ProjectManagement",
-      "phase":"active",
-      "lastDeveloper":"zuendorf",
+      "hoursSpend":5,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L21"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K9",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightClassesCodeGen",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":12,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L95"},
-        {"id":"KE.L96"},
-        {"id":"KE.L97"},
-        {"id":"KE.L98"},
-        {"id":"KE.L99"},
-        {"id":"KE.L100"},
-        {"id":"KE.L101"},
-        {"id":"KE.L102"},
-        {"id":"KE.L103"}
-      ],
-      "oldNoOfLogEntries":9
-    }
-  },
-  {
-    "id":"KE.K10",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightObjectStoryboards",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":7,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L57"},
-        {"id":"KE.L58"},
-        {"id":"KE.L59"},
-        {"id":"KE.L60"},
-        {"id":"KE.L186"}
-      ],
-      "oldNoOfLogEntries":5
-    }
-  },
-  {
-    "id":"KE.K11",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightReverseClassModel",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":1,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L91"},
-        {"id":"KE.L92"}
-      ],
-      "oldNoOfLogEntries":2
+        {"id":"KE.L8"},
+        {"id":"KE.L9"},
+        {"id":"KE.L10"},
+        {"id":"KE.L11"}
+      ]
     }
   },
   {
     "id":"KE.K12",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"ClassModelCodeGen",
-      "phase":"implementation",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":11,
-      "parent":{"id":"KE.K6"},
+      "name":"BidirectionalModelToTextTransformation",
+      "phase":"done",
+      "hoursSpend":42,
+      "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L141"},
-        {"id":"KE.L142"},
-        {"id":"KE.L143"},
-        {"id":"KE.L144"}
-      ],
-      "oldNoOfLogEntries":4
+        {"id":"KE.L44"},
+        {"id":"KE.L45"}
+      ]
     }
   },
   {
     "id":"KE.K13",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"GroupAccountCodegen",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":2,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L117"},
-        {"id":"KE.L118"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K14",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"GroupAccountRuleRecognition",
-      "parent":{"id":"KE.K6"}
-    }
-  },
-  {
-    "id":"KE.K15",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TransformationsCodegen",
-      "phase":"modeling",
-      "lastDeveloper":"zuendorf",
+      "name":"StudyRightObjectStoryboards",
+      "phase":"backlog",
       "hoursSpend":7,
-      "parent":{"id":"KE.K6"},
+      "parent":{"id":"KE.K21"},
       "logEntries":[
-        {"id":"KE.L124"},
-        {"id":"KE.L125"},
-        {"id":"KE.L126"}
-      ],
-      "oldNoOfLogEntries":3
-    }
-  },
-  {
-    "id":"KE.K16",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"Sprint.002.Transformations",
-      "phase":"active",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":4,
-      "parent":{"id":"KE.K1"},
-      "subentries":[
-        {"id":"KE.K17"},
-        {"id":"KE.K19"},
-        {"id":"KE.K20"}
-      ],
-      "logEntries":[
-        {"id":"KE.L41"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K17",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"PatternModelCodeGen",
-      "parent":{"id":"KE.K16"}
-    }
-  },
-  {
-    "id":"KE.K18",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"GenericObjectDiagram",
-      "phase":"implementation",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":10,
-      "parent":{"id":"KE.K6"},
-      "logEntries":[
-        {"id":"KE.L161"},
-        {"id":"KE.L162"},
-        {"id":"KE.L163"},
-        {"id":"KE.L164"},
-        {"id":"KE.L165"}
-      ],
-      "oldNoOfLogEntries":5
+        {"id":"KE.L14"},
+        {"id":"KE.L15"},
+        {"id":"KE.L16"},
+        {"id":"KE.L17"}
+      ]
     }
   },
   {
     "id":"KE.K19",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"LudoModel",
-      "parent":{"id":"KE.K16"}
+      "name":"ExtendStoryboardByAddToDoMethod",
+      "phase":"done",
+      "lastDeveloper":"zuendorf",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L20"}
+      ]
     }
   },
   {
-    "id":"KE.K20",
+    "id":"KE.K21",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"LudoStoryboard",
-      "phase":"modeling",
+      "name":"Sprint.001.Booting",
+      "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursSpend":4,
-      "parent":{"id":"KE.K16"},
-      "logEntries":[
-        {"id":"KE.L40"}
-      ],
-      "oldNoOfLogEntries":1
+      "hoursSpend":8,
+      "parent":{"id":"KE.K1"},
+      "subentries":[
+        {"id":"KE.K13"},
+        {"id":"KE.K22"},
+        {"id":"KE.K24"},
+        {"id":"KE.K25"},
+        {"id":"KE.K26"},
+        {"id":"KE.K27"},
+        {"id":"KE.K28"},
+        {"id":"KE.K32"}
+      ]
     }
   },
   {
     "id":"KE.K22",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"StoryboardInfrastructureInternals",
+      "name":"StoryboardInfrastructure",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
       "hoursSpend":1,
+      "parent":{"id":"KE.K21"},
+      "logEntries":[
+        {"id":"KE.L38"},
+        {"id":"KE.L39"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K23",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ProjectManagement",
+      "phase":"active",
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L23"},
-        {"id":"KE.L24"}
-      ],
-      "oldNoOfLogEntries":2
+        {"id":"KE.L35"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K24",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRightClassesCodeGen",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K25",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRightReverseClassModel",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K26",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"ClassModelCodeGen",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K27",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountCodegen",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K28",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountRuleRecognition",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K30",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"Sprint.002.Transformations",
+      "phase":"active",
+      "lastDeveloper":"zuendorf",
+      "parent":{"id":"KE.K1"},
+      "subentries":[
+        {"id":"KE.K31"},
+        {"id":"KE.K33"},
+        {"id":"KE.K34"}
+      ]
+    }
+  },
+  {
+    "id":"KE.K31",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"PatternModelCodeGen",
+      "parent":{"id":"KE.K30"}
     }
   },
   {
     "id":"KE.K32",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"TodoEntries",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":1,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L33"},
-        {"id":"KE.L34"}
-      ],
-      "oldNoOfLogEntries":2
+      "name":"GenericObjectDiagram",
+      "parent":{"id":"KE.K21"}
+    }
+  },
+  {
+    "id":"KE.K33",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"LudoModel",
+      "parent":{"id":"KE.K30"}
+    }
+  },
+  {
+    "id":"KE.K34",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"LudoStoryboard",
+      "parent":{"id":"KE.K30"}
     }
   },
   {
     "id":"KE.K36",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"LudoStoryboardManual",
+      "name":"StoryboardInfrastructureInternals",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
       "hoursSpend":1,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L37"},
-        {"id":"KE.L38"}
-      ],
-      "oldNoOfLogEntries":2
+        {"id":"KE.L37"}
+      ]
     }
   },
   {
-    "id":"KE.K43",
+    "id":"KE.K40",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
-      "name":"TrainModel",
+      "name":"TodoEntries",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":3,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L44"},
-        {"id":"KE.L45"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K47",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"Flipbook",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursRemaining":2,
-      "hoursSpend":5,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L48"},
-        {"id":"KE.L49"},
-        {"id":"KE.L50"},
-        {"id":"KE.L51"},
-        {"id":"KE.L52"}
-      ],
-      "oldNoOfLogEntries":5
-    }
-  },
-  {
-    "id":"KE.K54",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"BidirectionalModelToTextTransformation",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L55"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K63",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011SimpleMigration",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L65"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K70",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011HelloWorldConstantTransformation1",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L71"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K72",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011HelloWorldConstantTransformation2WithReferences",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L73"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K74",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011HelloWorldReverseEdges",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L75"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K76",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011HelloWorldCountNumberOfNodes",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L77"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K78",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011HelloWorldModelToText",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L79"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K80",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011DeleteNodeWithSpecificName",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L81"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K82",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011InsertTransitiveEdges",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L83"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K84",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightExtendsReverseClassModel",
-      "phase":"backlog",
-      "lastDeveloper":"ajahl",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L85"},
-        {"id":"KE.L86"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K87",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightOneToOneAssoc",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
       "hoursSpend":1,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L88"},
-        {"id":"KE.L89"}
-      ],
-      "oldNoOfLogEntries":2
+        {"id":"KE.L41"}
+      ]
     }
   },
   {
-    "id":"KE.K106",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"trainCollectPassengers",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L107"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K108",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRight with assignments storyboard",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L109"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K110",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"adamAndEveModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L111"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K112",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"GroupAccountStoryboard1",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":12,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L113"},
-        {"id":"KE.L114"},
-        {"id":"KE.L115"},
-        {"id":"KE.L184"}
-      ],
-      "oldNoOfLogEntries":4
-    }
-  },
-  {
-    "id":"KE.K121",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRight with assignments class generation",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L122"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K129",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"ReachabilitGraphSameCertificatesNonIsomorphic",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L130"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K131",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"SimpleReachabilityGraphIsomorphismTest",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L132"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K133",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"WrapExistingClasses",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":5,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L134"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K136",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"SortIndex",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":1,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L137"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K139",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"taskFlowModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L140"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K147",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"FerrymansProblemExample",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L148"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K149",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"PatternModelCodegen",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":80,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L150"},
-        {"id":"KE.L151"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K153",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"EmptyClass",
-      "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":1,
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L154"},
-        {"id":"KE.L155"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.K157",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"SimpleReachabilityGraphModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L158"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K159",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"FerryMansProblemModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L160"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K168",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"ReplicationModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L169"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K170",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"BidirectionalModelToTextTransformation2",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L171"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K172",
+    "id":"KE.K42",
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"modelToTextToModelClassModel",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L173"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K174",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightObjectModelSerialisation",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L175"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K176",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"TTC2011SimpleMigrationViaGenericGraphs",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L177"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K178",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"BanfM2MTransformation",
-      "phase":"backlog",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L179"}
-      ],
-      "oldNoOfLogEntries":1
-    }
-  },
-  {
-    "id":"KE.K180",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"StudyRightObjectModelNavigationAndQueries",
       "phase":"done",
-      "lastDeveloper":"zuendorf",
-      "hoursSpend":40,
+      "hoursSpend":50,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L181"},
-        {"id":"KE.L182"}
-      ],
-      "oldNoOfLogEntries":2
-    }
-  },
-  {
-    "id":"KE.L3",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K2"},
-      "developer":"zuendorf",
-      "phase":"backlog"
+        {"id":"KE.L43"}
+      ]
     }
   },
   {
     "id":"KE.L4",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"01.11.2012 12:33:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K2"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: "
-    }
-  },
-  {
-    "id":"KE.L5",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"ExtendStoryboardByAddToDoMethod: null"
-    }
-  },
-  {
-    "id":"KE.L21",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:38:42",
-      "kanbanEntry":{"id":"KE.K8"},
-      "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
-    "id":"KE.L23",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K22"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L24",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:22:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K22"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Object diagram for storyboard and KanbanEntry:"
-    }
-  },
-  {
-    "id":"KE.L25",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:22:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StoryboardInfrastructureInternals: Achieved: Object diagram for storyboard and KanbanEntry:"
-    }
-  },
-  {
-    "id":"KE.L26",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:36:42",
-      "kanbanEntry":{"id":"KE.K7"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
-    }
-  },
-  {
-    "id":"KE.L27",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.05.2012 19:22:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K7"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
-    }
-  },
-  {
-    "id":"KE.L28",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.05.2012 19:22:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StoryboardInfrastructure: Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
-    }
-  },
-  {
-    "id":"KE.L29",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:22:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StoryboardInfrastructureInternals: Achieved: Object diagram for storyboard and KanbanEntry:"
-    }
-  },
-  {
-    "id":"KE.L30",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"21.08.2012 17:53:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K2"},
+      "date":"17.01.2014 16:35:42",
+      "hoursSpend":40,
+      "kanbanEntry":{"id":"KE.K3"},
       "developer":"zuendorf",
       "phase":"done"
     }
   },
   {
-    "id":"KE.L31",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:22:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StoryboardInfrastructureInternals: Achieved: Object diagram for storyboard and KanbanEntry:"
-    }
-  },
-  {
-    "id":"KE.L33",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K32"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L34",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K32"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L35",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L37",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K36"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L38",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.07.2012 14:41:05",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K36"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: "
-    }
-  },
-  {
-    "id":"KE.L39",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L40",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.08.2012 22:59:05",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K20"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: Start situation: "
-    }
-  },
-  {
-    "id":"KE.L41",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.08.2012 22:59:05",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K16"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"LudoStoryboard: Achieved: Start situation: "
-    }
-  },
-  {
-    "id":"KE.L42",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L44",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K43"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L45",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"07.02.2013 16:20:42",
-      "hoursSpend":3,
-      "kanbanEntry":{"id":"KE.K43"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Example model for testing destroy with model patterns: "
-    }
-  },
-  {
-    "id":"KE.L46",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":3,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L48",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K47"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L49",
+    "id":"KE.L8",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"06.10.2013 21:37:46",
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K47"},
+      "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: use University class to build object structure"
+      "phase":"done"
     }
   },
   {
-    "id":"KE.L50",
+    "id":"KE.L9",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.05.2012 20:40:42",
       "hoursSpend":1,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K47"},
+      "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf joern alex",
       "phase":"done",
       "comment":"Achieved:       shall compute to 88\n      Path classes are generated."
     }
   },
   {
-    "id":"KE.L51",
+    "id":"KE.L10",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.05.2012 20:42:42",
       "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K47"},
+      "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L52",
+    "id":"KE.L11",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.08.2012 23:04:42",
       "hoursSpend":4,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K47"},
+      "kanbanEntry":{"id":"KE.K7"},
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
     }
   },
   {
-    "id":"KE.L53",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":5,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L55",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K54"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L56",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursRemainingInTotal":8,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L57",
+    "id":"KE.L14",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"06.10.2013 21:37:46",
-      "kanbanEntry":{"id":"KE.K10"},
+      "kanbanEntry":{"id":"KE.K13"},
       "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: use University class to build object structure"
+      "phase":"done"
     }
   },
   {
-    "id":"KE.L58",
+    "id":"KE.L15",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.05.2012 20:40:42",
       "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K10"},
+      "kanbanEntry":{"id":"KE.K13"},
       "developer":"zuendorf joern alex",
       "phase":"done",
       "comment":"Achieved: shall compute to 88."
     }
   },
   {
-    "id":"KE.L59",
+    "id":"KE.L16",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"19.05.2012 20:42:42",
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K10"},
+      "date":"17.01.2014 16:42:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K13"},
       "developer":"zuendorf",
       "phase":"backlog",
       "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
     }
   },
   {
-    "id":"KE.L60",
+    "id":"KE.L17",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"19.08.2012 23:04:42",
       "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K10"},
+      "kanbanEntry":{"id":"KE.K13"},
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \ne.g.: room.getNeighbors().findPath(path, motivation); "
     }
   },
   {
-    "id":"KE.L61",
+    "id":"KE.L18",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":5,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L62",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":5,
-      "hoursRemainingInTotal":10,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L64",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursRemainingInTotal":8,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L65",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K63"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L66",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursRemainingInTotal":16,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L67",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursRemainingInTotal":10,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L68",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L69",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L71",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K70"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L73",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K72"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L75",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K74"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L77",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K76"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L79",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K78"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L81",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K80"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L83",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K82"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L85",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K84"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L86",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"02.04.2012 14:58:18",
-      "kanbanEntry":{"id":"KE.K84"},
-      "developer":"ajahl",
-      "phase":"backlog",
-      "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
-    }
-  },
-  {
-    "id":"KE.L88",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K87"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L89",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"20.05.2012 15:19:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K87"},
-      "developer":"zuendorf",
+      "date":"11.11.2012 12:00:00 EST",
+      "hoursSpend":80,
+      "kanbanEntry":{"id":"KE.K2"},
+      "developer":"stefan",
       "phase":"done",
-      "comment":"Achieved: One to one assocs now work. "
+      "comment":"Serialisation via JSON works great."
     }
   },
   {
-    "id":"KE.L90",
+    "id":"KE.L20",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"08.10.2013 13:30:42",
+      "date":"01.11.2012 12:33:42",
       "hoursSpend":1,
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L91",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"02.04.2012 14:58:18",
-      "kanbanEntry":{"id":"KE.K11"},
-      "developer":"ajahl",
-      "phase":"backlog",
-      "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
-    }
-  },
-  {
-    "id":"KE.L92",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.05.2012 19:39:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K11"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. "
-    }
-  },
-  {
-    "id":"KE.L93",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":1,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L94",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":1,
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L95",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:05:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 5. generate generic set for attributes and assocs"
-    }
-  },
-  {
-    "id":"KE.L96",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"22.03.2012 14:40:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 6. generate generic get for attributes and assocs"
-    }
-  },
-  {
-    "id":"KE.L97",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:32:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf joern alex",
-      "phase":"implementation",
-      "comment":"Achieved: 7. generate creator classes"
-    }
-  },
-  {
-    "id":"KE.L98",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:37:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 8. generate imports"
-    }
-  },
-  {
-    "id":"KE.L99",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"25.03.2012 22:39:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 9. generate property change support"
-    }
-  },
-  {
-    "id":"KE.L100",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:20:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: 10. generate removeYou method"
-    }
-  },
-  {
-    "id":"KE.L101",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.05.2012 19:59:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel"
-    }
-  },
-  {
-    "id":"KE.L102",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.05.2012 13:51:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: generic set now works for double. Perhabs boolean and other are still missing"
-    }
-  },
-  {
-    "id":"KE.L103",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"20.05.2012 20:01:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K9"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
-    }
-  },
-  {
-    "id":"KE.L104",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":12,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L105",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":12,
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L107",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K106"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L109",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K108"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L111",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K110"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L113",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K112"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L114",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"04.04.2012 00:26:59",
-      "kanbanEntry":{"id":"KE.K112"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: Start situation: classes have been generated. Now create some example object structure"
-    }
-  },
-  {
-    "id":"KE.L115",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"15.04.2012 17:18:42",
-      "hoursSpend":8,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K112"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: We call updateBalances() to compute the correct balances.\n"
-    }
-  },
-  {
-    "id":"KE.L116",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":8,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L117",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"04.04.2012 00:11:32",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K13"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: Nothing here yet. Generated classes"
-    }
-  },
-  {
-    "id":"KE.L118",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"24.05.2012 00:16:18",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K13"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Resolved Bug: creatorcreator class is no longer growing on each run. "
-    }
-  },
-  {
-    "id":"KE.L119",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":2,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L120",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":2,
-      "hoursRemainingInTotal":8,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L122",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K121"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L123",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L124",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"05.04.2012 16:24:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K15"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: classes for model transformations:"
-    }
-  },
-  {
-    "id":"KE.L125",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"05.04.2012 16:31:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K15"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: create some example transformOp:"
-    }
-  },
-  {
-    "id":"KE.L126",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.04.2012 15:19:42",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K15"},
-      "developer":"zuendorf",
-      "phase":"modeling",
-      "comment":"Achieved: dump an image from the transformOp:"
-    }
-  },
-  {
-    "id":"KE.L127",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":7,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L128",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":7,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L130",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K129"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L132",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K131"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L134",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"02.11.2012 13:42:42",
-      "hoursSpend":5,
-      "kanbanEntry":{"id":"KE.K133"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L135",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":5,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L137",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"01.11.2012 14:43:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K136"},
+      "kanbanEntry":{"id":"KE.K19"},
       "developer":"zuendorf",
       "phase":"done"
     }
   },
   {
-    "id":"KE.L138",
+    "id":"KE.L35",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.05.2012 23:38:42",
+      "kanbanEntry":{"id":"KE.K23"},
+      "developer":"zuendorf",
+      "phase":"active"
+    }
+  },
+  {
+    "id":"KE.L37",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"08.10.2013 13:22:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K36"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L38",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"07.05.2012 23:36:42",
+      "kanbanEntry":{"id":"KE.K22"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
+    }
+  },
+  {
+    "id":"KE.L39",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.05.2012 19:22:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K22"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
+    }
+  },
+  {
+    "id":"KE.L41",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
       "date":"08.10.2013 13:30:42",
       "hoursSpend":1,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
+      "kanbanEntry":{"id":"KE.K40"},
       "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
+      "phase":"done"
     }
   },
   {
-    "id":"KE.L140",
+    "id":"KE.L43",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K139"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L141",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"18.03.2012 23:35:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K12"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Basic bootstrap done."
-    }
-  },
-  {
-    "id":"KE.L142",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.03.2012 00:19:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K12"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Generate generic get and set and removeYou."
-    }
-  },
-  {
-    "id":"KE.L143",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"26.03.2012 22:54:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K12"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Generate creator classes."
-    }
-  },
-  {
-    "id":"KE.L144",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.08.2012 19:08:42",
-      "hoursSpend":8,
-      "kanbanEntry":{"id":"KE.K12"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: Generate PatternObject classes."
-    }
-  },
-  {
-    "id":"KE.L145",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":11,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L146",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":11,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L148",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K147"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L150",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K149"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L151",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"19.08.2012 22:52:42",
-      "hoursSpend":80,
-      "kanbanEntry":{"id":"KE.K149"},
+      "date":"23.02.2014 17:50:42",
+      "hoursSpend":50,
+      "kanbanEntry":{"id":"KE.K42"},
       "developer":"zuendorf",
       "phase":"done",
-      "comment":"Achieved: Start situation: "
+      "comment":"Solving tricky parsing issue. Enabling reference lookup on demand"
     }
   },
   {
-    "id":"KE.L152",
+    "id":"KE.L44",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":80,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L154",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K153"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L155",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"30.11.2012 22:55:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K153"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Simple object without properties creates object diagram,  now"
-    }
-  },
-  {
-    "id":"KE.L156",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":1,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L158",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K157"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L160",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K159"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L161",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"28.05.2012 23:51:42",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K18"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Start situation: we do not yet have a class diagram but want to start with some example object models"
-    }
-  },
-  {
-    "id":"KE.L162",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"31.05.2012 13:51:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K18"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
-    }
-  },
-  {
-    "id":"KE.L163",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"31.05.2012 15:15:42",
-      "hoursSpend":1,
-      "kanbanEntry":{"id":"KE.K18"},
-      "developer":"zuendorf",
-      "phase":"done",
-      "comment":"Achieved: Step 7: derive non-generic objects from the generic objects "
-    }
-  },
-  {
-    "id":"KE.L164",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"31.05.2012 15:22:42",
-      "kanbanEntry":{"id":"KE.K18"},
-      "developer":"zuendorf",
-      "phase":"bug",
-      "comment":"Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
-    }
-  },
-  {
-    "id":"KE.L165",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"05.08.2012 15:43:42",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K18"},
-      "developer":"zuendorf",
-      "phase":"implementation",
-      "comment":"Achieved: New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model "
-    }
-  },
-  {
-    "id":"KE.L166",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"06.10.2013 21:37:46",
-      "hoursSpend":10,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Start situation: use University class to build object structure"
-    }
-  },
-  {
-    "id":"KE.L167",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"08.10.2013 13:30:42",
-      "hoursSpend":10,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"TodoEntries: Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-    }
-  },
-  {
-    "id":"KE.L169",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"26.10.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K168"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L171",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"16.11.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K170"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L173",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.11.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K172"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L175",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"20.11.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K174"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L177",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"02.12.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K176"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L179",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"02.12.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K178"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L181",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"26.12.2013 12:00:00",
-      "kanbanEntry":{"id":"KE.K180"},
-      "developer":"zuendorf",
-      "phase":"backlog"
-    }
-  },
-  {
-    "id":"KE.L182",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:35:42",
+      "date":"11.11.2013 18:06:42 EST",
       "hoursSpend":40,
-      "kanbanEntry":{"id":"KE.K180"},
+      "kanbanEntry":{"id":"KE.K12"},
       "developer":"zuendorf",
       "phase":"done",
-      "comment":"Achieved: Extend the class model:"
+      "comment":"Using attribute names for parsing and generation"
     }
   },
   {
-    "id":"KE.L183",
+    "id":"KE.L45",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
-      "date":"17.01.2014 16:35:42",
-      "hoursSpend":40,
-      "hoursRemainingInTotal":6,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectModelNavigationAndQueries: Achieved: Extend the class model:"
-    }
-  },
-  {
-    "id":"KE.L184",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:39:42",
-      "hoursSpend":4,
-      "kanbanEntry":{"id":"KE.K112"},
+      "date":"23.02.2014 18:06:42 EST",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K12"},
       "developer":"zuendorf",
       "phase":"done",
-      "comment":"Achieved: We call updateBalances() to compute the correct balances.\n"
-    }
-  },
-  {
-    "id":"KE.L185",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:39:42",
-      "hoursSpend":4,
-      "hoursRemainingInTotal":4,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"GroupAccountStoryboard1: Achieved: We call updateBalances() to compute the correct balances.\n"
-    }
-  },
-  {
-    "id":"KE.L186",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:42:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K10"},
-      "developer":"zuendorf",
-      "phase":"backlog",
-      "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
-    }
-  },
-  {
-    "id":"KE.L187",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:42:42",
-      "hoursSpend":2,
-      "kanbanEntry":{"id":"KE.K6"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"StudyRightObjectStoryboards: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
-    }
-  },
-  {
-    "id":"KE.L188",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"17.01.2014 16:42:42",
-      "hoursSpend":2,
-      "hoursRemainingInTotal":2,
-      "kanbanEntry":{"id":"KE.K1"},
-      "developer":"zuendorf",
-      "phase":"active",
-      "comment":"Sprint.001.Booting: StudyRightObjectStoryboards: Achieved: Feature Request: model sets need to provide a navigation to any neighbors\ne.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+      "comment":"Reenabled parsing with references"
     }
   }
 ]

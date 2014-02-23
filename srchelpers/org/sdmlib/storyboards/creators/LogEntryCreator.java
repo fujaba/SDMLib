@@ -10,7 +10,6 @@ public class LogEntryCreator extends EntityFactory
    {
          LogEntry.PROPERTY_DATE,
          LogEntry.PROPERTY_HOURS_SPEND,
-         LogEntry.PROPERTY_HOURS_REMAINING_IN_PHASE,
          LogEntry.PROPERTY_HOURS_REMAINING_IN_TOTAL,
          LogEntry.PROPERTY_KANBANENTRY,
          LogEntry.PROPERTY_DEVELOPER,

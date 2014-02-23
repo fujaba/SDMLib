@@ -118,10 +118,15 @@
       
       stud1PO = roomPO.hasStudents();
 
-      for (Match match : (Iterable&lt;Match&gt;) stud1PO.getPattern())
+      for (Match match : (Iterable&lt;Match&gt;) roomPO.getPattern())
       {
+         Student currentMatch = stud1PO.getCurrentMatch();
+         
+         currentMatch.withMotivation(currentMatch.getMotivation() * 2);
+         
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
-         System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + stud1PO.getCurrentMatch() + &quot; in room &quot; + roomPO.getCurrentMatch());
+        
+         System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
       }
       
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram51.svg'>

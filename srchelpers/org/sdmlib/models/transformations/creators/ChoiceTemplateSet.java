@@ -35,6 +35,7 @@ import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 import org.sdmlib.models.transformations.creators.MatchSet;
 import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
@@ -711,5 +712,43 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return this;
    }
 
+   public booleanList getReferenceLookup()
+   {
+      booleanList result = new booleanList();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.add(obj.getReferenceLookup());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasReferenceLookup(boolean value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value == obj.getReferenceLookup())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet withReferenceLookup(boolean value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.setReferenceLookup(value);
+      }
+      
+      return this;
+   }
+
 }
+
 

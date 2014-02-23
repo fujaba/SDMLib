@@ -459,5 +459,38 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return null;
    }
 
+   public TemplatePO hasReferenceLookup(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_REFERENCELOOKUP)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public boolean getReferenceLookup()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) getCurrentMatch()).getReferenceLookup();
+      }
+      return false;
+   }
+   
+   public TemplatePO withReferenceLookup(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Template) getCurrentMatch()).setReferenceLookup(value);
+      }
+      return this;
+   }
+   
 }
+
 

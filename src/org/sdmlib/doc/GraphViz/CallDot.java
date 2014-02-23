@@ -47,9 +47,10 @@ public class CallDot {
 			docDir.mkdirs();
 		}
 
-		URL absolutePath = CallDot.class.getResource("../../SDMLib.gwt.xml");
-		if (absolutePath == null) {
-			return;
+		URL absolutePath = CallDot.class.getResource("../../../SDMLib.gwt.xml");
+		if (absolutePath == null) 
+		{
+		   return;
 		}
 		if ((System.getProperty("os.name").toLowerCase()).contains("windows")) {
 			File root = new File("" + absolutePath).getParentFile()

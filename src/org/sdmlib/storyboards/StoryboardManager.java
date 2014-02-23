@@ -29,22 +29,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+
+import javax.swing.event.ListSelectionEvent;
+
+import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonArraySorted;
 import org.sdmlib.serialization.json.JsonIdComparator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.storyboards.creators.KanbanEntryCreator;
+import org.sdmlib.storyboards.creators.KanbanEntrySet;
 
 public class StoryboardManager 
 {
@@ -65,7 +77,6 @@ public class StoryboardManager
          theCatalog = new StoryboardManager();
          theCatalog.getPhases().add(ACTIVE);
          theCatalog.getPhases().add(BACKLOG);
-         theCatalog.getPhases().add(MODELING);
          theCatalog.getPhases().add(IMPLEMENTATION);
          theCatalog.getPhases().add(DONE);
       }
@@ -102,6 +113,18 @@ public class StoryboardManager
    public void dumpHTML()
    {
       loadOldKanbanEntries();
+      
+      if (this.toBeRemoved != null)
+      {
+         KanbanEntry oldEntry = kanbanBoard.findOldEntry(this.toBeRemoved.getName());
+         
+         if (oldEntry != null)
+         {
+            oldEntry.removeYou();
+         }
+         
+         this.toBeRemoved = null;
+      }
 
       new File("doc").mkdirs();
 
@@ -132,14 +155,11 @@ public class StoryboardManager
 
       for (KanbanEntry entry : allEntries)
       {
-         if (entry.getSubentries().isEmpty())
-         {
-            File htmlFile = new File("doc/" + entry.getName() + ".html");
+         File htmlFile = new File("doc/" + entry.getName() + ".html");
 
-            if (htmlFile.exists())
-            {
-               refColumnBody.append(refForFile(entry.getName()));
-            }
+         if (htmlFile.exists())
+         {
+            refColumnBody.append(refForFile(entry.getName()));
          }
       }
 
@@ -339,67 +359,6 @@ public class StoryboardManager
       // collect subentries from tree structure
       LinkedHashSet<KanbanEntry> allEntries = collectEntriesFromTree(kanbanBoard);		
 
-//      for (KanbanEntry kanbanEntry : allEntries)
-//      {
-//         if (kanbanEntry.getLogEntries().size() == kanbanEntry.getOldNoOfLogEntries())
-//         {
-//            // no new log entry. Nothing to generate
-//            continue;
-//         }
-//
-//         kanbanEntry.setOldNoOfLogEntries(kanbanEntry.getLogEntries().size());
-//         LogEntry lastLogEntry = null;
-//         double sumOfHoursSpend = 0;
-//
-//         // initialize new entries
-//         if (kanbanEntry.getPhase() == null)
-//         {
-//            kanbanEntry.setPhase("backlog");
-//         }
-//
-//         // prepare burnup chart series
-//         TimeSeries hoursEstimatedSeries = new TimeSeries("Hours Estimated");
-//         TimeSeries hoursSpendSeries = new TimeSeries("Hours Spend");
-//
-//         for (LogEntry logEntry : kanbanEntry.getLogEntries())
-//         {
-//            phases.add(logEntry.getPhase());
-//            lastLogEntry = logEntry;
-//            sumOfHoursSpend += logEntry.getHoursSpend();
-//
-//            try
-//            {
-//               repairDate(logEntry);
-//
-//               Date theDate = dateParser.parse(logEntry.getDate());
-//               Second theDay = new Second(theDate);
-//               double hoursEstimated = sumOfHoursSpend
-//                     + Math.max(logEntry.getHoursRemainingInPhase(),
-//                        logEntry.getHoursRemainingInTotal());
-//               hoursEstimatedSeries.addOrUpdate(theDay, hoursEstimated);
-//               hoursSpendSeries.addOrUpdate(theDay, sumOfHoursSpend);
-//            }
-//            catch (ParseException e)
-//            {
-//               e.printStackTrace();
-//            }
-//         }
-//
-//         // create burnup chart for kanban entry
-////         createBurnupChart(kanbanEntry, hoursEstimatedSeries, hoursSpendSeries);
-//
-//         if (lastLogEntry != null)
-//         {
-//            kanbanEntry
-//            .withLastDeveloper(lastLogEntry.getDeveloper())
-//            .withPhase(lastLogEntry.getPhase())
-//            .withHoursSpend(sumOfHoursSpend)
-//            .withHoursRemaining(
-//               Math.max(lastLogEntry.getHoursRemainingInPhase(),
-//                  lastLogEntry.getHoursRemainingInTotal()));
-//         }
-//      }
-
       dumpTimeLinesFor(allEntries);
 
       dumpBoardForKanbanEntry(kanbanBoard, kanbanBoard.getName()+"kanban");
@@ -407,12 +366,75 @@ public class StoryboardManager
 
    private void dumpTimeLinesFor(LinkedHashSet<KanbanEntry> allEntries)
    {
+      
       // for each entry, collect log entries ordered by time stamps
       for (KanbanEntry kanbanEntry : allEntries)
       {
-         StringBuilder text = new StringBuilder();
-         // for entry node, dump html page
-         for (LogEntry logEntry : kanbanEntry.getLogEntries())
+         // burn down and time line 
+         StringBuilder htmlText = new StringBuilder(
+            "<html>\r\n" + 
+            "<head>\r\n" + 
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\r\n" + 
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n" + 
+            "\r\n" + 
+            "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js\"></script>\r\n" + 
+            "<script src=\"http://code.highcharts.com/highcharts.js\"></script>\r\n" + 
+            "\r\n" + 
+            "<script> \r\n" + 
+            "$(function () { \r\n" + 
+            "    $('#container').highcharts({\r\n" + 
+            "        chart: {\r\n" + 
+            "            type: 'line'\r\n" + 
+            "        },\r\n" + 
+            "        title: {\r\n" + 
+            "            text: 'Burn Down'\r\n" + 
+            "        },\r\n" + 
+            "        xAxis: {\r\n" + 
+            "            type: 'datetime'\r\n" + 
+            "        },\r\n" + 
+            "        yAxis: {\r\n" + 
+            "            title: {\r\n" + 
+            "                text: 'Hours'\r\n" + 
+            "            }\r\n" + 
+            "        },\r\n" + 
+            "        series: [{\r\n" + 
+            "            name: 'hours done',\r\n" + 
+            "            data: [\r\n" +
+            "               hoursSpendData\n" +
+            "               ]\r\n" + 
+            "        }, {\r\n" + 
+            "            name: 'hours planned',\r\n" + 
+            "            data: [\r\n" + 
+            "               hoursRemainingData\n" +
+            "               ]\r\n" + 
+            "        }]\r\n" + 
+            "    });\r\n" + 
+            "});\r\n" + 
+            "</script>\r\n" + 
+            "\r\n" + 
+            "</head>\r\n" + 
+            "<body>\r\n" + 
+            "<p>Burn Down and Time Line for <a href='entryNameKanbanSuffix.html' type='text/x-java'>entryName</a></p>\r\n" + 
+            "\r\n" + 
+            "<div id=\"container\" style=\"width:100%; height:600px;\">Hallo</div>\r\n" + 
+            "\r\n" + 
+            "timelineentries" + 
+            "\r\n" + 
+            "</body>\r\n" + 
+            "</html>"
+            );
+
+         ArrayList<LogEntry> allLogEntries = kanbanEntry.getAllLogEntries();
+         Collections.sort(allLogEntries);
+         
+         StringBuilder timeLogText = new StringBuilder();
+         StringList hoursSpendData = new StringList();
+         StringList hoursRemaingData = new StringList();
+         
+         double hoursSpend = 0.0;
+         LinkedHashMap<KanbanEntry, Double> hoursRemainingMap = new LinkedHashMap<KanbanEntry, Double>();
+         
+         for (LogEntry logEntry : allLogEntries)
          {
             String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
             logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
@@ -422,19 +444,52 @@ public class StoryboardManager
             logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
             logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
 
-            text.append(logLine);
+            
+            timeLogText.append(logLine);
+            
+            hoursSpend += logEntry.getHoursSpend();
+            String dataLine = CGUtil.replaceAll(
+               "[millis, value]", 
+               "millis", "" + logEntry.getParsedDate().getTime(),
+               "value", "" + hoursSpend
+               );
+            
+            hoursSpendData.add(dataLine);
+            
+            hoursRemainingMap.put(logEntry.getKanbanEntry(), logEntry.getHoursRemainingInTotal());
+            
+            double sumOfHoursRemaining = 0;
+            
+            for (Double d : hoursRemainingMap.values())
+            {
+               sumOfHoursRemaining += d;
+            }
+            
+            dataLine = CGUtil.replaceAll(
+               "[millis, value]", 
+               "millis", "" + logEntry.getParsedDate().getTime(),
+               "value", "" + (hoursSpend + sumOfHoursRemaining) 
+               );
+            
+            hoursRemaingData.add(dataLine);
          }
-
-         if (kanbanEntry.getName().startsWith("<"))
+         
+         String kanbanSuffix = "";
+         if ( ! kanbanEntry.getSubentries().isEmpty())
          {
-            System.out.println("ups");
+            kanbanSuffix = "kanban";
          }
+         
+         CGUtil.replaceAll(htmlText, 
+            "entryName", kanbanEntry.getName(),
+            "KanbanSuffix", kanbanSuffix,
+            "hoursSpendData", hoursSpendData.concat(",\n               "),
+            "hoursRemainingData", hoursRemaingData.concat(",\n               "),
+            "timelineentries", timeLogText.toString()
+               );
+         
          printFile(
-            new File("doc/"+kanbanEntry.getName()+"TimeLine.html"), 
-            "<html>\n<body>\n" +
-                  "<p>Time line for " + kanbanEntry.getName() + "</p>" + 
-                  text.toString() + 
-               "</body>\n</html>");
+            new File("doc/"+kanbanEntry.getName()+"TimeLine.html"), htmlText.toString());
 
       }
 
@@ -451,8 +506,10 @@ public class StoryboardManager
 
       String headerRow = "<tr> </tr>";
       String tableBody = "<tr> </tr>\n";
+      
+      String[] split = rootEntry.getPhases().split(", ");
 
-      for (String phase : phases)
+      for (String phase : split)
       {
          headerRow = headerRow.replaceFirst("</tr>", "<th>" + phase + "</th> </tr>");
          tableBody = tableBody.replaceFirst("</tr>", "<td valign='top'><table border ='0'>" + phase + "</table></td>\n </tr>");
@@ -490,9 +547,7 @@ public class StoryboardManager
          cellText = cellText.replaceFirst("</table>", "<tr><td>hours spend = "+entry.getHoursSpend()+"</td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td>hours remaining = "+entry.getHoursRemaining()+"</td></tr>\n</table>");
          cellText = cellText.replaceFirst("</table>", "<tr><td><a href='" + entry.getName()+
-               "BurnupChart.png'>burnup</a></td></tr>\n</table>");
-         cellText = cellText.replaceFirst("</table>", "<tr><td><a href='" + entry.getName()+
-               "TimeLine.html'>time line</a></td></tr>\n</table>");
+               "TimeLine.html'>burn down</a></td></tr>\n</table>");
 
          tableBody = tableBody.replaceFirst(phaseName + "</table>", cellText + phaseName + "</table>");
 
@@ -503,7 +558,7 @@ public class StoryboardManager
       }	
 
       // remove column placeholders
-      for (String phase : phases)
+      for (String phase : split)
       {
          tableBody = tableBody.replaceFirst(phase+"</table>", "</table>");
       }
@@ -521,107 +576,64 @@ public class StoryboardManager
    {
       double hoursSpendSum = 0;
       double hoursRemainingSum = 0;
+      
+      if (rootEntry.getPhases() == null)
+      {
+         rootEntry.setPhases("active, backlog, implementation, done" );
+      }
 
       if (! rootEntry.getSubentries().isEmpty())
       {
-         LogEntry latestLogEntry = null;
          for (KanbanEntry subentry : rootEntry.getSubentries())
          {
             collectHours(subentry);
             hoursSpendSum += subentry.getHoursSpend();
             hoursRemainingSum += subentry.getHoursRemaining();
-            latestLogEntry = findLatestLogEntry(latestLogEntry, subentry);
-         }
-
-         double oldHoursSpend = rootEntry.getHoursSpend();
-         double oldHoursRemaining = rootEntry.getHoursRemaining();
-
-         if (hoursSpendSum != oldHoursSpend || hoursRemainingSum != oldHoursRemaining)
-         {
-            // store new hours
-            rootEntry.withHoursSpend(hoursSpendSum)
-            .withHoursRemaining(hoursRemainingSum);
-
-            // create log entry
-            String latestDate;
-            String latestDeveloper;
-            String latestComment = null;
-
-            if (latestLogEntry == null)
-            {
-               latestDate = dateParser.format(new Date(System.currentTimeMillis()));
-               latestDeveloper = System.getProperty("user.name");
-            }
-            else
-            {
-               latestDate = latestLogEntry.getDate();
-               latestDeveloper = latestLogEntry.getDeveloper();
-               latestComment = latestLogEntry.getKanbanEntry().getName() + ": " 
-                     + latestLogEntry.getComment();
-            }
-
-            LogEntry newLogEntry = new LogEntry()
-            .withHoursSpend(hoursSpendSum-oldHoursSpend)
-            .withHoursRemainingInTotal(hoursRemainingSum)
-            .withDate(latestDate)
-            .withDeveloper(latestDeveloper)
-            .withPhase(rootEntry.getPhase())
-            .withComment(latestComment)
-            .withKanbanEntry(rootEntry);
+            
+            learnKidPhases(rootEntry, subentry);
          }
       }
-      else // no subentries
-      {         
-         // collect hours from log entries
-         double logHoursSpend = 0.0;
-         double logHoursRemaining = 0.0;
 
-         for (LogEntry logEntry : rootEntry.getLogEntries())
+      // collect hours from log entries
+      double logHoursSpend = 0.0;
+      double logHoursRemaining = 0.0;
+
+      Date latestLogEntryDate = null;
+      for (LogEntry logEntry : rootEntry.getLogEntries())
+      {
+         logHoursSpend += logEntry.getHoursSpend();
+
+         if (latestLogEntryDate == null || latestLogEntryDate.compareTo(logEntry.getParsedDate()) < 0)
          {
-            logHoursSpend += logEntry.getHoursSpend();
-            logHoursRemaining = Math.max(logEntry.getHoursRemainingInPhase(), logEntry.getHoursRemainingInTotal());
+            latestLogEntryDate = logEntry.getParsedDate();
+            logHoursRemaining = logEntry.getHoursRemainingInTotal();
+            rootEntry.setPhase(logEntry.getPhase());
          }
-
-         hoursSpendSum = logHoursSpend;
-         hoursRemainingSum = logHoursRemaining;
+         
+         if (rootEntry.getPhases().indexOf(logEntry.getPhase()) < 0)
+         {
+            rootEntry.setPhases(rootEntry.getPhases() + ", " + logEntry.getPhase());
+         }
       }
+
+      hoursSpendSum += logHoursSpend;
+      hoursRemainingSum += logHoursRemaining;
 
       rootEntry.setHoursSpend(hoursSpendSum);
       rootEntry.setHoursRemaining(hoursRemainingSum);
    }
 
-   private LogEntry findLatestLogEntry(LogEntry latestLogEntry,
-         KanbanEntry subentry)
+   private void learnKidPhases(KanbanEntry rootEntry, KanbanEntry subentry)
    {
-      for (LogEntry logEntry : subentry.getLogEntries())
+      String[] split = subentry.getPhases().split(", ");
+      
+      for (String phase : split)
       {
-         if (latestLogEntry == null)
+         if (rootEntry.getPhases().indexOf(phase) < 0)
          {
-            latestLogEntry = logEntry;
-         }
-         else
-         {
-            try
-            {
-               repairDate(latestLogEntry);
-               repairDate(logEntry);
-
-               long latestTime = dateParser.parse(latestLogEntry.getDate()).getTime();
-               long thisTime = dateParser.parse(logEntry.getDate()).getTime();
-
-               if (thisTime > latestTime)
-               {
-                  latestLogEntry = logEntry;
-               }
-            }
-            catch (ParseException e)
-            {
-               // not that important AZ
-            }
+            rootEntry.setPhases(rootEntry.getPhases() + ", " + phase);
          }
       }
-
-      return latestLogEntry;
    }
 
    private void repairDate(LogEntry logEntry)
@@ -772,11 +784,20 @@ public class StoryboardManager
 
    private StringBuffer refColumnBody;
 
-   public SimpleDateFormat dateParser  = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+   public DateFormat dateParser  = DateFormat.getInstance();
 
    public void addEntry(KanbanEntry sprint1)
    {
       newEntries.add(sprint1);
+   }
+
+   Storyboard toBeRemoved = null;
+   
+   public StoryboardManager remove(Storyboard storyboard)
+   {
+      this.toBeRemoved = storyboard;
+      
+      return this;
    }
 
 

@@ -110,6 +110,11 @@ public class Template implements PropertyChangeInterface
          return getParents();
       }
 
+      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
+      {
+         return getReferenceLookup();
+      }
+
       return null;
    }
 
@@ -199,6 +204,12 @@ public class Template implements PropertyChangeInterface
       if ((PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromParents((PlaceHolderDescription) value);
+         return true;
+      }
+
+      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
+      {
+         setReferenceLookup((Boolean) value);
          return true;
       }
 
@@ -523,7 +534,7 @@ public class Template implements PropertyChangeInterface
       return result;
    }
 
-   public static int logStartPos = 9999;
+   public static int logStartPos = 120;
    
    public Match parseOnce()
    {
@@ -674,10 +685,10 @@ public class Template implements PropertyChangeInterface
 
                if (constfragment.equals(""))
                {
-               // empty constfragment, look for list separator 
+                  // empty constfragment, look for list separator 
                   int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
                   int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
-
+                  
                   if ("".equals(this.getListEnd()))
                   {
                      // there is no good list end symbol use constFragment behind list placeholder instead
@@ -687,10 +698,12 @@ public class Template implements PropertyChangeInterface
 
                   if ( ! "".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
                   {
+                     startOfMatch = listSeparatorPos;
                      endOfMatchInExpandedText = listSeparatorPos;
                   }
                   else if (listEndPos >= 0)
                   {
+                     startOfMatch = listEndPos;
                      endOfMatchInExpandedText = listEndPos;
                   }
                   else
@@ -714,14 +727,17 @@ public class Template implements PropertyChangeInterface
                   String key = getModelClassName() + "_" + value;
                   Object object = idMap.getObject(key);
 
-                  if (object != null)
+                  if (object != null && this.referenceLookup == false)
                   {
                      System.out.println("Warning: two objects with id: " + key);
                   }                     
-                 
-                  // create object and assign attribute
-                  object = creator.getSendableInstance(false);
-                     
+
+                  if (object == null  || this.referenceLookup == false)
+                  {
+                     // create object and assign attribute
+                     object = creator.getSendableInstance(false);
+                  }
+                  
                   idMap.put(key, object);
                   
                   this.setModelObject(object);
@@ -786,7 +802,15 @@ public class Template implements PropertyChangeInterface
          
          if (constFragmentChar == ' ')
          {
-            while (currentPosInExpandedText < expandedText.length() && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText)))
+            char nextFragmentChar = Character.MIN_VALUE;
+            if (currentPosInConstFragment + 1 < constfragment.length())
+            {
+               nextFragmentChar = constfragment.charAt(currentPosInConstFragment +1);
+            }
+            
+            while (currentPosInExpandedText < expandedText.length() 
+                  && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText))
+                  && expandedText.charAt(currentPosInExpandedText) != nextFragmentChar)
             {
                currentPosInExpandedText++;
             }
@@ -1479,6 +1503,34 @@ public class Template implements PropertyChangeInterface
       
       subTemplate.withSimple(properties[properties.length - 1]);
       
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_REFERENCELOOKUP = "referenceLookup";
+   
+   private boolean referenceLookup = false;
+
+   public boolean getReferenceLookup()
+   {
+      return this.referenceLookup;
+   }
+   
+   public void setReferenceLookup(boolean value)
+   {
+      if (this.referenceLookup != value)
+      {
+         boolean oldValue = this.referenceLookup;
+         this.referenceLookup = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_REFERENCELOOKUP, oldValue, value);
+      }
+   }
+   
+   public Template withReferenceLookup(boolean value)
+   {
+      setReferenceLookup(value);
       return this;
    } 
 }
