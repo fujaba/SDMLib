@@ -271,6 +271,11 @@ public class Storyboard implements PropertyChangeInterface
          }
       }
       
+      if (this.projectName != null)
+      {
+         kanbanBoard.setName(projectName);
+      }
+      
       if (sprintName != null)
       {
          KanbanEntry sprintEntry = kanbanBoard.findOrCreate(sprintName);
@@ -1651,10 +1656,17 @@ public class Storyboard implements PropertyChangeInterface
    }
    
    private String kanbanWorkFlow = null;
+   private String projectName = null;
 
    public void setKanbanWorkFlow(String string)
    {
       this.kanbanWorkFlow = string;
+   }
+
+   
+   public void setProjectName(String string)
+   {
+      this.projectName = string;
    } 
 }
 

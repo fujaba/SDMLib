@@ -55,19 +55,6 @@ public class ProjectBoard
    public static final String BACKLOG = "backlog";
 
    @Test
-   public void testAdmin()
-   {
-      StoryboardManager man = StoryboardManager.get();
-      
-      
-      KanbanEntry kanbanBoard = man.loadOldKanbanEntries()
-         .withName("SDMLibProject")
-         .withPhase(ACTIVE);
-
-      man.dumpKanban();
-   }
-
-   @Test
    public void testTodoEntries()
    {
       Storyboard storyboard = new Storyboard("test");
@@ -89,6 +76,8 @@ public class ProjectBoard
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
       Storyboard storyboard = new Storyboard();
+      
+      storyboard.setProjectName("SDMLibProject");
       
       storyboard.setSprint("Sprint.001.Booting");
       
@@ -144,6 +133,8 @@ public class ProjectBoard
       storyboard.add("Internally, the class model looks like:");
       
       storyboard.addObjectDiagram(model);
+      
+      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
    
       storyboard.dumpHTML();
    }

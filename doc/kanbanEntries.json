@@ -5,7 +5,7 @@
     "prop":{
       "name":"SDMLibProject",
       "phase":"active",
-      "hoursSpend":400,
+      "hoursSpend":401,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K3"},
@@ -131,7 +131,7 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursSpend":118,
+      "hoursSpend":119,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K13"},
@@ -151,11 +151,12 @@
     "prop":{
       "name":"StoryboardInfrastructure",
       "phase":"done",
-      "hoursSpend":1,
+      "hoursSpend":2,
       "parent":{"id":"KE.K21"},
       "logEntries":[
         {"id":"KE.L38"},
-        {"id":"KE.L39"}
+        {"id":"KE.L39"},
+        {"id":"KE.L63"}
       ],
       "phases":"active, backlog, implementation, done"
     }
@@ -668,6 +669,18 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"works great"
+    }
+  },
+  {
+    "id":"KE.L63",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"24.02.2014 18:38:00",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K22"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"resolved old style admin to new storyboard features."
     }
   }
 ]
