@@ -44,6 +44,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
       //====================================================================================================
       Storyboard storyboard = new Storyboard("test", "GenericObjectDiagram");
       
+      storyboard.setSprint("Sprint.001.Booting");
+      
       storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
          DONE, "zuendorf", "28.05.2012 23:51:42", 4, 0);
       
@@ -194,6 +196,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       storyboard.addObjectDiagram(CreatorCreator.createIdMap("go"), gengraph);
 
+      storyboard.addLogEntry(R.DONE, "zuendorf", "31.07.2012 15:22:42", 20, 0, "works great");
+      
       StoryboardManager.get()
       .add(storyboard)
       .dumpHTML();

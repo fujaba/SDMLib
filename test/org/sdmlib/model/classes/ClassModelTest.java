@@ -44,6 +44,8 @@ public class ClassModelTest
    {
       Storyboard storyboard = new Storyboard("test", "ClassModelCodeGen");
 
+      storyboard.setSprint("Sprint.001.Booting");
+      
       //=======================================================================
       storyboard.add("This test generates some classes with some elements. ");
 

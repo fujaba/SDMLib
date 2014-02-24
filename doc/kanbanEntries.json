@@ -5,7 +5,7 @@
     "prop":{
       "name":"SDMLibProject",
       "phase":"active",
-      "hoursSpend":228,
+      "hoursSpend":400,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K3"},
@@ -14,12 +14,12 @@
         {"id":"KE.K12"},
         {"id":"KE.K19"},
         {"id":"KE.K21"},
-        {"id":"KE.K23"},
-        {"id":"KE.K30"},
         {"id":"KE.K36"},
         {"id":"KE.K40"},
-        {"id":"KE.K42"}
-      ]
+        {"id":"KE.K42"},
+        {"id":"KE.K49"}
+      ],
+      "phases":"active, backlog, implementation, done, bug"
     }
   },
   {
@@ -32,7 +32,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L18"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -45,7 +46,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L4"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -54,7 +56,8 @@
     "prop":{
       "name":"StudyRight with assignments storyboard",
       "phase":"backlog",
-      "parent":{"id":"KE.K1"}
+      "parent":{"id":"KE.K1"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -70,7 +73,8 @@
         {"id":"KE.L9"},
         {"id":"KE.L10"},
         {"id":"KE.L11"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -84,7 +88,8 @@
       "logEntries":[
         {"id":"KE.L44"},
         {"id":"KE.L45"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -100,7 +105,8 @@
         {"id":"KE.L15"},
         {"id":"KE.L16"},
         {"id":"KE.L17"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -114,7 +120,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L20"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -124,7 +131,7 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursSpend":8,
+      "hoursSpend":118,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K13"},
@@ -132,10 +139,10 @@
         {"id":"KE.K24"},
         {"id":"KE.K25"},
         {"id":"KE.K26"},
-        {"id":"KE.K27"},
-        {"id":"KE.K28"},
-        {"id":"KE.K32"}
-      ]
+        {"id":"KE.K32"},
+        {"id":"KE.K51"}
+      ],
+      "phases":"active, backlog, implementation, done, bug"
     }
   },
   {
@@ -149,19 +156,8 @@
       "logEntries":[
         {"id":"KE.L38"},
         {"id":"KE.L39"}
-      ]
-    }
-  },
-  {
-    "id":"KE.K23",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"ProjectManagement",
-      "phase":"active",
-      "parent":{"id":"KE.K1"},
-      "logEntries":[
-        {"id":"KE.L35"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -169,7 +165,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightClassesCodeGen",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -177,7 +174,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightReverseClassModel",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -185,46 +183,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"ClassModelCodeGen",
-      "parent":{"id":"KE.K21"}
-    }
-  },
-  {
-    "id":"KE.K27",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"GroupAccountCodegen",
-      "parent":{"id":"KE.K21"}
-    }
-  },
-  {
-    "id":"KE.K28",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"GroupAccountRuleRecognition",
-      "parent":{"id":"KE.K21"}
-    }
-  },
-  {
-    "id":"KE.K30",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"Sprint.002.Transformations",
-      "phase":"active",
-      "lastDeveloper":"zuendorf",
-      "parent":{"id":"KE.K1"},
-      "subentries":[
-        {"id":"KE.K31"},
-        {"id":"KE.K33"},
-        {"id":"KE.K34"}
-      ]
-    }
-  },
-  {
-    "id":"KE.K31",
-    "class":"org.sdmlib.storyboards.KanbanEntry",
-    "prop":{
-      "name":"PatternModelCodeGen",
-      "parent":{"id":"KE.K30"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -232,7 +192,18 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GenericObjectDiagram",
-      "parent":{"id":"KE.K21"}
+      "phase":"implementation",
+      "hoursSpend":30,
+      "parent":{"id":"KE.K21"},
+      "logEntries":[
+        {"id":"KE.L57"},
+        {"id":"KE.L58"},
+        {"id":"KE.L59"},
+        {"id":"KE.L60"},
+        {"id":"KE.L61"},
+        {"id":"KE.L62"}
+      ],
+      "phases":"active, backlog, implementation, done, bug"
     }
   },
   {
@@ -240,7 +211,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoModel",
-      "parent":{"id":"KE.K30"}
+      "phase":"done",
+      "hoursSpend":20,
+      "parent":{"id":"KE.K49"},
+      "logEntries":[
+        {"id":"KE.L53"}
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -248,7 +225,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoStoryboard",
-      "parent":{"id":"KE.K30"}
+      "phase":"done",
+      "hoursSpend":40,
+      "parent":{"id":"KE.K49"},
+      "logEntries":[
+        {"id":"KE.L56"}
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -261,7 +244,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L37"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -274,7 +258,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L41"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -287,7 +272,67 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L43"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K48",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"GroupAccountCodegen",
+      "phase":"done",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K49"},
+      "logEntries":[
+        {"id":"KE.L50"}
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K49",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"Sprint.002.Examples",
+      "phase":"active",
+      "hoursSpend":62,
+      "parent":{"id":"KE.K1"},
+      "subentries":[
+        {"id":"KE.K33"},
+        {"id":"KE.K34"},
+        {"id":"KE.K48"},
+        {"id":"KE.K54"}
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K51",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"PatternModelCodegen",
+      "phase":"done",
+      "hoursSpend":80,
+      "parent":{"id":"KE.K21"},
+      "logEntries":[
+        {"id":"KE.L52"}
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K54",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"LudoStoryboardManual",
+      "phase":"done",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K49"},
+      "logEntries":[
+        {"id":"KE.L55"}
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -417,16 +462,6 @@
     }
   },
   {
-    "id":"KE.L35",
-    "class":"org.sdmlib.storyboards.LogEntry",
-    "prop":{
-      "date":"07.05.2012 23:38:42",
-      "kanbanEntry":{"id":"KE.K23"},
-      "developer":"zuendorf",
-      "phase":"active"
-    }
-  },
-  {
     "id":"KE.L37",
     "class":"org.sdmlib.storyboards.LogEntry",
     "prop":{
@@ -505,6 +540,134 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"Reenabled parsing with references"
+    }
+  },
+  {
+    "id":"KE.L50",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"04.04.2012 00:11:32",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K48"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L52",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:52:42",
+      "hoursSpend":80,
+      "kanbanEntry":{"id":"KE.K51"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L53",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"15.07.2012 13:30:42 EST",
+      "hoursSpend":20,
+      "kanbanEntry":{"id":"KE.K33"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"The famous ludo example."
+    }
+  },
+  {
+    "id":"KE.L55",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.07.2012 14:41:05",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K54"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L56",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.08.2012 22:59:05",
+      "hoursSpend":40,
+      "kanbanEntry":{"id":"KE.K34"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: "
+    }
+  },
+  {
+    "id":"KE.L57",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"28.05.2012 23:51:42",
+      "hoursSpend":4,
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Start situation: we do not yet have a class diagram but want to start with some example object models"
+    }
+  },
+  {
+    "id":"KE.L58",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"31.05.2012 13:51:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
+    }
+  },
+  {
+    "id":"KE.L59",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:15:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Step 7: derive non-generic objects from the generic objects "
+    }
+  },
+  {
+    "id":"KE.L60",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"31.05.2012 15:22:42",
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"bug",
+      "comment":"Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+    }
+  },
+  {
+    "id":"KE.L61",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"05.08.2012 15:43:42",
+      "hoursSpend":4,
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model "
+    }
+  },
+  {
+    "id":"KE.L62",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"31.07.2012 15:22:42",
+      "hoursSpend":20,
+      "kanbanEntry":{"id":"KE.K32"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"works great"
     }
   }
 ]

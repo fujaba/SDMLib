@@ -20,7 +20,8 @@ public class StudyRightStoryboards
    {
       Storyboard storyboard = new Storyboard("examples");
 
-
+      storyboard.setSprint("Sprint.001.Booting");
+      
       //=============================================================
       storyboard.add("Start situation: use University class to build object structure",
          DONE, "zuendorf", "06.10.2013 21:37:46", 0, 0);

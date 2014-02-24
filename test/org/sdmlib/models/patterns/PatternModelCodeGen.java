@@ -39,6 +39,8 @@ public class PatternModelCodeGen
    {
       Storyboard storyboard = new Storyboard("test", "PatternModelCodegen");
       
+      storyboard.setSprint("Sprint.001.Booting");
+      
       storyboard.add("Start situation: ",
          DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
