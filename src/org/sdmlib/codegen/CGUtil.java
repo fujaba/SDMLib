@@ -115,23 +115,23 @@ public class CGUtil
       return builder.toString();
    }
    
-   public static String replaceAll(String text, String... args)
+   public static String replaceAll(String text, Object... args)
    {
       StringBuilder buf = new StringBuilder(text);
       replaceAll(buf, args);
       return buf.toString();
    }
    
-   public static void replaceAll(StringBuilder text, String... args)
+   public static void replaceAll(StringBuilder text, Object... args)
    {
-      int pos = -1 - args[0].length();
+      int pos = -1 - args[0].toString().length();
       String placeholder;
       // args are pairs of placeholder, replacement
       
       // in the first run, replace placeholders by <$<placeholders>$> to mark them uniquely
       for (int i = 0; i < args.length; i += 2)
       {
-         placeholder = args[i];
+         placeholder = args[i].toString();
          pos = -1 - placeholder.length();
          
          pos = text.indexOf(placeholder, pos + placeholder.length());
@@ -153,8 +153,8 @@ public class CGUtil
          
          while (pos >= 0)
          {
-            text.replace(pos, pos + placeholder.length(), args[i+1]);
-            pos = text.indexOf(placeholder, pos + args[i+1].length());
+            text.replace(pos, pos + placeholder.length(), args[i+1].toString());
+            pos = text.indexOf(placeholder, pos + args[i+1].toString().length());
          }
       }
       
