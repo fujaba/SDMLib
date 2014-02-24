@@ -236,6 +236,22 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
+   public RoomPO createNeighbors()
+   {
+      return this.startCreate().hasNeighbors().endCreate();
+   }
+
+   public LecturePO createLecture()
+   {
+      return this.startCreate().hasLecture().endCreate();
+   }
+
+   public UniversityPO createUni()
+   {
+      return this.startCreate().hasUni().endCreate();
+   }
+
 }
+
 
 

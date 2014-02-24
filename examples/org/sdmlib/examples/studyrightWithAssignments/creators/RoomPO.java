@@ -77,6 +77,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
+   public RoomPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -121,6 +127,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public RoomPO createTopic(String value)
+   {
+      this.startCreate().hasTopic(value).endCreate();
       return this;
    }
    
@@ -171,6 +183,12 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
+   public RoomPO createCredits(int value)
+   {
+      this.startCreate().hasCredits(value).endCreate();
+      return this;
+   }
+   
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -199,9 +217,19 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
+   public UniversityPO createUniversity()
+   {
+      return this.startCreate().hasUniversity().endCreate();
+   }
+
    public RoomPO hasUniversity(UniversityPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY);
+   }
+
+   public RoomPO createUniversity(UniversityPO tgt)
+   {
+      return this.startCreate().hasUniversity(tgt).endCreate();
    }
 
    public University getUniversity()
@@ -223,9 +251,19 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
+   public RoomPO createDoors()
+   {
+      return this.startCreate().hasDoors().endCreate();
+   }
+
    public RoomPO hasDoors(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_DOORS);
+   }
+
+   public RoomPO createDoors(RoomPO tgt)
+   {
+      return this.startCreate().hasDoors(tgt).endCreate();
    }
 
    public RoomSet getDoors()
@@ -247,9 +285,19 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
    public RoomPO hasStudents(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS);
+   }
+
+   public RoomPO createStudents(StudentPO tgt)
+   {
+      return this.startCreate().hasStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()
@@ -271,9 +319,19 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
+   public AssignmentPO createAssignments()
+   {
+      return this.startCreate().hasAssignments().endCreate();
+   }
+
    public RoomPO hasAssignments(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_ASSIGNMENTS);
+   }
+
+   public RoomPO createAssignments(AssignmentPO tgt)
+   {
+      return this.startCreate().hasAssignments(tgt).endCreate();
    }
 
    public AssignmentSet getAssignments()
@@ -295,9 +353,19 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return result;
    }
 
+   public TeachingAssistantPO createTas()
+   {
+      return this.startCreate().hasTas().endCreate();
+   }
+
    public RoomPO hasTas(TeachingAssistantPO tgt)
    {
       return hasLinkConstraint(tgt, Room.PROPERTY_TAS);
+   }
+
+   public RoomPO createTas(TeachingAssistantPO tgt)
+   {
+      return this.startCreate().hasTas(tgt).endCreate();
    }
 
    public TeachingAssistantSet getTas()

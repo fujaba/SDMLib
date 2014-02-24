@@ -320,6 +320,22 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public UniversityPO createUni()
+   {
+      return this.startCreate().hasUni().endCreate();
+   }
+
+   public RoomPO createIn()
+   {
+      return this.startCreate().hasIn().endCreate();
+   }
+
+   public AssignmentPO createDone()
+   {
+      return this.startCreate().hasDone().endCreate();
+   }
+
 }
+
 
 

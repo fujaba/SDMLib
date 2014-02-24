@@ -190,6 +190,17 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
+   public RoomPO createRoom()
+   {
+      return this.startCreate().hasRoom().endCreate();
+   }
+
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
 }
+
 
 

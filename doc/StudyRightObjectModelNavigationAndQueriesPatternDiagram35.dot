@@ -1,0 +1,14 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+
+r1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> r1 :RoomPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+allMatches_r1 [label=allMatches];
+s2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> s2 :StudentPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+s3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> s3 :StudentPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> motivation in 0..50 </font></td></tr></table></td></tr></table>>];
+
+r1 -- allMatches_r1 [style="dotted"];
+r1 -- s2 [headlabel = "students" taillabel = "" color="black" fontcolor="black"];
+r1 -- s3 [headlabel = "students" taillabel = "" color="black" fontcolor="black"];
+s3 -- s2 [headlabel = "friends" taillabel = "" color="black" fontcolor="black"];
+}

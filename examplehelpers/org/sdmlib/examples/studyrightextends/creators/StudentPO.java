@@ -189,6 +189,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public LecturePO createLecture()
+   {
+      return this.startCreate().hasLecture().endCreate();
+   }
+
 }
+
 
 

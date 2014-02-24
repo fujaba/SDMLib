@@ -62,6 +62,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -106,6 +112,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public StudentPO createId(String value)
+   {
+      this.startCreate().hasId(value).endCreate();
       return this;
    }
    
@@ -156,6 +168,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO createAssignmentPoints(int value)
+   {
+      this.startCreate().hasAssignmentPoints(value).endCreate();
+      return this;
+   }
+   
    public int getAssignmentPoints()
    {
       if (this.getPattern().getHasMatch())
@@ -200,6 +218,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public StudentPO createMotivation(int value)
+   {
+      this.startCreate().hasMotivation(value).endCreate();
       return this;
    }
    
@@ -250,6 +274,12 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
+   public StudentPO createCredits(int value)
+   {
+      this.startCreate().hasCredits(value).endCreate();
+      return this;
+   }
+   
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -278,9 +308,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return result;
    }
 
+   public UniversityPO createUniversity()
+   {
+      return this.startCreate().hasUniversity().endCreate();
+   }
+
    public StudentPO hasUniversity(UniversityPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
+   }
+
+   public StudentPO createUniversity(UniversityPO tgt)
+   {
+      return this.startCreate().hasUniversity(tgt).endCreate();
    }
 
    public University getUniversity()
@@ -302,9 +342,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return result;
    }
 
+   public RoomPO createIn()
+   {
+      return this.startCreate().hasIn().endCreate();
+   }
+
    public StudentPO hasIn(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_IN);
+   }
+
+   public StudentPO createIn(RoomPO tgt)
+   {
+      return this.startCreate().hasIn(tgt).endCreate();
    }
 
    public Room getIn()
@@ -326,9 +376,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return result;
    }
 
+   public AssignmentPO createDone()
+   {
+      return this.startCreate().hasDone().endCreate();
+   }
+
    public StudentPO hasDone(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
+   }
+
+   public StudentPO createDone(AssignmentPO tgt)
+   {
+      return this.startCreate().hasDone(tgt).endCreate();
    }
 
    public AssignmentSet getDone()
@@ -350,9 +410,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return result;
    }
 
+   public StudentPO createFriends()
+   {
+      return this.startCreate().hasFriends().endCreate();
+   }
+
    public StudentPO hasFriends(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
+   }
+
+   public StudentPO createFriends(StudentPO tgt)
+   {
+      return this.startCreate().hasFriends(tgt).endCreate();
    }
 
    public StudentSet getFriends()

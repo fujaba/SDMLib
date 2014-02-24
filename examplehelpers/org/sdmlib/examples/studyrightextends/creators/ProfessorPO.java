@@ -156,6 +156,12 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       return this;
    }
    
+   public LecturePO createLecture()
+   {
+      return this.startCreate().hasLecture().endCreate();
+   }
+
 }
+
 
 

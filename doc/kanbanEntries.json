@@ -5,7 +5,7 @@
     "prop":{
       "name":"SDMLibProject",
       "phase":"active",
-      "hoursSpend":401,
+      "hoursSpend":417,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K3"},
@@ -17,7 +17,10 @@
         {"id":"KE.K36"},
         {"id":"KE.K40"},
         {"id":"KE.K42"},
-        {"id":"KE.K49"}
+        {"id":"KE.K49"},
+        {"id":"KE.K64"},
+        {"id":"KE.K66"},
+        {"id":"KE.K79"}
       ],
       "phases":"active, backlog, implementation, done, bug"
     }
@@ -42,10 +45,11 @@
     "prop":{
       "name":"StudyRightObjectModelNavigationAndQueries",
       "phase":"done",
-      "hoursSpend":40,
+      "hoursSpend":42,
       "parent":{"id":"KE.K1"},
       "logEntries":[
-        {"id":"KE.L4"}
+        {"id":"KE.L4"},
+        {"id":"KE.L80"}
       ],
       "phases":"active, backlog, implementation, done"
     }
@@ -131,7 +135,7 @@
       "name":"Sprint.001.Booting",
       "phase":"active",
       "lastDeveloper":"zuendorf",
-      "hoursSpend":119,
+      "hoursSpend":132,
       "parent":{"id":"KE.K1"},
       "subentries":[
         {"id":"KE.K13"},
@@ -166,7 +170,20 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightClassesCodeGen",
+      "phase":"done",
+      "hoursSpend":12,
       "parent":{"id":"KE.K21"},
+      "logEntries":[
+        {"id":"KE.L70"},
+        {"id":"KE.L71"},
+        {"id":"KE.L72"},
+        {"id":"KE.L73"},
+        {"id":"KE.L74"},
+        {"id":"KE.L75"},
+        {"id":"KE.L76"},
+        {"id":"KE.L77"},
+        {"id":"KE.L78"}
+      ],
       "phases":"active, backlog, implementation, done"
     }
   },
@@ -175,7 +192,13 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightReverseClassModel",
+      "phase":"done",
+      "hoursSpend":1,
       "parent":{"id":"KE.K21"},
+      "logEntries":[
+        {"id":"KE.L68"},
+        {"id":"KE.L69"}
+      ],
       "phases":"active, backlog, implementation, done"
     }
   },
@@ -333,6 +356,43 @@
       "logEntries":[
         {"id":"KE.L55"}
       ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K64",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRightExtendsReverseClassModel",
+      "phase":"backlog",
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L65"}
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K66",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRightOneToOneAssoc",
+      "phase":"done",
+      "hoursSpend":1,
+      "parent":{"id":"KE.K1"},
+      "logEntries":[
+        {"id":"KE.L67"}
+      ],
+      "phases":"active, backlog, implementation, done"
+    }
+  },
+  {
+    "id":"KE.K79",
+    "class":"org.sdmlib.storyboards.KanbanEntry",
+    "prop":{
+      "name":"StudyRight with assignments class generation",
+      "phase":"backlog",
+      "parent":{"id":"KE.K1"},
       "phases":"active, backlog, implementation, done"
     }
   },
@@ -681,6 +741,170 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"resolved old style admin to new storyboard features."
+    }
+  },
+  {
+    "id":"KE.L65",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"02.04.2012 14:58:18",
+      "kanbanEntry":{"id":"KE.K64"},
+      "developer":"ajahl",
+      "phase":"backlog"
+    }
+  },
+  {
+    "id":"KE.L67",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"20.05.2012 15:19:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K66"},
+      "developer":"zuendorf",
+      "phase":"done"
+    }
+  },
+  {
+    "id":"KE.L68",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"02.04.2012 14:58:18",
+      "kanbanEntry":{"id":"KE.K25"},
+      "developer":"ajahl",
+      "phase":"backlog",
+      "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
+    }
+  },
+  {
+    "id":"KE.L69",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.05.2012 19:39:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K25"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. "
+    }
+  },
+  {
+    "id":"KE.L70",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"18.03.2012 23:05:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: 5. generate generic set for attributes and assocs"
+    }
+  },
+  {
+    "id":"KE.L71",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"22.03.2012 14:40:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: 6. generate generic get for attributes and assocs"
+    }
+  },
+  {
+    "id":"KE.L72",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"25.03.2012 22:32:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf joern alex",
+      "phase":"implementation",
+      "comment":"Achieved: 7. generate creator classes"
+    }
+  },
+  {
+    "id":"KE.L73",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"25.03.2012 22:37:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: 8. generate imports"
+    }
+  },
+  {
+    "id":"KE.L74",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"25.03.2012 22:39:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: 9. generate property change support"
+    }
+  },
+  {
+    "id":"KE.L75",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"26.03.2012 22:20:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: 10. generate removeYou method"
+    }
+  },
+  {
+    "id":"KE.L76",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.05.2012 19:59:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel"
+    }
+  },
+  {
+    "id":"KE.L77",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"19.05.2012 13:51:42",
+      "hoursSpend":1,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"implementation",
+      "comment":"Achieved: generic set now works for double. Perhabs boolean and other are still missing"
+    }
+  },
+  {
+    "id":"KE.L78",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"20.05.2012 20:01:42",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K24"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
+    }
+  },
+  {
+    "id":"KE.L80",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"24.02.2014 20:03:42 EST",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K3"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"added createXY shortcuts for patterns"
     }
   }
 ]

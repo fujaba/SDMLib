@@ -50,6 +50,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
+   public TeachingAssistantPO createCertified(boolean value)
+   {
+      this.startCreate().hasCertified(value).endCreate();
+      return this;
+   }
+   
    public boolean getCertified()
    {
       if (this.getPattern().getHasMatch())
@@ -94,6 +100,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public TeachingAssistantPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
       return this;
    }
    
@@ -144,6 +156,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
+   public TeachingAssistantPO createId(String value)
+   {
+      this.startCreate().hasId(value).endCreate();
+      return this;
+   }
+   
    public String getId()
    {
       if (this.getPattern().getHasMatch())
@@ -188,6 +206,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public TeachingAssistantPO createAssignmentPoints(int value)
+   {
+      this.startCreate().hasAssignmentPoints(value).endCreate();
       return this;
    }
    
@@ -238,6 +262,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
+   public TeachingAssistantPO createMotivation(int value)
+   {
+      this.startCreate().hasMotivation(value).endCreate();
+      return this;
+   }
+   
    public int getMotivation()
    {
       if (this.getPattern().getHasMatch())
@@ -285,6 +315,12 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
+   public TeachingAssistantPO createCredits(int value)
+   {
+      this.startCreate().hasCredits(value).endCreate();
+      return this;
+   }
+   
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -313,9 +349,19 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return result;
    }
 
+   public UniversityPO createUniversity()
+   {
+      return this.startCreate().hasUniversity().endCreate();
+   }
+
    public TeachingAssistantPO hasUniversity(UniversityPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
+   }
+
+   public TeachingAssistantPO createUniversity(UniversityPO tgt)
+   {
+      return this.startCreate().hasUniversity(tgt).endCreate();
    }
 
    public University getUniversity()
@@ -337,9 +383,19 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return result;
    }
 
+   public RoomPO createIn()
+   {
+      return this.startCreate().hasIn().endCreate();
+   }
+
    public TeachingAssistantPO hasIn(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_IN);
+   }
+
+   public TeachingAssistantPO createIn(RoomPO tgt)
+   {
+      return this.startCreate().hasIn(tgt).endCreate();
    }
 
    public Room getIn()
@@ -361,9 +417,19 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return result;
    }
 
+   public AssignmentPO createDone()
+   {
+      return this.startCreate().hasDone().endCreate();
+   }
+
    public TeachingAssistantPO hasDone(AssignmentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
+   }
+
+   public TeachingAssistantPO createDone(AssignmentPO tgt)
+   {
+      return this.startCreate().hasDone(tgt).endCreate();
    }
 
    public AssignmentSet getDone()
@@ -385,9 +451,19 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return result;
    }
 
+   public StudentPO createFriends()
+   {
+      return this.startCreate().hasFriends().endCreate();
+   }
+
    public TeachingAssistantPO hasFriends(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
+   }
+
+   public TeachingAssistantPO createFriends(StudentPO tgt)
+   {
+      return this.startCreate().hasFriends(tgt).endCreate();
    }
 
    public StudentSet getFriends()
@@ -409,9 +485,19 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return result;
    }
 
+   public RoomPO createRoom()
+   {
+      return this.startCreate().hasRoom().endCreate();
+   }
+
    public TeachingAssistantPO hasRoom(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, TeachingAssistant.PROPERTY_ROOM);
+   }
+
+   public TeachingAssistantPO createRoom(RoomPO tgt)
+   {
+      return this.startCreate().hasRoom(tgt).endCreate();
    }
 
    public Room getRoom()
