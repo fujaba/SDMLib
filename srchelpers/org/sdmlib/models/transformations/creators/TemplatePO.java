@@ -491,6 +491,54 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public TemplatePO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Template.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public TemplatePO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Template) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

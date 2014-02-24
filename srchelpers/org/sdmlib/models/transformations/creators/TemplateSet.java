@@ -687,6 +687,59 @@ public class TemplateSet extends SDMSet<Template>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Template obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasName(String value)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasName(String lower, String upper)
+   {
+      TemplateSet result = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TemplateSet withName(String value)
+   {
+      for (Template obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

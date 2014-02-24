@@ -21,6 +21,7 @@ public class TemplateCreator extends EntityFactory
       Template.PROPERTY_MATCHES,
       Template.PROPERTY_PARENTS,
       Template.PROPERTY_REFERENCELOOKUP,
+      Template.PROPERTY_NAME,
    };
    
    public String[] getProperties()
@@ -61,5 +62,6 @@ public class TemplateCreator extends EntityFactory
       ((Template) entity).removeYou();
    }
 }
+
 
 

@@ -749,6 +749,59 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasName(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasName(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet withName(String value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

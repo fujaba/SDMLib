@@ -19,7 +19,8 @@
         {"id":"KE.K36"},
         {"id":"KE.K40"},
         {"id":"KE.K42"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -32,7 +33,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L18"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -45,7 +47,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L4"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -54,7 +57,8 @@
     "prop":{
       "name":"StudyRight with assignments storyboard",
       "phase":"backlog",
-      "parent":{"id":"KE.K1"}
+      "parent":{"id":"KE.K1"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -70,7 +74,8 @@
         {"id":"KE.L9"},
         {"id":"KE.L10"},
         {"id":"KE.L11"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -84,7 +89,8 @@
       "logEntries":[
         {"id":"KE.L44"},
         {"id":"KE.L45"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -100,7 +106,8 @@
         {"id":"KE.L15"},
         {"id":"KE.L16"},
         {"id":"KE.L17"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -114,7 +121,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L20"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -135,7 +143,8 @@
         {"id":"KE.K27"},
         {"id":"KE.K28"},
         {"id":"KE.K32"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -149,7 +158,8 @@
       "logEntries":[
         {"id":"KE.L38"},
         {"id":"KE.L39"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -161,7 +171,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L35"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -169,7 +180,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightClassesCodeGen",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -177,7 +189,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"StudyRightReverseClassModel",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -185,7 +198,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"ClassModelCodeGen",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -193,7 +207,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GroupAccountCodegen",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -201,7 +216,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GroupAccountRuleRecognition",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -216,7 +232,8 @@
         {"id":"KE.K31"},
         {"id":"KE.K33"},
         {"id":"KE.K34"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -224,7 +241,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"PatternModelCodeGen",
-      "parent":{"id":"KE.K30"}
+      "parent":{"id":"KE.K30"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -232,7 +250,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"GenericObjectDiagram",
-      "parent":{"id":"KE.K21"}
+      "parent":{"id":"KE.K21"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -240,7 +259,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoModel",
-      "parent":{"id":"KE.K30"}
+      "parent":{"id":"KE.K30"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -248,7 +268,8 @@
     "class":"org.sdmlib.storyboards.KanbanEntry",
     "prop":{
       "name":"LudoStoryboard",
-      "parent":{"id":"KE.K30"}
+      "parent":{"id":"KE.K30"},
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -261,7 +282,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L37"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -274,7 +296,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L41"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
@@ -287,7 +310,8 @@
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L43"}
-      ]
+      ],
+      "phases":"active, backlog, implementation, done"
     }
   },
   {
