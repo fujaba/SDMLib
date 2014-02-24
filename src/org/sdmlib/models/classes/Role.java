@@ -418,7 +418,9 @@ public class Role implements PropertyChangeInterface
    private void insertGetterInPatternObjectFile(Clazz clazz, Parser parser, Role partnerRole)
    {
       insertHasNoParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertCreateNoParamInPatternObjectFile(clazz, parser, partnerRole);
       insertHasWithParamInPatternObjectFile(clazz, parser, partnerRole);
+      insertCreateWithParamInPatternObjectFile(clazz, parser, partnerRole);
       insertGetInPatternObjectFile(clazz, parser, partnerRole);
    }
 
@@ -501,6 +503,38 @@ public class Role implements PropertyChangeInterface
    }
 
 
+   private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
+         Role partnerRole)
+   {
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public PatternObjectType createName()\n" + 
+            "   {\n" + 
+            "      return this.startCreate().hasName().endCreate();\n" + 
+            "   }\n\n");
+
+         clazz.insertImport(parser, PatternLink.class.getName());
+         
+         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
+         String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "Name", StrUtil.upFirstChar(partnerRole.getName()), 
+            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser));
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         clazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
+
    private void insertHasWithParamInPatternObjectFile(Clazz clazz, Parser parser,
          Role partnerRole)
    {
@@ -529,6 +563,41 @@ public class Role implements PropertyChangeInterface
             "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
             "ModelPOType", modelPOType, 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         
+         parser.getFileBody().insert(classEnd, text.toString());
+         clazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
+
+   private void insertCreateWithParamInPatternObjectFile(Clazz clazz, Parser parser,
+         Role partnerRole)
+   {
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
+      String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+      
+      String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+            "   public ModelPOType createName(PatternObjectType tgt)\n" + 
+            "   {\n" + 
+            "      return this.startCreate().hasName(tgt).endCreate();\n" + 
+            "   }\n\n");
+
+         clazz.insertImport(parser, LinkConstraint.class.getName());
+         
+         String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
+         String modelPOType = clazz.shortNameAndImport(fullModelPOType, parser);
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "Name", StrUtil.upFirstChar(partnerRole.getName()), 
+            "ModelPOType", modelPOType);
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          

@@ -178,6 +178,22 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       return this;
    }
    
+   public RoomPO createIn()
+   {
+      return this.startCreate().hasIn().endCreate();
+   }
+
+   public ProfessorPO createHas()
+   {
+      return this.startCreate().hasHas().endCreate();
+   }
+
+   public StudentPO createListen()
+   {
+      return this.startCreate().hasListen().endCreate();
+   }
+
 }
+
 
 

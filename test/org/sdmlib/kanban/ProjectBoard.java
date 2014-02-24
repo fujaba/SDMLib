@@ -55,93 +55,6 @@ public class ProjectBoard
    public static final String BACKLOG = "backlog";
 
    @Test
-   public void testAdmin()
-   {
-      StoryboardManager man = StoryboardManager.get();
-      
-      
-      KanbanEntry kanbanBoard = man.loadOldKanbanEntries()
-         .withName("SDMLibProject")
-         .withPhase(ACTIVE);
-
-      KanbanEntry sprint1 = kanbanBoard.findOrCreate("Sprint.001.Booting")
-            .withLastDeveloper("zuendorf")
-            .withPhase(ACTIVE)
-            .withParent(kanbanBoard);
-      
-      KanbanEntry entry = kanbanBoard.findOrCreate("StoryboardInfrastructure")
-            .withParent(sprint1);
-
-      LogEntry logEntry;
-      
-      entry = kanbanBoard.findOrCreate("ProjectManagement")
-            .withParent(kanbanBoard);
-
-      logEntry = entry.findOrCreateLogEntry("07.05.2012 23:38:42", ACTIVE)
-            .withDeveloper("zuendorf")
-            .withHoursSpend(0)
-            .withHoursRemainingInTotal(0);
-      
-      entry = kanbanBoard.findOrCreate("StudyRightClassesCodeGen")
-            .withParent(sprint1);
-      
-      entry = kanbanBoard.findOrCreate("StudyRightObjectStoryboards")
-            .withParent(sprint1);
-      // entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
-      
-      entry = kanbanBoard.findOrCreate("StudyRightReverseClassModel")
-            .withParent(sprint1);
-      // entry.linkToTest("examples", "org.sdmlib.examples.studyright.StudyRightClassesCodeGen", entry.getName());
-      
-      
-      
-      entry = kanbanBoard.findOrCreate("ClassModelCodeGen")
-            .withParent(sprint1);
-      
-      
-      entry = kanbanBoard.findOrCreate("GroupAccountCodegen")
-            .withParent(sprint1);
-      // entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
-      
-      entry = kanbanBoard.findOrCreate("GroupAccountRuleRecognition")
-            .withParent(sprint1);
-      // entry.linkToTest("examples", "org.sdmlib.examples.groupAccount.GroupAccountTests", entry.getName());
-      
-      entry = kanbanBoard.findOldEntry("TransformationsCodegen");
-      if (entry != null)
-      {
-         entry.removeYou();
-      }
-      
-      KanbanEntry sprint2 = kanbanBoard.findOrCreate("Sprint.002.Transformations")
-            .withLastDeveloper("zuendorf")
-            .withPhase(ACTIVE)
-            .withParent(kanbanBoard);
-      
-      entry = kanbanBoard.findOrCreate("PatternModelCodeGen")
-            .withParent(sprint2)
-      //      .linkToTest("test", "org.sdmlib.models.patterns.PatternModelCodeGen", entry.getName())
-            ;
-      
-      entry = kanbanBoard.findOrCreate("GenericObjectDiagram")
-            .withParent(sprint1);
-     
-      // entry.linkToTest("test", "org.sdmlib.models.objects.GenericObjectsTest", entry.getName());
-      
-      entry = kanbanBoard.findOrCreate("LudoModel")
-            .withParent(sprint2)
-      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoModel", entry.getName())
-            ;
-
-      entry = kanbanBoard.findOrCreate("LudoStoryboard")
-            .withParent(sprint2)
-      //      .linkToTest("examples", "org.sdmlib.examples.ludo.LudoStoryboard", entry.getName())
-            ;
-
-      man.dumpKanban();
-   }
-
-   @Test
    public void testTodoEntries()
    {
       Storyboard storyboard = new Storyboard("test");
@@ -163,6 +76,10 @@ public class ProjectBoard
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
       Storyboard storyboard = new Storyboard();
+      
+      storyboard.setProjectName("SDMLibProject");
+      
+      storyboard.setSprint("Sprint.001.Booting");
       
       storyboard.add("This storyboard tests the storyboard infrastructure. ");
       storyboard.addStep("At first creating the html file just with text should work. ");
@@ -216,6 +133,8 @@ public class ProjectBoard
       storyboard.add("Internally, the class model looks like:");
       
       storyboard.addObjectDiagram(model);
+      
+      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
    
       storyboard.dumpHTML();
    }

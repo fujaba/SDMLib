@@ -145,6 +145,17 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return this;
    }
    
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
+   public RoomPO createRooms()
+   {
+      return this.startCreate().hasRooms().endCreate();
+   }
+
 }
+
 
 

@@ -61,6 +61,12 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return this;
    }
    
+   public UniversityPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -89,9 +95,19 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return result;
    }
 
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
    public UniversityPO hasStudents(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_STUDENTS);
+   }
+
+   public UniversityPO createStudents(StudentPO tgt)
+   {
+      return this.startCreate().hasStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()
@@ -113,9 +129,19 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       return result;
    }
 
+   public RoomPO createRooms()
+   {
+      return this.startCreate().hasRooms().endCreate();
+   }
+
    public UniversityPO hasRooms(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, University.PROPERTY_ROOMS);
+   }
+
+   public UniversityPO createRooms(RoomPO tgt)
+   {
+      return this.startCreate().hasRooms(tgt).endCreate();
    }
 
    public RoomSet getRooms()

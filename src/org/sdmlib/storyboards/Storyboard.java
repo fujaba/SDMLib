@@ -51,6 +51,7 @@ import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
@@ -252,6 +253,11 @@ public class Storyboard implements PropertyChangeInterface
             .withHoursRemainingInTotal(0.0));
       }
       
+      if (kanbanEntry.getPhase() == null)
+      {
+         kanbanEntry.setPhase(R.BACKLOG);
+      }
+      
       if (this.kanbanWorkFlow != null)
       {
          kanbanEntry.setPhases(this.kanbanWorkFlow);
@@ -265,6 +271,11 @@ public class Storyboard implements PropertyChangeInterface
          }
       }
       
+      if (this.projectName != null)
+      {
+         kanbanBoard.setName(projectName);
+      }
+      
       if (sprintName != null)
       {
          KanbanEntry sprintEntry = kanbanBoard.findOrCreate(sprintName);
@@ -272,7 +283,7 @@ public class Storyboard implements PropertyChangeInterface
          
          if (sprintEntry.getParent() == null)
          {
-            sprintEntry.setParent(kanbanBoard.findOrCreate("Project"));
+            sprintEntry.setParent(kanbanBoard);
          }
          
          if (sprintEntry.getPhase() == null)
@@ -1645,10 +1656,17 @@ public class Storyboard implements PropertyChangeInterface
    }
    
    private String kanbanWorkFlow = null;
+   private String projectName = null;
 
    public void setKanbanWorkFlow(String string)
    {
       this.kanbanWorkFlow = string;
+   }
+
+   
+   public void setProjectName(String string)
+   {
+      this.projectName = string;
    } 
 }
 

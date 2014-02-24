@@ -19,6 +19,9 @@ public class GroupAccountClassModel
    {
       Storyboard storyboard = new Storyboard("examples");
       
+      storyboard.setSprint("Sprint.002.Examples");
+      
+      
       storyboard.add("Start situation: Nothing here yet. Generate classes",
          DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
       
@@ -59,9 +62,7 @@ public class GroupAccountClassModel
       
       storyboard.addClassDiagram(model);
       
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    private static final String MODELING = "modeling";

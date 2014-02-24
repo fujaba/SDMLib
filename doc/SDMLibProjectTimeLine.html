@@ -26,48 +26,98 @@ $(function () {
         series: [{
             name: 'hours done',
             data: [
-               [1336426560000, 0.0],
-               [1336426680000, 0.0],
-               [1337448120000, 1.0],
-               [1337452800000, 2.0],
-               [1337452800000, 3.0],
-               [1337452920000, 3.0],
-               [1345410240000, 7.0],
-               [1345410240000, 11.0],
-               [1351769580000, 12.0],
-               [1352631600000, 92.0],
-               [1381088220000, 92.0],
-               [1381088220000, 92.0],
-               [1381231320000, 93.0],
-               [1381231800000, 94.0],
-               [1384189560000, 134.0],
-               [1389972900000, 174.0],
-               [1389973320000, 176.0],
-               [1393174200000, 226.0],
-               [1393175160000, 228.0]
+               [1332108300000, 1.0],
+               [1332423600000, 2.0],
+               [1332707520000, 3.0],
+               [1332707820000, 4.0],
+               [1332707940000, 6.0],
+               [1332793200000, 8.0],
+               [1333371480000, 8.0],
+               [1333371480000, 8.0],
+               [1333491060000, 9.0],
+               [1336426560000, 9.0],
+               [1337428260000, 10.0],
+               [1337448120000, 11.0],
+               [1337449140000, 12.0],
+               [1337450340000, 13.0],
+               [1337452800000, 14.0],
+               [1337452800000, 15.0],
+               [1337452920000, 15.0],
+               [1337519940000, 16.0],
+               [1337536860000, 18.0],
+               [1338241860000, 22.0],
+               [1338465060000, 23.0],
+               [1338470100000, 24.0],
+               [1338470520000, 24.0],
+               [1342351800000, 44.0],
+               [1342701660000, 45.0],
+               [1343740920000, 65.0],
+               [1344174180000, 69.0],
+               [1345409520000, 149.0],
+               [1345409940000, 189.0],
+               [1345410240000, 193.0],
+               [1345410240000, 197.0],
+               [1351769580000, 198.0],
+               [1352631600000, 278.0],
+               [1381088220000, 278.0],
+               [1381088220000, 278.0],
+               [1381231320000, 279.0],
+               [1381231800000, 280.0],
+               [1384189560000, 320.0],
+               [1389972900000, 360.0],
+               [1389973320000, 362.0],
+               [1393174200000, 412.0],
+               [1393175160000, 414.0],
+               [1393263480000, 415.0],
+               [1393268580000, 417.0]
                ]
         }, {
             name: 'hours planned',
             data: [
-               [1336426560000, 0.0],
-               [1336426680000, 0.0],
-               [1337448120000, 1.0],
-               [1337452800000, 2.0],
-               [1337452800000, 3.0],
-               [1337452920000, 5.0],
-               [1345410240000, 7.0],
-               [1345410240000, 11.0],
-               [1351769580000, 12.0],
-               [1352631600000, 92.0],
-               [1381088220000, 92.0],
-               [1381088220000, 92.0],
-               [1381231320000, 93.0],
-               [1381231800000, 94.0],
-               [1384189560000, 134.0],
-               [1389972900000, 174.0],
-               [1389973320000, 176.0],
-               [1393174200000, 226.0],
-               [1393175160000, 228.0]
+               [1332108300000, 1.0],
+               [1332423600000, 2.0],
+               [1332707520000, 3.0],
+               [1332707820000, 4.0],
+               [1332707940000, 6.0],
+               [1332793200000, 8.0],
+               [1333371480000, 8.0],
+               [1333371480000, 8.0],
+               [1333491060000, 9.0],
+               [1336426560000, 9.0],
+               [1337428260000, 10.0],
+               [1337448120000, 11.0],
+               [1337449140000, 12.0],
+               [1337450340000, 13.0],
+               [1337452800000, 14.0],
+               [1337452800000, 15.0],
+               [1337452920000, 17.0],
+               [1337519940000, 18.0],
+               [1337536860000, 20.0],
+               [1338241860000, 24.0],
+               [1338465060000, 25.0],
+               [1338470100000, 26.0],
+               [1338470520000, 26.0],
+               [1342351800000, 46.0],
+               [1342701660000, 47.0],
+               [1343740920000, 67.0],
+               [1344174180000, 71.0],
+               [1345409520000, 151.0],
+               [1345409940000, 191.0],
+               [1345410240000, 193.0],
+               [1345410240000, 197.0],
+               [1351769580000, 198.0],
+               [1352631600000, 278.0],
+               [1381088220000, 278.0],
+               [1381088220000, 278.0],
+               [1381231320000, 279.0],
+               [1381231800000, 280.0],
+               [1384189560000, 320.0],
+               [1389972900000, 360.0],
+               [1389973320000, 362.0],
+               [1393174200000, 412.0],
+               [1393175160000, 414.0],
+               [1393263480000, 415.0],
+               [1393268580000, 417.0]
                ]
         }]
     });
@@ -80,14 +130,37 @@ $(function () {
 
 <div id="container" style="width:100%; height:600px;">Hallo</div>
 
+<p>18.03.2012 23:05:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 5. generate generic set for attributes and assocs</p>
+<p>22.03.2012 14:40:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 6. generate generic get for attributes and assocs</p>
+<p>25.03.2012 22:32:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: 7. generate creator classes</p>
+<p>25.03.2012 22:37:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 8. generate imports</p>
+<p>25.03.2012 22:39:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 9. generate property change support</p>
+<p>26.03.2012 22:20:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 10. generate removeYou method</p>
+<p>02.04.2012 14:58:18 ajahl hours spend: 0.0 hours remaining: 0.0 Achieved: Start situation: There are some java files. We parse them and generate a class model: </p>
+<p>02.04.2012 14:58:18 ajahl hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>04.04.2012 00:11:32 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
 <p>07.05.2012 23:36:42 zuendorf hours spend: 0.0 hours remaining: 0.0 Achieved:  Editing the log entries works now fine as part of the add method. </p>
-<p>07.05.2012 23:38:42 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>19.05.2012 13:51:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: generic set now works for double. Perhabs boolean and other are still missing</p>
 <p>19.05.2012 19:22:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Seems that we have solved the problem with the sorting of log entries after loading. </p>
+<p>19.05.2012 19:39:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. </p>
+<p>19.05.2012 19:59:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
 <p>19.05.2012 20:40:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved:       shall compute to 88
       Path classes are generated.</p>
 <p>19.05.2012 20:40:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: shall compute to 88.</p>
 <p>19.05.2012 20:42:42 zuendorf hours spend: 0.0 hours remaining: 2.0 Achieved: Feature Request: model sets need to provide a navigation to any neighbors
 e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
+<p>20.05.2012 15:19:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>20.05.2012 20:01:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
+<p>28.05.2012 23:51:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Start situation: we do not yet have a class diagram but want to start with some example object models</p>
+<p>31.05.2012 13:51:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
+<p>31.05.2012 15:15:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Step 7: derive non-generic objects from the generic objects </p>
+<p>31.05.2012 15:22:42 zuendorf hours spend: 0.0 hours remaining: 0.0 Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram </p>
+<p>15.07.2012 13:30:42 EST zuendorf hours spend: 20.0 hours remaining: 0.0 The famous ludo example.</p>
+<p>19.07.2012 14:41:05 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>31.07.2012 15:22:42 zuendorf hours spend: 20.0 hours remaining: 0.0 works great</p>
+<p>05.08.2012 15:43:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model </p>
+<p>19.08.2012 22:52:42 zuendorf hours spend: 80.0 hours remaining: 0.0 null</p>
+<p>19.08.2012 22:59:05 zuendorf hours spend: 40.0 hours remaining: 0.0 Achieved: Start situation: </p>
 <p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
 e.g.: room.getNeighbors().findPath(path, motivation); </p>
 <p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
@@ -104,6 +177,8 @@ e.g.: room.getNeighbors().findPath(path, motivation); </p>
 e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
 <p>23.02.2014 17:50:42 zuendorf hours spend: 50.0 hours remaining: 0.0 Solving tricky parsing issue. Enabling reference lookup on demand</p>
 <p>23.02.2014 18:06:42 EST zuendorf hours spend: 2.0 hours remaining: 0.0 Reenabled parsing with references</p>
+<p>24.02.2014 18:38:00 zuendorf hours spend: 1.0 hours remaining: 0.0 resolved old style admin to new storyboard features.</p>
+<p>24.02.2014 20:03:42 EST zuendorf hours spend: 2.0 hours remaining: 0.0 added createXY shortcuts for patterns</p>
 
 </body>
 </html>

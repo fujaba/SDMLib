@@ -1002,7 +1002,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       return this;
    } 
    
-   public DestroyObjectElem createDestroyElem()
+   DestroyObjectElem createDestroyElem()
    {
       DestroyObjectElem value = new DestroyObjectElem();
       withDestroyElem(value);
@@ -1134,7 +1134,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
    }
    
-   public CardinalityConstraint createCardConstraints()
+   CardinalityConstraint createCardConstraints()
    {
       CardinalityConstraint value = new CardinalityConstraint();
       withCardConstraints(value);
@@ -1259,7 +1259,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
    }
    
-   public MatchOtherThen createMatchOtherThen()
+   MatchOtherThen createMatchOtherThen()
    {
       MatchOtherThen value = new MatchOtherThen();
       withMatchOtherThen(value);
@@ -1363,7 +1363,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
    }
    
-   public MatchOtherThen createExcluders()
+   MatchOtherThen createExcluders()
    {
       MatchOtherThen value = new MatchOtherThen();
       withExcluders(value);

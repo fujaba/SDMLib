@@ -108,6 +108,12 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       return this;
    }
    
+   public TopicPO createTopic()
+   {
+      return this.startCreate().hasTopic().endCreate();
+   }
+
 }
+
 
 

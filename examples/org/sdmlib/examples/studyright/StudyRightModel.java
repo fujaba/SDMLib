@@ -48,6 +48,8 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Storyboard storyboard = new Storyboard("examples", "StudyRightReverseClassModel");
 
+      storyboard.setSprint("Sprint.001.Booting");
+      
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
@@ -243,7 +245,8 @@ public class StudyRightModel implements PropertyChangeInterface
    {
       Storyboard storyboard = new Storyboard("examples", "StudyRightClassesCodeGen");
 
-
+      storyboard.setSprint("Sprint.001.Booting");
+      
       //============================================================
       storyboard.add("1. generate class University");
 

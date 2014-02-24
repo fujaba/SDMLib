@@ -31,6 +31,7 @@ import org.sdmlib.examples.ludo.creators.FieldPO;
 import org.sdmlib.examples.ludo.creators.ModelPattern;
 import org.sdmlib.examples.ludo.creators.PawnPO;
 import org.sdmlib.examples.ludo.creators.PlayerPO;
+import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
@@ -48,8 +49,10 @@ public class LudoStoryboard implements PropertyChangeInterface
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
       Storyboard storyboard = new Storyboard("examples", "LudoStoryboard");
       
+      storyboard.setSprint("Sprint.002.Examples");
+      
       storyboard.add("Start situation: ",
-         MODELING, "zuendorf", "19.08.2012 22:59:05", 4, 0);
+         R.DONE, "zuendorf", "19.08.2012 22:59:05", 40, 0);
       
       JsonIdMap jsonIdMap = CreatorCreator.createIdMap("l1");
       
@@ -138,6 +141,8 @@ public class LudoStoryboard implements PropertyChangeInterface
    public void testLudoStoryboardManual()
    {
       Storyboard storyboard = new Storyboard("examples", "LudoStoryboardManual");
+      
+      storyboard.setSprint("Sprint.002.Examples");
       
       storyboard.add("Start situation: ",
          DONE, "zuendorf", "19.07.2012 14:41:05", 1, 0);

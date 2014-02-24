@@ -271,6 +271,27 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
+   public UniversityPO createUni()
+   {
+      return this.startCreate().hasUni().endCreate();
+   }
+
+   public RoomPO createNeighbors()
+   {
+      return this.startCreate().hasNeighbors().endCreate();
+   }
+
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
+   public AssignmentPO createAssignments()
+   {
+      return this.startCreate().hasAssignments().endCreate();
+   }
+
 }
+
 
 

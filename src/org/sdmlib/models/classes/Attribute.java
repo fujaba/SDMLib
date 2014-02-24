@@ -642,6 +642,7 @@ public class Attribute implements PropertyChangeInterface
    {
       insertHasMethodInPatternObjectClassOneParam(parser, ownerClazz);
       insertHasMethodInPatternObjectClassRange(parser, ownerClazz);
+      insertCreateMethodInPatternObjectClassOneParam(parser, ownerClazz);
    }
    
    private void insertHasMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz) 
@@ -701,6 +702,7 @@ public class Attribute implements PropertyChangeInterface
       }
    }
 
+
    private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
       String attrType = ownerClazz.shortNameAndImport(getType(), parser);
@@ -749,6 +751,48 @@ public class Attribute implements PropertyChangeInterface
          ownerClazz.setPatternObjectFileHasChanged(true);
       }
    }
+
+
+   private void insertCreateMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
+   {
+      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String key = Parser.METHOD + ":create"
+            + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
+      int pos = parser.indexOf(key);
+
+      if (pos < 0) {
+         // need to add property to string array
+
+         StringBuilder text = new StringBuilder(
+            "   public PatternObjectType createName(AttrType value)\n" + 
+                  "   {\n" + 
+                  "      this.startCreate().hasName(value).endCreate();\n" + 
+                  "      return this;\n" + 
+                  "   }\n" +
+               "   \n");
+
+         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
+
+         String modelClass = ownerClazz.shortNameAndImport(ownerClazz.getName(), parser);
+         
+         if (ownerClazz.getWrapped())
+         {
+            modelClass = modelClass + "Creator";
+         }
+         
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", patternObjectType,
+            "Name", StrUtil.upFirstChar(getName()), 
+            "AttrType", attrType, 
+            "ModelClass", modelClass);
+
+         int classEnd = parser.indexOf(Parser.CLASS_END);
+         parser.getFileBody().insert(classEnd, text.toString());
+         ownerClazz.setPatternObjectFileHasChanged(true);
+      }
+   }
+
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {

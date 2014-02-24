@@ -402,13 +402,13 @@ public class StoryboardTests {
       
       storyboard.add("Results in:");
       
-      StringBuilder text = new StringBuilder(
-         "      Sum of assignment points: 42. \n      Sum of points of assignments that have been done by at least one students: 23."
-            );
+      String text = CGUtil.replaceAll(
+         "      Sum of assignment points: 42. \n" +
+         "      Sum of points of assignments that have been done by at least one students: 23.",
+         "42", assignmentPoints, 
+         "23", donePoints);
       
-      CGUtil.replaceAll(text, "42", "" + assignmentPoints, "23", "" + donePoints);
-      
-      storyboard.addPreformatted(text.toString());
+      storyboard.addPreformatted(text);
       
       
       //=====================================================
@@ -430,13 +430,15 @@ public class StoryboardTests {
       
       storyboard.markCodeStart();
       
-      RoomSet rooms17 = rooms.hasCredits(17);
+      RoomSet rooms17 = university.getRooms().hasCredits(17);
+      RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
 
       storyboard.addCode();
       
       storyboard.add("Results in:");
       
-      storyboard.addPreformatted("      " + rooms17.toString());
+      storyboard.addPreformatted("      rooms17: " + rooms17.toString() 
+         + "\n      roomsGE20: " + roomsGE20);
       
       storyboard.addStep("Filter for attribute greater than:");
       
@@ -445,25 +447,21 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsGT = rooms.has(rooms.new Condition() {
+      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
 
          @Override
          public boolean check(Room elem)
          {
-            return elem.getCredits() > 20;
+            return elem.getCredits() % 2 == 0;
          }
          
       });
       
-      // or easier now
-      RoomSet roomsInRange = rooms.hasCredits(21, Integer.MAX_VALUE);
-
       storyboard.addCode();
       
       storyboard.add("Results in:");
       
-      storyboard.addPreformatted("      " + roomsGT);
-      storyboard.addPreformatted("      " + roomsInRange);
+      storyboard.addPreformatted("      " + roomsEven);
       
       //====================================================
       storyboard.addStep("Filter for type: ");
@@ -558,7 +556,7 @@ public class StoryboardTests {
       
       roomPO.hasTas(null);
       
-      roomPO.startCreate().hasTas().endCreate();
+      roomPO.createTas();
       
       rooms = roomPO.allMatches();
       
@@ -607,6 +605,7 @@ public class StoryboardTests {
          
          currentMatch.withMotivation(currentMatch.getMotivation() * 2);
          
+         // or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
         
          System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
@@ -617,6 +616,8 @@ public class StoryboardTests {
       storyboard.addPattern(roomPO, false);
       
       storyboard.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
+      
+      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
 
       storyboard.dumpHTML();
    }

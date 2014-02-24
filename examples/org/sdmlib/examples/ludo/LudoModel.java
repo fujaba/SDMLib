@@ -40,6 +40,8 @@ public class LudoModel
    {
       Storyboard storyboard = new Storyboard("examples", "LudoModel");
       
+      storyboard.setSprint("Sprint.002.Examples");
+      
       //      storyboard.add("The model: ",
       //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
@@ -109,6 +111,8 @@ public class LudoModel
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
       
       model.generate("examples", "examplehelpers");
+      
+      storyboard.addLogEntry(R.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
       
       StoryboardManager.get()
       .add(storyboard)

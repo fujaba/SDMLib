@@ -450,8 +450,8 @@ public class StoryboardManager
             hoursSpend += logEntry.getHoursSpend();
             String dataLine = CGUtil.replaceAll(
                "[millis, value]", 
-               "millis", "" + logEntry.getParsedDate().getTime(),
-               "value", "" + hoursSpend
+               "millis", logEntry.getParsedDate().getTime(),
+               "value", hoursSpend
                );
             
             hoursSpendData.add(dataLine);
@@ -467,8 +467,8 @@ public class StoryboardManager
             
             dataLine = CGUtil.replaceAll(
                "[millis, value]", 
-               "millis", "" + logEntry.getParsedDate().getTime(),
-               "value", "" + (hoursSpend + sumOfHoursRemaining) 
+               "millis", logEntry.getParsedDate().getTime(),
+               "value", hoursSpend + sumOfHoursRemaining 
                );
             
             hoursRemaingData.add(dataLine);

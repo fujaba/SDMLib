@@ -60,6 +60,12 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
+   public AssignmentPO createContent(String value)
+   {
+      this.startCreate().hasContent(value).endCreate();
+      return this;
+   }
+   
    public String getContent()
    {
       if (this.getPattern().getHasMatch())
@@ -107,6 +113,12 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
+   public AssignmentPO createPoints(int value)
+   {
+      this.startCreate().hasPoints(value).endCreate();
+      return this;
+   }
+   
    public int getPoints()
    {
       if (this.getPattern().getHasMatch())
@@ -135,9 +147,19 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return result;
    }
 
+   public RoomPO createRoom()
+   {
+      return this.startCreate().hasRoom().endCreate();
+   }
+
    public AssignmentPO hasRoom(RoomPO tgt)
    {
       return hasLinkConstraint(tgt, Assignment.PROPERTY_ROOM);
+   }
+
+   public AssignmentPO createRoom(RoomPO tgt)
+   {
+      return this.startCreate().hasRoom(tgt).endCreate();
    }
 
    public Room getRoom()
@@ -159,9 +181,19 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return result;
    }
 
+   public StudentPO createStudents()
+   {
+      return this.startCreate().hasStudents().endCreate();
+   }
+
    public AssignmentPO hasStudents(StudentPO tgt)
    {
       return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
+   }
+
+   public AssignmentPO createStudents(StudentPO tgt)
+   {
+      return this.startCreate().hasStudents(tgt).endCreate();
    }
 
    public StudentSet getStudents()

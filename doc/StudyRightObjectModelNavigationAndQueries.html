@@ -22,34 +22,33 @@
       
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
-      RoomSet rooms17 = rooms.hasCredits(17);
+      RoomSet rooms17 = university.getRooms().hasCredits(17);
+      RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
-<pre>      (senate math 17)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
+<pre>      rooms17: (senate math 17)
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
-      RoomSet roomsGT = rooms.has(rooms.new Condition() {
+      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
 
          @Override
          public boolean check(Room elem)
          {
-            return elem.getCredits() &gt; 20;
+            return elem.getCredits() % 2 == 0;
          }
          
       });
       
-      &#x2F;&#x2F; or easier now
-      RoomSet roomsInRange = rooms.hasCredits(21, Integer.MAX_VALUE);
-
 </pre><p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><pre>      (gymnasium sports 25)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
       TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
       
 </pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
       university.getStudents().withMotivation(42);
       
-</pre><embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries29.svg'>
+</pre><embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries28.svg'>
 <p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
       RoomPO roomPO = university.getRooms().startModelPattern();
             
@@ -59,7 +58,7 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram31.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram30.svg'>
 <p>Results in:</p>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
       roomPO = university.getRooms().startModelPattern();
@@ -84,7 +83,7 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram36.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram35.svg'>
 <p>Results in:</p>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
       roomPO = university.getRooms().startModelPattern();
@@ -95,13 +94,13 @@
       
       roomPO.hasTas(null);
       
-      roomPO.startCreate().hasTas().endCreate();
+      roomPO.createTas();
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram41.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram40.svg'>
 <p>Results in:</p>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries44.svg'>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries43.svg'>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
       roomPO = university.getRooms().startModelPattern();
       
@@ -111,8 +110,8 @@
       
       TeachingAssistantSet taSet = taPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram47.svg'>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries49.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram46.svg'>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries48.svg'>
 <p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
       roomPO = university.getRooms().startModelPattern();
       
@@ -124,13 +123,14 @@
          
          currentMatch.withMotivation(currentMatch.getMotivation() * 2);
          
+         &#x2F;&#x2F; or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
         
          System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
       }
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram51.svg'>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries53.svg'>
+</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram50.svg'>
+<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries52.svg'>
 
 </body>
 </html>
