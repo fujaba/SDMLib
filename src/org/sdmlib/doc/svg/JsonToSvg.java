@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -63,73 +62,86 @@ public class JsonToSvg implements DocAdapter {
 		String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
 		link = link.replaceFirst("<imagename>", imgName + ".svg");
 
-		mxGraph graph = new mxGraph();
+		UMLGraph graph = new UMLGraph();
+
 		Object defaultParent = graph.getDefaultParent();
 		graph.getModel().beginUpdate();
 
 		HashMap<JsonObject, Object> vertexMap = new HashMap<>();
-		HashMap<JsonObject, List<String>> objectIdsMap = new HashMap<>();
+		HashMap<JsonObject, HashMap<String, String>> objectIdsMap = new HashMap<>();
 		HashMap<String, JsonObject> idObjectMap = new HashMap<>();
-		
+
 		try {
-			//parse nodes
+			// parse nodes
 			for (int i = 0; i < objects.size(); i++) {
 				JsonObject object = objects.getJSONObject(i);
 				String objectId = object.getString(JsonIdMap.ID);
 				idObjectMap.put(objectId, object);
-				
-				JsonObject props = (JsonObject) object.get(JsonIdMap.JSON_PROPS);
-				
-				List<String> linkedIds = new LinkedList<>();
-				
+
+				JsonObject props = (JsonObject) object
+						.get(JsonIdMap.JSON_PROPS);
+
+				HashMap<String, String> linkedIds = new HashMap<>();
+
 				Iterator<Entry<String, Object>> iterator = props.iterator();
-				
-				//parse edges
-				while(iterator.hasNext()) {
+
+				// parse edges
+				while (iterator.hasNext()) {
 					Entry<String, Object> next = iterator.next();
 					Object value = next.getValue();
-					//to 1
-					if(value instanceof JsonObject) {
-						String id = ((JsonObject)value).getString(JsonIdMap.ID);
-						linkedIds.add(id);
-					//to n
-					} else if(value instanceof JsonArray) {
+					// to 1
+					if (value instanceof JsonObject) {
+						String id = ((JsonObject) value)
+								.getString(JsonIdMap.ID);
+						linkedIds.put(id, next.getKey());
+						// to n
+					} else if (value instanceof JsonArray) {
 						JsonArray idArray = (JsonArray) value;
-						for(int j=0; j<idArray.size(); j++) {
+						for (int j = 0; j < idArray.size(); j++) {
 							JsonObject idObject = idArray.getJSONObject(j);
 							String id = idObject.getString(JsonIdMap.ID);
-							linkedIds.add(id);
+							linkedIds.put(id, next.getKey());
 						}
 					}
 				}
-				
+
 				Object vertex = graph.insertVertex(defaultParent, null,
-						object.getString(JsonIdMap.CLASS), 20, 20, 80,
-						30);
-				
+						object.getString(JsonIdMap.CLASS), 20, 20, 80, 30);
+
 				objectIdsMap.put(object, linkedIds);
 				vertexMap.put(object, vertex);
 			}
-			
+
 			Set<JsonObject> jsonObjects = objectIdsMap.keySet();
+			LinkedList<Entry<String,String> > drawnLinks = new LinkedList<>();
 			
 			for (JsonObject jsonObject : jsonObjects) {
-				List<String> linkedIds = objectIdsMap.get(jsonObject);
-				for (String id : linkedIds) {
-					JsonObject linkedObject = idObjectMap.get(id);
-					Object v1 = vertexMap.get(jsonObject);
-					Object v2 = vertexMap.get(linkedObject);
-					
-					graph.insertEdge(defaultParent, null, "Edge", v1, v2, "startArrow=none;endArrow=none;");
-					
-					Object[] incomingEdges = graph.getIncomingEdges(v1);
-					for (Object object : incomingEdges) {
-						
+				HashMap<String, String> linkedIds = objectIdsMap
+						.get(jsonObject);
+				for (Entry<String, String> id : linkedIds.entrySet()) {
+					JsonObject linkedObject = idObjectMap.get(id.getKey());
+					HashMap<String, String> oppositeLinks = objectIdsMap
+							.get(linkedObject);
+					Entry<String, String> oppositeId = null;
+
+					for (Entry<String, String> entry : oppositeLinks.entrySet()) {
+						if (jsonObject.getString(JsonIdMap.ID).equals(entry.getKey())) {
+							oppositeId = entry;
+						}
 					}
-					
+
+					if (oppositeId != null && !drawnLinks.contains(oppositeId) && !drawnLinks.contains(id)) {
+						Object v1 = vertexMap.get(jsonObject);
+						Object v2 = vertexMap.get(linkedObject);
+						graph.insertEdge(defaultParent, null, id.getValue()
+								+ ";" + oppositeId.getValue(), v1, v2,
+								"startArrow=none;endArrow=none");
+						drawnLinks.add(id);
+						drawnLinks.add(oppositeId);
+					}
 				}
 			}
-			
+
 		} finally {
 			graph.getModel().endUpdate();
 		}
@@ -139,20 +151,31 @@ public class JsonToSvg implements DocAdapter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return link;
 
 	}
 
+	public boolean isDrawn(Entry<String, String> entry, HashMap<String, String> drawn) {
+		
+		return false;
+	}
+	
 	public void generateSVGGraphImage(mxGraph graph, String fileName)
 			throws IOException {
 		// Get the Graph component from the mxGraph to create an image out of
 		// this Graph
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
-		
-		new mxHierarchicalLayout(graph).execute(graph.getDefaultParent());
-//		new mxParallelEdgeLayout(graph).execute(graph.getDefaultParent());
-		
+
+		// FIXME
+		graphComponent.getCanvas().putTextShape("default",
+				new UMLEdgeLabelShape());
+
+		mxHierarchicalLayout mxHierarchicalLayout = new mxHierarchicalLayout(
+				graph);
+		mxHierarchicalLayout.execute(graph.getDefaultParent());
+		// new mxParallelEdgeLayout(graph).execute(graph.getDefaultParent());
+
 		// Create an instance of org.w3c.dom.Document
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
 		DOMImplementation domImpl = SVGDOMImplementation.getDOMImplementation();
