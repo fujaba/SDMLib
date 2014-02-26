@@ -24,6 +24,7 @@
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="lib/emma.jar" />
 		<pathelement location="lib/emma_ant.jar" />
+		<pathelement location="lib/jgraphx.jar" />
 	</path>
 	
 	
