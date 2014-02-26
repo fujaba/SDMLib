@@ -31,6 +31,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
@@ -63,7 +64,8 @@ public class JsonToSvg implements DocAdapter {
 		link = link.replaceFirst("<imagename>", imgName + ".svg");
 
 		UMLGraph graph = new UMLGraph();
-
+		graph.setAutoSizeCells(true);
+		
 		Object defaultParent = graph.getDefaultParent();
 		graph.getModel().beginUpdate();
 
@@ -106,8 +108,8 @@ public class JsonToSvg implements DocAdapter {
 				}
 
 				Object vertex = graph.insertVertex(defaultParent, null,
-						object.getString(JsonIdMap.CLASS), 20, 20, 80, 30);
-
+						object.getString(JsonIdMap.CLASS), 20, 20, 80, 30, "shape=object");
+				
 				objectIdsMap.put(object, linkedIds);
 				vertexMap.put(object, vertex);
 			}
@@ -142,10 +144,13 @@ public class JsonToSvg implements DocAdapter {
 				}
 			}
 
+			
 		} finally {
 			graph.getModel().endUpdate();
 		}
 
+		graph.updateVertexBounds(vertexMap.values().toArray());
+		
 		try {
 			generateSVGGraphImage(graph, "doc/" + imgName + ".svg");
 		} catch (IOException e) {
@@ -170,6 +175,8 @@ public class JsonToSvg implements DocAdapter {
 		// FIXME
 		graphComponent.getCanvas().putTextShape("default",
 				new UMLEdgeLabelShape());
+		graphComponent.getCanvas().putShape("object",
+				new ObjectShape());
 
 		mxHierarchicalLayout mxHierarchicalLayout = new mxHierarchicalLayout(
 				graph);
