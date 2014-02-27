@@ -41,7 +41,7 @@ public class StudentSet extends SDMSet<Student>
 {
 
 
-   public StudentPO startModelPattern()
+   public StudentPO hasStudentPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
       

@@ -38,7 +38,7 @@ public class AssignmentSet extends SDMSet<Assignment>
 {
 
 
-   public AssignmentPO startModelPattern()
+   public AssignmentPO hasAssignmentPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
       

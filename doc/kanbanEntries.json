@@ -5,7 +5,7 @@
     "prop":{
       "name":"SDMLibProject",
       "phase":"active",
-      "hoursSpend":417,
+      "hoursSpend":419,
       "subentries":[
         {"id":"KE.K2"},
         {"id":"KE.K3"},
@@ -45,11 +45,12 @@
     "prop":{
       "name":"StudyRightObjectModelNavigationAndQueries",
       "phase":"done",
-      "hoursSpend":42,
+      "hoursSpend":44,
       "parent":{"id":"KE.K1"},
       "logEntries":[
         {"id":"KE.L4"},
-        {"id":"KE.L80"}
+        {"id":"KE.L80"},
+        {"id":"KE.L81"}
       ],
       "phases":"active, backlog, implementation, done"
     }
@@ -905,6 +906,18 @@
       "developer":"zuendorf",
       "phase":"done",
       "comment":"added createXY shortcuts for patterns"
+    }
+  },
+  {
+    "id":"KE.L81",
+    "class":"org.sdmlib.storyboards.LogEntry",
+    "prop":{
+      "date":"25.02.2014 22:11:42 EST",
+      "hoursSpend":2,
+      "kanbanEntry":{"id":"KE.K3"},
+      "developer":"zuendorf",
+      "phase":"done",
+      "comment":"switched to roomSet.hasRoomPO()"
     }
   }
 ]

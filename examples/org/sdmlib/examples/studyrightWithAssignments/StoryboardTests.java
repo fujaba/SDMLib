@@ -284,9 +284,9 @@ public class StoryboardTests {
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard story = new Storyboard();
       
-      storyboard.add("Extend the class model:", Storyboard.DONE, "zuendorf", "17.01.2014 16:35:42", 40, 0);
+      story.add("Extend the class model:", Storyboard.DONE, "zuendorf", "17.01.2014 16:35:42", 40, 0);
       
       ClassModel model = new ClassModel();
       
@@ -298,13 +298,13 @@ public class StoryboardTests {
       
       roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE);
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
       // model.generate("examples");
       
-      storyboard.add("How to navigate and query an object model.");
+      story.add("How to navigate and query an object model.");
       
-      storyboard.addStep("Example object structure:");
+      story.addStep("Example object structure:");
       
       University university = new University()
       .withName("StudyRight");
@@ -373,7 +373,7 @@ public class StoryboardTests {
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
 
-      storyboard.addObjectDiagram(
+      story.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 
          "abu", "icons/karli.png", abu, 
@@ -390,59 +390,63 @@ public class StoryboardTests {
 
       
       //=====================================================
-      storyboard.addStep("Simple set based navigation:");
+      story.addStep("Simple set based navigation:");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
  
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
       
       int donePoints = university.getStudents().getDone().getPoints().sum();
       
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
       String text = CGUtil.replaceAll(
          "      Sum of assignment points: 42. \n" +
-         "      Sum of points of assignments that have been done by at least one students: 23.",
+         "      Sum of points of assignments that have been done by at least one students: 84.",
          "42", assignmentPoints, 
-         "23", donePoints);
+         "84", donePoints);
       
-      storyboard.addPreformatted(text);
+      story.addPreformatted(text);
       
+      story.assertEquals("Assignment points: ", 23, assignmentPoints);
+      story.assertEquals("donePoints: ", 15, donePoints);
       
       //=====================================================
-      storyboard.addStep("Rooms with assignments not yet done by Karli:");
+      story.addStep("Rooms with assignments not yet done by Karli:");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
       
       RoomSet rooms = availableAssignments.getRoom();
       
-      storyboard.addCode();
+      story.addCode();
      
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addPreformatted("      " + rooms.toString());
+      story.addPreformatted("      " + rooms.toString());
+
+      story.assertEquals("rooms.size(): ", 2, rooms.size()); 
       
-      storyboard.addStep("Filter for attribute:");
+      story.addStep("Filter for attribute:");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
       RoomSet rooms17 = university.getRooms().hasCredits(17);
       RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
 
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addPreformatted("      rooms17: " + rooms17.toString() 
+      story.addPreformatted("      rooms17: " + rooms17.toString() 
          + "\n      roomsGE20: " + roomsGE20);
       
-      storyboard.addStep("Filter for attribute greater than:");
+      story.addStep("Filter for attribute greater than:");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
@@ -457,41 +461,41 @@ public class StoryboardTests {
          
       });
       
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addPreformatted("      " + roomsEven);
+      story.addPreformatted("      " + roomsEven);
       
       //====================================================
-      storyboard.addStep("Filter for type: ");
+      story.addStep("Filter for type: ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
       TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
       
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.addPreformatted("" + taStudents);
+      story.addPreformatted("" + taStudents);
       
       //====================================================
-      storyboard.addStep("Write operations on sets: ");
+      story.addStep("Write operations on sets: ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
       university.getStudents().withMotivation(42);
       
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.addObjectDiagramWith(university.getStudents());
+      story.addObjectDiagramWith(university.getStudents());
       
       
       //=====================================================
-      storyboard.addStep("Rooms with two students that are friends (and need supervision): ");
+      story.addStep("Rooms with two students that are friends (and need supervision): ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
-      RoomPO roomPO = university.getRooms().startModelPattern();
+      RoomPO roomPO = university.getRooms().hasRoomPO();
             
       StudentPO stud1PO = roomPO.hasStudents();      
       
@@ -499,21 +503,21 @@ public class StoryboardTests {
       
       rooms = roomPO.allMatches();
       
-      storyboard.addCode();
+      story.addCode();
      
-      storyboard.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO.getPattern(), false);
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addPreformatted("      " + rooms.toString());
+      story.addPreformatted("      " + rooms.toString());
       
 
       //=====================================================
-      storyboard.addStep("Rooms with two students with low motivation that are friends (and need supervision): ");
+      story.addStep("Rooms with two students with low motivation that are friends (and need supervision): ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
-      roomPO = university.getRooms().startModelPattern();
+      roomPO = university.getRooms().hasRoomPO();
             
       stud1PO = roomPO.hasStudents();      
       
@@ -535,20 +539,20 @@ public class StoryboardTests {
       
       rooms = roomPO.allMatches();
       
-      storyboard.addCode();
+      story.addCode();
      
-      storyboard.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO.getPattern(), false);
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addPreformatted("      " + rooms.toString());
+      story.addPreformatted("      " + rooms.toString());
 
       //=====================================================
-      storyboard.addStep("Rooms with two students without supervision that are friends and add teaching assistance: ");
+      story.addStep("Rooms with two students without supervision that are friends and add teaching assistance: ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
-      roomPO = university.getRooms().startModelPattern();
+      roomPO = university.getRooms().hasRoomPO();
             
       stud1PO = roomPO.hasStudents();      
       
@@ -560,22 +564,22 @@ public class StoryboardTests {
       
       rooms = roomPO.allMatches();
       
-      storyboard.addCode();
+      story.addCode();
      
-      storyboard.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO.getPattern(), false);
       
-      storyboard.add("Results in:");
+      story.add("Results in:");
       
-      storyboard.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());
+      story.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());
       
-      storyboard.addPreformatted("      " + rooms.toString());
+      story.addPreformatted("      " + rooms.toString());
       
       //=====================================================
-      storyboard.addStep("TAs as students in a room: ");
+      story.addStep("TAs as students in a room: ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
-      roomPO = university.getRooms().startModelPattern();
+      roomPO = university.getRooms().hasRoomPO();
       
       stud1PO = roomPO.hasStudents();
       
@@ -583,19 +587,19 @@ public class StoryboardTests {
       
       TeachingAssistantSet taSet = taPO.allMatches();
       
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addPattern(roomPO, false);
+      story.addPattern(roomPO, false);
       
-      storyboard.addObjectDiagramWith(taSet, taSet.getRoom());
+      story.addObjectDiagramWith(taSet, taSet.getRoom());
 
 
       //=====================================================
-      storyboard.addStep("Double motivation of all students: ");
+      story.addStep("Double motivation of all students: ");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       
-      roomPO = university.getRooms().startModelPattern();
+      roomPO = university.getRooms().hasRoomPO();
       
       stud1PO = roomPO.hasStudents();
 
@@ -611,15 +615,17 @@ public class StoryboardTests {
          System.out.println("match " + match.number + ": " + currentMatch + " in room " + roomPO.getCurrentMatch());
       }
       
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addPattern(roomPO, false);
+      story.addPattern(roomPO, false);
       
-      storyboard.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
+      story.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
       
-      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
+      story.addLogEntry(R.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
+      story.addLogEntry(R.DONE, "zuendorf", "25.02.2014 22:11:42 EST", 2, 0, "switched to roomSet.hasRoomPO()");
 
-      storyboard.dumpHTML();
+
+      story.dumpHTML();
    }
 
 }

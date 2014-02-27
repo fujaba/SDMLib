@@ -43,7 +43,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
 
 
-   public TeachingAssistantPO startModelPattern()
+   public TeachingAssistantPO hasTeachingAssistantPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
       

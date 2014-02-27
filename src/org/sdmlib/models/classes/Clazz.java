@@ -1224,14 +1224,14 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertSetStartModelPattern(Parser parser)
    {
-      String searchString = Parser.METHOD + ":startModelPattern()";
+      String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(this.getName()) + "PO()";
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
             "\n\n" + 
-                  "   public ModelPO startModelPattern()\n" + 
+                  "   public ModelPO hasModelPO()\n" + 
                   "   {\n" + 
                   "      ModelPatternClass pattern = new ModelPatternClass();\n" + 
                   "      \n" + 

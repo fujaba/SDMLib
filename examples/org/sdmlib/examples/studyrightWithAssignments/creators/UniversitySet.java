@@ -37,7 +37,7 @@ public class UniversitySet extends SDMSet<University>
 {
 
 
-   public UniversityPO startModelPattern()
+   public UniversityPO hasUniversityPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
       

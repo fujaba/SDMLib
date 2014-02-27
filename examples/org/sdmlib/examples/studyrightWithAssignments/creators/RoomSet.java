@@ -43,7 +43,7 @@ public class RoomSet extends SDMSet<Room>
 {
 
 
-   public RoomPO startModelPattern()
+   public RoomPO hasRoomPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
       
