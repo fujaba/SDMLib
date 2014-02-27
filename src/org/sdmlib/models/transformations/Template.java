@@ -115,6 +115,11 @@ public class Template implements PropertyChangeInterface
          return getReferenceLookup();
       }
 
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       return null;
    }
 
@@ -213,6 +218,12 @@ public class Template implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -281,6 +292,7 @@ public class Template implements PropertyChangeInterface
       _.append(" ").append(this.getListStart());
       _.append(" ").append(this.getListSeparator());
       _.append(" ").append(this.getListEnd());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
@@ -1531,6 +1543,34 @@ public class Template implements PropertyChangeInterface
    public Template withReferenceLookup(boolean value)
    {
       setReferenceLookup(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Template withName(String value)
+   {
+      setName(value);
       return this;
    } 
 }

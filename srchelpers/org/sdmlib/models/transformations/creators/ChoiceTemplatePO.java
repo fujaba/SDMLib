@@ -516,6 +516,54 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
       return this;
    }
    
+   public ChoiceTemplatePO hasName(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ChoiceTemplatePO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ChoiceTemplate.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ChoiceTemplate) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public ChoiceTemplatePO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ChoiceTemplate) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

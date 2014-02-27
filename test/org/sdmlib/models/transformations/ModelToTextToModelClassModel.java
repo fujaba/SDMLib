@@ -25,7 +25,8 @@ public class ModelToTextToModelClassModel
                "listStart", R.STRING,
                "listSeparator", R.STRING,
                "listEnd", R.STRING, 
-               "referenceLookup", R.BOOLEAN
+               "referenceLookup", R.BOOLEAN,
+               "name", R.STRING 
                  );
       
       Clazz placeholderDescription = template.createClassAndAssoc("PlaceHolderDescription", "placeholders", R.MANY, "owners", R.MANY)
