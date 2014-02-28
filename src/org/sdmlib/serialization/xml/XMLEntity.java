@@ -5,8 +5,8 @@ package org.sdmlib.serialization.xml;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -196,9 +196,7 @@ public class XMLEntity extends Entity implements BaseEntityList {
 		if (indentFactor > 0) {
 			sb.append("\n");
 		}
-		for (int i = 0; i < indentFactor; i += 1) {
-			sb.append(' ');
-		}
+		sb.append(EntityUtil.repeat(' ', indentFactor));
 		sb.append("<" + this.getTag());
 		Map<String, Object> attributes = getMap();
 

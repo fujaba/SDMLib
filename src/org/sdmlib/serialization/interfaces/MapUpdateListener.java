@@ -5,8 +5,8 @@ package org.sdmlib.serialization.interfaces;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -23,14 +23,13 @@ package org.sdmlib.serialization.interfaces;
 */
 import org.sdmlib.serialization.json.JsonObject;
 /**
- * The listener interface for receiving mapUpdate events.
- * The class that is interested in processing a mapUpdate
- * event implements this interface, and the object created
- * with that class is registered with a component using the
+ * The listener interface for receiving mapUpdate events. The class that is
+ * interested in processing a mapUpdate event implements this interface, and the
+ * object created with that class is registered with a component using the
  * component's <code>addMapUpdateListener<code> method. When
  * the mapUpdate event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see MapUpdateEvent
  */
 

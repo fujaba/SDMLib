@@ -5,8 +5,8 @@ package org.sdmlib.serialization.json;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -24,10 +24,11 @@ package org.sdmlib.serialization.json;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
-import org.sdmlib.serialization.interfaces.TextEntity;
+import org.sdmlib.serialization.interfaces.LocalisationEntity;
 /**
  * A JsonObject is an unordered collection of name/value pairs. Its
  * external form is a string wrapped in curly braces with colons between the
@@ -80,7 +81,7 @@ import org.sdmlib.serialization.interfaces.TextEntity;
  * @author JSON.org
  * @version 2011-11-24
  */
-public class JsonObject extends Entity implements TextEntity {
+public class JsonObject extends Entity implements LocalisationEntity {
 	/**
 	 * Produce a string from a double. The string "null" will be returned if the
 	 * number is not finite.
@@ -217,12 +218,9 @@ public class JsonObject extends Entity implements TextEntity {
 		Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
 		
 		int newindent = indent + indentFactor;
-		String prefix = null;
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < indentFactor; i++) {
-			sb.append(' ');
-		}
-		String step = sb.toString();
+		String prefix = "";
+		StringBuilder sb;
+		String step = EntityUtil.repeat(' ', indentFactor);
 		if (indent > 0) {
 			sb = new StringBuilder();
 			for (int i = 0; i < indent; i += indentFactor) {

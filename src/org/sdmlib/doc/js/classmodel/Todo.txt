@@ -1,0 +1,4 @@
+- Raster
+- Nodes ausblenden
+- Export in SVG
+- Rechteckige Pfeile

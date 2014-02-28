@@ -5,8 +5,8 @@ package org.sdmlib.serialization.json;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -26,8 +26,8 @@ import java.util.Iterator;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
-import org.sdmlib.serialization.interfaces.NoIndexCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreatorNoIndex;
 
 public class Grammar {
 	/**
@@ -63,7 +63,7 @@ public class Grammar {
 	public JsonObject getWriteObject(IdMap map, SendableEntityCreator prototyp,
 			String className, String id, JsonObject jsonProp, Filter filter) {
 		JsonObject json = new JsonObject();
-		if (prototyp instanceof NoIndexCreator) {
+		if (prototyp instanceof SendableEntityCreatorNoIndex) {
 			Iterator<String> keys = jsonProp.keys();
 			while (keys.hasNext()) {
 				String key = keys.next();

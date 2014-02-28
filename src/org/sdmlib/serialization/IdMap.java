@@ -5,8 +5,8 @@ package org.sdmlib.serialization;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -24,10 +24,10 @@ package org.sdmlib.serialization;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
@@ -54,25 +54,18 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	/** The Constant PRIO. */
 	public static final String PRIO = "prio";
 	
-	/** The keys. */
-	protected Map<Object, String> keys;
-
-	/** The values. */
-	protected Map<String, Object> values;
-
 	/** The counter. */
 	private IdMapCounter counter;
 
 	/** The update listener. */
 	protected UpdateListener updateListener;
 
-	/** The parent. */
-	protected IdMap parent;
-
 	protected ArrayList<TypList> typList;
 
 	/** The updatelistener for Notification changes. */
 	protected PropertyChangeListener updatePropertylistener;
+	
+	protected BidiHashMap<String, Object> keyValue;
 	
 	protected Filter filter=new Filter();
 
@@ -81,19 +74,20 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 */
 	public IdMap() {
 		super();
-		this.keys = new HashMap<Object, String>();
-		this.values = new HashMap<String, Object>();
+		this.keyValue = new BidiHashMap<String, Object>();
 		this.withCreator(new TextItems());
 	}
 
 	/**
-	 * Instantiates a new id map.
+	 * set the new List of Items for the Map
 	 * 
 	 * @param parent
-	 *            the parent
+	 *            the parent-List of Items
+	 * @return the Map
 	 */
-	public IdMap(IdMap parent) {
-		this.parent = parent;
+	public IdMap withKeyValue(BidiHashMap<String, Object> parent) {
+		this.keyValue = parent;
+		return this;
 	}
 
 	/**
@@ -155,9 +149,11 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * 
 	 * @param Character
 	 *            the new splitter-Character for the session id
+	 * @return the Map  
 	 */
-	public void setSplitterId(char splitter) {
+	public IdMap setSplitterId(char splitter) {
 		getCounter().withSplitter(splitter);
+		return this;
 	}
 
 	// Key Value paar
@@ -169,10 +165,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return the key
 	 */
 	public String getKey(Object obj) {
-		if (this.parent != null) {
-			return this.parent.getKey(obj);
-		}
-		return this.keys.get(obj);
+		return this.keyValue.getKey(obj);
 	}
 
 	/**
@@ -183,10 +176,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return the object
 	 */
 	public Object getObject(String key) {
-		if (this.parent != null) {
-			return this.parent.getObject(key);
-		}
-		return this.values.get(key);
+		return this.keyValue.getValue(key);
 	}
 
 	/**
@@ -197,10 +187,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return the id
 	 */
 	public String getId(Object obj) {
-		if (this.parent != null) {
-			return this.parent.getId(obj);
-		}
-		String key = this.keys.get(obj);
+		String key = this.keyValue.getKey(obj);
 		if (key == null) {
 			key = getCounter().getId(obj);
 			put(key, obj);
@@ -218,14 +205,9 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return
 	 */
 	public Object put(String jsonId, Object object) {
-		if (this.parent != null) {
-			this.parent.put(jsonId, object);
-		} else {
-			this.values.put(jsonId, object);
-			this.keys.put(object, jsonId);
-			addListener(object);
-			addTypList(object);
-		}
+		this.keyValue.with(jsonId, object);
+		addListener(object);
+		addTypList(object);
 		return object;
 	}
 
@@ -272,9 +254,6 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return boolean if success
 	 */
 	public boolean removeObj(Object oldValue, boolean destroy) {
-		if (this.parent != null) {
-			return this.parent.removeObj(oldValue, destroy);
-		}
 		String key = getKey(oldValue);
 		if (destroy) {
 			SendableEntityCreator creator = getCreatorClass(oldValue);
@@ -297,8 +276,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 			}
 		}
 		if (key != null) {
-			this.keys.remove(oldValue);
-			this.values.remove(key);
+			this.keyValue.remove(key, oldValue);
 			if (this.typList != null) {
 				for (TypList list : this.typList) {
 					list.removeObject(oldValue);
@@ -315,10 +293,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return the int
 	 */
 	public int size() {
-		if (this.parent != null) {
-			return this.parent.size();
-		}
-		return this.keys.size();
+		return this.keyValue.size();
 	}
 
 	/**
@@ -329,9 +304,6 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	 * @return the creator classes
 	 */
 	public SendableEntityCreator getCreatorClasses(String className) {
-		if (this.parent != null) {
-			return this.parent.getCreatorClasses(className);
-		}
 		return super.getCreatorClasses(className);
 	}
 
@@ -411,10 +383,6 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 
 	@Override
 	public AbstractMap withCreator(String className, SendableEntityCreator creator) {
-		if (this.parent != null) {
-			this.parent.withCreator(className, creator);
-			return this;
-		}
 		return super.withCreator(className, creator);
 	}
 
@@ -466,7 +434,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 		ArrayList<Object> result = new ArrayList<Object>();
 		String clazzName = creator.getSendableInstance(true).getClass()
 				.getName();
-		for (Object obj : this.values.values()) {
+		for (Object obj : this.keyValue.getValues()) {
 			if (obj != null) {
 				if (obj.getClass().getName().equals(clazzName)) {
 					result.add(obj);
@@ -507,30 +475,21 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	}
 
 	public boolean isEmpty() {
-		if (this.parent != null) {
-			return this.parent.isEmpty();
-		}
-		return this.values.size() < 1;
+		return this.keyValue.size() < 1;
 	}
 
 	public boolean containsKey(Object key) {
-		if (this.parent != null) {
-			return this.parent.containsKey(key);
-		}
-		return this.keys.containsKey(key);
+		return this.keyValue.containsKey(""+key);
 	}
 
 	public boolean containsValue(Object value) {
-		if (this.parent != null) {
-			return this.parent.containsValue(value);
-		}
-		return this.values.containsKey(value);
+		return this.keyValue.containsValue(value);
 	}
 
 	public Object get(Object key) {
 		return getKey(key);
 	}
-
+	
 	public Object remove(Object oldValue) {
 		if (removeObj(oldValue, false)) {
 			return oldValue;
@@ -538,11 +497,11 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 		return null;
 	}
 
+	public BidiHashMap<String, Object> getKeyValue(){
+		return keyValue;
+	}
+	
 	public void putAll(Map<? extends String, ? extends Object> map) {
-		if (this.parent != null) {
-			this.parent.putAll(map);
-			return;
-		}
 		this.clear();
 
 		for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
@@ -552,33 +511,19 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	}
 
 	public void clear() {
-		if (this.parent != null) {
-			this.parent.clear();
-			return;
-		}
-		this.values.clear();
-		this.keys.clear();
+		this.keyValue.clear();
 	}
 
 	public Set<String> keySet() {
-		if (this.parent != null) {
-			return this.parent.keySet();
-		}
-		return values.keySet();
+		return keyValue.getKeys();
 	}
 
 	public Collection<Object> values() {
-		if (this.parent != null) {
-			return this.parent.values();
-		}
-		return values.values();
+		return keyValue.getValues();
 	}
 
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
-		if (this.parent != null) {
-			return this.parent.entrySet();
-		}
-		return values.entrySet();
+		return keyValue.entrySet();
 	}
 
 	public IdMap withUpdateMsgListener(PropertyChangeListener listener) {
@@ -588,7 +533,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	
 	public IdMap withFilter(Filter filter){
 		this.filter = filter;
-		return parent;		
+		return this;		
 	}
 	
 	public abstract BaseEntity encode(Object value);

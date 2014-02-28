@@ -5,8 +5,8 @@ package org.sdmlib.serialization;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -24,6 +24,7 @@ package org.sdmlib.serialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
 
 public class EntityUtil {
@@ -201,32 +202,6 @@ public class EntityUtil {
 	}
 
 	/**
-	 * Make a JSON text of an Object value. If the object has an
-	 * value.toJSONString() method, then that method will be used to produce the
-	 * JSON text. The method is required to produce a strictly conforming text.
-	 * If the object does not contain a toJSONString method (which is the most
-	 * common case), then a text will be produced by other means. If the value
-	 * is an array or Collection, then a JsonArray will be made from it and its
-	 * toJSONString method will be called. If the value is a MAP, then a
-	 * JsonObject will be made from it and its toJSONString method will be
-	 * called. Otherwise, the value's toString method will be called, and the
-	 * result will be quoted.
-	 * 
-	 * <p>
-	 * Warning: This method assumes that the data structure is acyclical.
-	 * 
-	 * @param value
-	 *            The value to be serialized.
-	 * @return a printable, displayable, transmittable representation of the
-	 *         object, beginning with <code>{</code>&nbsp;<small>(left
-	 *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
-	 *         brace)</small>.
-	 */
-	public static String valueToString(Object value, BaseEntity reference) {
-		return valueToString(value, false, reference);
-	}
-
-	/**
 	 * Make a prettyprinted JSON text of an object value.
 	 * <p>
 	 * Warning: This method assumes that the data structure is acyclical.
@@ -377,4 +352,18 @@ public class EntityUtil {
 		}
 		return null;
 	}
+	
+	/**
+	 * Repeat a Char and return a simple String 
+	 * @param ch Char
+	 * @param repeat Number of Repeat
+	 * @return a String
+	 */
+	public static String repeat(char ch, int repeat) {
+        char[] buf = new char[repeat];
+        for (int i = repeat - 1; i >= 0; i--) {
+            buf[i] = ch;
+        }
+        return new String(buf);
+    }
 }

@@ -5,8 +5,8 @@ package org.sdmlib.serialization;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -200,7 +200,7 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 			if (i > 0) {
 				sb.append(separator);
 			}
-			sb.append(EntityUtil.valueToString(values.get(i), this));
+			sb.append(EntityUtil.valueToString(values.get(i), false, this));
 		}
 		return sb.toString();
 	}
@@ -359,7 +359,7 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * Append a double value. This increases the array's length by one.
 	 * 

@@ -5,8 +5,8 @@ package org.sdmlib.serialization.logic;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -21,22 +21,22 @@ package org.sdmlib.serialization.logic;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import org.sdmlib.serialization.interfaces.ByteCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreatorByte;
 
 public class InstanceOf extends ConditionMap implements SendableEntityCreator {
 	public static final String CLAZZNAME="clazzname";
 	public static final String VALUE="value";
 
-	protected ByteCreator value;
+	protected SendableEntityCreatorByte value;
 	private String clazzName;
 
-	public InstanceOf withCreator(ByteCreator creator) {
+	public InstanceOf withCreator(SendableEntityCreatorByte creator) {
 		this.value = creator;
 		return this;
 	}
 
-	public ByteCreator getValue() {
+	public SendableEntityCreatorByte getValue() {
 		return value;
 	}
 
@@ -87,7 +87,7 @@ public class InstanceOf extends ConditionMap implements SendableEntityCreator {
 			return true;
 		}
 		if(VALUE.equalsIgnoreCase(attribute)){
-			((InstanceOf)entity).withCreator((ByteCreator) value);
+			((InstanceOf)entity).withCreator((SendableEntityCreatorByte) value);
 			return true;
 		}
 		return false;

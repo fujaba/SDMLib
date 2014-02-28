@@ -1,7 +1,7 @@
-package org.sdmlib.serialization.interfaces;
+package org.sdmlib.serialization.graph;
 
 /*
- Json Id Serialisierung Map
+ NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
 
@@ -28,16 +28,58 @@ package org.sdmlib.serialization.interfaces;
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-/**
- * The Interface XMLEntityCreator.
  */
+import org.sdmlib.serialization.Filter;
 
-public interface XMLEntityCreator extends SendableEntityCreator {
+public class GraphIdMapFilter extends Filter {
+	/** The show line. */
+	private boolean isShowLine;
+
+	private boolean isShowCardinality;
+
+	private String typ;
+
 	/**
-	 * Gets the tag of the XML Entity.
+	 * Checks if is show line.
 	 * 
-	 * @return the tag
+	 * @return true, if is show line for objects
 	 */
-	public String getTag();
+	public boolean isShowLine() {
+		return this.isShowLine;
+	}
+
+	/**
+	 * Sets the show line.
+	 * 
+	 * @param value
+	 *            the new show line
+	 * @return
+	 */
+	public GraphIdMapFilter withShowLine(boolean value) {
+		this.isShowLine = value;
+		return this;
+	}
+
+	public boolean isShowCardinality() {
+		return isShowCardinality;
+	}
+
+	public GraphIdMapFilter withShowCardinality(boolean value) {
+		this.isShowCardinality = value;
+		return this;
+	}
+
+	@Override
+	public GraphIdMapFilter clone(Filter newInstance) {
+		return (GraphIdMapFilter) super.clone(newInstance);
+	}
+
+	public String getTyp() {
+		return typ;
+	}
+
+	public GraphIdMapFilter withTyp(String typ) {
+		this.typ = typ;
+		return this;
+	}
 }

@@ -5,8 +5,8 @@ package org.sdmlib.serialization.interfaces;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -22,14 +22,10 @@ package org.sdmlib.serialization.interfaces;
  permissions and limitations under the Licence.
 */
 /**
- * The Interface XMLEntityCreator.
+ * Integrate this Interface to your Modellentity to disable the creating of Id
+ * of the serialized elements and no creating for subelement for Props
  */
 
-public interface XMLCreator extends SendableEntityCreator {
-	/**
-	 * Gets the tag of the XML Entity.
-	 * 
-	 * @return the tag
-	 */
-	public String getTag();
+public interface SendableEntityCreatorNoIndex {
+	// Nothing
 }

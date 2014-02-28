@@ -5,8 +5,8 @@ package org.sdmlib.serialization;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
  *AbstractIdMap embedded all methods for all formats.
@@ -108,7 +109,7 @@ public abstract class AbstractMap {
 	 *
 	 * @param createrClass
 	 *            the creater class
-	 * @return true, if successful
+	 * @return AbstractIdMap to interlink arguments
 	 */
 	public AbstractMap withCreator(SendableEntityCreator createrClass) {
 		Object reference = createrClass.getSendableInstance(true);
@@ -116,6 +117,17 @@ public abstract class AbstractMap {
 			withCreator(reference.getClass().getName(), createrClass);
 		}
 		return this;
+	}
+	
+	/**
+	 * remove the creator.
+	 *
+	 * @param createrClass
+	 *            the creater class
+	 * @return true, if successful
+	 */
+	public boolean removeCreator(String className) {
+		return this.creators.remove(className)!=null;
 	}
 
 	/**

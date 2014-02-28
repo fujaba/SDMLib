@@ -5,8 +5,8 @@ package org.sdmlib.serialization.json;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -26,7 +26,7 @@ import org.sdmlib.serialization.TextParsingException;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
-import org.sdmlib.serialization.interfaces.TextEntity;
+import org.sdmlib.serialization.interfaces.LocalisationEntity;
 import org.sdmlib.serialization.xml.XMLEntity;
 
 public class JsonTokener extends Tokener {
@@ -144,12 +144,12 @@ public class JsonTokener extends Tokener {
 
 	@Override
 	public void parseToEntity(BaseEntity entity) throws TextParsingException{
-		if (!(entity instanceof TextEntity)) {
+		if (!(entity instanceof LocalisationEntity)) {
 			return;
 		}
 		char c;
 		String key;
-		TextEntity item=(TextEntity)entity;
+		LocalisationEntity item=(LocalisationEntity)entity;
 		if (nextStartClean() != '{') {
 			throw new TextParsingException(
 					"A JsonObject text must begin with '{'", this);

@@ -5,8 +5,8 @@ package org.sdmlib.serialization.xml;
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
  
- Licensed under the EUPL, Version 1.1 or higher as soon they
- will be approved by the European Commission - subsequent
+ Licensed under the EUPL, Version 1.1 or (as soon they
+ will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
  You may not use this work except in compliance with the Licence.
  You may obtain a copy of the Licence at:
@@ -25,15 +25,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+
 import org.sdmlib.serialization.AbstractMap;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.interfaces.XMLCreator;
-import org.sdmlib.serialization.interfaces.XMLGrammar;
+import org.sdmlib.serialization.interfaces.SendableEntityCreatorXML;
 import org.sdmlib.serialization.logic.BooleanCondition;
+import org.sdmlib.serialization.xml.creator.XMLGrammar;
 /**
  * The Class XMLIdMap.
  */
@@ -46,7 +47,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	public static final String ATTRIBUTEVALUE = "?";
 
 	/** The decoder map. */
-	private HashMap<String, XMLCreator> decoderMap;
+	private HashMap<String, SendableEntityCreatorXML> decoderMap;
 
 	/** The stack. */
 	private ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
@@ -72,9 +73,9 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	 * .SendableEntityCreator)
 	 */
 	public boolean addCreator(SendableEntityCreator createrClass) {
-		if (createrClass instanceof XMLCreator) {
+		if (createrClass instanceof SendableEntityCreatorXML) {
 			if(this.decoderMap != null){
-				if (this.decoderMap.containsKey(((XMLCreator)createrClass).getTag())) {
+				if (this.decoderMap.containsKey(((SendableEntityCreatorXML)createrClass).getTag())) {
 					return false;
 				}
 			}
@@ -90,10 +91,10 @@ public class XMLIdMap extends XMLSimpleIdMap {
 			SendableEntityCreator createrClass) {
 		super.withCreator(className, createrClass);
 
-		if (createrClass instanceof XMLCreator) {
-			XMLCreator xmlCreator = (XMLCreator) createrClass;
+		if (createrClass instanceof SendableEntityCreatorXML) {
+			SendableEntityCreatorXML xmlCreator = (SendableEntityCreatorXML) createrClass;
 			if (this.decoderMap == null) {
-				this.decoderMap = new HashMap<String, XMLCreator>();
+				this.decoderMap = new HashMap<String, SendableEntityCreatorXML>();
 			}
 			this.decoderMap.put(xmlCreator.getTag(), xmlCreator);
 		}
@@ -107,7 +108,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	 *            the tag
 	 * @return the creator decode class
 	 */
-	public XMLCreator getCreatorDecodeClass(String tag) {
+	public SendableEntityCreatorXML getCreatorDecodeClass(String tag) {
 		if (this.decoderMap == null) {
 			return null;
 		}
@@ -133,8 +134,8 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		}
 		XMLEntity xmlEntity = new XMLEntity();
 
-		if (createrProtoTyp instanceof XMLCreator) {
-			XMLCreator xmlCreater = (XMLCreator) createrProtoTyp;
+		if (createrProtoTyp instanceof SendableEntityCreatorXML) {
+			SendableEntityCreatorXML xmlCreater = (SendableEntityCreatorXML) createrProtoTyp;
 			if (xmlCreater.getTag() != null) {
 				xmlEntity.setTag(xmlCreater.getTag());
 			} else {
@@ -345,7 +346,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		Object item = null;
 
 		if (tag.length() > 0) {
-			XMLCreator entityCreater = getCreatorDecodeClass(tag);
+			SendableEntityCreatorXML entityCreater = getCreatorDecodeClass(tag);
 			boolean plainvalue = false;
 			String newPrefix = "";
 			if (entityCreater == null) {
@@ -355,7 +356,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 				// Not found child creater
 				ReferenceObject referenceObject = this.stack.get(this.stack
 						.size() - 1);
-				entityCreater = (XMLCreator) referenceObject.getCreater();
+				entityCreater = (SendableEntityCreatorXML) referenceObject.getCreater();
 				String[] properties = entityCreater.getProperties();
 				prefix += tag;
 

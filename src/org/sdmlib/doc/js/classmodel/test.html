@@ -1,0 +1,53 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="graph.js"></script>
+	<script src="lines.js"></script>
+	<script src="layout_circular.js"></script>
+	<script src="layout_spring.js"></script>
+	<script src="layout_ordered.js"></script>
+	<script src="layout_fix.js"></script>
+	<script src="layout_dagre.js"></script>
+	<script src="dagre.js"></script>
+</head>
+<body onload="init();">
+<script>
+	var json = {"typ":"classdiagram", "value":{
+		"nodes":[
+			{"typ":"node", "id":"Albert:Student", "attributes":["age:int", "name:String"],"methods":["toString()"]},
+			{"typ":"node", "id":"CS 32"},
+			{"typ":"node", "id":"CS 34","attributes":["age:int", "name:String"],"methods":["toString()"]},
+			{"typ":"node", "id":"CS 35"},
+			{"typ":"node", "id":"CS 36"},
+			{"typ":"node", "id":"CS 1"},
+			{"typ":"node", "id":"CS 2"}
+		],
+		"edges":[
+			{"typ":"edge", "source":"Albert:Student","target": "CS 32", "sourceinfo":"0..1", "targetinfo":"0..1"},
+			{"typ":"edge", "source":"CS 32","target":"CS 33"},
+			{"typ":"edge", "source":"CS 32","target":"CS 34"},
+			{"typ":"edge", "source":"CS 35","target":"CS 34"},
+			{"typ":"edge", "source":"CS 36","target":"CS 34"},
+			{"typ":"edge", "source":"CS 1","target":"CS 2"},
+			{"typ":"generalisation", "source":"CS 2","target":"Albert:Student"}
+		]
+	}};
+	
+	var g = new Graph(json, "canvas");
+	//var layouter = new GraphLayout.Ordered(g);
+	var layouter = new GraphLayout.Dagre(g);
+	//var layouter = new GraphLayout.Spring(g);
+	//var layouter = new GraphLayout.Circular(g);
+	//var layouter = new GraphLayout.Fixed(g);
+	//layouter.addNode("Albert:Student", 311.66,183.55);
+	//layouter.addNode("CS 32", 340,97);
+	//layouter.addNode("CS 32", 214.99,204.97);
+	//layouter.addNode("CS 34", 200,250);
+
+	layouter.layout(500,500);	
+
+//  function exportSVG(){}
+</script>
+<!--<button onclick="exportSVG()">Export to SVG</button>-->
+</body>
+</html>

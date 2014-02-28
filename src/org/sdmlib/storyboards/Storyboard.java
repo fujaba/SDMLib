@@ -485,7 +485,7 @@ public class Storyboard implements PropertyChangeInterface
          coverPOClasses(copyMap);
          coverSetClasses(copyMap);
          
-         for (String key : copyMap.getKeys())
+         for (String key : copyMap.keySet())
          {
             Object object = copyMap.getObject(key);
 
