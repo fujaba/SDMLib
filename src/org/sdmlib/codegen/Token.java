@@ -47,4 +47,10 @@ public class Token
 	{
 		return this.kind == c;
 	}
+	
+	public String toString()
+	{
+      return kind + " " + name();
+	   
+	}
 }

@@ -661,10 +661,6 @@ public class Parser
       // <T, T, ...>
       skip("<"); typeString.append('<');
 
-      // skip first name
-      typeString.append(currentRealWord());
-      nextRealToken();
-
       while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
       {
          if (currentRealKindEquals('<'))
@@ -1402,7 +1398,7 @@ public class Parser
             skip(';');
          }
          else if (currentRealKindEquals('v')
-               && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '='))
+               && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '=' || lookAheadRealToken.kind == '<'))
          {
             // local var decl with simple type
             parseLocalVarDeclDetails();
@@ -1464,7 +1460,7 @@ public class Parser
       // parse type
       String type = null;
 
-      if (lookAheadRealToken.kind == 'v')
+      if (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '<')
       {
          type = parseTypeRef();
       }

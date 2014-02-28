@@ -17,8 +17,8 @@
 <text text-anchor="start" x="95" y="-608.5" font-family="Arial" font-size="10.00">p58 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="83,-554 83,-602 156,-602 156,-554 83,-554"/>
-<text text-anchor="start" x="88" y="-590" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
-<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-590" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
 <text text-anchor="start" x="88" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r59 -->
@@ -83,8 +83,8 @@
 <text text-anchor="start" x="20.5" y="-388.5" font-family="Arial" font-size="10.00">p60 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="9,-334 9,-382 81,-382 81,-334 9,-334"/>
-<text text-anchor="start" x="14" y="-370" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
-<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-370" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
 <text text-anchor="start" x="14" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r59&#45;&#45;p60 -->
@@ -119,8 +119,8 @@
 <text text-anchor="start" x="21.5" y="-168.5" font-family="Arial" font-size="10.00">p62 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="10,-114 10,-162 82,-162 82,-114 10,-114"/>
-<text text-anchor="start" x="15" y="-150" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
-<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-150" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
 <text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r61&#45;&#45;p62 -->
@@ -143,8 +143,8 @@
 <text text-anchor="start" x="168.5" y="-388.5" font-family="Arial" font-size="10.00">p65 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="157,-334 157,-382 229,-382 229,-334 157,-334"/>
-<text text-anchor="start" x="162" y="-370" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
-<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-370" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
 <text text-anchor="start" x="162" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r64&#45;&#45;p65 -->
@@ -161,8 +161,8 @@
 <text text-anchor="start" x="277.5" y="-608.5" font-family="Arial" font-size="10.00">p66 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="266,-554 266,-602 338,-602 338,-554 266,-554"/>
-<text text-anchor="start" x="271" y="-590" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
-<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-590" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
 <text text-anchor="start" x="271" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 </g>
 <!-- r67 -->
