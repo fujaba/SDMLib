@@ -7,8 +7,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.creators.ClassModelSet;
 import org.sdmlib.models.classes.creators.ClazzPO;
 import org.sdmlib.models.classes.creators.AssociationPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.classes.creators.ClassModelPO;
 
-public class ClassModelPO extends PatternObject
+public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {
    public ClassModelPO startNAC()
    {
@@ -138,7 +140,34 @@ public class ClassModelPO extends PatternObject
       return this;
    }
    
+   public ClassModelPO createPackageName(String value)
+   {
+      this.startCreate().hasPackageName(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createClasses()
+   {
+      return this.startCreate().hasClasses().endCreate();
+   }
+
+   public ClassModelPO createClasses(ClazzPO tgt)
+   {
+      return this.startCreate().hasClasses(tgt).endCreate();
+   }
+
+   public AssociationPO createAssociations()
+   {
+      return this.startCreate().hasAssociations().endCreate();
+   }
+
+   public ClassModelPO createAssociations(AssociationPO tgt)
+   {
+      return this.startCreate().hasAssociations(tgt).endCreate();
+   }
+
 }
+
 
 
 

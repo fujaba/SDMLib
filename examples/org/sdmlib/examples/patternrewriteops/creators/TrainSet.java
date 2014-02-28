@@ -149,6 +149,22 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
    }
    
 
+
+
+   public TrainPO hasTrainPO()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      TrainPO patternObject = pattern.hasElementTrainPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

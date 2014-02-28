@@ -7,8 +7,10 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.ClazzPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.classes.creators.MethodPO;
 
-public class MethodPO extends PatternObject
+public class MethodPO extends PatternObject<MethodPO, Method>
 {
    public MethodPO startNAC()
    {
@@ -190,7 +192,36 @@ public class MethodPO extends PatternObject
       return this;
    }
    
+   public MethodPO createSignature(String value)
+   {
+      this.startCreate().hasSignature(value).endCreate();
+      return this;
+   }
+   
+   public MethodPO createReturnType(String value)
+   {
+      this.startCreate().hasReturnType(value).endCreate();
+      return this;
+   }
+   
+   public MethodPO createBody(String value)
+   {
+      this.startCreate().hasBody(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createClazz()
+   {
+      return this.startCreate().hasClazz().endCreate();
+   }
+
+   public MethodPO createClazz(ClazzPO tgt)
+   {
+      return this.startCreate().hasClazz(tgt).endCreate();
+   }
+
 }
+
 
 
 

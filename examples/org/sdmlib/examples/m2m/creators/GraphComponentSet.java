@@ -183,6 +183,22 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       return this;
    }
 
+
+
+   public GraphComponentPO hasGraphComponentPO()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

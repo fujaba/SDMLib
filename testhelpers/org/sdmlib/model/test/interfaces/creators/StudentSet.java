@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.interfaces.Student;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class StudentSet extends LinkedHashSet<Student>
 {
@@ -49,9 +50,25 @@ public class StudentSet extends LinkedHashSet<Student>
    }
 
 
-   public StudentSet with(Student value)
+   public StudentPO hasStudentPO()
    {
-      this.add(value);
+     
+      
+      return null;
+   }
+
+
+   public StudentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Student>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Student) value);
+      }
+      
       return this;
    }
    
@@ -60,6 +77,8 @@ public class StudentSet extends LinkedHashSet<Student>
       this.remove(value);
       return this;
    }
+
 }
+
 
 

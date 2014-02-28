@@ -197,7 +197,23 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return this;
    }
 
+
+
+   public KanbanEntryPO hasKanbanEntryPO()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      KanbanEntryPO patternObject = pattern.hasElementKanbanEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

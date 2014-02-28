@@ -566,6 +566,127 @@ public class FieldPO extends PatternObject<FieldPO, Field>
       return this;
    }
    
+   public FieldPO createColor(String value)
+   {
+      this.startCreate().hasColor(value).endCreate();
+      return this;
+   }
+   
+   public FieldPO createKind(String value)
+   {
+      this.startCreate().hasKind(value).endCreate();
+      return this;
+   }
+   
+   public FieldPO createX(int value)
+   {
+      this.startCreate().hasX(value).endCreate();
+      return this;
+   }
+   
+   public FieldPO createY(int value)
+   {
+      this.startCreate().hasY(value).endCreate();
+      return this;
+   }
+   
+   public FieldPO createPoint(Point value)
+   {
+      this.startCreate().hasPoint(value).endCreate();
+      return this;
+   }
+   
+   public LudoPO createGame()
+   {
+      return this.startCreate().hasGame().endCreate();
+   }
+
+   public FieldPO createGame(LudoPO tgt)
+   {
+      return this.startCreate().hasGame(tgt).endCreate();
+   }
+
+   public FieldPO createNext()
+   {
+      return this.startCreate().hasNext().endCreate();
+   }
+
+   public FieldPO createNext(FieldPO tgt)
+   {
+      return this.startCreate().hasNext(tgt).endCreate();
+   }
+
+   public FieldPO createPrev()
+   {
+      return this.startCreate().hasPrev().endCreate();
+   }
+
+   public FieldPO createPrev(FieldPO tgt)
+   {
+      return this.startCreate().hasPrev(tgt).endCreate();
+   }
+
+   public FieldPO createLanding()
+   {
+      return this.startCreate().hasLanding().endCreate();
+   }
+
+   public FieldPO createLanding(FieldPO tgt)
+   {
+      return this.startCreate().hasLanding(tgt).endCreate();
+   }
+
+   public FieldPO createEntry()
+   {
+      return this.startCreate().hasEntry().endCreate();
+   }
+
+   public FieldPO createEntry(FieldPO tgt)
+   {
+      return this.startCreate().hasEntry(tgt).endCreate();
+   }
+
+   public PlayerPO createStarter()
+   {
+      return this.startCreate().hasStarter().endCreate();
+   }
+
+   public FieldPO createStarter(PlayerPO tgt)
+   {
+      return this.startCreate().hasStarter(tgt).endCreate();
+   }
+
+   public PlayerPO createBaseowner()
+   {
+      return this.startCreate().hasBaseowner().endCreate();
+   }
+
+   public FieldPO createBaseowner(PlayerPO tgt)
+   {
+      return this.startCreate().hasBaseowner(tgt).endCreate();
+   }
+
+   public PlayerPO createLander()
+   {
+      return this.startCreate().hasLander().endCreate();
+   }
+
+   public FieldPO createLander(PlayerPO tgt)
+   {
+      return this.startCreate().hasLander(tgt).endCreate();
+   }
+
+   public PawnPO createPawns()
+   {
+      return this.startCreate().hasPawns().endCreate();
+   }
+
+   public FieldPO createPawns(PawnPO tgt)
+   {
+      return this.startCreate().hasPawns(tgt).endCreate();
+   }
+
 }
+
 
 

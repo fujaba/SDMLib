@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.interfaces.Male;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class MaleSet extends LinkedHashSet<Male>
 {
@@ -49,9 +50,26 @@ public class MaleSet extends LinkedHashSet<Male>
    }
 
 
-   public MaleSet with(Male value)
+
+   public MalePO hasMalePO()
    {
-      this.add(value);
+      
+      
+      return null;
+   }
+
+
+   public MaleSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Male>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Male) value);
+      }
+      
       return this;
    }
    
@@ -60,6 +78,8 @@ public class MaleSet extends LinkedHashSet<Male>
       this.remove(value);
       return this;
    }
+
 }
+
 
 

@@ -206,7 +206,23 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public NodePO hasNodePO()
+   {
+      org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
+      
+      NodePO patternObject = pattern.hasElementNodePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

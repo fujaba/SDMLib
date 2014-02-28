@@ -29,6 +29,7 @@ import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class Graph implements PropertyChangeInterface
 {
@@ -421,5 +422,59 @@ public class Graph implements PropertyChangeInterface
       withGcs(value);
       return value;
    } 
+
+   public Graph withNodes(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToNodes(item);
+      }
+      return this;
+   } 
+
+   public Graph withoutNodes(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromNodes(item);
+      }
+      return this;
+   }
+
+   public Graph withEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         addToEdges(item);
+      }
+      return this;
+   } 
+
+   public Graph withoutEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         removeFromEdges(item);
+      }
+      return this;
+   }
+
+   public Graph withGcs(GraphComponent... value)
+   {
+      for (GraphComponent item : value)
+      {
+         addToGcs(item);
+      }
+      return this;
+   } 
+
+   public Graph withoutGcs(GraphComponent... value)
+   {
+      for (GraphComponent item : value)
+      {
+         removeFromGcs(item);
+      }
+      return this;
+   }
 }
 

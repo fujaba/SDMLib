@@ -15,8 +15,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.17.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.14.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

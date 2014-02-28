@@ -296,5 +296,41 @@ public class GenericGraph implements PropertyChangeInterface
       withLinks(value);
       return value;
    } 
+
+   public GenericGraph withObjects(GenericObject... value)
+   {
+      for (GenericObject item : value)
+      {
+         addToObjects(item);
+      }
+      return this;
+   } 
+
+   public GenericGraph withoutObjects(GenericObject... value)
+   {
+      for (GenericObject item : value)
+      {
+         removeFromObjects(item);
+      }
+      return this;
+   }
+
+   public GenericGraph withLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         addToLinks(item);
+      }
+      return this;
+   } 
+
+   public GenericGraph withoutLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         removeFromLinks(item);
+      }
+      return this;
+   }
 }
 

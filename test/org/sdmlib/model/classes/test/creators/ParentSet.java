@@ -131,6 +131,22 @@ public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
       return this;
    }
 
+
+
+   public ParentPO hasParentPO()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      ParentPO patternObject = pattern.hasElementParentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

@@ -113,7 +113,19 @@ public class TopicPO extends PatternObject<TopicPO, Topic>
       return this.startCreate().hasProf().endCreate();
    }
 
+   public TopicPO createTitle(String value)
+   {
+      this.startCreate().hasTitle(value).endCreate();
+      return this;
+   }
+   
+   public TopicPO createProf(ProfessorPO tgt)
+   {
+      return this.startCreate().hasProf(tgt).endCreate();
+   }
+
 }
+
 
 
 

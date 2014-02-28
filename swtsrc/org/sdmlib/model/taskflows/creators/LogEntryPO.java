@@ -191,5 +191,78 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       return null;
    }
 
+   public LogEntryPO hasNodeName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_NODENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntryPO createNodeName(String value)
+   {
+      this.startCreate().hasNodeName(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO hasTaskName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TASKNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntryPO createTaskName(String value)
+   {
+      this.startCreate().hasTaskName(value).endCreate();
+      return this;
+   }
+   
+   public LoggerPO createLogger()
+   {
+      return this.startCreate().hasLogger().endCreate();
+   }
+
+   public LogEntryPO createLogger(LoggerPO tgt)
+   {
+      return this.startCreate().hasLogger(tgt).endCreate();
+   }
+
+   public LogEntryPO createChildren()
+   {
+      return this.startCreate().hasChildren().endCreate();
+   }
+
+   public LogEntryPO createChildren(LogEntryPO tgt)
+   {
+      return this.startCreate().hasChildren(tgt).endCreate();
+   }
+
+   public LogEntryPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public LogEntryPO createParent(LogEntryPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 

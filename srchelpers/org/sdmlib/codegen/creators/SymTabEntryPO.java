@@ -3,8 +3,9 @@ package org.sdmlib.codegen.creators;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.codegen.creators.SymTabEntrySet;
 
-public class SymTabEntryPO extends PatternObject
+public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
 {
    public SymTabEntryPO startNAC()
    {
@@ -296,6 +297,49 @@ public class SymTabEntryPO extends PatternObject
       return this;
    }
    
+   public SymTabEntryPO createKind(String value)
+   {
+      this.startCreate().hasKind(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createMemberName(String value)
+   {
+      this.startCreate().hasMemberName(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createType(String value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createStartPos(int value)
+   {
+      this.startCreate().hasStartPos(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createBodyStartPos(int value)
+   {
+      this.startCreate().hasBodyStartPos(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createEndPos(int value)
+   {
+      this.startCreate().hasEndPos(value).endCreate();
+      return this;
+   }
+   
+   public SymTabEntryPO createModifiers(String value)
+   {
+      this.startCreate().hasModifiers(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 

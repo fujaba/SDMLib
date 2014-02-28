@@ -131,7 +131,49 @@ public class LanePO extends PatternObject<LanePO, Lane>
       return null;
    }
 
+   public LanePO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Lane.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LanePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public TaskFlowBoardPO createBoard()
+   {
+      return this.startCreate().hasBoard().endCreate();
+   }
+
+   public LanePO createBoard(TaskFlowBoardPO tgt)
+   {
+      return this.startCreate().hasBoard(tgt).endCreate();
+   }
+
+   public BoardTaskPO createTasks()
+   {
+      return this.startCreate().hasTasks().endCreate();
+   }
+
+   public LanePO createTasks(BoardTaskPO tgt)
+   {
+      return this.startCreate().hasTasks(tgt).endCreate();
+   }
+
 }
+
 
 
 

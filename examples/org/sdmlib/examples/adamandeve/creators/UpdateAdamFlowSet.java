@@ -220,7 +220,23 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
    }
    
 
+
+
+   public UpdateAdamFlowPO hasUpdateAdamFlowPO()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      UpdateAdamFlowPO patternObject = pattern.hasElementUpdateAdamFlowPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

@@ -29,6 +29,7 @@ import org.sdmlib.codegen.creators.StatementEntrySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class StatementEntry implements PropertyChangeInterface
 {
@@ -461,6 +462,38 @@ public class StatementEntry implements PropertyChangeInterface
       this.getTokenList().add(qualifiedName);
       this.setEndPos(endPos);
       return this;
+   } 
+
+   public StatementEntry withBodyStats(StatementEntry... value)
+   {
+      for (StatementEntry item : value)
+      {
+         addToBodyStats(item);
+      }
+      return this;
+   } 
+
+   public StatementEntry withoutBodyStats(StatementEntry... value)
+   {
+      for (StatementEntry item : value)
+      {
+         removeFromBodyStats(item);
+      }
+      return this;
+   }
+
+   public StatementEntry createBodyStats()
+   {
+      StatementEntry value = new StatementEntry();
+      withBodyStats(value);
+      return value;
+   } 
+
+   public StatementEntry createParent()
+   {
+      StatementEntry value = new StatementEntry();
+      withParent(value);
+      return value;
    } 
 }
 

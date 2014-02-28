@@ -154,7 +154,23 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
       return this;
    }
 
+
+
+   public PlayerPO hasPlayerPO()
+   {
+      org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
+      
+      PlayerPO patternObject = pattern.hasElementPlayerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

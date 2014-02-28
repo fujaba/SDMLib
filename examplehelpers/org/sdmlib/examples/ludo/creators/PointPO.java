@@ -100,7 +100,20 @@ public class PointPO extends PatternObject<PointPO, Point>
       return this;
    }
    
+   public PointPO createX(int value)
+   {
+      this.startCreate().hasX(value).endCreate();
+      return this;
+   }
+   
+   public PointPO createY(int value)
+   {
+      this.startCreate().hasY(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 
 

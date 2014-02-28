@@ -270,6 +270,22 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public ItemPO hasItemPO()
+   {
+      org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
+      
+      ItemPO patternObject = pattern.hasElementItemPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

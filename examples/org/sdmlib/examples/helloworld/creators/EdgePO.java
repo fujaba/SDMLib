@@ -10,6 +10,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.GraphPO;
 import org.sdmlib.examples.helloworld.creators.NodePO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.creators.EdgePO;
 
 public class EdgePO extends PatternObject<EdgePO, Edge>
 {
@@ -247,7 +249,61 @@ public class EdgePO extends PatternObject<EdgePO, Edge>
       return this;
    }
    
+   public EdgePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public EdgePO createGraph(GraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public NodePO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public EdgePO createSrc(NodePO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public NodePO createTgt()
+   {
+      return this.startCreate().hasTgt().endCreate();
+   }
+
+   public EdgePO createTgt(NodePO tgt)
+   {
+      return this.startCreate().hasTgt(tgt).endCreate();
+   }
+
+   public EdgePO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public EdgePO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
+
 
 
 

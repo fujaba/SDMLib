@@ -30,6 +30,7 @@ import org.sdmlib.replication.creators.LaneSet;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class TaskFlowBoard implements PropertyChangeInterface
 {
@@ -214,6 +215,24 @@ public class TaskFlowBoard implements PropertyChangeInterface
       Lane lane = new Lane().withName(name);
       this.addToLanes(lane);
       return lane;
+   }
+
+   public TaskFlowBoard withLanes(Lane... value)
+   {
+      for (Lane item : value)
+      {
+         addToLanes(item);
+      }
+      return this;
+   } 
+
+   public TaskFlowBoard withoutLanes(Lane... value)
+   {
+      for (Lane item : value)
+      {
+         removeFromLanes(item);
+      }
+      return this;
    }
 }
 

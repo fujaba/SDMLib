@@ -181,5 +181,12 @@ public class Professor implements PropertyChangeInterface
       
       _.append(" ").append(this.getName());
       return _.substring(1);
-   }}
+   }
+   public Topic createTopic()
+   {
+      Topic value = new Topic();
+      withTopic(value);
+      return value;
+   } 
+}
 

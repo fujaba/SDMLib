@@ -237,6 +237,45 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
       return this;
    }
    
+   public PawnPO createColor(String value)
+   {
+      this.startCreate().hasColor(value).endCreate();
+      return this;
+   }
+   
+   public PawnPO createX(int value)
+   {
+      this.startCreate().hasX(value).endCreate();
+      return this;
+   }
+   
+   public PawnPO createY(int value)
+   {
+      this.startCreate().hasY(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createPlayer()
+   {
+      return this.startCreate().hasPlayer().endCreate();
+   }
+
+   public PawnPO createPlayer(PlayerPO tgt)
+   {
+      return this.startCreate().hasPlayer(tgt).endCreate();
+   }
+
+   public FieldPO createPos()
+   {
+      return this.startCreate().hasPos().endCreate();
+   }
+
+   public PawnPO createPos(FieldPO tgt)
+   {
+      return this.startCreate().hasPos(tgt).endCreate();
+   }
+
 }
+
 
 

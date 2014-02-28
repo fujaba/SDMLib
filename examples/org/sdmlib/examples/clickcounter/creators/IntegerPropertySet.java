@@ -87,6 +87,22 @@ public class IntegerPropertySet extends LinkedHashSet<IntegerProperty> implement
       return this;
    }
 
+
+
+   public IntegerPropertyPO hasIntegerPropertyPO()
+   {
+      ModelPattern pattern = new ModelPattern();
+      
+      IntegerPropertyPO patternObject = pattern.hasElementIntegerPropertyPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

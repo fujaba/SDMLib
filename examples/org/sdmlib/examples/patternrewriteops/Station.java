@@ -29,6 +29,7 @@ import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.examples.patternrewriteops.creators.TrainSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class Station implements PropertyChangeInterface
 {
@@ -504,5 +505,41 @@ public class Station implements PropertyChangeInterface
 
    
    public static final StationSet EMPTY_SET = new StationSet();
+
+   public Station withTrains(Train... value)
+   {
+      for (Train item : value)
+      {
+         addToTrains(item);
+      }
+      return this;
+   } 
+
+   public Station withoutTrains(Train... value)
+   {
+      for (Train item : value)
+      {
+         removeFromTrains(item);
+      }
+      return this;
+   }
+
+   public Station withPeople(Person... value)
+   {
+      for (Person item : value)
+      {
+         addToPeople(item);
+      }
+      return this;
+   } 
+
+   public Station withoutPeople(Person... value)
+   {
+      for (Person item : value)
+      {
+         removeFromPeople(item);
+      }
+      return this;
+   }
 }
 

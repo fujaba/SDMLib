@@ -437,5 +437,21 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return this;
    }
 
+
+
+   public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      PlaceHolderDescriptionPO patternObject = pattern.hasElementPlaceHolderDescriptionPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

@@ -160,6 +160,22 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
    }
    
 
+
+
+   public StoryboardStepPO hasStoryboardStepPO()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      StoryboardStepPO patternObject = pattern.hasElementStoryboardStepPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

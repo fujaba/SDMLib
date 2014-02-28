@@ -28,6 +28,7 @@ import java.util.Date;
 
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.replication.creators.LogEntrySet;
+import java.beans.PropertyChangeListener;
 
 public class LogEntry implements PropertyChangeInterface
 {

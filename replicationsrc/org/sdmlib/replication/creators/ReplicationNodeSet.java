@@ -26,6 +26,7 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.replication.SharedSpace;
+import java.util.Collection;
 
 public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -50,17 +51,6 @@ public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implement
    }
 
 
-   public ReplicationNodeSet with(ReplicationNode value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ReplicationNodeSet without(ReplicationNode value)
-   {
-      this.remove(value);
-      return this;
-   }
    public SharedSpaceSet getSharedSpaces()
    {
       throw new UnsupportedOperationException();
@@ -86,5 +76,43 @@ public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implement
       return this;
    }
 
+
+
+   public ReplicationNodePO hasReplicationNodePO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ReplicationNodePO patternObject = pattern.hasElementReplicationNodePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ReplicationNodeSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReplicationNode>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReplicationNode) value);
+      }
+      
+      return this;
+   }
+   
+   public ReplicationNodeSet without(ReplicationNode value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

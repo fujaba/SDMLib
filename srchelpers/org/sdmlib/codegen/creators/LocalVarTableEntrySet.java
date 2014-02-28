@@ -175,7 +175,15 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       return this;
    }
 
+
+
+   public LocalVarTableEntryPO hasLocalVarTableEntryPO()
+   {
+      return null;
+
+   }
 }
+
 
 
 

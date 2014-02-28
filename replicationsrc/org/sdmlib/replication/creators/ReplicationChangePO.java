@@ -290,7 +290,139 @@ public class ReplicationChangePO extends PatternObject<ReplicationChangePO, Repl
       return null;
    }
 
+   public ReplicationChangePO hasHistoryIdPrefix(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDPREFIX)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO createHistoryIdPrefix(String value)
+   {
+      this.startCreate().hasHistoryIdPrefix(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationChangePO hasHistoryIdNumber(long lower, long upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_HISTORYIDNUMBER)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO createHistoryIdNumber(long value)
+   {
+      this.startCreate().hasHistoryIdNumber(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationChangePO hasTargetObjectId(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETOBJECTID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO createTargetObjectId(String value)
+   {
+      this.startCreate().hasTargetObjectId(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationChangePO hasTargetProperty(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_TARGETPROPERTY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO createTargetProperty(String value)
+   {
+      this.startCreate().hasTargetProperty(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationChangePO createIsToManyProperty(boolean value)
+   {
+      this.startCreate().hasIsToManyProperty(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationChangePO hasChangeMsg(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChange.PROPERTY_CHANGEMSG)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChangePO createChangeMsg(String value)
+   {
+      this.startCreate().hasChangeMsg(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO createLogEntries()
+   {
+      return this.startCreate().hasLogEntries().endCreate();
+   }
+
+   public ReplicationChangePO createLogEntries(LogEntryPO tgt)
+   {
+      return this.startCreate().hasLogEntries(tgt).endCreate();
+   }
+
+   public ChangeHistoryPO createHistory()
+   {
+      return this.startCreate().hasHistory().endCreate();
+   }
+
+   public ReplicationChangePO createHistory(ChangeHistoryPO tgt)
+   {
+      return this.startCreate().hasHistory(tgt).endCreate();
+   }
+
 }
+
 
 
 

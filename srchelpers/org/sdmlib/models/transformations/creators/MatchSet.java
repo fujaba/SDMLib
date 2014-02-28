@@ -502,7 +502,23 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public MatchPO hasMatchPO()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      MatchPO patternObject = pattern.hasElementMatchPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

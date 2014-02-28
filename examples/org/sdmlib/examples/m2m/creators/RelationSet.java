@@ -364,7 +364,23 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public RelationPO hasRelationPO()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      RelationPO patternObject = pattern.hasElementRelationPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

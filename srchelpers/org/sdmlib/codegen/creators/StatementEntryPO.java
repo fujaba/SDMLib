@@ -6,8 +6,11 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.codegen.creators.StatementEntrySet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.codegen.creators.StatementEntryPO;
 
-public class StatementEntryPO extends PatternObject
+public class StatementEntryPO extends PatternObject<StatementEntryPO, StatementEntry>
 {
    public StatementEntryPO startNAC()
    {
@@ -307,7 +310,58 @@ public class StatementEntryPO extends PatternObject
       return this;
    }
    
+   public StatementEntryPO createKind(String value)
+   {
+      this.startCreate().hasKind(value).endCreate();
+      return this;
+   }
+   
+   public StatementEntryPO createTokenList(ArrayList<String> value)
+   {
+      this.startCreate().hasTokenList(value).endCreate();
+      return this;
+   }
+   
+   public StatementEntryPO createAssignTargetVarName(String value)
+   {
+      this.startCreate().hasAssignTargetVarName(value).endCreate();
+      return this;
+   }
+   
+   public StatementEntryPO createStartPos(int value)
+   {
+      this.startCreate().hasStartPos(value).endCreate();
+      return this;
+   }
+   
+   public StatementEntryPO createEndPos(int value)
+   {
+      this.startCreate().hasEndPos(value).endCreate();
+      return this;
+   }
+   
+   public StatementEntryPO createBodyStats()
+   {
+      return this.startCreate().hasBodyStats().endCreate();
+   }
+
+   public StatementEntryPO createBodyStats(StatementEntryPO tgt)
+   {
+      return this.startCreate().hasBodyStats(tgt).endCreate();
+   }
+
+   public StatementEntryPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public StatementEntryPO createParent(StatementEntryPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 
 
 

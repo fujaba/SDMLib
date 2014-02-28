@@ -275,7 +275,23 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public GraphPO hasGraphPO()
+   {
+      org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
+      
+      GraphPO patternObject = pattern.hasElementGraphPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

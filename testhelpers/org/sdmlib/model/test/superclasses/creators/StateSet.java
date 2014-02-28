@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.superclasses.State;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class StateSet extends LinkedHashSet<State>
 {
@@ -71,9 +72,32 @@ public class StateSet extends LinkedHashSet<State>
    }
 
 
-   public StateSet with(State value)
+   public StatePO hasStatePO()
    {
-      this.add(value);
+      org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
+      
+      StatePO patternObject = pattern.hasElementStatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public StateSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<State>)value);
+      }
+      else if (value != null)
+      {
+         this.add((State) value);
+      }
+      
       return this;
    }
    
@@ -82,7 +106,9 @@ public class StateSet extends LinkedHashSet<State>
       this.remove(value);
       return this;
    }
+
 }
+
 
 
 

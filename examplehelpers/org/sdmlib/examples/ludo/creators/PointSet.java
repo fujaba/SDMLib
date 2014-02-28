@@ -132,7 +132,23 @@ public class PointSet extends LinkedHashSet<Point> implements ModelSet
       return this;
    }
 
+
+
+   public PointPO hasPointPO()
+   {
+      ModelPattern pattern = new ModelPattern();
+      
+      PointPO patternObject = pattern.hasElementPointPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

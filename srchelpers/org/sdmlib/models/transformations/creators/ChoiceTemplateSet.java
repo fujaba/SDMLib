@@ -801,7 +801,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return this;
    }
 
+
+
+   public ChoiceTemplatePO hasChoiceTemplatePO()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

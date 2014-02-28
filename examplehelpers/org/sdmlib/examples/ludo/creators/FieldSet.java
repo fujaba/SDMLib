@@ -410,6 +410,22 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public FieldPO hasFieldPO()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      FieldPO patternObject = pattern.hasElementFieldPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

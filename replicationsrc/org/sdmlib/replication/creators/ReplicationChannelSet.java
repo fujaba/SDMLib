@@ -28,6 +28,7 @@ import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.replication.SharedSpace;
 
 import java.net.Socket;
+import java.util.Collection;
 
 public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -52,17 +53,6 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
    }
 
 
-   public ReplicationChannelSet with(ReplicationChannel value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ReplicationChannelSet without(ReplicationChannel value)
-   {
-      this.remove(value);
-      return this;
-   }
    public SharedSpaceSet getSharedSpace()
    {
       SharedSpaceSet result = new SharedSpaceSet();
@@ -129,7 +119,45 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
       return null;
    }
 
+
+
+   public ReplicationChannelPO hasReplicationChannelPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ReplicationChannelPO patternObject = pattern.hasElementReplicationChannelPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ReplicationChannelSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReplicationChannel>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReplicationChannel) value);
+      }
+      
+      return this;
+   }
+   
+   public ReplicationChannelSet without(ReplicationChannel value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

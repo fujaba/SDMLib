@@ -207,6 +207,22 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
    }
    
 
+
+
+   public StudentPO hasStudentPO()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      StudentPO patternObject = pattern.hasElementStudentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

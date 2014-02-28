@@ -181,6 +181,43 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       return this;
    }
    
+   public LudoPO createDate(Date value)
+   {
+      this.startCreate().hasDate(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createPlayers()
+   {
+      return this.startCreate().hasPlayers().endCreate();
+   }
+
+   public LudoPO createPlayers(PlayerPO tgt)
+   {
+      return this.startCreate().hasPlayers(tgt).endCreate();
+   }
+
+   public DicePO createDice()
+   {
+      return this.startCreate().hasDice().endCreate();
+   }
+
+   public LudoPO createDice(DicePO tgt)
+   {
+      return this.startCreate().hasDice(tgt).endCreate();
+   }
+
+   public FieldPO createFields()
+   {
+      return this.startCreate().hasFields().endCreate();
+   }
+
+   public LudoPO createFields(FieldPO tgt)
+   {
+      return this.startCreate().hasFields(tgt).endCreate();
+   }
+
 }
+
 
 

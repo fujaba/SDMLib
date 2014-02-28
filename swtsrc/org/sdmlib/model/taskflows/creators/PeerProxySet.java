@@ -166,6 +166,22 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy> implements org.sdmlib
       return this;
    }
 
+
+
+   public PeerProxyPO hasPeerProxyPO()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      PeerProxyPO patternObject = pattern.hasElementPeerProxyPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

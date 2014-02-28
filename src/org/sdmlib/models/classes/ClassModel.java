@@ -55,6 +55,7 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface
 {
@@ -2480,6 +2481,7 @@ public class ClassModel implements PropertyChangeInterface
 		{
 			if ("Clazz".equals(entry.getType()))
 			{
+			   if (entry.getInitSequence() == null) continue;
 				ArrayList<String> initSequence = entry.getInitSequence().get(0);
 				if (initSequence.size() >= 2 && 
 						(initSequence.get(0).startsWith("new") 
@@ -2825,5 +2827,55 @@ public class ClassModel implements PropertyChangeInterface
 
 		_.append(" ").append(this.getPackageName());
 		return _.substring(1);
-	}}
+	}
+   public ClassModel withClasses(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         addToClasses(item);
+      }
+      return this;
+   } 
+
+   public ClassModel withoutClasses(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromClasses(item);
+      }
+      return this;
+   }
+
+   public Clazz createClasses()
+   {
+      Clazz value = new Clazz();
+      withClasses(value);
+      return value;
+   } 
+
+   public ClassModel withAssociations(Association... value)
+   {
+      for (Association item : value)
+      {
+         addToAssociations(item);
+      }
+      return this;
+   } 
+
+   public ClassModel withoutAssociations(Association... value)
+   {
+      for (Association item : value)
+      {
+         removeFromAssociations(item);
+      }
+      return this;
+   }
+
+   public Association createAssociations()
+   {
+      Association value = new Association();
+      withAssociations(value);
+      return value;
+   } 
+}
 

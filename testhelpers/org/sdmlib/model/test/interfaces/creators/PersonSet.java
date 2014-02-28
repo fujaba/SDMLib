@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.interfaces.Person;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class PersonSet extends LinkedHashSet<Person>
 {
@@ -49,9 +50,24 @@ public class PersonSet extends LinkedHashSet<Person>
    }
 
 
-   public PersonSet with(Person value)
+   public PersonPO hasPersonPO()
    {
-      this.add(value);
+
+      return null;
+   }
+
+
+   public PersonSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Person>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Person) value);
+      }
+      
       return this;
    }
    
@@ -60,6 +76,8 @@ public class PersonSet extends LinkedHashSet<Person>
       this.remove(value);
       return this;
    }
+
 }
+
 
 

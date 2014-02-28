@@ -200,7 +200,30 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this.startCreate().hasStudents().endCreate();
    }
 
+   public AssignmentPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public AssignmentPO createPoints(int value)
+   {
+      this.startCreate().hasPoints(value).endCreate();
+      return this;
+   }
+   
+   public AssignmentPO createRoom(RoomPO tgt)
+   {
+      return this.startCreate().hasRoom(tgt).endCreate();
+   }
+
+   public AssignmentPO createStudents(StudentPO tgt)
+   {
+      return this.startCreate().hasStudents(tgt).endCreate();
+   }
+
 }
+
 
 
 

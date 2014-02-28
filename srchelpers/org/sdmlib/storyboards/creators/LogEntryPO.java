@@ -5,8 +5,11 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.creators.LogEntrySet;
+import org.sdmlib.storyboards.creators.KanbanEntryPO;
+import org.sdmlib.storyboards.creators.LogEntryPO;
 
-public class LogEntryPO extends PatternObject
+public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {
    public KanbanEntryPO hasKanbanEntry()
    {
@@ -56,6 +59,17 @@ public class LogEntryPO extends PatternObject
       return null;
    }
    
+   public KanbanEntryPO createKanbanEntry()
+   {
+      return this.startCreate().hasKanbanEntry().endCreate();
+   }
+
+   public LogEntryPO createKanbanEntry(KanbanEntryPO tgt)
+   {
+      return this.startCreate().hasKanbanEntry(tgt).endCreate();
+   }
+
 }
+
 
 

@@ -257,7 +257,15 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
       return this;
    }
    
+
+
+   public StatementEntryPO hasStatementEntryPO()
+   {
+      return null;
+
+   }
 }
+
 
 
 

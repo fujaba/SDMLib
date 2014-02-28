@@ -132,7 +132,23 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       return this;
    }
 
+
+
+   public KidPO hasKidPO()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      KidPO patternObject = pattern.hasElementKidPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

@@ -153,7 +153,23 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       return this;
    }
 
+
+
+   public GenericAttributePO hasGenericAttributePO()
+   {
+      org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
+      
+      GenericAttributePO patternObject = pattern.hasElementGenericAttributePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

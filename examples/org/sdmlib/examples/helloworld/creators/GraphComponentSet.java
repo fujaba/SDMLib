@@ -129,7 +129,23 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements
       return this;
    }
 
+
+
+   public GraphComponentPO hasGraphComponentPO()
+   {
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

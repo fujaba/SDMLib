@@ -2655,5 +2655,194 @@ public class Clazz implements PropertyChangeInterface
    {
       return this.external;
    }
+   
+   public ClassModel createClassModel()
+   {
+      ClassModel value = new ClassModel();
+      withClassModel(value);
+      return value;
+   } 
+
+   public Clazz withKidClasses(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         addToKidClasses(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutKidClasses(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromKidClasses(item);
+      }
+      return this;
    }
+
+   public Clazz createKidClasses()
+   {
+      Clazz value = new Clazz();
+      withKidClasses(value);
+      return value;
+   } 
+
+   public Clazz createSuperClass()
+   {
+      Clazz value = new Clazz();
+      withSuperClass(value);
+      return value;
+   } 
+
+   public Clazz withKidClassesAsInterface(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         addToKidClassesAsInterface(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutKidClassesAsInterface(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromKidClassesAsInterface(item);
+      }
+      return this;
+   }
+
+   public Clazz createKidClassesAsInterface()
+   {
+      Clazz value = new Clazz();
+      withKidClassesAsInterface(value);
+      return value;
+   } 
+
+   public Clazz withInterfaces(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         addToInterfaces(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutInterfaces(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromInterfaces(item);
+      }
+      return this;
+   }
+
+   public Clazz createInterfaces()
+   {
+      Clazz value = new Clazz();
+      withInterfaces(value);
+      return value;
+   } 
+
+   public Clazz withAttributes(Attribute... value)
+   {
+      for (Attribute item : value)
+      {
+         addToAttributes(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutAttributes(Attribute... value)
+   {
+      for (Attribute item : value)
+      {
+         removeFromAttributes(item);
+      }
+      return this;
+   }
+
+   public Attribute createAttributes()
+   {
+      Attribute value = new Attribute();
+      withAttributes(value);
+      return value;
+   } 
+
+   public Clazz withMethods(Method... value)
+   {
+      for (Method item : value)
+      {
+         addToMethods(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutMethods(Method... value)
+   {
+      for (Method item : value)
+      {
+         removeFromMethods(item);
+      }
+      return this;
+   }
+
+   public Method createMethods()
+   {
+      Method value = new Method();
+      withMethods(value);
+      return value;
+   } 
+
+   public Clazz withSourceRoles(Role... value)
+   {
+      for (Role item : value)
+      {
+         addToSourceRoles(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutSourceRoles(Role... value)
+   {
+      for (Role item : value)
+      {
+         removeFromSourceRoles(item);
+      }
+      return this;
+   }
+
+   public Role createSourceRoles()
+   {
+      Role value = new Role();
+      withSourceRoles(value);
+      return value;
+   } 
+
+   public Clazz withTargetRoles(Role... value)
+   {
+      for (Role item : value)
+      {
+         addToTargetRoles(item);
+      }
+      return this;
+   } 
+
+   public Clazz withoutTargetRoles(Role... value)
+   {
+      for (Role item : value)
+      {
+         removeFromTargetRoles(item);
+      }
+      return this;
+   }
+
+   public Role createTargetRoles()
+   {
+      Role value = new Role();
+      withTargetRoles(value);
+      return value;
+   } 
+}
 

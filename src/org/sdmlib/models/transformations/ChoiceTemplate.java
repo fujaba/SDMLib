@@ -121,6 +121,16 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          return getParents();
       }
 
+      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
+      {
+         return getReferenceLookup();
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return getName();
+      }
+
       return null;
    }
 
@@ -225,6 +235,18 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          return true;
       }
 
+      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
+      {
+         setReferenceLookup((Boolean) value);
+         return true;
+      }
+
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         setName((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -267,6 +289,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       _.append(" ").append(this.getListStart());
       _.append(" ").append(this.getListSeparator());
       _.append(" ").append(this.getListEnd());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 

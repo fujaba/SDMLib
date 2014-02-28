@@ -218,7 +218,23 @@ public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public EdgePO hasEdgePO()
+   {
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      EdgePO patternObject = pattern.hasElementEdgePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

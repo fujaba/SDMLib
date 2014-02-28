@@ -149,7 +149,23 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       return this;
    }
 
+
+
+   public GenericGraphPO hasGenericGraphPO()
+   {
+      org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
+      
+      GenericGraphPO patternObject = pattern.hasElementGenericGraphPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

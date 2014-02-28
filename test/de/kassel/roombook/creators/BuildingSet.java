@@ -187,5 +187,21 @@ public class BuildingSet extends SDMSet<Building>
       return this;
    }
 
+
+
+   public BuildingPO hasBuildingPO()
+   {
+      de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
+      
+      BuildingPO patternObject = pattern.hasElementBuildingPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

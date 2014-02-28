@@ -5,6 +5,11 @@ import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.examples.patternrewriteops.Train;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.patternrewriteops.creators.StationPO;
+import org.sdmlib.examples.patternrewriteops.creators.PersonPO;
+import org.sdmlib.examples.patternrewriteops.creators.TrainPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -91,5 +96,26 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
+   public StationPO createStation()
+   {
+      return this.startCreate().hasStation().endCreate();
+   }
+
+   public PersonPO createStation(StationPO tgt)
+   {
+      return this.startCreate().hasStation(tgt).endCreate();
+   }
+
+   public TrainPO createTrain()
+   {
+      return this.startCreate().hasTrain().endCreate();
+   }
+
+   public PersonPO createTrain(TrainPO tgt)
+   {
+      return this.startCreate().hasTrain(tgt).endCreate();
+   }
+
 }
+
 

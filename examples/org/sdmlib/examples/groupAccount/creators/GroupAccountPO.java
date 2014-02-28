@@ -120,5 +120,26 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       return null;
    }
 
+   public PersonPO createPersons()
+   {
+      return this.startCreate().hasPersons().endCreate();
+   }
+
+   public GroupAccountPO createPersons(PersonPO tgt)
+   {
+      return this.startCreate().hasPersons(tgt).endCreate();
+   }
+
+   public ItemPO createItems()
+   {
+      return this.startCreate().hasItems().endCreate();
+   }
+
+   public GroupAccountPO createItems(ItemPO tgt)
+   {
+      return this.startCreate().hasItems(tgt).endCreate();
+   }
+
 }
+
 

@@ -486,5 +486,37 @@ public class Student implements PropertyChangeInterface
       setMotivation(value);
       return this;
    } 
+
+   public University createUni()
+   {
+      University value = new University();
+      withUni(value);
+      return value;
+   } 
+
+   public Room createIn()
+   {
+      Room value = new Room();
+      withIn(value);
+      return value;
+   } 
+
+   public Student withDone(Assignment... value)
+   {
+      for (Assignment item : value)
+      {
+         addToDone(item);
+      }
+      return this;
+   } 
+
+   public Student withoutDone(Assignment... value)
+   {
+      for (Assignment item : value)
+      {
+         removeFromDone(item);
+      }
+      return this;
+   }
 }
 

@@ -33,6 +33,7 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.creators.LogEntrySet;
 import org.sdmlib.replication.LogEntry;
+import java.util.Collection;
 
 public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -56,18 +57,6 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
       return "org.sdmlib.replication.ReplicationChange";
    }
 
-
-   public ReplicationChangeSet with(ReplicationChange value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ReplicationChangeSet without(ReplicationChange value)
-   {
-      this.remove(value);
-      return this;
-   }
 
    public StringList getTargetObjectId()
    {
@@ -255,7 +244,45 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
       return this;
    }
 
+
+
+   public ReplicationChangePO hasReplicationChangePO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ReplicationChangePO patternObject = pattern.hasElementReplicationChangePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ReplicationChangeSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReplicationChange>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReplicationChange) value);
+      }
+      
+      return this;
+   }
+   
+   public ReplicationChangeSet without(ReplicationChange value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

@@ -158,9 +158,15 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    @Test
    public void testMethodsClassesCodeGen()
    {
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.model.test.methods");
 
-      Clazz placeClass = new Clazz("org.sdmlib.model.test.methods.Place");
+
+      Clazz propertyChangeInterfaceClass = new Clazz("org.sdmlib.utils.PropertyChangeInterface")
+      .withInterfaze(true).withExternal(true);
+      
+      Clazz placeClass = new Clazz("org.sdmlib.model.test.methods.Place")
+			/*add interface*/
+      .withInterfaces(propertyChangeInterfaceClass);
 
       new Method()
       .withClazz(placeClass)
@@ -181,19 +187,21 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       //----------------------------------------------
 
-      model = new ClassModel();
+      model = new ClassModel("org.sdmlib.model.test.methods");
 
       model.updateFromCode("test", "examples test src", "org.sdmlib.model.test.methods");
       model.insertModelCreationCodeHere("test");
 
       //-----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
-      Assert.assertEquals(1, classes.size());
+      Assert.assertEquals(2, classes.size());
 
       for (Clazz clazz : classes)
       {
          String name = clazz.getName();
-         Assert.assertTrue("class " + name + " not found ", placeClass.getName().equals(name));
+         Assert.assertTrue("class " + name + " not found ", 
+            placeClass.getName().equals(name)
+            || PropertyChangeInterface.class.getName().equals(name));
 
          if (placeClass.getName().equals(name)) {
             Assert.assertEquals( 3,  clazz.getMethods().size());
@@ -246,14 +254,15 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       //-----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
-      Assert.assertEquals(3, classes.size());
+      Assert.assertEquals(4, classes.size());
       for (Clazz clazz : classes)
       {
          String name = clazz.getName();
          Assert.assertTrue("class " + name + " not found ", continentClass.getName().equals(name) 
             || stateClass.getName().equals(name) 
             || townClass.getName().equals(name)
-            || reverseClassModelTestClass.getName().equals(name));
+            || reverseClassModelTestClass.getName().equals(name)
+            || PropertyChangeInterface.class.getName().equals(name));
 
          if (stateClass.getName().equals(name)) {
             Assert.assertTrue( name + " has no superclass named " + clazz.getSuperClass().getName(), 
@@ -309,7 +318,7 @@ public class ReverseClassModelTest implements PropertyChangeInterface
 
       //-----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
-      Assert.assertEquals(4, classes.size());
+      Assert.assertEquals(5, classes.size());
       for (Clazz clazz : classes)
       {
          String name = clazz.getName(); 
@@ -317,7 +326,8 @@ public class ReverseClassModelTest implements PropertyChangeInterface
             || maleClass.getName().equals(name) 
             || femaleClass.getName().equals(name)
             || studentClass.getName().equals(name)
-            || reverseClassModelTestClass.getName().equals(name));
+            || reverseClassModelTestClass.getName().equals(name)
+            || PropertyChangeInterface.class.getName().equals(name));
 
          if (personClass.getName().equals(name)) {
             Assert.assertTrue("no interface person", clazz.isInterfaze());
@@ -329,7 +339,7 @@ public class ReverseClassModelTest implements PropertyChangeInterface
             Assert.assertTrue("no interface female",  clazz.isInterfaze() );
          }
          else if (studentClass.getName().equals(name)) {
-            Assert.assertEquals(2,  clazz.getInterfaces().size() );
+            Assert.assertEquals(3,  clazz.getInterfaces().size() );
          }
       }
 

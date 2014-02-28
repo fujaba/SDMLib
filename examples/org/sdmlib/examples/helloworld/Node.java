@@ -29,6 +29,7 @@ import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Node extends GraphComponent implements PropertyChangeInterface
 {
@@ -834,5 +835,77 @@ public class Node extends GraphComponent implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   public Node withOutEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         addToOutEdges(item);
+      }
+      return this;
+   } 
+
+   public Node withoutOutEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         removeFromOutEdges(item);
+      }
+      return this;
+   }
+
+   public Node withInEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         addToInEdges(item);
+      }
+      return this;
+   } 
+
+   public Node withoutInEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         removeFromInEdges(item);
+      }
+      return this;
+   }
+
+   public Node withLinksTo(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToLinksTo(item);
+      }
+      return this;
+   } 
+
+   public Node withoutLinksTo(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromLinksTo(item);
+      }
+      return this;
+   }
+
+   public Node withLinksFrom(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToLinksFrom(item);
+      }
+      return this;
+   } 
+
+   public Node withoutLinksFrom(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromLinksFrom(item);
+      }
+      return this;
+   }
 }
 

@@ -33,6 +33,7 @@ import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.models.modelsets.longList;
+import java.util.Collection;
 
 public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -57,18 +58,6 @@ public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implement
    }
 
 
-   public SharedSpaceSet with(SharedSpace value)
-   {
-      this.put("" + value.getSpaceId(), value);
-      return this;
-   }
-   
-   public SharedSpaceSet without(SharedSpace value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
    public StringList getSpaceId()
    {
       StringList result = new StringList();
@@ -212,7 +201,45 @@ public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implement
       return this;
    }
 
+
+
+   public SharedSpacePO hasSharedSpacePO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      SharedSpacePO patternObject = pattern.hasElementSharedSpacePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public SharedSpaceSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<SharedSpace>)value);
+      }
+      else if (value != null)
+      {
+         this.add((SharedSpace) value);
+      }
+      
+      return this;
+   }
+   
+   public SharedSpaceSet without(SharedSpace value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

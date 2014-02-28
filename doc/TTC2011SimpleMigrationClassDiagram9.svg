@@ -5,26 +5,26 @@
  -->
 <!-- Title: ClassDiagram Pages: 1 -->
 <svg width="82pt" height="74pt"
- viewBox="0.00 0.00 82.38 74.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ viewBox="0.00 0.00 81.88 74.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 70)">
 <title>ClassDiagram</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-70 79.3764,-70 79.3764,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-70 78.8764,-70 78.8764,5 -4,5"/>
 <!-- _Node -->
 <g id="node1" class="node"><title>_Node</title>
 <a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="12,-44 12,-61 42,-61 42,-44 12,-44"/>
-<text text-anchor="start" x="15.5" y="-50.5" font-family="Arial" font-size="10.00">Node</text>
+<polygon fill="none" stroke="black" points="13,-44 13,-61 42,-61 42,-44 13,-44"/>
+<text text-anchor="start" x="16.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Node</text>
 </a>
-<polygon fill="none" stroke="black" points="12,-24 12,-44 42,-44 42,-24 12,-24"/>
-<text text-anchor="start" x="25" y="-32" font-family="Arial" font-size="10.00"> </text>
-<polygon fill="none" stroke="black" points="12,-4 12,-24 42,-24 42,-4 12,-4"/>
-<text text-anchor="start" x="25" y="-12" font-family="Arial" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="13,-24 13,-44 42,-44 42,-24 13,-24"/>
+<text text-anchor="start" x="26" y="-32" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="13,-4 13,-24 42,-24 42,-4 13,-4"/>
+<text text-anchor="start" x="26" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- _Node&#45;&gt;_Node -->
 <g id="edge2" class="edge"><title>_Node&#45;&gt;_Node</title>
 <path fill="none" stroke="black" d="M54.2408,-44.9883C64.0239,-45.2461 72,-41.25 72,-33 72,-24.75 64.0239,-20.7539 54.2408,-21.0117"/>
-<text text-anchor="middle" x="63.3764" y="-14.4447" font-family="Arial" font-size="10.00">copy</text>
-<text text-anchor="middle" x="63.2286" y="-38.1043" font-family="Arial" font-size="10.00">orig</text>
+<text text-anchor="middle" x="63.3764" y="-14.4447" font-family="Times New Roman,serif" font-size="10.00">copy</text>
+<text text-anchor="middle" x="63.2286" y="-38.1043" font-family="Times New Roman,serif" font-size="10.00">orig</text>
 </g>
 </g>
 </svg>

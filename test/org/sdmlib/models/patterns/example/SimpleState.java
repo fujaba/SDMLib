@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.patterns.example.creators.NodeSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class SimpleState implements PropertyChangeInterface
 {
@@ -175,5 +176,23 @@ public class SimpleState implements PropertyChangeInterface
       withNodes(value);
       return value;
    } 
+
+   public SimpleState withNodes(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToNodes(item);
+      }
+      return this;
+   } 
+
+   public SimpleState withoutNodes(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromNodes(item);
+      }
+      return this;
+   }
 }
 

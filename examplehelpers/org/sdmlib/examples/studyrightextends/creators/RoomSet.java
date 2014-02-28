@@ -233,6 +233,22 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public RoomPO hasRoomPO()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      RoomPO patternObject = pattern.hasElementRoomPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

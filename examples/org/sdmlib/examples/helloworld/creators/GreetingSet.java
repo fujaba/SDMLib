@@ -151,7 +151,23 @@ public class GreetingSet extends LinkedHashSet<Greeting> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public GreetingPO hasGreetingPO()
+   {
+      org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
+      
+      GreetingPO patternObject = pattern.hasElementGreetingPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

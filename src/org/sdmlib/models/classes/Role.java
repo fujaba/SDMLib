@@ -35,6 +35,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
 {
@@ -1687,5 +1688,19 @@ public class Role implements PropertyChangeInterface
          return this.getAssoc().getSource();
       }
    }
+
+   public Clazz createClazz()
+   {
+      Clazz value = new Clazz();
+      withClazz(value);
+      return value;
+   } 
+
+   public Association createAssoc()
+   {
+      Association value = new Association();
+      withAssoc(value);
+      return value;
+   } 
 }
 

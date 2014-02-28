@@ -28,6 +28,7 @@ import org.sdmlib.replication.creators.ReplicationChangeSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class ChangeHistory implements PropertyChangeInterface
 {
@@ -250,5 +251,23 @@ public class ChangeHistory implements PropertyChangeInterface
       }
    }
 
+
+   public ChangeHistory withChanges(ReplicationChange... value)
+   {
+      for (ReplicationChange item : value)
+      {
+         addToChanges(item);
+      }
+      return this;
+   } 
+
+   public ChangeHistory withoutChanges(ReplicationChange... value)
+   {
+      for (ReplicationChange item : value)
+      {
+         removeFromChanges(item);
+      }
+      return this;
+   }
 }
 

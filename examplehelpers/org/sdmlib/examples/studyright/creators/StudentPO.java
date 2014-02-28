@@ -335,7 +335,47 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this.startCreate().hasDone().endCreate();
    }
 
+   public StudentPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createMatrNo(int value)
+   {
+      this.startCreate().hasMatrNo(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createCredits(int value)
+   {
+      this.startCreate().hasCredits(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createMotivation(int value)
+   {
+      this.startCreate().hasMotivation(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createUni(UniversityPO tgt)
+   {
+      return this.startCreate().hasUni(tgt).endCreate();
+   }
+
+   public StudentPO createIn(RoomPO tgt)
+   {
+      return this.startCreate().hasIn(tgt).endCreate();
+   }
+
+   public StudentPO createDone(AssignmentPO tgt)
+   {
+      return this.startCreate().hasDone(tgt).endCreate();
+   }
+
 }
+
 
 
 

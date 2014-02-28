@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class River implements PropertyChangeInterface
 {
@@ -245,5 +246,23 @@ public class River implements PropertyChangeInterface
       withBoat(value);
       return value;
    } 
+
+   public River withBanks(Bank... value)
+   {
+      for (Bank item : value)
+      {
+         addToBanks(item);
+      }
+      return this;
+   } 
+
+   public River withoutBanks(Bank... value)
+   {
+      for (Bank item : value)
+      {
+         removeFromBanks(item);
+      }
+      return this;
+   }
 }
 

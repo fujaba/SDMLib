@@ -60,5 +60,16 @@ public class StoryboardWallPO extends PatternObject<StoryboardWallPO, Storyboard
       return null;
    }
 
+   public StoryboardPO createStoryboard()
+   {
+      return this.startCreate().hasStoryboard().endCreate();
+   }
+
+   public StoryboardWallPO createStoryboard(StoryboardPO tgt)
+   {
+      return this.startCreate().hasStoryboard(tgt).endCreate();
+   }
+
 }
+
 

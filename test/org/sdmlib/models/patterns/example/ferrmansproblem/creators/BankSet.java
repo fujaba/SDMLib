@@ -223,6 +223,22 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
    }
    
 
+
+
+   public BankPO hasBankPO()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      BankPO patternObject = pattern.hasElementBankPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

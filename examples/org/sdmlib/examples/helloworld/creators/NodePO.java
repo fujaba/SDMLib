@@ -9,6 +9,8 @@ import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.examples.helloworld.creators.GraphPO;
 import org.sdmlib.examples.helloworld.creators.EdgePO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.creators.NodePO;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {
@@ -378,7 +380,103 @@ public class NodePO extends PatternObject<NodePO, Node>
       return this;
    }
    
+   public NodePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public NodePO createGraph(GraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public EdgePO createOutEdges()
+   {
+      return this.startCreate().hasOutEdges().endCreate();
+   }
+
+   public NodePO createOutEdges(EdgePO tgt)
+   {
+      return this.startCreate().hasOutEdges(tgt).endCreate();
+   }
+
+   public EdgePO createInEdges()
+   {
+      return this.startCreate().hasInEdges().endCreate();
+   }
+
+   public NodePO createInEdges(EdgePO tgt)
+   {
+      return this.startCreate().hasInEdges(tgt).endCreate();
+   }
+
+   public NodePO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public NodePO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public NodePO createCopy()
+   {
+      return this.startCreate().hasCopy().endCreate();
+   }
+
+   public NodePO createCopy(NodePO tgt)
+   {
+      return this.startCreate().hasCopy(tgt).endCreate();
+   }
+
+   public NodePO createOrig()
+   {
+      return this.startCreate().hasOrig().endCreate();
+   }
+
+   public NodePO createOrig(NodePO tgt)
+   {
+      return this.startCreate().hasOrig(tgt).endCreate();
+   }
+
+   public NodePO createLinksTo()
+   {
+      return this.startCreate().hasLinksTo().endCreate();
+   }
+
+   public NodePO createLinksTo(NodePO tgt)
+   {
+      return this.startCreate().hasLinksTo(tgt).endCreate();
+   }
+
+   public NodePO createLinksFrom()
+   {
+      return this.startCreate().hasLinksFrom().endCreate();
+   }
+
+   public NodePO createLinksFrom(NodePO tgt)
+   {
+      return this.startCreate().hasLinksFrom(tgt).endCreate();
+   }
+
 }
+
+
+
+
 
 
 

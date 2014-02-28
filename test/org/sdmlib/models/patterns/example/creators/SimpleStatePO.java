@@ -61,5 +61,16 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
       return null;
    }
 
+   public NodePO createNodes()
+   {
+      return this.startCreate().hasNodes().endCreate();
+   }
+
+   public SimpleStatePO createNodes(NodePO tgt)
+   {
+      return this.startCreate().hasNodes(tgt).endCreate();
+   }
+
 }
+
 

@@ -175,7 +175,23 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public MethodPO hasMethodPO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      MethodPO patternObject = pattern.hasElementMethodPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

@@ -216,7 +216,23 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       return this;
    }
    
+
+
+   public StoryboardPO hasStoryboardPO()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      StoryboardPO patternObject = pattern.hasElementStoryboardPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

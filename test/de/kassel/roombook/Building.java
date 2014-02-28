@@ -266,5 +266,30 @@ public class Building implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   public Building withHas(Floor... value)
+   {
+      for (Floor item : value)
+      {
+         addToHas(item);
+      }
+      return this;
+   } 
+
+   public Building withoutHas(Floor... value)
+   {
+      for (Floor item : value)
+      {
+         removeFromHas(item);
+      }
+      return this;
+   }
+
+   public Floor createHas()
+   {
+      Floor value = new Floor();
+      withHas(value);
+      return value;
+   } 
 }
 

@@ -32,6 +32,7 @@ import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.creators.ObjectSet;
 import java.lang.Object;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 
 public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -56,17 +57,6 @@ public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.mo
    }
 
 
-   public LaneSet with(Lane value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public LaneSet without(Lane value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -143,7 +133,45 @@ public class LaneSet extends LinkedHashSet<Lane> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public LanePO hasLanePO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      LanePO patternObject = pattern.hasElementLanePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LaneSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Lane>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Lane) value);
+      }
+      
+      return this;
+   }
+   
+   public LaneSet without(Lane value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 
 

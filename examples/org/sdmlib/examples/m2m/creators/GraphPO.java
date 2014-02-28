@@ -133,6 +133,38 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       return null;
    }
 
+   public PersonPO createPersons()
+   {
+      return this.startCreate().hasPersons().endCreate();
+   }
+
+   public GraphPO createPersons(PersonPO tgt)
+   {
+      return this.startCreate().hasPersons(tgt).endCreate();
+   }
+
+   public RelationPO createRelations()
+   {
+      return this.startCreate().hasRelations().endCreate();
+   }
+
+   public GraphPO createRelations(RelationPO tgt)
+   {
+      return this.startCreate().hasRelations(tgt).endCreate();
+   }
+
+   public GraphComponentPO createGcs()
+   {
+      return this.startCreate().hasGcs().endCreate();
+   }
+
+   public GraphPO createGcs(GraphComponentPO tgt)
+   {
+      return this.startCreate().hasGcs(tgt).endCreate();
+   }
+
 }
+
+
 
 

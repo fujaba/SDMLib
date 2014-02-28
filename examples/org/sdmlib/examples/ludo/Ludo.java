@@ -402,5 +402,41 @@ public class Ludo implements PropertyChangeInterface
       withFields(value);
       return value;
    } 
+
+   public Ludo withPlayers(Player... value)
+   {
+      for (Player item : value)
+      {
+         addToPlayers(item);
+      }
+      return this;
+   } 
+
+   public Ludo withoutPlayers(Player... value)
+   {
+      for (Player item : value)
+      {
+         removeFromPlayers(item);
+      }
+      return this;
+   }
+
+   public Ludo withFields(Field... value)
+   {
+      for (Field item : value)
+      {
+         addToFields(item);
+      }
+      return this;
+   } 
+
+   public Ludo withoutFields(Field... value)
+   {
+      for (Field item : value)
+      {
+         removeFromFields(item);
+      }
+      return this;
+   }
 }
 

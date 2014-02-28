@@ -62,5 +62,16 @@ public class ReplicationServerPO extends PatternObject<ReplicationServerPO, Repl
       return null;
    }
 
+   public SharedSpacePO createSharedSpaces()
+   {
+      return this.startCreate().hasSharedSpaces().endCreate();
+   }
+
+   public ReplicationServerPO createSharedSpaces(SharedSpacePO tgt)
+   {
+      return this.startCreate().hasSharedSpaces(tgt).endCreate();
+   }
+
 }
+
 

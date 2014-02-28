@@ -291,7 +291,72 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
+   public PersonPO createFirstName(String value)
+   {
+      this.startCreate().hasFirstName(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public PersonPO createGraph(GraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public RelationPO createOutEdges()
+   {
+      return this.startCreate().hasOutEdges().endCreate();
+   }
+
+   public PersonPO createOutEdges(RelationPO tgt)
+   {
+      return this.startCreate().hasOutEdges(tgt).endCreate();
+   }
+
+   public RelationPO createInEdges()
+   {
+      return this.startCreate().hasInEdges().endCreate();
+   }
+
+   public PersonPO createInEdges(RelationPO tgt)
+   {
+      return this.startCreate().hasInEdges(tgt).endCreate();
+   }
+
+   public PersonPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public PersonPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public PersonPO createKnows()
+   {
+      return this.startCreate().hasKnows().endCreate();
+   }
+
+   public PersonPO createKnows(PersonPO tgt)
+   {
+      return this.startCreate().hasKnows(tgt).endCreate();
+   }
+
 }
+
+
+
 
 
 

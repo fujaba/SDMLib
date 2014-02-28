@@ -180,6 +180,22 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return this;
    }
    
+
+
+   public UniversityPO hasUniversityPO()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      UniversityPO patternObject = pattern.hasElementUniversityPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

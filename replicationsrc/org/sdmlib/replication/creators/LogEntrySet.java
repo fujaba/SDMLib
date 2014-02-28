@@ -28,6 +28,7 @@ import java.util.List;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.creators.TaskSet;
 import org.sdmlib.replication.Task;
+import java.util.Collection;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -52,17 +53,6 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    }
 
 
-   public LogEntrySet with(LogEntry value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public LogEntrySet without(LogEntry value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getStepName()
    {
       StringList result = new StringList();
@@ -151,5 +141,43 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public LogEntryPO hasLogEntryPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public LogEntrySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LogEntry>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LogEntry) value);
+      }
+      
+      return this;
+   }
+   
+   public LogEntrySet without(LogEntry value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

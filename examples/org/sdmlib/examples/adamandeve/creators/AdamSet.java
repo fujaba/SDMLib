@@ -83,7 +83,23 @@ public class AdamSet extends LinkedHashSet<Adam>
       return this;
    }
 
+
+
+   public AdamPO hasAdamPO()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      AdamPO patternObject = pattern.hasElementAdamPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

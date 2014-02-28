@@ -161,7 +161,23 @@ public class BoatSet extends LinkedHashSet<Boat> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public BoatPO hasBoatPO()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      BoatPO patternObject = pattern.hasElementBoatPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

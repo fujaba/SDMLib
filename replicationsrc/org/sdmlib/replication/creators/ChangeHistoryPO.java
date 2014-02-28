@@ -61,5 +61,16 @@ public class ChangeHistoryPO extends PatternObject<ChangeHistoryPO, ChangeHistor
       return null;
    }
 
+   public ReplicationChangePO createChanges()
+   {
+      return this.startCreate().hasChanges().endCreate();
+   }
+
+   public ChangeHistoryPO createChanges(ReplicationChangePO tgt)
+   {
+      return this.startCreate().hasChanges(tgt).endCreate();
+   }
+
 }
+
 

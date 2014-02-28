@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.methods.Place;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class PlaceSet extends LinkedHashSet<Place>
 {
@@ -85,9 +86,32 @@ public class PlaceSet extends LinkedHashSet<Place>
    }
 
 
-   public PlaceSet with(Place value)
+   public PlacePO hasPlacePO()
    {
-      this.add(value);
+      org.sdmlib.model.test.methods.creators.ModelPattern pattern = new org.sdmlib.model.test.methods.creators.ModelPattern();
+      
+      PlacePO patternObject = pattern.hasElementPlacePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public PlaceSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Place>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Place) value);
+      }
+      
       return this;
    }
    
@@ -96,7 +120,9 @@ public class PlaceSet extends LinkedHashSet<Place>
       this.remove(value);
       return this;
    }
+
 }
+
 
 
 

@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.TaskFlowBoard;
+import java.util.Collection;
 
 public class TaskFlowBoardSet extends LinkedHashSet<TaskFlowBoard> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -50,17 +51,6 @@ public class TaskFlowBoardSet extends LinkedHashSet<TaskFlowBoard> implements or
    }
 
 
-   public TaskFlowBoardSet with(TaskFlowBoard value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public TaskFlowBoardSet without(TaskFlowBoard value)
-   {
-      this.remove(value);
-      return this;
-   }
    public LaneSet getLanes()
    {
       LaneSet result = new LaneSet();
@@ -92,5 +82,43 @@ public class TaskFlowBoardSet extends LinkedHashSet<TaskFlowBoard> implements or
       
       return this;
    }
+
+
+   public TaskFlowBoardPO hasTaskFlowBoardPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      TaskFlowBoardPO patternObject = pattern.hasElementTaskFlowBoardPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public TaskFlowBoardSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<TaskFlowBoard>)value);
+      }
+      else if (value != null)
+      {
+         this.add((TaskFlowBoard) value);
+      }
+      
+      return this;
+   }
+   
+   public TaskFlowBoardSet without(TaskFlowBoard value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

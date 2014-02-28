@@ -61,5 +61,16 @@ public class TaskPO extends PatternObject<TaskPO, Task>
       return null;
    }
 
+   public LogEntryPO createLogEntries()
+   {
+      return this.startCreate().hasLogEntries().endCreate();
+   }
+
+   public TaskPO createLogEntries(LogEntryPO tgt)
+   {
+      return this.startCreate().hasLogEntries(tgt).endCreate();
+   }
+
 }
+
 

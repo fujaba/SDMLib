@@ -158,7 +158,23 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    }
    
 
+
+
+   public AssociationPO hasAssociationPO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      AssociationPO patternObject = pattern.hasElementAssociationPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

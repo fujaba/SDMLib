@@ -25,6 +25,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class Person implements PropertyChangeInterface
 {

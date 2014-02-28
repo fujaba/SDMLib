@@ -279,7 +279,23 @@ public class GenericObjectSet extends LinkedHashSet<GenericObject>
       return this;
    }
 
+
+
+   public GenericObjectPO hasGenericObjectPO()
+   {
+      org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
+      
+      GenericObjectPO patternObject = pattern.hasElementGenericObjectPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

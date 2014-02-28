@@ -1,22 +1,22 @@
-package org.sdmlib.model.test.consistence.creators;
+package org.sdmlib.utils.creators;
 
 import org.sdmlib.models.pattern.creators.PatternObjectCreator;
 
-public class FieldPOCreator extends PatternObjectCreator
+public class PropertyChangeInterfacePOCreator extends PatternObjectCreator
 {
    public Object getSendableInstance(boolean reference)
    {
-      return new FieldPO();
+      return new PropertyChangeInterfacePO();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((FieldPO) target).get(attrName);
+      return ((PropertyChangeInterfacePO) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((FieldPO) target).set(attrName, value);
+      return ((PropertyChangeInterfacePO) target).set(attrName, value);
    }
 }
 

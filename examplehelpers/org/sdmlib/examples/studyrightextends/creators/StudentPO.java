@@ -194,7 +194,25 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this.startCreate().hasLecture().endCreate();
    }
 
+   public StudentPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createMatrNo(int value)
+   {
+      this.startCreate().hasMatrNo(value).endCreate();
+      return this;
+   }
+   
+   public StudentPO createLecture(LecturePO tgt)
+   {
+      return this.startCreate().hasLecture(tgt).endCreate();
+   }
+
 }
+
 
 
 

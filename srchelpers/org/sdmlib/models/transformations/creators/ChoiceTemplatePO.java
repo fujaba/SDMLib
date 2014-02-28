@@ -563,7 +563,112 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
       return this;
    }
    
+   public ChoiceTemplatePO createTemplateText(String value)
+   {
+      this.startCreate().hasTemplateText(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createExpandedText(String value)
+   {
+      this.startCreate().hasExpandedText(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelObject(Object value)
+   {
+      this.startCreate().hasModelObject(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createModelClassName(String value)
+   {
+      this.startCreate().hasModelClassName(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListStart(String value)
+   {
+      this.startCreate().hasListStart(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListSeparator(String value)
+   {
+      this.startCreate().hasListSeparator(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createListEnd(String value)
+   {
+      this.startCreate().hasListEnd(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createReferenceLookup(boolean value)
+   {
+      this.startCreate().hasReferenceLookup(value).endCreate();
+      return this;
+   }
+   
+   public ChoiceTemplatePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPlaceholders()
+   {
+      return this.startCreate().hasPlaceholders().endCreate();
+   }
+
+   public ChoiceTemplatePO createPlaceholders(PlaceHolderDescriptionPO tgt)
+   {
+      return this.startCreate().hasPlaceholders(tgt).endCreate();
+   }
+
+   public TemplatePO createChoices()
+   {
+      return this.startCreate().hasChoices().endCreate();
+   }
+
+   public ChoiceTemplatePO createChoices(TemplatePO tgt)
+   {
+      return this.startCreate().hasChoices(tgt).endCreate();
+   }
+
+   public ChoiceTemplatePO createChooser()
+   {
+      return this.startCreate().hasChooser().endCreate();
+   }
+
+   public ChoiceTemplatePO createChooser(ChoiceTemplatePO tgt)
+   {
+      return this.startCreate().hasChooser(tgt).endCreate();
+   }
+
+   public MatchPO createMatches()
+   {
+      return this.startCreate().hasMatches().endCreate();
+   }
+
+   public ChoiceTemplatePO createMatches(MatchPO tgt)
+   {
+      return this.startCreate().hasMatches(tgt).endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createParents()
+   {
+      return this.startCreate().hasParents().endCreate();
+   }
+
+   public ChoiceTemplatePO createParents(PlaceHolderDescriptionPO tgt)
+   {
+      return this.startCreate().hasParents(tgt).endCreate();
+   }
+
 }
+
 
 
 

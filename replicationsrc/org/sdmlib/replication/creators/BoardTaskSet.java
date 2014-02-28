@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
+import java.util.Collection;
 
 public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -51,17 +52,6 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
    }
 
 
-   public BoardTaskSet with(BoardTask value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public BoardTaskSet without(BoardTask value)
-   {
-      this.remove(value);
-      return this;
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -244,6 +234,44 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
       return this;
    }
 
+
+
+   public BoardTaskPO hasBoardTaskPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      BoardTaskPO patternObject = pattern.hasElementBoardTaskPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public BoardTaskSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<BoardTask>)value);
+      }
+      else if (value != null)
+      {
+         this.add((BoardTask) value);
+      }
+      
+      return this;
+   }
+   
+   public BoardTaskSet without(BoardTask value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

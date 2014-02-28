@@ -144,6 +144,22 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public FemalePO hasFemalePO()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      FemalePO patternObject = pattern.hasElementFemalePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

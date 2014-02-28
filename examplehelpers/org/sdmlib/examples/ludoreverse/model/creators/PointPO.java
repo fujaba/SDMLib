@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.ludoreverse.model.creators.PointSet;
 
 public class PointPO extends PatternObject<PointPO, Point>
 {
@@ -87,5 +88,48 @@ public class PointPO extends PatternObject<PointPO, Point>
       return this;
    }
    
+   public PointPO hasX(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PointCreator.PROPERTY_X)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PointPO createX(int value)
+   {
+      this.startCreate().hasX(value).endCreate();
+      return this;
+   }
+   
+   public PointPO hasY(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PointCreator.PROPERTY_Y)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PointPO createY(int value)
+   {
+      this.startCreate().hasY(value).endCreate();
+      return this;
+   }
+   
 }
+
 

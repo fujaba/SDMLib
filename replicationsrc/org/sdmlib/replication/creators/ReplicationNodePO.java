@@ -61,5 +61,16 @@ public class ReplicationNodePO extends PatternObject<ReplicationNodePO, Replicat
       return null;
    }
 
+   public SharedSpacePO createSharedSpaces()
+   {
+      return this.startCreate().hasSharedSpaces().endCreate();
+   }
+
+   public ReplicationNodePO createSharedSpaces(SharedSpacePO tgt)
+   {
+      return this.startCreate().hasSharedSpaces(tgt).endCreate();
+   }
+
 }
+
 

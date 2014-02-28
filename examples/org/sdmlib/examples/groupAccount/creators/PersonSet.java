@@ -282,6 +282,22 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PersonPO hasPersonPO()
+   {
+      org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
+      
+      PersonPO patternObject = pattern.hasElementPersonPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

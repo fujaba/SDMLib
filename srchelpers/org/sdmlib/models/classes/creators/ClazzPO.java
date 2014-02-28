@@ -2,6 +2,7 @@ package org.sdmlib.models.classes.creators;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
@@ -11,8 +12,9 @@ import org.sdmlib.models.classes.creators.ClazzPO;
 import org.sdmlib.models.classes.creators.AttributePO;
 import org.sdmlib.models.classes.creators.MethodPO;
 import org.sdmlib.models.classes.creators.RolePO;
+import org.sdmlib.models.pattern.PatternLink;
 
-public class ClazzPO extends PatternObject
+public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {
    public ClazzPO startNAC()
    {
@@ -145,7 +147,7 @@ public class ClazzPO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClazzSet) this.getCurrentMatch()).getKidClasses();
+         return this.getCurrentMatch().getKidClasses();
       }
       return null;
    }
@@ -211,7 +213,7 @@ public class ClazzPO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClazzSet) this.getCurrentMatch()).getInterfaces();
+         return  this.getCurrentMatch().getInterfaces();
       }
       return null;
    }
@@ -482,7 +484,7 @@ public class ClazzPO extends PatternObject
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClazzSet) this.getCurrentMatch()).getKidClassesAsInterface();
+         return this.getCurrentMatch().getKidClassesAsInterface();
       }
       return null;
    }
@@ -562,7 +564,128 @@ public class ClazzPO extends PatternObject
       return this;
    }
    
+   public ClazzPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createInterfaze(boolean value)
+   {
+      this.startCreate().hasInterfaze(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createExternal(boolean value)
+   {
+      this.startCreate().hasExternal(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createWrapped(boolean value)
+   {
+      this.startCreate().hasWrapped(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createFilePath(String value)
+   {
+      this.startCreate().hasFilePath(value).endCreate();
+      return this;
+   }
+   
+   public ClassModelPO createClassModel()
+   {
+      return this.startCreate().hasClassModel().endCreate();
+   }
+
+   public ClazzPO createClassModel(ClassModelPO tgt)
+   {
+      return this.startCreate().hasClassModel(tgt).endCreate();
+   }
+
+   public ClazzPO createKidClasses()
+   {
+      return this.startCreate().hasKidClasses().endCreate();
+   }
+
+   public ClazzPO createKidClasses(ClazzPO tgt)
+   {
+      return this.startCreate().hasKidClasses(tgt).endCreate();
+   }
+
+   public ClazzPO createSuperClass()
+   {
+      return this.startCreate().hasSuperClass().endCreate();
+   }
+
+   public ClazzPO createSuperClass(ClazzPO tgt)
+   {
+      return this.startCreate().hasSuperClass(tgt).endCreate();
+   }
+
+   public ClazzPO createKidClassesAsInterface()
+   {
+      return this.startCreate().hasKidClassesAsInterface().endCreate();
+   }
+
+   public ClazzPO createKidClassesAsInterface(ClazzPO tgt)
+   {
+      return this.startCreate().hasKidClassesAsInterface(tgt).endCreate();
+   }
+
+   public ClazzPO createInterfaces()
+   {
+      return this.startCreate().hasInterfaces().endCreate();
+   }
+
+   public ClazzPO createInterfaces(ClazzPO tgt)
+   {
+      return this.startCreate().hasInterfaces(tgt).endCreate();
+   }
+
+   public AttributePO createAttributes()
+   {
+      return this.startCreate().hasAttributes().endCreate();
+   }
+
+   public ClazzPO createAttributes(AttributePO tgt)
+   {
+      return this.startCreate().hasAttributes(tgt).endCreate();
+   }
+
+   public MethodPO createMethods()
+   {
+      return this.startCreate().hasMethods().endCreate();
+   }
+
+   public ClazzPO createMethods(MethodPO tgt)
+   {
+      return this.startCreate().hasMethods(tgt).endCreate();
+   }
+
+   public RolePO createSourceRoles()
+   {
+      return this.startCreate().hasSourceRoles().endCreate();
+   }
+
+   public ClazzPO createSourceRoles(RolePO tgt)
+   {
+      return this.startCreate().hasSourceRoles(tgt).endCreate();
+   }
+
+   public RolePO createTargetRoles()
+   {
+      return this.startCreate().hasTargetRoles().endCreate();
+   }
+
+   public ClazzPO createTargetRoles(RolePO tgt)
+   {
+      return this.startCreate().hasTargetRoles(tgt).endCreate();
+   }
+
 }
+
 
 
 

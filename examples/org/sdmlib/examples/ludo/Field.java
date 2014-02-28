@@ -960,5 +960,23 @@ public class Field implements PropertyChangeInterface
       withPawns(value);
       return value;
    } 
+
+   public Field withPawns(Pawn... value)
+   {
+      for (Pawn item : value)
+      {
+         addToPawns(item);
+      }
+      return this;
+   } 
+
+   public Field withoutPawns(Pawn... value)
+   {
+      for (Pawn item : value)
+      {
+         removeFromPawns(item);
+      }
+      return this;
+   }
 }
 

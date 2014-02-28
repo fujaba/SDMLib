@@ -152,5 +152,60 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
       return this;
    }
    
+   public SocketThreadPO hasIp(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createIp(String value)
+   {
+      this.startCreate().hasIp(value).endCreate();
+      return this;
+   }
+   
+   public SocketThreadPO hasPort(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SocketThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SocketThreadPO createPort(int value)
+   {
+      this.startCreate().hasPort(value).endCreate();
+      return this;
+   }
+   
+   public SocketThreadPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
+   public SocketThreadPO createDefaultTargetThread(Object value)
+   {
+      this.startCreate().hasDefaultTargetThread(value).endCreate();
+      return this;
+   }
+   
 }
+
 

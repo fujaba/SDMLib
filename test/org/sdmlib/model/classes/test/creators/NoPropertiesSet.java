@@ -86,6 +86,22 @@ public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements Mode
       return this;
    }
 
+
+
+   public NoPropertiesPO hasNoPropertiesPO()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      NoPropertiesPO patternObject = pattern.hasElementNoPropertiesPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

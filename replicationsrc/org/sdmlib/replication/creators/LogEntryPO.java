@@ -157,5 +157,79 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       return null;
    }
 
+   public LogEntryPO hasStepName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_STEPNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntryPO createStepName(String value)
+   {
+      this.startCreate().hasStepName(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO hasExecutedBy(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntryPO createExecutedBy(String value)
+   {
+      this.startCreate().hasExecutedBy(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO hasTimeStamp(long lower, long upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LogEntryPO createTimeStamp(long value)
+   {
+      this.startCreate().hasTimeStamp(value).endCreate();
+      return this;
+   }
+   
+   public TaskPO createTask()
+   {
+      return this.startCreate().hasTask().endCreate();
+   }
+
+   public LogEntryPO createTask(TaskPO tgt)
+   {
+      return this.startCreate().hasTask(tgt).endCreate();
+   }
+
 }
+
 

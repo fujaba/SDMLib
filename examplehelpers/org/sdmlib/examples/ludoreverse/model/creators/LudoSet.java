@@ -165,7 +165,23 @@ public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
       return this;
    }
 
+
+
+   public LudoPO hasLudoPO()
+   {
+      org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
+      
+      LudoPO patternObject = pattern.hasElementLudoPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

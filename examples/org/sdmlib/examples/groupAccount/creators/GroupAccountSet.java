@@ -241,6 +241,22 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
       return this;
    }
 
+
+
+   public GroupAccountPO hasGroupAccountPO()
+   {
+      org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
+      
+      GroupAccountPO patternObject = pattern.hasElementGroupAccountPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

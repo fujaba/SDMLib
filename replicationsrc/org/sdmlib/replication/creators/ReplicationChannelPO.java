@@ -95,6 +95,23 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
       return this;
    }
    
+   public ReplicationChannelPO createSocket(Socket value)
+   {
+      this.startCreate().hasSocket(value).endCreate();
+      return this;
+   }
+   
+   public SharedSpacePO createSharedSpace()
+   {
+      return this.startCreate().hasSharedSpace().endCreate();
+   }
+
+   public ReplicationChannelPO createSharedSpace(SharedSpacePO tgt)
+   {
+      return this.startCreate().hasSharedSpace(tgt).endCreate();
+   }
+
 }
+
 
 

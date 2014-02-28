@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class SignalFlag implements PropertyChangeInterface
 {
@@ -175,5 +176,23 @@ public class SignalFlag implements PropertyChangeInterface
       withStation(value);
       return value;
    } 
+
+   public SignalFlag withStation(Station... value)
+   {
+      for (Station item : value)
+      {
+         addToStation(item);
+      }
+      return this;
+   } 
+
+   public SignalFlag withoutStation(Station... value)
+   {
+      for (Station item : value)
+      {
+         removeFromStation(item);
+      }
+      return this;
+   }
 }
 

@@ -538,7 +538,102 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createTemplateText(String value)
+   {
+      this.startCreate().hasTemplateText(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createExpandedText(String value)
+   {
+      this.startCreate().hasExpandedText(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createModelObject(Object value)
+   {
+      this.startCreate().hasModelObject(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createModelClassName(String value)
+   {
+      this.startCreate().hasModelClassName(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createListStart(String value)
+   {
+      this.startCreate().hasListStart(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createListSeparator(String value)
+   {
+      this.startCreate().hasListSeparator(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createListEnd(String value)
+   {
+      this.startCreate().hasListEnd(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createReferenceLookup(boolean value)
+   {
+      this.startCreate().hasReferenceLookup(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPlaceholders()
+   {
+      return this.startCreate().hasPlaceholders().endCreate();
+   }
+
+   public TemplatePO createPlaceholders(PlaceHolderDescriptionPO tgt)
+   {
+      return this.startCreate().hasPlaceholders(tgt).endCreate();
+   }
+
+   public ChoiceTemplatePO createChooser()
+   {
+      return this.startCreate().hasChooser().endCreate();
+   }
+
+   public TemplatePO createChooser(ChoiceTemplatePO tgt)
+   {
+      return this.startCreate().hasChooser(tgt).endCreate();
+   }
+
+   public MatchPO createMatches()
+   {
+      return this.startCreate().hasMatches().endCreate();
+   }
+
+   public TemplatePO createMatches(MatchPO tgt)
+   {
+      return this.startCreate().hasMatches(tgt).endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createParents()
+   {
+      return this.startCreate().hasParents().endCreate();
+   }
+
+   public TemplatePO createParents(PlaceHolderDescriptionPO tgt)
+   {
+      return this.startCreate().hasParents(tgt).endCreate();
+   }
+
 }
+
 
 
 

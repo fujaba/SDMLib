@@ -217,7 +217,23 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public RolePO hasRolePO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      RolePO patternObject = pattern.hasElementRolePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

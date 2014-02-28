@@ -86,6 +86,22 @@ public class LudoColorSet extends LinkedHashSet<LudoColor> implements org.sdmlib
       return this;
    }
 
+
+
+   public LudoColorPO hasLudoColorPO()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      LudoColorPO patternObject = pattern.hasElementLudoColorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

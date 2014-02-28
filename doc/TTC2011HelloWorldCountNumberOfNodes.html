@@ -156,14 +156,14 @@
       
       p.matchIsomorphic();
       
-      systemout = &quot;Circles found: n&quot;;
+      systemout = &quot;Circles found: \n&quot;;
       int noOfCircles = 0;
       
       while (p.getHasMatch())
       {
          systemout += firstCircleNodePO.getName() + &quot; --&gt; &quot;
                + secondCircleNodePO.getName() + &quot; --&gt; &quot; 
-               + thirdCircleNodePO.getName() + &quot; --&gt; n&quot;;
+               + thirdCircleNodePO.getName() + &quot; --&gt; \n&quot;;
          
          noOfCircles++; 
          
@@ -188,7 +188,7 @@ n5 --> n3 --> n4 -->
    {
       int noOfCircles = 0;
       
-      systemout = &quot;Circles found: n&quot;;
+      systemout = &quot;Circles found: \n&quot;;
       
       for (Node firstNode : graph.getNodes())
       {
@@ -211,7 +211,7 @@ n5 --> n3 --> n4 -->
                            &#x2F;&#x2F; found match
                            systemout += firstNode.getName() + &quot; --&gt; &quot;
                                  + secondNode.getName() + &quot; --&gt; &quot; 
-                                 + thirdNode.getName() + &quot; --&gt; n&quot;;
+                                 + thirdNode.getName() + &quot; --&gt; \n&quot;;
                            
                            noOfCircles++;
                         }

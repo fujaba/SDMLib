@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.patterns.example.creators.NodeSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class Node implements PropertyChangeInterface
 {
@@ -407,5 +408,41 @@ public class Node implements PropertyChangeInterface
       withPrev(value);
       return value;
    } 
+
+   public Node withNext(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToNext(item);
+      }
+      return this;
+   } 
+
+   public Node withoutNext(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromNext(item);
+      }
+      return this;
+   }
+
+   public Node withPrev(Node... value)
+   {
+      for (Node item : value)
+      {
+         addToPrev(item);
+      }
+      return this;
+   } 
+
+   public Node withoutPrev(Node... value)
+   {
+      for (Node item : value)
+      {
+         removeFromPrev(item);
+      }
+      return this;
+   }
 }
 

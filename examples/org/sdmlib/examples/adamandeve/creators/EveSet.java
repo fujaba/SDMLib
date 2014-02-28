@@ -83,7 +83,23 @@ public class EveSet extends LinkedHashSet<Eve>
       return this;
    }
 
+
+
+   public EvePO hasEvePO()
+   {
+      org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
+      
+      EvePO patternObject = pattern.hasElementEvePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

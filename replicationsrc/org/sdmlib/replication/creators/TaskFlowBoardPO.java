@@ -3,6 +3,10 @@ package org.sdmlib.replication.creators;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.TaskFlowBoard;
+import org.sdmlib.replication.creators.TaskFlowBoardSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.replication.creators.LanePO;
+import org.sdmlib.replication.creators.TaskFlowBoardPO;
 
 public class TaskFlowBoardPO extends PatternObject<TaskFlowBoardPO, TaskFlowBoard>
 {
@@ -55,5 +59,16 @@ public class TaskFlowBoardPO extends PatternObject<TaskFlowBoardPO, TaskFlowBoar
       return null;
    }
 
+   public LanePO createLanes()
+   {
+      return this.startCreate().hasLanes().endCreate();
+   }
+
+   public TaskFlowBoardPO createLanes(LanePO tgt)
+   {
+      return this.startCreate().hasLanes(tgt).endCreate();
+   }
+
 }
+
 

@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.classes.ReverseClassModelTest;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class ReverseClassModelTestSet extends LinkedHashSet<ReverseClassModelTest>
 {
@@ -49,9 +50,32 @@ public class ReverseClassModelTestSet extends LinkedHashSet<ReverseClassModelTes
    }
 
 
-   public ReverseClassModelTestSet with(ReverseClassModelTest value)
+   public ReverseClassModelTestPO hasReverseClassModelTestPO()
    {
-      this.add(value);
+      org.sdmlib.model.classes.creators.ModelPattern pattern = new org.sdmlib.model.classes.creators.ModelPattern();
+      
+      ReverseClassModelTestPO patternObject = pattern.hasElementReverseClassModelTestPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ReverseClassModelTestSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReverseClassModelTest>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReverseClassModelTest) value);
+      }
+      
       return this;
    }
    
@@ -60,6 +84,8 @@ public class ReverseClassModelTestSet extends LinkedHashSet<ReverseClassModelTes
       this.remove(value);
       return this;
    }
+
 }
+
 
 

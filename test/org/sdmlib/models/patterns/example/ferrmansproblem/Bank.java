@@ -28,6 +28,7 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CargoSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class Bank implements PropertyChangeInterface
 {
@@ -409,5 +410,23 @@ public class Bank implements PropertyChangeInterface
       withCargos(value);
       return value;
    } 
+
+   public Bank withCargos(Cargo... value)
+   {
+      for (Cargo item : value)
+      {
+         addToCargos(item);
+      }
+      return this;
+   } 
+
+   public Bank withoutCargos(Cargo... value)
+   {
+      for (Cargo item : value)
+      {
+         removeFromCargos(item);
+      }
+      return this;
+   }
 }
 

@@ -191,6 +191,39 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
+   public PersonPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PersonPO createBalance(double value)
+   {
+      this.startCreate().hasBalance(value).endCreate();
+      return this;
+   }
+   
+   public GroupAccountPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public PersonPO createParent(GroupAccountPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public ItemPO createItems()
+   {
+      return this.startCreate().hasItems().endCreate();
+   }
+
+   public PersonPO createItems(ItemPO tgt)
+   {
+      return this.startCreate().hasItems(tgt).endCreate();
+   }
+
 }
+
 
 

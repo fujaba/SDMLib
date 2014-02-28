@@ -30,6 +30,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Method implements PropertyChangeInterface
 {
@@ -663,6 +664,13 @@ public class Method implements PropertyChangeInterface
    {
       setBody(value);
       return this;
+   } 
+
+   public Clazz createClazz()
+   {
+      Clazz value = new Clazz();
+      withClazz(value);
+      return value;
    } 
 }
 

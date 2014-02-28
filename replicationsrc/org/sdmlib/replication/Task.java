@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.replication.creators.LogEntrySet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class Task implements PropertyChangeInterface
 {
@@ -176,5 +177,23 @@ public class Task implements PropertyChangeInterface
       withLogEntries(value);
       return value;
    } 
+
+   public Task withLogEntries(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         addToLogEntries(item);
+      }
+      return this;
+   } 
+
+   public Task withoutLogEntries(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         removeFromLogEntries(item);
+      }
+      return this;
+   }
 }
 

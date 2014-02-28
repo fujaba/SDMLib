@@ -120,5 +120,54 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       return this;
    }
    
+   public PeerProxyPO hasIp(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_IP)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createIp(String value)
+   {
+      this.startCreate().hasIp(value).endCreate();
+      return this;
+   }
+   
+   public PeerProxyPO hasPort(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PeerProxy.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PeerProxyPO createPort(int value)
+   {
+      this.startCreate().hasPort(value).endCreate();
+      return this;
+   }
+   
+   public PeerProxyPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
 }
+
 

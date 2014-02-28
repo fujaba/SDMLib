@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.superclasses.Town;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class TownSet extends LinkedHashSet<Town>
 {
@@ -71,9 +72,32 @@ public class TownSet extends LinkedHashSet<Town>
    }
 
 
-   public TownSet with(Town value)
+   public TownPO hasTownPO()
    {
-      this.add(value);
+      org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
+      
+      TownPO patternObject = pattern.hasElementTownPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public TownSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Town>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Town) value);
+      }
+      
       return this;
    }
    
@@ -82,7 +106,9 @@ public class TownSet extends LinkedHashSet<Town>
       this.remove(value);
       return this;
    }
+
 }
+
 
 
 

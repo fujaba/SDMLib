@@ -108,6 +108,23 @@ public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphCompo
       return this;
    }
    
+   public GraphComponentPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public GraphComponentPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 
 

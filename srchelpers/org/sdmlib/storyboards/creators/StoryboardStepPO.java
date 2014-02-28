@@ -108,6 +108,23 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
       return this;
    }
    
+   public StoryboardStepPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public StoryboardPO createStoryboard()
+   {
+      return this.startCreate().hasStoryboard().endCreate();
+   }
+
+   public StoryboardStepPO createStoryboard(StoryboardPO tgt)
+   {
+      return this.startCreate().hasStoryboard(tgt).endCreate();
+   }
+
 }
+
 
 

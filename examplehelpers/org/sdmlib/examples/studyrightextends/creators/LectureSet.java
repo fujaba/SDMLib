@@ -178,6 +178,22 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       return this;
    }
 
+
+
+   public LecturePO hasLecturePO()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      LecturePO patternObject = pattern.hasElementLecturePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

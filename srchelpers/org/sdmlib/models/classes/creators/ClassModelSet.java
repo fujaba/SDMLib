@@ -171,7 +171,23 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return this;
    }
 
+
+
+   public ClassModelPO hasClassModelPO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      ClassModelPO patternObject = pattern.hasElementClassModelPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

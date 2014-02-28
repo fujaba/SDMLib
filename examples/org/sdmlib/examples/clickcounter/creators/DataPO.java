@@ -88,5 +88,33 @@ public class DataPO extends PatternObject<DataPO, Data>
       return this;
    }
    
+   public DataPO hasNum(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Data.PROPERTY_NUM)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public DataPO createNum(int value)
+   {
+      this.startCreate().hasNum(value).endCreate();
+      return this;
+   }
+   
+   public DataPO createFxnum(IntegerProperty value)
+   {
+      this.startCreate().hasFxnum(value).endCreate();
+      return this;
+   }
+   
 }
+
 

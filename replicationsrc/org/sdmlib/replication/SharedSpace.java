@@ -1125,5 +1125,23 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 		return readMessages;
 	}
 
+
+   public SharedSpace withChannels(ReplicationChannel... value)
+   {
+      for (ReplicationChannel item : value)
+      {
+         addToChannels(item);
+      }
+      return this;
+   } 
+
+   public SharedSpace withoutChannels(ReplicationChannel... value)
+   {
+      for (ReplicationChannel item : value)
+      {
+         removeFromChannels(item);
+      }
+      return this;
+   }
 }
 

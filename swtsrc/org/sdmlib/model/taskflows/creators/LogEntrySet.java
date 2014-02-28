@@ -220,6 +220,22 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public LogEntryPO hasLogEntryPO()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

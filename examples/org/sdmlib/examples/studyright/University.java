@@ -360,5 +360,41 @@ public class University implements PropertyChangeInterface
       }
       return null;
    } 
+
+   public University withStudents(Student... value)
+   {
+      for (Student item : value)
+      {
+         addToStudents(item);
+      }
+      return this;
+   } 
+
+   public University withoutStudents(Student... value)
+   {
+      for (Student item : value)
+      {
+         removeFromStudents(item);
+      }
+      return this;
+   }
+
+   public University withRooms(Room... value)
+   {
+      for (Room item : value)
+      {
+         addToRooms(item);
+      }
+      return this;
+   } 
+
+   public University withoutRooms(Room... value)
+   {
+      for (Room item : value)
+      {
+         removeFromRooms(item);
+      }
+      return this;
+   }
 }
 

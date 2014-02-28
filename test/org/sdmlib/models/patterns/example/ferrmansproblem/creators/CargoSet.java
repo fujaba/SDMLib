@@ -155,6 +155,22 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public CargoPO hasCargoPO()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      CargoPO patternObject = pattern.hasElementCargoPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

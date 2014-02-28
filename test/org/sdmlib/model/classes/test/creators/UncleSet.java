@@ -116,6 +116,22 @@ public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
    }
    
 
+
+
+   public UnclePO hasUnclePO()
+   {
+      org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
+      
+      UnclePO patternObject = pattern.hasElementUnclePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

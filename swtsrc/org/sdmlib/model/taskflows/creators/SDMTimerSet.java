@@ -108,6 +108,22 @@ public class SDMTimerSet extends LinkedHashSet<SDMTimer> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public SDMTimerPO hasSDMTimerPO()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      SDMTimerPO patternObject = pattern.hasElementSDMTimerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

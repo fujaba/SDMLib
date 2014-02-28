@@ -196,5 +196,78 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
+   public BankPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public BankPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public BankPO hasAge(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Bank.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public BankPO createAge(int value)
+   {
+      this.startCreate().hasAge(value).endCreate();
+      return this;
+   }
+   
+   public BoatPO createBoat()
+   {
+      return this.startCreate().hasBoat().endCreate();
+   }
+
+   public BankPO createBoat(BoatPO tgt)
+   {
+      return this.startCreate().hasBoat(tgt).endCreate();
+   }
+
+   public RiverPO createRiver()
+   {
+      return this.startCreate().hasRiver().endCreate();
+   }
+
+   public BankPO createRiver(RiverPO tgt)
+   {
+      return this.startCreate().hasRiver(tgt).endCreate();
+   }
+
+   public CargoPO createCargos()
+   {
+      return this.startCreate().hasCargos().endCreate();
+   }
+
+   public BankPO createCargos(CargoPO tgt)
+   {
+      return this.startCreate().hasCargos(tgt).endCreate();
+   }
+
 }
+
 

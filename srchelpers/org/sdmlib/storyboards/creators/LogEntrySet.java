@@ -108,7 +108,23 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public LogEntryPO hasLogEntryPO()
+   {
+      org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
+      
+      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

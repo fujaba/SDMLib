@@ -128,5 +128,47 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       return null;
    }
 
+   public CargoPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Cargo.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public CargoPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public BankPO createBank()
+   {
+      return this.startCreate().hasBank().endCreate();
+   }
+
+   public CargoPO createBank(BankPO tgt)
+   {
+      return this.startCreate().hasBank(tgt).endCreate();
+   }
+
+   public BoatPO createBoat()
+   {
+      return this.startCreate().hasBoat().endCreate();
+   }
+
+   public CargoPO createBoat(BoatPO tgt)
+   {
+      return this.startCreate().hasBoat(tgt).endCreate();
+   }
+
 }
+
 

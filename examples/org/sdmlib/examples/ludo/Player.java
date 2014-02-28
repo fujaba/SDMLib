@@ -889,5 +889,23 @@ public class Player implements PropertyChangeInterface
       withPawns(value);
       return value;
    } 
+
+   public Player withPawns(Pawn... value)
+   {
+      for (Pawn item : value)
+      {
+         addToPawns(item);
+      }
+      return this;
+   } 
+
+   public Player withoutPawns(Pawn... value)
+   {
+      for (Pawn item : value)
+      {
+         removeFromPawns(item);
+      }
+      return this;
+   }
 }
 

@@ -9,6 +9,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.creators.PersonSet;
 import org.sdmlib.examples.helloworld.creators.GreetingPO;
+import org.sdmlib.examples.helloworld.creators.PersonPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -134,7 +135,24 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return this;
    }
    
+   public PersonPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public GreetingPO createGreeting()
+   {
+      return (GreetingPO) this.startCreate().hasGreeting().endCreate();
+   }
+
+   public PersonPO createGreeting(GreetingPO tgt)
+   {
+      return this.startCreate().hasGreeting(tgt).endCreate();
+   }
+
 }
+
 
 
 

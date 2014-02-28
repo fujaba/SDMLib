@@ -1660,7 +1660,7 @@ public class Parser
       // ... { ;;; } ;
       while ( ! currentRealKindEquals(EOF) 
             && ! currentRealKindEquals(';')
-            // && ! currentRealKindEquals(',')
+            && ! currentRealKindEquals(',')
             && ! currentRealKindEquals(')'))
       {
          if (currentRealKindEquals('{'))

@@ -132,6 +132,22 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
       return this;
    }
 
+
+
+   public ProfessorPO hasProfessorPO()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      ProfessorPO patternObject = pattern.hasElementProfessorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

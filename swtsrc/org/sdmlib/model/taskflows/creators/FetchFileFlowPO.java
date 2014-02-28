@@ -235,5 +235,80 @@ public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlo
       return null;
    }
 
+   public FetchFileFlowPO createFileServer(PeerProxy value)
+   {
+      this.startCreate().hasFileServer(value).endCreate();
+      return this;
+   }
+   
+   public FetchFileFlowPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
+   public FetchFileFlowPO hasFileName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_FILENAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createFileName(String value)
+   {
+      this.startCreate().hasFileName(value).endCreate();
+      return this;
+   }
+   
+   public FetchFileFlowPO hasTaskNo(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(FetchFileFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public FetchFileFlowPO createTaskNo(int value)
+   {
+      this.startCreate().hasTaskNo(value).endCreate();
+      return this;
+   }
+   
+   public TaskFlowPO createSubFlow()
+   {
+      return this.startCreate().hasSubFlow().endCreate();
+   }
+
+   public FetchFileFlowPO createSubFlow(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasSubFlow(tgt).endCreate();
+   }
+
+   public TaskFlowPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public FetchFileFlowPO createParent(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 

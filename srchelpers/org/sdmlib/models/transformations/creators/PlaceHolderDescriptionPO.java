@@ -277,5 +277,60 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
+   public PlaceHolderDescriptionPO createTextFragment(String value)
+   {
+      this.startCreate().hasTextFragment(value).endCreate();
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createValue(String value)
+   {
+      this.startCreate().hasValue(value).endCreate();
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createAttrName(String value)
+   {
+      this.startCreate().hasAttrName(value).endCreate();
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createIsKeyAttribute(boolean value)
+   {
+      this.startCreate().hasIsKeyAttribute(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createOwners()
+   {
+      return this.startCreate().hasOwners().endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createOwners(TemplatePO tgt)
+   {
+      return this.startCreate().hasOwners(tgt).endCreate();
+   }
+
+   public MatchPO createMatches()
+   {
+      return this.startCreate().hasMatches().endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createMatches(MatchPO tgt)
+   {
+      return this.startCreate().hasMatches(tgt).endCreate();
+   }
+
+   public TemplatePO createSubTemplate()
+   {
+      return this.startCreate().hasSubTemplate().endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createSubTemplate(TemplatePO tgt)
+   {
+      return this.startCreate().hasSubTemplate(tgt).endCreate();
+   }
+
 }
+
 

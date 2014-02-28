@@ -5,6 +5,10 @@ import org.sdmlib.examples.ludoreverse.model.Player;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.ludoreverse.model.creators.LudoPO;
+import org.sdmlib.examples.ludoreverse.model.creators.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -121,6 +125,59 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return this;
    }
    
+   public PlayerPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlayerPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO hasColor(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlayerPO createColor(String value)
+   {
+      this.startCreate().hasColor(value).endCreate();
+      return this;
+   }
+   
+   public LudoPO createGame()
+   {
+      return this.startCreate().hasGame().endCreate();
+   }
+
+   public PlayerPO createGame(LudoPO tgt)
+   {
+      return this.startCreate().hasGame(tgt).endCreate();
+   }
+
 }
+
 
 

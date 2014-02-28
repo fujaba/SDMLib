@@ -3,6 +3,12 @@ package org.sdmlib.examples.helloworld.creators;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.creators.GraphSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.creators.NodePO;
+import org.sdmlib.examples.helloworld.creators.GraphPO;
+import org.sdmlib.examples.helloworld.creators.EdgePO;
+import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {
@@ -123,6 +129,38 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       return null;
    }
    
+   public NodePO createNodes()
+   {
+      return this.startCreate().hasNodes().endCreate();
+   }
+
+   public GraphPO createNodes(NodePO tgt)
+   {
+      return this.startCreate().hasNodes(tgt).endCreate();
+   }
+
+   public EdgePO createEdges()
+   {
+      return this.startCreate().hasEdges().endCreate();
+   }
+
+   public GraphPO createEdges(EdgePO tgt)
+   {
+      return this.startCreate().hasEdges(tgt).endCreate();
+   }
+
+   public GraphComponentPO createGcs()
+   {
+      return this.startCreate().hasGcs().endCreate();
+   }
+
+   public GraphPO createGcs(GraphComponentPO tgt)
+   {
+      return this.startCreate().hasGcs(tgt).endCreate();
+   }
+
 }
+
+
 
 

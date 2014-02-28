@@ -143,6 +143,33 @@ public class DicePO extends PatternObject<DicePO, Dice>
       return this;
    }
    
+   public DicePO createValue(int value)
+   {
+      this.startCreate().hasValue(value).endCreate();
+      return this;
+   }
+   
+   public LudoPO createGame()
+   {
+      return this.startCreate().hasGame().endCreate();
+   }
+
+   public DicePO createGame(LudoPO tgt)
+   {
+      return this.startCreate().hasGame(tgt).endCreate();
+   }
+
+   public PlayerPO createPlayer()
+   {
+      return this.startCreate().hasPlayer().endCreate();
+   }
+
+   public DicePO createPlayer(PlayerPO tgt)
+   {
+      return this.startCreate().hasPlayer(tgt).endCreate();
+   }
+
 }
+
 
 

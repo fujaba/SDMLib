@@ -535,6 +535,117 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return this;
    }
    
+   public PlayerPO createColor(String value)
+   {
+      this.startCreate().hasColor(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createEnumColor(LudoColor value)
+   {
+      this.startCreate().hasEnumColor(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createX(int value)
+   {
+      this.startCreate().hasX(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createY(int value)
+   {
+      this.startCreate().hasY(value).endCreate();
+      return this;
+   }
+   
+   public LudoPO createGame()
+   {
+      return this.startCreate().hasGame().endCreate();
+   }
+
+   public PlayerPO createGame(LudoPO tgt)
+   {
+      return this.startCreate().hasGame(tgt).endCreate();
+   }
+
+   public PlayerPO createNext()
+   {
+      return this.startCreate().hasNext().endCreate();
+   }
+
+   public PlayerPO createNext(PlayerPO tgt)
+   {
+      return this.startCreate().hasNext(tgt).endCreate();
+   }
+
+   public PlayerPO createPrev()
+   {
+      return this.startCreate().hasPrev().endCreate();
+   }
+
+   public PlayerPO createPrev(PlayerPO tgt)
+   {
+      return this.startCreate().hasPrev(tgt).endCreate();
+   }
+
+   public DicePO createDice()
+   {
+      return this.startCreate().hasDice().endCreate();
+   }
+
+   public PlayerPO createDice(DicePO tgt)
+   {
+      return this.startCreate().hasDice(tgt).endCreate();
+   }
+
+   public FieldPO createStart()
+   {
+      return this.startCreate().hasStart().endCreate();
+   }
+
+   public PlayerPO createStart(FieldPO tgt)
+   {
+      return this.startCreate().hasStart(tgt).endCreate();
+   }
+
+   public FieldPO createBase()
+   {
+      return this.startCreate().hasBase().endCreate();
+   }
+
+   public PlayerPO createBase(FieldPO tgt)
+   {
+      return this.startCreate().hasBase(tgt).endCreate();
+   }
+
+   public FieldPO createLanding()
+   {
+      return this.startCreate().hasLanding().endCreate();
+   }
+
+   public PlayerPO createLanding(FieldPO tgt)
+   {
+      return this.startCreate().hasLanding(tgt).endCreate();
+   }
+
+   public PawnPO createPawns()
+   {
+      return this.startCreate().hasPawns().endCreate();
+   }
+
+   public PlayerPO createPawns(PawnPO tgt)
+   {
+      return this.startCreate().hasPawns(tgt).endCreate();
+   }
+
 }
+
 
 

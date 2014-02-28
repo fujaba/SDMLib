@@ -344,5 +344,23 @@ public class Person implements PropertyChangeInterface
       withItems(value);
       return value;
    } 
+
+   public Person withItems(Item... value)
+   {
+      for (Item item : value)
+      {
+         addToItems(item);
+      }
+      return this;
+   } 
+
+   public Person withoutItems(Item... value)
+   {
+      for (Item item : value)
+      {
+         removeFromItems(item);
+      }
+      return this;
+   }
 }
 

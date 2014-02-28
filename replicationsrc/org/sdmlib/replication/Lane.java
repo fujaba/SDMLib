@@ -324,5 +324,23 @@ public class Lane implements PropertyChangeInterface
       task.setStatus(BoardTask.START);
    } 
 
+
+   public Lane withTasks(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         addToTasks(item);
+      }
+      return this;
+   } 
+
+   public Lane withoutTasks(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         removeFromTasks(item);
+      }
+      return this;
+   }
 }
 

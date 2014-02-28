@@ -1,74 +1,71 @@
 <html>
 <head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/nv.d3.css" rel="stylesheet" type="text/css">
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="includes/d3.v3.js"></script>
+<script src="includes/nv.d3.js"></script>
 
-<script> 
-$(function () { 
-    $('#container').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Burn Down'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            title: {
-                text: 'Hours'
-            }
-        },
-        series: [{
-            name: 'hours done',
-            data: [
-               [1332108300000, 1.0],
-               [1332423600000, 2.0],
-               [1332707520000, 3.0],
-               [1332707820000, 4.0],
-               [1332707940000, 6.0],
-               [1332793200000, 8.0],
-               [1337428260000, 9.0],
-               [1337450340000, 10.0],
-               [1337536860000, 12.0]
-               ]
-        }, {
-            name: 'hours planned',
-            data: [
-               [1332108300000, 1.0],
-               [1332423600000, 2.0],
-               [1332707520000, 3.0],
-               [1332707820000, 4.0],
-               [1332707940000, 6.0],
-               [1332793200000, 8.0],
-               [1337428260000, 9.0],
-               [1337450340000, 10.0],
-               [1337536860000, 12.0]
-               ]
-        }]
-    });
+<script>
+data = [{ "key" : "hours done",
+   "values" : [
+        { "x" : 1332108300000, "y" : 1.0},
+               { "x" : 1332423600000, "y" : 2.0},
+               { "x" : 1332707520000, "y" : 3.0},
+               { "x" : 1332707820000, "y" : 4.0},
+               { "x" : 1332707940000, "y" : 6.0},
+               { "x" : 1332793200000, "y" : 8.0},
+               { "x" : 1337428260000, "y" : 9.0},
+               { "x" : 1337450340000, "y" : 10.0},
+               { "x" : 1337536860000, "y" : 12.0}
+      ]
+},{ "key" : "hours planned",
+   "values" : [
+        { "x" : 1332108300000, "y" : 1.0},
+               { "x" : 1332423600000, "y" : 2.0},
+               { "x" : 1332707520000, "y" : 3.0},
+               { "x" : 1332707820000, "y" : 4.0},
+               { "x" : 1332707940000, "y" : 6.0},
+               { "x" : 1332793200000, "y" : 8.0},
+               { "x" : 1337428260000, "y" : 9.0},
+               { "x" : 1337450340000, "y" : 10.0},
+               { "x" : 1337536860000, "y" : 12.0}
+      ]
+}
+]
+
+nv.addGraph(function() {
+        var chart = nv.models.lineWithFocusChart();
+      chart.yAxis.axisLabel("Hours");
+        chart.yAxis.tickFormat(d3.format(',.2f'));
+        chart.y2Axis.tickFormat(d3.format(',.2f'));
+        chart.xAxis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });
+        chart.x2Axis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });
+        
+      d3.select('#lineWithFocusChart svg')
+         .datum(data)
+         .call(chart);
+    return chart;
 });
 </script>
-
 </head>
 <body>
 <p>Burn Down and Time Line for <a href='StudyRightClassesCodeGen.html' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 
-<div id="container" style="width:100%; height:600px;">Hallo</div>
-
-<p>18.03.2012 23:05:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 5. generate generic set for attributes and assocs</p>
-<p>22.03.2012 14:40:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 6. generate generic get for attributes and assocs</p>
-<p>25.03.2012 22:32:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: 7. generate creator classes</p>
-<p>25.03.2012 22:37:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 8. generate imports</p>
-<p>25.03.2012 22:39:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 9. generate property change support</p>
-<p>26.03.2012 22:20:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 10. generate removeYou method</p>
-<p>19.05.2012 13:51:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: generic set now works for double. Perhabs boolean and other are still missing</p>
-<p>19.05.2012 19:59:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+<div id="lineWithFocusChart" class='with-3d-shadow with-transitions'>
+    <svg style="height: 700px;"></svg>
+</div>
 <p>20.05.2012 20:01:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
+<p>19.05.2012 19:59:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+<p>19.05.2012 13:51:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: generic set now works for double. Perhabs boolean and other are still missing</p>
+<p>26.03.2012 22:20:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 10. generate removeYou method</p>
+<p>25.03.2012 22:39:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 9. generate property change support</p>
+<p>25.03.2012 22:37:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 8. generate imports</p>
+<p>25.03.2012 22:32:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: 7. generate creator classes</p>
+<p>22.03.2012 14:40:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 6. generate generic get for attributes and assocs</p>
+<p>18.03.2012 23:05:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 5. generate generic set for attributes and assocs</p>
 
 </body>
 </html>

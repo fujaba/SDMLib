@@ -5,8 +5,13 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.creators.AssociationSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.classes.creators.ClassModelPO;
+import org.sdmlib.models.classes.creators.AssociationPO;
+import org.sdmlib.models.classes.creators.RolePO;
 
-public class AssociationPO extends PatternObject
+public class AssociationPO extends PatternObject<AssociationPO, Association>
 {
    public AssociationPO startNAC()
    {
@@ -131,5 +136,26 @@ public class AssociationPO extends PatternObject
       return null;
    }
    
+   public ClassModelPO createModel()
+   {
+      return this.startCreate().hasModel().endCreate();
+   }
+
+   public AssociationPO createModel(ClassModelPO tgt)
+   {
+      return this.startCreate().hasModel(tgt).endCreate();
+   }
+
+   public RolePO createSource()
+   {
+      return this.startCreate().hasSource().endCreate();
+   }
+
+   public AssociationPO createSource(RolePO tgt)
+   {
+      return this.startCreate().hasSource(tgt).endCreate();
+   }
+
 }
+
 

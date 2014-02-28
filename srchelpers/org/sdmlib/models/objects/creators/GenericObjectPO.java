@@ -9,6 +9,8 @@ import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.objects.creators.GenericGraphPO;
 import org.sdmlib.models.objects.creators.GenericAttributePO;
 import org.sdmlib.models.objects.creators.GenericLinkPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.objects.creators.GenericObjectPO;
 
 public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
@@ -270,7 +272,66 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
       return this;
    }
    
+   public GenericObjectPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public GenericObjectPO createType(String value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public GenericObjectPO createIcon(String value)
+   {
+      this.startCreate().hasIcon(value).endCreate();
+      return this;
+   }
+   
+   public GenericGraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public GenericObjectPO createGraph(GenericGraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public GenericAttributePO createAttrs()
+   {
+      return (GenericAttributePO) this.startCreate().hasAttrs().endCreate();
+   }
+
+   public GenericObjectPO createAttrs(GenericAttributePO tgt)
+   {
+      return this.startCreate().hasAttrs(tgt).endCreate();
+   }
+
+   public GenericLinkPO createOutgoingLinks()
+   {
+      return this.startCreate().hasOutgoingLinks().endCreate();
+   }
+
+   public GenericObjectPO createOutgoingLinks(GenericLinkPO tgt)
+   {
+      return this.startCreate().hasOutgoingLinks(tgt).endCreate();
+   }
+
+   public GenericLinkPO createIncommingLinks()
+   {
+      return this.startCreate().hasIncommingLinks().endCreate();
+   }
+
+   public GenericObjectPO createIncommingLinks(GenericLinkPO tgt)
+   {
+      return this.startCreate().hasIncommingLinks(tgt).endCreate();
+   }
+
 }
+
 
 
 

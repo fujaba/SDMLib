@@ -28,6 +28,7 @@ import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Ludo implements PropertyChangeInterface
 {
@@ -272,5 +273,23 @@ public class Ludo implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   public Ludo withPlayers(Player... value)
+   {
+      for (Player item : value)
+      {
+         addToPlayers(item);
+      }
+      return this;
+   } 
+
+   public Ludo withoutPlayers(Player... value)
+   {
+      for (Player item : value)
+      {
+         removeFromPlayers(item);
+      }
+      return this;
+   }
 }
 

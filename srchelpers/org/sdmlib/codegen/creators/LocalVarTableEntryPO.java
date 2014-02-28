@@ -3,8 +3,9 @@ package org.sdmlib.codegen.creators;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.codegen.creators.LocalVarTableEntrySet;
 
-public class LocalVarTableEntryPO extends PatternObject
+public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, LocalVarTableEntry>
 {
    public LocalVarTableEntryPO startNAC()
    {
@@ -182,6 +183,31 @@ public class LocalVarTableEntryPO extends PatternObject
       return this;
    }
    
+   public LocalVarTableEntryPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public LocalVarTableEntryPO createType(String value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public LocalVarTableEntryPO createStartPos(int value)
+   {
+      this.startCreate().hasStartPos(value).endCreate();
+      return this;
+   }
+   
+   public LocalVarTableEntryPO createEndPos(int value)
+   {
+      this.startCreate().hasEndPos(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 

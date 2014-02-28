@@ -100,5 +100,22 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
       return null;
    }
 
+   public BuildingPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public FloorPO createHas()
+   {
+      return this.startCreate().hasHas().endCreate();
+   }
+
+   public BuildingPO createHas(FloorPO tgt)
+   {
+      return this.startCreate().hasHas(tgt).endCreate();
+   }
+
 }
+
 

@@ -4,6 +4,10 @@ import org.sdmlib.examples.ludoreverse.model.Ludo;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.ludoreverse.model.creators.LudoSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.ludoreverse.model.creators.PlayerPO;
+import org.sdmlib.examples.ludoreverse.model.creators.LudoPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -120,7 +124,60 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       return null;
    }
    
+   public LudoPO hasStyle(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_STYLE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LudoPO createStyle(String value)
+   {
+      this.startCreate().hasStyle(value).endCreate();
+      return this;
+   }
+   
+   public LudoPO hasAge(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_AGE)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LudoPO createAge(int value)
+   {
+      this.startCreate().hasAge(value).endCreate();
+      return this;
+   }
+   
+   public PlayerPO createPlayers()
+   {
+      return this.startCreate().hasPlayers().endCreate();
+   }
+
+   public LudoPO createPlayers(PlayerPO tgt)
+   {
+      return this.startCreate().hasPlayers(tgt).endCreate();
+   }
+
 }
+
 
 
 

@@ -96,6 +96,27 @@ public class RiverPO extends PatternObject<RiverPO, River>
       return null;
    }
 
+   public BoatPO createBoat()
+   {
+      return this.startCreate().hasBoat().endCreate();
+   }
+
+   public RiverPO createBoat(BoatPO tgt)
+   {
+      return this.startCreate().hasBoat(tgt).endCreate();
+   }
+
+   public BankPO createBanks()
+   {
+      return this.startCreate().hasBanks().endCreate();
+   }
+
+   public RiverPO createBanks(BankPO tgt)
+   {
+      return this.startCreate().hasBanks(tgt).endCreate();
+   }
+
 }
+
 
 

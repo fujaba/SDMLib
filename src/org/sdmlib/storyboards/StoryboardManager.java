@@ -24,6 +24,7 @@ package org.sdmlib.storyboards;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,6 +50,7 @@ import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 
 import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonArraySorted;
@@ -127,8 +129,49 @@ public class StoryboardManager
       }
 
       new File("doc").mkdirs();
-
+      new File("doc/includes").mkdirs();
+      
+      // add javascript files
+      copyDocFile("burndown", "d3.v3.js");
+      copyDocFile("burndown", "nv.d3.css");
+      copyDocFile("burndown", "nv.d3.js");
+      
       dumpKanban();
+   }
+
+   private void copyDocFile(String dir, String file)
+   {
+      File target=new File("doc/includes/" + file);
+      
+      InputStream is = GuiAdapter.class.getResourceAsStream("js/" + dir + "/" + file);
+      
+      if(is!=null)
+      {
+         final int BUFF_SIZE = 5 * 1024; // 5KB
+         final byte[] buffer = new byte[BUFF_SIZE];
+          
+          try
+          {
+             if(!target.exists()){
+                target.createNewFile();
+             }
+             FileOutputStream out = new FileOutputStream(target);
+
+             while (true) {
+                int count = is.read(buffer);
+                if (count == -1)
+                   break;
+                out.write(buffer, 0, count);
+             }
+             out.close();
+             is.close();
+          }
+          catch (Exception e)
+          {
+            e.printStackTrace();
+         }
+
+      }
    }
 
    public void dumpKanban() 
@@ -374,49 +417,53 @@ public class StoryboardManager
          StringBuilder htmlText = new StringBuilder(
             "<html>\r\n" + 
             "<head>\r\n" + 
+            "<meta charset=\"utf-8\">\n" +
             "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\r\n" + 
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n" + 
+            "<link href=\"includes/nv.d3.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
             "\r\n" + 
-            "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js\"></script>\r\n" + 
-            "<script src=\"http://code.highcharts.com/highcharts.js\"></script>\r\n" + 
+            "<script src=\"includes/d3.v3.js\"></script>\r\n" + 
+            "<script src=\"includes/nv.d3.js\"></script>\r\n" + 
+            "" + 
             "\r\n" + 
-            "<script> \r\n" + 
-            "$(function () { \r\n" + 
-            "    $('#container').highcharts({\r\n" + 
-            "        chart: {\r\n" + 
-            "            type: 'line'\r\n" + 
-            "        },\r\n" + 
-            "        title: {\r\n" + 
-            "            text: 'Burn Down'\r\n" + 
-            "        },\r\n" + 
-            "        xAxis: {\r\n" + 
-            "            type: 'datetime'\r\n" + 
-            "        },\r\n" + 
-            "        yAxis: {\r\n" + 
-            "            title: {\r\n" + 
-            "                text: 'Hours'\r\n" + 
-            "            }\r\n" + 
-            "        },\r\n" + 
-            "        series: [{\r\n" + 
-            "            name: 'hours done',\r\n" + 
-            "            data: [\r\n" +
-            "               hoursSpendData\n" +
-            "               ]\r\n" + 
-            "        }, {\r\n" + 
-            "            name: 'hours planned',\r\n" + 
-            "            data: [\r\n" + 
-            "               hoursRemainingData\n" +
-            "               ]\r\n" + 
-            "        }]\r\n" + 
-            "    });\r\n" + 
+            
+            
+            
+            "<script>\r\n" + 
+            "data = [{ \"key\" : \"hours done\",\r\n" + 
+            "   \"values\" : [\r\n" + 
+            "        hoursSpendData\r\n" + 
+            "      ]\r\n" + 
+            "},{ \"key\" : \"hours planned\",\r\n" + 
+            "   \"values\" : [\r\n" + 
+            "        hoursRemainingData\r\n" + 
+            "      ]\r\n" + 
+            "}\r\n" + 
+            "]\r\n" + 
+            "\r\n" + 
+            "nv.addGraph(function() {\r\n" + 
+            "        var chart = nv.models.lineWithFocusChart();\r\n" + 
+            "      chart.yAxis.axisLabel(\"Hours\");\r\n" + 
+            "        chart.yAxis.tickFormat(d3.format(',.2f'));\r\n" + 
+            "        chart.y2Axis.tickFormat(d3.format(',.2f'));\r\n" + 
+            "        chart.xAxis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });\r\n" + 
+            "        chart.x2Axis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });\r\n" + 
+            "        \r\n" + 
+            "      d3.select('#lineWithFocusChart svg')\r\n" + 
+            "         .datum(data)\r\n" + 
+            "         .call(chart);\r\n" + 
+            "    return chart;\r\n" + 
             "});\r\n" + 
-            "</script>\r\n" + 
+            "</script>" +
+            
             "\r\n" + 
             "</head>\r\n" + 
             "<body>\r\n" + 
             "<p>Burn Down and Time Line for <a href='entryNameKanbanSuffix.html' type='text/x-java'>entryName</a></p>\r\n" + 
             "\r\n" + 
-            "<div id=\"container\" style=\"width:100%; height:600px;\">Hallo</div>\r\n" + 
+            "<div id=\"lineWithFocusChart\" class='with-3d-shadow with-transitions'>\r\n" + 
+            "    <svg style=\"height: 700px;\"></svg>\r\n" + 
+            "</div>" + 
             "\r\n" + 
             "timelineentries" + 
             "\r\n" + 
@@ -445,11 +492,11 @@ public class StoryboardManager
             logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
 
             
-            timeLogText.append(logLine);
+            timeLogText.insert(0, logLine);
             
             hoursSpend += logEntry.getHoursSpend();
             String dataLine = CGUtil.replaceAll(
-               "[millis, value]", 
+               "{ \"x\" : millis, \"y\" : value}", 
                "millis", logEntry.getParsedDate().getTime(),
                "value", hoursSpend
                );
@@ -466,7 +513,7 @@ public class StoryboardManager
             }
             
             dataLine = CGUtil.replaceAll(
-               "[millis, value]", 
+               "{ \"x\" : millis, \"y\" : value}", 
                "millis", logEntry.getParsedDate().getTime(),
                "value", hoursSpend + sumOfHoursRemaining 
                );

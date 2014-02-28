@@ -28,6 +28,7 @@ import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import java.util.List;
+import java.util.Collection;
 
 public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAcceptThread> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -52,17 +53,6 @@ public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAccep
    }
 
 
-   public ServerSocketAcceptThreadSet with(ServerSocketAcceptThread value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ServerSocketAcceptThreadSet without(ServerSocketAcceptThread value)
-   {
-      this.remove(value);
-      return this;
-   }
    public intList getPort()
    {
       intList result = new intList();
@@ -107,6 +97,44 @@ public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAccep
       return this;
    }
 
+
+
+   public ServerSocketAcceptThreadPO hasServerSocketAcceptThreadPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ServerSocketAcceptThreadPO patternObject = pattern.hasElementServerSocketAcceptThreadPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ServerSocketAcceptThreadSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ServerSocketAcceptThread>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ServerSocketAcceptThread) value);
+      }
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadSet without(ServerSocketAcceptThread value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 
 

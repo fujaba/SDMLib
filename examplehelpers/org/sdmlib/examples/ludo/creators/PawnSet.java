@@ -200,6 +200,22 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public PawnPO hasPawnPO()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      PawnPO patternObject = pattern.hasElementPawnPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

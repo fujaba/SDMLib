@@ -88,6 +88,34 @@ public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAccept
       return this;
    }
    
+   public ServerSocketAcceptThreadPO hasPort(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createPort(int value)
+   {
+      this.startCreate().hasPort(value).endCreate();
+      return this;
+   }
+   
+   public ServerSocketAcceptThreadPO createReplicationNode(ReplicationNode value)
+   {
+      this.startCreate().hasReplicationNode(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 

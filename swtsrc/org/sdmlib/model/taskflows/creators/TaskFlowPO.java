@@ -157,5 +157,53 @@ public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
       return null;
    }
 
+   public TaskFlowPO hasTaskNo(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(TaskFlow.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public TaskFlowPO createTaskNo(int value)
+   {
+      this.startCreate().hasTaskNo(value).endCreate();
+      return this;
+   }
+   
+   public TaskFlowPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
+   public TaskFlowPO createSubFlow()
+   {
+      return this.startCreate().hasSubFlow().endCreate();
+   }
+
+   public TaskFlowPO createSubFlow(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasSubFlow(tgt).endCreate();
+   }
+
+   public TaskFlowPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public TaskFlowPO createParent(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 

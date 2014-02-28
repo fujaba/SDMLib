@@ -7,8 +7,10 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 import org.sdmlib.examples.helloworld.creators.GraphPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.creators.GraphComponentPO;
 
-public class GraphComponentPO extends PatternObject
+public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {
    public GraphComponentPO startNAC()
    {
@@ -105,6 +107,23 @@ public class GraphComponentPO extends PatternObject
       return this;
    }
    
+   public GraphComponentPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public GraphComponentPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
 
 

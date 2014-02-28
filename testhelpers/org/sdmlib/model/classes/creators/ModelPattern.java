@@ -6,6 +6,13 @@ import org.sdmlib.model.classes.ReverseClassModelTest;
 import org.sdmlib.model.test.interfaces.Student;
 import org.sdmlib.model.test.interfaces.creators.StudentPO;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.model.classes.creators.ReverseClassModelTestPO;
+import org.sdmlib.model.test.interfaces.creators.PersonPO;
+import org.sdmlib.model.test.interfaces.Person;
+import org.sdmlib.model.test.interfaces.creators.MalePO;
+import org.sdmlib.model.test.interfaces.Male;
+import org.sdmlib.model.test.interfaces.creators.FemalePO;
+import org.sdmlib.model.test.interfaces.Female;
 
 public class ModelPattern extends Pattern
 {
@@ -80,6 +87,79 @@ public class ModelPattern extends Pattern
       return null;
    } 
 
+   public PersonPO hasElementPersonPO()
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PersonPO hasElementPersonPO(Person hostGraphObject)
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public MalePO hasElementMalePO()
+   {
+      MalePO value = new MalePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public MalePO hasElementMalePO(Male hostGraphObject)
+   {
+      MalePO value = new MalePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public FemalePO hasElementFemalePO()
+   {
+      FemalePO value = new FemalePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public FemalePO hasElementFemalePO(Female hostGraphObject)
+   {
+      FemalePO value = new FemalePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 

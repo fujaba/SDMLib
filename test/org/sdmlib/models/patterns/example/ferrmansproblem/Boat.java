@@ -23,6 +23,7 @@ package org.sdmlib.models.patterns.example.ferrmansproblem;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
 public class Boat implements PropertyChangeInterface
 {

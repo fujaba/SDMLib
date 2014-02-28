@@ -319,5 +319,41 @@ public class GroupAccount implements PropertyChangeInterface
       withItems(value);
       return value;
    } 
+
+   public GroupAccount withPersons(Person... value)
+   {
+      for (Person item : value)
+      {
+         addToPersons(item);
+      }
+      return this;
+   } 
+
+   public GroupAccount withoutPersons(Person... value)
+   {
+      for (Person item : value)
+      {
+         removeFromPersons(item);
+      }
+      return this;
+   }
+
+   public GroupAccount withItems(Item... value)
+   {
+      for (Item item : value)
+      {
+         addToItems(item);
+      }
+      return this;
+   } 
+
+   public GroupAccount withoutItems(Item... value)
+   {
+      for (Item item : value)
+      {
+         removeFromItems(item);
+      }
+      return this;
+   }
 }
 

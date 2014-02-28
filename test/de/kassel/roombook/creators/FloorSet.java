@@ -282,5 +282,21 @@ public class FloorSet extends SDMSet<Floor>
       return this;
    }
 
+
+
+   public FloorPO hasFloorPO()
+   {
+      de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
+      
+      FloorPO patternObject = pattern.hasElementFloorPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 

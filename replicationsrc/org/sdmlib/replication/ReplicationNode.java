@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class ReplicationNode implements PropertyChangeInterface
 {
@@ -189,5 +190,23 @@ public class ReplicationNode implements PropertyChangeInterface
       withSharedSpaces(value);
       return value;
    } 
+
+   public ReplicationNode withSharedSpaces(SharedSpace... value)
+   {
+      for (SharedSpace item : value)
+      {
+         addToSharedSpaces(item);
+      }
+      return this;
+   } 
+
+   public ReplicationNode withoutSharedSpaces(SharedSpace... value)
+   {
+      for (SharedSpace item : value)
+      {
+         removeFromSharedSpaces(item);
+      }
+      return this;
+   }
 }
 

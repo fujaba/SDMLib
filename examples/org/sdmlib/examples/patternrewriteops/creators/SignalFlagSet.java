@@ -119,6 +119,22 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       return this;
    }
 
+
+
+   public SignalFlagPO hasSignalFlagPO()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      SignalFlagPO patternObject = pattern.hasElementSignalFlagPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

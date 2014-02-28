@@ -241,7 +241,38 @@ public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdam
       return this;
    }
    
+   public UpdateAdamFlowPO createAdam(PeerProxy value)
+   {
+      this.startCreate().hasAdam(value).endCreate();
+      return this;
+   }
+   
+   public UpdateAdamFlowPO createEve(PeerProxy value)
+   {
+      this.startCreate().hasEve(value).endCreate();
+      return this;
+   }
+   
+   public UpdateAdamFlowPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
+   public UpdateAdamFlowPO createAdamJarAtEveSiteLastModified(long value)
+   {
+      this.startCreate().hasAdamJarAtEveSiteLastModified(value).endCreate();
+      return this;
+   }
+   
+   public UpdateAdamFlowPO createTaskNo(int value)
+   {
+      this.startCreate().hasTaskNo(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 
 

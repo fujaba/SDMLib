@@ -257,7 +257,61 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       return this;
    }
    
+   public RelationPO createKind(String value)
+   {
+      this.startCreate().hasKind(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public RelationPO createGraph(GraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public PersonPO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public RelationPO createSrc(PersonPO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public PersonPO createTgt()
+   {
+      return this.startCreate().hasTgt().endCreate();
+   }
+
+   public RelationPO createTgt(PersonPO tgt)
+   {
+      return this.startCreate().hasTgt(tgt).endCreate();
+   }
+
+   public RelationPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public RelationPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
 }
+
+
 
 
 

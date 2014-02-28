@@ -4,6 +4,12 @@ import org.sdmlib.examples.patternrewriteops.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.patternrewriteops.creators.StationSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.patternrewriteops.creators.TrainPO;
+import org.sdmlib.examples.patternrewriteops.creators.StationPO;
+import org.sdmlib.examples.patternrewriteops.creators.PersonPO;
+import org.sdmlib.examples.patternrewriteops.creators.SignalFlagPO;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {
@@ -188,6 +194,57 @@ public class StationPO extends PatternObject<StationPO, Station>
       return null;
    }
 
+   public TrainPO createTrains()
+   {
+      return this.startCreate().hasTrains().endCreate();
+   }
+
+   public StationPO createTrains(TrainPO tgt)
+   {
+      return this.startCreate().hasTrains(tgt).endCreate();
+   }
+
+   public StationPO createNext()
+   {
+      return this.startCreate().hasNext().endCreate();
+   }
+
+   public StationPO createNext(StationPO tgt)
+   {
+      return this.startCreate().hasNext(tgt).endCreate();
+   }
+
+   public StationPO createPrev()
+   {
+      return this.startCreate().hasPrev().endCreate();
+   }
+
+   public StationPO createPrev(StationPO tgt)
+   {
+      return this.startCreate().hasPrev(tgt).endCreate();
+   }
+
+   public PersonPO createPeople()
+   {
+      return this.startCreate().hasPeople().endCreate();
+   }
+
+   public StationPO createPeople(PersonPO tgt)
+   {
+      return this.startCreate().hasPeople(tgt).endCreate();
+   }
+
+   public SignalFlagPO createFlag()
+   {
+      return this.startCreate().hasFlag().endCreate();
+   }
+
+   public StationPO createFlag(SignalFlagPO tgt)
+   {
+      return this.startCreate().hasFlag(tgt).endCreate();
+   }
+
 }
+
 
 

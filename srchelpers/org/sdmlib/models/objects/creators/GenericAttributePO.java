@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.objects.creators.GenericAttributePO;
 
 public class GenericAttributePO extends PatternObject
 {
@@ -154,6 +156,29 @@ public class GenericAttributePO extends PatternObject
       return this;
    }
    
+   public GenericAttributePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public GenericAttributePO createValue(String value)
+   {
+      this.startCreate().hasValue(value).endCreate();
+      return this;
+   }
+   
+   public GenericObjectPO createOwner()
+   {
+      return this.startCreate().hasOwner().endCreate();
+   }
+
+   public GenericAttributePO createOwner(GenericObjectPO tgt)
+   {
+      return (GenericAttributePO) this.startCreate().hasOwner(tgt).endCreate();
+   }
+
 }
+
 
 

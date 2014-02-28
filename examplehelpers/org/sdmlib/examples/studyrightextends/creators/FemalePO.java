@@ -103,6 +103,13 @@ public class FemalePO extends PatternObject<FemalePO, Female>
       return this;
    }
    
+   public FemalePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
 }
+
 
 

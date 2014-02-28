@@ -26,6 +26,7 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.ReplicationChange;
+import java.util.Collection;
 
 public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -50,17 +51,6 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
    }
 
 
-   public ChangeHistorySet with(ChangeHistory value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ChangeHistorySet without(ChangeHistory value)
-   {
-      this.remove(value);
-      return this;
-   }
    public ReplicationChangeSet getChanges()
    {
       ReplicationChangeSet result = new ReplicationChangeSet();
@@ -93,5 +83,43 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
       return this;
    }
 
+
+
+   public ChangeHistoryPO hasChangeHistoryPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ChangeHistoryPO patternObject = pattern.hasElementChangeHistoryPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ChangeHistorySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ChangeHistory>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ChangeHistory) value);
+      }
+      
+      return this;
+   }
+   
+   public ChangeHistorySet without(ChangeHistory value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

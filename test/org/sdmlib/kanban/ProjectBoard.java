@@ -135,6 +135,7 @@ public class ProjectBoard
       storyboard.addObjectDiagram(model);
       
       storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
+      storyboard.addLogEntry(R.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
    
       storyboard.dumpHTML();
    }

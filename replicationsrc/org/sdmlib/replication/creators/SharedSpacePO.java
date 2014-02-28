@@ -226,7 +226,97 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       return this;
    }
    
+   public SharedSpacePO hasSpaceId(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_SPACEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SharedSpacePO createSpaceId(String value)
+   {
+      this.startCreate().hasSpaceId(value).endCreate();
+      return this;
+   }
+   
+   public SharedSpacePO createHistory(ChangeHistory value)
+   {
+      this.startCreate().hasHistory(value).endCreate();
+      return this;
+   }
+   
+   public SharedSpacePO hasLastChangeId(long lower, long upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SharedSpacePO createLastChangeId(long value)
+   {
+      this.startCreate().hasLastChangeId(value).endCreate();
+      return this;
+   }
+   
+   public SharedSpacePO hasNodeId(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_NODEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SharedSpacePO createNodeId(String value)
+   {
+      this.startCreate().hasNodeId(value).endCreate();
+      return this;
+   }
+   
+   public ReplicationNodePO createNode()
+   {
+      return this.startCreate().hasNode().endCreate();
+   }
+
+   public SharedSpacePO createNode(ReplicationNodePO tgt)
+   {
+      return this.startCreate().hasNode(tgt).endCreate();
+   }
+
+   public ReplicationChannelPO createChannels()
+   {
+      return this.startCreate().hasChannels().endCreate();
+   }
+
+   public SharedSpacePO createChannels(ReplicationChannelPO tgt)
+   {
+      return this.startCreate().hasChannels(tgt).endCreate();
+   }
+
 }
+
 
 
 

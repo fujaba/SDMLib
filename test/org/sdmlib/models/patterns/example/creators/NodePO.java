@@ -159,6 +159,58 @@ public class NodePO extends PatternObject<NodePO, Node>
       return null;
    }
 
+   public NodePO hasNum(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Node.PROPERTY_NUM)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public NodePO createNum(int value)
+   {
+      this.startCreate().hasNum(value).endCreate();
+      return this;
+   }
+   
+   public SimpleStatePO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public NodePO createGraph(SimpleStatePO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
+   public NodePO createNext()
+   {
+      return this.startCreate().hasNext().endCreate();
+   }
+
+   public NodePO createNext(NodePO tgt)
+   {
+      return this.startCreate().hasNext(tgt).endCreate();
+   }
+
+   public NodePO createPrev()
+   {
+      return this.startCreate().hasPrev().endCreate();
+   }
+
+   public NodePO createPrev(NodePO tgt)
+   {
+      return this.startCreate().hasPrev(tgt).endCreate();
+   }
+
 }
+
 
 

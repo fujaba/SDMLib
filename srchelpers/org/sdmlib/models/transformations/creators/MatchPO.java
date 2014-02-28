@@ -397,7 +397,78 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       return this;
    }
    
+   public MatchPO createStartPos(int value)
+   {
+      this.startCreate().hasStartPos(value).endCreate();
+      return this;
+   }
+   
+   public MatchPO createEndPos(int value)
+   {
+      this.startCreate().hasEndPos(value).endCreate();
+      return this;
+   }
+   
+   public MatchPO createFullText(String value)
+   {
+      this.startCreate().hasFullText(value).endCreate();
+      return this;
+   }
+   
+   public MatchPO createMatchText(String value)
+   {
+      this.startCreate().hasMatchText(value).endCreate();
+      return this;
+   }
+   
+   public MatchPO createModelObject(Object value)
+   {
+      this.startCreate().hasModelObject(value).endCreate();
+      return this;
+   }
+   
+   public TemplatePO createTemplate()
+   {
+      return this.startCreate().hasTemplate().endCreate();
+   }
+
+   public MatchPO createTemplate(TemplatePO tgt)
+   {
+      return this.startCreate().hasTemplate(tgt).endCreate();
+   }
+
+   public PlaceHolderDescriptionPO createPlaceholder()
+   {
+      return this.startCreate().hasPlaceholder().endCreate();
+   }
+
+   public MatchPO createPlaceholder(PlaceHolderDescriptionPO tgt)
+   {
+      return this.startCreate().hasPlaceholder(tgt).endCreate();
+   }
+
+   public MatchPO createSubMatches()
+   {
+      return this.startCreate().hasSubMatches().endCreate();
+   }
+
+   public MatchPO createSubMatches(MatchPO tgt)
+   {
+      return this.startCreate().hasSubMatches(tgt).endCreate();
+   }
+
+   public MatchPO createParentMatch()
+   {
+      return this.startCreate().hasParentMatch().endCreate();
+   }
+
+   public MatchPO createParentMatch(MatchPO tgt)
+   {
+      return this.startCreate().hasParentMatch(tgt).endCreate();
+   }
+
 }
+
 
 
 

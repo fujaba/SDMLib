@@ -505,7 +505,23 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
+
+
+   public ClazzPO hasClazzPO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      ClazzPO patternObject = pattern.hasElementClazzPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

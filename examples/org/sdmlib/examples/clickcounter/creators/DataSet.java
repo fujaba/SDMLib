@@ -134,6 +134,22 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public DataPO hasDataPO()
+   {
+      org.sdmlib.examples.clickcounter.creators.ModelPattern pattern = new org.sdmlib.examples.clickcounter.creators.ModelPattern();
+      
+      DataPO patternObject = pattern.hasElementDataPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

@@ -85,6 +85,22 @@ public class ArrayListSet extends LinkedHashSet<ArrayList> implements org.sdmlib
       return this;
    }
 
+
+
+   public ArrayListPO hasArrayListPO()
+   {
+      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      
+      ArrayListPO patternObject = pattern.hasElementArrayListPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

@@ -196,7 +196,23 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       return this;
    }
 
+
+
+   public GenericLinkPO hasGenericLinkPO()
+   {
+      org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
+      
+      GenericLinkPO patternObject = pattern.hasElementGenericLinkPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

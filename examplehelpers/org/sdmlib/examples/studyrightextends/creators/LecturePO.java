@@ -193,7 +193,29 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       return this.startCreate().hasListen().endCreate();
    }
 
+   public LecturePO createTitle(String value)
+   {
+      this.startCreate().hasTitle(value).endCreate();
+      return this;
+   }
+   
+   public LecturePO createIn(RoomPO tgt)
+   {
+      return this.startCreate().hasIn(tgt).endCreate();
+   }
+
+   public LecturePO createHas(ProfessorPO tgt)
+   {
+      return this.startCreate().hasHas(tgt).endCreate();
+   }
+
+   public LecturePO createListen(StudentPO tgt)
+   {
+      return this.startCreate().hasListen(tgt).endCreate();
+   }
+
 }
+
 
 
 

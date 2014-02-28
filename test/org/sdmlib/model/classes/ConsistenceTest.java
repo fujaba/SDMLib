@@ -47,7 +47,7 @@ public class ConsistenceTest implements PropertyChangeInterface {
 		
 		bord.withAssoc(bord, "connectedTo", R.ONE, "connectedToRev", R.ONE);
 		
-		model.generate("test", "testhelpers");
+		// model.generate("test", "testhelpers");
 	}
 
 

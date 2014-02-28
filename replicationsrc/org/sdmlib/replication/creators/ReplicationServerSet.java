@@ -26,6 +26,7 @@ import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.replication.SharedSpace;
+import java.util.Collection;
 
 public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -50,18 +51,6 @@ public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> imple
    }
 
 
-   public ReplicationServerSet with(ReplicationServer value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public ReplicationServerSet without(ReplicationServer value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
    public SharedSpaceSet getSharedSpaces()
    {
       throw new UnsupportedOperationException();
@@ -87,5 +76,43 @@ public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> imple
       return this;
    }
 
+
+
+   public ReplicationServerPO hasReplicationServerPO()
+   {
+      org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
+      
+      ReplicationServerPO patternObject = pattern.hasElementReplicationServerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ReplicationServerSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<ReplicationServer>)value);
+      }
+      else if (value != null)
+      {
+         this.add((ReplicationServer) value);
+      }
+      
+      return this;
+   }
+   
+   public ReplicationServerSet without(ReplicationServer value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
+
 

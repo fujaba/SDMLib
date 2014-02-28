@@ -156,6 +156,22 @@ public class DiceSet extends LinkedHashSet<Dice> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public DicePO hasDicePO()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      DicePO patternObject = pattern.hasElementDicePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

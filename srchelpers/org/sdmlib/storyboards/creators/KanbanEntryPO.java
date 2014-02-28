@@ -8,8 +8,9 @@ import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
 import org.sdmlib.storyboards.creators.KanbanEntrySet;
 import org.sdmlib.storyboards.creators.LogEntryPO;
+import org.sdmlib.storyboards.creators.KanbanEntryPO;
 
-public class KanbanEntryPO extends PatternObject
+public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
 {
    public LogEntryPO hasLogEntries()
    {
@@ -161,7 +162,30 @@ public class KanbanEntryPO extends PatternObject
       return this;
    }
    
+   public KanbanEntryPO createOldNoOfLogEntries(int value)
+   {
+      this.startCreate().hasOldNoOfLogEntries(value).endCreate();
+      return this;
+   }
+   
+   public KanbanEntryPO createPhases(String value)
+   {
+      this.startCreate().hasPhases(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO createLogEntries()
+   {
+      return (LogEntryPO) this.startCreate().hasLogEntries().endCreate();
+   }
+
+   public KanbanEntryPO createLogEntries(LogEntryPO tgt)
+   {
+      return this.startCreate().hasLogEntries(tgt).endCreate();
+   }
+
 }
+
 
 
 

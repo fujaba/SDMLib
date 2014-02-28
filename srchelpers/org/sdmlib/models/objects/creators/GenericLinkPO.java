@@ -9,6 +9,8 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.objects.creators.GenericGraphPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.objects.creators.GenericLinkPO;
 
 public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
@@ -201,7 +203,50 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
       return this;
    }
    
+   public GenericLinkPO createTgtLabel(String value)
+   {
+      this.startCreate().hasTgtLabel(value).endCreate();
+      return this;
+   }
+   
+   public GenericLinkPO createSrcLabel(String value)
+   {
+      this.startCreate().hasSrcLabel(value).endCreate();
+      return this;
+   }
+   
+   public GenericObjectPO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public GenericLinkPO createSrc(GenericObjectPO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public GenericObjectPO createTgt()
+   {
+      return this.startCreate().hasTgt().endCreate();
+   }
+
+   public GenericLinkPO createTgt(GenericObjectPO tgt)
+   {
+      return this.startCreate().hasTgt(tgt).endCreate();
+   }
+
+   public GenericGraphPO createGraph()
+   {
+      return this.startCreate().hasGraph().endCreate();
+   }
+
+   public GenericLinkPO createGraph(GenericGraphPO tgt)
+   {
+      return this.startCreate().hasGraph(tgt).endCreate();
+   }
+
 }
+
 
 
 

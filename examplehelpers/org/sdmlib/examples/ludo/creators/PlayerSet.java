@@ -390,6 +390,22 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
       return this;
    }
 
+
+
+   public PlayerPO hasPlayerPO()
+   {
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      
+      PlayerPO patternObject = pattern.hasElementPlayerPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

@@ -9,8 +9,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.creators.ClazzPO;
 import org.sdmlib.models.classes.creators.AssociationPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.classes.creators.RolePO;
 
-public class RolePO extends PatternObject
+public class RolePO extends PatternObject<RolePO, Role>
 {
    public RolePO startNAC()
    {
@@ -216,6 +218,45 @@ public class RolePO extends PatternObject
       return this;
    }
    
+   public RolePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public RolePO createCard(String value)
+   {
+      this.startCreate().hasCard(value).endCreate();
+      return this;
+   }
+   
+   public RolePO createKind(String value)
+   {
+      this.startCreate().hasKind(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createClazz()
+   {
+      return this.startCreate().hasClazz().endCreate();
+   }
+
+   public RolePO createClazz(ClazzPO tgt)
+   {
+      return this.startCreate().hasClazz(tgt).endCreate();
+   }
+
+   public AssociationPO createAssoc()
+   {
+      return this.startCreate().hasAssoc().endCreate();
+   }
+
+   public RolePO createAssoc(AssociationPO tgt)
+   {
+      return this.startCreate().hasAssoc(tgt).endCreate();
+   }
+
 }
+
 
 

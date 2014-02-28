@@ -182,6 +182,22 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       return this;
    }
    
- }
+ 
+
+   public AssignmentPO hasAssignmentPO()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      AssignmentPO patternObject = pattern.hasElementAssignmentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+}
+
 
 

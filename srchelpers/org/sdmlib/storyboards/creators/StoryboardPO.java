@@ -240,7 +240,46 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       return this;
    }
    
+   public StoryboardPO createRootDir(String value)
+   {
+      this.startCreate().hasRootDir(value).endCreate();
+      return this;
+   }
+   
+   public StoryboardPO createStepCounter(int value)
+   {
+      this.startCreate().hasStepCounter(value).endCreate();
+      return this;
+   }
+   
+   public StoryboardPO createStepDoneCounter(int value)
+   {
+      this.startCreate().hasStepDoneCounter(value).endCreate();
+      return this;
+   }
+   
+   public StoryboardWallPO createWall()
+   {
+      return this.startCreate().hasWall().endCreate();
+   }
+
+   public StoryboardPO createWall(StoryboardWallPO tgt)
+   {
+      return this.startCreate().hasWall(tgt).endCreate();
+   }
+
+   public StoryboardStepPO createStoryboardSteps()
+   {
+      return this.startCreate().hasStoryboardSteps().endCreate();
+   }
+
+   public StoryboardPO createStoryboardSteps(StoryboardStepPO tgt)
+   {
+      return this.startCreate().hasStoryboardSteps(tgt).endCreate();
+   }
+
 }
+
 
 
 

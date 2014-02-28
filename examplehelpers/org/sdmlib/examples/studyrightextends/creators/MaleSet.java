@@ -86,6 +86,22 @@ public class MaleSet extends LinkedHashSet<Male> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public MalePO hasMalePO()
+   {
+      org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
+      
+      MalePO patternObject = pattern.hasElementMalePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

@@ -193,5 +193,34 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       return null;
    }
 
+   public FloorPO createLevel(int value)
+   {
+      this.startCreate().hasLevel(value).endCreate();
+      return this;
+   }
+   
+   public FloorPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public FloorPO createGuest(String value)
+   {
+      this.startCreate().hasGuest(value).endCreate();
+      return this;
+   }
+   
+   public BuildingPO createBuildings()
+   {
+      return this.startCreate().hasBuildings().endCreate();
+   }
+
+   public FloorPO createBuildings(BuildingPO tgt)
+   {
+      return this.startCreate().hasBuildings(tgt).endCreate();
+   }
+
 }
+
 

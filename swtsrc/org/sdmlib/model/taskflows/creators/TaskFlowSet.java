@@ -189,6 +189,22 @@ public class TaskFlowSet extends LinkedHashSet<TaskFlow> implements org.sdmlib.m
       return this;
    }
 
+
+
+   public TaskFlowPO hasTaskFlowPO()
+   {
+      org.sdmlib.model.taskflows.creators.ModelPattern pattern = new org.sdmlib.model.taskflows.creators.ModelPattern();
+      
+      TaskFlowPO patternObject = pattern.hasElementTaskFlowPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

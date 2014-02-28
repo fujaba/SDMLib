@@ -125,6 +125,22 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sd
       return this;
    }
    
+
+
+   public SimpleStatePO hasSimpleStatePO()
+   {
+      org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
+      
+      SimpleStatePO patternObject = pattern.hasElementSimpleStatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

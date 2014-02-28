@@ -368,5 +368,12 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
    {
       return this.getParsedDate().compareTo(o.getParsedDate());
    }
+
+   public KanbanEntry createKanbanEntry()
+   {
+      KanbanEntry value = new KanbanEntry();
+      withKanbanEntry(value);
+      return value;
+   } 
 }
 

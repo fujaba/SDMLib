@@ -8,6 +8,10 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.creators.GreetingSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.creators.GreetingPO;
+import org.sdmlib.examples.helloworld.creators.PersonPO;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -136,7 +140,35 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this;
    }
    
+   public GreetingPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public GreetingMessagePO createGreetingMessage()
+   {
+      return this.startCreate().hasGreetingMessage().endCreate();
+   }
+
+   public GreetingPO createGreetingMessage(GreetingMessagePO tgt)
+   {
+      return this.startCreate().hasGreetingMessage(tgt).endCreate();
+   }
+
+   public PersonPO createPerson()
+   {
+      return this.startCreate().hasPerson().endCreate();
+   }
+
+   public GreetingPO createPerson(PersonPO tgt)
+   {
+      return this.startCreate().hasPerson(tgt).endCreate();
+   }
+
 }
+
+
 
 
 

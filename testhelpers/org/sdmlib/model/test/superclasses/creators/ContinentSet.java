@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.superclasses.Continent;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class ContinentSet extends LinkedHashSet<Continent>
 {
@@ -71,9 +72,32 @@ public class ContinentSet extends LinkedHashSet<Continent>
    }
 
 
-   public ContinentSet with(Continent value)
+   public ContinentPO hasContinentPO()
    {
-      this.add(value);
+      org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
+      
+      ContinentPO patternObject = pattern.hasElementContinentPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   public ContinentSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Continent>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Continent) value);
+      }
+      
       return this;
    }
    
@@ -82,7 +106,9 @@ public class ContinentSet extends LinkedHashSet<Continent>
       this.remove(value);
       return this;
    }
+
 }
+
 
 
 

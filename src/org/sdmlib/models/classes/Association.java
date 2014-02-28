@@ -367,5 +367,19 @@ public class Association implements PropertyChangeInterface
       setTarget(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   public ClassModel createModel()
+   {
+      ClassModel value = new ClassModel();
+      withModel(value);
+      return value;
+   } 
+
+   public Role createSource()
+   {
+      Role value = new Role();
+      withSource(value);
+      return value;
+   } 
 }
 

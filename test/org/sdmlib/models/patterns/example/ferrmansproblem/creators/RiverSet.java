@@ -142,7 +142,23 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       return this;
    }
 
+
+
+   public RiverPO hasRiverPO()
+   {
+      org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
+      
+      RiverPO patternObject = pattern.hasElementRiverPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

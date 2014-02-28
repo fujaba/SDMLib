@@ -225,7 +225,23 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
       return this;
    }
    
+
+
+   public StationPO hasStationPO()
+   {
+      org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
+      
+      StationPO patternObject = pattern.hasElementStationPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

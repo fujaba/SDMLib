@@ -3,6 +3,10 @@ package org.sdmlib.examples.patternrewriteops.creators;
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.patternrewriteops.creators.SignalFlagSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.patternrewriteops.creators.StationPO;
+import org.sdmlib.examples.patternrewriteops.creators.SignalFlagPO;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
 {
@@ -55,5 +59,16 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       return null;
    }
 
+   public StationPO createStation()
+   {
+      return this.startCreate().hasStation().endCreate();
+   }
+
+   public SignalFlagPO createStation(StationPO tgt)
+   {
+      return this.startCreate().hasStation(tgt).endCreate();
+   }
+
 }
+
 

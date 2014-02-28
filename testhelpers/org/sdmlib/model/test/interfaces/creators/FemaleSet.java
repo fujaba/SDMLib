@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.model.test.interfaces.Female;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
 public class FemaleSet extends LinkedHashSet<Female>
 {
@@ -49,9 +50,24 @@ public class FemaleSet extends LinkedHashSet<Female>
    }
 
 
-   public FemaleSet with(Female value)
+   public FemalePO hasFemalePO()
    {
-      this.add(value);
+     
+      return null;
+   }
+
+
+   public FemaleSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Female>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Female) value);
+      }
+      
       return this;
    }
    
@@ -60,6 +76,8 @@ public class FemaleSet extends LinkedHashSet<Female>
       this.remove(value);
       return this;
    }
+
 }
+
 
 

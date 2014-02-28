@@ -137,6 +137,22 @@ public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.
       return this;
    }
    
+
+
+   public TopicPO hasTopicPO()
+   {
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
+      
+      TopicPO patternObject = pattern.hasElementTopicPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

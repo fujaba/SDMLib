@@ -7,8 +7,10 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.ClazzPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.classes.creators.AttributePO;
 
-public class AttributePO extends PatternObject
+public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
    public AttributePO startNAC()
    {
@@ -199,7 +201,36 @@ public class AttributePO extends PatternObject
       return this;
    }
    
+   public AttributePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public AttributePO createType(String value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public AttributePO createInitialization(String value)
+   {
+      this.startCreate().hasInitialization(value).endCreate();
+      return this;
+   }
+   
+   public ClazzPO createClazz()
+   {
+      return this.startCreate().hasClazz().endCreate();
+   }
+
+   public AttributePO createClazz(ClazzPO tgt)
+   {
+      return this.startCreate().hasClazz(tgt).endCreate();
+   }
+
 }
+
 
 
 

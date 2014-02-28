@@ -37,6 +37,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
@@ -813,6 +814,31 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    {
       setPhases(value);
       return this;
+   } 
+
+   public KanbanEntry withLogEntries(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         addToLogEntries(item);
+      }
+      return this;
+   } 
+
+   public KanbanEntry withoutLogEntries(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         removeFromLogEntries(item);
+      }
+      return this;
+   }
+
+   public LogEntry createLogEntries()
+   {
+      LogEntry value = new LogEntry();
+      withLogEntries(value);
+      return value;
    } 
 }
 

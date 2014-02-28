@@ -657,5 +657,59 @@ public class GenericObject implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   public GenericObject withAttrs(GenericAttribute... value)
+   {
+      for (GenericAttribute item : value)
+      {
+         addToAttrs(item);
+      }
+      return this;
+   } 
+
+   public GenericObject withoutAttrs(GenericAttribute... value)
+   {
+      for (GenericAttribute item : value)
+      {
+         removeFromAttrs(item);
+      }
+      return this;
+   }
+
+   public GenericObject withOutgoingLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         addToOutgoingLinks(item);
+      }
+      return this;
+   } 
+
+   public GenericObject withoutOutgoingLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         removeFromOutgoingLinks(item);
+      }
+      return this;
+   }
+
+   public GenericObject withIncommingLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         addToIncommingLinks(item);
+      }
+      return this;
+   } 
+
+   public GenericObject withoutIncommingLinks(GenericLink... value)
+   {
+      for (GenericLink item : value)
+      {
+         removeFromIncommingLinks(item);
+      }
+      return this;
+   }
 }
 

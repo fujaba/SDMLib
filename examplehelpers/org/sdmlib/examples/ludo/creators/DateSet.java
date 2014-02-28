@@ -85,6 +85,22 @@ public class DateSet extends LinkedHashSet<Date> implements org.sdmlib.models.mo
       return this;
    }
 
+
+
+   public DatePO hasDatePO()
+   {
+      ModelPattern pattern = new ModelPattern();
+      
+      DatePO patternObject = pattern.hasElementDatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

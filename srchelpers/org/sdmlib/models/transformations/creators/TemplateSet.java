@@ -739,7 +739,23 @@ public class TemplateSet extends SDMSet<Template>
       return this;
    }
 
+
+
+   public TemplatePO hasTemplatePO()
+   {
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
+      
+      TemplatePO patternObject = pattern.hasElementTemplatePO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

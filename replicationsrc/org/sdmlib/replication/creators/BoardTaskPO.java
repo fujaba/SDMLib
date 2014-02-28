@@ -6,6 +6,11 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.Task;
+import org.sdmlib.replication.creators.BoardTaskSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.replication.creators.LogEntryPO;
+import org.sdmlib.replication.creators.BoardTaskPO;
+import org.sdmlib.replication.creators.LanePO;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {
@@ -221,6 +226,89 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return null;
    }
 
+   public BoardTaskPO hasName(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public BoardTaskPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public BoardTaskPO hasStatus(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STATUS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public BoardTaskPO createStatus(String value)
+   {
+      this.startCreate().hasStatus(value).endCreate();
+      return this;
+   }
+   
+   public LogEntryPO createLogEntries()
+   {
+      return this.startCreate().hasLogEntries().endCreate();
+   }
+
+   public BoardTaskPO createLogEntries(LogEntryPO tgt)
+   {
+      return this.startCreate().hasLogEntries(tgt).endCreate();
+   }
+
+   public LanePO createLane()
+   {
+      return this.startCreate().hasLane().endCreate();
+   }
+
+   public BoardTaskPO createLane(LanePO tgt)
+   {
+      return this.startCreate().hasLane(tgt).endCreate();
+   }
+
+   public BoardTaskPO createNext()
+   {
+      return this.startCreate().hasNext().endCreate();
+   }
+
+   public BoardTaskPO createNext(BoardTaskPO tgt)
+   {
+      return this.startCreate().hasNext(tgt).endCreate();
+   }
+
+   public BoardTaskPO createPrev()
+   {
+      return this.startCreate().hasPrev().endCreate();
+   }
+
+   public BoardTaskPO createPrev(BoardTaskPO tgt)
+   {
+      return this.startCreate().hasPrev(tgt).endCreate();
+   }
+
 }
+
 
 

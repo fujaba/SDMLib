@@ -228,5 +228,69 @@ public class LoggerPO extends PatternObject<LoggerPO, Logger>
       return null;
    }
 
+   public LoggerPO createStartPeer(PeerProxy value)
+   {
+      this.startCreate().hasStartPeer(value).endCreate();
+      return this;
+   }
+   
+   public LoggerPO hasTaskNo(int lower, int upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(Logger.PROPERTY_TASKNO)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public LoggerPO createTaskNo(int value)
+   {
+      this.startCreate().hasTaskNo(value).endCreate();
+      return this;
+   }
+   
+   public LoggerPO createIdMap(SDMLibJsonIdMap value)
+   {
+      this.startCreate().hasIdMap(value).endCreate();
+      return this;
+   }
+   
+   public TaskFlowPO createSubFlow()
+   {
+      return this.startCreate().hasSubFlow().endCreate();
+   }
+
+   public LoggerPO createSubFlow(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasSubFlow(tgt).endCreate();
+   }
+
+   public TaskFlowPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public LoggerPO createParent(TaskFlowPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public LogEntryPO createEntries()
+   {
+      return this.startCreate().hasEntries().endCreate();
+   }
+
+   public LoggerPO createEntries(LogEntryPO tgt)
+   {
+      return this.startCreate().hasEntries(tgt).endCreate();
+   }
+
 }
+
 

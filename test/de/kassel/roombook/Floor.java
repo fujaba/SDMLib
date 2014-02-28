@@ -305,5 +305,12 @@ public class Floor implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   public Building createBuildings()
+   {
+      Building value = new Building();
+      withBuildings(value);
+      return value;
+   } 
 }
 

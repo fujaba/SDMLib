@@ -4,6 +4,10 @@ import org.sdmlib.model.classes.test.Parent;
 import org.sdmlib.model.classes.test.Uncle;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.model.classes.test.creators.UncleSet;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.model.classes.test.creators.ParentPO;
+import org.sdmlib.model.classes.test.creators.UnclePO;
 
 public class UnclePO extends PatternObject<UnclePO, Uncle>
 {
@@ -56,5 +60,16 @@ public class UnclePO extends PatternObject<UnclePO, Uncle>
       return null;
    }
    
+   public ParentPO createBrother()
+   {
+      return this.startCreate().hasBrother().endCreate();
+   }
+
+   public UnclePO createBrother(ParentPO tgt)
+   {
+      return this.startCreate().hasBrother(tgt).endCreate();
+   }
+
 }
+
 
