@@ -12,7 +12,7 @@ import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 
-public class DestroyObjectElemPO extends PatternObject
+public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, DestroyObjectElem>
 {
    public DestroyObjectElemPO startNAC()
    {
@@ -282,7 +282,7 @@ public class DestroyObjectElemPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public DestroyObjectElemPO createPattern(PatternPO tgt)
@@ -292,7 +292,7 @@ public class DestroyObjectElemPO extends PatternObject
 
    public PatternObjectPO createPatternObject()
    {
-      return this.startCreate().hasPatternObject().endCreate();
+      return (PatternObjectPO) this.startCreate().hasPatternObject().endCreate();
    }
 
    public DestroyObjectElemPO createPatternObject(PatternObjectPO tgt)

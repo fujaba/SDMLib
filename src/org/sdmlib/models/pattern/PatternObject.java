@@ -1389,7 +1389,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       return this;
    }
 
-   public AttributeConstraint createAttrConstraints()
+   public AttributeConstraint createAttrConstraintsNew()
    {
       AttributeConstraint value = new AttributeConstraint();
       withAttrConstraints(value);
@@ -1449,5 +1449,12 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
       return this;
    }
+
+   public Object createAttrConstraints()
+   {
+      AttributeConstraint value = new AttributeConstraint();
+      withAttrConstraints(value);
+      return value;
+   } 
 }
 

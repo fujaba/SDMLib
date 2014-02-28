@@ -11,7 +11,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.creators.LinkConstraintSet;
 
-public class LinkConstraintPO extends PatternObject
+public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstraint>
 {
    public LinkConstraintPO hasTgtRoleName(String value)
    {
@@ -410,7 +410,7 @@ public class LinkConstraintPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public LinkConstraintPO createPattern(PatternPO tgt)

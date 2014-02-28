@@ -557,7 +557,7 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
    
    public PatternElementPO createElements()
    {
-      return this.startCreate().hasElements().endCreate();
+      return (PatternElementPO) this.startCreate().hasElements().endCreate();
    }
 
    public OptionalSubPatternPO createElements(PatternElementPO tgt)
@@ -567,7 +567,7 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
 
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public OptionalSubPatternPO createPattern(PatternPO tgt)

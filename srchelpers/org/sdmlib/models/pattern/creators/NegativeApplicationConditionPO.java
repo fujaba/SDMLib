@@ -15,7 +15,7 @@ import org.sdmlib.models.pattern.creators.NegativeApplicationConditionSet;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-public class NegativeApplicationConditionPO extends PatternObject
+public class NegativeApplicationConditionPO extends PatternObject<NegativeApplicationConditionPO, NegativeApplicationCondition>
 {
    public NegativeApplicationConditionPO withCurrentNAC(NegativeApplicationCondition value)
    {
@@ -522,7 +522,7 @@ public class NegativeApplicationConditionPO extends PatternObject
    
    public PatternElementPO createElements()
    {
-      return this.startCreate().hasElements().endCreate();
+      return (PatternElementPO) this.startCreate().hasElements().endCreate();
    }
 
    public NegativeApplicationConditionPO createElements(PatternElementPO tgt)
@@ -532,7 +532,7 @@ public class NegativeApplicationConditionPO extends PatternObject
 
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public NegativeApplicationConditionPO createPattern(PatternPO tgt)

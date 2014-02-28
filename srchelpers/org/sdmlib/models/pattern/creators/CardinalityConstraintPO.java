@@ -522,7 +522,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public CardinalityConstraintPO createPattern(PatternPO tgt)
@@ -532,7 +532,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
 
    public PatternObjectPO createSrc()
    {
-      return this.startCreate().hasSrc().endCreate();
+      return (PatternObjectPO) this.startCreate().hasSrc().endCreate();
    }
 
    public CardinalityConstraintPO createSrc(PatternObjectPO tgt)

@@ -10,7 +10,7 @@ import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.creators.PatternElementPO;
 
-public class PatternElementPO extends PatternObject
+public class PatternElementPO extends PatternObject<PatternElementPO, PatternElement>
 {
    public PatternElementPO hasModifier(String value)
    {
@@ -254,7 +254,7 @@ public class PatternElementPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public PatternElementPO createPattern(PatternPO tgt)

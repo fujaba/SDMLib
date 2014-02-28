@@ -12,7 +12,7 @@ import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-public class PatternPO extends PatternObject
+public class PatternPO extends PatternObject<PatternPO, Pattern>
 {
    public PatternPO hasModifier(String value)
    {

@@ -52,12 +52,6 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 
 
 
-   public JsonIdMapPO startModelPattern()
-   {
-      return null;
-   }
-
-
    public JsonIdMapSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -82,7 +76,7 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 
    public JsonIdMapPO hasJsonIdMapPO()
    {
-      org.sdmlib.serialization.json.creators.ModelPattern pattern = new org.sdmlib.serialization.json.creators.ModelPattern();
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
       
       JsonIdMapPO patternObject = pattern.hasElementJsonIdMapPO();
       

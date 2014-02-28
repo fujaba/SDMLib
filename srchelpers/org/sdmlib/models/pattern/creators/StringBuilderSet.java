@@ -87,7 +87,7 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
 
    public StringBuilderPO hasStringBuilderPO()
    {
-      java.lang.creators.ModelPattern pattern = new java.lang.creators.ModelPattern();
+      ModelPattern pattern = new ModelPattern();
       
       StringBuilderPO patternObject = pattern.hasElementStringBuilderPO();
       

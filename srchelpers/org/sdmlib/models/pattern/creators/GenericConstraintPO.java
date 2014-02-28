@@ -276,7 +276,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public GenericConstraintPO createPattern(PatternPO tgt)

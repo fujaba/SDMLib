@@ -11,7 +11,7 @@ import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
 
-public class AttributeConstraintPO extends PatternObject
+public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, AttributeConstraint>
 {
    public AttributeConstraintPO hasAttrName(String value)
    {
@@ -550,7 +550,7 @@ public class AttributeConstraintPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public AttributeConstraintPO createPattern(PatternPO tgt)
@@ -560,7 +560,7 @@ public class AttributeConstraintPO extends PatternObject
 
    public PatternObjectPO createSrc()
    {
-      return this.startCreate().hasSrc().endCreate();
+      return (PatternObjectPO) this.startCreate().hasSrc().endCreate();
    }
 
    public AttributeConstraintPO createSrc(PatternObjectPO tgt)

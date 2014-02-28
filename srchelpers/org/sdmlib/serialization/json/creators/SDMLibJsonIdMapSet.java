@@ -80,7 +80,7 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
 
    public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
    {
-      org.sdmlib.serialization.json.creators.ModelPattern pattern = new org.sdmlib.serialization.json.creators.ModelPattern();
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
       
       SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
       

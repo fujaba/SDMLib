@@ -22,7 +22,7 @@ import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 
 
-public class PatternObjectPO extends PatternObject
+public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>
 {
    public PatternObjectPO hasCurrentMatch(Object value)
    {
@@ -256,11 +256,11 @@ public class PatternObjectPO extends PatternObject
       return this;
    }
    
-   public Object getCurrentMatch()
+   public PatternObject getCurrentMatch()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((PatternObject) getCurrentMatch()).getCurrentMatch();
+         return (PatternObject) ((PatternObject) getCurrentMatch()).getCurrentMatch();
       }
       return null;
    }
@@ -700,7 +700,7 @@ public class PatternObjectPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public PatternObjectPO createPattern(PatternPO tgt)

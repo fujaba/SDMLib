@@ -396,7 +396,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public MatchOtherThenPO createPattern(PatternPO tgt)
@@ -406,7 +406,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public PatternObjectPO createSrc()
    {
-      return this.startCreate().hasSrc().endCreate();
+      return (PatternObjectPO) this.startCreate().hasSrc().endCreate();
    }
 
    public MatchOtherThenPO createSrc(PatternObjectPO tgt)
@@ -416,7 +416,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public PatternObjectPO createForbidden()
    {
-      return this.startCreate().hasForbidden().endCreate();
+      return (PatternObjectPO) this.startCreate().hasForbidden().endCreate();
    }
 
    public MatchOtherThenPO createForbidden(PatternObjectPO tgt)

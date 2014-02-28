@@ -350,7 +350,14 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    }
 
 
-   public Pattern createPattern()
+   public Pattern createPatternNew()
+   {
+      Pattern value = new Pattern();
+      withPattern(value);
+      return value;
+   } 
+
+   public Object createPattern()
    {
       Pattern value = new Pattern();
       withPattern(value);

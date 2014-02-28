@@ -276,7 +276,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public CloneOpPO createPattern(PatternPO tgt)

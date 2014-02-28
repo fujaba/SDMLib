@@ -11,7 +11,7 @@ import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintSet;
 
-public class MatchIsomorphicConstraintPO extends PatternObject
+public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicConstraintPO, MatchIsomorphicConstraint>
 {
    public MatchIsomorphicConstraintPO startNAC()
    {
@@ -248,7 +248,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public MatchIsomorphicConstraintPO createPattern(PatternPO tgt)

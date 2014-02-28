@@ -10,7 +10,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.models.pattern.creators.PatternLinkPO;
 
-public class PatternLinkPO extends PatternObject
+public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
 {
    public PatternLinkPO hasTgtRoleName(String value)
    {
@@ -439,7 +439,7 @@ public class PatternLinkPO extends PatternObject
    
    public PatternPO createPattern()
    {
-      return this.startCreate().hasPattern().endCreate();
+      return (PatternPO) this.startCreate().hasPattern().endCreate();
    }
 
    public PatternLinkPO createPattern(PatternPO tgt)
