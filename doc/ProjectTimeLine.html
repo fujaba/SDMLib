@@ -1,85 +1,160 @@
 <html>
 <head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/nv.d3.css" rel="stylesheet" type="text/css">
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="includes/d3.v3.js"></script>
+<script src="includes/nv.d3.js"></script>
 
-<script> 
-$(function () { 
-    $('#container').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Burn Down'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            title: {
-                text: 'Hours'
-            }
-        },
-        series: [{
-            name: 'hours done',
-            data: [
-               [1337452800000, 1.0],
-               [1337452800000, 2.0],
-               [1337452920000, 2.0],
-               [1345410240000, 6.0],
-               [1345410240000, 10.0],
-               [1351769580000, 11.0],
-               [1352631600000, 91.0],
-               [1381088220000, 91.0],
-               [1381088220000, 91.0],
-               [1389972900000, 131.0],
-               [1389973320000, 133.0]
-               ]
-        }, {
-            name: 'hours planned',
-            data: [
-               [1337452800000, 1.0],
-               [1337452800000, 2.0],
-               [1337452920000, 4.0],
-               [1345410240000, 6.0],
-               [1345410240000, 10.0],
-               [1351769580000, 11.0],
-               [1352631600000, 91.0],
-               [1381088220000, 91.0],
-               [1381088220000, 91.0],
-               [1389972900000, 131.0],
-               [1389973320000, 133.0]
-               ]
-        }]
-    });
+<script>
+data = [{ "key" : "hours done",
+   "values" : [
+        { "x" : 1332108300000, "y" : 1.0},
+               { "x" : 1332110100000, "y" : 2.0},
+               { "x" : 1332112740000, "y" : 3.0},
+               { "x" : 1332423600000, "y" : 4.0},
+               { "x" : 1332707520000, "y" : 5.0},
+               { "x" : 1332707820000, "y" : 6.0},
+               { "x" : 1332707940000, "y" : 8.0},
+               { "x" : 1332793200000, "y" : 10.0},
+               { "x" : 1332795240000, "y" : 11.0},
+               { "x" : 1333371480000, "y" : 11.0},
+               { "x" : 1333371480000, "y" : 11.0},
+               { "x" : 1337428260000, "y" : 12.0},
+               { "x" : 1337449140000, "y" : 13.0},
+               { "x" : 1337450340000, "y" : 14.0},
+               { "x" : 1337452800000, "y" : 15.0},
+               { "x" : 1337452800000, "y" : 16.0},
+               { "x" : 1337452920000, "y" : 16.0},
+               { "x" : 1337519940000, "y" : 17.0},
+               { "x" : 1337536860000, "y" : 19.0},
+               { "x" : 1342351800000, "y" : 39.0},
+               { "x" : 1342701660000, "y" : 40.0},
+               { "x" : 1345396080000, "y" : 48.0},
+               { "x" : 1345409520000, "y" : 128.0},
+               { "x" : 1345409940000, "y" : 168.0},
+               { "x" : 1345410240000, "y" : 172.0},
+               { "x" : 1345410240000, "y" : 176.0},
+               { "x" : 1351769580000, "y" : 177.0},
+               { "x" : 1354312500000, "y" : 178.0},
+               { "x" : 1360250400000, "y" : 181.0},
+               { "x" : 1381088220000, "y" : 181.0},
+               { "x" : 1381088220000, "y" : 181.0},
+               { "x" : 1381231320000, "y" : 182.0},
+               { "x" : 1384189560000, "y" : 222.0},
+               { "x" : 1389973140000, "y" : 226.0},
+               { "x" : 1389973320000, "y" : 228.0},
+               { "x" : 1393174200000, "y" : 278.0},
+               { "x" : 1393175160000, "y" : 280.0}
+      ]
+},{ "key" : "hours planned",
+   "values" : [
+        { "x" : 1332108300000, "y" : 1.0},
+               { "x" : 1332110100000, "y" : 2.0},
+               { "x" : 1332112740000, "y" : 3.0},
+               { "x" : 1332423600000, "y" : 4.0},
+               { "x" : 1332707520000, "y" : 5.0},
+               { "x" : 1332707820000, "y" : 6.0},
+               { "x" : 1332707940000, "y" : 8.0},
+               { "x" : 1332793200000, "y" : 10.0},
+               { "x" : 1332795240000, "y" : 11.0},
+               { "x" : 1333371480000, "y" : 11.0},
+               { "x" : 1333371480000, "y" : 11.0},
+               { "x" : 1337428260000, "y" : 12.0},
+               { "x" : 1337449140000, "y" : 13.0},
+               { "x" : 1337450340000, "y" : 14.0},
+               { "x" : 1337452800000, "y" : 15.0},
+               { "x" : 1337452800000, "y" : 16.0},
+               { "x" : 1337452920000, "y" : 18.0},
+               { "x" : 1337519940000, "y" : 19.0},
+               { "x" : 1337536860000, "y" : 21.0},
+               { "x" : 1342351800000, "y" : 41.0},
+               { "x" : 1342701660000, "y" : 42.0},
+               { "x" : 1345396080000, "y" : 50.0},
+               { "x" : 1345409520000, "y" : 130.0},
+               { "x" : 1345409940000, "y" : 170.0},
+               { "x" : 1345410240000, "y" : 174.0},
+               { "x" : 1345410240000, "y" : 176.0},
+               { "x" : 1351769580000, "y" : 177.0},
+               { "x" : 1354312500000, "y" : 178.0},
+               { "x" : 1360250400000, "y" : 181.0},
+               { "x" : 1381088220000, "y" : 181.0},
+               { "x" : 1381088220000, "y" : 181.0},
+               { "x" : 1381231320000, "y" : 182.0},
+               { "x" : 1384189560000, "y" : 222.0},
+               { "x" : 1389973140000, "y" : 226.0},
+               { "x" : 1389973320000, "y" : 228.0},
+               { "x" : 1393174200000, "y" : 278.0},
+               { "x" : 1393175160000, "y" : 280.0}
+      ]
+}
+]
+
+nv.addGraph(function() {
+        var chart = nv.models.lineWithFocusChart();
+      chart.yAxis.axisLabel("Hours");
+        chart.yAxis.tickFormat(d3.format(',.2f'));
+        chart.y2Axis.tickFormat(d3.format(',.2f'));
+        chart.xAxis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });
+        chart.x2Axis.tickFormat(function(d) { return d3.time.format('%d %b %y')(new Date(d)) });
+        
+      d3.select('#lineWithFocusChart svg')
+         .datum(data)
+         .call(chart);
+    return chart;
 });
 </script>
-
 </head>
 <body>
 <p>Burn Down and Time Line for <a href='Projectkanban.html' type='text/x-java'>Project</a></p>
 
-<div id="container" style="width:100%; height:600px;">Hallo</div>
-
+<div id="lineWithFocusChart" class='with-3d-shadow with-transitions'>
+    <svg style="height: 700px;"></svg>
+</div>
+<p>23.02.2014 18:06:42 EST zuendorf hours spend: 2.0 hours remaining: 0.0 Reenabled parsing with references</p>
+<p>23.02.2014 17:50:42 zuendorf hours spend: 50.0 hours remaining: 0.0 null</p>
+<p>17.01.2014 16:42:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: Feature Request: model sets need to provide a navigation to any neighbors
+e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
+<p>17.01.2014 16:39:42 zuendorf hours spend: 4.0 hours remaining: 0.0 null</p>
+<p>11.11.2013 18:06:42 EST zuendorf hours spend: 40.0 hours remaining: 0.0 null</p>
+<p>08.10.2013 13:22:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>06.10.2013 21:37:46 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>06.10.2013 21:37:46 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>07.02.2013 16:20:42 zuendorf hours spend: 3.0 hours remaining: 0.0 null</p>
+<p>30.11.2012 22:55:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>01.11.2012 12:33:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
+e.g.: room.getNeighbors().findPath(path, motivation); </p>
+<p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
+e.g.: room.getNeighbors().findPath(path, motivation); </p>
+<p>19.08.2012 22:59:05 zuendorf hours spend: 40.0 hours remaining: 0.0 null</p>
+<p>19.08.2012 22:52:42 zuendorf hours spend: 80.0 hours remaining: 0.0 null</p>
+<p>19.08.2012 19:08:42 zuendorf hours spend: 8.0 hours remaining: 0.0 Achieved: Generate PatternObject classes.</p>
+<p>19.07.2012 14:41:05 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>15.07.2012 13:30:42 EST zuendorf hours spend: 20.0 hours remaining: 0.0 null</p>
+<p>20.05.2012 20:01:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
+<p>20.05.2012 15:19:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>19.05.2012 20:42:42 zuendorf hours spend: 0.0 hours remaining: 2.0 Achieved: Feature Request: model sets need to provide a navigation to any neighbors
+e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
 <p>19.05.2012 20:40:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved:       shall compute to 88
       Path classes are generated.</p>
 <p>19.05.2012 20:40:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: shall compute to 88.</p>
-<p>19.05.2012 20:42:42 zuendorf hours spend: 0.0 hours remaining: 2.0 Achieved: Feature Request: model sets need to provide a navigation to any neighbors
-e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
-<p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
-e.g.: room.getNeighbors().findPath(path, motivation); </p>
-<p>19.08.2012 23:04:42 zuendorf hours spend: 4.0 hours remaining: 0.0 Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. 
-e.g.: room.getNeighbors().findPath(path, motivation); </p>
-<p>01.11.2012 12:33:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
-<p>11.11.2012 12:00:00 EST stefan hours spend: 80.0 hours remaining: 0.0 Serialisation via JSON works great.</p>
-<p>06.10.2013 21:37:46 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
-<p>06.10.2013 21:37:46 zuendorf hours spend: 0.0 hours remaining: 0.0 null</p>
-<p>17.01.2014 16:35:42 zuendorf hours spend: 40.0 hours remaining: 0.0 null</p>
-<p>17.01.2014 16:42:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: Feature Request: model sets need to provide a navigation to any neighbors
-e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); </p>
+<p>19.05.2012 19:59:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+<p>19.05.2012 19:39:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. </p>
+<p>19.05.2012 13:51:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: generic set now works for double. Perhabs boolean and other are still missing</p>
+<p>02.04.2012 14:58:18 ajahl hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>02.04.2012 14:58:18 ajahl hours spend: 0.0 hours remaining: 0.0 null</p>
+<p>26.03.2012 22:54:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Generate creator classes.</p>
+<p>26.03.2012 22:20:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 10. generate removeYou method</p>
+<p>25.03.2012 22:39:42 zuendorf hours spend: 2.0 hours remaining: 0.0 Achieved: 9. generate property change support</p>
+<p>25.03.2012 22:37:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 8. generate imports</p>
+<p>25.03.2012 22:32:42 zuendorf joern alex hours spend: 1.0 hours remaining: 0.0 Achieved: 7. generate creator classes</p>
+<p>22.03.2012 14:40:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: 6. generate generic get for attributes and assocs</p>
+<p>19.03.2012 00:19:42 zuendorf hours spend: 1.0 hours remaining: 0.0 Achieved: Generate generic get and set and removeYou.</p>
+<p>18.03.2012 23:35:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
+<p>18.03.2012 23:05:42 zuendorf hours spend: 1.0 hours remaining: 0.0 null</p>
 
 </body>
 </html>
