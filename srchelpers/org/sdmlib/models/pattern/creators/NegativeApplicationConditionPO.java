@@ -472,7 +472,86 @@ public class NegativeApplicationConditionPO extends PatternObject
       return this;
    }
    
+   public NegativeApplicationConditionPO createCurrentSubPattern(Pattern value)
+   {
+      this.startCreate().hasCurrentSubPattern(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createDebugMode(int value)
+   {
+      this.startCreate().hasDebugMode(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createTrace(StringBuilder value)
+   {
+      this.startCreate().hasTrace(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public NegativeApplicationConditionPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createElements()
+   {
+      return this.startCreate().hasElements().endCreate();
+   }
+
+   public NegativeApplicationConditionPO createElements(PatternElementPO tgt)
+   {
+      return this.startCreate().hasElements(tgt).endCreate();
+   }
+
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public NegativeApplicationConditionPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public ReachabilityGraphPO createRgraph()
+   {
+      return this.startCreate().hasRgraph().endCreate();
+   }
+
+   public NegativeApplicationConditionPO createRgraph(ReachabilityGraphPO tgt)
+   {
+      return this.startCreate().hasRgraph(tgt).endCreate();
+   }
+
 }
+
 
 
 

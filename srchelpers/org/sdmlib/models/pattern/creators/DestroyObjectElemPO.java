@@ -9,6 +9,8 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.DestroyObjectElemSet;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
 
 public class DestroyObjectElemPO extends PatternObject
 {
@@ -254,7 +256,52 @@ public class DestroyObjectElemPO extends PatternObject
       return this;
    }
    
+   public DestroyObjectElemPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public DestroyObjectElemPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public DestroyObjectElemPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public DestroyObjectElemPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public DestroyObjectElemPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public PatternObjectPO createPatternObject()
+   {
+      return this.startCreate().hasPatternObject().endCreate();
+   }
+
+   public DestroyObjectElemPO createPatternObject(PatternObjectPO tgt)
+   {
+      return this.startCreate().hasPatternObject(tgt).endCreate();
+   }
+
 }
+
 
 
 

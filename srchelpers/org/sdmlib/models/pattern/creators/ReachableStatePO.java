@@ -257,7 +257,60 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
       return this;
    }
    
+   public ReachableStatePO createNumber(long value)
+   {
+      this.startCreate().hasNumber(value).endCreate();
+      return this;
+   }
+   
+   public ReachableStatePO createGraphRoot(Object value)
+   {
+      this.startCreate().hasGraphRoot(value).endCreate();
+      return this;
+   }
+   
+   public ReachabilityGraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public ReachableStatePO createParent(ReachabilityGraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public RuleApplicationPO createRuleapplications()
+   {
+      return this.startCreate().hasRuleapplications().endCreate();
+   }
+
+   public ReachableStatePO createRuleapplications(RuleApplicationPO tgt)
+   {
+      return this.startCreate().hasRuleapplications(tgt).endCreate();
+   }
+
+   public RuleApplicationPO createResultOf()
+   {
+      return this.startCreate().hasResultOf().endCreate();
+   }
+
+   public ReachableStatePO createResultOf(RuleApplicationPO tgt)
+   {
+      return this.startCreate().hasResultOf(tgt).endCreate();
+   }
+
+   public ReachabilityGraphPO createMaster()
+   {
+      return this.startCreate().hasMaster().endCreate();
+   }
+
+   public ReachableStatePO createMaster(ReachabilityGraphPO tgt)
+   {
+      return this.startCreate().hasMaster(tgt).endCreate();
+   }
+
 }
+
 
 
 

@@ -250,6 +250,41 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
       return this;
    }
    
+   public CloneOpPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public CloneOpPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public CloneOpPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public CloneOpPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public CloneOpPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
 }
+
 
 

@@ -25,6 +25,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.RuleApplicationSet;
+import java.beans.PropertyChangeListener;
 
 public class RuleApplication implements PropertyChangeInterface
 {

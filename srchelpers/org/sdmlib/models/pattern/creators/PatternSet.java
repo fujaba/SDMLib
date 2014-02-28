@@ -353,7 +353,23 @@ public class PatternSet extends LinkedHashSet<Pattern>
       return this;
    }
 
+
+
+   public PatternPO hasPatternPO()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      PatternPO patternObject = pattern.hasElementPatternPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

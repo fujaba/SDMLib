@@ -510,5 +510,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       setUpperTgtValue(value);
       return this;
    } 
+
+   public PatternObject createSrc()
+   {
+      PatternObject value = new PatternObject();
+      withSrc(value);
+      return value;
+   } 
 }
 

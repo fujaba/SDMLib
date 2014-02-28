@@ -250,6 +250,41 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this;
    }
    
+   public GenericConstraintPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public GenericConstraintPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public GenericConstraintPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public GenericConstraintPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public GenericConstraintPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
 }
+
 
 

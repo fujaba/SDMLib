@@ -9,6 +9,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
+import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
 
 public class AttributeConstraintPO extends PatternObject
 {
@@ -493,7 +494,82 @@ public class AttributeConstraintPO extends PatternObject
       return this;
    }
    
+   public AttributeConstraintPO createAttrName(String value)
+   {
+      this.startCreate().hasAttrName(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createTgtValue(Object value)
+   {
+      this.startCreate().hasTgtValue(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createUpperTgtValue(Object value)
+   {
+      this.startCreate().hasUpperTgtValue(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createCmpOp(String value)
+   {
+      this.startCreate().hasCmpOp(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createHostGraphSrcObject(Object value)
+   {
+      this.startCreate().hasHostGraphSrcObject(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public AttributeConstraintPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public AttributeConstraintPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public PatternObjectPO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public AttributeConstraintPO createSrc(PatternObjectPO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
 }
+
 
 
 

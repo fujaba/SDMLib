@@ -141,6 +141,33 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
       return this;
    }
    
+   public RuleApplicationPO createDescription(String value)
+   {
+      this.startCreate().hasDescription(value).endCreate();
+      return this;
+   }
+   
+   public ReachableStatePO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public RuleApplicationPO createSrc(ReachableStatePO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public ReachableStatePO createTgt()
+   {
+      return this.startCreate().hasTgt().endCreate();
+   }
+
+   public RuleApplicationPO createTgt(ReachableStatePO tgt)
+   {
+      return this.startCreate().hasTgt(tgt).endCreate();
+   }
+
 }
+
 
 

@@ -220,7 +220,23 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       return this;
    }
 
+
+
+   public DestroyObjectElemPO hasDestroyObjectElemPO()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      DestroyObjectElemPO patternObject = pattern.hasElementDestroyObjectElemPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

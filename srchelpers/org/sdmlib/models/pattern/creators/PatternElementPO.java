@@ -7,6 +7,8 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
+import org.sdmlib.models.pattern.creators.PatternPO;
+import org.sdmlib.models.pattern.creators.PatternElementPO;
 
 public class PatternElementPO extends PatternObject
 {
@@ -226,7 +228,42 @@ public class PatternElementPO extends PatternObject
       return this;
    }
    
+   public PatternElementPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public PatternElementPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
 }
+
 
 
 

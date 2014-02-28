@@ -662,7 +662,104 @@ public class PatternObjectPO extends PatternObject
       return this;
    }
    
+   public PatternObjectPO createCurrentMatch(Object value)
+   {
+      this.startCreate().hasCurrentMatch(value).endCreate();
+      return this;
+   }
+   
+   public PatternObjectPO createCandidates(Object value)
+   {
+      this.startCreate().hasCandidates(value).endCreate();
+      return this;
+   }
+   
+   public PatternObjectPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public PatternObjectPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public PatternObjectPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public PatternObjectPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public PatternObjectPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public AttributeConstraintPO createAttrConstraints()
+   {
+      return this.startCreate().hasAttrConstraints().endCreate();
+   }
+
+   public PatternObjectPO createAttrConstraints(AttributeConstraintPO tgt)
+   {
+      return this.startCreate().hasAttrConstraints(tgt).endCreate();
+   }
+
+   public DestroyObjectElemPO createDestroyElem()
+   {
+      return this.startCreate().hasDestroyElem().endCreate();
+   }
+
+   public PatternObjectPO createDestroyElem(DestroyObjectElemPO tgt)
+   {
+      return this.startCreate().hasDestroyElem(tgt).endCreate();
+   }
+
+   public CardinalityConstraintPO createCardConstraints()
+   {
+      return this.startCreate().hasCardConstraints().endCreate();
+   }
+
+   public PatternObjectPO createCardConstraints(CardinalityConstraintPO tgt)
+   {
+      return this.startCreate().hasCardConstraints(tgt).endCreate();
+   }
+
+   public MatchOtherThenPO createMatchOtherThen()
+   {
+      return this.startCreate().hasMatchOtherThen().endCreate();
+   }
+
+   public PatternObjectPO createMatchOtherThen(MatchOtherThenPO tgt)
+   {
+      return this.startCreate().hasMatchOtherThen(tgt).endCreate();
+   }
+
+   public MatchOtherThenPO createExcluders()
+   {
+      return this.startCreate().hasExcluders().endCreate();
+   }
+
+   public PatternObjectPO createExcluders(MatchOtherThenPO tgt)
+   {
+      return this.startCreate().hasExcluders(tgt).endCreate();
+   }
+
 }
+
 
 
 

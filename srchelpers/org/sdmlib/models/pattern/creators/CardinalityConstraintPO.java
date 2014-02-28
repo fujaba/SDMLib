@@ -472,6 +472,75 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
       return this;
    }
    
+   public CardinalityConstraintPO createTgtRoleName(String value)
+   {
+      this.startCreate().hasTgtRoleName(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createHostGraphSrcObject(Object value)
+   {
+      this.startCreate().hasHostGraphSrcObject(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createMinCard(long value)
+   {
+      this.startCreate().hasMinCard(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createMaxCard(long value)
+   {
+      this.startCreate().hasMaxCard(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public CardinalityConstraintPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public CardinalityConstraintPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public PatternObjectPO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public CardinalityConstraintPO createSrc(PatternObjectPO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
 }
+
 
 

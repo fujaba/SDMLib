@@ -44,6 +44,7 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.models.pattern.creators.RuleApplicationSet;
+import java.beans.PropertyChangeListener;
 
 public class ReachableState implements PropertyChangeInterface
 {
@@ -728,5 +729,41 @@ public class ReachableState implements PropertyChangeInterface
       withResultOf(value);
       return value;
    } 
+
+   public ReachableState withRuleapplications(RuleApplication... value)
+   {
+      for (RuleApplication item : value)
+      {
+         addToRuleapplications(item);
+      }
+      return this;
+   } 
+
+   public ReachableState withoutRuleapplications(RuleApplication... value)
+   {
+      for (RuleApplication item : value)
+      {
+         removeFromRuleapplications(item);
+      }
+      return this;
+   }
+
+   public ReachableState withResultOf(RuleApplication... value)
+   {
+      for (RuleApplication item : value)
+      {
+         addToResultOf(item);
+      }
+      return this;
+   } 
+
+   public ReachableState withoutResultOf(RuleApplication... value)
+   {
+      for (RuleApplication item : value)
+      {
+         removeFromResultOf(item);
+      }
+      return this;
+   }
 }
 

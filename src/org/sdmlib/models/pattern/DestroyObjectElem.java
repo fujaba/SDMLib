@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class DestroyObjectElem extends PatternElement implements PropertyChangeInterface
 {

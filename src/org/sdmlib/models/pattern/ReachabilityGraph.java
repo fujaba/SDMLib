@@ -37,6 +37,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.Equals;
 import org.sdmlib.utils.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
@@ -769,5 +770,59 @@ public class ReachabilityGraph implements PropertyChangeInterface
       
       return this;
    } 
+
+   public ReachabilityGraph withStates(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         addToStates(item);
+      }
+      return this;
+   } 
+
+   public ReachabilityGraph withoutStates(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         removeFromStates(item);
+      }
+      return this;
+   }
+
+   public ReachabilityGraph withTodo(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         addToTodo(item);
+      }
+      return this;
+   } 
+
+   public ReachabilityGraph withoutTodo(ReachableState... value)
+   {
+      for (ReachableState item : value)
+      {
+         removeFromTodo(item);
+      }
+      return this;
+   }
+
+   public ReachabilityGraph withRules(Pattern... value)
+   {
+      for (Pattern item : value)
+      {
+         addToRules(item);
+      }
+      return this;
+   } 
+
+   public ReachabilityGraph withoutRules(Pattern... value)
+   {
+      for (Pattern item : value)
+      {
+         removeFromRules(item);
+      }
+      return this;
+   }
 }
 

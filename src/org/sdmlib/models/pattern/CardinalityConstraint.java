@@ -30,6 +30,7 @@ import java.util.Collection;
 
 import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
+import java.beans.PropertyChangeListener;
 
 public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface
 {

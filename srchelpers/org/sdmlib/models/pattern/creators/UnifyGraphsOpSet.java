@@ -205,7 +205,23 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
    }
    
 
+
+
+   public UnifyGraphsOpPO hasUnifyGraphsOpPO()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      UnifyGraphsOpPO patternObject = pattern.hasElementUnifyGraphsOpPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

@@ -484,7 +484,86 @@ public class PatternPO extends PatternObject
       return this;
    }
    
+   public PatternPO createCurrentSubPattern(Pattern value)
+   {
+      this.startCreate().hasCurrentSubPattern(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createDebugMode(int value)
+   {
+      this.startCreate().hasDebugMode(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createTrace(StringBuilder value)
+   {
+      this.startCreate().hasTrace(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createElements()
+   {
+      return this.startCreate().hasElements().endCreate();
+   }
+
+   public PatternPO createElements(PatternElementPO tgt)
+   {
+      return this.startCreate().hasElements(tgt).endCreate();
+   }
+
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public PatternPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public ReachabilityGraphPO createRgraph()
+   {
+      return this.startCreate().hasRgraph().endCreate();
+   }
+
+   public PatternPO createRgraph(ReachabilityGraphPO tgt)
+   {
+      return this.startCreate().hasRgraph(tgt).endCreate();
+   }
+
 }
+
 
 
 

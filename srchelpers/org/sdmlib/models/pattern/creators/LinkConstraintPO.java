@@ -372,7 +372,54 @@ public class LinkConstraintPO extends PatternObject
       return this;
    }
    
+   public LinkConstraintPO createTgtRoleName(String value)
+   {
+      this.startCreate().hasTgtRoleName(value).endCreate();
+      return this;
+   }
+   
+   public LinkConstraintPO createHostGraphSrcObject(Object value)
+   {
+      this.startCreate().hasHostGraphSrcObject(value).endCreate();
+      return this;
+   }
+   
+   public LinkConstraintPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public LinkConstraintPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public LinkConstraintPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public LinkConstraintPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public LinkConstraintPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
 }
+
 
 
 

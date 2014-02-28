@@ -8,6 +8,7 @@ import org.sdmlib.models.pattern.creators.PatternPO;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.models.pattern.creators.PatternLinkPO;
 
 public class PatternLinkPO extends PatternObject
 {
@@ -400,7 +401,54 @@ public class PatternLinkPO extends PatternObject
       return this;
    }
    
+   public PatternLinkPO createTgtRoleName(String value)
+   {
+      this.startCreate().hasTgtRoleName(value).endCreate();
+      return this;
+   }
+   
+   public PatternLinkPO createHostGraphSrcObject(Object value)
+   {
+      this.startCreate().hasHostGraphSrcObject(value).endCreate();
+      return this;
+   }
+   
+   public PatternLinkPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public PatternLinkPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public PatternLinkPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public PatternLinkPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public PatternLinkPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
 }
+
 
 
 

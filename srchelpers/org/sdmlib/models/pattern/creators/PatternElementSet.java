@@ -221,7 +221,23 @@ public class PatternElementSet extends ArrayList<PatternElement>
       return this;
    }
 
+
+
+   public PatternElementPO hasPatternElementPO()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      PatternElementPO patternObject = pattern.hasElementPatternElementPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 
 

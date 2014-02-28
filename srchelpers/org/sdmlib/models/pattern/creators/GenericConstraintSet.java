@@ -284,6 +284,22 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       return this;
    }
 
+
+
+   public GenericConstraintPO hasGenericConstraintPO()
+   {
+      org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
+      
+      GenericConstraintPO patternObject = pattern.hasElementGenericConstraintPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 }
+
 
 

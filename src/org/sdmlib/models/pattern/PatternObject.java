@@ -36,6 +36,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
@@ -1369,5 +1370,84 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       withExcluders(value);
       return value;
    } 
+
+   public PatternObject withAttrConstraints(AttributeConstraint... value)
+   {
+      for (AttributeConstraint item : value)
+      {
+         addToAttrConstraints(item);
+      }
+      return this;
+   } 
+
+   public PatternObject withoutAttrConstraints(AttributeConstraint... value)
+   {
+      for (AttributeConstraint item : value)
+      {
+         removeFromAttrConstraints(item);
+      }
+      return this;
+   }
+
+   public AttributeConstraint createAttrConstraints()
+   {
+      AttributeConstraint value = new AttributeConstraint();
+      withAttrConstraints(value);
+      return value;
+   } 
+
+   public PatternObject withCardConstraints(CardinalityConstraint... value)
+   {
+      for (CardinalityConstraint item : value)
+      {
+         addToCardConstraints(item);
+      }
+      return this;
+   } 
+
+   public PatternObject withoutCardConstraints(CardinalityConstraint... value)
+   {
+      for (CardinalityConstraint item : value)
+      {
+         removeFromCardConstraints(item);
+      }
+      return this;
+   }
+
+   public PatternObject withMatchOtherThen(MatchOtherThen... value)
+   {
+      for (MatchOtherThen item : value)
+      {
+         addToMatchOtherThen(item);
+      }
+      return this;
+   } 
+
+   public PatternObject withoutMatchOtherThen(MatchOtherThen... value)
+   {
+      for (MatchOtherThen item : value)
+      {
+         removeFromMatchOtherThen(item);
+      }
+      return this;
+   }
+
+   public PatternObject withExcluders(MatchOtherThen... value)
+   {
+      for (MatchOtherThen item : value)
+      {
+         addToExcluders(item);
+      }
+      return this;
+   } 
+
+   public PatternObject withoutExcluders(MatchOtherThen... value)
+   {
+      for (MatchOtherThen item : value)
+      {
+         removeFromExcluders(item);
+      }
+      return this;
+   }
 }
 

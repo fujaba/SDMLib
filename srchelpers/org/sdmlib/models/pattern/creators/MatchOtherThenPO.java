@@ -364,6 +364,67 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
       return this;
    }
    
+   public MatchOtherThenPO createHostGraphSrcObject(Object value)
+   {
+      this.startCreate().hasHostGraphSrcObject(value).endCreate();
+      return this;
+   }
+   
+   public MatchOtherThenPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public MatchOtherThenPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public MatchOtherThenPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public MatchOtherThenPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public MatchOtherThenPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public PatternObjectPO createSrc()
+   {
+      return this.startCreate().hasSrc().endCreate();
+   }
+
+   public MatchOtherThenPO createSrc(PatternObjectPO tgt)
+   {
+      return this.startCreate().hasSrc(tgt).endCreate();
+   }
+
+   public PatternObjectPO createForbidden()
+   {
+      return this.startCreate().hasForbidden().endCreate();
+   }
+
+   public MatchOtherThenPO createForbidden(PatternObjectPO tgt)
+   {
+      return this.startCreate().hasForbidden(tgt).endCreate();
+   }
+
 }
+
 
 

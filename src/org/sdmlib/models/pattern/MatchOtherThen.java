@@ -29,6 +29,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
+import java.beans.PropertyChangeListener;
 
 public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {

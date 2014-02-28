@@ -501,7 +501,92 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
       return this;
    }
    
+   public OptionalSubPatternPO createMatchForward(boolean value)
+   {
+      this.startCreate().hasMatchForward(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createCurrentSubPattern(Pattern value)
+   {
+      this.startCreate().hasCurrentSubPattern(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createDebugMode(int value)
+   {
+      this.startCreate().hasDebugMode(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createTrace(StringBuilder value)
+   {
+      this.startCreate().hasTrace(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createModifier(String value)
+   {
+      this.startCreate().hasModifier(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createHasMatch(boolean value)
+   {
+      this.startCreate().hasHasMatch(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createPatternObjectName(String value)
+   {
+      this.startCreate().hasPatternObjectName(value).endCreate();
+      return this;
+   }
+   
+   public OptionalSubPatternPO createDoAllMatches(boolean value)
+   {
+      this.startCreate().hasDoAllMatches(value).endCreate();
+      return this;
+   }
+   
+   public PatternElementPO createElements()
+   {
+      return this.startCreate().hasElements().endCreate();
+   }
+
+   public OptionalSubPatternPO createElements(PatternElementPO tgt)
+   {
+      return this.startCreate().hasElements(tgt).endCreate();
+   }
+
+   public PatternPO createPattern()
+   {
+      return this.startCreate().hasPattern().endCreate();
+   }
+
+   public OptionalSubPatternPO createPattern(PatternPO tgt)
+   {
+      return this.startCreate().hasPattern(tgt).endCreate();
+   }
+
+   public ReachabilityGraphPO createRgraph()
+   {
+      return this.startCreate().hasRgraph().endCreate();
+   }
+
+   public OptionalSubPatternPO createRgraph(ReachabilityGraphPO tgt)
+   {
+      return this.startCreate().hasRgraph(tgt).endCreate();
+   }
+
 }
+
 
 
 

@@ -1224,5 +1224,30 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          
       };
    } 
+
+   public Pattern withElements(PatternElement... value)
+   {
+      for (PatternElement item : value)
+      {
+         addToElements(item);
+      }
+      return this;
+   } 
+
+   public Pattern withoutElements(PatternElement... value)
+   {
+      for (PatternElement item : value)
+      {
+         removeFromElements(item);
+      }
+      return this;
+   }
+
+   public PatternElement createElements()
+   {
+      PatternElement value = new PatternElement();
+      withElements(value);
+      return value;
+   } 
 }
 
