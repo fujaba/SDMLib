@@ -307,14 +307,14 @@ public class Room implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_UNIVERSITY = "university";
-   
+
    private University university = null;
-   
+
    public University getUniversity()
    {
       return this.university;
    }
-   
+
    public boolean setUniversity(University value)
    {
       boolean changed = false;
@@ -342,13 +342,13 @@ public class Room implements PropertyChangeInterface
       
       return changed;
    }
-   
+
    public Room withUniversity(University value)
    {
       setUniversity(value);
       return this;
    } 
-   
+
    public University createUniversity()
    {
       University value = new University();
@@ -366,7 +366,7 @@ public class Room implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_DOORS = "doors";
-   
+
    private RoomSet doors = null;
    
    public RoomSet getDoors()
@@ -378,7 +378,7 @@ public class Room implements PropertyChangeInterface
    
       return this.doors;
    }
-   
+
    public boolean addToDoors(Room value)
    {
       boolean changed = false;
@@ -401,7 +401,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromDoors(Room value)
    {
       boolean changed = false;
@@ -419,7 +419,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Room withDoors(Room... value)
    {
       for (Room item : value)
@@ -428,7 +428,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Room withoutDoors(Room... value)
    {
       for (Room item : value)
@@ -437,7 +437,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromDoors()
    {
       LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getDoors());
@@ -447,7 +447,7 @@ public class Room implements PropertyChangeInterface
          this.removeFromDoors(value);
       }
    }
-   
+
    public Room createDoors()
    {
       Room value = new Room();
@@ -465,7 +465,7 @@ public class Room implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_STUDENTS = "students";
-   
+
    private StudentSet students = null;
    
    public StudentSet getStudents()
@@ -477,7 +477,7 @@ public class Room implements PropertyChangeInterface
    
       return this.students;
    }
-   
+
    public boolean addToStudents(Student value)
    {
       boolean changed = false;
@@ -500,7 +500,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromStudents(Student value)
    {
       boolean changed = false;
@@ -518,7 +518,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Room withStudents(Student... value)
    {
       for (Student item : value)
@@ -527,7 +527,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Room withoutStudents(Student... value)
    {
       for (Student item : value)
@@ -536,7 +536,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromStudents()
    {
       LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
@@ -546,7 +546,7 @@ public class Room implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
-   
+
    public Student createStudents()
    {
       Student value = new Student();
@@ -564,7 +564,7 @@ public class Room implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_ASSIGNMENTS = "assignments";
-   
+
    private AssignmentSet assignments = null;
    
    public AssignmentSet getAssignments()
@@ -576,7 +576,7 @@ public class Room implements PropertyChangeInterface
    
       return this.assignments;
    }
-   
+
    public boolean addToAssignments(Assignment value)
    {
       boolean changed = false;
@@ -599,7 +599,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromAssignments(Assignment value)
    {
       boolean changed = false;
@@ -617,7 +617,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Room withAssignments(Assignment... value)
    {
       for (Assignment item : value)
@@ -626,7 +626,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Room withoutAssignments(Assignment... value)
    {
       for (Assignment item : value)
@@ -635,7 +635,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromAssignments()
    {
       LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getAssignments());
@@ -645,7 +645,7 @@ public class Room implements PropertyChangeInterface
          this.removeFromAssignments(value);
       }
    }
-   
+
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();
@@ -663,7 +663,7 @@ public class Room implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_TAS = "tas";
-   
+
    private TeachingAssistantSet tas = null;
    
    public TeachingAssistantSet getTas()
@@ -675,7 +675,7 @@ public class Room implements PropertyChangeInterface
    
       return this.tas;
    }
-   
+
    public boolean addToTas(TeachingAssistant value)
    {
       boolean changed = false;
@@ -698,7 +698,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromTas(TeachingAssistant value)
    {
       boolean changed = false;
@@ -716,7 +716,7 @@ public class Room implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Room withTas(TeachingAssistant... value)
    {
       for (TeachingAssistant item : value)
@@ -725,7 +725,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Room withoutTas(TeachingAssistant... value)
    {
       for (TeachingAssistant item : value)
@@ -734,7 +734,7 @@ public class Room implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromTas()
    {
       LinkedHashSet<TeachingAssistant> tmpSet = new LinkedHashSet<TeachingAssistant>(this.getTas());
@@ -744,7 +744,7 @@ public class Room implements PropertyChangeInterface
          this.removeFromTas(value);
       }
    }
-   
+
    public TeachingAssistant createTas()
    {
       TeachingAssistant value = new TeachingAssistant();

@@ -203,14 +203,14 @@ public class Assignment implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_ROOM = "room";
-   
+
    private Room room = null;
-   
+
    public Room getRoom()
    {
       return this.room;
    }
-   
+
    public boolean setRoom(Room value)
    {
       boolean changed = false;
@@ -238,13 +238,13 @@ public class Assignment implements PropertyChangeInterface
       
       return changed;
    }
-   
+
    public Assignment withRoom(Room value)
    {
       setRoom(value);
       return this;
    } 
-   
+
    public Room createRoom()
    {
       Room value = new Room();
@@ -262,7 +262,7 @@ public class Assignment implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_STUDENTS = "students";
-   
+
    private StudentSet students = null;
    
    public StudentSet getStudents()
@@ -274,7 +274,7 @@ public class Assignment implements PropertyChangeInterface
    
       return this.students;
    }
-   
+
    public boolean addToStudents(Student value)
    {
       boolean changed = false;
@@ -297,7 +297,7 @@ public class Assignment implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromStudents(Student value)
    {
       boolean changed = false;
@@ -315,7 +315,7 @@ public class Assignment implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Assignment withStudents(Student... value)
    {
       for (Student item : value)
@@ -324,7 +324,7 @@ public class Assignment implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Assignment withoutStudents(Student... value)
    {
       for (Student item : value)
@@ -333,7 +333,7 @@ public class Assignment implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromStudents()
    {
       LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
@@ -343,7 +343,7 @@ public class Assignment implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
-   
+
    public Student createStudents()
    {
       Student value = new Student();

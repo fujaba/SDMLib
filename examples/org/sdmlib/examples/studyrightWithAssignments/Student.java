@@ -353,14 +353,14 @@ public class Student implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_UNIVERSITY = "university";
-   
+
    private University university = null;
-   
+
    public University getUniversity()
    {
       return this.university;
    }
-   
+
    public boolean setUniversity(University value)
    {
       boolean changed = false;
@@ -388,13 +388,13 @@ public class Student implements PropertyChangeInterface
       
       return changed;
    }
-   
+
    public Student withUniversity(University value)
    {
       setUniversity(value);
       return this;
    } 
-   
+
    public University createUniversity()
    {
       University value = new University();
@@ -412,14 +412,14 @@ public class Student implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_IN = "in";
-   
+
    private Room in = null;
-   
+
    public Room getIn()
    {
       return this.in;
    }
-   
+
    public boolean setIn(Room value)
    {
       boolean changed = false;
@@ -447,13 +447,13 @@ public class Student implements PropertyChangeInterface
       
       return changed;
    }
-   
+
    public Student withIn(Room value)
    {
       setIn(value);
       return this;
    } 
-   
+
    public Room createIn()
    {
       Room value = new Room();
@@ -471,7 +471,7 @@ public class Student implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_DONE = "done";
-   
+
    private AssignmentSet done = null;
    
    public AssignmentSet getDone()
@@ -483,7 +483,7 @@ public class Student implements PropertyChangeInterface
    
       return this.done;
    }
-   
+
    public boolean addToDone(Assignment value)
    {
       boolean changed = false;
@@ -506,7 +506,7 @@ public class Student implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromDone(Assignment value)
    {
       boolean changed = false;
@@ -524,7 +524,7 @@ public class Student implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Student withDone(Assignment... value)
    {
       for (Assignment item : value)
@@ -533,7 +533,7 @@ public class Student implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Student withoutDone(Assignment... value)
    {
       for (Assignment item : value)
@@ -542,7 +542,7 @@ public class Student implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromDone()
    {
       LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getDone());
@@ -552,7 +552,7 @@ public class Student implements PropertyChangeInterface
          this.removeFromDone(value);
       }
    }
-   
+
    public Assignment createDone()
    {
       Assignment value = new Assignment();
@@ -570,7 +570,7 @@ public class Student implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_FRIENDS = "friends";
-   
+
    private StudentSet friends = null;
    
    public StudentSet getFriends()
@@ -582,7 +582,7 @@ public class Student implements PropertyChangeInterface
    
       return this.friends;
    }
-   
+
    public boolean addToFriends(Student value)
    {
       boolean changed = false;
@@ -605,7 +605,7 @@ public class Student implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromFriends(Student value)
    {
       boolean changed = false;
@@ -623,7 +623,7 @@ public class Student implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public Student withFriends(Student... value)
    {
       for (Student item : value)
@@ -632,7 +632,7 @@ public class Student implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Student withoutFriends(Student... value)
    {
       for (Student item : value)
@@ -641,7 +641,7 @@ public class Student implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromFriends()
    {
       LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getFriends());
@@ -651,7 +651,7 @@ public class Student implements PropertyChangeInterface
          this.removeFromFriends(value);
       }
    }
-   
+
    public Student createFriends()
    {
       Student value = new Student();

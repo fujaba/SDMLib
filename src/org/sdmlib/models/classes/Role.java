@@ -211,27 +211,22 @@ public class Role implements PropertyChangeInterface
       
       if ( ! fromSuperClass)
       {
-         int pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRole.getName());
-
-         if (pos < 0)
-         {
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
 
             if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
             {
-               generateToManyRole(partnerRole, text);
+               generateToManyRole(myParser, clazz, partnerRole, text);
                clazz.insertImport(LinkedHashSet.class.getName());
             }
             else
             {
-               generateToOneRole(partnerRole, text);
+               generateToOneRole(myParser, clazz, partnerRole, text);
             }
 
-            pos = myParser.indexOf(Parser.CLASS_END);
+            int pos = myParser.indexOf(Parser.CLASS_END);
             myParser.getFileBody().insert(pos, text.toString());
             clazz.setFileHasChanged(true);
-         }
 
          if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
          {
@@ -289,6 +284,11 @@ public class Role implements PropertyChangeInterface
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {
+      if (clazz.getInterfaze())
+      {
+         return;
+      }
+      
       int pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
       if (pos < 0)
@@ -725,6 +725,11 @@ public class Role implements PropertyChangeInterface
    
    private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {   
+      if (clazz.getInterfaze())
+      {
+         return;
+      }
+      
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       if (pos < 0)
@@ -851,6 +856,11 @@ public class Role implements PropertyChangeInterface
 
    private void insertCaseInGenericSetToOne(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
+      if (clazz.getInterfaze())
+      {
+         return;
+      }
+      
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
       if (pos < 0)
@@ -905,6 +915,11 @@ public class Role implements PropertyChangeInterface
 
    private void insertCaseInGenericGet(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
+      if (clazz.getInterfaze())
+      {
+         return;
+      }
+      
       int pos = parser.indexOf(Parser.METHOD + ":get(String)");
 
       if (pos < 0)
@@ -993,111 +1008,8 @@ public class Role implements PropertyChangeInterface
       partnerRole.getClazz().insertImport(partnerRole.getClazz().getModelSetClassName());
    }
 
-   private void generateToManyRole(Role partnerRole, StringBuilder text)
+   private void generateToManyRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
    {
-      text.append
-         (  "\n   " +
-            "\n   /********************************************************************" +
-            "\n    * <pre>" +
-            "\n    *              myCard                       partnerCard" +
-            "\n    * myClassName ----------------------------------- partnerClassName" +
-            "\n    *              myRoleName                   partnerRoleName" +
-            "\n    * </pre>" +
-            "\n    */" + 
-            "\n   " +
-            "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
-            "\n   " +
-            "\n   private type partnerRoleName = null;" +
-            "\n   " +
-            "\n   public type getPartnerRoleName()" +
-            "\n   {" +
-            "\n      if (this.partnerRoleName == null)" +
-            "\n      {" +
-            "\n         return partnerClassName.EMPTY_SET;" +
-            "\n      }" +
-            "\n   " +
-            "\n      return this.partnerRoleName;" +
-            "\n   }" +
-            "\n   " +
-            "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
-            "\n   {" +
-            "\n      boolean changed = false;" +
-            "\n      " +
-            "\n      if (value != null)" +
-            "\n      {" +
-            "\n         if (this.partnerRoleName == null)" +
-            "\n         {" +
-            "\n            this.partnerRoleName = new type();" +
-            "\n         }" +
-            "\n         " +
-            "\n         changed = this.partnerRoleName.add (value);" +
-            "\n         " +
-            "\n         if (changed)" +
-            "\n         {" +
-            "\n            value.withMyRoleName(this);" +
-            "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
-            "\n         }" +
-            "\n      }" +
-            "\n         " +
-            "\n      return changed;   " +
-            "\n   }" +
-            "\n   " +
-            "\n   public boolean removeFromPartnerRoleName(partnerClassName value)" +
-            "\n   {" +
-            "\n      boolean changed = false;" +
-            "\n      " +
-            "\n      if ((this.partnerRoleName != null) && (value != null))" +
-            "\n      {" +
-            "\n         changed = this.partnerRoleName.remove (value);" +
-            "\n         " +
-            "\n         if (changed)" +
-            "\n         {" +
-            "\n            value.reverseWithoutCall(this);" +
-            "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, value, null);" +
-            "\n         }" +
-            "\n      }" +
-            "\n         " +
-            "\n      return changed;   " +
-            "\n   }" +
-            "\n   " +
-            "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
-            "\n   {" +
-            "\n      for (partnerClassName item : value)" +
-            "\n      {" +
-            "\n         addToPartnerRoleName(item);" +
-            "\n      }" +
-            "\n      return this;" +
-            "\n   } " +
-            "\n   " +
-            "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
-            "\n   {" +
-            "\n      for (partnerClassName item : value)" +
-            "\n      {" +
-            "\n         removeFromPartnerRoleName(item);" +
-            "\n      }" +
-            "\n      return this;" +
-            "\n   }" +
-            "\n   " +
-            "\n   public void removeAllFromPartnerRoleName()" +
-            "\n   {" +
-            "\n      LinkedHashSet<partnerClassName> tmpSet = new LinkedHashSet<partnerClassName>(this.getPartnerRoleName());" +
-            "\n   " +
-            "\n      for (partnerClassName value : tmpSet)" +
-            "\n      {" +
-            "\n         this.removeFromPartnerRoleName(value);" +
-            "\n      }" +
-            "\n   }" +
-            "\n   " +
-            "\n   public partnerClassName createPartnerRoleName()" +
-            "\n   {" +
-            "\n      partnerClassName value = new partnerClassName();" +
-            "\n      withPartnerRoleName(value);" +
-            "\n      return value;" +
-            "\n   } " +
-            "\n"                  
-            );
-
-
       String myClassName = CGUtil.shortClassName(getClazz().getName());
       
       String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getName());
@@ -1105,6 +1017,245 @@ public class Role implements PropertyChangeInterface
       String partnerRoleName = partnerRole.getName();
       
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
+      
+      int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
+
+      if (pos < 0)
+      {
+         text.append
+         (  "\n   " +
+               "\n   /********************************************************************" +
+               "\n    * <pre>" +
+               "\n    *              myCard                       partnerCard" +
+               "\n    * myClassName ----------------------------------- partnerClassName" +
+               "\n    *              myRoleName                   partnerRoleName" +
+               "\n    * </pre>" +
+               "\n    */" + 
+               "\n   " +
+               "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
+               "\n" );
+      }
+      
+      if (! genClazz.getInterfaze())
+      {
+         pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
+
+         if (pos < 0)
+         {
+            text.append ("\n   private type partnerRoleName = null;" +
+                         "\n   ");
+         }
+      }
+      
+      pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
+
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public type getPartnerRoleName()" +
+                  "\n   {" +
+                  "\n      if (this.partnerRoleName == null)" +
+                  "\n      {" +
+                  "\n         return partnerClassName.EMPTY_SET;" +
+                  "\n      }" +
+                  "\n   " +
+                  "\n      return this.partnerRoleName;" +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public type getPartnerRoleName();" +
+                  "\n");
+         }
+      }
+      
+      pos = myParser.indexOf(Parser.METHOD + ":addTo" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
+                  "\n   {" +
+                  "\n      boolean changed = false;" +
+                  "\n      " +
+                  "\n      if (value != null)" +
+                  "\n      {" +
+                  "\n         if (this.partnerRoleName == null)" +
+                  "\n         {" +
+                  "\n            this.partnerRoleName = new type();" +
+                  "\n         }" +
+                  "\n         " +
+                  "\n         changed = this.partnerRoleName.add (value);" +
+                  "\n         " +
+                  "\n         if (changed)" +
+                  "\n         {" +
+                  "\n            value.withMyRoleName(this);" +
+                  "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+                  "\n         }" +
+                  "\n      }" +
+                  "\n         " +
+                  "\n      return changed;   " +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   boolean addToPartnerRoleName(partnerClassName value);" +
+                  "\n");
+         }
+      }
+      
+      pos = myParser.indexOf(Parser.METHOD + ":removeFrom" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public boolean removeFromPartnerRoleName(partnerClassName value)" +
+                  "\n   {" +
+                  "\n      boolean changed = false;" +
+                  "\n      " +
+                  "\n      if ((this.partnerRoleName != null) && (value != null))" +
+                  "\n      {" +
+                  "\n         changed = this.partnerRoleName.remove (value);" +
+                  "\n         " +
+                  "\n         if (changed)" +
+                  "\n         {" +
+                  "\n            value.reverseWithoutCall(this);" +
+                  "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, value, null);" +
+                  "\n         }" +
+                  "\n      }" +
+                  "\n         " +
+                  "\n      return changed;   " +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   boolean removeFromPartnerRoleName(partnerClassName value);" +
+                  "\n");
+         }
+      }
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":with" + partnerRoleUpFirstChar + "(" + partnerClassName  +  "...)");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
+                  "\n   {" +
+                  "\n      for (partnerClassName item : value)" +
+                  "\n      {" +
+                  "\n         addToPartnerRoleName(item);" +
+                  "\n      }" +
+                  "\n      return this;" +
+                  "\n   } " +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public myClassName withPartnerRoleName(partnerClassName... value);" +
+                  "\n");
+         }
+      }
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":without" + partnerRoleUpFirstChar + "(" + partnerClassName  +  "...)");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
+                  "\n   {" +
+                  "\n      for (partnerClassName item : value)" +
+                  "\n      {" +
+                  "\n         removeFromPartnerRoleName(item);" +
+                  "\n      }" +
+                  "\n      return this;" +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value);" +
+                  "\n");
+         }
+      }
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":removeAllFrom" + partnerRoleUpFirstChar + "()");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public void removeAllFromPartnerRoleName()" +
+                  "\n   {" +
+                  "\n      LinkedHashSet<partnerClassName> tmpSet = new LinkedHashSet<partnerClassName>(this.getPartnerRoleName());" +
+                  "\n   " +
+                  "\n      for (partnerClassName value : tmpSet)" +
+                  "\n      {" +
+                  "\n         this.removeFromPartnerRoleName(value);" +
+                  "\n      }" +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public void removeAllFromPartnerRoleName();" +
+                  "\n");
+         }
+      }
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
+      
+      String realPartnerClassName = partnerClassName;
+      
+      if (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() == 1)
+      {
+         realPartnerClassName = CGUtil.shortClassName(this.getClazz().getKidClassesAsInterface().first().getName());
+      }
+      
+      if (pos < 0 && ! (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() != 1))
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public partnerClassName createPartnerRoleName()" +
+                  "\n   {" +
+                  "\n      partnerClassName value = new realPartnerClassName();" +
+                  "\n      withPartnerRoleName(value);" +
+                  "\n      return value;" +
+                  "\n   } " +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public partnerClassName createPartnerRoleName();" +
+                  "\n");
+         }
+      }
+      
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(getName()) + "(null)";
       
@@ -1119,6 +1270,7 @@ public class Role implements PropertyChangeInterface
          "type", partnerClassName + "Set", 
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
+         "realPartnerClassName", realPartnerClassName,
          "myRoleName", getName(),
          "MyRoleName", StrUtil.upFirstChar(getName()),
          "partnerRoleName", partnerRoleName,
@@ -1127,74 +1279,11 @@ public class Role implements PropertyChangeInterface
          "reverseWithoutCall(this)", reverseWithoutCall
          );
       
-      getClazz().insertImport(partnerRole.getClazz().getModelSetClassName());
+      getClazz().insertImport(myParser, partnerRole.getClazz().getModelSetClassName());
    } 
    
-   private void generateToOneRole(Role partnerRole, StringBuilder text)
+   private void generateToOneRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
    {
-      text.append
-         (  "\n   " +
-            "\n   /********************************************************************" +
-            "\n    * <pre>" +
-            "\n    *              myCard                       partnerCard" +
-            "\n    * myClassName ----------------------------------- partnerClassName" +
-            "\n    *              myRoleName                   partnerRoleName" +
-            "\n    * </pre>" +
-            "\n    */" + 
-            "\n   " +
-            "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
-            "\n   " +
-            "\n   private partnerClassName partnerRoleName = null;" +
-            "\n   " +
-            "\n   public partnerClassName getPartnerRoleName()" +
-            "\n   {" +
-            "\n      return this.partnerRoleName;" +
-            "\n   }" +
-            "\n   " +
-            "\n   public boolean setPartnerRoleName(partnerClassName value)" +
-            "\n   {" +
-            "\n      boolean changed = false;" +
-            "\n      " +
-            "\n      if (this.partnerRoleName != value)" +
-            "\n      {" +
-            "\n         partnerClassName oldValue = this.partnerRoleName;" +
-            "\n         " +
-            "\n         if (this.partnerRoleName != null)" +
-            "\n         {" +
-            "\n            this.partnerRoleName = null;" +
-            "\n            oldValue.withoutMethodCall(this);" +
-            "\n         }" +
-            "\n         " +
-            "\n         this.partnerRoleName = value;" +
-            "\n         " +
-            "\n         if (value != null)" +
-            "\n         {" +
-            "\n            value.withMyRoleName(this);" +
-            "\n         }" +
-            "\n         " +
-            "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);" +
-            "\n         changed = true;" +
-            "\n      }" +
-            "\n      " +
-            "\n      return changed;" +
-            "\n   }" +
-            "\n   " +
-            "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
-            "\n   {" +
-            "\n      setPartnerRoleName(value);" +
-            "\n      return this;" +
-            "\n   } " +
-            "\n   " +
-            "\n   public partnerClassName createPartnerRoleName()" +
-            "\n   {" +
-            "\n      partnerClassName value = new partnerClassName();" +
-            "\n      withPartnerRoleName(value);" +
-            "\n      return value;" +
-            "\n   } " +
-            "\n"
-            );
-
-
       String myClassName = CGUtil.shortClassName(getClazz().getName());
       
       String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getName());
@@ -1203,6 +1292,158 @@ public class Role implements PropertyChangeInterface
       
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
       
+      int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
+
+      if (pos < 0)
+      {
+         text.append
+         (  "\n   " +
+               "\n   /********************************************************************" +
+               "\n    * <pre>" +
+               "\n    *              myCard                       partnerCard" +
+               "\n    * myClassName ----------------------------------- partnerClassName" +
+               "\n    *              myRoleName                   partnerRoleName" +
+               "\n    * </pre>" +
+               "\n    */" + 
+               "\n   " +
+               "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
+               "\n" );
+      }
+      
+      if (! genClazz.getInterfaze())
+      {
+         pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
+
+         if (pos < 0)
+         {
+            text.append ("\n   private partnerClassName partnerRoleName = null;" +
+                         "\n");
+         }
+      }
+      
+      pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
+
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public partnerClassName getPartnerRoleName()" +
+                  "\n   {" +
+                  "\n      return this.partnerRoleName;" +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public partnerClassName getPartnerRoleName();" +
+                  "\n");
+         }
+      }
+      
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":set" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+                  "\n   {" +
+                  "\n      boolean changed = false;" +
+                  "\n      " +
+                  "\n      if (this.partnerRoleName != value)" +
+                  "\n      {" +
+                  "\n         partnerClassName oldValue = this.partnerRoleName;" +
+                  "\n         " +
+                  "\n         if (this.partnerRoleName != null)" +
+                  "\n         {" +
+                  "\n            this.partnerRoleName = null;" +
+                  "\n            oldValue.withoutMethodCall(this);" +
+                  "\n         }" +
+                  "\n         " +
+                  "\n         this.partnerRoleName = value;" +
+                  "\n         " +
+                  "\n         if (value != null)" +
+                  "\n         {" +
+                  "\n            value.withMyRoleName(this);" +
+                  "\n         }" +
+                  "\n         " +
+                  "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);" +
+                  "\n         changed = true;" +
+                  "\n      }" +
+                  "\n      " +
+                  "\n      return changed;" +
+                  "\n   }" +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public boolean setPartnerRoleName(partnerClassName value);" +
+                  "\n");
+         }
+      }
+      
+      
+      pos = myParser.indexOf(Parser.METHOD + ":with" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
+                  "\n   {" +
+                  "\n      setPartnerRoleName(value);" +
+                  "\n      return this;" +
+                  "\n   } " +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public myClassName withPartnerRoleName(partnerClassName value);" +
+                  "\n");
+         }
+      }
+      
+
+      pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
+      
+      String realPartnerClassName = partnerClassName;
+      
+      if (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() == 1)
+      {
+         realPartnerClassName = CGUtil.shortClassName(this.getClazz().getKidClassesAsInterface().first().getName());
+      }
+      
+      if (pos < 0)
+      {
+         if (! genClazz.getInterfaze())
+         {
+            text.append 
+            (     "\n   public partnerClassName createPartnerRoleName()" +
+                  "\n   {" +
+                  "\n      partnerClassName value = new realPartnerClassName();" +
+                  "\n      withPartnerRoleName(value);" +
+                  "\n      return value;" +
+                  "\n   } " +
+                  "\n");
+         }
+         else
+         {
+            text.append
+            (     "\n   public partnerClassName createPartnerRoleName();" +
+                  "\n");
+         }
+      }
+      
+      
+
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(getName()) + "(null)";
       
       if (getCard().equals(R.MANY.toString()))
@@ -1215,6 +1456,7 @@ public class Role implements PropertyChangeInterface
          "partnerCard", partnerRole.getCard(),
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
+         "realPartnerClassName", realPartnerClassName,
          "myRoleName", getName(),
          "MyRoleName", StrUtil.upFirstChar(getName()),
          "partnerRoleName", partnerRoleName,

@@ -166,7 +166,7 @@ public class University implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_STUDENTS = "students";
-   
+
    private StudentSet students = null;
    
    public StudentSet getStudents()
@@ -178,7 +178,7 @@ public class University implements PropertyChangeInterface
    
       return this.students;
    }
-   
+
    public boolean addToStudents(Student value)
    {
       boolean changed = false;
@@ -201,7 +201,7 @@ public class University implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromStudents(Student value)
    {
       boolean changed = false;
@@ -219,7 +219,7 @@ public class University implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public University withStudents(Student... value)
    {
       for (Student item : value)
@@ -228,7 +228,7 @@ public class University implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public University withoutStudents(Student... value)
    {
       for (Student item : value)
@@ -237,7 +237,7 @@ public class University implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromStudents()
    {
       LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
@@ -247,7 +247,7 @@ public class University implements PropertyChangeInterface
          this.removeFromStudents(value);
       }
    }
-   
+
    public Student createStudents()
    {
       Student value = new Student();
@@ -265,7 +265,7 @@ public class University implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_ROOMS = "rooms";
-   
+
    private RoomSet rooms = null;
    
    public RoomSet getRooms()
@@ -277,7 +277,7 @@ public class University implements PropertyChangeInterface
    
       return this.rooms;
    }
-   
+
    public boolean addToRooms(Room value)
    {
       boolean changed = false;
@@ -300,7 +300,7 @@ public class University implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public boolean removeFromRooms(Room value)
    {
       boolean changed = false;
@@ -318,7 +318,7 @@ public class University implements PropertyChangeInterface
          
       return changed;   
    }
-   
+
    public University withRooms(Room... value)
    {
       for (Room item : value)
@@ -327,7 +327,7 @@ public class University implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public University withoutRooms(Room... value)
    {
       for (Room item : value)
@@ -336,7 +336,7 @@ public class University implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromRooms()
    {
       LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getRooms());
@@ -346,7 +346,7 @@ public class University implements PropertyChangeInterface
          this.removeFromRooms(value);
       }
    }
-   
+
    public Room createRooms()
    {
       Room value = new Room();

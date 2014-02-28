@@ -2572,7 +2572,7 @@ public class Clazz implements PropertyChangeInterface
 
    public ClazzSet getKidClassesClosure()
    {
-      ClazzSet result = this.getKidClasses();
+      ClazzSet result = this.getKidClasses().union(this.getKidClassesAsInterface());
 
       int oldSize = 0;
 
@@ -2580,7 +2580,7 @@ public class Clazz implements PropertyChangeInterface
 
       while (newSize > oldSize)
       {
-         result.addAll(result.getKidClasses());
+         result.addAll(result.getKidClasses().union(result.getKidClassesAsInterface()));
          oldSize = newSize;
          newSize = result.size();
       }

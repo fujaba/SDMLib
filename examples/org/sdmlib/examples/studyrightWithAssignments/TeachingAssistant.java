@@ -263,14 +263,14 @@ public class TeachingAssistant extends Student implements PropertyChangeInterfac
     */
    
    public static final String PROPERTY_ROOM = "room";
-   
+
    private Room room = null;
-   
+
    public Room getRoom()
    {
       return this.room;
    }
-   
+
    public boolean setRoom(Room value)
    {
       boolean changed = false;
@@ -298,13 +298,13 @@ public class TeachingAssistant extends Student implements PropertyChangeInterfac
       
       return changed;
    }
-   
+
    public TeachingAssistant withRoom(Room value)
    {
       setRoom(value);
       return this;
    } 
-   
+
    public Room createRoom()
    {
       Room value = new Room();
