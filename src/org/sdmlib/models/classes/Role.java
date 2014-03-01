@@ -433,16 +433,30 @@ public class Role implements PropertyChangeInterface
 
       if (pos < 0)
       {
-         StringBuilder text = new StringBuilder(
-            "   public TargetType getRoleName()\n" + 
-            "   {\n" + 
-            "      if (this.getPattern().getHasMatch())\n" + 
-            "      {\n" + 
-            "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n" + 
-            "      }\n" + 
-            "      return null;\n" + 
-            "   }\n\n");
-
+         StringBuilder text = new StringBuilder();
+         
+         if (elistPos < 0)
+         {
+            text.append
+            (       "   public TargetType getRoleName()\n"
+                  + "   {\n"
+                  + "      if (this.getPattern().getHasMatch())\n"
+                  + "      {\n"
+                  + "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n"
+                  + "      }\n" + "      return null;\n" + "   }\n\n");
+         }
+         else
+         {
+            text.append
+            (       "   public TargetType getRoleName()\n"
+                  + "   {\n"
+                  + "      if (this.getPattern().getHasMatch())\n"
+                  + "      {\n"
+                  + "         return ((ModelClass) this.getCurrentMatch()).getRoleNameSet();\n"
+                  + "      }\n" + "      return null;\n" + "   }\n\n");
+         }
+         
+         
          clazz.insertImport(parser, PatternLink.class.getName());
          
          String targetType = partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser);
@@ -1077,7 +1091,7 @@ public class Role implements PropertyChangeInterface
       
       ArrayList<SymTabEntry> symTabEntries = myParser.getSymTabEntriesFor(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
       
-      int elistPos = -1;
+      elistPos = -1;
       
       if (symTabEntries.size() > 0)
       {
@@ -1722,6 +1736,7 @@ public class Role implements PropertyChangeInterface
    //==========================================================================
    
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   private int elistPos;
    
    public PropertyChangeSupport getPropertyChangeSupport()
    {
