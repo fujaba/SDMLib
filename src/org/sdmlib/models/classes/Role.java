@@ -22,12 +22,14 @@
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -35,7 +37,6 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
 {
@@ -1074,36 +1075,96 @@ public class Role implements PropertyChangeInterface
          }
       }
       
+      ArrayList<SymTabEntry> symTabEntries = myParser.getSymTabEntriesFor(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
+      
+      int elistPos = -1;
+      
+      if (symTabEntries.size() > 0)
+      {
+         String type = symTabEntries.get(0).getType();
+         elistPos = type.indexOf(":EList<");
+      }
+      
+      if (elistPos >= 0)
+      {
+         pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Set()");
+
+         if (pos < 0)
+         {
+            if (! genClazz.getInterfaze())
+            {
+               text.append 
+               (     "  public type getPartnerRoleNameSet()\n" + 
+                     "  {\n" + 
+                     "     return new type().with(getPartnerRoleName());\n" + 
+                     "  }\n" + 
+                     "\n");
+            }
+            else
+            {
+               text.append
+               (     "\n   public type getPartnerRoleNameSet();" +
+                     "\n");
+            }
+         }
+      }
+      
       pos = myParser.indexOf(Parser.METHOD + ":addTo" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
+      
       
       if (pos < 0)
       {
          if (! genClazz.getInterfaze())
          {
-            text.append 
-            (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
-                  "\n   {" +
-                  "\n      boolean changed = false;" +
-                  "\n      " +
-                  "\n      if (value != null)" +
-                  "\n      {" +
-                  "\n         if (this.partnerRoleName == null)" +
-                  "\n         {" +
-                  "\n            this.partnerRoleName = new type();" +
-                  "\n         }" +
-                  "\n         " +
-                  "\n         changed = this.partnerRoleName.add (value);" +
-                  "\n         " +
-                  "\n         if (changed)" +
-                  "\n         {" +
-                  "\n            value.withMyRoleName(this);" +
-                  "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
-                  "\n         }" +
-                  "\n      }" +
-                  "\n         " +
-                  "\n      return changed;   " +
-                  "\n   }" +
-                  "\n");
+            if (elistPos < 0)
+            {
+               text.append 
+               (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
+                     "\n   {" +
+                     "\n      boolean changed = false;" +
+                     "\n      " +
+                     "\n      if (value != null)" +
+                     "\n      {" +
+                     "\n         if (this.partnerRoleName == null)" +
+                     "\n         {" +
+                     "\n            this.partnerRoleName = new type();" +
+                     "\n         }" +
+                     "\n         " +
+                     "\n         changed = this.partnerRoleName.add (value);" +
+                     "\n         " +
+                     "\n         if (changed)" +
+                     "\n         {" +
+                     "\n            value.withMyRoleName(this);" +
+                     "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+                     "\n         }" +
+                     "\n      }" +
+                     "\n         " +
+                     "\n      return changed;   " +
+                     "\n   }" +
+                     "\n");
+            }
+            else
+            {
+               text.append 
+               (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
+                     "\n   {" +
+                     "\n      boolean changed = false;" +
+                     "\n      " +
+                     "\n      if (value != null)" +
+                     "\n      {" +
+                     "\n         changed = this.getPartnerRoleName().add (value);" +
+                     "\n         " +
+                     "\n         if (changed)" +
+                     "\n         {" +
+                     "\n            value.withMyRoleName(this);" +
+                     "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
+                     "\n         }" +
+                     "\n      }" +
+                     "\n         " +
+                     "\n      return changed;   " +
+                     "\n   }" +
+                     "\n");
+            }
          }
          else
          {
@@ -1231,12 +1292,12 @@ public class Role implements PropertyChangeInterface
       
       String realPartnerClassName = partnerClassName;
       
-      if (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() == 1)
+      if (partnerRole.getClazz().getInterfaze() && partnerRole.getClazz().getKidClassesAsInterface().size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(this.getClazz().getKidClassesAsInterface().first().getName());
+         realPartnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getKidClassesAsInterface().first().getName());
       }
       
-      if (pos < 0 && ! (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() != 1))
+      if (pos < 0 && ! (partnerRole.getClazz().getInterfaze() && partnerRole.getClazz().getKidClassesAsInterface().size() != 1))
       {
          if (! genClazz.getInterfaze())
          {
@@ -1417,12 +1478,12 @@ public class Role implements PropertyChangeInterface
       
       String realPartnerClassName = partnerClassName;
       
-      if (this.getClazz().getInterfaze() && this.getClazz().getKidClassesAsInterface().size() == 1)
+      if (partnerRole.getClazz().getInterfaze() && partnerRole.getClazz().getKidClassesAsInterface().size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(this.getClazz().getKidClassesAsInterface().first().getName());
+         realPartnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getKidClassesAsInterface().first().getName());
       }
       
-      if (pos < 0)
+      if (pos < 0 && ! (partnerRole.getClazz().getInterfaze() && partnerRole.getClazz().getKidClassesAsInterface().size() != 1))
       {
          if (! genClazz.getInterfaze())
          {
