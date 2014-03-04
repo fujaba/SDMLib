@@ -23,6 +23,7 @@ public class GraphConverter implements Converter {
 	public static final String TARGETCARDINALITY= "targetcardinality";
 	public static final String SOURCEPROPERTY= "sourceproperty";
 	public static final String TARGETPROPERTY= "targetproperty";
+	public static final String HEADIMAGE= "headimage";
 	
 	@Override
 	public String convert(GraphList root, boolean removePackage) {
@@ -78,6 +79,10 @@ public class GraphConverter implements Converter {
 		if(node.has(JsonIdMap.CLASS)){
 			graphNode.withClassName(node.getString(JsonIdMap.CLASS));
 		}
+		if(node.has(HEADIMAGE)){
+			graphNode.withHeadImage(node.getString(HEADIMAGE));
+		}
+		
 		if(node.has(JsonIdMap.JSON_PROPS)){
 			JsonObject props = node.getJsonObject(JsonIdMap.JSON_PROPS);
 			for(Iterator<String> keys = props.keys();keys.hasNext();){
@@ -187,6 +192,9 @@ public class GraphConverter implements Converter {
 			return null;
 		}
 		JsonObject item = new JsonObject().withValue(TYP, NODE);
+		if (entity.getHeadImage()!=null) {
+			item.put(HEADIMAGE, entity.getHeadImage());
+		}
 		if (typ == GraphIdMap.OBJECT) {
 			item.put(ID, entity.getId() + " : " + entity.getClassName(shortName));
 		}else{
