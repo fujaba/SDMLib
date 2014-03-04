@@ -22,6 +22,7 @@
 package de.uniks.jism.test;
    
 import org.junit.Test;
+import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.graph.GraphConverter;
 import org.sdmlib.serialization.graph.GraphIdMap;
 import org.sdmlib.serialization.json.JsonArray;
@@ -106,7 +107,11 @@ public class GraphLudoTest
 	   JsonIdMap map = new JsonIdMap();
 	   map.withCreator(new SortedMsgCreator());
 	   
-	   JsonArray jsonArray = map.toJsonArray(root);
+	   
+	   JsonArray jsonArray = map.toJsonArray(root, new Filter().withFull(true));
+	   JsonObject item = jsonArray.get(map.getKey(root));
+	   item.put(GraphConverter.HEADIMAGE, "map.png");
+
 	   GraphConverter graphConverter = new GraphConverter();
       JsonObject objectModel=graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
       System.out.println(objectModel.toString(2));

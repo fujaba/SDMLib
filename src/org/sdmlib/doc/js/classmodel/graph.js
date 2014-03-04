@@ -66,6 +66,7 @@ Graph = function(json, canvasid) {
 	this.nodes = {};
 	this.edges = [];
 	this.canvasid = canvasid;
+	this.typ = json.typ;
 
 	for (var i in json.value.nodes) {
 		var node = json.value.nodes[i];
@@ -217,12 +218,15 @@ Graph.prototype = {
 		htmlElement.addEventListener("mousedown", startDrag, false);
 		htmlElement.addEventListener("mouseover", showinfo, false);
 		htmlElement.addEventListener("mouseout", fadeout, false);
-		var text;
-		
-		(graphtyp=="object"){
-			text = "<table border=0><tr><th><u>" + node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u></th></tr>";
+		var head="";
+		if(node.headimage){
+			head = "<tr><td><img src=\""+node.headimage+"\" /></td></tr>";
+		}
+		var text = "<table border=0>"+head;
+		if(graphtyp=="object"){
+			text = text + "<tr><th><u>" + node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u></th></tr>";
 		}else{
-			text = "<table border=0><tr><th>"+ node.id+"</th></tr>";
+			text = text + "<tr><th>"+ node.id+"</th></tr>";
 		}
 		if(node.attributes){
 			var first=true;

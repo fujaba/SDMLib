@@ -28,6 +28,7 @@ import org.sdmlib.serialization.interfaces.BaseEntityList;
 public class GraphNode implements BaseEntity {
 	private String className;
 	private String id;
+	private String headImage;
 	private boolean visible = true;
 	private ArrayList<Attribute> values = new ArrayList<Attribute>();
 
@@ -118,5 +119,14 @@ public class GraphNode implements BaseEntity {
 			return className;
 		}
 		return id;
+	}
+
+	public String getHeadImage() {
+		return headImage;
+	}
+
+	public GraphNode withHeadImage(String headImage) {
+		this.headImage = headImage;
+		return this;
 	}
 }

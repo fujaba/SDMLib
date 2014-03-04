@@ -23,7 +23,6 @@ package org.sdmlib.serialization.json;
 */
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.TextParsingException;
@@ -290,5 +289,17 @@ public class JsonArray extends EntityList {
 	@Override
 	public JsonArray getNewArray() {
 		return new JsonArray();
+	}
+	
+	public JsonObject get(String id){
+		for(Object item : values){
+			if(item instanceof JsonObject){
+				JsonObject json = (JsonObject) item;
+				if(json.has(JsonIdMap.ID) && json.getString(JsonIdMap.ID).equals(id)){
+					return json;
+				}
+			}
+		}
+		return null;
 	}
 }
