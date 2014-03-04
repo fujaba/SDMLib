@@ -27,6 +27,7 @@ import org.sdmlib.serialization.graph.GraphIdMap;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.jism.test.model.SortedMsg;
 import de.uniks.jism.test.model.SortedMsgCreator;
@@ -113,6 +114,12 @@ public class GraphLudoTest
       
       JsonObject clazzModel=graphConverter.convertToJson(GraphIdMap.CLASS, jsonArray, true);
       System.out.println(clazzModel.toString(2));
+      
+      Storyboard story = new Storyboard("examples");
+      
+      story.addObjectDiagram(root);
+      
+      story.dumpHTML();
  }
    
    

@@ -61,9 +61,12 @@ import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
+import org.sdmlib.serialization.graph.GraphConverter;
+import org.sdmlib.serialization.graph.GraphIdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.ConditionMap;
 import org.sdmlib.serialization.logic.ValuesMap;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
@@ -341,9 +344,18 @@ public class Storyboard implements PropertyChangeInterface
 
       // generate the html text
       String htmlText = "<html>\n" +
+            "<head>" +
             "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+            "<meta charset=\"utf-8\">\n" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<body>\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
+            "\r\n" + 
+            "<script src=\"includes/dagre.js\"></script>\r\n" + 
+            "<script src=\"includes/graph.js\"></script>\r\n" + 
+            "<script src=\"includes/layout_dagre.js\"></script>\r\n" + 
+            "<script src=\"includes/lines.js\"></script>\r\n" + 
+            "</head>" +
+            "<body onload=\"init();\">\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
             "$text\n" +
             "</body>\n" +
@@ -840,7 +852,7 @@ public class Storyboard implements PropertyChangeInterface
          // do we have a JsonIdMap?
          if (jsonIdMap == null)
          {
-            jsonIdMap = new GenericIdMap();
+            jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
          }
 
          SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);
@@ -930,11 +942,22 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-            .toImg(
-               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
-
-      this.addToSteps(imgLink);
+      // new diagram
+      GraphConverter graphConverter = new GraphConverter();
+      JsonObject objectModel=graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
+      
+      String text = 
+         "<script>\n" + 
+         "   var json = " + 
+               objectModel.toString(3) + 
+         "   \n" + 
+         "   var g = new Graph(json, \"canvas" + this.getStepCounter() +"\");\n" + 
+         "   var layouter = new GraphLayout.Dagre(g);\n" + 
+         "   layouter.layout(0,0);  \n" + 
+         "\n" + 
+         "</script>\n";
+      
+      this.add(text);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
