@@ -16,6 +16,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       PlaceHolderDescription.PROPERTY_OWNERS,
       PlaceHolderDescription.PROPERTY_MATCHES,
       PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
+      PlaceHolderDescription.PROPERTY_PREFIX,
    };
    
    public String[] getProperties()
@@ -56,4 +57,5 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       ((PlaceHolderDescription) entity).removeYou();
    }
 }
+
 

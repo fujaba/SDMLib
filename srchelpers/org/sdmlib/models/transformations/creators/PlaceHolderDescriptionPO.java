@@ -331,6 +331,60 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return this.startCreate().hasSubTemplate(tgt).endCreate();
    }
 
+   public PlaceHolderDescriptionPO hasPrefix(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_PREFIX)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO hasPrefix(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_PREFIX)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createPrefix(String value)
+   {
+      this.startCreate().hasPrefix(value).endCreate();
+      return this;
+   }
+   
+   public String getPrefix()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) getCurrentMatch()).getPrefix();
+      }
+      return null;
+   }
+   
+   public PlaceHolderDescriptionPO withPrefix(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((PlaceHolderDescription) getCurrentMatch()).setPrefix(value);
+      }
+      return this;
+   }
+   
 }
+
 
 

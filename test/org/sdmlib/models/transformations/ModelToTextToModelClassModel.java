@@ -34,7 +34,8 @@ public class ModelToTextToModelClassModel
                "textFragment", R.STRING,
                "value", R.STRING,
                "attrName", R.STRING,
-               "isKeyAttribute", R.BOOLEAN);
+               "isKeyAttribute", R.BOOLEAN,
+               "prefix", R.STRING);
       
       Clazz choiceTemplate = model.createClazz("ChoiceTemplate")
             .withSuperClass(template)

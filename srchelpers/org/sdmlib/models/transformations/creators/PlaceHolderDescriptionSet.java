@@ -452,6 +452,59 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       
       return patternObject;
    }
+   public StringList getPrefix()
+   {
+      StringList result = new StringList();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.add(obj.getPrefix());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasPrefix(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getPrefix()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasPrefix(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getPrefix()) <= 0 && obj.getPrefix().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet withPrefix(String value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.setPrefix(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 

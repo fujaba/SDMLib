@@ -74,6 +74,11 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return getMatches();
       }
 
+      if (PROPERTY_PREFIX.equalsIgnoreCase(attrName))
+      {
+         return getPrefix();
+      }
+
       return null;
    }
 
@@ -133,6 +138,12 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMatches((Match) value);
+         return true;
+      }
+
+      if (PROPERTY_PREFIX.equalsIgnoreCase(attrName))
+      {
+         setPrefix((String) value);
          return true;
       }
 
@@ -200,6 +211,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       _.append(" ").append(this.getTextFragment());
       _.append(" ").append(this.getValue());
       _.append(" ").append(this.getAttrName());
+      _.append(" ").append(this.getPrefix());
       return _.substring(1);
    }
 
@@ -556,6 +568,34 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       Template value = new Template();
       withSubTemplate(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PREFIX = "prefix";
+   
+   private String prefix;
+
+   public String getPrefix()
+   {
+      return this.prefix;
+   }
+   
+   public void setPrefix(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.prefix, value))
+      {
+         String oldValue = this.prefix;
+         this.prefix = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREFIX, oldValue, value);
+      }
+   }
+   
+   public PlaceHolderDescription withPrefix(String value)
+   {
+      setPrefix(value);
+      return this;
    } 
 }
 
