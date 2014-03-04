@@ -22,7 +22,6 @@ package org.sdmlib.serialization.graph;
  permissions and limitations under the Licence.
 */
 import java.util.ArrayList;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
@@ -103,6 +102,9 @@ public class GraphNode implements BaseEntity {
 
 	public void addValue(String property, String clazz, String value) {
 		values.add(new Attribute().withKey(property).withClazz(clazz).withValue(value));
+	}
+	public void addValue(Attribute attribute) {
+		values.add(attribute);
 	}
 
 	@Override

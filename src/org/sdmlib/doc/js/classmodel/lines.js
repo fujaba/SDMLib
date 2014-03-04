@@ -162,19 +162,19 @@ RectLine.prototype.draw = function(board, edge) {
 	}
 	
 	if(edge.sourceinfo){
-		this.addElement(board, edge.htmlElement, this.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, edge.sourceinfo));
+		this.addElement(board, edge.htmlElement, this.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, edge.sourceproperty));
 	}
 	if(edge.info){
 		this.addElement(board, edge.htmlElement, this.createInfo(this.info.pos.x, this.info.pos.y, edge.info));
 	}
 	if(edge.targetinfo){
-		this.addElement(board, edge.htmlElement, this.createInfo(this.targetinfo.pos.x, this.targetinfo.pos.y, edge.targetinfo));
+		this.addElement(board, edge.htmlElement, this.createInfo(this.targetinfo.pos.x, this.targetinfo.pos.y, edge.targetproperty));
 	}
 };
 RectLine.prototype.draw_arrow = function(board, elements) {
 	this.addElement(board, elements, this.createLine(this.top.x, this.top.y, this.endArrow.x, this.endArrow.y));
 	this.addElement(board, elements, this.createLine(this.bot.x, this.bot.y, this.endArrow.x, this.endArrow.y));
-	this.addElement(board, elements, this.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y));	
+	this.addElement(board, elements, this.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y));
 };
 LineModelCenter = function() {};
 LineModelCenter.Position={UP:"UP",
