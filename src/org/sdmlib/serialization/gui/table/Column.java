@@ -27,7 +27,7 @@ import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.GUIPosition;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class Column implements PeerMessage{
+public class Column {
 	public static final int AUTOWIDTH=-1;
 	public static final String PROPERTY_STYLE="style";
 	public static final String PROPERTY_ACTIVESTYLE="activeStyle";
@@ -207,7 +207,7 @@ public class Column implements PeerMessage{
 		this.defaultText = defaultText;
 		return this;
 	}
-	@Override
+
 	public Object get(String attribute) {
 		String attrName;
 		int pos = attribute.indexOf(".");
@@ -245,7 +245,6 @@ public class Column implements PeerMessage{
 		return null;
 	}
 	
-	@Override
 	public boolean set(String attribute, Object value) {
 		if (attribute.equalsIgnoreCase(PROPERTY_ATTRNAME)) {
 			withAttrName((String) value);

@@ -65,6 +65,10 @@ public class GraphNode implements BaseEntity {
 		return this;
 	}
 
+	public String getClassName(){
+		return className;
+	}
+	
 	public String getId() {
 		return id;
 	}

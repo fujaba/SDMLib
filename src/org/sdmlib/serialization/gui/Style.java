@@ -22,11 +22,10 @@ package org.sdmlib.serialization.gui;
  permissions and limitations under the Licence.
 */
 import java.util.HashMap;
-
 import org.sdmlib.serialization.interfaces.GUIPosition;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class Style implements PeerMessage, Cloneable{
+public class Style implements Cloneable{
 	/** The Constant PROPERTY_BOLD for Bold Attribute */
 	public static final String PROPERTY_BOLD = "bold";
 	/** The Bold value. */
@@ -128,7 +127,6 @@ public class Style implements PeerMessage, Cloneable{
 	/*
 	 * Generic Getter for Attributes
 	 */
-	@Override
 	public Object get(String attrName) {
 		String attribute;
 		int pos = attrName.indexOf(".");
@@ -164,7 +162,6 @@ public class Style implements PeerMessage, Cloneable{
 	/*
 	 * Generic Setter for Attributes
 	 */
-	@Override
 	public boolean set(String attribute, Object value) {
 		if (attribute.equalsIgnoreCase(PROPERTY_BOLD)) {
 			withBold((Boolean) value);

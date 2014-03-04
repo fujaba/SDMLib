@@ -140,32 +140,24 @@ public class GraphList implements BaseEntityList {
 		 addEdge(edge);
 		 return this;
 	}
+	public GraphList withEdge(String sourceName, String targetName) {
+		GraphEdge edge = new GraphEdge()
+			.withSource(new GraphNode().withClassName(sourceName))
+			.withTarget(new GraphNode().withClassName(targetName));
+		addEdge(edge);
+		return this;
+	}
+	
 	public boolean addEdge(GraphEdge edge) {
-		boolean found=false;
 		for(Iterator<GraphEdge> i = this.edges.iterator();i.hasNext();){
 			GraphEdge item = i.next();
-//			if(item.getSource()==edge.getSource().has())
+			if(item.getSource().has(edge.getTarget().getItems()) && item.getTarget().has(edge.getSource().getItems())){
+				// Back again
+				item.getSource().withCardinality(edge.getTarget().getCardinality());
+				item.getSource().withProperty(edge.getTarget().getProperty());
+				return false;
+			}
 		}
-//		edge.get
-		// Must be 
-//		EdgeLabels fwdEdgeLabels = edgeMap.get(srcId + ":" + tgtId);
-//		if (fwdEdgeLabels != null) {
-//			// add label to the headlabel
-//			fwdEdgeLabels.headlabel += "_" + label;
-//		} else {
-//			EdgeLabels bwdEdgeLabels = edgeMap.get(tgtId + ":" + srcId);
-//			if (bwdEdgeLabels != null) {
-//				// add label to the taillabel
-//				bwdEdgeLabels.taillabel += "_" + label;
-//			} else {
-//				// unknown edge, create it
-//				fwdEdgeLabels = new EdgeLabels();
-//				fwdEdgeLabels.headlabel = label;
-//				edgeMap.put(srcId + ":" + tgtId, fwdEdgeLabels);
-//			}
-//		}
-
-		
 		return this.edges.add(edge);
 	}
 

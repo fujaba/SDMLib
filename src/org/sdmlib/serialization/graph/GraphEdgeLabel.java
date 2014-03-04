@@ -40,4 +40,13 @@ public class GraphEdgeLabel {
 	public boolean has(GraphNode node){
 		return items.contains(node);
 	}
+	
+	public boolean has(Collection<GraphNode> nodes){
+		for(GraphNode node : nodes){
+			if(!items.contains(node)){
+				return false;
+			}
+		}
+		return true;
+	}
 }

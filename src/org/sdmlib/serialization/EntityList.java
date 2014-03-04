@@ -60,7 +60,6 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 		return this;
 	}
 
-	//FIXME
 	protected void initMap(){
 		this.values=new ArrayList<Object>();
 	}

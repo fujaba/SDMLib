@@ -48,6 +48,10 @@ public class GraphEdge {
 		return this;
 	}
 	
+	public GraphEdge withTarget(GraphNode item){
+		this.target = new GraphEdgeLabel().withItem(item);
+		return this;
+	}
 	public GraphEdge withTarget(GraphNode item, String cardinality, String property) {
 		this.target = new GraphEdgeLabel().withItem(item).withCardinality(cardinality).withProperty(property);
 		return this;

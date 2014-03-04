@@ -64,6 +64,6 @@ public interface BaseEntity {
 	public String toString(int indentFactor, int intent);
 
 	public BaseEntity withVisible(boolean value);
-
+	
 	public boolean isVisible();
 }
