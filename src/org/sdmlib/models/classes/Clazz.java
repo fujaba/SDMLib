@@ -310,6 +310,11 @@ public class Clazz implements PropertyChangeInterface
       {
          gernerateSuperAttributes(superClass, rootDir, helpersDir);
       }
+      
+      for (Clazz interfaze : this.getInterfaces())
+      {
+         gernerateSuperAttributes(interfaze, rootDir, helpersDir);
+      }
    }
 
    private void gernerateSuperAttributes(Clazz superClazz, String rootDir, String helpersDir) {
@@ -322,7 +327,12 @@ public class Clazz implements PropertyChangeInterface
       if (superClazz.getSuperClass() != null) {
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
       }
-   }
+
+      for (Clazz interfaze : superClazz.getInterfaces())
+      {
+         gernerateSuperAttributes(interfaze, rootDir, helpersDir);
+      }
+}
 
    private void insertInterfaceAttributesInCreatorClass(Clazz clazz, String rootDir, String helpersDir)
    {

@@ -435,7 +435,7 @@ public class Role implements PropertyChangeInterface
       {
          StringBuilder text = new StringBuilder();
          
-         if (elistPos < 0)
+         if (elistPos < 0 || partnerRole.getCard().equals(R.ONE.toString()))
          {
             text.append
             (       "   public TargetType getRoleName()\n"
@@ -1036,7 +1036,7 @@ public class Role implements PropertyChangeInterface
       
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
-      if (pos < 0)
+      if (pos < 0 && ! this.getClazz().isInterfaze())
       {
          text.append
          (  "\n   " +
@@ -1370,7 +1370,7 @@ public class Role implements PropertyChangeInterface
       
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
-      if (pos < 0)
+      if (pos < 0  && ! this.getClazz().isInterfaze())
       {
          text.append
          (  "\n   " +

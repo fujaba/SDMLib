@@ -203,18 +203,19 @@ public class Attribute implements PropertyChangeInterface
          Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
 
          insertPropertyInCreatorClass(creatorParser, clazz );
-
+         
          clazz.printCreatorFile(doGenerate);
-
-         Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
-         insertGetterInModelSetClass(modelSetParser, clazz);
-         insertSetterInModelSetClass(modelSetParser, clazz);
-         getClazz().printModelSetFile(doGenerate);
-
-         Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
-         insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
-         insertGetterInPatternObjectClass(patternObjectParser, clazz);
       }
+
+      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
+      insertGetterInModelSetClass(modelSetParser, clazz);
+      insertSetterInModelSetClass(modelSetParser, clazz);
+      getClazz().printModelSetFile(doGenerate);
+
+      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+      insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
+      insertGetterInPatternObjectClass(patternObjectParser, clazz);
+
       return this;
    }
 
@@ -981,7 +982,8 @@ public class Attribute implements PropertyChangeInterface
             "\n   " 
             );
       
-      if (!entryExist(Parser.ATTRIBUTE+":PROPERTY_" + getName().toUpperCase(), parser))
+      if (!entryExist(Parser.ATTRIBUTE+":PROPERTY_" + getName().toUpperCase(), parser)
+            && ! this.getClazz().isInterfaze())
       {
          text.append("" +
                "\n   public static final String PROPERTY_NAME = \"name\";" +
