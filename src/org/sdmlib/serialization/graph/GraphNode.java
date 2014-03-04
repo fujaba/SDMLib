@@ -22,6 +22,7 @@ package org.sdmlib.serialization.graph;
  permissions and limitations under the Licence.
 */
 import java.util.ArrayList;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
