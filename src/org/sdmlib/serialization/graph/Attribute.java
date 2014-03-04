@@ -3,7 +3,7 @@ package org.sdmlib.serialization.graph;
 
 public class Attribute {
 	private String key;
-	private String clazz;
+	private String className;
 	private String value;
 	
 	public String getKey() {
@@ -14,10 +14,10 @@ public class Attribute {
 		return this;
 	}
 	public String getClazz() {
-		return clazz;
+		return className;
 	}
 	public Attribute withClazz(String clazz) {
-		this.clazz = clazz;
+		this.className = clazz;
 		return this;
 	}
 	public String getValue() {
@@ -27,9 +27,12 @@ public class Attribute {
 		this.value = value;
 		return this;
 	}
-	public String getValue(String typ) {
+	public String getValue(String typ, boolean shortName) {
 		if(typ.equals(GraphIdMap.CLASS)){
-			return clazz;
+			if(!shortName || className==null || className.lastIndexOf(".")<0){
+				return className;
+			}
+			return className.substring(className.lastIndexOf(".") + 1);
 		}
 		return value;
 	}

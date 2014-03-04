@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class YUMLConverter implements Converter {
+	/** The Constant URL. */
+	public static final String URL = "http://yuml.me/diagram/class/";
+
 	@Override
 	public String convert(GraphList root, boolean removePackage){
 		String typ = root.getTyp();
@@ -89,8 +92,8 @@ public class YUMLConverter implements Converter {
 		return "[" + entity.getClassName(shortName) + parseEntityValues(entity, typ, shortString) + "]";
 	}
 
-	public String parseEntityValues(GraphNode entity, String typ, boolean shortString) {
-		if (shortString) {
+	public String parseEntityValues(GraphNode entity, String typ, boolean shortName) {
+		if (shortName) {
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
@@ -106,12 +109,12 @@ public class YUMLConverter implements Converter {
 			}
 			sb.append("|");
 			Attribute attribute = i.next();
-			sb.append(attribute.getKey() + splitter + attribute.getValue(typ));
+			sb.append(attribute.getKey() + splitter + attribute.getValue(typ, shortName));
 
 			while (i.hasNext()) {
 				attribute = i.next();
 				sb.append(";");
-				sb.append(attribute.getKey() + splitter + attribute.getValue(typ));
+				sb.append(attribute.getKey() + splitter + attribute.getValue(typ, shortName));
 			}
 		}
 		return sb.toString();

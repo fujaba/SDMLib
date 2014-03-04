@@ -24,7 +24,7 @@ package org.sdmlib.serialization.xml;
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.PeerMessage;
 
-public class XMLStyledEntity extends XMLEntity implements PeerMessage {
+public class XMLStyledEntity extends XMLEntity  {
 	private Style style=new Style();
 	
 	@Override
@@ -51,7 +51,6 @@ public class XMLStyledEntity extends XMLEntity implements PeerMessage {
 	}
 
 
-	@Override
 	public boolean set(String attribute, Object value) {
 		if(style.set(attribute, value)){
 			return true;

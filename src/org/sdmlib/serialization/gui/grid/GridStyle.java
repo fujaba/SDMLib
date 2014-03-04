@@ -46,7 +46,7 @@ public class GridStyle extends Style implements SendableEntity{
 	private int columnSpan=1;
 	private int column;
 	private int row;
-	protected ValueGrid grid;
+	private ValueGrid grid;
 	private LinkedHashMap<String, ArrayList<PropertyChangeListener>> listeners=new LinkedHashMap<String, ArrayList<PropertyChangeListener>>();
 	private String selectedBackground=null;
 
@@ -60,7 +60,11 @@ public class GridStyle extends Style implements SendableEntity{
 		
 	public int getRowEnd(){
 		if(heightExpression!=null){
-			int end = (int)0;
+			RegCalculator calculator=new RegCalculator().withStandard();
+			calculator.withConstants(COUNT, grid.getCountRows());
+			calculator.withConstants(POSITION, row);
+			double result = (double)calculator.calculate(heightExpression);
+			int end = (int)result;
 			withRowSpan(end-row);
 			return end;
 		}
@@ -69,7 +73,11 @@ public class GridStyle extends Style implements SendableEntity{
 	}
 	public int getColumnEnd(){
 		if(widthExpression!=null){
-			int end = (int)0;
+			RegCalculator calculator=new RegCalculator().withStandard();
+			calculator.withConstants(COUNT, grid.getCountColumns());
+			calculator.withConstants(POSITION, column);
+			double result = (double)calculator.calculate(widthExpression);
+			int end = (int)result;
 			withColumnSpan(end-column);
 			return end;
 		}

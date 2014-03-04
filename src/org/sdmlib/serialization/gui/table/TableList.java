@@ -37,7 +37,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
 
-public class TableList implements List<Object>, PeerMessage, SendableEntity {
+public class TableList implements List<Object>, SendableEntity {
 	public static final String PROPERTY_ITEMS = "items";
 	protected EntityComparator comparator;
 	protected LinkedHashSet<Object> list;

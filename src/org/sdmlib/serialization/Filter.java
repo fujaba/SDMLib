@@ -22,7 +22,6 @@ package org.sdmlib.serialization;
  permissions and limitations under the Licence.
 */
 import java.util.LinkedHashSet;
-
 import org.sdmlib.serialization.logic.Condition;
 import org.sdmlib.serialization.logic.ValuesMap;
 
@@ -113,11 +112,8 @@ public class Filter {
 		return newInstance.withConvertable(convertable).withIdFilter(idFilter).withPropertyRegard(property);
 	}
 	
-	
-	public boolean hasVisitedObjects(String id, Object element) {
-		if(id!=null){
-			return visitedObjects.contains(id);
-		}
+
+	public boolean hasVisitedObjects(Object element) {
 		return visitedObjects.contains(element);
 	}
 	

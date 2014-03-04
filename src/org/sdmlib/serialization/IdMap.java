@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
@@ -540,4 +539,7 @@ public abstract class IdMap extends AbstractMap implements Map<String, Object> {
 	public abstract BaseEntity encode(Object value, Filter filter);
 	
 	public abstract Object decode(BaseEntity value);
+	public abstract Object decode(String value);
+	public abstract BaseEntity getPrototyp();
+	
 }
