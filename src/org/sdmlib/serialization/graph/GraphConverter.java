@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -35,15 +34,41 @@ public class GraphConverter implements Converter {
 	}
 	public JsonObject convertToJson(String typ, JsonArray list, boolean removePackage){
 		GraphList root = new GraphList().withTyp(typ);
+		HashMap<GraphNode, ArrayList<Attribute>> attributes = new HashMap<GraphNode, ArrayList<Attribute>>();
 		for(Object item  : list){
 			if(item instanceof JsonObject){
-				parseJsonObject(root, (JsonObject) item);
+				parseJsonObject(root, (JsonObject) item, attributes);
+			}
+		}
+		
+		// Iteration of all primitive Attributes
+		for(Iterator<Entry<GraphNode, ArrayList<Attribute>>> iterator = attributes.entrySet().iterator();iterator.hasNext();){
+			Entry<GraphNode, ArrayList<Attribute>> node = iterator.next();
+			for(Attribute attribute : node.getValue()){
+				boolean addValue=true;
+				for(GraphEdge edge : root.getEdges()){
+					if(edge.getSource().has(node.getKey())){
+						if(attribute.getKey().equals(edge.getSource().getProperty())){
+							addValue=false;
+							break;
+						}
+					}
+					if(edge.getTarget().has(node.getKey())){
+						if(attribute.getKey().equals(edge.getTarget().getProperty())){
+							addValue=false;
+							break;
+						}
+					}
+				}
+				if(addValue){
+					node.getKey().addValue(attribute);
+				}
 			}
 		}
 		return convertToJson(root, removePackage);
 	}
 	
-	public GraphNode parseJsonObject(GraphList root, JsonObject node){
+	public GraphNode parseJsonObject(GraphList root, JsonObject node, HashMap<GraphNode, ArrayList<Attribute>> attributes){
 		String id = node.getString(JsonIdMap.ID);
 		GraphNode graphNode = root.getById(id);
 		if(graphNode==null){
@@ -60,7 +85,7 @@ public class GraphConverter implements Converter {
 				Object value = props.get(key);
 				if(value instanceof JsonObject) {
 					// Must be a Link to 1
-					GraphNode newNode = parseJsonObject(root, (JsonObject)value);
+					GraphNode newNode = parseJsonObject(root, (JsonObject)value, attributes);
 					root.addEdge(new GraphEdge().withSource(graphNode).withTarget(newNode, GraphIdMap.ONE, key));
 				}else if(value instanceof JsonArray) {
 					// Must be a Link to n
@@ -68,7 +93,7 @@ public class GraphConverter implements Converter {
 					StringBuilder sb = new StringBuilder();
 					for(Object item : array){
 						if(item instanceof JsonObject){
-							GraphNode newNode = parseJsonObject(root, (JsonObject)item);
+							GraphNode newNode = parseJsonObject(root, (JsonObject)item, attributes);
 							root.addEdge(new GraphEdge().withSource(graphNode).withTarget(newNode, GraphIdMap.MANY, key));							
 						}else{
 							if(sb.length()>0){
@@ -79,7 +104,11 @@ public class GraphConverter implements Converter {
 						}
 					}
 				}else{
-					graphNode.addValue(key, value.getClass().getName(), value.toString());
+					Attribute attribute = new Attribute().withKey(key).withClazz(value.getClass().getName()).withValue(value.toString());
+					if(attributes.get(graphNode)==null){
+						attributes.put(graphNode, new ArrayList<Attribute>());
+					}
+					attributes.get(graphNode).add(attribute);
 				}
 				
 			}
