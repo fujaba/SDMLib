@@ -941,23 +941,30 @@ public class Storyboard implements PropertyChangeInterface
          largestJsonArray = jsonArray;
          largestRoot = root;
       }
+      
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+            .toImg(
+               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      
+      this.addToSteps(imgLink);
+      
 
-      // new diagram
-      GraphConverter graphConverter = new GraphConverter();
-      JsonObject objectModel=graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
-      
-      String text = 
-         "<script>\n" + 
-         "   var json = " + 
-               objectModel.toString(3) + 
-         "   \n" + 
-         "   var g = new Graph(json, \"canvas" + this.getStepCounter() +"\");\n" + 
-         "   var layouter = new GraphLayout.Dagre(g);\n" + 
-         "   layouter.layout(0,0);  \n" + 
-         "\n" + 
-         "</script>\n";
-      
-      this.add(text);
+      //      // new diagram
+      //      GraphConverter graphConverter = new GraphConverter();
+      //      JsonObject objectModel=graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
+      //      
+      //      String text = 
+      //         "<script>\n" + 
+      //         "   var json = " + 
+      //               objectModel.toString(3) + 
+      //         "   \n" + 
+      //         "   var g = new Graph(json, \"canvas" + this.getStepCounter() +"\");\n" + 
+      //         "   var layouter = new GraphLayout.Dagre(g);\n" + 
+      //         "   layouter.layout(0,0);  \n" + 
+      //         "\n" + 
+      //         "</script>\n";
+      //      
+      //      this.add(text);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)

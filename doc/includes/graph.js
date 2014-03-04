@@ -66,6 +66,7 @@ Graph = function(json, canvasid) {
 	this.nodes = {};
 	this.edges = [];
 	this.canvasid = canvasid;
+	this.typ = json.typ;
 
 	for (var i in json.value.nodes) {
 		var node = json.value.nodes[i];
@@ -105,7 +106,7 @@ Graph = function(json, canvasid) {
 	this.board = document.getElementById(this.canvasid);
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
-		var html = this.getHTMLNode(node, i);
+		var html = this.getHTMLNode(node, i, this.typ);
 		this.board.appendChild(html);
 		node.width=html.offsetWidth;
 		node.height=html.offsetHeight;
@@ -183,7 +184,7 @@ Graph.prototype = {
 		this.board.style.width = width;
 		this.board.style.height = height;
 		for(i in list) {
-			this.board.appendChild( this.getHTMLNode(list[i], i) );
+			this.board.appendChild( this.getHTMLNode(list[i], i, this.typ) );
 		}
 		this.drawLines();
 		this.infoBox = document.createElement("div");
@@ -207,7 +208,7 @@ Graph.prototype = {
 		this.infoBox.style.KhtmlOpacity = 100;
 		this.infoBox.style.display="";
 	},
-	getHTMLNode : function(node, i){
+	getHTMLNode : function(node, i, graphtyp){
 		var htmlElement = document.createElement("div");
 		htmlElement.className="classElement";
 		htmlElement.style.left=node.x+"px";
@@ -217,8 +218,16 @@ Graph.prototype = {
 		htmlElement.addEventListener("mousedown", startDrag, false);
 		htmlElement.addEventListener("mouseover", showinfo, false);
 		htmlElement.addEventListener("mouseout", fadeout, false);
-		//var text="<div class='classElement' style='left:"+node.x+"px;top:"+node.y+"px;z-index:5000;' onmousedown='startDrag(this);' onmouseover='showinfo(this);' onmouseout='fadeout();'>";
-		var text= "<table border=0><tr><th>"+ node.id+"</th></tr>";
+		var head="";
+		if(node.headimage){
+			head = "<tr><td><img src=\""+node.headimage+"\" /></td></tr>";
+		}
+		var text = "<table border=0>"+head;
+		if(graphtyp=="object"){
+			text = text + "<tr><th><u>" + node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u></th></tr>";
+		}else{
+			text = text + "<tr><th>"+ node.id+"</th></tr>";
+		}
 		if(node.attributes){
 			var first=true;
 			for(var a in node.attributes){
