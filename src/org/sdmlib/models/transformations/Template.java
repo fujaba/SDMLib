@@ -437,11 +437,16 @@ public class Template implements PropertyChangeInterface
       this.currentPosInExpandedText = valueStartPos;
       return this;
    }
+   
+   public Match parseOnceNew()
+   {
+	   this.currentPosInExpandedText = 0;
+	   return parseOnce();
+   }
 
    public MatchSet parse()
    {
       MatchSet result = new MatchSet();
-
       if ( ! isList())
       {
          Match subMatch = parseOnce();
