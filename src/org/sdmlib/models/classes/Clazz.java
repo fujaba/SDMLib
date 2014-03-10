@@ -64,17 +64,6 @@ public class Clazz implements PropertyChangeInterface
    {
       this();
 
-      if (getClassModel() != null)
-      {
-         if(name.indexOf('.') < 0)
-         {
-            name = "" + getClassModel().getPackageName()  + "." + name;
-         }
-         else if (getClassModel().getPackageName() == null)
-         {
-            getClassModel().setPackageName(CGUtil.packageName(name));
-         }
-      }
       setName(name);
 
       this.withAttributes(attrNameTypePairs);
@@ -110,6 +99,18 @@ public class Clazz implements PropertyChangeInterface
 
    public void setName(String name)
    {
+      if (getClassModel() != null)
+      {
+         if(name.indexOf('.') < 0 && getClassModel().getPackageName() != null)
+         {
+            name = "" + getClassModel().getPackageName()  + "." + name;
+         }
+         else if (getClassModel().getPackageName() == null)
+         {
+            getClassModel().setPackageName(CGUtil.packageName(name));
+         }
+      }
+      
       this.name = name;
    }
 

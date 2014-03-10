@@ -4,7 +4,8 @@
   "prop":{
     "name":"SDMLibProject",
     "phase":"active",
-    "hoursSpend":467,
+    "hoursRemaining":28,
+    "hoursSpend":469,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -44,7 +45,8 @@
       {"id":"KE.K96"},
       {"id":"KE.K97"},
       {"id":"KE.K105"},
-      {"id":"KE.K106"}
+      {"id":"KE.K106"},
+      {"id":"KE.K108"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -433,10 +435,11 @@
     "name":"ExtendStoryboardByAddToDoMethod",
     "phase":"done",
     "lastDeveloper":"zuendorf",
-    "hoursSpend":1,
+    "hoursSpend":3,
     "parent":{"id":"KE.K1"},
     "logEntries":[
-    {"id":"KE.L69"}
+    {"id":"KE.L69"},
+      {"id":"KE.L114"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -648,6 +651,74 @@
     "name":"SimpleGraph",
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K107",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"GenerateTransitiveClosureGetter",
+    "phase":"backlog",
+    "hoursRemaining":4,
+    "parent":{"id":"KE.K108"},
+    "logEntries":[
+    {"id":"KE.L109"}
+    ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K108",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"ToDo",
+    "phase":"active",
+    "hoursRemaining":28,
+    "parent":{"id":"KE.K1"},
+    "subentries":[
+    {"id":"KE.K107"},
+      {"id":"KE.K110"},
+      {"id":"KE.K112"},
+      {"id":"KE.K115"}
+    ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K110",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"MiniTutorials",
+    "phase":"backlog",
+    "hoursRemaining":12,
+    "parent":{"id":"KE.K108"},
+    "logEntries":[
+    {"id":"KE.L111"}
+    ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K112",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"FeatureList",
+    "phase":"backlog",
+    "hoursRemaining":6,
+    "parent":{"id":"KE.K108"},
+    "logEntries":[
+    {"id":"KE.L113"}
+    ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K115",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"POJO Code enhancer",
+    "phase":"backlog",
+    "hoursRemaining":6,
+    "parent":{"id":"KE.K108"},
+    "logEntries":[
+    {"id":"KE.L116"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -1222,5 +1293,56 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"works great"
+  }
+},  {
+  "id":"KE.L109",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"06.03.2014 14:05:42",
+    "hoursRemainingInTotal":4,
+    "kanbanEntry":{"id":"KE.K107"},
+    "developer":"zuendorf",
+    "phase":"backlog",
+    "comment":"high priority"
+  }
+},  {
+  "id":"KE.L111",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"06.03.2014 14:13:42",
+    "hoursRemainingInTotal":12,
+    "kanbanEntry":{"id":"KE.K110"},
+    "developer":"zuendorf",
+    "phase":"backlog"
+  }
+},  {
+  "id":"KE.L113",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"06.03.2014 14:25:42",
+    "hoursRemainingInTotal":6,
+    "kanbanEntry":{"id":"KE.K112"},
+    "developer":"zuendorf",
+    "phase":"backlog"
+  }
+},  {
+  "id":"KE.L114",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"21.08.2012 17:53:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K68"},
+    "developer":"zuendorf",
+    "phase":"done"
+  }
+},  {
+  "id":"KE.L116",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"06.03.2014 22:25:42",
+    "hoursRemainingInTotal":6,
+    "kanbanEntry":{"id":"KE.K115"},
+    "developer":"zuendorf",
+    "phase":"backlog"
   }
 }]
