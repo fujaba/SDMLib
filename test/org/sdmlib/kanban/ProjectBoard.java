@@ -38,6 +38,35 @@ import org.sdmlib.storyboards.StoryboardWall;
 public class ProjectBoard
 {
    @Test
+   public void testProjectManagement()
+   {
+      Storyboard story = new Storyboard();
+
+      story = new Storyboard("test", "GenerateTransitiveClosureGetter");
+      story.setSprint("ToDo");
+      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
+      story.dumpHTML();
+      
+      story = new Storyboard("test", "MiniTutorials");
+      story.setSprint("ToDo");
+      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:13:42", 0, 12, "high priority");
+      story.dumpHTML();
+      
+      story = new Storyboard("test", "FeatureList");
+      story.setSprint("ToDo");
+      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:25:42", 0, 6, "medium priority");
+      story.dumpHTML();
+      
+      story = new Storyboard("test", "POJO Code enhancer");
+      story.setSprint("ToDo");
+      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 22:25:42", 0, 6, "high priority");
+      story.dumpHTML();
+      
+      
+      
+   }
+   
+   @Test
    public void testExtendStoryboardByAddToDoMethod()
    {
       Storyboard storyboard = new Storyboard("test");
@@ -57,17 +86,18 @@ public class ProjectBoard
    @Test
    public void testTodoEntries()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard story = new Storyboard("test");
       
-      storyboard.add("Internal things.");
+      story.add("Internal things.");
       
-      storyboard.add("It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
+      story.add("It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
          , DONE, "zuendorf", "08.10.2013 13:30:42", 1, 0);
       
-      storyboard.addToDo("ExtendStoryboardByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
+      story.addToDo("ExtendStoryboardByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
       .linkToTest("test", this.getClass().getName());
       
-      storyboard.dumpHTML();
+      story.dumpHTML();
+      
    }
    
    
