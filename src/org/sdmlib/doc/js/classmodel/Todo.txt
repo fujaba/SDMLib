@@ -1,4 +1,5 @@
-- Raster
-- Nodes ausblenden
-- Export in SVG
+- Selbstassoziationen
+- Pathnodes
 - Rechteckige Pfeile
+- Nodes ausblenden
+- beschriftung
