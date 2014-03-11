@@ -23,18 +23,23 @@ package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SharedSpace;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.List;
+
 import org.sdmlib.replication.creators.ReplicationNodeSet;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.models.modelsets.longList;
+
 import java.util.Collection;
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 
 public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implements org.sdmlib.models.modelsets.ModelSet
@@ -224,7 +229,7 @@ public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implement
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<SharedSpace>)value);
+         this.putAll((Map<String, SharedSpace>)value);
       }
       else if (value != null)
       {
@@ -241,6 +246,8 @@ public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace> implement
    }
 
 }
+
+
 
 
 

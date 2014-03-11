@@ -24,16 +24,19 @@ package org.sdmlib.models.patterns.example.creators;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.patterns.example.Node;
 import org.sdmlib.models.patterns.example.SimpleState;
 import org.sdmlib.models.patterns.example.creators.SimpleStateSet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.patterns.example.creators.NodeSet;
 
-public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.modelsets.ModelSet
+public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -226,6 +229,8 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
       return patternObject;
    }
 
+
+
    public NodeSet getNextTransitive()
    {
       NodeSet todo = new NodeSet().with(this);
@@ -274,6 +279,10 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
    }
 
 }
+
+
+
+
 
 
 

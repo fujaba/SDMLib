@@ -28,15 +28,18 @@ import org.sdmlib.examples.patternrewriteops.Person;
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.examples.patternrewriteops.Train;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.patternrewriteops.creators.TrainSet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 import org.sdmlib.examples.patternrewriteops.creators.SignalFlagSet;
 
-public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.models.modelsets.ModelSet
+public class StationSet extends SDMSet<Station> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -247,6 +250,7 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
       return patternObject;
    }
 
+
    public StationSet getNextTransitive()
    {
       StationSet todo = new StationSet().with(this);
@@ -263,7 +267,10 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
          {
             result.add(current);
             
-            todo.with(current.getNext().minus(result));
+            if ( ! result.contains(current.getNext()))
+            {
+               todo.with(current.getNext());
+            }
          }
       }
       
@@ -287,7 +294,10 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
          {
             result.add(current);
             
-            todo.with(current.getPrev().minus(result));
+            if ( ! result.contains(current.getPrev()))
+            {
+               todo.with(current.getPrev());
+            }
          }
       }
       
@@ -295,6 +305,9 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
    }
 
 }
+
+
+
 
 
 

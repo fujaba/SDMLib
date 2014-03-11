@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,111 +21,24 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
+import java.util.List;
 import org.sdmlib.examples.ludo.creators.LudoSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.Player;
 
-public class DiceSet extends LinkedHashSet<Dice> implements org.sdmlib.models.modelsets.ModelSet
+public class DiceSet extends SDMSet<Dice>
 {
 
 
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Dice elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.examples.ludo.Dice";
-   }
-
-
-   public intList getValue()
-   {
-      intList result = new intList();
-      
-      for (Dice obj : this)
-      {
-         result.add(obj.getValue());
-      }
-      
-      return result;
-   }
-
-   public DiceSet withValue(int value)
-   {
-      for (Dice obj : this)
-      {
-         obj.setValue(value);
-      }
-      
-      return this;
-   }
-
-   public LudoSet getGame()
-   {
-      LudoSet result = new LudoSet();
-      
-      for (Dice obj : this)
-      {
-         result.add(obj.getGame());
-      }
-      
-      return result;
-   }
-
-   public DiceSet withGame(Ludo value)
-   {
-      for (Dice obj : this)
-      {
-         obj.withGame(value);
-      }
-      
-      return this;
-   }
-
-   public PlayerSet getPlayer()
-   {
-      PlayerSet result = new PlayerSet();
-      
-      for (Dice obj : this)
-      {
-         result.add(obj.getPlayer());
-      }
-      
-      return result;
-   }
-
-   public DiceSet withPlayer(Player value)
-   {
-      for (Dice obj : this)
-      {
-         obj.withPlayer(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public DicePO startModelPattern()
+   public DicePO hasDicePO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
       
@@ -137,6 +50,13 @@ public class DiceSet extends LinkedHashSet<Dice> implements org.sdmlib.models.mo
       pattern.findMatch();
       
       return patternObject;
+   }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.Dice";
    }
 
 
@@ -160,22 +80,157 @@ public class DiceSet extends LinkedHashSet<Dice> implements org.sdmlib.models.mo
       return this;
    }
 
-
-
-   public DicePO hasDicePO()
+   public intList getValue()
    {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
+      intList result = new intList();
       
-      DicePO patternObject = pattern.hasElementDicePO();
+      for (Dice obj : this)
+      {
+         result.add(obj.getValue());
+      }
       
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return result;
    }
+
+   public DiceSet hasValue(int value)
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DiceSet hasValue(int lower, int upper)
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DiceSet withValue(int value)
+   {
+      for (Dice obj : this)
+      {
+         obj.setValue(value);
+      }
+      
+      return this;
+   }
+
+   public LudoSet getGame()
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Dice obj : this)
+      {
+         result.with(obj.getGame());
+      }
+      
+      return result;
+   }
+
+   public DiceSet hasGame(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      DiceSet answer = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (neighbors.contains(obj.getGame()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public DiceSet withGame(Ludo value)
+   {
+      for (Dice obj : this)
+      {
+         obj.withGame(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet getPlayer()
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Dice obj : this)
+      {
+         result.with(obj.getPlayer());
+      }
+      
+      return result;
+   }
+
+   public DiceSet hasPlayer(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      DiceSet answer = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (neighbors.contains(obj.getPlayer()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public DiceSet withPlayer(Player value)
+   {
+      for (Dice obj : this)
+      {
+         obj.withPlayer(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
 
 
 

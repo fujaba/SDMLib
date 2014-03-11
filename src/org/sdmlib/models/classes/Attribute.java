@@ -522,7 +522,7 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" + 
                   "\n" );
          
-         if (! this.getType().equalsIgnoreCase("boolean"))
+         if ( "boolean Object".indexOf(this.getType()) < 0)
          {
         	 text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 

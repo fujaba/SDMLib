@@ -145,7 +145,7 @@ public class ClassModel implements PropertyChangeInterface
       // for attribute types like java.util.Date we add a class with that name and mark it as wrapped. This generates the required DateSet class.
       for (String typeName : this.getClasses().getAttributes().getType())
       {
-         int pos = "int float double long String boolean".indexOf(typeName);
+         int pos = "int float double long String boolean Object".indexOf(typeName);
          
          if (pos < 0)
          {

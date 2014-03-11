@@ -552,30 +552,6 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
 
-   public ClazzSet getSuperClassTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getSuperClass().minus(result));
-         }
-      }
-      
-      return result;
-   }
-
-
    public ClazzSet getInterfacesTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
@@ -599,7 +575,38 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
+
+   public ClazzSet getSuperClassTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getSuperClass()))
+            {
+               todo.with(current.getSuperClass());
+            }
+         }
+      }
+      
+      return result;
+   }
+
 }
+
+
+
+
 
 
 

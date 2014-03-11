@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,41 +21,64 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.ludo.Pawn;
-import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.ludo.creators.PlayerSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.Field;
 
-public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.modelsets.ModelSet
+public class PawnSet extends SDMSet<Pawn>
 {
 
 
-   public String toString()
+   public PawnPO hasPawnPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
       
-      for (Pawn elem : this)
-      {
-         stringList.add(elem.toString());
-      }
+      PawnPO patternObject = pattern.hasElementPawnPO();
       
-      return "(" + stringList.concat(", ") + ")";
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludo.Pawn";
    }
 
+
+   public PawnSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Pawn>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Pawn) value);
+      }
+      
+      return this;
+   }
+   
+   public PawnSet without(Pawn value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public StringList getColor()
    {
@@ -64,6 +87,36 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       for (Pawn obj : this)
       {
          result.add(obj.getColor());
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasColor(String value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasColor(String lower, String upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -91,6 +144,36 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       return result;
    }
 
+   public PawnSet hasX(int value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasX(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PawnSet withX(int value)
    {
       for (Pawn obj : this)
@@ -113,6 +196,36 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       return result;
    }
 
+   public PawnSet hasY(int value)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasY(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PawnSet withY(int value)
    {
       for (Pawn obj : this)
@@ -129,10 +242,36 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       
       for (Pawn obj : this)
       {
-         result.add(obj.getPlayer());
+         result.with(obj.getPlayer());
       }
       
       return result;
+   }
+
+   public PawnSet hasPlayer(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PawnSet answer = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (neighbors.contains(obj.getPlayer()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public PawnSet withPlayer(Player value)
@@ -151,10 +290,36 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       
       for (Pawn obj : this)
       {
-         result.add(obj.getPos());
+         result.with(obj.getPos());
       }
       
       return result;
+   }
+
+   public PawnSet hasPos(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PawnSet answer = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (neighbors.contains(obj.getPos()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public PawnSet withPos(Field value)
@@ -167,59 +332,9 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       return this;
    }
 
-
-
-   public PawnPO startModelPattern()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      PawnPO patternObject = pattern.hasElementPawnPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public PawnSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Pawn>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Pawn) value);
-      }
-      
-      return this;
-   }
-   
-   public PawnSet without(Pawn value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public PawnPO hasPawnPO()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      PawnPO patternObject = pattern.hasElementPawnPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
 }
+
+
 
 
 

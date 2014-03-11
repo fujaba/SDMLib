@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,44 +21,66 @@
    
 package org.sdmlib.examples.studyright.creators;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-
-import org.sdmlib.examples.studyright.Assignment;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyright.Room;
-import org.sdmlib.examples.studyright.Student;
-import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyright.creators.UniversitySet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyright.University;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.creators.AssignmentSet;
+import org.sdmlib.examples.studyright.Assignment;
 
-public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
+public class RoomSet extends SDMSet<Room>
 {
 
 
-   public String toString()
+   public RoomPO hasRoomPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
       
-      for (Room elem : this)
-      {
-         stringList.add(elem.toString());
-      }
+      RoomPO patternObject = pattern.hasElementRoomPO();
       
-      return "(" + stringList.concat(", ") + ")";
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyright.Room";
+   }
+
+
+   public RoomSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Room>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Room) value);
+      }
+      
+      return this;
+   }
+   
+   public RoomSet without(Room value)
+   {
+      this.remove(value);
+      return this;
    }
 
    
@@ -85,6 +107,36 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return result;
    }
 
+   public RoomSet hasRoomNo(String value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value.equals(obj.getRoomNo()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasRoomNo(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getRoomNo()) <= 0 && obj.getRoomNo().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withRoomNo(String value)
    {
       for (Room obj : this)
@@ -94,23 +146,6 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       return this;
    }
-   
-   public RoomSet hasRoomNo(String... values)
-   {
-      RoomSet result = new RoomSet();
-      
-      List<String> valueList = Arrays.asList(values);
-      
-      for (Room room : this)
-      {
-         if (valueList.contains(room.getRoomNo()))
-         {
-            result.add(room);
-         }
-      }
-      
-      return result;
-   }
 
    public intList getCredits()
    {
@@ -119,6 +154,36 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       for (Room obj : this)
       {
          result.add(obj.getCredits());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasCredits(int value)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasCredits(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -140,10 +205,36 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       for (Room obj : this)
       {
-         result.add(obj.getUni());
+         result.with(obj.getUni());
       }
       
       return result;
+   }
+
+   public RoomSet hasUni(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (neighbors.contains(obj.getUni()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public RoomSet withUni(University value)
@@ -162,7 +253,57 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       for (Room obj : this)
       {
-         result.addAll(obj.getNeighbors());
+         result.with(obj.getNeighbors());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasNeighbors(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getNeighbors()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public RoomSet getNeighborsTransitive()
+   {
+      RoomSet todo = new RoomSet().with(this);
+      
+      RoomSet result = new RoomSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Room current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNeighbors().minus(result));
+         }
       }
       
       return result;
@@ -194,10 +335,36 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       for (Room obj : this)
       {
-         result.addAll(obj.getStudents());
+         result.with(obj.getStudents());
       }
       
       return result;
+   }
+
+   public RoomSet hasStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public RoomSet withStudents(Student value)
@@ -226,10 +393,36 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       for (Room obj : this)
       {
-         result.addAll(obj.getAssignments());
+         result.with(obj.getAssignments());
       }
       
       return result;
+   }
+
+   public RoomSet hasAssignments(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAssignments()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public RoomSet withAssignments(Assignment value)
@@ -252,84 +445,7 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       return this;
    }
 
-
-
-   public RoomPO startModelPattern()
-   {
-      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
-      RoomPO patternObject = pattern.hasElementRoomPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public RoomSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Room>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Room) value);
-      }
-      
-      return this;
-   }
-   
-   public RoomSet without(Room value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public RoomPO hasRoomPO()
-   {
-      org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
-      RoomPO patternObject = pattern.hasElementRoomPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-   public RoomSet getNeighborsTransitive()
-   {
-      RoomSet todo = new RoomSet().with(this);
-      
-      RoomSet result = new RoomSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Room current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getNeighbors().minus(result));
-         }
-      }
-      
-      return result;
-   }
-
 }
-
 
 
 

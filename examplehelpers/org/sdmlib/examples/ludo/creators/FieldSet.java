@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,45 +21,69 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.awt.Point;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.ludo.Field;
-import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Pawn;
-import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import java.util.List;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.PointSet;
+import java.awt.Point;
 import org.sdmlib.examples.ludo.creators.LudoSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.Ludo;
 import org.sdmlib.examples.ludo.creators.FieldSet;
 import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.creators.PawnSet;
+import org.sdmlib.examples.ludo.Pawn;
 
-public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.modelsets.ModelSet
+public class FieldSet extends SDMSet<Field>
 {
 
 
-   public String toString()
+   public FieldPO hasFieldPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
       
-      for (Field elem : this)
-      {
-         stringList.add(elem.toString());
-      }
+      FieldPO patternObject = pattern.hasElementFieldPO();
       
-      return "(" + stringList.concat(", ") + ")";
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludo.Field";
    }
 
+
+   public FieldSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Field>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Field) value);
+      }
+      
+      return this;
+   }
+   
+   public FieldSet without(Field value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public StringList getColor()
    {
@@ -68,6 +92,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       for (Field obj : this)
       {
          result.add(obj.getColor());
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasColor(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getColor()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasColor(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -95,6 +149,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return result;
    }
 
+   public FieldSet hasKind(String value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasKind(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public FieldSet withKind(String value)
    {
       for (Field obj : this)
@@ -112,6 +196,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       for (Field obj : this)
       {
          result.add(obj.getX());
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasX(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getX())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasX(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -139,6 +253,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return result;
    }
 
+   public FieldSet hasY(int value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getY())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasY(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public FieldSet withY(int value)
    {
       for (Field obj : this)
@@ -161,6 +305,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       return result;
    }
 
+   public FieldSet hasPoint(java.awt.Point value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getPoint())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasPoint(java.awt.Point lower, java.awt.Point upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.x <= obj.getPoint().x && obj.getPoint().x <= upper.x)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public FieldSet withPoint(Point value)
    {
       for (Field obj : this)
@@ -177,10 +351,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getGame());
+         result.with(obj.getGame());
       }
       
       return result;
+   }
+
+   public FieldSet hasGame(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getGame()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public FieldSet withGame(Ludo value)
@@ -199,11 +399,38 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getNext());
+         result.with(obj.getNext());
       }
       
       return result;
    }
+
+   public FieldSet hasNext(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getNext()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
 
    public FieldSet withNext(Field value)
    {
@@ -221,11 +448,38 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getPrev());
+         result.with(obj.getPrev());
       }
       
       return result;
    }
+
+   public FieldSet hasPrev(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getPrev()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
 
    public FieldSet withPrev(Field value)
    {
@@ -243,11 +497,38 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getLanding());
+         result.with(obj.getLanding());
       }
       
       return result;
    }
+
+   public FieldSet hasLanding(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getLanding()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
 
    public FieldSet withLanding(Field value)
    {
@@ -265,11 +546,38 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getEntry());
+         result.with(obj.getEntry());
       }
       
       return result;
    }
+
+   public FieldSet hasEntry(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getEntry()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
 
    public FieldSet withEntry(Field value)
    {
@@ -287,10 +595,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getStarter());
+         result.with(obj.getStarter());
       }
       
       return result;
+   }
+
+   public FieldSet hasStarter(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getStarter()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public FieldSet withStarter(Player value)
@@ -309,10 +643,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getBaseowner());
+         result.with(obj.getBaseowner());
       }
       
       return result;
+   }
+
+   public FieldSet hasBaseowner(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getBaseowner()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public FieldSet withBaseowner(Player value)
@@ -331,10 +691,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.add(obj.getLander());
+         result.with(obj.getLander());
       }
       
       return result;
+   }
+
+   public FieldSet hasLander(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (neighbors.contains(obj.getLander()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public FieldSet withLander(Player value)
@@ -353,10 +739,36 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       for (Field obj : this)
       {
-         result.addAll(obj.getPawns());
+         result.with(obj.getPawns());
       }
       
       return result;
+   }
+
+   public FieldSet hasPawns(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      FieldSet answer = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getPawns()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public FieldSet withPawns(Pawn value)
@@ -380,58 +792,6 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
    }
 
 
-
-   public FieldPO startModelPattern()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      FieldPO patternObject = pattern.hasElementFieldPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public FieldSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Field>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Field) value);
-      }
-      
-      return this;
-   }
-   
-   public FieldSet without(Field value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public FieldPO hasFieldPO()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      FieldPO patternObject = pattern.hasElementFieldPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
    public FieldSet getNextTransitive()
    {
       FieldSet todo = new FieldSet().with(this);
@@ -448,7 +808,9 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
          {
             result.add(current);
             
-            todo.with(current.getNext().minus(result));
+            if ( ! result.contains(current.getNext()))
+            {
+               todo.with(current.getNext());            }
          }
       }
       
@@ -472,7 +834,9 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
          {
             result.add(current);
             
-            todo.with(current.getPrev().minus(result));
+            if ( ! result.contains(current.getPrev()))
+            {
+               todo.with(current.getPrev());            }
          }
       }
       
@@ -496,7 +860,9 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
          {
             result.add(current);
             
-            todo.with(current.getLanding().minus(result));
+            if ( ! result.contains(current.getLanding()))
+            {
+               todo.with(current.getLanding());            }
          }
       }
       
@@ -520,7 +886,9 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
          {
             result.add(current);
             
-            todo.with(current.getEntry().minus(result));
+            if ( ! result.contains(current.getEntry()))
+            {
+               todo.with(current.getEntry());            }
          }
       }
       
@@ -528,6 +896,8 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
    }
 
 }
+
+
 
 
 

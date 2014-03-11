@@ -3,24 +3,29 @@ graph ObjectDiagram {
    edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
-p3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p3 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>knowsTransitive = ""</td></tr><tr><td align='left'>firstName = "Albert"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+p3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p3 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Albert"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 r4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r4 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p5 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>knowsTransitive = ""</td></tr><tr><td align='left'>firstName = "Gabi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+p5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p5 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Gabi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 r6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r6 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p7 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>knowsTransitive = ""</td></tr><tr><td align='left'>firstName = "Jens"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+p7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p7 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Jens"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 r8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r8 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
 r9 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r9 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p10 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>knowsTransitive = ""</td></tr><tr><td align='left'>firstName = "Nina"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p11 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>knowsTransitive = ""</td></tr><tr><td align='left'>firstName = "Nerdi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+p10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p10 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Nina"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
+p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p11 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Nerdi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 r12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r12 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
 
 p3 -- r4 [headlabel = "outEdges" taillabel = "src"];
 p3 -- r9 [headlabel = "outEdges" taillabel = "src"];
 p3 -- r8 [headlabel = "outEdges" taillabel = "src"];
+p3 -- p3 [headlabel = "knowsTransitive" taillabel = ""];
 r4 -- p5 [headlabel = "tgt" taillabel = "inEdges"];
 p5 -- r6 [headlabel = "inEdges" taillabel = "tgt"];
+p5 -- p5 [headlabel = "knowsTransitive" taillabel = ""];
 r6 -- p7 [headlabel = "src" taillabel = "outEdges"];
 p7 -- r8 [headlabel = "inEdges" taillabel = "tgt"];
+p7 -- p7 [headlabel = "knowsTransitive" taillabel = ""];
 r9 -- p10 [headlabel = "tgt" taillabel = "inEdges"];
+p10 -- p10 [headlabel = "knowsTransitive" taillabel = ""];
 p11 -- r12 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+p11 -- p11 [headlabel = "knowsTransitive" taillabel = ""];
 }

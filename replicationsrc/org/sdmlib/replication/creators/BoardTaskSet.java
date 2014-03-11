@@ -23,18 +23,23 @@ package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
+
 import java.util.Collection;
+
 import org.sdmlib.replication.creators.LogEntrySet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.replication.creators.LaneSet;
 import org.sdmlib.replication.creators.BoardTaskSet;
 
-public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
+public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -325,6 +330,8 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
    }
 
 }
+
+
 
 
 

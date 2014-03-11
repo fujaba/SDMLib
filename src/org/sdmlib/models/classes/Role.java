@@ -413,6 +413,16 @@ public class Role implements PropertyChangeInterface
                   + "            todo.with(current.getName().minus(result));\n"
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
+            
+            if (partnerRole.getCard().equals(R.ONE.toString()))
+            {
+               CGUtil.replaceAll(text, 
+                  "todo.with(current.getName().minus(result));", 
+                  "if ( ! result.contains(current.getName()))\n"
+                  + "            {\n"
+                  + "               todo.with(current.getName());\n"
+                  + "            }");
+            }
          }
       }
       

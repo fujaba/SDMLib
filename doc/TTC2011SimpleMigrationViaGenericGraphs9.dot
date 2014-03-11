@@ -24,18 +24,26 @@ e20 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../
 
 n3 -- e4 [headlabel = "outEdges" taillabel = "src"];
 n3 -- e8 [headlabel = "inEdges" taillabel = "tgt"];
+n3 -- n3 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 e4 -- n5 [headlabel = "tgt" taillabel = "inEdges"];
 n5 -- e6 [headlabel = "outEdges" taillabel = "src"];
+n5 -- n5 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 e6 -- n7 [headlabel = "tgt" taillabel = "inEdges"];
 n7 -- e8 [headlabel = "outEdges" taillabel = "src"];
 n7 -- e9 [headlabel = "outEdges" taillabel = "src"];
 n7 -- e14 [headlabel = "inEdges" taillabel = "tgt"];
+n7 -- n7 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 e9 -- n10 [headlabel = "tgt" taillabel = "inEdges"];
 n10 -- e11 [headlabel = "outEdges" taillabel = "src"];
+n10 -- n10 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 e11 -- n12 [headlabel = "tgt" taillabel = "inEdges"];
 n12 -- e13 [headlabel = "outEdges" taillabel = "src"];
 n12 -- e14 [headlabel = "outEdges" taillabel = "src"];
 n12 -- e15 [headlabel = "inEdges" taillabel = "tgt"];
+n12 -- n12 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n16 -- n16 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n17 -- n17 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 n18 -- e19 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
 n18 -- e20 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
+n18 -- n18 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 }

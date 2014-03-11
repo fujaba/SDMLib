@@ -69,6 +69,7 @@ public class ProjectBoard
       story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
       story.addLogEntry(R.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
+      story.addLogEntry(R.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
       story.dumpHTML();
       
    }

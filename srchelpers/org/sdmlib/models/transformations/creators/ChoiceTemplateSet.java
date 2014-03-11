@@ -26,23 +26,22 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
 import java.util.List;
-import org.sdmlib.models.transformations.creators.ObjectSet;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 import org.sdmlib.models.transformations.creators.MatchSet;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
 
 
-   public ChoiceTemplatePO startModelPattern()
+   public ChoiceTemplatePO hasChoiceTemplatePO()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
       
@@ -433,6 +432,95 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return this;
    }
 
+   public booleanList getReferenceLookup()
+   {
+      booleanList result = new booleanList();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.add(obj.getReferenceLookup());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasReferenceLookup(boolean value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value == obj.getReferenceLookup())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet withReferenceLookup(boolean value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.setReferenceLookup(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasName(String value)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet hasName(String lower, String upper)
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (ChoiceTemplate obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChoiceTemplateSet withName(String value)
+   {
+      for (ChoiceTemplate obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
    public PlaceHolderDescriptionSet getPlaceholders()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
@@ -713,112 +801,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return this;
    }
 
-   public booleanList getReferenceLookup()
-   {
-      booleanList result = new booleanList();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         result.add(obj.getReferenceLookup());
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasReferenceLookup(boolean value)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (value == obj.getReferenceLookup())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet withReferenceLookup(boolean value)
-   {
-      for (ChoiceTemplate obj : this)
-      {
-         obj.setReferenceLookup(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasName(String value)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasName(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet withName(String value)
-   {
-      for (ChoiceTemplate obj : this)
-      {
-         obj.setName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public ChoiceTemplatePO hasChoiceTemplatePO()
-   {
-      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
-      ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
 }
-
 
 
 

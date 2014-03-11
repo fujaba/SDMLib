@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":491,
+    "hoursSpend":493,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -664,11 +664,12 @@
   "prop":{
     "name":"GenerateTransitiveClosureGetter",
     "phase":"done",
-    "hoursSpend":4,
+    "hoursSpend":6,
     "parent":{"id":"KE.K118"},
     "logEntries":[
     {"id":"KE.L109"},
-      {"id":"KE.L119"}
+      {"id":"KE.L119"},
+      {"id":"KE.L121"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -732,7 +733,7 @@
   "prop":{
     "name":"Features",
     "phase":"active",
-    "hoursSpend":4,
+    "hoursSpend":6,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K107"}
@@ -1383,5 +1384,16 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"works like a charm"
+  }
+},  {
+  "id":"KE.L121",
+  "class":"org.sdmlib.storyboards.LogEntry",
+  "prop":{
+    "date":"11.03.2014 18:12:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K107"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"well some legacy problems had to be fixed"
   }
 }]

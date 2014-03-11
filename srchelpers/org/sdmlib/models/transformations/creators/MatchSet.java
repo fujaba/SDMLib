@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,51 +21,65 @@
    
 package org.sdmlib.models.transformations.creators;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.intList;
+import java.util.List;
 import org.sdmlib.models.transformations.creators.TemplateSet;
+import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.creators.MatchSet;
 
-public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.modelsets.ModelSet
+public class MatchSet extends SDMSet<Match>
 {
-   public Match first()
+
+
+   public MatchPO hasMatchPO()
    {
-      for (Match obj : this)
-      {
-         return obj;
-      }
+      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
       
-      return null;
+      MatchPO patternObject = pattern.hasElementMatchPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (Match elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.transformations.Match";
    }
 
+
+   public MatchSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Match>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Match) value);
+      }
+      
+      return this;
+   }
+   
+   public MatchSet without(Match value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public intList getStartPos()
    {
@@ -86,6 +100,21 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       for (Match obj : this)
       {
          if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchSet hasStartPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
          {
             result.add(obj);
          }
@@ -131,6 +160,21 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return result;
    }
 
+   public MatchSet hasEndPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public MatchSet withEndPos(int value)
    {
       for (Match obj : this)
@@ -168,6 +212,21 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return result;
    }
 
+   public MatchSet hasFullText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getFullText()) <= 0 && obj.getFullText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public MatchSet withFullText(String value)
    {
       for (Match obj : this)
@@ -197,6 +256,21 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       for (Match obj : this)
       {
          if (value.equals(obj.getMatchText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchSet hasMatchText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getMatchText()) <= 0 && obj.getMatchText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -258,7 +332,7 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       
       for (Match obj : this)
       {
-         result.add(obj.getTemplate());
+         result.with(obj.getTemplate());
       }
       
       return result;
@@ -306,7 +380,7 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       
       for (Match obj : this)
       {
-         result.add(obj.getPlaceholder());
+         result.with(obj.getPlaceholder());
       }
       
       return result;
@@ -354,7 +428,7 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       
       for (Match obj : this)
       {
-         result.addAll(obj.getSubMatches());
+         result.with(obj.getSubMatches());
       }
       
       return result;
@@ -386,6 +460,30 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return answer;
    }
 
+
+   public MatchSet getSubMatchesTransitive()
+   {
+      MatchSet todo = new MatchSet().with(this);
+      
+      MatchSet result = new MatchSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Match current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSubMatches().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
    public MatchSet withSubMatches(Match value)
    {
       for (Match obj : this)
@@ -412,7 +510,7 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       
       for (Match obj : this)
       {
-         result.add(obj.getParentMatch());
+         result.with(obj.getParentMatch());
       }
       
       return result;
@@ -444,6 +542,7 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       return answer;
    }
 
+
    public MatchSet withParentMatch(Match value)
    {
       for (Match obj : this)
@@ -452,97 +551,6 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       }
       
       return this;
-   }
-
-
-   public MatchSet getSubMatchesClosure()
-   {
-      MatchSet result = new MatchSet();
-      
-      if (! this.isEmpty())
-      {
-         result.addAll(this);
-      
-         result.addAll(this.getSubMatches().getSubMatchesClosure());
-      }
-         
-      return result;
-   }
-
-
-
-   public MatchPO startModelPattern()
-   {
-      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
-      MatchPO patternObject = pattern.hasElementMatchPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public MatchSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Match>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Match) value);
-      }
-      
-      return this;
-   }
-   
-   public MatchSet without(Match value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public MatchPO hasMatchPO()
-   {
-      org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
-      MatchPO patternObject = pattern.hasElementMatchPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-   public MatchSet getSubMatchesTransitive()
-   {
-      MatchSet todo = new MatchSet().with(this);
-      
-      MatchSet result = new MatchSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Match current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getSubMatches().minus(result));
-         }
-      }
-      
-      return result;
    }
 
 
@@ -562,7 +570,10 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
          {
             result.add(current);
             
-            todo.with(current.getParentMatch().minus(result));
+            if ( ! result.contains(current.getParentMatch()))
+            {
+               todo.with(current.getParentMatch());
+            }
          }
       }
       
@@ -570,7 +581,6 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
    }
 
 }
-
 
 
 

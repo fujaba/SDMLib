@@ -27,15 +27,18 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.University;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
 
-public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
+public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
 
 
@@ -278,6 +281,11 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
    }
 
 }
+
+
+
+
+
 
 
 

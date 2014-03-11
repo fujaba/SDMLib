@@ -27,13 +27,16 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.models.classes.creators.ModelPattern;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.codegen.creators.StatementEntrySet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class StatementEntrySet extends LinkedHashSet<StatementEntry>
+public class StatementEntrySet extends SDMSet<StatementEntry>
 {
    public StringList getKind()
    {
@@ -292,6 +295,7 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
    }
 
 
+
    public StatementEntrySet getParentTransitive()
    {
       StatementEntrySet todo = new StatementEntrySet().with(this);
@@ -308,7 +312,10 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
          {
             result.add(current);
             
-            todo.with(current.getParent().minus(result));
+            if ( ! result.contains(current.getParent()))
+            {
+               todo.with(current.getParent());
+            }
          }
       }
       
@@ -316,6 +323,7 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
    }
 
 }
+
 
 
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,43 +21,66 @@
    
 package org.sdmlib.examples.ludo.creators;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.ludo.Dice;
-import org.sdmlib.examples.ludo.Field;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.ludo.Ludo;
-import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
+import org.sdmlib.examples.ludo.creators.DateSet;
+import java.util.Date;
 import org.sdmlib.examples.ludo.creators.PlayerSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.examples.ludo.creators.DiceSet;
+import org.sdmlib.examples.ludo.Dice;
 import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.Field;
 
-public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.modelsets.ModelSet
+public class LudoSet extends SDMSet<Ludo>
 {
 
 
-   public String toString()
+   public LudoPO hasLudoPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
       
-      for (Ludo elem : this)
-      {
-         stringList.add(elem.toString());
-      }
+      LudoPO patternObject = pattern.hasElementLudoPO();
       
-      return "(" + stringList.concat(", ") + ")";
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludo.Ludo";
    }
 
+
+   public LudoSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Ludo>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Ludo) value);
+      }
+      
+      return this;
+   }
+   
+   public LudoSet without(Ludo value)
+   {
+      this.remove(value);
+      return this;
+   }
 
    public DateSet getDate()
    {
@@ -66,6 +89,36 @@ public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.mo
       for (Ludo obj : this)
       {
          result.add(obj.getDate());
+      }
+      
+      return result;
+   }
+
+   public LudoSet hasDate(java.util.Date value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getDate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LudoSet hasDate(java.util.Date lower, java.util.Date upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.getTime() <= obj.getDate().getTime() && obj.getDate().getTime() <= upper.getTime())
+         {
+            result.add(obj);
+         }
       }
       
       return result;
@@ -87,10 +140,36 @@ public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.mo
       
       for (Ludo obj : this)
       {
-         result.addAll(obj.getPlayers());
+         result.with(obj.getPlayers());
       }
       
       return result;
+   }
+
+   public LudoSet hasPlayers(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LudoSet answer = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getPlayers()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public LudoSet withPlayers(Player value)
@@ -119,10 +198,36 @@ public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.mo
       
       for (Ludo obj : this)
       {
-         result.add(obj.getDice());
+         result.with(obj.getDice());
       }
       
       return result;
+   }
+
+   public LudoSet hasDice(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LudoSet answer = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (neighbors.contains(obj.getDice()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public LudoSet withDice(Dice value)
@@ -141,10 +246,36 @@ public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.mo
       
       for (Ludo obj : this)
       {
-         result.addAll(obj.getFields());
+         result.with(obj.getFields());
       }
       
       return result;
+   }
+
+   public LudoSet hasFields(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LudoSet answer = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getFields()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
    }
 
    public LudoSet withFields(Field value)
@@ -167,59 +298,9 @@ public class LudoSet extends LinkedHashSet<Ludo> implements org.sdmlib.models.mo
       return this;
    }
 
-
-
-   public LudoPO startModelPattern()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      LudoPO patternObject = pattern.hasElementLudoPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
-
-
-   public LudoSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Ludo>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Ludo) value);
-      }
-      
-      return this;
-   }
-   
-   public LudoSet without(Ludo value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public LudoPO hasLudoPO()
-   {
-      org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
-      LudoPO patternObject = pattern.hasElementLudoPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
 }
+
+
 
 
 

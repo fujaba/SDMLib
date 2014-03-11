@@ -12,11 +12,22 @@ n144 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="..
 n145 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n145 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n7"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 n146 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Node.java"> <u>n146 :Node</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = ""</td></tr><tr><td align='left'>text = "n8"</td></tr><tr><td align='left'>copy = ""</td></tr><tr><td align='left'>orig = ""</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
 
-n139 -- n140 [headlabel = "linksTo" taillabel = "linksFrom"];
-n139 -- n141 [headlabel = "linksFrom" taillabel = "linksTo"];
-n140 -- n141 [headlabel = "linksTo" taillabel = "linksFrom"];
-n141 -- n142 [headlabel = "linksTo" taillabel = "linksFrom"];
-n141 -- n143 [headlabel = "linksFrom" taillabel = "linksTo"];
-n142 -- n143 [headlabel = "linksTo" taillabel = "linksFrom"];
-n146 -- n146 [headlabel = "linksTo_linksFrom" taillabel = ""];
+n139 -- n140 [headlabel = "linksTo_linksToTransitive_linksFromTransitive" taillabel = "linksFrom_linksToTransitive_linksFromTransitive"];
+n139 -- n141 [headlabel = "linksFrom_linksToTransitive_linksFromTransitive" taillabel = "linksTo_linksToTransitive_linksFromTransitive"];
+n139 -- n139 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n139 -- n142 [headlabel = "linksToTransitive_linksFromTransitive" taillabel = "linksToTransitive_linksFromTransitive"];
+n139 -- n143 [headlabel = "linksToTransitive_linksFromTransitive" taillabel = "linksToTransitive_linksFromTransitive"];
+n140 -- n141 [headlabel = "linksTo_linksToTransitive_linksFromTransitive" taillabel = "linksFrom_linksToTransitive_linksFromTransitive"];
+n140 -- n140 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n140 -- n142 [headlabel = "linksToTransitive_linksFromTransitive" taillabel = "linksToTransitive_linksFromTransitive"];
+n140 -- n143 [headlabel = "linksToTransitive_linksFromTransitive" taillabel = "linksToTransitive_linksFromTransitive"];
+n141 -- n142 [headlabel = "linksTo_linksToTransitive_linksFromTransitive" taillabel = "linksFrom_linksToTransitive_linksFromTransitive"];
+n141 -- n143 [headlabel = "linksFrom_linksToTransitive_linksFromTransitive" taillabel = "linksTo_linksToTransitive_linksFromTransitive"];
+n141 -- n141 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n142 -- n143 [headlabel = "linksTo_linksToTransitive_linksFromTransitive" taillabel = "linksFrom_linksToTransitive_linksFromTransitive"];
+n142 -- n142 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n143 -- n143 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n144 -- n144 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n145 -- n145 [headlabel = "copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
+n146 -- n146 [headlabel = "linksTo_linksFrom_copyTransitive_origTransitive_linksToTransitive_linksFromTransitive" taillabel = ""];
 }
