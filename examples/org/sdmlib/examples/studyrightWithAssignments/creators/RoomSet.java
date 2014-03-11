@@ -339,6 +339,30 @@ public class RoomSet extends SDMSet<Room>
       return answer;
    }
 
+
+   public RoomSet getDoorsTransitive()
+   {
+      RoomSet todo = new RoomSet().with(this);
+      
+      RoomSet result = new RoomSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Room current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getDoors().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
    public RoomSet withDoors(Room value)
    {
       for (Room obj : this)

@@ -1,5 +1,6 @@
 package org.sdmlib.models.modelsets;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
@@ -73,11 +74,18 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
    }
    
    
-   public <ST extends SDMSet<T>> ST minus(ST other)
+   public <ST extends SDMSet<T>> ST minus(Object other)
    {
       ST result = (ST) this.clone();
       
-      result.removeAll(other);
+      if (other instanceof Collection)
+      {
+         result.removeAll((Collection) other);
+      }
+      else
+      {
+         result.remove(other);
+      }
       
       return result;
    }

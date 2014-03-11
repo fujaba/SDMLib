@@ -535,6 +535,30 @@ public class StudentSet extends SDMSet<Student>
       return answer;
    }
 
+
+   public StudentSet getFriendsTransitive()
+   {
+      StudentSet todo = new StudentSet().with(this);
+      
+      StudentSet result = new StudentSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Student current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getFriends().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withFriends(Student value)
    {
       for (Student obj : this)

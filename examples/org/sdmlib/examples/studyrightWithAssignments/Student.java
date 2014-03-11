@@ -582,6 +582,12 @@ public class Student implements PropertyChangeInterface
    
       return this.friends;
    }
+   public StudentSet getFriendsTransitive()
+   {
+      StudentSet result = new StudentSet().with(this);
+      return result.getFriendsTransitive();
+   }
+
 
    public boolean addToFriends(Student value)
    {

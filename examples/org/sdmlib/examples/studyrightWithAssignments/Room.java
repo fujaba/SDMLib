@@ -378,6 +378,12 @@ public class Room implements PropertyChangeInterface
    
       return this.doors;
    }
+   public RoomSet getDoorsTransitive()
+   {
+      RoomSet result = new RoomSet().with(this);
+      return result.getDoorsTransitive();
+   }
+
 
    public boolean addToDoors(Room value)
    {

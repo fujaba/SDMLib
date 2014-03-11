@@ -574,6 +574,30 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return answer;
    }
 
+
+   public StudentSet getFriendsTransitive()
+   {
+      StudentSet todo = new StudentSet().with(this);
+      
+      StudentSet result = new StudentSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Student current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getFriends().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
    public TeachingAssistantSet withFriends(Student value)
    {
       for (TeachingAssistant obj : this)

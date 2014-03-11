@@ -30,6 +30,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.studyrightWithAssignments.Room;
+import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -380,10 +382,29 @@ public class Role implements PropertyChangeInterface
             "      \n" + 
             "      return answer;\n" + 
             "   }\n" + 
-            "\n" + 
-            ""
-            );
+            "\n");
 
+         if (this.getClazz() == this.getPartnerRole().getClazz())
+         {
+            text
+               .append("\n   public ModelSetType getNameTransitive()\n"
+                  + "   {\n"
+                  + "      ModelSetType todo = new ModelSetType().with(this);\n"
+                  + "      \n"
+                  + "      ModelSetType result = new ModelSetType();\n"
+                  + "      \n" + "      while ( ! todo.isEmpty())\n"
+                  + "      {\n"
+                  + "         ModelType current = todo.first();\n"
+                  + "         \n" + "         todo.remove(current);\n"
+                  + "         \n"
+                  + "         if ( ! result.contains(current))\n"
+                  + "         {\n" + "            result.add(current);\n"
+                  + "            \n"
+                  + "            todo.with(current.getName().minus(result));\n"
+                  + "         }\n" + "      }\n" + "      \n"
+                  + "      return result;\n" + "   }\n" + "\n" + "");
+         }
+         
          String containsClause = "neighbors.contains(obj.get"
                + StrUtil.upFirstChar(partnerRole.getName()) + "())";
          
@@ -399,6 +420,7 @@ public class Role implements PropertyChangeInterface
          
          CGUtil.replaceAll(text, 
             "ContentType", CGUtil.shortClassName(tgtClass.getName()),
+            "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set",
             "Name", StrUtil.upFirstChar(partnerRole.getName()),
             "containsClause", containsClause
@@ -1123,6 +1145,39 @@ public class Role implements PropertyChangeInterface
          }
       }
       
+      
+      if (this.getClazz() == this.getPartnerRole().getClazz())
+      {
+         // recursive assoc, add getTransitive methods
+         
+         pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Transitive()");
+         
+         if (pos < 0)
+         {
+            if (! genClazz.getInterfaze())
+            {
+               text.append(
+                  "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
+                  "   {\n" + 
+                  "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" + 
+                  "      return result.getPartnerRoleNameTransitive();\n" + 
+                  "   }\n" + 
+                  "\n" + 
+                  ""
+                  );
+            }
+            else
+            {
+               text.append
+               (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
+                     "\n");
+            }      
+         
+         }
+      }
+      
+      
+      
       pos = myParser.indexOf(Parser.METHOD + ":addTo" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
       
       
@@ -1419,6 +1474,35 @@ public class Role implements PropertyChangeInterface
       }
       
       
+      if (this.getClazz() == this.getPartnerRole().getClazz())
+      {
+         // recursive assoc, add getTransitive methods
+         
+         pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Transitive()");
+         
+         if (pos < 0)
+         {
+            if (! genClazz.getInterfaze())
+            {
+               text.append(
+                  "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
+                  "   {\n" + 
+                  "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" + 
+                  "      return result.getPartnerRoleNameTransitive();\n" + 
+                  "   }\n" + 
+                  "\n" + 
+                  ""
+                  );
+            }
+            else
+            {
+               text.append
+               (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
+                     "\n");
+            }      
+         
+         }
+      }
       
       pos = myParser.indexOf(Parser.METHOD + ":set" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
       
