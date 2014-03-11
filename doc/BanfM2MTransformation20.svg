@@ -17,9 +17,9 @@
 <text text-anchor="start" x="95" y="-608.5" font-family="Arial" font-size="10.00">p58 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="83,-554 83,-602 156,-602 156,-554 83,-554"/>
-<text text-anchor="start" x="88" y="-590" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
-<text text-anchor="start" x="88" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-590" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
+<text text-anchor="start" x="88" y="-576" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="88" y="-562" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 </g>
 <!-- r59 -->
 <g id="node2" class="node"><title>r59</title>
@@ -29,8 +29,8 @@
 <text text-anchor="start" x="20" y="-498.5" font-family="Arial" font-size="10.00">r59 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-444 8,-492 83,-492 83,-444 8,-444"/>
-<text text-anchor="start" x="13" y="-480" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-466" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-480" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-466" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-452" font-family="Arial" font-size="10.00">text = &quot;knows&quot;</text>
 </g>
 <!-- p58&#45;&#45;r59 -->
@@ -47,8 +47,8 @@
 <text text-anchor="start" x="57" y="-58.5" font-family="Arial" font-size="10.00">r63 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="45,-4 45,-52 120,-52 120,-4 45,-4"/>
-<text text-anchor="start" x="50" y="-40" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="50" y="-26" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="50" y="-40" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="50" y="-26" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="50" y="-12" font-family="Arial" font-size="10.00">text = &quot;knows&quot;</text>
 </g>
 <!-- p58&#45;&#45;r63 -->
@@ -65,8 +65,8 @@
 <text text-anchor="start" x="168" y="-498.5" font-family="Arial" font-size="10.00">r64 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="156,-444 156,-492 231,-492 231,-444 156,-444"/>
-<text text-anchor="start" x="161" y="-480" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="161" y="-466" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="161" y="-480" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="161" y="-466" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="161" y="-452" font-family="Arial" font-size="10.00">text = &quot;knows&quot;</text>
 </g>
 <!-- p58&#45;&#45;r64 -->
@@ -83,9 +83,9 @@
 <text text-anchor="start" x="20.5" y="-388.5" font-family="Arial" font-size="10.00">p60 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="9,-334 9,-382 81,-382 81,-334 9,-334"/>
-<text text-anchor="start" x="14" y="-370" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
-<text text-anchor="start" x="14" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-370" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
+<text text-anchor="start" x="14" y="-356" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="14" y="-342" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 </g>
 <!-- r59&#45;&#45;p60 -->
 <g id="edge8" class="edge"><title>r59&#45;&#45;p60</title>
@@ -101,8 +101,8 @@
 <text text-anchor="start" x="20" y="-278.5" font-family="Arial" font-size="10.00">r61 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-224 8,-272 83,-272 83,-224 8,-224"/>
-<text text-anchor="start" x="13" y="-260" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-246" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-260" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-246" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-232" font-family="Arial" font-size="10.00">text = &quot;knows&quot;</text>
 </g>
 <!-- p60&#45;&#45;r61 -->
@@ -119,9 +119,9 @@
 <text text-anchor="start" x="21.5" y="-168.5" font-family="Arial" font-size="10.00">p62 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="10,-114 10,-162 82,-162 82,-114 10,-114"/>
-<text text-anchor="start" x="15" y="-150" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
-<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-150" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
+<text text-anchor="start" x="15" y="-136" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 </g>
 <!-- r61&#45;&#45;p62 -->
 <g id="edge12" class="edge"><title>r61&#45;&#45;p62</title>
@@ -143,9 +143,9 @@
 <text text-anchor="start" x="168.5" y="-388.5" font-family="Arial" font-size="10.00">p65 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="157,-334 157,-382 229,-382 229,-334 157,-334"/>
-<text text-anchor="start" x="162" y="-370" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
-<text text-anchor="start" x="162" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-370" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
+<text text-anchor="start" x="162" y="-356" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="162" y="-342" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 </g>
 <!-- r64&#45;&#45;p65 -->
 <g id="edge16" class="edge"><title>r64&#45;&#45;p65</title>
@@ -161,9 +161,9 @@
 <text text-anchor="start" x="277.5" y="-608.5" font-family="Arial" font-size="10.00">p66 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="266,-554 266,-602 338,-602 338,-554 266,-554"/>
-<text text-anchor="start" x="271" y="-590" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
-<text text-anchor="start" x="271" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-590" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
+<text text-anchor="start" x="271" y="-576" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="271" y="-562" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 </g>
 <!-- r67 -->
 <g id="node10" class="node"><title>r67</title>
@@ -173,8 +173,8 @@
 <text text-anchor="start" x="277" y="-498.5" font-family="Arial" font-size="10.00">r67 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="265,-444 265,-492 340,-492 340,-444 265,-444"/>
-<text text-anchor="start" x="270" y="-480" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="270" y="-466" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="270" y="-480" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="270" y="-466" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="270" y="-452" font-family="Arial" font-size="10.00">text = &quot;knows&quot;</text>
 </g>
 <!-- p66&#45;&#45;r67 -->

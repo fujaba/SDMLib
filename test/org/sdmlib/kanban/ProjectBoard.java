@@ -42,11 +42,6 @@ public class ProjectBoard
    {
       Storyboard story = new Storyboard();
 
-      story = new Storyboard("test", "GenerateTransitiveClosureGetter");
-      story.setSprint("ToDo");
-      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
-      story.dumpHTML();
-      
       story = new Storyboard("test", "MiniTutorials");
       story.setSprint("ToDo");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:13:42", 0, 12, "high priority");
@@ -61,10 +56,23 @@ public class ProjectBoard
       story.setSprint("ToDo");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 22:25:42", 0, 6, "high priority");
       story.dumpHTML();
-      
-      
+   }
+   
+   
+   @Test
+   public void testFeatures()
+   {
+      Storyboard story = new Storyboard();
+
+      story = new Storyboard("test", "GenerateTransitiveClosureGetter");
+      story.setSprint("Features");
+      story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
+      story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
+      story.addLogEntry(R.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
+      story.dumpHTML();
       
    }
+
    
    @Test
    public void testExtendStoryboardByAddToDoMethod()

@@ -183,6 +183,8 @@ public class BanfM2MTransformations
       
       storyboard.addObjectDiagramWith(sourceGraphRevers.getPersons(), sourceGraphRevers.getRelations());
       
+      storyboard.addLogEntry(R.DONE, "zuendorf", "10.10.2013 10:10:42", 20, 0, "should be published in paper");
+      
       storyboard.dumpHTML();
    }
    

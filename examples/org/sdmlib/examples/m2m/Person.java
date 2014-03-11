@@ -597,5 +597,11 @@ public class Person extends GraphComponent implements PropertyChangeInterface
       withKnows(value);
       return value;
    } 
+   public PersonSet getKnowsTransitive()
+   {
+      PersonSet result = new PersonSet().with(this);
+      return result.getKnowsTransitive();
+   }
+
 }
 
