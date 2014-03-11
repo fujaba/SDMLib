@@ -32,6 +32,13 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.models.classes.creators.ClassModelSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.classes.creators.ClazzSet;
+import org.sdmlib.models.classes.creators.AttributeSet;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.models.classes.creators.RoleSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {
@@ -520,7 +527,80 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return patternObject;
    }
+
+   public ClazzSet getKidClassesTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getKidClasses().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public ClazzSet getSuperClassTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSuperClass().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public ClazzSet getInterfacesTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getInterfaces().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

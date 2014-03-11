@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.creators.KanbanEntrySet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -124,6 +127,7 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       return patternObject;
    }
 }
+
 
 
 

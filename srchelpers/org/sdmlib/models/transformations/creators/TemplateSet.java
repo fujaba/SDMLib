@@ -32,6 +32,10 @@ import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.modelsets.booleanList;
 import java.util.List;
+import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class TemplateSet extends SDMSet<Template>
 {
@@ -755,6 +759,7 @@ public class TemplateSet extends SDMSet<Template>
       return patternObject;
    }
 }
+
 
 
 

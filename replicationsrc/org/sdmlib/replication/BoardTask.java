@@ -492,5 +492,17 @@ public class BoardTask extends Task implements PropertyChangeInterface
    {
       this.setStatus(BoardTask.START);
    } 
+   public BoardTaskSet getNextTransitive()
+   {
+      BoardTaskSet result = new BoardTaskSet().with(this);
+      return result.getNextTransitive();
+   }
+
+   public BoardTaskSet getPrevTransitive()
+   {
+      BoardTaskSet result = new BoardTaskSet().with(this);
+      return result.getPrevTransitive();
+   }
+
 }
 

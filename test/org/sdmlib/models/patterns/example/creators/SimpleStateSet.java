@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.patterns.example.Node;
 import org.sdmlib.models.patterns.example.SimpleState;
+import org.sdmlib.models.patterns.example.creators.NodeSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -141,6 +144,7 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sd
       return patternObject;
    }
 }
+
 
 
 

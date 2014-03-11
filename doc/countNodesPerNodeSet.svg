@@ -21,11 +21,11 @@
 </g>
 <!-- n2 -->
 <g id="node2" class="node"><title>n2</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="15.5,-76.5 15.5,-113.5 74.5,-113.5 74.5,-76.5 15.5,-76.5"/>
-<polygon fill="none" stroke="black" points="16,-96 16,-113 75,-113 75,-96 16,-96"/>
-<text text-anchor="start" x="19.5" y="-102.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="23.5" y="-102.5" font-family="Arial" font-size="10.00"> n2 :NodePO </text>
-<polygon fill="none" stroke="black" points="16,-76 16,-96 75,-96 75,-76 16,-76"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="9.5,-76.5 9.5,-113.5 80.5,-113.5 80.5,-76.5 9.5,-76.5"/>
+<polygon fill="none" stroke="black" points="10,-96 10,-113 81,-113 81,-96 10,-96"/>
+<text text-anchor="start" x="13.5" y="-102.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="17.5" y="-102.5" font-family="Arial" font-size="10.00"> n2 :NodePO </text>
+<polygon fill="none" stroke="black" points="10,-76 10,-96 81,-96 81,-76 10,-76"/>
 <text text-anchor="start" x="42" y="-84" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- g1&#45;&#45;n2 -->

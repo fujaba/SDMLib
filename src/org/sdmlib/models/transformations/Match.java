@@ -621,5 +621,17 @@ public class Match implements PropertyChangeInterface
       withParentMatch(value);
       return value;
    } 
+   public MatchSet getSubMatchesTransitive()
+   {
+      MatchSet result = new MatchSet().with(this);
+      return result.getSubMatchesTransitive();
+   }
+
+   public MatchSet getParentMatchTransitive()
+   {
+      MatchSet result = new MatchSet().with(this);
+      return result.getParentMatchTransitive();
+   }
+
 }
 

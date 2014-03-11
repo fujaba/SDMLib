@@ -29,6 +29,11 @@ import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 
 public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -197,6 +202,13 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       return patternObject;
    }
 }
+
+
+
+
+
+
+
 
 
 

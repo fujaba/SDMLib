@@ -29,6 +29,9 @@ import org.sdmlib.examples.m2m.Person;
 import org.sdmlib.examples.m2m.Relation;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.m2m.creators.GraphSet;
+import java.util.Collections;
+import org.sdmlib.examples.m2m.creators.PersonSet;
 
 public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -380,6 +383,10 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       return patternObject;
    }
 }
+
+
+
+
 
 
 

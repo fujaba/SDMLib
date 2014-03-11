@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.University;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -164,6 +167,8 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return patternObject;
    }
 }
+
+
 
 
 

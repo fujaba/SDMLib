@@ -29,6 +29,9 @@ import java.util.List;
 import org.sdmlib.model.taskflows.creators.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.model.taskflows.creators.TaskFlowSet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class TaskFlowSet extends LinkedHashSet<TaskFlow> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -204,7 +207,56 @@ public class TaskFlowSet extends LinkedHashSet<TaskFlow> implements org.sdmlib.m
       
       return patternObject;
    }
+
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSubFlow().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParent().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

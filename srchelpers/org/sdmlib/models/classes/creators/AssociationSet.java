@@ -28,6 +28,10 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.creators.ClassModelSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.classes.creators.RoleSet;
 
 public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -174,6 +178,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       return patternObject;
    }
 }
+
 
 
 

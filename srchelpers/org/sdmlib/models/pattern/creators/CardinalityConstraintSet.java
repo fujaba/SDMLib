@@ -31,6 +31,9 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.PatternSet;
+import java.util.Collections;
+import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
 public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -328,6 +331,7 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       return patternObject;
    }
 }
+
 
 
 

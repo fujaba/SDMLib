@@ -29,6 +29,12 @@ import org.sdmlib.examples.patternrewriteops.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.examples.patternrewriteops.Train;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.patternrewriteops.creators.TrainSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.patternrewriteops.creators.StationSet;
+import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
+import org.sdmlib.examples.patternrewriteops.creators.SignalFlagSet;
 
 public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -240,7 +246,56 @@ public class StationSet extends LinkedHashSet<Station> implements org.sdmlib.mod
       
       return patternObject;
    }
+
+   public StationSet getNextTransitive()
+   {
+      StationSet todo = new StationSet().with(this);
+      
+      StationSet result = new StationSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Station current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public StationSet getPrevTransitive()
+   {
+      StationSet todo = new StationSet().with(this);
+      
+      StationSet result = new StationSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Station current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getPrev().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

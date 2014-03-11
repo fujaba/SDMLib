@@ -28,6 +28,10 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.patterns.example.Node;
 import org.sdmlib.models.patterns.example.SimpleState;
+import org.sdmlib.models.patterns.example.creators.SimpleStateSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.patterns.example.creators.NodeSet;
 
 public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -221,7 +225,56 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
       
       return patternObject;
    }
+
+   public NodeSet getNextTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public NodeSet getPrevTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getPrev().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

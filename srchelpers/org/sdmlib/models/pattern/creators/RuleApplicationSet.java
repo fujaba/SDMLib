@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.creators.ReachableStateSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -170,6 +173,7 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       return patternObject;
    }
 }
+
 
 
 

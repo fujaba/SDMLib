@@ -29,6 +29,9 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.models.classes.creators.ModelPattern;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.codegen.creators.StatementEntrySet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class StatementEntrySet extends LinkedHashSet<StatementEntry>
 {
@@ -264,7 +267,56 @@ public class StatementEntrySet extends LinkedHashSet<StatementEntry>
       return null;
 
    }
+
+   public StatementEntrySet getBodyStatsTransitive()
+   {
+      StatementEntrySet todo = new StatementEntrySet().with(this);
+      
+      StatementEntrySet result = new StatementEntrySet();
+      
+      while ( ! todo.isEmpty())
+      {
+         StatementEntry current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getBodyStats().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public StatementEntrySet getParentTransitive()
+   {
+      StatementEntrySet todo = new StatementEntrySet().with(this);
+      
+      StatementEntrySet result = new StatementEntrySet();
+      
+      while ( ! todo.isEmpty())
+      {
+         StatementEntry current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParent().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

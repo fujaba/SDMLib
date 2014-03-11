@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyright.Professor;
 import org.sdmlib.examples.studyright.Topic;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyright.creators.ProfessorSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -153,6 +156,7 @@ public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.
       return patternObject;
    }
 }
+
 
 
 

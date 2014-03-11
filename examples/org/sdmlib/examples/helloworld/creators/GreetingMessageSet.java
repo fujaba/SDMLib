@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.GreetingSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class GreetingMessageSet extends LinkedHashSet<GreetingMessage> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -145,6 +148,7 @@ public class GreetingMessageSet extends LinkedHashSet<GreetingMessage> implement
       return patternObject;
    }
 }
+
 
 
 

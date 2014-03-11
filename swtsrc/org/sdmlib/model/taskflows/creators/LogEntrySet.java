@@ -28,6 +28,9 @@ import java.util.List;
 import org.sdmlib.model.taskflows.creators.LoggerSet;
 import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -235,7 +238,56 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       
       return patternObject;
    }
+
+   public LogEntrySet getChildrenTransitive()
+   {
+      LogEntrySet todo = new LogEntrySet().with(this);
+      
+      LogEntrySet result = new LogEntrySet();
+      
+      while ( ! todo.isEmpty())
+      {
+         LogEntry current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getChildren().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public LogEntrySet getParentTransitive()
+   {
+      LogEntrySet todo = new LogEntrySet().with(this);
+      
+      LogEntrySet result = new LogEntrySet();
+      
+      while ( ! todo.isEmpty())
+      {
+         LogEntry current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParent().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

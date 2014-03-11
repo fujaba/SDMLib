@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.GraphComponent;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.GraphSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -145,6 +148,8 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements
       return patternObject;
    }
 }
+
+
 
 
 

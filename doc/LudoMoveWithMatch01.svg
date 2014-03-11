@@ -15,13 +15,13 @@
 </g>
 <!-- p1 -->
 <g id="node1" class="node"><title>p1</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="273.5,-886.5 273.5,-937.5 334.5,-937.5 334.5,-886.5 273.5,-886.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="268,-886.5 268,-937.5 340,-937.5 340,-886.5 268,-886.5"/>
 <text text-anchor="start" x="301" y="-927.5" font-family="Arial" font-size="10.00">«bound»</text>
-<polygon fill="none" stroke="black" points="274,-906 274,-922 335,-922 335,-906 274,-906"/>
-<text text-anchor="start" x="277.5" y="-912" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="281.5" y="-912" font-family="Arial" font-size="10.00"> p1 :PawnPO </text>
-<polygon fill="none" stroke="black" points="274,-886 274,-906 335,-906 335,-886 274,-886"/>
-<text text-anchor="start" x="301" y="-894" font-family="Arial" font-size="10.00"> &#160;</text>
+<polygon fill="none" stroke="black" points="268,-906 268,-922 340,-922 340,-906 268,-906"/>
+<text text-anchor="start" x="271.5" y="-912" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="275.5" y="-912" font-family="Arial" font-size="10.00"> p1 :PawnPO </text>
+<polygon fill="none" stroke="black" points="268,-886 268,-906 340,-906 340,-886 268,-886"/>
+<text text-anchor="start" x="300.5" y="-894" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- p3 -->
 <g id="node2" class="node"><title>p3</title>

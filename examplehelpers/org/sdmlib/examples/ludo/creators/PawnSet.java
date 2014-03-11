@@ -29,6 +29,10 @@ import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.creators.FieldSet;
 
 public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -216,6 +220,7 @@ public class PawnSet extends LinkedHashSet<Pawn> implements org.sdmlib.models.mo
       return patternObject;
    }
 }
+
 
 
 

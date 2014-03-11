@@ -29,6 +29,8 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.creators.TaskSet;
 import org.sdmlib.replication.Task;
 import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -179,5 +181,6 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    }
 
 }
+
 
 

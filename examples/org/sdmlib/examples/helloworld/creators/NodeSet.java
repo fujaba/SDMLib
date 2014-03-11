@@ -28,6 +28,11 @@ import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.GraphSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.creators.EdgeSet;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
 
 public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -357,7 +362,111 @@ public class NodeSet extends LinkedHashSet<Node> implements org.sdmlib.models.mo
       
       return patternObject;
    }
+
+   public NodeSet getCopyTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getCopy().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public NodeSet getOrigTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getOrig().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public NodeSet getLinksToTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getLinksTo().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public NodeSet getLinksFromTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getLinksFrom().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
+
+
+
+
+
+
+
 
 
 

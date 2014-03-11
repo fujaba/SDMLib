@@ -28,6 +28,10 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
 import org.sdmlib.models.patterns.example.ferrmansproblem.River;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 
 public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -158,6 +162,7 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       return patternObject;
    }
 }
+
 
 
 

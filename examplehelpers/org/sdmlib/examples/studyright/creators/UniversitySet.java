@@ -28,6 +28,10 @@ import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyright.creators.RoomSet;
 
 public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -196,6 +200,7 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       return patternObject;
    }
 }
+
 
 
 

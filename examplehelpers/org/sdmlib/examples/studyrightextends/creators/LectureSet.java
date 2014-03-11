@@ -29,6 +29,11 @@ import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.examples.studyrightextends.Room;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyrightextends.creators.RoomSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyrightextends.creators.ProfessorSet;
+import org.sdmlib.examples.studyrightextends.creators.StudentSet;
 
 public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -194,6 +199,8 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       return patternObject;
    }
 }
+
+
 
 
 

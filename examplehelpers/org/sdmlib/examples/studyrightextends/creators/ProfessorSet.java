@@ -28,6 +28,9 @@ import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Professor;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -180,6 +183,8 @@ public class ProfessorSet extends LinkedHashSet<Professor> implements org.sdmlib
       return patternObject;
    }
 }
+
+
 
 
 

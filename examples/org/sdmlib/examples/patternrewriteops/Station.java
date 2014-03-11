@@ -541,5 +541,17 @@ public class Station implements PropertyChangeInterface
       }
       return this;
    }
+   public StationSet getNextTransitive()
+   {
+      StationSet result = new StationSet().with(this);
+      return result.getNextTransitive();
+   }
+
+   public StationSet getPrevTransitive()
+   {
+      StationSet result = new StationSet().with(this);
+      return result.getPrevTransitive();
+   }
+
 }
 

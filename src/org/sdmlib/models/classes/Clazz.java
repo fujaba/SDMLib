@@ -2855,5 +2855,29 @@ public class Clazz implements PropertyChangeInterface
       withTargetRoles(value);
       return value;
    } 
+   public ClazzSet getKidClassesTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getKidClassesTransitive();
+   }
+
+   public ClazzSet getSuperClassTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getSuperClassTransitive();
+   }
+
+   public ClazzSet getKidClassesAsInterfaceTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getKidClassesAsInterfaceTransitive();
+   }
+
+   public ClazzSet getInterfacesTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getInterfacesTransitive();
+   }
+
 }
 

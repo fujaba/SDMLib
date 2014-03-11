@@ -30,6 +30,10 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -517,7 +521,56 @@ public class MatchSet extends LinkedHashSet<Match> implements org.sdmlib.models.
       
       return patternObject;
    }
+
+   public MatchSet getSubMatchesTransitive()
+   {
+      MatchSet todo = new MatchSet().with(this);
+      
+      MatchSet result = new MatchSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Match current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSubMatches().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public MatchSet getParentMatchTransitive()
+   {
+      MatchSet todo = new MatchSet().with(this);
+      
+      MatchSet result = new MatchSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Match current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParentMatch().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

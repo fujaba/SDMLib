@@ -28,6 +28,9 @@ import org.sdmlib.examples.studyrightextends.Lecture;
 import org.sdmlib.examples.studyrightextends.Student;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -223,6 +226,8 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       return patternObject;
    }
 }
+
+
 
 
 

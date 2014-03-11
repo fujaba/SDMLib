@@ -28,6 +28,9 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.creators.PatternSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -221,6 +224,7 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       return patternObject;
    }
 }
+
 
 
 

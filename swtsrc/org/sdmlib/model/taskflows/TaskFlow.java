@@ -295,5 +295,17 @@ public class TaskFlow implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet result = new TaskFlowSet().with(this);
+      return result.getSubFlowTransitive();
+   }
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet result = new TaskFlowSet().with(this);
+      return result.getParentTransitive();
+   }
+
 }
 

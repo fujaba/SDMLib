@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.creators.GenericObjectSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
 {
@@ -169,6 +172,7 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       return patternObject;
    }
 }
+
 
 
 

@@ -34,6 +34,9 @@ import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
 import org.sdmlib.model.taskflows.LogEntry;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class LoggerSet extends LinkedHashSet<Logger> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -263,7 +266,56 @@ public class LoggerSet extends LinkedHashSet<Logger> implements org.sdmlib.model
       
       return patternObject;
    }
+
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSubFlow().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParent().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

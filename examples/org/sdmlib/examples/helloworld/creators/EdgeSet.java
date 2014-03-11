@@ -28,6 +28,10 @@ import org.sdmlib.examples.helloworld.Edge;
 import org.sdmlib.examples.helloworld.Graph;
 import org.sdmlib.examples.helloworld.Node;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.GraphSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.creators.NodeSet;
 
 public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -234,6 +238,11 @@ public class EdgeSet extends LinkedHashSet<Edge> implements org.sdmlib.models.mo
       return patternObject;
    }
 }
+
+
+
+
+
 
 
 

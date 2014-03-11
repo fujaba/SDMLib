@@ -978,5 +978,29 @@ public class Field implements PropertyChangeInterface
       }
       return this;
    }
+   public FieldSet getNextTransitive()
+   {
+      FieldSet result = new FieldSet().with(this);
+      return result.getNextTransitive();
+   }
+
+   public FieldSet getPrevTransitive()
+   {
+      FieldSet result = new FieldSet().with(this);
+      return result.getPrevTransitive();
+   }
+
+   public FieldSet getLandingTransitive()
+   {
+      FieldSet result = new FieldSet().with(this);
+      return result.getLandingTransitive();
+   }
+
+   public FieldSet getEntryTransitive()
+   {
+      FieldSet result = new FieldSet().with(this);
+      return result.getEntryTransitive();
+   }
+
 }
 

@@ -28,6 +28,8 @@ import org.sdmlib.examples.m2m.Graph;
 import org.sdmlib.examples.m2m.GraphComponent;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.m2m.creators.GraphSet;
+import java.util.Collections;
 
 public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -199,6 +201,8 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       return patternObject;
    }
 }
+
+
 
 
 

@@ -33,6 +33,13 @@ import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.LudoSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.creators.DiceSet;
+import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.creators.PawnSet;
 
 public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -405,7 +412,56 @@ public class PlayerSet extends LinkedHashSet<Player> implements org.sdmlib.model
       
       return patternObject;
    }
+
+   public PlayerSet getNextTransitive()
+   {
+      PlayerSet todo = new PlayerSet().with(this);
+      
+      PlayerSet result = new PlayerSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Player current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public PlayerSet getPrevTransitive()
+   {
+      PlayerSet todo = new PlayerSet().with(this);
+      
+      PlayerSet result = new PlayerSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Player current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getPrev().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

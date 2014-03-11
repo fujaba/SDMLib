@@ -11,48 +11,7 @@
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/de/uniks/jism/test/GraphLudoTest.java' type='text/x-java'>SimpleGraph</a></p>
 <p>SimpleGraph</p>
-<script>
-   var json = {
-   "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"S1 : SortedMsg",
-            "attributes":[
-            "parent=",
-               "number=0",
-               "msg=Hallo Welt"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"S2 : SortedMsg",
-            "attributes":[
-            "number=0",
-               "child=",
-               "msg=Child"
-            ]
-         }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"parent",
-            "targetproperty":"child",
-            "source":"S1 : SortedMsg",
-            "target":"S2 : SortedMsg"
-         }
-      ]
-   }
-}   
-   var g = new Graph(json, "canvas0");
-   var layouter = new GraphLayout.Dagre(g);
-   layouter.layout(0,0);  
-
-</script>
+<embed type="image/svg+xml" src='SimpleGraph2.svg'>
 
 </body>
 </html>

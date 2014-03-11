@@ -907,5 +907,29 @@ public class Node extends GraphComponent implements PropertyChangeInterface
       }
       return this;
    }
+   public NodeSet getCopyTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getCopyTransitive();
+   }
+
+   public NodeSet getOrigTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getOrigTransitive();
+   }
+
+   public NodeSet getLinksToTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getLinksToTransitive();
+   }
+
+   public NodeSet getLinksFromTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getLinksFromTransitive();
+   }
+
 }
 

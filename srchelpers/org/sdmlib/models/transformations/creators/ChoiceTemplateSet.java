@@ -36,6 +36,7 @@ import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
 import org.sdmlib.models.transformations.creators.MatchSet;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
@@ -817,6 +818,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return patternObject;
    }
 }
+
 
 
 

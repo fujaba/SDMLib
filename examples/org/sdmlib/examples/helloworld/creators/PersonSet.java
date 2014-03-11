@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.creators.GreetingSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -145,6 +148,7 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return patternObject;
    }
 }
+
 
 
 

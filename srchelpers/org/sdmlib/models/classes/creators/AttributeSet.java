@@ -29,6 +29,9 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
 
 import java.util.List;
+import org.sdmlib.models.classes.creators.ClazzSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -200,6 +203,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return patternObject;
    }
 }
+
 
 
 

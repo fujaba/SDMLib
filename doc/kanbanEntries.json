@@ -47,7 +47,8 @@
       {"id":"KE.K105"},
       {"id":"KE.K106"},
       {"id":"KE.K108"},
-      {"id":"KE.K118"}
+      {"id":"KE.K118"},
+      {"id":"KE.K120"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -736,6 +737,15 @@
     "subentries":[
     {"id":"KE.K107"}
     ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K120",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"TemplateGrammarTest",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
     "phases":"active, backlog, implementation, done"
   }
 },  {

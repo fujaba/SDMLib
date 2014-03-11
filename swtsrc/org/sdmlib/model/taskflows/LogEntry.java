@@ -420,5 +420,17 @@ public class LogEntry implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
+   public LogEntrySet getChildrenTransitive()
+   {
+      LogEntrySet result = new LogEntrySet().with(this);
+      return result.getChildrenTransitive();
+   }
+
+   public LogEntrySet getParentTransitive()
+   {
+      LogEntrySet result = new LogEntrySet().with(this);
+      return result.getParentTransitive();
+   }
+
 }
 

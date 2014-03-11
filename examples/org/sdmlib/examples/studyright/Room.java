@@ -605,5 +605,11 @@ public class Room implements PropertyChangeInterface
       withAssignments(value);
       return value;
    } 
+   public RoomSet getNeighborsTransitive()
+   {
+      RoomSet result = new RoomSet().with(this);
+      return result.getNeighborsTransitive();
+   }
+
 }
 

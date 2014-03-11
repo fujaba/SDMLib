@@ -27,6 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.patternrewriteops.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.patternrewriteops.creators.StationSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -135,6 +138,7 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       return patternObject;
    }
 }
+
 
 
 

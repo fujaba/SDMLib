@@ -29,6 +29,10 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.creators.PatternSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
 public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
 {
@@ -236,6 +240,7 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       return patternObject;
    }
 }
+
 
 
 

@@ -444,5 +444,17 @@ public class Node implements PropertyChangeInterface
       }
       return this;
    }
+   public NodeSet getNextTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getNextTransitive();
+   }
+
+   public NodeSet getPrevTransitive()
+   {
+      NodeSet result = new NodeSet().with(this);
+      return result.getPrevTransitive();
+   }
+
 }
 

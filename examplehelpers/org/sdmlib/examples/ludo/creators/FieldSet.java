@@ -31,6 +31,12 @@ import org.sdmlib.examples.ludo.Pawn;
 import org.sdmlib.examples.ludo.Player;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.creators.LudoSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.ludo.creators.FieldSet;
+import org.sdmlib.examples.ludo.creators.PlayerSet;
+import org.sdmlib.examples.ludo.creators.PawnSet;
 
 public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -425,7 +431,104 @@ public class FieldSet extends LinkedHashSet<Field> implements org.sdmlib.models.
       
       return patternObject;
    }
+
+   public FieldSet getNextTransitive()
+   {
+      FieldSet todo = new FieldSet().with(this);
+      
+      FieldSet result = new FieldSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Field current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public FieldSet getPrevTransitive()
+   {
+      FieldSet todo = new FieldSet().with(this);
+      
+      FieldSet result = new FieldSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Field current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getPrev().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public FieldSet getLandingTransitive()
+   {
+      FieldSet todo = new FieldSet().with(this);
+      
+      FieldSet result = new FieldSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Field current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getLanding().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public FieldSet getEntryTransitive()
+   {
+      FieldSet todo = new FieldSet().with(this);
+      
+      FieldSet result = new FieldSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Field current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getEntry().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

@@ -33,6 +33,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
 import java.util.List;
+import java.util.Collections;
+import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 {
@@ -396,6 +398,7 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       return patternObject;
    }
 }
+
 
 
 

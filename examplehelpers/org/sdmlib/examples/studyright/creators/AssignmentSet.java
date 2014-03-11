@@ -34,6 +34,8 @@ import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.Room;
 import org.sdmlib.examples.studyright.creators.StudentSet;
 import org.sdmlib.examples.studyright.Student;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -198,6 +200,7 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       return patternObject;
    }
 }
+
 
 
 

@@ -28,6 +28,9 @@ import org.sdmlib.model.classes.test.Parent;
 import org.sdmlib.model.classes.test.Uncle;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.model.classes.test.creators.ParentSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
 {
@@ -132,6 +135,7 @@ public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
       return patternObject;
    }
 }
+
 
 
 

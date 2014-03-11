@@ -32,6 +32,12 @@ import org.sdmlib.examples.studyright.Student;
 import org.sdmlib.examples.studyright.University;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.creators.UniversitySet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.studyright.creators.RoomSet;
+import org.sdmlib.examples.studyright.creators.StudentSet;
+import org.sdmlib.examples.studyright.creators.AssignmentSet;
 
 public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -298,7 +304,32 @@ public class RoomSet extends LinkedHashSet<Room> implements org.sdmlib.models.mo
       
       return patternObject;
    }
+
+   public RoomSet getNeighborsTransitive()
+   {
+      RoomSet todo = new RoomSet().with(this);
+      
+      RoomSet result = new RoomSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Room current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNeighbors().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

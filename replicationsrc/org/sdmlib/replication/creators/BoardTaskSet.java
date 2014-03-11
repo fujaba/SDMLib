@@ -28,6 +28,11 @@ import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import java.util.Collection;
+import org.sdmlib.replication.creators.LogEntrySet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.replication.creators.LaneSet;
+import org.sdmlib.replication.creators.BoardTaskSet;
 
 public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -271,7 +276,56 @@ public class BoardTaskSet extends LinkedHashSet<BoardTask> implements org.sdmlib
       return this;
    }
 
+
+   public BoardTaskSet getNextTransitive()
+   {
+      BoardTaskSet todo = new BoardTaskSet().with(this);
+      
+      BoardTaskSet result = new BoardTaskSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         BoardTask current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getNext().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public BoardTaskSet getPrevTransitive()
+   {
+      BoardTaskSet todo = new BoardTaskSet().with(this);
+      
+      BoardTaskSet result = new BoardTaskSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         BoardTask current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getPrev().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 

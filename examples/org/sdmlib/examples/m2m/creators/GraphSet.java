@@ -31,6 +31,9 @@ import org.sdmlib.examples.m2m.Person;
 import org.sdmlib.examples.m2m.Relation;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.m2m.creators.PersonSet;
+import org.sdmlib.examples.m2m.creators.RelationSet;
+import org.sdmlib.examples.m2m.creators.GraphComponentSet;
 
 public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -291,6 +294,12 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       return patternObject;
    }
 }
+
+
+
+
+
+
 
 
 

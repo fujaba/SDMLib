@@ -1,0 +1,22 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+   compound=true;
+
+t1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t1 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = "Uni name has some students:
+StudentList"</td></tr><tr><td align='left'>expandedText = ""</td></tr><tr><td align='left'>modelObject = ""</td></tr><tr><td align='left'>modelClassName = "org.sdmlib.examples.studyright.University"</td></tr><tr><td align='left'>listStart = ""</td></tr><tr><td align='left'>listSeparator = ""</td></tr><tr><td align='left'>listEnd = ""</td></tr><tr><td align='left'>chooser = ""</td></tr><tr><td align='left'>referenceLookup = "false"</td></tr><tr><td align='left'>name = "UniTemplate"</td></tr></table></td></tr></table>>];
+p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p2 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "name"</td></tr><tr><td align='left'>value = ""</td></tr><tr><td align='left'>attrName = "name"</td></tr><tr><td align='left'>isKeyAttribute = "false"</td></tr><tr><td align='left'>subTemplate = ""</td></tr><tr><td align='left'>prefix = "Uni "</td></tr></table></td></tr></table>>];
+p3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p3 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "StudentList"</td></tr><tr><td align='left'>value = ""</td></tr><tr><td align='left'>attrName = "students"</td></tr><tr><td align='left'>isKeyAttribute = "false"</td></tr><tr><td align='left'>prefix = " has some students:
+"</td></tr></table></td></tr></table>>];
+t4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/Template.java"> <u>t4 :Template</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>templateText = "name matrikelnummer"</td></tr><tr><td align='left'>expandedText = ""</td></tr><tr><td align='left'>modelObject = ""</td></tr><tr><td align='left'>modelClassName = ""</td></tr><tr><td align='left'>listStart = ""</td></tr><tr><td align='left'>listSeparator = "
+"</td></tr><tr><td align='left'>listEnd = "
+"</td></tr><tr><td align='left'>chooser = ""</td></tr><tr><td align='left'>referenceLookup = "false"</td></tr><tr><td align='left'>name = "StudentTemplate"</td></tr></table></td></tr></table>>];
+p5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p5 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "name"</td></tr><tr><td align='left'>value = ""</td></tr><tr><td align='left'>attrName = "name"</td></tr><tr><td align='left'>isKeyAttribute = "false"</td></tr><tr><td align='left'>subTemplate = ""</td></tr><tr><td align='left'>prefix = ""</td></tr></table></td></tr></table>>];
+p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/models/transformations/PlaceHolderDescription.java"> <u>p6 :PlaceHolderDescription</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>textFragment = "matrikelnummer"</td></tr><tr><td align='left'>value = ""</td></tr><tr><td align='left'>attrName = "matrNo"</td></tr><tr><td align='left'>isKeyAttribute = "false"</td></tr><tr><td align='left'>subTemplate = ""</td></tr><tr><td align='left'>prefix = ""</td></tr></table></td></tr></table>>];
+
+t1 -- p2 [headlabel = "placeholders" taillabel = "owners"];
+t1 -- p3 [headlabel = "placeholders" taillabel = "owners"];
+p3 -- t4 [headlabel = "subTemplate" taillabel = "parents"];
+t4 -- p5 [headlabel = "placeholders" taillabel = "owners"];
+t4 -- p6 [headlabel = "placeholders" taillabel = "owners"];
+}

@@ -28,6 +28,10 @@ import org.sdmlib.examples.patternrewriteops.Person;
 import org.sdmlib.examples.patternrewriteops.Station;
 import org.sdmlib.examples.patternrewriteops.Train;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.patternrewriteops.creators.StationSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 
 public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -165,6 +169,7 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
       return patternObject;
    }
 }
+
 
 
 

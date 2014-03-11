@@ -27,6 +27,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.ReplicationChange;
 import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -121,5 +123,6 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
    }
 
 }
+
 
 

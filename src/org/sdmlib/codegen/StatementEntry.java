@@ -495,5 +495,17 @@ public class StatementEntry implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
+   public StatementEntrySet getBodyStatsTransitive()
+   {
+      StatementEntrySet result = new StatementEntrySet().with(this);
+      return result.getBodyStatsTransitive();
+   }
+
+   public StatementEntrySet getParentTransitive()
+   {
+      StatementEntrySet result = new StatementEntrySet().with(this);
+      return result.getParentTransitive();
+   }
+
 }
 

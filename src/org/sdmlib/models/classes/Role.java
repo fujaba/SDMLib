@@ -39,6 +39,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
 {
@@ -342,9 +343,11 @@ public class Role implements PropertyChangeInterface
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
 
+      StringBuilder text = new StringBuilder();
+      
       if (pos < 0)
       {
-         StringBuilder text = new StringBuilder(
+            text.append(
             "   public ModelSetType getName()\n" + 
             "   {\n" + 
             "      ModelSetType result = new ModelSetType();\n" + 
@@ -383,7 +386,14 @@ public class Role implements PropertyChangeInterface
             "      return answer;\n" + 
             "   }\n" + 
             "\n");
-
+      }
+       
+      
+      key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "Transitive()";
+      int pos2 = parser.indexOf(key);
+      
+      if (pos2 < 0)
+      {
          if (this.getClazz() == this.getPartnerRole().getClazz())
          {
             text
@@ -404,7 +414,10 @@ public class Role implements PropertyChangeInterface
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
          }
-         
+      }
+      
+      if (pos < 0 || pos2 < 0)
+      {      
          String containsClause = "neighbors.contains(obj.get"
                + StrUtil.upFirstChar(partnerRole.getName()) + "())";
          

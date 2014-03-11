@@ -907,5 +907,17 @@ public class Player implements PropertyChangeInterface
       }
       return this;
    }
+   public PlayerSet getNextTransitive()
+   {
+      PlayerSet result = new PlayerSet().with(this);
+      return result.getNextTransitive();
+   }
+
+   public PlayerSet getPrevTransitive()
+   {
+      PlayerSet result = new PlayerSet().with(this);
+      return result.getPrevTransitive();
+   }
+
 }
 

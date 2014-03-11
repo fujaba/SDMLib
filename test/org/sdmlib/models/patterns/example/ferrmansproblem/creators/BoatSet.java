@@ -29,6 +29,11 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.Bank;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Boat;
 import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
 import org.sdmlib.models.patterns.example.ferrmansproblem.River;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.RiverSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
+import org.sdmlib.models.patterns.example.ferrmansproblem.creators.CargoSet;
 
 public class BoatSet extends LinkedHashSet<Boat> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -177,6 +182,7 @@ public class BoatSet extends LinkedHashSet<Boat> implements org.sdmlib.models.mo
       return patternObject;
    }
 }
+
 
 
 

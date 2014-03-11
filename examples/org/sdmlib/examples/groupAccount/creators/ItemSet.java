@@ -30,6 +30,9 @@ import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
+import org.sdmlib.examples.groupAccount.creators.GroupAccountSet;
+import java.util.Collections;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
 
 public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -286,6 +289,7 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       return patternObject;
    }
 }
+
 
 
 

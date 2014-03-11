@@ -31,6 +31,8 @@ import org.sdmlib.examples.groupAccount.Person;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
+import org.sdmlib.examples.groupAccount.creators.PersonSet;
+import org.sdmlib.examples.groupAccount.creators.ItemSet;
 
 public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -257,6 +259,7 @@ public class GroupAccountSet extends LinkedHashSet<GroupAccount> implements org.
       return patternObject;
    }
 }
+
 
 
 

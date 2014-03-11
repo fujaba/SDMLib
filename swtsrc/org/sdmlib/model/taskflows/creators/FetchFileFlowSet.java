@@ -32,6 +32,9 @@ import java.util.List;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.model.taskflows.creators.TaskFlowSet;
 import org.sdmlib.model.taskflows.TaskFlow;
+import java.util.Collection;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class FetchFileFlowSet extends LinkedHashSet<FetchFileFlow> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -263,7 +266,56 @@ public class FetchFileFlowSet extends LinkedHashSet<FetchFileFlow> implements or
       
       return patternObject;
    }
+
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSubFlow().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getParent().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
 }
+
 
 
 
