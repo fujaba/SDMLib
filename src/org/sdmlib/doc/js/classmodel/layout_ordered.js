@@ -19,13 +19,13 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-GraphLayout.Ordered = function(graph, order) {
+OrderedLayout = function(graph, order) {
 	this.graph = graph;
 	this.order = order;
 	this.radius = 40;
 	this.layout();
 };
-GraphLayout.Ordered.prototype = {
+OrderedLayout.prototype = {
 	layout: function() {
 		this.layoutPrepare();
 		this.layoutCalcBounds();

@@ -22,31 +22,70 @@
 HTMLDrawer = function() {};
 HTMLDrawer.prototype.showInfoBox = function(){return true;}
 HTMLDrawer.prototype.isShowRaster = function(){return true;}
-HTMLDrawer.prototype.createContainer = function(canvasid){
+HTMLDrawer.prototype.createContainer = function(){
 	var board = document.createElement("div");
 	board.className="Board";
 	board.rasterElements=[];
 	return board;
 };
-HTMLDrawer.prototype.getHTMLNode = function(node, i, graphtyp, board){
+HTMLDrawer.prototype.getHTMLNode = function(node, i, graph){
 		var htmlElement = document.createElement("div");
-		htmlElement.className="classElement";
+		
+		if(node.typ=="patternObject"){
+			htmlElement.className="patternElement";
+		}else if(graph.typ=="object"){
+			htmlElement.className="objectElement";
+		}else{
+			htmlElement.className="classElement";
+		}
+
 		htmlElement.style.left=node.x+"px";
 		htmlElement.style.top=node.y+"px";
 		htmlElement.style.zIndex=5000;
 		htmlElement.addEventListener("mousedown", startDrag, false);
 		htmlElement.addEventListener("mouseover", showinfo, false);
 		htmlElement.addEventListener("mouseout", fadeout, false);
-		var head="";
+
+		if(node.typ=="subgraph"){
+			var options = new Options();
+			options.rootElement = htmlElement;
+			options.display = graph.options.display;
+			options.bar = false;
+			options.parent = graph;
+			node.g = new Graph(node.graph, options);
+			node.g.layout();
+			htmlElement.style.width = node.g.board.style.width;
+			htmlElement.style.height = node.g.board.style.height;
+			return htmlElement;
+		}
+
+		if(node.content_src){
+			htmlElement.innerHTML = '<img src="'+node.content_src+'" />';return htmlElement;
+		}
+		if(node.content_html){
+			htmlElement.innerHTML = node.content_html;return htmlElement;
+		}
+		if(node.content_plain){
+			htmlElement.innerHTML = node.content_plain;return htmlElement;
+		}
+		var text = "<table border=0>";
 		if(node.headimage){
-			head = "<tr><td><img src=\""+node.headimage+"\" /></td></tr>";
+			text += "<tr><td><img src=\""+node.headimage+"\" /></td></tr>";
 		}
-		var text = "<table border=0>"+head;
-		if(graphtyp=="object"){
-			text = text + "<tr><th><u>" + node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u></th></tr>";
+		if(node.headinfo){
+			text += "<tr><td class=\"head\">"+node.headinfo+"</td></tr>";
+		}
+
+		if(graph.typ=="object"){
+			info = "<u>" + node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u>";
 		}else{
-			text = text + "<tr><th>"+ node.id+"</th></tr>";
+			info = node.id
 		}
+		if(node.href){
+			info = "<a href=\""+node.href+"\">" + info + "</a>";
+		}
+		text += "<tr><th>" + info + "</th></tr>";
+		
 		if(node.attributes){
 			var first=true;
 			for(var a in node.attributes){
@@ -123,7 +162,7 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
 SVGDrawer = function() {};
 SVGDrawer.prototype.showInfoBox = function(){return false;}
 SVGDrawer.prototype.isShowRaster = function(){return true;}
-SVGDrawer.prototype.createContainer = function(canvasid){
+SVGDrawer.prototype.createContainer = function(){
 	var board = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 	board.rasterElements=[];
 	board.setAttribute('xmlns', "http://www.w3.org/2000/svg");
@@ -140,30 +179,40 @@ SVGDrawer.prototype.getWidth = function(label, board){
 	board.removeChild(text);
 	return width;
 }
-SVGDrawer.prototype.getHTMLNode = function(node, i, graphtyp, board){
+SVGDrawer.prototype.getHTMLNode = function(node, i, graph){
 	var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
 	group.setAttribute('transform', "translate("+node.x+" "+node.y+")");
 	var width=0;
 	var height=30;
-	if(graphtyp=="object"){
-		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), board));
+	if(graph.typ=="object"){
+		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph.board));
 	}else{
-		width = Math.max(width, this.getWidth(node.id, board));
+		width = Math.max(width, this.getWidth(node.id, graph.board));
 	}
 	if(node.attributes){
 		height = height + node.attributes.length*20;
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
-			width = Math.max(width, this.getWidth(attribute, board));
+			width = Math.max(width, this.getWidth(attribute, graph.board));
 		}
 	}
 	height += 10;
 	width += 20;
 	var textwidth=width-10;
-	
+
+	if(node.content_src){
+		group.innerHTML = '<image height="'+node.height+'" width="'+node.width+'" xlink:href="'+node.content_src+'"/>';return group;
+	}
+	if(node.content_svg){
+		group.innerHTML = node.content_svg;return group;
+	}
+	if(node.content_plain){
+		group.innerHTML = '<text text-anchor="left" x="10" style="font-size: 12px;">'+node.content_plain+'</text>';return group;
+	}
+
 	var text= '<rect height="'+height+'" width="'+width+'" style="fill:none;stroke:#000;stroke-width:1px;" />';
 	
-	if(graphtyp=="object"){
+	if(graph.typ=="object"){
 		text += '<text text-anchor="middle" width="'+textwidth+'" x="'+width/2+'" y="20" style="text-decoration: underline;font-size: 12px;">'+ node.id.charAt(0).toLowerCase() + node.id.slice(1) +"</text>";
 	}else{
 		text += '<text text-anchor="middle" width="'+textwidth+'" x="'+width/2+'" y="20" style="font-size: 12px;">'+ node.id+ "</text>";
@@ -174,7 +223,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, i, graphtyp, board){
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
 			text += '<text text-anchor="left" width="'+textwidth+'" x="10" y="'+y+'" style="font-size: 12px;">'+attribute+'</text>';
-			y += 20;	
+			y += 20;
 		}
 	}
 	group.innerHTML = text;

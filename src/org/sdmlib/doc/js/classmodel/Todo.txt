@@ -1,5 +1,5 @@
-- Selbstassoziationen
 - Pathnodes
 - Rechteckige Pfeile
 - Nodes ausblenden
 - beschriftung
+- PatternObject

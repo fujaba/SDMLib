@@ -19,7 +19,7 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-GraphLayout.Spring = function(graph) {
+SpringLayout = function(graph) {
 	this.graph = graph;
 	this.iterations = 500;
 	this.maxRepulsiveForceDistance = 6;
@@ -29,7 +29,7 @@ GraphLayout.Spring = function(graph) {
 	this.radius = 40;
 	this.layouting();
 };
-GraphLayout.Spring.prototype = {
+SpringLayout.prototype = {
 	layouting: function() {
 		forceNodes = {}
 		for (var i in this.graph.nodes) {

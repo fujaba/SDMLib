@@ -19,13 +19,13 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-GraphLayout.Circular = function(graph){this.graph = graph;};
+CircularLayout = function(graph){this.graph = graph;};
 /**
  * Spreads the vertices evenly in a circle. No cross reduction.
  *
  * @param graph A valid graph instance
  */
-GraphLayout.Circular.prototype = {
+CircularLayout.prototype = {
  postlayout: function() {
   /* Radius. */
   var r = Math.min(this.width, this.height) / 2;

@@ -32,7 +32,9 @@ Options = function(){
 	this.raster = false;
 	this.display = "svg";
 	this.bar = true;
-	this.canvasid = "canvas";
+	this.canvasid = null;
+	this.rootElement = null;
+	this.parent = null;
 }
 
 /* Node */
@@ -55,26 +57,28 @@ Graph = function(json, options) {
 	this.nodes = {};
 	this.edges = [];
 	this.typ = json.typ;
+	this.layouter = new DagreLayout();
 	if(options){
 		this.options = options;
-	}else if(json.options){
-		this.options = json.options;
 	}else{
-		this.options = new Options();
+		this.options = json.options || new Options()
 	}
+	this.parent = this.options.parent;
+	
 	if((""+this.options.display).toLowerCase()=="html"){
 		this.drawer = new HTMLDrawer();
 	}else{
 		this.drawer = new SVGDrawer();
 		this.options.display = "svg";
 	}
-	this.canvasid = this.options.canvasid ||  "canvas";
 	this.minSize = new Pos(0, 0);
 
 	for (var i in json.value.nodes) {
 		var node = json.value.nodes[i];
 		node.x = node.x || 0;
 		node.y = node.y || 0;
+		node.startWidth = node.width;
+		node.startHeight = node.height;
 		node.width = node.width || 0;
 		node.height = node.height || 0;
 		node.edges = [];
@@ -87,7 +91,7 @@ Graph = function(json, options) {
 		if(e.typ.toLowerCase()=="generalisation"){
 			edge = new Generalisation();
 		}else if(e.typ.toLowerCase()=="implements"){
-			edge = new Implements();			
+			edge = new Implements();
 		}else{
 			edge = new Edge();
 		}
@@ -98,23 +102,28 @@ Graph = function(json, options) {
 
 		edge.target = this.getNode(e.target);
 		edge.target.edges.push(edge);
-		
 		this.edges.push(edge);
 	}
-	if(!document.getElementById(this.canvasid)){
-		document.write("<div id=\""+this.canvasid+"\" />");
-	}
-	this.root = document.getElementById(this.canvasid);
 	
+	if(this.options.canvasid){
+		this.root = document.getElementById(this.options.canvasid);
+	}else if(this.options.rootElement){
+		this.root = this.options.rootElement;
+	}else{
+		this.root = document.createElement("div");
+		document.body.appendChild(this.root);
+	}
 	if(this.options.bar){
-		document.write("<div id='"+this.canvasid+"option' class=\"Options\" />");
+		this.optionbar = document.createElement("div");
+		this.optionbar.className = "Options";
+		this.root.appendChild(this.optionbar);
 		//<button>HTML</button><button>SVG</button><button>SVG CODE</button></div>");
-		this.optionbar=document.getElementById(this.canvasid+"option");
 		this.optionbar.appendChild(this.getButton("HTML"));
 		this.optionbar.appendChild(this.getButton("SVG"));
 		this.optionbar.appendChild(this.getButton("SVG CODE"));
 		this.optionbar.appendChild(document.createElement("br"));
 	}
+
 	this.initGraph();
 };
 Graph.prototype.initGraph = function(){
@@ -133,16 +142,18 @@ Graph.prototype.initGraph = function(){
 		this.infoBox=null;
 	}
 
-	this.board = this.drawer.createContainer(this.canvasid);
+	this.board = this.drawer.createContainer();
 	this.root.appendChild(this.board);
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
-		var html = this.drawer.getHTMLNode(node, i, this.typ, this.board);
-		this.board.appendChild(html);
-		var rect = html.getBoundingClientRect();
-		node.width=rect.width;
-		node.height=rect.height;
-		this.board.removeChild(html);
+		var html = this.drawer.getHTMLNode(node, i, this);
+		var pos = this.getDimension(html);
+		if(!node.startWidth){
+			node.width=pos.x;
+		}
+		if(!node.startHeight){
+			node.height=pos.y;
+		}
 	}
 	for (var i in this.edges) {
 		var edge = this.edges[i];
@@ -151,21 +162,27 @@ Graph.prototype.initGraph = function(){
 		if(edge.sourceproperty){
 			var html = this.drawer.createInfo(0, 0, edge.sourceproperty);
 			if(html){
-				this.board.appendChild(html);
-				edge.sourceinfo.size = new Pos(rect.width, rect.height);
-				this.board.removeChild(html);
+				edge.sourceinfo.size = this.getDimension(html);
 			}
 		}
 		if(edge.targetproperty){
 			var html = this.drawer.createInfo(0, 0, edge.targetproperty);
 			if(html){
-				this.board.appendChild(html);
-				edge.targetinfo.size = new Pos(rect.width, rect.height);
-				this.board.removeChild(html);
+				edge.targetinfo.size = this.getDimension(html);
 			}
 		}
 	}
 }
+Graph.prototype.getDimension = function(html){
+	if(this.parent){
+		return this.parent.getDimension(html);
+	}
+	this.board.appendChild(html);
+	var rect = html.getBoundingClientRect();
+	var pos = new Pos(rect.width, rect.height);
+	this.board.removeChild(html);
+	return pos;
+};
 Graph.prototype.getButton = function(label){
 	var button = document.createElement("button");
 	button.innerHTML = label;
@@ -221,7 +238,7 @@ Graph.prototype.removeNode = function(id) {
 		this.board.removeChild(this.nodes[id].htmlNode);
 	}
 	delete(this.nodes[id]);
-	
+
 	for(var i = 0; i < this.edges.length; i++) {
 		if (this.edges[i].source.id == id || this.edges[i].target.id == id) {
 			this.edges.splice(i, 1);
@@ -237,6 +254,10 @@ Graph.prototype.drawLines = function(){
 			ownAssoc.push(this.edges[i]);
 		}
 	}
+	for(var i in ownAssoc) {
+		ownAssoc[i].calcOwnEdge();
+	}
+
 	for(var i in this.edges) {
 		this.edges[i].draw(this.board, this.drawer);
 	}
@@ -259,9 +280,9 @@ Graph.prototype.resize = function(){
 	var maxx=0, maxy=0;
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
-		
+
 		this.NodeMoveRaster(node);
-		
+
 		maxx=Math.max(maxx,node.x+node.width);
 		maxy=Math.max(maxy,node.y+node.height);
 	}
@@ -296,7 +317,7 @@ Graph.prototype.drawRaster = function(){
 		item.style.top = i+"px";
 		this.board.rasterElements.push(item);
 		this.board.appendChild(item);
-	}	
+	}
 };
 Graph.prototype.drawGraph = function(width, height){
 	this.minSize = new Pos(width, height);
@@ -305,12 +326,12 @@ Graph.prototype.drawGraph = function(width, height){
 	}
 	this.resize();
 
-	for(i in this.nodes) {
-		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], i, this.typ, this.board);
+	for(var i in this.nodes) {
+		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], i, this);
 		this.board.appendChild( this.nodes[i].htmlNode );
 	}
 	this.drawLines();
-	
+
 	if(this.drawer.showInfoBox()){
 		this.infoBox.id = "infobox";
 		this.infoBox.style.left = this.board.offsetWidth-200;
@@ -344,37 +365,39 @@ Graph.prototype.NodeMoveRaster = function(node){
 		}
 	}
 }
+
+Graph.prototype.layout = function(minwidth, minHeight){
+	if(this.layouter){
+		this.layouter.graph = this;
+		this.layouter.layout(minwidth || 0, minHeight || 0);
+	}
+}
+
 /* GraphLayout with Default Dagre */
-GraphLayout = function (){};
-GraphLayout.Dagre = function(graph) {
-    this.graph = graph;
-    this.layouting();
+DagreLayout = function() {};
+DagreLayout.prototype.layout = function(width, height) {
+	this.g = new dagre.Digraph();
+	for (var i in this.graph.nodes) {
+		var node = this.graph.nodes[i];
+		this.g.addNode(node.id, {"label": node.id, "width":node.width+10, "height":node.height+20, "x":node.x, "y":node.y});
+	}
+	for (var i in this.graph.edges) {
+		var edges = this.graph.edges[i];
+		edges.id = i;
+		this.g.addEdge(i, edges.source.id, edges.target.id);
+	}
+
+	var layout = dagre.layout().run(this.g);
+	// Set the layouting back
+	for (var i in this.graph.nodes) {
+		var node = this.graph.nodes[i];
+		var layoutNode = layout._nodes[node.id];
+		node.x = layoutNode.value.x;
+		node.y = layoutNode.value.y;
+	}
+	this.graph.drawGraph(width, height);
 };
-GraphLayout.Dagre.prototype = {
-    layouting: function() {
-		this.g = new dagre.Digraph();
-		for (var i in this.graph.nodes) {
-			var node = this.graph.nodes[i];
-			this.g.addNode(node.id, {"label": node.id, "width":node.width+10, "height":node.height+20});
-		}
-		for (var i in this.graph.edges) {
-			var edges = this.graph.edges[i];
-			edges.id = i;
-			this.g.addEdge(i, edges.source.id, edges.target.id);
-		}
-    },
-	layout: function(width, height) {
-		var layout = dagre.layout().run(this.g);
-		// Set the layouting back
-		for (var i in this.graph.nodes) {
-			var node = this.graph.nodes[i];
-			var layoutNode = layout._nodes[node.id];
-			node.x = layoutNode.value.x;
-			node.y = layoutNode.value.y;
-		}
-		this.graph.drawGraph(width, height);
-    }
-};
+
 
 //					######################################################### DRAG AND DROP #########################################################
 var objDrag = null;
@@ -479,10 +502,12 @@ function optionButton(event){
 	var btn = event.currentTarget;
 	if(btn.innerHTML=="HTML"){
 		btn.graph.drawer = new HTMLDrawer();
+		btn.graph.options.display = "html";
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
 	}else if(btn.innerHTML=="SVG"){
 		btn.graph.drawer = new SVGDrawer();
+		btn.graph.options.display = "svg";
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
 	}else if(btn.innerHTML=="SVG CODE"){
@@ -494,6 +519,7 @@ function optionButton(event){
 }
 
 String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
+
 function isIE () {
 	var myNav = navigator.userAgent.toLowerCase();
 	return (myNav.indexOf('msie') != -1 || myNav.endsWith('like gecko') );
@@ -545,62 +571,183 @@ Edge.prototype.calcCenterLine = function(){
 	this.path = new Array();
 	if(divisor==0){
 		if(this.source==this.target){
-			// OwnAssoc
+			/* OwnAssoc */
 			return false;
 		}
 		// Must be UP_DOWN or DOWN_UP
 		if(this.source.center.y<this.target.center.y){
 			// UP_DOWN
-			sourcePos = new Pos(this.source.center.x ,  (this.source.y+this.source.height), Edge.Position.DOWN);
-			targetPos = new Pos(this.target.center.x ,  (this.target.y), Edge.Position.UP);
-			this.sourceinfo.pos = new Pos(sourcePos.x + 5, sourcePos.y + 5);
-			this.targetinfo.pos = new Pos(targetPos.x + 5, targetPos.y - 5 - this.targetinfo.size.y);
+			sourcePos = this.getCenterPosition(this.source, Edge.Position.DOWN);
+			targetPos = this.getCenterPosition(this.target, Edge.Position.UP);
 		}else{
-			sourcePos = new Pos(this.source.center.x ,  (this.source.pos.y), Edge.Position.UP);
-			targetPos = new Pos(this.target.center.x ,  (this.target.pos.y+this.target.size.y), Edge.Position.DOWN);
-			this.sourceinfo.pos = new Pos(sourcePos.x + 5, sourcePos.y - 5 - this.sourceinfo.size.y);
-			this.targetinfo.pos = new Pos(targetPos.x + 5, targetPos.y + 5);
+			sourcePos = this.getCenterPosition(this.source, Edge.Position.UP);
+			targetPos = this.getCenterPosition(this.source, Edge.Position.DOWN);
 		}
 	}else{
 		this.m = (this.target.center.y - this.source.center.y) / divisor;
 		this.n = this.source.center.y - (this.source.center.x * this.m);
 		sourcePos = this.getPosition(this.m,this.n, this.source, this.target.center);
 		targetPos = this.getPosition(this.m,this.n, this.target, sourcePos);
-		if(sourcePos&&targetPos){
-			pos = sourcePos.id+ "_" + targetPos.id;
-			this.calcInfoPos( sourcePos, this.source, this.sourceinfo);
-			this.calcInfoPos( targetPos, this.target, this.targetinfo);
-		}
 	}
 	if(sourcePos&&targetPos){
+		this.calcInfoPos( sourcePos, this.source, this.sourceinfo);
+		this.calcInfoPos( targetPos, this.target, this.targetinfo);
 		this.addEdgeToNode(this.source, sourcePos.id);
 		this.addEdgeToNode(this.target, targetPos.id);
 		this.path.push ( new Line(sourcePos, targetPos, this.lineStyle));
 	}
 	return true;
 };
+Edge.prototype.getCenterPosition = function(node, pos){
+	if(pos==Edge.Position.DOWN){
+		return new Pos(node.center.x, (node.y+node.height), Edge.Position.DOWN);
+	}
+	if(pos==Edge.Position.UP){
+		return new Pos(node.center.x, node.y, Edge.Position.UP);
+	}
+	if(pos==Edge.Position.LEFT){
+		return new Pos(node.x, node.center.y, Edge.Position.LEFT);
+	}
+	if(pos==Edge.Position.RIGHT){
+		return new Pos(node.x+node.width, node.center.y, Edge.Position.RIGHT);
+	}
+}
+
+Edge.prototype.calcOwnEdge = function(){
+	//this.source
+	var offset = 20;
+	var start = this.getFree(this.source);
+	var end="";
+	if(start.length>0){
+		end = this.getFree(this.source);
+		if(end.length<1){
+			if(start==Edge.Position.UP){
+				node.RIGHT+=1;
+				end = Edge.Position.RIGHT;
+			}else if(start==Edge.Position.DOWN){
+				node.LEFT+=1;
+				end = Edge.Position.LEFT;
+			}else if(start==Edge.Position.RIGHT){
+				node.DOWN+=1;
+				end = Edge.Position.DOWN;
+			}else{
+				node.UP+=1;
+				end = Edge.Position.UP;
+			}
+		}
+	}else{
+		start = Edge.Position.RIGHT;
+		end = Edge.Position.DOWN;
+	}
+
+	var sPos = this.getCenterPosition(this.source, start);
+	var tPos;
+	if(start==Edge.Position.UP){
+		tPos = new Pos(sPos.x, sPos.y - offset);
+	}else if(start==Edge.Position.DOWN){
+		tPos = new Pos(sPos.x, sPos.y + offset);
+	}else if(start==Edge.Position.RIGHT){
+		tPos = new Pos(sPos.x + offset, sPos.y);
+	}else if(start==Edge.Position.LEFT){
+		tPos = new Pos(sPos.x - offset, sPos.y);
+	}
+	this.path.push (new Line(sPos, tPos, this.lineStyle));
+	if(end==Edge.Position.LEFT || end==Edge.Position.RIGHT){
+		if(start==Edge.Position.LEFT){
+			sPos = tPos;
+			tPos = new Pos(sPos.x, this.source.y - offset);
+			this.path.push (new Line(sPos, tPos, this.lineStyle));
+		}else if(start==Edge.Position.RIGHT){
+			sPos = tPos;
+			tPos = new Pos(sPos.x, this.source.y + offset);
+			this.path.push (new Line(sPos, tPos, this.lineStyle));
+		}
+		sPos = tPos;
+		if(end==Edge.Position.LEFT){
+			tPos = new Pos(this.source.x - offset, sPos.y);
+		}else{
+			tPos = new Pos(this.source.x + this.source.width + offset, sPos.y);
+		}
+		this.path.push (new Line(sPos, tPos, this.lineStyle));
+		sPos = tPos;
+		tPos = new Pos(sPos.x, this.source.center.y);
+		this.path.push (new Line(sPos, tPos, this.lineStyle));
+	}else if(end==Edge.Position.UP || end==Edge.Position.DOWN){
+		if(start==Edge.Position.UP){
+			sPos = tPos;
+			tPos = new Pos(this.source.x + this.source.width + offset, sPos.y);
+			this.path.push (new Line(sPos, tPos, this.lineStyle));
+		}else if(start==Edge.Position.DOWN){
+			sPos = tPos;
+			tPos = new Pos(this.source.x - offset, sPos.y);
+			this.path.push (new Line(sPos, tPos, this.lineStyle));
+		}
+		sPos = tPos;
+		if(end==Edge.Position.UP){
+			tPos = new Pos(sPos.x, this.source.y - offset);
+		}else{
+			tPos = new Pos(sPos.x, this.source.y + this.source.height + offset);
+		}
+		this.path.push (new Line(sPos, tPos, this.lineStyle));
+		sPos = tPos;
+		tPos = new Pos(this.source.center.x, sPos.y);
+		this.path.push (new Line(sPos, tPos, this.lineStyle));
+	}
+	sPos = tPos;
+	this.path.push (new Line(sPos, this.getCenterPosition(this.source, end), this.lineStyle));
+};
 Edge.prototype.addEdgeToNode=function(node, pos){
-	if(pos=="UP"){
+	if(pos==Edge.Position.UP){
 		node.UP+=1;
-	}else if(pos=="DOWN"){
+	}else if(pos==Edge.Position.DOWN){
 		node.DOWN+=1;
-	}else if(pos=="RIGHT"){
+	}else if(pos==Edge.Position.RIGHT){
 		node.RIGHT+=1;
-	}else if(pos=="LEFT"){
+	}else if(pos==Edge.Position.LEFT){
 		node.LEFT+=1;
 	}
 };
+Edge.prototype.getFree = function(node){
+	if(node.UP==0 ){
+		node.UP +=1;
+		return Edge.Position.UP;
+	}else if(node.RIGHT==0 ){
+		node.RIGHT +=1;
+		return Edge.Position.RIGHT;
+	}else if(node.DOWN==0 ){
+		node.DOWN +=1;
+		return Edge.Position.DOWN;
+	}else if(node.LEFT==0 ){
+		node.LEFT +=1;
+		return Edge.Position.LEFT;
+	}
+	return "";
+}
 
-Edge.prototype.calcInfoPos = function( linePos, item, info){
+Edge.prototype.calcInfoPos = function(linePos, item, info){
 	var newY = linePos.y;
 	var newX = linePos.x;
 	var yoffset =0;
 	if(linePos.id==Edge.Position.UP){
 		newY = newY - info.size.y -5;
-		newX = (newY-this.n) / this.m + 10;
+		if(this.m>0){
+			newX = (newY-this.n) / this.m + 5;
+		}else{
+			newX += 5;
+		}
 	}else if(linePos.id==Edge.Position.DOWN){
 		newY = newY + 5;
-		newX = (newY-this.n) / this.m + 10;
+		if(this.m>0){
+			newX = (newY-this.n) / this.m + 5;
+		}else{
+			newX += 5;
+		}
+	}else if(linePos.id==Edge.Position.LEFT){
+		newX -= info.size.x - 5;
+		newY = (this.m * newX)+ this.n;
+	}else if(linePos.id==Edge.Position.DOWN){
+		newX += info.size.x + 5;
+		newY = (this.m * newX)+ this.n;
 	}
 	info.pos = new Pos(newX, newY);
 };
@@ -655,7 +802,7 @@ Generalisation.prototype.calculate = function(board, drawer){
 	}
 
 	var startArrow  = this.endPos().source;
-	var targetArrow  = this.endPos().target;
+	var targetArrow = this.endPos().target;
 	// calculate the angle of the line
 	var lineangle=Math.atan2(targetArrow.y-startArrow.y,targetArrow.x-startArrow.x);
 	// h is the line length of a side of the arrow head
@@ -677,7 +824,7 @@ Generalisation.prototype.draw = function(board, drawer){
 	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, this.lineStyle));
 };
 
-Implements  = function() { this.init(); }
+Implements = function() { this.init(); }
 Implements.prototype = Object_create(Generalisation.prototype);
 Implements.prototype.constructor = Implements;
 Implements.prototype.initGeneralisation = Implements.prototype.init;

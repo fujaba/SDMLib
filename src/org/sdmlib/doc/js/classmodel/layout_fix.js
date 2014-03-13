@@ -19,11 +19,11 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-GraphLayout.Fixed = function(graph) {
+FixedLayout = function(graph) {
     this.graph = graph;
 	this.items = new Array();
 };
-GraphLayout.Fixed.prototype = {
+FixedLayout.prototype = {
     addNode: function(nodeid, left, top) {
 		this.items.push(new Array(nodeid, left, top));
 	},
