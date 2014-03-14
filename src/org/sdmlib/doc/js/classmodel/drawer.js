@@ -22,13 +22,14 @@
 HTMLDrawer = function() {};
 HTMLDrawer.prototype.showInfoBox = function(){return true;}
 HTMLDrawer.prototype.isShowRaster = function(){return true;}
+HTMLDrawer.prototype.clearBoard = function(graph){};
 HTMLDrawer.prototype.createContainer = function(){
 	var board = document.createElement("div");
 	board.className="Board";
 	board.rasterElements=[];
 	return board;
 };
-HTMLDrawer.prototype.getHTMLNode = function(node, i, graph){
+HTMLDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 		var htmlElement = document.createElement("div");
 		
 		if(node.typ=="patternObject"){
@@ -118,7 +119,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, i, graph){
 		return htmlElement;
 };
 
-HTMLDrawer.prototype.createInfo = function(x, y, text){
+HTMLDrawer.prototype.createInfo = function(x, y, text, calculate){
 	var info = document.createElement("div");
 	info.style.position = "absolute";
 	info.style.top = y;
@@ -161,7 +162,8 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
 
 SVGDrawer = function() {};
 SVGDrawer.prototype.showInfoBox = function(){return false;}
-SVGDrawer.prototype.isShowRaster = function(){return true;}
+SVGDrawer.prototype.isShowRaster = function(){return false;}
+SVGDrawer.prototype.clearBoard = function(graph){};
 SVGDrawer.prototype.createContainer = function(){
 	var board = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 	board.rasterElements=[];
@@ -170,17 +172,154 @@ SVGDrawer.prototype.createContainer = function(){
 };
 
 
-SVGDrawer.prototype.getWidth = function(label, board){
+SVGDrawer.prototype.getWidth = function(label, board, calculate){
 	var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-	text.innerHTML = label;
+	text.appendChild(document.createTextNode(label));
 	text.style.fontSize="12px";
 	board.appendChild(text);
 	var width =text.getBoundingClientRect().width;
 	board.removeChild(text);
 	return width;
 }
-SVGDrawer.prototype.getHTMLNode = function(node, i, graph){
-	var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+SVGDrawer.prototype.getHTMLNode = function(node, graph){
+	var ns = "http://www.w3.org/2000/svg";
+	var group = document.createElementNS(ns, "g");
+	group.setAttribute('transform', "translate("+node.x+" "+node.y+")");
+	var width=0;
+	var height=30;
+	if(graph.typ=="object"){
+		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph.board));
+	}else{
+		width = Math.max(width, this.getWidth(node.id, graph.board));
+	}
+	if(node.attributes){
+		height = height + node.attributes.length*20;
+		for(var a in node.attributes){
+			var attribute = node.attributes[a];
+			width = Math.max(width, this.getWidth(attribute, graph.board));
+		}
+	} 
+	height += 10;
+	width += 20;
+	var textwidth=width-10;
+
+	if(node.content_src){
+		var image = document.createElementNS(ns, "image");
+		image.setAttribute('height', node.height);
+		image.setAttribute('width', node.width);
+		image.setAttributeNS("http://www.w3.org/1999/xlink", 'href',node.content_src);
+		group.appendChild(image);
+		return group;
+	}
+	if(node.content_svg){
+		group.innerHTML = node.content_svg;return group;
+	}
+	if(node.content_plain){
+		var text = document.createElementNS(ns, "text");
+		text.setAttribute("text-anchor", "left");
+		text.setAttribute("x", "10");
+		text.setAttribute("style", "font-size: 12px;");
+		var textNode = document.createTextNode(node.content_plain)
+		text.appendChild(textNode);
+		group.appendChild(text);
+		return group;
+	}
+	var rect = document.createElementNS(ns, "rect");
+	rect.setAttribute("height", height);
+	rect.setAttribute("width", width);
+	rect.setAttribute("style", "fill:none;stroke:#000;stroke-width:1px;");
+	group.appendChild(rect);
+	var text = document.createElementNS(ns, "text");
+	text.setAttribute("text-anchor", "middle");
+	text.setAttribute("width", textwidth);
+	text.setAttribute("x", ""+width/2);
+	text.setAttribute("y", "20");
+
+	if(graph.typ=="object"){
+		text.setAttribute("style", "text-decoration: underline;font-size: 12px;");
+		text.appendChild(document.createTextNode(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
+	}else{
+		text.setAttribute("style", "font-size: 12px;");
+		text.appendChild(document.createTextNode(node.id));
+	}
+	group.appendChild(text);
+	var line = document.createElementNS(ns, "line");
+	line.setAttribute("x1", 0);
+	line.setAttribute("y1", 30);
+	line.setAttribute("x2", width);
+	line.setAttribute("y2", 30);
+	line.setAttribute("style", "stroke:#000;");
+	group.appendChild(line);
+	if(node.attributes){
+		var y = 50;
+		for(var a in node.attributes){
+			var attribute = node.attributes[a];
+			var text = document.createElementNS(ns, "text");
+			text.setAttribute("text-anchor", "left");
+			text.setAttribute("width", ""+textwidth);
+			text.setAttribute("x", 10);
+			text.setAttribute("y", y);
+			text.setAttribute("style", "font-size: 12px;");
+			text.appendChild(document.createTextNode(attribute));
+			group.appendChild(text);
+			y += 20;
+		}
+	}
+	//group.innerHTML = text;
+	return group;
+};
+
+SVGDrawer.prototype.createInfo = function(x, y, text, calculate){
+	return null;
+};
+
+SVGDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
+	var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+	line.setAttribute('x1', x1);
+	line.setAttribute('y1', y1);
+	line.setAttribute('x2', x2);
+	line.setAttribute('y2', y2);
+	if(style=="DOTTED"){
+		line.setAttribute('style', "stroke:#000;stroke-miterlimit:4;stroke-dasharray:1, 1;");
+	}else{
+// 	if(style=="solid"){
+		line.setAttribute('style', "stroke:#000;");
+	}
+	return line;
+};
+
+
+CanvasDrawer = function() {};
+CanvasDrawer.prototype.clearBoard = function(graph){
+	var canvas = graph.board;
+	var context = canvas.getContext('2d');
+	context.clearRect(0, 0, canvas.width, canvas.height);
+};
+CanvasDrawer.prototype.showInfoBox = function(){return false;}
+CanvasDrawer.prototype.isShowRaster = function(){return true;}
+CanvasDrawer.prototype.createContainer = function(){
+	var board = document.createElement("canvas");
+	board.rasterElements=[];
+	return board;
+};
+
+CanvasDrawer.prototype.getWidth = function(text, canvas){
+};
+CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
+	var canvas = graph.board;
+	var context = canvas.getContext('2d');
+	
+	context.beginPath();
+      context.rect(188, 50, 200, 100);
+      context.fillStyle = 'yellow';
+      context.fill();
+      context.lineWidth = 7;
+      context.strokeStyle = 'black';
+      context.stroke();
+	
+	// Calculate Height
+	/*
+var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
 	group.setAttribute('transform', "translate("+node.x+" "+node.y+")");
 	var width=0;
 	var height=30;
@@ -201,7 +340,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, i, graph){
 	var textwidth=width-10;
 
 	if(node.content_src){
-		group.innerHTML = '<image height="'+node.height+'" width="'+node.width+'" xlink:href="'+node.content_src+'"/>';return group;
+		group.innerHTML = '<image height="'+node.height+'" width="'+node.width+'" xlink:href="'+node.content_src+'" xmlns:xlink="http://www.w3.org/1999/xlink"/>';return group;
 	}
 	if(node.content_svg){
 		group.innerHTML = node.content_svg;return group;
@@ -228,23 +367,18 @@ SVGDrawer.prototype.getHTMLNode = function(node, i, graph){
 	}
 	group.innerHTML = text;
 	return group;
-};
+context.font = '30pt Calibri';
+      context.textAlign = 'center';
+      context.fillStyle = 'blue';
+      context.fillText(text, x, y);
 
-SVGDrawer.prototype.createInfo = function(x, y, text){
+      // get text metrics
+      var metrics = context.measureText(text);
+      var width = metrics.width;*/
+	  return context;
+};
+CanvasDrawer.prototype.createInfo = function(x, y, text, calculate){
 	return null;
 };
-
-SVGDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
-	var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-	line.setAttribute('x1', x1);
-	line.setAttribute('y1', y1);
-	line.setAttribute('x2', x2);
-	line.setAttribute('y2', y2);
-	if(style=="DOTTED"){
-		line.setAttribute('style', "stroke:#000;stroke-miterlimit:4;stroke-dasharray:1, 1;");
-	}else{
-// 	if(style=="solid"){
-		line.setAttribute('style', "stroke:#000;");
-	}
-	return line;
+CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
 };

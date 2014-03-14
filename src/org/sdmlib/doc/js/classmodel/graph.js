@@ -146,13 +146,15 @@ Graph.prototype.initGraph = function(){
 	this.root.appendChild(this.board);
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
-		var html = this.drawer.getHTMLNode(node, i, this);
-		var pos = this.getDimension(html);
-		if(!node.startWidth){
-			node.width=pos.x;
-		}
-		if(!node.startHeight){
-			node.height=pos.y;
+		var html = this.drawer.getHTMLNode(node, this, true);
+		if(html){
+			var pos = this.getDimension(html);
+			if(!node.startWidth){
+				node.width=pos.x;
+			}
+			if(!node.startHeight){
+				node.height=pos.y;
+			}
 		}
 	}
 	for (var i in this.edges) {
@@ -160,18 +162,19 @@ Graph.prototype.initGraph = function(){
 		edge.sourceinfo = new Item(new Pos(0,0), new Pos(0,0) );
 		edge.targetinfo = new Item(new Pos(0,0), new Pos(0,0) );
 		if(edge.sourceproperty){
-			var html = this.drawer.createInfo(0, 0, edge.sourceproperty);
+			var html = this.drawer.createInfo(0, 0, edge.sourceproperty, true);
 			if(html){
 				edge.sourceinfo.size = this.getDimension(html);
 			}
 		}
 		if(edge.targetproperty){
-			var html = this.drawer.createInfo(0, 0, edge.targetproperty);
+			var html = this.drawer.createInfo(0, 0, edge.targetproperty, true);
 			if(html){
 				edge.targetinfo.size = this.getDimension(html);
 			}
 		}
 	}
+	this.drawer.clearBoard(this);
 }
 Graph.prototype.getDimension = function(html){
 	if(this.parent){
@@ -327,7 +330,7 @@ Graph.prototype.drawGraph = function(width, height){
 	this.resize();
 
 	for(var i in this.nodes) {
-		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], i, this);
+		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], this, false);
 		this.board.appendChild( this.nodes[i].htmlNode );
 	}
 	this.drawLines();
@@ -556,10 +559,10 @@ Edge.prototype.draw = function(board, drawer){
 		this.addElement(board, this.htmlElement, drawer.createLine(this.path[i].source.x, this.path[i].source.y, this.path[i].target.x, this.path[i].target.y, this.path[i].style));
 	}
 	if(this.sourceproperty){
-		this.addElement(board, this.htmlElement, drawer.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, this.sourceproperty));
+		this.addElement(board, this.htmlElement, drawer.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, this.sourceproperty, false));
 	}
 	if(this.targetproperty){
-		this.addElement(board, this.htmlElement, drawer.createInfo(this.targetinfo.pos.x, this.targetinfo.pos.y, this.targetproperty));
+		this.addElement(board, this.htmlElement, drawer.createInfo(this.targetinfo.pos.x, this.targetinfo.pos.y, this.targetproperty, false));
 	}
 };
 Edge.prototype.endPos = function(){
