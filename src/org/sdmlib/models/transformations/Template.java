@@ -24,6 +24,7 @@ package org.sdmlib.models.transformations;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -896,9 +897,23 @@ public class Template implements PropertyChangeInterface
          return;
       }
       
+      
       if (modelObject instanceof Collection)
       {
-         rootObjects.addAll((Collection) modelObject);
+         Collection collection = (Collection) modelObject;
+         if ( ! collection.isEmpty())
+         {
+            Object elem = collection.iterator().next();
+            
+            if ("Double Integer String".indexOf(CGUtil.shortClassName(elem.getClass().getName())) >= 0)
+            {
+               rootObjects.add(modelObject);
+            }
+            else
+            {
+               rootObjects.addAll((Collection) modelObject);
+            }
+         }
       }
       else
       {
@@ -978,7 +993,7 @@ public class Template implements PropertyChangeInterface
       this.setExpandedText(result.toString());
    }
    
-   public static int logStartStep = 9999;
+   public static int logStartStep = 411;
 
 
    private Object getValue(PlaceHolderDescription placeholder, Object root)
@@ -991,14 +1006,21 @@ public class Template implements PropertyChangeInterface
 
       for (String attrName : split)
       {
-         creator = idMap.getCreatorClass(currentObject);
-
-         if (creator == null)
+         if (currentObject instanceof ArrayList)
          {
-            creator = new GenericCreator().withClassName(currentObject.getClass().getName());
+            ArrayList arrayList = (ArrayList) currentObject;
+            currentObject = arrayList.get(Integer.valueOf(attrName));
          }
-
-         currentObject = creator.getValue(currentObject, attrName);
+         else
+         {
+            creator = idMap.getCreatorClass(currentObject);
+            if (creator == null)
+            {
+               creator = new GenericCreator().withClassName(currentObject
+                  .getClass().getName());
+            }
+            currentObject = creator.getValue(currentObject, attrName);
+         }
       }
 
       return currentObject;
