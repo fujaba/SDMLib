@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -552,7 +553,7 @@ public class Template implements PropertyChangeInterface
       return result;
    }
 
-   public static int logStartPos = 120;
+   public static int logStartPos = 8331;
    
    public Match parseOnce()
    {
@@ -993,7 +994,7 @@ public class Template implements PropertyChangeInterface
       this.setExpandedText(result.toString());
    }
    
-   public static int logStartStep = 411;
+   public static int logStartStep = 453;
 
 
    private Object getValue(PlaceHolderDescription placeholder, Object root)
@@ -1006,7 +1007,25 @@ public class Template implements PropertyChangeInterface
 
       for (String attrName : split)
       {
-         if (currentObject instanceof ArrayList)
+         Integer index = null; 
+         
+         try
+         {
+            index = Integer.valueOf(attrName);
+         }
+         catch (NumberFormatException e)
+         {
+            // do nothing
+         }
+         
+         if (index != null)
+         {
+            // look up the element with this index
+            Object[] array = ((Collection)currentObject).toArray(new Object[((Collection)currentObject).size()]);
+            
+            currentObject = array[index];
+         }
+         else if (currentObject instanceof ArrayList)
          {
             ArrayList arrayList = (ArrayList) currentObject;
             currentObject = arrayList.get(Integer.valueOf(attrName));
