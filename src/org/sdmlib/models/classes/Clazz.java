@@ -1116,6 +1116,10 @@ public class Clazz implements PropertyChangeInterface
    {
       if (modelSetParser == null)
       {
+         if (this.getName().equals("java.util.Date"))
+         {
+            System.out.println("ups");
+         }
          // try to find existing file
          int pos = name.lastIndexOf('.');
 

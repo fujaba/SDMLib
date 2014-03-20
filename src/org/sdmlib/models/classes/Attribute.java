@@ -522,7 +522,7 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" + 
                   "\n" );
          
-         if ( "boolean Object".indexOf(this.getType()) < 0)
+         if ( "boolean Object java.util.Date".indexOf(this.getType()) < 0 && !getType().contains("<"))
          {
         	 text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
@@ -546,11 +546,9 @@ public class Attribute implements PropertyChangeInterface
          String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(getType());
 
-         String add = "add";
-
          ArrayList<String> importClassesFromTypes = new ArrayList<String>();
 
-         if (!getType().contains("<") && !getType().endsWith("Set")) 
+         if ( ! CGUtil.isPrimitiveType(this.getType()) && !getType().contains("<") && !getType().endsWith("Set")) 
          {
             fullModelSetType = CGUtil.packageName(getType()) + ".creators." + CGUtil.shortClassName(getType())+ "Set";
             modelSetType = CGUtil.shortClassName(getType()) + "Set";
@@ -564,12 +562,15 @@ public class Attribute implements PropertyChangeInterface
                importClassesFromTypes.add(fullModelSetType);
             }
          }
-         else 
+         
+         String add = "add";
+
+         if (getType().contains("<") || getType().endsWith("Set")) 
          {
             add = "addAll";
          }
 
-         if ("String int float double long boolean".indexOf(getType()) >= 0) {
+         if (CGUtil.isPrimitiveType(this.getType())) {
             modelSetType = CGUtil.shortClassName(getType()) + "List";
             fullModelSetType = "org.sdmlib.models.modelsets."
                   + modelSetType;

@@ -37,7 +37,7 @@ public abstract class Entity implements BaseEntity {
 	private Map<String, Object> map;
 	private boolean visible = true;
 
-	protected Map<String, Object> getMap() {
+	public Map<String, Object> getMap() {
 		if (this.map == null) {
 			this.map = new LinkedHashMap<String, Object>();
 		}

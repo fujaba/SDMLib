@@ -27,6 +27,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,6 +58,7 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface
@@ -145,7 +149,7 @@ public class ClassModel implements PropertyChangeInterface
       // for attribute types like java.util.Date we add a class with that name and mark it as wrapped. This generates the required DateSet class.
       for (String typeName : this.getClasses().getAttributes().getType())
       {
-         int pos = "int float double long String boolean Object".indexOf(typeName);
+         int pos = "int float double long String boolean Object java.util.Date".indexOf(typeName);
          
          if (pos < 0)
          {
@@ -2590,10 +2594,60 @@ public class ClassModel implements PropertyChangeInterface
 				// add attribute declarations
 				for (GenericAttribute attr : currentObject.getAttrs())
 				{
-					currentClazz.getOrCreateAttribute(attr.getName(), "String");
+					Attribute attrDecl = currentClazz.getOrCreateAttribute(attr.getName(), "Object");
+					
+					String valueString = attr.getValue();
+					
+					String attrType = "String";
+					try
+               {
+                  Integer.parseInt(valueString);
+                  
+                  attrType = "int";
+               }
+               catch (NumberFormatException e)
+               {
+                  try
+                  {
+                     Double.parseDouble(valueString);
+                     
+                     attrType = "double";
+                  }
+                  catch (NumberFormatException e1)
+                  {
+                     try
+                     {
+                        DateFormat.getDateInstance().parse(valueString);
+                        
+                        attrType = "java.util.Date";
+                     }
+                     catch (ParseException e2)
+                     {
+                        try
+                        {
+                           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
+                           simpleDateFormat.parse(valueString);
+                           
+                           attrType = "java.util.Date";
+                        }
+                        catch (ParseException e3)
+                        {
+                        }
+                     }
+                  }
+               }
+					
+					String typeOrder = "Object int double java.util.Date String";
+					
+					if (typeOrder.indexOf(attrDecl.getType()) < typeOrder.indexOf(attrType))
+					{
+					   attrDecl.setType(attrType);
+					}
 				}
 			}
 		}
+		
+		LinkedHashSet<String> alreadyUsedLabels = new LinkedHashSet<String>();
 
 		// now derive assocs from links
 		for (GenericLink currentLink : allLinks)
@@ -2615,7 +2669,7 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				targetLabel = StrUtil.downFirstChar(sourceType) + "s";
 			}
-
+			
 			// search for an assoc with similar srcClazz, srcLabel, tgtClass, tgtLabel
 			Association currentAssoc = null; 
 			for (Association assoc : this.getAssociations())
@@ -2627,6 +2681,7 @@ public class ClassModel implements PropertyChangeInterface
 				{
 					// found old one
 					currentAssoc = assoc; 
+					
 					break;
 				}
 			}
@@ -2635,12 +2690,29 @@ public class ClassModel implements PropertyChangeInterface
 			{
 				// need to create a new one
 				currentAssoc = new Association()
-				.withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), R.MANY)
-				.withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.MANY)
+				.withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), R.ONE)
+				.withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.ONE)
 				.withModel(this);
 			}
+
+			if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
+			{
+			   currentAssoc.getTarget().setCard(R.MANY.toString());
+			}
+			
+			if (alreadyUsedLabels.contains(currentLink.getTgt().hashCode() + ":" + sourceLabel))
+         {
+            currentAssoc.getSource().setCard(R.MANY.toString());
+         }
+         
+			alreadyUsedLabels.add(currentLink.getSrc().hashCode() + ":" + targetLabel);
+         alreadyUsedLabels.add(currentLink.getTgt().hashCode() + ":" + sourceLabel);
 		}
 
+		
+		
+		
+		
 		return this;
 	}
 
