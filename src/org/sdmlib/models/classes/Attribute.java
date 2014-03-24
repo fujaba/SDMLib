@@ -500,7 +500,7 @@ public class Attribute implements PropertyChangeInterface
                   + "      \n"
                   + "      for (ContentType obj : this)\n"
                   + "      {\n"
-                  + "         result.add(obj.getName());\n"
+                  + "         result.addOneOrMore(obj.getName());\n"
                   + "      }\n" + "      \n"
                   + "      return result;\n" 
                   + "   }\n" 
@@ -522,7 +522,7 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" + 
                   "\n" );
          
-         if ( "boolean Object java.util.Date".indexOf(this.getType()) < 0 && !getType().contains("<"))
+         if ( " int long float double String ".indexOf( " " + this.getType() + " " ) >= 0)
          {
         	 text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
@@ -615,7 +615,7 @@ public class Attribute implements PropertyChangeInterface
             CGUtil.shortClassName(ownerClazz.getName()),
             "ModelSetType", modelSetType, 
             "Name", StrUtil.upFirstChar(getName()), 
-            "add", add, 
+            "addOneOrMore", add, 
             "ObjectSetType", objectSetType, 
             "AttrType", this.getType(),
             "valueComparison", valueComparison,

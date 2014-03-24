@@ -115,22 +115,22 @@ public class StoryboardManager
    public void dumpHTML()
    {
       loadOldKanbanEntries();
-      
+
       if (this.toBeRemoved != null)
       {
          KanbanEntry oldEntry = kanbanBoard.findOldEntry(this.toBeRemoved.getName());
-         
+
          if (oldEntry != null)
          {
             oldEntry.removeYou();
          }
-         
+
          this.toBeRemoved = null;
       }
 
       new File("doc").mkdirs();
       new File("doc/includes").mkdirs();
-      
+
       // add javascript files
       copyDocFile("burndown", "d3.v3.js");
       copyDocFile("burndown", "nv.d3.css");
@@ -140,40 +140,40 @@ public class StoryboardManager
       copyDocFile("classmodel", "layout_dagre.js");
       copyDocFile("classmodel", "lines.js");
       copyDocFile("classmodel", "diagramstyle.css");
-      
+
       dumpKanban();
    }
 
    private void copyDocFile(String dir, String file)
    {
       File target=new File("doc/includes/" + file);
-      
+
       InputStream is = GuiAdapter.class.getResourceAsStream("js/" + dir + "/" + file);
-      
+
       if(is!=null)
       {
          final int BUFF_SIZE = 5 * 1024; // 5KB
          final byte[] buffer = new byte[BUFF_SIZE];
-          
-          try
-          {
-             if(!target.exists()){
-                target.createNewFile();
-             }
-             FileOutputStream out = new FileOutputStream(target);
 
-             while (true) {
-                int count = is.read(buffer);
-                if (count == -1)
-                   break;
-                out.write(buffer, 0, count);
-             }
-             out.close();
-             is.close();
-          }
-          catch (Exception e)
-          {
-            e.printStackTrace();
+         try
+         {
+            if(!target.exists()){
+               target.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(target);
+
+            while (true) {
+               int count = is.read(buffer);
+               if (count == -1)
+                  break;
+               out.write(buffer, 0, count);
+            }
+            out.close();
+            is.close();
+         }
+         catch (Exception e)
+         {
+            // e.printStackTrace();
          }
 
       }
@@ -236,7 +236,7 @@ public class StoryboardManager
    private void dumpIndexHtml()
    {
       new File("doc").mkdirs();
-      
+
       // ensure style file
       File styleFile = new File("doc/style.css");
 
@@ -258,7 +258,7 @@ public class StoryboardManager
                "\n" + 
                "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
                "";
-         
+
          printFile(styleFile, text);
       }
 
@@ -414,26 +414,26 @@ public class StoryboardManager
 
    private void dumpTimeLinesFor(LinkedHashSet<KanbanEntry> allEntries)
    {
-      
+
       // for each entry, collect log entries ordered by time stamps
       for (KanbanEntry kanbanEntry : allEntries)
       {
          // burn down and time line 
          StringBuilder htmlText = new StringBuilder(
             "<html>\r\n" + 
-            "<head>\r\n" + 
-            "<meta charset=\"utf-8\">\n" +
-            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\r\n" + 
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n" + 
-            "<link href=\"includes/nv.d3.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
-            "\r\n" + 
-            "<script src=\"includes/d3.v3.js\"></script>\r\n" + 
-            "<script src=\"includes/nv.d3.js\"></script>\r\n" + 
-            "" + 
-            "\r\n" + 
-            
-            
-            
+                  "<head>\r\n" + 
+                  "<meta charset=\"utf-8\">\n" +
+                  "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\r\n" + 
+                  "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n" + 
+                  "<link href=\"includes/nv.d3.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
+                  "\r\n" + 
+                  "<script src=\"includes/d3.v3.js\"></script>\r\n" + 
+                  "<script src=\"includes/nv.d3.js\"></script>\r\n" + 
+                  "" + 
+                  "\r\n" + 
+
+
+
             "<script>\r\n" + 
             "data = [{ \"key\" : \"hours done\",\r\n" + 
             "   \"values\" : [\r\n" + 
@@ -460,7 +460,7 @@ public class StoryboardManager
             "    return chart;\r\n" + 
             "});\r\n" + 
             "</script>" +
-            
+
             "\r\n" + 
             "</head>\r\n" + 
             "<body>\r\n" + 
@@ -474,18 +474,18 @@ public class StoryboardManager
             "\r\n" + 
             "</body>\r\n" + 
             "</html>"
-            );
+               );
 
          ArrayList<LogEntry> allLogEntries = kanbanEntry.getAllLogEntries();
          Collections.sort(allLogEntries);
-         
+
          StringBuilder timeLogText = new StringBuilder();
          StringList hoursSpendData = new StringList();
          StringList hoursRemaingData = new StringList();
-         
+
          double hoursSpend = 0.0;
          LinkedHashMap<KanbanEntry, Double> hoursRemainingMap = new LinkedHashMap<KanbanEntry, Double>();
-         
+
          for (LogEntry logEntry : allLogEntries)
          {
             String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
@@ -496,42 +496,42 @@ public class StoryboardManager
             logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
             logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
 
-            
+
             timeLogText.insert(0, logLine);
-            
+
             hoursSpend += logEntry.getHoursSpend();
             String dataLine = CGUtil.replaceAll(
                "{ \"x\" : millis, \"y\" : value}", 
                "millis", logEntry.getParsedDate().getTime(),
                "value", hoursSpend
-               );
-            
+                  );
+
             hoursSpendData.add(dataLine);
-            
+
             hoursRemainingMap.put(logEntry.getKanbanEntry(), logEntry.getHoursRemainingInTotal());
-            
+
             double sumOfHoursRemaining = 0;
-            
+
             for (Double d : hoursRemainingMap.values())
             {
                sumOfHoursRemaining += d;
             }
-            
+
             dataLine = CGUtil.replaceAll(
                "{ \"x\" : millis, \"y\" : value}", 
                "millis", logEntry.getParsedDate().getTime(),
                "value", hoursSpend + sumOfHoursRemaining 
-               );
-            
+                  );
+
             hoursRemaingData.add(dataLine);
          }
-         
+
          String kanbanSuffix = "";
          if ( ! kanbanEntry.getSubentries().isEmpty())
          {
             kanbanSuffix = "kanban";
          }
-         
+
          CGUtil.replaceAll(htmlText, 
             "entryName", kanbanEntry.getName(),
             "KanbanSuffix", kanbanSuffix,
@@ -539,7 +539,7 @@ public class StoryboardManager
             "hoursRemainingData", hoursRemaingData.concat(",\n               "),
             "timelineentries", timeLogText.toString()
                );
-         
+
          printFile(
             new File("doc/"+kanbanEntry.getName()+"TimeLine.html"), htmlText.toString());
 
@@ -558,7 +558,7 @@ public class StoryboardManager
 
       String headerRow = "<tr> </tr>";
       String tableBody = "<tr> </tr>\n";
-      
+
       String[] split = rootEntry.getPhases().split(", ");
 
       for (String phase : split)
@@ -628,7 +628,7 @@ public class StoryboardManager
    {
       double hoursSpendSum = 0;
       double hoursRemainingSum = 0;
-      
+
       if (rootEntry.getPhases() == null)
       {
          rootEntry.setPhases("active, backlog, implementation, done" );
@@ -641,7 +641,7 @@ public class StoryboardManager
             collectHours(subentry);
             hoursSpendSum += subentry.getHoursSpend();
             hoursRemainingSum += subentry.getHoursRemaining();
-            
+
             learnKidPhases(rootEntry, subentry);
          }
       }
@@ -661,7 +661,7 @@ public class StoryboardManager
             logHoursRemaining = logEntry.getHoursRemainingInTotal();
             rootEntry.setPhase(logEntry.getPhase());
          }
-         
+
          if (rootEntry.getPhases().indexOf(logEntry.getPhase()) < 0)
          {
             rootEntry.setPhases(rootEntry.getPhases() + ", " + logEntry.getPhase());
@@ -678,7 +678,7 @@ public class StoryboardManager
    private void learnKidPhases(KanbanEntry rootEntry, KanbanEntry subentry)
    {
       String[] split = subentry.getPhases().split(", ");
-      
+
       for (String phase : split)
       {
          if (rootEntry.getPhases().indexOf(phase) < 0)
@@ -728,31 +728,31 @@ public class StoryboardManager
       return allEntries;
    }
 
-//   private String createBurnupChart(KanbanEntry kanbanEntry,
-//         TimeSeries hoursEstimatedSeries, TimeSeries hoursSpendSeries)
-//   {
-//      TimeSeriesCollection dataset = new TimeSeriesCollection();
-//      dataset.addSeries(hoursEstimatedSeries);
-//      dataset.addSeries(hoursSpendSeries);
-//
-//      // Generate the graph
-//      XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
-//      DateAxis dateaxis = new DateAxis("Date");
-//      NumberAxis numberaxis = new NumberAxis("Hours");
-//      XYPlot xyplot = new XYPlot(dataset, dateaxis, numberaxis, xyLineAndShapeRenderer);
-//
-//      JFreeChart chart = new JFreeChart("Burnup Chart for " + kanbanEntry.getName(), xyplot);
-//      String chartFileName = null;
-//      try {
-//         chartFileName = "doc/" + kanbanEntry.getName()+ "BurnupChart.png";
-//         ChartUtilities.saveChartAsPNG(new File(chartFileName), chart, 800,
-//            700);
-//      } catch (IOException e) {
-//         System.err.println("Problem occurred creating chart.");
-//      }
-//
-//      return chartFileName;
-//   }
+   //   private String createBurnupChart(KanbanEntry kanbanEntry,
+   //         TimeSeries hoursEstimatedSeries, TimeSeries hoursSpendSeries)
+   //   {
+   //      TimeSeriesCollection dataset = new TimeSeriesCollection();
+   //      dataset.addSeries(hoursEstimatedSeries);
+   //      dataset.addSeries(hoursSpendSeries);
+   //
+   //      // Generate the graph
+   //      XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
+   //      DateAxis dateaxis = new DateAxis("Date");
+   //      NumberAxis numberaxis = new NumberAxis("Hours");
+   //      XYPlot xyplot = new XYPlot(dataset, dateaxis, numberaxis, xyLineAndShapeRenderer);
+   //
+   //      JFreeChart chart = new JFreeChart("Burnup Chart for " + kanbanEntry.getName(), xyplot);
+   //      String chartFileName = null;
+   //      try {
+   //         chartFileName = "doc/" + kanbanEntry.getName()+ "BurnupChart.png";
+   //         ChartUtilities.saveChartAsPNG(new File(chartFileName), chart, 800,
+   //            700);
+   //      } catch (IOException e) {
+   //         System.err.println("Problem occurred creating chart.");
+   //      }
+   //
+   //      return chartFileName;
+   //   }
 
    public String refForFile(String filename) {
       String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
@@ -844,11 +844,11 @@ public class StoryboardManager
    }
 
    Storyboard toBeRemoved = null;
-   
+
    public StoryboardManager remove(Storyboard storyboard)
    {
       this.toBeRemoved = storyboard;
-      
+
       return this;
    }
 

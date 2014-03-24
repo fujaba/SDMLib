@@ -36,6 +36,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
@@ -54,6 +55,23 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       
       return (POC) this;
    }
+   
+   private boolean matchAsSet = false;
+   
+   public POC matchAsSet()
+   {
+      this.matchAsSet = true;
+      
+      // reconstruct set of matches from candidates and current target
+      LinkedHashSet<Object> targetSet = new LinkedHashSet<>();
+      targetSet.add(currentMatch);
+      targetSet.addAll((Collection) this.getCandidates());
+      this.setCurrentMatch(targetSet);
+      this.setCandidates(null);
+      
+      return (POC) this;
+   }
+   
    
    @Override
    public boolean findNextMatch()
@@ -131,7 +149,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
       
       boolean resultStat = false;
-      if (this.getCandidates() instanceof Collection)
+      if (this.getCandidates() instanceof Collection && ! matchAsSet)
       {
          for (Object obj : (Collection) this.getCandidates())
          {

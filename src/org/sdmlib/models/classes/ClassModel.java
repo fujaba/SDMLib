@@ -59,8 +59,6 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-import java.beans.PropertyChangeListener;
-
 public class ClassModel implements PropertyChangeInterface
 {
 	public static ClassModel classModel = null;
@@ -2559,29 +2557,14 @@ public class ClassModel implements PropertyChangeInterface
 		while (! todoObjects.isEmpty())
 		{
 			GenericObject currentObject = todoObjects.pop();
+			
 			allObjects.add(currentObject);
 
-			for (GenericLink currentLink : currentObject.getOutgoingLinks())
-			{
-				allLinks.add(currentLink);
-
-				GenericObject neighbor = currentLink.getTgt();
-				if ( ! allObjects.contains(neighbor))
-				{
-					todoObjects.add(neighbor);
-				}
-			}
-
-			for (GenericLink currentLink : currentObject.getIncommingLinks())
-			{
-				allLinks.add(currentLink);
-
-				GenericObject neighbor = currentLink.getSrc();
-				if ( ! allObjects.contains(neighbor))
-				{
-					todoObjects.add(neighbor);
-				}
-			}
+			allLinks.addAll(currentObject.getOutgoingLinks());
+			allLinks.addAll(currentObject.getIncommingLinks());
+		      	
+			todoObjects.addAll(currentObject.getOutgoingLinks().getTgt().minus(allObjects));
+			todoObjects.addAll(currentObject.getIncommingLinks().getSrc().minus(allObjects));
 		}
 
 		// now derive classes from node types

@@ -42,11 +42,11 @@ public class CGUtil
 
    public static boolean isPrimitiveType(String type)
    {
-      String primitiveTypes = "String long int char boolean byte float double java.util.Date";
+      String primitiveTypes = " String long int char boolean byte float double java.util.Date ";
       
       if (type == null)  return false;
       
-      return primitiveTypes.indexOf(type) >= 0;
+      return primitiveTypes.indexOf(" " + type + " ") >= 0;
    }
    
    public static void printFile(File file, String text)

@@ -23,6 +23,7 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -74,11 +75,40 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                   e.printStackTrace();
                }
             }
+            else if (hostGraphSrcObject != null && hostGraphSrcObject instanceof Collection)
+            {
+               // loop through src elements and collect target elements
+               LinkedHashSet<Object> tgtSet = new LinkedHashSet<Object>();
+               
+               SendableEntityCreator creatorClass = null; 
+               
+               for (Object src : (Collection<Object>) hostGraphSrcObject)
+               {
+                  if (creatorClass == null)
+                  {
+                     creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(src);
+                  }
+
+                  Object tgt = creatorClass.getValue(src, tgtRoleName);
+                  
+                  if (tgt instanceof Collection)
+                  {
+                     tgtSet.addAll((Collection) tgt); 
+                  }
+                  else
+                  {
+                     tgtSet.add(tgt);
+                  }
+               }
+               
+               value = tgtSet;
+            }
             else
             {
                SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
                value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
             }
+            
             if (value != null && value instanceof Collection)
             {
                this.getTgt().setCandidates(new LinkedHashSet((Collection)value));

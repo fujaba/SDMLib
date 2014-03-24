@@ -1355,7 +1355,7 @@ public class Parser
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
          int startPos = currentRealToken.startPos;
-         if ("if while catch".indexOf(currentRealWord()) >= 0)
+         if (" if while catch ".indexOf( " " + currentRealWord() + " ") >= 0)
          {
             lastIfStart = startPos;
 
