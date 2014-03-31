@@ -3147,10 +3147,8 @@
       ]
    }
 }   
-   var g = new Graph(json, "canvas7");
-   var layouter = new GraphLayout.Dagre(g);
-   layouter.layout(0,0);  
-
+var g = new Graph(json);
+g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();

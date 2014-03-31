@@ -1000,10 +1000,8 @@ public class Storyboard implements PropertyChangeInterface
          "   var json = " + 
                objectModel.toString(3) + 
          "   \n" + 
-         "   var g = new Graph(json, \"canvas" + (this.getStoryboardSteps().size()+1) +"\");\n" + 
-         "   var layouter = new GraphLayout.Dagre(g);\n" + 
-         "   layouter.layout(0,0);  \n" + 
-         "\n" + 
+         "var g = new Graph(json);\n" + 
+         "g.layout(100,100);\n" + 
          "</script>\n";
       
       this.add(text);

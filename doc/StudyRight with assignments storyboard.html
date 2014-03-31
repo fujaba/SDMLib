@@ -1578,10 +1578,8 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       ]
    }
 }   
-   var g = new Graph(json, "canvas4");
-   var layouter = new GraphLayout.Dagre(g);
-   layouter.layout(0,0);  
-
+var g = new Graph(json);
+g.layout(100,100);
 </script>
 <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>

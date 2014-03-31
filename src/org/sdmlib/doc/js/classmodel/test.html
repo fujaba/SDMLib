@@ -11,7 +11,7 @@
 </head>
 <body onload="init();">
 <script> // class, object
-	var json = {"typ":"object", "options":{"bar":true, "raster":false},"value":{
+	var json = {"typ":"object", "options":{"bar":true, "raster":false, "canvasid" : "42"},"value":{
 		"nodes":[
 			{typ:"node", id:"Albert:Student", href:"Student.java", attributes:["age:int", "name:String"],methods:["toString()"]},
 			{typ:"node", id:"CS 32"},
@@ -41,17 +41,6 @@
 
 	var g = new Graph(json);
 	g.layout(100,100);
-	//var layouter = new GraphLayout.Ordered(g);
-	//var layouter = new Graph.LayoutDagre(g);
-	//var layouter = new GraphLayout.Spring(g);
-	//var layouter = new GraphLayout.Circular(g);
-	//var layouter = new GraphLayout.Fixed(g);
-	//layouter.addNode("Albert:Student", 311.66,183.55);
-	//layouter.addNode("CS 32", 340,97);
-	//layouter.addNode("CS 32", 214.99,204.97);
-	//layouter.addNode("CS 34", 200,250);
-
-	//layouter.layout(100,100);
 </script>
 </body>
 </html>

@@ -1578,10 +1578,8 @@
       ]
    }
 }   
-   var g = new Graph(json, "canvas5");
-   var layouter = new GraphLayout.Dagre(g);
-   layouter.layout(0,0);  
-
+var g = new Graph(json);
+g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
       JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
@@ -1977,10 +1975,8 @@
       ]
    }
 }   
-   var g = new Graph(json, "canvas13");
-   var layouter = new GraphLayout.Dagre(g);
-   layouter.layout(0,0);  
-
+var g = new Graph(json);
+g.layout(100,100);
 </script>
 
 </body>

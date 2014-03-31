@@ -64,7 +64,6 @@ Graph = function(json, options) {
 		this.options = json.options || new Options()
 	}
 	this.parent = this.options.parent;
-	
 	if((""+this.options.display).toLowerCase()=="html"){
 		this.drawer = new HTMLDrawer();
 	}else{
@@ -104,7 +103,6 @@ Graph = function(json, options) {
 		edge.target.edges.push(edge);
 		this.edges.push(edge);
 	}
-	
 	if(this.options.canvasid){
 		this.root = document.getElementById(this.options.canvasid);
 	}else if(this.options.rootElement){
@@ -120,29 +118,17 @@ Graph = function(json, options) {
 		//<button>HTML</button><button>SVG</button><button>SVG CODE</button></div>");
 		this.optionbar.appendChild(this.getButton("HTML"));
 		this.optionbar.appendChild(this.getButton("SVG"));
-		this.optionbar.appendChild(this.getButton("SVG CODE"));
+		this.optionbar.appendChild(this.getButton("SVG-Export"));
+		this.optionbar.appendChild(this.getButton("PNG-Export"));
 		this.optionbar.appendChild(document.createElement("br"));
 	}
 
 	this.initGraph();
 };
-Graph.prototype.initGraph = function(){
-	if(this.board){
-		this.clearLines();
-		for(i in this.nodes) {
-			if(this.nodes[i].htmlNode){
-				this.board.removeChild(this.nodes[i].htmlNode);
-				this.nodes[i].htmlNode = null;
-			}
-		}
-		this.root.removeChild(this.board);
-	}
-	if(this.infoBox){
-		this.board.removeChild(this.infoBox);
-		this.infoBox=null;
-	}
 
-	this.board = this.drawer.createContainer();
+Graph.prototype.initGraph = function(){
+	this.clearBoard();
+	this.board = this.drawer.createContainer(this);
 	this.root.appendChild(this.board);
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
@@ -175,7 +161,23 @@ Graph.prototype.initGraph = function(){
 		}
 	}
 	this.drawer.clearBoard(this);
-}
+};
+Graph.prototype.clearBoard = function(){
+	if(this.board){
+		this.clearLines();
+		for(i in this.nodes) {
+			if(this.nodes[i].htmlNode){
+				this.board.removeChild(this.nodes[i].htmlNode);
+				this.nodes[i].htmlNode = null;
+			}
+		}
+		this.root.removeChild(this.board);
+	}
+	if(this.infoBox){
+		this.board.removeChild(this.infoBox);
+		this.infoBox=null;
+	}
+};
 Graph.prototype.getDimension = function(html){
 	if(this.parent){
 		return this.parent.getDimension(html);
@@ -289,8 +291,8 @@ Graph.prototype.resize = function(){
 		maxx=Math.max(maxx,node.x+node.width);
 		maxy=Math.max(maxy,node.y+node.height);
 	}
-	this.board.style.width = Math.max(this.minSize.x, maxx+20);
-	this.board.style.height = Math.max(this.minSize.y, maxy+50);
+	var size = new Pos(Math.max(this.minSize.x, maxx+20), Math.max(this.minSize.y, maxy+50));
+	this.drawer.setSize(this.board, size.x, size.y);
 	if(this.drawer.showInfoBox()){
 		this.infoBox.style.left = this.board.offsetWidth-200;
 		this.infoBox.style.top = this.board.offsetHeight-42;
@@ -298,6 +300,7 @@ Graph.prototype.resize = function(){
 	if(this.drawer.isShowRaster() && this.options.raster){
 		this.drawRaster();
 	}
+	return size;
 };
 Graph.prototype.drawRaster = function(){
 	while(this.board.rasterElements.length>0){
@@ -331,7 +334,9 @@ Graph.prototype.drawGraph = function(width, height){
 
 	for(var i in this.nodes) {
 		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], this, false);
-		this.board.appendChild( this.nodes[i].htmlNode );
+		if(this.nodes[i].htmlNode){
+			this.board.appendChild( this.nodes[i].htmlNode );
+		}
 	}
 	this.drawLines();
 
@@ -513,12 +518,42 @@ function optionButton(event){
 		btn.graph.options.display = "svg";
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
-	}else if(btn.innerHTML=="SVG CODE"){
+	}else if(btn.innerHTML=="SVG-Export"){
 		btn.graph.drawer = new SVGDrawer();
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
-		window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
+		var size = btn.graph.resize();
+		var img = document.createElement("img");
+		img.src =  "data:image/svg+xml;base64," + utf8_to_b64(serializeXmlNode(btn.graph.board));
+		btn.graph.clearBoard();
+		btn.graph.board = img;
+		btn.graph.board.width = size.x;
+		btn.graph.board.height = size.y;
+		btn.graph.root.appendChild(img);
+		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
+	}else if(btn.innerHTML=="PNG-Export"){
+		var oldDrawer = btn.graph.drawer;
+		btn.graph.drawer = new CanvasDrawer();
+		var loader = new Loader();
+		btn.graph.drawer.loader = loader;
+		loader.graph = btn.graph;
+		loader.oldDrawer = oldDrawer;
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+		loader.resetDrawer();
 	}
+}
+
+function serializeXmlNode(xmlNode) {
+    if (typeof window.XMLSerializer != "undefined") {
+        return (new window.XMLSerializer()).serializeToString(xmlNode);
+    } else if (typeof xmlNode.xml != "undefined") {
+        return xmlNode.xml;
+    }
+    return xmlNode.outerHTML;
+}
+function utf8_to_b64( str ) {
+  return window.btoa(unescape(encodeURIComponent( str )));
 }
 
 String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
@@ -556,7 +591,7 @@ Edge.prototype.calculate = function(board, drawer){
 }
 Edge.prototype.draw = function(board, drawer){
 	for(var i=0;i<this.path.length;i++){
-		this.addElement(board, this.htmlElement, drawer.createLine(this.path[i].source.x, this.path[i].source.y, this.path[i].target.x, this.path[i].target.y, this.path[i].style));
+		this.addElement(board, this.htmlElement, drawer.createLine(this.path[i].source.x, this.path[i].source.y, this.path[i].target.x, this.path[i].target.y, board.graph, this.path[i].style));
 	}
 	if(this.sourceproperty){
 		this.addElement(board, this.htmlElement, drawer.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, this.sourceproperty, false));
@@ -822,9 +857,9 @@ Generalisation.prototype.calculate = function(board, drawer){
 Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
 Generalisation.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
-	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
-	this.addElement(board, this.htmlElement, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
-	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, board.graph, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, board.graph, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, board.graph, this.lineStyle));
 };
 
 Implements = function() { this.init(); }
