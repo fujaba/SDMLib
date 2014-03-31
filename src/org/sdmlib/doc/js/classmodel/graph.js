@@ -107,8 +107,12 @@ Graph = function(json, options) {
 		this.root = document.getElementById(this.options.canvasid);
 	}else if(this.options.rootElement){
 		this.root = this.options.rootElement;
-	}else{
+	}
+	if(!this.root){
 		this.root = document.createElement("div");
+		if(this.options.canvasid){
+			this.root.id = this.options.canvasid;
+		}
 		document.body.appendChild(this.root);
 	}
 	if(this.options.bar){

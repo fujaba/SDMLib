@@ -352,8 +352,7 @@ public class Storyboard implements PropertyChangeInterface
             "\r\n" + 
             "<script src=\"includes/dagre.js\"></script>\r\n" + 
             "<script src=\"includes/graph.js\"></script>\r\n" + 
-            "<script src=\"includes/layout_dagre.js\"></script>\r\n" + 
-            "<script src=\"includes/lines.js\"></script>\r\n" + 
+            "<script src=\"includes/drawer.js\"></script>\r\n" + 
             "</head>" +
             "<body onload=\"init();\">\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
@@ -999,9 +998,10 @@ public class Storyboard implements PropertyChangeInterface
          "<script>\n" + 
          "   var json = " + 
                objectModel.toString(3) + 
-         "   \n" + 
-         "var g = new Graph(json);\n" + 
-         "g.layout(100,100);\n" + 
+         "   ;\n" + 
+         "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() +"\"};" + 
+         "   var g = new Graph(json);\n" + 
+         "   g.layout(100,100);\n" + 
          "</script>\n";
       
       this.add(text);

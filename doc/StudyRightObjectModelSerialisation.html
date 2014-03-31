@@ -6,8 +6,7 @@
 
 <script src="includes/dagre.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
+<script src="includes/drawer.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelSerialisation</a></p>
 <p>StudyRightObjectModelSerialisation</p>
@@ -1577,9 +1576,9 @@
          }
       ]
    }
-}   
-var g = new Graph(json);
-g.layout(100,100);
+}   ;
+   json["options"]={"canvasid":"canvas4"};   var g = new Graph(json);
+   g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
       JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
@@ -1974,9 +1973,9 @@ g.layout(100,100);
          }
       ]
    }
-}   
-var g = new Graph(json);
-g.layout(100,100);
+}   ;
+   json["options"]={"canvasid":"canvas12"};   var g = new Graph(json);
+   g.layout(100,100);
 </script>
 
 </body>

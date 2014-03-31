@@ -136,9 +136,8 @@ public class StoryboardManager
       copyDocFile("burndown", "nv.d3.css");
       copyDocFile("burndown", "nv.d3.js");
       copyDocFile("classmodel", "dagre.js");
+      copyDocFile("classmodel", "drawer.js");
       copyDocFile("classmodel", "graph.js");
-      copyDocFile("classmodel", "layout_dagre.js");
-      copyDocFile("classmodel", "lines.js");
       copyDocFile("classmodel", "diagramstyle.css");
 
       dumpKanban();
