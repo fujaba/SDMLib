@@ -13,7 +13,381 @@
 <p>Extend the class model:</p>
 <embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueriesClassDiagram2.svg'><p>How to navigate and query an object model.</p>
 <p>Start: Example object structure:</p>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries6.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"studyRight : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"karli : TeachingAssistant",
+            "attributes":[
+            "certified=false",
+               "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"abu : Student",
+            "attributes":[
+            "name=Abu",
+               "id=1337",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"alice : Student",
+            "attributes":[
+            "name=Alice",
+               "id=2323",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"artsRoom : Room",
+            "attributes":[
+            "name=7522",
+               "topic=arts",
+               "credits=16"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"sportsRoom : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"examRoom : Room",
+            "attributes":[
+            "name=The End",
+               "topic=exam",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"placeToBe : Room",
+            "attributes":[
+            "name=7422",
+               "topic=Software Engineering",
+               "credits=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A4 : Assignment",
+            "attributes":[
+            "content=Pushups",
+               "points=4"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"students",
+            "source":"studyRight : University",
+            "target":"karli : TeachingAssistant"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"students",
+            "source":"studyRight : University",
+            "target":"abu : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"students",
+            "source":"studyRight : University",
+            "target":"alice : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"karli : TeachingAssistant",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"students",
+            "targetproperty":"done",
+            "source":"karli : TeachingAssistant",
+            "target":"A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"students",
+            "targetproperty":"done",
+            "source":"karli : TeachingAssistant",
+            "target":"A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"sportsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"abu : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"alice : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"sportsRoom : Room",
+            "target":"A4 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"examRoom : Room",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"students",
+            "targetproperty":"done",
+            "source":"abu : Student",
+            "target":"A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"students",
+            "targetproperty":"done",
+            "source":"abu : Student",
+            "target":"A4 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"friends",
+            "targetproperty":"friends",
+            "source":"abu : Student",
+            "target":"alice : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas5", "display":"html", "bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
       
@@ -57,7 +431,63 @@
 </pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
       university.getStudents().withMotivation(42);
       
-</pre><embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries31.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : TeachingAssistant",
+            "attributes":[
+            "certified=false",
+               "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"abu : Student",
+            "attributes":[
+            "name=Abu",
+               "id=1337",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"alice : Student",
+            "attributes":[
+            "name=Alice",
+               "id=2323",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"friends",
+            "targetproperty":"friends",
+            "source":"abu : Student",
+            "target":"alice : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas30", "display":"html", "bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
       RoomPO roomPO = university.getRooms().hasRoomPO();
             
@@ -109,7 +539,100 @@
       
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram43.svg'>
 <p>Results in:</p>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries46.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"sportsRoom : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"abu : Student",
+            "attributes":[
+            "name=Abu",
+               "id=1337",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"alice : Student",
+            "attributes":[
+            "name=Alice",
+               "id=2323",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"T6 : TeachingAssistant",
+            "attributes":[
+            "certified=false",
+               "name=",
+               "id=",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0",
+               "university=",
+               "in="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"abu : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"alice : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"tas",
+            "source":"sportsRoom : Room",
+            "target":"T6 : TeachingAssistant"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"friends",
+            "targetproperty":"friends",
+            "source":"abu : Student",
+            "target":"alice : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas45", "display":"html", "bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
       roomPO = university.getRooms().hasRoomPO();
       
@@ -120,7 +643,31 @@
       TeachingAssistantSet taSet = taPO.allMatches();
       
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram49.svg'>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries51.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : TeachingAssistant",
+            "attributes":[
+            "certified=false",
+               "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=42",
+               "credits=0",
+               "room="
+            ]
+         }
+      ],
+      "edges":[]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas50", "display":"html", "bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
       roomPO = university.getRooms().hasRoomPO();
       
@@ -139,7 +686,117 @@
       }
       
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram53.svg'>
-<embed type="image/svg+xml" src='StudyRightObjectModelNavigationAndQueries55.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : TeachingAssistant",
+            "attributes":[
+            "certified=false",
+               "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=168",
+               "credits=0",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"sportsRoom : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"abu : Student",
+            "attributes":[
+            "name=Abu",
+               "id=1337",
+               "assignmentPoints=0",
+               "motivation=168",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"alice : Student",
+            "attributes":[
+            "name=Alice",
+               "id=2323",
+               "assignmentPoints=0",
+               "motivation=168",
+               "credits=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"karli : TeachingAssistant",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"abu : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"sportsRoom : Room",
+            "target":"alice : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"friends",
+            "targetproperty":"friends",
+            "source":"abu : Student",
+            "target":"alice : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas54", "display":"html", "bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

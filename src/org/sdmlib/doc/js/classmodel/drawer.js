@@ -188,6 +188,7 @@ SVGDrawer.prototype.getWidth = function(label, board, calculate){
 	board.removeChild(text);
 	return width;
 }
+
 SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	var ns = "http://www.w3.org/2000/svg";
 	var group = document.createElementNS(ns, "g");

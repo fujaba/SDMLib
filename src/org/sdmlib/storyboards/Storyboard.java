@@ -935,21 +935,20 @@ public class Storyboard implements PropertyChangeInterface
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true));
 
-      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      {
-         largestJsonArray = jsonArray;
-         largestRoot = root;
-      }
+      //      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
+      //      {
+      //         largestJsonArray = jsonArray;
+      //         largestRoot = root;
+      //      }
+      //      
+      //      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+      //            .toImg(
+      //               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      //
+      //      this.addToSteps(imgLink);
       
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-            .toImg(
-               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
-
-      this.addToSteps(imgLink);
-      
-
       // new diagram
-      // this.addObjectDiagramFromJsonArray(root, jsonArray);
+      this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
@@ -971,16 +970,18 @@ public class Storyboard implements PropertyChangeInterface
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
-      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      {
-         largestJsonArray = jsonArray;
-         largestRoot = root;
-      }
+      //      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
+      //      {
+      //         largestJsonArray = jsonArray;
+      //         largestRoot = root;
+      //      }
+      //
+      //      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
+      //
+      //      this.addToSteps(imgLink);
 
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
-
-      this.addToSteps(imgLink);
-   }
+      this.addObjectDiagramFromJsonArray(root, jsonArray);
+}
    
    private void addObjectDiagramFromJsonArray(Object root, JsonArray jsonArray)
    {
