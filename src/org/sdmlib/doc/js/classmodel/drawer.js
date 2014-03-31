@@ -24,7 +24,7 @@ Drawer = function(){};
 Drawer.prototype.isShowRaster = function(){return false;}
 Drawer.prototype.showInfoBox = function(){return false;}
 Drawer.prototype.clearBoard = function(graph){};
-Drawer.prototype.createText = function(text){return document.createTextNode(node.content_plain);}
+Drawer.prototype.createText = function(text){return document.createTextNode(text);}
 Drawer.prototype.createSubGraph = function(graph, node, element){
 	var options = new Options();
 	options.rootElement = element;
@@ -131,7 +131,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 HTMLDrawer.prototype.createInfo = function(x, y, text, calculate){
 	var info = document.createElement("div");
 	info.style.position = "absolute";
-	this.setPos(htmlElement, x, y);
+	this.setPos(info, x, y);
 	info.innerHTML = text;
 	return info;
 };
