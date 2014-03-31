@@ -728,9 +728,10 @@ public class JsonIdMap extends IdMap implements PropertyChangeInterface {
 		
 		if(object instanceof Collection<?>){
 			Collection<?> list = (Collection<?>) object;
+			Filter newFilter = filter.withStandard(this.filter);
 			for(Iterator<?> i = list.iterator();i.hasNext();){
 				Object item = i.next();
-				toJsonArray(item, jsonArray, filter);
+				toJsonArray(item, jsonArray, newFilter, 0);
 			}
 			return jsonArray;
 		}

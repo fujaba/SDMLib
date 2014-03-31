@@ -949,7 +949,7 @@ public class Storyboard implements PropertyChangeInterface
       
 
       // new diagram
-      this.addObjectDiagramFromJsonArray(root, jsonArray);
+      // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
@@ -999,7 +999,9 @@ public class Storyboard implements PropertyChangeInterface
          "   var json = " + 
                objectModel.toString(3) + 
          "   ;\n" + 
-         "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() +"\"};" + 
+         "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() +"\", "
+            + "\"display\":\"html\", "
+            + "\"bar\":true};" + 
          "   var g = new Graph(json);\n" + 
          "   g.layout(100,100);\n" + 
          "</script>\n";
