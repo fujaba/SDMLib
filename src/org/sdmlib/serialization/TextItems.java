@@ -22,8 +22,8 @@ package org.sdmlib.serialization;
  permissions and limitations under the Licence.
 */
 import java.util.TreeMap;
+
 import org.sdmlib.serialization.interfaces.LocalisationInterface;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class TextItems implements SendableEntityCreator, LocalisationInterface {

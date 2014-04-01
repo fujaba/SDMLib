@@ -22,11 +22,11 @@ package org.sdmlib.serialization.json;
  permissions and limitations under the Licence.
 */
 import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 
 public class UpdateFilter extends Filter {
 	@Override
-	public boolean isConvertable(IdMap map, Object entity, String property,
+	public boolean isConvertable(IdMapEncoder map, Object entity, String property,
 			Object value, boolean isMany, int deep) {
 		return map.getKey(value) == null;
 	}

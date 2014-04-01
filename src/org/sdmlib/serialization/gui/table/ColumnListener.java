@@ -21,7 +21,7 @@ package org.sdmlib.serialization.gui.table;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class ColumnListener {
@@ -49,12 +49,16 @@ public class ColumnListener {
 	public CellEditorElement onEdit(Object entity, SendableEntityCreator creator){
 		return null;
 	}
+	
+	public boolean isFinish(){
+		return false;
+	}
 
 	public boolean setValue(Object controll, Object entity, SendableEntityCreator creator, Object value) {
 		if(creator==null){
 			return false;
 		}
-		return creator.setValue(entity, column.getAttrName(), value, IdMap.UPDATE);
+		return creator.setValue(entity, column.getAttrName(), value, IdMapEncoder.UPDATE);
 	}
 	public void dispose(){
 		

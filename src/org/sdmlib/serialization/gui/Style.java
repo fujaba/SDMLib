@@ -22,8 +22,8 @@ package org.sdmlib.serialization.gui;
  permissions and limitations under the Licence.
 */
 import java.util.HashMap;
+
 import org.sdmlib.serialization.interfaces.GUIPosition;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class Style implements Cloneable{
 	/** The Constant PROPERTY_BOLD for Bold Attribute */
@@ -220,12 +220,11 @@ public class Style implements Cloneable{
 	}
 	
 	public Style clone(){
-		try {
-			super.clone();
-		} catch (CloneNotSupportedException e) {
-		}
-		return new Style()
-				.withFontFamily(fontfamily)
+		return clone(new Style());
+	}
+	
+	public Style clone(Style prototyp){
+		return prototyp.withFontFamily(fontfamily)
 				.withFontSize(fontsize)
 				.withForground(forground)
 				.withBackground(background)
@@ -236,6 +235,8 @@ public class Style implements Cloneable{
 				.withWidth(width)
 				.withHeight(height);
 	}
+	
+	
 
 	public boolean isUnderline() {
 		return underline;

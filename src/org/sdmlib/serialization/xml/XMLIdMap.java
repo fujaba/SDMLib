@@ -24,16 +24,17 @@ package org.sdmlib.serialization.xml;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 
 import org.sdmlib.serialization.AbstractMap;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreatorXML;
 import org.sdmlib.serialization.logic.BooleanCondition;
+import org.sdmlib.serialization.xml.creator.XMLEntityCreator;
 import org.sdmlib.serialization.xml.creator.XMLGrammar;
 /**
  * The Class XMLIdMap.
@@ -48,12 +49,6 @@ public class XMLIdMap extends XMLSimpleIdMap {
 
 	/** The decoder map. */
 	private HashMap<String, SendableEntityCreatorXML> decoderMap;
-
-	/** The stack. */
-	private ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
-
-	/** The stopwords. */
-	private HashSet<String> stopwords = new HashSet<String>();
 
 	/**
 	 * Inits the.
@@ -144,14 +139,14 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		} else {
 			xmlEntity.setTag(entity.getClass().getName());
 		}
-		String[] properties = createrProtoTyp.getProperties();
-		Object referenceObject = createrProtoTyp.getSendableInstance(true);
 
 		if(filter.isId(this, entity, entity.getClass().getName())){
 			xmlEntity.put(ID, getId(entity));
 		}
 
+		String[] properties = createrProtoTyp.getProperties();
 		if (properties != null) {
+			Object referenceObject = createrProtoTyp.getSendableInstance(true);
 			for (String property : properties) {
 				Object value = createrProtoTyp.getValue(entity, property);
 				if (value != null) {
@@ -182,7 +177,7 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		}
 		return xmlEntity;
 	}
-
+	
 	/**
 	 * Parser child.
 	 * 
@@ -231,26 +226,21 @@ public class XMLIdMap extends XMLSimpleIdMap {
 		return null;
 	}
 
-//FIXME	/**
+/**
 //	 * Decode.
 //	 * 
 //	 * @param value
 //	 *            the value
 //	 * @return the object
 //	 */
-//	@Override
-//	public Object decode(XMLTokener entity, XMLGrammar factory) {
-//		Object result = null;
-//		this.value = new XMLTokener().withText(value);
-//		this.stack.clear();
-//		while (!this.value.isEnd()) {
-//			if (this.value.stepPos("" + ITEMSTART, false, false)) {
-//				XMLEntity item = getEntity(null);
-//				result = parse(item, factory);
-//			}
-//		}
-//		return result;
-//	}
+    @Override
+    public Object decode(XMLTokener entity, XMLGrammar factory) {
+        if(factory==null){
+            factory=new XMLEntityCreator();
+        }
+        return super.decode(entity, factory);
+    }
+
 	public Object decode(String value) {
 		return decode((XMLTokener) new XMLTokener().withText(value), null);
 	}
@@ -266,65 +256,65 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	 *            the tag
 	 * @return true, if successful
 	 */
-	public boolean stepEmptyPos(String newPrefix, Object entity, String tag) {
+	public boolean stepEmptyPos(String newPrefix, Object entity, String tag, XMLTokener tokener) {
 		boolean exit = false;
 		boolean empty = true;
 
 		if (!newPrefix.equals("&")) {
-			return this.value.stepPos("" + ITEMSTART, false, false);
+			return tokener.stepPos("" + ITEMSTART, false, false);
 		}
-		if (this.value.getCurrentChar() != ITEMSTART) {
-			this.value.next();
+		if (tokener.getCurrentChar() != ITEMSTART) {
+			tokener.next();
 		}
-		int start = this.value.position();
+		int start = tokener.position();
 		ArrayList<String> stack = new ArrayList<String>();
-		while (!this.value.isEnd() && !exit) {
-			if (!this.value.checkValues('\t', '\r', '\n', ' ', ITEMSTART)) {
+		while (!tokener.isEnd() && !exit) {
+			if (!tokener.checkValues('\t', '\r', '\n', ' ', ITEMSTART)) {
 				empty = false;
 			}
-			if (this.value.getCurrentChar() == ITEMSTART) {
+			if (tokener.getCurrentChar() == ITEMSTART) {
 				if (empty) {
 					exit = true;
 					break;
 				}
-				String nextTag = this.value.getNextTag();
+				String nextTag = tokener.getNextTag();
 				if (nextTag.length() > 0) {
 					stack.add(nextTag);
 					continue;
 				}
-				if (this.value.getCurrentChar() == ENDTAG) {
+				if (tokener.getCurrentChar() == ENDTAG) {
 					if (stack.size() > 0) {
-						int temp = this.value.position();
-						String endTag = this.value.getNextTag();
+						int temp = tokener.position();
+						String endTag = tokener.getNextTag();
 						if (stack.get(stack.size() - 1).equals(endTag)) {
 							stack.remove(stack.size() - 1);
 						} else {
 							stack.remove(stack.size() - 1);
-							this.value.setIndex(temp - 1);
+							tokener.setIndex(temp - 1);
 							continue;
 						}
 
 					} else {
-						this.value.back();
+						tokener.back();
 						exit = true;
 						break;
 					}
 				}
 			}
 			if (!exit) {
-				this.value.next();
+				tokener.next();
 			}
 		}
 		if (!empty && exit) {
-			String value = this.value.substring(start, -1);
+			String value = tokener.substring(start, -1);
 			ReferenceObject refObject = null;
 			if ("&".equals(newPrefix)) {
-				refObject = this.stack.get(this.stack.size() - 1);
+				refObject = tokener.popStack();
 			}
 			if (refObject != null) {
 				SendableEntityCreator parentCreator = refObject.getCreater();
 				parentCreator.setValue(refObject.getEntity(), newPrefix, value,
-						IdMap.NEW);
+						IdMapEncoder.NEW);
 			}
 		}
 		return exit;
@@ -339,182 +329,203 @@ public class XMLIdMap extends XMLSimpleIdMap {
 	 *            the tag
 	 * @return the object
 	 */
-//	@Override
-	protected Object parse(XMLEntity entity, XMLGrammar formatCreator, String prefix) {
-//	private Object parseXMLEntity(String prefix, XMLEntity item) {
+	@Override
+	protected Object parse(XMLEntity entity, XMLTokener tokener, XMLGrammar grammar) {
 		String tag = entity.getTag();
-		Object item = null;
-
-		if (tag.length() > 0) {
-			SendableEntityCreatorXML entityCreater = getCreatorDecodeClass(tag);
-			boolean plainvalue = false;
-			String newPrefix = "";
-			if (entityCreater == null) {
-				if (this.stack.size() == 0) {
-					return null;
+		if (tag.length() < 1) {
+			return null;
+		}
+		SendableEntityCreatorXML entityCreater = getCreatorDecodeClass(tag);
+		if(entityCreater!=null || tokener.getStackSize()>0){
+			return parseIdEntity(entity, grammar, tokener, entityCreater);
+		}
+		// Must be a Child of Root
+		ArrayList<SendableEntityCreatorXML> filter=new ArrayList<SendableEntityCreatorXML>();
+		for(SendableEntityCreator creator : getCreators()){
+			if(creator instanceof SendableEntityCreatorXML){
+				SendableEntityCreatorXML xmlCreator = (SendableEntityCreatorXML) creator;
+				if(xmlCreator.getTag().startsWith(tag)){
+					filter.add(xmlCreator);
 				}
-				// Not found child creater
-				ReferenceObject referenceObject = this.stack.get(this.stack
-						.size() - 1);
-				entityCreater = (SendableEntityCreatorXML) referenceObject.getCreater();
-				String[] properties = entityCreater.getProperties();
-				prefix += tag;
-
-				for (String prop : properties) {
-					if (prop.equalsIgnoreCase(prefix)) {
-						// It is a Attribute
-						item = referenceObject.getEntity();
-						plainvalue = true;
-						break;
-					} else if (prop.startsWith(prefix)) {
-						// it is a Child
-						item = referenceObject.getEntity();
-						break;
-					}
-				}
-
-				if (item != null) {
-					if (!plainvalue) {
-						newPrefix = prefix + XMLIdMap.ENTITYSPLITTER;
-						prefix += XMLIdMap.ATTRIBUTEVALUE;
-					}
-				}
-			} else {
-				item = entityCreater.getSendableInstance(false);
-				this.stack.add(new ReferenceObject()
-							.withCreator(entityCreater)
-							.withProperty(tag)
-							.withEntity(item));
-				newPrefix = XMLIdMap.ENTITYSPLITTER;
-				prefix = "";
 			}
-			if (item == null) {
-				// First Skip not valid entry
-				ArrayList<String> myStack = new ArrayList<String>();
-				myStack.add(tag);
-
-				while (!this.value.isEnd() && myStack.size() > 0) {
-					if (this.value.getCurrentChar() == ENDTAG) {
-						String nextTag = this.value.getNextTag();
-						if (nextTag.length() < 1
-								|| myStack.get(myStack.size() - 1)
-										.equalsIgnoreCase(nextTag)) {
-							myStack.remove(myStack.size() - 1);
-							continue;
-						}
-					}
-					if (this.value.getCurrentChar() == ITEMSTART) {
-						XMLEntity nextTag = getEntity(null);
-						if (nextTag != null && nextTag.getTag().length() > 0) {
-							myStack.add(nextTag.getTag());
-						}
-						continue;
-					}
-					this.value.next();
-				}
-			} else {
-				if (!plainvalue) {
-					// Parse Attributes
-					while (!this.value.isEnd()
-							&& this.value.getCurrentChar() != ITEMEND) {
-						if (this.value.getCurrentChar() == ENDTAG) {
-							break;
-						}
-						this.value.next();
-						int start = this.value.position();
-						if (this.value.getCurrentChar() != ENDTAG) {
-							if (this.value.stepPos("=", false, false)) {
-								String key = this.value.substring(start, -1);
-								this.value.skip(2);
-								start = this.value.position();
-								if (this.value.stepPos("\"", false, true)) {
-									String value = this.value.substring(start,
-											-1);
-									this.value.next();
-									entityCreater.setValue(item,
-											prefix + key, value, IdMap.NEW);
-								}
+		}
+		while(filter.size()>1){
+			while (!tokener.isEnd()) {
+				if (tokener.stepPos("" + ITEMSTART, false, false)) {
+					XMLEntity item = getEntity(grammar, tokener);
+					if (item != null) {
+						tag+=XMLIdMap.ENTITYSPLITTER+item.getTag();
+						for(Iterator<SendableEntityCreatorXML> i=filter.iterator();i.hasNext();){
+							if(!i.next().getTag().startsWith(tag)){
+								i.remove();
 							}
 						}
 					}
-
-					if (this.value.getCurrentChar() != ENDTAG) {
-						// Children
-						parseChildren(newPrefix, item, tag);
-					} else {
-						this.value.next();
-					}
-					return item;
 				}
-				if (this.value.getCurrentChar() == ENDTAG) {
-					this.value.next();
-				} else {
-					this.value.next();
-					int start = this.value.position();
-					this.value.stepPos("" + ITEMSTART, false, true);
-					String value = this.value.substring(start, -1);
-					entityCreater.setValue(item, prefix, value, IdMap.NEW);
-					this.value.stepPos("" + ITEMSTART, false, false);
-					this.value.stepPos("" + ITEMEND, false, false);
-				}
-				return null;
 			}
-			return item;
+		}
+		if(filter.size()==1){
+			return parseIdEntity(entity, grammar, tokener.withPrefix(""), filter.get(0));
 		}
 		return null;
 	}
 
-	/**
-	 * Parses the children.
-	 * 
-	 * @param newPrefix
-	 *            the new prefix
+	/** Parse a Element with IdCreater
 	 * @param entity
-	 *            the entity
-	 * @param tag
-	 *            the tag
+	 * @param grammar	The Grammar of XML
+	 * @param tokener	The XML-Tokener
+	 * @param entityCreater
+	 * @return the Object
 	 */
-	private void parseChildren(String newPrefix, Object entity, String tag) {
-		while (!this.value.isEnd()) {
-			if (stepEmptyPos(newPrefix, entity, tag)) {
-				XMLEntity nextTag = getEntity(null);
+	protected Object parseIdEntity(XMLEntity entity, XMLGrammar grammar, XMLTokener tokener,  SendableEntityCreatorXML entityCreater) {
+		boolean plainvalue = false;
+		Object item = null;
 
-				if (nextTag != null) {
-					Object result = parse(nextTag, null, newPrefix);
+		String newPrefix = "";
+		String tag = entity.getTag();
+		if (entityCreater == null) {
+			if (tokener.getStackSize() == 0) {
+				return null;
+			}
+			// Not found child creater
+			ReferenceObject referenceObject = tokener.getStackLast(0);
+			entityCreater = (SendableEntityCreatorXML) referenceObject.getCreater();
+			String[] properties = entityCreater.getProperties();
+			tokener.addPrefix(tag);
 
-					if (result != null) {
-						ReferenceObject refObject = null;
-						if (result != entity) {
-							if ("&".equals(newPrefix)) {
-								refObject = this.stack
-										.get(this.stack.size() - 2);
-							} else {
-								refObject = this.stack
-										.get(this.stack.size() - 1);
-							}
-							if (refObject != null) {
-								SendableEntityCreator parentCreator = refObject
-										.getCreater();
-								parentCreator.setValue(refObject.getEntity(),
-										nextTag.getTag(), result, IdMap.NEW);
-								if (entity != null && this.stack.size() > 0) {
-									this.stack.remove(this.stack.size() - 1);
-								}
+			for (String prop : properties) {
+				if (prop.equalsIgnoreCase(tokener.getPrefix())) {
+					// It is a Attribute
+					item = referenceObject.getEntity();
+					plainvalue = true;
+					break;
+				} else if (prop.startsWith(tokener.getPrefix())) {
+					// it is a Child
+					item = referenceObject.getEntity();
+					break;
+				}
+			}
+
+			if (item != null && !plainvalue) {
+				newPrefix = tokener.getPrefix() + XMLIdMap.ENTITYSPLITTER;
+				tokener.addPrefix(XMLIdMap.ATTRIBUTEVALUE);
+			}
+		} else {
+			item = entityCreater.getSendableInstance(false);
+			tokener.withStack(new ReferenceObject()
+						.withCreator(entityCreater)
+						.withProperty(tag)
+						.withEntity(item));
+			newPrefix = XMLIdMap.ENTITYSPLITTER;
+		}
+		if (item == null) {
+			// First Skip not valid entry
+			ArrayList<String> myStack = new ArrayList<String>();
+			myStack.add(tag);
+
+			while (!tokener.isEnd() && myStack.size() > 0) {
+				if (tokener.getCurrentChar() == ENDTAG) {
+					String nextTag = tokener.getNextTag();
+					if (nextTag.length() < 1
+							|| myStack.get(myStack.size() - 1)
+									.equalsIgnoreCase(nextTag)) {
+						myStack.remove(myStack.size() - 1);
+						continue;
+					}
+				}
+				if (tokener.getCurrentChar() == ITEMSTART) {
+					XMLEntity nextTag = getEntity(null, tokener);
+					if (nextTag != null && nextTag.getTag().length() > 0) {
+						myStack.add(nextTag.getTag());
+					}
+					continue;
+				}
+				tokener.next();
+			}
+		} else {
+			if (!plainvalue) {
+				// Parse Attributes
+				while (!tokener.isEnd()
+						&& tokener.getCurrentChar() != ITEMEND) {
+					if (tokener.getCurrentChar() == ENDTAG) {
+						break;
+					}
+					tokener.next();
+					int start = tokener.position();
+					if (tokener.getCurrentChar() != ENDTAG) {
+						if (tokener.stepPos("=", false, false)) {
+							String key = tokener.substring(start, -1);
+							tokener.skip(2);
+							start = tokener.position();
+							if (tokener.stepPos("\"", false, true)) {
+								String value = tokener.substring(start, -1);
+								tokener.next();
+								entityCreater.setValue(item,
+										tokener.getPrefix() + key, value, IdMapEncoder.NEW);
 							}
 						}
 					}
 				}
-				if (this.value.isEnd()) {
-					if (entity != null && this.stack.size() > 0) {
-						this.stack.remove(this.stack.size() - 1);
+
+				if (tokener.getCurrentChar() != ENDTAG) {
+					// Children
+					while (!tokener.isEnd()) {
+						if (stepEmptyPos(newPrefix, item, tag, tokener)) {
+							XMLEntity nextTag = getEntity(null, tokener);
+
+							if (nextTag != null) {
+								Object result = parse(nextTag, tokener.withPrefix(newPrefix), grammar);
+
+								if (result != null) {
+									ReferenceObject refObject = null;
+									if (result != item) {
+										if ("&".equals(newPrefix)) {
+											refObject = tokener.getStackLast(1);
+										} else {
+											refObject = tokener.getStackLast(0);
+										}
+										if (refObject != null) {
+											SendableEntityCreator parentCreator = refObject
+													.getCreater();
+											parentCreator.setValue(refObject.getEntity(),
+													nextTag.getTag(), result, IdMapEncoder.NEW);
+											if (item != null && tokener.getStackSize() > 0) {
+												tokener.popStack();
+											}
+										}
+									}
+								}
+							}
+							if (tokener.isEnd()) {
+								if (item != null && tokener.getStackSize() > 0) {
+									tokener.popStack();
+								}
+							} else if (tokener.getCurrentChar() == ENDTAG) {
+								tokener.stepPos("" + ITEMEND, false, false);
+								break;
+							}
+							tokener.next();
+						}
 					}
-				} else if (this.value.getCurrentChar() == ENDTAG) {
-					this.value.stepPos("" + ITEMEND, false, false);
-					break;
+				} else {
+					tokener.next();
 				}
-				this.value.next();
+				return item;
 			}
+			if (tokener.getCurrentChar() == ENDTAG) {
+				tokener.next();
+			} else {
+				tokener.next();
+				int start = tokener.position();
+				tokener.stepPos("" + ITEMSTART, false, true);
+				String value = tokener.substring(start, -1);
+				entityCreater.setValue(item, tokener.getPrefix(), value, IdMapEncoder.NEW);
+				tokener.stepPos("" + ITEMSTART, false, false);
+				tokener.stepPos("" + ITEMEND, false, false);
+			}
+			return null;
 		}
+		return item;
 	}
 
 	/**

@@ -21,16 +21,25 @@ package org.sdmlib.serialization.xml;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
+import java.util.ArrayList;
+
 import org.sdmlib.serialization.Entity;
+import org.sdmlib.serialization.ReferenceObject;
 import org.sdmlib.serialization.TextParsingException;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
 public class XMLTokener extends Tokener {
+	/** The stack. */
+	protected ArrayList<ReferenceObject> stack = new ArrayList<ReferenceObject>();
+	
+	/** The prefix. */
+	private String prefix;
+	
 	/**
 	 * Get the next value. The value can be a Boolean, Double, Integer,
-	 * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
+     * BaseEntity, Long, or String.
 	 * 
 	 * @return An object.
 	 */
@@ -79,7 +88,7 @@ public class XMLTokener extends Tokener {
 		XMLEntity xmlEntity = (XMLEntity) entity;
 		StringBuilder sb = new StringBuilder();
 		c = nextClean();
-		while (c >= ' ' && getStopChars().indexOf(c) < 0) {
+		while (c >= ' ' && getStopChars().indexOf(c) < 0 && c!='>') {
 			sb.append(c);
 			c = next();
 		}
@@ -127,6 +136,12 @@ public class XMLTokener extends Tokener {
 			}
 		}
 	}
+	
+	protected void skipEntity() {
+		stepPos(">", false, false);
+		// Skip >
+		next();
+	}
 
 	@Override
 	public XMLTokener withText(String value) {
@@ -137,5 +152,35 @@ public class XMLTokener extends Tokener {
 	@Override
 	public void parseToEntity(BaseEntityList entityList) {
 		// Do Nothing
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public XMLTokener withPrefix(String prefix) {
+		this.prefix = prefix;
+		return this;
+	}
+	public XMLTokener addPrefix(String prefix) {
+		this.prefix += prefix;
+		return this;
+	}
+
+	public XMLTokener withStack(ReferenceObject item) {
+		this.stack.add(item);
+		this.prefix = "";
+		return this;
+	}
+
+	public ReferenceObject popStack() {
+		return this.stack.remove(this.stack.size()-1);
+	}
+
+	public int getStackSize() {
+		return this.stack.size();
+	}
+	public ReferenceObject getStackLast(int offset) {
+		return this.stack.get(this.stack.size() -1 - offset);
 	}
 }

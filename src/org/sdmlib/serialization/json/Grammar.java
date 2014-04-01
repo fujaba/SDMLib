@@ -24,7 +24,7 @@ package org.sdmlib.serialization.json;
 import java.util.Iterator;
 
 import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreatorNoIndex;
@@ -34,7 +34,7 @@ public class Grammar {
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */
-	public JsonObject getReadProperties(JsonObject jsonObject, IdMap map) {
+	public JsonObject getReadProperties(JsonObject jsonObject, IdMapEncoder map) {
 		if (jsonObject.has(JsonIdMap.JSON_PROPS)) {
 			return jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
 		}
@@ -46,7 +46,7 @@ public class Grammar {
 	 * @return the Creator for this JsonObject
 	 */
 	public SendableEntityCreator getReadCreator(JsonObject jsonObject,
-			IdMap map) {
+			IdMapEncoder map) {
 		Object className = jsonObject.get(JsonIdMap.CLASS);
 		return map.getCreatorClasses((String) className);
 	}
@@ -56,11 +56,11 @@ public class Grammar {
 	 * @return the Creator for this JsonObject
 	 */
 	public SendableEntityCreator getWriteCreator(Object modelItem,
-			String className, IdMap map) {
+			String className, IdMapEncoder map) {
 		return map.getCreatorClasses(className);
 	}
 
-	public JsonObject getWriteObject(IdMap map, SendableEntityCreator prototyp,
+	public JsonObject getWriteObject(IdMapEncoder map, SendableEntityCreator prototyp,
 			String className, String id, JsonObject jsonProp, Filter filter) {
 		JsonObject json = new JsonObject();
 		if (prototyp instanceof SendableEntityCreatorNoIndex) {
@@ -73,7 +73,7 @@ public class Grammar {
 			return json;
 		}
 		if (filter.isId(map, jsonProp, className)) {
-			json.put(IdMap.ID, id);
+			json.put(IdMapEncoder.ID, id);
 		}
 		json.put(JsonIdMap.CLASS, className);
 

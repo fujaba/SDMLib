@@ -22,8 +22,9 @@ package org.sdmlib.serialization.sort;
  permissions and limitations under the Licence.
 */
 import java.util.Comparator;
+
 import org.sdmlib.serialization.EntityValueFactory;
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.gui.table.TableList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
@@ -34,7 +35,7 @@ public class EntityComparator implements Comparator<Object> {
 
 	private SortingDirection direction = SortingDirection.ASC;
 	private String column = IDMAP;
-	private IdMap map;
+	private IdMapEncoder map;
 	private EntityValueFactory cellCreator = new EntityValueFactory();
 	private TableList owner;
 	protected SendableEntityCreator creator;
@@ -167,12 +168,12 @@ public class EntityComparator implements Comparator<Object> {
 		return this;
 	}
 
-	public EntityComparator withMap(IdMap value) {
+	public EntityComparator withMap(IdMapEncoder value) {
 		this.map = value;
 		return this;
 	}
 
-	public IdMap getMap() {
+	public IdMapEncoder getMap() {
 		return map;
 	}
 

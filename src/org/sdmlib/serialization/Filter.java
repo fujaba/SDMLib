@@ -43,7 +43,7 @@ public class Filter {
 		return this;
 	}
 	
-	public boolean isId(IdMap map, Object entity, String className) {
+	public boolean isId(IdMapEncoder map, Object entity, String className) {
 		if(idFilter!=null){
 			return idFilter.matches(ValuesMap.with(map, entity, className));
 		}
@@ -121,7 +121,7 @@ public class Filter {
 		this.visitedObjects.add(visitedObjects);
 	}
 
-	public boolean isPropertyRegard(IdMap map, Object entity,
+	public boolean isPropertyRegard(IdMapEncoder map, Object entity,
 			String property, Object value, boolean isMany, int deep) {
 		if(this.property!=null){
 			return this.property.matches(ValuesMap.with(map, entity, property, value, isMany, deep));
@@ -129,7 +129,7 @@ public class Filter {
 		return true;
 	}
 
-	public boolean isConvertable(IdMap map, Object entity,
+	public boolean isConvertable(IdMapEncoder map, Object entity,
 			String property, Object value, boolean isMany, int deep) {
 		if(this.convertable!=null){
 			return this.convertable.matches(ValuesMap.with(map, entity, property, value, isMany, deep));

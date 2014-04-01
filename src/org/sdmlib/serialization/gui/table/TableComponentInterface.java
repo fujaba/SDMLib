@@ -31,11 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 import java.util.List;
 
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public interface TableComponentInterface {
-	public IdMap getMap();
+	public IdMapEncoder getMap();
 	public boolean addItem(Object item);
 	public boolean removeItem(Object item);
 	public void addUpdateListener(Object list);
