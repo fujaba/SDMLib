@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -110,6 +109,13 @@ public class GraphConverter implements Converter {
 								sb.append(item.toString());
 							}
 						}
+					}
+					if(sb.length()>0){
+						Attribute attribute = new Attribute().withKey(key).withClazz(value.getClass().getName()).withValue(sb.toString());
+						if(attributes.get(graphNode)==null){
+							attributes.put(graphNode, new ArrayList<Attribute>());
+						}
+						attributes.get(graphNode).add(attribute);
 					}
 				}else{
 					Attribute attribute = new Attribute().withKey(key).withClazz(value.getClass().getName()).withValue(value.toString());

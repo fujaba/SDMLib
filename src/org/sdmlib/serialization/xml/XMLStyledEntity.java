@@ -22,7 +22,6 @@ package org.sdmlib.serialization.xml;
  permissions and limitations under the Licence.
 */
 import org.sdmlib.serialization.gui.Style;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class XMLStyledEntity extends XMLEntity  {
 	private Style style=new Style();

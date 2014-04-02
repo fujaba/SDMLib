@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
@@ -37,7 +36,7 @@ public abstract class Entity implements BaseEntity {
 	private Map<String, Object> map;
 	private boolean visible = true;
 
-	public Map<String, Object> getMap() {
+	protected Map<String, Object> getMap() {
 		if (this.map == null) {
 			this.map = new LinkedHashMap<String, Object>();
 		}

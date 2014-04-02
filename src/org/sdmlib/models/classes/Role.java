@@ -30,8 +30,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.codegen.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.studyrightWithAssignments.Room;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -39,7 +37,6 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
 {

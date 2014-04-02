@@ -29,9 +29,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.TreeSet;
+
 import org.sdmlib.serialization.EntityValueFactory;
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.PeerMessage;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.sort.EntityComparator;
@@ -61,7 +61,7 @@ public class TableList implements List<Object>, SendableEntity {
 		return list;
 	}
 	
-	public void setIdMap(IdMap map){
+	public void setIdMap(IdMapEncoder map){
 		getComparator().withMap(map);
 	}
 	
@@ -82,7 +82,7 @@ public class TableList implements List<Object>, SendableEntity {
 		if (PROPERTY_ITEMS.equalsIgnoreCase(attrName)) {
 			add(value);
 			return true;
-		}else if ((PROPERTY_ITEMS+IdMap.REMOVE).equalsIgnoreCase(attrName)) {
+		}else if ((PROPERTY_ITEMS+IdMapEncoder.REMOVE).equalsIgnoreCase(attrName)) {
 			remove(value);
 			return true;
 		}
@@ -368,7 +368,7 @@ public class TableList implements List<Object>, SendableEntity {
 	
 	public Object[] getSortedIndex(){
 		EntityComparator comparator = getComparator();
-		IdMap map = comparator.getMap();
+		IdMapEncoder map = comparator.getMap();
 		Iterator<Object> iterator = iterator();
 		SendableEntityCreator creator = null; 
 		if(iterator.hasNext()){

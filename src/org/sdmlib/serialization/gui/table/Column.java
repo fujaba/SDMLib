@@ -22,10 +22,10 @@ package org.sdmlib.serialization.gui.table;
  permissions and limitations under the Licence.
 */
 import java.util.Comparator;
+
 import org.sdmlib.serialization.EntityValueFactory;
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.GUIPosition;
-import org.sdmlib.serialization.interfaces.PeerMessage;
 
 public class Column {
 	public static final int AUTOWIDTH=-1;
@@ -322,6 +322,7 @@ public class Column {
 	public Column withListener(ColumnListener handler){
 		this.handler = handler;
 		this.handler.withColumn(this);
+		this.withEditable(true);
 		return this;
 	}
 	

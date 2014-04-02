@@ -24,14 +24,14 @@ package org.sdmlib.serialization.graph;
 import java.util.Collection;
 
 import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
  * The Class YUMLIdParser.
  */
 
-public class GraphIdMap extends IdMap {
+public class GraphIdMap extends IdMapEncoder {
 	/** The Constant for CLASS Diagramms. */
 	public static final String CLASS = "class";
 
@@ -169,16 +169,6 @@ public class GraphIdMap extends IdMap {
 			parse(value, yumlFilter, list, 0);
 		}
 		return list;
-	}
-
-	@Override
-	public Object decode(BaseEntity value) {
-		return null;
-	}
-	
-	@Override
-	public Object decode(String value) {
-		return null;
 	}
 
 	/**

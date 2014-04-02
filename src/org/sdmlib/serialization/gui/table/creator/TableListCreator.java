@@ -21,7 +21,7 @@ package org.sdmlib.serialization.gui.table.creator;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-import org.sdmlib.serialization.IdMap;
+import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.gui.table.TableList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
@@ -45,8 +45,8 @@ public class TableListCreator implements SendableEntityCreator{
 	@Override
 	public boolean setValue(Object entity, String attribute, Object value,
 			String type) {
-		if(IdMap.REMOVE.equalsIgnoreCase(type)){
-			attribute+=IdMap.REMOVE;
+		if(IdMapEncoder.REMOVE.equalsIgnoreCase(type)){
+			attribute+=IdMapEncoder.REMOVE;
 		}
 		return ((TableList)entity).set(attribute, value);
 	}

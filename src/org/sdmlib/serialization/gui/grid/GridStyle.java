@@ -23,10 +23,11 @@ package org.sdmlib.serialization.gui.grid;
 */
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 
@@ -46,8 +47,8 @@ public class GridStyle extends Style implements SendableEntity{
 	private int columnSpan=1;
 	private int column;
 	private int row;
-	private ValueGrid grid;
-	private LinkedHashMap<String, ArrayList<PropertyChangeListener>> listeners=new LinkedHashMap<String, ArrayList<PropertyChangeListener>>();
+	protected ValueGrid grid;
+	private LinkedHashMap<String, HashSet<PropertyChangeListener>> listeners=new LinkedHashMap<String, HashSet<PropertyChangeListener>>();
 	private String selectedBackground=null;
 
 	public int getColumn() {
@@ -59,12 +60,19 @@ public class GridStyle extends Style implements SendableEntity{
 	}
 		
 	public int getRowEnd(){
-      return 0;
-	}
+		if(heightExpression!=null){
+			
+			return 0;
+		}
 
-	
+		return getRow()+getRowSpan()-1;
+	}
 	public int getColumnEnd(){
-      return 0;
+		if(widthExpression!=null){
+			
+			return 0;
+		}
+		return getColumn()+getColumnSpan()-1;
 	}
 	
 	public GridStyle withGrid(ValueGrid grid){
@@ -100,16 +108,18 @@ public class GridStyle extends Style implements SendableEntity{
 		return this;
 	}
 	
-	public void withRow(int value) {
+	public GridStyle withRow(int value) {
 		int oldValue = row;
 		this.row = value;
 		propertyChange(PROPERTY_ROW, oldValue, value);
+		return this;
 	}
 	
-	public void withColumn(int value) {
+	public GridStyle withColumn(int value) {
 		int oldValue = column;
 		this.column = value;
 		propertyChange(PROPERTY_COLUMN, oldValue, value);
+		return this;
 	}
 	
 	public GridStyle withRowSpan(int value) {
@@ -145,7 +155,7 @@ public class GridStyle extends Style implements SendableEntity{
 	}
 	
 	private void executeEvent(PropertyChangeEvent change, String key){
-		ArrayList<PropertyChangeListener> list = listeners.get(key);
+		HashSet<PropertyChangeListener> list = listeners.get(key);
 		if(list != null){
 			for(PropertyChangeListener listener : list){
 				listener.propertyChange(change);
@@ -156,9 +166,9 @@ public class GridStyle extends Style implements SendableEntity{
 	@Override
 	public boolean addPropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
-		ArrayList<PropertyChangeListener> list = listeners.get(propertyName);
+		HashSet<PropertyChangeListener> list = listeners.get(propertyName);
 		if(list==null){
-			list = new ArrayList<PropertyChangeListener>();
+			list = new HashSet<PropertyChangeListener>();
 			listeners.put(propertyName, list);
 		}
 		return list.add(listener);
@@ -166,9 +176,9 @@ public class GridStyle extends Style implements SendableEntity{
 
 	@Override
 	public boolean addPropertyChangeListener(PropertyChangeListener listener) {
-		ArrayList<PropertyChangeListener> list = listeners.get(null);
+		HashSet<PropertyChangeListener> list = listeners.get(null);
 		if(list==null){
-			list = new ArrayList<PropertyChangeListener>();
+			list = new HashSet<PropertyChangeListener>();
 			listeners.put(null, list);
 		}
 		return list.add(listener);
@@ -177,8 +187,8 @@ public class GridStyle extends Style implements SendableEntity{
 	@Override
 	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
 		boolean result=false;
-		for(Iterator<Entry<String, ArrayList<PropertyChangeListener>>> iterator = listeners.entrySet().iterator();iterator.hasNext();){
-			Entry<String, ArrayList<PropertyChangeListener>> item = iterator.next();
+		for(Iterator<Entry<String, HashSet<PropertyChangeListener>>> iterator = listeners.entrySet().iterator();iterator.hasNext();){
+			Entry<String, HashSet<PropertyChangeListener>> item = iterator.next();
 			for(Iterator<PropertyChangeListener> i = item.getValue().iterator();i.hasNext();){
 				PropertyChangeListener propertyChangeListener = i.next();
 				if(propertyChangeListener==listener){
@@ -209,5 +219,27 @@ public class GridStyle extends Style implements SendableEntity{
 	
 	public void maximize(){
 		propertyChange(MAXIMIZE, null, null);
+	}
+	
+	@Override
+	public Style clone(){
+		return clone(new GridStyle());
+	}
+
+	@Override
+	public Style clone(Style prototyp){
+		super.clone(prototyp);
+		if(prototyp instanceof GridStyle){
+			GridStyle style = (GridStyle) prototyp;
+			style
+				.withRowSpan(this.rowSpan)
+				.withColumnSpan(this.columnSpan)
+				.withHeight(this.heightExpression)
+				.withWidth(this.widthExpression)
+				.withColumn(this.column)
+				.withRow(this.row);
+			return style;
+		}
+		return prototyp;
 	}
 }
