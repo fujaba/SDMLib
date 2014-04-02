@@ -100,7 +100,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       // model.insertModelCreationCodeHere("examples");
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightReverseClassModel"));
+      storyboard.addClassDiagram(model);
 
       storyboard.add("Bug: running the test multiple times inserts the code multiple times <br>" +
             "Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>" +
@@ -233,7 +233,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       model.generate("examples", "examplehelpers");
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightExtendsReverseClassModel"));
+      storyboard.addClassDiagram(model);
 
       StoryboardManager.get()
       .add(storyboard)
@@ -255,7 +255,7 @@ public class StudyRightModel implements PropertyChangeInterface
       Clazz uniClass = new Clazz("University")
       .withAttribute("name", STRING);
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightClasses01"));
+      storyboard.addClassDiagram(model);
 
 
       //============================================================
@@ -266,7 +266,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withAttribute("name", STRING)
       .withAttribute("matrNo", INT);
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightClasses02"));
+      storyboard.addClassDiagram(model);
 
 
       //============================================================
@@ -276,7 +276,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource("uni", uniClass, ONE)
       .withTarget("students", studClass, MANY); 
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightClasses03"));
+      storyboard.addClassDiagram(model);
 
 
       //============================================================
@@ -299,7 +299,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource("students", studClass, MANY)
       .withTarget("in", roomClass, ONE);
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightClasses04"));
+      storyboard.addClassDiagram(model);
 
       
       //============================================================
@@ -311,7 +311,7 @@ public class StudyRightModel implements PropertyChangeInterface
       studClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
       .withAttributes("credits", INT, "motivation", INT);
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightClasses04b"));
+      storyboard.addClassDiagram(model);
 
       
       //============================================================

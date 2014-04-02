@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map.Entry;
 
 import org.junit.Assert;
 import org.sdmlib.codegen.CGUtil;
@@ -63,6 +64,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.graph.GraphConverter;
 import org.sdmlib.serialization.graph.GraphIdMap;
+import org.sdmlib.serialization.graph.GraphNode;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -934,7 +936,7 @@ public class Storyboard implements PropertyChangeInterface
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true));
-
+      
       //      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
       //      {
       //         largestJsonArray = jsonArray;
@@ -989,6 +991,17 @@ public class Storyboard implements PropertyChangeInterface
       {
          largestJsonArray = jsonArray;
          largestRoot = root;
+      }
+      
+      // add icons
+      for (Entry<String, String> entry : iconMap.entrySet())
+      {
+         JsonObject jsonObject = jsonArray.get(entry.getKey());
+         
+         if (jsonObject != null)
+         {
+            jsonObject.put("headimage", entry.getValue());
+         }
       }
 
       // new diagram

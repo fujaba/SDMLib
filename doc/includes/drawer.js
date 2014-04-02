@@ -182,12 +182,13 @@ SVGDrawer.prototype.createContainer = function(graph){
 SVGDrawer.prototype.getWidth = function(label, board, calculate){
 	var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
 	text.appendChild(document.createTextNode(label));
-	text.style.fontSize="12px";
+	text.style.fontSize="10px";
 	board.appendChild(text);
 	var width =text.getBoundingClientRect().width;
 	board.removeChild(text);
 	return width;
 }
+
 SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	var ns = "http://www.w3.org/2000/svg";
 	var group = document.createElementNS(ns, "g");
@@ -226,7 +227,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 		var text = document.createElementNS(ns, "text");
 		text.setAttribute("text-anchor", "left");
 		text.setAttribute("x", "10");
-		text.setAttribute("style", "font-size: 12px;");
+		text.setAttribute("style", "font-size: 10px;");
 		var textNode = document.createTextNode(node.content_plain)
 		text.appendChild(textNode);
 		group.appendChild(text);
@@ -244,10 +245,10 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	text.setAttribute("y", "20");
 
 	if(graph.typ=="object"){
-		text.setAttribute("style", "text-decoration: underline;font-size: 12px;");
+		text.setAttribute("style", "text-decoration: underline;font-size: 10px;");
 		text.appendChild(document.createTextNode(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
-		text.setAttribute("style", "font-size: 12px;");
+		text.setAttribute("style", "font-size: 10px;");
 		text.appendChild(document.createTextNode(node.id));
 	}
 	group.appendChild(text);
@@ -267,7 +268,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 			text.setAttribute("width", ""+textwidth);
 			text.setAttribute("x", 10);
 			text.setAttribute("y", y);
-			text.setAttribute("style", "font-size: 12px;");
+			text.setAttribute("style", "font-size: 10px;");
 			text.appendChild(document.createTextNode(attribute));
 			group.appendChild(text);
 			y += 20;
@@ -309,7 +310,7 @@ CanvasDrawer.prototype.createContainer = function(graph){
 };
 CanvasDrawer.prototype.getWidth = function(text, canvas){
 	var context = canvas.getContext('2d');
-	context.font = "12px Arial";
+	context.font = "10px Arial";
 	var metrics = context.measureText(text);
 	return metrics.width;
 
@@ -355,7 +356,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 		return null;
 	}
 	if(node.content_plain){
-		context.font = "12px Arial";
+		context.font = "10px Arial";
 		context.fillText(node.content_plain, node.x, node.y);
 		return null;
 	}
@@ -369,7 +370,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 	this.createLine(node.x, node.y+20, node.x + node.width, node.y+20, graph);
 
 	var context = canvas.getContext('2d');
-	context.font = "12px Arial";
+	context.font = "10px Arial";
 	var text="";
 	if(graph.typ=="object"){
 		text = node.id.charAt(0).toLowerCase() + node.id.slice(1);
@@ -385,7 +386,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
 			var context = canvas.getContext('2d');
-			context.font = "12px Arial";
+			context.font = "10px Arial";
 			context.fillText(attribute, node.x + 10, y);
 			y += 20;
 		}

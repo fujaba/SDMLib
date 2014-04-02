@@ -139,6 +139,9 @@ Graph.prototype.initGraph = function(){
 		var html = this.drawer.getHTMLNode(node, this, true);
 		if(html){
 			var pos = this.getDimension(html);
+			if (node.headimage){
+                pos.y += 100;
+            }			
 			if(!node.startWidth){
 				node.width=pos.x;
 			}

@@ -910,11 +910,11 @@ public class Clazz implements PropertyChangeInterface
             System.out.println("generate/modify file for " + fileName);
             fileBody = new StringBuilder();
 
-            StringBuilder text = new StringBuilder(
-               "package packageName;\n" +
-                     "\n" +
-                     "public class className\n" +
-                     "{\n" +
+            StringBuilder text = new StringBuilder( "" +
+                  "package packageName;\n" +
+                  "\n" +
+                  "public class className\n" +
+                  "{\n" +
                   "}\n");
 
             if (isInterfaze()) {
