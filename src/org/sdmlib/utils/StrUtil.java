@@ -26,31 +26,33 @@ public class StrUtil
    /**
     * Safe String comparison.
     *
-    * @param s1  first string
-    * @param s2  second string
-    * @return    true if both parameters are null or equal
+    * @param s1
+    *           first string
+    * @param s2
+    *           second string
+    * @return true if both parameters are null or equal
     */
-   public static boolean stringEquals (String s1, String s2)
+   public static boolean stringEquals(String s1, String s2)
    {
-      return s1 == null 
-            ? s2 == null 
-            : s1.equals (s2);
+      return s1 == null ? s2 == null : s1.equals(s2);
    }
-
 
    /**
     * Safe String comparison.
     *
-    * @param s1  first string
-    * @param s2  second string
-    * @return    0 if both parameters are null or equal, a value less than 0 if the first string is lexicographically
-    *            less than the second string, a value greater than 0 if lexicographically greater than
+    * @param s1
+    *           first string
+    * @param s2
+    *           second string
+    * @return 0 if both parameters are null or equal, a value less than 0 if the
+    *         first string is lexicographically less than the second string, a
+    *         value greater than 0 if lexicographically greater than
     */
-   public static int stringCompare (String s1, String s2)
+   public static int stringCompare(String s1, String s2)
    {
       if (s1 != null)
       {
-         return s2 != null ? s1.compareTo (s2) : s1.length();
+         return s2 != null ? s1.compareTo(s2) : s1.length();
       }
       else
       {
@@ -58,59 +60,51 @@ public class StrUtil
       }
    }
 
-
    public static String upFirstChar(String name)
    {
-      if ( isEmptyString(name))
+      if (isEmptyString(name))
       {
          return name;
       }
-      
+
       StringBuilder stringBuilder = new StringBuilder(name);
-      
+
       char firstChar = stringBuilder.charAt(0);
-      
+
       firstChar = Character.toUpperCase(firstChar);
-      
+
       stringBuilder.setCharAt(0, firstChar);
-      
+
       return stringBuilder.toString();
    }
-
 
    public static boolean isEmptyString(String name)
    {
       return name == null || name.equals("");
    }
 
+   public static String downFirstChar(String name)
+   {
+      if (isEmptyString(name))
+      {
+         return name;
+      }
 
-	public static String downFirstChar(String name) 
-	{
-		if (isEmptyString(name)) 
-		{
-			return name;
-		}
+      StringBuilder stringBuilder = new StringBuilder(name);
 
-		StringBuilder stringBuilder = new StringBuilder(name);
+      char firstChar = stringBuilder.charAt(0);
 
-		char firstChar = stringBuilder.charAt(0);
+      firstChar = Character.toLowerCase(firstChar);
 
-		firstChar = Character.toLowerCase(firstChar);
+      stringBuilder.setCharAt(0, firstChar);
 
-		stringBuilder.setCharAt(0, firstChar);
+      return stringBuilder.toString();
+   }
 
-		return stringBuilder.toString();
-	}
-	
-	
-	public static String htmlEncode(String input)
-	{
-	   return input
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll("\"", "&quot;")
-            .replaceAll("'", "&#x27;")
-            .replaceAll("/", "&#x2F;");
- 	}
+   public static String htmlEncode(String input)
+   {
+      return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+         .replaceAll(">", "&gt;").replaceAll("\"", "&quot;")
+         .replaceAll("'", "&#x27;").replaceAll("/", "&#x2F;");
+   }
 }

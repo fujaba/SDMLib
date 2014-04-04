@@ -7,171 +7,181 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 
-public class ClassModelTemplate {
-	public StringBuilder dump(String rootdir, String diagName, ClassModel model){
-		// generate dot file
-		StringBuilder dotFileText = new StringBuilder(
-				"\n digraph ClassDiagram {" 
-						+ "\n    node [shape = none, fontsize = 10]; " 
-						+ "\n    edge [fontsize = 10];" 
-						+ "\n    "
-						+ "\n    modelClasses" 
-						+ "\n    " +
-						// "\n    g1 -- p2 " +
-						// "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];" +
-						"\n    " 
-						+ "\n    modelAssocs" 
-						+ "\n}" 
-						+ "\n");
+public class ClassModelTemplate
+{
+   public StringBuilder dump(String rootdir, String diagName, ClassModel model)
+   {
+      // generate dot file
+      StringBuilder dotFileText = new StringBuilder("\n digraph ClassDiagram {"
+         + "\n    node [shape = none, fontsize = 10]; "
+         + "\n    edge [fontsize = 10];" + "\n    " + "\n    modelClasses"
+         + "\n    " +
+         // "\n    g1 -- p2 " +
+         // "\n    g1 -- p3 [headlabel = \"persons\" taillabel = \"groupAccounter\"];"
+         // +
+         "\n    " + "\n    modelAssocs" + "\n}" + "\n");
 
-		// add classes
-		StringBuilder modelClassesText = new StringBuilder();
-		
-		model.addHelperClassesForUnknownAttributeTypes();
-		
-		for (Clazz clazz : model.getClasses())
-		{
-			StringBuilder modelClassText = new StringBuilder(
-					"\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF=\"classfilename\">className</td> </tr> attrCompartment methodCompartment </table>>];");
+      // add classes
+      StringBuilder modelClassesText = new StringBuilder();
 
-			if (clazz.isInterfaze())
-				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
+      model.addHelperClassesForUnknownAttributeTypes();
 
-			CGUtil.replaceAll(modelClassText, 
-					"className", CGUtil.shortClassNameHTMLEncoded(clazz.getName()),
-					"classfilename", "../" + rootdir + "/" + clazz.getName().replaceAll("\\.", "/") + ".java", 
-					"attrCompartment", dumpAttributes(clazz), 
-					"methodCompartment", dumpMethods(clazz));
+      for (Clazz clazz : model.getClasses())
+      {
+         StringBuilder modelClassText = new StringBuilder(
+               "\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF=\"classfilename\">className</td> </tr> attrCompartment methodCompartment </table>>];");
 
-			modelClassesText.append(modelClassText.toString());
-		}
+         if (clazz.isInterfaze())
+            CGUtil.replaceAll(modelClassText, "table border",
+               "table color='lightgrey' border");
 
+         CGUtil.replaceAll(modelClassText, "className",
+            CGUtil.shortClassNameHTMLEncoded(clazz.getName()), "classfilename",
+            "../" + rootdir + "/" + clazz.getName().replaceAll("\\.", "/")
+               + ".java", "attrCompartment", dumpAttributes(clazz),
+            "methodCompartment", dumpMethods(clazz));
 
-		StringBuilder allAssocsText = new StringBuilder();
+         modelClassesText.append(modelClassText.toString());
+      }
 
-		// add class inheritance	
-		for (Clazz clazz : model.getClasses())
-		{
-			if (clazz.getSuperClass() != null)
-			{
+      StringBuilder allAssocsText = new StringBuilder();
 
-				StringBuilder oneSuperClassText = new StringBuilder("\n    _superClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
+      // add class inheritance
+      for (Clazz clazz : model.getClasses())
+      {
+         if (clazz.getSuperClass() != null)
+         {
 
-				CGUtil.replaceAll(oneSuperClassText, "superClass", CGUtil.shortClassName(clazz.getSuperClass().getName())
-						, "mClass", CGUtil.shortClassName(clazz.getName()));
+            StringBuilder oneSuperClassText = new StringBuilder(
+                  "\n    _superClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
 
-				allAssocsText.append(oneSuperClassText.toString());
-			}
-		}
+            CGUtil.replaceAll(oneSuperClassText, "superClass",
+               CGUtil.shortClassName(clazz.getSuperClass().getName()),
+               "mClass", CGUtil.shortClassName(clazz.getName()));
 
-		// add interface inheritance
-		for (Clazz clazz : model.getClasses())
-		{
-			for (Clazz interfaceClass : clazz.getInterfaces())
-			{	
-				if (interfaceClass.isInterfaze())
-				{
-					StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
+            allAssocsText.append(oneSuperClassText.toString());
+         }
+      }
 
-					CGUtil.replaceAll(oneSuperClassText, 
-							"interfaceClass", CGUtil.shortClassName(interfaceClass.getName()), 
-							"mClass", CGUtil.shortClassName(clazz.getName()));
+      // add interface inheritance
+      for (Clazz clazz : model.getClasses())
+      {
+         for (Clazz interfaceClass : clazz.getInterfaces())
+         {
+            if (interfaceClass.isInterfaze())
+            {
+               StringBuilder oneSuperClassText = new StringBuilder(
+                     "\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
 
-					allAssocsText.append(oneSuperClassText.toString());
-				}
-			}
-		}
+               CGUtil.replaceAll(oneSuperClassText, "interfaceClass",
+                  CGUtil.shortClassName(interfaceClass.getName()), "mClass",
+                  CGUtil.shortClassName(clazz.getName()));
 
-		// add associations
-		for (Association assoc : model.getAssociations())
-		{
-			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
+               allAssocsText.append(oneSuperClassText.toString());
+            }
+         }
+      }
 
-			CGUtil.replaceAll(oneAssocText, 
-					"sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), 
-					"targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), 
-					"sourceRole", model.labelForRole(assoc.getSource()), 
-					"targetRole", model.labelForRole(assoc.getTarget()));
+      // add associations
+      for (Association assoc : model.getAssociations())
+      {
+         StringBuilder oneAssocText = new StringBuilder(
+               "\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
 
-			allAssocsText.append(oneAssocText.toString());
-		}
+         CGUtil.replaceAll(oneAssocText, "sourceClass",
+            CGUtil.shortClassName(assoc.getSource().getClazz().getName()),
+            "targetClass",
+            CGUtil.shortClassName(assoc.getTarget().getClazz().getName()),
+            "sourceRole", model.labelForRole(assoc.getSource()), "targetRole",
+            model.labelForRole(assoc.getTarget()));
 
-		// add assocs for complex attributes
-		for (Attribute attr : model.getClasses().getAttributes())
-		{
+         allAssocsText.append(oneAssocText.toString());
+      }
 
-			if (CGUtil.isPrimitiveType(attr.getType()))
-			{
-				continue;
-			}
+      // add assocs for complex attributes
+      for (Attribute attr : model.getClasses().getAttributes())
+      {
 
-//			R tgtCard = model.findRoleCard(attr.getType());
-			String tgtClassName = model.findPartnerClassName(attr.getType());
-			tgtClassName = CGUtil.shortClassName(tgtClassName);
+         if (CGUtil.isPrimitiveType(attr.getType()))
+         {
+            continue;
+         }
 
-			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
+         // R tgtCard = model.findRoleCard(attr.getType());
+         String tgtClassName = model.findPartnerClassName(attr.getType());
+         tgtClassName = CGUtil.shortClassName(tgtClassName);
 
-			CGUtil.replaceAll(oneAssocText, 
-					"sourceClass", CGUtil.shortClassName(attr.getClazz().getName()), 
-					"targetClass", tgtClassName, 
-					"sourceRole", "", 
-					"targetRole", attr.getName());
+         StringBuilder oneAssocText = new StringBuilder(
+               "\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
 
-			allAssocsText.append(oneAssocText.toString());
-		}
+         CGUtil.replaceAll(oneAssocText, "sourceClass",
+            CGUtil.shortClassName(attr.getClazz().getName()), "targetClass",
+            tgtClassName, "sourceRole", "", "targetRole", attr.getName());
 
-		CGUtil.replaceAll(dotFileText, "modelClasses", modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
+         allAssocsText.append(oneAssocText.toString());
+      }
 
-		return dotFileText;
-	}
-	
-	public String dumpAttributes(Clazz clazz)
-	{
-		StringBuilder allAttrsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> attrRow </table></td></tr>");
+      CGUtil.replaceAll(dotFileText, "modelClasses",
+         modelClassesText.toString(), "modelAssocs", allAssocsText.toString());
 
-		if (clazz.getAttributes().size() > 0)
-		{
-			for (Attribute attr : clazz.getAttributes())
-			{
-				StringBuilder oneAttrText = new StringBuilder("<tr><td align='left'>attrDecl</td></tr>");
+      return dotFileText;
+   }
 
-				CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :" + CGUtil.shortClassNameHTMLEncoded(attr.getType()));
+   public String dumpAttributes(Clazz clazz)
+   {
+      StringBuilder allAttrsText = new StringBuilder(
+            "<tr><td><table border='0' cellborder='0' cellspacing='0'> attrRow </table></td></tr>");
 
-				CGUtil.replaceAll(allAttrsText, "attrRow", oneAttrText.append(" attrRow").toString());
-			}
+      if (clazz.getAttributes().size() > 0)
+      {
+         for (Attribute attr : clazz.getAttributes())
+         {
+            StringBuilder oneAttrText = new StringBuilder(
+                  "<tr><td align='left'>attrDecl</td></tr>");
 
-			CGUtil.replaceAll(allAttrsText, "attrRow", "");
-		}
-		else
-		{
-			CGUtil.replaceAll(allAttrsText, "attrRow", "<tr><td> </td></tr>");
-		}
+            CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :"
+               + CGUtil.shortClassNameHTMLEncoded(attr.getType()));
 
-		return allAttrsText.toString();
-	}
-	
-	public String dumpMethods(Clazz clazz)
-	{
-		StringBuilder allMethodsText = new StringBuilder("<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");
+            CGUtil.replaceAll(allAttrsText, "attrRow",
+               oneAttrText.append(" attrRow").toString());
+         }
 
-		if (clazz.getMethods().size() > 0)
-		{
-			for (Method method : clazz.getMethods())
-			{
-				StringBuilder oneMethodText = new StringBuilder("<tr><td align='left'>methodDecl</td></tr>");
+         CGUtil.replaceAll(allAttrsText, "attrRow", "");
+      }
+      else
+      {
+         CGUtil.replaceAll(allAttrsText, "attrRow", "<tr><td> </td></tr>");
+      }
 
-				CGUtil.replaceAll(oneMethodText, "methodDecl", CGUtil.shortClassNameHTMLEncoded(method.getSignature()));
+      return allAttrsText.toString();
+   }
 
-				CGUtil.replaceAll(allMethodsText, "methodRow", oneMethodText.append(" methodRow").toString());
-			}
+   public String dumpMethods(Clazz clazz)
+   {
+      StringBuilder allMethodsText = new StringBuilder(
+            "<tr><td><table border='0' cellborder='0' cellspacing='0'> methodRow </table></td></tr>");
 
-			CGUtil.replaceAll(allMethodsText, "methodRow", "");
-		}
-		else
-		{
-			CGUtil.replaceAll(allMethodsText, "methodRow", "<tr><td> </td></tr>");
-		}
+      if (clazz.getMethods().size() > 0)
+      {
+         for (Method method : clazz.getMethods())
+         {
+            StringBuilder oneMethodText = new StringBuilder(
+                  "<tr><td align='left'>methodDecl</td></tr>");
 
-		return allMethodsText.toString();
-	}
+            CGUtil.replaceAll(oneMethodText, "methodDecl",
+               CGUtil.shortClassNameHTMLEncoded(method.getSignature()));
+
+            CGUtil.replaceAll(allMethodsText, "methodRow", oneMethodText
+               .append(" methodRow").toString());
+         }
+
+         CGUtil.replaceAll(allMethodsText, "methodRow", "");
+      }
+      else
+      {
+         CGUtil.replaceAll(allMethodsText, "methodRow", "<tr><td> </td></tr>");
+      }
+
+      return allMethodsText.toString();
+   }
 }

@@ -8,29 +8,26 @@ import org.sdmlib.examples.studyrightextends.Lecture;
 public class LectureCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Lecture.PROPERTY_TITLE,
-      Lecture.PROPERTY_IN,
-      Lecture.PROPERTY_HAS,
-      Lecture.PROPERTY_LISTEN,
-   };
-   
+   { Lecture.PROPERTY_TITLE, Lecture.PROPERTY_IN, Lecture.PROPERTY_HAS,
+         Lecture.PROPERTY_LISTEN, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Lecture();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Lecture) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -38,19 +35,17 @@ public class LectureCreator extends EntityFactory
       }
       return ((Lecture) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Lecture) entity).removeYou();
    }
 }
-

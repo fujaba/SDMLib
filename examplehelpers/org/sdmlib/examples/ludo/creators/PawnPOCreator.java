@@ -8,15 +8,15 @@ public class PawnPOCreator extends PatternObjectCreator
    {
       return new PawnPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PawnPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PawnPO) target).set(attrName, value);
    }
 }
-

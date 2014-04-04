@@ -4,7 +4,7 @@ package org.sdmlib.serialization.logic;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,16 +20,19 @@ package org.sdmlib.serialization.logic;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 
-public abstract class ConditionMap implements Condition {
-	@Override
-	public boolean matches(ValuesSimple values) {
-		if(values instanceof ValuesMap){
-			return matches((ValuesMap) values);
-		}
-		return false;
-	}
-	
-	public abstract boolean matches(ValuesMap values);
+public abstract class ConditionMap implements Condition
+{
+   @Override
+   public boolean matches(ValuesSimple values)
+   {
+      if (values instanceof ValuesMap)
+      {
+         return matches((ValuesMap) values);
+      }
+      return false;
+   }
+
+   public abstract boolean matches(ValuesMap values);
 }

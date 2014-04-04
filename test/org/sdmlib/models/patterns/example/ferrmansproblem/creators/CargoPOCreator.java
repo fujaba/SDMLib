@@ -8,15 +8,15 @@ public class CargoPOCreator extends PatternObjectCreator
    {
       return new CargoPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((CargoPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((CargoPO) target).set(attrName, value);
    }
 }
-

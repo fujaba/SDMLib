@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects.creators;
 
 import java.util.Collection;
@@ -38,12 +38,12 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
    public StringList getTgtLabel()
    {
       StringList result = new StringList();
-      
+
       for (GenericLink obj : this)
       {
          result.add(obj.getTgtLabel());
       }
-      
+
       return result;
    }
 
@@ -53,19 +53,19 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       {
          obj.withTgtLabel(value);
       }
-      
+
       return this;
    }
 
    public StringList getSrcLabel()
    {
       StringList result = new StringList();
-      
+
       for (GenericLink obj : this)
       {
          result.add(obj.getSrcLabel());
       }
-      
+
       return result;
    }
 
@@ -75,156 +75,138 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
       {
          obj.withSrcLabel(value);
       }
-      
+
       return this;
    }
 
    public GenericObjectSet getSrc()
    {
       GenericObjectSet result = new GenericObjectSet();
-      
+
       for (GenericLink obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
+
    public GenericLinkSet withSrc(GenericObject value)
    {
       for (GenericLink obj : this)
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
 
    public GenericObjectSet getTgt()
    {
       GenericObjectSet result = new GenericObjectSet();
-      
+
       for (GenericLink obj : this)
       {
          result.add(obj.getTgt());
       }
-      
+
       return result;
    }
+
    public GenericLinkSet withTgt(GenericObject value)
    {
       for (GenericLink obj : this)
       {
          obj.withTgt(value);
       }
-      
+
       return this;
    }
 
    public GenericGraphSet getGraph()
    {
       GenericGraphSet result = new GenericGraphSet();
-      
+
       for (GenericLink obj : this)
       {
          result.add(obj.getGraph());
       }
-      
+
       return result;
    }
+
    public GenericLinkSet withGraph(GenericGraph value)
    {
       for (GenericLink obj : this)
       {
          obj.withGraph(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GenericLink elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.objects.GenericLink";
    }
 
-
    public GenericLinkPO startModelPattern()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericLinkPO patternObject = pattern.hasElementGenericLinkPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GenericLinkSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericLink>)value);
+         this.addAll((Collection<GenericLink>) value);
       }
       else if (value != null)
       {
          this.add((GenericLink) value);
       }
-      
+
       return this;
    }
-   
+
    public GenericLinkSet without(GenericLink value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GenericLinkPO hasGenericLinkPO()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericLinkPO patternObject = pattern.hasElementGenericLinkPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

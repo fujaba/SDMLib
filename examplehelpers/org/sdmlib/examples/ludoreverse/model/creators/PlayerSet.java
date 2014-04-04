@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludoreverse.model.creators;
 
 import java.util.Collection;
@@ -35,56 +35,54 @@ import org.sdmlib.models.modelsets.ObjectSet;
 public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Player elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludoreverse.model.Player";
    }
 
-
    public LudoSet getGame()
    {
       LudoSet result = new LudoSet();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getGame());
       }
-      
+
       return result;
    }
+
    public PlayerSet withGame(Ludo value)
    {
       for (Player obj : this)
       {
          obj.withGame(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -94,19 +92,19 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public StringList getColor()
    {
       StringList result = new StringList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getColor());
       }
-      
+
       return result;
    }
 
@@ -116,67 +114,55 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
       {
          obj.withColor(value);
       }
-      
+
       return this;
    }
-
-
 
    public PlayerPO startModelPattern()
    {
       org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
-      
+
       PlayerPO patternObject = pattern.hasElementPlayerPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PlayerSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Player>)value);
+         this.addAll((Collection<Player>) value);
       }
       else if (value != null)
       {
          this.add((Player) value);
       }
-      
+
       return this;
    }
-   
+
    public PlayerSet without(Player value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PlayerPO hasPlayerPO()
    {
       org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
-      
+
       PlayerPO patternObject = pattern.hasElementPlayerPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

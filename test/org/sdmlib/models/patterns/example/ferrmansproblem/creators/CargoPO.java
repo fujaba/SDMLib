@@ -17,33 +17,31 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    public CargoSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       CargoSet matches = new CargoSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Cargo) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public CargoPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Cargo.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Cargo.PROPERTY_NAME).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -52,7 +50,7 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       }
       return null;
    }
-   
+
    public CargoPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -61,28 +59,27 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
       }
       return this;
    }
-   
+
    public BankPO hasBank()
    {
       BankPO result = new BankPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Cargo.PROPERTY_BANK, result);
-      
+
       return result;
    }
 
    public CargoPO hasBank(BankPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Cargo.PROPERTY_BANK)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Cargo.PROPERTY_BANK).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -99,23 +96,22 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    {
       BoatPO result = new BoatPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Cargo.PROPERTY_BOAT, result);
-      
+
       return result;
    }
 
    public CargoPO hasBoat(BoatPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Cargo.PROPERTY_BOAT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Cargo.PROPERTY_BOAT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -131,24 +127,22 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    public CargoPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Cargo.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Cargo.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public CargoPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public BankPO createBank()
    {
       return this.startCreate().hasBank().endCreate();
@@ -170,5 +164,3 @@ public class CargoPO extends PatternObject<CargoPO, Cargo>
    }
 
 }
-
-

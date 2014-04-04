@@ -8,7 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
-public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<TableColumn<ObjType, ValueType>, TableCell<ObjType, ValueType>>
+public class SDMEditingCellFactory<ObjType, ValueType> implements
+      Callback<TableColumn<ObjType, ValueType>, TableCell<ObjType, ValueType>>
 {
 
    @Override
@@ -17,20 +18,22 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
       return new EditingCell<ObjType, ValueType>();
    }
 
-   public class EditingCell<ObjType, ValueType> extends TableCell<ObjType, ValueType> 
+   public class EditingCell<ObjType, ValueType> extends
+         TableCell<ObjType, ValueType>
    {
       private TextField textField;
 
-      public EditingCell() 
+      public EditingCell()
       {
 
       }
 
-      @Override public void startEdit() 
+      @Override
+      public void startEdit()
       {
          super.startEdit();
 
-         if (textField == null) 
+         if (textField == null)
          {
             createTextField();
          }
@@ -42,7 +45,9 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
          textField.selectAll();
       }
 
-      @Override public void cancelEdit() {
+      @Override
+      public void cancelEdit()
+      {
 
          super.cancelEdit();
 
@@ -51,22 +56,22 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
          setGraphic(null);
       }
 
-
-      @Override public void updateItem(ValueType item, boolean empty) 
+      @Override
+      public void updateItem(ValueType item, boolean empty)
       {
          super.updateItem(item, empty);
 
-         if (empty) 
+         if (empty)
          {
             setText(null);
 
             setGraphic(null);
-         } 
-         else 
+         }
+         else
          {
-            if (isEditing()) 
+            if (isEditing())
             {
-               if (textField != null) 
+               if (textField != null)
                {
                   textField.setText(getString());
                }
@@ -74,8 +79,8 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
                setText(null);
 
                setGraphic(textField);
-            } 
-            else 
+            }
+            else
             {
                setText(getString());
 
@@ -84,21 +89,23 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
          }
       }
 
-      private void createTextField() 
+      private void createTextField()
       {
          textField = new TextField(getString());
 
          textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
 
-         textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+         textField.setOnKeyReleased(new EventHandler<KeyEvent>()
+         {
 
-            @Override public void handle(KeyEvent t) 
+            @Override
+            public void handle(KeyEvent t)
             {
-               if (t.getCode() == KeyCode.ENTER) 
+               if (t.getCode() == KeyCode.ENTER)
                {
                   commitEdit((ValueType) textField.getText());
-               } 
-               else if (t.getCode() == KeyCode.ESCAPE) 
+               }
+               else if (t.getCode() == KeyCode.ESCAPE)
                {
                   cancelEdit();
                }
@@ -106,10 +113,10 @@ public class SDMEditingCellFactory<ObjType, ValueType> implements Callback<Table
          });
       }
 
-      private String getString() 
+      private String getString()
       {
          return getItem() == null ? "" : getItem().toString();
       }
-   } 
+   }
 
 }

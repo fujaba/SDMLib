@@ -8,28 +8,25 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
 public class CargoCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Cargo.PROPERTY_NAME,
-      Cargo.PROPERTY_BANK,
-      Cargo.PROPERTY_BOAT,
-   };
-   
+   { Cargo.PROPERTY_NAME, Cargo.PROPERTY_BANK, Cargo.PROPERTY_BOAT, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Cargo();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Cargo) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -37,19 +34,17 @@ public class CargoCreator extends EntityFactory
       }
       return ((Cargo) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Cargo) entity).removeYou();
    }
 }
-

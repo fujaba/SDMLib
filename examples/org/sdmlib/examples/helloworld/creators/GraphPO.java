@@ -16,25 +16,25 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    {
       NodePO result = new NodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_NODES, result);
-      
-      return result;   }
-   
+
+      return result;
+   }
+
    public GraphPO hasNodes(NodePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_NODES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_NODES).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public NodeSet getNodes()
    {
       if (this.getPattern().getHasMatch())
@@ -43,30 +43,30 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       }
       return null;
    }
-   
+
    public EdgePO hasEdges()
    {
       EdgePO result = new EdgePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_EDGES, result);
-      
-      return result;   }
-   
+
+      return result;
+   }
+
    public GraphPO hasEdges(EdgePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_EDGES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_EDGES).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public EdgeSet getEdges()
    {
       if (this.getPattern().getHasMatch())
@@ -75,51 +75,50 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       }
       return null;
    }
-   
+
    public GraphComponentPO hasGcs()
    {
       GraphComponentPO result = new GraphComponentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_GCS, result);
-      
+
       return result;
    }
-   
+
    public NodePO hasGcsNode()
    {
       NodePO result = new NodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_GCS, result);
-      
+
       return result;
    }
-   
+
    public EdgePO hasGcsEdge()
    {
       EdgePO result = new EdgePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_GCS, result);
-      
+
       return result;
    }
-   
+
    public GraphPO hasGcs(GraphComponentPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_GCS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_GCS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GraphComponentSet getGcs()
    {
       if (this.getPattern().getHasMatch())
@@ -128,7 +127,7 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       }
       return null;
    }
-   
+
    public NodePO createNodes()
    {
       return this.startCreate().hasNodes().endCreate();
@@ -160,7 +159,3 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    }
 
 }
-
-
-
-

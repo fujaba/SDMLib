@@ -4,7 +4,7 @@ package org.sdmlib.serialization.interfaces;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,33 +20,49 @@ package org.sdmlib.serialization.interfaces;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 /**
  * INterface for Buffer For Tokener to parse some Values
  *
  */
 
-public interface Buffer {
-	/**
-	 * @return the length of the buffer
-	 */
-	public int length();
-	public byte byteAt(int index);
-	public char charAt(int index);
-	public char getChar();
-	/**
-	 * @param start startindex for parsing
-	 * @param length the length of Substring
-	 * @return the Substring
-	 */
-	public String substring(int start, int length);
-	public Buffer withLength(int length);
-	public int position();
-	public int remaining();
-	public void back();
-	public boolean isEnd();
-	public Buffer withPosition(int index);
-	public String toString();
-	public String toText();
-	public byte[] toArray();
+public interface Buffer
+{
+   /**
+    * @return the length of the buffer
+    */
+   public int length();
+
+   public byte byteAt(int index);
+
+   public char charAt(int index);
+
+   public char getChar();
+
+   /**
+    * @param start
+    *           startindex for parsing
+    * @param length
+    *           the length of Substring
+    * @return the Substring
+    */
+   public String substring(int start, int length);
+
+   public Buffer withLength(int length);
+
+   public int position();
+
+   public int remaining();
+
+   public void back();
+
+   public boolean isEnd();
+
+   public Buffer withPosition(int index);
+
+   public String toString();
+
+   public String toText();
+
+   public byte[] toArray();
 }

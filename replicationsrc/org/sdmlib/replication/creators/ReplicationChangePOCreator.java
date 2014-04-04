@@ -8,15 +8,15 @@ public class ReplicationChangePOCreator extends PatternObjectCreator
    {
       return new ReplicationChangePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ReplicationChangePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ReplicationChangePO) target).set(attrName, value);
    }
 }
-

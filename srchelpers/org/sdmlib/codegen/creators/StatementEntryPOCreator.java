@@ -8,15 +8,14 @@ public class StatementEntryPOCreator extends PatternObjectCreator
    {
       return new StatementEntryPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((StatementEntryPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((StatementEntryPO) target).set(attrName, value);
    }
 }
-

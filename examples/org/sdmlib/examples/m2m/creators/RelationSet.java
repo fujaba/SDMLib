@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m.creators;
 
 import java.util.Collection;
@@ -33,7 +33,8 @@ import org.sdmlib.examples.m2m.creators.GraphSet;
 import java.util.Collections;
 import org.sdmlib.examples.m2m.creators.PersonSet;
 
-public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.models.modelsets.ModelSet
+public class RelationSet extends LinkedHashSet<Relation> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public Relation first()
    {
@@ -41,23 +42,21 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Relation elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -67,19 +66,19 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
    public StringList getKind()
    {
       StringList result = new StringList();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getKind());
       }
-      
+
       return result;
    }
 
    public RelationSet hasKind(String value)
    {
       RelationSet result = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (value.equals(obj.getKind()))
@@ -87,7 +86,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -97,19 +96,19 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.setKind(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getGraph()
    {
       GraphSet result = new GraphSet();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getGraph());
       }
-      
+
       return result;
    }
 
@@ -125,9 +124,9 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          neighbors.add(value);
       }
-      
+
       RelationSet answer = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (neighbors.contains(obj.getGraph()))
@@ -135,7 +134,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -145,19 +144,19 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.withGraph(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getSrc()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
 
@@ -173,9 +172,9 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          neighbors.add(value);
       }
-      
+
       RelationSet answer = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (neighbors.contains(obj.getSrc()))
@@ -183,7 +182,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -193,19 +192,19 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getTgt()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getTgt());
       }
-      
+
       return result;
    }
 
@@ -221,9 +220,9 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          neighbors.add(value);
       }
-      
+
       RelationSet answer = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (neighbors.contains(obj.getTgt()))
@@ -231,7 +230,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -241,26 +240,26 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.withTgt(value);
       }
-      
+
       return this;
    }
 
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
    public RelationSet hasText(String value)
    {
       RelationSet result = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (value.equals(obj.getText()))
@@ -268,7 +267,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -278,19 +277,19 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.setText(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
-      
+
       for (Relation obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -306,9 +305,9 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          neighbors.add(value);
       }
-      
+
       RelationSet answer = new RelationSet();
-      
+
       for (Relation obj : this)
       {
          if (neighbors.contains(obj.getParent()))
@@ -316,7 +315,7 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -326,72 +325,55 @@ public class RelationSet extends LinkedHashSet<Relation> implements org.sdmlib.m
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
-
-
 
    public RelationPO startModelPattern()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       RelationPO patternObject = pattern.hasElementRelationPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public RelationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Relation>)value);
+         this.addAll((Collection<Relation>) value);
       }
       else if (value != null)
       {
          this.add((Relation) value);
       }
-      
+
       return this;
    }
-   
+
    public RelationSet without(Relation value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public RelationPO hasRelationPO()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       RelationPO patternObject = pattern.hasElementRelationPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

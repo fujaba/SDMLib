@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -28,9 +28,8 @@ import java.beans.PropertyChangeListener;
 public class Dice implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
@@ -51,9 +50,8 @@ public class Dice implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
@@ -77,24 +75,22 @@ public class Dice implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGame(null);
@@ -102,44 +98,42 @@ public class Dice implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_VALUE = "value";
-   
+
    private int value;
 
    public int getValue()
    {
       return this.value;
    }
-   
+
    public void setValue(int value)
    {
       if (this.value != value)
       {
          int oldValue = this.value;
          this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE,
+            oldValue, value);
       }
    }
-   
+
    public Dice withValue(int value)
    {
       setValue(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getValue());
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -147,58 +141,58 @@ public class Dice implements PropertyChangeInterface
     *              dice                   game
     * </pre>
     */
-   
+
    public static final String PROPERTY_GAME = "game";
-   
+
    private Ludo game = null;
-   
+
    public Ludo getGame()
    {
       return this.game;
    }
-   
+
    public boolean setGame(Ludo value)
    {
       boolean changed = false;
-      
+
       if (this.game != value)
       {
          Ludo oldValue = this.game;
-         
+
          if (this.game != null)
          {
             this.game = null;
             oldValue.setDice(null);
          }
-         
+
          this.game = value;
-         
+
          if (value != null)
          {
             value.withDice(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Dice withGame(Ludo value)
    {
       setGame(value);
       return this;
-   } 
-   
+   }
+
    public Ludo createGame()
    {
       Ludo value = new Ludo();
       withGame(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -206,55 +200,55 @@ public class Dice implements PropertyChangeInterface
     *              dice                   player
     * </pre>
     */
-   
+
    public static final String PROPERTY_PLAYER = "player";
-   
+
    private Player player = null;
-   
+
    public Player getPlayer()
    {
       return this.player;
    }
-   
+
    public boolean setPlayer(Player value)
    {
       boolean changed = false;
-      
+
       if (this.player != value)
       {
          Player oldValue = this.player;
-         
+
          if (this.player != null)
          {
             this.player = null;
             oldValue.setDice(null);
          }
-         
+
          this.player = value;
-         
+
          if (value != null)
          {
             value.withDice(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYER, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYER,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Dice withPlayer(Player value)
    {
       setPlayer(value);
       return this;
-   } 
-   
+   }
+
    public Player createPlayer()
    {
       Player value = new Player();
       withPlayer(value);
       return value;
-   } 
+   }
 }
-

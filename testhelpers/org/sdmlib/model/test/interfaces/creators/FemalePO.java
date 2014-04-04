@@ -5,4 +5,3 @@ import org.sdmlib.models.pattern.PatternObject;
 public class FemalePO extends PatternObject
 {
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright;
 
 import java.beans.PropertyChangeSupport;
@@ -30,14 +30,13 @@ import java.beans.PropertyChangeListener;
 public class Topic implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -52,13 +51,12 @@ public class Topic implements PropertyChangeInterface
       {
          return getProf();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TITLE.equalsIgnoreCase(attrName))
@@ -76,54 +74,52 @@ public class Topic implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setProf(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TITLE = "title";
-   
+
    private String title;
-   
+
    public String getTitle()
    {
       return this.title;
    }
-   
+
    public void setTitle(String value)
    {
-      if ( ! StrUtil.stringEquals(this.title, value))
+      if (!StrUtil.stringEquals(this.title, value))
       {
          String oldValue = this.title;
          this.title = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TITLE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TITLE,
+            oldValue, value);
       }
    }
-   
+
    public Topic withTitle(String value)
    {
       setTitle(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -131,62 +127,63 @@ public class Topic implements PropertyChangeInterface
     *              topic                   prof
     * </pre>
     */
-   
+
    public static final String PROPERTY_PROF = "prof";
-   
+
    private Professor prof = null;
-   
+
    public Professor getProf()
    {
       return this.prof;
    }
-   
+
    public boolean setProf(Professor value)
    {
       boolean changed = false;
-      
+
       if (this.prof != value)
       {
          Professor oldValue = this.prof;
-         
+
          if (this.prof != null)
          {
             this.prof = null;
             oldValue.setTopic(null);
          }
-         
+
          this.prof = value;
-         
+
          if (value != null)
          {
             value.withTopic(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PROF, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PROF, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Topic withProf(Professor value)
    {
       setProf(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTitle());
       return _.substring(1);
    }
+
    public Professor createProf()
    {
       Professor value = new Professor();
       withProf(value);
       return value;
-   } 
+   }
 }
-

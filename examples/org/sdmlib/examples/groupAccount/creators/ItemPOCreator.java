@@ -8,15 +8,15 @@ public class ItemPOCreator extends PatternObjectCreator
    {
       return new ItemPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ItemPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ItemPO) target).set(attrName, value);
    }
 }
-

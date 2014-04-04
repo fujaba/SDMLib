@@ -17,33 +17,31 @@ public class DicePO extends PatternObject<DicePO, Dice>
    public DiceSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       DiceSet matches = new DiceSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Dice) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public DicePO hasValue(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Dice.PROPERTY_VALUE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Dice.PROPERTY_VALUE).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getValue()
    {
       if (this.getPattern().getHasMatch())
@@ -52,7 +50,7 @@ public class DicePO extends PatternObject<DicePO, Dice>
       }
       return 0;
    }
-   
+
    public DicePO withValue(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -61,28 +59,27 @@ public class DicePO extends PatternObject<DicePO, Dice>
       }
       return this;
    }
-   
+
    public LudoPO hasGame()
    {
       LudoPO result = new LudoPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Dice.PROPERTY_GAME, result);
-      
+
       return result;
    }
 
    public DicePO hasGame(LudoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_GAME)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_GAME).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -99,23 +96,22 @@ public class DicePO extends PatternObject<DicePO, Dice>
    {
       PlayerPO result = new PlayerPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Dice.PROPERTY_PLAYER, result);
-      
+
       return result;
    }
 
    public DicePO hasPlayer(PlayerPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_PLAYER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Dice.PROPERTY_PLAYER).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -131,24 +127,22 @@ public class DicePO extends PatternObject<DicePO, Dice>
    public DicePO hasValue(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Dice.PROPERTY_VALUE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Dice.PROPERTY_VALUE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public DicePO createValue(int value)
    {
       this.startCreate().hasValue(value).endCreate();
       return this;
    }
-   
+
    public LudoPO createGame()
    {
       return this.startCreate().hasGame().endCreate();
@@ -170,6 +164,3 @@ public class DicePO extends PatternObject<DicePO, Dice>
    }
 
 }
-
-
-

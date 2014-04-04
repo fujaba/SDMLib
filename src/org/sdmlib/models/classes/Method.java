@@ -36,16 +36,16 @@ public class Method implements PropertyChangeInterface
 {
    public Method()
    {
-      
+
    }
-   
+
    public Method(String signature, String returnType)
    {
       this.setSignature(signature);
       this.setReturnType(returnType);
    }
-   
-   //==========================================================================
+
+   // ==========================================================================
 
    public static final String PROPERTY_SIGNATURE = "signature";
 
@@ -58,7 +58,7 @@ public class Method implements PropertyChangeInterface
 
    public void setSignature(String value)
    {
-	  value = value.replaceAll(" ", "");
+      value = value.replaceAll(" ", "");
       this.signature = value;
    }
 
@@ -66,9 +66,9 @@ public class Method implements PropertyChangeInterface
    {
       setSignature(value);
       return this;
-   } 
-   
- //==========================================================================
+   }
+
+   // ==========================================================================
 
    public static final String PROPERTY_MODIFIER = "modifier";
 
@@ -90,9 +90,7 @@ public class Method implements PropertyChangeInterface
       return this;
    }
 
-
    public static final MethodSet EMPTY_SET = new MethodSet();
-
 
    /********************************************************************
     * <pre>
@@ -132,7 +130,8 @@ public class Method implements PropertyChangeInterface
             value.withMethods(this);
          }
 
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, null, value);
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, null,
+         // value);
          changed = true;
       }
 
@@ -143,10 +142,9 @@ public class Method implements PropertyChangeInterface
    {
       setClazz(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -191,8 +189,7 @@ public class Method implements PropertyChangeInterface
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -235,18 +232,17 @@ public class Method implements PropertyChangeInterface
       return false;
    }
 
+   // ==========================================================================
 
-   //==========================================================================
-
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -254,20 +250,23 @@ public class Method implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   public Method generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate)
+   public Method generate(Clazz clazz, String rootDir, String helpersDir,
+         boolean doGenerate)
    {
       // get parser from class
       Parser parser = clazz.getOrCreateParser(rootDir);
 
       insertMethodDecl(clazz, parser);
 
-      //    insertCaseInGenericGetSet(parser);
+      // insertCaseInGenericGetSet(parser);
 
-      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
+      Parser modelSetParser = clazz
+         .getOrCreateParserForModelSetFile(helpersDir);
       insertMethodInModelSet(clazz, modelSetParser);
       clazz.printModelSetFile(doGenerate);
 
-      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+      Parser patternObjectParser = clazz
+         .getOrCreateParserForPatternObjectFile(helpersDir);
       insertMethodInPatternObject(clazz, patternObjectParser);
       clazz.printPatternObjectFile(doGenerate);
 
@@ -285,38 +284,35 @@ public class Method implements PropertyChangeInterface
 
       if (pos < 0)
       {
-         StringBuilder text = new StringBuilder
-               (  "   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   modifiers returnType methodName(formalParameter)" +
-                     "\n   {" +
-                     "\n      returnSetCreate" +
-                     "\n      for (memberType obj : this)" +
-                     "\n      {" +
-                     "\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;" +
-                     "\n      }" +
-                     "\n      returnStat" +
-                     "\n   }" +
-                     "\n\n"
-                     );
+         StringBuilder text = new StringBuilder(
+               "   "
+                  + "\n   //=========================================================================="
+                  + "\n   "
+                  + "\n   modifiers returnType methodName(formalParameter)"
+                  + "\n   {"
+                  + "\n      returnSetCreate"
+                  + "\n      for (memberType obj : this)"
+                  + "\n      {"
+                  + "\n         returnSetAdd obj.methodName(actualParameter) returnSetAddEnd;"
+                  + "\n      }" + "\n      returnStat" + "\n   }" + "\n\n");
 
          String methodName = signature.substring(0, signature.indexOf("("));
 
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+         String parameterSig = signature.substring(signature.indexOf("(") + 1,
+            signature.indexOf(")"));
 
          String formalParameter = "";
          String actualParameter = "";
-         
+
          String[] parameters = parameterSig.split("\\s*,\\s*");
 
-         if (!(parameters.length == 1 && parameters[0].isEmpty())) 
+         if (!(parameters.length == 1 && parameters[0].isEmpty()))
          {
             for (int i = 0; i < parameters.length; i++)
             {
                formalParameter += parameters[i] + " p" + i;
                actualParameter += " p" + i;
-               
+
                if (i + 1 < parameters.length)
                {
                   formalParameter += ", ";
@@ -324,12 +320,12 @@ public class Method implements PropertyChangeInterface
                }
             }
          }
-         
+
          String returnSetCreate = "";
          String returnSetAdd = "";
          String returnSetAddEnd = "";
          String returnStat = "return this;";
-         
+
          String type = this.getReturnType();
          if (type == null)
          {
@@ -346,7 +342,7 @@ public class Method implements PropertyChangeInterface
          }
          else
          {
-            if ("String int double long boolean".indexOf(type) >= 0) 
+            if ("String int double long boolean".indexOf(type) >= 0)
             {
                type = type + "List";
                importType = "org.sdmlib.models.modelsets." + type;
@@ -361,30 +357,29 @@ public class Method implements PropertyChangeInterface
                type = type + "Set";
                importType = this.getClazz().getName();
                int dotpos = importType.lastIndexOf('.');
-               importType = importType.substring(0, dotpos + 1) + "creators." + type ;
+               importType = importType.substring(0, dotpos + 1) + "creators."
+                  + type;
             }
-            
-            this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
-            
+
+            this.getClazz().insertImport(parser, importType); // TODO: import
+                                                              // might not be
+                                                              // correct for
+                                                              // user defined
+                                                              // classes
+
             returnSetCreate = type + " result = new " + type + "();\n      ";
-            
+
             returnSetAdd = "result.add(";
-            returnSetAddEnd =")";
+            returnSetAddEnd = ")";
             returnStat = "return result;";
          }
 
-         CGUtil.replaceAll(text, 
-            "returnSetCreate\n      ", returnSetCreate,
-            "returnSetAdd ", returnSetAdd,
-            " returnSetAddEnd", returnSetAddEnd,
-            "returnStat", returnStat,
-            "modifiers", modifier, 
-            "returnType", type,
-            "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getName()),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
-               );
+         CGUtil.replaceAll(text, "returnSetCreate\n      ", returnSetCreate,
+            "returnSetAdd ", returnSetAdd, " returnSetAddEnd", returnSetAddEnd,
+            "returnStat", returnStat, "modifiers", modifier, "returnType",
+            type, "methodName", methodName, "memberType",
+            CGUtil.shortClassName(clazz2.getName()), "formalParameter",
+            formalParameter, "actualParameter", actualParameter);
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -392,7 +387,6 @@ public class Method implements PropertyChangeInterface
          clazz.setModelSetFileHasChanged(true);
       }
    }
-
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
    {
@@ -406,37 +400,34 @@ public class Method implements PropertyChangeInterface
 
       if (pos < 0)
       {
-         StringBuilder text = new StringBuilder
-               (  "   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   public returnType methodName(formalParameter)" +
-                     "\n   {" +
-                     "\n      if (this.getPattern().getHasMatch())\n" + 
-                       "      {\n" + 
-                       "         returnStart ((memberType) getCurrentMatch()).methodName(actualParameter);\n" + 
-                       "      }" +
-                     "\n      returnStat" +
-                     "\n   }" +
-                     "\n\n"
-                     );
+         StringBuilder text = new StringBuilder(
+               "   "
+                  + "\n   //=========================================================================="
+                  + "\n   "
+                  + "\n   public returnType methodName(formalParameter)"
+                  + "\n   {"
+                  + "\n      if (this.getPattern().getHasMatch())\n"
+                  + "      {\n"
+                  + "         returnStart ((memberType) getCurrentMatch()).methodName(actualParameter);\n"
+                  + "      }" + "\n      returnStat" + "\n   }" + "\n\n");
 
          String methodName = signature.substring(0, signature.indexOf("("));
 
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+         String parameterSig = signature.substring(signature.indexOf("(") + 1,
+            signature.indexOf(")"));
 
          String formalParameter = "";
          String actualParameter = "";
-         
+
          String[] parameters = parameterSig.split("\\s*,\\s*");
 
-         if (!(parameters.length == 1 && parameters[0].isEmpty())) 
+         if (!(parameters.length == 1 && parameters[0].isEmpty()))
          {
             for (int i = 0; i < parameters.length; i++)
             {
                formalParameter += parameters[i] + " p" + i;
                actualParameter += " p" + i;
-               
+
                if (i + 1 < parameters.length)
                {
                   formalParameter += ", ";
@@ -444,10 +435,10 @@ public class Method implements PropertyChangeInterface
                }
             }
          }
-         
+
          String returnStart = "";
          String returnStat = "";
-         
+
          String type = this.getReturnType();
          if (type == null)
          {
@@ -459,12 +450,16 @@ public class Method implements PropertyChangeInterface
          }
          String importType = type;
 
-         if ( ! ("Object".indexOf(type) >= 0))
+         if (!("Object".indexOf(type) >= 0))
          {
-            this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            this.getClazz().insertImport(parser, importType); // TODO: import
+                                                              // might not be
+                                                              // correct for
+                                                              // user defined
+                                                              // classes
          }
 
-         if ( ! "void".equals(type))
+         if (!"void".equals(type))
          {
             returnStart = "return";
             if ("int double float".indexOf(type) >= 0)
@@ -480,17 +475,12 @@ public class Method implements PropertyChangeInterface
                returnStat = "      return null;\n";
             }
          }
-         
-         CGUtil.replaceAll(text, 
-            "returnSetCreate\n      ", returnStart,
-            "returnStart", returnStart,
-            "      returnStat\n", returnStat,
-            "returnType", type,
-            "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getName()),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
-               );
+
+         CGUtil.replaceAll(text, "returnSetCreate\n      ", returnStart,
+            "returnStart", returnStart, "      returnStat\n", returnStat,
+            "returnType", type, "methodName", methodName, "memberType",
+            CGUtil.shortClassName(clazz2.getName()), "formalParameter",
+            formalParameter, "actualParameter", actualParameter);
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -498,10 +488,9 @@ public class Method implements PropertyChangeInterface
          clazz.setPatternObjectFileHasChanged(true);
       }
    }
-   
 
    private void insertMethodDecl(Clazz clazz, Parser parser)
-   {		
+   {
       String signature = getSignature();
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
@@ -510,35 +499,31 @@ public class Method implements PropertyChangeInterface
 
       if (pos < 0)
       {
-         StringBuilder text = new StringBuilder
-               (  "\n   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   modifiers returnType mehodName( parameter )");
+         StringBuilder text = new StringBuilder(
+               "\n   "
+                  + "\n   //=========================================================================="
+                  + "\n   "
+                  + "\n   modifiers returnType mehodName( parameter )");
 
-         if ( clazz.isInterfaze())
+         if (clazz.isInterfaze())
          {
             text.append(";\n");
          }
          else
          {
-            text.append(
-                     "\n   {" +
-                     "\n      returnClause" +
-                     "\n   }" +
-                     "\n"
-                  );
+            text.append("\n   {" + "\n      returnClause" + "\n   }" + "\n");
          }
 
          String methodName = signature.substring(0, signature.indexOf("("));
 
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+         String parameterSig = signature.substring(signature.indexOf("(") + 1,
+            signature.indexOf(")"));
 
          String parameter = "";
 
          String[] parameters = parameterSig.split("\\s*,\\s*");
 
-         if (!(parameters.length == 1 && parameters[0].isEmpty())) 
+         if (!(parameters.length == 1 && parameters[0].isEmpty()))
          {
             for (int i = 0; i < parameters.length; i++)
             {
@@ -547,9 +532,9 @@ public class Method implements PropertyChangeInterface
                   parameter += ", ";
             }
          }
-         
+
          String returnClause = "";
-         
+
          if ("int float double".indexOf(returnType) >= 0)
          {
             returnClause = "return 0;";
@@ -558,25 +543,21 @@ public class Method implements PropertyChangeInterface
          {
             returnClause = "";
          }
-         else 
+         else
          {
             returnClause = "return null;";
          }
-         
-         CGUtil.replaceAll(text, 
-            "modifiers", modifier, 
-            "returnType", returnType,
-            "mehodName", methodName,
-            "parameter", parameter, 
-            "returnClause", returnClause
-               );
+
+         CGUtil.replaceAll(text, "modifiers", modifier, "returnType",
+            returnType, "mehodName", methodName, "parameter", parameter,
+            "returnClause", returnClause);
 
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
          clazz.setFileHasChanged(true);
       }
-      
+
       pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       symTabEntry = parser.getSymTab().get(string);
@@ -584,93 +565,90 @@ public class Method implements PropertyChangeInterface
       // in case of a method body, remove old method
       if (pos >= 0 && this.getBody() != null)
       {
-    	  parser.getFileBody().replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + getBody() + "   ");
-    	  pos = -1;
+         parser.getFileBody().replace(symTabEntry.getBodyStartPos() + 1,
+            symTabEntry.getEndPos(), "\n" + getBody() + "   ");
+         pos = -1;
 
-          clazz.setFileHasChanged(true);
+         clazz.setFileHasChanged(true);
       }
-      
-      
 
    }
 
    public void generate(String rootDir, String helpersDir, boolean doGenerate)
    {
-      generate(this.clazz,  rootDir, helpersDir, doGenerate);  
+      generate(this.clazz, rootDir, helpersDir, doGenerate);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_RETURNTYPE = "returnType";
-   
+
    private String returnType = "void";
 
    public String getReturnType()
    {
       return this.returnType;
    }
-   
+
    public void setReturnType(String value)
    {
-      if ( ! StrUtil.stringEquals(this.returnType, value))
+      if (!StrUtil.stringEquals(this.returnType, value))
       {
          String oldValue = this.returnType;
          this.returnType = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_RETURNTYPE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_RETURNTYPE,
+            oldValue, value);
       }
    }
-   
+
    public Method withReturnType(String value)
    {
       setReturnType(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getSignature());
       _.append(" ").append(this.getReturnType());
       _.append(" ").append(this.getBody());
       return _.substring(1);
    }
-   
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_BODY = "body";
-   
+
    private String body;
 
    public String getBody()
    {
       return this.body;
    }
-   
+
    public void setBody(String value)
    {
-      if ( ! StrUtil.stringEquals(this.body, value))
+      if (!StrUtil.stringEquals(this.body, value))
       {
          String oldValue = this.body;
          this.body = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BODY, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BODY, oldValue,
+            value);
       }
    }
-   
+
    public Method withBody(String value)
    {
       setBody(value);
       return this;
-   } 
+   }
 
    public Clazz createClazz()
    {
       Clazz value = new Clazz();
       withClazz(value);
       return value;
-   } 
+   }
 }
-

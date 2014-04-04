@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.groupAccount.creators;
 
 import java.util.LinkedHashSet;
@@ -34,7 +34,8 @@ import org.sdmlib.examples.groupAccount.GroupAccount;
 import org.sdmlib.examples.groupAccount.creators.ItemSet;
 import org.sdmlib.examples.groupAccount.Item;
 
-public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
+public class PersonSet extends LinkedHashSet<Person> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public Person first()
    {
@@ -42,23 +43,21 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Person elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -68,19 +67,19 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public PersonSet hasName(String value)
    {
       PersonSet result = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (value.equals(obj.getName()))
@@ -88,7 +87,7 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -98,26 +97,26 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public doubleList getBalance()
    {
       doubleList result = new doubleList();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getBalance());
       }
-      
+
       return result;
    }
 
    public PersonSet hasBalance(double value)
    {
       PersonSet result = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (value == obj.getBalance())
@@ -125,7 +124,7 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -135,19 +134,19 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.setBalance(value);
       }
-      
+
       return this;
    }
 
    public GroupAccountSet getParent()
    {
       GroupAccountSet result = new GroupAccountSet();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -163,9 +162,9 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (neighbors.contains(obj.getParent()))
@@ -173,7 +172,7 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -183,19 +182,19 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
 
    public ItemSet getItems()
    {
       ItemSet result = new ItemSet();
-      
+
       for (Person obj : this)
       {
          result.addAll(obj.getItems());
       }
-      
+
       return result;
    }
 
@@ -211,17 +210,17 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getItems()))
+         if (!Collections.disjoint(neighbors, obj.getItems()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -231,7 +230,7 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.withItems(value);
       }
-      
+
       return this;
    }
 
@@ -241,66 +240,55 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.withoutItems(value);
       }
-      
+
       return this;
    }
-
-
 
    public PersonPO startModelPattern()
    {
       org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         this.addAll((Collection<Person>) value);
       }
       else if (value != null)
       {
          this.add((Person) value);
       }
-      
+
       return this;
    }
-   
+
    public PersonSet without(Person value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PersonPO hasPersonPO()
    {
       org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

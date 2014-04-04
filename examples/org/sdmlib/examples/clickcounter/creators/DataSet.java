@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.clickcounter.creators;
 
 import java.util.Collection;
@@ -30,38 +30,36 @@ import org.sdmlib.examples.clickcounter.Data;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.modelsets.ModelSet
+public class DataSet extends LinkedHashSet<Data> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Data elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.clickcounter.Data";
    }
 
-
    public intList getNum()
    {
       intList result = new intList();
-      
+
       for (Data obj : this)
       {
          result.add(obj.getNum());
       }
-      
+
       return result;
    }
 
@@ -71,19 +69,19 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
       {
          obj.setNum(value);
       }
-      
+
       return this;
    }
 
    public IntegerPropertySet getFxnum()
    {
       IntegerPropertySet result = new IntegerPropertySet();
-      
+
       for (Data obj : this)
       {
          result.add(obj.getFxnum());
       }
-      
+
       return result;
    }
 
@@ -93,63 +91,55 @@ public class DataSet extends LinkedHashSet<Data> implements org.sdmlib.models.mo
       {
          obj.setFxnum(value);
       }
-      
+
       return this;
    }
-
-
 
    public DataPO startModelPattern()
    {
       org.sdmlib.examples.clickcounter.creators.ModelPattern pattern = new org.sdmlib.examples.clickcounter.creators.ModelPattern();
-      
+
       DataPO patternObject = pattern.hasElementDataPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public DataSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Data>)value);
+         this.addAll((Collection<Data>) value);
       }
       else if (value != null)
       {
          this.add((Data) value);
       }
-      
+
       return this;
    }
-   
+
    public DataSet without(Data value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public DataPO hasDataPO()
    {
       org.sdmlib.examples.clickcounter.creators.ModelPattern pattern = new org.sdmlib.examples.clickcounter.creators.ModelPattern();
-      
+
       DataPO patternObject = pattern.hasElementDataPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

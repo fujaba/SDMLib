@@ -15,7 +15,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -27,179 +27,168 @@ public class ModelPattern extends Pattern
       TaskFlowPO value = new TaskFlowPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public TaskFlowPO hasElementTaskFlowPO(TaskFlow hostGraphObject)
    {
       TaskFlowPO value = new TaskFlowPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PeerProxyPO hasElementPeerProxyPO()
    {
       PeerProxyPO value = new PeerProxyPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PeerProxyPO hasElementPeerProxyPO(PeerProxy hostGraphObject)
    {
       PeerProxyPO value = new PeerProxyPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public SocketThreadPO hasElementSocketThreadPO()
    {
       SocketThreadPO value = new SocketThreadPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public SocketThreadPO hasElementSocketThreadPO(SocketThread hostGraphObject)
    {
       SocketThreadPO value = new SocketThreadPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public FetchFileFlowPO hasElementFetchFileFlowPO()
    {
       FetchFileFlowPO value = new FetchFileFlowPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
-   public FetchFileFlowPO hasElementFetchFileFlowPO(FetchFileFlow hostGraphObject)
+
+   public FetchFileFlowPO hasElementFetchFileFlowPO(
+         FetchFileFlow hostGraphObject)
    {
       FetchFileFlowPO value = new FetchFileFlowPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public SDMTimerPO hasElementSDMTimerPO()
    {
       SDMTimerPO value = new SDMTimerPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public SDMTimerPO hasElementSDMTimerPO(SDMTimer hostGraphObject)
    {
       SDMTimerPO value = new SDMTimerPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public LoggerPO hasElementLoggerPO()
    {
       LoggerPO value = new LoggerPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public LoggerPO hasElementLoggerPO(Logger hostGraphObject)
    {
       LoggerPO value = new LoggerPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public LogEntryPO hasElementLogEntryPO()
    {
       LogEntryPO value = new LogEntryPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public LogEntryPO hasElementLogEntryPO(LogEntry hostGraphObject)
    {
       LogEntryPO value = new LogEntryPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

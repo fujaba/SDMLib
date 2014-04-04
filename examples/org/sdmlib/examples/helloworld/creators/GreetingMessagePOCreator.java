@@ -8,15 +8,14 @@ public class GreetingMessagePOCreator extends PatternObjectCreator
    {
       return new GreetingMessagePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GreetingMessagePO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((GreetingMessagePO) target).set(attrName, value);
    }
 }
-

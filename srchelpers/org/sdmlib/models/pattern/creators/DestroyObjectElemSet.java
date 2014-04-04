@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -39,12 +39,12 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -54,19 +54,19 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -76,40 +76,41 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public PatternObjectSet getPatternObject()
    {
       PatternObjectSet result = new PatternObjectSet();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getPatternObject());
       }
-      
+
       return result;
    }
+
    public DestroyObjectElemSet withPatternObject(PatternObject value)
    {
       for (DestroyObjectElem obj : this)
       {
          obj.withPatternObject(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -119,19 +120,19 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -141,24 +142,21 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (DestroyObjectElem elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -168,12 +166,12 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (DestroyObjectElem obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -183,71 +181,57 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public DestroyObjectElemPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      DestroyObjectElemPO patternObject = pattern.hasElementDestroyObjectElemPO();
-      
+
+      DestroyObjectElemPO patternObject = pattern
+         .hasElementDestroyObjectElemPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public DestroyObjectElemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<DestroyObjectElem>)value);
+         this.addAll((Collection<DestroyObjectElem>) value);
       }
       else if (value != null)
       {
          this.add((DestroyObjectElem) value);
       }
-      
+
       return this;
    }
-   
+
    public DestroyObjectElemSet without(DestroyObjectElem value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public DestroyObjectElemPO hasDestroyObjectElemPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      DestroyObjectElemPO patternObject = pattern.hasElementDestroyObjectElemPO();
-      
+
+      DestroyObjectElemPO patternObject = pattern
+         .hasElementDestroyObjectElemPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-

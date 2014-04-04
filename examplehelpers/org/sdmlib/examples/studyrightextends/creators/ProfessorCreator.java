@@ -9,28 +9,26 @@ import org.sdmlib.examples.studyrightextends.Female;
 public class ProfessorCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Professor.PROPERTY_PERSNR,
-      Female.PROPERTY_NAME,
-      Professor.PROPERTY_LECTURE,
-   };
-   
+   { Professor.PROPERTY_PERSNR, Female.PROPERTY_NAME,
+         Professor.PROPERTY_LECTURE, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Professor();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Professor) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -38,19 +36,17 @@ public class ProfessorCreator extends EntityFactory
       }
       return ((Professor) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Professor) entity).removeYou();
    }
 }
-

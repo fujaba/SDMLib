@@ -8,15 +8,15 @@ public class UpdateAdamFlowPOCreator extends PatternObjectCreator
    {
       return new UpdateAdamFlowPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((UpdateAdamFlowPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((UpdateAdamFlowPO) target).set(attrName, value);
    }
 }
-

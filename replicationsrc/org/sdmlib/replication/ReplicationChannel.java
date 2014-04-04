@@ -295,4 +295,3 @@ public class ReplicationChannel extends Thread implements
       this.send(line);
    }
 }
-

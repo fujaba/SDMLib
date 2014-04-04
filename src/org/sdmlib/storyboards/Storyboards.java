@@ -23,52 +23,62 @@ package org.sdmlib.storyboards;
 
 import java.io.File;
 
-
 public class Storyboards
 {
-	public void sleep(int sec)
-	{
-		try {
-			Thread.sleep(sec);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+   public void sleep(int sec)
+   {
+      try
+      {
+         Thread.sleep(sec);
+      }
+      catch (InterruptedException e)
+      {
+         e.printStackTrace();
+      }
+   }
 
-	
-	
-	protected File getDirectoryByName(File[] files, String name) {
-		for(int i=0; i<files.length; i++) {
-			if(name.equals(files[i].getName())) {
-				return files[i];
-			}
-		}
-		return null;
-	}
-	
-	protected boolean dirContains(File[] files, String name) {
-		for(int i=0; i<files.length; i++) {
-			if(name.equals(files[i].getName())) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	protected boolean deleteDirectory(File path) {
-	    if( path.exists() ) {
-	      File[] files = path.listFiles();
-	      for(int i=0; i<files.length; i++) {
-	         if(files[i].isDirectory()) {
-	           deleteDirectory(files[i]);
-	         }
-	         else {
-	           files[i].delete();
-	         }
-	      }
-	    }
-	    return( path.delete() );
-	}
+   protected File getDirectoryByName(File[] files, String name)
+   {
+      for (int i = 0; i < files.length; i++)
+      {
+         if (name.equals(files[i].getName()))
+         {
+            return files[i];
+         }
+      }
+      return null;
+   }
 
+   protected boolean dirContains(File[] files, String name)
+   {
+      for (int i = 0; i < files.length; i++)
+      {
+         if (name.equals(files[i].getName()))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   protected boolean deleteDirectory(File path)
+   {
+      if (path.exists())
+      {
+         File[] files = path.listFiles();
+         for (int i = 0; i < files.length; i++)
+         {
+            if (files[i].isDirectory())
+            {
+               deleteDirectory(files[i]);
+            }
+            else
+            {
+               files[i].delete();
+            }
+         }
+      }
+      return (path.delete());
+   }
 
 }

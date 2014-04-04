@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -31,49 +31,48 @@ import org.sdmlib.examples.studyrightextends.creators.RoomSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class UniversitySet extends LinkedHashSet<University> implements org.sdmlib.models.modelsets.ModelSet
+public class UniversitySet extends LinkedHashSet<University> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (University elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.University";
    }
 
-
    public UniversitySet with(University value)
    {
       this.add(value);
       return this;
    }
-   
+
    public UniversitySet without(University value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (University obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -83,19 +82,19 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getRooms()
    {
       RoomSet result = new RoomSet();
-      
+
       for (University obj : this)
       {
          result.addAll(obj.getRooms());
       }
-      
+
       return result;
    }
 
@@ -105,7 +104,7 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       {
          obj.withRooms(value);
       }
-      
+
       return this;
    }
 
@@ -115,65 +114,49 @@ public class UniversitySet extends LinkedHashSet<University> implements org.sdml
       {
          obj.withoutRooms(value);
       }
-      
+
       return this;
    }
-
-
 
    public UniversityPO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       UniversityPO patternObject = pattern.hasElementUniversityPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public UniversitySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<University>)value);
+         this.addAll((Collection<University>) value);
       }
       else if (value != null)
       {
          this.add((University) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public UniversityPO hasUniversityPO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       UniversityPO patternObject = pattern.hasElementUniversityPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

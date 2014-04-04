@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.classes.Role.R;
@@ -31,7 +31,8 @@ import java.util.Collection;
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
 import java.beans.PropertyChangeListener;
 
-public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
+public class MatchOtherThen extends PatternElement<MatchOtherThen> implements
+      PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
@@ -46,7 +47,8 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
-         // check that the size of the targeted assoc is in between min and max card
+         // check that the size of the targeted assoc is in between min and max
+         // card
          this.setHostGraphSrcObject(this.getSrc().getCurrentMatch());
 
          if (hostGraphSrcObject != null)
@@ -58,22 +60,30 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
             if (hostGraphSrcObject != forbidden)
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// node x differs from node y";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", ""
+                     + getTopPattern().getJsonIdMap().getId(forbidden) + " "
+                     + forbidden);
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
                return true;
             }
-            else 
+            else
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// node x equals forbidden node y, backtrack!";
-                  msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("y", ""
+                     + getTopPattern().getJsonIdMap().getId(forbidden) + " "
+                     + forbidden);
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
@@ -82,19 +92,18 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
                return false;
             }
          }
-         else 
+         else
          {
             return false;
          }
       }
       else
       {
-         this.setHostGraphSrcObject(null); 
+         this.setHostGraphSrcObject(null);
 
          return false;
       }
    }
-
 
    @Override
    public void resetSearch()
@@ -103,11 +112,8 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       this.setHostGraphSrcObject(null);
    }
 
+   // ==========================================================================
 
-
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
       if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
@@ -153,9 +159,8 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
@@ -209,19 +214,17 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setPattern(null);
@@ -231,45 +234,43 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_HOSTGRAPHSRCOBJECT = "hostGraphSrcObject";
-   
+
    private Object hostGraphSrcObject;
 
    public Object getHostGraphSrcObject()
    {
       return this.hostGraphSrcObject;
    }
-   
+
    public void setHostGraphSrcObject(Object value)
    {
       if (this.hostGraphSrcObject != value)
       {
          Object oldValue = this.hostGraphSrcObject;
          this.hostGraphSrcObject = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
       }
    }
-   
+
    public MatchOtherThen withHostGraphSrcObject(Object value)
    {
       setHostGraphSrcObject(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -277,61 +278,60 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
     *              matchOtherThen                   src
     * </pre>
     */
-   
+
    public static final String PROPERTY_SRC = "src";
-   
+
    private PatternObject src = null;
-   
+
    public PatternObject getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(PatternObject value)
    {
       boolean changed = false;
-      
+
       if (this.src != value)
       {
          PatternObject oldValue = this.src;
-         
+
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutMatchOtherThen(this);
          }
-         
+
          this.src = value;
-         
+
          if (value != null)
          {
             value.withMatchOtherThen(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public MatchOtherThen withSrc(PatternObject value)
    {
       setSrc(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject createSrc()
    {
       PatternObject value = new PatternObject();
       withSrc(value);
       return value;
-   } 
+   }
 
-   
    public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -339,55 +339,55 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
     *              excluders                   forbidden
     * </pre>
     */
-   
+
    public static final String PROPERTY_FORBIDDEN = "forbidden";
-   
+
    private PatternObject forbidden = null;
-   
+
    public PatternObject getForbidden()
    {
       return this.forbidden;
    }
-   
+
    public boolean setForbidden(PatternObject value)
    {
       boolean changed = false;
-      
+
       if (this.forbidden != value)
       {
          PatternObject oldValue = this.forbidden;
-         
+
          if (this.forbidden != null)
          {
             this.forbidden = null;
             oldValue.withoutExcluders(this);
          }
-         
+
          this.forbidden = value;
-         
+
          if (value != null)
          {
             value.withExcluders(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_FORBIDDEN, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FORBIDDEN,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public MatchOtherThen withForbidden(PatternObject value)
    {
       setForbidden(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject createForbidden()
    {
       PatternObject value = new PatternObject();
       withForbidden(value);
       return value;
-   } 
+   }
 }
-

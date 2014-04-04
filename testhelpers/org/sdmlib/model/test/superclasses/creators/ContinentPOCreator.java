@@ -8,15 +8,14 @@ public class ContinentPOCreator extends PatternObjectCreator
    {
       return new ContinentPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ContinentPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((ContinentPO) target).set(attrName, value);
    }
 }
-

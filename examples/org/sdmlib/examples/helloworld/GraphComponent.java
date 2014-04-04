@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld;
 
 import java.beans.PropertyChangeSupport;
@@ -31,14 +31,13 @@ import java.beans.PropertyChangeListener;
 public class GraphComponent implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -53,13 +52,12 @@ public class GraphComponent implements PropertyChangeInterface
       {
          return getParent();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
@@ -77,57 +75,53 @@ public class GraphComponent implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TEXT = "text";
-   
+
    private String text;
 
    public String getText()
    {
       return this.text;
    }
-   
+
    public void setText(String value)
    {
-      if ( ! StrUtil.stringEquals(this.text, value))
+      if (!StrUtil.stringEquals(this.text, value))
       {
          String oldValue = this.text;
          this.text = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue,
+            value);
       }
    }
-   
+
    public GraphComponent withText(String value)
    {
       setText(value);
       return this;
-   } 
+   }
 
-   
    public static final GraphComponentSet EMPTY_SET = new GraphComponentSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -135,50 +129,51 @@ public class GraphComponent implements PropertyChangeInterface
     *              gcs                   parent
     * </pre>
     */
-   
+
    public static final String PROPERTY_PARENT = "parent";
-   
+
    private Graph parent = null;
-   
+
    public Graph getParent()
    {
       return this.parent;
    }
-   
+
    public boolean setParent(Graph value)
    {
       boolean changed = false;
-      
+
       if (this.parent != value)
       {
          Graph oldValue = this.parent;
-         
+
          if (this.parent != null)
          {
             this.parent = null;
             oldValue.withoutGcs(this);
          }
-         
+
          this.parent = value;
-         
+
          if (value != null)
          {
             value.withGcs(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GraphComponent withParent(Graph value)
    {
       setParent(value);
       return this;
-   } 
-   
+   }
+
    public Graph createParent()
    {
       Graph value = new Graph();
@@ -186,20 +181,17 @@ public class GraphComponent implements PropertyChangeInterface
       return value;
    }
 
-
    public Graph getGraph()
    {
       // TODO Auto-generated method stub
       return null;
    }
 
-
    public boolean setGraph(Graph graph)
    {
       return false;
-      
-   }
 
+   }
 
    public String getName()
    {
@@ -207,20 +199,18 @@ public class GraphComponent implements PropertyChangeInterface
       return null;
    }
 
-
    public void setName(String object)
    {
       // TODO Auto-generated method stub
-      
-   } 
+
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
 }
-

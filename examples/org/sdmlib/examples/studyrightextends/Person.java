@@ -18,25 +18,21 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends;
 
 public interface Person
 {
 
-   
-   //==========================================================================
-   
-   public void findMyPosition(  );
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
-   public void findMyPosition( String p0 );
+   public void findMyPosition();
 
-   
-   //==========================================================================
-   
-   public void findMyPosition( String p0, int p1 );
+   // ==========================================================================
+
+   public void findMyPosition(String p0);
+
+   // ==========================================================================
+
+   public void findMyPosition(String p0, int p1);
 }
-

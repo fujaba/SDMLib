@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.Collection;
@@ -31,17 +31,18 @@ import org.sdmlib.examples.helloworld.creators.GreetingSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
+public class PersonSet extends LinkedHashSet<Person> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -51,108 +52,94 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public GreetingSet getGreeting()
    {
       GreetingSet result = new GreetingSet();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getGreeting());
       }
-      
+
       return result;
    }
+
    public PersonSet withGreeting(Greeting value)
    {
       for (Person obj : this)
       {
          obj.withGreeting(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Person elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.helloworld.Person";
    }
 
-
    public PersonPO startModelPattern()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         this.addAll((Collection<Person>) value);
       }
       else if (value != null)
       {
          this.add((Person) value);
       }
-      
+
       return this;
    }
-   
+
    public PersonSet without(Person value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PersonPO hasPersonPO()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

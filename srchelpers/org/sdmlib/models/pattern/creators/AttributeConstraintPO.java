@@ -11,21 +11,20 @@ import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.PatternObjectPO;
 import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
 
-public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, AttributeConstraint>
+public class AttributeConstraintPO extends
+      PatternObject<AttributeConstraintPO, AttributeConstraint>
 {
    public AttributeConstraintPO hasAttrName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
+         .withTgtValue(value).withSrc(this).withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withAttrName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -34,20 +33,18 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasTgtValue(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
+         .withTgtValue(value).withSrc(this).withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withTgtValue(Object value)
    {
       if (this.getPattern().getHasMatch())
@@ -56,42 +53,39 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasHostGraphSrcObject(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
+         .withTgtValue(value).withSrc(this).withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withHostGraphSrcObject(Object value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((AttributeConstraint) getCurrentMatch()).withHostGraphSrcObject(value);
+         ((AttributeConstraint) getCurrentMatch())
+            .withHostGraphSrcObject(value);
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasModifier(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
+         .withTgtValue(value).withSrc(this).withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withModifier(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -100,20 +94,18 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasHasMatch(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
+         .withTgtValue(value).withSrc(this).withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withHasMatch(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -122,46 +114,46 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public PatternObjectPO hasSrc()
    {
       PatternObjectPO result = new PatternObjectPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(AttributeConstraint.PROPERTY_SRC)
-      .withSrc(this);
-      
+
+      PatternLink patternLink = new PatternLink().withTgt(result)
+         .withTgtRoleName(AttributeConstraint.PROPERTY_SRC).withSrc(this);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().addToElements(result);
-      
+
       this.getPattern().findMatch();
-      
+
       return result;
    }
-   
+
    public AttributeConstraintPO hasSrc(PatternObjectPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(AttributeConstraint.PROPERTY_SRC)
-      .withSrc(this);
-      
+         .withTgt(tgt).withTgtRoleName(AttributeConstraint.PROPERTY_SRC)
+         .withSrc(this);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO withSrc(PatternObjectPO tgtPO)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((AttributeConstraint) this.getCurrentMatch()).withSrc((PatternObject) tgtPO.getCurrentMatch());
+         ((AttributeConstraint) this.getCurrentMatch())
+            .withSrc((PatternObject) tgtPO.getCurrentMatch());
       }
       return this;
    }
-   
+
    public String getAttrName()
    {
       if (this.getPattern().getHasMatch())
@@ -170,7 +162,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public Object getTgtValue()
    {
       if (this.getPattern().getHasMatch())
@@ -179,16 +171,17 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public Object getHostGraphSrcObject()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((AttributeConstraint) getCurrentMatch()).getHostGraphSrcObject();
+         return ((AttributeConstraint) getCurrentMatch())
+            .getHostGraphSrcObject();
       }
       return null;
    }
-   
+
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -197,7 +190,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
@@ -206,7 +199,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return false;
    }
-   
+
    public PatternObject getSrc()
    {
       if (this.getPattern().getHasMatch())
@@ -215,21 +208,20 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public AttributeConstraintPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
@@ -238,51 +230,50 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return false;
    }
-   
+
    public AttributeConstraintPO hasPatternObjectName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((AttributeConstraint) getCurrentMatch()).getPatternObjectName();
+         return ((AttributeConstraint) getCurrentMatch())
+            .getPatternObjectName();
       }
       return null;
    }
-   
+
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
-      
+
       return result;
    }
 
    public AttributeConstraintPO hasPattern(PatternPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -298,17 +289,15 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    public AttributeConstraintPO hasCmpOp(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_CMPOP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getCmpOp()
    {
       if (this.getPattern().getHasMatch())
@@ -317,7 +306,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public AttributeConstraintPO withCmpOp(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -326,21 +315,20 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasUpperTgtValue(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Object getUpperTgtValue()
    {
       if (this.getPattern().getHasMatch())
@@ -349,7 +337,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return null;
    }
-   
+
    public AttributeConstraintPO withUpperTgtValue(Object value)
    {
       if (this.getPattern().getHasMatch())
@@ -358,196 +346,178 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       }
       return this;
    }
-   
+
    public AttributeConstraintPO hasAttrName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasTgtValue(Object lower, Object upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasUpperTgtValue(Object lower, Object upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasCmpOp(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_CMPOP).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasHostGraphSrcObject(Object lower, Object upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasModifier(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasPatternObjectName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AttributeConstraintPO createAttrName(String value)
    {
       this.startCreate().hasAttrName(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createTgtValue(Object value)
    {
       this.startCreate().hasTgtValue(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createUpperTgtValue(Object value)
    {
       this.startCreate().hasUpperTgtValue(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createCmpOp(String value)
    {
       this.startCreate().hasCmpOp(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createHostGraphSrcObject(Object value)
    {
       this.startCreate().hasHostGraphSrcObject(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createModifier(String value)
    {
       this.startCreate().hasModifier(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createHasMatch(boolean value)
    {
       this.startCreate().hasHasMatch(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createPatternObjectName(String value)
    {
       this.startCreate().hasPatternObjectName(value).endCreate();
       return this;
    }
-   
+
    public AttributeConstraintPO createDoAllMatches(boolean value)
    {
       this.startCreate().hasDoAllMatches(value).endCreate();
       return this;
    }
-   
+
    public PatternPO createPattern()
    {
       return (PatternPO) this.startCreate().hasPattern().endCreate();
@@ -569,13 +539,3 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    }
 
 }
-
-
-
-
-
-
-
-
-
-

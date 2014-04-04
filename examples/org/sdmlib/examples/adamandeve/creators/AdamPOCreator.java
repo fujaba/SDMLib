@@ -8,15 +8,15 @@ public class AdamPOCreator extends PatternObjectCreator
    {
       return new AdamPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((AdamPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((AdamPO) target).set(attrName, value);
    }
 }
-

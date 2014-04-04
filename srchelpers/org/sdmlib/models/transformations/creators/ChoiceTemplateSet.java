@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -40,21 +40,19 @@ import org.sdmlib.models.transformations.Match;
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
 
-
    public ChoiceTemplatePO hasChoiceTemplatePO()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
+
       ChoiceTemplatePO patternObject = pattern.hasElementChoiceTemplatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -62,21 +60,20 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return "org.sdmlib.models.transformations.ChoiceTemplate";
    }
 
-
    public ChoiceTemplateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ChoiceTemplate>)value);
+         this.addAll((Collection<ChoiceTemplate>) value);
       }
       else if (value != null)
       {
          this.add((ChoiceTemplate) value);
       }
-      
+
       return this;
    }
-   
+
    public ChoiceTemplateSet without(ChoiceTemplate value)
    {
       this.remove(value);
@@ -86,19 +83,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
    public StringList getTemplateText()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getTemplateText());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasTemplateText(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getTemplateText()))
@@ -106,22 +103,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasTemplateText(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getTemplateText()) <= 0
+            && obj.getTemplateText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -131,26 +129,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setTemplateText(value);
       }
-      
+
       return this;
    }
 
    public StringList getExpandedText()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getExpandedText());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasExpandedText(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getExpandedText()))
@@ -158,22 +156,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasExpandedText(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getExpandedText()) <= 0
+            && obj.getExpandedText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -183,26 +182,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setExpandedText(value);
       }
-      
+
       return this;
    }
 
    public ObjectSet getModelObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getModelObject());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasModelObject(Object value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value == obj.getModelObject())
@@ -210,7 +209,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -220,26 +219,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setModelObject(value);
       }
-      
+
       return this;
    }
 
    public StringList getModelClassName()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getModelClassName());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasModelClassName(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getModelClassName()))
@@ -247,22 +246,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasModelClassName(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getModelClassName()) <= 0
+            && obj.getModelClassName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -272,26 +272,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setModelClassName(value);
       }
-      
+
       return this;
    }
 
    public StringList getListStart()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListStart());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListStart(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListStart()))
@@ -299,22 +299,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListStart(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListStart()) <= 0
+            && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -324,26 +325,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setListStart(value);
       }
-      
+
       return this;
    }
 
    public StringList getListSeparator()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListSeparator());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListSeparator(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListSeparator()))
@@ -351,22 +352,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListSeparator(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListSeparator()) <= 0
+            && obj.getListSeparator().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -376,26 +378,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setListSeparator(value);
       }
-      
+
       return this;
    }
 
    public StringList getListEnd()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getListEnd());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListEnd(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListEnd()))
@@ -403,22 +405,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasListEnd(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListEnd()) <= 0
+            && obj.getListEnd().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -428,26 +431,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setListEnd(value);
       }
-      
+
       return this;
    }
 
    public booleanList getReferenceLookup()
    {
       booleanList result = new booleanList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getReferenceLookup());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasReferenceLookup(boolean value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value == obj.getReferenceLookup())
@@ -455,7 +458,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -465,26 +468,26 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setReferenceLookup(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasName(String value)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getName()))
@@ -492,22 +495,23 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public ChoiceTemplateSet hasName(String lower, String upper)
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -517,19 +521,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public PlaceHolderDescriptionSet getPlaceholders()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.with(obj.getPlaceholders());
       }
-      
+
       return result;
    }
 
@@ -545,17 +549,17 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          neighbors.add(value);
       }
-      
+
       ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPlaceholders()))
+         if (!Collections.disjoint(neighbors, obj.getPlaceholders()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -565,7 +569,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withPlaceholders(value);
       }
-      
+
       return this;
    }
 
@@ -575,19 +579,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withoutPlaceholders(value);
       }
-      
+
       return this;
    }
 
    public TemplateSet getChoices()
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.with(obj.getChoices());
       }
-      
+
       return result;
    }
 
@@ -603,17 +607,17 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          neighbors.add(value);
       }
-      
+
       ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getChoices()))
+         if (!Collections.disjoint(neighbors, obj.getChoices()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -623,7 +627,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withChoices(value);
       }
-      
+
       return this;
    }
 
@@ -633,19 +637,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withoutChoices(value);
       }
-      
+
       return this;
    }
 
    public ChoiceTemplateSet getChooser()
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.with(obj.getChooser());
       }
-      
+
       return result;
    }
 
@@ -661,9 +665,9 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          neighbors.add(value);
       }
-      
+
       ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          if (neighbors.contains(obj.getChooser()))
@@ -671,7 +675,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -681,19 +685,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withChooser(value);
       }
-      
+
       return this;
    }
 
    public MatchSet getMatches()
    {
       MatchSet result = new MatchSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.with(obj.getMatches());
       }
-      
+
       return result;
    }
 
@@ -709,17 +713,17 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          neighbors.add(value);
       }
-      
+
       ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         if (!Collections.disjoint(neighbors, obj.getMatches()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -729,7 +733,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withMatches(value);
       }
-      
+
       return this;
    }
 
@@ -739,19 +743,19 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withoutMatches(value);
       }
-      
+
       return this;
    }
 
    public PlaceHolderDescriptionSet getParents()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
          result.with(obj.getParents());
       }
-      
+
       return result;
    }
 
@@ -767,17 +771,17 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          neighbors.add(value);
       }
-      
+
       ChoiceTemplateSet answer = new ChoiceTemplateSet();
-      
+
       for (ChoiceTemplate obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getParents()))
+         if (!Collections.disjoint(neighbors, obj.getParents()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -787,7 +791,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withParents(value);
       }
-      
+
       return this;
    }
 
@@ -797,12 +801,8 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       {
          obj.withoutParents(value);
       }
-      
+
       return this;
    }
 
 }
-
-
-
-

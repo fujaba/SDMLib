@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.pattern.PatternElement;
@@ -34,12 +34,12 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
    private JsonIdMap cloneMap;
 
    private PatternObject firstPO;
-   
+
    private Object origGraph;
 
    private Object cloneGraph;
 
-   //==========================================================================
+   // ==========================================================================
    @Override
    public boolean findNextMatch()
    {
@@ -48,19 +48,21 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
          if (!getHasMatch())
          {
             this.setHasMatch(true);
-            
+
             origMap = this.getPattern().getJsonIdMap();
-            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
-            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
-            
+            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap
+               .getCreators());
+            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap
+               .getCreators());
+
             firstPO = (PatternObject) this.getPattern().getElements().first();
-            
+
             origGraph = firstPO.getCurrentMatch();
-            
+
             JsonArray jsonArray = origMap.toJsonArray(origGraph);
-            
+
             cloneGraph = cloneMap.decode(jsonArray);
-            
+
             // change matches to point to the new nodes
             for (PatternElement pe : this.getPattern().getElements())
             {
@@ -79,7 +81,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
                   break;
                }
             }
-            
+
             // go on
             return true;
          }
@@ -105,7 +107,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
                   break;
                }
             }
-            
+
             return false;
          }
       }
@@ -118,12 +120,10 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
    public void resetSearch()
    {
       this.setHasMatch(false);
-   } 
+   }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -154,9 +154,8 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -192,19 +191,17 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setPattern(null);
@@ -215,11 +212,10 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
 
 }
-

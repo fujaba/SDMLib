@@ -4,7 +4,7 @@ package org.sdmlib.serialization.xml;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,59 +20,70 @@ package org.sdmlib.serialization.xml;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import java.util.ArrayList;
 
-public class XSDEntity extends XMLEntity {
-	public static final String PROPERTY_CHOICE = "choice";
-	public static final String PROPERTY_SEQUENCE = "sequence";
-	public static final String PROPERTY_ATTRIBUTE = "attribute";
-	public static final String PROPERTY_MINOCCURS = "minOccurs";
-	public static final String PROPERTY_MAXOCCURS = "minOccurs";
+public class XSDEntity extends XMLEntity
+{
+   public static final String PROPERTY_CHOICE = "choice";
+   public static final String PROPERTY_SEQUENCE = "sequence";
+   public static final String PROPERTY_ATTRIBUTE = "attribute";
+   public static final String PROPERTY_MINOCCURS = "minOccurs";
+   public static final String PROPERTY_MAXOCCURS = "minOccurs";
 
-	private ArrayList<XSDEntity> choice;
-	private ArrayList<XSDEntity> sequence;
-	private ArrayList<String> attribute;
-	private String minOccurs;
-	private String maxOccurs;
+   private ArrayList<XSDEntity> choice;
+   private ArrayList<XSDEntity> sequence;
+   private ArrayList<String> attribute;
+   private String minOccurs;
+   private String maxOccurs;
 
-	public ArrayList<XSDEntity> getChoice() {
-		return choice;
-	}
+   public ArrayList<XSDEntity> getChoice()
+   {
+      return choice;
+   }
 
-	public void setChoice(ArrayList<XSDEntity> choice) {
-		this.choice = choice;
-	}
+   public void setChoice(ArrayList<XSDEntity> choice)
+   {
+      this.choice = choice;
+   }
 
-	public ArrayList<XSDEntity> getSequence() {
-		return sequence;
-	}
+   public ArrayList<XSDEntity> getSequence()
+   {
+      return sequence;
+   }
 
-	public void setSequence(ArrayList<XSDEntity> sequence) {
-		this.sequence = sequence;
-	}
+   public void setSequence(ArrayList<XSDEntity> sequence)
+   {
+      this.sequence = sequence;
+   }
 
-	public ArrayList<String> getAttribute() {
-		return attribute;
-	}
+   public ArrayList<String> getAttribute()
+   {
+      return attribute;
+   }
 
-	public void setAttribute(ArrayList<String> attribute) {
-		this.attribute = attribute;
-	}
+   public void setAttribute(ArrayList<String> attribute)
+   {
+      this.attribute = attribute;
+   }
 
-	public String getMinOccurs() {
-		return minOccurs;
-	}
+   public String getMinOccurs()
+   {
+      return minOccurs;
+   }
 
-	public void setMinOccurs(String minOccurs) {
-		this.minOccurs = minOccurs;
-	}
+   public void setMinOccurs(String minOccurs)
+   {
+      this.minOccurs = minOccurs;
+   }
 
-	public String getMaxOccurs() {
-		return maxOccurs;
-	}
+   public String getMaxOccurs()
+   {
+      return maxOccurs;
+   }
 
-	public void setMaxOccurs(String maxOccurs) {
-		this.maxOccurs = maxOccurs;
-	}
+   public void setMaxOccurs(String maxOccurs)
+   {
+      this.maxOccurs = maxOccurs;
+   }
 }

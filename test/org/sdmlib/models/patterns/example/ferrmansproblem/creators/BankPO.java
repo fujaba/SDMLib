@@ -20,33 +20,31 @@ public class BankPO extends PatternObject<BankPO, Bank>
    public BankSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       BankSet matches = new BankSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Bank) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public BankPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Bank.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Bank.PROPERTY_NAME).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -55,7 +53,7 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
       return null;
    }
-   
+
    public BankPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -64,21 +62,19 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
       return this;
    }
-   
+
    public BankPO hasAge(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Bank.PROPERTY_AGE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Bank.PROPERTY_AGE).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getAge()
    {
       if (this.getPattern().getHasMatch())
@@ -87,7 +83,7 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
       return 0;
    }
-   
+
    public BankPO withAge(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -96,28 +92,27 @@ public class BankPO extends PatternObject<BankPO, Bank>
       }
       return this;
    }
-   
+
    public BoatPO hasBoat()
    {
       BoatPO result = new BoatPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Bank.PROPERTY_BOAT, result);
-      
+
       return result;
    }
 
    public BankPO hasBoat(BoatPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_BOAT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_BOAT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -134,23 +129,22 @@ public class BankPO extends PatternObject<BankPO, Bank>
    {
       RiverPO result = new RiverPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Bank.PROPERTY_RIVER, result);
-      
+
       return result;
    }
 
    public BankPO hasRiver(RiverPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_RIVER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_RIVER).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -167,23 +161,22 @@ public class BankPO extends PatternObject<BankPO, Bank>
    {
       CargoPO result = new CargoPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Bank.PROPERTY_CARGOS, result);
-      
+
       return result;
    }
 
    public BankPO hasCargos(CargoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_CARGOS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Bank.PROPERTY_CARGOS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -199,45 +192,41 @@ public class BankPO extends PatternObject<BankPO, Bank>
    public BankPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Bank.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Bank.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public BankPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public BankPO hasAge(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Bank.PROPERTY_AGE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Bank.PROPERTY_AGE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public BankPO createAge(int value)
    {
       this.startCreate().hasAge(value).endCreate();
       return this;
    }
-   
+
    public BoatPO createBoat()
    {
       return this.startCreate().hasBoat().endCreate();
@@ -269,5 +258,3 @@ public class BankPO extends PatternObject<BankPO, Bank>
    }
 
 }
-
-

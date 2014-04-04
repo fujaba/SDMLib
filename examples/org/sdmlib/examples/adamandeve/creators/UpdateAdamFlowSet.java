@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.adamandeve.creators;
 
 import java.util.Collection;
@@ -35,9 +35,9 @@ import org.sdmlib.serialization.json.creators.JsonIdMapSet;
 
 public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
 {
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public UpdateAdamFlowSet run()
    {
       for (UpdateAdamFlow obj : this)
@@ -53,19 +53,19 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       {
          obj.withAdam(value);
       }
-      
+
       return this;
    }
 
    public PeerProxySet getEve()
    {
       PeerProxySet result = new PeerProxySet();
-      
+
       for (UpdateAdamFlow obj : this)
       {
          result.add(obj.getEve());
       }
-      
+
       return result;
    }
 
@@ -75,7 +75,7 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       {
          obj.withEve(value);
       }
-      
+
       return this;
    }
 
@@ -85,19 +85,19 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
 
    public longList getAdamJarAtEveSiteLastModified()
    {
       longList result = new longList();
-      
+
       for (UpdateAdamFlow obj : this)
       {
          result.add(obj.getAdamJarAtEveSiteLastModified());
       }
-      
+
       return result;
    }
 
@@ -107,19 +107,19 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       {
          obj.withAdamJarAtEveSiteLastModified(value);
       }
-      
+
       return this;
    }
 
    public intList getTaskNo()
    {
       intList result = new intList();
-      
+
       for (UpdateAdamFlow obj : this)
       {
          result.add(obj.getTaskNo());
       }
-      
+
       return result;
    }
 
@@ -129,120 +129,102 @@ public class UpdateAdamFlowSet extends LinkedHashSet<UpdateAdamFlow>
       {
          obj.withTaskNo(value);
       }
-      
+
       return this;
    }
 
    public PeerProxySet getAdam()
    {
       PeerProxySet result = new PeerProxySet();
-      
+
       for (UpdateAdamFlow obj : this)
       {
          result.add(obj.getAdam());
       }
-      
+
       return result;
    }
 
    public JsonIdMapSet getIdMap()
    {
       JsonIdMapSet result = new JsonIdMapSet();
-      
+
       for (UpdateAdamFlow obj : this)
       {
          result.add(obj.getIdMap());
       }
-      
+
       return result;
    }
 
-   
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (UpdateAdamFlow elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public UpdateAdamFlowSet with(UpdateAdamFlow value)
    {
       this.add(value);
       return this;
    }
-   
+
    public UpdateAdamFlowSet without(UpdateAdamFlow value)
    {
       this.remove(value);
       return this;
    }
 
-
    public String getEntryType()
    {
       return "org.sdmlib.examples.adamandeve.UpdateAdamFlow";
    }
 
-
    public UpdateAdamFlowPO startModelPattern()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       UpdateAdamFlowPO patternObject = pattern.hasElementUpdateAdamFlowPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public UpdateAdamFlowSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<UpdateAdamFlow>)value);
+         this.addAll((Collection<UpdateAdamFlow>) value);
       }
       else if (value != null)
       {
          this.add((UpdateAdamFlow) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public UpdateAdamFlowPO hasUpdateAdamFlowPO()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       UpdateAdamFlowPO patternObject = pattern.hasElementUpdateAdamFlowPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

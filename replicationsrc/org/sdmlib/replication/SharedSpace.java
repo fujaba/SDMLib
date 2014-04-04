@@ -45,8 +45,8 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-public class SharedSpace extends Thread 
-implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
+public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
+      MapUpdateListener
 {
 
    public static final String CURRENT_HISTORY_ID = "currentHistoryId";
@@ -75,8 +75,41 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
       public String msg;
    }
-   
+
    private boolean firstMessage = true;
+
+   private String serverIp;
+
+   private int serverPort;
+
+   public SharedSpace()
+   {
+   }
+
+   public SharedSpace(String spaceId, String nodeId, String serverIp, int serverPort, JsonIdMap map)
+   {
+      this.spaceId = spaceId;
+      this.nodeId = nodeId;
+      this.serverIp = serverIp;
+      this.serverPort = serverPort;
+      this.map = map;
+   }
+
+   public SharedSpace init()
+   {
+      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      setName("Lane" + nodeId);
+      ReplicationChannel channel = createChannels().withConnect(serverIp, serverPort);
+      channel.setName("ReplicationChannel" + nodeId);
+      channel.start();
+
+      channel.sendSpaceConnectionRequest(spaceId);
+      waitForCurrentHistoryId();
+      
+      map.put(REMOTE_TASK_BOARD, new RemoteTaskBoard());
+      
+      return this;
+   }
 
    public void enqueueMsg(ReplicationChannel channel, String msg)
    {
@@ -109,11 +142,10 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          e.printStackTrace();
       }
    }
-   
-   
+
    public void waitForCurrentHistoryId()
    {
-      
+
       while (this.lastChangeId == 0)
       {
          try
@@ -139,7 +171,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          try
          {
             ChannelMsg msg = msgQueue.take();
-            
+
             if (TERMINATE.equals(msg.msg))
             {
                for (ReplicationChannel c : getChannels())
@@ -158,7 +190,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       }
    }
 
-   private ReplicationChange previousChange = null; 
+   private ReplicationChange previousChange = null;
 
    public void handleMessage(ChannelMsg msg)
    {
@@ -168,7 +200,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject().withValue(msg.msg);
-         
+
          if (previousChange == null)
          {
             previousChange = new ReplicationChange();
@@ -181,23 +213,23 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             JsonObject jsonHistoryId = new JsonObject();
             jsonHistoryId.put(CURRENT_HISTORY_ID, this.lastChangeId);
             msg.channel.send(jsonHistoryId.toString());
-            
+
             // send my changes
             previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-            
+
             sendAllChangesSince(previousChange, msg.channel);
-            
+
             return;
          }
-         
+
          // handle resend request
          if (jsonObject.get(RESEND_ID_HISTORY_NUMBER) != null)
          {
             previousChange.setHistoryIdNumber(jsonObject.getLong(RESEND_ID_HISTORY_NUMBER));
             previousChange.setHistoryIdPrefix(jsonObject.getString(RESEND_ID_HISTORY_PREFIX));
-            
+
             sendAllChangesSince(previousChange, msg.channel);
-            
+
             return;
          }
 
@@ -226,15 +258,16 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          {
             long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
             previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
-            
-            // there is an id for the previous change, do I know that one? 
+
+            // there is an id for the previous change, do I know that one?
             ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
             if (floor == null || floor.compareTo(previousChange) != 0)
             {
                // ups, I do not have the previous change.
-               // this should not happen. 
+               // this should not happen.
                // well, ask for the previous change and wait for it
-               // well what is the latest change I have already that is before the one I have no longer
+               // well what is the latest change I have already that is before
+               // the one I have no longer
                ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
                if (floor != null)
                {
@@ -243,29 +276,31 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
                }
                else
                {
-                  // ups, I do not have the previous Id nor any one before that, start from the beginning
+                  // ups, I do not have the previous Id nor any one before that,
+                  // start from the beginning
                   previousNumber = 0;
                   previousPrefix = " ";
                }
                JsonObject jsonRequest = new JsonObject();
                jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
                jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
-               
+
                msg.channel.send(jsonRequest.toString());
-               
+
                // wait for it
                return;
             }
          }
          else
          {
-            // sender does not have an earlier change, use dummy for further processing
+            // sender does not have an earlier change, use dummy for further
+            // processing
             previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
          }
 
          // try to apply change
          // is it a conflict?
-         String key = change.getTargetObjectId() + "|" + change.getTargetProperty(); 
+         String key = change.getTargetObjectId() + "|" + change.getTargetProperty();
 
          Object oldChange = this.getHistory().getChangeMap().get(key);
 
@@ -308,10 +343,12 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
                      Object targetObj = map.getObject(targetId);
 
-                     // now remove targetObj and its successors from property collection
+                     // now remove targetObj and its successors from property
+                     // collection
                      SendableEntityCreator creatorClass = map.getCreatorClass(sourceObject);
 
-                     Collection collection = (Collection) creatorClass.getValue(sourceObject, property);
+                     Collection collection = (Collection) creatorClass.getValue(sourceObject,
+                        property);
 
                      LinkedList<Object> higherList = new LinkedList<Object>();
                      boolean found = false;
@@ -334,7 +371,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
                         creatorClass.setValue(sourceObject, property + JsonIdMap.REMOVE, obj, null);
                      }
 
-                     // add new 
+                     // add new
                      applyChange(change, msg.channel);
 
                      // re-add higher elements
@@ -356,18 +393,18 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             }
             else
             {
-               // there is a newer change, but we may need to keep this one until
+               // there is a newer change, but we may need to keep this one
+               // until
                // we have synchronized with the sending node.
                getHistory().addToChanges(change);
                getHistory().addToObsoleteChanges(change);
             }
          }
       }
-      finally 
+      finally
       {
          this.isApplyingChangeMsg = false;
       }
-
 
    }
 
@@ -384,19 +421,18 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          {
             change.withLog("resending", getName());
          }
-         
+
          sendChangeTo(channel, change);
       }
    }
 
-   private void sendChangeTo(ReplicationChannel channel,
-         ReplicationChange change)
+   private void sendChangeTo(ReplicationChannel channel, ReplicationChange change)
    {
       if (channel == null)
       {
          return;
       }
-      
+
       JsonIdMap cmap = getChangeMap();
 
       JsonObject jsonObject = cmap.toJsonObject(change);
@@ -410,7 +446,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          jsonObject.put(LOWER_ID_PREFIX, lower.getHistoryIdPrefix());
       }
 
-      String line = jsonObject.toString(); 
+      String line = jsonObject.toString();
 
       channel.send(line);
 
@@ -420,7 +456,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
-      
+
       try
       {
          this.setReadMessages(true);
@@ -440,14 +476,14 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       change.withLog("change applied", this.getName());
 
       sendNewChange(change);
-      
-      // if the change is not the last, the sender might not have got some changes
+
+      // if the change is not the last, the sender might not have got some
+      // changes
       for (ReplicationChange newerChange : getHistory().getChanges().tailSet(change, false))
       {
          sendChangeTo(sender, newerChange);
       }
    }
-
 
    private File logFile = null;
 
@@ -458,9 +494,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          if (logFile == null)
          {
             boolean result = new File("./SharedSpace/").mkdirs();
-            logFile = new File("./SharedSpace/"
-            + getSpaceId() + "_"
-            + getNodeId()  + ".json");
+            logFile = new File("./SharedSpace/" + getSpaceId() + "_" + getNodeId() + ".json");
 
             result = logFile.createNewFile();
 
@@ -469,7 +503,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
          JsonObject jsonObject = getChangeMap().toJsonObject(change);
 
-         logFileWriter.write(jsonObject.toString()+"\n");
+         logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
       }
       catch (IOException e)
@@ -479,39 +513,36 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       }
 
    }
-   
+
    public void loadHistoryFromFile()
    {
       // remove old backup file
-      File backupFile = new File("./SharedSpace/"
-            + getSpaceId() + "_"
-            + getNodeId()  + ".json.backup");
-      
+      File backupFile = new File("./SharedSpace/" + getSpaceId() + "_" + getNodeId()
+         + ".json.backup");
+
       if (backupFile.exists())
       {
          backupFile.delete();
       }
-      
+
       // move old history file to backup
-      File historyfile = new File("./SharedSpace/"
-            + getSpaceId() + "_"
-            + getNodeId()  + ".json");
-      
+      File historyfile = new File("./SharedSpace/" + getSpaceId() + "_" + getNodeId() + ".json");
+
       if (historyfile.exists())
       {
          historyfile.renameTo(backupFile);
-         
+
          try
          {
             BufferedReader in = new BufferedReader(new FileReader(backupFile));
-            
+
             String line = in.readLine();
             while (line != null)
             {
                ChannelMsg msg = new ChannelMsg(null, line);
-               
+
                handleMessage(msg);
-               
+
                line = in.readLine();
             }
          }
@@ -520,9 +551,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             e.printStackTrace();
          }
       }
-   } 
-
-
+   }
 
    private boolean isApplyingChangeMsg = false;
 
@@ -539,23 +568,23 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    private int logLevel = 1;
 
    @Override
-	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
-			Object newObject, JsonObject jsonObject) {
+   public boolean sendUpdateMsg(Object target, String property, Object oldObj, Object newObject,
+         JsonObject jsonObject)
+   {
       if (isApplyingChangeMsg)
       {
          // ignore
          return true;
       }
 
-      ReplicationChange change = new ReplicationChange()
-      .withHistoryIdPrefix(nodeId)
-      .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString(3));
+      ReplicationChange change = new ReplicationChange().withHistoryIdPrefix(nodeId)
+         .withHistoryIdNumber(getNewHistoryIdNumber())
+         .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
+         .withChangeMsg(jsonObject.toString(3));
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
 
-      if(object != null)
+      if (object != null)
       {
          JsonObject jsonUpdate = (JsonObject) object;
          for (Iterator<String> iter = jsonUpdate.keys(); iter.hasNext();)
@@ -605,7 +634,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          jsonObject.put(LOWER_ID_PREFIX, lower.getHistoryIdPrefix());
       }
 
-      String line = jsonObject.toString(); 
+      String line = jsonObject.toString();
 
       for (ReplicationChannel channel : this.getChannels())
       {
@@ -626,11 +655,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
       return lastChangeId;
    }
-   
 
-
-
-   //==========================================================================
+   // ==========================================================================
    private JsonIdMap getChangeMap()
    {
       if (changeMap == null)
@@ -675,8 +701,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -725,8 +750,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -735,8 +759,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -745,8 +768,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_SPACEID = "spaceId";
 
@@ -759,7 +781,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
    public void setSpaceId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.spaceId, value))
+      if (!StrUtil.stringEquals(this.spaceId, value))
       {
          String oldValue = this.spaceId;
          this.spaceId = value;
@@ -771,7 +793,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       setSpaceId(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
@@ -782,10 +804,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return _.substring(1);
    }
 
-
-
    public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet();
-
 
    /********************************************************************
     * <pre>
@@ -836,15 +855,14 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       setNode(value);
       return this;
-   } 
+   }
 
    public ReplicationNode createNode()
    {
       ReplicationNode value = new ReplicationNode();
       withNode(value);
       return value;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -891,7 +909,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             this.channels = new ReplicationChannelSet();
          }
 
-         changed = this.channels.add (value);
+         changed = this.channels.add(value);
 
          if (changed)
          {
@@ -900,7 +918,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromChannels(ReplicationChannel value)
@@ -909,7 +927,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
       if ((this.channels != null) && (value != null))
       {
-         changed = this.channels.remove (value);
+         changed = this.channels.remove(value);
 
          if (changed)
          {
@@ -918,24 +936,25 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public SharedSpace withChannels(ReplicationChannel value)
    {
       addToChannels(value);
       return this;
-   } 
+   }
 
    public SharedSpace withoutChannels(ReplicationChannel value)
    {
       removeFromChannels(value);
       return this;
-   } 
+   }
 
    public void removeAllFromChannels()
    {
-      LinkedHashSet<ReplicationChannel> tmpSet = new LinkedHashSet<ReplicationChannel>(this.getChannels());
+      LinkedHashSet<ReplicationChannel> tmpSet = new LinkedHashSet<ReplicationChannel>(
+            this.getChannels());
 
       for (ReplicationChannel value : tmpSet)
       {
@@ -953,7 +972,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.withUpdateMsgListener((MapUpdateListener) this); 
+      map.withUpdateMsgListener((MapUpdateListener) this);
    }
 
    @Override
@@ -963,19 +982,20 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    }
 
    @Override
-	public boolean readMessages(String key, Object element, Object value,
-			JsonObject props, String type) {
-      return false;
-   }
-
-   @Override
-   public boolean skipCollision(Object masterObj, String key, Object value,
-         JsonObject removeJson, JsonObject updateJson)
+   public boolean readMessages(String key, Object element, Object value, JsonObject props,
+         String type)
    {
       return false;
    }
 
-   //==========================================================================
+   @Override
+   public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson,
+         JsonObject updateJson)
+   {
+      return false;
+   }
+
+   // ==========================================================================
 
    public static final String PROPERTY_HISTORY = "history";
 
@@ -1005,10 +1025,9 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       setHistory(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_LASTCHANGEID = "lastChangeId";
 
@@ -1033,10 +1052,9 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    {
       setLastChangeId(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_NODEID = "nodeId";
 
@@ -1051,7 +1069,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
 
    public void setNodeId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.nodeId, value))
+      if (!StrUtil.stringEquals(this.nodeId, value))
       {
          String oldValue = this.nodeId;
          this.nodeId = value;
@@ -1065,29 +1083,28 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       return this;
    }
 
-
    public <T> T glueObjectsAtId(String id, T newObj)
    {
-      // id already in use? 
+      // id already in use?
       Object oldObj = map.getObject(id);
-      
+
       if (oldObj == null)
       {
          map.put(id, newObj);
          return newObj;
       }
-      else 
+      else
       {
          String newKey = map.getKey(newObj);
-         
+
          // transfer attributes from newObj to oldObj
          // use the newer change
-         
+
          SendableEntityCreator creator = map.getCreatorClass(oldObj);
          for (String prop : creator.getProperties())
          {
             Object value = creator.getValue(newObj, prop);
-            
+
             if (value != null && value instanceof Collection)
             {
                // add all elements to oldObj
@@ -1101,30 +1118,31 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
                creator.setValue(oldObj, prop, value, "");
             }
          }
-         
+
          return (T) oldObj;
       }
    }
-   
-   private boolean readMessages = false; 
-   
+
+   private boolean readMessages = false;
+
+   public static final String REMOTE_TASK_BOARD = "remoteTaskBoard";
+
    public void setReadMessages(boolean readMessages)
    {
       this.readMessages = readMessages;
    }
-   
+
    public boolean isReadMessages()
    {
       return readMessages;
    }
 
-	@Override
-	public boolean isReadMessages(String key, Object element, JsonObject props,
-			String type) {
-		// TODO Auto-generated method stub
-		return readMessages;
-	}
-
+   @Override
+   public boolean isReadMessages(String key, Object element, JsonObject props, String type)
+   {
+      // TODO Auto-generated method stub
+      return readMessages;
+   }
 
    public SharedSpace withChannels(ReplicationChannel... value)
    {
@@ -1133,7 +1151,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          addToChannels(item);
       }
       return this;
-   } 
+   }
 
    public SharedSpace withoutChannels(ReplicationChannel... value)
    {
@@ -1143,5 +1161,10 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
       }
       return this;
    }
-}
 
+   public Object getSharedObject(String objectName)
+   {
+      return map.getObject(objectName);
+   }
+   
+}

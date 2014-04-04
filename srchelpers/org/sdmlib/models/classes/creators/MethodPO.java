@@ -16,12 +16,12 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    {
       return (MethodPO) super.startNAC();
    }
-   
+
    public MethodPO endNAC()
    {
       return (MethodPO) super.endNAC();
    }
-   
+
    public MethodSet allMatches()
    {
       MethodSet matches = new MethodSet();
@@ -29,27 +29,25 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       while (this.getPattern().getHasMatch())
       {
          matches.add((Method) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public MethodPO hasSignature(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_SIGNATURE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_SIGNATURE).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getSignature()
    {
       if (this.getPattern().getHasMatch())
@@ -58,21 +56,19 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return null;
    }
-   
+
    public MethodPO hasReturnType(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_RETURNTYPE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_RETURNTYPE).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getReturnType()
    {
       if (this.getPattern().getHasMatch())
@@ -81,31 +77,30 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return null;
    }
-   
+
    public ClazzPO hasClazz()
    {
       ClazzPO result = new ClazzPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Method.PROPERTY_CLAZZ, result);
-      
+
       return result;
    }
-   
+
    public MethodPO hasClazz(ClazzPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Method.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Method.PROPERTY_CLAZZ).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Clazz getClazz()
    {
       if (this.getPattern().getHasMatch())
@@ -114,21 +109,19 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return null;
    }
-   
+
    public MethodPO hasBody(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_BODY)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_BODY).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getBody()
    {
       if (this.getPattern().getHasMatch())
@@ -137,7 +130,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return null;
    }
-   
+
    public MethodPO withBody(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -146,70 +139,64 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return this;
    }
-   
+
    public MethodPO hasSignature(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_SIGNATURE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_SIGNATURE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MethodPO hasReturnType(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_RETURNTYPE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_RETURNTYPE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MethodPO hasBody(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_BODY)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Method.PROPERTY_BODY).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MethodPO createSignature(String value)
    {
       this.startCreate().hasSignature(value).endCreate();
       return this;
    }
-   
+
    public MethodPO createReturnType(String value)
    {
       this.startCreate().hasReturnType(value).endCreate();
       return this;
    }
-   
+
    public MethodPO createBody(String value)
    {
       this.startCreate().hasBody(value).endCreate();
       return this;
    }
-   
+
    public ClazzPO createClazz()
    {
       return this.startCreate().hasClazz().endCreate();
@@ -221,7 +208,3 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    }
 
 }
-
-
-
-

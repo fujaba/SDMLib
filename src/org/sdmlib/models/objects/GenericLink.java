@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects;
 
 import java.beans.PropertyChangeSupport;
@@ -31,14 +31,13 @@ import java.beans.PropertyChangeListener;
 public class GenericLink implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -68,13 +67,12 @@ public class GenericLink implements PropertyChangeInterface
       {
          return getGraph();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TGTLABEL.equalsIgnoreCase(attrName))
@@ -110,19 +108,17 @@ public class GenericLink implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setSrc(null);
@@ -131,66 +127,64 @@ public class GenericLink implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TGTLABEL = "tgtLabel";
-   
+
    private String tgtLabel;
 
    public String getTgtLabel()
    {
       return this.tgtLabel;
    }
-   
+
    public void setTgtLabel(String value)
    {
-      if ( ! StrUtil.stringEquals(this.tgtLabel, value))
+      if (!StrUtil.stringEquals(this.tgtLabel, value))
       {
          String oldValue = this.tgtLabel;
          this.tgtLabel = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTLABEL, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTLABEL,
+            oldValue, value);
       }
    }
-   
+
    public GenericLink withTgtLabel(String value)
    {
       setTgtLabel(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_SRCLABEL = "srcLabel";
-   
+
    private String srcLabel;
 
    public String getSrcLabel()
    {
       return this.srcLabel;
    }
-   
+
    public void setSrcLabel(String value)
    {
-      if ( ! StrUtil.stringEquals(this.srcLabel, value))
+      if (!StrUtil.stringEquals(this.srcLabel, value))
       {
          String oldValue = this.srcLabel;
          this.srcLabel = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRCLABEL, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRCLABEL,
+            oldValue, value);
       }
    }
-   
+
    public GenericLink withSrcLabel(String value)
    {
       setSrcLabel(value);
       return this;
-   } 
+   }
 
-   
    public static final GenericLinkSet EMPTY_SET = new GenericLinkSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -198,61 +192,60 @@ public class GenericLink implements PropertyChangeInterface
     *              outgoingLinks                   src
     * </pre>
     */
-   
+
    public static final String PROPERTY_SRC = "src";
-   
+
    private GenericObject src = null;
-   
+
    public GenericObject getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(GenericObject value)
    {
       boolean changed = false;
-      
+
       if (this.src != value)
       {
          GenericObject oldValue = this.src;
-         
+
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutOutgoingLinks(this);
          }
-         
+
          this.src = value;
-         
+
          if (value != null)
          {
             value.withOutgoingLinks(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GenericLink withSrc(GenericObject value)
    {
       setSrc(value);
       return this;
-   } 
-   
+   }
+
    public GenericObject createSrc()
    {
-      GenericObject value = new GenericObject()
-      .withGraph(this.getGraph());
-      
-      this.withSrc(value);
-      
-      return value;
-   } 
+      GenericObject value = new GenericObject().withGraph(this.getGraph());
 
-   
+      this.withSrc(value);
+
+      return value;
+   }
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -260,61 +253,60 @@ public class GenericLink implements PropertyChangeInterface
     *              incommingLinks                   tgt
     * </pre>
     */
-   
+
    public static final String PROPERTY_TGT = "tgt";
-   
+
    private GenericObject tgt = null;
-   
+
    public GenericObject getTgt()
    {
       return this.tgt;
    }
-   
+
    public boolean setTgt(GenericObject value)
    {
       boolean changed = false;
-      
+
       if (this.tgt != value)
       {
          GenericObject oldValue = this.tgt;
-         
+
          if (this.tgt != null)
          {
             this.tgt = null;
             oldValue.withoutIncommingLinks(this);
          }
-         
+
          this.tgt = value;
-         
+
          if (value != null)
          {
             value.withIncommingLinks(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GenericLink withTgt(GenericObject value)
    {
       setTgt(value);
       return this;
-   } 
-   
+   }
+
    public GenericObject createTgt()
    {
-      GenericObject value = new GenericObject()
-      .withGraph(this.getGraph());
-      
-      this.withTgt(value);
-      
-      return value;
-   } 
+      GenericObject value = new GenericObject().withGraph(this.getGraph());
 
-   
+      this.withTgt(value);
+
+      return value;
+   }
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -322,65 +314,65 @@ public class GenericLink implements PropertyChangeInterface
     *              links                   graph
     * </pre>
     */
-   
+
    public static final String PROPERTY_GRAPH = "graph";
-   
+
    private GenericGraph graph = null;
-   
+
    public GenericGraph getGraph()
    {
       return this.graph;
    }
-   
+
    public boolean setGraph(GenericGraph value)
    {
       boolean changed = false;
-      
+
       if (this.graph != value)
       {
          GenericGraph oldValue = this.graph;
-         
+
          if (this.graph != null)
          {
             this.graph = null;
             oldValue.withoutLinks(this);
          }
-         
+
          this.graph = value;
-         
+
          if (value != null)
          {
             value.withLinks(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GenericLink withGraph(GenericGraph value)
    {
       setGraph(value);
       return this;
-   } 
-   
+   }
+
    public GenericGraph createGraph()
    {
       GenericGraph value = new GenericGraph();
       withGraph(value);
       return value;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTgtLabel());
       _.append(" ").append(this.getSrcLabel());
       return _.substring(1);
    }
 
 }
-

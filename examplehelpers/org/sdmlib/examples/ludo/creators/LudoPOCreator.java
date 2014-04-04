@@ -8,15 +8,15 @@ public class LudoPOCreator extends PatternObjectCreator
    {
       return new LudoPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((LudoPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((LudoPO) target).set(attrName, value);
    }
 }
-

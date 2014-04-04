@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.Collection;
@@ -35,19 +35,17 @@ import org.sdmlib.models.modelsets.ObjectSet;
 public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Parent elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -57,12 +55,12 @@ public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Parent obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -72,87 +70,77 @@ public class ParentSet extends LinkedHashSet<Parent> implements ModelSet
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public UncleSet getUncle()
    {
       UncleSet result = new UncleSet();
-      
+
       for (Parent obj : this)
       {
          result.add(obj.getUncle());
       }
-      
+
       return result;
    }
+
    public ParentSet withUncle(Uncle value)
    {
       for (Parent obj : this)
       {
          obj.withUncle(value);
       }
-      
+
       return this;
    }
-
-
 
    public ParentPO startModelPattern()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       ParentPO patternObject = pattern.hasElementParentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ParentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Parent>)value);
+         this.addAll((Collection<Parent>) value);
       }
       else if (value != null)
       {
          this.add((Parent) value);
       }
-      
+
       return this;
    }
-   
+
    public ParentSet without(Parent value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ParentPO hasParentPO()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       ParentPO patternObject = pattern.hasElementParentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

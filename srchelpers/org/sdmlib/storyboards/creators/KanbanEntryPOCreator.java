@@ -8,15 +8,14 @@ public class KanbanEntryPOCreator extends PatternObjectCreator
    {
       return new KanbanEntryPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((KanbanEntryPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((KanbanEntryPO) target).set(attrName, value);
    }
 }
-

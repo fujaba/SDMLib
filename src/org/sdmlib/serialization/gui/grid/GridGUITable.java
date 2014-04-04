@@ -4,7 +4,7 @@ package org.sdmlib.serialization.gui.grid;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,12 +20,16 @@ package org.sdmlib.serialization.gui.grid;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import java.beans.PropertyChangeListener;
 
-public interface GridGUITable {
-	public void add(Object cell);
-	public void move(Object cell);
-	public GridStyle getNewStyle();
-	public PropertyChangeListener getNewCell(Object node);
+public interface GridGUITable
+{
+   public void add(Object cell);
+
+   public void move(Object cell);
+
+   public GridStyle getNewStyle();
+
+   public PropertyChangeListener getNewCell(Object node);
 }

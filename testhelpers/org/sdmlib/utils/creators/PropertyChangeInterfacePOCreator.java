@@ -8,15 +8,15 @@ public class PropertyChangeInterfacePOCreator extends PatternObjectCreator
    {
       return new PropertyChangeInterfacePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PropertyChangeInterfacePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PropertyChangeInterfacePO) target).set(attrName, value);
    }
 }
-

@@ -8,15 +8,15 @@ public class StoryboardWallPOCreator extends PatternObjectCreator
    {
       return new StoryboardWallPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((StoryboardWallPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((StoryboardWallPO) target).set(attrName, value);
    }
 }
-

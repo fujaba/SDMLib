@@ -8,15 +8,14 @@ public class EdgePOCreator extends PatternObjectCreator
    {
       return new EdgePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((EdgePO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((EdgePO) target).set(attrName, value);
    }
 }
-

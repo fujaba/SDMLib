@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.Collection;
@@ -28,80 +28,72 @@ import org.sdmlib.model.classes.test.NoProperties;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements ModelSet
+public class NoPropertiesSet extends LinkedHashSet<NoProperties> implements
+      ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (NoProperties elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.classes.test.NoProperties";
    }
 
-
    public NoPropertiesPO startModelPattern()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       NoPropertiesPO patternObject = pattern.hasElementNoPropertiesPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public NoPropertiesSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<NoProperties>)value);
+         this.addAll((Collection<NoProperties>) value);
       }
       else if (value != null)
       {
          this.add((NoProperties) value);
       }
-      
+
       return this;
    }
-   
+
    public NoPropertiesSet without(NoProperties value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public NoPropertiesPO hasNoPropertiesPO()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       NoPropertiesPO patternObject = pattern.hasElementNoPropertiesPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

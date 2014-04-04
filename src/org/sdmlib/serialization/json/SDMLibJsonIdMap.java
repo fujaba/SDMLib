@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.serialization.json;
 
 import java.beans.PropertyChangeSupport;
@@ -27,76 +27,78 @@ import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
-	/** The Constant JSON_PROPS. */
-	public static final String JSON_HYPERREF = "hyperref";
+public class SDMLibJsonIdMap extends JsonIdMap implements
+      PropertyChangeInterface
+{
+   /** The Constant JSON_PROPS. */
+   public static final String JSON_HYPERREF = "hyperref";
 
-	@Override
-	public boolean addListener(Object object) 
-	{
-		if(super.addListener(object)){
-			return true;
-		}
-		if (object instanceof PropertyChangeSupport) {
-			((PropertyChangeSupport) object).addPropertyChangeListener(
-					IdMap.UPDATE, getUpdateListener());
-			return true;
-		} else if (object instanceof PropertyChangeInterface)
-		{
-		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateListener());
-		   return true;
-		}
-		return false;
-		
-	}
-	
+   @Override
+   public boolean addListener(Object object)
+   {
+      if (super.addListener(object))
+      {
+         return true;
+      }
+      if (object instanceof PropertyChangeSupport)
+      {
+         ((PropertyChangeSupport) object).addPropertyChangeListener(
+            IdMap.UPDATE, getUpdateListener());
+         return true;
+      }
+      else if (object instanceof PropertyChangeInterface)
+      {
+         ((PropertyChangeInterface) object).getPropertyChangeSupport()
+            .addPropertyChangeListener(getUpdateListener());
+         return true;
+      }
+      return false;
+
+   }
+
    public Object get(String attrName)
    {
-//      int pos = attrName.indexOf('.');
-//      String attribute = attrName;
-//      
-//      if (pos > 0)
-//      {
-//         attribute = attrName.substring(0, pos);
-//      }
-//      
+      // int pos = attrName.indexOf('.');
+      // String attribute = attrName;
+      //
+      // if (pos > 0)
+      // {
+      // attribute = attrName.substring(0, pos);
+      // }
+      //
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-   
+
    public FlipBook createFlipBook()
    {
       FlipBook flipBook = new FlipBook().init(this);
-      
+
       this.withUpdateMsgListener(flipBook);
 
       return flipBook;
    }
 
 }
-

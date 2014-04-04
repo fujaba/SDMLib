@@ -4,7 +4,7 @@ package org.sdmlib.serialization.gui.table.creator;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,34 +20,42 @@ package org.sdmlib.serialization.gui.table.creator;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.gui.table.TableList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public class TableListCreator implements SendableEntityCreator{
-	public static final String[] properties=new String[]{TableList.PROPERTY_ITEMS};
-	@Override
-	public String[] getProperties() {
-		return properties;
-	}
+public class TableListCreator implements SendableEntityCreator
+{
+   public static final String[] properties = new String[]
+   { TableList.PROPERTY_ITEMS };
 
-	@Override
-	public Object getSendableInstance(boolean prototyp) {
-		return new TableList();
-	}
+   @Override
+   public String[] getProperties()
+   {
+      return properties;
+   }
 
-	@Override
-	public Object getValue(Object entity, String attribute) {
-		return ((TableList)entity).get(attribute);
-	}
+   @Override
+   public Object getSendableInstance(boolean prototyp)
+   {
+      return new TableList();
+   }
 
-	@Override
-	public boolean setValue(Object entity, String attribute, Object value,
-			String type) {
-		if(IdMapEncoder.REMOVE.equalsIgnoreCase(type)){
-			attribute+=IdMapEncoder.REMOVE;
-		}
-		return ((TableList)entity).set(attribute, value);
-	}
+   @Override
+   public Object getValue(Object entity, String attribute)
+   {
+      return ((TableList) entity).get(attribute);
+   }
+
+   @Override
+   public boolean setValue(Object entity, String attribute, Object value,
+         String type)
+   {
+      if (IdMapEncoder.REMOVE.equalsIgnoreCase(type))
+      {
+         attribute += IdMapEncoder.REMOVE;
+      }
+      return ((TableList) entity).set(attribute, value);
+   }
 }

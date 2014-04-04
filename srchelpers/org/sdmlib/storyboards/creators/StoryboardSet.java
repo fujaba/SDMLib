@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.storyboards.creators;
 
 import java.util.Collection;
@@ -34,50 +34,48 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
 
-public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
+public class StoryboardSet extends LinkedHashSet<Storyboard> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Storyboard elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.Storyboard";
    }
 
-
    public StoryboardSet with(Storyboard value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StoryboardSet without(Storyboard value)
    {
       this.remove(value);
       return this;
    }
-   
+
    public StoryboardStepSet getStoryboardSteps()
    {
       StoryboardStepSet result = new StoryboardStepSet();
-      
+
       for (Storyboard obj : this)
       {
          result.addAll(obj.getStoryboardSteps());
       }
-      
+
       return result;
    }
 
@@ -87,7 +85,7 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.withStoryboardSteps(value);
       }
-      
+
       return this;
    }
 
@@ -97,19 +95,19 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.withoutStoryboardSteps(value);
       }
-      
+
       return this;
    }
 
    public StoryboardWallSet getWall()
    {
       StoryboardWallSet result = new StoryboardWallSet();
-      
+
       for (Storyboard obj : this)
       {
          result.add(obj.getWall());
       }
-      
+
       return result;
    }
 
@@ -119,19 +117,19 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.withWall(value);
       }
-      
+
       return this;
    }
 
    public StringList getRootDir()
    {
       StringList result = new StringList();
-      
+
       for (Storyboard obj : this)
       {
          result.add(obj.getRootDir());
       }
-      
+
       return result;
    }
 
@@ -141,19 +139,19 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.setRootDir(value);
       }
-      
+
       return this;
    }
 
    public intList getStepCounter()
    {
       intList result = new intList();
-      
+
       for (Storyboard obj : this)
       {
          result.add(obj.getStepCounter());
       }
-      
+
       return result;
    }
 
@@ -163,19 +161,19 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.setStepCounter(value);
       }
-      
+
       return this;
    }
 
    public intList getStepDoneCounter()
    {
       intList result = new intList();
-      
+
       for (Storyboard obj : this)
       {
          result.add(obj.getStepDoneCounter());
       }
-      
+
       return result;
    }
 
@@ -185,65 +183,49 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       {
          obj.setStepDoneCounter(value);
       }
-      
+
       return this;
    }
-
-
 
    public StoryboardPO startModelPattern()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       StoryboardPO patternObject = pattern.hasElementStoryboardPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StoryboardSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Storyboard>)value);
+         this.addAll((Collection<Storyboard>) value);
       }
       else if (value != null)
       {
          this.add((Storyboard) value);
       }
-      
+
       return this;
    }
-   
-
 
    public StoryboardPO hasStoryboardPO()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       StoryboardPO patternObject = pattern.hasElementStoryboardPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-

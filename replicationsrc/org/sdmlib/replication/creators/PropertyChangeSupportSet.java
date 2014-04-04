@@ -18,46 +18,44 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.modelsets.StringList;
 
-public class PropertyChangeSupportSet extends LinkedHashSet<PropertyChangeSupport> implements org.sdmlib.models.modelsets.ModelSet
+public class PropertyChangeSupportSet extends
+      LinkedHashSet<PropertyChangeSupport> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (PropertyChangeSupport elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "java.beans.PropertyChangeSupport";
    }
 
-
    public PropertyChangeSupportSet with(PropertyChangeSupport value)
    {
       this.add(value);
       return this;
    }
-   
+
    public PropertyChangeSupportSet without(PropertyChangeSupport value)
    {
       this.remove(value);
       return this;
    }
 }
-

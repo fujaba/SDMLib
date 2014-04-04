@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -40,25 +40,24 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public GenericConstraintPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      GenericConstraintPO patternObject = pattern.hasElementGenericConstraintPO();
-      
+
+      GenericConstraintPO patternObject = pattern
+         .hasElementGenericConstraintPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -69,19 +68,19 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (GenericConstraint obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
    public GenericConstraintSet hasModifier(String value)
    {
       GenericConstraintSet result = new GenericConstraintSet();
-      
+
       for (GenericConstraint obj : this)
       {
          if (value.equals(obj.getModifier()))
@@ -89,7 +88,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -99,26 +98,26 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          obj.setModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (GenericConstraint obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
    public GenericConstraintSet hasHasMatch(boolean value)
    {
       GenericConstraintSet result = new GenericConstraintSet();
-      
+
       for (GenericConstraint obj : this)
       {
          if (value == obj.getHasMatch())
@@ -126,7 +125,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -136,26 +135,26 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          obj.setHasMatch(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (GenericConstraint obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
    public GenericConstraintSet hasPatternObjectName(String value)
    {
       GenericConstraintSet result = new GenericConstraintSet();
-      
+
       for (GenericConstraint obj : this)
       {
          if (value.equals(obj.getPatternObjectName()))
@@ -163,7 +162,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -173,26 +172,26 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          obj.setPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (GenericConstraint obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
    public GenericConstraintSet hasDoAllMatches(boolean value)
    {
       GenericConstraintSet result = new GenericConstraintSet();
-      
+
       for (GenericConstraint obj : this)
       {
          if (value == obj.getDoAllMatches())
@@ -200,7 +199,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -210,19 +209,19 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          obj.setDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (GenericConstraint obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -238,9 +237,9 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          neighbors.add(value);
       }
-      
+
       GenericConstraintSet answer = new GenericConstraintSet();
-      
+
       for (GenericConstraint obj : this)
       {
          if (neighbors.contains(obj.getPattern()))
@@ -248,7 +247,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -258,52 +257,42 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public GenericConstraintSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericConstraint>)value);
+         this.addAll((Collection<GenericConstraint>) value);
       }
       else if (value != null)
       {
          this.add((GenericConstraint) value);
       }
-      
+
       return this;
    }
-   
+
    public GenericConstraintSet without(GenericConstraint value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GenericConstraintPO hasGenericConstraintPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      GenericConstraintPO patternObject = pattern.hasElementGenericConstraintPO();
-      
+
+      GenericConstraintPO patternObject = pattern
+         .hasElementGenericConstraintPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

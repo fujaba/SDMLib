@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.adamandeve.creators;
 
 import java.util.Collection;
@@ -32,76 +32,65 @@ public class AdamSet extends LinkedHashSet<Adam>
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Adam elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.adamandeve.Adam";
    }
 
-
    public AdamPO startModelPattern()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       AdamPO patternObject = pattern.hasElementAdamPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public AdamSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Adam>)value);
+         this.addAll((Collection<Adam>) value);
       }
       else if (value != null)
       {
          this.add((Adam) value);
       }
-      
+
       return this;
    }
-   
+
    public AdamSet without(Adam value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public AdamPO hasAdamPO()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       AdamPO patternObject = pattern.hasElementAdamPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

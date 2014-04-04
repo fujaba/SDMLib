@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package de.kassel.roombook.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -34,21 +34,19 @@ import de.kassel.roombook.Floor;
 public class BuildingSet extends SDMSet<Building>
 {
 
-
    public BuildingPO startModelPattern()
    {
       de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
-      
+
       BuildingPO patternObject = pattern.hasElementBuildingPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -56,21 +54,20 @@ public class BuildingSet extends SDMSet<Building>
       return "de.kassel.roombook.Building";
    }
 
-
    public BuildingSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Building>)value);
+         this.addAll((Collection<Building>) value);
       }
       else if (value != null)
       {
          this.add((Building) value);
       }
-      
+
       return this;
    }
-   
+
    public BuildingSet without(Building value)
    {
       this.remove(value);
@@ -80,19 +77,19 @@ public class BuildingSet extends SDMSet<Building>
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Building obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public BuildingSet hasName(String value)
    {
       BuildingSet result = new BuildingSet();
-      
+
       for (Building obj : this)
       {
          if (value.equals(obj.getName()))
@@ -100,22 +97,23 @@ public class BuildingSet extends SDMSet<Building>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public BuildingSet hasName(String lower, String upper)
    {
       BuildingSet result = new BuildingSet();
-      
+
       for (Building obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -125,19 +123,19 @@ public class BuildingSet extends SDMSet<Building>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public FloorSet getHas()
    {
       FloorSet result = new FloorSet();
-      
+
       for (Building obj : this)
       {
          result.with(obj.getHas());
       }
-      
+
       return result;
    }
 
@@ -153,17 +151,17 @@ public class BuildingSet extends SDMSet<Building>
       {
          neighbors.add(value);
       }
-      
+
       BuildingSet answer = new BuildingSet();
-      
+
       for (Building obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getHas()))
+         if (!Collections.disjoint(neighbors, obj.getHas()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -173,7 +171,7 @@ public class BuildingSet extends SDMSet<Building>
       {
          obj.withHas(value);
       }
-      
+
       return this;
    }
 
@@ -183,28 +181,21 @@ public class BuildingSet extends SDMSet<Building>
       {
          obj.withoutHas(value);
       }
-      
+
       return this;
    }
-
-
 
    public BuildingPO hasBuildingPO()
    {
       de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
-      
+
       BuildingPO patternObject = pattern.hasElementBuildingPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.interfaces.creators;
 
 import java.util.LinkedHashSet;
@@ -30,49 +30,43 @@ import java.util.Collection;
 public class MaleSet extends LinkedHashSet<Male>
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Male elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.test.interfaces.Male";
    }
 
-
-
    public MalePO hasMalePO()
    {
-      
-      
+
       return null;
    }
-
 
    public MaleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Male>)value);
+         this.addAll((Collection<Male>) value);
       }
       else if (value != null)
       {
          this.add((Male) value);
       }
-      
+
       return this;
    }
-   
+
    public MaleSet without(Male value)
    {
       this.remove(value);
@@ -80,6 +74,3 @@ public class MaleSet extends LinkedHashSet<Male>
    }
 
 }
-
-
-

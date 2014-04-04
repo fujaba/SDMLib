@@ -8,15 +8,15 @@ public class MatchOtherThenPOCreator extends PatternObjectCreator
    {
       return new MatchOtherThenPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((MatchOtherThenPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((MatchOtherThenPO) target).set(attrName, value);
    }
 }
-

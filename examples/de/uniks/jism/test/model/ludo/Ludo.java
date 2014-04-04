@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package de.uniks.jism.test.model.ludo;
 
 import java.beans.PropertyChangeListener;
@@ -30,9 +30,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class Ludo
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_DATE.equalsIgnoreCase(attrName))
@@ -58,9 +57,8 @@ public class Ludo
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_DATE.equalsIgnoreCase(attrName))
@@ -74,7 +72,7 @@ public class Ludo
          addToPlayers((Player) value);
          return true;
       }
-      
+
       if ((PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPlayers((Player) value);
@@ -92,7 +90,7 @@ public class Ludo
          addToFields((Field) value);
          return true;
       }
-      
+
       if ((PROPERTY_FIELDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromFields((Field) value);
@@ -102,24 +100,22 @@ public class Ludo
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromPlayers();
@@ -128,35 +124,34 @@ public class Ludo
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_DATE = "date";
-   
+
    private java.util.Date date;
 
    public java.util.Date getDate()
    {
       return this.date;
    }
-   
+
    public void setDate(java.util.Date value)
    {
       if (this.date != value)
       {
          java.util.Date oldValue = this.date;
          this.date = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue,
+            value);
       }
    }
-   
+
    public Ludo withDate(java.util.Date value)
    {
       setDate(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -164,87 +159,89 @@ public class Ludo
     *              game                   players
     * </pre>
     */
-   
+
    public static final String PROPERTY_PLAYERS = "players";
-   
+
    private LinkedHashSet<Player> players = null;
-   
+
    public LinkedHashSet<Player> getPlayers()
    {
       return this.players;
    }
-   
+
    public boolean addToPlayers(Player value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.players == null)
          {
             this.players = new LinkedHashSet<Player>();
          }
-         
-         changed = this.players.add (value);
-         
+
+         changed = this.players.add(value);
+
          if (changed)
          {
             value.withGame(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPlayers(Player value)
    {
       boolean changed = false;
-      
+
       if ((this.players != null) && (value != null))
       {
-         changed = this.players.remove (value);
-         
+         changed = this.players.remove(value);
+
          if (changed)
          {
             value.setGame(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Ludo withPlayers(Player value)
    {
       addToPlayers(value);
       return this;
-   } 
-   
+   }
+
    public Ludo withoutPlayers(Player value)
    {
       removeFromPlayers(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromPlayers()
    {
-      LinkedHashSet<Player> tmpSet = new LinkedHashSet<Player>(this.getPlayers());
-   
+      LinkedHashSet<Player> tmpSet = new LinkedHashSet<Player>(
+            this.getPlayers());
+
       for (Player value : tmpSet)
       {
          this.removeFromPlayers(value);
       }
    }
-   
+
    public Player createPlayers()
    {
       Player value = new Player();
       withPlayers(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -252,58 +249,58 @@ public class Ludo
     *              game                   dice
     * </pre>
     */
-   
+
    public static final String PROPERTY_DICE = "dice";
-   
+
    private Dice dice = null;
-   
+
    public Dice getDice()
    {
       return this.dice;
    }
-   
+
    public boolean setDice(Dice value)
    {
       boolean changed = false;
-      
+
       if (this.dice != value)
       {
          Dice oldValue = this.dice;
-         
+
          if (this.dice != null)
          {
             this.dice = null;
             oldValue.setGame(null);
          }
-         
+
          this.dice = value;
-         
+
          if (value != null)
          {
             value.withGame(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DICE, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DICE, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Ludo withDice(Dice value)
    {
       setDice(value);
       return this;
-   } 
-   
+   }
+
    public Dice createDice()
    {
       Dice value = new Dice();
       withDice(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -311,84 +308,85 @@ public class Ludo
     *              game                   fields
     * </pre>
     */
-   
+
    public static final String PROPERTY_FIELDS = "fields";
-   
+
    private LinkedHashSet<Field> fields = null;
-   
+
    public LinkedHashSet<Field> getFields()
    {
       return this.fields;
    }
-   
+
    public boolean addToFields(Field value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.fields == null)
          {
             this.fields = new LinkedHashSet<Field>();
          }
-         
-         changed = this.fields.add (value);
-         
+
+         changed = this.fields.add(value);
+
          if (changed)
          {
             value.withGame(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_FIELDS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FIELDS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromFields(Field value)
    {
       boolean changed = false;
-      
+
       if ((this.fields != null) && (value != null))
       {
-         changed = this.fields.remove (value);
-         
+         changed = this.fields.remove(value);
+
          if (changed)
          {
             value.setGame(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_FIELDS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FIELDS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Ludo withFields(Field value)
    {
       addToFields(value);
       return this;
-   } 
-   
+   }
+
    public Ludo withoutFields(Field value)
    {
       removeFromFields(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromFields()
    {
       LinkedHashSet<Field> tmpSet = new LinkedHashSet<Field>(this.getFields());
-   
+
       for (Field value : tmpSet)
       {
          this.removeFromFields(value);
       }
    }
-   
+
    public Field createFields()
    {
       Field value = new Field();
       withFields(value);
       return value;
-   } 
+   }
 }
-

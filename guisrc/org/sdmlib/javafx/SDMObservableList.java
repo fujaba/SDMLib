@@ -7,50 +7,52 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
-
-import com.sun.javafx.collections.IterableChangeBuilder;
-import com.sun.javafx.collections.NonIterableChange;
-import com.sun.javafx.collections.NonIterableChange.SimpleAddChange;
-import com.sun.javafx.collections.NonIterableChange.SimpleRemovedChange;
-import com.sun.javafx.collections.ObservableListWrapper;
-
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-public class SDMObservableList<E> extends ArrayList<E> implements ObservableList<E>, PropertyChangeListener
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
+
+import com.sun.javafx.collections.NonIterableChange;
+import com.sun.javafx.collections.NonIterableChange.SimpleAddChange;
+import com.sun.javafx.collections.NonIterableChange.SimpleRemovedChange;
+
+public class SDMObservableList<E> extends ArrayList<E> implements
+      ObservableList<E>, PropertyChangeListener
 {
    private PropertyChangeInterface parentObject;
    private String propertyName;
-   
-   private LinkedHashSet<InvalidationListener> invalidationListeners; 
-   private LinkedHashSet<ListChangeListener<? super E>> listChangeListeners; 
 
-   public SDMObservableList (PropertyChangeInterface parentObject, String propertyName)
+   private LinkedHashSet<InvalidationListener> invalidationListeners;
+   private LinkedHashSet<ListChangeListener<? super E>> listChangeListeners;
+
+   public SDMObservableList(PropertyChangeInterface parentObject,
+         String propertyName)
    {
       this.parentObject = parentObject;
       this.propertyName = propertyName;
-      
+
       invalidationListeners = new LinkedHashSet<>();
       listChangeListeners = new LinkedHashSet<>();
-      
+
       // get the original collection
       try
       {
-         Method method = parentObject.getClass().getMethod("get" + StrUtil.upFirstChar(propertyName));
+         Method method = parentObject.getClass().getMethod(
+            "get" + StrUtil.upFirstChar(propertyName));
          Object invoke = method.invoke(parentObject);
-         this.addAll((Collection)invoke);
+         this.addAll((Collection) invoke);
       }
       catch (Exception e)
       {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      
+
       // subscribe as listener to the parentObject
-      parentObject.getPropertyChangeSupport().addPropertyChangeListener(propertyName, this);
+      parentObject.getPropertyChangeSupport().addPropertyChangeListener(
+         propertyName, this);
    }
 
    @Override
@@ -116,20 +118,22 @@ public class SDMObservableList<E> extends ArrayList<E> implements ObservableList
    public void remove(int from, int to)
    {
       // TODO Auto-generated method stub
-      
+
    }
 
    @Override
    public void propertyChange(PropertyChangeEvent evt)
    {
-      // the parent object has fired a property change on the collection in propertyName
+      // the parent object has fired a property change on the collection in
+      // propertyName
       // add / remove element to this
       if (evt.getNewValue() != null)
       {
          this.add((E) evt.getNewValue());
-         
+
          // inform change listeners
-         SimpleAddChange<E> simpleAddChange = new NonIterableChange.SimpleAddChange<>(this.size()-1, this.size()-1, this);
+         SimpleAddChange<E> simpleAddChange = new NonIterableChange.SimpleAddChange<>(
+               this.size() - 1, this.size() - 1, this);
          for (ListChangeListener<? super E> listChangeListener : this.listChangeListeners)
          {
             listChangeListener.onChanged(simpleAddChange);
@@ -139,23 +143,24 @@ public class SDMObservableList<E> extends ArrayList<E> implements ObservableList
       {
          // find its index
          Object oldValue = evt.getOldValue();
-         
-         int i = 0; 
+
+         int i = 0;
          for (; i < this.size(); i++)
-         {  
+         {
             if (this.get(i) == oldValue)
             {
                break;
             }
          }
          this.remove(oldValue);
-         
-         SimpleRemovedChange<E> simpleRemovedChange = new NonIterableChange.SimpleRemovedChange<>(i, i, (E) oldValue, this);
+
+         SimpleRemovedChange<E> simpleRemovedChange = new NonIterableChange.SimpleRemovedChange<>(
+               i, i, (E) oldValue, this);
          for (ListChangeListener<? super E> listChangeListener : this.listChangeListeners)
          {
             listChangeListener.onChanged(simpleRemovedChange);
          }
       }
    }
-   
+
 }

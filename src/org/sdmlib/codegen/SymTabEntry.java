@@ -27,8 +27,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 import java.beans.PropertyChangeListener;
 
-public class SymTabEntry implements PropertyChangeInterface 
-{   
+public class SymTabEntry implements PropertyChangeInterface
+{
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
@@ -41,9 +41,9 @@ public class SymTabEntry implements PropertyChangeInterface
       _.append(" ").append(this.getModifiers());
       return "" + type;
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
@@ -84,9 +84,8 @@ public class SymTabEntry implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
@@ -134,189 +133,181 @@ public class SymTabEntry implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_KIND = "kind";
-   
+
    private String kind;
-   
+
    public String getKind()
    {
       return this.kind;
    }
-   
+
    public void setKind(String value)
    {
       this.kind = value;
    }
-   
+
    public SymTabEntry withKind(String value)
    {
       setKind(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_MEMBERNAME = "memberName";
-   
+
    private String memberName;
-   
+
    public String getMemberName()
    {
       return this.memberName;
    }
-   
+
    public void setMemberName(String value)
    {
       this.memberName = value;
    }
-   
+
    public SymTabEntry withMemberName(String value)
    {
       setMemberName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TYPE = "type";
-   
+
    private String type;
-   
+
    public String getType()
    {
       return this.type;
    }
-   
+
    public void setType(String value)
    {
       this.type = value;
    }
-   
+
    public SymTabEntry withType(String value)
    {
       setType(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_STARTPOS = "startPos";
-   
+
    private int startPos;
-   
+
    public int getStartPos()
    {
       return this.startPos;
    }
-   
+
    public void setStartPos(int value)
    {
       this.startPos = value;
    }
-   
+
    public SymTabEntry withStartPos(int value)
    {
       setStartPos(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_BODYSTARTPOS = "bodyStartPos";
-   
+
    private int bodyStartPos;
-   
+
    public int getBodyStartPos()
    {
       return this.bodyStartPos;
    }
-   
+
    public void setBodyStartPos(int value)
    {
       this.bodyStartPos = value;
    }
-   
+
    public SymTabEntry withBodyStartPos(int value)
    {
       setBodyStartPos(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ENDPOS = "endPos";
-   
+
    private int endPos;
-   
+
    public int getEndPos()
    {
       return this.endPos;
    }
-   
+
    public void setEndPos(int value)
    {
       this.endPos = value;
    }
-   
+
    public SymTabEntry withEndPos(int value)
    {
       setEndPos(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_MODIFIERS = "modifiers";
-   
+
    private String modifiers;
-   
+
    public String getModifiers()
    {
       return this.modifiers;
    }
-   
+
    public void setModifiers(String value)
    {
-      if ( ! StrUtil.stringEquals(this.modifiers, value))
+      if (!StrUtil.stringEquals(this.modifiers, value))
       {
          String oldValue = this.modifiers;
          this.modifiers = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODIFIERS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODIFIERS,
+            oldValue, value);
       }
    }
-   
+
    public SymTabEntry withModifiers(String value)
    {
       setModifiers(value);
       return this;
-   } 
+   }
 
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects.creators;
 
 import java.util.Collection;
@@ -43,12 +43,12 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (GenericObject obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -58,19 +58,19 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public StringList getType()
    {
       StringList result = new StringList();
-      
+
       for (GenericObject obj : this)
       {
          result.add(obj.getType());
       }
-      
+
       return result;
    }
 
@@ -80,49 +80,51 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withType(value);
       }
-      
+
       return this;
    }
 
    public GenericGraphSet getGraph()
    {
       GenericGraphSet result = new GenericGraphSet();
-      
+
       for (GenericObject obj : this)
       {
          result.add(obj.getGraph());
       }
-      
+
       return result;
    }
+
    public GenericObjectSet withGraph(GenericGraph value)
    {
       for (GenericObject obj : this)
       {
          obj.withGraph(value);
       }
-      
+
       return this;
    }
 
    public GenericAttributeSet getAttrs()
    {
       GenericAttributeSet result = new GenericAttributeSet();
-      
+
       for (GenericObject obj : this)
       {
          result.addAll(obj.getAttrs());
       }
-      
+
       return result;
    }
+
    public GenericObjectSet withAttrs(GenericAttribute value)
    {
       for (GenericObject obj : this)
       {
          obj.withAttrs(value);
       }
-      
+
       return this;
    }
 
@@ -132,28 +134,29 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withoutAttrs(value);
       }
-      
+
       return this;
    }
 
    public GenericLinkSet getOutgoingLinks()
    {
       GenericLinkSet result = new GenericLinkSet();
-      
+
       for (GenericObject obj : this)
       {
          result.addAll(obj.getOutgoingLinks());
       }
-      
+
       return result;
    }
+
    public GenericObjectSet withOutgoingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
       {
          obj.withOutgoingLinks(value);
       }
-      
+
       return this;
    }
 
@@ -163,28 +166,29 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withoutOutgoingLinks(value);
       }
-      
+
       return this;
    }
 
    public GenericLinkSet getIncommingLinks()
    {
       GenericLinkSet result = new GenericLinkSet();
-      
+
       for (GenericObject obj : this)
       {
          result.addAll(obj.getIncommingLinks());
       }
-      
+
       return result;
    }
+
    public GenericObjectSet withIncommingLinks(GenericLink value)
    {
       for (GenericObject obj : this)
       {
          obj.withIncommingLinks(value);
       }
-      
+
       return this;
    }
 
@@ -194,19 +198,19 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withoutIncommingLinks(value);
       }
-      
+
       return this;
    }
 
    public StringList getIcon()
    {
       StringList result = new StringList();
-      
+
       for (GenericObject obj : this)
       {
          result.add(obj.getIcon());
       }
-      
+
       return result;
    }
 
@@ -216,7 +220,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          obj.withIcon(value);
       }
-      
+
       return this;
    }
 
@@ -226,95 +230,73 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       {
          this.add(genObj);
       }
-      
+
       return this;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GenericObject elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.objects.GenericObject";
    }
 
-
    public GenericObjectPO startModelPattern()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericObjectPO patternObject = pattern.hasElementGenericObjectPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GenericObjectSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericObject>)value);
+         this.addAll((Collection<GenericObject>) value);
       }
       else if (value != null)
       {
          this.add((GenericObject) value);
       }
-      
+
       return this;
    }
-   
+
    public GenericObjectSet without(GenericObject value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GenericObjectPO hasGenericObjectPO()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericObjectPO patternObject = pattern.hasElementGenericObjectPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

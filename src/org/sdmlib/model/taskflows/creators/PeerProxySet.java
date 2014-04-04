@@ -17,22 +17,22 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       this.add(value);
       return this;
    }
-   
+
    public PeerProxySet without(PeerProxy value)
    {
       this.remove(value);
       return this;
    }
-   
+
    public StringList getIp()
    {
       StringList result = new StringList();
-      
+
       for (PeerProxy obj : this)
       {
          result.add(obj.getIp());
       }
-      
+
       return result;
    }
 
@@ -42,19 +42,19 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       {
          obj.withIp(value);
       }
-      
+
       return this;
    }
 
    public intList getPort()
    {
       intList result = new intList();
-      
+
       for (PeerProxy obj : this)
       {
          result.add(obj.getPort());
       }
-      
+
       return result;
    }
 
@@ -64,10 +64,9 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       {
          obj.withPort(value);
       }
-      
+
       return this;
    }
-
 
    public PeerProxySet withIdMap(JsonIdMap value)
    {
@@ -75,19 +74,19 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
 
    public JsonIdMapSet getIdMap()
    {
       JsonIdMapSet result = new JsonIdMapSet();
-      
+
       for (PeerProxy obj : this)
       {
          result.add(obj.getIdMap());
       }
-      
+
       return result;
    }
 
@@ -97,30 +96,24 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
-   
+
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (PeerProxy peerProxy : this)
       {
          stringList.add(peerProxy.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.taskflows.PeerProxy";
    }
 }
-
-
-
-

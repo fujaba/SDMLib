@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops.creators;
 
 import java.util.Collection;
@@ -39,49 +39,48 @@ import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 import org.sdmlib.examples.patternrewriteops.creators.SignalFlagSet;
 
-public class StationSet extends SDMSet<Station> implements org.sdmlib.models.modelsets.ModelSet
+public class StationSet extends SDMSet<Station> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Station elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.patternrewriteops.Station";
    }
 
-
    public StationSet with(Station value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StationSet without(Station value)
    {
       this.remove(value);
       return this;
    }
+
    public TrainSet getTrains()
    {
       TrainSet result = new TrainSet();
-      
+
       for (Station obj : this)
       {
          result.addAll(obj.getTrains());
       }
-      
+
       return result;
    }
 
@@ -91,7 +90,7 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withTrains(value);
       }
-      
+
       return this;
    }
 
@@ -101,19 +100,19 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withoutTrains(value);
       }
-      
+
       return this;
    }
 
    public StationSet getNext()
    {
       StationSet result = new StationSet();
-      
+
       for (Station obj : this)
       {
          result.add(obj.getNext());
       }
-      
+
       return result;
    }
 
@@ -123,19 +122,19 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withNext(value);
       }
-      
+
       return this;
    }
 
    public StationSet getPrev()
    {
       StationSet result = new StationSet();
-      
+
       for (Station obj : this)
       {
          result.add(obj.getPrev());
       }
-      
+
       return result;
    }
 
@@ -145,19 +144,19 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withPrev(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getPeople()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Station obj : this)
       {
          result.addAll(obj.getPeople());
       }
-      
+
       return result;
    }
 
@@ -167,7 +166,7 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withPeople(value);
       }
-      
+
       return this;
    }
 
@@ -177,19 +176,19 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withoutPeople(value);
       }
-      
+
       return this;
    }
 
    public SignalFlagSet getFlag()
    {
       SignalFlagSet result = new SignalFlagSet();
-      
+
       for (Station obj : this)
       {
          result.add(obj.getFlag());
       }
-      
+
       return result;
    }
 
@@ -199,117 +198,102 @@ public class StationSet extends SDMSet<Station> implements org.sdmlib.models.mod
       {
          obj.withFlag(value);
       }
-      
+
       return this;
    }
-
-
 
    public StationPO startModelPattern()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       StationPO patternObject = pattern.hasElementStationPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Station>)value);
+         this.addAll((Collection<Station>) value);
       }
       else if (value != null)
       {
          this.add((Station) value);
       }
-      
+
       return this;
    }
-   
-
 
    public StationPO hasStationPO()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       StationPO patternObject = pattern.hasElementStationPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StationSet getNextTransitive()
    {
       StationSet todo = new StationSet().with(this);
-      
+
       StationSet result = new StationSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Station current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getNext()))
+
+            if (!result.contains(current.getNext()))
             {
                todo.with(current.getNext());
             }
          }
       }
-      
+
       return result;
    }
-
 
    public StationSet getPrevTransitive()
    {
       StationSet todo = new StationSet().with(this);
-      
+
       StationSet result = new StationSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Station current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getPrev()))
+
+            if (!result.contains(current.getPrev()))
             {
                todo.with(current.getPrev());
             }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-
-

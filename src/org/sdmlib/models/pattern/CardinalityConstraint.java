@@ -32,7 +32,8 @@ import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
 import java.beans.PropertyChangeListener;
 
-public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface
+public class CardinalityConstraint extends PatternElement implements
+      PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
@@ -47,13 +48,16 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
-         // check that the size of the targeted assoc is in between min and max card
+         // check that the size of the targeted assoc is in between min and max
+         // card
          this.setHostGraphSrcObject(this.getSrc().getCurrentMatch());
 
          if (hostGraphSrcObject != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
-            Object value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+            Object value = creatorClass.getValue(hostGraphSrcObject,
+               tgtRoleName);
 
             long valueSize = -1;
 
@@ -73,28 +77,32 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
             if (minCard <= valueSize && valueSize <= maxCard)
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// node x has size tgtRole neighbors, which is between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);
                   msg = msg.replaceFirst("minCard", "" + minCard);
                   msg = msg.replaceFirst("tgtRole", "" + tgtRoleName);
                   msg = msg.replaceFirst("size", "" + valueSize);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
                return true;
             }
-            else 
+            else
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// node x has size tgtRole neighbors, which is NOT between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);
                   msg = msg.replaceFirst("minCard", "" + minCard);
                   msg = msg.replaceFirst("tgtRole", "" + tgtRoleName);
                   msg = msg.replaceFirst("size", "" + valueSize);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   getTopPattern().addLogMsg(msg);
                }
 
@@ -103,19 +111,18 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
                return false;
             }
          }
-         else 
+         else
          {
             return false;
          }
       }
       else
       {
-         this.setHostGraphSrcObject(null); 
+         this.setHostGraphSrcObject(null);
 
          return false;
       }
    }
-
 
    @Override
    public void resetSearch()
@@ -124,10 +131,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       this.setHostGraphSrcObject(null);
    }
 
-
-
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -184,8 +188,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -252,8 +255,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -262,8 +264,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -273,8 +274,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       super.removeYou();
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_TGTROLENAME = "tgtRoleName";
 
@@ -287,11 +287,12 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
 
    public void setTgtRoleName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.tgtRoleName, value))
+      if (!StrUtil.stringEquals(this.tgtRoleName, value))
       {
          String oldValue = this.tgtRoleName;
          this.tgtRoleName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTROLENAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTROLENAME,
+            oldValue, value);
       }
    }
 
@@ -299,7 +300,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    {
       setTgtRoleName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
@@ -311,9 +312,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       return _.substring(1);
    }
 
-
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_HOSTGRAPHSRCOBJECT = "hostGraphSrcObject";
 
@@ -330,7 +329,8 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       {
          Object oldValue = this.hostGraphSrcObject;
          this.hostGraphSrcObject = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
       }
    }
 
@@ -338,10 +338,9 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    {
       setHostGraphSrcObject(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_MINCARD = "minCard";
 
@@ -358,7 +357,8 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       {
          long oldValue = this.minCard;
          this.minCard = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MINCARD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MINCARD,
+            oldValue, value);
       }
    }
 
@@ -366,10 +366,9 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    {
       setMinCard(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_MAXCARD = "maxCard";
 
@@ -386,7 +385,8 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       {
          long oldValue = this.maxCard;
          this.maxCard = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MAXCARD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MAXCARD,
+            oldValue, value);
       }
    }
 
@@ -394,8 +394,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    {
       setMaxCard(value);
       return this;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -435,7 +434,8 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
             value.withCardConstraints(this);
          }
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
 
@@ -446,16 +446,14 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    {
       setSrc(value);
       return this;
-   } 
+   }
 
    public PatternObject createSrc()
    {
       PatternObject value = new PatternObject();
       withSrc(value);
       return value;
-   } 
-
+   }
 
    public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet();
 }
-

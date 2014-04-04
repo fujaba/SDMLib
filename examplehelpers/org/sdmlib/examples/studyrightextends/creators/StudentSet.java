@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -32,43 +32,41 @@ import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.models.modelsets.ModelSet
+public class StudentSet extends LinkedHashSet<Student> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Student elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Student";
    }
 
-
    public StudentSet with(Student value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StudentSet without(Student value)
    {
       this.remove(value);
       return this;
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public StudentSet findMyPosition()
    {
       for (Student obj : this)
@@ -78,26 +76,24 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public StudentSet findMyPosition(String p0)
    {
       for (Student obj : this)
       {
-         obj.findMyPosition( p0);
+         obj.findMyPosition(p0);
       }
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public StudentSet findMyPosition(String p0, int p1)
    {
       for (Student obj : this)
       {
-         obj.findMyPosition( p0,  p1);
+         obj.findMyPosition(p0, p1);
       }
       return this;
    }
@@ -105,12 +101,12 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Student obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -120,19 +116,19 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public intList getMatrNo()
    {
       intList result = new intList();
-      
+
       for (Student obj : this)
       {
          result.add(obj.getMatrNo());
       }
-      
+
       return result;
    }
 
@@ -142,19 +138,19 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       {
          obj.setMatrNo(value);
       }
-      
+
       return this;
    }
 
    public LectureSet getLecture()
    {
       LectureSet result = new LectureSet();
-      
+
       for (Student obj : this)
       {
          result.addAll(obj.getLecture());
       }
-      
+
       return result;
    }
 
@@ -164,7 +160,7 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       {
          obj.withLecture(value);
       }
-      
+
       return this;
    }
 
@@ -174,65 +170,49 @@ public class StudentSet extends LinkedHashSet<Student> implements org.sdmlib.mod
       {
          obj.withoutLecture(value);
       }
-      
+
       return this;
    }
-
-
 
    public StudentPO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       StudentPO patternObject = pattern.hasElementStudentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StudentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Student>)value);
+         this.addAll((Collection<Student>) value);
       }
       else if (value != null)
       {
          this.add((Student) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public StudentPO hasStudentPO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       StudentPO patternObject = pattern.hasElementStudentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

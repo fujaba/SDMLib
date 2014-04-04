@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.Collection;
@@ -35,109 +35,96 @@ import org.sdmlib.models.modelsets.ObjectSet;
 public class UncleSet extends LinkedHashSet<Uncle> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Uncle elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.classes.test.Uncle";
    }
 
-
    public UncleSet with(Uncle value)
    {
       this.add(value);
       return this;
    }
-   
+
    public UncleSet without(Uncle value)
    {
       this.remove(value);
       return this;
    }
+
    public ParentSet getBrother()
    {
       ParentSet result = new ParentSet();
-      
+
       for (Uncle obj : this)
       {
          result.add(obj.getBrother());
       }
-      
+
       return result;
    }
+
    public UncleSet withBrother(Parent value)
    {
       for (Uncle obj : this)
       {
          obj.withBrother(value);
       }
-      
+
       return this;
    }
-
-
 
    public UnclePO startModelPattern()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       UnclePO patternObject = pattern.hasElementUnclePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public UncleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Uncle>)value);
+         this.addAll((Collection<Uncle>) value);
       }
       else if (value != null)
       {
          this.add((Uncle) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public UnclePO hasUnclePO()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       UnclePO patternObject = pattern.hasElementUnclePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

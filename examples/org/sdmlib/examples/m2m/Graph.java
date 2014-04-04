@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -33,9 +33,8 @@ import org.sdmlib.examples.m2m.creators.GraphComponentSet;
 public class Graph implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_PERSONS.equalsIgnoreCase(attrName))
@@ -56,9 +55,8 @@ public class Graph implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_PERSONS.equalsIgnoreCase(attrName))
@@ -66,7 +64,7 @@ public class Graph implements PropertyChangeInterface
          addToPersons((Person) value);
          return true;
       }
-      
+
       if ((PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPersons((Person) value);
@@ -78,7 +76,7 @@ public class Graph implements PropertyChangeInterface
          addToRelations((Relation) value);
          return true;
       }
-      
+
       if ((PROPERTY_RELATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromRelations((Relation) value);
@@ -90,7 +88,7 @@ public class Graph implements PropertyChangeInterface
          addToGcs((GraphComponent) value);
          return true;
       }
-      
+
       if ((PROPERTY_GCS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromGcs((GraphComponent) value);
@@ -100,24 +98,22 @@ public class Graph implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromPersons();
@@ -126,7 +122,6 @@ public class Graph implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -134,62 +129,64 @@ public class Graph implements PropertyChangeInterface
     *              graph                   persons
     * </pre>
     */
-   
+
    public static final String PROPERTY_PERSONS = "persons";
-   
+
    private PersonSet persons = null;
-   
+
    public PersonSet getPersons()
    {
       if (this.persons == null)
       {
          return Person.EMPTY_SET;
       }
-   
+
       return this.persons;
    }
-   
+
    public boolean addToPersons(Person value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.persons == null)
          {
             this.persons = new PersonSet();
          }
-         
-         changed = this.persons.add (value);
-         
+
+         changed = this.persons.add(value);
+
          if (changed)
          {
             value.withGraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPersons(Person value)
    {
       boolean changed = false;
-      
+
       if ((this.persons != null) && (value != null))
       {
-         changed = this.persons.remove (value);
-         
+         changed = this.persons.remove(value);
+
          if (changed)
          {
             value.setGraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withPersons(Person... value)
    {
       for (Person item : value)
@@ -197,8 +194,8 @@ public class Graph implements PropertyChangeInterface
          addToPersons(item);
       }
       return this;
-   } 
-   
+   }
+
    public Graph withoutPersons(Person... value)
    {
       for (Person item : value)
@@ -207,25 +204,25 @@ public class Graph implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromPersons()
    {
-      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(this.getPersons());
-   
+      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(
+            this.getPersons());
+
       for (Person value : tmpSet)
       {
          this.removeFromPersons(value);
       }
    }
-   
+
    public Person createPersons()
    {
       Person value = new Person();
       withPersons(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -233,62 +230,64 @@ public class Graph implements PropertyChangeInterface
     *              graph                   relations
     * </pre>
     */
-   
+
    public static final String PROPERTY_RELATIONS = "relations";
-   
+
    private RelationSet relations = null;
-   
+
    public RelationSet getRelations()
    {
       if (this.relations == null)
       {
          return Relation.EMPTY_SET;
       }
-   
+
       return this.relations;
    }
-   
+
    public boolean addToRelations(Relation value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.relations == null)
          {
             this.relations = new RelationSet();
          }
-         
-         changed = this.relations.add (value);
-         
+
+         changed = this.relations.add(value);
+
          if (changed)
          {
             value.withGraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RELATIONS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RELATIONS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromRelations(Relation value)
    {
       boolean changed = false;
-      
+
       if ((this.relations != null) && (value != null))
       {
-         changed = this.relations.remove (value);
-         
+         changed = this.relations.remove(value);
+
          if (changed)
          {
             value.setGraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RELATIONS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RELATIONS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withRelations(Relation... value)
    {
       for (Relation item : value)
@@ -296,8 +295,8 @@ public class Graph implements PropertyChangeInterface
          addToRelations(item);
       }
       return this;
-   } 
-   
+   }
+
    public Graph withoutRelations(Relation... value)
    {
       for (Relation item : value)
@@ -306,25 +305,25 @@ public class Graph implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromRelations()
    {
-      LinkedHashSet<Relation> tmpSet = new LinkedHashSet<Relation>(this.getRelations());
-   
+      LinkedHashSet<Relation> tmpSet = new LinkedHashSet<Relation>(
+            this.getRelations());
+
       for (Relation value : tmpSet)
       {
          this.removeFromRelations(value);
       }
    }
-   
+
    public Relation createRelations()
    {
       Relation value = new Relation();
       withRelations(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -332,62 +331,64 @@ public class Graph implements PropertyChangeInterface
     *              parent                   gcs
     * </pre>
     */
-   
+
    public static final String PROPERTY_GCS = "gcs";
-   
+
    private GraphComponentSet gcs = null;
-   
+
    public GraphComponentSet getGcs()
    {
       if (this.gcs == null)
       {
          return GraphComponent.EMPTY_SET;
       }
-   
+
       return this.gcs;
    }
-   
+
    public boolean addToGcs(GraphComponent value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.gcs == null)
          {
             this.gcs = new GraphComponentSet();
          }
-         
-         changed = this.gcs.add (value);
-         
+
+         changed = this.gcs.add(value);
+
          if (changed)
          {
             value.withParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromGcs(GraphComponent value)
    {
       boolean changed = false;
-      
+
       if ((this.gcs != null) && (value != null))
       {
-         changed = this.gcs.remove (value);
-         
+         changed = this.gcs.remove(value);
+
          if (changed)
          {
             value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withGcs(GraphComponent... value)
    {
       for (GraphComponent item : value)
@@ -395,8 +396,8 @@ public class Graph implements PropertyChangeInterface
          addToGcs(item);
       }
       return this;
-   } 
-   
+   }
+
    public Graph withoutGcs(GraphComponent... value)
    {
       for (GraphComponent item : value)
@@ -405,22 +406,22 @@ public class Graph implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromGcs()
    {
-      LinkedHashSet<GraphComponent> tmpSet = new LinkedHashSet<GraphComponent>(this.getGcs());
-   
+      LinkedHashSet<GraphComponent> tmpSet = new LinkedHashSet<GraphComponent>(
+            this.getGcs());
+
       for (GraphComponent value : tmpSet)
       {
          this.removeFromGcs(value);
       }
    }
-   
+
    public GraphComponent createGcs()
    {
       GraphComponent value = new GraphComponent();
       withGcs(value);
       return value;
-   } 
+   }
 }
-

@@ -38,79 +38,94 @@ import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public abstract class ModelListenerProperty<T> implements javafx.beans.property.Property<T>, PropertyChangeListener, ObservableValue<T>, InvalidationListener
+public abstract class ModelListenerProperty<T> implements
+      javafx.beans.property.Property<T>, PropertyChangeListener,
+      ObservableValue<T>, InvalidationListener
 {
    protected Object item;
    protected String property;
    protected SendableEntityCreator creator;
-   private LinkedHashSet<ChangeListener<? super T>> listeners=new LinkedHashSet<ChangeListener<? super T>>();
-   private LinkedHashSet<InvalidationListener> invalidationListeners=new LinkedHashSet<InvalidationListener>();
+   private LinkedHashSet<ChangeListener<? super T>> listeners = new LinkedHashSet<ChangeListener<? super T>>();
+   private LinkedHashSet<InvalidationListener> invalidationListeners = new LinkedHashSet<InvalidationListener>();
    protected ObservableValue<? extends T> observable = null;
 
-   public ModelListenerProperty(SendableEntityCreator creator, Object item, String property) 
+   public ModelListenerProperty(SendableEntityCreator creator, Object item,
+         String property)
    {
       this.item = item;
       this.creator = creator;
       this.property = property;
-      try 
+      try
       {
-         Method method = item.getClass().getMethod("addPropertyChangeListener", String.class, java.beans.PropertyChangeListener.class );
+         Method method = item.getClass().getMethod("addPropertyChangeListener",
+            String.class, java.beans.PropertyChangeListener.class);
          method.invoke(item, property, this);
-      } 
-      catch (Exception e) 
+      }
+      catch (Exception e)
       {
-         if (item instanceof SendableEntity) 
+         if (item instanceof SendableEntity)
          {
             ((SendableEntity) item).addPropertyChangeListener(property, this);
          }
-         else if(item instanceof PropertyChangeSupport)
+         else if (item instanceof PropertyChangeSupport)
          {
-            ((PropertyChangeSupport) item).addPropertyChangeListener(property, this);
+            ((PropertyChangeSupport) item).addPropertyChangeListener(property,
+               this);
          }
       }
    }
 
    @Override
-   public Object getBean() {
+   public Object getBean()
+   {
       return item;
    }
 
    @Override
-   public String getName() {
+   public String getName()
+   {
       return property;
    }
 
    @Override
-   public void addListener(ChangeListener<? super T> listener) {
+   public void addListener(ChangeListener<? super T> listener)
+   {
       listeners.add(listener);
    }
 
    @Override
-   public void removeListener(ChangeListener<? super T> listener) {
+   public void removeListener(ChangeListener<? super T> listener)
+   {
       listeners.remove(listener);
    }
 
    @Override
-   public void addListener(InvalidationListener listener) {
+   public void addListener(InvalidationListener listener)
+   {
       this.invalidationListeners.add(listener);
    }
 
    @Override
-   public void removeListener(InvalidationListener listener) {
+   public void removeListener(InvalidationListener listener)
+   {
       this.invalidationListeners.remove(listener);
    }
 
    @Override
-   public void setValue(T value) {
+   public void setValue(T value)
+   {
       creator.setValue(item, property, value, IdMap.NEW);
    }
 
    @Override
-   public void bind(ObservableValue<? extends T> newObservable) {
-      if (newObservable == null) {
+   public void bind(ObservableValue<? extends T> newObservable)
+   {
+      if (newObservable == null)
+      {
          throw new NullPointerException("Cannot bind to null");
       }
-      if (!newObservable.equals(observable)) {
+      if (!newObservable.equals(observable))
+      {
          unbind();
          observable = newObservable;
          observable.addListener(this);
@@ -118,41 +133,47 @@ public abstract class ModelListenerProperty<T> implements javafx.beans.property.
    }
 
    @Override
-   public void bindBidirectional(Property<T> other) {
+   public void bindBidirectional(Property<T> other)
+   {
       Bindings.bindBidirectional(this, other);
    }
 
    @Override
-   public boolean isBound() {
+   public boolean isBound()
+   {
       return observable != null;
    }
 
    @Override
-   public void unbind() {
-      if (observable != null) {
+   public void unbind()
+   {
+      if (observable != null)
+      {
          observable.removeListener(this);
          observable = null;
       }
    }
 
    @Override
-   public void unbindBidirectional(Property<T> other) {
+   public void unbindBidirectional(Property<T> other)
+   {
       Bindings.unbindBidirectional(this, other);
-   } 
+   }
 
    @Override
    @SuppressWarnings("unchecked")
-   public void propertyChange(PropertyChangeEvent evt) 
+   public void propertyChange(PropertyChangeEvent evt)
    {
-      for(ChangeListener<? super T> listener: listeners) 
+      for (ChangeListener<? super T> listener : listeners)
       {
          SimpleObjectProperty<T> objectProperty = new SimpleObjectProperty<T>();
-         objectProperty.setValue((T)evt.getSource());
+         objectProperty.setValue((T) evt.getSource());
 
-         listener.changed(objectProperty, (T)evt.getOldValue(), (T)evt.getNewValue());
+         listener.changed(objectProperty, (T) evt.getOldValue(),
+            (T) evt.getNewValue());
       }
-      
-      for(InvalidationListener listener : invalidationListeners) 
+
+      for (InvalidationListener listener : invalidationListeners)
       {
          listener.invalidated(this);
       }

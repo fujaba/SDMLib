@@ -18,46 +18,43 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
 import java.lang.Thread;
 import org.sdmlib.models.modelsets.StringList;
 
-public class ThreadSet extends LinkedHashSet<Thread> implements org.sdmlib.models.modelsets.ModelSet
+public class ThreadSet extends LinkedHashSet<Thread> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Thread elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "java.lang.Thread";
    }
 
-
    public ThreadSet with(Thread value)
    {
       this.add(value);
       return this;
    }
-   
+
    public ThreadSet without(Thread value)
    {
       this.remove(value);
       return this;
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.creators;
 
 import java.util.Collection;
@@ -36,22 +36,21 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.patterns.example.creators.NodeSet;
 
-public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets.ModelSet
+public class NodeSet extends SDMSet<Node> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Node elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -61,12 +60,12 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
    public intList getNum()
    {
       intList result = new intList();
-      
+
       for (Node obj : this)
       {
          result.add(obj.getNum());
       }
-      
+
       return result;
    }
 
@@ -76,19 +75,19 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.setNum(value);
       }
-      
+
       return this;
    }
 
    public SimpleStateSet getGraph()
    {
       SimpleStateSet result = new SimpleStateSet();
-      
+
       for (Node obj : this)
       {
          result.add(obj.getGraph());
       }
-      
+
       return result;
    }
 
@@ -98,19 +97,19 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.withGraph(value);
       }
-      
+
       return this;
    }
 
    public NodeSet getNext()
    {
       NodeSet result = new NodeSet();
-      
+
       for (Node obj : this)
       {
          result.addAll(obj.getNext());
       }
-      
+
       return result;
    }
 
@@ -120,7 +119,7 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.withNext(value);
       }
-      
+
       return this;
    }
 
@@ -130,19 +129,19 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.withoutNext(value);
       }
-      
+
       return this;
    }
 
    public NodeSet getPrev()
    {
       NodeSet result = new NodeSet();
-      
+
       for (Node obj : this)
       {
          result.addAll(obj.getPrev());
       }
-      
+
       return result;
    }
 
@@ -152,7 +151,7 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.withPrev(value);
       }
-      
+
       return this;
    }
 
@@ -162,10 +161,9 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       {
          obj.withoutPrev(value);
       }
-      
+
       return this;
    }
-
 
    public Node first()
    {
@@ -176,115 +174,98 @@ public class NodeSet extends SDMSet<Node> implements org.sdmlib.models.modelsets
       return null;
    }
 
-
-
    public NodePO startModelPattern()
    {
       org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
-      
+
       NodePO patternObject = pattern.hasElementNodePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public NodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Node>)value);
+         this.addAll((Collection<Node>) value);
       }
       else if (value != null)
       {
          this.add((Node) value);
       }
-      
+
       return this;
    }
-   
+
    public NodeSet without(Node value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public NodePO hasNodePO()
    {
       org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
-      
+
       NodePO patternObject = pattern.hasElementNodePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
-
 
    public NodeSet getNextTransitive()
    {
       NodeSet todo = new NodeSet().with(this);
-      
+
       NodeSet result = new NodeSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Node current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getNext().minus(result));
          }
       }
-      
+
       return result;
    }
-
 
    public NodeSet getPrevTransitive()
    {
       NodeSet todo = new NodeSet().with(this);
-      
+
       NodeSet result = new NodeSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Node current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getPrev().minus(result));
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-
-
-

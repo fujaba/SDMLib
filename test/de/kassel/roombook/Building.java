@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package de.kassel.roombook;
 
 import java.beans.PropertyChangeSupport;
@@ -34,14 +34,13 @@ import java.beans.PropertyChangeListener;
 public class Building implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -61,13 +60,12 @@ public class Building implements PropertyChangeInterface
       {
          return getName();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_ID.equalsIgnoreCase(attrName))
@@ -81,7 +79,7 @@ public class Building implements PropertyChangeInterface
          addToHas((Floor) value);
          return true;
       }
-      
+
       if ((PROPERTY_HAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromHas((Floor) value);
@@ -97,54 +95,52 @@ public class Building implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromHas();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ID = "id";
-   
+
    private String id;
-   
+
    public String getId()
    {
       return this.id;
    }
-   
+
    public void setId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.id, value))
+      if (!StrUtil.stringEquals(this.id, value))
       {
          String oldValue = this.id;
          this.id = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue,
+            value);
       }
    }
-   
+
    public Building withId(String value)
    {
       setId(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -152,120 +148,121 @@ public class Building implements PropertyChangeInterface
     *              buildings                   has
     * </pre>
     */
-   
+
    public static final String PROPERTY_HAS = "has";
-   
+
    private FloorSet has = null;
-   
+
    public FloorSet getHas()
    {
       if (this.has == null)
       {
          return Floor.EMPTY_SET;
       }
-   
+
       return this.has;
    }
-   
+
    public boolean addToHas(Floor value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.has == null)
          {
             this.has = new FloorSet();
          }
-         
-         changed = this.has.add (value);
-         
+
+         changed = this.has.add(value);
+
          if (changed)
          {
             value.withBuildings(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromHas(Floor value)
    {
       boolean changed = false;
-      
+
       if ((this.has != null) && (value != null))
       {
-         changed = this.has.remove (value);
-         
+         changed = this.has.remove(value);
+
          if (changed)
          {
             value.setBuildings(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Building withHas(Floor value)
    {
       addToHas(value);
       return this;
-   } 
-   
+   }
+
    public Building withoutHas(Floor value)
    {
       removeFromHas(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromHas()
    {
       LinkedHashSet<Floor> tmpSet = new LinkedHashSet<Floor>(this.getHas());
-   
+
       for (Floor value : tmpSet)
       {
          this.removeFromHas(value);
       }
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
-   
+
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Building withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
-
 
    public Building withHas(Floor... value)
    {
@@ -274,7 +271,7 @@ public class Building implements PropertyChangeInterface
          addToHas(item);
       }
       return this;
-   } 
+   }
 
    public Building withoutHas(Floor... value)
    {
@@ -290,6 +287,5 @@ public class Building implements PropertyChangeInterface
       Floor value = new Floor();
       withHas(value);
       return value;
-   } 
+   }
 }
-

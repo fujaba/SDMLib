@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -42,12 +42,12 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -57,19 +57,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -79,19 +79,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -101,19 +101,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -123,19 +123,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public booleanList getMatchForward()
    {
       booleanList result = new booleanList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getMatchForward());
       }
-      
+
       return result;
    }
 
@@ -145,19 +145,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withMatchForward(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getCurrentSubPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getCurrentSubPattern());
       }
-      
+
       return result;
    }
 
@@ -167,24 +167,21 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withCurrentSubPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (OptionalSubPattern elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -194,12 +191,12 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
    public intList getDebugMode()
    {
       intList result = new intList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getDebugMode());
       }
-      
+
       return result;
    }
 
@@ -209,19 +206,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.setDebugMode(value);
       }
-      
+
       return this;
    }
 
    public PatternElementSet getElements()
    {
       PatternElementSet result = new PatternElementSet();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.addAll(obj.getElements());
       }
-      
+
       return result;
    }
 
@@ -231,7 +228,7 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withElements(value);
       }
-      
+
       return this;
    }
 
@@ -241,19 +238,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withoutElements(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -263,19 +260,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public StringBuilderSet getTrace()
    {
       StringBuilderSet result = new StringBuilderSet();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getTrace());
       }
-      
+
       return result;
    }
 
@@ -285,19 +282,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.setTrace(value);
       }
-      
+
       return this;
    }
 
    public ReachabilityGraphSet getRgraph()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getRgraph());
       }
-      
+
       return result;
    }
 
@@ -307,19 +304,19 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.withRgraph(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (OptionalSubPattern obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -329,73 +326,57 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
-
-
 
    public OptionalSubPatternPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      OptionalSubPatternPO patternObject = pattern.hasElementOptionalSubPatternPO();
-      
+
+      OptionalSubPatternPO patternObject = pattern
+         .hasElementOptionalSubPatternPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public OptionalSubPatternSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<OptionalSubPattern>)value);
+         this.addAll((Collection<OptionalSubPattern>) value);
       }
       else if (value != null)
       {
          this.add((OptionalSubPattern) value);
       }
-      
+
       return this;
    }
-   
+
    public OptionalSubPatternSet without(OptionalSubPattern value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public OptionalSubPatternPO hasOptionalSubPatternPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      OptionalSubPatternPO patternObject = pattern.hasElementOptionalSubPatternPO();
-      
+
+      OptionalSubPatternPO patternObject = pattern
+         .hasElementOptionalSubPatternPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -32,49 +32,48 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
+public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (UnifyGraphsOp elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.UnifyGraphsOp";
    }
 
-
    public UnifyGraphsOpSet with(UnifyGraphsOp value)
    {
       this.add(value);
       return this;
    }
-   
+
    public UnifyGraphsOpSet without(UnifyGraphsOp value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (UnifyGraphsOp obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -84,19 +83,19 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       {
          obj.setModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (UnifyGraphsOp obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -106,19 +105,19 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       {
          obj.setHasMatch(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (UnifyGraphsOp obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -128,19 +127,19 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       {
          obj.setPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (UnifyGraphsOp obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -150,19 +149,19 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       {
          obj.setDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (UnifyGraphsOp obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -172,63 +171,49 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public UnifyGraphsOpPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       UnifyGraphsOpPO patternObject = pattern.hasElementUnifyGraphsOpPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public UnifyGraphsOpSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<UnifyGraphsOp>)value);
+         this.addAll((Collection<UnifyGraphsOp>) value);
       }
       else if (value != null)
       {
          this.add((UnifyGraphsOp) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public UnifyGraphsOpPO hasUnifyGraphsOpPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       UnifyGraphsOpPO patternObject = pattern.hasElementUnifyGraphsOpPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.Collection;
@@ -31,49 +31,48 @@ import org.sdmlib.examples.studyright.creators.ProfessorSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.modelsets.ModelSet
+public class TopicSet extends LinkedHashSet<Topic> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Topic elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyright.Topic";
    }
 
-
    public TopicSet with(Topic value)
    {
       this.add(value);
       return this;
    }
-   
+
    public TopicSet without(Topic value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getTitle()
    {
       StringList result = new StringList();
-      
+
       for (Topic obj : this)
       {
          result.add(obj.getTitle());
       }
-      
+
       return result;
    }
 
@@ -83,19 +82,19 @@ public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.
       {
          obj.setTitle(value);
       }
-      
+
       return this;
    }
 
    public ProfessorSet getProf()
    {
       ProfessorSet result = new ProfessorSet();
-      
+
       for (Topic obj : this)
       {
          result.add(obj.getProf());
       }
-      
+
       return result;
    }
 
@@ -105,61 +104,49 @@ public class TopicSet extends LinkedHashSet<Topic> implements org.sdmlib.models.
       {
          obj.withProf(value);
       }
-      
+
       return this;
    }
-
-
 
    public TopicPO startModelPattern()
    {
       org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
+
       TopicPO patternObject = pattern.hasElementTopicPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public TopicSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Topic>)value);
+         this.addAll((Collection<Topic>) value);
       }
       else if (value != null)
       {
          this.add((Topic) value);
       }
-      
+
       return this;
    }
-   
-
 
    public TopicPO hasTopicPO()
    {
       org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
+
       TopicPO patternObject = pattern.hasElementTopicPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

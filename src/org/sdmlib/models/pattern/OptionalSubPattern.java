@@ -18,9 +18,8 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
-package org.sdmlib.models.pattern;
 
+package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.Pattern;
@@ -30,56 +29,58 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements PropertyChangeInterface
+public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements
+      PropertyChangeInterface
 {
    public OptionalSubPattern()
    {
       this.setHasMatch(true);
    }
-   
-   
+
    @Override
    public boolean findNextMatch()
    {
-      
+
       if (matchForward)
       {
          // last time this subpattern has run backward thus we run forward now
          // thus some earlier pattern elements have been rematched.
          // check the subpattern / NAC again
          resetSearch();
-         
+
          if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
-            getTopPattern().addLogMsg("// (re)startSubPattern " + getPatternObjectName() + ";");
+            getTopPattern().addLogMsg(
+               "// (re)startSubPattern " + getPatternObjectName() + ";");
          }
-         
+
          boolean nacHasMatch = findMatch();
-         
+
          if (getDoAllMatches())
          {
             while (getHasMatch())
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {
-                  getTopPattern().addLogMsg("// " + getPatternObjectName() + " allMatches?");
+                  getTopPattern().addLogMsg(
+                     "// " + getPatternObjectName() + " allMatches?");
                }
-               
+
                findMatch();
             }
          }
-         
+
          // next time backtrack
          setMatchForward(false);
-         
+
          // optional sub pattern are always successful
          return true;
       }
       else
       {
-         // backtracking, 
+         // backtracking,
          setMatchForward(true);
-         
+
          return false;
       }
    }
@@ -91,13 +92,14 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       this.setMatchForward(true);
       return super.addToElements(value);
    }
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -157,13 +159,12 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       {
          return getRgraph();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -213,7 +214,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
          addToElements((PatternElement) value);
          return true;
       }
-      
+
       if ((PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromElements((PatternElement) value);
@@ -241,19 +242,17 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromElements();
@@ -263,34 +262,34 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_MATCHFORWARD = "matchForward";
-   
+
    private boolean matchForward = true;
 
    public boolean getMatchForward()
    {
       return this.matchForward;
    }
-   
+
    public void setMatchForward(boolean value)
    {
       if (this.matchForward != value)
       {
          boolean oldValue = this.matchForward;
          this.matchForward = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHFORWARD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHFORWARD,
+            oldValue, value);
       }
    }
-   
+
    public OptionalSubPattern withMatchForward(boolean value)
    {
       setMatchForward(value);
       return this;
-   } 
-   
+   }
+
    @Override
    public void resetSearch()
    {
@@ -302,7 +301,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getDebugMode());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
@@ -310,4 +309,3 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
    }
 
 }
-

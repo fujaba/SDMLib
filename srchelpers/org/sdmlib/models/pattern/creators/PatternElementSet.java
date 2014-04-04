@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.ArrayList;
@@ -37,33 +37,34 @@ public class PatternElementSet extends ArrayList<PatternElement>
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (PatternElement obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
+
    public PatternElementSet withPattern(Pattern value)
    {
       for (PatternElement obj : this)
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (PatternElement obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -73,19 +74,19 @@ public class PatternElementSet extends ArrayList<PatternElement>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (PatternElement obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -95,19 +96,19 @@ public class PatternElementSet extends ArrayList<PatternElement>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (PatternElement obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -117,19 +118,19 @@ public class PatternElementSet extends ArrayList<PatternElement>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (PatternElement obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -139,14 +140,14 @@ public class PatternElementSet extends ArrayList<PatternElement>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-   
+
    public PatternSet getContentOfTypePattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (PatternElement elem : this)
       {
          if (elem instanceof Pattern)
@@ -154,24 +155,21 @@ public class PatternElementSet extends ArrayList<PatternElement>
             result.add((Pattern) elem);
          }
       }
-      
+
       return result;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (PatternElement elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -184,74 +182,55 @@ public class PatternElementSet extends ArrayList<PatternElement>
       {
          return pe;
       }
-      
+
       return null;
    }
-
 
    public PatternElementPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternElementPO patternObject = pattern.hasElementPatternElementPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PatternElementSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PatternElement>)value);
+         this.addAll((Collection<PatternElement>) value);
       }
       else if (value != null)
       {
          this.add((PatternElement) value);
       }
-      
+
       return this;
    }
-   
+
    public PatternElementSet without(PatternElement value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PatternElementPO hasPatternElementPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternElementPO patternObject = pattern.hasElementPatternElementPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

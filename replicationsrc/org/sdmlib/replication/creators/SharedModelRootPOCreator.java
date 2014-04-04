@@ -8,15 +8,15 @@ public class SharedModelRootPOCreator extends PatternObjectCreator
    {
       return new SharedModelRootPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((SharedModelRootPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((SharedModelRootPO) target).set(attrName, value);
    }
 }
-

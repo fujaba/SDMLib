@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m.creators;
 
 import java.util.Collection;
@@ -35,7 +35,8 @@ import org.sdmlib.examples.m2m.creators.PersonSet;
 import org.sdmlib.examples.m2m.creators.RelationSet;
 import org.sdmlib.examples.m2m.creators.GraphComponentSet;
 
-public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
+public class GraphSet extends LinkedHashSet<Graph> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public Graph first()
    {
@@ -43,39 +44,36 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Graph elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.m2m.Graph";
    }
 
-
    public PersonSet getPersons()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getPersons());
       }
-      
+
       return result;
    }
 
@@ -91,17 +89,17 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          neighbors.add(value);
       }
-      
+
       GraphSet answer = new GraphSet();
-      
+
       for (Graph obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPersons()))
+         if (!Collections.disjoint(neighbors, obj.getPersons()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -111,7 +109,7 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withPersons(value);
       }
-      
+
       return this;
    }
 
@@ -121,19 +119,19 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutPersons(value);
       }
-      
+
       return this;
    }
 
    public RelationSet getRelations()
    {
       RelationSet result = new RelationSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getRelations());
       }
-      
+
       return result;
    }
 
@@ -149,17 +147,17 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          neighbors.add(value);
       }
-      
+
       GraphSet answer = new GraphSet();
-      
+
       for (Graph obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getRelations()))
+         if (!Collections.disjoint(neighbors, obj.getRelations()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -169,7 +167,7 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withRelations(value);
       }
-      
+
       return this;
    }
 
@@ -179,19 +177,19 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutRelations(value);
       }
-      
+
       return this;
    }
 
    public GraphComponentSet getGcs()
    {
       GraphComponentSet result = new GraphComponentSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getGcs());
       }
-      
+
       return result;
    }
 
@@ -207,17 +205,17 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          neighbors.add(value);
       }
-      
+
       GraphSet answer = new GraphSet();
-      
+
       for (Graph obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getGcs()))
+         if (!Collections.disjoint(neighbors, obj.getGcs()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -227,7 +225,7 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withGcs(value);
       }
-      
+
       return this;
    }
 
@@ -237,76 +235,55 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutGcs(value);
       }
-      
+
       return this;
    }
-
-
 
    public GraphPO startModelPattern()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       GraphPO patternObject = pattern.hasElementGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GraphSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Graph>)value);
+         this.addAll((Collection<Graph>) value);
       }
       else if (value != null)
       {
          this.add((Graph) value);
       }
-      
+
       return this;
    }
-   
+
    public GraphSet without(Graph value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GraphPO hasGraphPO()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       GraphPO patternObject = pattern.hasElementGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

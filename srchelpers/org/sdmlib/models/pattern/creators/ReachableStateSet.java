@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -34,38 +34,36 @@ import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 import java.util.Collections;
 import org.sdmlib.models.pattern.creators.RuleApplicationSet;
 
-public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachableStateSet extends LinkedHashSet<ReachableState> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReachableState elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.ReachableState";
    }
 
-
    public ReachabilityGraphSet getParent()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
+
       for (ReachableState obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -75,19 +73,19 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
 
    public ReachabilityGraphSet getMaster()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
+
       for (ReachableState obj : this)
       {
          result.add(obj.getMaster());
       }
-      
+
       return result;
    }
 
@@ -97,10 +95,9 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withMaster(value);
       }
-      
+
       return this;
    }
-
 
    public ReachableState first()
    {
@@ -108,19 +105,19 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          return s;
       }
-      
+
       return null;
    }
 
    public ObjectSet getGraphRoot()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (ReachableState obj : this)
       {
          result.add(obj.getGraphRoot());
       }
-      
+
       return result;
    }
 
@@ -130,19 +127,19 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.setGraphRoot(value);
       }
-      
+
       return this;
    }
 
    public longList getNumber()
    {
       longList result = new longList();
-      
+
       for (ReachableState obj : this)
       {
          result.add(obj.getNumber());
       }
-      
+
       return result;
    }
 
@@ -152,19 +149,19 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.setNumber(value);
       }
-      
+
       return this;
    }
 
    public RuleApplicationSet getRuleapplications()
    {
       RuleApplicationSet result = new RuleApplicationSet();
-      
+
       for (ReachableState obj : this)
       {
          result.addAll(obj.getRuleapplications());
       }
-      
+
       return result;
    }
 
@@ -174,7 +171,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withRuleapplications(value);
       }
-      
+
       return this;
    }
 
@@ -184,19 +181,19 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withoutRuleapplications(value);
       }
-      
+
       return this;
    }
 
    public RuleApplicationSet getResultOf()
    {
       RuleApplicationSet result = new RuleApplicationSet();
-      
+
       for (ReachableState obj : this)
       {
          result.addAll(obj.getResultOf());
       }
-      
+
       return result;
    }
 
@@ -206,7 +203,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withResultOf(value);
       }
-      
+
       return this;
    }
 
@@ -216,7 +213,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.withoutResultOf(value);
       }
-      
+
       return this;
    }
 
@@ -226,73 +223,55 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
       {
          obj.setNumber(value);
       }
-      
+
       return this;
    }
-
-
 
    public ReachableStatePO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       ReachableStatePO patternObject = pattern.hasElementReachableStatePO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReachableStateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReachableState>)value);
+         this.addAll((Collection<ReachableState>) value);
       }
       else if (value != null)
       {
          this.add((ReachableState) value);
       }
-      
+
       return this;
    }
-   
+
    public ReachableStateSet without(ReachableState value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ReachableStatePO hasReachableStatePO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       ReachableStatePO patternObject = pattern.hasElementReachableStatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

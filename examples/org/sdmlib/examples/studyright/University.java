@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright;
 
 import java.beans.PropertyChangeSupport;
@@ -35,14 +35,13 @@ import java.beans.PropertyChangeListener;
 public class University implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -62,13 +61,12 @@ public class University implements PropertyChangeInterface
       {
          return getRooms();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -82,7 +80,7 @@ public class University implements PropertyChangeInterface
          addToStudents((Student) value);
          return true;
       }
-      
+
       if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStudents((Student) value);
@@ -94,7 +92,7 @@ public class University implements PropertyChangeInterface
          addToRooms((Room) value);
          return true;
       }
-      
+
       if ((PROPERTY_ROOMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromRooms((Room) value);
@@ -104,19 +102,18 @@ public class University implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromStudents();
@@ -124,45 +121,42 @@ public class University implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-
-
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public University withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -170,92 +164,94 @@ public class University implements PropertyChangeInterface
     *              uni                   students
     * </pre>
     */
-   
+
    public static final String PROPERTY_STUDENTS = "students";
-   
+
    private StudentSet students = null;
-   
+
    public StudentSet getStudents()
    {
       if (this.students == null)
       {
          return Student.EMPTY_SET;
       }
-   
+
       return this.students;
    }
-   
+
    public boolean addToStudents(Student value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.students == null)
          {
             this.students = new StudentSet();
          }
-         
-         changed = this.students.add (value);
-         
+
+         changed = this.students.add(value);
+
          if (changed)
          {
             value.withUni(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromStudents(Student value)
    {
       boolean changed = false;
-      
+
       if ((this.students != null) && (value != null))
       {
-         changed = this.students.remove (value);
-         
+         changed = this.students.remove(value);
+
          if (changed)
          {
             value.setUni(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public University withStudents(Student value)
    {
       addToStudents(value);
       return this;
-   } 
-   
+   }
+
    public University withoutStudents(Student value)
    {
       removeFromStudents(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromStudents()
    {
-      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
-   
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(
+            this.getStudents());
+
       for (Student value : tmpSet)
       {
          this.removeFromStudents(value);
       }
    }
-   
+
    public Student createStudents()
    {
       Student value = new Student();
       withStudents(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -263,91 +259,92 @@ public class University implements PropertyChangeInterface
     *              uni                   rooms
     * </pre>
     */
-   
+
    public static final String PROPERTY_ROOMS = "rooms";
-   
+
    private RoomSet rooms = null;
-   
+
    public RoomSet getRooms()
    {
       if (this.rooms == null)
       {
          return Room.EMPTY_SET;
       }
-   
+
       return this.rooms;
    }
-   
+
    public boolean addToRooms(Room value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.rooms == null)
          {
             this.rooms = new RoomSet();
          }
-         
-         changed = this.rooms.add (value);
-         
+
+         changed = this.rooms.add(value);
+
          if (changed)
          {
             value.withUni(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromRooms(Room value)
    {
       boolean changed = false;
-      
+
       if ((this.rooms != null) && (value != null))
       {
-         changed = this.rooms.remove (value);
-         
+         changed = this.rooms.remove(value);
+
          if (changed)
          {
             value.setUni(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public University withRooms(Room value)
    {
       addToRooms(value);
       return this;
-   } 
-   
+   }
+
    public University withoutRooms(Room value)
    {
       removeFromRooms(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromRooms()
    {
       LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getRooms());
-   
+
       for (Room value : tmpSet)
       {
          this.removeFromRooms(value);
       }
    }
-   
+
    public Room createRooms()
    {
       Room value = new Room();
       withRooms(value);
       return value;
    }
-
 
    public Room getRooms(String roomName)
    {
@@ -359,7 +356,7 @@ public class University implements PropertyChangeInterface
          }
       }
       return null;
-   } 
+   }
 
    public University withStudents(Student... value)
    {
@@ -368,7 +365,7 @@ public class University implements PropertyChangeInterface
          addToStudents(item);
       }
       return this;
-   } 
+   }
 
    public University withoutStudents(Student... value)
    {
@@ -386,7 +383,7 @@ public class University implements PropertyChangeInterface
          addToRooms(item);
       }
       return this;
-   } 
+   }
 
    public University withoutRooms(Room... value)
    {
@@ -397,4 +394,3 @@ public class University implements PropertyChangeInterface
       return this;
    }
 }
-

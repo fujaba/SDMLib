@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.superclasses;
 
 import java.beans.PropertyChangeSupport;
@@ -30,14 +30,13 @@ import java.beans.PropertyChangeListener;
 public class Town extends State implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -47,13 +46,12 @@ public class Town extends State implements PropertyChangeInterface
       {
          return getTest();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEST.equalsIgnoreCase(attrName))
@@ -65,59 +63,57 @@ public class Town extends State implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TEST = "test";
-   
+
    private String test;
 
    public String getTest()
    {
       return this.test;
    }
-   
+
    public void setTest(String value)
    {
-      if ( ! StrUtil.stringEquals(this.test, value))
+      if (!StrUtil.stringEquals(this.test, value))
       {
          String oldValue = this.test;
          this.test = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEST, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEST, oldValue,
+            value);
       }
    }
-   
+
    public Town withTest(String value)
    {
       setTest(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTest());
       return _.substring(1);
    }
 
 }
-

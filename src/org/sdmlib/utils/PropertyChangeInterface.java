@@ -51,10 +51,10 @@ import java.beans.PropertyChangeSupport;
 public interface PropertyChangeInterface
 {
    /**
-    * Get the propertyChangeSupport attribute of the PropertyChangeInterface object
+    * Get the propertyChangeSupport attribute of the PropertyChangeInterface
+    * object
     *
-    * @return   The propertyChangeSupport value
+    * @return The propertyChangeSupport value
     */
    public PropertyChangeSupport getPropertyChangeSupport();
 }
-

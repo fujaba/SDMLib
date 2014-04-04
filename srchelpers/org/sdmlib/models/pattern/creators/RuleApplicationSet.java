@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -31,38 +31,36 @@ import org.sdmlib.models.pattern.creators.ReachableStateSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
+public class RuleApplicationSet extends LinkedHashSet<RuleApplication>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (RuleApplication elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.RuleApplication";
    }
 
-
    public StringList getDescription()
    {
       StringList result = new StringList();
-      
+
       for (RuleApplication obj : this)
       {
          result.add(obj.getDescription());
       }
-      
+
       return result;
    }
 
@@ -72,19 +70,19 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       {
          obj.setDescription(value);
       }
-      
+
       return this;
    }
 
    public ReachableStateSet getSrc()
    {
       ReachableStateSet result = new ReachableStateSet();
-      
+
       for (RuleApplication obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
 
@@ -94,19 +92,19 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
 
    public ReachableStateSet getTgt()
    {
       ReachableStateSet result = new ReachableStateSet();
-      
+
       for (RuleApplication obj : this)
       {
          result.add(obj.getTgt());
       }
-      
+
       return result;
    }
 
@@ -116,68 +114,55 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
       {
          obj.withTgt(value);
       }
-      
+
       return this;
    }
-
-
 
    public RuleApplicationPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       RuleApplicationPO patternObject = pattern.hasElementRuleApplicationPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public RuleApplicationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<RuleApplication>)value);
+         this.addAll((Collection<RuleApplication>) value);
       }
       else if (value != null)
       {
          this.add((RuleApplication) value);
       }
-      
+
       return this;
    }
-   
+
    public RuleApplicationSet without(RuleApplication value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public RuleApplicationPO hasRuleApplicationPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       RuleApplicationPO patternObject = pattern.hasElementRuleApplicationPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

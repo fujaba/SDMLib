@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects.creators;
 
 import java.util.Collection;
@@ -38,21 +38,22 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
    public GenericObjectSet getObjects()
    {
       GenericObjectSet result = new GenericObjectSet();
-      
+
       for (GenericGraph obj : this)
       {
          result.addAll(obj.getObjects());
       }
-      
+
       return result;
    }
+
    public GenericGraphSet withObjects(GenericObject value)
    {
       for (GenericGraph obj : this)
       {
          obj.withObjects(value);
       }
-      
+
       return this;
    }
 
@@ -62,28 +63,29 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       {
          obj.withoutObjects(value);
       }
-      
+
       return this;
    }
 
    public GenericLinkSet getLinks()
    {
       GenericLinkSet result = new GenericLinkSet();
-      
+
       for (GenericGraph obj : this)
       {
          result.addAll(obj.getLinks());
       }
-      
+
       return result;
    }
+
    public GenericGraphSet withLinks(GenericLink value)
    {
       for (GenericGraph obj : this)
       {
          obj.withLinks(value);
       }
-      
+
       return this;
    }
 
@@ -93,91 +95,72 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       {
          obj.withoutLinks(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GenericGraph elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.objects.GenericGraph";
    }
 
-
    public GenericGraphPO startModelPattern()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericGraphPO patternObject = pattern.hasElementGenericGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GenericGraphSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericGraph>)value);
+         this.addAll((Collection<GenericGraph>) value);
       }
       else if (value != null)
       {
          this.add((GenericGraph) value);
       }
-      
+
       return this;
    }
-   
+
    public GenericGraphSet without(GenericGraph value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GenericGraphPO hasGenericGraphPO()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericGraphPO patternObject = pattern.hasElementGenericGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

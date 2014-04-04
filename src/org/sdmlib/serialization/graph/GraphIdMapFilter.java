@@ -31,55 +31,63 @@ package org.sdmlib.serialization.graph;
  */
 import org.sdmlib.serialization.Filter;
 
-public class GraphIdMapFilter extends Filter {
-	/** The show line. */
-	private boolean isShowLine;
+public class GraphIdMapFilter extends Filter
+{
+   /** The show line. */
+   private boolean isShowLine;
 
-	private boolean isShowCardinality;
+   private boolean isShowCardinality;
 
-	private String typ;
+   private String typ;
 
-	/**
-	 * Checks if is show line.
-	 * 
-	 * @return true, if is show line for objects
-	 */
-	public boolean isShowLine() {
-		return this.isShowLine;
-	}
+   /**
+    * Checks if is show line.
+    * 
+    * @return true, if is show line for objects
+    */
+   public boolean isShowLine()
+   {
+      return this.isShowLine;
+   }
 
-	/**
-	 * Sets the show line.
-	 * 
-	 * @param value
-	 *            the new show line
-	 * @return
-	 */
-	public GraphIdMapFilter withShowLine(boolean value) {
-		this.isShowLine = value;
-		return this;
-	}
+   /**
+    * Sets the show line.
+    * 
+    * @param value
+    *           the new show line
+    * @return
+    */
+   public GraphIdMapFilter withShowLine(boolean value)
+   {
+      this.isShowLine = value;
+      return this;
+   }
 
-	public boolean isShowCardinality() {
-		return isShowCardinality;
-	}
+   public boolean isShowCardinality()
+   {
+      return isShowCardinality;
+   }
 
-	public GraphIdMapFilter withShowCardinality(boolean value) {
-		this.isShowCardinality = value;
-		return this;
-	}
+   public GraphIdMapFilter withShowCardinality(boolean value)
+   {
+      this.isShowCardinality = value;
+      return this;
+   }
 
-	@Override
-	public GraphIdMapFilter clone(Filter newInstance) {
-		return (GraphIdMapFilter) super.clone(newInstance);
-	}
+   @Override
+   public GraphIdMapFilter clone(Filter newInstance)
+   {
+      return (GraphIdMapFilter) super.clone(newInstance);
+   }
 
-	public String getTyp() {
-		return typ;
-	}
+   public String getTyp()
+   {
+      return typ;
+   }
 
-	public GraphIdMapFilter withTyp(String typ) {
-		this.typ = typ;
-		return this;
-	}
+   public GraphIdMapFilter withTyp(String typ)
+   {
+      this.typ = typ;
+      return this;
+   }
 }

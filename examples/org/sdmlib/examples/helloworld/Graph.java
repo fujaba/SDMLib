@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld;
 
 import java.beans.PropertyChangeSupport;
@@ -34,14 +34,13 @@ import java.beans.PropertyChangeListener;
 public class Graph implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -61,13 +60,12 @@ public class Graph implements PropertyChangeInterface
       {
          return getGcs();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NODES.equalsIgnoreCase(attrName))
@@ -75,7 +73,7 @@ public class Graph implements PropertyChangeInterface
          addToNodes((Node) value);
          return true;
       }
-      
+
       if ((PROPERTY_NODES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromNodes((Node) value);
@@ -87,7 +85,7 @@ public class Graph implements PropertyChangeInterface
          addToEdges((Edge) value);
          return true;
       }
-      
+
       if ((PROPERTY_EDGES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromEdges((Edge) value);
@@ -99,7 +97,7 @@ public class Graph implements PropertyChangeInterface
          addToGcs((GraphComponent) value);
          return true;
       }
-      
+
       if ((PROPERTY_GCS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromGcs((GraphComponent) value);
@@ -109,19 +107,17 @@ public class Graph implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromNodes();
@@ -130,7 +126,6 @@ public class Graph implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -138,92 +133,93 @@ public class Graph implements PropertyChangeInterface
     *              graph                   nodes
     * </pre>
     */
-   
+
    public static final String PROPERTY_NODES = "nodes";
-   
+
    private NodeSet nodes = null;
-   
+
    public NodeSet getNodes()
    {
       if (this.nodes == null)
       {
          return Node.EMPTY_SET;
       }
-   
+
       return this.nodes;
    }
-   
+
    public boolean addToNodes(Node value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.nodes == null)
          {
             this.nodes = new NodeSet();
          }
-         
-         changed = this.nodes.add (value);
-         
+
+         changed = this.nodes.add(value);
+
          if (changed)
          {
             value.withGraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromNodes(Node value)
    {
       boolean changed = false;
-      
+
       if ((this.nodes != null) && (value != null))
       {
-         changed = this.nodes.remove (value);
-         
+         changed = this.nodes.remove(value);
+
          if (changed)
          {
             value.setGraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withNodes(Node value)
    {
       addToNodes(value);
       return this;
-   } 
-   
+   }
+
    public Graph withoutNodes(Node value)
    {
       removeFromNodes(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromNodes()
    {
       LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getNodes());
-   
+
       for (Node value : tmpSet)
       {
          this.removeFromNodes(value);
       }
    }
-   
+
    public Node createNodes()
    {
       Node value = new Node();
       withNodes(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -231,92 +227,93 @@ public class Graph implements PropertyChangeInterface
     *              graph                   edges
     * </pre>
     */
-   
+
    public static final String PROPERTY_EDGES = "edges";
-   
+
    private EdgeSet edges = null;
-   
+
    public EdgeSet getEdges()
    {
       if (this.edges == null)
       {
          return Edge.EMPTY_SET;
       }
-   
+
       return this.edges;
    }
-   
+
    public boolean addToEdges(Edge value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.edges == null)
          {
             this.edges = new EdgeSet();
          }
-         
-         changed = this.edges.add (value);
-         
+
+         changed = this.edges.add(value);
+
          if (changed)
          {
             value.withGraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_EDGES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_EDGES, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromEdges(Edge value)
    {
       boolean changed = false;
-      
+
       if ((this.edges != null) && (value != null))
       {
-         changed = this.edges.remove (value);
-         
+         changed = this.edges.remove(value);
+
          if (changed)
          {
             value.setGraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_EDGES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_EDGES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withEdges(Edge value)
    {
       addToEdges(value);
       return this;
-   } 
-   
+   }
+
    public Graph withoutEdges(Edge value)
    {
       removeFromEdges(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromEdges()
    {
       LinkedHashSet<Edge> tmpSet = new LinkedHashSet<Edge>(this.getEdges());
-   
+
       for (Edge value : tmpSet)
       {
          this.removeFromEdges(value);
       }
    }
-   
+
    public Edge createEdges()
    {
       Edge value = new Edge();
       withEdges(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -324,104 +321,107 @@ public class Graph implements PropertyChangeInterface
     *              parent                   gcs
     * </pre>
     */
-   
+
    public static final String PROPERTY_GCS = "gcs";
-   
+
    private GraphComponentSet gcs = null;
-   
+
    public GraphComponentSet getGcs()
    {
       if (this.gcs == null)
       {
          return GraphComponent.EMPTY_SET;
       }
-   
+
       return this.gcs;
    }
-   
+
    public boolean addToGcs(GraphComponent value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.gcs == null)
          {
             this.gcs = new GraphComponentSet();
          }
-         
-         changed = this.gcs.add (value);
-         
+
+         changed = this.gcs.add(value);
+
          if (changed)
          {
             value.withParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromGcs(GraphComponent value)
    {
       boolean changed = false;
-      
+
       if ((this.gcs != null) && (value != null))
       {
-         changed = this.gcs.remove (value);
-         
+         changed = this.gcs.remove(value);
+
          if (changed)
          {
             value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_GCS, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Graph withGcs(GraphComponent value)
    {
       addToGcs(value);
       return this;
-   } 
-   
+   }
+
    public Graph withoutGcs(GraphComponent value)
    {
       removeFromGcs(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromGcs()
    {
-      LinkedHashSet<GraphComponent> tmpSet = new LinkedHashSet<GraphComponent>(this.getGcs());
-   
+      LinkedHashSet<GraphComponent> tmpSet = new LinkedHashSet<GraphComponent>(
+            this.getGcs());
+
       for (GraphComponent value : tmpSet)
       {
          this.removeFromGcs(value);
       }
    }
-   
+
    public GraphComponent createGcs()
    {
       GraphComponent value = new GraphComponent();
       withGcs(value);
       return value;
-   } 
+   }
 
    public Node createGcsNode()
    {
       Node value = new Node();
       withGcs(value);
       return value;
-   } 
+   }
 
    public Edge createGcsEdge()
    {
       Edge value = new Edge();
       withGcs(value);
       return value;
-   } 
+   }
 
    public Graph withNodes(Node... value)
    {
@@ -430,7 +430,7 @@ public class Graph implements PropertyChangeInterface
          addToNodes(item);
       }
       return this;
-   } 
+   }
 
    public Graph withoutNodes(Node... value)
    {
@@ -448,7 +448,7 @@ public class Graph implements PropertyChangeInterface
          addToEdges(item);
       }
       return this;
-   } 
+   }
 
    public Graph withoutEdges(Edge... value)
    {
@@ -466,7 +466,7 @@ public class Graph implements PropertyChangeInterface
          addToGcs(item);
       }
       return this;
-   } 
+   }
 
    public Graph withoutGcs(GraphComponent... value)
    {
@@ -477,4 +477,3 @@ public class Graph implements PropertyChangeInterface
       return this;
    }
 }
-

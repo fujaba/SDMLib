@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package de.kassel.roombook;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -30,14 +30,13 @@ import java.beans.PropertyChangeListener;
 public class Floor implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -67,13 +66,12 @@ public class Floor implements PropertyChangeInterface
       {
          return getGuest();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_ID.equalsIgnoreCase(attrName))
@@ -109,85 +107,82 @@ public class Floor implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setBuildings(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ID = "id";
-   
+
    private String id;
-   
+
    public String getId()
    {
       return this.id;
    }
-   
+
    public void setId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.id, value))
+      if (!StrUtil.stringEquals(this.id, value))
       {
          String oldValue = this.id;
          this.id = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue,
+            value);
       }
    }
-   
+
    public Floor withId(String value)
    {
       setId(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_LEVEL = "level";
-   
+
    private int level;
-   
+
    public int getLevel()
    {
       return this.level;
    }
-   
+
    public void setLevel(int value)
    {
       if (this.level != value)
       {
          int oldValue = this.level;
          this.level = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LEVEL, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LEVEL,
+            oldValue, value);
       }
    }
-   
+
    public Floor withLevel(int value)
    {
       setLevel(value);
       return this;
-   } 
+   }
 
-   
    public static final FloorSet EMPTY_SET = new FloorSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -195,122 +190,121 @@ public class Floor implements PropertyChangeInterface
     *              has                   buildings
     * </pre>
     */
-   
+
    public static final String PROPERTY_BUILDINGS = "buildings";
-   
+
    private Building buildings = null;
-   
+
    public Building getBuildings()
    {
       return this.buildings;
    }
-   
+
    public boolean setBuildings(Building value)
    {
       boolean changed = false;
-      
+
       if (this.buildings != value)
       {
          Building oldValue = this.buildings;
-         
+
          if (this.buildings != null)
          {
             this.buildings = null;
             oldValue.withoutHas(this);
          }
-         
+
          this.buildings = value;
-         
+
          if (value != null)
          {
             value.withHas(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BUILDINGS, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BUILDINGS,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Floor withBuildings(Building value)
    {
       setBuildings(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
-   
+
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Floor withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_GUEST = "guest";
-   
+
    private String guest;
 
    public String getGuest()
    {
       return this.guest;
    }
-   
+
    public void setGuest(String value)
    {
-      if ( ! StrUtil.stringEquals(this.guest, value))
+      if (!StrUtil.stringEquals(this.guest, value))
       {
          String oldValue = this.guest;
          this.guest = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GUEST, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GUEST,
+            oldValue, value);
       }
    }
-   
+
    public Floor withGuest(String value)
    {
       setGuest(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getLevel());
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getGuest());
       return _.substring(1);
    }
 
-
    public Building createBuildings()
    {
       Building value = new Building();
       withBuildings(value);
       return value;
-   } 
+   }
 }
-

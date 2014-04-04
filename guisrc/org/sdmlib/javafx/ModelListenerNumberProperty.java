@@ -3,11 +3,12 @@ package org.sdmlib.javafx;
 import javafx.beans.Observable;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
 /*
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or as soon they
  will be approved by the European Commission - subsequent
  versions of the EUPL (the "Licence");
@@ -23,23 +24,29 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 
-public class ModelListenerNumberProperty extends ModelListenerProperty<Number> {
-	public ModelListenerNumberProperty(SendableEntityCreator creator, Object item, String property) {
-        super(creator, item, property);
-    }
+public class ModelListenerNumberProperty extends ModelListenerProperty<Number>
+{
+   public ModelListenerNumberProperty(SendableEntityCreator creator,
+         Object item, String property)
+   {
+      super(creator, item, property);
+   }
 
-	@Override
-	public void invalidated(Observable arg0) {
-	}
+   @Override
+   public void invalidated(Observable arg0)
+   {
+   }
 
-	@Override
-	public Number getValue() {
-		Object value = creator.getValue(item, property);
-		if(value instanceof Number){
-			return (Number)value;
-		}
-		return Double.valueOf(""+value);
-	}
+   @Override
+   public Number getValue()
+   {
+      Object value = creator.getValue(item, property);
+      if (value instanceof Number)
+      {
+         return (Number) value;
+      }
+      return Double.valueOf("" + value);
+   }
 }

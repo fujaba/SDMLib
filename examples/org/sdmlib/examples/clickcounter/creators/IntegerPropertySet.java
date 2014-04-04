@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.clickcounter.creators;
 
 import java.util.Collection;
@@ -28,81 +28,72 @@ import javafx.beans.property.IntegerProperty;
 
 import org.sdmlib.models.modelsets.StringList;
 
-public class IntegerPropertySet extends LinkedHashSet<IntegerProperty> implements org.sdmlib.models.modelsets.ModelSet
+public class IntegerPropertySet extends LinkedHashSet<IntegerProperty>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (IntegerProperty elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "javafx.beans.property.IntegerProperty";
    }
 
-
-
    public IntegerPropertyPO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       IntegerPropertyPO patternObject = pattern.hasElementIntegerPropertyPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public IntegerPropertySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<IntegerProperty>)value);
+         this.addAll((Collection<IntegerProperty>) value);
       }
       else if (value != null)
       {
          this.add((IntegerProperty) value);
       }
-      
+
       return this;
    }
-   
+
    public IntegerPropertySet without(IntegerProperty value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public IntegerPropertyPO hasIntegerPropertyPO()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       IntegerPropertyPO patternObject = pattern.hasElementIntegerPropertyPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

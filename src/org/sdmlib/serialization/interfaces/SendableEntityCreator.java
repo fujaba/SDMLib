@@ -4,7 +4,7 @@ package org.sdmlib.serialization.interfaces;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,53 +20,54 @@ package org.sdmlib.serialization.interfaces;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 /**
  * The Interface SendableEntityCreator. This is the Basic Interface for the
  * Creator for Serialization
  */
 
-public interface SendableEntityCreator {
-	/**
-	 * Gets the properties.
-	 * 
-	 * @return the properties
-	 */
-	public String[] getProperties();
+public interface SendableEntityCreator
+{
+   /**
+    * Gets the properties.
+    * 
+    * @return the properties
+    */
+   public String[] getProperties();
 
-	/**
-	 * Gets the sendable instance.
-	 * 
-	 * @param prototyp
-	 *            the prototyp
-	 * @return the sendable instance
-	 */
-	public Object getSendableInstance(boolean prototyp);
+   /**
+    * Gets the sendable instance.
+    * 
+    * @param prototyp
+    *           the prototyp
+    * @return the sendable instance
+    */
+   public Object getSendableInstance(boolean prototyp);
 
-	/**
-	 * Gets the value.
-	 * 
-	 * @param entity
-	 *            the entity
-	 * @param attribute
-	 *            the attribute
-	 * @return the value
-	 */
-	public Object getValue(Object entity, String attribute);
+   /**
+    * Gets the value.
+    * 
+    * @param entity
+    *           the entity
+    * @param attribute
+    *           the attribute
+    * @return the value
+    */
+   public Object getValue(Object entity, String attribute);
 
-	/**
-	 * Sets the value.
-	 * 
-	 * @param entity
-	 *            the entity
-	 * @param attribute
-	 *            the attribute
-	 * @param value
-	 *            the value
-	 * @param type
-	 *            edit, update or remove operation
-	 * @return true, if successful
-	 */
-	public boolean setValue(Object entity, String attribute, Object value,
-			String type);
+   /**
+    * Sets the value.
+    * 
+    * @param entity
+    *           the entity
+    * @param attribute
+    *           the attribute
+    * @param value
+    *           the value
+    * @param type
+    *           edit, update or remove operation
+    * @return true, if successful
+    */
+   public boolean setValue(Object entity, String attribute, Object value,
+         String type);
 }

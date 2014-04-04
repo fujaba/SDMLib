@@ -21,7 +21,6 @@
 
 package org.sdmlib.storyboards;
 
-
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.storyboards.creators.LogEntrySet;
@@ -33,17 +32,16 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
-
 // should have a creator class
 public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
 {
-   
+
    public LogEntry()
    {
       int i = 0;
       i = i + 1;
    }
-   
+
    public static final LogEntrySet EMPTY_SET = new LogEntrySet();
 
    public static final String PROPERTY_DATE = "date";
@@ -51,18 +49,19 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
    private String date;
 
    private Date parsedDate = null;
-   
+
    public Date getParsedDate()
    {
       return parsedDate;
    }
 
-   public void setDate(String value) {
-      if ( StrUtil.stringCompare (this.date, value) != 0 )
+   public void setDate(String value)
+   {
+      if (StrUtil.stringCompare(this.date, value) != 0)
       {
          String oldValue = this.date;
          this.date = value;
-         
+
          DateFormat dateFormat = DateFormat.getInstance();
          try
          {
@@ -73,27 +72,33 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue,
+            value);
       }
    }
 
-   public String getDate() {
+   public String getDate()
+   {
       return this.date;
    }
+
    public static final String PROPERTY_HOURS_SPEND = "hoursSpend";
 
    private double hoursSpend;
 
-   public void setHoursSpend(double value) {
-      if ( this.hoursSpend != value )
+   public void setHoursSpend(double value)
+   {
+      if (this.hoursSpend != value)
       {
          double oldValue = this.hoursSpend;
          this.hoursSpend = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_SPEND, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_SPEND,
+            oldValue, value);
       }
    }
 
-   public double getHoursSpend() {
+   public double getHoursSpend()
+   {
       return this.hoursSpend;
    }
 
@@ -101,77 +106,93 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
 
    private double hoursRemainingInTotal;
 
-   public void setHoursRemainingInTotal(double value) {
-      if ( this.hoursRemainingInTotal != value )
+   public void setHoursRemainingInTotal(double value)
+   {
+      if (this.hoursRemainingInTotal != value)
       {
          double oldValue = this.hoursRemainingInTotal;
          this.hoursRemainingInTotal = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_REMAINING_IN_TOTAL, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HOURS_REMAINING_IN_TOTAL, oldValue, value);
       }
    }
 
-   public double getHoursRemainingInTotal() {
+   public double getHoursRemainingInTotal()
+   {
       return this.hoursRemainingInTotal;
    }
+
    public static final String PROPERTY_DEVELOPER = "developer";
 
    private String developer;
 
-   public void setDeveloper(String value) {
-      if ( StrUtil.stringCompare (this.developer, value) != 0 )
+   public void setDeveloper(String value)
+   {
+      if (StrUtil.stringCompare(this.developer, value) != 0)
       {
          String oldValue = this.developer;
          this.developer = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEVELOPER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEVELOPER,
+            oldValue, value);
       }
    }
 
-   public String getDeveloper() {
+   public String getDeveloper()
+   {
       return this.developer;
    }
+
    public static final String PROPERTY_PHASE = "phase";
 
    private String phase;
 
-   public void setPhase(String value) {
-      if ( StrUtil.stringCompare (this.phase, value) != 0 )
+   public void setPhase(String value)
+   {
+      if (StrUtil.stringCompare(this.phase, value) != 0)
       {
          String oldValue = this.phase;
          this.phase = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASE,
+            oldValue, value);
       }
    }
 
-   public String getPhase() {
+   public String getPhase()
+   {
       return this.phase;
    }
+
    public static final String PROPERTY_COMMENT = "comment";
 
    private String comment;
 
-   public void setComment(String value) {
-      if ( StrUtil.stringCompare (this.comment, value) != 0 )
+   public void setComment(String value)
+   {
+      if (StrUtil.stringCompare(this.comment, value) != 0)
       {
          String oldValue = this.comment;
          this.comment = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_COMMENT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_COMMENT,
+            oldValue, value);
       }
    }
 
-   public String getComment() {
+   public String getComment()
+   {
       return this.comment;
    }
 
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   public boolean set(String attrName, Object value) 
+   public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_DATE.equalsIgnoreCase(attrName)) 
+      if (PROPERTY_DATE.equalsIgnoreCase(attrName))
       {
          setDate((String) value);
          return true;
@@ -182,32 +203,32 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
          setKanbanEntry((KanbanEntry) value);
          return true;
       }
-      else   if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName))
       {
          setHoursSpend(Double.parseDouble(value.toString()));
          return true;
       }
-      else   if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attrName))
       {
          setHoursRemainingInTotal(Double.parseDouble(value.toString()));
          return true;
       }
-      else   if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName))
       {
          setKanbanEntry((KanbanEntry) value);
          return true;
       }
-      else   if (PROPERTY_DEVELOPER.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_DEVELOPER.equalsIgnoreCase(attrName))
       {
          setDeveloper((String) value);
          return true;
       }
-      else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_PHASE.equalsIgnoreCase(attrName))
       {
          setPhase((String) value);
          return true;
       }
-      else   if (PROPERTY_COMMENT.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_COMMENT.equalsIgnoreCase(attrName))
       {
          setComment((String) value);
          return true;
@@ -215,17 +236,17 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return false;
    }
 
-   public Object get(String attrName) 
+   public Object get(String attrName)
    {
-      int pos=attrName.indexOf(".");
+      int pos = attrName.indexOf(".");
       String attribute = attrName;
 
-      if(pos>0)
+      if (pos > 0)
       {
-         attribute=attrName.substring(0, pos);
+         attribute = attrName.substring(0, pos);
       }
 
-      if (PROPERTY_DATE.equalsIgnoreCase(attribute)) 
+      if (PROPERTY_DATE.equalsIgnoreCase(attribute))
       {
          return getDate();
       }
@@ -234,27 +255,27 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       {
          return getKanbanEntry();
       }
-      else     if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute)) 
+      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute))
       {
          return getHoursSpend();
       }
-      else     if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attribute)) 
+      else if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attribute))
       {
          return getHoursRemainingInTotal();
       }
-      else     if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attribute)) 
+      else if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attribute))
       {
          return getKanbanEntry();
-      }  
-      else     if (PROPERTY_DEVELOPER.equalsIgnoreCase(attribute)) 
+      }
+      else if (PROPERTY_DEVELOPER.equalsIgnoreCase(attribute))
       {
          return getDeveloper();
       }
-      else     if (PROPERTY_PHASE.equalsIgnoreCase(attribute)) 
+      else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
       {
          return getPhase();
       }
-      else     if (PROPERTY_COMMENT.equalsIgnoreCase(attribute)) 
+      else if (PROPERTY_COMMENT.equalsIgnoreCase(attribute))
       {
          return getComment();
       }
@@ -267,13 +288,11 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return this;
    }
 
-
    public LogEntry withHoursSpend(double newValue)
    {
       this.setHoursSpend(newValue);
       return this;
    }
-
 
    public LogEntry withHoursRemainingInTotal(double newValue)
    {
@@ -281,13 +300,11 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return this;
    }
 
-
-  public LogEntry withDeveloper(String newValue)
+   public LogEntry withDeveloper(String newValue)
    {
       this.setDeveloper(newValue);
       return this;
    }
-
 
    public LogEntry withPhase(String newValue)
    {
@@ -295,14 +312,12 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return this;
    }
 
-
    public LogEntry withComment(String newValue)
    {
       this.setComment(newValue);
       return this;
    }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -310,53 +325,53 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
     *              logEntries                   kanbanEntry
     * </pre>
     */
-   
+
    public static final String PROPERTY_KANBANENTRY = "kanbanEntry";
-   
+
    private KanbanEntry kanbanEntry = null;
-   
+
    public KanbanEntry getKanbanEntry()
    {
       return this.kanbanEntry;
    }
-   
+
    public boolean setKanbanEntry(KanbanEntry value)
    {
       boolean changed = false;
-      
+
       if (this.kanbanEntry != value)
       {
          KanbanEntry oldValue = this.kanbanEntry;
-         
+
          if (this.kanbanEntry != null)
          {
             this.kanbanEntry = null;
             oldValue.withoutLogEntries(this);
          }
-         
+
          this.kanbanEntry = value;
-         
+
          if (value != null)
          {
             value.withLogEntries(this);
          }
-         
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_KANBANENTRY, null, value);
+
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_KANBANENTRY,
+         // null, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public LogEntry withKanbanEntry(KanbanEntry value)
    {
       setKanbanEntry(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setKanbanEntry(null);
@@ -374,6 +389,5 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       KanbanEntry value = new KanbanEntry();
       withKanbanEntry(value);
       return value;
-   } 
+   }
 }
-

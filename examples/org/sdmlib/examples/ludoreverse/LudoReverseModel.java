@@ -14,32 +14,22 @@ public class LudoReverseModel
 {
    private static final String INT = "int";
    private static final String STRING = "String";
-   
-   
+
    @Test
    public void LudoModelCreation()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
-      Clazz ludo = model.createClazz("Ludo", 
-         "style", STRING, 
-         "age", "int");
-      
-      Clazz point = model.createClazz(Point.class.getName(),
-         "x", INT,
-         "y", INT
-         ).withWrapped(true);
-      
-      
+      Clazz ludo = model.createClazz("Ludo", "style", STRING, "age", "int");
 
-      Clazz player = ludo.createClassAndAssoc("Player",
-         "players", MANY,
-         "game", ONE 
-            );
+      Clazz point = model
+         .createClazz(Point.class.getName(), "x", INT, "y", INT).withWrapped(
+            true);
 
-      player.withAttributes(
-         "name", "String", 
-         "color", "String");
+      Clazz player = ludo.createClassAndAssoc("Player", "players", MANY,
+         "game", ONE);
+
+      player.withAttributes("name", "String", "color", "String");
 
       model.generate("examples", "examplehelpers");
    }
@@ -50,26 +40,21 @@ public class LudoReverseModel
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
       Clazz ludoClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Ludo")
-      .withAttribute("style", "String")
-      .withAttribute("age", "int");
+         .withAttribute("style", "String").withAttribute("age", "int");
 
-      new Method()
-			.withClazz(ludoClass)
-			.withSignature("toString()");
+      new Method().withClazz(ludoClass).withSignature("toString()");
 
-      Clazz playerClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Player")
-      .withAttribute("name", "String")
-      .withAttribute("color", "String");
+      Clazz playerClass = new Clazz(
+            "org.sdmlib.examples.ludoreverse.model.Player").withAttribute(
+         "name", "String").withAttribute("color", "String");
 
-      new Method()
-			.withClazz(playerClass)
-			.withSignature("toString()");
+      new Method().withClazz(playerClass).withSignature("toString()");
 
       ludoClass.withAssoc(playerClass, "players", MANY, "game", ONE);
 
-      model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludoreverse.model");
+      model.updateFromCode("examples", "examples",
+         "org.sdmlib.examples.ludoreverse.model");
 
       model.insertModelCreationCodeHere("examples");
    }
 }
-

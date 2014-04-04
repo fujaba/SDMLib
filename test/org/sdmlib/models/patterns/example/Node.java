@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -31,9 +31,8 @@ import java.beans.PropertyChangeListener;
 public class Node implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NUM.equalsIgnoreCase(attrName))
@@ -59,9 +58,8 @@ public class Node implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NUM.equalsIgnoreCase(attrName))
@@ -81,7 +79,7 @@ public class Node implements PropertyChangeInterface
          addToNext((Node) value);
          return true;
       }
-      
+
       if ((PROPERTY_NEXT + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromNext((Node) value);
@@ -93,7 +91,7 @@ public class Node implements PropertyChangeInterface
          addToPrev((Node) value);
          return true;
       }
-      
+
       if ((PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPrev((Node) value);
@@ -103,19 +101,17 @@ public class Node implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGraph(null);
@@ -124,47 +120,44 @@ public class Node implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NUM = "num";
-   
+
    private int num;
 
    public int getNum()
    {
       return this.num;
    }
-   
+
    public void setNum(int value)
    {
       if (this.num != value)
       {
          int oldValue = this.num;
          this.num = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUM, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUM, oldValue,
+            value);
       }
    }
-   
+
    public Node withNum(int value)
    {
       setNum(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getNum());
       return _.substring(1);
    }
 
-
-   
    public static final NodeSet EMPTY_SET = new NodeSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -172,58 +165,58 @@ public class Node implements PropertyChangeInterface
     *              nodes                   graph
     * </pre>
     */
-   
+
    public static final String PROPERTY_GRAPH = "graph";
-   
+
    private SimpleState graph = null;
-   
+
    public SimpleState getGraph()
    {
       return this.graph;
    }
-   
+
    public boolean setGraph(SimpleState value)
    {
       boolean changed = false;
-      
+
       if (this.graph != value)
       {
          SimpleState oldValue = this.graph;
-         
+
          if (this.graph != null)
          {
             this.graph = null;
             oldValue.withoutNodes(this);
          }
-         
+
          this.graph = value;
-         
+
          if (value != null)
          {
             value.withNodes(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Node withGraph(SimpleState value)
    {
       setGraph(value);
       return this;
-   } 
-   
+   }
+
    public SimpleState createGraph()
    {
       SimpleState value = new SimpleState();
       withGraph(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -231,92 +224,93 @@ public class Node implements PropertyChangeInterface
     *              prev                   next
     * </pre>
     */
-   
+
    public static final String PROPERTY_NEXT = "next";
-   
+
    private NodeSet next = null;
-   
+
    public NodeSet getNext()
    {
       if (this.next == null)
       {
          return Node.EMPTY_SET;
       }
-   
+
       return this.next;
    }
-   
+
    public boolean addToNext(Node value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.next == null)
          {
             this.next = new NodeSet();
          }
-         
-         changed = this.next.add (value);
-         
+
+         changed = this.next.add(value);
+
          if (changed)
          {
             value.withPrev(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromNext(Node value)
    {
       boolean changed = false;
-      
+
       if ((this.next != null) && (value != null))
       {
-         changed = this.next.remove (value);
-         
+         changed = this.next.remove(value);
+
          if (changed)
          {
             value.withoutPrev(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Node withNext(Node value)
    {
       addToNext(value);
       return this;
-   } 
-   
+   }
+
    public Node withoutNext(Node value)
    {
       removeFromNext(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromNext()
    {
       LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getNext());
-   
+
       for (Node value : tmpSet)
       {
          this.removeFromNext(value);
       }
    }
-   
+
    public Node createNext()
    {
       Node value = new Node();
       withNext(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -324,90 +318,92 @@ public class Node implements PropertyChangeInterface
     *              next                   prev
     * </pre>
     */
-   
+
    public static final String PROPERTY_PREV = "prev";
-   
+
    private NodeSet prev = null;
-   
+
    public NodeSet getPrev()
    {
       if (this.prev == null)
       {
          return Node.EMPTY_SET;
       }
-   
+
       return this.prev;
    }
-   
+
    public boolean addToPrev(Node value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.prev == null)
          {
             this.prev = new NodeSet();
          }
-         
-         changed = this.prev.add (value);
-         
+
+         changed = this.prev.add(value);
+
          if (changed)
          {
             value.withNext(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPrev(Node value)
    {
       boolean changed = false;
-      
+
       if ((this.prev != null) && (value != null))
       {
-         changed = this.prev.remove (value);
-         
+         changed = this.prev.remove(value);
+
          if (changed)
          {
             value.withoutNext(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Node withPrev(Node value)
    {
       addToPrev(value);
       return this;
-   } 
-   
+   }
+
    public Node withoutPrev(Node value)
    {
       removeFromPrev(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromPrev()
    {
       LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getPrev());
-   
+
       for (Node value : tmpSet)
       {
          this.removeFromPrev(value);
       }
    }
-   
+
    public Node createPrev()
    {
       Node value = new Node();
       withPrev(value);
       return value;
-   } 
+   }
 
    public Node withNext(Node... value)
    {
@@ -416,7 +412,7 @@ public class Node implements PropertyChangeInterface
          addToNext(item);
       }
       return this;
-   } 
+   }
 
    public Node withoutNext(Node... value)
    {
@@ -434,7 +430,7 @@ public class Node implements PropertyChangeInterface
          addToPrev(item);
       }
       return this;
-   } 
+   }
 
    public Node withoutPrev(Node... value)
    {
@@ -444,6 +440,7 @@ public class Node implements PropertyChangeInterface
       }
       return this;
    }
+
    public NodeSet getNextTransitive()
    {
       NodeSet result = new NodeSet().with(this);
@@ -457,4 +454,3 @@ public class Node implements PropertyChangeInterface
    }
 
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -44,21 +44,19 @@ import org.sdmlib.examples.ludo.Pawn;
 public class PlayerSet extends SDMSet<Player>
 {
 
-
    public PlayerPO hasPlayerPO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       PlayerPO patternObject = pattern.hasElementPlayerPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -66,21 +64,20 @@ public class PlayerSet extends SDMSet<Player>
       return "org.sdmlib.examples.ludo.Player";
    }
 
-
    public PlayerSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Player>)value);
+         this.addAll((Collection<Player>) value);
       }
       else if (value != null)
       {
          this.add((Player) value);
       }
-      
+
       return this;
    }
-   
+
    public PlayerSet without(Player value)
    {
       this.remove(value);
@@ -90,19 +87,19 @@ public class PlayerSet extends SDMSet<Player>
    public StringList getColor()
    {
       StringList result = new StringList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getColor());
       }
-      
+
       return result;
    }
 
    public PlayerSet hasColor(String value)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (value.equals(obj.getColor()))
@@ -110,22 +107,23 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PlayerSet hasColor(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
-         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getColor()) <= 0
+            && obj.getColor().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -135,26 +133,27 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.setColor(value);
       }
-      
+
       return this;
    }
 
    public ArrayList<LudoColor> getEnumColor()
    {
       ArrayList<LudoColor> result = new ArrayList<LudoColor>();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getEnumColor());
       }
-      
+
       return result;
    }
 
-   public PlayerSet hasEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   public PlayerSet hasEnumColor(
+         org.sdmlib.examples.ludo.LudoModel.LudoColor value)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (value == obj.getEnumColor())
@@ -162,22 +161,25 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
-   public PlayerSet hasEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor lower, org.sdmlib.examples.ludo.LudoModel.LudoColor upper)
+   public PlayerSet hasEnumColor(
+         org.sdmlib.examples.ludo.LudoModel.LudoColor lower,
+         org.sdmlib.examples.ludo.LudoModel.LudoColor upper)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
-         if (lower.ordinal() <= obj.getEnumColor().ordinal() && obj.getEnumColor().ordinal() <= upper.ordinal())
+         if (lower.ordinal() <= obj.getEnumColor().ordinal()
+            && obj.getEnumColor().ordinal() <= upper.ordinal())
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -187,26 +189,26 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.setEnumColor(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public PlayerSet hasName(String value)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (value.equals(obj.getName()))
@@ -214,22 +216,23 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PlayerSet hasName(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -239,26 +242,26 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public intList getX()
    {
       intList result = new intList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getX());
       }
-      
+
       return result;
    }
 
    public PlayerSet hasX(int value)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (value == obj.getX())
@@ -266,14 +269,14 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PlayerSet hasX(int lower, int upper)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (lower <= obj.getX() && obj.getX() <= upper)
@@ -281,7 +284,7 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -291,26 +294,26 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.setX(value);
       }
-      
+
       return this;
    }
 
    public intList getY()
    {
       intList result = new intList();
-      
+
       for (Player obj : this)
       {
          result.add(obj.getY());
       }
-      
+
       return result;
    }
 
    public PlayerSet hasY(int value)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (value == obj.getY())
@@ -318,14 +321,14 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PlayerSet hasY(int lower, int upper)
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (lower <= obj.getY() && obj.getY() <= upper)
@@ -333,7 +336,7 @@ public class PlayerSet extends SDMSet<Player>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -343,19 +346,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.setY(value);
       }
-      
+
       return this;
    }
 
    public LudoSet getGame()
    {
       LudoSet result = new LudoSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getGame());
       }
-      
+
       return result;
    }
 
@@ -371,9 +374,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getGame()))
@@ -381,7 +384,7 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -391,19 +394,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withGame(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getNext()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getNext());
       }
-      
+
       return result;
    }
 
@@ -419,9 +422,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getNext()))
@@ -429,10 +432,9 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public PlayerSet withNext(Player value)
    {
@@ -440,19 +442,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withNext(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getPrev()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getPrev());
       }
-      
+
       return result;
    }
 
@@ -468,9 +470,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getPrev()))
@@ -478,10 +480,9 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public PlayerSet withPrev(Player value)
    {
@@ -489,19 +490,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withPrev(value);
       }
-      
+
       return this;
    }
 
    public DiceSet getDice()
    {
       DiceSet result = new DiceSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getDice());
       }
-      
+
       return result;
    }
 
@@ -517,9 +518,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getDice()))
@@ -527,7 +528,7 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -537,19 +538,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withDice(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getStart()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getStart());
       }
-      
+
       return result;
    }
 
@@ -565,9 +566,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getStart()))
@@ -575,7 +576,7 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -585,19 +586,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withStart(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getBase()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getBase());
       }
-      
+
       return result;
    }
 
@@ -613,9 +614,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getBase()))
@@ -623,7 +624,7 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -633,19 +634,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withBase(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getLanding()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getLanding());
       }
-      
+
       return result;
    }
 
@@ -661,9 +662,9 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
          if (neighbors.contains(obj.getLanding()))
@@ -671,7 +672,7 @@ public class PlayerSet extends SDMSet<Player>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -681,19 +682,19 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withLanding(value);
       }
-      
+
       return this;
    }
 
    public PawnSet getPawns()
    {
       PawnSet result = new PawnSet();
-      
+
       for (Player obj : this)
       {
          result.with(obj.getPawns());
       }
-      
+
       return result;
    }
 
@@ -709,17 +710,17 @@ public class PlayerSet extends SDMSet<Player>
       {
          neighbors.add(value);
       }
-      
+
       PlayerSet answer = new PlayerSet();
-      
+
       for (Player obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPawns()))
+         if (!Collections.disjoint(neighbors, obj.getPawns()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -729,7 +730,7 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withPawns(value);
       }
-      
+
       return this;
    }
 
@@ -739,68 +740,60 @@ public class PlayerSet extends SDMSet<Player>
       {
          obj.withoutPawns(value);
       }
-      
+
       return this;
    }
-
 
    public PlayerSet getNextTransitive()
    {
       PlayerSet todo = new PlayerSet().with(this);
-      
+
       PlayerSet result = new PlayerSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Player current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getNext()))
+
+            if (!result.contains(current.getNext()))
             {
                todo.with(current.getNext());
             }
          }
       }
-      
+
       return result;
    }
-
 
    public PlayerSet getPrevTransitive()
    {
       PlayerSet todo = new PlayerSet().with(this);
-      
+
       PlayerSet result = new PlayerSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Player current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getPrev()))
+
+            if (!result.contains(current.getPrev()))
             {
                todo.with(current.getPrev());
             }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-

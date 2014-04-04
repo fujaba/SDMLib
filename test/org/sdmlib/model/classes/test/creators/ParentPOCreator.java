@@ -8,15 +8,15 @@ public class ParentPOCreator extends PatternObjectCreator
    {
       return new ParentPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ParentPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ParentPO) target).set(attrName, value);
    }
 }
-

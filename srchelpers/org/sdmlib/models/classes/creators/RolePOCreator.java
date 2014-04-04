@@ -8,15 +8,14 @@ public class RolePOCreator extends PatternObjectCreator
    {
       return new RolePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((RolePO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((RolePO) target).set(attrName, value);
    }
 }
-

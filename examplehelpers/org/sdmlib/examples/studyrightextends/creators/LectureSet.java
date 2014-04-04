@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -35,38 +35,36 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightextends.creators.ProfessorSet;
 import org.sdmlib.examples.studyrightextends.creators.StudentSet;
 
-public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.models.modelsets.ModelSet
+public class LectureSet extends LinkedHashSet<Lecture> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Lecture elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Lecture";
    }
 
-
    public StringList getTitle()
    {
       StringList result = new StringList();
-      
+
       for (Lecture obj : this)
       {
          result.add(obj.getTitle());
       }
-      
+
       return result;
    }
 
@@ -76,19 +74,19 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       {
          obj.setTitle(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getIn()
    {
       RoomSet result = new RoomSet();
-      
+
       for (Lecture obj : this)
       {
          result.add(obj.getIn());
       }
-      
+
       return result;
    }
 
@@ -98,19 +96,19 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       {
          obj.withIn(value);
       }
-      
+
       return this;
    }
 
    public ProfessorSet getHas()
    {
       ProfessorSet result = new ProfessorSet();
-      
+
       for (Lecture obj : this)
       {
          result.add(obj.getHas());
       }
-      
+
       return result;
    }
 
@@ -120,19 +118,19 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       {
          obj.withHas(value);
       }
-      
+
       return this;
    }
 
    public StudentSet getListen()
    {
       StudentSet result = new StudentSet();
-      
+
       for (Lecture obj : this)
       {
          result.add(obj.getListen());
       }
-      
+
       return result;
    }
 
@@ -142,70 +140,55 @@ public class LectureSet extends LinkedHashSet<Lecture> implements org.sdmlib.mod
       {
          obj.withListen(value);
       }
-      
+
       return this;
    }
-
-
 
    public LecturePO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       LecturePO patternObject = pattern.hasElementLecturePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LectureSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Lecture>)value);
+         this.addAll((Collection<Lecture>) value);
       }
       else if (value != null)
       {
          this.add((Lecture) value);
       }
-      
+
       return this;
    }
-   
+
    public LectureSet without(Lecture value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public LecturePO hasLecturePO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       LecturePO patternObject = pattern.hasElementLecturePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

@@ -5,18 +5,19 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.codegen.creators.LocalVarTableEntrySet;
 
-public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, LocalVarTableEntry>
+public class LocalVarTableEntryPO extends
+      PatternObject<LocalVarTableEntryPO, LocalVarTableEntry>
 {
    public LocalVarTableEntryPO startNAC()
    {
       return (LocalVarTableEntryPO) super.startNAC();
    }
-   
+
    public LocalVarTableEntryPO endNAC()
    {
       return (LocalVarTableEntryPO) super.endNAC();
    }
-   
+
    public LocalVarTableEntrySet allMatches()
    {
       LocalVarTableEntrySet matches = new LocalVarTableEntrySet();
@@ -24,27 +25,25 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
       while (this.getPattern().getHasMatch())
       {
          matches.add((LocalVarTableEntry) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public LocalVarTableEntryPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_NAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -53,21 +52,19 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
       }
       return null;
    }
-   
+
    public LocalVarTableEntryPO hasType(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_TYPE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_TYPE).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getType()
    {
       if (this.getPattern().getHasMatch())
@@ -76,21 +73,20 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
       }
       return null;
    }
-   
+
    public LocalVarTableEntryPO hasStartPos(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_STARTPOS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_STARTPOS)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getStartPos()
    {
       if (this.getPattern().getHasMatch())
@@ -99,21 +95,19 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
       }
       return 0;
    }
-   
+
    public LocalVarTableEntryPO hasEndPos(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_ENDPOS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_ENDPOS).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getEndPos()
    {
       if (this.getPattern().getHasMatch())
@@ -122,92 +116,81 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
       }
       return 0;
    }
-   
+
    public LocalVarTableEntryPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LocalVarTableEntryPO hasType(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_TYPE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_TYPE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LocalVarTableEntryPO hasStartPos(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_STARTPOS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_STARTPOS)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LocalVarTableEntryPO hasEndPos(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LocalVarTableEntry.PROPERTY_ENDPOS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LocalVarTableEntry.PROPERTY_ENDPOS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LocalVarTableEntryPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public LocalVarTableEntryPO createType(String value)
    {
       this.startCreate().hasType(value).endCreate();
       return this;
    }
-   
+
    public LocalVarTableEntryPO createStartPos(int value)
    {
       this.startCreate().hasStartPos(value).endCreate();
       return this;
    }
-   
+
    public LocalVarTableEntryPO createEndPos(int value)
    {
       this.startCreate().hasEndPos(value).endCreate();
       return this;
    }
-   
+
 }
-
-
-

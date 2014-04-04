@@ -18,40 +18,39 @@ public class BoatPO extends PatternObject<BoatPO, Boat>
    public BoatSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       BoatSet matches = new BoatSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Boat) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public BankPO hasBank()
    {
       BankPO result = new BankPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Boat.PROPERTY_BANK, result);
-      
+
       return result;
    }
 
    public BoatPO hasBank(BankPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_BANK)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_BANK).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -68,23 +67,22 @@ public class BoatPO extends PatternObject<BoatPO, Boat>
    {
       CargoPO result = new CargoPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Boat.PROPERTY_CARGO, result);
-      
+
       return result;
    }
 
    public BoatPO hasCargo(CargoPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_CARGO)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_CARGO).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -101,23 +99,22 @@ public class BoatPO extends PatternObject<BoatPO, Boat>
    {
       RiverPO result = new RiverPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Boat.PROPERTY_RIVER, result);
-      
+
       return result;
    }
 
    public BoatPO hasRiver(RiverPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_RIVER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Boat.PROPERTY_RIVER).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -161,6 +158,3 @@ public class BoatPO extends PatternObject<BoatPO, Boat>
    }
 
 }
-
-
-

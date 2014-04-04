@@ -4,7 +4,7 @@ package org.sdmlib.serialization.interfaces;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,57 +20,58 @@ package org.sdmlib.serialization.interfaces;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 /**
  * The Interface IdMapCounter.
  */
 
-public interface IdMapCounter {
-	/**
-	 * Sets the prefix for The Id of Elements
-	 * 
-	 * @param sessionId
-	 *            the new prefix id
-	 */
-	public IdMapCounter withPrefixId(String sessionId);
+public interface IdMapCounter
+{
+   /**
+    * Sets the prefix for The Id of Elements
+    * 
+    * @param sessionId
+    *           the new prefix id
+    */
+   public IdMapCounter withPrefixId(String sessionId);
 
-	/**
-	 * @return the current sessionid
-	 */
-	public String getPrefixId();
+   /**
+    * @return the current sessionid
+    */
+   public String getPrefixId();
 
-	/**
-	 * Sets the splitter for The session id
-	 * 
-	 * @param Character
-	 *            the new splitter character for the session id
-	 */
-	public IdMapCounter withSplitter(char splitter);
+   /**
+    * Sets the splitter for The session id
+    * 
+    * @param Character
+    *           the new splitter character for the session id
+    */
+   public IdMapCounter withSplitter(char splitter);
 
-	/**
-	 * @return the current splitterString
-	 */
-	public char getSplitter();
+   /**
+    * @return the current splitterString
+    */
+   public char getSplitter();
 
-	/**
-	 * Gets the id.
-	 * 
-	 * @param obj
-	 *            the obj
-	 * @return the id
-	 */
-	public String getId(Object obj);
+   /**
+    * Gets the id.
+    * 
+    * @param obj
+    *           the obj
+    * @return the id
+    */
+   public String getId(Object obj);
 
-	/**
-	 * Read id.
-	 * 
-	 * @param id
-	 *            the last id from Message
-	 */
-	public void readId(String id);
+   /**
+    * Read id.
+    * 
+    * @param id
+    *           the last id from Message
+    */
+   public void readId(String id);
 
-	/**
-	 * @return the Prio Object for checking errors
-	 */
-	public Object getPrio();
+   /**
+    * @return the Prio Object for checking errors
+    */
+   public Object getPrio();
 }

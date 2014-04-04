@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld;
 
 import java.beans.PropertyChangeSupport;
@@ -31,14 +31,13 @@ import java.beans.PropertyChangeListener;
 public class Edge extends GraphComponent implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -73,13 +72,12 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       {
          return getParent();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
@@ -121,19 +119,17 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGraph(null);
@@ -143,10 +139,8 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    public static final EdgeSet EMPTY_SET = new EdgeSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -154,58 +148,58 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
     *              edges                   graph
     * </pre>
     */
-   
+
    public static final String PROPERTY_GRAPH = "graph";
-   
+
    private Graph graph = null;
-   
+
    public Graph getGraph()
    {
       return this.graph;
    }
-   
+
    public boolean setGraph(Graph value)
    {
       boolean changed = false;
-      
+
       if (this.graph != value)
       {
          Graph oldValue = this.graph;
-         
+
          if (this.graph != null)
          {
             this.graph = null;
             oldValue.withoutEdges(this);
          }
-         
+
          this.graph = value;
-         
+
          if (value != null)
          {
             value.withEdges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Edge withGraph(Graph value)
    {
       setGraph(value);
       return this;
-   } 
-   
+   }
+
    public Graph createGraph()
    {
       Graph value = new Graph();
       withGraph(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -213,58 +207,58 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
     *              outEdges                   src
     * </pre>
     */
-   
+
    public static final String PROPERTY_SRC = "src";
-   
+
    private Node src = null;
-   
+
    public Node getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(Node value)
    {
       boolean changed = false;
-      
+
       if (this.src != value)
       {
          Node oldValue = this.src;
-         
+
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutOutEdges(this);
          }
-         
+
          this.src = value;
-         
+
          if (value != null)
          {
             value.withOutEdges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Edge withSrc(Node value)
    {
       setSrc(value);
       return this;
-   } 
-   
+   }
+
    public Node createSrc()
    {
       Node value = new Node();
       withSrc(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -272,93 +266,93 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
     *              inEdges                   tgt
     * </pre>
     */
-   
+
    public static final String PROPERTY_TGT = "tgt";
-   
+
    private Node tgt = null;
-   
+
    public Node getTgt()
    {
       return this.tgt;
    }
-   
+
    public boolean setTgt(Node value)
    {
       boolean changed = false;
-      
+
       if (this.tgt != value)
       {
          Node oldValue = this.tgt;
-         
+
          if (this.tgt != null)
          {
             this.tgt = null;
             oldValue.withoutInEdges(this);
          }
-         
+
          this.tgt = value;
-         
+
          if (value != null)
          {
             value.withInEdges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Edge withTgt(Node value)
    {
       setTgt(value);
       return this;
-   } 
-   
+   }
+
    public Node createTgt()
    {
       Node value = new Node();
       withTgt(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Edge withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
 }
-

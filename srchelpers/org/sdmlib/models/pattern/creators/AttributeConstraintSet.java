@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -41,19 +41,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
    public StringList getAttrName()
    {
       StringList result = new StringList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getAttrName());
       }
-      
+
       return result;
    }
-   
+
    public AttributeConstraintSet hasAttrName(String value)
    {
       AttributeConstraintSet result = new AttributeConstraintSet();
-      
+
       for (AttributeConstraint attributeConstraint : this)
       {
          if (attributeConstraint.getAttrName().equals(value))
@@ -63,59 +63,60 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       }
       return result;
    }
-   
+
    public AttributeConstraint first()
    {
       for (AttributeConstraint obj : this)
       {
          return obj;
       }
-      
+
       return null;
    }
 
    public LinkedHashSet<Object> getTgtValue()
    {
       LinkedHashSet<Object> result = new LinkedHashSet<Object>();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getTgtValue());
       }
-      
+
       return result;
    }
 
    public ObjectSet getHostGraphSrcObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getHostGraphSrcObject());
       }
-      
+
       return result;
    }
 
    public PatternObjectSet getSrc()
    {
       PatternObjectSet result = new PatternObjectSet();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
+
    public AttributeConstraintSet withAttrName(String value)
    {
       for (AttributeConstraint obj : this)
       {
          obj.withAttrName(value);
       }
-      
+
       return this;
    }
 
@@ -125,7 +126,7 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withTgtValue(value);
       }
-      
+
       return this;
    }
 
@@ -135,7 +136,7 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withHostGraphSrcObject(value);
       }
-      
+
       return this;
    }
 
@@ -145,19 +146,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -167,19 +168,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -189,19 +190,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -211,19 +212,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -233,51 +234,48 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (AttributeConstraint elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.AttributeConstraint";
    }
 
-
    public AttributeConstraintSet with(AttributeConstraint value)
    {
       this.add(value);
       return this;
    }
-   
+
    public AttributeConstraintSet without(AttributeConstraint value)
    {
       this.remove(value);
       return this;
    }
+
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -287,19 +285,19 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public StringList getCmpOp()
    {
       StringList result = new StringList();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getCmpOp());
       }
-      
+
       return result;
    }
 
@@ -309,58 +307,55 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.setCmpOp(value);
       }
-      
+
       return this;
    }
-
-
 
    public AttributeConstraintPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      AttributeConstraintPO patternObject = pattern.hasElementAttributeConstraintPO();
-      
+
+      AttributeConstraintPO patternObject = pattern
+         .hasElementAttributeConstraintPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public AttributeConstraintSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<AttributeConstraint>)value);
+         this.addAll((Collection<AttributeConstraint>) value);
       }
       else if (value != null)
       {
          this.add((AttributeConstraint) value);
       }
-      
+
       return this;
    }
-   
 
    public ObjectSet getUpperTgtValue()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (AttributeConstraint obj : this)
       {
          result.add(obj.getUpperTgtValue());
       }
-      
+
       return result;
    }
 
    public AttributeConstraintSet hasUpperTgtValue(Object value)
    {
       AttributeConstraintSet result = new AttributeConstraintSet();
-      
+
       for (AttributeConstraint obj : this)
       {
          if (value == obj.getUpperTgtValue())
@@ -368,7 +363,7 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -378,40 +373,22 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
       {
          obj.setUpperTgtValue(value);
       }
-      
+
       return this;
    }
-
-
 
    public AttributeConstraintPO hasAttributeConstraintPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      AttributeConstraintPO patternObject = pattern.hasElementAttributeConstraintPO();
-      
+
+      AttributeConstraintPO patternObject = pattern
+         .hasElementAttributeConstraintPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m.creators;
 
 import java.util.Collection;
@@ -31,7 +31,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.m2m.creators.GraphSet;
 import java.util.Collections;
 
-public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements org.sdmlib.models.modelsets.ModelSet
+public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public GraphComponent first()
    {
@@ -39,46 +40,43 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GraphComponent elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.m2m.GraphComponent";
    }
 
-
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (GraphComponent obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
    public GraphComponentSet hasText(String value)
    {
       GraphComponentSet result = new GraphComponentSet();
-      
+
       for (GraphComponent obj : this)
       {
          if (value.equals(obj.getText()))
@@ -86,7 +84,7 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -96,19 +94,19 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       {
          obj.setText(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
-      
+
       for (GraphComponent obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -124,9 +122,9 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       {
          neighbors.add(value);
       }
-      
+
       GraphComponentSet answer = new GraphComponentSet();
-      
+
       for (GraphComponent obj : this)
       {
          if (neighbors.contains(obj.getParent()))
@@ -134,7 +132,7 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -144,67 +142,55 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements 
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
-
-
 
    public GraphComponentPO startModelPattern()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GraphComponentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GraphComponent>)value);
+         this.addAll((Collection<GraphComponent>) value);
       }
       else if (value != null)
       {
          this.add((GraphComponent) value);
       }
-      
+
       return this;
    }
-   
+
    public GraphComponentSet without(GraphComponent value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GraphComponentPO hasGraphComponentPO()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

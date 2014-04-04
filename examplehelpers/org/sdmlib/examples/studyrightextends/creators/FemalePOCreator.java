@@ -8,15 +8,15 @@ public class FemalePOCreator extends PatternObjectCreator
    {
       return new FemalePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((FemalePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((FemalePO) target).set(attrName, value);
    }
 }
-

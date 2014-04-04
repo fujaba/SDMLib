@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -32,17 +32,18 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicConstraint>
+public class MatchIsomorphicConstraintSet extends
+      LinkedHashSet<MatchIsomorphicConstraint>
 {
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (MatchIsomorphicConstraint obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -52,19 +53,19 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (MatchIsomorphicConstraint obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -74,19 +75,19 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (MatchIsomorphicConstraint obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -96,19 +97,19 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (MatchIsomorphicConstraint obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -118,24 +119,21 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (MatchIsomorphicConstraint elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -145,12 +143,12 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (MatchIsomorphicConstraint obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -160,71 +158,57 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public MatchIsomorphicConstraintPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      MatchIsomorphicConstraintPO patternObject = pattern.hasElementMatchIsomorphicConstraintPO();
-      
+
+      MatchIsomorphicConstraintPO patternObject = pattern
+         .hasElementMatchIsomorphicConstraintPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public MatchIsomorphicConstraintSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<MatchIsomorphicConstraint>)value);
+         this.addAll((Collection<MatchIsomorphicConstraint>) value);
       }
       else if (value != null)
       {
          this.add((MatchIsomorphicConstraint) value);
       }
-      
+
       return this;
    }
-   
+
    public MatchIsomorphicConstraintSet without(MatchIsomorphicConstraint value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public MatchIsomorphicConstraintPO hasMatchIsomorphicConstraintPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      MatchIsomorphicConstraintPO patternObject = pattern.hasElementMatchIsomorphicConstraintPO();
-      
+
+      MatchIsomorphicConstraintPO patternObject = pattern
+         .hasElementMatchIsomorphicConstraintPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-

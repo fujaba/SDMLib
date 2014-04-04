@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -30,28 +30,26 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implements org.sdmlib.models.modelsets.ModelSet
+public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReplicationNode elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.ReplicationNode";
    }
-
 
    public SharedSpaceSet getSharedSpaces()
    {
@@ -64,7 +62,7 @@ public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implement
       {
          obj.withSharedSpaces(value);
       }
-      
+
       return this;
    }
 
@@ -74,41 +72,38 @@ public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implement
       {
          obj.withoutSharedSpaces(value);
       }
-      
+
       return this;
    }
-
-
 
    public ReplicationNodePO hasReplicationNodePO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
+
       ReplicationNodePO patternObject = pattern.hasElementReplicationNodePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReplicationNodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReplicationNode>)value);
+         this.addAll((Collection<ReplicationNode>) value);
       }
       else if (value != null)
       {
          this.add((ReplicationNode) value);
       }
-      
+
       return this;
    }
-   
+
    public ReplicationNodeSet without(ReplicationNode value)
    {
       this.remove(value);
@@ -116,8 +111,3 @@ public class ReplicationNodeSet extends LinkedHashSet<ReplicationNode> implement
    }
 
 }
-
-
-
-
-

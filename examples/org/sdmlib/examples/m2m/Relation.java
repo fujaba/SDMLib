@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -31,9 +31,8 @@ import org.sdmlib.examples.m2m.GraphComponent;
 public class Relation extends GraphComponent implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_KIND.equalsIgnoreCase(attrName))
@@ -69,9 +68,8 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_KIND.equalsIgnoreCase(attrName))
@@ -113,24 +111,22 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGraph(null);
@@ -140,48 +136,45 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_KIND = "kind";
-   
+
    private String kind;
 
    public String getKind()
    {
       return this.kind;
    }
-   
+
    public void setKind(String value)
    {
-      if ( ! StrUtil.stringEquals(this.kind, value))
+      if (!StrUtil.stringEquals(this.kind, value))
       {
          String oldValue = this.kind;
          this.kind = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_KIND, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_KIND, oldValue,
+            value);
       }
    }
-   
+
    public Relation withKind(String value)
    {
       setKind(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getKind());
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
-
-   
    public static final RelationSet EMPTY_SET = new RelationSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -189,58 +182,58 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
     *              relations                   graph
     * </pre>
     */
-   
+
    public static final String PROPERTY_GRAPH = "graph";
-   
+
    private Graph graph = null;
-   
+
    public Graph getGraph()
    {
       return this.graph;
    }
-   
+
    public boolean setGraph(Graph value)
    {
       boolean changed = false;
-      
+
       if (this.graph != value)
       {
          Graph oldValue = this.graph;
-         
+
          if (this.graph != null)
          {
             this.graph = null;
             oldValue.withoutRelations(this);
          }
-         
+
          this.graph = value;
-         
+
          if (value != null)
          {
             value.withRelations(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Relation withGraph(Graph value)
    {
       setGraph(value);
       return this;
-   } 
-   
+   }
+
    public Graph createGraph()
    {
       Graph value = new Graph();
       withGraph(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -248,58 +241,58 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
     *              outEdges                   src
     * </pre>
     */
-   
+
    public static final String PROPERTY_SRC = "src";
-   
+
    private Person src = null;
-   
+
    public Person getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(Person value)
    {
       boolean changed = false;
-      
+
       if (this.src != value)
       {
          Person oldValue = this.src;
-         
+
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutOutEdges(this);
          }
-         
+
          this.src = value;
-         
+
          if (value != null)
          {
             value.withOutEdges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Relation withSrc(Person value)
    {
       setSrc(value);
       return this;
-   } 
-   
+   }
+
    public Person createSrc()
    {
       Person value = new Person();
       withSrc(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -307,55 +300,55 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
     *              inEdges                   tgt
     * </pre>
     */
-   
+
    public static final String PROPERTY_TGT = "tgt";
-   
+
    private Person tgt = null;
-   
+
    public Person getTgt()
    {
       return this.tgt;
    }
-   
+
    public boolean setTgt(Person value)
    {
       boolean changed = false;
-      
+
       if (this.tgt != value)
       {
          Person oldValue = this.tgt;
-         
+
          if (this.tgt != null)
          {
             this.tgt = null;
             oldValue.withoutInEdges(this);
          }
-         
+
          this.tgt = value;
-         
+
          if (value != null)
          {
             value.withInEdges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Relation withTgt(Person value)
    {
       setTgt(value);
       return this;
-   } 
-   
+   }
+
    public Person createTgt()
    {
       Person value = new Person();
       withTgt(value);
       return value;
-   } 
+   }
 }
-

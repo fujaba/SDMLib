@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.codegen.creators;
 
 import java.util.Collection;
@@ -33,12 +33,12 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (LocalVarTableEntry obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -48,19 +48,19 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public StringList getType()
    {
       StringList result = new StringList();
-      
+
       for (LocalVarTableEntry obj : this)
       {
          result.add(obj.getType());
       }
-      
+
       return result;
    }
 
@@ -70,19 +70,19 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       {
          obj.withType(value);
       }
-      
+
       return this;
    }
 
    public intList getStartPos()
    {
       intList result = new intList();
-      
+
       for (LocalVarTableEntry obj : this)
       {
          result.add(obj.getStartPos());
       }
-      
+
       return result;
    }
 
@@ -92,19 +92,19 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       {
          obj.withStartPos(value);
       }
-      
+
       return this;
    }
 
    public intList getEndPos()
    {
       intList result = new intList();
-      
+
       for (LocalVarTableEntry obj : this)
       {
          result.add(obj.getEndPos());
       }
-      
+
       return result;
    }
 
@@ -114,68 +114,61 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       {
          obj.withEndPos(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (LocalVarTableEntry elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.codegen.LocalVarTableEntry";
    }
 
-
-
    public LocalVarTableEntryPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
-      LocalVarTableEntryPO patternObject = pattern.hasElementLocalVarTableEntryPO();
-      
+
+      LocalVarTableEntryPO patternObject = pattern
+         .hasElementLocalVarTableEntryPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LocalVarTableEntrySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LocalVarTableEntry>)value);
+         this.addAll((Collection<LocalVarTableEntry>) value);
       }
       else if (value != null)
       {
          this.add((LocalVarTableEntry) value);
       }
-      
+
       return this;
    }
-   
+
    public LocalVarTableEntrySet without(LocalVarTableEntry value)
    {
       this.remove(value);
       return this;
    }
-
-
 
    public LocalVarTableEntryPO hasLocalVarTableEntryPO()
    {
@@ -183,7 +176,3 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
 
    }
 }
-
-
-
-

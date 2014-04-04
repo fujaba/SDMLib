@@ -24,7 +24,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -36,194 +36,191 @@ public class ModelPattern extends Pattern
       LecturePO value = new LecturePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public LecturePO hasElementLecturePO(Lecture hostGraphObject)
    {
       LecturePO value = new LecturePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public RoomPO hasElementRoomPO()
    {
       RoomPO value = new RoomPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public RoomPO hasElementRoomPO(Room hostGraphObject)
    {
       RoomPO value = new RoomPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public UniversityPO hasElementUniversityPO()
    {
       UniversityPO value = new UniversityPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public UniversityPO hasElementUniversityPO(University hostGraphObject)
    {
       UniversityPO value = new UniversityPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public FemalePO hasElementFemalePO()
    {
       FemalePO value = new FemalePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public FemalePO hasElementFemalePO(Female hostGraphObject)
    {
       FemalePO value = new FemalePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public ProfessorPO hasElementProfessorPO()
    {
       ProfessorPO value = new ProfessorPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public ProfessorPO hasElementProfessorPO(Professor hostGraphObject)
    {
       ProfessorPO value = new ProfessorPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public StudentPO hasElementStudentPO()
    {
       StudentPO value = new StudentPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public StudentPO hasElementStudentPO(Student hostGraphObject)
    {
       StudentPO value = new StudentPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PersonPO hasElementPersonPO()
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PersonPO hasElementPersonPO(Person hostGraphObject)
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public MalePO hasElementMalePO()
    {
       MalePO value = new MalePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public MalePO hasElementMalePO(Male hostGraphObject)
    {
       MalePO value = new MalePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-
-

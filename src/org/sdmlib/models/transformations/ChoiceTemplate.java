@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations;
 
 import org.sdmlib.models.transformations.Template;
@@ -31,10 +31,9 @@ import java.util.LinkedHashSet;
 
 public class ChoiceTemplate extends Template implements PropertyChangeInterface
 {
-   
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public Match parseOnce()
    {
@@ -42,11 +41,14 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       for (Template altTemplate : this.getChoices())
       {
          Match match = altTemplate
-               .withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
-               .withIdMap(idMap).withConstFragmentFollowingAfterList(constFragmentFollowingAfterList)
-               .withList(this.getListStart(), this.getListSeparator(), this.getListEnd())
-               .parseOnce();
-         
+            .withExpandedText(this.getExpandedText())
+            .withValueStartPos(currentPosInExpandedText)
+            .withIdMap(idMap)
+            .withConstFragmentFollowingAfterList(
+               constFragmentFollowingAfterList)
+            .withList(this.getListStart(), this.getListSeparator(),
+               this.getListEnd()).parseOnce();
+
          if (match != null)
          {
             this.currentPosInExpandedText = altTemplate.currentPosInExpandedText;
@@ -54,10 +56,9 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
             return match;
          }
       }
-      
+
       return null;
    }
-
 
    public Object get(String attrName)
    {
@@ -134,9 +135,8 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
@@ -186,7 +186,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          addToPlaceholders((PlaceHolderDescription) value);
          return true;
       }
-      
+
       if ((PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPlaceholders((PlaceHolderDescription) value);
@@ -198,7 +198,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          addToChoices((Template) value);
          return true;
       }
-      
+
       if ((PROPERTY_CHOICES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromChoices((Template) value);
@@ -216,7 +216,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          addToMatches((Match) value);
          return true;
       }
-      
+
       if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMatches((Match) value);
@@ -228,7 +228,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          addToParents((PlaceHolderDescription) value);
          return true;
       }
-      
+
       if ((PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromParents((PlaceHolderDescription) value);
@@ -250,24 +250,22 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromPlaceholders();
@@ -282,7 +280,7 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTemplateText());
       _.append(" ").append(this.getExpandedText());
       _.append(" ").append(this.getModelClassName());
@@ -293,8 +291,6 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -302,62 +298,64 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
     *              chooser                   choices
     * </pre>
     */
-   
+
    public static final String PROPERTY_CHOICES = "choices";
-   
+
    private TemplateSet choices = null;
-   
+
    public TemplateSet getChoices()
    {
       if (this.choices == null)
       {
          return Template.EMPTY_SET;
       }
-   
+
       return this.choices;
    }
-   
+
    public boolean addToChoices(Template value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.choices == null)
          {
             this.choices = new TemplateSet();
          }
-         
-         changed = this.choices.add (value);
-         
+
+         changed = this.choices.add(value);
+
          if (changed)
          {
             value.withChooser(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOICES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOICES,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromChoices(Template value)
    {
       boolean changed = false;
-      
+
       if ((this.choices != null) && (value != null))
       {
-         changed = this.choices.remove (value);
-         
+         changed = this.choices.remove(value);
+
          if (changed)
          {
             value.setChooser(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOICES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOICES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public ChoiceTemplate withChoices(Template... value)
    {
       for (Template item : value)
@@ -365,8 +363,8 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
          addToChoices(item);
       }
       return this;
-   } 
-   
+   }
+
    public ChoiceTemplate withoutChoices(Template... value)
    {
       for (Template item : value)
@@ -375,22 +373,22 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromChoices()
    {
-      LinkedHashSet<Template> tmpSet = new LinkedHashSet<Template>(this.getChoices());
-   
+      LinkedHashSet<Template> tmpSet = new LinkedHashSet<Template>(
+            this.getChoices());
+
       for (Template value : tmpSet)
       {
          this.removeFromChoices(value);
       }
    }
-   
+
    public Template createChoices()
    {
       Template value = new Template();
       withChoices(value);
       return value;
-   } 
+   }
 }
-

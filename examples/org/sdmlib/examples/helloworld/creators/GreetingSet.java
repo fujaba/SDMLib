@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.Collection;
@@ -33,59 +33,62 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.helloworld.creators.PersonSet;
 
-public class GreetingSet extends LinkedHashSet<Greeting> implements org.sdmlib.models.modelsets.ModelSet
+public class GreetingSet extends LinkedHashSet<Greeting> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public GreetingMessageSet getGreetingMessage()
    {
       GreetingMessageSet result = new GreetingMessageSet();
-      
+
       for (Greeting obj : this)
       {
          result.add(obj.getGreetingMessage());
       }
-      
+
       return result;
    }
+
    public GreetingSet withGreetingMessage(GreetingMessage value)
    {
       for (Greeting obj : this)
       {
          obj.withGreetingMessage(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getPerson()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Greeting obj : this)
       {
          result.add(obj.getPerson());
       }
-      
+
       return result;
    }
+
    public GreetingSet withPerson(Person value)
    {
       for (Greeting obj : this)
       {
          obj.withPerson(value);
       }
-      
+
       return this;
    }
 
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (Greeting obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
@@ -95,88 +98,72 @@ public class GreetingSet extends LinkedHashSet<Greeting> implements org.sdmlib.m
       {
          obj.withText(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Greeting elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.helloworld.Greeting";
    }
 
-
    public GreetingPO startModelPattern()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GreetingPO patternObject = pattern.hasElementGreetingPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GreetingSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Greeting>)value);
+         this.addAll((Collection<Greeting>) value);
       }
       else if (value != null)
       {
          this.add((Greeting) value);
       }
-      
+
       return this;
    }
-   
+
    public GreetingSet without(Greeting value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GreetingPO hasGreetingPO()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GreetingPO patternObject = pattern.hasElementGreetingPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

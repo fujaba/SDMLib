@@ -39,50 +39,50 @@ import org.sdmlib.utils.StrUtil;
 
 import java.beans.PropertyChangeListener;
 
-public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
+public class PatternObject<POC, MC> extends PatternElement<POC> implements
+      PropertyChangeInterface
 {
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
-      // add a pattern link that checks the type of the source object and the target object passed as subclassPO
+      // add a pattern link that checks the type of the source object and the
+      // target object passed as subclassPO
       this.hasLink("instanceof", subclassPO);
       return subclassPO;
    }
-   
-   
+
    public POC nextMatch()
    {
       this.getPattern().findNextMatch();
-      
+
       return (POC) this;
    }
-   
+
    private boolean matchAsSet = false;
-   
+
    public POC matchAsSet()
    {
       this.matchAsSet = true;
-      
+
       // reconstruct set of matches from candidates and current target
       LinkedHashSet<Object> targetSet = new LinkedHashSet<>();
       targetSet.add(currentMatch);
       targetSet.addAll((Collection) this.getCandidates());
       this.setCurrentMatch(targetSet);
       this.setCandidates(null);
-      
+
       return (POC) this;
    }
-   
-   
+
    @Override
    public boolean findNextMatch()
    {
       if (Pattern.CREATE.equals(getModifier()))
       {
-         if ( ! this.getPattern().getHasMatch())
+         if (!this.getPattern().getHasMatch())
          {
             return false;
          }
-         
+
          if (this.getHasMatch())
          {
             // backward execution, backtrack and prepare for forward execution
@@ -94,22 +94,28 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             // forward execution: create hostgraph object and bind it
             String className = this.getClass().getName();
             className = className.replace(".creators.", ".");
-            className = className.substring(0, className.length()-2);
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClasses(className);
+            className = className.substring(0, className.length() - 2);
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClasses(className);
             if (creatorClass == null)
             {
-               className = CGUtil.packageName(className) + ".impl." + CGUtil.shortClassName(className) + "Impl";
-               creatorClass = this.getPattern().getJsonIdMap().getCreatorClasses(className);
+               className = CGUtil.packageName(className) + ".impl."
+                  + CGUtil.shortClassName(className) + "Impl";
+               creatorClass = this.getPattern().getJsonIdMap()
+                  .getCreatorClasses(className);
             }
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);
             this.setHasMatch(true);
-            
+
             if (this.getTopPattern().getDebugMode() >= R.DEBUG_ON)
             {
                String shortClassName = CGUtil.shortClassName(className);
-               
-               this.getTopPattern().addLogMsg("" + getLHSPatternObjectName() + " = new " + shortClassName + "(); // " + getPattern().getJsonIdMap().getId(sendableInstance));
+
+               this.getTopPattern().addLogMsg(
+                  "" + getLHSPatternObjectName() + " = new " + shortClassName
+                     + "(); // "
+                     + getPattern().getJsonIdMap().getId(sendableInstance));
             }
 
             return true;
@@ -117,11 +123,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       }
       else if (Pattern.BOUND.equals(getModifier()))
       {
-         if ( ! this.getPattern().getHasMatch())
+         if (!this.getPattern().getHasMatch())
          {
             return false;
          }
-         
+
          if (this.getHasMatch())
          {
             // backward execution, backtrack and prepare for forward execution
@@ -131,43 +137,47 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          else
          {
             this.setHasMatch(getCurrentMatch() != null);
-            
+
             return this.getHasMatch();
          }
       }
-      
-      if ( ! this.getPattern().getHasMatch())
+
+      if (!this.getPattern().getHasMatch())
       {
          return false;
       }
-      
-      if (this.getCandidates() == null 
-            || this.getCandidates() instanceof Collection && ((Collection) this.getCandidates()).isEmpty()) 
+
+      if (this.getCandidates() == null
+         || this.getCandidates() instanceof Collection
+         && ((Collection) this.getCandidates()).isEmpty())
       {
          this.setHasMatch(false);
          return false;
       }
-      
+
       boolean resultStat = false;
-      if (this.getCandidates() instanceof Collection && ! matchAsSet)
+      if (this.getCandidates() instanceof Collection && !matchAsSet)
       {
          for (Object obj : (Collection) this.getCandidates())
          {
             this.setCurrentMatch(obj);
-            
+
             ((Collection) this.getCandidates()).remove(obj);
 
             this.setHasMatch(true);
 
             resultStat = true;
-            
+
             if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
             {
                String tgtVar = getLHSPatternObjectName();
-               getTopPattern().addLogMsg(tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
-                  + getTopPattern().getJsonIdMap().getId(obj) + " " + obj + " <- " + valueSetString(this.getCandidates()));
+               getTopPattern().addLogMsg(
+                  tgtVar + " = " + getPatternObjectName()
+                     + "Candidates.removeFirst(); // "
+                     + getTopPattern().getJsonIdMap().getId(obj) + " " + obj
+                     + " <- " + valueSetString(this.getCandidates()));
             }
-            
+
             break;
          }
       }
@@ -176,48 +186,46 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          this.setCurrentMatch(this.getCandidates());
          this.setCandidates(null);
          this.setHasMatch(true);
-         
+
          resultStat = true;
       }
-      
-      if (Pattern.DESTROY.equals(getModifier()) && this.getCurrentMatch() != null)
+
+      if (Pattern.DESTROY.equals(getModifier())
+         && this.getCurrentMatch() != null)
       {
-      	Object currentMatch = this.getCurrentMatch();
-         
-         EntityFactory creatorClass = (EntityFactory) this.getPattern().getJsonIdMap().getCreatorClass(currentMatch);
-         
+         Object currentMatch = this.getCurrentMatch();
+
+         EntityFactory creatorClass = (EntityFactory) this.getPattern()
+            .getJsonIdMap().getCreatorClass(currentMatch);
+
          creatorClass.removeObject(currentMatch);
       }
-      
+
       return resultStat;
    }
-   
-   
-   
-   
+
    public String getLHSPatternObjectName()
    {
       String lhsName = getPatternObjectName();
       if (getPattern() != null)
       {
-         LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();
-         if ( ! variablesAlreadyInTrace.contains(lhsName))
+         LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern()
+            .getVariablesAlreadyInTrace();
+         if (!variablesAlreadyInTrace.contains(lhsName))
          {
             variablesAlreadyInTrace.add(lhsName);
-            lhsName = this.getCurrentMatch().getClass().getSimpleName() + " " + lhsName;
+            lhsName = this.getCurrentMatch().getClass().getSimpleName() + " "
+               + lhsName;
          }
       }
-      
+
       return lhsName;
    }
-
-
-
 
    @Override
    public void resetSearch()
    {
-      if ( ! Pattern.BOUND.equals(getModifier()))
+      if (!Pattern.BOUND.equals(getModifier()))
       {
          this.setCandidates(null);
          this.setCurrentMatch(null);
@@ -228,140 +236,134 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    public POC startCreate()
    {
       this.getPattern().startCreate();
-      
+
       return (POC) this;
    }
-
 
    public POC endCreate()
    {
       this.getPattern().endCreate();
-      
+
       return (POC) this;
    }
-
 
    public POC startDestroy()
    {
       this.getPattern().startDestroy();
-      
+
       return (POC) this;
    }
 
    public POC endDestroy()
    {
       this.getPattern().endCreate();
-      
+
       return (POC) this;
    }
-
-
 
    public POC startNAC()
    {
       NegativeApplicationCondition nac = new NegativeApplicationCondition();
-      
+
       this.getPattern().addToElements(nac);
 
       if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
       {
          nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
-         
+
       }
 
       return (POC) this;
    }
-
 
    public POC endNAC()
    {
       Pattern directPattern = this.getPattern();
-      
+
       while (directPattern.getCurrentSubPattern() != null)
       {
          directPattern = directPattern.getCurrentSubPattern();
       }
-      
+
       if (directPattern instanceof NegativeApplicationCondition)
       {
          directPattern = directPattern.getPattern();
       }
-      
+
       directPattern.setCurrentSubPattern(null);
-      
+
       directPattern.findMatch();
 
       return (POC) this;
    }
-   
+
    public POC startSubPattern()
    {
       OptionalSubPattern optionalSubPattern = new OptionalSubPattern();
-      
+
       this.getPattern().addToElements(optionalSubPattern);
-      
+
       if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
       {
-         optionalSubPattern.setPatternObjectName("o" + getTopPattern().getPatternObjectCount());
-         
-         getTopPattern().addLogMsg("// start subpattern " + optionalSubPattern.getPatternObjectName());
+         optionalSubPattern.setPatternObjectName("o"
+            + getTopPattern().getPatternObjectCount());
+
+         getTopPattern().addLogMsg(
+            "// start subpattern " + optionalSubPattern.getPatternObjectName());
       }
-      
+
       return (POC) this;
    }
-   
+
    public POC endSubPattern()
    {
       Pattern directPattern = this.getPattern();
-      
+
       while (directPattern.getCurrentSubPattern() != null)
       {
          directPattern = directPattern.getCurrentSubPattern();
       }
-      
+
       if (directPattern instanceof OptionalSubPattern)
       {
          directPattern = directPattern.getPattern();
       }
-      
+
       directPattern.setCurrentSubPattern(null);
-      
+
       return (POC) this;
    }
-   
+
    public POC doAllMatches()
    {
       this.getPattern().setDoAllMatches(true);
       this.setDoAllMatches(true);
-      
+
       while (this.getPattern().getHasMatch())
       {
          if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
-            getTopPattern().addLogMsg("// " + getPattern().getPatternObjectName() + " allMatches?");
+            getTopPattern().addLogMsg(
+               "// " + getPattern().getPatternObjectName() + " allMatches?");
          }
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return (POC) this;
    }
-   
 
-   
    public POC destroy()
    {
       DestroyObjectElem destroyObjectElem = (DestroyObjectElem) new DestroyObjectElem()
-      .withPatternObject(this)
-      .withPattern(this.getPattern());
-      
-      this.getPattern()
-      .findMatch();
-      
+         .withPatternObject(this).withPattern(this.getPattern());
+
+      this.getPattern().findMatch();
+
       return (POC) this;
    }
-   
-   //==========================================================================
+
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -383,10 +385,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return getIncomming();
       }
 
-//      if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
-//      {
-//         return getOutgoing();
-//      }
+      // if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
+      // {
+      // return getOutgoing();
+      // }
 
       if (PROPERTY_CANDIDATES.equalsIgnoreCase(attrName))
       {
@@ -448,13 +450,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          return getExcluders();
       }
 
-
-
       return super.get(attrName);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -499,8 +498,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToAttrConstraints((AttributeConstraint) value);
          return true;
       }
-      
-      if ((PROPERTY_ATTRCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if ((PROPERTY_ATTRCONSTRAINTS + JsonIdMap.REMOVE)
+         .equalsIgnoreCase(attrName))
       {
          removeFromAttrConstraints((AttributeConstraint) value);
          return true;
@@ -553,8 +553,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToCardConstraints((CardinalityConstraint) value);
          return true;
       }
-      
-      if ((PROPERTY_CARDCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if ((PROPERTY_CARDCONSTRAINTS + JsonIdMap.REMOVE)
+         .equalsIgnoreCase(attrName))
       {
          removeFromCardConstraints((CardinalityConstraint) value);
          return true;
@@ -565,8 +566,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToMatchOtherThen((MatchOtherThen) value);
          return true;
       }
-      
-      if ((PROPERTY_MATCHOTHERTHEN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if ((PROPERTY_MATCHOTHERTHEN + JsonIdMap.REMOVE)
+         .equalsIgnoreCase(attrName))
       {
          removeFromMatchOtherThen((MatchOtherThen) value);
          return true;
@@ -577,7 +579,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToExcluders((MatchOtherThen) value);
          return true;
       }
-      
+
       if ((PROPERTY_EXCLUDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromExcluders((MatchOtherThen) value);
@@ -587,8 +589,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       return super.set(attrName, value);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -604,8 +605,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       super.removeYou();
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_CURRENTMATCH = "currentMatch";
 
@@ -622,7 +622,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       {
          Object oldValue = this.currentMatch;
          this.currentMatch = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTMATCH, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTMATCH,
+            oldValue, value);
       }
    }
 
@@ -630,8 +631,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    {
       setCurrentMatch(value);
       return this;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -666,16 +666,17 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             this.incomming = new PatternLinkSet();
          }
 
-         changed = this.incomming.add (value);
+         changed = this.incomming.add(value);
 
          if (changed)
          {
             value.withTgt(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING,
+               null, value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromIncomming(PatternLink value)
@@ -684,40 +685,41 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
       if ((this.incomming != null) && (value != null))
       {
-         changed = this.incomming.remove (value);
+         changed = this.incomming.remove(value);
 
          if (changed)
          {
             value.setTgt(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INCOMMING,
+               value, null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public PatternObject withIncomming(PatternLink value)
    {
       addToIncomming(value);
       return this;
-   } 
+   }
 
    public PatternObject withoutIncomming(PatternLink value)
    {
       removeFromIncomming(value);
       return this;
-   } 
+   }
 
    public void removeAllFromIncomming()
    {
-      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getIncomming());
+      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(
+            this.getIncomming());
 
       for (PatternLink value : tmpSet)
       {
          this.removeFromIncomming(value);
       }
    }
-
 
    /********************************************************************
     * <pre>
@@ -731,15 +733,15 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
    private PatternLinkSet outgoing = null;
 
-//   public PatternLinkSet getOutgoing()
-//   {
-//      if (this.outgoing == null)
-//      {
-//         return PatternLink.EMPTY_SET;
-//      }
-//
-//      return this.outgoing;
-//   }
+   // public PatternLinkSet getOutgoing()
+   // {
+   // if (this.outgoing == null)
+   // {
+   // return PatternLink.EMPTY_SET;
+   // }
+   //
+   // return this.outgoing;
+   // }
 
    public boolean addToOutgoing(PatternLink value)
    {
@@ -752,16 +754,17 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             this.outgoing = new PatternLinkSet();
          }
 
-         changed = this.outgoing.add (value);
+         changed = this.outgoing.add(value);
 
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOING, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOING,
+               null, value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromOutgoing(PatternLink value)
@@ -770,69 +773,70 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
       if ((this.outgoing != null) && (value != null))
       {
-         changed = this.outgoing.remove (value);
+         changed = this.outgoing.remove(value);
 
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOING, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTGOING,
+               value, null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public PatternObject withOutgoing(PatternLink value)
    {
       addToOutgoing(value);
       return this;
-   } 
+   }
 
    public PatternObject withoutOutgoing(PatternLink value)
    {
       removeFromOutgoing(value);
       return this;
-   } 
+   }
 
    public void removeAllFromOutgoing()
    {
-//      LinkedHashSet<PatternLink> tmpSet = new LinkedHashSet<PatternLink>(this.getOutgoing());
-//
-//      for (PatternLink value : tmpSet)
-//      {
-//         this.removeFromOutgoing(value);
-//      }
+      // LinkedHashSet<PatternLink> tmpSet = new
+      // LinkedHashSet<PatternLink>(this.getOutgoing());
+      //
+      // for (PatternLink value : tmpSet)
+      // {
+      // this.removeFromOutgoing(value);
+      // }
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_CANDIDATES = "candidates";
-   
+
    private Object candidates;
 
    public Object getCandidates()
    {
       return this.candidates;
    }
-   
+
    public void setCandidates(Object value)
    {
       if (this.candidates != value)
       {
          Object oldValue = this.candidates;
          this.candidates = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CANDIDATES, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CANDIDATES,
+            oldValue, value);
       }
    }
-   
+
    public PatternObject withCandidates(Object value)
    {
       setCandidates(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -840,78 +844,81 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
     *              src                   attrConstraints
     * </pre>
     */
-   
+
    public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
-   
+
    private AttributeConstraintSet attrConstraints = null;
-   
+
    public AttributeConstraintSet getAttrConstraints()
    {
       if (this.attrConstraints == null)
       {
          return AttributeConstraint.EMPTY_SET;
       }
-   
+
       return this.attrConstraints;
    }
-   
+
    public boolean addToAttrConstraints(AttributeConstraint value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.attrConstraints == null)
          {
             this.attrConstraints = new AttributeConstraintSet();
          }
-         
-         changed = this.attrConstraints.add (value);
-         
+
+         changed = this.attrConstraints.add(value);
+
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRCONSTRAINTS, null, value);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_ATTRCONSTRAINTS, null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromAttrConstraints(AttributeConstraint value)
    {
       boolean changed = false;
-      
+
       if ((this.attrConstraints != null) && (value != null))
       {
-         changed = this.attrConstraints.remove (value);
-         
+         changed = this.attrConstraints.remove(value);
+
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRCONSTRAINTS, value, null);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_ATTRCONSTRAINTS, value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PatternObject withAttrConstraints(AttributeConstraint value)
    {
       addToAttrConstraints(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject withoutAttrConstraints(AttributeConstraint value)
    {
       removeFromAttrConstraints(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromAttrConstraints()
    {
-      LinkedHashSet<AttributeConstraint> tmpSet = new LinkedHashSet<AttributeConstraint>(this.getAttrConstraints());
-   
+      LinkedHashSet<AttributeConstraint> tmpSet = new LinkedHashSet<AttributeConstraint>(
+            this.getAttrConstraints());
+
       for (AttributeConstraint value : tmpSet)
       {
          this.removeFromAttrConstraints(value);
@@ -923,58 +930,52 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       if (Pattern.CREATE.equals(this.getPattern().getModifier()))
       {
          this.getPattern().addToElements(result);
-         
+
          this.getPattern().findMatch();
-         
+
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-         .withTgt(result).withTgtRoleName(roleName)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier());
-         
+            .withTgt(result).withTgtRoleName(roleName).withSrc(this)
+            .withModifier(this.getPattern().getModifier());
+
          this.getPattern().addToElements(patternLink);
-         
+
          patternLink.getPattern().findMatch();
       }
       else
       {
-         PatternLink patternLink = new PatternLink()
-         .withTgt(result).withTgtRoleName(roleName)
-         .withSrc(this);
+         PatternLink patternLink = new PatternLink().withTgt(result)
+            .withTgtRoleName(roleName).withSrc(this);
          patternLink.setModifier(this.getPattern().getModifier());
-   
+
          this.getPattern().addToElements(patternLink);
-   
+
          this.getPattern().addToElements(result);
-   
-         result.getPattern()
-         .findMatch();
+
+         result.getPattern().findMatch();
       }
    }
-   
+
    public POC has(GenericConstraint.Condition condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
-      .withCondition(condition)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withCondition(condition)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
- 
+
       return (POC) this;
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -982,97 +983,96 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
     *              patternObject                   destroyElem
     * </pre>
     */
-   
+
    public static final String PROPERTY_DESTROYELEM = "destroyElem";
-   
+
    private DestroyObjectElem destroyElem = null;
-   
+
    public DestroyObjectElem getDestroyElem()
    {
       return this.destroyElem;
    }
-   
+
    public boolean setDestroyElem(DestroyObjectElem value)
    {
       boolean changed = false;
-      
+
       if (this.destroyElem != value)
       {
          DestroyObjectElem oldValue = this.destroyElem;
-         
+
          if (this.destroyElem != null)
          {
             this.destroyElem = null;
             oldValue.setPatternObject(null);
          }
-         
+
          this.destroyElem = value;
-         
+
          if (value != null)
          {
             value.withPatternObject(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DESTROYELEM, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DESTROYELEM,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public PatternObject withDestroyElem(DestroyObjectElem value)
    {
       setDestroyElem(value);
       return this;
-   } 
-   
+   }
+
    DestroyObjectElem createDestroyElem()
    {
       DestroyObjectElem value = new DestroyObjectElem();
       withDestroyElem(value);
       return value;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
       _.append(" ").append(this.getPoName());
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_PONAME = "poName";
-   
+
    private String poName;
 
    public String getPoName()
    {
       return this.poName;
    }
-   
+
    public void setPoName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.poName, value))
+      if (!StrUtil.stringEquals(this.poName, value))
       {
          String oldValue = this.poName;
          this.poName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PONAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PONAME,
+            oldValue, value);
       }
    }
-   
+
    public PatternObject withPoName(String value)
    {
       setPoName(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1080,124 +1080,122 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
     *              src                   cardConstraints
     * </pre>
     */
-   
+
    public static final String PROPERTY_CARDCONSTRAINTS = "cardConstraints";
-   
+
    private CardinalityConstraintSet cardConstraints = null;
-   
+
    public CardinalityConstraintSet getCardConstraints()
    {
       if (this.cardConstraints == null)
       {
          return CardinalityConstraint.EMPTY_SET;
       }
-   
+
       return this.cardConstraints;
    }
-   
+
    public boolean addToCardConstraints(CardinalityConstraint value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.cardConstraints == null)
          {
             this.cardConstraints = new CardinalityConstraintSet();
          }
-         
-         changed = this.cardConstraints.add (value);
-         
+
+         changed = this.cardConstraints.add(value);
+
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CARDCONSTRAINTS, null, value);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_CARDCONSTRAINTS, null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromCardConstraints(CardinalityConstraint value)
    {
       boolean changed = false;
-      
+
       if ((this.cardConstraints != null) && (value != null))
       {
-         changed = this.cardConstraints.remove (value);
-         
+         changed = this.cardConstraints.remove(value);
+
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CARDCONSTRAINTS, value, null);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_CARDCONSTRAINTS, value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PatternObject withCardConstraints(CardinalityConstraint value)
    {
       addToCardConstraints(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject withoutCardConstraints(CardinalityConstraint value)
    {
       removeFromCardConstraints(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromCardConstraints()
    {
-      LinkedHashSet<CardinalityConstraint> tmpSet = new LinkedHashSet<CardinalityConstraint>(this.getCardConstraints());
-   
+      LinkedHashSet<CardinalityConstraint> tmpSet = new LinkedHashSet<CardinalityConstraint>(
+            this.getCardConstraints());
+
       for (CardinalityConstraint value : tmpSet)
       {
          this.removeFromCardConstraints(value);
       }
    }
-   
+
    CardinalityConstraint createCardConstraints()
    {
       CardinalityConstraint value = new CardinalityConstraint();
       withCardConstraints(value);
       return value;
-   } 
-   
+   }
+
    public POC hasLinkConstraint(PatternObject tgt, String roleName)
    {
       if (tgt == null)
       {
          this.startNAC();
-         
+
          PatternObject result = new PatternObject();
-         
+
          result.setModifier(this.getPattern().getModifier());
-         
+
          this.hasLink(roleName, result);
-         
+
          this.endNAC();
       }
       else
       {
          LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-         .withTgt(tgt).withTgtRoleName(roleName)
-         .withSrc(this)
-         .withModifier(this.getPattern().getModifier());
+            .withTgt(tgt).withTgtRoleName(roleName).withSrc(this)
+            .withModifier(this.getPattern().getModifier());
 
          this.getPattern().addToElements(patternLink);
 
          this.getPattern().findMatch();
       }
-      
+
       return (POC) this;
-   } 
-   
-   
+   }
 
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1205,103 +1203,104 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
     *              src                   matchOtherThen
     * </pre>
     */
-   
+
    public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
-   
+
    private MatchOtherThenSet matchOtherThen = null;
-   
+
    public MatchOtherThenSet getMatchOtherThen()
    {
       if (this.matchOtherThen == null)
       {
          return MatchOtherThen.EMPTY_SET;
       }
-   
+
       return this.matchOtherThen;
    }
-   
+
    public boolean addToMatchOtherThen(MatchOtherThen value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.matchOtherThen == null)
          {
             this.matchOtherThen = new MatchOtherThenSet();
          }
-         
-         changed = this.matchOtherThen.add (value);
-         
+
+         changed = this.matchOtherThen.add(value);
+
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHEN, null, value);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_MATCHOTHERTHEN, null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromMatchOtherThen(MatchOtherThen value)
    {
       boolean changed = false;
-      
+
       if ((this.matchOtherThen != null) && (value != null))
       {
-         changed = this.matchOtherThen.remove (value);
-         
+         changed = this.matchOtherThen.remove(value);
+
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHOTHERTHEN, value, null);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_MATCHOTHERTHEN, value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PatternObject withMatchOtherThen(MatchOtherThen value)
    {
       addToMatchOtherThen(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject withoutMatchOtherThen(MatchOtherThen value)
    {
       removeFromMatchOtherThen(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromMatchOtherThen()
    {
-      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(this.getMatchOtherThen());
-   
+      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(
+            this.getMatchOtherThen());
+
       for (MatchOtherThen value : tmpSet)
       {
          this.removeFromMatchOtherThen(value);
       }
    }
-   
+
    MatchOtherThen createMatchOtherThen()
    {
       MatchOtherThen value = new MatchOtherThen();
       withMatchOtherThen(value);
       return value;
-   } 
-   
+   }
+
    public POC hasMatchOtherThen(PatternObject forbidden)
    {
       MatchOtherThen otherThen = createMatchOtherThen()
-            .withForbidden(forbidden)
-            .withPattern(getPattern());
-      
+         .withForbidden(forbidden).withPattern(getPattern());
+
       getPattern().findMatch();
-      
+
       return (POC) this;
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1309,90 +1308,93 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
     *              forbidden                   excluders
     * </pre>
     */
-   
+
    public static final String PROPERTY_EXCLUDERS = "excluders";
-   
+
    private MatchOtherThenSet excluders = null;
-   
+
    public MatchOtherThenSet getExcluders()
    {
       if (this.excluders == null)
       {
          return MatchOtherThen.EMPTY_SET;
       }
-   
+
       return this.excluders;
    }
-   
+
    public boolean addToExcluders(MatchOtherThen value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.excluders == null)
          {
             this.excluders = new MatchOtherThenSet();
          }
-         
-         changed = this.excluders.add (value);
-         
+
+         changed = this.excluders.add(value);
+
          if (changed)
          {
             value.withForbidden(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_EXCLUDERS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_EXCLUDERS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromExcluders(MatchOtherThen value)
    {
       boolean changed = false;
-      
+
       if ((this.excluders != null) && (value != null))
       {
-         changed = this.excluders.remove (value);
-         
+         changed = this.excluders.remove(value);
+
          if (changed)
          {
             value.setForbidden(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_EXCLUDERS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_EXCLUDERS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PatternObject withExcluders(MatchOtherThen value)
    {
       addToExcluders(value);
       return this;
-   } 
-   
+   }
+
    public PatternObject withoutExcluders(MatchOtherThen value)
    {
       removeFromExcluders(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromExcluders()
    {
-      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(this.getExcluders());
-   
+      LinkedHashSet<MatchOtherThen> tmpSet = new LinkedHashSet<MatchOtherThen>(
+            this.getExcluders());
+
       for (MatchOtherThen value : tmpSet)
       {
          this.removeFromExcluders(value);
       }
    }
-   
+
    MatchOtherThen createExcluders()
    {
       MatchOtherThen value = new MatchOtherThen();
       withExcluders(value);
       return value;
-   } 
+   }
 
    public PatternObject withAttrConstraints(AttributeConstraint... value)
    {
@@ -1401,7 +1403,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToAttrConstraints(item);
       }
       return this;
-   } 
+   }
 
    public PatternObject withoutAttrConstraints(AttributeConstraint... value)
    {
@@ -1417,7 +1419,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       AttributeConstraint value = new AttributeConstraint();
       withAttrConstraints(value);
       return value;
-   } 
+   }
 
    public PatternObject withCardConstraints(CardinalityConstraint... value)
    {
@@ -1426,7 +1428,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToCardConstraints(item);
       }
       return this;
-   } 
+   }
 
    public PatternObject withoutCardConstraints(CardinalityConstraint... value)
    {
@@ -1444,7 +1446,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToMatchOtherThen(item);
       }
       return this;
-   } 
+   }
 
    public PatternObject withoutMatchOtherThen(MatchOtherThen... value)
    {
@@ -1462,7 +1464,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          addToExcluders(item);
       }
       return this;
-   } 
+   }
 
    public PatternObject withoutExcluders(MatchOtherThen... value)
    {
@@ -1478,6 +1480,5 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       AttributeConstraint value = new AttributeConstraint();
       withAttrConstraints(value);
       return value;
-   } 
+   }
 }
-

@@ -18,12 +18,12 @@ public class RolePO extends PatternObject<RolePO, Role>
    {
       return (RolePO) super.startNAC();
    }
-   
+
    public RolePO endNAC()
    {
       return (RolePO) super.endNAC();
    }
-   
+
    public RoleSet allMatches()
    {
       RoleSet matches = new RoleSet();
@@ -31,27 +31,25 @@ public class RolePO extends PatternObject<RolePO, Role>
       while (this.getPattern().getHasMatch())
       {
          matches.add((Role) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public RolePO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_NAME).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -60,21 +58,19 @@ public class RolePO extends PatternObject<RolePO, Role>
       }
       return null;
    }
-   
+
    public RolePO hasCard(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_CARD)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_CARD).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getCard()
    {
       if (this.getPattern().getHasMatch())
@@ -83,21 +79,19 @@ public class RolePO extends PatternObject<RolePO, Role>
       }
       return null;
    }
-   
+
    public RolePO hasKind(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_KIND)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_KIND).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getKind()
    {
       if (this.getPattern().getHasMatch())
@@ -106,31 +100,30 @@ public class RolePO extends PatternObject<RolePO, Role>
       }
       return null;
    }
-   
+
    public ClazzPO hasClazz()
    {
       ClazzPO result = new ClazzPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Role.PROPERTY_CLAZZ, result);
-      
+
       return result;
    }
-   
+
    public RolePO hasClazz(ClazzPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Role.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Role.PROPERTY_CLAZZ).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Clazz getClazz()
    {
       if (this.getPattern().getHasMatch())
@@ -139,31 +132,30 @@ public class RolePO extends PatternObject<RolePO, Role>
       }
       return null;
    }
-   
+
    public AssociationPO hasAssoc()
    {
       AssociationPO result = new AssociationPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Role.PROPERTY_ASSOC, result);
-      
+
       return result;
    }
-   
+
    public RolePO hasAssoc(AssociationPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Role.PROPERTY_ASSOC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Role.PROPERTY_ASSOC).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Association getAssoc()
    {
       if (this.getPattern().getHasMatch())
@@ -172,70 +164,64 @@ public class RolePO extends PatternObject<RolePO, Role>
       }
       return null;
    }
-   
+
    public RolePO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RolePO hasCard(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_CARD)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_CARD).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RolePO hasKind(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Role.PROPERTY_KIND)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Role.PROPERTY_KIND).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RolePO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public RolePO createCard(String value)
    {
       this.startCreate().hasCard(value).endCreate();
       return this;
    }
-   
+
    public RolePO createKind(String value)
    {
       this.startCreate().hasKind(value).endCreate();
       return this;
    }
-   
+
    public ClazzPO createClazz()
    {
       return this.startCreate().hasClazz().endCreate();
@@ -257,6 +243,3 @@ public class RolePO extends PatternObject<RolePO, Role>
    }
 
 }
-
-
-

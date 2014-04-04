@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops.creators;
 
 import java.util.Collection;
@@ -31,22 +31,21 @@ import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdmlib.models.modelsets.ModelSet
+public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (SignalFlag elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -56,12 +55,12 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
    public StationSet getStation()
    {
       StationSet result = new StationSet();
-      
+
       for (SignalFlag obj : this)
       {
          result.addAll(obj.getStation());
       }
-      
+
       return result;
    }
 
@@ -71,7 +70,7 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       {
          obj.withStation(value);
       }
-      
+
       return this;
    }
 
@@ -81,67 +80,55 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements org.sdml
       {
          obj.withoutStation(value);
       }
-      
+
       return this;
    }
-
-
 
    public SignalFlagPO startModelPattern()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       SignalFlagPO patternObject = pattern.hasElementSignalFlagPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public SignalFlagSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<SignalFlag>)value);
+         this.addAll((Collection<SignalFlag>) value);
       }
       else if (value != null)
       {
          this.add((SignalFlag) value);
       }
-      
+
       return this;
    }
-   
+
    public SignalFlagSet without(SignalFlag value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public SignalFlagPO hasSignalFlagPO()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       SignalFlagPO patternObject = pattern.hasElementSignalFlagPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

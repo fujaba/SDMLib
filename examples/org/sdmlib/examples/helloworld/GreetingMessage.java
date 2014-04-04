@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld;
 
 import java.beans.PropertyChangeSupport;
@@ -30,14 +30,13 @@ import java.beans.PropertyChangeListener;
 public class GreetingMessage implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -52,13 +51,12 @@ public class GreetingMessage implements PropertyChangeInterface
       {
          return getGreeting();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
@@ -76,54 +74,51 @@ public class GreetingMessage implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGreeting(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TEXT = "text";
-   
+
    private String text;
 
    public String getText()
    {
       return this.text;
    }
-   
+
    public void setText(String value)
    {
-      if ( ! StrUtil.stringEquals(this.text, value))
+      if (!StrUtil.stringEquals(this.text, value))
       {
          String oldValue = this.text;
          this.text = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue,
+            value);
       }
    }
-   
+
    public GreetingMessage withText(String value)
    {
       setText(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -131,64 +126,64 @@ public class GreetingMessage implements PropertyChangeInterface
     *              greetingMessage                   greeting
     * </pre>
     */
-   
+
    public static final String PROPERTY_GREETING = "greeting";
-   
+
    private Greeting greeting = null;
-   
+
    public Greeting getGreeting()
    {
       return this.greeting;
    }
-   
+
    public boolean setGreeting(Greeting value)
    {
       boolean changed = false;
-      
+
       if (this.greeting != value)
       {
          Greeting oldValue = this.greeting;
-         
+
          if (this.greeting != null)
          {
             this.greeting = null;
             oldValue.setGreetingMessage(null);
          }
-         
+
          this.greeting = value;
-         
+
          if (value != null)
          {
             value.withGreetingMessage(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GREETING, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GREETING,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GreetingMessage withGreeting(Greeting value)
    {
       setGreeting(value);
       return this;
-   } 
-   
+   }
+
    public Greeting createGreeting()
    {
       Greeting value = new Greeting();
       withGreeting(value);
       return value;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
 }
-

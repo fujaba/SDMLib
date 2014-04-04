@@ -4,7 +4,7 @@ package org.sdmlib.serialization.event.creator;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,56 +20,66 @@ package org.sdmlib.serialization.event.creator;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import java.util.Date;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreatorNoIndex;
+
 /**
  * The Class DateCreator.
  */
 
-public class DateCreator implements SendableEntityCreator, SendableEntityCreatorNoIndex {
-	/** The Constant VALUE. */
-	public static final String VALUE = "value";
+public class DateCreator implements SendableEntityCreator,
+      SendableEntityCreatorNoIndex
+{
+   /** The Constant VALUE. */
+   public static final String VALUE = "value";
 
-	/*
-	 * return the Properties
-	 */
-	@Override
-	public String[] getProperties() {
-		return new String[] {VALUE};
-	}
+   /*
+    * return the Properties
+    */
+   @Override
+   public String[] getProperties()
+   {
+      return new String[]
+      { VALUE };
+   }
 
-	/*
-	 * Create new Instance of Date
-	 */
-	@Override
-	public Object getSendableInstance(boolean reference) {
-		return new Date();
-	}
+   /*
+    * Create new Instance of Date
+    */
+   @Override
+   public Object getSendableInstance(boolean reference)
+   {
+      return new Date();
+   }
 
-	/*
-	 * Getter for java.util.Date
-	 */
-	@Override
-	public Object getValue(Object entity, String attribute) {
-		if (VALUE.equals(attribute)) {
-			return Long.valueOf(((Date) entity).getTime());
-		}
-		return null;
-	}
+   /*
+    * Getter for java.util.Date
+    */
+   @Override
+   public Object getValue(Object entity, String attribute)
+   {
+      if (VALUE.equals(attribute))
+      {
+         return Long.valueOf(((Date) entity).getTime());
+      }
+      return null;
+   }
 
-	/*
-	 * Setter for java.util.Date
-	 */
-	@Override
-	public boolean setValue(Object entity, String attribute, Object value,
-			String typ) {
-		if (VALUE.equals(attribute)) {
-			((Date) entity).setTime((Long) value);
-			return true;
-		}
-		return false;
-	}
+   /*
+    * Setter for java.util.Date
+    */
+   @Override
+   public boolean setValue(Object entity, String attribute, Object value,
+         String typ)
+   {
+      if (VALUE.equals(attribute))
+      {
+         ((Date) entity).setTime((Long) value);
+         return true;
+      }
+      return false;
+   }
 }

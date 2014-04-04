@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.groupAccount.creators;
 
 import java.util.Collection;
@@ -34,7 +34,8 @@ import org.sdmlib.examples.groupAccount.creators.GroupAccountSet;
 import java.util.Collections;
 import org.sdmlib.examples.groupAccount.creators.PersonSet;
 
-public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.modelsets.ModelSet
+public class ItemSet extends LinkedHashSet<Item> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public Item first()
    {
@@ -42,46 +43,43 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Item elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.groupAccount.Item";
    }
 
-
    public StringList getDescription()
    {
       StringList result = new StringList();
-      
+
       for (Item obj : this)
       {
          result.add(obj.getDescription());
       }
-      
+
       return result;
    }
 
    public ItemSet hasDescription(String value)
    {
       ItemSet result = new ItemSet();
-      
+
       for (Item obj : this)
       {
          if (value.equals(obj.getDescription()))
@@ -89,7 +87,7 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -99,26 +97,26 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          obj.setDescription(value);
       }
-      
+
       return this;
    }
 
    public doubleList getValue()
    {
       doubleList result = new doubleList();
-      
+
       for (Item obj : this)
       {
          result.add(obj.getValue());
       }
-      
+
       return result;
    }
 
    public ItemSet hasValue(double value)
    {
       ItemSet result = new ItemSet();
-      
+
       for (Item obj : this)
       {
          if (value == obj.getValue())
@@ -126,7 +124,7 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -136,19 +134,19 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          obj.setValue(value);
       }
-      
+
       return this;
    }
 
    public GroupAccountSet getParent()
    {
       GroupAccountSet result = new GroupAccountSet();
-      
+
       for (Item obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -164,9 +162,9 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          neighbors.add(value);
       }
-      
+
       ItemSet answer = new ItemSet();
-      
+
       for (Item obj : this)
       {
          if (neighbors.contains(obj.getParent()))
@@ -174,7 +172,7 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -184,19 +182,19 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getBuyer()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Item obj : this)
       {
          result.add(obj.getBuyer());
       }
-      
+
       return result;
    }
 
@@ -212,9 +210,9 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          neighbors.add(value);
       }
-      
+
       ItemSet answer = new ItemSet();
-      
+
       for (Item obj : this)
       {
          if (neighbors.contains(obj.getBuyer()))
@@ -222,7 +220,7 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -232,66 +230,55 @@ public class ItemSet extends LinkedHashSet<Item> implements org.sdmlib.models.mo
       {
          obj.withBuyer(value);
       }
-      
+
       return this;
    }
-
-
 
    public ItemPO startModelPattern()
    {
       org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
-      
+
       ItemPO patternObject = pattern.hasElementItemPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ItemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Item>)value);
+         this.addAll((Collection<Item>) value);
       }
       else if (value != null)
       {
          this.add((Item) value);
       }
-      
+
       return this;
    }
-   
+
    public ItemSet without(Item value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ItemPO hasItemPO()
    {
       org.sdmlib.examples.groupAccount.creators.ModelPattern pattern = new org.sdmlib.examples.groupAccount.creators.ModelPattern();
-      
+
       ItemPO patternObject = pattern.hasElementItemPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

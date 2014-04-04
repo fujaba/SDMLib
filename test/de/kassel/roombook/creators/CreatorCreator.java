@@ -8,7 +8,7 @@ import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 public class CreatorCreator
 {
    public static LinkedHashSet<SendableEntityCreator> creatorSet = null;
-   
+
    public static LinkedHashSet<SendableEntityCreator> getCreatorSet()
    {
       if (creatorSet == null)
@@ -18,19 +18,20 @@ public class CreatorCreator
          creatorSet.add(new de.kassel.roombook.creators.BuildingPOCreator());
          creatorSet.add(new de.kassel.roombook.creators.FloorCreator());
          creatorSet.add(new de.kassel.roombook.creators.FloorPOCreator());
-         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
+         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator
+            .getCreatorSet());
       }
-      
+
       return creatorSet;
    }
 
    public static JsonIdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      
+      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap()
+         .withSessionId(sessionID);
+
       jsonIdMap.withCreator(getCreatorSet());
 
       return jsonIdMap;
    }
 }
-

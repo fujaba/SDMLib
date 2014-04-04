@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -39,58 +39,60 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
    public StringList getSrcRoleName()
    {
       StringList result = new StringList();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getSrcRoleName());
       }
-      
+
       return result;
    }
 
    public StringList getTgtRoleName()
    {
       StringList result = new StringList();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getTgtRoleName());
       }
-      
+
       return result;
    }
 
    public PatternObjectSet getTgt()
    {
       PatternObjectSet result = new PatternObjectSet();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getTgt());
       }
-      
+
       return result;
    }
+
    public PatternObjectSet getSrc()
    {
       PatternObjectSet result = new PatternObjectSet();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
+
    public ObjectSet getHostGraphSrcObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getHostGraphSrcObject());
       }
-      
+
       return result;
    }
 
@@ -100,7 +102,7 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withTgtRoleName(value);
       }
-      
+
       return this;
    }
 
@@ -110,7 +112,7 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withHostGraphSrcObject(value);
       }
-      
+
       return this;
    }
 
@@ -120,7 +122,7 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withTgt(value);
       }
-      
+
       return this;
    }
 
@@ -130,19 +132,19 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -152,19 +154,19 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanSet getHasMatch()
    {
       booleanSet result = new booleanSet();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -174,19 +176,19 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -196,19 +198,19 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -218,40 +220,36 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (PatternLink elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.PatternLink";
    }
 
-
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (PatternLink obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -261,75 +259,55 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public PatternLinkPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternLinkPO patternObject = pattern.hasElementPatternLinkPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PatternLinkSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PatternLink>)value);
+         this.addAll((Collection<PatternLink>) value);
       }
       else if (value != null)
       {
          this.add((PatternLink) value);
       }
-      
+
       return this;
    }
-   
+
    public PatternLinkSet without(PatternLink value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PatternLinkPO hasPatternLinkPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternLinkPO patternObject = pattern.hasElementPatternLinkPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

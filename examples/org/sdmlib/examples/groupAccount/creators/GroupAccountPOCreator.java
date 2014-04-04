@@ -8,15 +8,15 @@ public class GroupAccountPOCreator extends PatternObjectCreator
    {
       return new GroupAccountPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GroupAccountPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((GroupAccountPO) target).set(attrName, value);
    }
 }
-

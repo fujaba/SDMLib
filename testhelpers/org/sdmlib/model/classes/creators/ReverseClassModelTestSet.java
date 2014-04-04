@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.creators;
 
 import java.util.LinkedHashSet;
@@ -27,58 +27,56 @@ import org.sdmlib.model.classes.ReverseClassModelTest;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
 
-public class ReverseClassModelTestSet extends LinkedHashSet<ReverseClassModelTest>
+public class ReverseClassModelTestSet extends
+      LinkedHashSet<ReverseClassModelTest>
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReverseClassModelTest elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.classes.ReverseClassModelTest";
    }
 
-
    public ReverseClassModelTestPO hasReverseClassModelTestPO()
    {
       org.sdmlib.model.classes.creators.ModelPattern pattern = new org.sdmlib.model.classes.creators.ModelPattern();
-      
-      ReverseClassModelTestPO patternObject = pattern.hasElementReverseClassModelTestPO();
-      
+
+      ReverseClassModelTestPO patternObject = pattern
+         .hasElementReverseClassModelTestPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReverseClassModelTestSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReverseClassModelTest>)value);
+         this.addAll((Collection<ReverseClassModelTest>) value);
       }
       else if (value != null)
       {
          this.add((ReverseClassModelTest) value);
       }
-      
+
       return this;
    }
-   
+
    public ReverseClassModelTestSet without(ReverseClassModelTest value)
    {
       this.remove(value);
@@ -86,6 +84,3 @@ public class ReverseClassModelTestSet extends LinkedHashSet<ReverseClassModelTes
    }
 
 }
-
-
-

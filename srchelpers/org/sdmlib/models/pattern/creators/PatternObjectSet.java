@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -46,67 +46,68 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
    public LinkedHashSet<Object> getCurrentMatch()
    {
       LinkedHashSet<Object> result = new LinkedHashSet<Object>();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getCurrentMatch());
       }
-      
+
       return result;
    }
 
-//   public PatternLinkSet getIncomming()
-//   {
-//      PatternLinkSet result = new PatternLinkSet();
-//      
-//      for (PatternObject obj : this)
-//      {
-//         result.addAll(obj.getIncomming());
-//      }
-//      
-//      return result;
-//   }
-//   public PatternLinkSet getOutgoing()
-//   {
-//      PatternLinkSet result = new PatternLinkSet();
-//      
-//      for (PatternObject obj : this)
-//      {
-//         result.addAll(obj.getOutgoing());
-//      }
-//      
-//      return result;
-//   }
+   // public PatternLinkSet getIncomming()
+   // {
+   // PatternLinkSet result = new PatternLinkSet();
+   //
+   // for (PatternObject obj : this)
+   // {
+   // result.addAll(obj.getIncomming());
+   // }
+   //
+   // return result;
+   // }
+   // public PatternLinkSet getOutgoing()
+   // {
+   // PatternLinkSet result = new PatternLinkSet();
+   //
+   // for (PatternObject obj : this)
+   // {
+   // result.addAll(obj.getOutgoing());
+   // }
+   //
+   // return result;
+   // }
    public LinkedHashSet<Object> getCandidates()
    {
       LinkedHashSet<Object> result = new LinkedHashSet<Object>();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getCandidates());
       }
-      
+
       return result;
    }
 
    public AttributeConstraintSet getAttrConstraints()
    {
       AttributeConstraintSet result = new AttributeConstraintSet();
-      
+
       for (PatternObject obj : this)
       {
          result.addAll(obj.getAttrConstraints());
       }
-      
+
       return result;
    }
+
    public PatternObjectSet withCurrentMatch(Object value)
    {
       for (PatternObject obj : this)
       {
          obj.withCurrentMatch(value);
       }
-      
+
       return this;
    }
 
@@ -116,7 +117,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withCandidates(value);
       }
-      
+
       return this;
    }
 
@@ -126,7 +127,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withIncomming(value);
       }
-      
+
       return this;
    }
 
@@ -136,7 +137,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutIncomming(value);
       }
-      
+
       return this;
    }
 
@@ -146,7 +147,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withOutgoing(value);
       }
-      
+
       return this;
    }
 
@@ -156,7 +157,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutOutgoing(value);
       }
-      
+
       return this;
    }
 
@@ -166,7 +167,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withAttrConstraints(value);
       }
-      
+
       return this;
    }
 
@@ -176,19 +177,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutAttrConstraints(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -198,19 +199,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -220,40 +221,41 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
    public DestroyObjectElemSet getDestroyElem()
    {
       DestroyObjectElemSet result = new DestroyObjectElemSet();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getDestroyElem());
       }
-      
+
       return result;
    }
+
    public PatternObjectSet withDestroyElem(DestroyObjectElem value)
    {
       for (PatternObject obj : this)
       {
          obj.withDestroyElem(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -263,19 +265,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -285,24 +287,21 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (PatternObject elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -312,12 +311,12 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -327,19 +326,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public StringList getPoName()
    {
       StringList result = new StringList();
-      
+
       for (PatternObject obj : this)
       {
          result.add(obj.getPoName());
       }
-      
+
       return result;
    }
 
@@ -349,19 +348,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.setPoName(value);
       }
-      
+
       return this;
    }
 
    public CardinalityConstraintSet getCardConstraints()
    {
       CardinalityConstraintSet result = new CardinalityConstraintSet();
-      
+
       for (PatternObject obj : this)
       {
          result.addAll(obj.getCardConstraints());
       }
-      
+
       return result;
    }
 
@@ -371,7 +370,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withCardConstraints(value);
       }
-      
+
       return this;
    }
 
@@ -381,19 +380,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutCardConstraints(value);
       }
-      
+
       return this;
    }
 
    public MatchOtherThenSet getMatchOtherThen()
    {
       MatchOtherThenSet result = new MatchOtherThenSet();
-      
+
       for (PatternObject obj : this)
       {
          result.addAll(obj.getMatchOtherThen());
       }
-      
+
       return result;
    }
 
@@ -403,7 +402,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withMatchOtherThen(value);
       }
-      
+
       return this;
    }
 
@@ -413,19 +412,19 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutMatchOtherThen(value);
       }
-      
+
       return this;
    }
 
    public MatchOtherThenSet getExcluders()
    {
       MatchOtherThenSet result = new MatchOtherThenSet();
-      
+
       for (PatternObject obj : this)
       {
          result.addAll(obj.getExcluders());
       }
-      
+
       return result;
    }
 
@@ -435,7 +434,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withExcluders(value);
       }
-      
+
       return this;
    }
 
@@ -445,126 +444,91 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       {
          obj.withoutExcluders(value);
       }
-      
+
       return this;
    }
 
-//   public PatternLinkSet getOutgoing()
-//   {
-//      PatternLinkSet result = new PatternLinkSet();
-//      
-//      for (PatternObject obj : this)
-//      {
-//         result.addAll(obj.getOutgoing());
-//      }
-//      
-//      return result;
-//   }
+   // public PatternLinkSet getOutgoing()
+   // {
+   // PatternLinkSet result = new PatternLinkSet();
+   //
+   // for (PatternObject obj : this)
+   // {
+   // result.addAll(obj.getOutgoing());
+   // }
+   //
+   // return result;
+   // }
 
-//   public PatternLinkSet getIncomming()
-//   {
-//      PatternLinkSet result = new PatternLinkSet();
-//      
-//      for (PatternObject obj : this)
-//      {
-//         result.addAll(obj.getIncomming());
-//      }
-//      
-//      return result;
-//   }
-//
-//   public PatternLinkSet getOutgoing()
-//   {
-//      PatternLinkSet result = new PatternLinkSet();
-//      
-//      for (PatternObject obj : this)
-//      {
-//         result.addAll(obj.getOutgoing());
-//      }
-//      
-//      return result;
-//   }
-
-
-
+   // public PatternLinkSet getIncomming()
+   // {
+   // PatternLinkSet result = new PatternLinkSet();
+   //
+   // for (PatternObject obj : this)
+   // {
+   // result.addAll(obj.getIncomming());
+   // }
+   //
+   // return result;
+   // }
+   //
+   // public PatternLinkSet getOutgoing()
+   // {
+   // PatternLinkSet result = new PatternLinkSet();
+   //
+   // for (PatternObject obj : this)
+   // {
+   // result.addAll(obj.getOutgoing());
+   // }
+   //
+   // return result;
+   // }
 
    public PatternObjectPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternObjectPO patternObject = pattern.hasElementPatternObjectPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PatternObjectSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PatternObject>)value);
+         this.addAll((Collection<PatternObject>) value);
       }
       else if (value != null)
       {
          this.add((PatternObject) value);
       }
-      
+
       return this;
    }
-   
+
    public PatternObjectSet without(PatternObject value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PatternObjectPO hasPatternObjectPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       PatternObjectPO patternObject = pattern.hasElementPatternObjectPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

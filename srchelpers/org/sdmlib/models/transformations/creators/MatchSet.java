@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -38,21 +38,19 @@ import org.sdmlib.models.transformations.creators.MatchSet;
 public class MatchSet extends SDMSet<Match>
 {
 
-
    public MatchPO hasMatchPO()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
+
       MatchPO patternObject = pattern.hasElementMatchPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -60,21 +58,20 @@ public class MatchSet extends SDMSet<Match>
       return "org.sdmlib.models.transformations.Match";
    }
 
-
    public MatchSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Match>)value);
+         this.addAll((Collection<Match>) value);
       }
       else if (value != null)
       {
          this.add((Match) value);
       }
-      
+
       return this;
    }
-   
+
    public MatchSet without(Match value)
    {
       this.remove(value);
@@ -84,19 +81,19 @@ public class MatchSet extends SDMSet<Match>
    public intList getStartPos()
    {
       intList result = new intList();
-      
+
       for (Match obj : this)
       {
          result.add(obj.getStartPos());
       }
-      
+
       return result;
    }
 
    public MatchSet hasStartPos(int value)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (value == obj.getStartPos())
@@ -104,14 +101,14 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public MatchSet hasStartPos(int lower, int upper)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
@@ -119,7 +116,7 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -129,26 +126,26 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.setStartPos(value);
       }
-      
+
       return this;
    }
 
    public intList getEndPos()
    {
       intList result = new intList();
-      
+
       for (Match obj : this)
       {
          result.add(obj.getEndPos());
       }
-      
+
       return result;
    }
 
    public MatchSet hasEndPos(int value)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (value == obj.getEndPos())
@@ -156,14 +153,14 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public MatchSet hasEndPos(int lower, int upper)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
@@ -171,7 +168,7 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -181,26 +178,26 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.setEndPos(value);
       }
-      
+
       return this;
    }
 
    public StringList getFullText()
    {
       StringList result = new StringList();
-      
+
       for (Match obj : this)
       {
          result.add(obj.getFullText());
       }
-      
+
       return result;
    }
 
    public MatchSet hasFullText(String value)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (value.equals(obj.getFullText()))
@@ -208,22 +205,23 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public MatchSet hasFullText(String lower, String upper)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
-         if (lower.compareTo(obj.getFullText()) <= 0 && obj.getFullText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getFullText()) <= 0
+            && obj.getFullText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -233,26 +231,26 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.setFullText(value);
       }
-      
+
       return this;
    }
 
    public StringList getMatchText()
    {
       StringList result = new StringList();
-      
+
       for (Match obj : this)
       {
          result.add(obj.getMatchText());
       }
-      
+
       return result;
    }
 
    public MatchSet hasMatchText(String value)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (value.equals(obj.getMatchText()))
@@ -260,22 +258,23 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public MatchSet hasMatchText(String lower, String upper)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
-         if (lower.compareTo(obj.getMatchText()) <= 0 && obj.getMatchText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getMatchText()) <= 0
+            && obj.getMatchText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -285,26 +284,26 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.setMatchText(value);
       }
-      
+
       return this;
    }
 
    public ObjectSet getModelObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (Match obj : this)
       {
          result.add(obj.getModelObject());
       }
-      
+
       return result;
    }
 
    public MatchSet hasModelObject(Object value)
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (value == obj.getModelObject())
@@ -312,7 +311,7 @@ public class MatchSet extends SDMSet<Match>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -322,19 +321,19 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.setModelObject(value);
       }
-      
+
       return this;
    }
 
    public TemplateSet getTemplate()
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Match obj : this)
       {
          result.with(obj.getTemplate());
       }
-      
+
       return result;
    }
 
@@ -350,9 +349,9 @@ public class MatchSet extends SDMSet<Match>
       {
          neighbors.add(value);
       }
-      
+
       MatchSet answer = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (neighbors.contains(obj.getTemplate()))
@@ -360,7 +359,7 @@ public class MatchSet extends SDMSet<Match>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -370,19 +369,19 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.withTemplate(value);
       }
-      
+
       return this;
    }
 
    public PlaceHolderDescriptionSet getPlaceholder()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (Match obj : this)
       {
          result.with(obj.getPlaceholder());
       }
-      
+
       return result;
    }
 
@@ -398,9 +397,9 @@ public class MatchSet extends SDMSet<Match>
       {
          neighbors.add(value);
       }
-      
+
       MatchSet answer = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (neighbors.contains(obj.getPlaceholder()))
@@ -408,7 +407,7 @@ public class MatchSet extends SDMSet<Match>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -418,19 +417,19 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.withPlaceholder(value);
       }
-      
+
       return this;
    }
 
    public MatchSet getSubMatches()
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          result.with(obj.getSubMatches());
       }
-      
+
       return result;
    }
 
@@ -446,41 +445,40 @@ public class MatchSet extends SDMSet<Match>
       {
          neighbors.add(value);
       }
-      
+
       MatchSet answer = new MatchSet();
-      
+
       for (Match obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getSubMatches()))
+         if (!Collections.disjoint(neighbors, obj.getSubMatches()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public MatchSet getSubMatchesTransitive()
    {
       MatchSet todo = new MatchSet().with(this);
-      
+
       MatchSet result = new MatchSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Match current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getSubMatches().minus(result));
          }
       }
-      
+
       return result;
    }
 
@@ -490,7 +488,7 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.withSubMatches(value);
       }
-      
+
       return this;
    }
 
@@ -500,19 +498,19 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.withoutSubMatches(value);
       }
-      
+
       return this;
    }
 
    public MatchSet getParentMatch()
    {
       MatchSet result = new MatchSet();
-      
+
       for (Match obj : this)
       {
          result.with(obj.getParentMatch());
       }
-      
+
       return result;
    }
 
@@ -528,9 +526,9 @@ public class MatchSet extends SDMSet<Match>
       {
          neighbors.add(value);
       }
-      
+
       MatchSet answer = new MatchSet();
-      
+
       for (Match obj : this)
       {
          if (neighbors.contains(obj.getParentMatch()))
@@ -538,10 +536,9 @@ public class MatchSet extends SDMSet<Match>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public MatchSet withParentMatch(Match value)
    {
@@ -549,39 +546,34 @@ public class MatchSet extends SDMSet<Match>
       {
          obj.withParentMatch(value);
       }
-      
+
       return this;
    }
-
 
    public MatchSet getParentMatchTransitive()
    {
       MatchSet todo = new MatchSet().with(this);
-      
+
       MatchSet result = new MatchSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Match current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getParentMatch()))
+
+            if (!result.contains(current.getParentMatch()))
             {
                todo.with(current.getParentMatch());
             }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-

@@ -8,15 +8,15 @@ public class ThreadPOCreator extends PatternObjectCreator
    {
       return new ThreadPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ThreadPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ThreadPO) target).set(attrName, value);
    }
 }
-

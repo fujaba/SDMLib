@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -33,22 +33,21 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.creators.PatternSet;
 
-public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReachabilityGraph elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -58,12 +57,12 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
    public ReachableStateSet getStates()
    {
       ReachableStateSet result = new ReachableStateSet();
-      
+
       for (ReachabilityGraph obj : this)
       {
          result.addAll(obj.getStates());
       }
-      
+
       return result;
    }
 
@@ -73,7 +72,7 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withStates(value);
       }
-      
+
       return this;
    }
 
@@ -83,19 +82,19 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withoutStates(value);
       }
-      
+
       return this;
    }
 
    public ReachableStateSet getTodo()
    {
       ReachableStateSet result = new ReachableStateSet();
-      
+
       for (ReachabilityGraph obj : this)
       {
          result.addAll(obj.getTodo());
       }
-      
+
       return result;
    }
 
@@ -105,7 +104,7 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withTodo(value);
       }
-      
+
       return this;
    }
 
@@ -115,19 +114,19 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withoutTodo(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getRules()
    {
       PatternSet result = new PatternSet();
-      
+
       for (ReachabilityGraph obj : this)
       {
          result.addAll(obj.getRules());
       }
-      
+
       return result;
    }
 
@@ -137,7 +136,7 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withRules(value);
       }
-      
+
       return this;
    }
 
@@ -147,70 +146,57 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       {
          obj.withoutRules(value);
       }
-      
+
       return this;
    }
-
-
 
    public ReachabilityGraphPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      ReachabilityGraphPO patternObject = pattern.hasElementReachabilityGraphPO();
-      
+
+      ReachabilityGraphPO patternObject = pattern
+         .hasElementReachabilityGraphPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReachabilityGraphSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReachabilityGraph>)value);
+         this.addAll((Collection<ReachabilityGraph>) value);
       }
       else if (value != null)
       {
          this.add((ReachabilityGraph) value);
       }
-      
+
       return this;
    }
-   
+
    public ReachabilityGraphSet without(ReachabilityGraph value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ReachabilityGraphPO hasReachabilityGraphPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      ReachabilityGraphPO patternObject = pattern.hasElementReachabilityGraphPO();
-      
+
+      ReachabilityGraphPO patternObject = pattern
+         .hasElementReachabilityGraphPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

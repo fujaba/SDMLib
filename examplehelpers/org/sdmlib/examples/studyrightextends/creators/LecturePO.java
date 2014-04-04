@@ -19,33 +19,31 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    public LectureSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       LectureSet matches = new LectureSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Lecture) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public LecturePO hasTitle(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Lecture.PROPERTY_TITLE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Lecture.PROPERTY_TITLE).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getTitle()
    {
       if (this.getPattern().getHasMatch())
@@ -54,7 +52,7 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       }
       return null;
    }
-   
+
    public LecturePO withTitle(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -63,28 +61,27 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       }
       return this;
    }
-   
+
    public RoomPO hasIn()
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Lecture.PROPERTY_IN, result);
-      
+
       return result;
    }
 
    public LecturePO hasIn(RoomPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_IN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_IN).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -101,23 +98,22 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    {
       ProfessorPO result = new ProfessorPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Lecture.PROPERTY_HAS, result);
-      
+
       return result;
    }
 
    public LecturePO hasHas(ProfessorPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_HAS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_HAS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -134,23 +130,22 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    {
       StudentPO result = new StudentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Lecture.PROPERTY_LISTEN, result);
-      
+
       return result;
    }
 
    public LecturePO hasListen(StudentPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_LISTEN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Lecture.PROPERTY_LISTEN).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -166,18 +161,16 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    public LecturePO hasTitle(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Lecture.PROPERTY_TITLE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Lecture.PROPERTY_TITLE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO createIn()
    {
       return this.startCreate().hasIn().endCreate();
@@ -198,7 +191,7 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
       this.startCreate().hasTitle(value).endCreate();
       return this;
    }
-   
+
    public LecturePO createIn(RoomPO tgt)
    {
       return this.startCreate().hasIn(tgt).endCreate();
@@ -215,7 +208,3 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    }
 
 }
-
-
-
-

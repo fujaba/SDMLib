@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.storyboards.creators;
 
 import java.util.Collection;
@@ -31,49 +31,48 @@ import org.sdmlib.storyboards.creators.StoryboardSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
+public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (StoryboardStep elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.StoryboardStep";
    }
 
-
    public StoryboardStepSet with(StoryboardStep value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StoryboardStepSet without(StoryboardStep value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (StoryboardStep obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
@@ -83,19 +82,19 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       {
          obj.setText(value);
       }
-      
+
       return this;
    }
 
    public StoryboardSet getStoryboard()
    {
       StoryboardSet result = new StoryboardSet();
-      
+
       for (StoryboardStep obj : this)
       {
          result.add(obj.getStoryboard());
       }
-      
+
       return result;
    }
 
@@ -105,10 +104,9 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       {
          obj.withStoryboard(value);
       }
-      
+
       return this;
    }
-
 
    public StoryboardStep getFirst()
    {
@@ -116,10 +114,9 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public StoryboardStep getLast()
    {
@@ -131,58 +128,45 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       return null;
    }
 
-
-
    public StoryboardStepPO startModelPattern()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       StoryboardStepPO patternObject = pattern.hasElementStoryboardStepPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StoryboardStepSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StoryboardStep>)value);
+         this.addAll((Collection<StoryboardStep>) value);
       }
       else if (value != null)
       {
          this.add((StoryboardStep) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public StoryboardStepPO hasStoryboardStepPO()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       StoryboardStepPO patternObject = pattern.hasElementStoryboardStepPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

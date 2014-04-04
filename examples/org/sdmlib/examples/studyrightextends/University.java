@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -32,9 +32,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class University implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -50,9 +49,8 @@ public class University implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -66,7 +64,7 @@ public class University implements PropertyChangeInterface
          addToRooms((Room) value);
          return true;
       }
-      
+
       if ((PROPERTY_ROOMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromRooms((Room) value);
@@ -76,68 +74,64 @@ public class University implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromRooms();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public University withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -145,62 +139,64 @@ public class University implements PropertyChangeInterface
     *              uni                   rooms
     * </pre>
     */
-   
+
    public static final String PROPERTY_ROOMS = "rooms";
-   
+
    private RoomSet rooms = null;
-   
+
    public RoomSet getRooms()
    {
       if (this.rooms == null)
       {
          return Room.EMPTY_SET;
       }
-   
+
       return this.rooms;
    }
-   
+
    public boolean addToRooms(Room value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.rooms == null)
          {
             this.rooms = new RoomSet();
          }
-         
-         changed = this.rooms.add (value);
-         
+
+         changed = this.rooms.add(value);
+
          if (changed)
          {
             value.withUni(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromRooms(Room value)
    {
       boolean changed = false;
-      
+
       if ((this.rooms != null) && (value != null))
       {
-         changed = this.rooms.remove (value);
-         
+         changed = this.rooms.remove(value);
+
          if (changed)
          {
             value.setUni(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public University withRooms(Room... value)
    {
       for (Room item : value)
@@ -208,8 +204,8 @@ public class University implements PropertyChangeInterface
          addToRooms(item);
       }
       return this;
-   } 
-   
+   }
+
    public University withoutRooms(Room... value)
    {
       for (Room item : value)
@@ -218,22 +214,21 @@ public class University implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromRooms()
    {
       LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getRooms());
-   
+
       for (Room value : tmpSet)
       {
          this.removeFromRooms(value);
       }
    }
-   
+
    public Room createRooms()
    {
       Room value = new Room();
       withRooms(value);
       return value;
-   } 
+   }
 }
-

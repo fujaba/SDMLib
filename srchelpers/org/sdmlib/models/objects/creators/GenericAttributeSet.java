@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects.creators;
 
 import java.util.Collection;
@@ -36,12 +36,12 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (GenericAttribute obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -51,19 +51,19 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public StringList getValue()
    {
       StringList result = new StringList();
-      
+
       for (GenericAttribute obj : this)
       {
          result.add(obj.getValue());
       }
-      
+
       return result;
    }
 
@@ -73,114 +73,94 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       {
          obj.withValue(value);
       }
-      
+
       return this;
    }
 
    public GenericObjectSet getOwner()
    {
       GenericObjectSet result = new GenericObjectSet();
-      
+
       for (GenericAttribute obj : this)
       {
          result.add(obj.getOwner());
       }
-      
+
       return result;
    }
+
    public GenericAttributeSet withOwner(GenericObject value)
    {
       for (GenericAttribute obj : this)
       {
          obj.withOwner(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GenericAttribute elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.objects.GenericAttribute";
    }
 
-
    public GenericAttributePO startModelPattern()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericAttributePO patternObject = pattern.hasElementGenericAttributePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GenericAttributeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericAttribute>)value);
+         this.addAll((Collection<GenericAttribute>) value);
       }
       else if (value != null)
       {
          this.add((GenericAttribute) value);
       }
-      
+
       return this;
    }
-   
+
    public GenericAttributeSet without(GenericAttribute value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GenericAttributePO hasGenericAttributePO()
    {
       org.sdmlib.models.objects.creators.ModelPattern pattern = new org.sdmlib.models.objects.creators.ModelPattern();
-      
+
       GenericAttributePO patternObject = pattern.hasElementGenericAttributePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

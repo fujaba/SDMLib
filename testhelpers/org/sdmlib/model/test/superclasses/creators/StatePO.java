@@ -10,16 +10,14 @@ public class StatePO extends PatternObject<StatePO, State>
    public StatePO hasTest(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(State.PROPERTY_TEST)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(State.PROPERTY_TEST).withTgtValue(value).withSrc(this)
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StatePO withTest(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -28,7 +26,7 @@ public class StatePO extends PatternObject<StatePO, State>
       }
       return this;
    }
-   
+
    public String getTest()
    {
       if (this.getPattern().getHasMatch())
@@ -37,29 +35,24 @@ public class StatePO extends PatternObject<StatePO, State>
       }
       return null;
    }
-   
+
    public StatePO hasTest(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(State.PROPERTY_TEST)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(State.PROPERTY_TEST).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StatePO createTest(String value)
    {
       this.startCreate().hasTest(value).endCreate();
       return this;
    }
-   
+
 }
-
-
-

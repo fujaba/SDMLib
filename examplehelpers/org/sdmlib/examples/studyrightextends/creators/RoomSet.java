@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -38,32 +38,29 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 import org.sdmlib.examples.studyrightextends.creators.UniversitySet;
 
-public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets.ModelSet
+public class RoomSet extends SDMSet<Room> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Room elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Room";
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public intList studentCount()
    {
       intList result = new intList();
@@ -77,12 +74,12 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
    public StringList getRoomNo()
    {
       StringList result = new StringList();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getRoomNo());
       }
-      
+
       return result;
    }
 
@@ -92,19 +89,19 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.setRoomNo(value);
       }
-      
+
       return this;
    }
 
    public intList getCredits()
    {
       intList result = new intList();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getCredits());
       }
-      
+
       return result;
    }
 
@@ -114,19 +111,19 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.setCredits(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getNeighbors()
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          result.addAll(obj.getNeighbors());
       }
-      
+
       return result;
    }
 
@@ -136,7 +133,7 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.withNeighbors(value);
       }
-      
+
       return this;
    }
 
@@ -146,19 +143,19 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.withoutNeighbors(value);
       }
-      
+
       return this;
    }
 
    public LectureSet getLecture()
    {
       LectureSet result = new LectureSet();
-      
+
       for (Room obj : this)
       {
          result.addAll(obj.getLecture());
       }
-      
+
       return result;
    }
 
@@ -168,7 +165,7 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.withLecture(value);
       }
-      
+
       return this;
    }
 
@@ -178,19 +175,19 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.withoutLecture(value);
       }
-      
+
       return this;
    }
 
    public UniversitySet getUni()
    {
       UniversitySet result = new UniversitySet();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getUni());
       }
-      
+
       return result;
    }
 
@@ -200,94 +197,79 @@ public class RoomSet extends SDMSet<Room> implements org.sdmlib.models.modelsets
       {
          obj.withUni(value);
       }
-      
+
       return this;
    }
-
-
 
    public RoomPO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       RoomPO patternObject = pattern.hasElementRoomPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public RoomSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Room>)value);
+         this.addAll((Collection<Room>) value);
       }
       else if (value != null)
       {
          this.add((Room) value);
       }
-      
+
       return this;
    }
-   
+
    public RoomSet without(Room value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public RoomPO hasRoomPO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       RoomPO patternObject = pattern.hasElementRoomPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 
    public RoomSet getNeighborsTransitive()
    {
       RoomSet todo = new RoomSet().with(this);
-      
+
       RoomSet result = new RoomSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Room current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getNeighbors().minus(result));
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-
-
-
-

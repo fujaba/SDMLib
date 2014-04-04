@@ -43,19 +43,23 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    @Test
    public void testStudyRightExtendsReverseClassModelFromJavaFilesToDSL()
    {
-      Storyboard storyboard = new Storyboard("test", "StudyRightExtendsReverseClassModel");
+      Storyboard storyboard = new Storyboard("test",
+            "StudyRightExtendsReverseClassModel");
 
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard
+         .add(
+            "Start situation: There are some java files. We parse them and generate a class model: ",
+            BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
       ClassModel model = new ClassModel();
 
-      model.updateFromCode("examples", "examples test", "org.sdmlib.examples.studyrightextends");
-//      model.insertModelCreationCodeHere("test");
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "StudyRightExtendsReverseClassModel"));
+      model.updateFromCode("examples", "examples test",
+         "org.sdmlib.examples.studyrightextends");
+      // model.insertModelCreationCodeHere("test");
+      storyboard.addSVGImage(model.dumpClassDiagram("examples",
+         "StudyRightExtendsReverseClassModel"));
 
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      StoryboardManager.get().add(storyboard).dumpHTML();
 
    }
 
@@ -64,94 +68,74 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    {
       ClassModel model = new ClassModel();
 
-      Clazz lectureClass = new Clazz("org.sdmlib.examples.studyrightextends.Lecture")
-      .withAttribute("Title", "String");
+      Clazz lectureClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.Lecture").withAttribute(
+         "Title", "String");
 
-      Clazz personClass = new Clazz("org.sdmlib.examples.studyrightextends.Person")
-      .withInterfaze(true);
+      Clazz personClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.Person").withInterfaze(true);
 
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition()");
+      new Method().withClazz(personClass).withSignature("findMyPosition()");
 
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String)");
+      new Method().withClazz(personClass).withSignature(
+         "findMyPosition(String)");
 
-      new Method()
-			.withClazz(personClass)
-			.withSignature("findMyPosition(String,int)");
+      new Method().withClazz(personClass).withSignature(
+         "findMyPosition(String,int)");
 
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
-      .withAttribute("roomNo", "String")
-      .withAttribute("credits", "int");
+         .withAttribute("roomNo", "String").withAttribute("credits", "int");
 
-      new Method()
-			.withClazz(roomClass)
-			.withSignature("studentCount()");
+      new Method().withClazz(roomClass).withSignature("studentCount()");
 
-      new Association()
-			.withSource("lecture", lectureClass, R.MANY)
-			.withTarget("in", roomClass, R.ONE);
+      new Association().withSource("lecture", lectureClass, R.MANY).withTarget(
+         "in", roomClass, R.ONE);
 
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
-      .withAttribute("name", "String");
+      Clazz universityClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.University").withAttribute(
+         "name", "String");
 
-      new Association()
-			.withSource("rooms", roomClass, R.MANY)
-			.withTarget("uni", universityClass, R.ONE);
+      new Association().withSource("rooms", roomClass, R.MANY).withTarget(
+         "uni", universityClass, R.ONE);
 
-      Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
-      .withInterfaces(personClass)
-      .withAttribute("name", "String");
+      Clazz femaleClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.Female").withInterfaces(
+         personClass).withAttribute("name", "String");
 
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition()");
+      new Method().withClazz(femaleClass).withSignature("findMyPosition()");
 
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String)");
+      new Method().withClazz(femaleClass).withSignature(
+         "findMyPosition(String)");
 
-      new Method()
-			.withClazz(femaleClass)
-			.withSignature("findMyPosition(String,int)");
+      new Method().withClazz(femaleClass).withSignature(
+         "findMyPosition(String,int)");
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
-      .withInterfaze(true)
-      .withInterfaces(personClass);
+         .withInterfaze(true).withInterfaces(personClass);
 
-      Clazz professorClass = new Clazz("org.sdmlib.examples.studyrightextends.Professor")
-      .withSuperClass(femaleClass)
-      .withAttribute("PersNr", "int");
+      Clazz professorClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.Professor").withSuperClass(
+         femaleClass).withAttribute("PersNr", "int");
 
-      new Association()
-			.withSource("lecture", lectureClass, R.MANY)
-			.withTarget("has", professorClass, R.ONE);
+      new Association().withSource("lecture", lectureClass, R.MANY).withTarget(
+         "has", professorClass, R.ONE);
 
-      Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
-      .withSuperClass(femaleClass)
-      .withInterfaces(maleClass)
-      .withAttribute("name", "String")
-      .withAttribute("matrNo", "int");
+      Clazz studentClass = new Clazz(
+            "org.sdmlib.examples.studyrightextends.Student")
+         .withSuperClass(femaleClass).withInterfaces(maleClass)
+         .withAttribute("name", "String").withAttribute("matrNo", "int");
 
+      new Method().withClazz(studentClass).withSignature("findMyPosition()");
 
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition()");
+      new Method().withClazz(studentClass).withSignature(
+         "findMyPosition(String)");
 
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String)");
+      new Method().withClazz(studentClass).withSignature(
+         "findMyPosition(String,int)");
 
-      new Method()
-			.withClazz(studentClass)
-			.withSignature("findMyPosition(String,int)");
+      new Association().withSource("lecture", lectureClass, R.MANY).withTarget(
+         "listen", studentClass, R.ONE);
 
-      new Association()
-			.withSource("lecture", lectureClass, R.MANY)
-			.withTarget("listen", studentClass, R.ONE);
-      
       model.generate("examples", "examplehelpers");
    }
 
@@ -160,66 +144,67 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    {
       ClassModel model = new ClassModel("org.sdmlib.model.test.methods");
 
+      Clazz propertyChangeInterfaceClass = new Clazz(
+            "org.sdmlib.utils.PropertyChangeInterface").withInterfaze(true)
+         .withExternal(true);
 
-      Clazz propertyChangeInterfaceClass = new Clazz("org.sdmlib.utils.PropertyChangeInterface")
-      .withInterfaze(true).withExternal(true);
-      
       Clazz placeClass = new Clazz("org.sdmlib.model.test.methods.Place")
-			/*add interface*/
+      /* add interface */
       .withInterfaces(propertyChangeInterfaceClass);
 
-      new Method()
-      .withClazz(placeClass)
-      .withSignature("findMyPosition()");
+      new Method().withClazz(placeClass).withSignature("findMyPosition()");
 
-      new Method()
-      .withClazz(placeClass)
-      .withSignature("findMyPosition(String)");
+      new Method().withClazz(placeClass)
+         .withSignature("findMyPosition(String)");
 
-      new Method()
-      .withClazz(placeClass)
-      .withSignature("findMyPosition(String,int)");	
+      new Method().withClazz(placeClass).withSignature(
+         "findMyPosition(String,int)");
 
       model.generate("test", "testhelpers");
 
       Storyboard storyboard = new Storyboard("test", "MethodsClassesCodeGen");
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      storyboard
+         .add(
+            "Start situation: There are some java files. We parse them and generate a class model: ",
+            BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
-      //----------------------------------------------
+      // ----------------------------------------------
 
       model = new ClassModel("org.sdmlib.model.test.methods");
 
-      model.updateFromCode("test", "examples test src", "org.sdmlib.model.test.methods");
+      model.updateFromCode("test", "examples test src",
+         "org.sdmlib.model.test.methods");
       model.insertModelCreationCodeHere("test");
 
-      //-----------------------------------------------
+      // -----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
       Assert.assertEquals(2, classes.size());
 
       for (Clazz clazz : classes)
       {
          String name = clazz.getName();
-         Assert.assertTrue("class " + name + " not found ", 
-            placeClass.getName().equals(name)
+         Assert.assertTrue("class " + name + " not found ", placeClass
+            .getName().equals(name)
             || PropertyChangeInterface.class.getName().equals(name));
 
-         if (placeClass.getName().equals(name)) {
-            Assert.assertEquals( 3,  clazz.getMethods().size());
+         if (placeClass.getName().equals(name))
+         {
+            Assert.assertEquals(3, clazz.getMethods().size());
             for (Method method : clazz.getMethods())
             {
-               Assert.assertTrue("method " + method.getSignature() + " has not " + name + " as class", 
+               Assert.assertTrue("method " + method.getSignature()
+                  + " has not " + name + " as class",
                   clazz.getName().equals(method.getClazz().getName()));
 
             }
          }
       }
 
-      //     storyboard.addImage(model.dumpClassDiag("MethodsClassesCodeGen"));
-      //     
-      //     StoryboardManager.get()
-      //     .add(storyboard)
-      //     .dumpHTML();
-
+      // storyboard.addImage(model.dumpClassDiag("MethodsClassesCodeGen"));
+      //
+      // StoryboardManager.get()
+      // .add(storyboard)
+      // .dumpHTML();
 
    }
 
@@ -228,59 +213,66 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    {
       ClassModel model = new ClassModel("org.sdmlib.model.test.superclasses");
 
-      Clazz continentClass = new Clazz("org.sdmlib.model.test.superclasses.Continent")
-      .withAttribute("test", "String") ;
+      Clazz continentClass = new Clazz(
+            "org.sdmlib.model.test.superclasses.Continent").withAttribute(
+         "test", "String");
 
-      Clazz stateClass = new Clazz("org.sdmlib.model.test.superclasses.State") 
-      .withSuperClass(continentClass) 
-      .withAttribute("test", "String"); 
+      Clazz stateClass = new Clazz("org.sdmlib.model.test.superclasses.State")
+         .withSuperClass(continentClass).withAttribute("test", "String");
 
       Clazz townClass = new Clazz("org.sdmlib.model.test.superclasses.Town")
-      .withAttribute("test", "String") 
-      .withSuperClass(stateClass);
+         .withAttribute("test", "String").withSuperClass(stateClass);
 
-      Clazz reverseClassModelTestClass = new Clazz("org.sdmlib.model.classes.ReverseClassModelTest");
+      Clazz reverseClassModelTestClass = new Clazz(
+            "org.sdmlib.model.classes.ReverseClassModelTest");
 
       model.generate("test", "testhelpers");
 
       Storyboard storyboard = new Storyboard("test", "SuperClassesCodeGen");
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      storyboard
+         .add(
+            "Start situation: There are some java files. We parse them and generate a class model: ",
+            BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
-      //----------------------------------------------
+      // ----------------------------------------------
       model = new ClassModel();
 
-      model.updateFromCode("test", "examples test src", "org.sdmlib.model.test.superclasses");    
-//      model.insertModelCreationCodeHere("test");
+      model.updateFromCode("test", "examples test src",
+         "org.sdmlib.model.test.superclasses");
+      // model.insertModelCreationCodeHere("test");
 
-      //-----------------------------------------------
+      // -----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
       Assert.assertEquals(4, classes.size());
       for (Clazz clazz : classes)
       {
          String name = clazz.getName();
-         Assert.assertTrue("class " + name + " not found ", continentClass.getName().equals(name) 
-            || stateClass.getName().equals(name) 
+         Assert.assertTrue("class " + name + " not found ", continentClass
+            .getName().equals(name)
+            || stateClass.getName().equals(name)
             || townClass.getName().equals(name)
             || reverseClassModelTestClass.getName().equals(name)
             || PropertyChangeInterface.class.getName().equals(name));
 
-         if (stateClass.getName().equals(name)) {
-            Assert.assertTrue( name + " has no superclass named " + clazz.getSuperClass().getName(), 
-               continentClass.getName().equals(clazz.getSuperClass().getName() ) );
+         if (stateClass.getName().equals(name))
+         {
+            Assert.assertTrue(name + " has no superclass named "
+               + clazz.getSuperClass().getName(), continentClass.getName()
+               .equals(clazz.getSuperClass().getName()));
          }
-         else if (townClass.getName().equals(name)) {
-            Assert.assertTrue( name + " has no superclass named " + clazz.getSuperClass().getName(), 
-               stateClass.getName().equals(clazz.getSuperClass().getName() ) );
+         else if (townClass.getName().equals(name))
+         {
+            Assert.assertTrue(name + " has no superclass named "
+               + clazz.getSuperClass().getName(),
+               stateClass.getName().equals(clazz.getSuperClass().getName()));
          }
       }
 
-
-      //    storyboard.addImage(model.dumpClassDiag("SuperClassesCodeGen"));
-      //    
-      //    StoryboardManager.get()
-      //    .add(storyboard)
-      //    .dumpHTML();
-
+      // storyboard.addImage(model.dumpClassDiag("SuperClassesCodeGen"));
+      //
+      // StoryboardManager.get()
+      // .add(storyboard)
+      // .dumpHTML();
 
    }
 
@@ -289,70 +281,76 @@ public class ReverseClassModelTest implements PropertyChangeInterface
    {
       ClassModel model = new ClassModel();
 
-      Clazz reverseClassModelTestClass = new Clazz("org.sdmlib.model.classes.ReverseClassModelTest");
+      Clazz reverseClassModelTestClass = new Clazz(
+            "org.sdmlib.model.classes.ReverseClassModelTest");
 
-      Clazz personClass = new Clazz("org.sdmlib.model.test.interfaces.Person") 
-      .withInterfaze(true);
+      Clazz personClass = new Clazz("org.sdmlib.model.test.interfaces.Person")
+         .withInterfaze(true);
 
-      Clazz maleClass = new Clazz("org.sdmlib.model.test.interfaces.Male") 
-      .withInterfaze(true) 
-      .withInterfaces(personClass);
+      Clazz maleClass = new Clazz("org.sdmlib.model.test.interfaces.Male")
+         .withInterfaze(true).withInterfaces(personClass);
 
-      Clazz femaleClass = new Clazz("org.sdmlib.model.test.interfaces.Female") 
-      .withInterfaze(true) 
-      .withInterfaces(personClass);
+      Clazz femaleClass = new Clazz("org.sdmlib.model.test.interfaces.Female")
+         .withInterfaze(true).withInterfaces(personClass);
 
-      Clazz studentClass = new Clazz("org.sdmlib.model.test.interfaces.Student") 
-      .withInterfaces(femaleClass) 
-      .withInterfaces(maleClass)  ;
+      Clazz studentClass = new Clazz("org.sdmlib.model.test.interfaces.Student")
+         .withInterfaces(femaleClass).withInterfaces(maleClass);
 
       model.generate("test", "testhelpers");
 
       Storyboard storyboard = new Storyboard("test", "InterfacesCodeGen");
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
+      storyboard
+         .add(
+            "Start situation: There are some java files. We parse them and generate a class model: ",
+            BACKLOG, "ajahl", "26.04.2012 14:58:18", 0, 0);
 
       model = new ClassModel();
 
-      model.updateFromCode("test", "examples test src", "org.sdmlib.model.test.interfaces");
-//      model.insertModelCreationCodeHere("test");
+      model.updateFromCode("test", "examples test src",
+         "org.sdmlib.model.test.interfaces");
+      // model.insertModelCreationCodeHere("test");
 
-      //-----------------------------------------------
+      // -----------------------------------------------
       LinkedHashSet<Clazz> classes = model.getClasses();
       Assert.assertEquals(5, classes.size());
       for (Clazz clazz : classes)
       {
-         String name = clazz.getName(); 
-         Assert.assertTrue("class " + name + " not found ", personClass.getName().equals(name) 
-            || maleClass.getName().equals(name) 
+         String name = clazz.getName();
+         Assert.assertTrue("class " + name + " not found ", personClass
+            .getName().equals(name)
+            || maleClass.getName().equals(name)
             || femaleClass.getName().equals(name)
             || studentClass.getName().equals(name)
             || reverseClassModelTestClass.getName().equals(name)
             || PropertyChangeInterface.class.getName().equals(name));
 
-         if (personClass.getName().equals(name)) {
+         if (personClass.getName().equals(name))
+         {
             Assert.assertTrue("no interface person", clazz.isInterfaze());
          }
-         else if (maleClass.getName().equals(name)) {
-            Assert.assertTrue("no interface male",  clazz.isInterfaze());
+         else if (maleClass.getName().equals(name))
+         {
+            Assert.assertTrue("no interface male", clazz.isInterfaze());
          }
-         else if (femaleClass.getName().equals(name)) {
-            Assert.assertTrue("no interface female",  clazz.isInterfaze() );
+         else if (femaleClass.getName().equals(name))
+         {
+            Assert.assertTrue("no interface female", clazz.isInterfaze());
          }
-         else if (studentClass.getName().equals(name)) {
-            Assert.assertEquals(3,  clazz.getInterfaces().size() );
+         else if (studentClass.getName().equals(name))
+         {
+            Assert.assertEquals(3, clazz.getInterfaces().size());
          }
       }
 
-      //    storyboard.addImage(model.dumpClassDiag("InterfacesCodeGen"));
-      //    
-      //    StoryboardManager.get()
-      //    .add(storyboard)
-      //    .dumpHTML();
+      // storyboard.addImage(model.dumpClassDiag("InterfacesCodeGen"));
+      //
+      // StoryboardManager.get()
+      // .add(storyboard)
+      // .dumpHTML();
 
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -367,30 +365,27 @@ public class ReverseClassModelTest implements PropertyChangeInterface
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
+   // ==========================================================================
 
-   //==========================================================================
-
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-

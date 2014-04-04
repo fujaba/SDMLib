@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
@@ -31,9 +31,9 @@ import java.beans.PropertyChangeListener;
 
 public class ReplicationNode implements PropertyChangeInterface
 {
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
@@ -44,9 +44,8 @@ public class ReplicationNode implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
@@ -54,7 +53,7 @@ public class ReplicationNode implements PropertyChangeInterface
          addToSharedSpaces((SharedSpace) value);
          return true;
       }
-      
+
       if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromSharedSpaces((SharedSpace) value);
@@ -64,26 +63,23 @@ public class ReplicationNode implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromSharedSpaces();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -91,105 +87,108 @@ public class ReplicationNode implements PropertyChangeInterface
     *              node                   sharedSpaces
     * </pre>
     */
-   
+
    public static final String PROPERTY_SHAREDSPACES = "sharedSpaces";
-   
+
    private SharedSpaceSet sharedSpaces = null;
-   
+
    public synchronized SharedSpace getOrCreateSharedSpace(String spaceId)
    {
       SharedSpace sharedSpace = this.getSharedSpaces().get(spaceId);
-      
+
       if (sharedSpace == null)
       {
          sharedSpace = new SharedSpace().withSpaceId(spaceId);
          this.addToSharedSpaces(sharedSpace);
-         sharedSpace.setName("SharedSpace"+getSharedSpaces().size());
+         sharedSpace.setName("SharedSpace" + getSharedSpaces().size());
          sharedSpace.start();
       }
-      
+
       return sharedSpace;
    }
-   
+
    public SharedSpaceSet getSharedSpaces()
    {
       if (this.sharedSpaces == null)
       {
          return SharedSpace.EMPTY_SET;
       }
-   
+
       return this.sharedSpaces;
    }
-   
+
    public boolean addToSharedSpaces(SharedSpace value)
    {
       SharedSpace oldContent = null;
-      
+
       if (value != null)
       {
          if (this.sharedSpaces == null)
          {
             this.sharedSpaces = new SharedSpaceSet();
          }
-         
-         oldContent = this.sharedSpaces.put ("" + value.getSpaceId(), value);
-         
+
+         oldContent = this.sharedSpaces.put("" + value.getSpaceId(), value);
+
          if (oldContent != value)
          {
             value.withNode(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SHAREDSPACES, null, value);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_SHAREDSPACES, null, value);
          }
       }
-         
-      return oldContent != value;   
+
+      return oldContent != value;
    }
-   
+
    public boolean removeFromSharedSpaces(SharedSpace value)
    {
       SharedSpace oldContent = null;
-      
+
       if ((this.sharedSpaces != null) && (value != null))
       {
-         oldContent = this.sharedSpaces.remove ("" + value.getSpaceId());
-         
+         oldContent = this.sharedSpaces.remove("" + value.getSpaceId());
+
          if (oldContent == value)
          {
             value.setNode(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SHAREDSPACES, value, null);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_SHAREDSPACES, value, null);
          }
       }
-         
-      return oldContent == value;   
+
+      return oldContent == value;
    }
-   
+
    public ReplicationNode withSharedSpaces(SharedSpace value)
    {
       addToSharedSpaces(value);
       return this;
-   } 
-   
+   }
+
    public ReplicationNode withoutSharedSpaces(SharedSpace value)
    {
       removeFromSharedSpaces(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromSharedSpaces()
    {
-      LinkedHashSet<SharedSpace> tmpSet = new LinkedHashSet<SharedSpace>(this.getSharedSpaces().values());
-   
+      LinkedHashSet<SharedSpace> tmpSet = new LinkedHashSet<SharedSpace>(this
+         .getSharedSpaces().values());
+
       for (SharedSpace value : tmpSet)
       {
          this.removeFromSharedSpaces(value);
       }
    }
-   
+
    public SharedSpace createSharedSpaces()
    {
       SharedSpace value = new SharedSpace();
       withSharedSpaces(value);
       return value;
-   } 
+   }
 
    public ReplicationNode withSharedSpaces(SharedSpace... value)
    {
@@ -198,7 +197,7 @@ public class ReplicationNode implements PropertyChangeInterface
          addToSharedSpaces(item);
       }
       return this;
-   } 
+   }
 
    public ReplicationNode withoutSharedSpaces(SharedSpace... value)
    {
@@ -209,4 +208,3 @@ public class ReplicationNode implements PropertyChangeInterface
       return this;
    }
 }
-

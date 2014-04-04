@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -32,38 +32,36 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
+public class CloneOpSet extends LinkedHashSet<CloneOp> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (CloneOp elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.CloneOp";
    }
 
-
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (CloneOp obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -73,19 +71,19 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       {
          obj.setModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (CloneOp obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -95,19 +93,19 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       {
          obj.setHasMatch(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (CloneOp obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -117,19 +115,19 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       {
          obj.setPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (CloneOp obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -139,19 +137,19 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       {
          obj.setDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (CloneOp obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -161,68 +159,55 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public CloneOpPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       CloneOpPO patternObject = pattern.hasElementCloneOpPO();
-      
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public CloneOpSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CloneOp>)value);
+         this.addAll((Collection<CloneOp>) value);
       }
       else if (value != null)
       {
          this.add((CloneOp) value);
       }
-      
+
       return this;
    }
-   
+
    public CloneOpSet without(CloneOp value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public CloneOpPO hasCloneOpPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       CloneOpPO patternObject = pattern.hasElementCloneOpPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

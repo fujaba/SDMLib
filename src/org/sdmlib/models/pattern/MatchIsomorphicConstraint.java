@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
@@ -27,16 +27,17 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
+public class MatchIsomorphicConstraint extends PatternElement implements
+      PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
    {
-      if ( ! this.getPattern().getHasMatch())
+      if (!this.getPattern().getHasMatch())
       {
          return false;
       }
-      
+
       if (this.getHasMatch())
       {
          // backtracking
@@ -45,25 +46,28 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       }
       else
       {
-         // forward 
+         // forward
          LinkedHashSet<Object> usedObjects = new LinkedHashSet<Object>();
 
          for (PatternElement patElem : this.getPattern().getElements())
          {
             if (patElem instanceof PatternObject)
             {
-               Object currentMatch = ((PatternObject) patElem).getCurrentMatch();
+               Object currentMatch = ((PatternObject) patElem)
+                  .getCurrentMatch();
                if (currentMatch == null)
                   continue;
-               
+
                if (usedObjects.contains(currentMatch))
                {
                   if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                   {
-                     getTopPattern().addLogMsg("// match is NOT isomorphic. "
-                        + dumpHostGraphObject(currentMatch) + " has been matched twice (or more). Backtrack! ");
+                     getTopPattern().addLogMsg(
+                        "// match is NOT isomorphic. "
+                           + dumpHostGraphObject(currentMatch)
+                           + " has been matched twice (or more). Backtrack! ");
                   }
-                  
+
                   return false;
                }
                else
@@ -72,38 +76,32 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
                }
             }
          }
-         
+
          // no double match, match is isomorphic
          this.setHasMatch(true);
-         
+
          if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
          }
-         
+
          return true;
       }
    }
-   
-   
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void resetSearch()
    {
       setHasMatch(false);
    }
 
-
-
-
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -133,13 +131,12 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       {
          return getPattern();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -175,19 +172,17 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setPattern(null);
@@ -198,11 +193,10 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
 
 }
-

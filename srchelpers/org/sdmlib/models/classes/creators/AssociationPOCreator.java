@@ -8,15 +8,14 @@ public class AssociationPOCreator extends PatternObjectCreator
    {
       return new AssociationPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((AssociationPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((AssociationPO) target).set(attrName, value);
    }
 }
-

@@ -8,15 +8,14 @@ public class TownPOCreator extends PatternObjectCreator
    {
       return new TownPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((TownPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((TownPO) target).set(attrName, value);
    }
 }
-

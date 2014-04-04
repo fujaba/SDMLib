@@ -41,41 +41,44 @@ import java.beans.PropertyChangeListener;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
-   //==========================================================================
+   // ==========================================================================
    public String dumpDiagram(String name)
    {
-//      JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
-	   Filter filter = new Filter()
-	   			.withPropertyRegard(new Equals().withValue("graphRoot"))
-			   .withConvertable(new Equals().withValue("parent"));
+      // JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
+      Filter filter = new Filter().withPropertyRegard(
+         new Equals().withValue("graphRoot")).withConvertable(
+         new Equals().withValue("parent"));
       JsonArray jsonArray = masterMap.toJsonArray(this, filter);
-      
+
       String imgLink = getAdapter().toImg(name, jsonArray, true, null);
-      
+
       // also add images for all graph roots
       for (Object graphRoot : getStates().getGraphRoot())
       {
          JsonArray graphRootArray = masterMap.toJsonArray(graphRoot);
-         
+
          String rootId = masterMap.getId(graphRoot);
-         
+
          String imgName = name + "/" + rootId;
-         
+
          String subLink = getAdapter().toImg(imgName, graphRootArray);
       }
-              
+
       return imgLink;
    }
+
    private GuiAdapter adapter;
-   
-   public GuiAdapter getAdapter(){
-	   if(adapter==null){
-		   adapter = new JsonToGraphViz();
-	   }
-	   return adapter;
+
+   public GuiAdapter getAdapter()
+   {
+      if (adapter == null)
+      {
+         adapter = new JsonToGraphViz();
+      }
+      return adapter;
    }
 
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -97,8 +100,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -141,8 +143,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -151,8 +152,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -161,7 +161,6 @@ public class ReachabilityGraph implements PropertyChangeInterface
       removeAllFromRules();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 
    /********************************************************************
     * <pre>
@@ -175,18 +174,19 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    private TreeMap<String, Object> stateMap = new TreeMap<String, Object>();
 
-   public ReachabilityGraph withStateMap(String certificate, ReachableState newState)
+   public ReachabilityGraph withStateMap(String certificate,
+         ReachableState newState)
    {
       Object oldEntry = stateMap.get(certificate);
-      
+
       if (oldEntry == null)
       {
          stateMap.put(certificate, newState);
       }
       else if (oldEntry instanceof ReachableState && oldEntry != newState)
       {
-         ReachableStateSet newStateSet = new ReachableStateSet()
-         .with((ReachableState) oldEntry).with(newState);
+         ReachableStateSet newStateSet = new ReachableStateSet().with(
+            (ReachableState) oldEntry).with(newState);
          stateMap.put(certificate, newStateSet);
       }
       else
@@ -194,17 +194,17 @@ public class ReachabilityGraph implements PropertyChangeInterface
          ReachableStateSet oldStateSet = (ReachableStateSet) oldEntry;
          oldStateSet.with(newState);
       }
-      
+
       return this;
    }
-   
+
    private static ReachableStateSet emptyStatesSet = new ReachableStateSet();
    private ReachableStateSet oneElemSet = new ReachableStateSet();
-   
+
    public ReachableStateSet getStateMap(String certificate)
    {
       Object oldEntry = stateMap.get(certificate);
-      
+
       if (oldEntry == null)
       {
          return emptyStatesSet;
@@ -220,9 +220,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
          return (ReachableStateSet) oldEntry;
       }
    }
-   
+
    private ReachableStateSet states = null;
-   
+
    public ReachableStateSet getStates()
    {
       if (this.states == null)
@@ -244,16 +244,17 @@ public class ReachabilityGraph implements PropertyChangeInterface
             this.states = new ReachableStateSet();
          }
 
-         changed = this.states.add (value);
+         changed = this.states.add(value);
 
          if (changed)
          {
             value.withParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATES,
+               null, value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromStates(ReachableState value)
@@ -262,33 +263,35 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
       if ((this.states != null) && (value != null))
       {
-         changed = this.states.remove (value);
+         changed = this.states.remove(value);
 
          if (changed)
          {
             value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATES,
+               value, null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public ReachabilityGraph withStates(ReachableState value)
    {
       addToStates(value);
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutStates(ReachableState value)
    {
       removeFromStates(value);
       return this;
-   } 
+   }
 
    public void removeAllFromStates()
    {
-      LinkedHashSet<ReachableState> tmpSet = new LinkedHashSet<ReachableState>(this.getStates());
+      LinkedHashSet<ReachableState> tmpSet = new LinkedHashSet<ReachableState>(
+            this.getStates());
 
       for (ReachableState value : tmpSet)
       {
@@ -301,8 +304,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       ReachableState value = new ReachableState();
       withStates(value);
       return value;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -337,16 +339,17 @@ public class ReachabilityGraph implements PropertyChangeInterface
             this.todo = new ReachableStateSet();
          }
 
-         changed = this.todo.add (value);
+         changed = this.todo.add(value);
 
          if (changed)
          {
             value.withMaster(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, null,
+               value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromTodo(ReachableState value)
@@ -355,33 +358,35 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
       if ((this.todo != null) && (value != null))
       {
-         changed = this.todo.remove (value);
+         changed = this.todo.remove(value);
 
          if (changed)
          {
             value.setMaster(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, value,
+               null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public ReachabilityGraph withTodo(ReachableState value)
    {
       addToTodo(value);
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutTodo(ReachableState value)
    {
       removeFromTodo(value);
       return this;
-   } 
+   }
 
    public void removeAllFromTodo()
    {
-      LinkedHashSet<ReachableState> tmpSet = new LinkedHashSet<ReachableState>(this.getTodo());
+      LinkedHashSet<ReachableState> tmpSet = new LinkedHashSet<ReachableState>(
+            this.getTodo());
 
       for (ReachableState value : tmpSet)
       {
@@ -394,8 +399,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       ReachableState value = new ReachableState();
       withTodo(value);
       return value;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -430,16 +434,17 @@ public class ReachabilityGraph implements PropertyChangeInterface
             this.rules = new PatternSet();
          }
 
-         changed = this.rules.add (value);
+         changed = this.rules.add(value);
 
          if (changed)
          {
             value.withRgraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, null,
+               value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromRules(Pattern value)
@@ -448,33 +453,35 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
       if ((this.rules != null) && (value != null))
       {
-         changed = this.rules.remove (value);
+         changed = this.rules.remove(value);
 
          if (changed)
          {
             value.setRgraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES,
+               value, null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public ReachabilityGraph withRules(Pattern value)
    {
       addToRules(value);
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutRules(Pattern value)
    {
       removeFromRules(value);
       return this;
-   } 
+   }
 
    public void removeAllFromRules()
    {
-      LinkedHashSet<Pattern> tmpSet = new LinkedHashSet<Pattern>(this.getRules());
+      LinkedHashSet<Pattern> tmpSet = new LinkedHashSet<Pattern>(
+            this.getRules());
 
       for (Pattern value : tmpSet)
       {
@@ -489,7 +496,6 @@ public class ReachabilityGraph implements PropertyChangeInterface
       return value;
    }
 
-
    public long explore()
    {
       return explore(Long.MAX_VALUE);
@@ -500,21 +506,22 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public long explore(long maxNoOfNewStates)
    {
       long currentStateNum = 1;
-      
+
       // add cloneOps to rules, where missing
-      
+
       // all states without successors become todo states
-      
-      // take a todo state and apply all rules at all places until maxNoOfNewStates 
+
+      // take a todo state and apply all rules at all places until
+      // maxNoOfNewStates
       // is reached
       noOfNewStates = 0;
 
       while (!getTodo().isEmpty() && noOfNewStates < maxNoOfNewStates)
       {
          ReachableState first = getTodo().first();
-         
+
          first.withNumber((int) currentStateNum);
-         
+
          currentStateNum++;
 
          this.withoutTodo(first);
@@ -525,56 +532,71 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
             rule.resetSearch();
 
-            ((PatternObject) firstPO.withModifier(Pattern.BOUND)).setCurrentMatch(first.getGraphRoot());
+            ((PatternObject) firstPO.withModifier(Pattern.BOUND))
+               .setCurrentMatch(first.getGraphRoot());
 
             while (rule.findMatch())
             {
-               // for each match get the new reachable state and add it to the reachability graph
+               // for each match get the new reachable state and add it to the
+               // reachability graph
                Object newGraphRoot = firstPO.getCurrentMatch();
-               
-               ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
+
+               ReachableState newReachableState = new ReachableState()
+                  .withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap().getCreators());
+               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap()
+                  .withCreator(rule.getJsonIdMap().getCreators());
                newJsonIdMap.withSessionId("s");
-               String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
-               
-               ReachableStateSet candidateStates = this.getStateMap(newCertificate);
-               
+               String newCertificate = newReachableState
+                  .computeCertificate(newJsonIdMap);
+
+               ReachableStateSet candidateStates = this
+                  .getStateMap(newCertificate);
+
                LinkedHashMap<String, String> match = null;
-               
-               for( ReachableState oldState : candidateStates)
+
+               for (ReachableState oldState : candidateStates)
                {
                   match = match(oldState, newReachableState);
-                  
+
                   if (match != null)
                   {
-                     // newReachableState is isomorphic to oldState. Just add a link from first to oldState
-                     first.createRuleapplications().withDescription("" + rule.getName()).withTgt(oldState);
+                     // newReachableState is isomorphic to oldState. Just add a
+                     // link from first to oldState
+                     first.createRuleapplications()
+                        .withDescription("" + rule.getName()).withTgt(oldState);
                      break;
                   }
                }
-               
+
                if (match == null)
                {
                   // no isomorphic old state, add new state
-                  this.withStates(newReachableState).withTodo(newReachableState).withStateMap(newCertificate, newReachableState);
-                  first.createRuleapplications().withDescription("" + rule.getName()).withTgt(newReachableState);
+                  this.withStates(newReachableState)
+                     .withTodo(newReachableState)
+                     .withStateMap(newCertificate, newReachableState);
+                  first.createRuleapplications()
+                     .withDescription("" + rule.getName())
+                     .withTgt(newReachableState);
                }
-               
+
             }
          }
       }
-      
+
       return currentStateNum;
    }
 
-   public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
+   public LinkedHashMap<String, String> match(ReachableState s1,
+         ReachableState s2)
    {
-      
-      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
-      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
-      
+
+      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap
+         .getCreators());
+      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap
+         .getCreators());
+
       map1.withSessionId("s");
       map2.withSessionId("s");
 
@@ -583,7 +605,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
       String key1 = map1.getId(s1.getGraphRoot());
       String key2 = map2.getId(s2.getGraphRoot());
-      
+
       fwdmapping.put(key1, key2);
       bwdmapping.put(key2, key1);
 
@@ -592,7 +614,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
       LinkedHashMap<String, JsonObject> joMap1 = null;
       LinkedHashMap<String, JsonObject> joMap2 = null;
-      
+
       joMap1 = new LinkedHashMap<String, JsonObject>();
 
       for (Object object : ja1)
@@ -615,19 +637,22 @@ public class ReachabilityGraph implements PropertyChangeInterface
          joMap2.put(key, jo);
       }
 
-      boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, key1, fwdmapping, bwdmapping);
+      boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, key1, fwdmapping,
+         bwdmapping);
 
       return match ? fwdmapping : null;
    }
 
-   
-   public boolean match(ReachableState s1, JsonArray ja1, LinkedHashMap<String, JsonObject> joMap1, 
-         ReachableState s2, JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2,
-         String cn1, LinkedHashMap<String, String> fwdmapping, LinkedHashMap<String, String> bwdmapping)
+   public boolean match(ReachableState s1, JsonArray ja1,
+         LinkedHashMap<String, JsonObject> joMap1, ReachableState s2,
+         JsonArray ja2, LinkedHashMap<String, JsonObject> joMap2, String cn1,
+         LinkedHashMap<String, String> fwdmapping,
+         LinkedHashMap<String, String> bwdmapping)
    {
       String cn2 = fwdmapping.get(cn1);
 
-      // a mapping for currentNode has just been added. Validate it and compute mappings for neighbors
+      // a mapping for currentNode has just been added. Validate it and compute
+      // mappings for neighbors
       JsonObject currentJo1 = joMap1.get(cn1);
       JsonObject currentJo2 = joMap2.get(cn2);
 
@@ -647,18 +672,19 @@ public class ReachabilityGraph implements PropertyChangeInterface
             JsonObject ref = (JsonObject) value;
             String tgt1 = ref.getString(JsonIdMap.ID);
 
-            String tgt2 = currentProps2.getJsonObject(key).getString(JsonIdMap.ID);
+            String tgt2 = currentProps2.getJsonObject(key).getString(
+               JsonIdMap.ID);
 
             String mappingOfTgt1 = fwdmapping.get(tgt1);
 
             if (mappingOfTgt1 != null)
             {
                // already mapped. consistent?
-                     if ( ! tgt2.equals(mappingOfTgt1))
-                     {
-                        // inconsistent mapping 
-                        return false;
-                     }
+               if (!tgt2.equals(mappingOfTgt1))
+               {
+                  // inconsistent mapping
+                  return false;
+               }
             }
             else
             {
@@ -666,9 +692,10 @@ public class ReachabilityGraph implements PropertyChangeInterface
                fwdmapping.put(tgt1, tgt2);
                bwdmapping.put(tgt2, tgt1);
 
-               boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
+               boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1,
+                  fwdmapping, bwdmapping);
 
-               if ( ! match )
+               if (!match)
                {
                   // did not work
                   fwdmapping.remove(tgt1);
@@ -690,7 +717,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
                if (tgt1Map != null)
                {
-                  // consistent? 
+                  // consistent?
                   for (Object o : currentProps2.getJsonArray(key))
                   {
                      ref = (JsonObject) o;
@@ -698,7 +725,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
                      if (tgt2.equals(tgt1Map))
                      {
-                        continue obj1RefLoop; // <==================== this ref has a match, handle next ref in outer loop
+                        continue obj1RefLoop; // <==================== this ref
+                                              // has a match, handle next ref in
+                                              // outer loop
                      }
                   }
 
@@ -706,19 +735,20 @@ public class ReachabilityGraph implements PropertyChangeInterface
                   return false; // <========================== did not work out
                }
 
-               // loop through the  refs of the other object
+               // loop through the refs of the other object
                for (Object o : currentProps2.getJsonArray(key))
                {
                   ref = (JsonObject) o;
                   String tgt2 = ref.getString(JsonIdMap.ID);
 
                   // already used for other match?
-                  if (bwdmapping.get(tgt2) != null )
+                  if (bwdmapping.get(tgt2) != null)
                   {
-                     continue; // <=========================== this one is not a match candidate, try another
+                     continue; // <=========================== this one is not a
+                               // match candidate, try another
                   }
 
-                  // does the certificate match? 
+                  // does the certificate match?
                   String cert1 = s1.getNode2certificates().get(tgt1);
                   String cert2 = s2.getNode2certificates().get(tgt2);
 
@@ -728,9 +758,10 @@ public class ReachabilityGraph implements PropertyChangeInterface
                      fwdmapping.put(tgt1, tgt2);
                      bwdmapping.put(tgt2, tgt1);
 
-                     boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2, tgt1, fwdmapping, bwdmapping);
+                     boolean match = match(s1, ja1, joMap1, s2, ja2, joMap2,
+                        tgt1, fwdmapping, bwdmapping);
 
-                     if ( ! match )
+                     if (!match)
                      {
                         // did not work
                         fwdmapping.remove(tgt1);
@@ -738,7 +769,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
                      }
                      else
                      {
-                        continue obj1RefLoop; // <==================== this ref has a match, handle next ref in outer loop
+                        continue obj1RefLoop; // <==================== this ref
+                                              // has a match, handle next ref in
+                                              // outer loop
                      }
                   }
                }
@@ -753,23 +786,23 @@ public class ReachabilityGraph implements PropertyChangeInterface
    }
 
    private JsonIdMap masterMap = null;
-   
+
    public JsonIdMap getMasterMap()
    {
       return masterMap;
    }
-   
+
    public void setMasterMap(JsonIdMap newMasterMap)
    {
       masterMap = newMasterMap;
    }
-   
+
    public ReachabilityGraph withMasterMap(JsonIdMap map)
    {
       setMasterMap(map);
-      
+
       return this;
-   } 
+   }
 
    public ReachabilityGraph withStates(ReachableState... value)
    {
@@ -778,7 +811,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
          addToStates(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutStates(ReachableState... value)
    {
@@ -796,7 +829,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
          addToTodo(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutTodo(ReachableState... value)
    {
@@ -814,7 +847,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
          addToRules(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutRules(Pattern... value)
    {
@@ -825,4 +858,3 @@ public class ReachabilityGraph implements PropertyChangeInterface
       return this;
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -30,9 +30,8 @@ import org.sdmlib.examples.studyrightextends.creators.LectureSet;
 public class Lecture implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_TITLE.equalsIgnoreCase(attrName))
@@ -58,9 +57,8 @@ public class Lecture implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TITLE.equalsIgnoreCase(attrName))
@@ -90,24 +88,22 @@ public class Lecture implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setIn(null);
@@ -116,44 +112,42 @@ public class Lecture implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TITLE = "Title";
-   
+
    private String Title;
 
    public String getTitle()
    {
       return this.Title;
    }
-   
+
    public void setTitle(String value)
    {
-      if ( ! StrUtil.stringEquals(this.Title, value))
+      if (!StrUtil.stringEquals(this.Title, value))
       {
          String oldValue = this.Title;
          this.Title = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TITLE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TITLE,
+            oldValue, value);
       }
    }
-   
+
    public Lecture withTitle(String value)
    {
       setTitle(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTitle());
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -161,61 +155,60 @@ public class Lecture implements PropertyChangeInterface
     *              lecture                   in
     * </pre>
     */
-   
+
    public static final String PROPERTY_IN = "in";
-   
+
    private Room in = null;
-   
+
    public Room getIn()
    {
       return this.in;
    }
-   
+
    public boolean setIn(Room value)
    {
       boolean changed = false;
-      
+
       if (this.in != value)
       {
          Room oldValue = this.in;
-         
+
          if (this.in != null)
          {
             this.in = null;
             oldValue.withoutLecture(this);
          }
-         
+
          this.in = value;
-         
+
          if (value != null)
          {
             value.withLecture(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Lecture withIn(Room value)
    {
       setIn(value);
       return this;
-   } 
-   
+   }
+
    public Room createIn()
    {
       Room value = new Room();
       withIn(value);
       return value;
-   } 
+   }
 
-   
    public static final LectureSet EMPTY_SET = new LectureSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -223,58 +216,58 @@ public class Lecture implements PropertyChangeInterface
     *              lecture                   has
     * </pre>
     */
-   
+
    public static final String PROPERTY_HAS = "has";
-   
+
    private Professor has = null;
-   
+
    public Professor getHas()
    {
       return this.has;
    }
-   
+
    public boolean setHas(Professor value)
    {
       boolean changed = false;
-      
+
       if (this.has != value)
       {
          Professor oldValue = this.has;
-         
+
          if (this.has != null)
          {
             this.has = null;
             oldValue.withoutLecture(this);
          }
-         
+
          this.has = value;
-         
+
          if (value != null)
          {
             value.withLecture(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HAS, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Lecture withHas(Professor value)
    {
       setHas(value);
       return this;
-   } 
-   
+   }
+
    public Professor createHas()
    {
       Professor value = new Professor();
       withHas(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -282,55 +275,55 @@ public class Lecture implements PropertyChangeInterface
     *              lecture                   listen
     * </pre>
     */
-   
+
    public static final String PROPERTY_LISTEN = "listen";
-   
+
    private Student listen = null;
-   
+
    public Student getListen()
    {
       return this.listen;
    }
-   
+
    public boolean setListen(Student value)
    {
       boolean changed = false;
-      
+
       if (this.listen != value)
       {
          Student oldValue = this.listen;
-         
+
          if (this.listen != null)
          {
             this.listen = null;
             oldValue.withoutLecture(this);
          }
-         
+
          this.listen = value;
-         
+
          if (value != null)
          {
             value.withLecture(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTEN, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTEN,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Lecture withListen(Student value)
    {
       setListen(value);
       return this;
-   } 
-   
+   }
+
    public Student createListen()
    {
       Student value = new Student();
       withListen(value);
       return value;
-   } 
+   }
 }
-

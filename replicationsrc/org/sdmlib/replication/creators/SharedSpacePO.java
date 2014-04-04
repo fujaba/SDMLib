@@ -19,33 +19,31 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
    public SharedSpaceSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       SharedSpaceSet matches = new SharedSpaceSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((SharedSpace) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public SharedSpacePO hasSpaceId(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_SPACEID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_SPACEID).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getSpaceId()
    {
       if (this.getPattern().getHasMatch())
@@ -54,7 +52,7 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return null;
    }
-   
+
    public SharedSpacePO withSpaceId(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -63,28 +61,27 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return this;
    }
-   
+
    public ReplicationNodePO hasNode()
    {
       ReplicationNodePO result = new ReplicationNodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(SharedSpace.PROPERTY_NODE, result);
-      
+
       return result;
    }
 
    public SharedSpacePO hasNode(ReplicationNodePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(SharedSpace.PROPERTY_NODE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(SharedSpace.PROPERTY_NODE).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -101,23 +98,22 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
    {
       ReplicationChannelPO result = new ReplicationChannelPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(SharedSpace.PROPERTY_CHANNELS, result);
-      
+
       return result;
    }
 
    public SharedSpacePO hasChannels(ReplicationChannelPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(SharedSpace.PROPERTY_CHANNELS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(SharedSpace.PROPERTY_CHANNELS)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -133,17 +129,15 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
    public SharedSpacePO hasHistory(ChangeHistory value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_HISTORY)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_HISTORY).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ChangeHistory getHistory()
    {
       if (this.getPattern().getHasMatch())
@@ -152,7 +146,7 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return null;
    }
-   
+
    public SharedSpacePO withHistory(ChangeHistory value)
    {
       if (this.getPattern().getHasMatch())
@@ -161,21 +155,19 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return this;
    }
-   
+
    public SharedSpacePO hasLastChangeId(long value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public long getLastChangeId()
    {
       if (this.getPattern().getHasMatch())
@@ -184,7 +176,7 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return 0;
    }
-   
+
    public SharedSpacePO withLastChangeId(long value)
    {
       if (this.getPattern().getHasMatch())
@@ -193,21 +185,19 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return this;
    }
-   
+
    public SharedSpacePO hasNodeId(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_NODEID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_NODEID).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getNodeId()
    {
       if (this.getPattern().getHasMatch())
@@ -216,7 +206,7 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return null;
    }
-   
+
    public SharedSpacePO withNodeId(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -225,76 +215,70 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       }
       return this;
    }
-   
+
    public SharedSpacePO hasSpaceId(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_SPACEID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_SPACEID).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public SharedSpacePO createSpaceId(String value)
    {
       this.startCreate().hasSpaceId(value).endCreate();
       return this;
    }
-   
+
    public SharedSpacePO createHistory(ChangeHistory value)
    {
       this.startCreate().hasHistory(value).endCreate();
       return this;
    }
-   
+
    public SharedSpacePO hasLastChangeId(long lower, long upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_LASTCHANGEID).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public SharedSpacePO createLastChangeId(long value)
    {
       this.startCreate().hasLastChangeId(value).endCreate();
       return this;
    }
-   
+
    public SharedSpacePO hasNodeId(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(SharedSpace.PROPERTY_NODEID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(SharedSpace.PROPERTY_NODEID).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public SharedSpacePO createNodeId(String value)
    {
       this.startCreate().hasNodeId(value).endCreate();
       return this;
    }
-   
+
    public ReplicationNodePO createNode()
    {
       return this.startCreate().hasNode().endCreate();
@@ -316,9 +300,3 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
    }
 
 }
-
-
-
-
-
-

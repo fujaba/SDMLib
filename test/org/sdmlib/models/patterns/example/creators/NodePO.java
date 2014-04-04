@@ -15,33 +15,31 @@ public class NodePO extends PatternObject<NodePO, Node>
    public NodeSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       NodeSet matches = new NodeSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Node) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public NodePO hasNum(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Node.PROPERTY_NUM)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Node.PROPERTY_NUM).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getNum()
    {
       if (this.getPattern().getHasMatch())
@@ -50,7 +48,7 @@ public class NodePO extends PatternObject<NodePO, Node>
       }
       return 0;
    }
-   
+
    public NodePO withNum(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -59,28 +57,27 @@ public class NodePO extends PatternObject<NodePO, Node>
       }
       return this;
    }
-   
+
    public SimpleStatePO hasGraph()
    {
       SimpleStatePO result = new SimpleStatePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Node.PROPERTY_GRAPH, result);
-      
+
       return result;
    }
 
    public NodePO hasGraph(SimpleStatePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_GRAPH)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Node.PROPERTY_GRAPH).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -97,23 +94,22 @@ public class NodePO extends PatternObject<NodePO, Node>
    {
       NodePO result = new NodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Node.PROPERTY_NEXT, result);
-      
+
       return result;
    }
 
    public NodePO hasNext(NodePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_NEXT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Node.PROPERTY_NEXT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -130,23 +126,22 @@ public class NodePO extends PatternObject<NodePO, Node>
    {
       NodePO result = new NodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Node.PROPERTY_PREV, result);
-      
+
       return result;
    }
 
    public NodePO hasPrev(NodePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Node.PROPERTY_PREV)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Node.PROPERTY_PREV).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -162,24 +157,22 @@ public class NodePO extends PatternObject<NodePO, Node>
    public NodePO hasNum(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Node.PROPERTY_NUM)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Node.PROPERTY_NUM).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public NodePO createNum(int value)
    {
       this.startCreate().hasNum(value).endCreate();
       return this;
    }
-   
+
    public SimpleStatePO createGraph()
    {
       return this.startCreate().hasGraph().endCreate();
@@ -211,6 +204,3 @@ public class NodePO extends PatternObject<NodePO, Node>
    }
 
 }
-
-
-

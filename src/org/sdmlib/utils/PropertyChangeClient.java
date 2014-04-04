@@ -51,36 +51,42 @@ import java.beans.PropertyChangeListener;
 public interface PropertyChangeClient extends PropertyChangeInterface
 {
    /**
-    * No comment provided by developer, please add a comment to improve documentation.
+    * No comment provided by developer, please add a comment to improve
+    * documentation.
     *
-    * @param name      No description provided
-    * @param listener  No description provided
+    * @param name
+    *           No description provided
+    * @param listener
+    *           No description provided
     */
-   public void removePropertyChangeListener (String name, PropertyChangeListener listener);
-
+   public void removePropertyChangeListener(String name,
+         PropertyChangeListener listener);
 
    /**
-    * No comment provided by developer, please add a comment to improve documentation.
+    * No comment provided by developer, please add a comment to improve
+    * documentation.
     *
-    * @param listener  No description provided
+    * @param listener
+    *           No description provided
     */
-   public void removePropertyChangeListener (PropertyChangeListener listener);
-
-
-   /**
-    * Access method for an one to n association.
-    *
-    * @param name      The object added.
-    * @param listener  The object added.
-    */
-   public void addPropertyChangeListener (String name, PropertyChangeListener listener);
-
+   public void removePropertyChangeListener(PropertyChangeListener listener);
 
    /**
     * Access method for an one to n association.
     *
-    * @param listener  The object added.
+    * @param name
+    *           The object added.
+    * @param listener
+    *           The object added.
     */
-   public void addPropertyChangeListener (PropertyChangeListener listener);
+   public void addPropertyChangeListener(String name,
+         PropertyChangeListener listener);
+
+   /**
+    * Access method for an one to n association.
+    *
+    * @param listener
+    *           The object added.
+    */
+   public void addPropertyChangeListener(PropertyChangeListener listener);
 }
-

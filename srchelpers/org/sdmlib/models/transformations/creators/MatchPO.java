@@ -17,33 +17,31 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    public MatchSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       MatchSet matches = new MatchSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Match) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public MatchPO hasStartPos(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_STARTPOS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_STARTPOS).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getStartPos()
    {
       if (this.getPattern().getHasMatch())
@@ -52,7 +50,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return 0;
    }
-   
+
    public MatchPO withStartPos(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -61,21 +59,19 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return this;
    }
-   
+
    public MatchPO hasEndPos(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_ENDPOS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_ENDPOS).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getEndPos()
    {
       if (this.getPattern().getHasMatch())
@@ -84,7 +80,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return 0;
    }
-   
+
    public MatchPO withEndPos(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -93,21 +89,19 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return this;
    }
-   
+
    public MatchPO hasFullText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_FULLTEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_FULLTEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getFullText()
    {
       if (this.getPattern().getHasMatch())
@@ -116,7 +110,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return null;
    }
-   
+
    public MatchPO withFullText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -125,21 +119,19 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return this;
    }
-   
+
    public MatchPO hasMatchText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_MATCHTEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_MATCHTEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getMatchText()
    {
       if (this.getPattern().getHasMatch())
@@ -148,7 +140,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return null;
    }
-   
+
    public MatchPO withMatchText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -157,21 +149,19 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return this;
    }
-   
+
    public MatchPO hasModelObject(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_MODELOBJECT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_MODELOBJECT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Object getModelObject()
    {
       if (this.getPattern().getHasMatch())
@@ -180,7 +170,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return null;
    }
-   
+
    public MatchPO withModelObject(Object value)
    {
       if (this.getPattern().getHasMatch())
@@ -189,28 +179,27 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       }
       return this;
    }
-   
+
    public TemplatePO hasTemplate()
    {
       TemplatePO result = new TemplatePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Match.PROPERTY_TEMPLATE, result);
-      
+
       return result;
    }
 
    public MatchPO hasTemplate(TemplatePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Match.PROPERTY_TEMPLATE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Match.PROPERTY_TEMPLATE).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -227,23 +216,22 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    {
       PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Match.PROPERTY_PLACEHOLDER, result);
-      
+
       return result;
    }
 
    public MatchPO hasPlaceholder(PlaceHolderDescriptionPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Match.PROPERTY_PLACEHOLDER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Match.PROPERTY_PLACEHOLDER)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -260,23 +248,22 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    {
       MatchPO result = new MatchPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Match.PROPERTY_SUBMATCHES, result);
-      
+
       return result;
    }
 
    public MatchPO hasSubMatches(MatchPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Match.PROPERTY_SUBMATCHES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Match.PROPERTY_SUBMATCHES).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -293,23 +280,22 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    {
       MatchPO result = new MatchPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Match.PROPERTY_PARENTMATCH, result);
-      
+
       return result;
    }
 
    public MatchPO hasParentMatch(MatchPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Match.PROPERTY_PARENTMATCH)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Match.PROPERTY_PARENTMATCH)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -325,108 +311,98 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    public MatchPO hasStartPos(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_STARTPOS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_STARTPOS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MatchPO hasEndPos(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_ENDPOS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_ENDPOS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MatchPO hasFullText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_FULLTEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_FULLTEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MatchPO hasMatchText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_MATCHTEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_MATCHTEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MatchPO hasModelObject(Object lower, Object upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Match.PROPERTY_MODELOBJECT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Match.PROPERTY_MODELOBJECT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public MatchPO createStartPos(int value)
    {
       this.startCreate().hasStartPos(value).endCreate();
       return this;
    }
-   
+
    public MatchPO createEndPos(int value)
    {
       this.startCreate().hasEndPos(value).endCreate();
       return this;
    }
-   
+
    public MatchPO createFullText(String value)
    {
       this.startCreate().hasFullText(value).endCreate();
       return this;
    }
-   
+
    public MatchPO createMatchText(String value)
    {
       this.startCreate().hasMatchText(value).endCreate();
       return this;
    }
-   
+
    public MatchPO createModelObject(Object value)
    {
       this.startCreate().hasModelObject(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createTemplate()
    {
       return this.startCreate().hasTemplate().endCreate();
@@ -468,7 +444,3 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    }
 
 }
-
-
-
-

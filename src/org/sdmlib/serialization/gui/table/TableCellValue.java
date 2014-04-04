@@ -4,7 +4,7 @@ package org.sdmlib.serialization.gui.table;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,12 +20,16 @@ package org.sdmlib.serialization.gui.table;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
-public interface TableCellValue {
-	public Column getColumn();
-	public SendableEntityCreator getCreator();
-	public Object getItem();
-	public Object getSimpleValue();
+public interface TableCellValue
+{
+   public Column getColumn();
+
+   public SendableEntityCreator getCreator();
+
+   public Object getItem();
+
+   public Object getSimpleValue();
 }

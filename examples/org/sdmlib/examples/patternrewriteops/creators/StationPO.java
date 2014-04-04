@@ -16,40 +16,39 @@ public class StationPO extends PatternObject<StationPO, Station>
    public StationSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       StationSet matches = new StationSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Station) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public TrainPO hasTrains()
    {
       TrainPO result = new TrainPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Station.PROPERTY_TRAINS, result);
-      
+
       return result;
    }
 
    public StationPO hasTrains(TrainPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Station.PROPERTY_TRAINS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Station.PROPERTY_TRAINS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -66,23 +65,22 @@ public class StationPO extends PatternObject<StationPO, Station>
    {
       StationPO result = new StationPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Station.PROPERTY_NEXT, result);
-      
+
       return result;
    }
 
    public StationPO hasNext(StationPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Station.PROPERTY_NEXT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Station.PROPERTY_NEXT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -99,23 +97,22 @@ public class StationPO extends PatternObject<StationPO, Station>
    {
       StationPO result = new StationPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Station.PROPERTY_PREV, result);
-      
+
       return result;
    }
 
    public StationPO hasPrev(StationPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Station.PROPERTY_PREV)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Station.PROPERTY_PREV).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -132,23 +129,22 @@ public class StationPO extends PatternObject<StationPO, Station>
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Station.PROPERTY_PEOPLE, result);
-      
+
       return result;
    }
 
    public StationPO hasPeople(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Station.PROPERTY_PEOPLE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Station.PROPERTY_PEOPLE).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -165,23 +161,22 @@ public class StationPO extends PatternObject<StationPO, Station>
    {
       SignalFlagPO result = new SignalFlagPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Station.PROPERTY_FLAG, result);
-      
+
       return result;
    }
 
    public StationPO hasFlag(SignalFlagPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Station.PROPERTY_FLAG)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Station.PROPERTY_FLAG).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -245,6 +240,3 @@ public class StationPO extends PatternObject<StationPO, Station>
    }
 
 }
-
-
-

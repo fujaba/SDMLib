@@ -28,7 +28,7 @@ public class SDMThread extends Thread
             e.printStackTrace();
          }
       }
-   }   
+   }
 
    public void enqueueTask(Runnable task)
    {

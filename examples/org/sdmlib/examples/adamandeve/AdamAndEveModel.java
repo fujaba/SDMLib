@@ -16,33 +16,30 @@ public class AdamAndEveModel
       Storyboard storyboard = new Storyboard("examples");
 
       ClassModel model = new ClassModel("org.sdmlib.examples.adamandeve");
-      
+
       model.createClazz("Eve");
 
       model.createClazz("Adam");
 
-      Clazz taskFlowClazz = model.createClazz(TaskFlow.class.getName(), 
-         "taskNo", "int")
-         .withExternal(true);
-      
+      Clazz taskFlowClazz = model.createClazz(TaskFlow.class.getName(),
+         "taskNo", "int").withExternal(true);
+
       model.createClazz(SDMLibJsonIdMap.class.getName()).withExternal(true);
-      
-      model.createClazz(PeerProxy.class.getName(), 
-         "ip", "String", 
-         "port", "int", 
-         "idMap", SDMLibJsonIdMap.class.getName()).withExternal(true);
-      
-      model.createClazz("UpdateAdamFlow",
-         "adam", PeerProxy.class.getName(),
-         "eve", PeerProxy.class.getName(),
-         "idMap", SDMLibJsonIdMap.class.getName(), 
-         "adamJarAtEveSiteLastModified", long.class.getSimpleName())
-         .withSuperClass(taskFlowClazz)
+
+      model.createClazz(PeerProxy.class.getName(), "ip", "String", "port",
+         "int", "idMap", SDMLibJsonIdMap.class.getName()).withExternal(true);
+
+      model
+         .createClazz("UpdateAdamFlow", "adam", PeerProxy.class.getName(),
+            "eve", PeerProxy.class.getName(), "idMap",
+            SDMLibJsonIdMap.class.getName(), "adamJarAtEveSiteLastModified",
+            long.class.getSimpleName()).withSuperClass(taskFlowClazz)
          .createMethods("run()", "void");
-      
+
       model.generate("examples");
 
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "AdamAndEveModel"));
+      storyboard.addSVGImage(model.dumpClassDiagram("examples",
+         "AdamAndEveModel"));
 
       storyboard.dumpHTML();
    }

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops;
 
 import java.beans.PropertyChangeSupport;
@@ -34,9 +34,8 @@ import java.beans.PropertyChangeListener;
 public class Station implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_TRAINS.equalsIgnoreCase(attrName))
@@ -67,9 +66,8 @@ public class Station implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TRAINS.equalsIgnoreCase(attrName))
@@ -77,7 +75,7 @@ public class Station implements PropertyChangeInterface
          addToTrains((Train) value);
          return true;
       }
-      
+
       if ((PROPERTY_TRAINS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTrains((Train) value);
@@ -101,7 +99,7 @@ public class Station implements PropertyChangeInterface
          addToPeople((Person) value);
          return true;
       }
-      
+
       if ((PROPERTY_PEOPLE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPeople((Person) value);
@@ -117,19 +115,17 @@ public class Station implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromTrains();
@@ -140,7 +136,6 @@ public class Station implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -148,92 +143,93 @@ public class Station implements PropertyChangeInterface
     *              station                   trains
     * </pre>
     */
-   
+
    public static final String PROPERTY_TRAINS = "trains";
-   
+
    private TrainSet trains = null;
-   
+
    public TrainSet getTrains()
    {
       if (this.trains == null)
       {
          return Train.EMPTY_SET;
       }
-   
+
       return this.trains;
    }
-   
+
    public boolean addToTrains(Train value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.trains == null)
          {
             this.trains = new TrainSet();
          }
-         
-         changed = this.trains.add (value);
-         
+
+         changed = this.trains.add(value);
+
          if (changed)
          {
             value.withStation(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TRAINS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TRAINS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromTrains(Train value)
    {
       boolean changed = false;
-      
+
       if ((this.trains != null) && (value != null))
       {
-         changed = this.trains.remove (value);
-         
+         changed = this.trains.remove(value);
+
          if (changed)
          {
             value.setStation(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TRAINS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TRAINS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Station withTrains(Train value)
    {
       addToTrains(value);
       return this;
-   } 
-   
+   }
+
    public Station withoutTrains(Train value)
    {
       removeFromTrains(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromTrains()
    {
       LinkedHashSet<Train> tmpSet = new LinkedHashSet<Train>(this.getTrains());
-   
+
       for (Train value : tmpSet)
       {
          this.removeFromTrains(value);
       }
    }
-   
+
    public Train createTrains()
    {
       Train value = new Train();
       withTrains(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -241,58 +237,58 @@ public class Station implements PropertyChangeInterface
     *              prev                   next
     * </pre>
     */
-   
+
    public static final String PROPERTY_NEXT = "next";
-   
+
    private Station next = null;
-   
+
    public Station getNext()
    {
       return this.next;
    }
-   
+
    public boolean setNext(Station value)
    {
       boolean changed = false;
-      
+
       if (this.next != value)
       {
          Station oldValue = this.next;
-         
+
          if (this.next != null)
          {
             this.next = null;
             oldValue.setPrev(null);
          }
-         
+
          this.next = value;
-         
+
          if (value != null)
          {
             value.withPrev(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Station withNext(Station value)
    {
       setNext(value);
       return this;
-   } 
-   
+   }
+
    public Station createNext()
    {
       Station value = new Station();
       withNext(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -300,58 +296,58 @@ public class Station implements PropertyChangeInterface
     *              next                   prev
     * </pre>
     */
-   
+
    public static final String PROPERTY_PREV = "prev";
-   
+
    private Station prev = null;
-   
+
    public Station getPrev()
    {
       return this.prev;
    }
-   
+
    public boolean setPrev(Station value)
    {
       boolean changed = false;
-      
+
       if (this.prev != value)
       {
          Station oldValue = this.prev;
-         
+
          if (this.prev != null)
          {
             this.prev = null;
             oldValue.setNext(null);
          }
-         
+
          this.prev = value;
-         
+
          if (value != null)
          {
             value.withNext(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Station withPrev(Station value)
    {
       setPrev(value);
       return this;
-   } 
-   
+   }
+
    public Station createPrev()
    {
       Station value = new Station();
       withPrev(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -359,92 +355,93 @@ public class Station implements PropertyChangeInterface
     *              station                   people
     * </pre>
     */
-   
+
    public static final String PROPERTY_PEOPLE = "people";
-   
+
    private PersonSet people = null;
-   
+
    public PersonSet getPeople()
    {
       if (this.people == null)
       {
          return Person.EMPTY_SET;
       }
-   
+
       return this.people;
    }
-   
+
    public boolean addToPeople(Person value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.people == null)
          {
             this.people = new PersonSet();
          }
-         
-         changed = this.people.add (value);
-         
+
+         changed = this.people.add(value);
+
          if (changed)
          {
             value.withStation(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PEOPLE, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PEOPLE,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPeople(Person value)
    {
       boolean changed = false;
-      
+
       if ((this.people != null) && (value != null))
       {
-         changed = this.people.remove (value);
-         
+         changed = this.people.remove(value);
+
          if (changed)
          {
             value.setStation(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PEOPLE, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PEOPLE,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Station withPeople(Person value)
    {
       addToPeople(value);
       return this;
-   } 
-   
+   }
+
    public Station withoutPeople(Person value)
    {
       removeFromPeople(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromPeople()
    {
       LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(this.getPeople());
-   
+
       for (Person value : tmpSet)
       {
          this.removeFromPeople(value);
       }
    }
-   
+
    public Person createPeople()
    {
       Person value = new Person();
       withPeople(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -452,58 +449,58 @@ public class Station implements PropertyChangeInterface
     *              station                   flag
     * </pre>
     */
-   
+
    public static final String PROPERTY_FLAG = "flag";
-   
+
    private SignalFlag flag = null;
-   
+
    public SignalFlag getFlag()
    {
       return this.flag;
    }
-   
+
    public boolean setFlag(SignalFlag value)
    {
       boolean changed = false;
-      
+
       if (this.flag != value)
       {
          SignalFlag oldValue = this.flag;
-         
+
          if (this.flag != null)
          {
             this.flag = null;
             oldValue.withoutStation(this);
          }
-         
+
          this.flag = value;
-         
+
          if (value != null)
          {
             value.withStation(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_FLAG, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FLAG, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Station withFlag(SignalFlag value)
    {
       setFlag(value);
       return this;
-   } 
-   
+   }
+
    public SignalFlag createFlag()
    {
       SignalFlag value = new SignalFlag();
       withFlag(value);
       return value;
-   } 
+   }
 
-   
    public static final StationSet EMPTY_SET = new StationSet();
 
    public Station withTrains(Train... value)
@@ -513,7 +510,7 @@ public class Station implements PropertyChangeInterface
          addToTrains(item);
       }
       return this;
-   } 
+   }
 
    public Station withoutTrains(Train... value)
    {
@@ -531,7 +528,7 @@ public class Station implements PropertyChangeInterface
          addToPeople(item);
       }
       return this;
-   } 
+   }
 
    public Station withoutPeople(Person... value)
    {
@@ -541,6 +538,7 @@ public class Station implements PropertyChangeInterface
       }
       return this;
    }
+
    public StationSet getNextTransitive()
    {
       StationSet result = new StationSet().with(this);
@@ -554,4 +552,3 @@ public class Station implements PropertyChangeInterface
    }
 
 }
-

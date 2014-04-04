@@ -55,17 +55,18 @@ public class ReachableState implements PropertyChangeInterface
       {
          JsonObject jo1 = (JsonObject) o1;
          JsonObject jo2 = (JsonObject) o2;
-         return jo1.getString(JsonIdMap.ID).compareTo(jo2.getString(JsonIdMap.ID));
+         return jo1.getString(JsonIdMap.ID).compareTo(
+            jo2.getString(JsonIdMap.ID));
       }
    }
 
    private String certificate = null;
-   
+
    public String getCertificate()
    {
       return certificate;
    }
-   
+
    public void setCertificate(String certificate)
    {
       this.certificate = certificate;
@@ -74,12 +75,12 @@ public class ReachableState implements PropertyChangeInterface
    public String computeCertificate(JsonIdMap map)
    {
       this.certificate = null;
-      
+
       long category = 1;
-      
+
       HashMap<String, String> oldnode2certificates = new HashMap<String, String>();
       long oldNumOfCertificates = 0;
-      
+
       node2certificates = new HashMap<String, String>();
 
       JsonArray jsonArray = map.toJsonArray(this.getGraphRoot());
@@ -97,7 +98,7 @@ public class ReachableState implements PropertyChangeInterface
       boolean stopNextRound = false;
       while (true)
       {
-         // more levels 
+         // more levels
          for (Object o : jsonArray)
          {
             JsonObject jsonObj = (JsonObject) o;
@@ -121,7 +122,8 @@ public class ReachableState implements PropertyChangeInterface
                   JsonObject ref = (JsonObject) value;
                   if (ref.get(JsonIdMap.ID) != null)
                   {
-                     ref.setValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                     ref.setValue(JsonIdMap.ID,
+                        oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
                   }
                }
                else if (value instanceof JsonArray)
@@ -132,10 +134,11 @@ public class ReachableState implements PropertyChangeInterface
                      JsonObject ref = (JsonObject) ao;
                      if (ref.get(JsonIdMap.ID) != null)
                      {
-                        ref.setValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                        ref.setValue(JsonIdMap.ID, oldnode2certificates.get(ref
+                           .getString(JsonIdMap.ID)));
                      }
                   }
-                  
+
                   // sort the jsonarray according to ref node categories
                   java.util.Collections.sort(refArray, new JsonIdCompare());
                }
@@ -165,7 +168,8 @@ public class ReachableState implements PropertyChangeInterface
             certificates2nodes.put(certificate, oldNodeList);
          }
 
-         if (stopNextRound || certificates2nodes.size() <= oldNumOfCertificates || certificates2nodes.size() == jsonArray.size())
+         if (stopNextRound || certificates2nodes.size() <= oldNumOfCertificates
+            || certificates2nodes.size() == jsonArray.size())
          {
             if (stopNextRound)
             {
@@ -183,12 +187,12 @@ public class ReachableState implements PropertyChangeInterface
                this.certificate = buf.toString();
                break;
             }
-            else 
+            else
             {
                stopNextRound = true;
             }
          }
-         
+
          // numbering the certificates
          for (Entry<String, String> e : certificates2nodes.entrySet())
          {
@@ -198,18 +202,18 @@ public class ReachableState implements PropertyChangeInterface
 
             String catString = "#" + category;
 
-            for(String n: split)
+            for (String n : split)
             {
                node2certificates.put(n, catString);
             }
 
             category++;
          }
-         
+
          // do another round
          oldNumOfCertificates = certificates2nodes.size();
          oldnode2certificates = node2certificates;
-         
+
          jsonArray = map.toJsonArray(this.getGraphRoot());
          node2certificates = new LinkedHashMap<String, String>();
       } // while
@@ -217,12 +221,12 @@ public class ReachableState implements PropertyChangeInterface
       return this.certificate;
    }
 
-   //==========================================================================
+   // ==========================================================================
 
    private long countBlanks(String str)
    {
       long num = 0;
-      
+
       for (int i = 0; i < str.length(); i++)
       {
          if (str.charAt(i) == ' ')
@@ -230,7 +234,7 @@ public class ReachableState implements PropertyChangeInterface
             num++;
          }
       }
-      
+
       return num;
    }
 
@@ -269,8 +273,7 @@ public class ReachableState implements PropertyChangeInterface
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -303,8 +306,9 @@ public class ReachableState implements PropertyChangeInterface
          addToRuleapplications((RuleApplication) value);
          return true;
       }
-      
-      if ((PROPERTY_RULEAPPLICATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if ((PROPERTY_RULEAPPLICATIONS + JsonIdMap.REMOVE)
+         .equalsIgnoreCase(attrName))
       {
          removeFromRuleapplications((RuleApplication) value);
          return true;
@@ -315,7 +319,7 @@ public class ReachableState implements PropertyChangeInterface
          addToResultOf((RuleApplication) value);
          return true;
       }
-      
+
       if ((PROPERTY_RESULTOF + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromResultOf((RuleApplication) value);
@@ -325,8 +329,7 @@ public class ReachableState implements PropertyChangeInterface
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -335,8 +338,7 @@ public class ReachableState implements PropertyChangeInterface
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -347,9 +349,7 @@ public class ReachableState implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
    public static final ReachableStateSet EMPTY_SET = new ReachableStateSet();
-
 
    /********************************************************************
     * <pre>
@@ -389,7 +389,8 @@ public class ReachableState implements PropertyChangeInterface
             value.withStates(this);
          }
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT,
+            oldValue, value);
          changed = true;
       }
 
@@ -400,15 +401,14 @@ public class ReachableState implements PropertyChangeInterface
    {
       setParent(value);
       return this;
-   } 
+   }
 
    public ReachabilityGraph createParent()
    {
       ReachabilityGraph value = new ReachabilityGraph();
       withParent(value);
       return value;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -422,12 +422,10 @@ public class ReachableState implements PropertyChangeInterface
 
    private ReachabilityGraph master = null;
 
-
    private TreeMap<String, String> certificates2nodes;
 
-
    private HashMap<String, String> node2certificates;
-   
+
    public HashMap<String, String> getNode2certificates()
    {
       return node2certificates;
@@ -459,7 +457,8 @@ public class ReachableState implements PropertyChangeInterface
             value.withTodo(this);
          }
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MASTER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MASTER,
+            oldValue, value);
          changed = true;
       }
 
@@ -470,81 +469,79 @@ public class ReachableState implements PropertyChangeInterface
    {
       setMaster(value);
       return this;
-   } 
+   }
 
    public ReachabilityGraph createMaster()
    {
       ReachabilityGraph value = new ReachabilityGraph();
       withMaster(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_GRAPHROOT = "graphRoot";
-   
+
    private Object graphRoot;
-   
+
    public Object getGraphRoot()
    {
       return graphRoot;
    }
-   
+
    public void setGraphRoot(Object value)
    {
       if (this.graphRoot != value)
       {
          Object oldValue = this.graphRoot;
          this.graphRoot = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPHROOT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPHROOT,
+            oldValue, value);
       }
    }
-   
+
    public ReachableState withGraphRoot(Object value)
    {
       setGraphRoot(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NUMBER = "number";
-   
+
    private long number;
 
    public long getNumber()
    {
       return this.number;
    }
-   
+
    public void setNumber(long value)
    {
       if (this.number != value)
       {
          long oldValue = this.number;
          this.number = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUMBER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUMBER,
+            oldValue, value);
       }
    }
-   
+
    public ReachableState withNumber(long value)
    {
       setNumber(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getNumber());
       return _.substring(1);
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -552,92 +549,94 @@ public class ReachableState implements PropertyChangeInterface
     *              src                   ruleapplications
     * </pre>
     */
-   
+
    public static final String PROPERTY_RULEAPPLICATIONS = "ruleapplications";
-   
+
    private RuleApplicationSet ruleapplications = null;
-   
+
    public RuleApplicationSet getRuleapplications()
    {
       if (this.ruleapplications == null)
       {
          return RuleApplication.EMPTY_SET;
       }
-   
+
       return this.ruleapplications;
    }
-   
+
    public boolean addToRuleapplications(RuleApplication value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.ruleapplications == null)
          {
             this.ruleapplications = new RuleApplicationSet();
          }
-         
-         changed = this.ruleapplications.add (value);
-         
+
+         changed = this.ruleapplications.add(value);
+
          if (changed)
          {
             value.withSrc(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULEAPPLICATIONS, null, value);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_RULEAPPLICATIONS, null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromRuleapplications(RuleApplication value)
    {
       boolean changed = false;
-      
+
       if ((this.ruleapplications != null) && (value != null))
       {
-         changed = this.ruleapplications.remove (value);
-         
+         changed = this.ruleapplications.remove(value);
+
          if (changed)
          {
             value.setSrc(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RULEAPPLICATIONS, value, null);
+            getPropertyChangeSupport().firePropertyChange(
+               PROPERTY_RULEAPPLICATIONS, value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public ReachableState withRuleapplications(RuleApplication value)
    {
       addToRuleapplications(value);
       return this;
-   } 
-   
+   }
+
    public ReachableState withoutRuleapplications(RuleApplication value)
    {
       removeFromRuleapplications(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromRuleapplications()
    {
-      LinkedHashSet<RuleApplication> tmpSet = new LinkedHashSet<RuleApplication>(this.getRuleapplications());
-   
+      LinkedHashSet<RuleApplication> tmpSet = new LinkedHashSet<RuleApplication>(
+            this.getRuleapplications());
+
       for (RuleApplication value : tmpSet)
       {
          this.removeFromRuleapplications(value);
       }
    }
-   
+
    public RuleApplication createRuleapplications()
    {
       RuleApplication value = new RuleApplication();
       withRuleapplications(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -645,90 +644,93 @@ public class ReachableState implements PropertyChangeInterface
     *              tgt                   resultOf
     * </pre>
     */
-   
+
    public static final String PROPERTY_RESULTOF = "resultOf";
-   
+
    private RuleApplicationSet resultOf = null;
-   
+
    public RuleApplicationSet getResultOf()
    {
       if (this.resultOf == null)
       {
          return RuleApplication.EMPTY_SET;
       }
-   
+
       return this.resultOf;
    }
-   
+
    public boolean addToResultOf(RuleApplication value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.resultOf == null)
          {
             this.resultOf = new RuleApplicationSet();
          }
-         
-         changed = this.resultOf.add (value);
-         
+
+         changed = this.resultOf.add(value);
+
          if (changed)
          {
             value.withTgt(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RESULTOF, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RESULTOF,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromResultOf(RuleApplication value)
    {
       boolean changed = false;
-      
+
       if ((this.resultOf != null) && (value != null))
       {
-         changed = this.resultOf.remove (value);
-         
+         changed = this.resultOf.remove(value);
+
          if (changed)
          {
             value.setTgt(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_RESULTOF, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_RESULTOF,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public ReachableState withResultOf(RuleApplication value)
    {
       addToResultOf(value);
       return this;
-   } 
-   
+   }
+
    public ReachableState withoutResultOf(RuleApplication value)
    {
       removeFromResultOf(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromResultOf()
    {
-      LinkedHashSet<RuleApplication> tmpSet = new LinkedHashSet<RuleApplication>(this.getResultOf());
-   
+      LinkedHashSet<RuleApplication> tmpSet = new LinkedHashSet<RuleApplication>(
+            this.getResultOf());
+
       for (RuleApplication value : tmpSet)
       {
          this.removeFromResultOf(value);
       }
    }
-   
+
    public RuleApplication createResultOf()
    {
       RuleApplication value = new RuleApplication();
       withResultOf(value);
       return value;
-   } 
+   }
 
    public ReachableState withRuleapplications(RuleApplication... value)
    {
@@ -737,7 +739,7 @@ public class ReachableState implements PropertyChangeInterface
          addToRuleapplications(item);
       }
       return this;
-   } 
+   }
 
    public ReachableState withoutRuleapplications(RuleApplication... value)
    {
@@ -755,7 +757,7 @@ public class ReachableState implements PropertyChangeInterface
          addToResultOf(item);
       }
       return this;
-   } 
+   }
 
    public ReachableState withoutResultOf(RuleApplication... value)
    {
@@ -766,4 +768,3 @@ public class ReachableState implements PropertyChangeInterface
       return this;
    }
 }
-

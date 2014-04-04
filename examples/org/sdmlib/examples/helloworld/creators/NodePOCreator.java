@@ -8,15 +8,14 @@ public class NodePOCreator extends PatternObjectCreator
    {
       return new NodePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((NodePO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((NodePO) target).set(attrName, value);
    }
 }
-

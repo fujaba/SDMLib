@@ -13,36 +13,36 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
+public class FlipBook implements MapUpdateListener, PropertyChangeInterface
 
 {
    public void step()
    {
       long stopHere = 0;
-      if (changes.size() >= stopStep) 
+      if (changes.size() >= stopStep)
       {
          stopHere = stopStep;
       }
-      
+
    }
-   
+
    public FlipBook back()
    {
-      if (currentStep <= 0 )
+      if (currentStep <= 0)
       {
          // already at start
          return this;
       }
-      
+
       StepInfo step = changes.get((int) (currentStep - 1));
-      
+
       // undo step by swapping rem and upd
       JsonObject jo = step.change;
 
       JsonObject undo = new JsonObject();
-      
+
       undo.put(JsonIdMap.ID, jo.getString(JsonIdMap.ID));
-      
+
       Object update = jo.get(JsonIdMap.UPDATE);
       if (update != null)
       {
@@ -50,11 +50,11 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
          JsonObject jsonUpdate = (JsonObject) update;
          String key = jsonUpdate.keys().next();
          Object value = jsonUpdate.get(key);
-         
+
          if (value instanceof JsonObject)
          {
             JsonObject jsonValue = (JsonObject) value;
-            
+
             JsonObject newValue = new JsonObject();
             newValue.put(JsonIdMap.ID, jsonValue.getString(JsonIdMap.ID));
             JsonObject newUpdate = new JsonObject();
@@ -66,52 +66,51 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
             undo.put(JsonIdMap.REMOVE, update);
          }
       }
-      
+
       Object remove = jo.get(JsonIdMap.REMOVE);
       if (remove != null)
       {
          undo.put(JsonIdMap.UPDATE, remove);
       }
-      
+
       setReading(true);
       map.executeUpdateMsg(undo);
       setReading(false);
       currentStep--;
-      
+
       return this;
    }
-   
-   
+
    public FlipBook back(Object target, String property)
    {
       while (true)
       {
          back();
-         
+
          if (currentStep <= 0)
          {
             return this;
          }
-         
+
          // does current step operate on target?
          StepInfo stepInfo = changes.get((int) (currentStep - 1));
-         
+
          JsonObject jo = stepInfo.change;
-         
+
          String id = jo.getString(JsonIdMap.ID);
-         
+
          Object obj = map.getObject(id);
-         
+
          if (obj == target)
          {
             Object update = jo.get(JsonIdMap.UPDATE);
-            
+
             if (update != null)
             {
                JsonObject jsonUpdate = (JsonObject) update;
-               
+
                String key = jsonUpdate.keys().next();
-               
+
                if (key.equals(property))
                {
                   // print stacktrace
@@ -122,45 +121,43 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
          }
       }
    }
-   
-   
+
    public FlipBook storeCurrentStepAsStopStep()
    {
       this.withStopStep(currentStep);
       return this;
    }
-   
-   
+
    public FlipBook back(Object target)
    {
       while (true)
       {
          back();
-         
+
          if (currentStep <= 0)
          {
             return this;
          }
-         
+
          // does current step operate on target?
          StepInfo stepInfo = changes.get((int) (currentStep - 1));
-         
+
          JsonObject jo = stepInfo.change;
-         
+
          String id = jo.getString(JsonIdMap.ID);
-         
+
          Object obj = map.getObject(id);
-         
+
          if (obj == target)
          {
             // print stacktrace
             stepInfo.e.printStackTrace();
             return this;
          }
-         
+
       }
    }
-   
+
    public FlipBook printCurrentStackTrace()
    {
       if (currentStep <= 0)
@@ -168,13 +165,13 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
          return this;
       }
 
-      StepInfo stepInfo = changes.get((int) (currentStep -1));
-      
+      StepInfo stepInfo = changes.get((int) (currentStep - 1));
+
       stepInfo.e.printStackTrace();
       return this;
-      
+
    }
-   
+
    public FlipBook back(long steps)
    {
       for (long l = 0; l < steps; l++)
@@ -183,7 +180,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       }
       return this;
    }
-   
+
    public FlipBook forward(long steps)
    {
       for (long l = 0; l < steps; l++)
@@ -192,51 +189,51 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       }
       return this;
    }
-   
+
    public FlipBook forward()
    {
-      if (currentStep >= changes.size() )
+      if (currentStep >= changes.size())
       {
          // already at start
          return this;
       }
-      
+
       StepInfo step = changes.get((int) (currentStep));
-      
+
       // redo step
       JsonObject jo = step.change;
-      
+
       setReading(true);
       map.executeUpdateMsg(jo);
       setReading(false);
       currentStep++;
-      
+
       return this;
    }
-   
+
    private static JsonIdMap map = null;
 
    public long stopStep = Long.MAX_VALUE;
-   
+
    public FlipBook withStopStep(long value)
    {
       if (value != stopStep)
       {
          stopStep = value;
-         
+
          // store for reload
          JsonObject jsonObject = new JsonObject();
          jsonObject.put("stopStep", stopStep);
-         
+
          File file = new File("doc");
          file.mkdirs();
-         
+
          file = new File("doc/flibBookStopStep.json");
-         
+
          try
          {
             FileWriter fileWriter = new FileWriter(file);
-            
+
             fileWriter.write(jsonObject.toString() + "/n");
             fileWriter.close();
          }
@@ -248,27 +245,27 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       }
       return this;
    }
-   
+
    public FlipBook init(JsonIdMap theMap)
    {
       map = theMap;
-      
+
       // read stopStep from file
       File file = new File("doc/flibBookStopStep.json");
-      
+
       try
       {
          FileReader fileReader = new FileReader(file);
          BufferedReader in = new BufferedReader(fileReader);
          String line = in.readLine();
          in.close();
-         
+
          JsonObject jsonObject = new JsonObject().withValue(line);
-         
+
          long value = jsonObject.getLong("stopStep");
-         
+
          stopStep = value;
-         
+
       }
       catch (IOException e)
       {
@@ -276,36 +273,36 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       }
       return this;
    }
-   
+
    public long currentStep = -1;
-   
-//   public void addModelRoot(Object root)
-//   {
-//      map.getId(root);
-//   }
-//   
-//   private JsonIdMap map = null;
-//   
-//   public JsonIdMap getMap()
-//   {
-//      return map;
-//   }
-//   
-//   public void setMap(JsonIdMap map)
-//   {
-//      this.map = map;
-//   }
-//   
-//   public FlipBook withMap(JsonIdMap map)
-//   {
-//      this.setMap(map);
-//      // map.addListener(this);
-//      map.withUpdateMsgListener(this);
-//      return this;
-//   }
-   
+
+   // public void addModelRoot(Object root)
+   // {
+   // map.getId(root);
+   // }
+   //
+   // private JsonIdMap map = null;
+   //
+   // public JsonIdMap getMap()
+   // {
+   // return map;
+   // }
+   //
+   // public void setMap(JsonIdMap map)
+   // {
+   // this.map = map;
+   // }
+   //
+   // public FlipBook withMap(JsonIdMap map)
+   // {
+   // this.setMap(map);
+   // // map.addListener(this);
+   // map.withUpdateMsgListener(this);
+   // return this;
+   // }
+
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
-   
+
    @Override
    public boolean sendUpdateMsg(Object target, String property, Object oldObj,
          Object newObject, JsonObject jsonObject)
@@ -318,25 +315,25 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       // store message in list
       StepInfo stepInfo = new StepInfo(jsonObject, new RuntimeException());
       changes.add(stepInfo);
-      
+
       currentStep = changes.size();
       step();
-      
+
       return true;
    }
 
    boolean isReading = false;
-   
+
    public boolean isReading()
    {
       return isReading;
    }
-   
+
    public void setReading(boolean isReading)
    {
       this.isReading = isReading;
    }
-   
+
    @Override
    public boolean isReadMessages(String key, Object element, JsonObject props,
          String type)
@@ -360,7 +357,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       // TODO Auto-generated method stub
       return false;
    }
-   
+
    class StepInfo
    {
       public StepInfo(JsonObject jsonObject, RuntimeException runtimeException)
@@ -368,12 +365,12 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
          this.change = jsonObject;
          this.e = runtimeException;
       }
-      
+
       public JsonObject change;
       public Exception e;
    }
-   
- //==========================================================================
+
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -381,6 +378,5 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
    {
       return listeners;
    }
-
 
 }

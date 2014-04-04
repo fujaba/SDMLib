@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright.creators;
 
 import java.util.Collection;
@@ -37,43 +37,42 @@ import org.sdmlib.examples.studyright.Student;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdmlib.models.modelsets.ModelSet
+public class AssignmentSet extends LinkedHashSet<Assignment> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Assignment elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyright.Assignment";
    }
 
-
    public AssignmentSet without(Assignment value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -83,19 +82,19 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public intList getPoints()
    {
       intList result = new intList();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getPoints());
       }
-      
+
       return result;
    }
 
@@ -105,19 +104,19 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       {
          obj.setPoints(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getRoom()
    {
       RoomSet result = new RoomSet();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getRoom());
       }
-      
+
       return result;
    }
 
@@ -127,19 +126,19 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       {
          obj.withRoom(value);
       }
-      
+
       return this;
    }
 
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getStudents());
       }
-      
+
       return result;
    }
 
@@ -149,61 +148,49 @@ public class AssignmentSet extends LinkedHashSet<Assignment> implements org.sdml
       {
          obj.withStudents(value);
       }
-      
+
       return this;
    }
-
-
 
    public AssignmentPO startModelPattern()
    {
       org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
+
       AssignmentPO patternObject = pattern.hasElementAssignmentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public AssignmentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Assignment>)value);
+         this.addAll((Collection<Assignment>) value);
       }
       else if (value != null)
       {
          this.add((Assignment) value);
       }
-      
+
       return this;
    }
-   
- 
 
    public AssignmentPO hasAssignmentPO()
    {
       org.sdmlib.examples.studyright.creators.ModelPattern pattern = new org.sdmlib.examples.studyright.creators.ModelPattern();
-      
+
       AssignmentPO patternObject = pattern.hasElementAssignmentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

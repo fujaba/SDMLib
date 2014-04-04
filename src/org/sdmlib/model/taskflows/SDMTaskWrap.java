@@ -11,6 +11,7 @@ class SDMTaskWrap implements Runnable
     */
    private final SocketReader socketReader;
    private String line;
+
    public SDMTaskWrap(SocketReader socketReader, String line)
    {
       this.socketReader = socketReader;
@@ -22,15 +23,16 @@ class SDMTaskWrap implements Runnable
    {
       try
       {
-         Object obj = this.socketReader.socketThread.idMap.decode(
-            new JsonArray().withValue(line));
+         Object obj = this.socketReader.socketThread.idMap
+            .decode(new JsonArray().withValue(line));
 
          if (obj instanceof FetchFileFlow)
          {
             FetchFileFlow fetchFileFlow = (FetchFileFlow) obj;
             try
             {
-               fetchFileFlow.setOut(this.socketReader.connection.getOutputStream());
+               fetchFileFlow.setOut(this.socketReader.connection
+                  .getOutputStream());
             }
             catch (IOException e)
             {
@@ -38,7 +40,7 @@ class SDMTaskWrap implements Runnable
                e.printStackTrace();
             }
          }
-         
+
          ((Runnable) obj).run();
       }
       catch (Exception e)
@@ -47,5 +49,5 @@ class SDMTaskWrap implements Runnable
          e.printStackTrace();
       }
    }
-   
+
 }

@@ -8,15 +8,15 @@ public class DicePOCreator extends PatternObjectCreator
    {
       return new DicePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((DicePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((DicePO) target).set(attrName, value);
    }
 }
-

@@ -11,22 +11,21 @@ import org.sdmlib.examples.helloworld.creators.GreetingMessageSet;
 import org.sdmlib.examples.helloworld.creators.GreetingPO;
 import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
 
-public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
+public class GreetingMessagePO extends
+      PatternObject<GreetingMessagePO, GreetingMessage>
 {
    public GreetingMessagePO hasText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(GreetingMessage.PROPERTY_TEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(GreetingMessage.PROPERTY_TEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getText()
    {
       if (this.getPattern().getHasMatch())
@@ -35,73 +34,72 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
       }
       return null;
    }
-   
+
    public PatternObject hasGreeting()
    {
       PatternObject result = new GreetingPO();
-      
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
-      .withSrc(this);
-      
+
+      PatternLink patternLink = new PatternLink().withTgt(result)
+         .withTgtRoleName(GreetingMessage.PROPERTY_GREETING).withSrc(this);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().addToElements(result);
-      
+
       this.getPattern().findMatch();
-      
+
       return result;
    }
-   
+
    public GreetingMessagePO hasGreeting(PatternObject tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
-      .withSrc(this);
-      
+         .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
+         .withSrc(this);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GreetingMessagePO withGreeting(PatternObject tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE);
-      
+         .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
+         .withSrc(this).withModifier(Pattern.CREATE);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GreetingMessagePO hasGreeting(GreetingPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
-      .withSrc(this);
-      
+         .withTgt(tgt).withTgtRoleName(GreetingMessage.PROPERTY_GREETING)
+         .withSrc(this);
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GreetingMessagePO withGreeting(GreetingPO tgtPO)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((GreetingMessage) this.getCurrentMatch()).withGreeting((Greeting) tgtPO.getCurrentMatch());
+         ((GreetingMessage) this.getCurrentMatch())
+            .withGreeting((Greeting) tgtPO.getCurrentMatch());
       }
       return this;
    }
-   
+
    public GreetingMessagePO withText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -110,7 +108,7 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
       }
       return this;
    }
-   
+
    public Greeting getGreeting()
    {
       if (this.getPattern().getHasMatch())
@@ -119,28 +117,26 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
       }
       return null;
    }
-   
+
    public GreetingMessagePO hasText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(GreetingMessage.PROPERTY_TEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(GreetingMessage.PROPERTY_TEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GreetingMessagePO createText(String value)
    {
       this.startCreate().hasText(value).endCreate();
       return this;
    }
-   
+
    public GreetingPO createGreeting()
    {
       return (GreetingPO) this.startCreate().hasGreeting().endCreate();
@@ -152,9 +148,3 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
    }
 
 }
-
-
-
-
-
-

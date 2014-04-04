@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -35,38 +35,37 @@ import org.sdmlib.models.pattern.creators.PatternSet;
 import java.util.Collections;
 import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
-public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
+public class CardinalityConstraintSet extends
+      LinkedHashSet<CardinalityConstraint> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (CardinalityConstraint elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.CardinalityConstraint";
    }
 
-
    public StringList getTgtRoleName()
    {
       StringList result = new StringList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getTgtRoleName());
       }
-      
+
       return result;
    }
 
@@ -76,19 +75,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setTgtRoleName(value);
       }
-      
+
       return this;
    }
 
    public ObjectSet getHostGraphSrcObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getHostGraphSrcObject());
       }
-      
+
       return result;
    }
 
@@ -98,19 +97,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setHostGraphSrcObject(value);
       }
-      
+
       return this;
    }
 
    public longList getMinCard()
    {
       longList result = new longList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getMinCard());
       }
-      
+
       return result;
    }
 
@@ -120,19 +119,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setMinCard(value);
       }
-      
+
       return this;
    }
 
    public longList getMaxCard()
    {
       longList result = new longList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getMaxCard());
       }
-      
+
       return result;
    }
 
@@ -142,19 +141,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setMaxCard(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -164,19 +163,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getHasMatch()
    {
       booleanList result = new booleanList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -186,19 +185,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setHasMatch(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -208,19 +207,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -230,19 +229,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.setDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -252,19 +251,19 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public PatternObjectSet getSrc()
    {
       PatternObjectSet result = new PatternObjectSet();
-      
+
       for (CardinalityConstraint obj : this)
       {
          result.add(obj.getSrc());
       }
-      
+
       return result;
    }
 
@@ -274,68 +273,57 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
       {
          obj.withSrc(value);
       }
-      
+
       return this;
    }
-
-
 
    public CardinalityConstraintPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      CardinalityConstraintPO patternObject = pattern.hasElementCardinalityConstraintPO();
-      
+
+      CardinalityConstraintPO patternObject = pattern
+         .hasElementCardinalityConstraintPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public CardinalityConstraintSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CardinalityConstraint>)value);
+         this.addAll((Collection<CardinalityConstraint>) value);
       }
       else if (value != null)
       {
          this.add((CardinalityConstraint) value);
       }
-      
+
       return this;
    }
-   
+
    public CardinalityConstraintSet without(CardinalityConstraint value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public CardinalityConstraintPO hasCardinalityConstraintPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      CardinalityConstraintPO patternObject = pattern.hasElementCardinalityConstraintPO();
-      
+
+      CardinalityConstraintPO patternObject = pattern
+         .hasElementCardinalityConstraintPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

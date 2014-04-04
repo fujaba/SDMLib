@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package de.kassel.roombook.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -35,21 +35,19 @@ import de.kassel.roombook.Building;
 public class FloorSet extends SDMSet<Floor>
 {
 
-
    public FloorPO startModelPattern()
    {
       de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
-      
+
       FloorPO patternObject = pattern.hasElementFloorPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -57,21 +55,20 @@ public class FloorSet extends SDMSet<Floor>
       return "de.kassel.roombook.Floor";
    }
 
-
    public FloorSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Floor>)value);
+         this.addAll((Collection<Floor>) value);
       }
       else if (value != null)
       {
          this.add((Floor) value);
       }
-      
+
       return this;
    }
-   
+
    public FloorSet without(Floor value)
    {
       this.remove(value);
@@ -81,19 +78,19 @@ public class FloorSet extends SDMSet<Floor>
    public intList getLevel()
    {
       intList result = new intList();
-      
+
       for (Floor obj : this)
       {
          result.add(obj.getLevel());
       }
-      
+
       return result;
    }
 
    public FloorSet hasLevel(int value)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
          if (value == obj.getLevel())
@@ -101,14 +98,14 @@ public class FloorSet extends SDMSet<Floor>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FloorSet hasLevel(int lower, int upper)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
          if (lower <= obj.getLevel() && obj.getLevel() <= upper)
@@ -116,7 +113,7 @@ public class FloorSet extends SDMSet<Floor>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -126,26 +123,26 @@ public class FloorSet extends SDMSet<Floor>
       {
          obj.setLevel(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Floor obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public FloorSet hasName(String value)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
          if (value.equals(obj.getName()))
@@ -153,22 +150,23 @@ public class FloorSet extends SDMSet<Floor>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FloorSet hasName(String lower, String upper)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -178,26 +176,26 @@ public class FloorSet extends SDMSet<Floor>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public StringList getGuest()
    {
       StringList result = new StringList();
-      
+
       for (Floor obj : this)
       {
          result.add(obj.getGuest());
       }
-      
+
       return result;
    }
 
    public FloorSet hasGuest(String value)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
          if (value.equals(obj.getGuest()))
@@ -205,22 +203,23 @@ public class FloorSet extends SDMSet<Floor>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FloorSet hasGuest(String lower, String upper)
    {
       FloorSet result = new FloorSet();
-      
+
       for (Floor obj : this)
       {
-         if (lower.compareTo(obj.getGuest()) <= 0 && obj.getGuest().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getGuest()) <= 0
+            && obj.getGuest().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -230,19 +229,19 @@ public class FloorSet extends SDMSet<Floor>
       {
          obj.setGuest(value);
       }
-      
+
       return this;
    }
 
    public BuildingSet getBuildings()
    {
       BuildingSet result = new BuildingSet();
-      
+
       for (Floor obj : this)
       {
          result.with(obj.getBuildings());
       }
-      
+
       return result;
    }
 
@@ -258,9 +257,9 @@ public class FloorSet extends SDMSet<Floor>
       {
          neighbors.add(value);
       }
-      
+
       FloorSet answer = new FloorSet();
-      
+
       for (Floor obj : this)
       {
          if (neighbors.contains(obj.getBuildings()))
@@ -268,7 +267,7 @@ public class FloorSet extends SDMSet<Floor>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -278,28 +277,21 @@ public class FloorSet extends SDMSet<Floor>
       {
          obj.withBuildings(value);
       }
-      
+
       return this;
    }
-
-
 
    public FloorPO hasFloorPO()
    {
       de.kassel.roombook.creators.ModelPattern pattern = new de.kassel.roombook.creators.ModelPattern();
-      
+
       FloorPO patternObject = pattern.hasElementFloorPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-

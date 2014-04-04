@@ -8,15 +8,15 @@ public class PropertyChangeSupportPOCreator extends PatternObjectCreator
    {
       return new PropertyChangeSupportPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PropertyChangeSupportPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PropertyChangeSupportPO) target).set(attrName, value);
    }
 }
-

@@ -15,40 +15,39 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
    public SimpleStateSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       SimpleStateSet matches = new SimpleStateSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((SimpleState) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public NodePO hasNodes()
    {
       NodePO result = new NodePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(SimpleState.PROPERTY_NODES, result);
-      
+
       return result;
    }
 
    public SimpleStatePO hasNodes(NodePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(SimpleState.PROPERTY_NODES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(SimpleState.PROPERTY_NODES)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -72,5 +71,3 @@ public class SimpleStatePO extends PatternObject<SimpleStatePO, SimpleState>
    }
 
 }
-
-

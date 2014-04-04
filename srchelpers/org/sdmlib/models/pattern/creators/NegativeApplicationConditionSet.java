@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -38,17 +38,18 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
 
-public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
+public class NegativeApplicationConditionSet extends
+      LinkedHashSet<NegativeApplicationCondition>
 {
    public booleanSet getHasMatch()
    {
       booleanSet result = new booleanSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getHasMatch());
       }
-      
+
       return result;
    }
 
@@ -58,29 +59,30 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withHasMatch(value);
       }
-      
+
       return this;
    }
 
-   public NegativeApplicationConditionSet withCurrentNAC(NegativeApplicationCondition value)
+   public NegativeApplicationConditionSet withCurrentNAC(
+         NegativeApplicationCondition value)
    {
       for (NegativeApplicationCondition obj : this)
       {
          obj.withCurrentSubPattern(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifier()
    {
       StringList result = new StringList();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getModifier());
       }
-      
+
       return result;
    }
 
@@ -90,19 +92,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withModifier(value);
       }
-      
+
       return this;
    }
 
    public booleanList getDoAllMatches()
    {
       booleanList result = new booleanList();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getDoAllMatches());
       }
-      
+
       return result;
    }
 
@@ -112,19 +114,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withDoAllMatches(value);
       }
-      
+
       return this;
    }
 
    public StringList getPatternObjectName()
    {
       StringList result = new StringList();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getPatternObjectName());
       }
-      
+
       return result;
    }
 
@@ -134,19 +136,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withPatternObjectName(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getCurrentSubPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getCurrentSubPattern());
       }
-      
+
       return result;
    }
 
@@ -156,40 +158,36 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withCurrentSubPattern(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (NegativeApplicationCondition elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.NegativeApplicationCondition";
    }
 
-
    public intList getDebugMode()
    {
       intList result = new intList();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getDebugMode());
       }
-      
+
       return result;
    }
 
@@ -199,19 +197,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.setDebugMode(value);
       }
-      
+
       return this;
    }
 
    public PatternElementSet getElements()
    {
       PatternElementSet result = new PatternElementSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.addAll(obj.getElements());
       }
-      
+
       return result;
    }
 
@@ -221,7 +219,7 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withElements(value);
       }
-      
+
       return this;
    }
 
@@ -231,19 +229,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withoutElements(value);
       }
-      
+
       return this;
    }
 
    public PatternSet getPattern()
    {
       PatternSet result = new PatternSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getPattern());
       }
-      
+
       return result;
    }
 
@@ -253,19 +251,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withPattern(value);
       }
-      
+
       return this;
    }
 
    public StringBuilderSet getTrace()
    {
       StringBuilderSet result = new StringBuilderSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getTrace());
       }
-      
+
       return result;
    }
 
@@ -275,19 +273,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.setTrace(value);
       }
-      
+
       return this;
    }
 
    public ReachabilityGraphSet getRgraph()
    {
       ReachabilityGraphSet result = new ReachabilityGraphSet();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getRgraph());
       }
-      
+
       return result;
    }
 
@@ -297,19 +295,19 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.withRgraph(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (NegativeApplicationCondition obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -319,79 +317,58 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
-
-
 
    public NegativeApplicationConditionPO startModelPattern()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      NegativeApplicationConditionPO patternObject = pattern.hasElementNegativeApplicationConditionPO();
-      
+
+      NegativeApplicationConditionPO patternObject = pattern
+         .hasElementNegativeApplicationConditionPO();
+
       patternObject.withCandidates(this);
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public NegativeApplicationConditionSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<NegativeApplicationCondition>)value);
+         this.addAll((Collection<NegativeApplicationCondition>) value);
       }
       else if (value != null)
       {
          this.add((NegativeApplicationCondition) value);
       }
-      
+
       return this;
    }
-   
-   public NegativeApplicationConditionSet without(NegativeApplicationCondition value)
+
+   public NegativeApplicationConditionSet without(
+         NegativeApplicationCondition value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public NegativeApplicationConditionPO hasNegativeApplicationConditionPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
-      NegativeApplicationConditionPO patternObject = pattern.hasElementNegativeApplicationConditionPO();
-      
+
+      NegativeApplicationConditionPO patternObject = pattern
+         .hasElementNegativeApplicationConditionPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

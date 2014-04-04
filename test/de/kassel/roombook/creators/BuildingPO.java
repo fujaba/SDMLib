@@ -16,48 +16,44 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
    public BuildingSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       BuildingSet matches = new BuildingSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Building) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public BuildingPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Building.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Building.PROPERTY_NAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public BuildingPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Building.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Building.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -66,7 +62,7 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
       }
       return null;
    }
-   
+
    public BuildingPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -75,14 +71,14 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
       }
       return this;
    }
-   
+
    public FloorPO hasHas()
    {
       FloorPO result = new FloorPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Building.PROPERTY_HAS, result);
-      
+
       return result;
    }
 
@@ -105,7 +101,7 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public FloorPO createHas()
    {
       return this.startCreate().hasHas().endCreate();
@@ -117,5 +113,3 @@ public class BuildingPO extends PatternObject<BuildingPO, Building>
    }
 
 }
-
-

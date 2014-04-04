@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern.creators;
 
 import java.util.Collection;
@@ -26,80 +26,69 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 
-public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements org.sdmlib.models.modelsets.ModelSet
+public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (StringBuilder elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "java.lang.StringBuilder";
    }
 
-
    public StringBuilderSet with(StringBuilder value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StringBuilderSet without(StringBuilder value)
    {
       this.remove(value);
       return this;
    }
 
-
    public StringBuilderPO startModelPattern()
    {
       return null;
    }
 
-
    public StringBuilderSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StringBuilder>)value);
+         this.addAll((Collection<StringBuilder>) value);
       }
       else if (value != null)
       {
          this.add((StringBuilder) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public StringBuilderPO hasStringBuilderPO()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       StringBuilderPO patternObject = pattern.hasElementStringBuilderPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.m2m.creators;
 
 import java.util.Collection;
@@ -35,7 +35,8 @@ import org.sdmlib.examples.m2m.creators.GraphSet;
 import org.sdmlib.examples.m2m.creators.RelationSet;
 import org.sdmlib.examples.m2m.creators.PersonSet;
 
-public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.modelsets.ModelSet
+public class PersonSet extends SDMSet<Person> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public Person first()
    {
@@ -43,23 +44,21 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          return obj;
       }
-      
+
       return null;
    }
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Person elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -69,19 +68,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
    public StringList getFirstName()
    {
       StringList result = new StringList();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getFirstName());
       }
-      
+
       return result;
    }
 
    public PersonSet hasFirstName(String value)
    {
       PersonSet result = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (value.equals(obj.getFirstName()))
@@ -89,7 +88,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -99,19 +98,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.setFirstName(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getGraph()
    {
       GraphSet result = new GraphSet();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getGraph());
       }
-      
+
       return result;
    }
 
@@ -127,9 +126,9 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (neighbors.contains(obj.getGraph()))
@@ -137,7 +136,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -147,19 +146,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withGraph(value);
       }
-      
+
       return this;
    }
 
    public RelationSet getOutEdges()
    {
       RelationSet result = new RelationSet();
-      
+
       for (Person obj : this)
       {
          result.addAll(obj.getOutEdges());
       }
-      
+
       return result;
    }
 
@@ -175,17 +174,17 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getOutEdges()))
+         if (!Collections.disjoint(neighbors, obj.getOutEdges()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -195,7 +194,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withOutEdges(value);
       }
-      
+
       return this;
    }
 
@@ -205,19 +204,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withoutOutEdges(value);
       }
-      
+
       return this;
    }
 
    public RelationSet getInEdges()
    {
       RelationSet result = new RelationSet();
-      
+
       for (Person obj : this)
       {
          result.addAll(obj.getInEdges());
       }
-      
+
       return result;
    }
 
@@ -233,17 +232,17 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getInEdges()))
+         if (!Collections.disjoint(neighbors, obj.getInEdges()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -253,7 +252,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withInEdges(value);
       }
-      
+
       return this;
    }
 
@@ -263,26 +262,26 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withoutInEdges(value);
       }
-      
+
       return this;
    }
 
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
    public PersonSet hasText(String value)
    {
       PersonSet result = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (value.equals(obj.getText()))
@@ -290,7 +289,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -300,19 +299,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.setText(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
-      
+
       for (Person obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
 
@@ -328,9 +327,9 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
          if (neighbors.contains(obj.getParent()))
@@ -338,7 +337,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -348,19 +347,19 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getKnows()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Person obj : this)
       {
          result.addAll(obj.getKnows());
       }
-      
+
       return result;
    }
 
@@ -376,17 +375,17 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          neighbors.add(value);
       }
-      
+
       PersonSet answer = new PersonSet();
-      
+
       for (Person obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getKnows()))
+         if (!Collections.disjoint(neighbors, obj.getKnows()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -396,7 +395,7 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withKnows(value);
       }
-      
+
       return this;
    }
 
@@ -406,101 +405,79 @@ public class PersonSet extends SDMSet<Person> implements org.sdmlib.models.model
       {
          obj.withoutKnows(value);
       }
-      
+
       return this;
    }
-
-
 
    public PersonPO startModelPattern()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         this.addAll((Collection<Person>) value);
       }
       else if (value != null)
       {
          this.add((Person) value);
       }
-      
+
       return this;
    }
-   
+
    public PersonSet without(Person value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PersonPO hasPersonPO()
    {
       org.sdmlib.examples.m2m.creators.ModelPattern pattern = new org.sdmlib.examples.m2m.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 
    public PersonSet getKnowsTransitive()
    {
       PersonSet todo = new PersonSet().with(this);
-      
+
       PersonSet result = new PersonSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Person current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getKnows().minus(result));
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
