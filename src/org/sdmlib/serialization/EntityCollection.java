@@ -26,16 +26,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 /**
  * The Class EntityList.
  */
 
-public abstract class EntityList implements BaseEntityList, Collection<Object> {
+public abstract class EntityCollection implements BaseEntityList, Collection<Object> {
 	protected List<Object> values;
 	private boolean visible = true;
 
-	public EntityList() {
+	public EntityCollection() {
 		initMap();
 	}
 	
@@ -45,12 +46,12 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @param collection
 	 *            A Collection.
 	 */
-	public EntityList(Collection<?> collection) {
+	public EntityCollection(Collection<?> collection) {
 		initWithMap(collection);
 		initMap();
 	}
 
-	public EntityList initWithMap(Collection<?> collection) {
+	public EntityCollection initWithMap(Collection<?> collection) {
 		if (collection != null) {
 			Iterator<?> iter = collection.iterator();
 			while (iter.hasNext()) {
@@ -211,7 +212,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 *            A boolean value.
 	 * @return
 	 */
-	public EntityList put(boolean value) {
+	public EntityCollection put(boolean value) {
 		put(value ? Boolean.TRUE : Boolean.FALSE);
 		return this;
 	}
@@ -223,7 +224,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 *            An int value.
 	 * @return
 	 */
-	public EntityList put(int value) {
+	public EntityCollection put(int value) {
 		put(Integer.valueOf(value));
 		return this;
 	}
@@ -236,7 +237,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @return
 	 * @return this.
 	 */
-	public EntityList put(long value) {
+	public EntityCollection put(long value) {
 		put(Long.valueOf(value));
 		return this;
 	}
@@ -249,7 +250,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 *            Integer, EntityList, Entity, Long, or String object.
 	 * @return
 	 */
-	public EntityList put(Object value) {
+	public EntityCollection put(Object value) {
 		add(value);
 		return this;
 	}
@@ -268,7 +269,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @throws RuntimeExceptioni
 	 *             If the index is negative.
 	 */
-	public EntityList put(int index, boolean value) throws RuntimeException {
+	public EntityCollection put(int index, boolean value) throws RuntimeException {
 		put(index, value ? Boolean.TRUE : Boolean.FALSE);
 		return this;
 	}
@@ -286,7 +287,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @throws RuntimeException
 	 *             If the index is negative or if the value is not finite.
 	 */
-	public EntityList put(int index, double value) throws RuntimeException {
+	public EntityCollection put(int index, double value) throws RuntimeException {
 		put(index, Double.valueOf(value));
 		return this;
 	}
@@ -304,7 +305,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @throws RuntimeException
 	 *             If the index is negative.
 	 */
-	public EntityList put(int index, int value) throws RuntimeException {
+	public EntityCollection put(int index, int value) throws RuntimeException {
 		put(index, Integer.valueOf(value));
 		return this;
 	}
@@ -322,7 +323,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 * @throws RuntimeException
 	 *             If the index is negative.
 	 */
-	public EntityList put(int index, long value) throws RuntimeException {
+	public EntityCollection put(int index, long value) throws RuntimeException {
 		put(index, Long.valueOf(value));
 		return this;
 	}
@@ -343,7 +344,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 *             If the index is negative or if the the value is an invalid
 	 *             number.
 	 */
-	public EntityList put(int index, Object value) throws RuntimeException {
+	public EntityCollection put(int index, Object value) throws RuntimeException {
 		EntityUtil.testValidity(value);
 		if (index < 0) {
 			throw new RuntimeException("EntityList[" + index + "] not found.");
@@ -368,7 +369,7 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	 *             if the value is not finite.
 	 * @return this.
 	 */
-	public EntityList put(double value) throws RuntimeException {
+	public EntityCollection put(double value) throws RuntimeException {
 		Double d = new Double(value);
 		EntityUtil.testValidity(d);
 		put(d);
@@ -507,12 +508,12 @@ public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	}
 
 	@Override
-	public EntityList withVisible(boolean value) {
+	public EntityCollection withVisible(boolean value) {
 		this.visible = value;
 		return this;
 	}
 	
-	public abstract EntityList withValue(String value);
+	public abstract EntityCollection withValue(String value);
 
 	public boolean isVisible() {
 		return visible;

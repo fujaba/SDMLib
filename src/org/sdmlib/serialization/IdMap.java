@@ -1,9 +1,6 @@
 package org.sdmlib.serialization;
 
 import org.sdmlib.serialization.interfaces.BaseEntity;
-/**
- * The Class IdMap.
- */
 
 public abstract class IdMap extends IdMapEncoder{
 	public abstract Object decode(BaseEntity value);
