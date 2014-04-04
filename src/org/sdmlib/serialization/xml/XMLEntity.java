@@ -26,8 +26,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.Entity;
-import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.EntityCollection;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
@@ -76,7 +77,7 @@ public class XMLEntity extends Entity implements BaseEntityList {
 	 * 
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewArray()
 	 */
-	public EntityList getNewArray() {
+	public EntityCollection getNewArray() {
 		return null;
 	}
 
