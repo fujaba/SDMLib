@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.gui.Style;
 import org.sdmlib.serialization.interfaces.SendableEntity;
 
@@ -61,7 +60,6 @@ public class GridStyle extends Style implements SendableEntity{
 		
 	public int getRowEnd(){
 		if(heightExpression!=null){
-			
 			return 0;
 		}
 
@@ -69,7 +67,6 @@ public class GridStyle extends Style implements SendableEntity{
 	}
 	public int getColumnEnd(){
 		if(widthExpression!=null){
-			
 			return 0;
 		}
 		return getColumn()+getColumnSpan()-1;

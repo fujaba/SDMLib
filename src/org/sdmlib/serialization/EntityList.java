@@ -31,7 +31,7 @@ import org.sdmlib.serialization.interfaces.BaseEntityList;
  * The Class EntityList.
  */
 
-public abstract class EntityList implements BaseEntityList, List<Object> {
+public abstract class EntityList implements BaseEntityList, Collection<Object> {
 	protected List<Object> values;
 	private boolean visible = true;
 
@@ -383,7 +383,6 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 	 * @return The value that was associated with the index, or null if there
 	 *         was no value.
 	 */
-	@Override
 	public Object remove(int index) {
 		Object o = get(index);
 		values.remove(index);
@@ -460,7 +459,6 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 		return values.addAll(c);
 	}
 
-	@Override
 	public boolean addAll(int index, Collection<? extends Object> c) {
 		return values.addAll(index, c);
 	}
@@ -480,37 +478,30 @@ public abstract class EntityList implements BaseEntityList, List<Object> {
 		values.clear();
 	}
 
-	@Override
 	public Object set(int index, Object element) {
 		return values.set(index, element);
 	}
 
-	@Override
 	public void add(int index, Object element) {
 		values.add(index, element);
 	}
 
-	@Override
 	public int indexOf(Object o) {
 		return values.indexOf(o);
 	}
 
-	@Override
 	public int lastIndexOf(Object o) {
 		return values.lastIndexOf(o);
 	}
 
-	@Override
 	public ListIterator<Object> listIterator() {
 		return values.listIterator();
 	}
 
-	@Override
 	public ListIterator<Object> listIterator(int index) {
 		return values.listIterator(index);
 	}
 
-	@Override
 	public List<Object> subList(int fromIndex, int toIndex) {
 		return values.subList(fromIndex, toIndex);
 	}

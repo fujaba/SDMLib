@@ -22,6 +22,7 @@ package org.sdmlib.serialization.json;
  permissions and limitations under the Licence.
 */
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMapEncoder;
@@ -34,9 +35,20 @@ public class Grammar {
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */
-	public JsonObject getReadProperties(JsonObject jsonObject, IdMapEncoder map) {
-		if (jsonObject.has(JsonIdMap.JSON_PROPS)) {
-			return jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+	public JsonObject getReadProperties(JsonObject jsonObject, IdMapEncoder map, Filter filter, boolean isId) {
+		if(isId){
+			if (jsonObject.has(JsonIdMap.JSON_PROPS)) {
+				return jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+			}
+		}else{
+			JsonObject props=new JsonObject();
+			for(Iterator<Entry<String, Object>> i=jsonObject.iterator();i.hasNext();){
+				Entry<String, Object> item = i.next();
+				if(!JsonIdMap.CLASS.equalsIgnoreCase(item.getKey())){
+					props.put(item.getKey(), item.getValue());
+				}
+			}
+			return props;
 		}
 		return null;
 	}

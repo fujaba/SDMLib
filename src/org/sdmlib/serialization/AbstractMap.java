@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
  *AbstractIdMap embedded all methods for all formats.
@@ -128,11 +127,6 @@ public abstract class AbstractMap {
 	 */
 	public boolean removeCreator(String className) {
 		return this.creators.remove(className)!=null;
-	}
-	
-	public HashMap<String, SendableEntityCreator> getCreatorsMap()
-	{
-	   return this.creators;
 	}
 
 	/**
