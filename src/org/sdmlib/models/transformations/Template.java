@@ -1564,6 +1564,20 @@ public class Template implements PropertyChangeInterface
       return this;
    } 
 
+   public Template withSeparatedMultiStep(String textFragment, String listSeperator, String... properties)
+   {
+      Template subTemplate = this.createPlaceHolderAndSubTemplate()
+      .withParent(textFragment, properties[0]).withListSeparator(listSeperator);
+      
+      for (int i = 1; i < properties.length - 1; i++)
+      {
+         subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
+      }
+      
+      subTemplate.withSimple(properties[properties.length - 1]);
+      
+      return this;
+   }
    
    //==========================================================================
    

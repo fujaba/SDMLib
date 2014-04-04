@@ -291,8 +291,8 @@ public class StoryboardManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-      JsonArraySorted jsonSortedArray = new JsonArraySorted().withComparator(new JsonIdComparator());
-      JsonArray jsonArray = kanbanIdMap.toJsonArray(kanbanBoard, jsonSortedArray, null);
+      JsonArraySorted jsonArray = new JsonArraySorted().withComparator(new JsonIdComparator());
+      kanbanIdMap.toJsonArray(kanbanBoard, jsonArray, null);
       String jsonString = jsonArray.toString(2);
 
       printFile(new File(DOC_KANBAN_ENTRIES_JSON), jsonString);
@@ -398,7 +398,7 @@ public class StoryboardManager
       collectHours(kanbanBoard);
 
       // store entries into file for next run
-      JsonArray jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
+      JsonArraySorted jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
       String text = jsonArray.toString(2);
       File file = new File (DOC_KANBAN_ENTRIES_JSON);
       printFile(file, text);

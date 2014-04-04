@@ -23,7 +23,6 @@ package org.sdmlib.serialization.json;
 */
 import java.util.Iterator;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
@@ -35,7 +34,8 @@ public class SimpleGrammar extends Grammar{
 	 * @param jsonObject
 	 * @return the props of theJsonObject
 	 */
-	public JsonObject getReadProperties(JsonObject jsonObject, IdMapEncoder map) {
+	@Override
+	public JsonObject getReadProperties(JsonObject jsonObject, IdMapEncoder map, Filter filter, boolean isId) {
 		jsonObject.remove(ID);
 		return jsonObject;
 	}

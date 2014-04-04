@@ -99,10 +99,10 @@ public abstract class Entity implements BaseEntity {
 		EntityUtil.testValidity(value);
 		Object object = this.get(key);
 		if (object == null) {
-			this.put(key, value instanceof EntityList ? getNewArray()
+			this.put(key, value instanceof EntityCollection ? getNewArray()
 					.put(value) : value);
-		} else if (object instanceof EntityList) {
-			((EntityList) object).put(value);
+		} else if (object instanceof EntityCollection) {
+			((EntityCollection) object).put(value);
 		} else {
 			this.put(key, getNewArray().put(object).put(value));
 		}
@@ -369,13 +369,13 @@ public abstract class Entity implements BaseEntity {
 	 * @return A EntityList containing the key strings, or null if the Entity is
 	 *         empty.
 	 */
-	public EntityList names() {
+	public EntityCollection names() {
 		BaseEntityList ja = getNewArray();
 		Iterator<String> keys = this.keys();
 		while (keys.hasNext()) {
 			ja.put(keys.next());
 		}
-		return ja.size() == 0 ? null : (EntityList) ja;
+		return ja.size() == 0 ? null : (EntityCollection) ja;
 	}
 
 	/**
@@ -539,8 +539,8 @@ public abstract class Entity implements BaseEntity {
 		if (child != null) {
 			if (end == 0) {
 				if (id >= 0 || id == -2) {
-					if (child instanceof EntityList) {
-						EntityList list = (EntityList) child;
+					if (child instanceof EntityCollection) {
+						EntityCollection list = (EntityCollection) child;
 						if (id == -2) {
 							id = list.size() - 1;
 						}
@@ -553,7 +553,7 @@ public abstract class Entity implements BaseEntity {
 				}
 			} else {
 				if (id >= 0 || id == -2) {
-					if (child instanceof EntityList) {
+					if (child instanceof EntityCollection) {
 						if (end == len + 2) {
 							// Get List
 							BaseEntityList result = getNewArray();
@@ -565,7 +565,7 @@ public abstract class Entity implements BaseEntity {
 							return result;
 						}
 
-						EntityList list = (EntityList) child;
+						EntityCollection list = (EntityCollection) child;
 						if (id == -2) {
 							id = list.size() - 1;
 						}
@@ -624,8 +624,8 @@ public abstract class Entity implements BaseEntity {
 		if (child != null) {
 			if (end == 0) {
 				if (id >= 0 || id == -2) {
-					if (child instanceof EntityList) {
-						EntityList list = (EntityList) child;
+					if (child instanceof EntityCollection) {
+						EntityCollection list = (EntityCollection) child;
 						if (id == -2) {
 							id = list.size() - 1;
 						}
@@ -646,8 +646,8 @@ public abstract class Entity implements BaseEntity {
 				}
 			} else {
 				if (id >= 0 || id == -2) {
-					if (child instanceof EntityList) {
-						EntityList list = (EntityList) child;
+					if (child instanceof EntityCollection) {
+						EntityCollection list = (EntityCollection) child;
 						if (id == -2) {
 							id = list.size() - 1;
 						}

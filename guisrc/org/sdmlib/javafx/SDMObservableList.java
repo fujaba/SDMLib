@@ -7,18 +7,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
-
-import com.sun.javafx.collections.IterableChangeBuilder;
-import com.sun.javafx.collections.NonIterableChange;
-import com.sun.javafx.collections.NonIterableChange.SimpleAddChange;
-import com.sun.javafx.collections.NonIterableChange.SimpleRemovedChange;
-import com.sun.javafx.collections.ObservableListWrapper;
-
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+
+import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.utils.StrUtil;
+
+import com.sun.javafx.collections.NonIterableChange;
+import com.sun.javafx.collections.NonIterableChange.SimpleAddChange;
+import com.sun.javafx.collections.NonIterableChange.SimpleRemovedChange;
 
 public class SDMObservableList<E> extends ArrayList<E> implements ObservableList<E>, PropertyChangeListener
 {

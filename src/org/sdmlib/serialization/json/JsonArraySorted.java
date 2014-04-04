@@ -25,11 +25,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.SortedSet;
-
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
 
-public class JsonArraySorted extends JsonArray implements SortedSet<Object>{
+public class JsonArraySorted extends JsonCollection implements SortedSet<Object>{
 	protected Comparator<Object> cpr;
 	
 	@Override

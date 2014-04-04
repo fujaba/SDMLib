@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.EntityCollection;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapEncoder;
@@ -299,7 +299,7 @@ public class JsonIdMap extends IdMap {
 
 	protected Object parseProperty(SendableEntityCreator prototyp,
 			Object entity, Filter filter, String className,
-			String property, JsonArray jsonArray, int deep) {
+			String property, JsonCollection jsonArray, int deep) {
 		Object referenceObject = prototyp.getSendableInstance(true);
 
 		Object value = prototyp.getValue(entity, property);
@@ -314,7 +314,7 @@ public class JsonIdMap extends IdMap {
 				SendableEntityCreator referenceCreator = getCreatorClass(value);
 				if (value instanceof Collection<?> && referenceCreator == null) {
 					// Simple List or Assocs
-					EntityList subValues = getPrototyp().getNewArray();
+					EntityCollection subValues = getPrototyp().getNewArray();
 //					jsonArray.getNewArray();
 					for (Object containee : ((Collection<?>) value)) {
 						Object item = parseItem(entity, filter, containee,
@@ -329,7 +329,7 @@ public class JsonIdMap extends IdMap {
 				} else if (value instanceof Map<?, ?>
 						&& referenceCreator == null) {
 					// Maps
-					EntityList subValues = getPrototyp().getNewArray();
+					EntityCollection subValues = getPrototyp().getNewArray();
 					Map<?, ?> map = (Map<?, ?>) value;
  					String packageName = MapEntry.class.getName();
 					for (Iterator<?> i = map.entrySet().iterator(); i.hasNext();) {
@@ -355,7 +355,7 @@ public class JsonIdMap extends IdMap {
 	}
 
 	protected Object parseItem(Object item, Filter filter, Object entity,
-			String property, JsonArray jsonArray, String className, int deep) {
+			String property, JsonCollection jsonArray, String className, int deep) {
 		if (item == null || !filter.isPropertyRegard(this, item, property, entity, true, deep)) {
 			return null;
 		}
@@ -585,7 +585,8 @@ public class JsonIdMap extends IdMap {
 	protected Object decode(Object target, JsonObject jsonObject,
 			LinkedHashSet<ReferenceObject> refs, Filter filter) {
 		// JSONArray jsonArray;
-		if (filter.isId(this, target, target.getClass().getName())) {
+		boolean isId = filter.isId(this, target, target.getClass().getName());
+		if (isId) {
 			String jsonId =  grammar.getReadValue(jsonObject, ID);
 			if (jsonId == null) {
 				return target;
@@ -593,7 +594,7 @@ public class JsonIdMap extends IdMap {
 			put(jsonId, target);
 			getCounter().readId(jsonId);
 		}
-		JsonObject jsonProp = grammar.getReadProperties(jsonObject, this);
+		JsonObject jsonProp = grammar.getReadProperties(jsonObject, this, filter, isId);
 		if (jsonProp != null) {
 			SendableEntityCreator prototyp = grammar.getWriteCreator(target,
 					target.getClass().getName(), this);
@@ -746,7 +747,7 @@ public class JsonIdMap extends IdMap {
 	 *            the property
 	 * @return the JsonArray
 	 */
-	public JsonArray toJsonSortedArray(Object object, String property) {
+	public JsonArraySorted toJsonSortedArray(Object object, String property) {
 		JsonArraySorted jsonArray = new JsonArraySorted().withComparator(new EntityComparator().withColumn(property).withMap(this));
 		toJsonArray(object, jsonArray, filter.cloneObj());
 		return jsonArray;
@@ -763,7 +764,7 @@ public class JsonIdMap extends IdMap {
 	 *            the Filter for split serialisation
 	 * @return the JsonArray
 	 */
-	public JsonArray toJsonArray(Object object, JsonArray jsonArray,
+	public JsonCollection toJsonArray(Object object, JsonCollection jsonArray,
 			Filter filter) {
 		if(filter==null){
 			filter = this.filter;
@@ -771,7 +772,7 @@ public class JsonIdMap extends IdMap {
 		return toJsonArray(object, jsonArray, filter.withStandard(this.filter), 0);
 	}
 
-	protected JsonArray toJsonArray(Object entity, JsonArray jsonArray,
+	protected JsonCollection toJsonArray(Object entity, JsonCollection jsonArray,
 			Filter filter, int deep) throws RuntimeException{
 		String className = entity.getClass().getName();
 		String id = getId(entity);
