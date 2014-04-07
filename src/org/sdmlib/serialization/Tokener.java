@@ -194,38 +194,38 @@ public abstract class Tokener {
 					throw new TextParsingException("Unterminated string", this);
 				}
 				break;
-			case '\\':
-				c = next();
-				switch (c) {
-				case 'b':
-					sb.append('\b');
-					break;
-				case 't':
-					sb.append('\t');
-					break;
-				case 'n':
-					sb.append('\n');
-					break;
-				case 'f':
-					sb.append('\f');
-					break;
-				case 'r':
-					sb.append('\r');
-					break;
-				case 'u':
-					sb.append((char) Integer.parseInt(skipPos(4), 16));
-					break;
-				case '"':
-				case '\'':
-				case '\\':
-				case '/':
-					sb.append(c);
-					c = 1;
-					break;
-				default:
-					throw new TextParsingException("Illegal escape.", this);
-				}
-				break;
+//			case '\\':
+//				c = next();
+//				switch (c) {
+//				case 'b':
+//					sb.append('\b');
+//					break;
+//				case 't':
+//					sb.append('\t');
+//					break;
+//				case 'n':
+//					sb.append('\n');
+//					break;
+//				case 'f':
+//					sb.append('\f');
+//					break;
+//				case 'r':
+//					sb.append('\r');
+//					break;
+//				case 'u':
+//					sb.append((char) Integer.parseInt(skipPos(4), 16));
+//					break;
+//				case '"':
+//				case '\'':
+//				case '\\':
+//				case '/':
+//					sb.append(c);
+//					c = 1;
+//					break;
+//				default:
+//					throw new TextParsingException("Illegal escape, was: '"+c +"'"+ " but I could read it to: "+buffer.position() + " the content of th readbuffer is: \""+buffer.substring(buffer.position()-100, 200)+"\"" , this);
+//				}
+//				break;
 			default:
 				if (c != quote) {
 					sb.append(c);
