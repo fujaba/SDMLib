@@ -284,7 +284,61 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
       return this.startCreate().hasPattern(tgt).endCreate();
    }
 
+   public GenericConstraintPO hasText(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO hasText(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(GenericConstraint.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public GenericConstraintPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GenericConstraint) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public GenericConstraintPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((GenericConstraint) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
 }
+
 
 
 

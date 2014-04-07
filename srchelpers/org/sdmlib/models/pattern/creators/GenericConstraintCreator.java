@@ -15,6 +15,7 @@ public class GenericConstraintCreator extends EntityFactory
       PatternElement.PROPERTY_PATTERNOBJECTNAME,
       PatternElement.PROPERTY_DOALLMATCHES,
       PatternElement.PROPERTY_PATTERN,
+      GenericConstraint.PROPERTY_TEXT,
    };
    
    public String[] getProperties()
@@ -55,4 +56,5 @@ public class GenericConstraintCreator extends EntityFactory
       ((GenericConstraint) entity).removeYou();
    }
 }
+
 

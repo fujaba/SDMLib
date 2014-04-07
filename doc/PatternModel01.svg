@@ -202,7 +202,7 @@
 <text text-anchor="start" x="646.5" y="-266.5" font-family="Times New Roman,serif" font-size="10.00">GenericConstraint</text>
 </a>
 <polygon fill="none" stroke="black" points="643,-240 643,-260 723,-260 723,-240 643,-240"/>
-<text text-anchor="start" x="681.5" y="-248" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<text text-anchor="start" x="648" y="-248" font-family="Times New Roman,serif" font-size="10.00">text :String</text>
 <polygon fill="none" stroke="black" points="643,-220 643,-240 723,-240 723,-220 643,-220"/>
 <text text-anchor="start" x="681.5" y="-228" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>

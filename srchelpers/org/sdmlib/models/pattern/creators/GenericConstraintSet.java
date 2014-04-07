@@ -299,7 +299,60 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
       
       return patternObject;
    }
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (GenericConstraint obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public GenericConstraintSet hasText(String value)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericConstraintSet hasText(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericConstraintSet withText(String value)
+   {
+      for (GenericConstraint obj : this)
+      {
+         obj.setText(value);
+      }
+      
+      return this;
+   }
+
 }
+
 
 
 

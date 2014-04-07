@@ -38,6 +38,7 @@ import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 import java.beans.PropertyChangeListener;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
@@ -638,10 +639,14 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return result;
    }
 
+   private GenericConstraint previousConstraint = null;
+   
    public void dumpPatternObjects(StringBuilder nodeBuilder,
          StringBuilder edgeBuilder, boolean showMatch,
          LinkedHashSet<Object> matchedObjects)
    {
+      previousConstraint = null;
+      
       for (PatternElement patElem : this.getElements())
       {
          if (patElem instanceof PatternObject)
@@ -832,14 +837,43 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             
             nodeBuilder.append(cardConstrBuilder.toString());
             
-            StringBuilder destroyEdgeBuilder = new StringBuilder(
+            StringBuilder dottedEdgeBuilder = new StringBuilder(
                   "<srcId> -- <tgtId> [style=\"dotted\"];\n");
             
-            CGUtil.replaceAll(destroyEdgeBuilder, 
+            CGUtil.replaceAll(dottedEdgeBuilder, 
                "<srcId>", nameForPatElem(cardConstr.getSrc()), 
                "<tgtId>", nameForPatElem(cardConstr));
             
-            edgeBuilder.append(destroyEdgeBuilder.toString());
+            edgeBuilder.append(dottedEdgeBuilder.toString());
+         }
+         else if (patElem instanceof GenericConstraint)
+         {
+            GenericConstraint genericConstraint = (GenericConstraint) patElem;
+            
+            StringBuilder constrBuilder = new StringBuilder(
+               "id [label=\"text\"]\n");
+            
+            CGUtil.replaceAll(constrBuilder, 
+               "id", nameForPatElem(genericConstraint),
+               "text", "" + genericConstraint.getText());
+            
+            nodeBuilder.append(constrBuilder.toString());
+            
+            // connect to previous constraint for better layout
+            if (previousConstraint != null)
+            {
+               StringBuilder dottedEdgeBuilder = new StringBuilder(
+                     "<srcId> -- <tgtId> [style=\"dotted\"];\n");
+               
+               CGUtil.replaceAll(dottedEdgeBuilder, 
+                  "<srcId>", nameForPatElem(previousConstraint), 
+                  "<tgtId>", nameForPatElem(genericConstraint));
+               
+               edgeBuilder.append(dottedEdgeBuilder.toString());
+               
+            }
+            
+            previousConstraint = genericConstraint;
          }
          else if (patElem instanceof MatchOtherThen)
          {
@@ -1164,6 +1198,12 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    public static final String PROPERTY_NAME = "name";
    
    private String name;
+   private boolean riskConcurrentModification;
+   
+   public boolean getRiskConcurrentModification()
+   {
+      return this.riskConcurrentModification;
+   }
 
    public String getName()
    {
@@ -1249,5 +1289,13 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       withElements(value);
       return value;
    } 
+   
+   public MP withRiskConcurrentModification(boolean riskConcurrentModification)
+   {
+      this.riskConcurrentModification = riskConcurrentModification;
+      return (MP) this;
+   } 
+
+
 }
 

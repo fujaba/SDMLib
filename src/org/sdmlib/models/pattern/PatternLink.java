@@ -31,6 +31,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 
 import java.awt.Container;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -107,11 +108,15 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             {
                SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
                value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
+               if (value != null && value instanceof Collection && ! this.getTopPattern().getRiskConcurrentModification())
+               {
+                  value = new ArrayList((Collection)value);
+               }
             }
             
             if (value != null && value instanceof Collection)
             {
-               this.getTgt().setCandidates(new LinkedHashSet((Collection)value));
+               this.getTgt().setCandidates(value);
                
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {

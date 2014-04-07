@@ -29,6 +29,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
+import org.sdmlib.utils.StrUtil;
 
 public class GenericConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -110,6 +111,11 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
          return getPattern();
       }
 
+      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         return getText();
+      }
+
       return null;
    }
 
@@ -148,6 +154,12 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
          return true;
       }
 
+      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         setText((String) value);
+         return true;
+      }
+
       return false;
    }
 
@@ -182,6 +194,7 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
 
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
@@ -194,5 +207,33 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       return this;
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public GenericConstraint withText(String value)
+   {
+      setText(value);
+      return this;
+   } 
 }
 

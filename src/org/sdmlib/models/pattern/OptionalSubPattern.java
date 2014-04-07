@@ -37,6 +37,18 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       this.setHasMatch(true);
    }
    
+   @Override
+   public boolean findMatch()
+   {
+      if ( ! this.getPattern().getHasMatch())
+      {
+         this.setHasMatch(false);
+         
+         return false;
+      }
+      
+      return super.findMatch();
+   }
    
    @Override
    public boolean findNextMatch()

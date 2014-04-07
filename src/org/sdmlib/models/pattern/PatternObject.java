@@ -22,7 +22,9 @@
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.CGUtil;
@@ -57,16 +59,15 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
    }
    
    private boolean matchAsSet = false;
+
+   private Iterator<Object> candidatesIterator;
    
    public POC matchAsSet()
    {
       this.matchAsSet = true;
       
       // reconstruct set of matches from candidates and current target
-      LinkedHashSet<Object> targetSet = new LinkedHashSet<>();
-      targetSet.add(currentMatch);
-      targetSet.addAll((Collection) this.getCandidates());
-      this.setCurrentMatch(targetSet);
+      this.setCurrentMatch(this.getCandidates());
       this.setCandidates(null);
       
       return (POC) this;
@@ -151,12 +152,17 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       boolean resultStat = false;
       if (this.getCandidates() instanceof Collection && ! matchAsSet)
       {
-         for (Object obj : (Collection) this.getCandidates())
+         if (this.candidatesIterator == null)
          {
+            this.candidatesIterator = ((Collection)this.getCandidates()).iterator();
+         }
+         
+         if (this.candidatesIterator.hasNext())
+         {
+            Object obj = this.candidatesIterator.next();
+            
             this.setCurrentMatch(obj);
             
-            ((Collection) this.getCandidates()).remove(obj);
-
             this.setHasMatch(true);
 
             resultStat = true;
@@ -167,8 +173,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
                getTopPattern().addLogMsg(tgtVar + " = " + getPatternObjectName() + "Candidates.removeFirst(); // "
                   + getTopPattern().getJsonIdMap().getId(obj) + " " + obj + " <- " + valueSetString(this.getCandidates()));
             }
-            
-            break;
          }
       }
       else
@@ -222,6 +226,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          this.setCandidates(null);
          this.setCurrentMatch(null);
       }
+      this.candidatesIterator = null;
       this.setHasMatch(false);
    }
 
@@ -822,6 +827,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       {
          Object oldValue = this.candidates;
          this.candidates = value;
+         this.candidatesIterator = null;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CANDIDATES, oldValue, value);
       }
    }
@@ -949,6 +955,19 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          result.getPattern()
          .findMatch();
       }
+   }
+   
+   public POC has(GenericConstraint.Condition condition, String text)
+   {
+      GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
+      .withText(text)
+      .withCondition(condition)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+ 
+      return (POC) this;
    }
    
    public POC has(GenericConstraint.Condition condition)
