@@ -184,6 +184,7 @@ public abstract class Tokener {
 		sb.append(getCurrentChar());
 
 		char c;
+		char b = 0;
 		do{
 			c = next();
 			switch (c) {
@@ -193,43 +194,20 @@ public abstract class Tokener {
 				if (!allowCRLF) {
 					throw new TextParsingException("Unterminated string", this);
 				}
-				break;
-//			case '\\':
-//				c = next();
-//				switch (c) {
-//				case 'b':
-//					sb.append('\b');
-//					break;
-//				case 't':
-//					sb.append('\t');
-//					break;
-//				case 'n':
-//					sb.append('\n');
-//					break;
-//				case 'f':
-//					sb.append('\f');
-//					break;
-//				case 'r':
-//					sb.append('\r');
-//					break;
-//				case 'u':
-//					sb.append((char) Integer.parseInt(skipPos(4), 16));
-//					break;
-//				case '"':
-//				case '\'':
-//				case '\\':
-//				case '/':
-//					sb.append(c);
-//					c = 1;
-//					break;
-//				default:
-//					throw new TextParsingException("Illegal escape, was: '"+c +"'"+ " but I could read it to: "+buffer.position() + " the content of th readbuffer is: \""+buffer.substring(buffer.position()-100, 200)+"\"" , this);
-//				}
-//				break;
 			default:
-				if (c != quote) {
+				if (c != quote){
 					sb.append(c);
+				}else if(b=='\\') {
+					sb.append(c);
+					b=c;
+					c=1;
+					continue;
 				}
+			}
+			if(b=='\\'&& c=='\\'){
+				b=1;
+			}else{
+				b=c;
 			}
 		}while (c != 0 && c != quote);
 
@@ -461,6 +439,11 @@ public abstract class Tokener {
 	
 	public String toText(){
 		return buffer.toText();
+	}
+	
+	public Tokener withBuffer(Buffer buffer){
+		this.buffer=buffer;
+		return this;
 	}
 
 	public abstract void parseToEntity(BaseEntity entity);

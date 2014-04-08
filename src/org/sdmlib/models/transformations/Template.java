@@ -25,19 +25,14 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
 
 import org.sdmlib.codegen.CGUtil;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.transformations.creators.MatchSet;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.creators.TemplateSet;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -45,8 +40,6 @@ import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-import org.sdmlib.models.transformations.creators.TemplateSet;
-import org.sdmlib.models.transformations.creators.MatchSet;
 
 
 public class Template implements PropertyChangeInterface
@@ -469,7 +462,7 @@ public class Template implements PropertyChangeInterface
          {
             currentPosInExpandedText = currentPosInExpandedText + getListStart().length();
 
-            LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<>();
+            LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<Object>();
 
             oldValueStartPos = currentPosInExpandedText;
             Match subMatch = parseOnce();

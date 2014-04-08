@@ -26,35 +26,35 @@ package org.sdmlib.serialization;
  *
  */
 
-public class CharacterBuffer extends TextBuffer {
+public class StringBuffer extends TextBuffer {
 	/** The buffer. */
-	private char[] buffer;
+	private String buffer;
 
 	@Override
 	public char charAt(int index) {
-		return buffer[index];
+		return buffer.charAt(index);
 	}
 
 	@Override
 	public byte byteAt(int index) {
-		return (byte) buffer[index];
+		return (byte) buffer.charAt(index);
 	}
 
 	@Override
 	public String substring(int start, int len) {
-		if (start + len > buffer.length) {
-			len = buffer.length - start;
+		if (start + len > buffer.length()) {
+			len = buffer.length() - start;
 		}
-		return new String(buffer, start, len);
+		return buffer.substring(start, start+len);
 	}
 
 	/**
 	 * @param value String of Value
 	 * @return the CharacterBuffer
 	 */
-	public CharacterBuffer withValue(String value) {
-		this.buffer = value.toCharArray();
-		this.length = buffer.length;
+	public StringBuffer withValue(String value) {
+		this.buffer = value;
+		this.length = buffer.length();
 		return this;
 	}
 
@@ -65,9 +65,9 @@ public class CharacterBuffer extends TextBuffer {
 
 	@Override
 	public byte[] toArray() {
-		byte[] result = new byte[buffer.length];
-		for (int i = 0; i < buffer.length; i++) {
-			result[i] = (byte) buffer[i];
+		byte[] result = new byte[buffer.length()];
+		for (int i = 0; i < buffer.length(); i++) {
+			result[i] = (byte) buffer.charAt(i);
 		}
 		return result;
 	}
@@ -75,13 +75,13 @@ public class CharacterBuffer extends TextBuffer {
 	@Override
 	public char getChar() {
 		this.position++;
-		if (this.position == this.buffer.length) {
+		if (this.position == this.buffer.length()) {
 			return 0;
 		}
-		char c = this.buffer[this.position];
+		char c = this.buffer.charAt(this.position);
 		if (c == '\r') {
 			this.line += 1;
-			if (this.buffer[this.position] == '\n') {
+			if (this.buffer.charAt(this.position) == '\n') {
 				this.character = 1;
 				this.position++;
 				c = '\n';

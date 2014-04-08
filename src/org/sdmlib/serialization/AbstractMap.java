@@ -128,11 +128,6 @@ public abstract class AbstractMap {
 	public boolean removeCreator(String className) {
 		return this.creators.remove(className)!=null;
 	}
-	
-	public HashMap<String, SendableEntityCreator> getCreatorsMap()
-	{
-	   return this.creators;
-	}
 
 	/**
 	 * @return a Collection of All Creators

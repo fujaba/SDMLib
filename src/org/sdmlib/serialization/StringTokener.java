@@ -22,7 +22,6 @@ package org.sdmlib.serialization;
  permissions and limitations under the Licence.
 */
 import java.util.ArrayList;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
@@ -86,11 +85,6 @@ public class StringTokener extends Tokener {
 				count++;
 			}
 		}
-//FIXME		if(current==end){
-//			if(count==1){
-//				return buffer.substring(pos, buffer.position()-pos+1);
-//			}
-//		}
 		return null;
     }
 

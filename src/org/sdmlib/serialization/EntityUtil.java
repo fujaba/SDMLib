@@ -72,52 +72,20 @@ public class EntityUtil {
 			return "\"\"";
 		}
 
-		char b;
-		char c = 0;
-		String hhhh;
 		int i;
 		int len = string.length();
 		StringBuilder sb = new StringBuilder(len + 4);
-
+		char c;
+		String hhhh;
 		sb.append('"');
 		for (i = 0; i < len; i += 1) {
-			b = c;
 			c = string.charAt(i);
-			switch (c) {
-			case '\\':
-			case '"':
-				sb.append('\\');
+			if (c < ' ' || (c >= '\u0080' && c < '\u00a0')
+					|| (c >= '\u2000' && c < '\u2100')) {
+				hhhh = "000" + Integer.toHexString(c);
+				sb.append("\\u" + hhhh.substring(hhhh.length() - 4));
+			} else {
 				sb.append(c);
-				break;
-			case '/':
-				if (b == '<') {
-					sb.append('\\');
-				}
-				sb.append(c);
-				break;
-			case '\b':
-				sb.append("\\b");
-				break;
-			case '\t':
-				sb.append("\\t");
-				break;
-			case '\n':
-				sb.append("\\n");
-				break;
-			case '\f':
-				sb.append("\\f");
-				break;
-			case '\r':
-				sb.append("\\r");
-				break;
-			default:
-				if (c < ' ' || (c >= '\u0080' && c < '\u00a0')
-						|| (c >= '\u2000' && c < '\u2100')) {
-					hhhh = "000" + Integer.toHexString(c);
-					sb.append("\\u" + hhhh.substring(hhhh.length() - 4));
-				} else {
-					sb.append(c);
-				}
 			}
 		}
 		sb.append('"');
