@@ -35,6 +35,7 @@ Options = function(){
 	this.canvasid = null;
 	this.rootElement = null;
 	this.parent = null;
+	this.fontsize=12;
 }
 
 /* Node */
@@ -58,11 +59,7 @@ Graph = function(json, options) {
 	this.edges = [];
 	this.typ = json.typ;
 	this.layouter = new DagreLayout();
-	if(options){
-		this.options = options;
-	}else{
-		this.options = json.options || new Options()
-	}
+	this.merge(new Options(), json.options, options);
 	this.parent = this.options.parent;
 	if((""+this.options.display).toLowerCase()=="html"){
 		this.drawer = new HTMLDrawer();
@@ -130,6 +127,20 @@ Graph = function(json, options) {
 	this.initGraph();
 };
 
+Graph.prototype.merge = function(ref, sourceA, sourceB){
+	if(sourceA){
+		for(var i in sourceA){
+			ref[i] = sourceA[i];
+		}
+	}
+	if(sourceB){
+		for(var i in sourceB){
+			ref[i] = sourceB[i];
+		}
+	}
+	return ref;
+}
+
 Graph.prototype.initGraph = function(){
 	this.clearBoard();
 	this.board = this.drawer.createContainer(this);
@@ -139,9 +150,6 @@ Graph.prototype.initGraph = function(){
 		var html = this.drawer.getHTMLNode(node, this, true);
 		if(html){
 			var pos = this.getDimension(html);
-			if (node.headimage){
-                pos.y += 100;
-            }			
 			if(!node.startWidth){
 				node.width=pos.x;
 			}
@@ -198,6 +206,7 @@ Graph.prototype.getDimension = function(html){
 Graph.prototype.getButton = function(label){
 	var button = document.createElement("button");
 	button.innerHTML = label;
+	button.className="ToolButton";
 	button.graph = this;
 	button.addEventListener("click", optionButton, false);
 	return button;
@@ -290,6 +299,7 @@ Graph.prototype.clearLines = function(){
 };
 Graph.prototype.resize = function(){
 	var maxx=0, maxy=0;
+	var minx=0, miny=0;
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
 
@@ -297,6 +307,8 @@ Graph.prototype.resize = function(){
 
 		maxx=Math.max(maxx,node.x+node.width);
 		maxy=Math.max(maxy,node.y+node.height);
+		minx=Math.max(minx,node.x);
+		miny=Math.max(miny,node.y);
 	}
 	var size = new Pos(Math.max(this.minSize.x, maxx+20), Math.max(this.minSize.y, maxy+50));
 	this.drawer.setSize(this.board, size.x, size.y);
@@ -412,163 +424,6 @@ DagreLayout.prototype.layout = function(width, height) {
 	}
 	this.graph.drawGraph(width, height);
 };
-
-
-//					######################################################### DRAG AND DROP #########################################################
-var objDrag = null;
-var mouse = new Pos(0,0);
-var offset= new Pos(0,0);
-
-IE = document.all&&!window.opera;
-DOM = document.getElementById&&!IE;
-
-function init(){
-	document.onmousemove = doDrag;
-	document.onmouseup = stopDrag;
-}
-function showinfo(event){
-	var objElem = event.currentTarget;
-	var node=getNode(objElem);
-	if(node){
-		var x = Math.round( objElem.style.left.substring(0,objElem.style.left.length-2) * 100)/100;
-		var y = Math.round( objElem.style.top.substring(0,objElem.style.top.length-2) * 100)/100;
-		node.parent.showInfoText("Box-Position: " + x + ":" + y);
-	}
-}
-function startDrag(event) {
-	objDrag = event.currentTarget;
-	offset.x = mouse.x - objDrag.offsetLeft;
-	offset.y = mouse.y - objDrag.offsetTop;
-}
-function doDrag(event) {
-	mouse.x = (IE) ? window.event.clientX : event.pageX;
-	mouse.y = (IE) ? window.event.clientY : event.pageY;
-
-	if (objDrag != null) {
-		objDrag.style.left = (mouse.x - offset.x) + "px";
-		objDrag.style.top = (mouse.y - offset.y) + "px";
-
-		window.status = "Box-Position: " + objDrag.style.left + ", " + objDrag.style.top;
-		var model = savePosition(objDrag);
-		if(model){
-			model.parent.drawLines();
-		}
-	}
-}
-function getNode(objElement){
-	var obj=objElement;
-	while(obj&&!obj.node){
-		if(!obj.node){
-			obj=obj.parentNode;
-		}else{
-			break;
-		}
-	}
-	if(obj&&obj.node){
-		return obj.node;
-	}
-	return null;
-}
-function savePosition(objElem){
-	var node=getNode(objElem);
-	if(node){
-		node.x = objElem.offsetLeft;
-		node.y = objElem.offsetTop;
-		return node;
-	}
-	return null;
-}
-function fadein(){
-	var item=document.getElementById("infobox");
-	if(item){item.fader=false;}
-}
-function fadeout(){
-	var item=document.getElementById("infobox");
-	if(item&&!item.fader){
-		item.fader=true;
-		setTimeout("fadeOutTimer('infobox', 100)", 2000);
-	}
-}
-function stopDrag(ereignis) {
-	var model = savePosition(objDrag);
-	objDrag = null;
-	if(model){
-		model.parent.drawLines();
-		model.parent.resize();
-	}
-}
-
-function fadeOutTimer(id, value) {
-	var item=document.getElementById(id);
-	if(item && item.fader){
-		if(value>0.00){
-			item.style.opacity = (value / 100);
-			item.style.MozOpacity = (value / 100);
-			item.style.KhtmlOpacity = (value / 100);
-			value=value-5;
-			setTimeout("fadeOutTimer('"+id+"',"+value+");", 20);
-		}else{
-			item.style.display="none";
-		}
-	}
-}
-
-function optionButton(event){
-	var btn = event.currentTarget;
-	if(btn.innerHTML=="HTML"){
-		btn.graph.drawer = new HTMLDrawer();
-		btn.graph.options.display = "html";
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-	}else if(btn.innerHTML=="SVG"){
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.options.display = "svg";
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-	}else if(btn.innerHTML=="SVG-Export"){
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-		var size = btn.graph.resize();
-		var img = document.createElement("img");
-		img.src =  "data:image/svg+xml;base64," + utf8_to_b64(serializeXmlNode(btn.graph.board));
-		btn.graph.clearBoard();
-		btn.graph.board = img;
-		btn.graph.board.width = size.x;
-		btn.graph.board.height = size.y;
-		btn.graph.root.appendChild(img);
-		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
-	}else if(btn.innerHTML=="PNG-Export"){
-		var oldDrawer = btn.graph.drawer;
-		btn.graph.drawer = new CanvasDrawer();
-		var loader = new Loader();
-		btn.graph.drawer.loader = loader;
-		loader.graph = btn.graph;
-		loader.oldDrawer = oldDrawer;
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-		loader.resetDrawer();
-	}
-}
-
-function serializeXmlNode(xmlNode) {
-    if (typeof window.XMLSerializer != "undefined") {
-        return (new window.XMLSerializer()).serializeToString(xmlNode);
-    } else if (typeof xmlNode.xml != "undefined") {
-        return xmlNode.xml;
-    }
-    return xmlNode.outerHTML;
-}
-function utf8_to_b64( str ) {
-  return window.btoa(unescape(encodeURIComponent( str )));
-}
-
-String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
-
-function isIE () {
-	var myNav = navigator.userAgent.toLowerCase();
-	return (myNav.indexOf('msie') != -1 || myNav.endsWith('like gecko') );
-}
 
 //					######################################################### LINES #########################################################
 Edge = function() {this.init();}
@@ -876,4 +731,161 @@ Implements.prototype.initGeneralisation = Implements.prototype.init;
 Implements.prototype.init =function(){
 	this.initGeneralisation();
 	this.lineStyle = Line.Format.DOTTED;
+}
+
+//					######################################################### DRAG AND DROP #########################################################
+
+var objDrag = null;
+var mouse = new Pos(0,0);
+var offset= new Pos(0,0);
+
+IE = document.all&&!window.opera;
+DOM = document.getElementById&&!IE;
+
+function init(){
+	document.onmousemove = doDrag;
+	document.onmouseup = stopDrag;
+}
+function showinfo(event){
+	var objElem = event.currentTarget;
+	var node=getNode(objElem);
+	if(node){
+		var x = Math.round( objElem.style.left.substring(0,objElem.style.left.length-2) * 100)/100;
+		var y = Math.round( objElem.style.top.substring(0,objElem.style.top.length-2) * 100)/100;
+		node.parent.showInfoText("Box-Position: " + x + ":" + y);
+	}
+}
+function startDrag(event) {
+	objDrag = event.currentTarget;
+	offset.x = mouse.x - objDrag.offsetLeft;
+	offset.y = mouse.y - objDrag.offsetTop;
+}
+function doDrag(event) {
+	mouse.x = (IE) ? window.event.clientX : event.pageX;
+	mouse.y = (IE) ? window.event.clientY : event.pageY;
+
+	if (objDrag != null) {
+		objDrag.style.left = (mouse.x - offset.x) + "px";
+		objDrag.style.top = (mouse.y - offset.y) + "px";
+
+		window.status = "Box-Position: " + objDrag.style.left + ", " + objDrag.style.top;
+		var model = savePosition(objDrag);
+		if(model){
+			model.parent.drawLines();
+		}
+	}
+}
+function getNode(objElement){
+	var obj=objElement;
+	while(obj&&!obj.node){
+		if(!obj.node){
+			obj=obj.parentNode;
+		}else{
+			break;
+		}
+	}
+	if(obj&&obj.node){
+		return obj.node;
+	}
+	return null;
+}
+function savePosition(objElem){
+	var node=getNode(objElem);
+	if(node){
+		node.x = objElem.offsetLeft;
+		node.y = objElem.offsetTop;
+		return node;
+	}
+	return null;
+}
+function fadein(){
+	var item=document.getElementById("infobox");
+	if(item){item.fader=false;}
+}
+function fadeout(){
+	var item=document.getElementById("infobox");
+	if(item&&!item.fader){
+		item.fader=true;
+		setTimeout("fadeOutTimer('infobox', 100)", 2000);
+	}
+}
+function stopDrag(ereignis) {
+	var model = savePosition(objDrag);
+	objDrag = null;
+	if(model){
+		model.parent.drawLines();
+		model.parent.resize();
+	}
+}
+
+function fadeOutTimer(id, value) {
+	var item=document.getElementById(id);
+	if(item && item.fader){
+		if(value>0.00){
+			item.style.opacity = (value / 100);
+			item.style.MozOpacity = (value / 100);
+			item.style.KhtmlOpacity = (value / 100);
+			value=value-5;
+			setTimeout("fadeOutTimer('"+id+"',"+value+");", 20);
+		}else{
+			item.style.display="none";
+		}
+	}
+}
+
+function optionButton(event){
+	var btn = event.currentTarget;
+	if(btn.innerHTML=="HTML"){
+		btn.graph.drawer = new HTMLDrawer();
+		btn.graph.options.display = "html";
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+	}else if(btn.innerHTML=="SVG"){
+		btn.graph.drawer = new SVGDrawer();
+		btn.graph.options.display = "svg";
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+	}else if(btn.innerHTML=="SVG-Export"){
+		btn.graph.drawer = new SVGDrawer();
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+		var size = btn.graph.resize();
+		var img = document.createElement("img");
+		img.src =  "data:image/svg+xml;base64," + utf8_to_b64(serializeXmlNode(btn.graph.board));
+		btn.graph.clearBoard();
+		btn.graph.board = img;
+		btn.graph.board.width = size.x;
+		btn.graph.board.height = size.y;
+		btn.graph.root.appendChild(img);
+		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
+	}else if(btn.innerHTML=="PNG-Export"){
+		var oldDrawer = btn.graph.drawer;
+		btn.graph.drawer = new CanvasDrawer();
+		var loader = new Loader();
+		btn.graph.drawer.loader = loader;
+		loader.graph = btn.graph;
+		loader.oldDrawer = oldDrawer;
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+		loader.resetDrawer();
+	}
+}
+
+function serializeXmlNode(xmlNode) {
+    if (typeof window.XMLSerializer != "undefined") {
+        return (new window.XMLSerializer()).serializeToString(xmlNode);
+    } else if (typeof xmlNode.xml != "undefined") {
+        return xmlNode.xml;
+    }
+    return xmlNode.outerHTML;
+}
+function utf8_to_b64( str ) {
+  return window.btoa(unescape(encodeURIComponent( str )));
+}
+
+String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
+
+function isIE () {
+	var myNav = navigator.userAgent.toLowerCase();
+	return (myNav.indexOf('msie') != -1 || myNav.endsWith('like gecko') );
 }
