@@ -352,7 +352,7 @@ public class Storyboard implements PropertyChangeInterface
          "<script src=\"includes/drawer.js\"></script>\r\n" +
          "<script src=\"includes/graph.js\"></script>\r\n" +
          "</head>" +
-         "<body>\n" +
+         "<body onload=\"init();\">\n" +
          "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
          "$text\n" +
          "</body>\n" +

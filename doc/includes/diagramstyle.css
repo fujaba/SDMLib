@@ -76,7 +76,7 @@
 	height: 1px;
 	position:absolute;
 }
-.classElement .first{
+.attributes_first{
 	border-top: 1px solid black;
 }
 .classElement .methods{
