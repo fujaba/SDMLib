@@ -408,7 +408,7 @@ CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, graph, style){
 };
 ImageLoader = function() {this.images=[];};
 ImageLoader.prototype.appendImg = function(img){
-	}img.loader = this;
+	img.loader = this;
 	img.onload = this.onloadImage;
 	this.images.push(img);
 };

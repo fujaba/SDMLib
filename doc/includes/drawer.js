@@ -130,7 +130,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 
 HTMLDrawer.prototype.createInfo = function(x, y, text, calculate){
 	var info = document.createElement("div");
-	info.style.position = "absolute";
+	info.className="EdgeInfo";
 	this.setPos(info, x, y);
 	info.innerHTML = text;
 	return info;
@@ -179,16 +179,15 @@ SVGDrawer.prototype.createContainer = function(graph){
 	return board;
 };
 
-SVGDrawer.prototype.getWidth = function(label, board, calculate){
+SVGDrawer.prototype.getWidth = function(label, graph, calculate){
 	var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
 	text.appendChild(document.createTextNode(label));
-	text.style.fontSize="10px";
-	board.appendChild(text);
+	text.style.fontSize=graph.options.fontsize*"px";
+	graph.board.appendChild(text);
 	var width =text.getBoundingClientRect().width;
-	board.removeChild(text);
+	graph.board.removeChild(text);
 	return width;
 }
-
 SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	var ns = "http://www.w3.org/2000/svg";
 	var group = document.createElementNS(ns, "g");
@@ -196,15 +195,15 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	var width=0;
 	var height=30;
 	if(graph.typ=="object"){
-		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph.board));
+		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph));
 	}else{
-		width = Math.max(width, this.getWidth(node.id, graph.board));
+		width = Math.max(width, this.getWidth(node.id, graph));
 	}
 	if(node.attributes){
 		height = height + node.attributes.length*20;
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
-			width = Math.max(width, this.getWidth(attribute, graph.board));
+			width = Math.max(width, this.getWidth(attribute, graph));
 		}
 	} 
 	height += 10;
@@ -227,7 +226,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 		var text = document.createElementNS(ns, "text");
 		text.setAttribute("text-anchor", "left");
 		text.setAttribute("x", "10");
-		text.setAttribute("style", "font-size: 10px;");
+		text.setAttribute("style", "font-size:"+graph.options.fontsize+"px;");
 		var textNode = document.createTextNode(node.content_plain)
 		text.appendChild(textNode);
 		group.appendChild(text);
@@ -245,10 +244,10 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 	text.setAttribute("y", "20");
 
 	if(graph.typ=="object"){
-		text.setAttribute("style", "text-decoration: underline;font-size: 10px;");
+		text.setAttribute("style", "text-decoration: underline;font-size:"+graph.options.fontsize+"px;");
 		text.appendChild(document.createTextNode(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
-		text.setAttribute("style", "font-size: 10px;");
+		text.setAttribute("style", "font-size: "+graph.options.fontsize+"px;");
 		text.appendChild(document.createTextNode(node.id));
 	}
 	group.appendChild(text);
@@ -268,7 +267,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, graph){
 			text.setAttribute("width", ""+textwidth);
 			text.setAttribute("x", 10);
 			text.setAttribute("y", y);
-			text.setAttribute("style", "font-size: 10px;");
+			text.setAttribute("style", "font-size:"+graph.options.fontsize+"px;");
 			text.appendChild(document.createTextNode(attribute));
 			group.appendChild(text);
 			y += 20;
@@ -308,9 +307,9 @@ CanvasDrawer.prototype.createContainer = function(graph){
 	board.graph = graph;
 	return board;
 };
-CanvasDrawer.prototype.getWidth = function(text, canvas){
-	var context = canvas.getContext('2d');
-	context.font = "10px Arial";
+CanvasDrawer.prototype.getWidth = function(text, graph){
+	var context = graph.board.getContext('2d');
+	context.font = graph.options.fontsize+"px Arial";
 	var metrics = context.measureText(text);
 	return metrics.width;
 
@@ -322,15 +321,15 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 	var width=0;
 	var height=20;
 	if(graph.typ=="object"){
-		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph.board));
+		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1), graph));
 	}else{
-		width = Math.max(width, this.getWidth(node.id, graph.board));
+		width = Math.max(width, this.getWidth(node.id, graph));
 	}
 	if(node.attributes){
 		height = height + node.attributes.length*20;
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
-			width = Math.max(width, this.getWidth(attribute, graph.board));
+			width = Math.max(width, this.getWidth(attribute, graph));
 		}
 	}
 	height += 10;
@@ -356,7 +355,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 		return null;
 	}
 	if(node.content_plain){
-		context.font = "10px Arial";
+		context.font = graph.options.fontsize+"px Arial";
 		context.fillText(node.content_plain, node.x, node.y);
 		return null;
 	}
@@ -370,23 +369,23 @@ CanvasDrawer.prototype.getHTMLNode = function(node, graph, calculate){
 	this.createLine(node.x, node.y+20, node.x + node.width, node.y+20, graph);
 
 	var context = canvas.getContext('2d');
-	context.font = "10px Arial";
+	context.font = graph.options.fontsize+"px Arial";
 	var text="";
 	if(graph.typ=="object"){
 		text = node.id.charAt(0).toLowerCase() + node.id.slice(1);
-		var start = node.x + (node.width - this.getWidth(text, canvas))/2;
-		this.createLine(start, node.y+16, start + this.getWidth(text, canvas), node.y+16, graph);
+		var start = node.x + (node.width - this.getWidth(text, graph))/2;
+		this.createLine(start, node.y+16, start + this.getWidth(text, graph), node.y+16, graph);
 	}else{
 		text = node.id;
 	}
-	context.fillText(text, node.x + (node.width - this.getWidth(text, canvas))/2, node.y + 15);
+	context.fillText(text, node.x + (node.width - this.getWidth(text, graph))/2, node.y + 15);
 
 	if(node.attributes){
 		var y = node.y+40;
 		for(var a in node.attributes){
 			var attribute = node.attributes[a];
 			var context = canvas.getContext('2d');
-			context.font = "10px Arial";
+			context.font = graph.options.fontsize+"px Arial";
 			context.fillText(attribute, node.x + 10, y);
 			y += 20;
 		}
@@ -407,8 +406,16 @@ CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, graph, style){
 	context.stroke();
 	return null;
 };
-
-
+ImageLoader = function() {this.images=[];};
+ImageLoader.prototype.appendImg = function(img){
+	img.loader = this;
+	img.onload = this.onloadImage;
+	this.images.push(img);
+};
+ImageLoader.prototype.onloadImage = function(event){
+	var img = event.target;
+	var canvas = img.graph.board;
+};
 Loader = function() {this.images=[];};
 Loader.prototype.resetDrawer = function(){
 	if(this.images.length==0){

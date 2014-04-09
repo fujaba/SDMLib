@@ -1,13 +1,12 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
-<script src="includes/graph.js"></script>
 <script src="includes/drawer.js"></script>
-</head><body onload="init();">
+<script src="includes/graph.js"></script>
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelSerialisation</a></p>
 <p>StudyRightObjectModelSerialisation</p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
@@ -267,7 +266,7 @@
       ]
    }
 }   ;
-   json["options"]={"canvasid":"canvas3", "display":"html", "bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvas3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
@@ -663,7 +662,7 @@
       ]
    }
 }   ;
-   json["options"]={"canvasid":"canvas10", "display":"html", "bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvas10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

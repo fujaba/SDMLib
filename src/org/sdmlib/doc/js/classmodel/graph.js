@@ -59,7 +59,7 @@ Graph = function(json, options) {
 	this.edges = [];
 	this.typ = json.typ;
 	this.layouter = new DagreLayout();
-	this.merge(new Options(), json.options, options);
+	this.options = this.merge(new Options(), json.options, options);
 	this.parent = this.options.parent;
 	if((""+this.options.display).toLowerCase()=="html"){
 		this.drawer = new HTMLDrawer();

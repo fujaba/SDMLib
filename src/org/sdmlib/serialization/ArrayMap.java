@@ -2,6 +2,8 @@ package org.sdmlib.serialization;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,6 +40,8 @@ public class ArrayMap<Key, Value> implements Map<Key, Value>
    public Value get(Object key)
    {
       int pos = keyList.indexOf(key);
+      if (pos < 0)
+         return null;
       return valueList.get(pos);
    }
 
@@ -93,8 +97,7 @@ public class ArrayMap<Key, Value> implements Map<Key, Value>
    @Override
    public Set<Key> keySet()
    {
-      // TODO Auto-generated method stub
-      return null;
+      return new LinkedHashSet<Key>(this.keyList);
    }
 
    public ArrayList<Key> keyList()
@@ -112,8 +115,20 @@ public class ArrayMap<Key, Value> implements Map<Key, Value>
    @Override
    public Set<java.util.Map.Entry<Key, Value>> entrySet()
    {
-      // TODO Auto-generated method stub
-      return null;
+      LinkedHashMap<Key, Value> resultMap = new LinkedHashMap<Key, Value>();
+
+      for (int i = 0; i < keyList.size(); i++)
+      {
+         resultMap.put(keyList.get(i), valueList.get(i));
+      }
+
+      return resultMap.entrySet();
    }
 
+   @Override
+   public String toString()
+   {
+
+      return super.toString();
+   }
 }

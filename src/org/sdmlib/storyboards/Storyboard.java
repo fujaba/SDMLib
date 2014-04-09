@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,9 +53,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.modelsets.ModelSet;
-import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
@@ -64,7 +61,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.graph.GraphConverter;
 import org.sdmlib.serialization.graph.GraphIdMap;
-import org.sdmlib.serialization.graph.GraphNode;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -75,7 +71,7 @@ import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
-public class Storyboard implements PropertyChangeInterface 
+public class Storyboard implements PropertyChangeInterface
 {
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
@@ -85,21 +81,23 @@ public class Storyboard implements PropertyChangeInterface
 
    private String name;
    private GuiAdapter adapter;
-   private String javaTestFileName; 
+   private String javaTestFileName;
 
-   
-	public GuiAdapter getAdapter() {
-		if(adapter==null){
-			adapter = new JsonToGraphViz();
-		}
-		return adapter;
-	}
-	
-	public Storyboard withAdapter(GuiAdapter adapter) {
-		this.adapter = adapter;
-		return this;
-	} 
-   
+   public GuiAdapter getAdapter()
+   {
+      if (adapter == null)
+      {
+         adapter = new JsonToGraphViz();
+      }
+      return adapter;
+   }
+
+   public Storyboard withAdapter(GuiAdapter adapter)
+   {
+      this.adapter = adapter;
+      return this;
+   }
+
    public String getName()
    {
       return name;
@@ -147,7 +145,8 @@ public class Storyboard implements PropertyChangeInterface
 
          javaTestFileName = callEntry.getClassName().replaceAll("\\.", "/") + ".java";
 
-         // search for a subdirectory containing the javaTestFile of the execution directory and search for the subdi
+         // search for a subdirectory containing the javaTestFile of the
+         // execution directory and search for the subdi
          File projectDir = new File(".");
          for (File subDir : projectDir.listFiles())
          {
@@ -218,7 +217,6 @@ public class Storyboard implements PropertyChangeInterface
 
       this.addToSteps(name);
 
-
    }
 
    public Storyboard(String rootDir, String name)
@@ -228,7 +226,7 @@ public class Storyboard implements PropertyChangeInterface
 
       this.addToSteps(name);
 
-      Exception e =  new RuntimeException();
+      Exception e = new RuntimeException();
 
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
@@ -237,60 +235,60 @@ public class Storyboard implements PropertyChangeInterface
 
    private static String backlog = "backlog";
 
-   public void dumpHTML(KanbanEntry kanbanBoard) 
+   public void dumpHTML(KanbanEntry kanbanBoard)
    {
       // get kanbanEntry
-      KanbanEntry kanbanEntry = kanbanBoard.findOldEntry(this.getName()); 
+      KanbanEntry kanbanEntry = kanbanBoard.findOldEntry(this.getName());
 
       if (kanbanEntry == null)
       {
          Date today = new Date(System.currentTimeMillis());
          String todayString = DateFormat.getInstance().format(today);
          kanbanEntry = new KanbanEntry()
-         .withName(this.getName())
-         .withPhase(backlog)
-         .withParent(kanbanBoard)
-         .withLogEntries(		         
-            new LogEntry()
-            .withDate(todayString)
+            .withName(this.getName())
             .withPhase(backlog)
-            .withDeveloper(System.getProperty("user.name"))
-            .withHoursRemainingInTotal(0.0));
+            .withParent(kanbanBoard)
+            .withLogEntries(
+               new LogEntry()
+                  .withDate(todayString)
+                  .withPhase(backlog)
+                  .withDeveloper(System.getProperty("user.name"))
+                  .withHoursRemainingInTotal(0.0));
       }
-      
+
       if (kanbanEntry.getPhase() == null)
       {
          kanbanEntry.setPhase(R.BACKLOG);
       }
-      
+
       if (this.kanbanWorkFlow != null)
       {
          kanbanEntry.setPhases(this.kanbanWorkFlow);
-         
+
          KanbanEntry parent = kanbanEntry.getParent();
-         
+
          while (parent != null)
          {
             parent.setPhases(this.kanbanWorkFlow);
             parent = parent.getParent();
          }
       }
-      
+
       if (this.projectName != null)
       {
          kanbanBoard.setName(projectName);
       }
-      
+
       if (sprintName != null)
       {
          KanbanEntry sprintEntry = kanbanBoard.findOrCreate(sprintName);
          kanbanEntry.setParent(sprintEntry);
-         
+
          if (sprintEntry.getParent() == null)
          {
             sprintEntry.setParent(kanbanBoard);
          }
-         
+
          if (sprintEntry.getPhase() == null)
          {
             sprintEntry.setPhase(ACTIVE);
@@ -302,7 +300,7 @@ public class Storyboard implements PropertyChangeInterface
       double hoursSpend = 0.0;
       Iterator<LogEntry> oldLogEntriesIter = ((HashSet<LogEntry>) kanbanEntry.getLogEntries().clone()).iterator();
       Date latestEntryTime = null;
-      
+
       for (LogEntry newEntry : newLogEntries.values())
       {
          if (latestEntryTime == null)
@@ -315,17 +313,17 @@ public class Storyboard implements PropertyChangeInterface
             latestEntryTime = newEntry.getParsedDate();
             remainingTime = newEntry.getHoursRemainingInTotal();
          }
-         
+
          hoursSpend += newEntry.getHoursSpend();
-         
+
          if (oldLogEntriesIter.hasNext())
          {
             LogEntry oldEntry = oldLogEntriesIter.next();
             oldEntry.withDeveloper(newEntry.getDeveloper())
-            .withDate(newEntry.getDate())
-            .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
-            .withHoursSpend(newEntry.getHoursSpend())
-            .withPhase(newEntry.getPhase());
+               .withDate(newEntry.getDate())
+               .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
+               .withHoursSpend(newEntry.getHoursSpend())
+               .withPhase(newEntry.getPhase());
          }
          else
          {
@@ -333,7 +331,7 @@ public class Storyboard implements PropertyChangeInterface
             kanbanEntry.addToLogEntries(newEntry);
          }
       }
-      
+
       kanbanEntry.setHoursRemaining(remainingTime);
 
       // remove obsolet oldLogEntries
@@ -342,25 +340,23 @@ public class Storyboard implements PropertyChangeInterface
          LogEntry oldEntry = oldLogEntriesIter.next();
          kanbanEntry.removeFromLogEntries(oldEntry);
       }
-      
 
       // generate the html text
       String htmlText = "<html>\n" +
-            "<head>" +
-            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
-            "<meta charset=\"utf-8\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
-            "\r\n" + 
-            "<script src=\"includes/dagre.js\"></script>\r\n" + 
-            "<script src=\"includes/graph.js\"></script>\r\n" + 
-            "<script src=\"includes/drawer.js\"></script>\r\n" + 
-            "</head>" +
-            "<body onload=\"init();\">\n" +
-            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-            "$text\n" +
-            "</body>\n" +
-            "</html>\n";
+         "<head>" +
+         "<meta charset=\"utf-8\">\n" +
+         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
+         "\r\n" +
+         "<script src=\"includes/dagre.js\"></script>\r\n" +
+         "<script src=\"includes/drawer.js\"></script>\r\n" +
+         "<script src=\"includes/graph.js\"></script>\r\n" +
+         "</head>" +
+         "<body>\n" +
+         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+         "$text\n" +
+         "</body>\n" +
+         "</html>\n";
 
       String storyboardName = this.getName();
 
@@ -397,10 +393,10 @@ public class Storyboard implements PropertyChangeInterface
       } // for
 
       int pos = htmlText.indexOf("$text");
-      
+
       htmlText = htmlText.substring(0, pos)
-            + text.toString() 
-            + htmlText.substring(pos + "$text".length());
+         + text.toString()
+         + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
 
@@ -438,8 +434,8 @@ public class Storyboard implements PropertyChangeInterface
       else
       {
          StringBuilder buf = new StringBuilder("<p><a name = 'step_stepCounter'>Step stepCounter: text</a></p>");
-         CGUtil.replaceAll(buf, 
-            "stepCounter", "" + stepCounter, 
+         CGUtil.replaceAll(buf,
+            "stepCounter", "" + stepCounter,
             "text", txt);
          this.add(buf.toString());
          this.setStepCounter(this.getStepCounter() + 1);
@@ -448,7 +444,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void add(String string)
    {
-      this.addToSteps(string);   
+      this.addToSteps(string);
       synchronized (this)
       {
          this.notifyAll();
@@ -457,15 +453,14 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addText(String string)
    {
-      this.add(string);      
+      this.add(string);
    }
 
-
-   public void coverage4GeneratedModelCode(Object root) 
+   public void coverage4GeneratedModelCode(Object root)
    {
       if (root == null)
       {
-         return; 
+         return;
       }
 
       // derive creator class from root and create idMap
@@ -474,7 +469,7 @@ public class Storyboard implements PropertyChangeInterface
       className = packageName + ".CreatorCreator";
 
       Object idMap = null;
-      try 
+      try
       {
          if (jsonIdMap == null)
          {
@@ -497,7 +492,7 @@ public class Storyboard implements PropertyChangeInterface
 
          coverPOClasses(copyMap);
          coverSetClasses(copyMap);
-         
+
          for (String key : copyMap.keySet())
          {
             Object object = copyMap.getObject(key);
@@ -521,11 +516,12 @@ public class Storyboard implements PropertyChangeInterface
 
    private void coverPOClasses(JsonIdMap copyMap)
    {
-      // loop through objects in jsonIdMap, pack them into pattern object, read and write all attributes
+      // loop through objects in jsonIdMap, pack them into pattern object, read
+      // and write all attributes
 
       Pattern pattern = null;
       Class patternClass = null;
-      
+
       for (String key : copyMap.keySet())
       {
          Object object = copyMap.getObject(key);
@@ -555,18 +551,18 @@ public class Storyboard implements PropertyChangeInterface
             // cover hasElement methods
             String hasElemMethod = "hasElement" + CGUtil.shortClassName(className) + "PO";
 
-            // add entry 
+            // add entry
             Method method = patternClass.getMethod(hasElemMethod);
             method.invoke(pattern);
-            
+
             pattern.removeAllFromElements();
             pattern.setHasMatch(true);
-            
+
             // also the bound method
             method = patternClass.getMethod(hasElemMethod, object.getClass());
             Object patternObject = method.invoke(pattern, object);
             Class patternObjectClass = patternObject.getClass();
-            
+
             // loop through attributes
             for (String attrName : creatorClass.getProperties())
             {
@@ -575,9 +571,9 @@ public class Storyboard implements PropertyChangeInterface
                   // call getter
                   method = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
                   Object value = method.invoke(patternObject);
-                  
+
                   Class valueClass = value.getClass();
-                  
+
                   if (value instanceof Integer)
                   {
                      valueClass = int.class;
@@ -594,62 +590,65 @@ public class Storyboard implements PropertyChangeInterface
                   {
                      valueClass = float.class;
                   }
-                  
+
                   if (valueClass.isPrimitive() || valueClass == String.class)
                   {
                      // call with
                      method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                      method.invoke(patternObject, value);
-                     
+
                      // call has
                      method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
                      method.invoke(patternObject, value);
                   }
                   else
                   {
-                     // model elem, 
+                     // model elem,
                      // call has
                      method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
                      value = method.invoke(patternObject);
-                     
+
                      method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), value.getClass());
                      value = method.invoke(patternObject, value);
                   }
-                  
+
                }
                catch (Exception e)
                {
                   // no problem, go on with next attr
                }
             }
-            
+
             // allMatches
             method = patternObjectClass.getMethod("allMatches");
             method.invoke(patternObject);
-            
+
             pattern.removeAllFromElements();
             pattern.setHasMatch(true);
-            
+
             //
-            //                  // get direct value
-            //                  if (value instanceof Collection)
-            //                  {
-            //                     value = ((Collection) value).iterator().next();
-            //                  }
+            // // get direct value
+            // if (value instanceof Collection)
+            // {
+            // value = ((Collection) value).iterator().next();
+            // }
             //
-                              
+
             //
-            //                  // call setter
-            //                  Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
-            //                  setMethod.invoke(setObject, value);
+            // // call setter
+            // Method setMethod = setClass.getMethod("with" +
+            // StrUtil.upFirstChar(attrName), valueClass);
+            // setMethod.invoke(setObject, value);
             //
-            //                  Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
-            //                  unsetMethod.invoke(setObject, value);
-                           
+            // Method unsetMethod = setClass.getMethod("without" +
+            // StrUtil.upFirstChar(attrName), valueClass);
+            // unsetMethod.invoke(setObject, value);
+
             //
-            //            // del entry
-            //            Method withoutMethod = setClass.getMethod("without", object.getClass());
-            //            withoutMethod.invoke(setObject, object);
+            // // del entry
+            // Method withoutMethod = setClass.getMethod("without",
+            // object.getClass());
+            // withoutMethod.invoke(setObject, object);
          }
          catch (Exception e)
          {
@@ -661,7 +660,8 @@ public class Storyboard implements PropertyChangeInterface
 
    private void coverSetClasses(JsonIdMap copyMap)
    {
-      // loop through objects in jsonIdMap, pack them into set, read and write all attributes
+      // loop through objects in jsonIdMap, pack them into set, read and write
+      // all attributes
       for (String key : copyMap.keySet())
       {
          Object object = copyMap.getObject(key);
@@ -680,7 +680,7 @@ public class Storyboard implements PropertyChangeInterface
             // cover ModelSet methods
             String entryType = setObject.getEntryType();
 
-            // add entry 
+            // add entry
             Method withMethod = setClass.getMethod("with", object.getClass());
             withMethod.invoke(setObject, object);
 
@@ -761,7 +761,7 @@ public class Storyboard implements PropertyChangeInterface
       this.addSVGImage(diagName);
    }
 
-   public void addObjectDiagramWith(Object... elems) 
+   public void addObjectDiagramWith(Object... elems)
    {
       ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
       tempElems.add(true);
@@ -773,7 +773,7 @@ public class Storyboard implements PropertyChangeInterface
 
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
 
-   public void addObjectDiagram(Object... elems) 
+   public void addObjectDiagram(Object... elems)
    {
       String objectName;
       String objectIcon;
@@ -787,7 +787,7 @@ public class Storyboard implements PropertyChangeInterface
 
       while (i < elems.length)
       {
-         objectName = null; 
+         objectName = null;
          objectIcon = null;
          object = null;
 
@@ -798,7 +798,7 @@ public class Storyboard implements PropertyChangeInterface
 
             if (txt.indexOf('.') >= 0 && "png gif tif".indexOf(suffix) >= 0)
             {
-               // it is a file name 
+               // it is a file name
                objectIcon = txt;
             }
             else
@@ -809,7 +809,7 @@ public class Storyboard implements PropertyChangeInterface
             i++;
          }
 
-         if ( ! (i < elems.length) )
+         if (!(i < elems.length))
          {
             // ups no object for this name.
             break;
@@ -865,14 +865,14 @@ public class Storyboard implements PropertyChangeInterface
             className = packageName + ".CreatorCreator";
 
             Object idMap = null;
-            try 
+            try
             {
                Class<?> creatorClass = Class.forName(className);
                Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
 
                idMap = method.invoke(null, "debug");
 
-               jsonIdMap.withCreator((((JsonIdMap)idMap).getCreators()));
+               jsonIdMap.withCreator((((JsonIdMap) idMap).getCreators()));
             }
             catch (Exception e)
             {
@@ -884,25 +884,23 @@ public class Storyboard implements PropertyChangeInterface
          if (objectName != null)
          {
             jsonIdMap.put(objectName, object);
-         }  
+         }
          else
          {
             objectName = jsonIdMap.getId(object);
          }
-
 
          if (objectIcon != null)
          {
             iconMap.put(objectName, objectIcon);
          }
 
-
       }
 
       // all names collected, dump it
       if (restrictToExplicitElems)
       {
-    	  RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
+         RestrictToFilter jsonFilter = new RestrictToFilter(explicitElems);
          addObjectDiagram(jsonIdMap, explicitElems, jsonFilter);
       }
       else
@@ -911,24 +909,28 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-	class RestrictToFilter extends ConditionMap {
-		private LinkedHashSet<Object> explicitElems;
+   class RestrictToFilter extends ConditionMap
+   {
+      private LinkedHashSet<Object> explicitElems;
 
-		public RestrictToFilter(LinkedHashSet<Object> explicitElems) {
-			this.explicitElems = explicitElems;
-		}
+      public RestrictToFilter(LinkedHashSet<Object> explicitElems)
+      {
+         this.explicitElems = explicitElems;
+      }
 
-		@Override
-		public boolean matches(ValuesMap values) {
-			if (values.value != null
-					&& ("Integer Float Double Long Boolean String"
-							.indexOf(values.value.getClass().getSimpleName()) >= 0)) {
-				return true;
-			}
-			return explicitElems.contains(values.value);
-		}
-	}   
-   
+      @Override
+      public boolean matches(ValuesMap values)
+      {
+         if (values.value != null
+            && ("Integer Float Double Long Boolean String"
+               .indexOf(values.value.getClass().getSimpleName()) >= 0))
+         {
+            return true;
+         }
+         return explicitElems.contains(values.value);
+      }
+   }
+
    private JsonArray largestJsonArray = null;
 
    private Object largestRoot = null;
@@ -936,19 +938,21 @@ public class Storyboard implements PropertyChangeInterface
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true));
-      
-      //      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      //      {
-      //         largestJsonArray = jsonArray;
-      //         largestRoot = root;
-      //      }
-      //      
-      //      String imgLink = getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-      //            .toImg(
-      //               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+
+      // if (largestJsonArray == null || largestJsonArray.size() <=
+      // jsonArray.size())
+      // {
+      // largestJsonArray = jsonArray;
+      // largestRoot = root;
+      // }
       //
-      //      this.addToSteps(imgLink);
-      
+      // String imgLink =
+      // getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+      // .toImg(
+      // this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+      //
+      // this.addToSteps(imgLink);
+
       // new diagram
       this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
@@ -963,7 +967,8 @@ public class Storyboard implements PropertyChangeInterface
          largestRoot = root;
       }
 
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, omitRoot, null);
+      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(
+         this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray, omitRoot, null);
 
       this.addToSteps(imgLink);
    }
@@ -972,19 +977,23 @@ public class Storyboard implements PropertyChangeInterface
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
-      //      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      //      {
-      //         largestJsonArray = jsonArray;
-      //         largestRoot = root;
-      //      }
+      // if (largestJsonArray == null || largestJsonArray.size() <=
+      // jsonArray.size())
+      // {
+      // largestJsonArray = jsonArray;
+      // largestRoot = root;
+      // }
       //
-      //      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray, false, aggregationRoles);
+      // String imgLink =
+      // getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() +
+      // (this.getStoryboardSteps().size()+1), jsonArray, false,
+      // aggregationRoles);
       //
-      //      this.addToSteps(imgLink);
+      // this.addToSteps(imgLink);
 
       this.addObjectDiagramFromJsonArray(root, jsonArray);
-}
-   
+   }
+
    private void addObjectDiagramFromJsonArray(Object root, JsonArray jsonArray)
    {
       if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
@@ -992,12 +1001,12 @@ public class Storyboard implements PropertyChangeInterface
          largestJsonArray = jsonArray;
          largestRoot = root;
       }
-      
+
       // add icons
       for (Entry<String, String> entry : iconMap.entrySet())
       {
          JsonObject jsonObject = jsonArray.get(entry.getKey());
-         
+
          if (jsonObject != null)
          {
             jsonObject.put("headimage", entry.getValue());
@@ -1006,23 +1015,23 @@ public class Storyboard implements PropertyChangeInterface
 
       // new diagram
       GraphConverter graphConverter = new GraphConverter();
-      JsonObject objectModel=graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
-      
-      String text = 
-         "<script>\n" + 
-         "   var json = " + 
-               objectModel.toString(3) + 
-         "   ;\n" + 
-         "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() +"\", "
-            + "\"display\":\"html\", "
-            + "\"bar\":true};" + 
-         "   var g = new Graph(json);\n" + 
-         "   g.layout(100,100);\n" + 
-         "</script>\n";
-      
+      JsonObject objectModel = graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
+
+      String text =
+            "<script>\n" +
+               "   var json = " +
+               objectModel.toString(3) +
+               "   ;\n" +
+               "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() + "\", "
+               + "\"display\":\"html\", "
+               + "\"fontsize\":10,"
+               + "\"bar\":true};" +
+               "   var g = new Graph(json);\n" +
+               "   g.layout(100,100);\n" +
+               "</script>\n";
+
       this.add(text);
    }
-
 
    public void setKanbanPhase(String string)
    {
@@ -1030,50 +1039,55 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
-   private LinkedHashMap<String,LogEntry> newLogEntries = new LinkedHashMap<String,LogEntry>();
+   private LinkedHashMap<String, LogEntry> newLogEntries = new LinkedHashMap<String, LogEntry>();
 
    public LinkedHashMap<String, LogEntry> getNewLogEntries()
    {
       return newLogEntries;
    }
 
-   public void addLogEntry(String phase, String developer, String date, double hoursSpend, double hoursRemaining, String comment)
+   public void addLogEntry(String phase, String developer, String date, double hoursSpend, double hoursRemaining,
+         String comment)
    {
       LogEntry logEntry = new LogEntry()
-      .withDate(date)
-      .withPhase(phase)
-      .withDeveloper(developer)
-      .withHoursSpend(hoursSpend)
-      .withHoursRemainingInTotal(hoursRemaining)
-      .withComment(comment);
-      
-      
+         .withDate(date)
+         .withPhase(phase)
+         .withDeveloper(developer)
+         .withHoursSpend(hoursSpend)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withComment(comment);
+
       this.addLogEntry(logEntry);
    }
-   
+
    public void addLogEntry(LogEntry entry)
    {
       newLogEntries.put(entry.getDate(), entry);
    }
 
    /**
-    * Add an image to your storyboard.
-    * Example: storyboard.addImage(model.dumpClassDiag("examples", "StudyRight with assignments class generation 02"));
+    * Add an image to your storyboard. Example:
+    * storyboard.addImage(model.dumpClassDiag("examples",
+    * "StudyRight with assignments class generation 02"));
+    * 
     * @param image
     */
    public void addSVGImage(String imageFile)
    {
-      this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");     
+      this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
    }
 
    public void addImage(String imageFile)
    {
-      this.addToSteps("<img src='" + imageFile + "'>");     
+      this.addToSteps("<img src='" + imageFile + "'>");
    }
 
    /**
-    * Add an entry to your Kanban board TODO: document this, add phase entries to some generic class not into the example!!!
-    *  Example storyboard.add("ExtendStoryboardByAddToDoMethod", BACKLOG, "zuendorf", "21.08.2012 15:57:42", 0, 1);
+    * Add an entry to your Kanban board TODO: document this, add phase entries
+    * to some generic class not into the example!!! Example
+    * storyboard.add("ExtendStoryboardByAddToDoMethod", BACKLOG, "zuendorf",
+    * "21.08.2012 15:57:42", 0, 1);
+    * 
     * @param string
     * @param phase
     * @param developer
@@ -1085,12 +1099,12 @@ public class Storyboard implements PropertyChangeInterface
    {
       add(string);
       addLogEntry(new LogEntry()
-      .withDate(date)
-      .withPhase(phase)
-      .withDeveloper(developer)
-      .withHoursSpend(hoursSpend)
-      .withHoursRemainingInTotal(hoursRemaining)
-      .withComment("Achieved: " + string));
+         .withDate(date)
+         .withPhase(phase)
+         .withDeveloper(developer)
+         .withHoursSpend(hoursSpend)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withComment("Achieved: " + string));
    }
 
    public KanbanEntry addToDo(String entryName, String phase, String developer,
@@ -1101,20 +1115,19 @@ public class Storyboard implements PropertyChangeInterface
       KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
 
       KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
-            .withLastDeveloper(developer)
-            .withPhase(phase)
-            .withParent(kanbanBoard);
+         .withLastDeveloper(developer)
+         .withPhase(phase)
+         .withParent(kanbanBoard);
 
       LogEntry logEntry = todoEntry.findOrCreateLogEntry(date, phase)
-            .withPhase(phase)
-            .withHoursRemainingInTotal(hoursRemaining)
-            .withHoursSpend(hoursSpend);
+         .withPhase(phase)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withHoursSpend(hoursSpend);
 
       man.dumpKanban();
 
       return todoEntry;
-   }  
-
+   }
 
    private int codeStartLineNumber = -1;
 
@@ -1139,8 +1152,8 @@ public class Storyboard implements PropertyChangeInterface
    public void addCode()
    {
       addCode(this.getRootDir());
-   }   
-   
+   }
+
    public void addCode(String rootDir)
    {
       String className = "";
@@ -1157,7 +1170,6 @@ public class Storyboard implements PropertyChangeInterface
       codeEndLineNumber = callEntry.getLineNumber();
 
       className = callEntry.getClassName();
-
 
       // open java file and copy code lines
       String fileName = rootDir + "/" + className.replaceAll("\\.", "/") + ".java";
@@ -1205,7 +1217,7 @@ public class Storyboard implements PropertyChangeInterface
    public void recordSystemOut()
    {
       systemOutRecorder = new ByteArrayOutputStream();
-      System.setOut(new PrintStream(systemOutRecorder));      
+      System.setOut(new PrintStream(systemOutRecorder));
    }
 
    public String getMethodText(String rootDir, String className, String methodSignature)
@@ -1220,9 +1232,9 @@ public class Storyboard implements PropertyChangeInterface
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
-      String methodText = "<pre>   " + 
-      StrUtil.htmlEncode(parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1)) 
-      + "</pre>";
+      String methodText = "<pre>   " +
+         StrUtil.htmlEncode(parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
+         + "</pre>";
 
       return methodText;
    }
@@ -1234,7 +1246,8 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addGenericObjectDiag(GenericGraph graph, GenericObjectSet hiddenObjects)
    {
-      this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph, hiddenObjects);
+      this.addGenericObjectDiag(this.getName() + "GenObjDiagStep" + this.getStoryboardSteps().size(), graph,
+         hiddenObjects);
    }
 
    public void addGenericObjectDiag(String diagramName, GenericGraph graph)
@@ -1244,8 +1257,8 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
-	   String link = this.getAdapter().addGenericObjectDiag(diagramName, graph, hiddenObjects);
-	   this.addToSteps(link);
+      String link = this.getAdapter().addGenericObjectDiag(diagramName, graph, hiddenObjects);
+      this.addToSteps(link);
    }
 
    public Storyboard with(String string)
@@ -1257,37 +1270,35 @@ public class Storyboard implements PropertyChangeInterface
    public void dumpHTML()
    {
       StoryboardManager.get()
-      .add(this)
-      .dumpHTML();
+         .add(this)
+         .dumpHTML();
    }
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {
-      this.add("Check: " + message + expected); 
+      this.add("Check: " + message + expected);
       Assert.assertEquals("FAILED: " + message, expected, actual, delta);
    }
 
    public void assertTrue(String message, boolean condition)
    {
-      this.add("Check: " + message); 
+      this.add("Check: " + message);
       Assert.assertTrue("FAILED: " + message, condition);
    }
 
    public void assertEquals(String message, int expected, int actual)
    {
-      this.add("Check: " + message + expected); 
+      this.add("Check: " + message + expected);
       Assert.assertEquals("FAILED: " + message, expected, actual);
    }
 
    public void assertNotNull(String message, Object obj)
    {
-      this.add("Check: " + message + obj); 
+      this.add("Check: " + message + obj);
       Assert.assertNotNull("FAILED: " + message, obj);
    }
 
-
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -1319,8 +1330,7 @@ public class Storyboard implements PropertyChangeInterface
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -1363,8 +1373,7 @@ public class Storyboard implements PropertyChangeInterface
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -1373,13 +1382,12 @@ public class Storyboard implements PropertyChangeInterface
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -1387,7 +1395,6 @@ public class Storyboard implements PropertyChangeInterface
       setWall(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 
    public String toString()
    {
@@ -1399,8 +1406,6 @@ public class Storyboard implements PropertyChangeInterface
       _.append(" ").append(this.getStepDoneCounter());
       return _.substring(1);
    }
-
-
 
    /********************************************************************
     * <pre>
@@ -1435,7 +1440,7 @@ public class Storyboard implements PropertyChangeInterface
             this.storyboardSteps = new StoryboardStepSet();
          }
 
-         changed = this.storyboardSteps.add (value);
+         changed = this.storyboardSteps.add(value);
 
          if (changed)
          {
@@ -1444,7 +1449,7 @@ public class Storyboard implements PropertyChangeInterface
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromStoryboardSteps(StoryboardStep value)
@@ -1453,7 +1458,7 @@ public class Storyboard implements PropertyChangeInterface
 
       if ((this.storyboardSteps != null) && (value != null))
       {
-         changed = this.storyboardSteps.remove (value);
+         changed = this.storyboardSteps.remove(value);
 
          if (changed)
          {
@@ -1462,7 +1467,7 @@ public class Storyboard implements PropertyChangeInterface
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public Storyboard withStoryboardSteps(StoryboardStep... value)
@@ -1472,7 +1477,7 @@ public class Storyboard implements PropertyChangeInterface
          addToStoryboardSteps(item);
       }
       return this;
-   } 
+   }
 
    public Storyboard withoutStoryboardSteps(StoryboardStep... value)
    {
@@ -1498,8 +1503,7 @@ public class Storyboard implements PropertyChangeInterface
       StoryboardStep value = new StoryboardStep();
       withStoryboardSteps(value);
       return value;
-   } 
-
+   }
 
    /********************************************************************
     * <pre>
@@ -1550,17 +1554,16 @@ public class Storyboard implements PropertyChangeInterface
    {
       setWall(value);
       return this;
-   } 
+   }
 
    public StoryboardWall createWall()
    {
       StoryboardWall value = new StoryboardWall();
       withWall(value);
       return value;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_ROOTDIR = "rootDir";
 
@@ -1573,7 +1576,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void setRootDir(String value)
    {
-      if ( ! StrUtil.stringEquals(this.rootDir, value))
+      if (!StrUtil.stringEquals(this.rootDir, value))
       {
          String oldValue = this.rootDir;
          this.rootDir = value;
@@ -1585,10 +1588,9 @@ public class Storyboard implements PropertyChangeInterface
    {
       setRootDir(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_MODELROOTDIR = "modelRootDir";
 
@@ -1605,7 +1607,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void setModelRootDir(String value)
    {
-      if ( ! StrUtil.stringEquals(this.modelRootDir, value))
+      if (!StrUtil.stringEquals(this.modelRootDir, value))
       {
          String oldValue = this.modelRootDir;
          this.modelRootDir = value;
@@ -1617,10 +1619,9 @@ public class Storyboard implements PropertyChangeInterface
    {
       setModelRootDir(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_STEPCOUNTER = "stepCounter";
 
@@ -1645,10 +1646,9 @@ public class Storyboard implements PropertyChangeInterface
    {
       setStepCounter(value);
       return this;
-   } 
+   }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
 
@@ -1678,26 +1678,26 @@ public class Storyboard implements PropertyChangeInterface
    public void addPreformatted(String expandedText)
    {
       expandedText = StrUtil.htmlEncode(expandedText);
-         
+
       this.add("<pre>" + expandedText + "</pre>");
-      
+
    }
 
    public void addPattern(PatternObject patternObject, boolean b)
    {
       addPattern(patternObject.getPattern(), b);
    }
-      
+
    public void addPattern(Pattern pattern, boolean b)
    {
       String diagName = "" + this.getName() + "PatternDiagram" + this.getStoryboardSteps().size();
-      
+
       String link = pattern.dumpDiagram(diagName, b);
       this.add(link);
    }
 
    private String sprintName = null;
-   
+
    public void setSprint(String string)
    {
       this.sprintName = string;
@@ -1707,11 +1707,11 @@ public class Storyboard implements PropertyChangeInterface
    {
       // load the kanban board and remove entry and logs and generate and store
       StoryboardManager.get()
-      .remove(this)
-      .dumpHTML();
+         .remove(this)
+         .dumpHTML();
 
    }
-   
+
    private String kanbanWorkFlow = null;
    private String projectName = null;
 
@@ -1720,10 +1720,8 @@ public class Storyboard implements PropertyChangeInterface
       this.kanbanWorkFlow = string;
    }
 
-   
    public void setProjectName(String string)
    {
       this.projectName = string;
-   } 
+   }
 }
-
