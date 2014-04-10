@@ -426,3 +426,4 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
          .withTimeStamp(System.currentTimeMillis());
    }
 }
+

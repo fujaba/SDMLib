@@ -1,9 +1,11 @@
 package org.sdmlib.replication;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.junit.Assert;
 import org.sdmlib.storyboards.Storyboard;
@@ -12,6 +14,7 @@ public class StartLaneAction
 {
 
    private Storyboard storyboard;
+   private Process child;
 
    public StartLaneAction()
    {
@@ -24,32 +27,49 @@ public class StartLaneAction
 
    }
 
-   public Process start(String name, String laneApplicationClassName, int serverPort, int debugSocket)
+   public Process start(String name, String laneApplicationClassName, int serverPort,
+         int debugSocket)
    {
-      String abuClientComand = "java "
-         + "-Xdebug -Xrunjdwp:transport=dt_socket,address=" + debugSocket
+      String abuClientComand = "-Xdebug -Xrunjdwp:transport=dt_socket,address=" + debugSocket
          + ",server=y,suspend=n " + "-Dfile.encoding=UTF-8 " + "-classpath \""
-         + System.getProperty("java.class.path") + "\" " + laneApplicationClassName
-         + " " + serverPort + " " + name;
+         + System.getProperty("java.class.path") + "\" " + laneApplicationClassName + " "
+         + serverPort + " " + name;
 
-      Process child = null;
+      child = null;
+      String[] command = null;
       try
       {
-         final Process localChild = Runtime.getRuntime().exec(abuClientComand);
-         child = localChild;
 
-         // ProcessBuilder processBuilder = new
-         // ProcessBuilder(abuClientComand);
-         // processBuilder.redirectErrorStream(true);
-         // Process child = processBuilder.start();
+         if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+         {
+            URL resource = StartLaneAction.class.getResource("startjava.command");
+
+            String rootPath = resource.getFile().replace("file:", "");
+            // String makeimageFile = rootPath
+            // + "/tools/Graphviz/osx_lion/makeimage.command";
+
+            command = new String[]
+            { rootPath, abuClientComand };
+            
+//            ProcessBuilder processBuilder = new ProcessBuilder(command);
+//            processBuilder.redirectErrorStream(true);
+//            child = processBuilder.start();
+            
+            child = Runtime.getRuntime().exec(command);
+         }
+         else
+         {
+            child = Runtime.getRuntime().exec("java " + abuClientComand);
+
+         }
          InputStream inputStream = child.getInputStream();
          InputStreamReader in = new InputStreamReader(inputStream);
          final BufferedReader buf = new BufferedReader(in);
          String line = null;
          line = buf.readLine();
          line = line + "\n   " + buf.readLine();
-         Assert.assertFalse("Was not able to start abu client correctly.\n"
-            + line, line.startsWith("FATAL"));
+         Assert.assertFalse("Was not able to start abu client correctly.\n" + line,
+            line.startsWith("FATAL"));
          ;
          storyboard.add("<pre>   " + line + "</pre>");
 
@@ -63,6 +83,10 @@ public class StartLaneAction
                   try
                   {
                      String text = buf.readLine();
+                     if (text == null)
+                     {
+                        return;
+                     }
                      System.out.println(text);
                   }
                   catch (IOException e)
@@ -79,7 +103,7 @@ public class StartLaneAction
             @Override
             public void run()
             {
-               InputStream errorStream = localChild.getErrorStream();
+               InputStream errorStream = child.getErrorStream();
 
                InputStreamReader in = new InputStreamReader(errorStream);
                BufferedReader errbuf = new BufferedReader(in);
@@ -89,6 +113,10 @@ public class StartLaneAction
                   try
                   {
                      String text = errbuf.readLine();
+                     if (text == null)
+                     {
+                        return;
+                     }
                      System.out.println(text);
                   }
                   catch (IOException e)

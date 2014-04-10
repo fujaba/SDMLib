@@ -68,6 +68,7 @@ public class Role implements PropertyChangeInterface
       public static final String LONG = "long";
       public static final String DOUBLE = "double";
       public static final String STRING = "String";
+      public static final String OBJECT = "Object";
       public static final String BOOLEAN = "boolean";
 
       public static final String MODELING = "modeling";

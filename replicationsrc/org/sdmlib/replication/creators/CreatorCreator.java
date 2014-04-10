@@ -56,6 +56,8 @@ public class CreatorCreator
          creatorSet.add(new org.sdmlib.replication.creators.BoardTaskCreator());
          creatorSet
             .add(new org.sdmlib.replication.creators.BoardTaskPOCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationRootCreator());
+         creatorSet.add(new org.sdmlib.replication.creators.ReplicationRootPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator
             .getCreatorSet());
       }
@@ -73,3 +75,4 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+

@@ -37,6 +37,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
+import org.sdmlib.replication.creators.ReplicationRootSet;
 import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -103,10 +104,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       channel.setName("ReplicationChannel" + nodeId);
       channel.start();
 
+      ReplicationRoot replicationRoot = new ReplicationRoot();
+      map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
+      
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
       
-      map.put(REMOTE_TASK_BOARD, new RemoteTaskBoard());
+//      map.put(REMOTE_TASK_BOARD, new RemoteTaskBoard());
       
       return this;
    }
@@ -1125,7 +1129,9 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private boolean readMessages = false;
 
-   public static final String REMOTE_TASK_BOARD = "remoteTaskBoard";
+   public static final String REMOTE_TASK_BOARD_ROOT = "taskFlowBoardRoot";
+
+   public static final String REPLICATION_ROOT = "replicationRoot";
 
    public void setReadMessages(boolean readMessages)
    {
@@ -1164,7 +1170,18 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public Object getSharedObject(String objectName)
    {
-      return map.getObject(objectName);
+      ReplicationRoot replicationRoot = (ReplicationRoot) map.getObject(REPLICATION_ROOT);
+      if(replicationRoot != null) {
+         ReplicationRootSet kids = replicationRoot.getKids();
+         for (ReplicationRoot kid : kids)
+         {
+            if(StrUtil.stringEquals(kid.getName(), objectName)) {
+               return kid.getApplicationObject();
+            }
+         }
+      }
+      return null;
    }
    
 }
+

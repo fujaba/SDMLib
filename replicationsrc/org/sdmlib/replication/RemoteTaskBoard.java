@@ -230,3 +230,4 @@ public class RemoteTaskBoard implements PropertyChangeInterface
       return this;
    }
 }
+

@@ -25,6 +25,8 @@ import org.sdmlib.replication.creators.LanePO;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.creators.BoardTaskPO;
 import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.creators.ReplicationRootPO;
+import org.sdmlib.replication.ReplicationRoot;
 
 public class ModelPattern extends Pattern
 {
@@ -334,4 +336,29 @@ public class ModelPattern extends Pattern
       return value;
    }
 
+   public ReplicationRootPO hasElementReplicationRootPO()
+   {
+      ReplicationRootPO value = new ReplicationRootPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public ReplicationRootPO hasElementReplicationRootPO(ReplicationRoot hostGraphObject)
+   {
+      ReplicationRootPO value = new ReplicationRootPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+

@@ -85,6 +85,10 @@ public class ReplicationModel
 
       boardTask.withAssoc(boardTask, "next", R.MANY, "prev", R.MANY);
 
+      Clazz replicationRoot = model.createClazz("ReplicationRoot", "name", R.STRING, "applicationObject", R.OBJECT);
+      
+      replicationRoot.withAssoc(replicationRoot, "kids", R.MANY, "parent", R.ONE);
+      
       model.generate("replicationsrc");
 
       storyboard.addSVGImage(model

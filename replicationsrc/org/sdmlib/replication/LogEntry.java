@@ -265,3 +265,4 @@ public class LogEntry implements PropertyChangeInterface
       return value;
    }
 }
+

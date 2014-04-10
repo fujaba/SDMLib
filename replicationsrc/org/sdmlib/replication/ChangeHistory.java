@@ -271,3 +271,4 @@ public class ChangeHistory implements PropertyChangeInterface
       return this;
    }
 }
+
