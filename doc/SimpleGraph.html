@@ -1,17 +1,52 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/de/uniks/jism/test/GraphLudoTest.java' type='text/x-java'>SimpleGraph</a></p>
 <p>SimpleGraph</p>
-<embed type="image/svg+xml" src='SimpleGraph2.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"S1 : SortedMsg",
+            "attributes":[
+            "number=0",
+               "msg=Hallo Welt"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S2 : SortedMsg",
+            "attributes":[
+            "number=0",
+               "msg=Child"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"parent",
+            "targetproperty":"child",
+            "source":"S1 : SortedMsg",
+            "target":"S2 : SortedMsg"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>
