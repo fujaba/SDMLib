@@ -26,12 +26,9 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.creators.KanbanEntrySet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
-public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
+public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -39,16 +36,16 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    {
       KanbanEntrySet result = new KanbanEntrySet();
       
-      for (LogEntry obj : this)
+      for (LogEntryStoryBoard obj : this)
       {
          result.add(obj.getKanbanEntry());
       }
       
       return result;
    }
-   public LogEntrySet withKanbanEntry(KanbanEntry value)
+   public LogEntryStoryboardSet withKanbanEntry(KanbanEntry value)
    {
-      for (LogEntry obj : this)
+      for (LogEntryStoryBoard obj : this)
       {
          obj.withKanbanEntry(value);
       }
@@ -62,7 +59,7 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    {
       StringList stringList = new StringList();
       
-      for (LogEntry elem : this)
+      for (LogEntryStoryBoard elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -91,21 +88,21 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    }
 
 
-   public LogEntrySet with(Object value)
+   public LogEntryStoryboardSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LogEntry>)value);
+         this.addAll((Collection<LogEntryStoryBoard>)value);
       }
       else if (value != null)
       {
-         this.add((LogEntry) value);
+         this.add((LogEntryStoryBoard) value);
       }
       
       return this;
    }
    
-   public LogEntrySet without(LogEntry value)
+   public LogEntryStoryboardSet without(LogEntryStoryBoard value)
    {
       this.remove(value);
       return this;

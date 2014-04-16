@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.creators.CreatorCreator;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class ReachabilityGraphCreator extends EntityFactory
 {

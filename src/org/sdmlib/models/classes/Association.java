@@ -25,14 +25,11 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
-
 
 public class Association implements PropertyChangeInterface
 {
+   @Override
    public String toString()
    {
       String text = "role is missing";
@@ -45,11 +42,6 @@ public class Association implements PropertyChangeInterface
          // intentionally empty
       }
       return  text;
-   }
-   
-   public Association()
-   {
-      ClassModel.classModel.addToAssociations(this);
    }
    
    public Association withSource(Clazz sourceClass, String roleName, R card)
@@ -185,8 +177,6 @@ public class Association implements PropertyChangeInterface
    } 
 
    
-   public static final AssociationSet EMPTY_SET = new AssociationSet();
-
    
    /********************************************************************
     * <pre>
@@ -353,6 +343,7 @@ public class Association implements PropertyChangeInterface
    
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

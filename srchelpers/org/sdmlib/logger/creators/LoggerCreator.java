@@ -1,17 +1,19 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.logger.creators;
 
-import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.logger.Logger;
+import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class AttributeCreator extends EntityFactory
+public class LoggerCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Attribute.PROPERTY_INITIALIZATION,
-      Attribute.PROPERTY_CLAZZ,
-      Attribute.PROPERTY_TYPE,
-      Attribute.PROPERTY_NAME,
+      TaskFlow.PROPERTY_TASKNO,
+      TaskFlow.PROPERTY_IDMAP,
+      TaskFlow.PROPERTY_SUBFLOW,
+      Logger.PROPERTY_ENTRIES,
+      Logger.PROPERTY_STARTPEER,
    };
    
    public String[] getProperties()
@@ -21,35 +23,28 @@ public class AttributeCreator extends EntityFactory
    
    public Object getSendableInstance(boolean reference)
    {
-      return new Attribute();
+      return new Logger();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((Attribute) target).get(attrName);
+      return ((Logger) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((Attribute) target).set(attrName, value);
+      return ((Logger) target).set(attrName, value);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    
    //==========================================================================
    
    @Override
    public void removeObject(Object entity)
    {
-      ((Attribute) entity).removeYou();
+      ((Logger) entity).removeYou();
    }
 }
-
-
 
 
 

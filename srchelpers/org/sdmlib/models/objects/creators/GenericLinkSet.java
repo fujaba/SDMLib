@@ -28,10 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.objects.creators.GenericGraphSet;
 
 public class GenericLinkSet extends LinkedHashSet<GenericLink>
 {

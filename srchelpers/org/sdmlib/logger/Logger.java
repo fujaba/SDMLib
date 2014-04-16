@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package org.sdmlib.model.taskflows;
+package org.sdmlib.logger;
 
 import java.beans.PropertyChangeSupport;
 import java.io.File;
@@ -28,12 +28,12 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
-import org.sdmlib.model.taskflows.creators.LogEntrySet;
-import org.sdmlib.model.taskflows.creators.LoggerSet;
+import org.sdmlib.logger.creators.LogEntrySet;
+import org.sdmlib.logger.creators.LoggerSet;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.storyboards.StoryboardManager;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
@@ -247,7 +247,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
       if (PROPERTY_STARTPEER.equalsIgnoreCase(attrName))
       {
-         setStartPeer((org.sdmlib.model.taskflows.PeerProxy) value);
+         setStartPeer((PeerProxy) value);
          return true;
       }
 
@@ -297,7 +297,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
    {
       if (this.entries == null)
       {
-         return LogEntry.EMPTY_SET;
+         return new LogEntrySet();
       }
 
       return this.entries;
@@ -380,24 +380,24 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
    public static final String PROPERTY_STARTPEER = "startPeer";
 
-   private org.sdmlib.model.taskflows.PeerProxy startPeer;
+   private PeerProxy startPeer;
 
-   public org.sdmlib.model.taskflows.PeerProxy getStartPeer()
+   public PeerProxy getStartPeer()
    {
       return this.startPeer;
    }
 
-   public void setStartPeer(org.sdmlib.model.taskflows.PeerProxy value)
+   public void setStartPeer(PeerProxy value)
    {
       if (this.startPeer != value)
       {
-         org.sdmlib.model.taskflows.PeerProxy oldValue = this.startPeer;
+         PeerProxy oldValue = this.startPeer;
          this.startPeer = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPEER, oldValue, value);
       }
    }
 
-   public Logger withStartPeer(org.sdmlib.model.taskflows.PeerProxy value)
+   public Logger withStartPeer(PeerProxy value)
    {
       setStartPeer(value);
       return this;

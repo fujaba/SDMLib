@@ -5,10 +5,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.creators.KanbanEntrySet;
-import org.sdmlib.storyboards.creators.LogEntryPO;
-import org.sdmlib.storyboards.creators.KanbanEntryPO;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
 public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
 {
@@ -46,7 +43,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((KanbanEntry) this.getCurrentMatch()).withLogEntries((LogEntry) tgtPO.getCurrentMatch());
+         ((KanbanEntry) this.getCurrentMatch()).withLogEntries((LogEntryStoryBoard) tgtPO.getCurrentMatch());
       }
       return this;
    }
@@ -55,12 +52,12 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((KanbanEntry) this.getCurrentMatch()).withoutLogEntries((LogEntry) tgtPO.getCurrentMatch());
+         ((KanbanEntry) this.getCurrentMatch()).withoutLogEntries((LogEntryStoryBoard) tgtPO.getCurrentMatch());
       }
       return this;
    }
    
-   public LogEntrySet getLogEntries()
+   public LogEntryStoryboardSet getLogEntries()
    {
       if (this.getPattern().getHasMatch())
       {

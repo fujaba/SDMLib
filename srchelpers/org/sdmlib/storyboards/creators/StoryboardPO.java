@@ -1,18 +1,9 @@
 package org.sdmlib.storyboards.creators;
 
-import java.util.Vector;
-
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.creators.StoryboardSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.storyboards.creators.StoryboardStepPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.storyboards.creators.StoryboardPO;
-import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
-import org.sdmlib.storyboards.creators.StoryboardWallPO;
 import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>

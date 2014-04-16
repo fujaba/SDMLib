@@ -25,7 +25,7 @@ package org.sdmlib.storyboards;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.storyboards.creators.LogEntrySet;
+import org.sdmlib.storyboards.creators.LogEntryStoryboardSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;
@@ -35,16 +35,16 @@ import java.util.Date;
 
 
 // should have a creator class
-public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
+public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<LogEntryStoryBoard>
 {
    
-   public LogEntry()
+   public LogEntryStoryBoard()
    {
       int i = 0;
       i = i + 1;
    }
    
-   public static final LogEntrySet EMPTY_SET = new LogEntrySet();
+   public static final LogEntryStoryboardSet EMPTY_SET = new LogEntryStoryboardSet();
 
    public static final String PROPERTY_DATE = "date";
 
@@ -261,42 +261,42 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return null;
    }
 
-   public LogEntry withDate(String newValue)
+   public LogEntryStoryBoard withDate(String newValue)
    {
       this.setDate(newValue);
       return this;
    }
 
 
-   public LogEntry withHoursSpend(double newValue)
+   public LogEntryStoryBoard withHoursSpend(double newValue)
    {
       this.setHoursSpend(newValue);
       return this;
    }
 
 
-   public LogEntry withHoursRemainingInTotal(double newValue)
+   public LogEntryStoryBoard withHoursRemainingInTotal(double newValue)
    {
       this.setHoursRemainingInTotal(newValue);
       return this;
    }
 
 
-  public LogEntry withDeveloper(String newValue)
+  public LogEntryStoryBoard withDeveloper(String newValue)
    {
       this.setDeveloper(newValue);
       return this;
    }
 
 
-   public LogEntry withPhase(String newValue)
+   public LogEntryStoryBoard withPhase(String newValue)
    {
       this.setPhase(newValue);
       return this;
    }
 
 
-   public LogEntry withComment(String newValue)
+   public LogEntryStoryBoard withComment(String newValue)
    {
       this.setComment(newValue);
       return this;
@@ -348,7 +348,7 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return changed;
    }
    
-   public LogEntry withKanbanEntry(KanbanEntry value)
+   public LogEntryStoryBoard withKanbanEntry(KanbanEntry value)
    {
       setKanbanEntry(value);
       return this;
@@ -364,7 +364,7 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
    }
 
    @Override
-   public int compareTo(LogEntry o)
+   public int compareTo(LogEntryStoryBoard o)
    {
       return this.getParsedDate().compareTo(o.getParsedDate());
    }

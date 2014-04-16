@@ -23,18 +23,12 @@ package org.sdmlib.codegen.creators;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.models.classes.creators.ModelPattern;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.codegen.creators.StatementEntrySet;
-
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 
 public class StatementEntrySet extends SDMSet<StatementEntry>
 {

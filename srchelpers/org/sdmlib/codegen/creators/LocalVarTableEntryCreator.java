@@ -1,7 +1,6 @@
 package org.sdmlib.codegen.creators;
 
 import org.sdmlib.codegen.LocalVarTableEntry;
-import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -16,21 +15,25 @@ public class LocalVarTableEntryCreator extends EntityFactory
       LocalVarTableEntry.PROPERTY_INITSEQUENCE,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LocalVarTableEntry();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return ((LocalVarTableEntry) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((LocalVarTableEntry) target).set(attrName, value);

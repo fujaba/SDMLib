@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 
@@ -28,20 +28,18 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.classes.creators.ClassModelSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.creators.ClazzSet;
-import org.sdmlib.models.classes.creators.AttributeSet;
-import org.sdmlib.models.classes.creators.MethodSet;
-import org.sdmlib.models.classes.creators.RoleSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {
+   private static final long serialVersionUID = 1L;
+
+
    public StringList getName()
    {
       StringList result = new StringList();

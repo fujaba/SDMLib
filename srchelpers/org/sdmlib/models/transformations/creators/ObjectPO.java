@@ -1,8 +1,6 @@
 package org.sdmlib.models.transformations.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.transformations.creators.ObjectSet;
 
 public class ObjectPO extends PatternObject<ObjectPO, Object>
 {

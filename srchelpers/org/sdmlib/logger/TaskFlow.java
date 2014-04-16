@@ -19,14 +19,14 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.model.taskflows;
+package org.sdmlib.logger;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeSet;
 
-import org.sdmlib.model.taskflows.creators.PeerProxySet;
+import org.sdmlib.logger.creators.PeerProxySet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface

@@ -83,6 +83,18 @@ public class Role implements PropertyChangeInterface
       public static final int TRACE_ON = 2;
    }
    
+   public String labelForRole()
+   {
+      String result = getName();
+
+      if (getCard().equals(R.MANY.toString()))
+      {
+         result = result + " *";
+      }
+
+      return result;
+   }
+   
    //==========================================================================
    
    public static final String PROPERTY_CLAZZ = "clazz";

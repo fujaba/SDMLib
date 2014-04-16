@@ -1,9 +1,7 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.transformations.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import java.lang.Object;
 
 public class ObjectCreator extends EntityFactory
 {

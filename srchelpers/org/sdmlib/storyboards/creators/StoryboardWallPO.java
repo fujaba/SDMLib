@@ -1,13 +1,9 @@
 package org.sdmlib.storyboards.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.creators.StoryboardWallSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.storyboards.creators.StoryboardPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.storyboards.creators.StoryboardWallPO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardWallPO extends PatternObject<StoryboardWallPO, StoryboardWall>
 {

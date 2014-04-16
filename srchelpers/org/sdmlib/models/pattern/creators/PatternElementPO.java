@@ -6,9 +6,6 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternElementSet;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.creators.PatternElementPO;
 
 public class PatternElementPO extends PatternObject<PatternElementPO, PatternElement>
 {

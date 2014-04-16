@@ -1,16 +1,11 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.creators.CardinalityConstraintPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.PatternObjectPO;
+import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class CardinalityConstraintPO extends PatternObject<CardinalityConstraintPO, CardinalityConstraint>
 {

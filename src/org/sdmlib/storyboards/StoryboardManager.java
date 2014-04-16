@@ -475,7 +475,7 @@ public class StoryboardManager
             "</html>"
                );
 
-         ArrayList<LogEntry> allLogEntries = kanbanEntry.getAllLogEntries();
+         ArrayList<LogEntryStoryBoard> allLogEntries = kanbanEntry.getAllLogEntries();
          Collections.sort(allLogEntries);
 
          StringBuilder timeLogText = new StringBuilder();
@@ -485,7 +485,7 @@ public class StoryboardManager
          double hoursSpend = 0.0;
          LinkedHashMap<KanbanEntry, Double> hoursRemainingMap = new LinkedHashMap<KanbanEntry, Double>();
 
-         for (LogEntry logEntry : allLogEntries)
+         for (LogEntryStoryBoard logEntry : allLogEntries)
          {
             String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
             logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
@@ -650,7 +650,7 @@ public class StoryboardManager
       double logHoursRemaining = 0.0;
 
       Date latestLogEntryDate = null;
-      for (LogEntry logEntry : rootEntry.getLogEntries())
+      for (LogEntryStoryBoard logEntry : rootEntry.getLogEntries())
       {
          logHoursSpend += logEntry.getHoursSpend();
 
@@ -687,7 +687,7 @@ public class StoryboardManager
       }
    }
 
-   private void repairDate(LogEntry logEntry)
+   private void repairDate(LogEntryStoryBoard logEntry)
    {
       String dateText = logEntry.getDate();
 

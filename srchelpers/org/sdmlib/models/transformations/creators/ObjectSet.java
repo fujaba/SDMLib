@@ -22,7 +22,7 @@
 package org.sdmlib.models.transformations.creators;
 
 import java.util.LinkedHashSet;
-import java.lang.Object;
+
 import org.sdmlib.models.modelsets.StringList;
 
 public class ObjectSet extends LinkedHashSet<Object> implements org.sdmlib.models.modelsets.ModelSet

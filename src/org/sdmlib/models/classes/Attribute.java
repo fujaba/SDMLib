@@ -29,24 +29,13 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
 
 public class Attribute implements PropertyChangeInterface 
 {
    public static final String SIMPLE = "simple";
    public static final String COMPLEX = "complex";
-
-   public static final AttributeSet EMPTY_SET = new AttributeSet();
-
-   public Attribute()
-   {
-      withClazz(Clazz.clazz);
-      Clazz.clazz.withAttributes(this);   
-   }
 
    /********************************************************************
     * <pre>
@@ -199,7 +188,7 @@ public class Attribute implements PropertyChangeInterface
          clazz.printFile(doGenerate);
       }
 
-      if ( !clazz.isInterfaze())
+      if ( !clazz.isInterfaze() && clazz.getClassModel().hasFeature(Feature.Serialization))
       {
          Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
 
@@ -299,8 +288,8 @@ public class Attribute implements PropertyChangeInterface
 
             parser.getFileBody().insert(pos, text.toString());
             
-            insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
          }
+         insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
 
          ownerClazz.insertImport(parser, getClazz().getName());
          ownerClazz.setCreatorFileHasChanged(true);
@@ -346,7 +335,7 @@ public class Attribute implements PropertyChangeInterface
          }
 
          StringBuilder text = new StringBuilder
-               (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+               (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
                      "\n         ((entitiyClassName) target).setPropertyName((type) value);" +
                      "\n         return true;" +
@@ -427,7 +416,7 @@ public class Attribute implements PropertyChangeInterface
          }
 
          StringBuilder text = new StringBuilder
-               (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+               (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
                      "\n         return ((entitiyClassName) target).getPropertyName();" +
                      "\n      }" +
@@ -451,6 +440,9 @@ public class Attribute implements PropertyChangeInterface
    }
 
    private void insertSetterInModelSetClass(Parser parser, Clazz ownerClazz) {
+      if(parser==null){
+         return;
+      }
       String attrType = ownerClazz.shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":with"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
@@ -470,7 +462,7 @@ public class Attribute implements PropertyChangeInterface
                   + "   }\n" 
                   + "\n");
 
-         String fullModelSetType = getType();
+//         String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(ownerClazz.getName()) + "Set";
 
          CGUtil.replaceAll(text, 
@@ -487,6 +479,9 @@ public class Attribute implements PropertyChangeInterface
    }
 
    private void insertGetterInModelSetClass(Parser parser, Clazz ownerClazz) {
+      if(parser==null){
+         return;
+      }
       String key = Parser.METHOD + ":get"
             + StrUtil.upFirstChar(this.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -857,7 +852,7 @@ public class Attribute implements PropertyChangeInterface
    }
 
    private String checkSetImportFor(String type) {
-      Clazz findClass = clazz.getClassModel().findClass(type);
+      Clazz findClass = clazz.getClassModel().getGenerator().findClass(type);
       if (findClass == null)
          return null;
       Clazz attributClass = getClazz();
@@ -898,7 +893,7 @@ public class Attribute implements PropertyChangeInterface
          
          for (String string : strings) 
          {
-            Clazz findClass = clazz.getClassModel().findClass(string);
+            Clazz findClass = clazz.getClassModel().getGenerator().findClass(string);
             if(findClass != null)
             {
                importList.add(findClass.getName());
@@ -907,7 +902,7 @@ public class Attribute implements PropertyChangeInterface
       } 
       else 
       {
-         Clazz findClass = getClazz().getClassModel().findClass(modelSetType);
+         Clazz findClass = getClazz().getClassModel().getGenerator().findClass(modelSetType);
          
          if (findClass != null)
          {
@@ -1015,13 +1010,21 @@ public class Attribute implements PropertyChangeInterface
          text.append("\n   public void setName(type value)" +
                "\n   {" +
                "\n      if (valueCompare)" +
-               "\n      {" +
-               "\n         type oldValue = this.name;" +
-               "\n         this.name = value;" +
-               "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);" +
+               "\n      {PGOLD" +
+               "\n         this.name = value;PROPERTYCHANGE"+
                "\n      }" +
                "\n   }" +
                "\n   ");
+         
+         if(getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+            CGUtil.replaceAll(text, 
+                  "PGOLD", "\n         type oldValue = this.name;",
+                  "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
+         }else{
+            CGUtil.replaceAll(text, 
+                  "PGOLD", "",
+                  "PROPERTYCHANGE", "");
+         }
          hasNewContent = true;
       }
 
@@ -1111,9 +1114,9 @@ public class Attribute implements PropertyChangeInterface
       if (pos < 0)
       {
          // ups, did not find generic set method. 
-         System.err.println("Warning: SDMLib codgen for attribute " + getName() + " for class " + getClazz().getName() 
-            + ": \nDid not find method set(String,Object). Should have been generated by my clazz. " 
-            + "\nCould not add required code fragment there. :( ");
+//         System.err.println("Warning: SDMLib codgen for attribute " + getName() + " for class " + getClazz().getName() 
+//            + ": \nDid not find method set(String,Object). Should have been generated by my clazz. " 
+//            + "\nCould not add required code fragment there. :( ");
 
          return;
       }
@@ -1254,7 +1257,8 @@ public class Attribute implements PropertyChangeInterface
          // insert empty toString()
          StringBuilder text = new StringBuilder(  
             "\n" +
-            "   public String toString()\n" + 
+            "\n   @Override" +
+            "\n   public String toString()\n" + 
             "   {\n" + 
             "      StringBuilder _ = new StringBuilder();\n" + 
             "      \n" + 
@@ -1327,108 +1331,18 @@ public class Attribute implements PropertyChangeInterface
       return this;
    }
 
-
-
-   //==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         return getInitialization();
-      }
-
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         return getInitialization();
-      }
-
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         return getInitialization();
-      }
-
-      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
-      {
-         return getClazz();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         setInitialization((String) value);
-         return true;
-      }
-
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         setInitialization((String) value);
-         return true;
-      }
-
-      if (PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
-      {
-         setInitialization((String) value);
-         return true;
-      }
-
-      if (PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
-      {
-         setClazz((Clazz) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
    //==========================================================================
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
 
+   @Override
    public String toString()
    {
    	// StringBuilder _ = new StringBuilder();

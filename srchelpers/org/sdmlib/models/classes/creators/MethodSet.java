@@ -26,10 +26,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.creators.ClazzSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
 
 public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {

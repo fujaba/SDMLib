@@ -33,7 +33,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.creators.KanbanEntrySet;
-import org.sdmlib.storyboards.creators.LogEntrySet;
+import org.sdmlib.storyboards.creators.LogEntryStoryboardSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;
@@ -253,12 +253,12 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    public String getFiles() {
       return this.files;
    }
-   public LogEntry findOrCreateLogEntry(String date, String phase) 
+   public LogEntryStoryBoard findOrCreateLogEntry(String date, String phase) 
    {
-      LogEntry result = null;
+      LogEntryStoryBoard result = null;
 
       // find logEntry
-      for (LogEntry logEntry : getLogEntries())
+      for (LogEntryStoryBoard logEntry : getLogEntries())
       {
          if (logEntry.getDate() != null && logEntry.getDate().equals(date))
          {
@@ -267,7 +267,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       }
 
       // create new logEntry
-      result = new LogEntry()
+      result = new LogEntryStoryBoard()
       .withDate(date)
       .withDeveloper(System.getProperty("user.name"))
       .withHoursSpend(0)
@@ -458,13 +458,13 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       } 
       if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
       {
-         addToLogEntries((LogEntry) value);
+         addToLogEntries((LogEntryStoryBoard) value);
          return true;
       }
       
       if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         removeFromLogEntries((LogEntry) value);
+         removeFromLogEntries((LogEntryStoryBoard) value);
          return true;
       }
 
@@ -512,7 +512,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       } 
       else   if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName)) 
       {
-         addToLogEntries((LogEntry) value);
+         addToLogEntries((LogEntryStoryBoard) value);
          return true;
       } 
       else   if (PROPERTY_FILES.equalsIgnoreCase(attrName)) 
@@ -648,19 +648,19 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    
    public static final String PROPERTY_LOGENTRIES = "logEntries";
    
-   private LogEntrySet logEntries = null;
+   private LogEntryStoryboardSet logEntries = null;
    
-   public LogEntrySet getLogEntries()
+   public LogEntryStoryboardSet getLogEntries()
    {
       if (this.logEntries == null)
       {
-         return LogEntry.EMPTY_SET;
+         return LogEntryStoryBoard.EMPTY_SET;
       }
    
       return this.logEntries;
    }
    
-   public boolean addToLogEntries(LogEntry value)
+   public boolean addToLogEntries(LogEntryStoryBoard value)
    {
       boolean changed = false;
       
@@ -668,7 +668,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       {
          if (this.logEntries == null)
          {
-            this.logEntries = new LogEntrySet();
+            this.logEntries = new LogEntryStoryboardSet();
          }
          
          changed = this.logEntries.add (value);
@@ -683,7 +683,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return changed;   
    }
    
-   public boolean removeFromLogEntries(LogEntry value)
+   public boolean removeFromLogEntries(LogEntryStoryBoard value)
    {
       boolean changed = false;
       
@@ -701,13 +701,13 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return changed;   
    }
    
-   public KanbanEntry withLogEntries(LogEntry value)
+   public KanbanEntry withLogEntries(LogEntryStoryBoard value)
    {
       addToLogEntries(value);
       return this;
    } 
    
-   public KanbanEntry withoutLogEntries(LogEntry value)
+   public KanbanEntry withoutLogEntries(LogEntryStoryBoard value)
    {
       removeFromLogEntries(value);
       return this;
@@ -715,10 +715,10 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    
    public void removeAllFromLogEntries()
    {
-      LogEntrySet tmpSet = new LogEntrySet();
+      LogEntryStoryboardSet tmpSet = new LogEntryStoryboardSet();
       tmpSet.addAll(this.getLogEntries());
    
-      for (LogEntry value : tmpSet)
+      for (LogEntryStoryBoard value : tmpSet)
       {
          this.removeFromLogEntries(value);
       }
@@ -773,9 +773,9 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return _.substring(1);
    }
 
-   public ArrayList<LogEntry> getAllLogEntries()
+   public ArrayList<LogEntryStoryBoard> getAllLogEntries()
    {
-      ArrayList<LogEntry> allLogEntries = new ArrayList<LogEntry>();
+      ArrayList<LogEntryStoryBoard> allLogEntries = new ArrayList<LogEntryStoryBoard>();
       
       allLogEntries.addAll(this.getLogEntries());
       
@@ -816,27 +816,27 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return this;
    } 
 
-   public KanbanEntry withLogEntries(LogEntry... value)
+   public KanbanEntry withLogEntries(LogEntryStoryBoard... value)
    {
-      for (LogEntry item : value)
+      for (LogEntryStoryBoard item : value)
       {
          addToLogEntries(item);
       }
       return this;
    } 
 
-   public KanbanEntry withoutLogEntries(LogEntry... value)
+   public KanbanEntry withoutLogEntries(LogEntryStoryBoard... value)
    {
-      for (LogEntry item : value)
+      for (LogEntryStoryBoard item : value)
       {
          removeFromLogEntries(item);
       }
       return this;
    }
 
-   public LogEntry createLogEntries()
+   public LogEntryStoryBoard createLogEntries()
    {
-      LogEntry value = new LogEntry();
+      LogEntryStoryBoard value = new LogEntryStoryBoard();
       withLogEntries(value);
       return value;
    } 

@@ -1,6 +1,6 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.model.taskflows.LogEntry;
+import org.sdmlib.logger.LogEntry;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,61 +19,97 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
 
-import java.util.List;
-import org.sdmlib.models.classes.creators.ClazzSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-
-public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
+public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getInitialization()
+   public ClazzSet getClasses()
    {
-      StringList result = new StringList();
+      ClazzSet result = new ClazzSet();
       
-      for (Attribute obj : this)
+      for (ClassModel obj : this)
       {
-         result.add(obj.getInitialization());
+         result.addAll(obj.getClasses());
       }
       
       return result;
    }
-
-   public AttributeSet withInitialization(String value)
+   public ClassModelSet withClasses(Clazz value)
    {
-      for (Attribute obj : this)
+      for (ClassModel obj : this)
       {
-         obj.withInitialization(value);
+         obj.withClasses(value);
       }
       
       return this;
    }
 
-   public ClazzSet getClazz()
+   public ClassModelSet withoutClasses(Clazz value)
    {
-      ClazzSet result = new ClazzSet();
-      
-      for (Attribute obj : this)
+      for (ClassModel obj : this)
       {
-         result.add(obj.getClazz());
+         obj.withoutClasses(value);
+      }
+      
+      return this;
+   }
+
+   public AssociationSet getAssociations()
+   {
+      AssociationSet result = new AssociationSet();
+      
+      for (ClassModel obj : this)
+      {
+         result.addAll(obj.getAssociations());
       }
       
       return result;
    }
-   
-   public AttributeSet withClazz(Clazz value)
+   public ClassModelSet withAssociations(Association value)
    {
-      for (Attribute obj : this)
+      for (ClassModel obj : this)
       {
-         obj.withClazz(value);
+         obj.withAssociations(value);
+      }
+      
+      return this;
+   }
+
+   public ClassModelSet withoutAssociations(Association value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.withoutAssociations(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPackageName()
+   {
+      StringList result = new StringList();
+      
+      for (ClassModel obj : this)
+      {
+         result.add(obj.getPackageName());
+      }
+      
+      return result;
+   }
+
+   public ClassModelSet withPackageName(String value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.withPackageName(value);
       }
       
       return this;
@@ -85,7 +121,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
    {
       StringList stringList = new StringList();
       
-      for (Attribute elem : this)
+      for (ClassModel elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -96,73 +132,15 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.Attribute";
+      return "org.sdmlib.models.classes.ClassModel";
    }
 
 
-   public AttributeSet with(Attribute value)
-   {
-      this.add(value);
-      return this;
-   }
-   
-   public AttributeSet without(Attribute value)
-   {
-      this.remove(value);
-      return this;
-   }
-   
-   public StringList getType()
-   {
-      StringList result = new StringList();
-      
-      for (Attribute obj : this)
-      {
-         result.add(obj.getType());
-      }
-      
-      return result;
-   }
-
-   public AttributeSet withType(String value)
-   {
-      for (Attribute obj : this)
-      {
-         obj.setType(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Attribute obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public AttributeSet withName(String value)
-   {
-      for (Attribute obj : this)
-      {
-         obj.setName(value);
-      }
-      
-      return this;
-   }
-
-
-
-   public AttributePO startModelPattern()
+   public ClassModelPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      AttributePO patternObject = pattern.hasElementAttributePO();
+      ClassModelPO patternObject = pattern.hasElementClassModelPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -173,27 +151,33 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
    }
 
 
-   public AttributeSet with(Object value)
+   public ClassModelSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Attribute>)value);
+         this.addAll((Collection<ClassModel>)value);
       }
       else if (value != null)
       {
-         this.add((Attribute) value);
+         this.add((ClassModel) value);
       }
       
+      return this;
+   }
+   
+   public ClassModelSet without(ClassModel value)
+   {
+      this.remove(value);
       return this;
    }
 
 
 
-   public AttributePO hasAttributePO()
+   public ClassModelPO hasClassModelPO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      AttributePO patternObject = pattern.hasElementAttributePO();
+      ClassModelPO patternObject = pattern.hasElementClassModelPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -203,7 +187,6 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return patternObject;
    }
 }
-
 
 
 

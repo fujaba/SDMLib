@@ -1,22 +1,22 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.pattern.creators.PatternObjectCreator;
 
-public class AssociationPOCreator extends PatternObjectCreator
+public class ClassModelPOCreator extends PatternObjectCreator
 {
    public Object getSendableInstance(boolean reference)
    {
-      return new AssociationPO();
+      return new ClassModelPO();
    }
    
    public Object getValue(Object target, String attrName)
    {
-      return ((AssociationPO) target).get(attrName);
+      return ((ClassModelPO) target).get(attrName);
    }
    
    public boolean setValue(Object target, String attrName, Object value)
    {
-      return ((AssociationPO) target).set(attrName, value);
+      return ((ClassModelPO) target).set(attrName, value);
    }
 }
 

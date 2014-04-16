@@ -1,15 +1,11 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.creators.RolePO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.creators.AssociationSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.classes.creators.ClassModelPO;
-import org.sdmlib.models.classes.creators.AssociationPO;
-import org.sdmlib.models.classes.creators.RolePO;
 
 public class AssociationPO extends PatternObject<AssociationPO, Association>
 {

@@ -4,19 +4,16 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.creators.LogEntrySet;
-import org.sdmlib.storyboards.creators.KanbanEntryPO;
-import org.sdmlib.storyboards.creators.LogEntryPO;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
-public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
+public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
 {
    public KanbanEntryPO hasKanbanEntry()
    {
       KanbanEntryPO result = new KanbanEntryPO();
       
       PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(LogEntry.PROPERTY_KANBANENTRY)
+      .withTgt(result).withTgtRoleName(LogEntryStoryBoard.PROPERTY_KANBANENTRY)
       .withSrc(this);
       
       this.getPattern().addToElements(patternLink);
@@ -31,7 +28,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    public LogEntryPO hasKanbanEntry(KanbanEntryPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(LogEntry.PROPERTY_KANBANENTRY)
+      .withTgt(tgt).withTgtRoleName(LogEntryStoryBoard.PROPERTY_KANBANENTRY)
       .withSrc(this);
       
       this.getPattern().addToElements(patternLink);
@@ -45,7 +42,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((LogEntry) this.getCurrentMatch()).withKanbanEntry((KanbanEntry) tgtPO.getCurrentMatch());
+         ((LogEntryStoryBoard) this.getCurrentMatch()).withKanbanEntry((KanbanEntry) tgtPO.getCurrentMatch());
       }
       return this;
    }
@@ -54,7 +51,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((LogEntry) this.getCurrentMatch()).getKanbanEntry();
+         return ((LogEntryStoryBoard) this.getCurrentMatch()).getKanbanEntry();
       }
       return null;
    }

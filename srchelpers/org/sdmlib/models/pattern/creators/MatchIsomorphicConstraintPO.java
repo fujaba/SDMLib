@@ -1,15 +1,11 @@
 package org.sdmlib.models.pattern.creators;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPO;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintSet;
 
 public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicConstraintPO, MatchIsomorphicConstraint>
 {

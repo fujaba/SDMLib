@@ -22,7 +22,6 @@
 package org.sdmlib.models.objects.creators;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
@@ -30,13 +29,6 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.creators.GenericGraphSet;
-
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.objects.creators.GenericAttributeSet;
-import org.sdmlib.models.objects.creators.GenericLinkSet;
 
 public class GenericObjectSet extends SDMSet<GenericObject>
 {

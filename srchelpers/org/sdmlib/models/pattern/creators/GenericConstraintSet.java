@@ -21,15 +21,13 @@
    
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
-import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
 import java.util.Collection;
-import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
 
 public class GenericConstraintSet extends SDMSet<GenericConstraint>

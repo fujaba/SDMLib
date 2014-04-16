@@ -35,12 +35,6 @@ public class RoleCreator extends EntityFactory
       return ((Role) target).set(attrName, value);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
-   
    //==========================================================================
    
    @Override

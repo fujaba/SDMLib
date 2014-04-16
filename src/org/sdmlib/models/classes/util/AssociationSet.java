@@ -19,101 +19,77 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.creators.ClazzSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.creators.AssociationSet;
 
-public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
+public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public ClazzSet getClasses()
+   public ClassModelSet getModel()
    {
-      ClazzSet result = new ClazzSet();
+      ClassModelSet result = new ClassModelSet();
       
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         result.addAll(obj.getClasses());
+         result.add(obj.getModel());
       }
       
       return result;
    }
-   public ClassModelSet withClasses(Clazz value)
+   public AssociationSet withModel(ClassModel value)
    {
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         obj.withClasses(value);
+         obj.withModel(value);
       }
       
       return this;
    }
 
-   public ClassModelSet withoutClasses(Clazz value)
+   public RoleSet getSource()
    {
-      for (ClassModel obj : this)
-      {
-         obj.withoutClasses(value);
-      }
+      RoleSet result = new RoleSet();
       
-      return this;
-   }
-
-   public AssociationSet getAssociations()
-   {
-      AssociationSet result = new AssociationSet();
-      
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         result.addAll(obj.getAssociations());
+         result.add(obj.getSource());
       }
       
       return result;
    }
-   public ClassModelSet withAssociations(Association value)
+   public AssociationSet withSource(Role value)
    {
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         obj.withAssociations(value);
+         obj.withSource(value);
       }
       
       return this;
    }
 
-   public ClassModelSet withoutAssociations(Association value)
+   public RoleSet getTarget()
    {
-      for (ClassModel obj : this)
-      {
-         obj.withoutAssociations(value);
-      }
+      RoleSet result = new RoleSet();
       
-      return this;
-   }
-
-   public StringList getPackageName()
-   {
-      StringList result = new StringList();
-      
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         result.add(obj.getPackageName());
+         result.add(obj.getTarget());
       }
       
       return result;
    }
-
-   public ClassModelSet withPackageName(String value)
+   public AssociationSet withTarget(Role value)
    {
-      for (ClassModel obj : this)
+      for (Association obj : this)
       {
-         obj.withPackageName(value);
+         obj.withTarget(value);
       }
       
       return this;
@@ -125,7 +101,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       StringList stringList = new StringList();
       
-      for (ClassModel elem : this)
+      for (Association elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -136,15 +112,28 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
 
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.ClassModel";
+      return "org.sdmlib.models.classes.Association";
    }
 
 
-   public ClassModelPO startModelPattern()
+   public AssociationSet with(Association value)
+   {
+      this.add(value);
+      return this;
+   }
+   
+   public AssociationSet without(Association value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+
+   public AssociationPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      ClassModelPO patternObject = pattern.hasElementClassModelPO();
+      AssociationPO patternObject = pattern.hasElementAssociationPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -155,33 +144,28 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    }
 
 
-   public ClassModelSet with(Object value)
+   public AssociationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ClassModel>)value);
+         this.addAll((Collection<Association>)value);
       }
       else if (value != null)
       {
-         this.add((ClassModel) value);
+         this.add((Association) value);
       }
       
       return this;
    }
    
-   public ClassModelSet without(ClassModel value)
-   {
-      this.remove(value);
-      return this;
-   }
 
 
 
-   public ClassModelPO hasClassModelPO()
+   public AssociationPO hasAssociationPO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      ClassModelPO patternObject = pattern.hasElementClassModelPO();
+      AssociationPO patternObject = pattern.hasElementAssociationPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -191,7 +175,6 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return patternObject;
    }
 }
-
 
 
 

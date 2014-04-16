@@ -2,8 +2,8 @@ package org.sdmlib.model.taskflows.creators;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.logger.LogEntry;
+import org.sdmlib.logger.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;

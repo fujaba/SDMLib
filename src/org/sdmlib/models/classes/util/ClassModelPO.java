@@ -1,14 +1,9 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.creators.ClassModelSet;
-import org.sdmlib.models.classes.creators.ClazzPO;
-import org.sdmlib.models.classes.creators.AssociationPO;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.classes.creators.ClassModelPO;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {

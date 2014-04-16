@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,80 +19,60 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.creators.ClassModelSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.creators.RoleSet;
 
-public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
+public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
 {
-   public ClassModelSet getModel()
+   private static final long serialVersionUID = 1L;
+
+
+
+   public StringList getInitialization()
    {
-      ClassModelSet result = new ClassModelSet();
+      StringList result = new StringList();
       
-      for (Association obj : this)
+      for (Attribute obj : this)
       {
-         result.add(obj.getModel());
+         result.add(obj.getInitialization());
       }
       
       return result;
    }
-   public AssociationSet withModel(ClassModel value)
+
+   public AttributeSet withInitialization(String value)
    {
-      for (Association obj : this)
+      for (Attribute obj : this)
       {
-         obj.withModel(value);
+         obj.withInitialization(value);
       }
       
       return this;
    }
 
-   public RoleSet getSource()
+   public ClazzSet getClazz()
    {
-      RoleSet result = new RoleSet();
+      ClazzSet result = new ClazzSet();
       
-      for (Association obj : this)
+      for (Attribute obj : this)
       {
-         result.add(obj.getSource());
+         result.add(obj.getClazz());
       }
       
       return result;
    }
-   public AssociationSet withSource(Role value)
+   
+   public AttributeSet withClazz(Clazz value)
    {
-      for (Association obj : this)
+      for (Attribute obj : this)
       {
-         obj.withSource(value);
-      }
-      
-      return this;
-   }
-
-   public RoleSet getTarget()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getTarget());
-      }
-      
-      return result;
-   }
-   public AssociationSet withTarget(Role value)
-   {
-      for (Association obj : this)
-      {
-         obj.withTarget(value);
+         obj.withClazz(value);
       }
       
       return this;
@@ -100,11 +80,12 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
 
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
       
-      for (Association elem : this)
+      for (Attribute elem : this)
       {
          stringList.add(elem.toString());
       }
@@ -113,30 +94,76 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    }
 
 
+   @Override
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.Association";
+      return "org.sdmlib.models.classes.Attribute";
    }
 
 
-   public AssociationSet with(Association value)
+   public AttributeSet with(Attribute value)
    {
       this.add(value);
       return this;
    }
    
-   public AssociationSet without(Association value)
+   public AttributeSet without(Attribute value)
    {
       this.remove(value);
       return this;
    }
+   
+   public StringList getType()
+   {
+      StringList result = new StringList();
+      
+      for (Attribute obj : this)
+      {
+         result.add(obj.getType());
+      }
+      
+      return result;
+   }
+
+   public AttributeSet withType(String value)
+   {
+      for (Attribute obj : this)
+      {
+         obj.setType(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Attribute obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public AttributeSet withName(String value)
+   {
+      for (Attribute obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
 
 
-   public AssociationPO startModelPattern()
+
+   public AttributePO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      AssociationPO patternObject = pattern.hasElementAssociationPO();
+      AttributePO patternObject = pattern.hasElementAttributePO();
       
       patternObject.withCandidates(this.clone());
       
@@ -147,28 +174,27 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    }
 
 
-   public AssociationSet with(Object value)
+   public AttributeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Association>)value);
+         this.addAll((Collection<Attribute>)value);
       }
       else if (value != null)
       {
-         this.add((Association) value);
+         this.add((Attribute) value);
       }
       
       return this;
    }
-   
 
 
 
-   public AssociationPO hasAssociationPO()
+   public AttributePO hasAttributePO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
       
-      AssociationPO patternObject = pattern.hasElementAssociationPO();
+      AttributePO patternObject = pattern.hasElementAttributePO();
       
       patternObject.withCandidates(this.clone());
       
@@ -178,6 +204,8 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       return patternObject;
    }
 }
+
+
 
 
 

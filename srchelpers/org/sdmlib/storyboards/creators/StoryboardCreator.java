@@ -1,6 +1,5 @@
 package org.sdmlib.storyboards.creators;
 
-import org.sdmlib.storyboards.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;

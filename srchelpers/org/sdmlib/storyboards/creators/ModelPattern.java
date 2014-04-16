@@ -2,7 +2,7 @@ package org.sdmlib.storyboards.creators;
 
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
@@ -55,7 +55,7 @@ public class ModelPattern extends Pattern
       return value;
    }
    
-   public LogEntryPO hasElementLogEntryPO(LogEntry hostGraphObject)
+   public LogEntryPO hasElementLogEntryPO(LogEntryStoryBoard hostGraphObject)
    {
       LogEntryPO value = new LogEntryPO();
       this.addToElements(value);

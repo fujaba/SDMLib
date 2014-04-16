@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface

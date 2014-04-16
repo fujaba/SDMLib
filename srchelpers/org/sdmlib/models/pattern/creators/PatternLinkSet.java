@@ -31,8 +31,6 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import java.util.Collections;
 
 public class PatternLinkSet extends LinkedHashSet<PatternLink>
 {

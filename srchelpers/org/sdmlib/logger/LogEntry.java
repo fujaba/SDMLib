@@ -19,15 +19,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.model.taskflows;
+package org.sdmlib.logger;
 
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import org.sdmlib.logger.creators.LogEntrySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.storyboards.creators.LogEntryStoryboardSet;
 
 public class LogEntry implements PropertyChangeInterface
 {
@@ -195,7 +196,7 @@ public class LogEntry implements PropertyChangeInterface
    } 
 
    
-   public static final LogEntrySet EMPTY_SET = new LogEntrySet();
+   public static final LogEntryStoryboardSet EMPTY_SET = new LogEntryStoryboardSet();
 
    
    /********************************************************************
@@ -273,7 +274,7 @@ public class LogEntry implements PropertyChangeInterface
    {
       if (this.children == null)
       {
-         return LogEntry.EMPTY_SET;
+         return new LogEntrySet();
       }
    
       return this.children;

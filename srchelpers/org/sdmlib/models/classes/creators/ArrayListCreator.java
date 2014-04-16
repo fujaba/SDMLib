@@ -1,6 +1,5 @@
 package org.sdmlib.models.classes.creators;
 
-import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -34,11 +33,6 @@ public class ArrayListCreator extends EntityFactory
       return false;
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    
    //==========================================================================
    

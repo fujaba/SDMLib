@@ -1,21 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.creators.ChoiceTemplateSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionPO;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.transformations.creators.ChoiceTemplatePO;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.creators.TemplatePO;
-import org.sdmlib.models.transformations.creators.TemplateSet;
-import org.sdmlib.models.transformations.creators.MatchPO;
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.creators.MatchSet;
 
 public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemplate>
 {

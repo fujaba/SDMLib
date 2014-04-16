@@ -27,7 +27,7 @@ public class ClassModelTemplate {
 		// add classes
 		StringBuilder modelClassesText = new StringBuilder();
 		
-		model.addHelperClassesForUnknownAttributeTypes();
+		model.getGenerator().addHelperClassesForUnknownAttributeTypes();
 		
 		for (Clazz clazz : model.getClasses())
 		{
@@ -90,8 +90,8 @@ public class ClassModelTemplate {
 			CGUtil.replaceAll(oneAssocText, 
 					"sourceClass", CGUtil.shortClassName(assoc.getSource().getClazz().getName()), 
 					"targetClass", CGUtil.shortClassName(assoc.getTarget().getClazz().getName()), 
-					"sourceRole", model.labelForRole(assoc.getSource()), 
-					"targetRole", model.labelForRole(assoc.getTarget()));
+					"sourceRole", assoc.getSource().labelForRole(), 
+					"targetRole", assoc.getTarget().labelForRole());
 
 			allAssocsText.append(oneAssocText.toString());
 		}
@@ -106,7 +106,7 @@ public class ClassModelTemplate {
 			}
 
 //			R tgtCard = model.findRoleCard(attr.getType());
-			String tgtClassName = model.findPartnerClassName(attr.getType());
+			String tgtClassName = model.getGenerator().findPartnerClassName(attr.getType());
 			tgtClassName = CGUtil.shortClassName(tgtClassName);
 
 			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");

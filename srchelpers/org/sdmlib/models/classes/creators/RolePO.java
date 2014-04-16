@@ -3,14 +3,11 @@ package org.sdmlib.models.classes.creators;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.util.AssociationPO;
+import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.creators.RoleSet;
-import org.sdmlib.models.classes.creators.ClazzPO;
-import org.sdmlib.models.classes.creators.AssociationPO;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.classes.creators.RolePO;
 
 public class RolePO extends PatternObject<RolePO, Role>
 {

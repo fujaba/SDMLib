@@ -1,7 +1,7 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.logger.LogEntry;
+import org.sdmlib.logger.Logger;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;

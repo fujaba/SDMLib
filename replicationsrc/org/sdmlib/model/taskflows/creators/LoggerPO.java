@@ -1,6 +1,6 @@
 package org.sdmlib.model.taskflows.creators;
 
-import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.logger.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;

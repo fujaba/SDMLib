@@ -1,7 +1,6 @@
 package org.sdmlib.codegen.creators;
 
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.models.classes.creators.CreatorCreator;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 
@@ -18,21 +17,25 @@ public class StatementEntryCreator extends EntityFactory
       StatementEntry.PROPERTY_ENDPOS,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new StatementEntry();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return ((StatementEntry) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((StatementEntry) target).set(attrName, value);

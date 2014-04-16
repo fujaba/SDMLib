@@ -1,8 +1,7 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
 
 public class AssociationCreator extends EntityFactory
 {
@@ -13,31 +12,30 @@ public class AssociationCreator extends EntityFactory
       Association.PROPERTY_TARGET,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Association();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return ((Association) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Association) target).set(attrName, value);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public void removeObject(Object entity)
    {

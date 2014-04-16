@@ -27,14 +27,9 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-
-import java.util.List;
-import java.util.Collections;
-import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
 public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 {

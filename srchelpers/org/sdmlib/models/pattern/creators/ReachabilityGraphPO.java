@@ -1,17 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
+import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.creators.ReachableStatePO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
-import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.creators.ReachableStateSet;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.creators.PatternSet;
 
 public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, ReachabilityGraph>
 {

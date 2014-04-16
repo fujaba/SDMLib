@@ -1,14 +1,10 @@
 package org.sdmlib.storyboards.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.storyboards.creators.StoryboardPO;
 import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.storyboards.creators.StoryboardStepPO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardStep;
 
 public class StoryboardStepPO extends PatternObject<StoryboardStepPO, StoryboardStep>
 {

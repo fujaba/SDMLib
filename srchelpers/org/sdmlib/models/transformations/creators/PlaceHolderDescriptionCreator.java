@@ -1,9 +1,8 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.transformations.creators.CreatorCreator;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
 
 public class PlaceHolderDescriptionCreator extends EntityFactory
 {

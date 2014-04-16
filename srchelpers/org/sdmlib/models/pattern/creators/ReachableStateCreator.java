@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.creators.CreatorCreator;
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachableStateCreator extends EntityFactory
 {

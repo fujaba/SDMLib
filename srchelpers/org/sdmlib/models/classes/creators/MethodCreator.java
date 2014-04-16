@@ -34,12 +34,6 @@ public class MethodCreator extends EntityFactory
       return ((Method) target).set(attrName, value);
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
-   
    //==========================================================================
    
    @Override

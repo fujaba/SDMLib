@@ -1,12 +1,12 @@
 package org.sdmlib.model.taskflows.creators;
 
+import org.sdmlib.logger.LogEntry;
+import org.sdmlib.logger.Logger;
+import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.model.taskflows.FetchFileFlow;
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SDMTimer;
 import org.sdmlib.model.taskflows.SocketThread;
-import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern

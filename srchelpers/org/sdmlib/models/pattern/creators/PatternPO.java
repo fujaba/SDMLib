@@ -6,10 +6,6 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.models.pattern.creators.PatternElementPO;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternPO extends PatternObject<PatternPO, Pattern>

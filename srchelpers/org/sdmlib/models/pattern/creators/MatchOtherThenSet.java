@@ -30,9 +30,6 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import java.util.Collections;
-import org.sdmlib.models.pattern.creators.PatternObjectSet;
 
 public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
 {

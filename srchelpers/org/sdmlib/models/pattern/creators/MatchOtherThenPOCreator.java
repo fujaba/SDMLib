@@ -1,6 +1,5 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.creators.PatternObjectCreator;
 
 public class MatchOtherThenPOCreator extends PatternObjectCreator
 {

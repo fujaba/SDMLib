@@ -1,48 +1,27 @@
 package org.sdmlib.models.pattern.creators;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.serialization.json.creators.JsonIdMapPO;
 import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapPO;
-
-import java.lang.StringBuilder;
-import org.sdmlib.models.pattern.creators.PatternElementPO;
-import org.sdmlib.models.pattern.creators.PatternPO;
-import org.sdmlib.models.pattern.creators.StringBuilderPO;
-import org.sdmlib.models.pattern.creators.NegativeApplicationConditionPO;
-import org.sdmlib.models.pattern.creators.OptionalSubPatternPO;
-import org.sdmlib.models.pattern.creators.PatternObjectPO;
-import org.sdmlib.models.pattern.creators.PatternLinkPO;
-import org.sdmlib.models.pattern.creators.AttributeConstraintPO;
-import org.sdmlib.models.pattern.creators.LinkConstraintPO;
-import org.sdmlib.models.pattern.creators.MatchIsomorphicConstraintPO;
-import org.sdmlib.models.pattern.creators.DestroyObjectElemPO;
-import org.sdmlib.models.pattern.creators.CardinalityConstraintPO;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.creators.MatchOtherThenPO;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.creators.ReachabilityGraphPO;
-import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.creators.ReachableStatePO;
-import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.creators.CloneOpPO;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.creators.UnifyGraphsOpPO;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.creators.RuleApplicationPO;
-import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.creators.GenericConstraintPO;
-import org.sdmlib.models.pattern.GenericConstraint;
 
 public class ModelPattern extends Pattern
 {

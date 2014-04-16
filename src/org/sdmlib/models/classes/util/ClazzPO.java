@@ -1,18 +1,14 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.creators.MethodPO;
+import org.sdmlib.models.classes.creators.MethodSet;
+import org.sdmlib.models.classes.creators.RolePO;
+import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.creators.ClazzSet;
-import org.sdmlib.models.classes.creators.ClassModelPO;
-import org.sdmlib.models.classes.creators.ClazzPO;
-import org.sdmlib.models.classes.creators.AttributePO;
-import org.sdmlib.models.classes.creators.MethodPO;
-import org.sdmlib.models.classes.creators.RolePO;
-import org.sdmlib.models.pattern.PatternLink;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {

@@ -27,19 +27,15 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
-import java.util.List;
-import org.sdmlib.storyboards.creators.LogEntrySet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
 public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
-   public LogEntrySet getLogEntries()
+   public LogEntryStoryboardSet getLogEntries()
    {
-      LogEntrySet result = new LogEntrySet();
+      LogEntryStoryboardSet result = new LogEntryStoryboardSet();
       
       for (KanbanEntry obj : this)
       {
@@ -48,7 +44,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       
       return result;
    }
-   public KanbanEntrySet withLogEntries(LogEntry value)
+   public KanbanEntrySet withLogEntries(LogEntryStoryBoard value)
    {
       for (KanbanEntry obj : this)
       {
@@ -58,7 +54,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return this;
    }
 
-   public KanbanEntrySet withoutLogEntries(LogEntry value)
+   public KanbanEntrySet withoutLogEntries(LogEntryStoryBoard value)
    {
       for (KanbanEntry obj : this)
       {

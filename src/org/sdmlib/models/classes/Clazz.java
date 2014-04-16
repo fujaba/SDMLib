@@ -35,49 +35,20 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.classes.creators.AttributeSet;
-import org.sdmlib.models.classes.creators.ClazzSet;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Clazz implements PropertyChangeInterface
 {
-   public static final ClazzSet EMPTY_SET = new ClazzSet();
-
-   public static Clazz clazz = null;
-
-   public Clazz()
-   {
-      clazz = this;
-
-      if (ClassModel.classModel != null)
-      {
-         setClassModel(ClassModel.classModel);
-         ClassModel.classModel.addToClasses(this);
-      }
+   public Clazz(){
+      
    }
-
-   public Clazz(String name, String... attrNameTypePairs)
-   {
-      this();
-
+   public Clazz(String name){
       setName(name);
-
-      this.withAttributes(attrNameTypePairs);
-   }
-
-   public Clazz createClassAndAssoc(String tgtClassName, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
-   {
-      Clazz tgtClazz = new Clazz(tgtClassName);
-
-      new Association()
-      .withTarget(tgtRoleName, tgtClazz, tgtCard)
-      .withSource(srcRoleName, this, srcCard);
-
-      return tgtClazz;
    }
 
    public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
@@ -201,14 +172,29 @@ public class Clazz implements PropertyChangeInterface
       return classModel;
    }
 
-   public void setClassModel(ClassModel classModel)
-   {
-      this.classModel = classModel;
-   }
 
-   public Clazz withClassModel(ClassModel classModel)
+   public Clazz withClassModel(ClassModel value)
    {
-      setClassModel(classModel);
+      if (this.classModel != value)
+      {
+         ClassModel oldValue = this.classModel;
+         if (this.classModel != null)
+         {
+            if(name.startsWith(this.classModel.getPackageName())){
+               name = name.substring(this.classModel.getPackageName().length()+1);
+            }
+            this.classModel = null;
+            oldValue.removeFromClasses(this);
+         }
+         this.classModel = value;
+         if(name.indexOf('.') < 0){
+            name = "" + getClassModel().getPackageName()  + "." + name;
+         }  
+         if (value != null)
+         {
+            value.addToClasses(this);
+         }
+      }
       return this;
    }
 
@@ -233,7 +219,6 @@ public class Clazz implements PropertyChangeInterface
 
          if ( !isInterfaze())
          {
-            insertGenericGetSet();
             insertSuperClass();
             insertPropertyChangeSupport();
             insertInterfaceMethods(this, rootDir, helpersDir);
@@ -256,22 +241,26 @@ public class Clazz implements PropertyChangeInterface
       if ( !isInterfaze() )
       {
          // now generate the corresponding creator class
-         getOrCreateParserForCreatorClass(helpersDir);
-         insertRemoveObjectInCreatorClass();
+         if(getAttributes().size()>0 && getClassModel().hasFeature(Feature.Serialization)){
+            getOrCreateParserForCreatorClass(helpersDir);
+            insertRemoveObjectInCreatorClass();
+         }
       }
       printCreatorFile(creatorFileHasChanged);
 
       // now generate the corresponding ModelSet class
       getOrCreateParserForModelSetFile(helpersDir);
       printModelSetFile(modelSetFileHasChanged);
-
-      // now generate the corresponding PatterObject class
-      getOrCreateParserForPatternObjectFile(helpersDir);
-      printPatternObjectFile(patternObjectFileHasChanged);
-
-      // now generate the corresponding PatterObjectCreator class
-      getOrCreateParserForPatternObjectCreatorFile(helpersDir);
-      printPatternObjectCreatorFile(patternObjectCreatorFileHasChanged);
+      if(getClassModel().hasFeature(Feature.PatternObject)){
+   
+         // now generate the corresponding PatterObject class
+         getOrCreateParserForPatternObjectFile(helpersDir);
+         printPatternObjectFile(patternObjectFileHasChanged);
+   
+         // now generate the corresponding PatterObjectCreator class
+         getOrCreateParserForPatternObjectCreatorFile(helpersDir);
+         printPatternObjectCreatorFile(patternObjectCreatorFileHasChanged);
+      }
 
       return this;
    }
@@ -443,6 +432,9 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertRemoveObjectInCreatorClass()
    {
+      if(!getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+         return;
+      }
       String searchString = Parser.METHOD + ":removeObject(Object)";
       int pos = creatorParser.indexOf(searchString);
 
@@ -480,6 +472,9 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertRemoveYouMethod()
    {
+      if(!getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+         return;
+      }
       String searchString = Parser.METHOD + ":removeYou()";
       int pos = parser.indexOf(searchString);
 
@@ -512,6 +507,9 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertPropertyChangeSupport()
    {
+      if(!getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+         return;
+      }
       insertImplementsClauseForPropertyChangeInterface();
 
       // does it implement PropertyChangeSupportClient?
@@ -530,6 +528,7 @@ public class Clazz implements PropertyChangeInterface
                      "\n   " +
                      "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
                      "\n   " +
+                     "\n   @Override" +
                      "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
                      "\n   {" +
                      "\n      return listeners;" +
@@ -671,57 +670,6 @@ public class Clazz implements PropertyChangeInterface
       }
    }
 
-   private void insertGenericGetSet()
-   {
-      // class should have generic get(String attrName) method;
-      String searchString = Parser.METHOD + ":get(String)";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         // add generic get method in class file
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         StringBuilder text = new StringBuilder
-               (  "\n   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   public Object get(String attrName)" +
-                     "\n   {" +
-                     "\n      return null;" +
-                     "\n   }" +
-                     "\n"
-                     );
-
-         parser.getFileBody().insert(pos, text.toString());
-         setFileHasChanged(true);
-      }
-
-      searchString = Parser.METHOD + ":set(String,Object)";
-
-      pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         // add generic get method in class file
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         StringBuilder text = new StringBuilder
-               (  "\n   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   public boolean set(String attrName, Object value)" +
-                     "\n   {" +
-                     "\n      return false;" +
-                     "\n   }" +
-                     "\n"
-                     );
-
-         parser.getFileBody().insert(pos, text.toString());
-         setFileHasChanged(true);
-      }
-   }
-
    private void insertLicense(Parser parser)
    {
       // file should start with head comment
@@ -780,7 +728,7 @@ public class Clazz implements PropertyChangeInterface
    {
       if (this.attributes == null)
       {
-         return Attribute.EMPTY_SET;
+         return new AttributeSet();
       }
 
       return this.attributes;
@@ -855,6 +803,11 @@ public class Clazz implements PropertyChangeInterface
    public void setParser(Parser parser)
    {
       this.parser = parser;
+   }
+   
+   public Parser getParser()
+   {
+      return parser;
    }
 
    Parser creatorParser = null;
@@ -978,7 +931,6 @@ public class Clazz implements PropertyChangeInterface
             StringBuilder text = new StringBuilder(
                "package packageName;\n" +
                      "\n" +
-                     "import CreatorCreatorClass;\n" + 
                      "import org.sdmlib.serialization.interfaces.EntityFactory;\n" +
                      "import org.sdmlib.serialization.json.JsonIdMap;\n" +
                      "import fullEntityClassName;\n" +
@@ -989,38 +941,36 @@ public class Clazz implements PropertyChangeInterface
                      "   {\n" +
                      "   };\n" +
                      "   \n" +
+                     "   @Override\n" +
                      "   public String[] getProperties()\n" +
                      "   {\n" +
                      "      return properties;\n" +
                      "   }\n" +
                      "   \n" +
+                     "   @Override\n" +
                      "   public Object getSendableInstance(boolean reference)\n" +
                      "   {\n" +
                      "      return instanceCreationClause;\n" +
                      "   }\n" +
                      "   \n" +
+                     "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" +
                      "   {\n" +
-                     "      return ((entitiyClassName) target).get(attrName);\n" +
+                   "      return null;\n" +
+//                     "      return ((entitiyClassName) target).get(attrName);\n" +
                      "   }\n" +
                      "   \n" +
+                     "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
                      "   {\n" +
                      "      if (JsonIdMap.REMOVE.equals(type) && value != null)\n" + 
                      "      {\n" + 
                      "         attrName = attrName + type;\n" + 
                      "      }\n" + 
-                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   public static JsonIdMap createIdMap(String sessionID)\n" +
-                     "   {\n" +
-                     "      return CreatorCreator.createIdMap(sessionID);\n" +
+                     "      return false;\n" +
+//                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
                   "}\n");
-
-            CGUtil.replaceAll(text, "CreatorCreatorClass", classModel.getCreatorCreatorClassName());
-
             if (getWrapped())
             {
                // wrapped class does not provide generic get / set
@@ -1039,8 +989,7 @@ public class Clazz implements PropertyChangeInterface
 
                   if (loadClass != null)
                   {
-                     Constructor<?> constructor = loadClass.getConstructor(null);
-
+                     Constructor<?> constructor = loadClass.getConstructor(loadClass);
                      hasConstructor = constructor != null;
                   }
                }
@@ -1114,6 +1063,10 @@ public class Clazz implements PropertyChangeInterface
 
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
+      if(!getClassModel().hasFeature(Feature.ALBERTsSets)){
+         return null;
+      }
+
       if (modelSetParser == null)
       {
          if (this.getName().equals("java.util.Date"))
@@ -1239,6 +1192,9 @@ public class Clazz implements PropertyChangeInterface
 
    private void insertSetStartModelPattern(Parser parser)
    {
+      if(!getClassModel().hasFeature(Feature.PatternObject)){
+         return;
+      }
       String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(this.getName()) + "PO()";
       int pos = parser.indexOf(searchString);
 
@@ -1351,26 +1307,32 @@ public class Clazz implements PropertyChangeInterface
                      "import fullEntityClassName;\n" +
                      "\n" +
                      "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n" +
-                     "{\n" +
-                     "   public entitiyClassNameSet allMatches()\n" + 
-                     "   {\n" + 
-                     "      this.setDoAllMatches(true);\n" + 
-                     "      \n" + 
-                     "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" + 
-                     "\n" + 
-                     "      while (this.getPattern().getHasMatch())\n" + 
-                     "      {\n" + 
-                     "         matches.add((entitiyClassName) this.getCurrentMatch());\n" + 
-                     "         \n" + 
-                     "         this.getPattern().findMatch();\n" + 
-                     "      }\n" + 
-                     "      \n" + 
-                     "      return matches;\n" + 
-                     "   }\n" + 
+                     "{\nALLMATCHES" +
                      "   \n" + 
                      "" + 
                   "}\n");
 
+            if(getClassModel().hasFeature(Feature.ALBERTsSets)){
+               CGUtil.replaceAll(text, 
+                  "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" + 
+                  "   {\n" + 
+                  "      this.setDoAllMatches(true);\n" + 
+                  "      \n" + 
+                  "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" + 
+                  "\n" + 
+                  "      while (this.getPattern().getHasMatch())\n" + 
+                  "      {\n" + 
+                  "         matches.add((entitiyClassName) this.getCurrentMatch());\n" + 
+                  "         \n" + 
+                  "         this.getPattern().findMatch();\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return matches;\n" + 
+                  "   }\n");
+            }else{
+               CGUtil.replaceAll(text, 
+                  "ALLMATCHES", "");
+            }
             CGUtil.replaceAll(text, 
                "patternObjectClassName", patternObjectClassName, 
                "entitiyClassName", entitiyClassName, 
@@ -1385,8 +1347,9 @@ public class Clazz implements PropertyChangeInterface
          patternObjectParser = new Parser()
          .withFileName(fileName)
          .withFileBody(patternObjectFileBody);
-
-         this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
+         if(getClassModel().hasFeature(Feature.ALBERTsSets)){
+            this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
+         }
       }
 
       return patternObjectParser;
@@ -1397,6 +1360,10 @@ public class Clazz implements PropertyChangeInterface
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
    {
+      if(!getClassModel().hasFeature(Feature.Serialization)){
+         return null;
+      }
+
       if (patternObjectCreatorParser == null)
       {
          // try to find existing file
@@ -1748,235 +1715,6 @@ public class Clazz implements PropertyChangeInterface
    }
 
 
-   //==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
-      {
-         return getClassModel();
-      }
-
-      if (PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
-      {
-         return getAttributes();
-      }
-
-      if (PROPERTY_METHODS.equalsIgnoreCase(attrName))
-      {
-         return getMethods();
-      }
-
-      if (PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
-      {
-         return getSourceRoles();
-      }
-
-      if (PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
-      {
-         return getTargetRoles();
-      }
-
-      if (PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
-      {
-         return getKidClasses();
-      }
-
-      if (PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
-      {
-         return getSuperClass();
-      }
-
-      if (PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
-      {
-         return isInterfaze();
-      }
-
-      if (PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
-      {
-         return getKidClassesAsInterface();
-      }
-
-      if (PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
-      {
-         return getInterfaces();
-      }
-
-      if (PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
-      {
-         return isExternal();
-      }
-
-      if (PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
-      {
-         return getWrapped();
-      }
-
-      if (PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
-      {
-         return getFilePath();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
-      {
-         setClassModel((ClassModel) value);
-         return true;
-      }
-
-      if (PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
-      {
-         addToAttributes((Attribute) value);
-         return true;
-      }
-
-      if ((PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromAttributes((Attribute) value);
-         return true;
-      }
-
-      if (PROPERTY_METHODS.equalsIgnoreCase(attrName))
-      {
-         addToMethods((Method) value);
-         return true;
-      }
-
-      if ((PROPERTY_METHODS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromMethods((Method) value);
-         return true;
-      }
-
-      if (PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
-      {
-         addToSourceRoles((Role) value);
-         return true;
-      }
-
-      if ((PROPERTY_SOURCEROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromSourceRoles((Role) value);
-         return true;
-      }
-
-      if (PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
-      {
-         addToTargetRoles((Role) value);
-         return true;
-      }
-
-      if ((PROPERTY_TARGETROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromTargetRoles((Role) value);
-         return true;
-      }
-
-      if (PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
-      {
-         addToKidClasses((Clazz) value);
-         return true;
-      }
-
-      if ((PROPERTY_KIDCLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromKidClasses((Clazz) value);
-         return true;
-      }
-
-      if (PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
-      {
-         setSuperClass((Clazz) value);
-         return true;
-      }
-
-      if (PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
-      {
-         setInterfaze((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
-      {
-         addToKidClassesAsInterface((Clazz) value);
-         return true;
-      }
-
-      if ((PROPERTY_KIDCLASSESASINTERFACE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromKidClassesAsInterface((Clazz) value);
-         return true;
-      }
-
-      if (PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
-      {
-         addToInterfaces((Clazz) value);
-         return true;
-      }
-
-      if ((PROPERTY_INTERFACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromInterfaces((Clazz) value);
-         return true;
-      }
-
-      if (PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
-      {
-         setExternal((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_WRAPPED.equalsIgnoreCase(attrName))
-      {
-         setWrapped((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
-      {
-         setFilePath((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
    public Clazz withAttribute(String name, String type)
    {      
       this.withAttributes(new Attribute().withName(name).withType(type));
@@ -2035,7 +1773,7 @@ public class Clazz implements PropertyChangeInterface
 
       if (pos < 0)
       {         
-         int medthodEndPos = ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+        ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
 
          int addCreatorPos = ccParser.getFileBody().indexOf("creatorSet.addAll", methodBodyStartPos); 
 
@@ -2050,7 +1788,7 @@ public class Clazz implements PropertyChangeInterface
                );
 
          ccParser.getFileBody().insert(addCreatorPos, text.toString());
-         getClassModel().setFileHasChanged(true);
+         getClassModel().getGenerator().setFileHasChanged(true);
       }
 
    }
@@ -2094,7 +1832,7 @@ public class Clazz implements PropertyChangeInterface
 
    public void removeYou()
    {
-      setClassModel(null);
+      withClassModel(null);
       removeAllFromAttributes();
       removeAllFromMethods();
       removeAllFromSourceRoles();
@@ -2124,7 +1862,7 @@ public class Clazz implements PropertyChangeInterface
    {
       if (this.kidClasses == null)
       {
-         return Clazz.EMPTY_SET;
+         return new ClazzSet();
       }
 
       return this.kidClasses;
@@ -2238,7 +1976,7 @@ public class Clazz implements PropertyChangeInterface
    {
       if (this.kidClassesAsInterface == null)
       {
-         return Clazz.EMPTY_SET;
+         return new ClazzSet();
       }
 
       return this.kidClassesAsInterface;
@@ -2323,7 +2061,7 @@ public class Clazz implements PropertyChangeInterface
    {
       if (this.interfaces == null)
       {
-         return Clazz.EMPTY_SET;
+         return new ClazzSet();
       }
 
       return this.interfaces;
@@ -2410,8 +2148,8 @@ public class Clazz implements PropertyChangeInterface
    public void removeAllGeneratedCode(String testDir, String srcDir,
          String helpersDir)
    {
-      getClassModel().turnRemoveCallToComment(testDir);
-      getClassModel().removeAllCodeForClass(srcDir, helpersDir, this);
+      getClassModel().getGenerator().turnRemoveCallToComment(testDir);
+      getClassModel().getGenerator().removeAllCodeForClass(srcDir, helpersDir, this);
    }
 
    public void insertHasMethodsInModelPattern(Parser modelPatternParser)
@@ -2467,7 +2205,7 @@ public class Clazz implements PropertyChangeInterface
 
          modelPatternParser.getFileBody().insert(pos, text.toString());
 
-         getClassModel().setModelPatternFileHasChanged(true);
+         getClassModel().getGenerator().setModelPatternFileHasChanged(true);
       }
    }
 
@@ -2870,6 +2608,4 @@ public class Clazz implements PropertyChangeInterface
       ClazzSet result = new ClazzSet().with(this);
       return result.getInterfacesTransitive();
    }
-
 }
-

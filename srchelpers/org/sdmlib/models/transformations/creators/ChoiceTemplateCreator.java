@@ -1,10 +1,9 @@
 package org.sdmlib.models.transformations.creators;
 
-import org.sdmlib.models.transformations.creators.CreatorCreator;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class ChoiceTemplateCreator extends EntityFactory
 {

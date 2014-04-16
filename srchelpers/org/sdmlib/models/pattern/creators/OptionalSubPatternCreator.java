@@ -1,10 +1,10 @@
 package org.sdmlib.models.pattern.creators;
 
 import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.json.JsonIdMap;
 
 public class OptionalSubPatternCreator extends EntityFactory
 {

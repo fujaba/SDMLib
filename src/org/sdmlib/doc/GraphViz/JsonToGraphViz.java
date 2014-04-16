@@ -32,8 +32,8 @@ import java.util.regex.Matcher;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.creators.LogEntrySet;
+import org.sdmlib.logger.LogEntry;
+import org.sdmlib.logger.creators.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
@@ -52,7 +52,8 @@ public class JsonToGraphViz implements GuiAdapter {
 	private JsonIdMap lastIdMap = null;
 	private static LinkedHashMap<String, String> iconMap;
 
-	public JsonToGraphViz withRootDir(String rootDir) {
+	@Override
+   public JsonToGraphViz withRootDir(String rootDir) {
 		this.rootDir = rootDir;
 		return this;
 	}
@@ -630,7 +631,7 @@ public class JsonToGraphViz implements GuiAdapter {
 		StringBuilder linksText = new StringBuilder();
 
 		for (LogEntry entry : entries) {
-			LogEntry previousEntry = entry.getParent();
+		   LogEntry previousEntry = entry.getParent();
 			if (previousEntry != null) {
 				linksText.append("    " + previousEntry.getNodeName() + "_"
 						+ previousEntry.getTaskName() + " -> "
@@ -643,9 +644,9 @@ public class JsonToGraphViz implements GuiAdapter {
 	}
 
 	@Override
-	public String dumpClassDiagram(String rootdir, String diagName,
+	public String dumpClassDiagram(String diagName,
 			ClassModel model) {
-		StringBuilder dotFileText = new ClassModelTemplate().dump(rootdir,
+		StringBuilder dotFileText = new ClassModelTemplate().dump(rootDir,
 				diagName, model);
 
 		// write dot file

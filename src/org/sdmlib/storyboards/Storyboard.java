@@ -249,7 +249,7 @@ public class Storyboard implements PropertyChangeInterface
             .withPhase(backlog)
             .withParent(kanbanBoard)
             .withLogEntries(
-               new LogEntry()
+               new LogEntryStoryBoard()
                   .withDate(todayString)
                   .withPhase(backlog)
                   .withDeveloper(System.getProperty("user.name"))
@@ -298,10 +298,10 @@ public class Storyboard implements PropertyChangeInterface
       // reuse old logentries to keep kanban.json stable
       double remainingTime = 0.0;
       double hoursSpend = 0.0;
-      Iterator<LogEntry> oldLogEntriesIter = ((HashSet<LogEntry>) kanbanEntry.getLogEntries().clone()).iterator();
+      Iterator<LogEntryStoryBoard> oldLogEntriesIter = ((HashSet<LogEntryStoryBoard>) kanbanEntry.getLogEntries().clone()).iterator();
       Date latestEntryTime = null;
 
-      for (LogEntry newEntry : newLogEntries.values())
+      for (LogEntryStoryBoard newEntry : newLogEntries.values())
       {
          if (latestEntryTime == null)
          {
@@ -318,7 +318,7 @@ public class Storyboard implements PropertyChangeInterface
 
          if (oldLogEntriesIter.hasNext())
          {
-            LogEntry oldEntry = oldLogEntriesIter.next();
+            LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
             oldEntry.withDeveloper(newEntry.getDeveloper())
                .withDate(newEntry.getDate())
                .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
@@ -337,7 +337,7 @@ public class Storyboard implements PropertyChangeInterface
       // remove obsolet oldLogEntries
       while (oldLogEntriesIter.hasNext())
       {
-         LogEntry oldEntry = oldLogEntriesIter.next();
+         LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
          kanbanEntry.removeFromLogEntries(oldEntry);
       }
 
@@ -750,14 +750,14 @@ public class Storyboard implements PropertyChangeInterface
    public void addClassDiagram(ClassModel model)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      diagName = model.dumpClassDiagram(this.getRootDir(), diagName);
+      diagName = model.dumpClassDiagram(diagName);
       this.addSVGImage(diagName);
    }
 
    public void addClassDiagram(ClassModel model, String rootDir)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      diagName = model.dumpClassDiagram(rootDir, diagName);
+      diagName = model.dumpClassDiagram(diagName);
       this.addSVGImage(diagName);
    }
 
@@ -1039,9 +1039,9 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
-   private LinkedHashMap<String, LogEntry> newLogEntries = new LinkedHashMap<String, LogEntry>();
+   private LinkedHashMap<String, LogEntryStoryBoard> newLogEntries = new LinkedHashMap<String, LogEntryStoryBoard>();
 
-   public LinkedHashMap<String, LogEntry> getNewLogEntries()
+   public LinkedHashMap<String, LogEntryStoryBoard> getNewLogEntries()
    {
       return newLogEntries;
    }
@@ -1049,7 +1049,7 @@ public class Storyboard implements PropertyChangeInterface
    public void addLogEntry(String phase, String developer, String date, double hoursSpend, double hoursRemaining,
          String comment)
    {
-      LogEntry logEntry = new LogEntry()
+      LogEntryStoryBoard logEntry = new LogEntryStoryBoard()
          .withDate(date)
          .withPhase(phase)
          .withDeveloper(developer)
@@ -1060,7 +1060,7 @@ public class Storyboard implements PropertyChangeInterface
       this.addLogEntry(logEntry);
    }
 
-   public void addLogEntry(LogEntry entry)
+   public void addLogEntry(LogEntryStoryBoard entry)
    {
       newLogEntries.put(entry.getDate(), entry);
    }
@@ -1098,7 +1098,7 @@ public class Storyboard implements PropertyChangeInterface
    public void add(String string, String phase, String developer, String date, double hoursSpend, double hoursRemaining)
    {
       add(string);
-      addLogEntry(new LogEntry()
+      addLogEntry(new LogEntryStoryBoard()
          .withDate(date)
          .withPhase(phase)
          .withDeveloper(developer)
@@ -1119,7 +1119,7 @@ public class Storyboard implements PropertyChangeInterface
          .withPhase(phase)
          .withParent(kanbanBoard);
 
-      LogEntry logEntry = todoEntry.findOrCreateLogEntry(date, phase)
+      LogEntryStoryBoard logEntry = todoEntry.findOrCreateLogEntry(date, phase)
          .withPhase(phase)
          .withHoursRemainingInTotal(hoursRemaining)
          .withHoursSpend(hoursSpend);

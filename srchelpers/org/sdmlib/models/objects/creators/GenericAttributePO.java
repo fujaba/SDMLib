@@ -5,10 +5,6 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.objects.creators.GenericAttributeSet;
-import org.sdmlib.models.objects.creators.GenericObjectPO;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.objects.creators.GenericAttributePO;
 
 public class GenericAttributePO extends PatternObject
 {

@@ -1,9 +1,8 @@
 package org.sdmlib.models.pattern.creators;
 
-import org.sdmlib.models.pattern.creators.CreatorCreator;
+import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.pattern.RuleApplication;
 
 public class RuleApplicationCreator extends EntityFactory
 {

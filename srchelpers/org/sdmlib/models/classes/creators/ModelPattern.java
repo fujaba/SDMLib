@@ -14,22 +14,15 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.util.AssociationPO;
+import org.sdmlib.models.classes.util.AttributePO;
+import org.sdmlib.models.classes.util.ClassModelPO;
+import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.classes.creators.ClassModelPO;
-import org.sdmlib.models.classes.creators.ClazzPO;
-import org.sdmlib.models.classes.creators.AttributePO;
-import org.sdmlib.models.classes.creators.MethodPO;
-import org.sdmlib.models.classes.creators.AssociationPO;
-import org.sdmlib.models.classes.creators.RolePO;
-import org.sdmlib.models.classes.creators.ArrayListPO;
 
 public class ModelPattern extends Pattern
 {
-   public ModelPattern()
-   {
-      super(CreatorCreator.createIdMap("hg"));
-   }
-   
+  
    public ModelPattern startCreate()
    {
       super.startCreate();

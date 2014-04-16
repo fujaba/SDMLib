@@ -23,7 +23,7 @@ package org.sdmlib.model.taskflows.creators;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
