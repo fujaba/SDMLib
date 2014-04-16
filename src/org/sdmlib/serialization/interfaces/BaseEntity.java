@@ -60,7 +60,7 @@ public interface BaseEntity {
 	 *         brace)</small>.
 	 */
 	public String toString(int indentFactor);
-
+	
 	public String toString(int indentFactor, int intent);
 
 	public BaseEntity withVisible(boolean value);

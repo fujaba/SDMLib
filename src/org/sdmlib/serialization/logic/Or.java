@@ -22,7 +22,6 @@ package org.sdmlib.serialization.logic;
  permissions and limitations under the Licence.
 */
 import java.util.ArrayList;
-
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public class Or implements Condition, SendableEntityCreator {
@@ -51,6 +50,7 @@ public class Or implements Condition, SendableEntityCreator {
 		return result;
 	}
 
+	@Override
 	public String toString(){
 		StringBuilder sb=new StringBuilder();
 		for(Condition condition : list){

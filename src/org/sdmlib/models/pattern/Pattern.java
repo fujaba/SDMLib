@@ -510,7 +510,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public PatternObject bind(Object hostGraphObject)
    {
-      SendableEntityCreator creatorClass = getJsonIdMap().getCreatorClasses(getPOClassName(hostGraphObject.getClass().getName()));
+      SendableEntityCreator creatorClass = getJsonIdMap().getCreatorClassName(getPOClassName(hostGraphObject.getClass().getName()), true);
       
       PatternObject po = (PatternObject) creatorClass.getSendableInstance(false);
       

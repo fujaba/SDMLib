@@ -26,9 +26,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.Entity;
-import org.sdmlib.serialization.EntityCollection;
+import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
@@ -77,7 +76,8 @@ public class XMLEntity extends Entity implements BaseEntityList {
 	 * 
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewArray()
 	 */
-	public EntityCollection getNewArray() {
+	@Override
+	public EntityList<Object> getNewArray() {
 		return null;
 	}
 
@@ -86,6 +86,7 @@ public class XMLEntity extends Entity implements BaseEntityList {
 	 * 
 	 * @see de.uni.kassel.peermessage.BaseEntity#getNewObject()
 	 */
+	@Override
 	public Entity getNewObject() {
 		return new XMLEntity();
 	}
@@ -199,10 +200,8 @@ public class XMLEntity extends Entity implements BaseEntityList {
 		}
 		sb.append(EntityUtil.repeat(' ', indentFactor));
 		sb.append("<" + this.getTag());
-		Map<String, Object> attributes = getMap();
 
-		for (Iterator<Entry<String, Object>> i = attributes.entrySet()
-				.iterator(); i.hasNext();) {
+		for (Iterator<MapEntry<String>> i = this.map.iterator(); i.hasNext();) {
 			Entry<String, Object> attribute = i.next();
 			sb.append(" " + attribute.getKey() + "="
 					+ EntityUtil.quote((String) attribute.getValue()));
@@ -233,14 +232,16 @@ public class XMLEntity extends Entity implements BaseEntityList {
 		return sb.toString();
 	}
 
-	public BaseEntityList initWithMap(Collection<?> value) {
-		for (Iterator<?> i = value.iterator(); i.hasNext();) {
+	@Override
+	public BaseEntityList withValues(Collection<?> collection) {
+		for (Iterator<?> i = collection.iterator(); i.hasNext();) {
 			children.add((XMLEntity) i.next());
 		}
 		return this;
 	}
 
-	public BaseEntityList put(Object value) {
+	@Override
+	public BaseEntityList with(Object value) {
 		children.add((XMLEntity) value);
 		return this;
 	}

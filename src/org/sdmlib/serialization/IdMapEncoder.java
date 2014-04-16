@@ -24,10 +24,12 @@ package org.sdmlib.serialization;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntity;
@@ -65,7 +67,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	/** The updatelistener for Notification changes. */
 	protected PropertyChangeListener updatePropertylistener;
 	
-	protected BidiHashMap<String, Object> keyValue;
+	protected ArrayEntryList<String> keyValue;
 	
 	protected Filter filter=new Filter();
 
@@ -74,7 +76,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	 */
 	public IdMapEncoder() {
 		super();
-		this.keyValue = new BidiHashMap<String, Object>();
+		this.keyValue = new ArrayEntryList<String>();
 		this.withCreator(new TextItems());
 	}
 
@@ -85,7 +87,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	 *            the parent-List of Items
 	 * @return the Map
 	 */
-	public IdMapEncoder withKeyValue(BidiHashMap<String, Object> parent) {
+	public IdMapEncoder withKeyValue(ArrayEntryList<String> parent) {
 		this.keyValue = parent;
 		return this;
 	}
@@ -125,38 +127,6 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 		return this;
 	}
 
-	/**
-	 * Get the current Session Id
-	 * 
-	 * @return sessionid as String
-	 */
-	public String getSessionId() {
-		return getCounter().getPrefixId();
-	}
-
-	/**
-	 * Get the current Splitter Character
-	 * 
-	 * @return Splitter as Character
-	 */
-	public String getPrefixSession() {
-		IdMapCounter counter = getCounter();
-		return counter.getPrefixId() + counter.getSplitter();
-	}
-
-	/**
-	 * Sets the splitter Character.
-	 * 
-	 * @param Character
-	 *            the new splitter-Character for the session id
-	 * @return the Map  
-	 */
-	public IdMapEncoder setSplitterId(char splitter) {
-		getCounter().withSplitter(splitter);
-		return this;
-	}
-
-	// Key Value paar
 	/**
 	 * Gets the Id. Do not generate a Id
 	 * 
@@ -204,6 +174,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	 *            the object
 	 * @return
 	 */
+	@Override
 	public Object put(String jsonId, Object object) {
 		this.keyValue.with(jsonId, object);
 		addListener(object);
@@ -276,7 +247,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 			}
 		}
 		if (key != null) {
-			this.keyValue.remove(key, oldValue);
+			this.keyValue.removeKey(key);
 			if (this.typList != null) {
 				for (TypList list : this.typList) {
 					list.removeObject(oldValue);
@@ -292,19 +263,9 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	 * 
 	 * @return the int
 	 */
+	@Override
 	public int size() {
 		return this.keyValue.size();
-	}
-
-	/**
-	 * Gets the creator classes.
-	 * 
-	 * @param className
-	 *            the class name
-	 * @return the creator classes
-	 */
-	public SendableEntityCreator getCreatorClasses(String className) {
-		return super.getCreatorClasses(className);
 	}
 
 	/**
@@ -417,7 +378,7 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	}
 
 	public Object startUpdateModell(String clazz) {
-		SendableEntityCreator creator = getCreatorClasses(clazz);
+		SendableEntityCreator creator = super.getCreatorClassName(clazz, true);
 		if (creator != null) {
 			Object result = creator.getSendableInstance(false);
 			String id = getId(result);
@@ -434,10 +395,11 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 		ArrayList<Object> result = new ArrayList<Object>();
 		String clazzName = creator.getSendableInstance(true).getClass()
 				.getName();
-		for (Object obj : this.keyValue.getValues()) {
-			if (obj != null) {
-				if (obj.getClass().getName().equals(clazzName)) {
-					result.add(obj);
+		for(Iterator<MapEntry<String>> i = this.keyValue.iterator();i.hasNext();){
+			MapEntry<String> item = i.next();
+			if (item.getValue() != null) {
+				if (item.getValue().getClass().getName().equals(clazzName)) {
+					result.add(item.getValue());
 				}
 			}
 		}
@@ -474,22 +436,27 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 		return result;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return this.keyValue.size() < 1;
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		return this.keyValue.containsKey(""+key);
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		return this.keyValue.containsValue(value);
 	}
 
+	@Override
 	public Object get(Object key) {
 		return getKey(key);
 	}
 	
+	@Override
 	public Object remove(Object oldValue) {
 		if (removeObj(oldValue, false)) {
 			return oldValue;
@@ -497,10 +464,11 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 		return null;
 	}
 
-	public BidiHashMap<String, Object> getKeyValue(){
+	public ArrayEntryList<String> getKeyValue(){
 		return keyValue;
 	}
 	
+	@Override
 	public void putAll(Map<? extends String, ? extends Object> map) {
 		this.clear();
 
@@ -510,21 +478,38 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 		}
 	}
 
+	@Override
 	public void clear() {
 		this.keyValue.clear();
 	}
+	
+    /* Not Good because copy values to new List use iterator
+     * @see java.util.Map#keySet()
+     */
+	@Override
+	@Deprecated
+    public Set<String> keySet() {
+        return new HashSet<String>(keyValue.keySet());
+    }
 
-	public Set<String> keySet() {
-		return keyValue.getKeys();
-	}
-
+    /* Not Good because copy values to new List use iterator
+     * @see java.util.Map#values()
+     */
+	@Override
+	@Deprecated
 	public Collection<Object> values() {
-		return keyValue.getValues();
-	}
+        return keyValue.values();
+    }
 
+    /* Not Good because copy values to new List use iterator
+     * @see java.util.Map#entrySet()
+     */
+	@Override
+	@Deprecated
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
-		return keyValue.entrySet();
-	}
+        return new HashSet<java.util.Map.Entry<String, Object>>(keyValue);
+    }
+
 
 	public IdMapEncoder withUpdateMsgListener(PropertyChangeListener listener) {
 		this.updatePropertylistener = listener;
@@ -533,11 +518,10 @@ public abstract class IdMapEncoder extends AbstractMap implements Map<String, Ob
 	
 	public IdMapEncoder withFilter(Filter filter){
 		this.filter = filter;
-		return this;		
+		return this;
 	}
 	
 	public abstract BaseEntity encode(Object value);
 	public abstract BaseEntity encode(Object value, Filter filter);
 	public abstract BaseEntity getPrototyp();
-	
 }

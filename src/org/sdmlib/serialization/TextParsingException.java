@@ -39,6 +39,7 @@ public class TextParsingException extends RuntimeException {
 		this.index = tokener.position();
 	}
 
+	@Override
 	public String getMessage() {
 		return message;
 	}

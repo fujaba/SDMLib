@@ -24,34 +24,55 @@ package org.sdmlib.serialization.event;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapEntry implements Entry<Object, Object> {
-	private Object key;
+import org.sdmlib.serialization.ArrayEntryList;
+import org.sdmlib.serialization.interfaces.BaseEntity;
+import org.sdmlib.serialization.interfaces.BaseEntityList;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.interfaces.SendableEntityCreatorNoIndex;
+
+public class MapEntry<K> implements Entry<K, Object>, SendableEntityCreator, SendableEntityCreatorNoIndex, BaseEntity{
+	public static final String PROPERTY_KEY = "key";
+	public static final String PROPERTY_VALUE = "value";
+	private final String[] properties = new String[] { PROPERTY_KEY, PROPERTY_VALUE };
+	private K key;
+	private boolean visible=true;
 	private Object value;
 
-	public MapEntry with(Object key, Object value) {
+	public MapEntry<K> with(K key, Object value) {
 		this.key = key;
 		this.value = value;
 		return this;
 	}
 
-	public Object setKey(Object key) {
+	public Object setKey(K key) {
 		this.key = key;
 		return key;
 	}
 
-	public Object getKey() {
+	@Override
+	public K getKey() {
 		return key;
 	}
-
+	
+	public String getKeyString() {
+		if(key instanceof String){
+			return ""+key;
+		}
+		throw new RuntimeException("Key is not a String <"+key+">");
+	}
+	
+	@Override
 	public Object getValue() {
 		return value;
 	}
 
+	@Override
 	public Object setValue(Object value) {
 		this.value = value;
 		return value;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Map.Entry))
 			return false;
@@ -59,16 +80,107 @@ public class MapEntry implements Entry<Object, Object> {
 		return eq(key, e.getKey()) && eq(value, e.getValue());
 	}
 
+	@Override
 	public int hashCode() {
 		return ((key == null) ? 0 : key.hashCode())
 				^ ((value == null) ? 0 : value.hashCode());
 	}
 
+	@Override
 	public String toString() {
 		return key + "=" + value;
+	}
+	
+	public MapEntry<K> withKey(K key) {
+		this.key = key;
+		return this;
+	}
+
+	public MapEntry<K> withValue(Object value) {
+		this.value = value;
+		return this;
 	}
 
 	private static boolean eq(Object o1, Object o2) {
 		return (o1 == null ? o2 == null : o1.equals(o2));
+	}
+	
+	@Override
+	public String[] getProperties() {
+		return properties;
+	}
+
+	@Override
+	public Object getSendableInstance(boolean prototyp) {
+		return new MapEntry<K>();
+	}
+	
+	@Override
+	public Object getValue(Object entity, String attribute) {
+		Entry<?, ?> obj = ((Entry<?, ?>) entity);
+		if (PROPERTY_KEY.equalsIgnoreCase(attribute)) {
+			return obj.getKey();
+		} else if (PROPERTY_VALUE.equalsIgnoreCase(attribute)) {
+			return obj.getValue();
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean setValue(Object entity, String attribute, Object value,
+			String type) {
+		MapEntry<K> entry = (MapEntry<K>) entity;
+		if (PROPERTY_KEY.equalsIgnoreCase(attribute)) {
+			entry.setKey((K)value);
+			return true;
+		} else if (PROPERTY_VALUE.equalsIgnoreCase(attribute)) {
+			if (value instanceof Entry<?, ?>) {
+				Object map = entry.getValue();
+				if (map == null) {
+					map = new MapSet();
+				}
+				if (map instanceof MapSet) {
+					((MapSet) map).add(value);
+				}
+				entry.setValue(map);
+			} else {
+				entry.setValue(value);
+			}
+
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public BaseEntityList getNewArray() {
+		return new ArrayEntryList<MapEntry<K>>();
+	}
+
+	@Override
+	public BaseEntity getNewObject() {
+		return new MapEntry<K>();
+	}
+
+	@Override
+	public String toString(int indentFactor) {
+		return toString();
+	}
+
+	@Override
+	public String toString(int indentFactor, int intent) {
+		return toString();
+	}
+
+	@Override
+	public BaseEntity withVisible(boolean value) {
+		this.visible = value;
+		return this;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return visible;
 	}
 }

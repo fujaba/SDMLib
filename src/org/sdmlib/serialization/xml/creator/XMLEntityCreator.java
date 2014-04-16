@@ -65,6 +65,7 @@ public class XMLEntityCreator implements SendableEntityCreator, XMLGrammar {
 		return false;
 	}
 
+	@Override
 	public boolean parseChild(XMLEntity entity, XMLEntity child, Tokener value) {
 		return false;
 	}

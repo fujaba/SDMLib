@@ -41,6 +41,7 @@ public class SimpleIdCounter implements IdMapCounter {
 	/**
 	 * Set the Session Prefix for a Peer
 	 */
+	@Override
 	public IdMapCounter withPrefixId(String value) {
 		this.prefixId = value;
 		return this;
@@ -49,6 +50,7 @@ public class SimpleIdCounter implements IdMapCounter {
 	/**
 	 * Set the Session Prefix for a Peer
 	 */
+	@Override
 	public String getPrefixId() {
 		return this.prefixId;
 	}
@@ -109,6 +111,7 @@ public class SimpleIdCounter implements IdMapCounter {
 		}
 	}
 
+	@Override
 	public char getSplitter() {
 		return this.splitter;
 	}

@@ -23,7 +23,6 @@ package org.sdmlib.serialization.json;
 */
 import java.util.Iterator;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
@@ -42,7 +41,7 @@ public class Grammar {
 			}
 		}else{
 			JsonObject props=new JsonObject();
-			for(Iterator<Entry<String, Object>> i=jsonObject.iterator();i.hasNext();){
+			for(Iterator<MapEntry<String>> i=jsonObject.iterator();i.hasNext();){
 				Entry<String, Object> item = i.next();
 				if(!JsonIdMap.CLASS.equalsIgnoreCase(item.getKey())){
 					props.put(item.getKey(), item.getValue());
@@ -60,7 +59,7 @@ public class Grammar {
 	public SendableEntityCreator getReadCreator(JsonObject jsonObject,
 			IdMapEncoder map) {
 		Object className = jsonObject.get(JsonIdMap.CLASS);
-		return map.getCreatorClasses((String) className);
+		return map.getCreatorClassName((String) className, true);
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class Grammar {
 	 */
 	public SendableEntityCreator getWriteCreator(Object modelItem,
 			String className, IdMapEncoder map) {
-		return map.getCreatorClasses(className);
+		return map.getCreatorClassName(className, true);
 	}
 
 	public JsonObject getWriteObject(IdMapEncoder map, SendableEntityCreator prototyp,

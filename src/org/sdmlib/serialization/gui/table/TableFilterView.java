@@ -99,12 +99,13 @@ public class TableFilterView {
 		StringBuilder fullText = new StringBuilder();
 		SendableEntityCreator creatorClass = component.getMap().getCreatorClass(item);
 		// SEARCH FOR #ID:3
-		if(creatorClass!=null){
-			for (String property : searchProperties) {
-				Object value = creatorClass.getValue(item, property);
-				if(value!=null){
-					fullText.append(" " + value.toString().toLowerCase());
-				}
+		if(creatorClass==null){
+			return false;
+		}
+		for (String property : searchProperties) {
+			Object value = creatorClass.getValue(item, property);
+			if(value!=null){
+				fullText.append(" " + value.toString().toLowerCase());
 			}
 		}
 

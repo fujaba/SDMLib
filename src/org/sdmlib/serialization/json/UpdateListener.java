@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import org.sdmlib.serialization.IdMapEncoder;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
@@ -416,8 +415,8 @@ public class UpdateListener implements PropertyChangeListener {
 			String key, Object newValue, String typ) {
 		if (newValue instanceof JsonObject) {
 			JsonObject json = (JsonObject) newValue;
-			SendableEntityCreator typeInfo = this.map.getCreatorClasses(json
-					.getString(JsonIdMap.CLASS, ""));
+			SendableEntityCreator typeInfo = this.map.getCreatorClassName(json
+					.getString(JsonIdMap.CLASS, ""), true);
 			if (typeInfo != null) {
 				// notify in readJson
 			} else {

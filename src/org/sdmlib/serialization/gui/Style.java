@@ -22,7 +22,6 @@ package org.sdmlib.serialization.gui;
  permissions and limitations under the Licence.
 */
 import java.util.HashMap;
-
 import org.sdmlib.serialization.interfaces.GUIPosition;
 
 public class Style implements Cloneable{
@@ -219,6 +218,7 @@ public class Style implements Cloneable{
 		return this;
 	}
 	
+	@Override
 	public Style clone(){
 		return clone(new Style());
 	}

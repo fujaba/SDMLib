@@ -21,10 +21,12 @@ package org.sdmlib.serialization;
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 /**
  *AbstractIdMap embedded all methods for all formats.
@@ -33,7 +35,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 
 public abstract class AbstractMap {
 	/** The creators. */
-	protected HashMap<String, SendableEntityCreator> creators = new HashMap<String, SendableEntityCreator>();
+	protected ArrayEntryList<String> creators = new ArrayEntryList<String>(); 
 
 	/**
 	 * Gets the creator class.
@@ -46,34 +48,29 @@ public abstract class AbstractMap {
 		if (reference == null) {
 			return null;
 		}
-		return getCreatorClasses(reference.getClass().getName());
-	}
-
-	/**
-	 * @param clazz Clazzname for search
-	 * @return return a Creator class for a clazz name
-	 */
-	public SendableEntityCreator getCreatorClassName(String clazz) {
-		clazz = "." + clazz;
-		for (Iterator<Entry<String, SendableEntityCreator>> i = this.creators
-				.entrySet().iterator(); i.hasNext();) {
-			Entry<String, SendableEntityCreator> entry = i.next();
-			if (entry.getKey().endsWith(clazz)) {
-				return entry.getValue();
-			}
-		}
-		return null;
+		return getCreatorClassName(reference.getClass().getName(), true);
 	}
 
 	/**
 	 * Gets the creator classes.
-	 *
-	 * @param className
-	 *            the class name
-	 * @return the creator classes
+	 * 
+	 * @param clazz Clazzname for search
+	 * @param fullName if the clazzName is the Fullname for search
+	 * @return return a Creator class for a clazz name
 	 */
-	public SendableEntityCreator getCreatorClasses(String className) {
-		return this.creators.get(className);
+	public SendableEntityCreator getCreatorClassName(String clazz, boolean fullName) {
+		if(fullName){
+			return (SendableEntityCreator) this.creators.get(clazz);
+		}
+		clazz = "." + clazz;
+		for (Iterator<MapEntry<String>> i = this.creators
+				.entrySet().iterator(); i.hasNext();) {
+			Entry<String, Object> entry = i.next();
+			if (entry.getKey().endsWith(clazz) && entry.getValue() instanceof SendableEntityCreator) {
+				return (SendableEntityCreator)entry.getValue();
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -126,14 +123,22 @@ public abstract class AbstractMap {
 	 * @return true, if successful
 	 */
 	public boolean removeCreator(String className) {
-		return this.creators.remove(className)!=null;
+		return this.creators.remove(className);
 	}
 
 	/**
 	 * @return a Collection of All Creators
 	 */
 	public Collection<SendableEntityCreator> getCreators() {
-		return creators.values();
+		ArrayList<SendableEntityCreator> result=new ArrayList<SendableEntityCreator>();
+		for (Iterator<MapEntry<String>> i = this.creators
+				.entrySet().iterator(); i.hasNext();) {
+			Object value = i.next().getValue();
+			if(value instanceof SendableEntityCreator) {
+				result.add((SendableEntityCreator) value);
+			}
+		}
+		return result;
 	}
 
 }

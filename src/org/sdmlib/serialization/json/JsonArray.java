@@ -22,8 +22,11 @@ package org.sdmlib.serialization.json;
  permissions and limitations under the Licence.
 */
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 
+import org.sdmlib.serialization.EntityList;
+import org.sdmlib.serialization.EntityUtil;
+import org.sdmlib.serialization.TextParsingException;
 import org.sdmlib.serialization.Tokener;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 /**
@@ -75,24 +78,229 @@ import org.sdmlib.serialization.interfaces.BaseEntity;
  * @version 2010-12-28
  */
 
-public class JsonArray extends JsonCollection implements List<Object> {
+public class JsonArray extends EntityList<Object> {
+	/**
+	 * Get the JSONArray associated with an index.
+	 * 
+	 * @param index
+	 *            The index must be between 0 and length() - 1.
+	 * @return A JSONArray value.
+	 * @throws TextParsingException
+	 *             If there is no value for the index. or if the value is not a
+	 *             JSONArray
+	 */
+	public JsonArray getJSONArray(int index) throws TextParsingException {
+		Object object = get(index);
+		if (object instanceof JsonArray) {
+			return (JsonArray) object;
+		}
+		throw new TextParsingException("JSONArray[" + index
+				+ "] is not a JSONArray.", index);
+	}
+
+	/**
+	 * Get the JSONObject associated with an index.
+	 * 
+	 * @param index
+	 *            subscript
+	 * @return A JSONObject value.
+	 * @throws TextParsingException
+	 *             If there is no value for the index or if the value is not a
+	 *             JSONObject
+	 */
+	public JsonObject getJSONObject(int index) throws TextParsingException {
+		Object object = get(index);
+		if (object instanceof JsonObject) {
+			return (JsonObject) object;
+		}
+		throw new TextParsingException("JSONArray[" + index
+				+ "] is not a JSONObject.", index);
+	}
+
+	/**
+	 * Produce a JSONObject by combining a JSONArray of names with the values of
+	 * this JSONArray.
+	 * 
+	 * @param names
+	 *            A JSONArray containing a list of key strings. These will be
+	 *            paired with the values.
+	 * @return A JSONObject, or null if there are no names or if this JSONArray
+	 *         has no values.
+	 */
+	public JsonObject toJSONObject(JsonArray names) {
+		if (names == null || names.size() == 0 || size() == 0) {
+			return null;
+		}
+		JsonObject jo = new JsonObject();
+		for (int i = 0; i < names.size(); i += 1) {
+			jo.put(names.getString(i), this.get(i));
+		}
+		return jo;
+	}
+
+	/**
+	 * Make a JSON text of this JSONArray. For compactness, no unnecessary
+	 * whitespace is added. If it is not possible to produce a syntactically
+	 * correct JSON text then null will be returned instead. This could occur if
+	 * the array contains an invalid number.
+	 * <p>
+	 * Warning: This method assumes that the data structure is acyclical.
+	 * 
+	 * @return a printable, displayable, transmittable representation of the
+	 *         array.
+	 */
+	@Override
+	public String toString() {
+		try {
+			if (!isVisible()) {
+				return "[" + size() + " Items]";
+			}
+			return '[' + join(",") + ']';
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	/**
+	 * Make a prettyprinted JSON text of this JSONArray. Warning: This method
+	 * assumes that the data structure is acyclical.
+	 * 
+	 * @param indentFactor
+	 *            The number of spaces to add to each level of indentation.
+	 * @return a printable, displayable, transmittable representation of the
+	 *         object, beginning with <code>[</code>&nbsp;<small>(left
+	 *         bracket)</small> and ending with <code>]</code>
+	 *         &nbsp;<small>(right bracket)</small>.
+	 */
+	@Override
+	public String toString(int indentFactor) {
+		return toString(indentFactor, 0);
+	}
+
+	/**
+	 * Make a prettyprinted JSON text of this JSONArray.
+	 */
+	@Override
+	public String toString(int indentFactor, int indent) {
+		Iterator<Object> iterator = iterator();
+		if (!iterator.hasNext()) {
+			return "[]";
+		}
+
+		if (!isVisible()) {
+			return "[" + size() + " Items]";
+		}
+
+		StringBuilder sb;
+		String step = EntityUtil.repeat(' ', indentFactor);
+		String prefix = "";
+		int newindent =0;
+		if(indent>0){
+			newindent = indent + indentFactor;
+		}
+
+		if (newindent > 0) {
+			sb = new StringBuilder();
+			for (int i = 0; i < indent; i += indentFactor) {
+				sb.append(step);
+			}
+			prefix = CRLF + sb.toString();
+		}
+		// First Element
+		sb = new StringBuilder("[" + prefix);
+		Object element = iterator.next();
+		sb.append(EntityUtil.valueToString(element, indentFactor, newindent,
+				false, this));
+
+		while (iterator.hasNext()) {
+			element = iterator.next();
+			sb.append("," + prefix + step);
+			sb.append(EntityUtil.valueToString(element, indentFactor,
+					newindent, false, this));
+		}
+		sb.append(prefix + ']');
+		return sb.toString();
+	}
+
+	/**
+	 * JSONArray from a source JSON text.
+	 * 
+	 * @param source
+	 *            A string that begins with <code>[</code>&nbsp;<small>(left
+	 *            bracket)</small> and ends with <code>]</code>
+	 *            &nbsp;<small>(right bracket)</small>.
+	 */
 	public JsonArray withValue(String value) {
-		super.withValue(value);
+		clear();
+		new JsonTokener().withText(value).parseToEntity(this);
 		return this;
 	}
 	
+	/**
+	 * JSONArray from a JSONTokener.
+	 * 
+	 * @param x
+	 *            A JSONTokener
+	 */
 	public JsonArray withValue(Tokener x)  {
-		super.withValue(x);
+		x.parseToEntity(this);
 		return this;
 	}
 
+	/**
+	 * JSONArray from a Collection.
+	 * 
+	 * @param collection
+	 *            A Collection.
+	 */
 	public JsonArray withValue(Collection<?> collection) {
-		super.withValue(collection);
+		if (collection != null) {
+			Iterator<?> iter = collection.iterator();
+			while (iter.hasNext()) {
+				add(EntityUtil.wrap(iter.next(), this));
+			}
+		}
 		return this;
 	}
 
+	/**
+	 * JSONArray from a BaseEntityArray.
+	 * 
+	 * @param Array
+	 *            of Elements.
+	 */
 	public JsonArray withValue(BaseEntity... values) {
-		super.withValue(values);
+		for (int i = 0; i < values.length; i++) {
+			add(EntityUtil.wrap(values[i], this));
+		}
 		return this;
+	}
+	
+	/**
+	 * Get a new Instance of a JsonObject
+	 */
+	@Override
+	public JsonObject getNewObject() {
+		return new JsonObject();
+	}
+
+	/**
+	 * Get a new Instance of a JsonArray
+	 */
+	@Override
+	public JsonArray getNewArray() {
+		return new JsonArray();
+	}
+	
+	public JsonObject get(String id){
+		for(Object item : values){
+			if(item instanceof JsonObject){
+				JsonObject json = (JsonObject) item;
+				if(json.has(JsonIdMap.ID) && json.getString(JsonIdMap.ID).equals(id)){
+					return json;
+				}
+			}
+		}
+		return null;
 	}
 }

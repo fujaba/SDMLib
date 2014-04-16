@@ -24,6 +24,7 @@ package org.sdmlib.serialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
 
 public class EntityUtil {
@@ -202,16 +203,16 @@ public class EntityUtil {
 		if (value instanceof Entity) {
 			return ((Entity) value).toString(indentFactor, intent);
 		}
-		if (value instanceof EntityCollection) {
-			return ((EntityCollection) value).toString(indentFactor, intent);
+		if (value instanceof EntityList) {
+			return ((EntityList<?>) value).toString(indentFactor, intent);
 		}
 		if (value instanceof Map) {
 			Entity entity = (Entity) reference.getNewObject();
-			entity.initWithMap(value);
+			entity.withValues((Map<?, ?>) value);
 			return entity.toString(indentFactor, intent);
 		}
 		if (value instanceof Collection) {
-			return reference.getNewArray().initWithMap((Collection<?>) value)
+			return reference.getNewArray().withValues((Collection<?>) value)
 					.toString(indentFactor, intent);
 		}
 		if (value.getClass().isArray()) {
@@ -220,7 +221,7 @@ public class EntityUtil {
 			for (Object item : items) {
 				arrayList.add(item);
 			}
-			return reference.getNewArray().initWithMap(arrayList)
+			return reference.getNewArray().withValues(arrayList)
 					.toString(indentFactor, intent);
 		}
 		if (simpleText) {
@@ -243,16 +244,16 @@ public class EntityUtil {
 		if (value instanceof Entity) {
 			return ((Entity) value).toString();
 		}
-		if (value instanceof EntityCollection) {
-			return ((EntityCollection) value).toString();
+		if (value instanceof EntityList) {
+			return ((EntityList<?>) value).toString();
 		}
 		if (value instanceof Map) {
 			Entity entity = (Entity) reference.getNewObject();
-			entity.initWithMap(value);
+			entity.withValues((Map<?, ?>) value);
 			return entity.toString();
 		}
 		if (value instanceof Collection) {
-			return reference.getNewArray().initWithMap((Collection<?>) value)
+			return reference.getNewArray().withValues((Collection<?>) value)
 					.toString();
 		}
 		if (value.getClass().isArray()) {
@@ -262,7 +263,7 @@ public class EntityUtil {
 				arrayList.add(item);
 			}
 
-			return reference.getNewArray().initWithMap(arrayList).toString();
+			return reference.getNewArray().withValues(arrayList).toString();
 		}
 		if (simpleText) {
 			return value.toString();
@@ -288,7 +289,7 @@ public class EntityUtil {
 				return null;
 			}
 
-			if (object instanceof Entity || object instanceof EntityCollection
+			if (object instanceof Entity || object instanceof EntityList
 					|| object instanceof Byte || object instanceof Character
 					|| object instanceof Short || object instanceof Integer
 					|| object instanceof Long || object instanceof Boolean
@@ -298,16 +299,16 @@ public class EntityUtil {
 			}
 
 			if (object instanceof Collection) {
-				return reference.getNewArray().initWithMap(
+				return reference.getNewArray().withValues(
 						(Collection<?>) object);
 			}
 			if (object.getClass().isArray()) {
-				return reference.getNewArray().initWithMap(
+				return reference.getNewArray().withValues(
 						(Collection<?>) object);
 			}
 			if (object instanceof Map) {
 				Entity entity = (Entity) reference.getNewObject();
-				entity.initWithMap(object);
+				entity.withValues((Map<?, ?>) object);
 				return entity;
 			}
 			if (object.getClass().getName().startsWith("java.")

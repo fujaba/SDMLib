@@ -96,4 +96,10 @@ public class StringBuilderBuffer extends TextBuffer {
 		}
 		return c;
 	}
+
+   @Override
+   public boolean isCache()
+   {
+      return true;
+   }
 }

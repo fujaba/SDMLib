@@ -26,6 +26,7 @@ public interface ByteItem extends BaseEntity{
 	/**
 	 * @return the ByteItem as String
 	 */
+	@Override
 	public String toString();
 
 	/**

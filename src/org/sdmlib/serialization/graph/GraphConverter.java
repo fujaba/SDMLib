@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
@@ -221,7 +222,7 @@ public class GraphConverter implements Converter {
 			splitter = ":";
 		}
 		for(Attribute attribute : attributes){
-			result.put(attribute.getKey() + splitter + attribute.getValue(typ, shortName));
+			result.add(attribute.getKey() + splitter + attribute.getValue(typ, shortName));
 		}
 		return result;
 	}

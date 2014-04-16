@@ -78,6 +78,7 @@ public class Equals extends ConditionMap implements SendableEntityCreator {
 		return strValue;
 	}
 	
+	@Override
 	public String toString(){
 		if(strValue!=null){
 			return "=="+strValue+" ";

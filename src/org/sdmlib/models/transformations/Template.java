@@ -591,7 +591,7 @@ public class Template implements PropertyChangeInterface
 
          currentPosInExpandedText = endOfMatchInExpandedText;
 
-         SendableEntityCreator creator = this.getIdMap().getCreatorClasses(this.getModelClassName());
+         SendableEntityCreator creator = this.getIdMap().getCreatorClassName(this.getModelClassName(), true);
 
          boolean first = true;
          

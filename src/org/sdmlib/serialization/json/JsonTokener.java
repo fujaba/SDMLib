@@ -93,12 +93,12 @@ public class JsonTokener extends Tokener {
 					JsonArray propList = null;
 					if (child instanceof JsonObject) {
 						propList = new JsonArray();
-						propList.put(child);
+						propList.add(child);
 					} else if (child instanceof JsonArray) {
 						propList = (JsonArray) child;
 					}
 					if (propList != null) {
-						propList.put(parseEntity(new JsonObject(),
+						propList.add(parseEntity(new JsonObject(),
 								(XMLEntity) propValue));
 						props.put(prop, propList);
 					}
@@ -196,9 +196,9 @@ public class JsonTokener extends Tokener {
 			for (;;) {
 				c=getCurrentChar();
 				if (c == ',') {
-					entityList.put(null);
+					entityList.add(null);
 				} else {
-					entityList.put(nextValue(entityList));
+					entityList.add(nextValue(entityList));
 				}
 				c = nextStartClean();
 				switch (c) {

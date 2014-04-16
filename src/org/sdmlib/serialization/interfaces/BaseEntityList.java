@@ -24,9 +24,9 @@ package org.sdmlib.serialization.interfaces;
 import java.util.Collection;
 
 public interface BaseEntityList extends BaseEntity {
-	public BaseEntityList initWithMap(Collection<?> value);
-
-	public BaseEntityList put(Object value);
+	public BaseEntityList withValues(Collection<?> collection);
+	
+	public BaseEntityList with(Object value);
 
 	public int size();
 

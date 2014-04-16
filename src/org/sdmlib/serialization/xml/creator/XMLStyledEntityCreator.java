@@ -55,6 +55,7 @@ public class XMLStyledEntityCreator implements SendableEntityCreator, XMLGrammar
 		return ((XMLStyledEntity) entity).set(attribute, value);
 	}
 
+	@Override
 	public boolean parseChild(XMLEntity entity, XMLEntity child, Tokener value) {
 		XMLStyledEntity source = (XMLStyledEntity) entity;
 		XMLStyledEntity target = (XMLStyledEntity) child;

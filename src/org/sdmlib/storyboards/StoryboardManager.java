@@ -31,11 +31,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -47,18 +43,14 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import javax.swing.event.ListSelectionEvent;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonArraySorted;
 import org.sdmlib.serialization.json.JsonIdComparator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.storyboards.creators.KanbanEntryCreator;
-import org.sdmlib.storyboards.creators.KanbanEntrySet;
 
 public class StoryboardManager 
 {
@@ -291,7 +283,7 @@ public class StoryboardManager
    private void dumpKanbanEntriesToJson()
    {
       // store json data
-      JsonArraySorted jsonArray = new JsonArraySorted().withComparator(new JsonIdComparator());
+      JsonArray jsonArray = (JsonArray) new JsonArray().withComparator(new JsonIdComparator());
       kanbanIdMap.toJsonArray(kanbanBoard, jsonArray, null);
       String jsonString = jsonArray.toString(2);
 
@@ -398,7 +390,9 @@ public class StoryboardManager
       collectHours(kanbanBoard);
 
       // store entries into file for next run
-      JsonArraySorted jsonArray = kanbanIdMap.toJsonSortedArray(kanbanBoard, JsonIdMap.ID);
+      JsonArray jsonArray = new JsonArray();
+      jsonArray .withComparator(JsonIdMap.ID);
+      kanbanIdMap.toJsonArray(kanbanBoard, jsonArray, null);
       String text = jsonArray.toString(2);
       File file = new File (DOC_KANBAN_ENTRIES_JSON);
       printFile(file, text);

@@ -92,11 +92,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             String className = this.getClass().getName();
             className = className.replace(".creators.", ".");
             className = className.substring(0, className.length() - 2);
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClasses(className);
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClassName(className, true);
             if (creatorClass == null)
             {
                className = CGUtil.packageName(className) + ".impl." + CGUtil.shortClassName(className) + "Impl";
-               creatorClass = this.getPattern().getJsonIdMap().getCreatorClasses(className);
+               creatorClass = this.getPattern().getJsonIdMap().getCreatorClassName(className, true);
             }
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);

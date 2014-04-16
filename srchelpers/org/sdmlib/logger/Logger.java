@@ -66,7 +66,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
          }
 
          LogEntry newEntry = createEntries()
-               .withNodeName(getSubFlow().getIdMap().getSessionId())
+               .withNodeName(getSubFlow().getIdMap().getCounter().getPrefixId())
                .withTaskName(getSubFlow().getTaskNames()[getSubFlow().getTaskNo()].toString());
 
          if(previousEntry != null)

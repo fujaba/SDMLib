@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
@@ -38,8 +37,8 @@ public class GraphList implements BaseEntityList {
 	private String typ;
 
 	@Override
-	public BaseEntityList initWithMap(Collection<?> value) {
-		for (Iterator<?> i = value.iterator(); i.hasNext();) {
+	public BaseEntityList withValues(Collection<?> collection) {
+		for (Iterator<?> i = collection.iterator(); i.hasNext();) {
 			Object item = i.next();
 			if (item instanceof GraphNode) {
 				GraphNode entity = (GraphNode) item;
@@ -50,7 +49,7 @@ public class GraphList implements BaseEntityList {
 	}
 
 	@Override
-	public BaseEntityList put(Object value) {
+	public BaseEntityList with(Object value) {
 		if (value instanceof GraphNode) {
 			GraphNode entity = (GraphNode) value;
 			children.put(entity.getId(), entity);

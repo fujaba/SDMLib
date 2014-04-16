@@ -7,7 +7,7 @@ import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 public class GenericIdMap extends SDMLibJsonIdMap
 {
    @Override
-   public SendableEntityCreator getCreatorClasses(String className) 
+   public SendableEntityCreator getCreatorClassName(String className, boolean fullName) 
    {
       if (className.startsWith("java.util.Collections$"))
       {
@@ -28,7 +28,7 @@ public class GenericIdMap extends SDMLibJsonIdMap
          
       }
       
-      SendableEntityCreator sendableEntityCreator = this.creators.get(className);
+      SendableEntityCreator sendableEntityCreator = (SendableEntityCreator) this.creators.get(className);
       
       if (sendableEntityCreator == null)
       {

@@ -23,7 +23,6 @@ package org.sdmlib.serialization.xml;
 */
 import java.util.Collection;
 import java.util.HashSet;
-
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.IdMapEncoder;
@@ -92,10 +91,8 @@ public class XMLSimpleIdMap extends IdMap {
 	 * Read Json Automatic create JsonArray or JsonObject
 	 * @return the object
 	 */
+	@Override
 	public Object decode(String value){
-		if(value.startsWith("<")){
-			return decode(getPrototyp().getNewArray().withValue(value));
-		}
 		return decode(getPrototyp().withValue(value));
 	}
 
@@ -245,7 +242,7 @@ public class XMLSimpleIdMap extends IdMap {
 							} else {
 								break;
 							}
-						} while (newTag != null);
+						} while (true);
 						child = parse(newTag, tokener.withPrefix(""), grammar);
 						if (child != null && child instanceof XMLEntity) {
 							grammar.addChildren(entity, (XMLEntity)child);

@@ -49,6 +49,7 @@ public class TextItems implements SendableEntityCreator, LocalisationInterface {
 		return attribute;
 	}
 	
+	@Override
 	public String getText(String label, Object model, Object gui) {
 		String text = null;
 		if (customLanguage != null) {
@@ -90,6 +91,7 @@ public class TextItems implements SendableEntityCreator, LocalisationInterface {
 		return new String[] { PROPERTY_VALUE };
 	}
 
+	@Override
 	public Object getSendableInstance(boolean prototyp) {
 		return new TextItems();
 	}

@@ -164,7 +164,7 @@ public class JsonFilter extends IdMapFilter {
 			if (items.contains(typ + property)) {
 				return false;
 			} else {
-				String sessionIdMap = map.getPrefixSession();
+				String sessionIdMap = map.getCounter().getPrefixId();
 				if (isId
 						&& (!checkModelValue || property
 								.startsWith(sessionIdMap))) {
@@ -219,7 +219,8 @@ public class JsonFilter extends IdMapFilter {
 		return super.isRegard(map, entity, property, value, isMany);
 	}
 
-	public Object get(String attrName) {
+	@Override
+   public Object get(String attrName) {
 		int pos = attrName.indexOf(".");
 		String attribute = attrName;
 
@@ -239,7 +240,8 @@ public class JsonFilter extends IdMapFilter {
 		return this.items.toArray(new String[this.items.size()]);
 	}
 
-	public boolean set(String attribute, Object value) {
+	@Override
+   public boolean set(String attribute, Object value) {
 		if (PROPERTY_ITEMS.equalsIgnoreCase(attribute)) {
 			if (value instanceof String) {
 				return add("" + value);
