@@ -27,20 +27,24 @@ import java.util.Set;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 
 public class ClassModel extends SDMLibClass
 {
-   public static final String PROPERTY_ASSOCIATIONS = "associations";
    public static final String PROPERTY_CLASSES = "classes";
    public static final String PROPERTY_PACKAGENAME = "packageName";
    private Set<Feature> features=Feature.getNone();
-   private AssociationSet associations = null;
    private ClazzSet classes;
    private String packageName;
    private GenClassModel generator;
-	
+
+   public ClassModel(){
+      
+   }
+   public ClassModel(String packageName){
+      withPackageName(packageName);
+   }
+   
 	public ClassModel generate()
 	{
 		return generate("src");
@@ -80,26 +84,7 @@ public class ClassModel extends SDMLibClass
 	   return null;
 	}
 
-	public ClassModel withClasses(Clazz value)
-	{
-		addToClasses(value);
-		return this;
-	}
-
-	public ClassModel withoutClasses(Clazz value)
-	{
-		removeFromClasses(value);
-		return this;
-	}
-
-	public Clazz createClazz()
-	{
-		Clazz clazz = new Clazz();
-		this.addToClasses(clazz);
-		return clazz;
-	}
-
-	public Clazz createClazz(String name, String... attrNameTypePairs)
+	public Clazz createClazz(String name)
 	{
 		Clazz clazz = new Clazz(name);
 		clazz.withClassModel(this);
@@ -151,93 +136,13 @@ public class ClassModel extends SDMLibClass
 		return graphViz.dumpClassDiagram(diagName, this);
 	}
 
-	/********************************************************************
-	 * <pre>
-	 *              one                       many
-	 * ClassModel ----------------------------------- Association
-	 *              model                   associations
-	 * </pre>
-	 */
-	public AssociationSet getAssociations()
-	{
-		if (this.associations == null)
-		{
-			return new AssociationSet();
-		}
-
-		return this.associations;
-	}
-
-	public boolean addToAssociations(Association value)
-	{
-		boolean changed = false;
-
-		if (value != null)
-		{
-			if (this.associations == null)
-			{
-				this.associations = new AssociationSet();
-			}
-
-			changed = this.associations.add(value);
-
-			if (changed)
-			{
-				value.withModel(this);
-			}
-		}
-
-		return changed;
-	}
-
-	public boolean removeFromAssociations(Association value)
-	{
-		boolean changed = false;
-
-		if ((this.associations != null) && (value != null))
-		{
-			changed = this.associations.remove(value);
-
-			if (changed)
-			{
-				value.setModel(null);
-			}
-		}
-
-		return changed;
-	}
-
-	public ClassModel withAssociations(Association value)
-	{
-		addToAssociations(value);
-		return this;
-	}
-
-	public ClassModel withoutAssociations(Association value)
-	{
-		removeFromAssociations(value);
-		return this;
-	}
-
-	public void removeAllFromAssociations()
-	{
-		LinkedHashSet<Association> tmpSet = new LinkedHashSet<Association>(this.getAssociations());
-
-		for (Association value : tmpSet)
-		{
-			this.removeFromAssociations(value);
-		}
-	}
-
 	// ==========================================================================
 
 	public void removeYou()
 	{
 		removeAllFromClasses();
-		removeAllFromAssociations();
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 	}
-
 
 	public void removeAllGeneratedCode()
    {
@@ -293,31 +198,6 @@ public class ClassModel extends SDMLibClass
       for (Clazz item : value)
       {
          removeFromClasses(item);
-      }
-      return this;
-   }
-
-   public Clazz createClasses()
-   {
-      Clazz value = new Clazz();
-      withClasses(value);
-      return value;
-   } 
-
-   public ClassModel withAssociations(Association... value)
-   {
-      for (Association item : value)
-      {
-         addToAssociations(item);
-      }
-      return this;
-   } 
-
-   public ClassModel withoutAssociations(Association... value)
-   {
-      for (Association item : value)
-      {
-         removeFromAssociations(item);
       }
       return this;
    }

@@ -175,60 +175,6 @@ public class Association implements PropertyChangeInterface
       setTarget(value);
       return this;
    } 
-
-   
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Association ----------------------------------- ClassModel
-    *              associations                   model
-    * </pre>
-    */
-   
-   public static final String PROPERTY_MODEL = "model";
-   
-   private ClassModel model = null;
-   
-   public ClassModel getModel()
-   {
-      return this.model;
-   }
-   
-   public boolean setModel(ClassModel value)
-   {
-      boolean changed = false;
-      
-      if (this.model != value)
-      {
-         ClassModel oldValue = this.model;
-         
-         if (this.model != null)
-         {
-            this.model = null;
-            oldValue.withoutAssociations(this);
-         }
-         
-         this.model = value;
-         
-         if (value != null)
-         {
-            value.withAssociations(this);
-         }
-         
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_MODEL, null, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-   
-   public Association withModel(ClassModel value)
-   {
-      setModel(value);
-      return this;
-   } 
-
    
    /********************************************************************
     * <pre>
@@ -293,18 +239,12 @@ public class Association implements PropertyChangeInterface
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (PROPERTY_MODEL.equalsIgnoreCase(attrName))
-      {
-         return getModel();
-      }
-
-      if (PROPERTY_SOURCE.equalsIgnoreCase(attrName))
+      if (PROPERTY_SOURCE.equalsIgnoreCase(attribute))
       {
          return getSource();
       }
 
-      if (PROPERTY_TARGET.equalsIgnoreCase(attrName))
+      if (PROPERTY_TARGET.equalsIgnoreCase(attribute))
       {
          return getTarget();
       }
@@ -317,12 +257,6 @@ public class Association implements PropertyChangeInterface
    
    public boolean set(String attrName, Object value)
    {
-      if (PROPERTY_MODEL.equalsIgnoreCase(attrName))
-      {
-         setModel((ClassModel) value);
-         return true;
-      }
-
       if (PROPERTY_SOURCE.equalsIgnoreCase(attrName))
       {
          setSource((Role) value);
@@ -354,7 +288,15 @@ public class Association implements PropertyChangeInterface
    
    public void removeYou()
    {
-      setModel(null);
+      Clazz targetClazz=null;
+      if(getSource()!=null){
+         targetClazz = getSource().getClazz();
+      }else if(getTarget()!=null){
+         targetClazz = getTarget().getClazz();
+      }
+      if(targetClazz!=null){
+         targetClazz.getClassModel().getGenerator().removeFromAssociations(this);
+      }
       setSource(null);
       setTarget(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -363,7 +305,6 @@ public class Association implements PropertyChangeInterface
    public ClassModel createModel()
    {
       ClassModel value = new ClassModel();
-      withModel(value);
       return value;
    } 
 

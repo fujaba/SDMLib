@@ -7,9 +7,8 @@ public class AssociationCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Association.PROPERTY_MODEL,
       Association.PROPERTY_SOURCE,
-      Association.PROPERTY_TARGET,
+      Association.PROPERTY_TARGET
    };
    
    @Override

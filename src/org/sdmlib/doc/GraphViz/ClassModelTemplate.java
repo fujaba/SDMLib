@@ -83,7 +83,7 @@ public class ClassModelTemplate {
 		}
 
 		// add associations
-		for (Association assoc : model.getAssociations())
+		for (Association assoc : model.getGenerator().getAssociations())
 		{
 			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"none\" ];");
 

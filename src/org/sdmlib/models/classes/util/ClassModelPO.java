@@ -7,11 +7,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {
+   @Override
    public ClassModelPO startNAC()
    {
       return (ClassModelPO) super.startNAC();
    }
    
+   @Override
    public ClassModelPO endNAC()
    {
       return (ClassModelPO) super.endNAC();
@@ -64,40 +66,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return null;
    }
    
-   public AssociationPO hasAssociations()
-   {
-      AssociationPO result = new AssociationPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(ClassModel.PROPERTY_ASSOCIATIONS, result);
-      
-      return result;
-   }
-   
-   public ClassModelPO hasAssociations(AssociationPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ClassModel.PROPERTY_ASSOCIATIONS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public AssociationSet getAssociations()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ClassModel) this.getCurrentMatch()).getAssociations();
-      }
-      return null;
-   }
-   
-   public ClassModelPO hasPackageName(String value)
+     public ClassModelPO hasPackageName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
       .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
@@ -150,19 +119,4 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    {
       return this.startCreate().hasClasses(tgt).endCreate();
    }
-
-   public AssociationPO createAssociations()
-   {
-      return this.startCreate().hasAssociations().endCreate();
-   }
-
-   public ClassModelPO createAssociations(AssociationPO tgt)
-   {
-      return this.startCreate().hasAssociations(tgt).endCreate();
-   }
-
 }
-
-
-
-

@@ -42,8 +42,68 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-public class Clazz implements PropertyChangeInterface
+public class Clazz extends SDMLibClass
 {
+   public static final String PROPERTY_NAME = "name";
+   public static final String PROPERTY_SUPERCLASS = "superClass";
+   public static final String PROPERTY_ATTRIBUTES = "attributes";
+   public static final String PROPERTY_CLASSMODEL = "classModel";
+   public static final String PROPERTY_KIDCLASSES = "kidClasses";
+   public static final String PROPERTY_EXTERNAL = "external";
+   public static final String PROPERTY_FILEPATH = "filePath";
+   public static final String PROPERTY_INTERFACES = "interfaces";
+   public static final String PROPERTY_INTERFAZE = "interfaze";
+   public static final String PROPERTY_METHODS = "methods";
+   public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
+   public static final String PROPERTY_SOURCEROLES = "sourceRoles";
+   public static final String PROPERTY_TARGETROLES = "targetRoles";
+   public static final String PROPERTY_WRAPPED = "wrapped";
+
+   private ClassModel classModel = null;
+   private StringBuilder fileBody;
+   private StringBuilder creatorFileBody;
+  
+   private boolean external;
+   private String filePath;
+   private MethodSet methods = null;
+   
+   private ClazzSet kidClasses = null;
+   private ClazzSet kidClassesAsInterface = null;
+   private ClazzSet interfaces = null;
+   private Boolean interfaze = false;
+   private Clazz superClass = null; 
+
+   private RoleSet sourceRoles = null;
+   private RoleSet targetRoles = null;
+   private boolean wrapped;
+
+   private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
+   private boolean fileHasChanged;
+   private boolean creatorFileHasChanged;
+   private boolean modelSetFileHasChanged;
+   private boolean patternObjectFileHasChanged;
+   private boolean patternObjectCreatorFileHasChanged;
+
+   private String name = null; 
+   private AttributeSet attributes = null;
+   
+
+   Parser creatorParser = null;
+
+   private File javaFile;
+   private File creatorJavaFile;
+   private File modelSetJavaFile;
+   private File patternObjectJavaFile;
+   private File patternObjectCreatorJavaFile;
+
+   private Parser modelSetParser = null;
+   private StringBuilder modelSetFileBody;
+   private Parser patternObjectParser = null;
+   private StringBuilder patternObjectFileBody;
+   private Parser patternObjectCreatorParser = null;
+   private StringBuilder patternObjectCreatorFileBody;
+   Parser parser = null;
+   
    public Clazz(){
       
    }
@@ -60,8 +120,7 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
 
-   public static final String PROPERTY_NAME = "name";
-   private String name = null; 
+
 
    public String getName()
    {
@@ -91,8 +150,6 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
 
-   public static final String PROPERTY_SUPERCLASS = "superClass";
-   private Clazz superClass = null; 
 
    public Clazz getSuperClass()
    {
@@ -126,22 +183,6 @@ public class Clazz implements PropertyChangeInterface
       setSuperClass(superClass);
       return this;
    }
-
-   public static final String PROPERTY_CLASSMODEL = "classModel";
-   private ClassModel classModel = null;
-
-   private StringBuilder fileBody;
-   private StringBuilder creatorFileBody;
-
-   private boolean fileHasChanged;
-   private boolean creatorFileHasChanged;
-
-   private boolean modelSetFileHasChanged;
-
-   private boolean patternObjectFileHasChanged;
-
-   private boolean patternObjectCreatorFileHasChanged;
-
    public void setPatternObjectCreatorFileHasChanged(boolean patternObjectCreatorFileHasChanged)
    {
       this.patternObjectCreatorFileHasChanged = patternObjectCreatorFileHasChanged;
@@ -719,11 +760,6 @@ public class Clazz implements PropertyChangeInterface
     *              clazz                   attributes
     * </pre>
     */
-
-   public static final String PROPERTY_ATTRIBUTES = "attributes";
-
-   private AttributeSet attributes = null;
-
    public AttributeSet getAttributes()
    {
       if (this.attributes == null)
@@ -798,8 +834,6 @@ public class Clazz implements PropertyChangeInterface
    }
 
 
-   Parser parser = null;
-
    public void setParser(Parser parser)
    {
       this.parser = parser;
@@ -810,25 +844,6 @@ public class Clazz implements PropertyChangeInterface
       return parser;
    }
 
-   Parser creatorParser = null;
-
-   private File javaFile;
-   private File creatorJavaFile;
-   private File modelSetJavaFile;
-   private File patternObjectJavaFile;
-   private File patternObjectCreatorJavaFile;
-
-   private Parser modelSetParser = null;
-
-   private StringBuilder modelSetFileBody;
-
-   private Parser patternObjectParser = null;
-
-   private StringBuilder patternObjectFileBody;
-
-   private Parser patternObjectCreatorParser = null;
-
-   private StringBuilder patternObjectCreatorFileBody;
 
    public File getJavaFile()
    {
@@ -1459,11 +1474,6 @@ public class Clazz implements PropertyChangeInterface
     *              clazz                   sourceRoles
     * </pre>
     */
-
-   public static final String PROPERTY_SOURCEROLES = "sourceRoles";
-
-   private RoleSet sourceRoles = null;
-
    public RoleSet getSourceRoles()
    {
       if (this.sourceRoles == null)
@@ -1490,7 +1500,6 @@ public class Clazz implements PropertyChangeInterface
          if (changed)
          {
             value.withClazz(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCEROLES, null, value);
          }
       }
 
@@ -1545,11 +1554,6 @@ public class Clazz implements PropertyChangeInterface
     *              clazz                   targetRoles
     * </pre>
     */
-
-   public static final String PROPERTY_TARGETROLES = "targetRoles";
-
-   private RoleSet targetRoles = null;
-
    public RoleSet getTargetRoles()
    {
       if (this.targetRoles == null)
@@ -1631,11 +1635,6 @@ public class Clazz implements PropertyChangeInterface
     *              clazz                   methods
     * </pre>
     */
-
-   public static final String PROPERTY_METHODS = "methods";
-
-   private MethodSet methods = null;
-
    public MethodSet getMethods()
    {
       if (this.methods == null)
@@ -1788,7 +1787,7 @@ public class Clazz implements PropertyChangeInterface
                );
 
          ccParser.getFileBody().insert(addCreatorPos, text.toString());
-         getClassModel().getGenerator().setFileHasChanged(true);
+//         getClassModel().getGenerator().setFileHasChanged(true);
       }
 
    }
@@ -1815,21 +1814,7 @@ public class Clazz implements PropertyChangeInterface
       return baseName;
    }
 
-
-
    //==========================================================================
-
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-
-   //==========================================================================
-
    public void removeYou()
    {
       withClassModel(null);
@@ -1853,10 +1838,6 @@ public class Clazz implements PropertyChangeInterface
     *              superClass                   kidClasses
     * </pre>
     */
-
-   public static final String PROPERTY_KIDCLASSES = "kidClasses";
-
-   private ClazzSet kidClasses = null;
 
    public ClazzSet getKidClasses()
    {
@@ -1933,11 +1914,6 @@ public class Clazz implements PropertyChangeInterface
 
 
    //==========================================================================
-
-   public static final String PROPERTY_INTERFAZE = "interfaze";
-
-   private Boolean interfaze = false;
-
    public Boolean isInterfaze()
    {
       return this.interfaze;
@@ -1967,11 +1943,6 @@ public class Clazz implements PropertyChangeInterface
     *              interfaces                   kidClassesAsInterface
     * </pre>
     */
-
-   public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
-
-   private ClazzSet kidClassesAsInterface = null;
-
    public ClazzSet getKidClassesAsInterface()
    {
       if (this.kidClassesAsInterface == null)
@@ -2052,11 +2023,6 @@ public class Clazz implements PropertyChangeInterface
     *              kindClassesAsInterface                   interfaces
     * </pre>
     */
-
-   public static final String PROPERTY_INTERFACES = "interfaces";
-
-   private ClazzSet interfaces = null;
-
    public ClazzSet getInterfaces()
    {
       if (this.interfaces == null)
@@ -2211,11 +2177,6 @@ public class Clazz implements PropertyChangeInterface
 
 
    //==========================================================================
-
-   public static final String PROPERTY_EXTERNAL = "external";
-
-   private boolean external;
-
    public boolean isExternal()
    {
       return this.external;
@@ -2244,11 +2205,6 @@ public class Clazz implements PropertyChangeInterface
 
 
    //==========================================================================
-
-   public static final String PROPERTY_WRAPPED = "wrapped";
-
-   private boolean wrapped;
-
    public boolean getWrapped()
    {
       return this.wrapped;
@@ -2269,8 +2225,6 @@ public class Clazz implements PropertyChangeInterface
       setWrapped(value);
       return this;
    }
-
-   private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
 
    public Clazz withConstant(String name, int i)
    {
@@ -2330,11 +2284,6 @@ public class Clazz implements PropertyChangeInterface
 
 
    //==========================================================================
-
-   public static final String PROPERTY_FILEPATH = "filePath";
-
-   private String filePath;
-
    public String getFilePath()
    {
       return this.filePath;

@@ -24,13 +24,14 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.StringList;
 
 public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
+
    public ClazzSet getClasses()
    {
       ClazzSet result = new ClazzSet();
@@ -62,37 +63,6 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return this;
    }
 
-   public AssociationSet getAssociations()
-   {
-      AssociationSet result = new AssociationSet();
-      
-      for (ClassModel obj : this)
-      {
-         result.addAll(obj.getAssociations());
-      }
-      
-      return result;
-   }
-   public ClassModelSet withAssociations(Association value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.withAssociations(value);
-      }
-      
-      return this;
-   }
-
-   public ClassModelSet withoutAssociations(Association value)
-   {
-      for (ClassModel obj : this)
-      {
-         obj.withoutAssociations(value);
-      }
-      
-      return this;
-   }
-
    public StringList getPackageName()
    {
       StringList result = new StringList();
@@ -117,6 +87,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
 
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -130,6 +101,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.ClassModel";

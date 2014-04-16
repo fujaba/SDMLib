@@ -35,6 +35,7 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -48,10 +49,52 @@ public class GenClassModel
    private ClassModel model;
    
    private File javaFile;
-   private boolean fileHasChanged;
+//   private boolean fileHasChanged;
    private StringBuilder fileBody;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
-   private String currentTypeCard;
+//   private String currentTypeCard;
+   private AssociationSet associations = null;
+
+   
+   public boolean addToAssociations(Association value)
+   {
+       boolean changed = false;
+
+       if (value != null)
+       {
+           if (this.associations == null)
+           {
+               this.associations = new AssociationSet();
+           }
+
+           changed = this.associations.add(value);
+       }
+
+       return changed;
+   }
+
+   public boolean removeFromAssociations(Association value)
+   {
+       boolean changed = false;
+
+       if ((this.associations != null) && (value != null))
+       {
+           changed = this.associations.remove(value);
+       }
+
+       return changed;
+   }
+   
+   public AssociationSet getAssociations()
+   {
+       if (this.associations == null)
+       {
+           return new AssociationSet();
+       }
+
+       return this.associations;
+   }
+
 
    
    public boolean generate(String rootDir)
@@ -68,7 +111,7 @@ public class GenClassModel
          clazz.generate(rootDir, rootDir);
       }
 
-      for (Association assoc : model.getAssociations())
+      for (Association assoc : getAssociations())
       {
          assoc.generate(rootDir, rootDir, false);
       }
@@ -1355,7 +1398,7 @@ public class GenClassModel
                role = role.getPartnerRole();
                if (StrUtil.stringEquals(role.getName(), varName))
                {
-                  currentTypeCard = role.getCard();
+//                  currentTypeCard = role.getCard();
                   return CGUtil.shortClassName(role.getClazz().getName());
                }
             }
@@ -1365,7 +1408,7 @@ public class GenClassModel
                role = role.getPartnerRole();
                if (StrUtil.stringEquals(role.getName(), varName))
                {
-                  currentTypeCard = role.getCard();
+//                  currentTypeCard = role.getCard();
                   return CGUtil.shortClassName(role.getClazz().getName());
                }
             }
@@ -1486,7 +1529,7 @@ public class GenClassModel
          
          // search for an assoc with similar srcClazz, srcLabel, tgtClass, tgtLabel
          Association currentAssoc = null; 
-         for (Association assoc : model.getAssociations())
+         for (Association assoc : getAssociations())
          {
             if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
                   && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
@@ -1505,8 +1548,8 @@ public class GenClassModel
             // need to create a new one
             currentAssoc = new Association()
             .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), R.ONE)
-            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.ONE)
-            .withModel(model);
+            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.ONE);
+            getAssociations().add(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
@@ -2158,7 +2201,7 @@ public class GenClassModel
 
    private boolean assocWithRolesExists(Role source, Role target)
    {
-      for (Association assoc : model.getAssociations())
+      for (Association assoc : getAssociations())
       {
          if (compareRoles(source, target, assoc) || compareRoles(target, source, assoc))
             return true;
@@ -2362,10 +2405,10 @@ public class GenClassModel
       }
    }
 
-   public void setFileHasChanged(boolean value)
-   {
-      this.fileHasChanged = value;
-   }
+//   public void setFileHasChanged(boolean value)
+//   {
+//      this.fileHasChanged = value;
+//   }
 
    public void setModelPatternFileHasChanged(boolean value)
    {

@@ -25,34 +25,12 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public ClassModelSet getModel()
-   {
-      ClassModelSet result = new ClassModelSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getModel());
-      }
-      
-      return result;
-   }
-   public AssociationSet withModel(ClassModel value)
-   {
-      for (Association obj : this)
-      {
-         obj.withModel(value);
-      }
-      
-      return this;
-   }
-
    public RoleSet getSource()
    {
       RoleSet result = new RoleSet();

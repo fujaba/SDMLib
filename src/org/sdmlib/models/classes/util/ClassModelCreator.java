@@ -1,6 +1,5 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.serialization.interfaces.EntityFactory;
@@ -11,8 +10,7 @@ public class ClassModelCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       ClassModel.PROPERTY_CLASSES,
-      ClassModel.PROPERTY_ASSOCIATIONS,
-      ClassModel.PROPERTY_PACKAGENAME,
+      ClassModel.PROPERTY_PACKAGENAME
    };
    
    @Override
@@ -43,11 +41,6 @@ public class ClassModelCreator extends EntityFactory
          return ((ClassModel)target).getClasses();
       }
 
-      if (ClassModel.PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel)target).getAssociations();
-      }
-
       if (ClassModel.PROPERTY_PACKAGENAME.equalsIgnoreCase(attribute))
       {
          return ((ClassModel)target).getPackageName();
@@ -68,18 +61,6 @@ public class ClassModelCreator extends EntityFactory
       if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ClassModel) target).removeFromClasses((Clazz) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_ASSOCIATIONS.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).addToAssociations((Association) value);
-         return true;
-      }
-
-      if ((ClassModel.PROPERTY_ASSOCIATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).removeFromAssociations((Association) value);
          return true;
       }
 
