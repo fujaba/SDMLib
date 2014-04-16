@@ -21,10 +21,12 @@
    
 package org.sdmlib.examples.ludo;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.ludo.creators.PawnSet;
 
 public class Pawn implements PropertyChangeInterface

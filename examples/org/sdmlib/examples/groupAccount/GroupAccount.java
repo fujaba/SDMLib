@@ -21,7 +21,7 @@
    
 package org.sdmlib.examples.groupAccount;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.groupAccount.creators.PersonSet;

@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
 public class ConsistenceTest implements PropertyChangeInterface {

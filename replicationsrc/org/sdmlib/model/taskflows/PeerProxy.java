@@ -23,45 +23,68 @@ package org.sdmlib.model.taskflows;
 
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-public class SocketThread extends Thread implements PropertyChangeInterface
+public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
-
-   
-   //==========================================================================
-   
-   @Override
-   public void run()
+   public PeerProxy ()
    {
-      this.setName("SocketThread");
-      // open server socket
+      // blank
+   }
+   
+   public PeerProxy(String ip, int port, JsonIdMap map)
+   {
+      this.withIp(ip).withPort(port).withIdMap(map);
+      map.put(ip + "." + port, this);
+   }
+
+   public void transferTaskFlow(TaskFlow taskFlow)
+   {
       try
       {
-         ServerSocket serverSocket = new ServerSocket(port);
-         
-         int i = 1;
-         
-         while (true)
+         if (socket == null || ! socket.isConnected())
          {
-            Socket connection = serverSocket.accept();
+            socket = new Socket(ip, port);
             
-            SocketReader socketReader = new SocketReader(this, connection);
-            socketReader.setName("SocketReader_" + i++);
-            socketReader.start();
+            out = new OutputStreamWriter(socket.getOutputStream());
          }
+         
+         JsonArray jsonArray = idMap.toJsonArray(taskFlow); 
+                  
+         out.write(jsonArray.toString()+"\n");
+         out.flush();
+         
+         
+      }
+      catch (UnknownHostException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
       }
       catch (IOException e)
       {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-     
    }
+   
+   private Socket socket = null;
+   
+   public Socket getSocket()
+   {
+      return socket;
+   }
+   
+   private OutputStreamWriter out = null;
+   
+   //==========================================================================
    
    public Object get(String attrName)
    {
@@ -87,11 +110,6 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       {
          return getIdMap();
       }
-
-      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attribute))
-      {
-         return getDefaultTargetThread();
-      }
       
       return null;
    }
@@ -116,12 +134,6 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
          setIdMap((org.sdmlib.serialization.json.JsonIdMap) value);
-         return true;
-      }
-
-      if (PROPERTY_DEFAULTTARGETTHREAD.equalsIgnoreCase(attrName))
-      {
-         setDefaultTargetThread((Object) value);
          return true;
       }
 
@@ -168,7 +180,7 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       }
    }
    
-   public SocketThread withIp(String value)
+   public PeerProxy withIp(String value)
    {
       setIp(value);
       return this;
@@ -196,18 +208,19 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       }
    }
    
-   public SocketThread withPort(int value)
+   public PeerProxy withPort(int value)
    {
       setPort(value);
       return this;
    } 
+
 
    
    //==========================================================================
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   org.sdmlib.serialization.json.JsonIdMap idMap;
+   private org.sdmlib.serialization.json.JsonIdMap idMap;
 
    public org.sdmlib.serialization.json.JsonIdMap getIdMap()
    {
@@ -224,38 +237,36 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       }
    }
    
-   public SocketThread withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
+   public PeerProxy withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
    {
       setIdMap(value);
       return this;
    } 
-
    
-   //==========================================================================
-   
-   public static final String PROPERTY_DEFAULTTARGETTHREAD = "defaultTargetThread";
-   
-   Object defaultTargetThread;
-
-   public Object getDefaultTargetThread()
+   public String toString()
    {
-      return this.defaultTargetThread;
+      return "" + ip + ":" + port;
    }
-   
-   public void setDefaultTargetThread(Object value)
+
+   @Override
+   public int compareTo(PeerProxy o)
    {
-      if (this.defaultTargetThread != value)
+      int result = this.getIp().compareTo(o.getIp());
+      if (result == 0)
       {
-         Object oldValue = this.defaultTargetThread;
-         this.defaultTargetThread = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEFAULTTARGETTHREAD, oldValue, value);
+         if (this.getPort() > o.getPort())
+         {
+            return 1;
+         }
+         
+         if (this.getPort() < o.getPort())
+         {
+            return -1;
+         }
+         
+         return 0;
       }
+      return result;
    }
-   
-   public SocketThread withDefaultTargetThread(Object value)
-   {
-      setDefaultTargetThread(value);
-      return this;
-   } 
 }
 

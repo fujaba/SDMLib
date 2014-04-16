@@ -21,12 +21,15 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.Task;
 import org.sdmlib.serialization.json.JsonIdMap;
+
 import java.beans.PropertyChangeListener;
 
 public class ReplicationChange extends Task implements PropertyChangeInterface, Comparable<ReplicationChange>

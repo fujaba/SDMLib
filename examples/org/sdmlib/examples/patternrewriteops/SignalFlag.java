@@ -26,7 +26,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class SignalFlag implements PropertyChangeInterface

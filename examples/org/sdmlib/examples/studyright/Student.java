@@ -24,14 +24,15 @@ package org.sdmlib.examples.studyright;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyright.creators.AssignmentSet;
 import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.json.JsonIdMap;
+
 import java.beans.PropertyChangeListener;
 
 public class Student implements PropertyChangeInterface

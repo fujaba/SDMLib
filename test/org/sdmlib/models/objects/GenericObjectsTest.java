@@ -32,7 +32,7 @@ import org.sdmlib.models.objects.creators.CreatorCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import de.kassel.roombook.Building;
    

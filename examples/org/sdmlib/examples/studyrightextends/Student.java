@@ -21,14 +21,18 @@
    
 package org.sdmlib.examples.studyrightextends;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightextends.Male;
 import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;
+
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.json.JsonIdMap;
 
 public class Student extends Female implements Male, PropertyChangeInterface

@@ -31,7 +31,7 @@ import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface

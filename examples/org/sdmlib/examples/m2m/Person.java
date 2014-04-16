@@ -21,13 +21,17 @@
    
 package org.sdmlib.examples.m2m;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.m2m.creators.PersonSet;
 import org.sdmlib.examples.m2m.creators.RelationSet;
+
 import java.util.LinkedHashSet;
+
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.examples.m2m.GraphComponent;
 

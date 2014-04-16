@@ -21,7 +21,7 @@
    
 package org.sdmlib.models.patterns.example;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.patterns.example.creators.NodeSet;
 import java.util.LinkedHashSet;

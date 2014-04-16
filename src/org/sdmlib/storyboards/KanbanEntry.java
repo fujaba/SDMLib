@@ -29,12 +29,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.creators.KanbanEntrySet;
 import org.sdmlib.storyboards.creators.LogEntrySet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;

@@ -21,10 +21,13 @@
    
 package org.sdmlib.examples.studyright;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.utils.StrUtil;
+
 import org.sdmlib.examples.studyright.creators.AssignmentSet;
+
 import java.beans.PropertyChangeListener;
 
 public class Assignment implements PropertyChangeInterface

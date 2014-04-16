@@ -42,7 +42,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
@@ -56,8 +57,7 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class ClassModel implements PropertyChangeInterface
 {

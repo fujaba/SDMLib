@@ -21,15 +21,17 @@
 
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
+
 import java.beans.PropertyChangeListener;
 
 public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface

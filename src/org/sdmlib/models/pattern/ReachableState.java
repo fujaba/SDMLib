@@ -21,7 +21,7 @@
 
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.awt.List;
 import java.beans.PropertyChangeSupport;

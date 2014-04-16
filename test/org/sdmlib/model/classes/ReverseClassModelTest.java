@@ -34,7 +34,7 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class ReverseClassModelTest implements PropertyChangeInterface
 {

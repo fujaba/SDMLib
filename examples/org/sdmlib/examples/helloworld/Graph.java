@@ -28,7 +28,7 @@ import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class Graph implements PropertyChangeInterface

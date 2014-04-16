@@ -35,6 +35,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.creators.SharedSpaceSet;
@@ -42,8 +43,7 @@ import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class SharedSpace extends Thread 
 implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener

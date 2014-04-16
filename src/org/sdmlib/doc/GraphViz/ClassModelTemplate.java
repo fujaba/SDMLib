@@ -1,6 +1,6 @@
 package org.sdmlib.doc.GraphViz;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;

@@ -26,7 +26,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
@@ -35,8 +36,7 @@ import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {

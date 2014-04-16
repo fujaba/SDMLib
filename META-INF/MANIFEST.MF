@@ -240,7 +240,6 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.serialization.xml;uses:="org.sdmlib.serialization,org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.xml.creator;uses:="org.sdmlib.serialization,org.sdmlib.serialization.xml,org.sdmlib.serialization.interfaces",
  org.sdmlib.storyboards,
- org.sdmlib.storyboards.creators,
- org.sdmlib.utils
+ org.sdmlib.storyboards.creators
 Import-Package: org.junit
 

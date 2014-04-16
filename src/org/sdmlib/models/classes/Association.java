@@ -23,10 +23,11 @@ package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.AssociationSet;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
 
 

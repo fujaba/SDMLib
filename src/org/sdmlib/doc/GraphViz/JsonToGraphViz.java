@@ -29,7 +29,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.model.taskflows.creators.LogEntrySet;
@@ -45,7 +46,6 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.serialization.xml.HTMLEntities;
-import org.sdmlib.utils.StrUtil;
 
 public class JsonToGraphViz implements GuiAdapter {
 	private String rootDir = "src";

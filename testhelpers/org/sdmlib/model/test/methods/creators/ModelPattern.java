@@ -3,7 +3,7 @@ package org.sdmlib.model.test.methods.creators;
 import org.sdmlib.model.test.methods.Place;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.utils.creators.PropertyChangeInterfacePO;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import org.sdmlib.model.test.methods.creators.PlacePO;
 
 public class ModelPattern extends Pattern

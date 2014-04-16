@@ -28,7 +28,7 @@ import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 import org.sdmlib.examples.patternrewriteops.creators.StationSet;
 import org.sdmlib.examples.patternrewriteops.creators.TrainSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class Station implements PropertyChangeInterface

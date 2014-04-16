@@ -27,7 +27,7 @@ import java.util.TimerTask;
 import java.util.TreeSet;
 
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface
 {

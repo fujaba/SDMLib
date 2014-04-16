@@ -25,7 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class SDMTimer extends Timer implements PropertyChangeInterface
 {

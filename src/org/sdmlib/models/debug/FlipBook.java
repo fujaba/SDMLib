@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
 

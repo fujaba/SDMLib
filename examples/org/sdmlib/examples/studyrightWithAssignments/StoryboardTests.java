@@ -21,7 +21,7 @@
 package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.junit.Test;
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
 import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;

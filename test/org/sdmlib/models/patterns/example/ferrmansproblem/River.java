@@ -21,7 +21,7 @@
    
 package org.sdmlib.models.patterns.example.ferrmansproblem;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 import java.util.LinkedHashSet;

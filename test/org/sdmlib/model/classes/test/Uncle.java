@@ -23,7 +23,7 @@ package org.sdmlib.model.classes.test;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class Uncle implements PropertyChangeInterface

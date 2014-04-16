@@ -25,21 +25,25 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_TARGETROLES,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Clazz();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return ((Clazz) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (JsonIdMap.REMOVE.equals(type))

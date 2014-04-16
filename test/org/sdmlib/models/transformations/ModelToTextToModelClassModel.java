@@ -1,7 +1,7 @@
 package org.sdmlib.models.transformations;
 
 import org.junit.Test;
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role.R;

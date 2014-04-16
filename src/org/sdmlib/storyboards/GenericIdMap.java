@@ -1,6 +1,6 @@
 package org.sdmlib.storyboards;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 

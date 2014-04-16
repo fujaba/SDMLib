@@ -23,9 +23,10 @@ package org.sdmlib.examples.ludoreverse.model;
 
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.ludoreverse.model.creators.PlayerSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
 
 public class Player implements PropertyChangeInterface

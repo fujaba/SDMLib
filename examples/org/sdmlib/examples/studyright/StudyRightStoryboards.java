@@ -3,7 +3,7 @@ package org.sdmlib.examples.studyright;
 import java.util.LinkedHashMap;
 
 import org.junit.Test;
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.examples.studyright.creators.RoomSet;
 import org.sdmlib.examples.studyright.creators.UniversityCreator;
 import org.sdmlib.models.classes.Role.R;

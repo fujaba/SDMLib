@@ -29,7 +29,7 @@ import org.sdmlib.model.taskflows.PeerProxy;
 import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.creators.PeerProxySet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Eve extends Timer implements PropertyChangeInterface
 {

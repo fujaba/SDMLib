@@ -24,7 +24,7 @@ package org.sdmlib.replication;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.replication.ReplicationNode;
 

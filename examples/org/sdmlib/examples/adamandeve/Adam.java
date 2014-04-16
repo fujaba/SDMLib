@@ -32,7 +32,7 @@ import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Adam implements PropertyChangeInterface
 {

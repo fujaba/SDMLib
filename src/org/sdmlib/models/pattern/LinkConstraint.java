@@ -21,16 +21,17 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.PatternLink;
+
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;

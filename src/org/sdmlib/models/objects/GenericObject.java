@@ -24,12 +24,13 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.objects.creators.GenericAttributeSet;
 import org.sdmlib.models.objects.creators.GenericLinkSet;
 import org.sdmlib.models.objects.creators.GenericObjectSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
 
 public class GenericObject implements PropertyChangeInterface

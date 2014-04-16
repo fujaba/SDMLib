@@ -1,7 +1,7 @@
 package org.sdmlib.utils.creators;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import org.sdmlib.utils.creators.PropertyChangeInterfaceSet;
 
 public class PropertyChangeInterfacePO extends PatternObject<PropertyChangeInterfacePO, PropertyChangeInterface>

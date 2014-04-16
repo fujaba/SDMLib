@@ -21,12 +21,12 @@
    
 package org.sdmlib.replication;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.replication.Task;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.utils.StrUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.replication.creators.BoardTaskSet;
 

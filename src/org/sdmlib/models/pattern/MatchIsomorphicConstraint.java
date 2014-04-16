@@ -25,7 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
 {

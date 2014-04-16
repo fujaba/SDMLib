@@ -29,7 +29,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.creators.MatchSet;
 import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.creators.TemplateSet;
@@ -38,8 +39,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 
 public class Template implements PropertyChangeInterface

@@ -22,7 +22,7 @@
 package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.sdmlib.examples.studyrightWithAssignments.Student;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.serialization.json.JsonIdMap;

@@ -21,15 +21,15 @@
 
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.GenericConstraint.Condition;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
-import org.sdmlib.utils.StrUtil;
 
 public class GenericConstraint extends PatternElement implements PropertyChangeInterface
 {

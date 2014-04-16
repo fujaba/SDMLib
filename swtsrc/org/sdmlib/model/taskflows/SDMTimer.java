@@ -22,7 +22,7 @@
 package org.sdmlib.model.taskflows;
 
 import java.util.Timer;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 

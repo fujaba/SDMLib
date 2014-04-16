@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.StrUtil;
 
 public class Parser
 {

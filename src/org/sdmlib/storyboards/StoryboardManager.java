@@ -49,7 +49,7 @@ import java.util.Vector;
 
 import javax.swing.event.ListSelectionEvent;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonArray;

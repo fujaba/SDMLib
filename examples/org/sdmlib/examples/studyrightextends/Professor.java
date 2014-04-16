@@ -22,7 +22,7 @@
 package org.sdmlib.examples.studyrightextends;
 
 import org.sdmlib.examples.studyrightextends.Female;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.studyrightextends.creators.LectureSet;

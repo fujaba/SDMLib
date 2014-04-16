@@ -44,7 +44,8 @@ import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 
 import org.junit.Assert;
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.doc.GuiAdapter;
@@ -68,8 +69,7 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.ConditionMap;
 import org.sdmlib.serialization.logic.ValuesMap;
 import org.sdmlib.storyboards.creators.StoryboardStepSet;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Storyboard implements PropertyChangeInterface
 {

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 
 
 public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet 

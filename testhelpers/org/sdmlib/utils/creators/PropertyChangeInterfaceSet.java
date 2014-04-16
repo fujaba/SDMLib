@@ -22,7 +22,7 @@
 package org.sdmlib.utils.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
 

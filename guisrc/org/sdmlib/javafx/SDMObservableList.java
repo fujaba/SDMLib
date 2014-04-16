@@ -11,7 +11,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
 import com.sun.javafx.collections.NonIterableChange;

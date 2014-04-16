@@ -30,7 +30,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Role.R;
@@ -40,8 +41,7 @@ import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Clazz implements PropertyChangeInterface
 {
@@ -1409,8 +1409,6 @@ public class Clazz implements PropertyChangeInterface
             packageName = getClassModel().getPackageName() + ".creators";
          }
 
-         String fullEntityClassName = name;
-
          String entitiyClassName = name.substring(pos + 1);
 
          String patternObjectCreatorClassName = entitiyClassName + "POCreator";
@@ -1856,18 +1854,6 @@ public class Clazz implements PropertyChangeInterface
          return true;
       }
 
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
       if (PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
       {
          setClassModel((ClassModel) value);
@@ -2097,6 +2083,7 @@ public class Clazz implements PropertyChangeInterface
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -2631,6 +2618,7 @@ public class Clazz implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

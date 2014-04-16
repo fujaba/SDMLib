@@ -3,7 +3,7 @@ package org.sdmlib.examples.helloworld;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.sdmlib.codegen.CGUtil;
+import org.sdmlib.CGUtil;
 import org.sdmlib.examples.helloworld.creators.CreatorCreator;
 import org.sdmlib.examples.helloworld.creators.EdgePO;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;

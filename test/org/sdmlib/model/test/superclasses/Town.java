@@ -23,8 +23,9 @@ package org.sdmlib.model.test.superclasses;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
 
 public class Town extends State implements PropertyChangeInterface

@@ -25,7 +25,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.IdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
 	/** The Constant JSON_PROPS. */
@@ -76,6 +76,7 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

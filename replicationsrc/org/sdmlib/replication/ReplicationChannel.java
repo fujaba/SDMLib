@@ -31,7 +31,7 @@ import java.net.Socket;
 
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class ReplicationChannel extends Thread implements

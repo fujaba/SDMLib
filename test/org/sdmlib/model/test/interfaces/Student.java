@@ -23,7 +23,7 @@ package org.sdmlib.model.test.interfaces;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Student implements Female, Male, PropertyChangeInterface
 {
