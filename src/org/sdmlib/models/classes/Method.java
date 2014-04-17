@@ -258,19 +258,19 @@ public class Method implements PropertyChangeInterface
    public Method generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate)
    {
       // get parser from class
-      Parser parser = clazz.getOrCreateParser(rootDir);
+      Parser parser = clazz.getGenerator().getOrCreateParser(rootDir);
 
       insertMethodDecl(clazz, parser);
 
       //    insertCaseInGenericGetSet(parser);
 
-      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
+      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helpersDir);
       insertMethodInModelSet(clazz, modelSetParser);
-      clazz.printModelSetFile(doGenerate);
+      clazz.getGenerator().printModelSetFile(doGenerate);
 
-      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helpersDir);
       insertMethodInPatternObject(clazz, patternObjectParser);
-      clazz.printPatternObjectFile(doGenerate);
+      clazz.getGenerator().printPatternObjectFile(doGenerate);
 
       return this;
 
@@ -365,7 +365,7 @@ public class Method implements PropertyChangeInterface
                importType = importType.substring(0, dotpos + 1) + "creators." + type ;
             }
             
-            this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            this.getClazz().getGenerator().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
             
             returnSetCreate = type + " result = new " + type + "();\n      ";
             
@@ -390,7 +390,7 @@ public class Method implements PropertyChangeInterface
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         clazz.setModelSetFileHasChanged(true);
+         clazz.getGenerator().setModelSetFileHasChanged(true);
       }
    }
 
@@ -462,7 +462,7 @@ public class Method implements PropertyChangeInterface
 
          if ( ! ("Object".indexOf(type) >= 0))
          {
-            this.getClazz().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            this.getClazz().getGenerator().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
          }
 
          if ( ! "void".equals(type))
@@ -496,7 +496,7 @@ public class Method implements PropertyChangeInterface
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
    
@@ -575,7 +575,7 @@ public class Method implements PropertyChangeInterface
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         clazz.setFileHasChanged(true);
+         clazz.getGenerator().setFileHasChanged(true);
       }
       
       pos = parser.indexOf(Parser.METHOD + ":" + signature);
@@ -588,7 +588,7 @@ public class Method implements PropertyChangeInterface
     	  parser.getFileBody().replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + getBody() + "   ");
     	  pos = -1;
 
-          clazz.setFileHasChanged(true);
+          clazz.getGenerator().setFileHasChanged(true);
       }
       
       

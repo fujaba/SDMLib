@@ -175,7 +175,7 @@ public class GenClassModel
       
       Clazz modelCreationClass = new ClassModel().withPackageName(".").getGenerator().getOrCreateClazz(className);
       
-      Parser parser = modelCreationClass.getOrCreateParser(rootDir);
+      Parser parser = modelCreationClass.getGenerator().getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
       String signature = "method:"+methodName+"(";
       ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
@@ -291,7 +291,7 @@ public class GenClassModel
       for (Clazz clazz : model.getClasses())
       {
          if (! clazz.isExternal()) 
-            clazz.insertHasMethodsInModelPattern(modelPatternParser);
+            clazz.getGenerator().insertHasMethodsInModelPattern(modelPatternParser);
       }
 
       printModelPatternFile(modelPatternFileHasChanged);
@@ -317,7 +317,7 @@ public class GenClassModel
    
    private void writeToFile(Clazz modelCreationClass)
    {
-      modelCreationClass.printFile(modelCreationClass.isFileHasChanged());
+      modelCreationClass.getGenerator().printFile(modelCreationClass.getGenerator().isFileHasChanged());
    }
 
    
@@ -325,7 +325,7 @@ public class GenClassModel
    {
       for (Clazz c : this.model.getClasses())
       {
-         c.setParser(null);
+         c.getGenerator().setParser(null);
       }
    }
    
@@ -489,7 +489,7 @@ public class GenClassModel
       for (Clazz clazz : model.getClasses())
       {
          String modelClassName = clazz.getName();
-         LocalVarTableEntry entry = findInLocalVarTable(modelCreationClass.getParser().getLocalVarTable(), modelClassName);
+         LocalVarTableEntry entry = findInLocalVarTable(modelCreationClass.getGenerator().getParser().getLocalVarTable(), modelClassName);
 
          if (entry != null)
          {
@@ -507,21 +507,21 @@ public class GenClassModel
    {
       SymTabEntry symTabEntry;
       rescanCode( clazz);
-      symTabEntry = clazz.getParser().getSymTab().get(signature);
-      clazz.getParser().parseMethodBody(symTabEntry);
+      symTabEntry = clazz.getGenerator().getParser().getSymTab().get(signature);
+      clazz.getGenerator().getParser().parseMethodBody(symTabEntry);
       return symTabEntry;
    }
    
    private void rescanCode(Clazz clazz)
    {
-      clazz.getParser().indexOf(Parser.CLASS_END);
+      clazz.getGenerator().getParser().indexOf(Parser.CLASS_END);
    }
    
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
          LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos)
    {
       rescanCode(modelCreationClass);
-      Parser creatorCreatorParser = modelCreationClass.getParser();
+      Parser creatorCreatorParser = modelCreationClass.getGenerator().getParser();
 
       // check has superclass
       if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClass")) 
@@ -539,7 +539,7 @@ public class GenClassModel
          currentInsertPos++;
          //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, clazz);
-         clazz.isFileHasChanged();
+         clazz.getGenerator().isFileHasChanged();
       }
 
       // check is interface
@@ -557,7 +557,7 @@ public class GenClassModel
          currentInsertPos++;
          //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, clazz);
-         clazz.isFileHasChanged();
+         clazz.getGenerator().isFileHasChanged();
       }
 
       // check has interfaces
@@ -728,7 +728,7 @@ public class GenClassModel
    
    private int positionOfClazzDecl(String sourceClassName, Clazz clazz)
    {
-      LinkedHashMap<String, LocalVarTableEntry> localVarTable = clazz.getParser().getLocalVarTable();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = clazz.getGenerator().getParser().getLocalVarTable();
       for (String localVarTableEntityName : localVarTable.keySet())
       {
          LocalVarTableEntry localVarTableEntry = localVarTable.get(localVarTableEntityName);
@@ -749,9 +749,9 @@ public class GenClassModel
 
    private int tryToInsertAssoc(SymTabEntry symTabEntry, Role role, int currentInsertPos, Clazz modelCreationClass)
    {
-      modelCreationClass.getParser().parseMethodBody(symTabEntry);
+      modelCreationClass.getGenerator().getParser().parseMethodBody(symTabEntry);
       boolean assocIsNew = true;
-      LinkedHashMap<String, LocalVarTableEntry> localVarTable = modelCreationClass.getParser().getLocalVarTable();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = modelCreationClass.getGenerator().getParser().getLocalVarTable();
 
       Association assoc = role.getAssoc();
       for (String string : localVarTable.keySet())
@@ -769,7 +769,7 @@ public class GenClassModel
          }
       }
 
-      for (StatementEntry stat : modelCreationClass.getParser().getStatementList().getBodyStats())
+      for (StatementEntry stat : modelCreationClass.getGenerator().getParser().getStatementList().getBodyStats())
       {
          if (stat.getTokenList().get(0).endsWith(".withAssoc"))
          {
@@ -955,9 +955,9 @@ public class GenClassModel
 
    private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
    {
-      modelCreationClass.getParser().parseMethodBody(symTabEntry);
+      modelCreationClass.getGenerator().getParser().parseMethodBody(symTabEntry);
       boolean methodIsNew = true;
-      LinkedHashMap<String, LocalVarTableEntry> localVarTable = modelCreationClass.getParser().getLocalVarTable();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = modelCreationClass.getGenerator().getParser().getLocalVarTable();
 
       for (String string : localVarTable.keySet())
       {
@@ -1149,7 +1149,7 @@ public class GenClassModel
 
          String modelClassName = clazz.getName();
 
-         LocalVarTableEntry entry = findInLocalVarTable(modelCreationClass.getParser().getLocalVarTable(), modelClassName);
+         LocalVarTableEntry entry = findInLocalVarTable(modelCreationClass.getGenerator().getParser().getLocalVarTable(), modelClassName);
 
          if (entry == null)
          {
@@ -1280,8 +1280,8 @@ public class GenClassModel
 
    private int checkImport(String string, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
-      modelCreationClass.getParser().indexOf(Parser.CLASS_END);
-      LinkedHashMap<String, SymTabEntry> symTab = modelCreationClass.getParser().getSymTab();
+      modelCreationClass.getGenerator().getParser().indexOf(Parser.CLASS_END);
+      LinkedHashMap<String, SymTabEntry> symTab = modelCreationClass.getGenerator().getParser().getSymTab();
       LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
 
       for (String key : symTab.keySet())
@@ -1299,7 +1299,7 @@ public class GenClassModel
       if (!result.containsKey(string) && result.containsKey("ClassModel"))
       {
          String symTabEntryName = result.get("ClassModel");
-         int endOfImports = modelCreationClass.getParser().getEndOfImports() + 1;
+         int endOfImports = modelCreationClass.getGenerator().getParser().getEndOfImports() + 1;
          String importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + string + ";";
          insertCreationCode(importString, endOfImports, modelCreationClass);
          currentInsertPos += importString.length();
@@ -1365,8 +1365,8 @@ public class GenClassModel
 
    private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass )
    {
-      modelCreationClass.getParser().getFileBody().insert(insertPos, text.toString());
-      modelCreationClass.setFileHasChanged(true);
+      modelCreationClass.getGenerator().getParser().getFileBody().insert(insertPos, text.toString());
+      modelCreationClass.getGenerator().setFileHasChanged(true);
       return insertPos + text.length();
    }
 
@@ -1724,7 +1724,7 @@ public class GenClassModel
          // parse each java file
          for (Clazz clazz : (ClazzSet) model.getClasses().clone())
          {
-            handleMember(clazz, clazz.getFilePath());
+            handleMember(clazz, clazz.getGenerator().getFilePath());
          }
       }
 
@@ -1734,7 +1734,7 @@ public class GenClassModel
    private Clazz handleMember(Clazz clazz, String rootDir)
    {
       System.out.println("parse " + clazz.getName());
-      Parser parser = clazz.getOrCreateParser(rootDir);
+      Parser parser = clazz.getGenerator().getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
 
       // set class or interface
@@ -1873,7 +1873,7 @@ public class GenClassModel
    private void handleAssoc(Clazz clazz, String rootDir, String memberName, R card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
    {
       partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
-      Parser partnerParser = partnerClass.getOrCreateParser(rootDir); 
+      Parser partnerParser = partnerClass.getGenerator().getOrCreateParser(rootDir); 
       String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
 
       int attributePosition = partnerParser.indexOf(searchString);
@@ -2098,7 +2098,8 @@ public class GenClassModel
       {
          if (!classExists(filePath))
          {
-            Clazz clazz = new Clazz(filePath).withFilePath(rootDir);
+            Clazz clazz = new Clazz(filePath);
+            clazz.getGenerator().withFilePath(rootDir);
             model.getClasses().add(clazz);
          }
          return;
@@ -2248,7 +2249,7 @@ public class GenClassModel
       // there may be separate clazz.withAttributes(...) statements
       String withAttrCall = entry.getName() + ".withAttributes";
       String attrNameQuoted = "\"" +  name + "\"";
-      for (StatementEntry stat : attribute.getClazz().getParser().getCurrentStatement().getParent().getBodyStats())
+      for (StatementEntry stat : attribute.getClazz().getGenerator().getParser().getCurrentStatement().getParent().getBodyStats())
       {
          String firstToken = stat.getTokenList().get(0);
          if (StrUtil.stringEquals(withAttrCall, firstToken))

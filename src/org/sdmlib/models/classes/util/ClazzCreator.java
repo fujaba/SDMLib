@@ -16,7 +16,6 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_INTERFAZE,
       Clazz.PROPERTY_EXTERNAL,
       Clazz.PROPERTY_WRAPPED,
-      Clazz.PROPERTY_FILEPATH,
       Clazz.PROPERTY_CLASSMODEL,
       Clazz.PROPERTY_KIDCLASSES,
       Clazz.PROPERTY_SUPERCLASS,
@@ -25,7 +24,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_ATTRIBUTES,
       Clazz.PROPERTY_METHODS,
       Clazz.PROPERTY_SOURCEROLES,
-      Clazz.PROPERTY_TARGETROLES,
+      Clazz.PROPERTY_TARGETROLES
    };
    
    @Override
@@ -114,11 +113,6 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
       {
          return ((Clazz) target).getWrapped();
-      }
-
-      if (Clazz.PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getFilePath();
       }
 
       return null;
@@ -249,12 +243,6 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setWrapped((Boolean) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_FILEPATH.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target). setFilePath((String) value);
          return true;
       }
       return false;

@@ -6,6 +6,7 @@ import org.sdmlib.models.classes.creators.MethodPO;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RolePO;
 import org.sdmlib.models.classes.creators.RoleSet;
+import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
@@ -423,7 +424,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasFilePath(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_FILEPATH)
+      .withAttrName(GenClass.PROPERTY_FILEPATH)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -438,7 +439,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) getCurrentMatch()).getFilePath();
+         return ((Clazz) getCurrentMatch()).getGenerator().getFilePath();
       }
       return null;
    }
@@ -447,7 +448,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Clazz) getCurrentMatch()).setFilePath(value);
+         ((Clazz) getCurrentMatch()).getGenerator().setFilePath(value);
       }
       return this;
    }
@@ -548,7 +549,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasFilePath(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_FILEPATH)
+      .withAttrName(GenClass.PROPERTY_FILEPATH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)

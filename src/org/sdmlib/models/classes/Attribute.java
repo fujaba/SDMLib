@@ -173,7 +173,7 @@ public class Attribute implements PropertyChangeInterface
       Parser parser;
       if (! clazz.getWrapped())
       {
-         parser = clazz.getOrCreateParser(rootDir);
+         parser = clazz.getGenerator().getOrCreateParser(rootDir);
          if (!fromSuperClass)
          {
             insertAttrDeclPlusAccessors(clazz, parser);
@@ -185,24 +185,24 @@ public class Attribute implements PropertyChangeInterface
             insertCaseInToString(parser);
          }
 
-         clazz.printFile(doGenerate);
+         clazz.getGenerator().printFile(doGenerate);
       }
 
       if ( !clazz.isInterfaze() && clazz.getClassModel().hasFeature(Feature.Serialization))
       {
-         Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helpersDir);
+         Parser creatorParser = clazz.getGenerator().getOrCreateParserForCreatorClass(helpersDir);
 
          insertPropertyInCreatorClass(creatorParser, clazz );
          
-         clazz.printCreatorFile(doGenerate);
+         clazz.getGenerator().printCreatorFile(doGenerate);
       }
 
-      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helpersDir);
+      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helpersDir);
       insertGetterInModelSetClass(modelSetParser, clazz);
       insertSetterInModelSetClass(modelSetParser, clazz);
-      getClazz().printModelSetFile(doGenerate);
+      getClazz().getGenerator().printModelSetFile(doGenerate);
 
-      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helpersDir);
+      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helpersDir);
       insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
       insertGetterInPatternObjectClass(patternObjectParser, clazz);
 
@@ -291,8 +291,8 @@ public class Attribute implements PropertyChangeInterface
          }
          insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
 
-         ownerClazz.insertImport(parser, getClazz().getName());
-         ownerClazz.setCreatorFileHasChanged(true);
+         ownerClazz.getGenerator().insertImport(parser, getClazz().getName());
+         ownerClazz.getGenerator().setCreatorFileHasChanged(true);
       }
    }
 
@@ -379,7 +379,7 @@ public class Attribute implements PropertyChangeInterface
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -435,7 +435,7 @@ public class Attribute implements PropertyChangeInterface
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -443,7 +443,7 @@ public class Attribute implements PropertyChangeInterface
       if(parser==null){
          return;
       }
-      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":with"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -474,7 +474,7 @@ public class Attribute implements PropertyChangeInterface
          // ownerClazz.printFile(true);
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.setModelSetFileHasChanged(true);         
+         ownerClazz.getGenerator().setModelSetFileHasChanged(true);         
       }
    }
 
@@ -625,13 +625,13 @@ public class Attribute implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
          // getClazz()
-         ownerClazz.setModelSetFileHasChanged(true);
+         ownerClazz.getGenerator().setModelSetFileHasChanged(true);
 
 
 
          // getClazz()
          for (String setType : importClassesFromTypes) {
-            ownerClazz.insertImport(parser, setType);
+            ownerClazz.getGenerator().insertImport(parser, setType);
          }
 
       }
@@ -653,7 +653,7 @@ public class Attribute implements PropertyChangeInterface
       }
       
       
-      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + "," + attrType + ")";
       int pos = parser.indexOf(key);
@@ -678,10 +678,10 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" +
                "   \n");
 
-         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -697,14 +697,14 @@ public class Attribute implements PropertyChangeInterface
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.setPatternObjectFileHasChanged(true);
+         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
 
    private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -728,10 +728,10 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" +
                "   \n");
 
-         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -747,14 +747,14 @@ public class Attribute implements PropertyChangeInterface
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.setPatternObjectFileHasChanged(true);
+         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
 
    private void insertCreateMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(getType(), parser);
       String key = Parser.METHOD + ":create"
             + StrUtil.upFirstChar(this.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -770,10 +770,10 @@ public class Attribute implements PropertyChangeInterface
                   "   }\n" +
                "   \n");
 
-         ownerClazz.insertImport(parser, AttributeConstraint.class.getName());
+         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -788,14 +788,14 @@ public class Attribute implements PropertyChangeInterface
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.setPatternObjectFileHasChanged(true);
+         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.shortNameAndImport(getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(getType(), parser);
 
       String attrNameUpFirstChar = StrUtil.upFirstChar(this.getName());
 
@@ -843,11 +843,11 @@ public class Attribute implements PropertyChangeInterface
             "nullValue", nullValue,
             "AttrName", StrUtil.upFirstChar(getName()), 
             "AttrType", attrType, 
-            "ModelClass", ownerClazz.shortNameAndImport(ownerClazz.getName(), parser));
+            "ModelClass", ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.setPatternObjectFileHasChanged(true);
+         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -938,13 +938,13 @@ public class Attribute implements PropertyChangeInterface
       if ("String".equals(getType()))
       {
          valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-         clazz.insertImport(StrUtil.class.getName()); 
+         clazz.getGenerator().insertImport(StrUtil.class.getName()); 
       }
 
       else if ("Boolean".equals(getType()))
       {
          CGUtil.replaceAll(text, "getName()", "isName()");
-         clazz.insertImport(StrUtil.class.getName()); 
+         clazz.getGenerator().insertImport(StrUtil.class.getName()); 
       }
 
       CGUtil.replaceAll(text, "valueCompare", valueCompare);
@@ -963,9 +963,9 @@ public class Attribute implements PropertyChangeInterface
       parser.getFileBody().insert(pos, text.toString());
       ArrayList<String> importClassesFromTypes = checkImportClassesFromType(getType());
       for (String typeImport : importClassesFromTypes) {
-         clazz.insertImport(parser, typeImport);
+         clazz.getGenerator().insertImport(parser, typeImport);
       }
-      clazz.setFileHasChanged(true);
+      clazz.getGenerator().setFileHasChanged(true);
 
    }
 
@@ -1181,7 +1181,7 @@ public class Attribute implements PropertyChangeInterface
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -1236,7 +1236,7 @@ public class Attribute implements PropertyChangeInterface
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -1270,7 +1270,7 @@ public class Attribute implements PropertyChangeInterface
 
          parser.getFileBody().insert(pos, text.toString());
          
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
          
          pos = parser.indexOf(Parser.METHOD + ":toString()");
       }
@@ -1304,7 +1304,7 @@ public class Attribute implements PropertyChangeInterface
                );
 
          parser.getFileBody().insert(returnPos, text.toString());
-         getClazz().setFileHasChanged(true);
+         getClazz().getGenerator().setFileHasChanged(true);
       }
    }
 

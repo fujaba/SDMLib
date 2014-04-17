@@ -1226,7 +1226,7 @@ public class Storyboard implements PropertyChangeInterface
 
       Clazz clazz = new Clazz(className);
 
-      Parser parser = clazz.getOrCreateParser(rootDir);
+      Parser parser = clazz.getGenerator().getOrCreateParser(rootDir);
 
       int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
 

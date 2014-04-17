@@ -222,7 +222,7 @@ public class Role implements PropertyChangeInterface
          return;
       }
       
-      Parser myParser = clazz.getOrCreateParser(rootDir);
+      Parser myParser = clazz.getGenerator().getOrCreateParser(rootDir);
       
       if ( ! fromSuperClass)
       {
@@ -232,7 +232,7 @@ public class Role implements PropertyChangeInterface
             if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
             {
                generateToManyRole(myParser, clazz, partnerRole, text);
-               clazz.insertImport(LinkedHashSet.class.getName());
+               clazz.getGenerator().insertImport(LinkedHashSet.class.getName());
             }
             else
             {
@@ -241,7 +241,7 @@ public class Role implements PropertyChangeInterface
 
             int pos = myParser.indexOf(Parser.CLASS_END);
             myParser.getFileBody().insert(pos, text.toString());
-            clazz.setFileHasChanged(true);
+            clazz.getGenerator().setFileHasChanged(true);
 
          if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
          {
@@ -251,7 +251,7 @@ public class Role implements PropertyChangeInterface
       
       //import partner role class if package name has changed
       if(!StrUtil.stringEquals(clazz.getName().substring(0, clazz.getName().lastIndexOf(".")), partnerRole.getClazz().getName().substring(0, partnerRole.getClazz().getName().lastIndexOf(".")))){
-    	  clazz.insertImport(partnerRole.getClazz().getName());
+    	  clazz.getGenerator().insertImport(partnerRole.getClazz().getName());
       }
       
       insertCaseInGenericGet(clazz, myParser, partnerRole, rootDir);
@@ -267,33 +267,33 @@ public class Role implements PropertyChangeInterface
       
       insertRemovalInRemoveYou(clazz, myParser, partnerRole);
       
-      clazz.printFile(doGenerate);
+      clazz.getGenerator().printFile(doGenerate);
       
       
       // generate property in creator class
 		if (!clazz.isInterfaze())
 		{
-			Parser creatorParser = clazz.getOrCreateParserForCreatorClass(helperDir);
+			Parser creatorParser = clazz.getGenerator().getOrCreateParserForCreatorClass(helperDir);
 
 			insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
-			clazz.printCreatorFile(doGenerate);
+			clazz.getGenerator().printCreatorFile(doGenerate);
 		}
       
       // generate property in model set class
-      Parser modelSetParser = clazz.getOrCreateParserForModelSetFile(helperDir);
+      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helperDir);
       
       insertGetterInModelSetFile(clazz, modelSetParser, partnerRole);
       insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
       
-      clazz.printModelSetFile(doGenerate);
+      clazz.getGenerator().printModelSetFile(doGenerate);
 
       // generate property in pattern object class
-      Parser patternObjectParser = clazz.getOrCreateParserForPatternObjectFile(helperDir);
+      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helperDir);
       
       insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
       
-      clazz.printPatternObjectFile(doGenerate);
+      clazz.getGenerator().printPatternObjectFile(doGenerate);
 
    }
    
@@ -344,7 +344,7 @@ public class Role implements PropertyChangeInterface
          }
          
          parser.getFileBody().insert(pos, fullRemoveCall);
-         clazz.setFileHasChanged(true);
+         clazz.getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -462,12 +462,12 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         tgtClass.setModelSetFileHasChanged(true);
+         tgtClass.getGenerator().setModelSetFileHasChanged(true);
          
-         tgtClass.insertImport(parser, fullModelSetType);
-         tgtClass.insertImport(parser, Collection.class.getName());
-         tgtClass.insertImport(parser, Collections.class.getName());
-         tgtClass.insertImport(parser, ObjectSet.class.getName());
+         tgtClass.getGenerator().insertImport(parser, fullModelSetType);
+         tgtClass.getGenerator().insertImport(parser, Collection.class.getName());
+         tgtClass.getGenerator().insertImport(parser, Collections.class.getName());
+         tgtClass.getGenerator().insertImport(parser, ObjectSet.class.getName());
       }
    }
 
@@ -512,26 +512,26 @@ public class Role implements PropertyChangeInterface
          }
          
          
-         clazz.insertImport(parser, PatternLink.class.getName());
+         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
          
-         String targetType = partnerRole.getClazz().shortNameAndImport(partnerRole.getClazz().getName(), parser);
+         String targetType = partnerRole.getClazz().getGenerator().shortNameAndImport(partnerRole.getClazz().getName(), parser);
          
          if (partnerRole.getCard().equals(R.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
-            targetType = partnerRole.getClazz().shortNameAndImport(fullTargetType, parser);
+            targetType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullTargetType, parser);
          }
          
          CGUtil.replaceAll(text, 
             "TargetType", targetType,
-            "ModelClass", this.getClazz().shortNameAndImport(this.getClazz().getName(), parser),
+            "ModelClass", this.getClazz().getGenerator().shortNameAndImport(this.getClazz().getName(), parser),
             "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -555,21 +555,21 @@ public class Role implements PropertyChangeInterface
             "      return result;\n" + 
             "   }\n\n");
 
-         clazz.insertImport(parser, PatternLink.class.getName());
+         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-         String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+            "ModelClass", getClazz().getGenerator().shortNameAndImport(getClazz().getName(), parser),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -588,20 +588,20 @@ public class Role implements PropertyChangeInterface
             "      return this.startCreate().hasName().endCreate();\n" + 
             "   }\n\n");
 
-         clazz.insertImport(parser, PatternLink.class.getName());
+         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-         String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "Name", StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser));
+            "ModelClass", getClazz().getGenerator().shortNameAndImport(getClazz().getName(), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -610,7 +610,7 @@ public class Role implements PropertyChangeInterface
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-      String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
       
       String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
@@ -623,22 +623,22 @@ public class Role implements PropertyChangeInterface
             "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" + 
             "   }\n\n");
 
-         clazz.insertImport(parser, LinkConstraint.class.getName());
+         clazz.getGenerator().insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
-         String modelPOType = clazz.shortNameAndImport(fullModelPOType, parser);
+         String modelPOType = clazz.getGenerator().shortNameAndImport(fullModelPOType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", getClazz().shortNameAndImport(getClazz().getName(), parser),
+            "ModelClass", getClazz().getGenerator().shortNameAndImport(getClazz().getName(), parser),
             "ModelPOType", modelPOType, 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -647,7 +647,7 @@ public class Role implements PropertyChangeInterface
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-      String patternObjectType = partnerRole.getClazz().shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
       
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
@@ -660,10 +660,10 @@ public class Role implements PropertyChangeInterface
             "      return this.startCreate().hasName(tgt).endCreate();\n" + 
             "   }\n\n");
 
-         clazz.insertImport(parser, LinkConstraint.class.getName());
+         clazz.getGenerator().insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
-         String modelPOType = clazz.shortNameAndImport(fullModelPOType, parser);
+         String modelPOType = clazz.getGenerator().shortNameAndImport(fullModelPOType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
@@ -673,7 +673,7 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.setPatternObjectFileHasChanged(true);
+         clazz.getGenerator().setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -709,9 +709,9 @@ public class Role implements PropertyChangeInterface
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         tgtClass.setModelSetFileHasChanged(true);
+         tgtClass.getGenerator().setModelSetFileHasChanged(true);
          
-         tgtClass.insertImport(parser, partnerRole.getClazz().getName());
+         tgtClass.getGenerator().insertImport(parser, partnerRole.getClazz().getName());
       }
       
       if (partnerRole.getCard().equals(R.MANY.toString()))
@@ -743,9 +743,9 @@ public class Role implements PropertyChangeInterface
             int classEnd = parser.indexOf(Parser.CLASS_END);
             
             parser.getFileBody().insert(classEnd, text.toString());
-            tgtClass.setModelSetFileHasChanged(true);
+            tgtClass.getGenerator().setModelSetFileHasChanged(true);
             
-            tgtClass.insertImport(parser, partnerRole.getClazz().getName());
+            tgtClass.getGenerator().insertImport(parser, partnerRole.getClazz().getName());
          }
       }
    }
@@ -786,8 +786,8 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
-         clazz.insertImport(parser, getClazz().getName());
-         clazz.setCreatorFileHasChanged(true);
+         clazz.getGenerator().insertImport(parser, getClazz().getName());
+         clazz.getGenerator().setCreatorFileHasChanged(true);
       }
    }
 
@@ -855,9 +855,9 @@ public class Role implements PropertyChangeInterface
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          
-         clazz.insertImport(JsonIdMap.class.getName());
+         clazz.getGenerator().insertImport(JsonIdMap.class.getName());
          
-         clazz.setFileHasChanged(true);
+         clazz.getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -915,7 +915,7 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         clazz.setFileHasChanged(true);
+         clazz.getGenerator().setFileHasChanged(true);
       }
    }
 
@@ -969,7 +969,7 @@ public class Role implements PropertyChangeInterface
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         clazz.setFileHasChanged(true);         
+         clazz.getGenerator().setFileHasChanged(true);         
       }
    }
 
@@ -978,7 +978,7 @@ public class Role implements PropertyChangeInterface
    {
       // generate EMPTY_SET in partner class
       Clazz partnerClass = partnerRole.getClazz();
-      Parser partnerParser = partnerClass.getOrCreateParser(rootDir);
+      Parser partnerParser = partnerClass.getGenerator().getOrCreateParser(rootDir);
       
       int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
       
@@ -1006,13 +1006,13 @@ public class Role implements PropertyChangeInterface
          String ownerClassName = partnerClass.getName();
          String packageName = CGUtil.packageName(ownerClassName);
          String shortClassName = CGUtil.shortClassName(ownerClassName);
-         partnerClass.insertImport(packageName + ".creators." + shortClassName + "Set");
+         partnerClass.getGenerator().insertImport(packageName + ".creators." + shortClassName + "Set");
          
-         partnerRole.getClazz().setFileHasChanged(true);
-         partnerRole.getClazz().printFile(doGenerate);
+         partnerRole.getClazz().getGenerator().setFileHasChanged(true);
+         partnerRole.getClazz().getGenerator().printFile(doGenerate);
 
       }
-      partnerRole.getClazz().insertImport(partnerRole.getClazz().getModelSetClassName());
+      partnerRole.getClazz().getGenerator().insertImport(partnerRole.getClazz().getGenerator().getModelSetClassName());
    }
 
    private void generateToManyRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
@@ -1378,8 +1378,7 @@ public class Role implements PropertyChangeInterface
          "PartnerRoleName", partnerRoleUpFirstChar,
          "reverseWithoutCall(this)", reverseWithoutCall
          );
-      
-      getClazz().insertImport(myParser, partnerRole.getClazz().getModelSetClassName());
+      getClazz().getGenerator().insertImport(myParser, partnerRole.getClazz().getGenerator().getModelSetClassName());
    } 
    
    private void generateToOneRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)

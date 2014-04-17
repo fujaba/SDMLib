@@ -398,7 +398,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.getFilePath());
+         result.add(obj.getGenerator().getFilePath());
       }
       
       return result;
@@ -408,7 +408,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withFilePath(value);
+         obj.getGenerator().withFilePath(value);
       }
       
       return this;
