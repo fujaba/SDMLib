@@ -29,7 +29,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.sdmlib.serialization.EntityList;
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMap;
@@ -779,7 +778,7 @@ public class JsonIdMap extends IdMap {
 			filter = this.filter;
 		}
 		if(jsonArray.isComparator() && jsonArray.comparator() instanceof EntityComparator){
-			((EntityComparator)jsonArray.comparator()).withMap(this);
+			((EntityComparator<?>)jsonArray.comparator()).withMap(this);
 		}
 		return toJsonArray(object, jsonArray, filter.withStandard(this.filter), 0);
 	}

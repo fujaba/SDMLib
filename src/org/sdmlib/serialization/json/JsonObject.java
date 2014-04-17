@@ -24,9 +24,11 @@ package org.sdmlib.serialization.json;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.Entity;
 import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.Tokener;
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.LocalisationEntity;
 /**
  * A JsonObject is an unordered collection of name/value pairs. Its external

@@ -156,7 +156,8 @@ public class IdMapFilter implements PeerMessage {
 		return this;
 	}
 
-	public Object get(String attrName) {
+	@Override
+   public Object get(String attrName) {
 		int pos = attrName.indexOf(".");
 		String attribute = attrName;
 
@@ -173,7 +174,8 @@ public class IdMapFilter implements PeerMessage {
 		return null;
 	}
 
-	public boolean set(String attribute, Object value) {
+	@Override
+   public boolean set(String attribute, Object value) {
 		if (PROPERTY_DEEP.equalsIgnoreCase(attribute)) {
 			this.setDeep(Integer.valueOf("" + value));
 			return true;

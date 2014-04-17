@@ -63,6 +63,24 @@ public class ClassModel extends SDMLibClass
 	   return generator;
 	}
 	
+   public void setGenerator(GenClassModel value)
+   {
+      if (this.generator != value)
+      {
+         GenClassModel oldValue = this.generator;
+         if (this.generator != null)
+         {
+            this.generator = null;
+            oldValue.setModel(null);
+         }
+         this.generator = value;
+         if (value != null)
+         {
+            value.setModel(this);
+         }
+      }
+   }
+	
 	public ClazzSet getClasses()
 	{
 		if (classes == null)
@@ -200,24 +218,6 @@ public class ClassModel extends SDMLibClass
          removeFromClasses(item);
       }
       return this;
-   }
-
-   public void setGenerator(GenClassModel value)
-   {
-      if (this.generator != value)
-      {
-         GenClassModel oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
    }
 
    public Set<Feature> getFeatures()

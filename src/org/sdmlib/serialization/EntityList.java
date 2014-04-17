@@ -27,7 +27,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 import org.sdmlib.serialization.sort.EntityComparator;
 import org.sdmlib.serialization.sort.SortingDirection;
@@ -39,15 +38,15 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 	protected List<V> values=getNewList();
 	private boolean visible = true;
 	private boolean allowDuplicate = true;
-	protected Comparator<Object> cpr;
+	protected Comparator<V> cpr;
 
 	public List<V> getNewList(){
 		return new ArrayList<V>();
 	}
 	
-	public Comparator<? super Object> comparator() {
+	public Comparator<V> comparator() {
 		if(this.cpr==null){
-			withComparator(new EntityComparator().withColumn(EntityComparator.LIST).withDirection(SortingDirection.ASC));
+			withComparator(new EntityComparator<V>().withColumn(EntityComparator.LIST).withDirection(SortingDirection.ASC));
 		}
 		return cpr;
 	}
@@ -56,12 +55,12 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 		return (this.cpr!=null);
 	}
 	
-	public EntityList<V> withComparator(Comparator<Object> comparator){
+	public EntityList<V> withComparator(Comparator<V> comparator){
 		this.cpr = comparator;
 		return this;
 	}
 	public EntityList<V> withComparator(String column){
-		this.cpr = new EntityComparator().withColumn(column).withDirection(SortingDirection.ASC);
+		this.cpr = new EntityComparator<V>().withColumn(column).withDirection(SortingDirection.ASC);
 		return this;
 	}
 
@@ -70,7 +69,7 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 	public boolean add(Object newValue) {
 		if(cpr!=null){
 			for (int i = 0; i < values.size(); i++) {
-				int result = comparator().compare(values.get(i), newValue);
+				int result = compare(values.get(i), (V)newValue);
 				if (result >= 0) {
 					values.add(i, (V) newValue);
 					return true;
@@ -78,6 +77,10 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 			}
 		}
 		return values.add((V) newValue);
+	}
+	
+	public int compare(V o1, V o2){
+		return comparator().compare(o1, o2);
 	}
 	
 	@Override
@@ -89,14 +92,14 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 	@Override
 	public abstract EntityList<V> getNewArray();
 	
-	public EntityList<V> subSet(Object fromElement, Object toElement) {
+	public EntityList<V> subSet(V fromElement, V toElement) {
 		EntityList<V> newList = getNewArray();
 		
 		// PRE WHILE
 		Iterator<V> iterator = iterator();
 		while(iterator.hasNext()){
-			Object item = iterator.next();
-			if(cpr.compare(item, fromElement)>=0){
+			V item = iterator.next();
+			if(compare(item, fromElement)>=0){
 				newList.add(item);
 				break;
 			}
@@ -104,8 +107,8 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
 		
 		// MUST COPY
 		while(iterator.hasNext()){
-			Object item = iterator.next();
-			if(cpr.compare(item, toElement)>=0){
+			V item = iterator.next();
+			if(compare(item, toElement)>=0){
 				break;
 			}
 			newList.add(item);
@@ -131,14 +134,14 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
      * @param inclusive {@code true} if the high endpoint
      *        is to be included in the returned view
 	*/
-	public EntityList<V> headSet(Object toElement, boolean inclusive) {
+	public EntityList<V> headSet(V toElement, boolean inclusive) {
 		Iterator<V> iterator = iterator();
 		EntityList<V> newList = getNewArray();
 
 		// MUST COPY
 		while(iterator.hasNext()){
-			Object item = iterator.next();
-			int compare = cpr.compare(item, toElement);
+			V item = iterator.next();
+			int compare = compare(item, toElement);
 			if(compare==0){
 				if(inclusive){
 					newList.add(item);
@@ -163,14 +166,14 @@ public abstract class EntityList<V> implements BaseEntityList, List<V> {
      *         (or equal to, if {@code inclusive} is true) {@code fromKey}
      *         
      */
-	public EntityList<V> tailSet(Object fromElement, boolean inclusive) {
+	public EntityList<V> tailSet(V fromElement, boolean inclusive) {
 		Iterator<V> iterator = iterator();
 		EntityList<V> newList = getNewArray();
 
 		// PRE WHILE
 		while(iterator.hasNext()){
-			Object item = iterator.next();
-			int compare = cpr.compare(item, fromElement);
+			V item = iterator.next();
+			int compare = compare(item, fromElement);
 			if(compare==0){
 				if(inclusive){
 					newList.add(item);

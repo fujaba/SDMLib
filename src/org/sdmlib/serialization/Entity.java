@@ -23,9 +23,10 @@ package org.sdmlib.serialization;
 */
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.BaseEntity;
 import org.sdmlib.serialization.interfaces.BaseEntityList;
 
@@ -33,7 +34,7 @@ public abstract class Entity implements BaseEntity {
 	/**
 	 * The map where the Entity's properties are kept.
 	 */
-	protected ArrayEntryList<String> map = new ArrayEntryList<String>();
+	protected ArrayEntryList<String> map = new ArrayEntryList<String>().withAllowDuplicate(false);
 	private boolean visible = true;
 
 	public Iterator<MapEntry<String>> iterator(){

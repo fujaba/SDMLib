@@ -23,8 +23,10 @@ package org.sdmlib.serialization.json;
 */
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMapEncoder;
+import org.sdmlib.serialization.event.MapEntry;
 import org.sdmlib.serialization.interfaces.IdMapCounter;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.interfaces.SendableEntityCreatorNoIndex;

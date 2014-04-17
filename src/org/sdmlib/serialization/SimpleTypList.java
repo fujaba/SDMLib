@@ -43,15 +43,18 @@ public class SimpleTypList implements TypList{
 		this.property = creator.getSendableInstance(true).getClass();
 	}
 	
-	public boolean isInstance(Object obj){
+	@Override
+   public boolean isInstance(Object obj){
 		return property.equals(obj.getClass());
 	}
 	
-	public HashSet<Object> getValues() {
+	@Override
+   public HashSet<Object> getValues() {
 		return values;
 	}
 
-	public boolean addObject(Object obj) {
+	@Override
+   public boolean addObject(Object obj) {
 		if(isInstance(obj)){
 			this.values.add(obj);
 			return true;
@@ -59,7 +62,8 @@ public class SimpleTypList implements TypList{
 		return false;
 	}
 
-	public boolean removeObject(Object obj) {
+	@Override
+   public boolean removeObject(Object obj) {
 		if(isInstance(obj)){
 			this.values.remove(obj);
 			return true;

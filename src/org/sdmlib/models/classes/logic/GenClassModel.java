@@ -108,7 +108,7 @@ public class GenClassModel
       
       for (Clazz clazz : model.getClasses())
       {
-         clazz.generate(rootDir, rootDir);
+         clazz.getGenerator().generate(rootDir, rootDir);
       }
 
       for (Association assoc : getAssociations())

@@ -37,7 +37,8 @@ public class JsonFilterCreator implements SendableEntityCreator {
 			JsonFilter.PROPERTY_FULLSERIALIZATION, JsonFilter.PROPERTY_ID,
 			JsonFilter.PROPERTY_ITEMS };
 
-	public String[] getProperties() {
+	@Override
+   public String[] getProperties() {
 		return properties;
 	}
 
