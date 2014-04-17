@@ -1,7 +1,6 @@
 package org.sdmlib.replication;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,38 +29,31 @@ public class StartLaneAction
    public Process start(String name, String laneApplicationClassName, int serverPort,
          int debugSocket)
    {
-      String abuClientComand = "-Xdebug -Xrunjdwp:transport=dt_socket,address=" + debugSocket
-         + ",server=y,suspend=n " + "-Dfile.encoding=UTF-8 " + "-classpath \""
-         + System.getProperty("java.class.path") + "\" " + laneApplicationClassName + " "
-         + serverPort + " " + name;
-
       child = null;
       String[] command = null;
+      String rootPath = null;
       try
       {
 
-         if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+         if ((System.getProperty("os.name").toLowerCase()).contains("windows"))
          {
-            URL resource = StartLaneAction.class.getResource("startjava.command");
-
-            String rootPath = resource.getFile().replace("file:", "");
-            // String makeimageFile = rootPath
-            // + "/tools/Graphviz/osx_lion/makeimage.command";
-
-            command = new String[]
-            { rootPath, abuClientComand };
-            
-//            ProcessBuilder processBuilder = new ProcessBuilder(command);
-//            processBuilder.redirectErrorStream(true);
-//            child = processBuilder.start();
-            
-            child = Runtime.getRuntime().exec(command);
+            URL resource = StartLaneAction.class.getResource("startjava.bat");
+            rootPath = resource.getFile().replace("file:", "");
          }
          else
          {
-            child = Runtime.getRuntime().exec("java " + abuClientComand);
-
+            URL resource = StartLaneAction.class.getResource("startjava.sh");
+            rootPath = resource.getFile().replace("file:", "");
          }
+         command = new String[]
+               { rootPath, "java", "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=" + debugSocket
+               + ",server=y,suspend=n", "-Dfile.encoding=UTF-8", "-classpath "
+                     + System.getProperty("java.class.path"), laneApplicationClassName, Integer.toString(serverPort), name };
+         
+         ProcessBuilder processBuilder = new ProcessBuilder(command);
+         processBuilder.redirectErrorStream(true);
+         child = processBuilder.start();
+         
          InputStream inputStream = child.getInputStream();
          InputStreamReader in = new InputStreamReader(inputStream);
          final BufferedReader buf = new BufferedReader(in);
