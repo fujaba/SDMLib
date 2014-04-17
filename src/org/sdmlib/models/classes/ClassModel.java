@@ -2579,53 +2579,7 @@ public class ClassModel implements PropertyChangeInterface
 				{
 					Attribute attrDecl = currentClazz.getOrCreateAttribute(attr.getName(), "Object");
 					
-					String valueString = attr.getValue();
-					
-					String attrType = "String";
-					try
-               {
-                  Integer.parseInt(valueString);
-                  
-                  attrType = "int";
-               }
-               catch (NumberFormatException e)
-               {
-                  try
-                  {
-                     Double.parseDouble(valueString);
-                     
-                     attrType = "double";
-                  }
-                  catch (NumberFormatException e1)
-                  {
-                     try
-                     {
-                        DateFormat.getDateInstance().parse(valueString);
-                        
-                        attrType = "java.util.Date";
-                     }
-                     catch (ParseException e2)
-                     {
-                        try
-                        {
-                           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
-                           simpleDateFormat.parse(valueString);
-                           
-                           attrType = "java.util.Date";
-                        }
-                        catch (ParseException e3)
-                        {
-                        }
-                     }
-                  }
-               }
-					
-					String typeOrder = "Object int double java.util.Date String";
-					
-					if (typeOrder.indexOf(attrDecl.getType()) < typeOrder.indexOf(attrType))
-					{
-					   attrDecl.setType(attrType);
-					}
+					learnAttrType(attr, attrDecl);
 				}
 			}
 		}
@@ -2698,6 +2652,57 @@ public class ClassModel implements PropertyChangeInterface
 		
 		return this;
 	}
+
+   private void learnAttrType(GenericAttribute attr, Attribute attrDecl)
+   {
+      String valueString = attr.getValue();
+      
+      String attrType = "String";
+      try
+      {
+         Integer.parseInt(valueString);
+         
+         attrType = "int";
+      }
+      catch (NumberFormatException e)
+      {
+         try
+         {
+            Double.parseDouble(valueString);
+            
+            attrType = "double";
+         }
+         catch (NumberFormatException e1)
+         {
+            try
+            {
+               DateFormat.getDateInstance().parse(valueString);
+               
+               attrType = "java.util.Date";
+            }
+            catch (ParseException e2)
+            {
+               try
+               {
+                  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
+                  simpleDateFormat.parse(valueString);
+                  
+                  attrType = "java.util.Date";
+               }
+               catch (ParseException e3)
+               {
+               }
+            }
+         }
+      }
+      
+      String typeOrder = "Object int double java.util.Date String";
+      
+      if (typeOrder.indexOf(attrDecl.getType()) < typeOrder.indexOf(attrType))
+      {
+         attrDecl.setType(attrType);
+      }
+   }
 
 	public void removeAllGeneratedCode()
    {
