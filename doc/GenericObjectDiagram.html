@@ -1,46 +1,568 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../test/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
 <embed type="image/svg+xml" src='GenericObjectStructureClasses.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
-<embed type="image/svg+xml" src='GenericObjectDiagram6.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"go.G1 : GenericGraph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"go.G2 : GenericObject",
+            "attributes":[
+            "name=WilliAllee",
+               "type=Building",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G5 : GenericObject",
+            "attributes":[
+            "name=seFloor",
+               "type=Floor",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G9 : GenericObject",
+            "attributes":[
+            "name=digitalFloor",
+               "type=Floor",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G4 : GenericLink",
+            "attributes":[
+            "tgtLabel=has",
+               "srcLabel="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G8 : GenericLink",
+            "attributes":[
+            "tgtLabel=has",
+               "srcLabel="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G3 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA73"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G6 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA13"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G7 : GenericAttribute",
+            "attributes":[
+            "name=level",
+               "value=1"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G10 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA03"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G11 : GenericAttribute",
+            "attributes":[
+            "name=level",
+               "value=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G12 : GenericAttribute",
+            "attributes":[
+            "name=guest",
+               "value=Ulrich"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G2 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G5 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G9 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"links",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G4 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"links",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G8 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G3 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outgoingLinks",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G4 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outgoingLinks",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G8 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"incommingLinks",
+            "targetproperty":"tgt",
+            "source":"go.G4 : GenericLink",
+            "target":"go.G5 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G5 : GenericObject",
+            "target":"go.G6 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G5 : GenericObject",
+            "target":"go.G7 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"incommingLinks",
+            "targetproperty":"tgt",
+            "source":"go.G8 : GenericLink",
+            "target":"go.G9 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G9 : GenericObject",
+            "target":"go.G10 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G9 : GenericObject",
+            "target":"go.G11 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G9 : GenericObject",
+            "target":"go.G12 : GenericAttribute"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: </p>
 <embed type="image/svg+xml" src='specificgenericobjectdiag.svg'>
 <p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
-<embed type="image/svg+xml" src='DerivedFromGenericObjectsClassDiag.svg'><p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<pre>      ClassModel model = new ClassModel();
+<embed type="image/svg+xml" src='DerivedFromGenericObjectsClassDiag.svg'><p>Note, our class model learning algorithm identifies attribute types and association cardinalities, now.</p>
+<p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
+<pre>      ClassModel model = new ClassModel(&quot;Building&quot;);
 
       Clazz buildingClass = new Clazz(&quot;de.kassel.roombook.Building&quot;)
-      .withAttribute(&quot;name&quot;, &quot;String&quot;);
+         .withAttribute(&quot;name&quot;, &quot;String&quot;);
 
-      Clazz floorClass = new Clazz(&quot;de.kassel.roombook.Floor&quot;)
-      .withAttribute(&quot;level&quot;, &quot;int&quot;)
-		.withAttribute(&quot;name&quot;, &quot;String&quot;)
-			&#x2F;*add attribut*&#x2F;
-      .withAttribute(&quot;guest&quot;, &quot;String&quot;); &#x2F;&#x2F; changed attr type to int
-		
-      new Association()
-			.withSource(&quot;buildings&quot;, buildingClass, R.ONE) &#x2F;&#x2F; changed cardinality to ONE
-			.withTarget(&quot;has&quot;, floorClass, R.MANY);
+      Clazz floorClass = buildingClass.createClassAndAssoc(&quot;de.kassel.roombook.Floor&quot;, &quot;has&quot;, MANY, &quot;buildings&quot;, ONE)
+         .withAttribute(&quot;level&quot;, &quot;int&quot;)
+         .withAttribute(&quot;name&quot;, &quot;String&quot;)
+         &#x2F;* add attribut *&#x2F;
+         .withAttribute(&quot;guest&quot;, &quot;String&quot;); &#x2F;&#x2F; changed attr type to int
+
+      floorClass.createClassAndAssoc(&quot;de.kassel.roombook.Room&quot;, &quot;rooms&quot;, R.MANY, &quot;floor&quot;, R.ONE);
 
       learnedModel.insertModelCreationCodeHere(&quot;test&quot;);
-</pre><embed type="image/svg+xml" src='ManuallyImprovedLearnedClassDiag.svg'><p>Step 6: generate code from the learned class diagram </p>
+</pre><embed type="image/svg+xml" src='ManuallyImprovedLearnedClassDiag.svg'><p>Here we have added a class Room, to show how the usere may adapt and extend the class model.</p>
+<p>Step 6: generate code from the learned class diagram </p>
 <p>Step 7: derive non-generic objects from the generic objects </p>
-<embed type="image/svg+xml" src='GenericObjectDiagram16.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"gen2spec.B1 : Building",
+            "attributes":[
+            "name=WA73"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"gen2spec.F2 : Floor",
+            "attributes":[
+            "level=1",
+               "name=WA13",
+               "guest="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"gen2spec.F3 : Floor",
+            "attributes":[
+            "level=0",
+               "name=WA03",
+               "guest=Ulrich"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buildings",
+            "targetproperty":"has",
+            "source":"gen2spec.B1 : Building",
+            "target":"gen2spec.F2 : Floor"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buildings",
+            "targetproperty":"has",
+            "source":"gen2spec.B1 : Building",
+            "target":"gen2spec.F3 : Floor"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram </p>
 <p>New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model </p>
-<embed type="image/svg+xml" src='GenericObjectDiagram19.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"go.G1 : GenericGraph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"go.G2 : GenericObject",
+            "attributes":[
+            "name=spec2gen.B1",
+               "type=de.kassel.roombook.Building",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G5 : GenericObject",
+            "attributes":[
+            "name=spec2gen.F2",
+               "type=de.kassel.roombook.Floor",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G9 : GenericObject",
+            "attributes":[
+            "name=spec2gen.F3",
+               "type=de.kassel.roombook.Floor",
+               "icon="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G4 : GenericLink",
+            "attributes":[
+            "tgtLabel=has",
+               "srcLabel=buildings"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G8 : GenericLink",
+            "attributes":[
+            "tgtLabel=has",
+               "srcLabel=buildings"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G3 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA73"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G6 : GenericAttribute",
+            "attributes":[
+            "name=level",
+               "value=1"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G7 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA13"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G10 : GenericAttribute",
+            "attributes":[
+            "name=name",
+               "value=WA03"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"go.G11 : GenericAttribute",
+            "attributes":[
+            "name=guest",
+               "value=Ulrich"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G2 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G5 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"objects",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G9 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"links",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G4 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"links",
+            "source":"go.G1 : GenericGraph",
+            "target":"go.G8 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G3 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outgoingLinks",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G4 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outgoingLinks",
+            "source":"go.G2 : GenericObject",
+            "target":"go.G8 : GenericLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"incommingLinks",
+            "targetproperty":"tgt",
+            "source":"go.G4 : GenericLink",
+            "target":"go.G5 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G5 : GenericObject",
+            "target":"go.G6 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G5 : GenericObject",
+            "target":"go.G7 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"incommingLinks",
+            "targetproperty":"tgt",
+            "source":"go.G8 : GenericLink",
+            "target":"go.G9 : GenericObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G9 : GenericObject",
+            "target":"go.G10 : GenericAttribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"owner",
+            "targetproperty":"attrs",
+            "source":"go.G9 : GenericObject",
+            "target":"go.G11 : GenericAttribute"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas20", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

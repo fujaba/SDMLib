@@ -1,62 +1,58 @@
 package de.kassel.roombook.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import de.kassel.roombook.Floor;
-import de.kassel.roombook.creators.FloorSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import de.kassel.roombook.creators.BuildingPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import de.kassel.roombook.creators.FloorPO;
+import org.sdmlib.models.pattern.PatternObject;
+
 import de.kassel.roombook.Building;
+import de.kassel.roombook.Floor;
 
 public class FloorPO extends PatternObject<FloorPO, Floor>
 {
    public FloorSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       FloorSet matches = new FloorSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Floor) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public FloorPO hasLevel(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_LEVEL)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_LEVEL)
+         .withTgtValue(value)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public FloorPO hasLevel(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_LEVEL)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_LEVEL)
+         .withTgtValue(lower)
+         .withUpperTgtValue(upper)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getLevel()
    {
       if (this.getPattern().getHasMatch())
@@ -65,7 +61,7 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return 0;
    }
-   
+
    public FloorPO withLevel(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -74,36 +70,36 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return this;
    }
-   
+
    public FloorPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_NAME)
+         .withTgtValue(value)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public FloorPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_NAME)
+         .withTgtValue(lower)
+         .withUpperTgtValue(upper)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -112,7 +108,7 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return null;
    }
-   
+
    public FloorPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -121,36 +117,36 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return this;
    }
-   
+
    public FloorPO hasGuest(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_GUEST)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_GUEST)
+         .withTgtValue(value)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public FloorPO hasGuest(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Floor.PROPERTY_GUEST)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Floor.PROPERTY_GUEST)
+         .withTgtValue(lower)
+         .withUpperTgtValue(upper)
+         .withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getGuest()
    {
       if (this.getPattern().getHasMatch())
@@ -159,7 +155,7 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return null;
    }
-   
+
    public FloorPO withGuest(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -168,14 +164,14 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       }
       return this;
    }
-   
+
    public BuildingPO hasBuildings()
    {
       BuildingPO result = new BuildingPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Floor.PROPERTY_BUILDINGS, result);
-      
+
       return result;
    }
 
@@ -198,19 +194,19 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       this.startCreate().hasLevel(value).endCreate();
       return this;
    }
-   
+
    public FloorPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public FloorPO createGuest(String value)
    {
       this.startCreate().hasGuest(value).endCreate();
       return this;
    }
-   
+
    public BuildingPO createBuildings()
    {
       return this.startCreate().hasBuildings().endCreate();
@@ -221,6 +217,38 @@ public class FloorPO extends PatternObject<FloorPO, Floor>
       return this.startCreate().hasBuildings(tgt).endCreate();
    }
 
+   public RoomPO hasRooms()
+   {
+      RoomPO result = new RoomPO();
+      result.setModifier(this.getPattern().getModifier());
+
+      super.hasLink(Floor.PROPERTY_ROOMS, result);
+
+      return result;
+   }
+
+   public RoomPO createRooms()
+   {
+      return this.startCreate().hasRooms().endCreate();
+   }
+
+   public FloorPO hasRooms(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Floor.PROPERTY_ROOMS);
+   }
+
+   public FloorPO createRooms(RoomPO tgt)
+   {
+      return this.startCreate().hasRooms(tgt).endCreate();
+   }
+
+   public RoomSet getRooms()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Floor) this.getCurrentMatch()).getRooms();
+      }
+      return null;
+   }
+
 }
-
-
