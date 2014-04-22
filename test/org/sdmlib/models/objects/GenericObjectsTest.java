@@ -156,7 +156,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
             DONE, "zuendorf", "31.05.2012 13:51:42", 1, 0);
 
       storyboard.markCodeStart();
-      ClassModel model = new ClassModel("Building");
+      ClassModel model = new ClassModel("de.kassel.roombook");
 
       Clazz buildingClass = new Clazz("de.kassel.roombook.Building")
          .withAttribute("name", "String");

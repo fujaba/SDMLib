@@ -5,6 +5,8 @@ import de.kassel.roombook.creators.BuildingPO;
 import de.kassel.roombook.Building;
 import de.kassel.roombook.creators.FloorPO;
 import de.kassel.roombook.Floor;
+import de.kassel.roombook.creators.RoomPO;
+import de.kassel.roombook.Room;
 
 public class ModelPattern extends Pattern
 {
@@ -57,6 +59,30 @@ public class ModelPattern extends Pattern
    public FloorPO hasElementFloorPO(Floor hostGraphObject)
    {
       FloorPO value = new FloorPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public RoomPO hasElementRoomPO()
+   {
+      RoomPO value = new RoomPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public RoomPO hasElementRoomPO(Room hostGraphObject)
+   {
+      RoomPO value = new RoomPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
       

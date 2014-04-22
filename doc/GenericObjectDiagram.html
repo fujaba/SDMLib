@@ -261,7 +261,7 @@
 <p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
 <embed type="image/svg+xml" src='DerivedFromGenericObjectsClassDiag.svg'><p>Note, our class model learning algorithm identifies attribute types and association cardinalities, now.</p>
 <p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<pre>      ClassModel model = new ClassModel(&quot;Building&quot;);
+<pre>      ClassModel model = new ClassModel(&quot;de.kassel.roombook&quot;);
 
       Clazz buildingClass = new Clazz(&quot;de.kassel.roombook.Building&quot;)
          .withAttribute(&quot;name&quot;, &quot;String&quot;);

@@ -18,6 +18,8 @@ public class CreatorCreator
          creatorSet.add(new de.kassel.roombook.creators.BuildingPOCreator());
          creatorSet.add(new de.kassel.roombook.creators.FloorCreator());
          creatorSet.add(new de.kassel.roombook.creators.FloorPOCreator());
+         creatorSet.add(new de.kassel.roombook.creators.RoomCreator());
+         creatorSet.add(new de.kassel.roombook.creators.RoomPOCreator());
          creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
       }
       
@@ -33,4 +35,5 @@ public class CreatorCreator
       return jsonIdMap;
    }
 }
+
 
