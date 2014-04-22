@@ -59,7 +59,7 @@ public class StoryboardTests {
             .withId("4242")
             .withName("Karli");
 
-      Assignment a1 = new Assignment()
+      Assignment matrixMultAssignment = new Assignment()
       .withContent("Matrix Multiplication")
       .withPoints(5);
 
@@ -76,7 +76,7 @@ public class StoryboardTests {
             .withTopic("math")
             .withCredits(17)  
             .withStudents(karli)
-            .withAssignments(a1, a2, a3);
+            .withAssignments(matrixMultAssignment, a2, a3);
 
       Room artsRoom = university.createRooms()
             .withName("7522")
@@ -110,7 +110,7 @@ public class StoryboardTests {
          "sportsRoom", sportsRoom, 
          "examRoom", examRoom, 
          "placeToBe", softwareEngineering, 
-         "icons/matrix.png", a1, 
+         "icons/matrix.png", matrixMultAssignment, 
          "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
 
       //===============================================================================================
@@ -118,8 +118,8 @@ public class StoryboardTests {
             +"(general rule: the student earns always full points for doing an assignment). <br>\n"
             +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
-      karli.addToDone(a1);
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMultAssignment.getPoints());
+      karli.addToDone(matrixMultAssignment);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
