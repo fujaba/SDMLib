@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 
 public class AssociationCreator extends EntityFactory
@@ -26,13 +27,41 @@ public class AssociationCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((Association) target).get(attrName);
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attribute))
+      {
+         return ((Association)target).getSource();
+      }
+
+      if (Association.PROPERTY_TARGET.equalsIgnoreCase(attribute))
+      {
+         return ((Association)target).getTarget();
+      }
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((Association) target).set(attrName, value);
+      if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attrName))
+      {
+         ((Association)target).setSource((Role) value);
+         return true;
+      }
+
+      if (Association.PROPERTY_TARGET.equalsIgnoreCase(attrName))
+      {
+         ((Association)target).setTarget((Role) value);
+         return true;
+      }
+
+      return false;
    }
    
    @Override
@@ -40,8 +69,4 @@ public class AssociationCreator extends EntityFactory
    {
       ((Association) entity).removeYou();
    }
-   
-   
 }
-
-

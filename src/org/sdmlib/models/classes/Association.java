@@ -21,14 +21,52 @@
    
 package org.sdmlib.models.classes;
 
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.models.classes.logic.GenAssociation;
 
-public class Association implements PropertyChangeInterface
+public class Association extends SDMLibClass
 {
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Association ----------------------------------- Role
+    *              assoc                   source
+    * </pre>
+    */
+   public static final String PROPERTY_SOURCE = "source";
+   public static final String PROPERTY_TARGET = "target";
+      
+   private Role source = null;
+   private Role target;
+   private GenAssociation generator;
+
+   public void setGenerator(GenAssociation value)
+   {
+      if (this.generator != value)
+      {
+         GenAssociation oldValue = this.generator;
+         if (this.generator != null)
+         {
+            this.generator = null;
+            oldValue.setModel(null);
+         }
+         this.generator = value;
+         if (value != null)
+         {
+            value.setModel(this);
+         }
+      }
+   }
+   
+   public GenAssociation getGenerator(){
+      if(generator==null){
+         this.setGenerator(new GenAssociation());
+      }
+      return generator;
+   }
+   
    @Override
    public String toString()
    {
@@ -95,46 +133,6 @@ public class Association implements PropertyChangeInterface
    }
 
  
-   public Association generate(String rootDir, String helperDir)
-   {
-      generate(rootDir, helperDir, true);
-      
-      return this;
-   }
-   
-   public Association generate(String rootDir, String helperDir, boolean doGenerate)
-   {
-      // open source class and get or insert role implementation
-      getSource().generate(rootDir, helperDir, getTarget(), doGenerate);
-      
-      // also for subclasses
-      for (Clazz kidClass : getSource().getClazz().getKidClassesClosure())
-      {
-         boolean needsImplementation = kidClass.getInterfaces().contains(getSource().getClazz());
-         getSource().generate(kidClass, rootDir, helperDir, getTarget(), doGenerate, ! needsImplementation);
-      }
-
-      // open target class and get or insert role implementation
-      getTarget().generate(rootDir, helperDir, getSource(), doGenerate);
-
-      // also for subclasses
-      for (Clazz kidClass : getTarget().getClazz()
-            .getKidClassesClosure())
-      {
-         boolean needsImplementation = kidClass.getInterfaces().contains(getTarget().getClazz());
-         getTarget().generate(kidClass, rootDir, helperDir, getSource(), doGenerate, ! needsImplementation);
-      }
-      
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_TARGET = "target";
-   
-   private Role target;
-   
    public Role getTarget()
    {
       return this.target;
@@ -176,18 +174,6 @@ public class Association implements PropertyChangeInterface
       return this;
    } 
    
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Association ----------------------------------- Role
-    *              assoc                   source
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SOURCE = "source";
-   
-   private Role source = null;
-   
    public Role getSource()
    {
       return this.source;
@@ -226,63 +212,6 @@ public class Association implements PropertyChangeInterface
       setSource(value);
       return this;
    } 
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-      if (PROPERTY_SOURCE.equalsIgnoreCase(attribute))
-      {
-         return getSource();
-      }
-
-      if (PROPERTY_TARGET.equalsIgnoreCase(attribute))
-      {
-         return getTarget();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_SOURCE.equalsIgnoreCase(attrName))
-      {
-         setSource((Role) value);
-         return true;
-      }
-
-      if (PROPERTY_TARGET.equalsIgnoreCase(attrName))
-      {
-         setTarget((Role) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
    
    //==========================================================================
    
@@ -301,18 +230,5 @@ public class Association implements PropertyChangeInterface
       setTarget(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   public ClassModel createModel()
-   {
-      ClassModel value = new ClassModel();
-      return value;
-   } 
-
-   public Role createSource()
-   {
-      Role value = new Role();
-      withSource(value);
-      return value;
-   } 
 }
 

@@ -21,28 +21,15 @@
 
 package org.sdmlib.models.classes;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
-import org.sdmlib.codegen.Parser;
-import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.logic.GenClass;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class Clazz extends SDMLibClass
 {

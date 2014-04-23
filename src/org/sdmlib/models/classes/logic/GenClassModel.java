@@ -113,7 +113,7 @@ public class GenClassModel
 
       for (Association assoc : getAssociations())
       {
-         assoc.generate(rootDir, rootDir, false);
+         assoc.getGenerator().generate(rootDir, rootDir, false);
       }
 
       Exception e = new RuntimeException();
@@ -445,12 +445,12 @@ public class GenClassModel
    
    public void insertModelCreationCodeHere(String rootDir)
    {
-      String fileName = null;
+//      String fileName = null;
       String className = null;
       String methodName = null;
 
       String callMethodName = null;
-      int callMethodLineNumber = -1;
+//      int callMethodLineNumber = -1;
 
       Exception e = new RuntimeException();
 
@@ -460,10 +460,10 @@ public class GenClassModel
       callMethodName = firstStackTraceElement.getMethodName();
 
       StackTraceElement secondStackTraceElement = stackTrace[1];
-      fileName = secondStackTraceElement.getFileName();
+//      fileName = secondStackTraceElement.getFileName();
       className = secondStackTraceElement.getClassName();
       methodName = secondStackTraceElement.getMethodName();
-      callMethodLineNumber = secondStackTraceElement.getLineNumber();
+//      callMethodLineNumber = secondStackTraceElement.getLineNumber();
 
 
       // parse the model creation file

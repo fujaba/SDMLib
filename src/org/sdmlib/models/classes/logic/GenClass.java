@@ -187,7 +187,7 @@ public class GenClass
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         attr.generate(rootDir, helpersDir, false);
+         attr.getGenerator().generate(rootDir, helpersDir, false);
       }
 
       if (model.getSuperClass() != null) 
@@ -206,7 +206,7 @@ public class GenClass
       for (Attribute attr : superClazz.getAttributes()) {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         attr.generate(model, rootDir, helpersDir, false, true);
+         attr.getGenerator().generate(model, rootDir, helpersDir, false, true);
       }
       if (superClazz.getSuperClass() != null) {
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
@@ -227,7 +227,7 @@ public class GenClass
             for (Attribute attr : interfaze.getAttributes())
             {
                Parser creatorParser = this.getOrCreateParserForCreatorClass(helpersDir);
-               attr.insertPropertyInCreatorClass(interfaze.getName(), creatorParser, helpersDir, false);
+               attr.getGenerator().insertPropertyInCreatorClass(interfaze.getName(), creatorParser, helpersDir, false);
             }
 
          }
@@ -246,7 +246,7 @@ public class GenClass
          {
             for (Attribute attr : interfaze.getAttributes())
             {
-               attr.generate(clazz, rootDir, helpersDir);
+               attr.getGenerator().generate(clazz, rootDir, helpersDir);
             }
 
             for (Method method : interfaze.getMethods())
