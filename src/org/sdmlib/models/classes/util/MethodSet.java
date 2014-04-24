@@ -19,14 +19,14 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.creators.ModelPattern;
 import org.sdmlib.models.modelsets.StringList;
 
 public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet

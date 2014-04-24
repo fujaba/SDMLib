@@ -8,8 +8,8 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute
@@ -269,7 +269,7 @@ public class GenAttribute
                      );
 
          String typePlaceholder = "type";
-         String type = model.getType();
+         String type = model.getType().getValue();
          if ("int".equals(type))
          {
             typePlaceholder = "(type) value";
@@ -365,7 +365,7 @@ public class GenAttribute
 
    private void insertCaseInToString(Parser parser)
    {
-      if ("String int double float".indexOf(CGUtil.shortClassName(model.getType())) < 0)
+      if ("String int double float".indexOf(CGUtil.shortClassName(model.getType().getValue())) < 0)
       {
          // only standard types contribute to toString()
          return;
@@ -429,8 +429,9 @@ public class GenAttribute
          model.getClazz().getGenerator().setFileHasChanged(true);
       }
    }
-   private ArrayList<String> checkImportClassesFromType(String modelSetType) 
+   private ArrayList<String> checkImportClassesFromType(DataType value) 
    {
+      String modelSetType = value.getValue();
       ArrayList<String> importList = new ArrayList<String>();
       modelSetType = modelSetType.trim();
       int index = modelSetType.indexOf("<");
@@ -471,7 +472,7 @@ public class GenAttribute
    }
    private void insertCreateMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":create"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -512,7 +513,7 @@ public class GenAttribute
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
 
       String attrNameUpFirstChar = StrUtil.upFirstChar(model.getName());
 
@@ -597,14 +598,14 @@ public class GenAttribute
    
    private void insertHasMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz) 
    {
-      if ("int long float double String".indexOf(model.getType()) < 0)
+      if ("int long float double String".indexOf(model.getType().getValue()) < 0)
       {
          // range query only for numbers and strings
          return;
       }
       
       
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + "," + attrType + ")";
       int pos = parser.indexOf(key);
@@ -655,7 +656,7 @@ public class GenAttribute
 
    private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -762,17 +763,17 @@ public class GenAttribute
                   + "\n"    
                );
          }
-         
-         String fullModelSetType = model.getType();
-         String modelSetType = CGUtil.shortClassName(model.getType());
+         DataType dataType = model.getType();
+         String fullModelSetType = dataType.getValue();
+         String modelSetType = CGUtil.shortClassName(fullModelSetType);
 
          ArrayList<String> importClassesFromTypes = new ArrayList<String>();
 
-         if ( ! CGUtil.isPrimitiveType(model.getType()) && !model.getType().contains("<") && !model.getType().endsWith("Set")) 
+         if ( ! CGUtil.isPrimitiveType(fullModelSetType) && !fullModelSetType.contains("<") && !fullModelSetType.endsWith("Set")) 
          {
-            fullModelSetType = CGUtil.packageName(model.getType()) + ".creators." + CGUtil.shortClassName(model.getType())+ "Set";
-            modelSetType = CGUtil.shortClassName(model.getType()) + "Set";
-            String importForSet = checkSetImportFor(CGUtil.shortClassName(model.getType()));
+            fullModelSetType = CGUtil.packageName(fullModelSetType) + ".creators." + CGUtil.shortClassName(fullModelSetType)+ "Set";
+            modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
+            String importForSet = checkSetImportFor(CGUtil.shortClassName(fullModelSetType));
             if(importForSet != null)
             {
                importClassesFromTypes.add(importForSet);
@@ -785,13 +786,13 @@ public class GenAttribute
          
          String add = "add";
 
-         if (model.getType().contains("<") || model.getType().endsWith("Set")) 
+         if (fullModelSetType.contains("<") || fullModelSetType.endsWith("Set")) 
          {
             add = "addAll";
          }
 
-         if (CGUtil.isPrimitiveType(model.getType())) {
-            modelSetType = CGUtil.shortClassName(model.getType()) + "List";
+         if (CGUtil.isPrimitiveType(fullModelSetType)) {
+            modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
             fullModelSetType = "org.sdmlib.models.modelsets."
                   + modelSetType;
             importClassesFromTypes.add(fullModelSetType);
@@ -802,13 +803,13 @@ public class GenAttribute
             // check for enum types
             try
             {
-               String innerClassName = CGUtil.packageName(model.getType()) + "$" + CGUtil.shortClassName(model.getType()); 
+               String innerClassName = CGUtil.packageName(fullModelSetType) + "$" + CGUtil.shortClassName(fullModelSetType); 
                Class<?> forName = Class.forName(innerClassName);
                
                if (forName.isEnum())
                {
                   // use an ArrayList<Enum> as ModelSetType
-                  modelSetType = "ArrayList<ElemType>".replaceAll("ElemType", CGUtil.shortClassName(model.getType()));
+                  modelSetType = "ArrayList<ElemType>".replaceAll("ElemType", CGUtil.shortClassName(fullModelSetType));
                   importClassesFromTypes.remove(importClassesFromTypes.size()-1);
                   importClassesFromTypes.add("java.util.ArrayList");
                }
@@ -825,7 +826,7 @@ public class GenAttribute
          String valueComparison = "value.equals(obj.get" + StrUtil.upFirstChar(model.getName()) + "())";
          String rangeCheck = "lower.compareTo(obj.get" + StrUtil.upFirstChar(model.getName()) + "()) <= 0 && obj.get" + StrUtil.upFirstChar(model.getName()) + "().compareTo(upper) <= 0";
          
-         if ( ! R.STRING.equals(model.getType()))
+         if ( ! DataType.STRING.equals(model.getType()))
          {
             valueComparison = "value == obj.get" + StrUtil.upFirstChar(model.getName()) + "()";
             rangeCheck = "lower <= obj.get" + StrUtil.upFirstChar(model.getName()) + "() && obj.get" + StrUtil.upFirstChar(model.getName()) + "() <= upper";
@@ -920,7 +921,7 @@ public class GenAttribute
       if(parser==null){
          return;
       }
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType(), parser);
+      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":with"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -1002,7 +1003,8 @@ public class GenAttribute
                      );
 
          String typePlaceholder = "type";
-         String type = model.getType();
+         DataType dataType = model.getType();
+         String type = dataType.getValue();
          if ("int".equals(type))
          {
             typePlaceholder = "(type) value";

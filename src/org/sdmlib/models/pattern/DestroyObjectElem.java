@@ -23,10 +23,9 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class DestroyObjectElem extends PatternElement implements PropertyChangeInterface
 {
@@ -57,7 +56,7 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
             
             creatorClass.removeObject(currentMatch);
             
-            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
             {
                getTopPattern().addLogMsg(getPatternObject().getPatternObjectName() + ".removeYou(); // kill: " + dumpHostGraphObject(currentMatch));
             }

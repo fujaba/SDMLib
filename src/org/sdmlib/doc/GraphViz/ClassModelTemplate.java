@@ -100,13 +100,13 @@ public class ClassModelTemplate {
 		for (Attribute attr : model.getClasses().getAttributes())
 		{
 
-			if (CGUtil.isPrimitiveType(attr.getType()))
+			if (CGUtil.isPrimitiveType(attr.getType().getValue()))
 			{
 				continue;
 			}
 
 //			R tgtCard = model.findRoleCard(attr.getType());
-			String tgtClassName = model.getGenerator().findPartnerClassName(attr.getType());
+			String tgtClassName = model.getGenerator().findPartnerClassName(attr.getType().getValue());
 			tgtClassName = CGUtil.shortClassName(tgtClassName);
 
 			StringBuilder oneAssocText = new StringBuilder("\n    _sourceClass -> _targetClass [headlabel = \"targetRole\" taillabel = \"sourceRole\" arrowhead = \"vee\" ];");
@@ -135,7 +135,7 @@ public class ClassModelTemplate {
 			{
 				StringBuilder oneAttrText = new StringBuilder("<tr><td align='left'>attrDecl</td></tr>");
 
-				CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :" + CGUtil.shortClassNameHTMLEncoded(attr.getType()));
+				CGUtil.replaceAll(oneAttrText, "attrDecl", attr.getName() + " :" + CGUtil.shortClassNameHTMLEncoded(attr.getType().getValue()));
 
 				CGUtil.replaceAll(allAttrsText, "attrRow", oneAttrText.append(" attrRow").toString());
 			}

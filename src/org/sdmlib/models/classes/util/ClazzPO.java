@@ -2,8 +2,6 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.creators.MethodPO;
-import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RolePO;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.logic.GenClass;

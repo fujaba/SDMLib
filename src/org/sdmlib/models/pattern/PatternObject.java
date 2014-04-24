@@ -28,7 +28,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
@@ -102,7 +103,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             this.setCurrentMatch(sendableInstance);
             this.setHasMatch(true);
 
-            if (this.getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            if (this.getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
             {
                String shortClassName = CGUtil.shortClassName(className);
 
@@ -165,7 +166,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
             resultStat = true;
 
-            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
             {
                String tgtVar = getLHSPatternObjectName();
                getTopPattern().addLogMsg(
@@ -258,7 +259,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
       this.getPattern().addToElements(nac);
 
-      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
       {
          nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
 
@@ -294,7 +295,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
       this.getPattern().addToElements(optionalSubPattern);
 
-      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
       {
          optionalSubPattern.setPatternObjectName("o" + getTopPattern().getPatternObjectCount());
 
@@ -330,7 +331,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
 
       while (this.getPattern().getHasMatch())
       {
-         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// " + getPattern().getPatternObjectName() + " allMatches?");
          }

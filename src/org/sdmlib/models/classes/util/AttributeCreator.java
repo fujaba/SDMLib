@@ -2,6 +2,7 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 
 public class AttributeCreator extends EntityFactory
@@ -76,7 +77,7 @@ public class AttributeCreator extends EntityFactory
 
       if (Attribute.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
-         ((Attribute) target).setType((String) value);
+         ((Attribute) target).setType((DataType) value);
          return true;
       }
 

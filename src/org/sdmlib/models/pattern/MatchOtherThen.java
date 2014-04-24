@@ -21,15 +21,12 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import java.util.Collection;
 
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.MatchOtherThenSet;
-import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {
@@ -57,7 +54,7 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
 
             if (hostGraphSrcObject != forbidden)
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// node x differs from node y";
                   msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
@@ -69,7 +66,7 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
             }
             else 
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// node x equals forbidden node y, backtrack!";
                   msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);

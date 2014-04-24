@@ -21,15 +21,13 @@
 
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.GenericConstraint.Condition;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.util.LinkedHashSet;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class GenericConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -54,7 +52,7 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
          
          this.setHasMatch(ok);
          
-         if (ok && getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (ok && getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
          }

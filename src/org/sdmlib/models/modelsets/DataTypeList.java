@@ -23,7 +23,9 @@ package org.sdmlib.models.modelsets;
 
 import java.util.ArrayList;
 
-public class StringList extends ArrayList<String>
+import org.sdmlib.models.classes.DataType;
+
+public class DataTypeList extends ArrayList<DataType>
 {
    private static final long serialVersionUID = 1L;
    
@@ -44,7 +46,7 @@ public class StringList extends ArrayList<String>
    {
       StringBuffer buf = new StringBuffer();
       
-      for (String str : this)
+      for (DataType str : this)
       {
          buf.append(str).append(seperator);
       }

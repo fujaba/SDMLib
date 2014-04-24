@@ -24,12 +24,11 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.AttributeConstraintSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
 
 public class AttributeConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -88,7 +87,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             
             if (itWorks)
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// attribute a1 of node x has required value y";
                   msg = msg.replaceFirst("y", "" + value);
@@ -101,7 +100,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// attribute a1 of node x has value actual and not required value y, backtrack!";
                   msg = msg.replaceFirst("y", "" + tgtValue);

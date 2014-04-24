@@ -121,7 +121,7 @@ public class GenClass
          }
 
          for (Method method : model.getMethods()) {
-            method.generate(rootDir, helpersDir, false);
+            method.getGenerator().generate(rootDir, helpersDir, false);
          }
       }
 
@@ -251,7 +251,7 @@ public class GenClass
 
             for (Method method : interfaze.getMethods())
             {
-               method.generate(clazz, rootDir, helpersDir, false);
+               method.getGenerator().generate(clazz, rootDir, helpersDir, false);
             }
 
          }

@@ -21,18 +21,15 @@
 
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
+import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.CardinalityConstraintSet;
-
-import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -74,7 +71,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
 
             if (minCard <= valueSize && valueSize <= maxCard)
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// node x has size tgtRole neighbors, which is between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);
@@ -89,7 +86,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
             }
             else 
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {  
                   String msg = "// node x has size tgtRole neighbors, which is NOT between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);

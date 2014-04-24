@@ -2,17 +2,20 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
+   @Override
    public AttributePO startNAC()
    {
       return (AttributePO) super.startNAC();
    }
    
+   @Override
    public AttributePO endNAC()
    {
       return (AttributePO) super.endNAC();
@@ -102,7 +105,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this;
    }
    
-   public String getType()
+   public DataType getType()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -111,7 +114,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return null;
    }
    
-   public AttributePO withType(String value)
+   public AttributePO withType(DataType value)
    {
       if (this.getPattern().getHasMatch())
       {

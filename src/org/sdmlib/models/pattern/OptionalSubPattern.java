@@ -22,12 +22,11 @@
 package org.sdmlib.models.pattern;
 
 
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.serialization.json.JsonIdMap;
 
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements PropertyChangeInterface
@@ -61,7 +60,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
          // check the subpattern / NAC again
          resetSearch();
          
-         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// (re)startSubPattern " + getPatternObjectName() + ";");
          }
@@ -72,7 +71,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
          {
             while (getHasMatch())
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   getTopPattern().addLogMsg("// " + getPatternObjectName() + " allMatches?");
                }

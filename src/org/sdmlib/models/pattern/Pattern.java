@@ -31,15 +31,14 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.PatternElementSet;
 import org.sdmlib.models.pattern.creators.PatternSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
@@ -118,7 +117,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       this.addToElements(nac);
 
-      if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
       {
          nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
          
@@ -190,7 +189,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          
          i = 0;
          
-         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             getTopPattern().addLogMsg("\n     Restart pattern: ");
          }
@@ -1026,7 +1025,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          this.debugMode = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DEBUGMODE, oldValue, value);
          
-         if (value >= R.DEBUG_ON)
+         if (value >= SDMLibConfig.DEBUG_ON)
          {
             setTrace(new StringBuilder());
          }
@@ -1104,7 +1103,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    
    public MP addLogMsg(String msg)
    {
-      if (debugMode >= R.DEBUG_ON)
+      if (debugMode >= SDMLibConfig.DEBUG_ON)
       {
          if (trace == null)
          {
@@ -1116,7 +1115,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          String line = ""  + traceLength + ": " + msg + "\n";
          trace.append(line);
       
-         if (debugMode >= R.TRACE_ON)
+         if (debugMode >= SDMLibConfig.TRACE_ON)
          {
             System.out.print(line);
          }

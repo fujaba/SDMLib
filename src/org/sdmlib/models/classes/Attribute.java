@@ -37,7 +37,7 @@ public class Attribute extends SDMLibClass
    private GenAttribute generator;
    private String initialization = null;
    private String name = null;
-   private String type = null;
+   private DataType type = null;
    
    public Clazz getClazz()
    {
@@ -126,23 +126,23 @@ public class Attribute extends SDMLibClass
       return this;
    }
 
-   public void setType(String value)
+   public void setType(DataType value)
    {
-      if ( ! StrUtil.stringEquals(this.type, value))
+      if (( this.type==null && value!=null) || (this.type!=null && this.type!=value))
       {
-         String oldValue = this.type;
+         DataType oldValue = this.type;
          this.type = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
       }
    }
    
-   public Attribute withType(String value)
+   public Attribute withType(DataType value)
    {
       setType(value);
       return this;
    } 
 
-   public String getType()
+   public DataType getType()
    {
       return type;
    }

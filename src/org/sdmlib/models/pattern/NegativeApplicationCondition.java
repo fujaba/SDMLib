@@ -23,9 +23,9 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.json.JsonIdMap;
-
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
@@ -68,14 +68,14 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          // check the NAC again
          resetSearch();
          
-         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// start NAC " + getPatternObjectName());
          }
          
          boolean nacHasMatch = findMatch();
          
-         if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
          {
             if (nacHasMatch)
             {

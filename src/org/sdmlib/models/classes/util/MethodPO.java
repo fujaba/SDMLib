@@ -1,8 +1,7 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;

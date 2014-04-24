@@ -1,4 +1,4 @@
-package org.sdmlib.models.classes.creators;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.pattern.creators.PatternObjectCreator;
 

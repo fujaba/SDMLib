@@ -21,20 +21,15 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.PatternLink;
-
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
+import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.util.Collection;
 
 public class LinkConstraint extends PatternLink implements PropertyChangeInterface
 {
@@ -64,7 +59,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             
-            if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+            if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
             {
                getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                   + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
@@ -96,7 +91,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else if (value instanceof Collection)
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
@@ -106,7 +101,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                      + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
@@ -135,7 +130,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             if (hostGraphTgtObject != null && 
                   (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value).contains(hostGraphTgtObject))))
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   String msg = "// cnet link from x to y exists";
                   msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
@@ -148,7 +143,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   String msg = "// cnet link from x to ? does not exists, backtrack";
                   if (value != null)

@@ -35,24 +35,24 @@ public class GenAssociation
    public GenAssociation generate(String rootDir, String helperDir, boolean doGenerate)
    {
       // open source class and get or insert role implementation
-      model.getSource().generate(rootDir, helperDir, model.getTarget(), doGenerate);
+      model.getSource().getGenerator().generate(rootDir, helperDir, model.getTarget(), doGenerate);
       
       // also for subclasses
       for (Clazz kidClass : model.getSource().getClazz().getKidClassesClosure())
       {
          boolean needsImplementation = kidClass.getInterfaces().contains(model.getSource().getClazz());
-         model.getSource().generate(kidClass, rootDir, helperDir, model.getTarget(), doGenerate, ! needsImplementation);
+         model.getSource().getGenerator().generate(kidClass, rootDir, helperDir, model.getTarget(), doGenerate, ! needsImplementation);
       }
 
       // open target class and get or insert role implementation
-      model.getTarget().generate(rootDir, helperDir, model.getSource(), doGenerate);
+      model.getTarget().getGenerator().generate(rootDir, helperDir, model.getSource(), doGenerate);
 
       // also for subclasses
       for (Clazz kidClass : model.getTarget().getClazz()
             .getKidClassesClosure())
       {
          boolean needsImplementation = kidClass.getInterfaces().contains(model.getTarget().getClazz());
-         model.getTarget().generate(kidClass, rootDir, helperDir, model.getSource(), doGenerate, ! needsImplementation);
+         model.getTarget().getGenerator().generate(kidClass, rootDir, helperDir, model.getSource(), doGenerate, ! needsImplementation);
       }
       
       return this;

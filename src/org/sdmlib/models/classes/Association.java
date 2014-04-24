@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.logic.GenAssociation;
 
 public class Association extends SDMLibClass

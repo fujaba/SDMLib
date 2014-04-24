@@ -52,7 +52,7 @@ import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
@@ -68,8 +68,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.ConditionMap;
 import org.sdmlib.serialization.logic.ValuesMap;
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.storyboards.creators.StoryboardStepSet;
 
 public class Storyboard implements PropertyChangeInterface
 {
@@ -258,7 +258,7 @@ public class Storyboard implements PropertyChangeInterface
 
       if (kanbanEntry.getPhase() == null)
       {
-         kanbanEntry.setPhase(R.BACKLOG);
+         kanbanEntry.setPhase(SDMLibConfig.BACKLOG);
       }
 
       if (this.kanbanWorkFlow != null)

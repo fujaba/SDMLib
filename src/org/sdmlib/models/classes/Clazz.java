@@ -24,12 +24,11 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.util.MethodSet;
 
 public class Clazz extends SDMLibClass
 {
@@ -525,28 +524,15 @@ public class Clazz extends SDMLibClass
    }
 
 
-   public Clazz withAttribute(String name, String type)
+   public Clazz withAttribute(String name, DataType type)
    {      
       this.withAttributes(new Attribute().withName(name).withType(type));
       return this;
    }
 
-   public Clazz withAttribute(String name, String type, String initialization)
+   public Clazz withAttribute(String name, DataType type, String initialization)
    {      
       this.withAttributes(new Attribute().withName(name).withType(type).withInitialization(initialization));
-      return this;
-   }
-
-   public Clazz withAttributes(String... attrNameTypePairs)
-   {  
-      if (attrNameTypePairs != null)
-      {
-         for (int i = 0; i+2 <= attrNameTypePairs.length; i += 2)
-         {
-            this.withAttribute(attrNameTypePairs[i], attrNameTypePairs[i+1]);
-         }
-      }
-
       return this;
    }
 
@@ -833,7 +819,7 @@ public class Clazz extends SDMLibClass
       }
    }
 
-   public Attribute getOrCreateAttribute(String attrName, String attrType)
+   public Attribute getOrCreateAttribute(String attrName, DataType attrType)
    {
       for (Attribute attrDecl : getAttributes())
       {

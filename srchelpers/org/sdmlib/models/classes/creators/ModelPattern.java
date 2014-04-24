@@ -18,6 +18,7 @@ import org.sdmlib.models.classes.util.AssociationPO;
 import org.sdmlib.models.classes.util.AttributePO;
 import org.sdmlib.models.classes.util.ClassModelPO;
 import org.sdmlib.models.classes.util.ClazzPO;
+import org.sdmlib.models.classes.util.MethodPO;
 import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern

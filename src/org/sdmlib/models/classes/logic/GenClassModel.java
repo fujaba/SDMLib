@@ -30,10 +30,11 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.R;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -125,8 +126,9 @@ public class GenClassModel
    public void addHelperClassesForUnknownAttributeTypes()
    {
       // for attribute types like java.util.Date we add a class with that name and mark it as wrapped. This generates the required DateSet class.
-      for (String typeName : this.model.getClasses().getAttributes().getType())
+      for (DataType item : this.model.getClasses().getAttributes().getType())
       {
+         String typeName = item.getValue();
          int pos = "int float double long String boolean Object java.util.Date".indexOf(typeName);
          
          if (pos < 0)
@@ -237,7 +239,7 @@ public class GenClassModel
             }
             else if(object instanceof Role) {
                Role role = (Role)object;
-               String position = defPosition(parser, localVarTable, role.getName(), "NONE" ,role.getClazz().getName() );
+               String position = defPosition(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getName() );
                System.err.println("in " + fileName + "  duplicate name found in definition for "+ role.getClazz() + "\n    " + position + "\n      Role " + role );
                Association assoc = role.getAssoc();
                
@@ -250,7 +252,7 @@ public class GenClassModel
       }        
    }
    
-   private String defPosition(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, String attrType , String clazzType) {
+   private String defPosition(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, DataType attrType , String clazzType) {
        String position = "";
        
       if ( localVarTable != null ) {
@@ -919,22 +921,22 @@ public class GenClassModel
       return sequence;
    }
 
-   private ArrayList<String> findSequence(String searchString, ArrayList<ArrayList<String>> initSequence)
-   {
-      for (ArrayList<String> sequence : initSequence)
-      {
-         String sequenceString = "";
-         for (String string : sequence)
-         {
-            sequenceString += string;
-         }
-         if (sequenceString.startsWith(searchString))
-         {
-            return sequence;
-         }
-      }
-      return null;
-   }
+//FIXME   private ArrayList<String> findSequence(String searchString, ArrayList<ArrayList<String>> initSequence)
+//   {
+//      for (ArrayList<String> sequence : initSequence)
+//      {
+//         String sequenceString = "";
+//         for (String string : sequence)
+//         {
+//            sequenceString += string;
+//         }
+//         if (sequenceString.startsWith(searchString))
+//         {
+//            return sequence;
+//         }
+//      }
+//      return null;
+//   }
 
    private String findInitSequenceAsString(String searchString, ArrayList<ArrayList<String>> initSequence)
    {
@@ -1082,20 +1084,20 @@ public class GenClassModel
       return currentInsertPos;
    }
    
-   private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser)
-   {
-      Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
-      for (String qualifiedName : methodBodyQualifiedNames)
-      {
-         if (qualifiedName.contains(methodCall))
-         {
-            int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
-            String substring = parser.getFileBody().substring(callPos, methodEndPos);
-            return callPos + substring.indexOf(';') + 1;
-         }
-      }
-      return -1;
-   }
+//FIXME   private int searchForQualifiedNamePosition(String methodCall, int methodEndPos, Parser parser)
+//   {
+//      Set<String> methodBodyQualifiedNames = parser.getMethodBodyQualifiedNames();
+//      for (String qualifiedName : methodBodyQualifiedNames)
+//      {
+//         if (qualifiedName.contains(methodCall))
+//         {
+//            int callPos = parser.getMethodBodyQualifiedNamesMap().get(qualifiedName);
+//            String substring = parser.getFileBody().substring(callPos, methodEndPos);
+//            return callPos + substring.indexOf(';') + 1;
+//         }
+//      }
+//      return -1;
+//   }
    
 
    private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
@@ -1389,7 +1391,7 @@ public class GenClassModel
             {
                if (StrUtil.stringEquals(attr.getName(), varName))
                {
-                  return attr.getType();
+                  return attr.getType().getValue();
                }
             }
 
@@ -1451,7 +1453,7 @@ public class GenClassModel
             // add attribute declarations
             for (GenericAttribute attr : currentObject.getAttrs())
             {
-               Attribute attrDecl = currentClazz.getOrCreateAttribute(attr.getName(), "Object");
+               Attribute attrDecl = currentClazz.getOrCreateAttribute(attr.getName(), DataType.Object);
                
                String valueString = attr.getValue();
                
@@ -1496,9 +1498,9 @@ public class GenClassModel
                
                String typeOrder = "Object int double java.util.Date String";
                
-               if (typeOrder.indexOf(attrDecl.getType()) < typeOrder.indexOf(attrType))
+               if (typeOrder.indexOf(attrDecl.getType().getValue()) < typeOrder.indexOf(attrType))
                {
-                  attrDecl.setType(attrType);
+                  attrDecl.setType(DataType.ref(attrType));
                }
             }
          }
@@ -1782,7 +1784,7 @@ public class GenClassModel
             {
                new Attribute()
                .withName(memberName)
-               .withType(partnerTypeName)
+               .withType(DataType.ref(partnerTypeName))
                .withClazz(clazz);
                continue;
             }
@@ -1829,7 +1831,7 @@ public class GenClassModel
                // did not find reverse role, add as attribute
                new Attribute()
                .withName(memberName)
-               .withType(partnerTypeName)
+               .withType(DataType.ref(partnerTypeName))
                .withClazz(clazz);
             }
 
@@ -1937,7 +1939,7 @@ public class GenClassModel
 
          if (!classContainsAttribut(clazz, attrName, symTabEntry.getType()))
          {
-            new Attribute().withClazz(clazz).withName(attrName).withType(symTabEntry.getType());
+            new Attribute().withClazz(clazz).withName(attrName).withType(DataType.ref(symTabEntry.getType()));
          }
          attributes.put(symTabEntry, Attribute.SIMPLE);
       }
@@ -2212,7 +2214,7 @@ public class GenClassModel
    private boolean hasAttribute(Attribute attribute, LocalVarTableEntry entry)
    {
       String name = attribute.getName();
-      String type = attribute.getType();
+      String type = attribute.getType().getValue();
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
 
       for (ArrayList<String> sequencePart : initSequence)

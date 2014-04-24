@@ -21,21 +21,15 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.awt.Container;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.creators.PatternLinkSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
@@ -118,7 +112,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             {
                this.getTgt().setCandidates(value);
                
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   // add set of candidates to trace
                   String setVarName = this.getTgt().getPatternObjectName() + "Candidates";
@@ -141,7 +135,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             {
                this.getTgt().setCandidates(value);
 
-               if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
                {
                   String setVarName = this.getTgt().getPatternObjectName();
                   LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();
