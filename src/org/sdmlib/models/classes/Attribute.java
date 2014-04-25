@@ -26,6 +26,7 @@ import org.sdmlib.models.classes.logic.GenAttribute;
 
 public class Attribute extends SDMLibClass
 {
+//FIXME ALEX WOFÜR
    public static final String SIMPLE = "simple";
    public static final String COMPLEX = "complex";
    public static final String PROPERTY_CLAZZ = "clazz";
@@ -179,12 +180,5 @@ public class Attribute extends SDMLibClass
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   public Clazz createClazz()
-   {
-      Clazz value = new Clazz();
-      withClazz(value);
-      return value;
-   } 
 }
 

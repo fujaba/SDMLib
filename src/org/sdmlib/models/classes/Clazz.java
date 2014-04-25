@@ -496,9 +496,9 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public Clazz withMethods(String signature, String returnType)
+   public Clazz withMethods(DataType returnType, Attribute parameters)
    {
-      return withMethods(new Method(signature, returnType));
+      return withMethods(new Method(returnType, parameters));
    } 
 
    public Clazz withMethods(Method value)
@@ -855,9 +855,9 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Method createMethods(String signature, String returnType)
+   public Method createMethods(DataType returnType, Attribute... parameters)
    {
-      return new Method(signature, returnType).withClazz(this);     
+      return new Method(returnType, parameters).withClazz(this);     
    } 
 
 
@@ -942,13 +942,6 @@ public class Clazz extends SDMLibClass
       return this.external;
    }
    
-   public ClassModel createClassModel()
-   {
-      ClassModel value = new ClassModel();
-      withClassModel(value);
-      return value;
-   } 
-
    public Clazz withKidClasses(Clazz... value)
    {
       for (Clazz item : value)
@@ -966,20 +959,6 @@ public class Clazz extends SDMLibClass
       }
       return this;
    }
-
-   public Clazz createKidClasses()
-   {
-      Clazz value = new Clazz();
-      withKidClasses(value);
-      return value;
-   } 
-
-   public Clazz createSuperClass()
-   {
-      Clazz value = new Clazz();
-      withSuperClass(value);
-      return value;
-   } 
 
    public Clazz withKidClassesAsInterface(Clazz... value)
    {
@@ -1024,13 +1003,6 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Clazz createInterfaces()
-   {
-      Clazz value = new Clazz();
-      withInterfaces(value);
-      return value;
-   } 
-
    public Clazz withAttributes(Attribute... value)
    {
       for (Attribute item : value)
@@ -1049,14 +1021,7 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Attribute createAttributes()
-   {
-      Attribute value = new Attribute();
-      withAttributes(value);
-      return value;
-   } 
-
-   public Clazz withMethods(Method... value)
+  public Clazz withMethods(Method... value)
    {
       for (Method item : value)
       {
@@ -1073,13 +1038,6 @@ public class Clazz extends SDMLibClass
       }
       return this;
    }
-
-   public Method createMethods()
-   {
-      Method value = new Method();
-      withMethods(value);
-      return value;
-   } 
 
    public Clazz withSourceRoles(Role... value)
    {

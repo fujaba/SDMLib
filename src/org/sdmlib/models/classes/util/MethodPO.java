@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -35,7 +36,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    public MethodPO hasSignature(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_SIGNATURE)
+      .withAttrName(Method.PROPERTY_PARAMETERS)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -46,11 +47,11 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public String getSignature()
+   public AttributeSet getSignature()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Method) getCurrentMatch()).getSignature();
+         return ((Method) getCurrentMatch()).getParameters();
       }
       return null;
    }
@@ -69,7 +70,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public String getReturnType()
+   public DataType getReturnType()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -146,7 +147,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    public MethodPO hasSignature(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_SIGNATURE)
+      .withAttrName(Method.PROPERTY_PARAMETERS)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)

@@ -72,7 +72,7 @@ public class GenAttribute
       CGUtil.replaceAll(text, "valueCompare", valueCompare);
 
       CGUtil.replaceAll(text, 
-         "type", model.getType(), 
+         "type", model.getType().getValue(), 
          "name", model.getName(),
          "Name", StrUtil.upFirstChar(model.getName()),
          "NAME", model.getName().toUpperCase(),
@@ -838,7 +838,7 @@ public class GenAttribute
             "Name", StrUtil.upFirstChar(model.getName()), 
             "addOneOrMore", add, 
             "ObjectSetType", objectSetType, 
-            "AttrType", model.getType(),
+            "AttrType", model.getType().getValue(),
             "valueComparison", valueComparison,
             "rangeCheck", rangeCheck
             );

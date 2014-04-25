@@ -24,38 +24,42 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.creators.ModelPattern;
+import org.sdmlib.models.modelsets.DataTypeList;
 import org.sdmlib.models.modelsets.StringList;
 
 public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getSignature()
+   private static final long serialVersionUID = 1L;
+
+   public AttributeSet getParametere()
    {
-      StringList result = new StringList();
+      AttributeSet result = new AttributeSet();
       
       for (Method obj : this)
       {
-         result.add(obj.getSignature());
+         result.addAll(obj.getParameters());
       }
       
       return result;
    }
 
-   public MethodSet withSignature(String value)
+   public MethodSet withParameter(Attribute value)
    {
       for (Method obj : this)
       {
-         obj.withSignature(value);
+         obj.withParameter(value);
       }
       
       return this;
    }
 
-   public StringList getReturnType()
+   public DataTypeList getReturnType()
    {
-      StringList result = new StringList();
+      DataTypeList result = new DataTypeList();
       
       for (Method obj : this)
       {
@@ -65,7 +69,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return result;
    }
 
-   public MethodSet withReturnType(String value)
+   public MethodSet withReturnType(DataType value)
    {
       for (Method obj : this)
       {
@@ -98,6 +102,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -111,6 +116,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Method";

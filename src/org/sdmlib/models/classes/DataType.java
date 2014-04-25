@@ -2,7 +2,7 @@ package org.sdmlib.models.classes;
 
 public enum DataType
 {
-   INT("int"), LONG("long"), DOUBLE("double"), STRING("String"), BOOLEAN("boolean"), Object("Object"), Custom("");
+   VOID("void"), INT("int"), LONG("long"), DOUBLE("double"), STRING("String"), BOOLEAN("boolean"), Object("Object"), Custom("");
    
    private String value;
    DataType(String value){

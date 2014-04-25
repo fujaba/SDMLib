@@ -37,6 +37,7 @@ import org.sdmlib.models.classes.R;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.util.AssociationSet;
+import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -996,6 +997,7 @@ public class GenClassModel
    {
       String shortClassName = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
       shortClassName = StrUtil.downFirstChar(shortClassName);
+      AttributeSet parameters = method.getParameters();
       String signature = method.getSignature();
 
       String methodClass = "";
@@ -2044,9 +2046,9 @@ public class GenClassModel
       if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
       {
          new Method()
-         .withClazz(clazz)
-         .withSignature(signature)
-         .withReturnType(split[2]);
+         .withClazz(clazz);
+//FIXME MONTAG mit Alex         .withSignature(signature)
+//         .withReturnType(split[2]);
       }
    }
 

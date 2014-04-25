@@ -100,11 +100,11 @@ public class GenMethod
          
          String returnClause = "";
          
-         if ("int float double".indexOf(model.getReturnType()) >= 0)
+         if ("int float double".indexOf(model.getReturnType().getValue()) >= 0)
          {
             returnClause = "return 0;";
          }
-         else if ("void".indexOf(model.getReturnType()) >= 0)
+         else if ("void".indexOf(model.getReturnType().getValue() ) >= 0)
          {
             returnClause = "";
          }
@@ -204,7 +204,7 @@ public class GenMethod
          String returnSetAddEnd = "";
          String returnStat = "return this;";
          
-         String type = model.getReturnType();
+         String type = model.getReturnType().getValue();
          if (type == null)
          {
             type = "void";
@@ -322,7 +322,7 @@ public class GenMethod
          String returnStart = "";
          String returnStat = "";
          
-         String type = model.getReturnType();
+         String type = model.getReturnType().getValue();
          if (type == null)
          {
             type = "void";

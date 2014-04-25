@@ -21,24 +21,29 @@
 
 package org.sdmlib.models.classes;
 
+import java.util.LinkedHashSet;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.logic.GenMethod;
+import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.MethodSet;
 
 public class Method extends SDMLibClass
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
-   public static final String PROPERTY_SIGNATURE = "signature";
+   public static final String PROPERTY_PARAMETERS = "parameter";
    public static final MethodSet EMPTY_SET = new MethodSet();
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
-
+   public static final String PROPERTY_NAME = "name";
+   
    private String modifier = "public";
+   private String name;
    private Clazz clazz = null;
    private String body;
-   private String signature;  
-   private String returnType = "void";
+   private AttributeSet parameters = null;
+   private DataType returnType = DataType.VOID;
 
    private GenMethod generator;
 
@@ -60,6 +65,23 @@ public class Method extends SDMLibClass
       }
    }
    
+   //TODO Right so
+   public String getSignature(){
+      StringBuilder sb=new StringBuilder();
+      
+      sb.append(this.getName()+"(");
+      boolean first=true;
+      for(Attribute attribute : parameters){
+         if(first){
+            sb.append(attribute.getType().getValue()+" "+attribute.getName());
+            first=false;
+         }else{
+            sb.append(","+attribute.getType().getValue()+" "+attribute.getName());
+         }
+      }
+      return sb.toString();
+   }
+   
    public GenMethod getGenerator(){
       if(generator==null){
          this.setGenerator(new GenMethod());
@@ -73,29 +95,118 @@ public class Method extends SDMLibClass
       
    }
    
-   public Method(String signature, String returnType)
+   public Method(DataType returnType, Attribute... parameters)
    {
-      this.setSignature(signature);
+      this.withParameters(parameters);
       this.setReturnType(returnType);
    }
 
-   public String getSignature()
+   public String getName()
    {
-      return this.signature;
+      return name;
    }
 
-   public void setSignature(String value)
+   public void setName(String name)
    {
-	  value = value.replaceAll(" ", "");
-      this.signature = value;
+      this.name = name;
    }
 
-   public Method withSignature(String value)
+   public Method withName(String name)
    {
-      setSignature(value);
+      setName(name);
+      return this;
+   }
+   
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Attribute
+    *              clazz                   attributes
+    * </pre>
+    */
+   public AttributeSet getParameters()
+   {
+      if (this.parameters == null)
+      {
+         return new AttributeSet();
+      }
+
+      return this.parameters;
+   }
+
+   public boolean addToParameter(Attribute value)
+   {
+      boolean changed = false;
+
+      if (value != null)
+      {
+         if (this.parameters == null)
+         {
+            this.parameters = new AttributeSet();
+         }
+
+         changed = this.parameters.add (value);
+
+         if (changed)
+         {
+//FIXME            value.setClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, null, value);
+         }
+      }
+
+      return changed;   
+   }
+
+   public boolean removeFromParameter(Attribute value)
+   {
+      boolean changed = false;
+
+      if ((this.parameters != null) && (value != null))
+      {
+         changed = this.parameters.remove (value);
+
+         if (changed)
+         {
+            value.setClazz(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, value, null);
+         }
+      }
+
+      return changed;   
+   }
+
+   public Method withParameter(Attribute value)
+   {
+      addToParameter(value);
+      return this;
+   }
+   
+   public Method withParameters(Attribute... value)
+   {
+      for(Attribute parameter : value){
+         addToParameter(parameter);
+      }
+      return this;
+   }
+   
+
+   public Method withoutParameter(Attribute value)
+   {
+      removeFromParameter(value);
       return this;
    } 
-   
+
+   public void removeAllFromParameter()
+   {
+      LinkedHashSet<Attribute> tmpSet = new LinkedHashSet<Attribute>(this.getParameters());
+
+      for (Attribute value : tmpSet)
+      {
+         this.removeFromParameter(value);
+      }
+   }
+
    public String getModifier()
    {
       return this.modifier;
@@ -175,22 +286,22 @@ public class Method extends SDMLibClass
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   public String getReturnType()
+   public DataType getReturnType()
    {
       return this.returnType;
    }
    
-   public void setReturnType(String value)
+   public void setReturnType(DataType value)
    {
-      if ( ! StrUtil.stringEquals(this.returnType, value))
+      if (( this.returnType==null && value!=null) || (this.returnType!=null && this.returnType!=value))
       {
-         String oldValue = this.returnType;
+         DataType oldValue = this.returnType;
          this.returnType = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_RETURNTYPE, oldValue, value);
       }
    }
    
-   public Method withReturnType(String value)
+   public Method withReturnType(DataType value)
    {
       setReturnType(value);
       return this;
@@ -201,7 +312,7 @@ public class Method extends SDMLibClass
    {
       StringBuilder _ = new StringBuilder();
       
-      _.append(" ").append(this.getSignature());
+      _.append(" ").append(this.getParameters());
       _.append(" ").append(this.getReturnType());
       _.append(" ").append(this.getBody());
       return _.substring(1);
