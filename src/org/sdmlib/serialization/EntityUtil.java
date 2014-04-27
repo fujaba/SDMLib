@@ -24,7 +24,10 @@ package org.sdmlib.serialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+
 import org.sdmlib.serialization.interfaces.BaseEntity;
+
+import de.uniks.jism.test.model.ludo.StrUtil;
 
 public class EntityUtil {
 	/**
@@ -80,17 +83,36 @@ public class EntityUtil {
 		sb.append('"');
 		for (i = 0; i < len; i += 1) {
 			c = string.charAt(i);
-			if (c < ' ' || (c >= '\u0080' && c < '\u00a0')
-					|| (c >= '\u2000' && c < '\u2100')) {
+			if (c == '"')
+			{
+			   sb.append('\\');
+            sb.append(c);
+			}
+			else if (c < ' ' 
+			      || (c >= '\u0080' && c < '\u00a0')
+					|| (c >= '\u2000' && c < '\u2100')) 
+			{
 				hhhh = "000" + Integer.toHexString(c);
 				sb.append("\\u" + hhhh.substring(hhhh.length() - 4));
-			} else {
+			} 
+			else 
+			{
 				sb.append(c);
 			}
 		}
 		sb.append('"');
 		return sb.toString();
 	}
+	
+   public static String unquote(String changeMsg)
+   {
+      // quickfix 
+      changeMsg = changeMsg.replaceAll("\\\\\"", "\"");
+      changeMsg = changeMsg.replaceAll("\\\\u000a", "");
+      changeMsg = changeMsg.replaceAll("\\\\u000d", "");
+      return changeMsg;
+   }
+
 
 	/**
 	 * Try to convert a string into a number, boolean, or null. If the string
@@ -333,4 +355,5 @@ public class EntityUtil {
         }
         return new String(buf);
     }
+
 }

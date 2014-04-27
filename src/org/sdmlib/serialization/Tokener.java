@@ -226,7 +226,11 @@ public abstract class Tokener
          case '\r':
             if (!allowCRLF)
             {
-               throw new TextParsingException("Unterminated string", this);
+               // throw new TextParsingException("Unterminated string", this);
+            }
+            else
+            {
+               continue;
             }
          default:
             if (b == '\\')

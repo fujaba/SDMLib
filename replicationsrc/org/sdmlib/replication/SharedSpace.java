@@ -38,6 +38,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.creators.SharedSpaceSet;
+import org.sdmlib.serialization.EntityUtil;
 import org.sdmlib.serialization.interfaces.MapUpdateListener;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -204,6 +205,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          JsonIdMap cmap = getChangeMap();
 
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
+         
+         change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
 
          // is change already known?
          if (getHistory().getChanges().contains(change))
@@ -537,6 +540,8 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
    }
 
    private int logLevel = 1;
+   
+   static public int msgNo = 0;
 
    @Override
 	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
@@ -547,6 +552,11 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
          return true;
       }
 
+      if (msgNo > -1)
+      {
+         System.out.println("" + msgNo + "\n" + jsonObject.toString(3));
+      }
+      
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())

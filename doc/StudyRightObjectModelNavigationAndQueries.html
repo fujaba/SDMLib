@@ -394,49 +394,50 @@
    json["options"]={"canvasid":"canvas5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre> 
+<p><a name = 'step_1'>Step 1: Simple set based navigation:</a></p><pre>
       int assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
-      
+
       int donePoints = university.getStudents().getDone().getPoints().sum();
-      
+
 </pre><p>Results in:</p>
 <pre>      Sum of assignment points: 23. 
       Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points: 23</p>
 <p>Check: donePoints: 15</p>
-<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
+<p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
-      
+
       RoomSet rooms = availableAssignments.getRoom();
-      
+
 </pre><p>Results in:</p>
 <pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size(): 2</p>
-<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
+<p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>
       RoomSet rooms17 = university.getRooms().hasCredits(17);
       RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
 
 </pre><p>Results in:</p>
 <pre>      rooms17: (senate math 17)
-      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>      
+      roomsGE20: (gymnasium sports 25, 7422 Software Engineering 42)</pre><p><a name = 'step_4'>Step 4: Filter for attribute greater than:</a></p><pre>
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
-      
-      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
+
+      RoomSet roomsEven = university.getRooms().has(rooms.new Condition()
+      {
 
          @Override
          public boolean check(Room elem)
          {
             return elem.getCredits() % 2 == 0;
          }
-         
+
       });
-      
+
 </pre><p>Results in:</p>
-<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
+<pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>
       TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOf(new TeachingAssistantSet());
-      
-</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>      
+
+</pre><pre>(Karli 4242 0 0 0)</pre><p><a name = 'step_6'>Step 6: Write operations on sets: </a></p><pre>
       university.getStudents().withMotivation(42);
-      
+
 </pre><script>
    var json = {
    "typ":"object",
@@ -497,55 +498,55 @@
    json["options"]={"canvasid":"canvas30", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>      
+<p><a name = 'step_7'>Step 7: Rooms with two students that are friends (and need supervision): </a></p><pre>
       RoomPO roomPO = university.getRooms().hasRoomPO();
-            
-      StudentPO stud1PO = roomPO.hasStudents();      
-      
+
+      StudentPO stud1PO = roomPO.hasStudents();
+
       roomPO.hasStudents().hasMotivation(42).hasFriends(stud1PO);
-      
+
       rooms = roomPO.allMatches();
-      
+
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram33.svg'>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>
       roomPO = university.getRooms().hasRoomPO();
-            
-      stud1PO = roomPO.hasStudents();      
-      
+
+      stud1PO = roomPO.hasStudents();
+
       final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
-      
-      &#x2F;&#x2F; Java 8: 
+
+      &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 50);
-      
-      &#x2F;&#x2F;      stud2PO.has(new GenericConstraint.Condition()
-      &#x2F;&#x2F;      {
-      &#x2F;&#x2F;         @Override
-      &#x2F;&#x2F;         public boolean check()
-      &#x2F;&#x2F;         {
-      &#x2F;&#x2F;            return stud2PO.getMotivation() &lt; 50;
-      &#x2F;&#x2F;         }
-      &#x2F;&#x2F;      });
-      
+
+      &#x2F;&#x2F; stud2PO.has(new GenericConstraint.Condition()
+      &#x2F;&#x2F; {
+      &#x2F;&#x2F; @Override
+      &#x2F;&#x2F; public boolean check()
+      &#x2F;&#x2F; {
+      &#x2F;&#x2F; return stud2PO.getMotivation() &lt; 50;
+      &#x2F;&#x2F; }
+      &#x2F;&#x2F; });
+
       stud2PO.hasFriends(stud1PO);
-      
+
       rooms = roomPO.allMatches();
-      
+
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram38.svg'>
 <p>Results in:</p>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>
       roomPO = university.getRooms().hasRoomPO();
-            
-      stud1PO = roomPO.hasStudents();      
-      
+
+      stud1PO = roomPO.hasStudents();
+
       roomPO.hasStudents().hasFriends(stud1PO);
-      
+
       roomPO.hasTas(null);
-      
+
       roomPO.createTas();
-      
+
       rooms = roomPO.allMatches();
-      
+
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram43.svg'>
 <p>Results in:</p>
 <script>
@@ -644,15 +645,15 @@
    json["options"]={"canvasid":"canvas45", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>      
+<pre>      (gymnasium sports 25)</pre><p><a name = 'step_10'>Step 10: TAs as students in a room: </a></p><pre>
       roomPO = university.getRooms().hasRoomPO();
-      
+
       stud1PO = roomPO.hasStudents();
-      
+
       TeachingAssistantPO taPO = stud1PO.instanceOf(new TeachingAssistantPO());
-      
+
       TeachingAssistantSet taSet = taPO.allMatches();
-      
+
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram49.svg'>
 <script>
    var json = {
@@ -680,23 +681,23 @@
    json["options"]={"canvasid":"canvas50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>      
+<p><a name = 'step_11'>Step 11: Double motivation of all students: </a></p><pre>
       roomPO = university.getRooms().hasRoomPO();
-      
+
       stud1PO = roomPO.hasStudents();
 
       for (Match match : (Iterable&lt;Match&gt;) roomPO.getPattern())
       {
          Student currentMatch = stud1PO.getCurrentMatch();
-         
+
          currentMatch.withMotivation(currentMatch.getMotivation() * 2);
-         
+
          &#x2F;&#x2F; or more simple:
          stud1PO.withMotivation(stud1PO.getMotivation() * 2);
-        
+
          System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
       }
-      
+
 </pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram53.svg'>
 <script>
    var json = {
