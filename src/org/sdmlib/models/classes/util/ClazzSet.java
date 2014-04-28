@@ -22,13 +22,13 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
@@ -260,7 +260,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getSourceRoles());
+         result.addAll(obj.getRoles());
       }
       
       return result;
@@ -269,7 +269,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSourceRoles(value);
+         obj.withRoles(value);
       }
       
       return this;
@@ -279,38 +279,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutSourceRoles(value);
-      }
-      
-      return this;
-   }
-
-   public RoleSet getTargetRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getTargetRoles());
-      }
-      
-      return result;
-   }
-   public ClazzSet withTargetRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withTargetRoles(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutTargetRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutTargetRoles(value);
+         obj.withoutRoles(value);
       }
       
       return this;
@@ -348,8 +317,7 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -363,6 +331,7 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Clazz";
@@ -386,28 +355,6 @@ public class ClazzSet extends SDMSet<Clazz>
       for (Clazz obj : this)
       {
          obj.withWrapped(value);
-      }
-      
-      return this;
-   }
-
-   public StringList getFilePath()
-   {
-      StringList result = new StringList();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.getGenerator().getFilePath());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withFilePath(String value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.getGenerator().withFilePath(value);
       }
       
       return this;
@@ -476,7 +423,7 @@ public class ClazzSet extends SDMSet<Clazz>
 
    public ClazzPO startModelPattern()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       ClazzPO patternObject = pattern.hasElementClazzPO();
       
@@ -493,7 +440,9 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Clazz>)value);
+         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
+            this.add((Clazz) i.next());
+         }
       }
       else if (value != null)
       {
@@ -513,7 +462,7 @@ public class ClazzSet extends SDMSet<Clazz>
 
    public ClazzPO hasClazzPO()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       ClazzPO patternObject = pattern.hasElementClazzPO();
       

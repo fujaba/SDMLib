@@ -26,7 +26,7 @@ import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.pattern.creators.RuleApplicationSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
 import java.beans.PropertyChangeListener;
 

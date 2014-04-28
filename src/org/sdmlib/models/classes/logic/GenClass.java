@@ -19,11 +19,10 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-public class GenClass
+public class GenClass extends Generator<Clazz>
 {
    public static final String PROPERTY_FILEPATH = "filePath";
 
-   private Clazz model;
    private String filePath;
 
    private StringBuilder fileBody;
@@ -48,24 +47,6 @@ public class GenClass
    private Parser patternObjectCreatorParser = null;
    private StringBuilder patternObjectCreatorFileBody;
    Parser parser = null;
-
-   public void setModel(Clazz value)
-   {
-      if (this.model != value)
-      {
-         Clazz oldValue = this.model;
-         if (this.model != null)
-         {
-            this.model = null;
-            oldValue.setGenerator(null);
-         }
-         this.model = value;
-         if (value != null)
-         {
-            value.setGenerator(this);
-         }
-      }
-   }
    
    public void setPatternObjectCreatorFileHasChanged(boolean patternObjectCreatorFileHasChanged)
    {
@@ -121,7 +102,7 @@ public class GenClass
          }
 
          for (Method method : model.getMethods()) {
-            method.getGenerator().generate(rootDir, helpersDir, false);
+            getGenerator(method).generate(rootDir, helpersDir, false);
          }
       }
 
@@ -187,7 +168,7 @@ public class GenClass
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         attr.getGenerator().generate(rootDir, helpersDir, false);
+         getGenerator(attr).generate(rootDir, helpersDir, false);
       }
 
       if (model.getSuperClass() != null) 
@@ -206,7 +187,7 @@ public class GenClass
       for (Attribute attr : superClazz.getAttributes()) {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         attr.getGenerator().generate(model, rootDir, helpersDir, false, true);
+         getGenerator(attr).generate(model, rootDir, helpersDir, false, true);
       }
       if (superClazz.getSuperClass() != null) {
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
@@ -227,7 +208,7 @@ public class GenClass
             for (Attribute attr : interfaze.getAttributes())
             {
                Parser creatorParser = this.getOrCreateParserForCreatorClass(helpersDir);
-               attr.getGenerator().insertPropertyInCreatorClass(interfaze.getName(), creatorParser, helpersDir, false);
+               getGenerator(attr).insertPropertyInCreatorClass(interfaze.getName(), creatorParser, helpersDir, false);
             }
 
          }
@@ -246,12 +227,12 @@ public class GenClass
          {
             for (Attribute attr : interfaze.getAttributes())
             {
-               attr.getGenerator().generate(clazz, rootDir, helpersDir);
+               getGenerator(attr).generate(clazz, rootDir, helpersDir);
             }
 
             for (Method method : interfaze.getMethods())
             {
-               method.getGenerator().generate(clazz, rootDir, helpersDir, false);
+               getGenerator(method).generate(clazz, rootDir, helpersDir, false);
             }
 
          }

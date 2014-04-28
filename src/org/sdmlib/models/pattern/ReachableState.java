@@ -21,17 +21,7 @@
 
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.awt.List;
 import java.beans.PropertyChangeSupport;
-import java.io.StringWriter;
-import java.lang.reflect.Array;
-
-import org.sdmlib.codegen.creators.CreatorCreator;
-import org.sdmlib.models.pattern.creators.ReachableStateSet;
-
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,11 +30,12 @@ import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.models.pattern.creators.RuleApplicationSet;
-import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class ReachableState implements PropertyChangeInterface
 {

@@ -2,8 +2,6 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.creators.RolePO;
-import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -11,11 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {
+   @Override
    public ClazzPO startNAC()
    {
       return (ClazzPO) super.startNAC();
    }
    
+   @Override
    public ClazzPO endNAC()
    {
       return (ClazzPO) super.endNAC();
@@ -37,7 +37,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -60,7 +60,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasInterfaze(Boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(value)
       .withSrc(this)
@@ -279,20 +279,20 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return null;
    }
    
-   public RolePO hasSourceRoles()
+   public RolePO hasRoles()
    {
       RolePO result = new RolePO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(Clazz.PROPERTY_SOURCEROLES, result);
+      super.hasLink(Clazz.PROPERTY_ROLES, result);
       
       return result;
    }
    
-   public ClazzPO hasSourceRoles(RolePO tgt)
+   public ClazzPO hasRoles(RolePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_SOURCEROLES)
+      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_ROLES)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       
@@ -303,51 +303,18 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
-   public RoleSet getSourceRoles()
+   public RoleSet getRoles()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) this.getCurrentMatch()).getSourceRoles();
-      }
-      return null;
-   }
-   
-   public RolePO hasTargetRoles()
-   {
-      RolePO result = new RolePO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Clazz.PROPERTY_TARGETROLES, result);
-      
-      return result;
-   }
-   
-   public ClazzPO hasTargetRoles(RolePO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_TARGETROLES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public RoleSet getTargetRoles()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Clazz) this.getCurrentMatch()).getTargetRoles();
+         return ((Clazz) this.getCurrentMatch()).getRoles();
       }
       return null;
    }
    
    public ClazzPO hasExternal(Boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_EXTERNAL)
       .withTgtValue(value)
       .withSrc(this)
@@ -370,7 +337,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasInterfaze(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(value)
       .withSrc(this)
@@ -384,7 +351,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasExternal(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_EXTERNAL)
       .withTgtValue(value)
       .withSrc(this)
@@ -398,7 +365,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasWrapped(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_WRAPPED)
       .withTgtValue(value)
       .withSrc(this)
@@ -421,7 +388,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasFilePath(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenClass.PROPERTY_FILEPATH)
       .withTgtValue(value)
       .withSrc(this)
@@ -433,24 +400,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
-   public String getFilePath()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Clazz) getCurrentMatch()).getGenerator().getFilePath();
-      }
-      return null;
-   }
-   
-   public ClazzPO withFilePath(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Clazz) getCurrentMatch()).getGenerator().setFilePath(value);
-      }
-      return this;
-   }
-   
+ 
    public ClazzPO hasKidClassesAsInterface()
    {
       ClazzPO result = new ClazzPO();
@@ -486,7 +436,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -501,7 +451,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasInterfaze(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -516,7 +466,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasExternal(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_EXTERNAL)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -531,7 +481,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasWrapped(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Clazz.PROPERTY_WRAPPED)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -546,7 +496,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasFilePath(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenClass.PROPERTY_FILEPATH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -659,31 +609,13 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this.startCreate().hasMethods(tgt).endCreate();
    }
 
-   public RolePO createSourceRoles()
+   public RolePO createRoles()
    {
-      return this.startCreate().hasSourceRoles().endCreate();
+      return this.startCreate().hasRoles().endCreate();
    }
 
-   public ClazzPO createSourceRoles(RolePO tgt)
+   public ClazzPO createRoles(RolePO tgt)
    {
-      return this.startCreate().hasSourceRoles(tgt).endCreate();
+      return this.startCreate().hasRoles(tgt).endCreate();
    }
-
-   public RolePO createTargetRoles()
-   {
-      return this.startCreate().hasTargetRoles().endCreate();
-   }
-
-   public ClazzPO createTargetRoles(RolePO tgt)
-   {
-      return this.startCreate().hasTargetRoles(tgt).endCreate();
-   }
-
 }
-
-
-
-
-
-
-

@@ -68,7 +68,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    
      public ClassModelPO hasPackageName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    
    public ClassModelPO hasPackageName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

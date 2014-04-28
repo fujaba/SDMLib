@@ -2,10 +2,10 @@ package org.sdmlib.doc;
 
 import java.util.LinkedHashMap;
 
-import org.sdmlib.logger.creators.LogEntrySet;
+import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.json.JsonArray;
 
 public interface GuiAdapter

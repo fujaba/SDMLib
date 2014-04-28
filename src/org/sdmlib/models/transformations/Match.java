@@ -28,7 +28,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.lang.Object;
 
-import org.sdmlib.models.transformations.creators.MatchSet;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 import java.util.LinkedHashSet;
 

@@ -92,6 +92,7 @@ public class intList extends ArrayList<Integer> implements PropertyChangeInterfa
    //==========================================================================
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

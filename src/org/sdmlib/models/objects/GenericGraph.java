@@ -24,10 +24,11 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.objects.creators.GenericLinkSet;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
 
 public class GenericGraph implements PropertyChangeInterface

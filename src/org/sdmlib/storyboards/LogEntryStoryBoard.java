@@ -25,7 +25,7 @@ package org.sdmlib.storyboards;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.storyboards.creators.LogEntryStoryboardSet;
+import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;

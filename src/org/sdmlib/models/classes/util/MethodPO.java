@@ -9,11 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {
+   @Override
    public MethodPO startNAC()
    {
       return (MethodPO) super.startNAC();
    }
    
+   @Override
    public MethodPO endNAC()
    {
       return (MethodPO) super.endNAC();
@@ -35,7 +37,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasSignature(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_PARAMETERS)
       .withTgtValue(value)
       .withSrc(this)
@@ -47,7 +49,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public AttributeSet getSignature()
+   public ParameterSet getSignature()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -58,7 +60,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasReturnType(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_RETURNTYPE)
       .withTgtValue(value)
       .withSrc(this)
@@ -114,7 +116,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasBody(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_BODY)
       .withTgtValue(value)
       .withSrc(this)
@@ -146,7 +148,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasSignature(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_PARAMETERS)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -161,7 +163,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasReturnType(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_RETURNTYPE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -176,7 +178,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasBody(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Method.PROPERTY_BODY)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

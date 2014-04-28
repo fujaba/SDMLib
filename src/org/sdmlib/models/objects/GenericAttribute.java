@@ -24,7 +24,7 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.objects.creators.GenericAttributeSet;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;

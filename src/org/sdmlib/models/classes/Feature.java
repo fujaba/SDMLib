@@ -4,9 +4,10 @@ import java.util.HashSet;
 
 public enum Feature
 {
-   PropertyChangeSupport, PatternObject, Serialization, ALBERTsSets;
-   
-
+   PropertyChangeSupport,
+   PatternObject,
+   Serialization,
+   ALBERTsSets;
 
    public static final HashSet<Feature> getNone(){
       return new HashSet<Feature>();

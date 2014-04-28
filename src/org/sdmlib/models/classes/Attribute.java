@@ -20,26 +20,22 @@
 
 package org.sdmlib.models.classes;
 
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.logic.GenAttribute;
-
-public class Attribute extends SDMLibClass
+public class Attribute extends Value
 {
-//FIXME ALEX WOFÜR
-   public static final String SIMPLE = "simple";
-   public static final String COMPLEX = "complex";
    public static final String PROPERTY_CLAZZ = "clazz";
-   public static final String PROPERTY_INITIALIZATION = "initialization";
-   public static final String PROPERTY_NAME = "name";
-   public static final String PROPERTY_TYPE = "type";
-   
    private Clazz clazz = null;
-   private GenAttribute generator;
-   private String initialization = null;
-   private String name = null;
-   private DataType type = null;
    
+   public Attribute()
+   {
+      
+   }
+   
+   public Attribute(String name, DataType type)
+   {
+      this.name = name; 
+      this.type = type;
+   }
+
    public Clazz getClazz()
    {
       return this.clazz;
@@ -79,106 +75,40 @@ public class Attribute extends SDMLibClass
       return this;
    } 
 
-   public void setGenerator(GenAttribute value)
+
+   @Override
+   public String toString()
    {
-      if (this.generator != value)
-      {
-         GenAttribute oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
+      return "" + name + " : " + type;
    }
    
-   public GenAttribute getGenerator(){
-      if(generator==null){
-         this.setGenerator(new GenAttribute());
-      }
-      return generator;
-   }
    //==========================================================================
-      
-   public void setName(String value)
+   public void removeYou()
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
+      setClazz(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
-
-   public String getName()
-   {
-      return name;
-   }
-
+   // OVERRIDE
+   @Override
    public Attribute withName(String string)
    {
       setName(string);
       return this;
    }
 
-   public void setType(DataType value)
-   {
-      if (( this.type==null && value!=null) || (this.type!=null && this.type!=value))
-      {
-         DataType oldValue = this.type;
-         this.type = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
-      }
-   }
    
+   @Override
    public Attribute withType(DataType value)
    {
       setType(value);
       return this;
    } 
-
-   public DataType getType()
-   {
-      return type;
-   }
-
-   public String getInitialization()
-   {
-      return this.initialization;
-   }
-
-   public void setInitialization(String value)
-   {
-      this.initialization = value;
-   }
-   public Attribute withInitialization(String value)
-   {
+   
+   @Override
+   public Attribute withInitialization(String value){
       setInitialization(value);
       return this;
-   }
-
-   @Override
-   public String toString()
-   {
-   	// StringBuilder _ = new StringBuilder();
-   	// _.append(" ").append(this.getInitialization());
-      // _.append(" ").append(this.getType());
-      //_.append(" ").append(this.getName());
-      return "" + name + " : " + type;
-   }
-   
-   //==========================================================================
-
-   public void removeYou()
-   {
-      setClazz(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
 

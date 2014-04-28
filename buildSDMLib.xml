@@ -41,6 +41,11 @@
 				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
 			</manifest>
 			<fileset dir="build/temp/" />
+			<fileset dir="./src">
+				<include name="**/*.js"/>
+				<include name="**/*.html"/>
+				<include name="**/*.css"/>
+			</fileset>
 		</jar>
 		
 		<jar destfile="build/SDMLib-source.jar">

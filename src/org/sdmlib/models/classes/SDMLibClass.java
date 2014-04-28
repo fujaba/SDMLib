@@ -4,9 +4,8 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-public class SDMLibClass implements PropertyChangeInterface
+public abstract class SDMLibClass implements PropertyChangeInterface
 {
-
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
    @Override

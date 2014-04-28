@@ -22,12 +22,13 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeList;
 import org.sdmlib.models.modelsets.StringList;
 
@@ -35,9 +36,9 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 {
    private static final long serialVersionUID = 1L;
 
-   public AttributeSet getParametere()
+   public ParameterSet getParametere()
    {
-      AttributeSet result = new AttributeSet();
+      ParameterSet result = new ParameterSet();
       
       for (Method obj : this)
       {
@@ -47,7 +48,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return result;
    }
 
-   public MethodSet withParameter(Attribute value)
+   public MethodSet withParameter(Parameter value)
    {
       for (Method obj : this)
       {
@@ -149,7 +150,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
    public MethodPO startModelPattern()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       MethodPO patternObject = pattern.hasElementMethodPO();
       
@@ -164,9 +165,11 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
    public MethodSet with(Object value)
    {
-      if (value instanceof java.util.Collection)
+      if (value instanceof Collection)
       {
-         this.addAll((Collection<Method>)value);
+         for(Iterator<?> i= ((Collection<?>) value).iterator();i.hasNext();){
+            this.add((Method) i.next());
+         }
       }
       else if (value != null)
       {
@@ -186,7 +189,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
    public MethodPO hasMethodPO()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       MethodPO patternObject = pattern.hasElementMethodPO();
       
@@ -198,13 +201,3 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

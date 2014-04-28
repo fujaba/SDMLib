@@ -17,28 +17,9 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 
-public class GenRole
+public class GenRole extends Generator<Role>
 {
    private int elistPos;
-   private Role model;
-
-   public void setModel(Role value)
-   {
-      if (this.model != value)
-      {
-         Role oldValue = this.model;
-         if (this.model != null)
-         {
-            this.model = null;
-            oldValue.setGenerator(null);
-         }
-         this.model = value;
-         if (value != null)
-         {
-            value.setGenerator(this);
-         }
-      }
-   }
 
    private void insertCaseInGenericGet(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
@@ -89,7 +70,7 @@ public class GenRole
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         clazz.getGenerator().setFileHasChanged(true);         
+         getGenerator( clazz).setFileHasChanged(true);         
       }
    }
 
@@ -98,7 +79,7 @@ public class GenRole
    {
       // generate EMPTY_SET in partner class
       Clazz partnerClass = partnerRole.getClazz();
-      Parser partnerParser = partnerClass.getGenerator().getOrCreateParser(rootDir);
+      Parser partnerParser = getGenerator(partnerClass).getOrCreateParser(rootDir);
       
       int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
       
@@ -126,13 +107,13 @@ public class GenRole
          String ownerClassName = partnerClass.getName();
          String packageName = CGUtil.packageName(ownerClassName);
          String shortClassName = CGUtil.shortClassName(ownerClassName);
-         partnerClass.getGenerator().insertImport(packageName + ".creators." + shortClassName + "Set");
+         getGenerator(partnerClass).insertImport(packageName + ".creators." + shortClassName + "Set");
          
-         partnerRole.getClazz().getGenerator().setFileHasChanged(true);
-         partnerRole.getClazz().getGenerator().printFile(doGenerate);
+         getGenerator(partnerRole.getClazz()).setFileHasChanged(true);
+         getGenerator(partnerRole.getClazz()).printFile(doGenerate);
 
       }
-      partnerRole.getClazz().getGenerator().insertImport(partnerRole.getClazz().getGenerator().getModelSetClassName());
+      getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
    }
 
    private void generateToManyRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
@@ -498,7 +479,7 @@ public class GenRole
          "PartnerRoleName", partnerRoleUpFirstChar,
          "reverseWithoutCall(this)", reverseWithoutCall
          );
-      model.getClazz().getGenerator().insertImport(myParser, partnerRole.getClazz().getGenerator().getModelSetClassName());
+      getGenerator(model.getClazz()).insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
    } 
    
    private void generateToOneRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
@@ -726,7 +707,7 @@ public class GenRole
          return;
       }
       
-      Parser myParser = clazz.getGenerator().getOrCreateParser(rootDir);
+      Parser myParser = getGenerator(clazz).getOrCreateParser(rootDir);
       
       if ( ! fromSuperClass)
       {
@@ -736,7 +717,7 @@ public class GenRole
             if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
             {
                generateToManyRole(myParser, clazz, partnerRole, text);
-               clazz.getGenerator().insertImport(LinkedHashSet.class.getName());
+               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
             }
             else
             {
@@ -745,7 +726,7 @@ public class GenRole
 
             int pos = myParser.indexOf(Parser.CLASS_END);
             myParser.getFileBody().insert(pos, text.toString());
-            clazz.getGenerator().setFileHasChanged(true);
+            getGenerator(clazz).setFileHasChanged(true);
 
          if (StrUtil.stringEquals(partnerRole.getCard(), R.MANY.toString()))
          {
@@ -755,7 +736,7 @@ public class GenRole
       
       //import partner role class if package name has changed
       if(!StrUtil.stringEquals(clazz.getName().substring(0, clazz.getName().lastIndexOf(".")), partnerRole.getClazz().getName().substring(0, partnerRole.getClazz().getName().lastIndexOf(".")))){
-        clazz.getGenerator().insertImport(partnerRole.getClazz().getName());
+         getGenerator(clazz).insertImport(partnerRole.getClazz().getName());
       }
       
       insertCaseInGenericGet(clazz, myParser, partnerRole, rootDir);
@@ -771,33 +752,33 @@ public class GenRole
       
       insertRemovalInRemoveYou(clazz, myParser, partnerRole);
       
-      clazz.getGenerator().printFile(doGenerate);
+      getGenerator(clazz).printFile(doGenerate);
       
       
       // generate property in creator class
       if (!clazz.isInterfaze())
       {
-         Parser creatorParser = clazz.getGenerator().getOrCreateParserForCreatorClass(helperDir);
+         Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
 
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
-         clazz.getGenerator().printCreatorFile(doGenerate);
+         getGenerator(clazz).printCreatorFile(doGenerate);
       }
       
       // generate property in model set class
-      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helperDir);
+      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
       
       insertGetterInModelSetFile(clazz, modelSetParser, partnerRole);
       insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
       
-      clazz.getGenerator().printModelSetFile(doGenerate);
+      getGenerator(clazz).printModelSetFile(doGenerate);
 
       // generate property in pattern object class
-      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helperDir);
+      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
       
       insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
       
-      clazz.getGenerator().printPatternObjectFile(doGenerate);
+      getGenerator(clazz).printPatternObjectFile(doGenerate);
 
    }
    
@@ -848,7 +829,7 @@ public class GenRole
          }
          
          parser.getFileBody().insert(pos, fullRemoveCall);
-         clazz.getGenerator().setFileHasChanged(true);
+         getGenerator(clazz).setFileHasChanged(true);
       }
    }
 
@@ -966,12 +947,12 @@ public class GenRole
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         tgtClass.getGenerator().setModelSetFileHasChanged(true);
+         getGenerator(tgtClass).setModelSetFileHasChanged(true);
          
-         tgtClass.getGenerator().insertImport(parser, fullModelSetType);
-         tgtClass.getGenerator().insertImport(parser, Collection.class.getName());
-         tgtClass.getGenerator().insertImport(parser, Collections.class.getName());
-         tgtClass.getGenerator().insertImport(parser, ObjectSet.class.getName());
+         getGenerator(tgtClass).insertImport(parser, fullModelSetType);
+         getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
+         getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
+         getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
       }
    }
 
@@ -1016,26 +997,26 @@ public class GenRole
          }
          
          
-         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
+         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
-         String targetType = partnerRole.getClazz().getGenerator().shortNameAndImport(partnerRole.getClazz().getName(), parser);
+         String targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getName(), parser);
          
          if (partnerRole.getCard().equals(R.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "Set");
-            targetType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullTargetType, parser);
+            targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullTargetType, parser);
          }
          
          CGUtil.replaceAll(text, 
             "TargetType", targetType,
-            "ModelClass", model.getClazz().getGenerator().shortNameAndImport(model.getClazz().getName(), parser),
+            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(), parser),
             "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator( clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1059,21 +1040,21 @@ public class GenRole
             "      return result;\n" + 
             "   }\n\n");
 
-         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
+         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-         String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", model.getClazz().getGenerator().shortNameAndImport(model.getClazz().getName(), parser),
+            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(), parser),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1092,20 +1073,20 @@ public class GenRole
             "      return this.startCreate().hasName().endCreate();\n" + 
             "   }\n\n");
 
-         clazz.getGenerator().insertImport(parser, PatternLink.class.getName());
+         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-         String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "Name", StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", model.getClazz().getGenerator().shortNameAndImport(model.getClazz().getName(), parser));
+            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1114,7 +1095,7 @@ public class GenRole
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-      String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
       
       String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
@@ -1127,22 +1108,22 @@ public class GenRole
             "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" + 
             "   }\n\n");
 
-         clazz.getGenerator().insertImport(parser, LinkConstraint.class.getName());
+         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
-         String modelPOType = clazz.getGenerator().shortNameAndImport(fullModelPOType, parser);
+         String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ModelClass", model.getClazz().getGenerator().shortNameAndImport(model.getClazz().getName(), parser),
+            "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getName(), parser),
             "ModelPOType", modelPOType, 
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1151,7 +1132,7 @@ public class GenRole
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(), "PO");
-      String patternObjectType = partnerRole.getClazz().getGenerator().shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
       
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
@@ -1164,10 +1145,10 @@ public class GenRole
             "      return this.startCreate().hasName(tgt).endCreate();\n" + 
             "   }\n\n");
 
-         clazz.getGenerator().insertImport(parser, LinkConstraint.class.getName());
+         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(), "PO");
-         String modelPOType = clazz.getGenerator().shortNameAndImport(fullModelPOType, parser);
+         String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
@@ -1177,7 +1158,7 @@ public class GenRole
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         clazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1213,9 +1194,9 @@ public class GenRole
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         tgtClass.getGenerator().setModelSetFileHasChanged(true);
+         getGenerator(tgtClass).setModelSetFileHasChanged(true);
          
-         tgtClass.getGenerator().insertImport(parser, partnerRole.getClazz().getName());
+         getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getName());
       }
       
       if (partnerRole.getCard().equals(R.MANY.toString()))
@@ -1247,9 +1228,9 @@ public class GenRole
             int classEnd = parser.indexOf(Parser.CLASS_END);
             
             parser.getFileBody().insert(classEnd, text.toString());
-            tgtClass.getGenerator().setModelSetFileHasChanged(true);
+            getGenerator(tgtClass).setModelSetFileHasChanged(true);
             
-            tgtClass.getGenerator().insertImport(parser, partnerRole.getClazz().getName());
+            getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getName());
          }
       }
    }
@@ -1290,8 +1271,8 @@ public class GenRole
             );
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
-         clazz.getGenerator().insertImport(parser, model.getClazz().getName());
-         clazz.getGenerator().setCreatorFileHasChanged(true);
+         getGenerator(clazz).insertImport(parser, model.getClazz().getName());
+         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
 
@@ -1359,9 +1340,9 @@ public class GenRole
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          
-         clazz.getGenerator().insertImport(JsonIdMap.class.getName());
+         getGenerator(clazz).insertImport(JsonIdMap.class.getName());
          
-         clazz.getGenerator().setFileHasChanged(true);
+         getGenerator(clazz).setFileHasChanged(true);
       }
    }
 
@@ -1419,7 +1400,7 @@ public class GenRole
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         clazz.getGenerator().setFileHasChanged(true);
+         getGenerator(clazz).setFileHasChanged(true);
       }
    }
 

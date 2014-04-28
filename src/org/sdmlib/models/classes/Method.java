@@ -24,15 +24,12 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.logic.GenMethod;
-import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.ParameterSet;
 
 public class Method extends SDMLibClass
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETERS = "parameter";
-   public static final MethodSet EMPTY_SET = new MethodSet();
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
@@ -42,60 +39,32 @@ public class Method extends SDMLibClass
    private String name;
    private Clazz clazz = null;
    private String body;
-   private AttributeSet parameters = null;
+   private ParameterSet parameters = null;
    private DataType returnType = DataType.VOID;
 
-   private GenMethod generator;
-
-   public void setGenerator(GenMethod value)
-   {
-      if (this.generator != value)
-      {
-         GenMethod oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
-   }
-   
    //TODO Right so
    public String getSignature(){
       StringBuilder sb=new StringBuilder();
       
       sb.append(this.getName()+"(");
       boolean first=true;
-      for(Attribute attribute : parameters){
+      for(Parameter parameter : parameters){
          if(first){
-            sb.append(attribute.getType().getValue()+" "+attribute.getName());
+            sb.append(parameter.getType().getValue()+" "+parameter.getName());
             first=false;
          }else{
-            sb.append(","+attribute.getType().getValue()+" "+attribute.getName());
+            sb.append(","+parameter.getType().getValue()+" "+parameter.getName());
          }
       }
       return sb.toString();
    }
-   
-   public GenMethod getGenerator(){
-      if(generator==null){
-         this.setGenerator(new GenMethod());
-      }
-      return generator;
-   }
-
-   
+     
    public Method()
    {
       
    }
    
-   public Method(DataType returnType, Attribute... parameters)
+   public Method(DataType returnType, Parameter... parameters)
    {
       this.withParameters(parameters);
       this.setReturnType(returnType);
@@ -125,17 +94,17 @@ public class Method extends SDMLibClass
     *              clazz                   attributes
     * </pre>
     */
-   public AttributeSet getParameters()
+   public ParameterSet getParameters()
    {
       if (this.parameters == null)
       {
-         return new AttributeSet();
+         return new ParameterSet();
       }
 
       return this.parameters;
    }
 
-   public boolean addToParameter(Attribute value)
+   public boolean addToParameter(Parameter value)
    {
       boolean changed = false;
 
@@ -143,14 +112,14 @@ public class Method extends SDMLibClass
       {
          if (this.parameters == null)
          {
-            this.parameters = new AttributeSet();
+            this.parameters = new ParameterSet();
          }
 
          changed = this.parameters.add (value);
 
          if (changed)
          {
-//FIXME            value.setClazz(this);
+            value.setMethod(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, null, value);
          }
       }
@@ -158,7 +127,7 @@ public class Method extends SDMLibClass
       return changed;   
    }
 
-   public boolean removeFromParameter(Attribute value)
+   public boolean removeFromParameter(Parameter value)
    {
       boolean changed = false;
 
@@ -168,7 +137,7 @@ public class Method extends SDMLibClass
 
          if (changed)
          {
-            value.setClazz(null);
+            value.setMethod(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, value, null);
          }
       }
@@ -176,22 +145,22 @@ public class Method extends SDMLibClass
       return changed;   
    }
 
-   public Method withParameter(Attribute value)
+   public Method withParameter(Parameter value)
    {
       addToParameter(value);
       return this;
    }
    
-   public Method withParameters(Attribute... value)
+   public Method withParameters(Parameter... value)
    {
-      for(Attribute parameter : value){
+      for(Parameter parameter : value){
          addToParameter(parameter);
       }
       return this;
    }
    
 
-   public Method withoutParameter(Attribute value)
+   public Method withoutParameter(Parameter value)
    {
       removeFromParameter(value);
       return this;
@@ -199,9 +168,9 @@ public class Method extends SDMLibClass
 
    public void removeAllFromParameter()
    {
-      LinkedHashSet<Attribute> tmpSet = new LinkedHashSet<Attribute>(this.getParameters());
+      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameters());
 
-      for (Attribute value : tmpSet)
+      for (Parameter value : tmpSet)
       {
          this.removeFromParameter(value);
       }

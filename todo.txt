@@ -1,0 +1,28 @@
+- Warum wird zwischen Role und Attribute unterschieden
+
+Ref:
+- Clazz - Role - Assoc - xxx - Clazz Richtig?
+
+
+Clazz:withReference(Clazz ref)
+
+Assoc:
+- Clazz - Role - Assoc - Role - Clazz Richtig?
+- Attribute:SIMPLE, COMPLEX
+
+
+Clazz: Warum??
+ public static final String PROPERTY_SUPERCLASS = "superClass";
+   public static final String PROPERTY_KIDCLASSES = "kidClasses";
+   public static final String PROPERTY_EXTERNAL = "external";
+   public static final String PROPERTY_INTERFACES = "interfaces";
+   public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
+
+   public static final String PROPERTY_SOURCEROLES = "sourceRoles";
+   public static final String PROPERTY_TARGETROLES = "targetRoles";
+
+   
+   Kann man nicht superclass als Assoc sehen?
+   
+   
+Umbau von getGenerator auf Model -> generator

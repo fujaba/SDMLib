@@ -31,9 +31,9 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.transformations.creators.MatchSet;
-import org.sdmlib.models.transformations.creators.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.util.MatchSet;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.IdMap;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;

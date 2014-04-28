@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.logic.GenAssociation;
 
 public class Association extends SDMLibClass
 {
@@ -39,32 +38,6 @@ public class Association extends SDMLibClass
       
    private Role source = null;
    private Role target;
-   private GenAssociation generator;
-
-   public void setGenerator(GenAssociation value)
-   {
-      if (this.generator != value)
-      {
-         GenAssociation oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
-   }
-   
-   public GenAssociation getGenerator(){
-      if(generator==null){
-         this.setGenerator(new GenAssociation());
-      }
-      return generator;
-   }
    
    @Override
    public String toString()

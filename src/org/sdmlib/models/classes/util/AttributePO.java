@@ -37,7 +37,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasInitialization(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_INITIALIZATION)
       .withTgtValue(value)
       .withSrc(this)
@@ -93,7 +93,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasType(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_TYPE)
       .withTgtValue(value)
       .withSrc(this)
@@ -125,7 +125,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -157,7 +157,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -172,7 +172,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasType(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_TYPE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -187,7 +187,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasInitialization(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_INITIALIZATION)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

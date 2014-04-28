@@ -32,8 +32,8 @@ import java.util.Set;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.storyboards.creators.KanbanEntrySet;
-import org.sdmlib.storyboards.creators.LogEntryStoryboardSet;
+import org.sdmlib.storyboards.util.KanbanEntrySet;
+import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;

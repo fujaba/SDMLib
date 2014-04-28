@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.ClassModel;
@@ -110,7 +111,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
 
    public ClassModelPO startModelPattern()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       ClassModelPO patternObject = pattern.hasElementClassModelPO();
       
@@ -127,7 +128,9 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ClassModel>)value);
+         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
+            this.add((ClassModel) i.next());
+         }
       }
       else if (value != null)
       {
@@ -147,7 +150,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
 
    public ClassModelPO hasClassModelPO()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       ClassModelPO patternObject = pattern.hasElementClassModelPO();
       

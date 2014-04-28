@@ -30,7 +30,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.R;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.models.pattern.creators.PatternLinkSet;
+import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 

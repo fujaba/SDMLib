@@ -2,18 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SDMLib
 Bundle-SymbolicName: SDMLib;singleton:=true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: SDMLib.jar,
- lib/gwtx-1.5.2.jar,
- Java/jdk1.6.0_31/lib/tools.jar,
- swing2swt.jar,
+Bundle-ClassPath: swing2swt.jar,
  lib/junit.jar,
  .,
  lib/org.hamcrest.core_1.3.0.v201303031735.jar,
  lib/emma_ant.jar,
- lib/emma.jar,
- lib/jfxrt.jar
+ lib/emma.jar
 Export-Package: com.googlecode.gwtx,
  com.googlecode.gwtx.java,
  com.googlecode.gwtx.java.beans.emul,
@@ -30,51 +26,14 @@ Export-Package: com.googlecode.gwtx,
  com.googlecode.gwtx.javax.validation.emul,
  com.googlecode.gwtx.rebind;uses:="com.google.gwt.user.rebind,com.google.gwt.core.ext.typeinfo,com.google.gwt.core.ext",
  org.sdmlib.codegen;uses:="org.sdmlib.utils,org.sdmlib.codegen.creators",
- org.sdmlib.codegen.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.models.pattern.creators,
-   org.sdmlib.serialization.json,
-   org.sdmlib.codegen,
-   org.sdmlib.serialization.interfaces,
-   org.sdmlib.models.modelsets",
  org.sdmlib.models.classes;
   uses:="org.sdmlib.models.classes.creators,
    org.sdmlib.models.objects,
    org.sdmlib.utils,
    org.sdmlib.codegen",
- org.sdmlib.models.classes.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.models.pattern.creators,
-   org.sdmlib.serialization.json,
-   org.sdmlib.models.classes,
-   org.sdmlib.codegen,
-   org.sdmlib.codegen.creators,
-   org.sdmlib.models.modelsets,
-   org.sdmlib.serialization.interfaces",
- org.sdmlib.models.modelsets;uses:="org.sdmlib.utils",
  org.sdmlib.models.objects;uses:="org.sdmlib.serialization.json,org.sdmlib.utils",
- org.sdmlib.models.objects.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.models.pattern.creators,
-   org.sdmlib.serialization.json,
-   org.sdmlib.models.objects,
-   org.sdmlib.models.modelsets,
-   org.sdmlib.serialization.interfaces",
  org.sdmlib.models.pattern;uses:="org.sdmlib.models.pattern.creators,org.sdmlib.serialization.json,org.sdmlib.utils",
- org.sdmlib.models.pattern.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.serialization.json.creators,
-   org.sdmlib.serialization.json,
-   org.sdmlib.serialization.interfaces,
-   org.sdmlib.models.modelsets",
  org.sdmlib.models.transformations,
- org.sdmlib.models.transformations.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.models.pattern.creators,
-   org.sdmlib.models.transformations,
-   org.sdmlib.serialization.json,
-   org.sdmlib.models.modelsets,
-   org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization;uses:="org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.event;uses:="org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.event.creator;uses:="org.sdmlib.serialization.interfaces",
@@ -89,17 +48,11 @@ Export-Package: com.googlecode.gwtx,
    org.sdmlib.utils,
    org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.json.creator;uses:="org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.json.creators;
-  uses:="org.sdmlib.models.pattern,
-   org.sdmlib.models.pattern.creators,
-   org.sdmlib.serialization.json,
-   org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.sort;uses:="org.sdmlib.serialization",
  org.sdmlib.serialization.util,
  org.sdmlib.serialization.xml;uses:="org.sdmlib.serialization,org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
  org.sdmlib.serialization.xml.creator;uses:="org.sdmlib.serialization,org.sdmlib.serialization.xml,org.sdmlib.serialization.interfaces",
- org.sdmlib.storyboards,
- org.sdmlib.storyboards.creators
+ org.sdmlib.storyboards
 Import-Package: org.junit
 Require-Bundle: SDMLib
 

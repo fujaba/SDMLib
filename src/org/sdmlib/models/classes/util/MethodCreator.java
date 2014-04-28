@@ -1,9 +1,9 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 
 public class MethodCreator extends EntityFactory
@@ -67,7 +67,7 @@ public class MethodCreator extends EntityFactory
    {
       if (Method.PROPERTY_PARAMETERS.equalsIgnoreCase(attrName))
       {
-         ((Method) target).addToParameter((Attribute) value);
+         ((Method) target).addToParameter((Parameter) value);
          return true;
       }
       if (Method.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))

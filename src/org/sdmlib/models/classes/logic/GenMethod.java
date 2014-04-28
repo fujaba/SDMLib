@@ -8,44 +8,25 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 
-public class GenMethod
+public class GenMethod extends Generator<Method>
 {
-   private Method model;
-
-   public void setModel(Method value)
-   {
-      if (this.model != value)
-      {
-         Method oldValue = this.model;
-         if (this.model != null)
-         {
-            this.model = null;
-            oldValue.setGenerator(null);
-         }
-         this.model = value;
-         if (value != null)
-         {
-            value.setGenerator(this);
-         }
-      }
-   }
-   
    public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate)
    {
       // get parser from class
-      Parser parser = clazz.getGenerator().getOrCreateParser(rootDir);
+      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
+      Parser parser = clazz.getClassModel().getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
 
       insertMethodDecl(clazz, parser);
 
       //    insertCaseInGenericGetSet(parser);
 
-      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helpersDir);
+      Parser modelSetParser = generator.getOrCreateParserForModelSetFile(helpersDir);
       insertMethodInModelSet(clazz, modelSetParser);
-      clazz.getGenerator().printModelSetFile(doGenerate);
+      generator.printModelSetFile(doGenerate);
 
-      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helpersDir);
+      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
       insertMethodInPatternObject(clazz, patternObjectParser);
-      clazz.getGenerator().printPatternObjectFile(doGenerate);
+      generator.printPatternObjectFile(doGenerate);
 
       return this;
    }
@@ -57,7 +38,7 @@ public class GenMethod
 
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-
+      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder
@@ -124,7 +105,7 @@ public class GenMethod
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         clazz.getGenerator().setFileHasChanged(true);
+         generator.setFileHasChanged(true);
       }
       
       pos = parser.indexOf(Parser.METHOD + ":" + signature);
@@ -137,11 +118,8 @@ public class GenMethod
         parser.getFileBody().replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + model.getBody() + "   ");
         pos = -1;
 
-          clazz.getGenerator().setFileHasChanged(true);
+          generator.setFileHasChanged(true);
       }
-      
-      
-
    }
 
    public void generate(String rootDir, String helpersDir, boolean doGenerate)
@@ -153,9 +131,6 @@ public class GenMethod
    {
       String signature = model.getSignature();
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
-
-      String string = Parser.METHOD + ":" + signature;
-      SymTabEntry symTabEntry = parser.getSymTab().get(string);
 
       if (pos < 0)
       {
@@ -214,6 +189,7 @@ public class GenMethod
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
+         GenClass generator =  model.getClazz().getClassModel().getGenerator().getOrCreate( model.getClazz());
          if ("void".equals(type))
          {
             type = CGUtil.shortClassName(clazz2.getName()) + "Set";
@@ -238,7 +214,7 @@ public class GenMethod
                importType = importType.substring(0, dotpos + 1) + "creators." + type ;
             }
             
-            model.getClazz().getGenerator().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            generator.insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
             
             returnSetCreate = type + " result = new " + type + "();\n      ";
             
@@ -263,7 +239,7 @@ public class GenMethod
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         model.getClazz().getGenerator().setModelSetFileHasChanged(true);
+         generator.setModelSetFileHasChanged(true);
       }
    }
 
@@ -275,8 +251,6 @@ public class GenMethod
       String key = Parser.METHOD + ":" + signature;
 
       int pos = parser.indexOf(key);
-
-      SymTabEntry symTabEntry = parser.getSymTab().get(key);
 
       if (pos < 0)
       {
@@ -332,10 +306,10 @@ public class GenMethod
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
-
+         GenClass generator =  model.getClazz().getClassModel().getGenerator().getOrCreate( model.getClazz());
          if ( ! ("Object".indexOf(type) >= 0))
          {
-            model.getClazz().getGenerator().insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            generator.insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
          }
 
          if ( ! "void".equals(type))
@@ -369,7 +343,7 @@ public class GenMethod
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
-         model.getClazz().getGenerator().setPatternObjectFileHasChanged(true);
+         generator.setPatternObjectFileHasChanged(true);
       }
    }
 }

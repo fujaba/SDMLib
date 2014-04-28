@@ -24,26 +24,28 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.creators.RoleSet;
-import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.RoleSet;
 
 public class Clazz extends SDMLibClass
 {
    public static final String PROPERTY_NAME = "name";
+
    public static final String PROPERTY_SUPERCLASS = "superClass";
+   public static final String PROPERTY_KIDCLASSES = "kidClasses";
+   
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
-   public static final String PROPERTY_KIDCLASSES = "kidClasses";
    public static final String PROPERTY_EXTERNAL = "external";
-   public static final String PROPERTY_INTERFACES = "interfaces";
    public static final String PROPERTY_INTERFAZE = "interfaze";
    public static final String PROPERTY_METHODS = "methods";
+
+   public static final String PROPERTY_INTERFACES = "interfaces";
    public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
-   public static final String PROPERTY_SOURCEROLES = "sourceRoles";
-   public static final String PROPERTY_TARGETROLES = "targetRoles";
+   
+   public static final String PROPERTY_ROLES = "roles";
    public static final String PROPERTY_WRAPPED = "wrapped";
 
    private ClassModel classModel = null;  
@@ -54,43 +56,16 @@ public class Clazz extends SDMLibClass
    private ClazzSet interfaces = null;
    private Boolean interfaze = false;
    private Clazz superClass = null; 
-   private RoleSet sourceRoles = null;
-   private RoleSet targetRoles = null;
+   private RoleSet roles = null;
    private boolean wrapped;
    private String name = null; 
    private AttributeSet attributes = null;
-   private GenClass generator;
    
    public Clazz(){
       
    }
    public Clazz(String name){
       setName(name);
-   }
-
-   public GenClass getGenerator(){
-      if(generator==null){
-         this.setGenerator(new GenClass());
-      }
-      return generator;
-   }
-   
-   public void setGenerator(GenClass value)
-   {
-      if (this.generator != value)
-      {
-         GenClass oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
    }
    
    public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
@@ -101,8 +76,11 @@ public class Clazz extends SDMLibClass
 
       return this;
    }
-
-
+   
+   public Clazz withReference(Clazz tgtClass, String tgtRoleName, R tgtCard){
+      //FIXME ALEX
+      return this;
+   }
 
    public String getName()
    {
@@ -214,7 +192,7 @@ public class Clazz extends SDMLibClass
       return this.attributes;
    }
 
-   public boolean addToAttributes(Attribute value)
+   boolean addToAttributes(Attribute value)
    {
       boolean changed = false;
 
@@ -284,28 +262,36 @@ public class Clazz extends SDMLibClass
     *              clazz                   sourceRoles
     * </pre>
     */
-   public RoleSet getSourceRoles()
+   public RoleSet getRoles()
    {
-      if (this.sourceRoles == null)
+      if (this.roles == null)
       {
          return Role.EMPTY_SET;
       }
 
-      return this.sourceRoles;
+      return this.roles;
+   }
+   
+   public Clazz with(Attribute value){
+      return withAttributes(value);
+   }
+   
+   public Clazz with(Method value){
+         return withMethods(value);
    }
 
-   public boolean addToSourceRoles(Role value)
+   public boolean addToRoles(Role value)
    {
       boolean changed = false;
 
       if (value != null)
       {
-         if (this.sourceRoles == null)
+         if (this.roles == null)
          {
-            this.sourceRoles = new RoleSet();
+            this.roles = new RoleSet();
          }
 
-         changed = this.sourceRoles.add (value);
+         changed = this.roles.add (value);
 
          if (changed)
          {
@@ -316,127 +302,45 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public boolean removeFromSourceRoles(Role value)
+   public boolean removeFromRoles(Role value)
    {
       boolean changed = false;
 
-      if ((this.sourceRoles != null) && (value != null))
+      if ((this.roles != null) && (value != null))
       {
-         changed = this.sourceRoles.remove (value);
+         changed = this.roles.remove (value);
 
          if (changed)
          {
             value.setClazz(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCEROLES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
          }
       }
 
       return changed;   
    }
 
-   public Clazz withSourceRoles(Role value)
+   public Clazz withRoles(Role value)
    {
-      addToSourceRoles(value);
+      addToRoles(value);
       return this;
    } 
 
-   public Clazz withoutSourceRoles(Role value)
+   public Clazz withoutRoles(Role value)
    {
-      removeFromSourceRoles(value);
+      removeFromRoles(value);
       return this;
    } 
 
-   public void removeAllFromSourceRoles()
+   public void removeAllFromRoles()
    {
-      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getSourceRoles());
+      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getRoles());
 
       for (Role value : tmpSet)
       {
-         this.removeFromSourceRoles(value);
+         this.removeFromRoles(value);
       }
    }
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Clazz ----------------------------------- Role
-    *              clazz                   targetRoles
-    * </pre>
-    */
-   public RoleSet getTargetRoles()
-   {
-      if (this.targetRoles == null)
-      {
-         return Role.EMPTY_SET;
-      }
-
-      return this.targetRoles;
-   }
-
-   public boolean addToTargetRoles(Role value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.targetRoles == null)
-         {
-            this.targetRoles = new RoleSet();
-         }
-
-         changed = this.targetRoles.add (value);
-
-         if (changed)
-         {
-            value.withClazz(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETROLES, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public boolean removeFromTargetRoles(Role value)
-   {
-      boolean changed = false;
-
-      if ((this.targetRoles != null) && (value != null))
-      {
-         changed = this.targetRoles.remove (value);
-
-         if (changed)
-         {
-            value.setClazz(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETROLES, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public Clazz withTargetRoles(Role value)
-   {
-      addToTargetRoles(value);
-      return this;
-   } 
-
-   public Clazz withoutTargetRoles(Role value)
-   {
-      removeFromTargetRoles(value);
-      return this;
-   } 
-
-   public void removeAllFromTargetRoles()
-   {
-      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getTargetRoles());
-
-      for (Role value : tmpSet)
-      {
-         this.removeFromTargetRoles(value);
-      }
-   }
-
 
    /********************************************************************
     * <pre>
@@ -449,7 +353,7 @@ public class Clazz extends SDMLibClass
    {
       if (this.methods == null)
       {
-         return Method.EMPTY_SET;
+         return new MethodSet();
       }
 
       return this.methods;
@@ -496,15 +400,9 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public Clazz withMethods(DataType returnType, Attribute parameters)
+   public Clazz withMethod(DataType returnType, Parameter parameters)
    {
-      return withMethods(new Method(returnType, parameters));
-   } 
-
-   public Clazz withMethods(Method value)
-   {
-      addToMethods(value);
-      return this;
+      return with(new Method(returnType, parameters));
    } 
 
    public Clazz withoutMethods(Method value)
@@ -542,8 +440,7 @@ public class Clazz extends SDMLibClass
       withClassModel(null);
       removeAllFromAttributes();
       removeAllFromMethods();
-      removeAllFromSourceRoles();
-      removeAllFromTargetRoles();
+      removeAllFromRoles();
       removeAllFromKidClasses();
       setSuperClass(null);
       removeAllFromKidClassesAsInterface();
@@ -571,7 +468,7 @@ public class Clazz extends SDMLibClass
       return this.kidClasses;
    }
 
-   public boolean addToKidClasses(Clazz value)
+   boolean addToKidClasses(Clazz value)
    {
       boolean changed = false;
 
@@ -612,19 +509,19 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public Clazz withKidClasses(Clazz value)
+   protected Clazz withKidClasses(Clazz value)
    {
       addToKidClasses(value);
       return this;
    } 
 
-   public Clazz withoutKidClasses(Clazz value)
+   protected Clazz withoutKidClasses(Clazz value)
    {
       removeFromKidClasses(value);
       return this;
    } 
 
-   public void removeAllFromKidClasses()
+   protected void removeAllFromKidClasses()
    {
       LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidClasses());
 
@@ -716,13 +613,13 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public Clazz withKidClassesAsInterface(Clazz value)
+   protected Clazz withKidClassesAsInterface(Clazz value)
    {
       addToKidClassesAsInterface(value);
       return this;
    } 
 
-   public Clazz withoutKidClassesAsInterface(Clazz value)
+   protected Clazz withoutKidClassesAsInterface(Clazz value)
    {
       removeFromKidClassesAsInterface(value);
       return this;
@@ -854,12 +751,6 @@ public class Clazz extends SDMLibClass
       setExternal(value);
       return this;
    }
-
-   public Method createMethods(DataType returnType, Attribute... parameters)
-   {
-      return new Method(returnType, parameters).withClazz(this);     
-   } 
-
 
    //==========================================================================
    public boolean getWrapped()
@@ -1039,20 +930,20 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Clazz withSourceRoles(Role... value)
+   public Clazz withRoles(Role... value)
    {
       for (Role item : value)
       {
-         addToSourceRoles(item);
+         addToRoles(item);
       }
       return this;
    } 
 
-   public Clazz withoutSourceRoles(Role... value)
+   public Clazz withoutRoles(Role... value)
    {
       for (Role item : value)
       {
-         removeFromSourceRoles(item);
+         removeFromRoles(item);
       }
       return this;
    }
@@ -1060,35 +951,11 @@ public class Clazz extends SDMLibClass
    public Role createSourceRoles()
    {
       Role value = new Role();
-      withSourceRoles(value);
+      withRoles(value);
       return value;
    } 
 
-   public Clazz withTargetRoles(Role... value)
-   {
-      for (Role item : value)
-      {
-         addToTargetRoles(item);
-      }
-      return this;
-   } 
-
-   public Clazz withoutTargetRoles(Role... value)
-   {
-      for (Role item : value)
-      {
-         removeFromTargetRoles(item);
-      }
-      return this;
-   }
-
-   public Role createTargetRoles()
-   {
-      Role value = new Role();
-      withTargetRoles(value);
-      return value;
-   } 
-   public ClazzSet getKidClassesTransitive()
+   protected ClazzSet getKidClassesTransitive()
    {
       ClazzSet result = new ClazzSet().with(this);
       return result.getKidClassesTransitive();
@@ -1100,7 +967,7 @@ public class Clazz extends SDMLibClass
       return result.getSuperClassTransitive();
    }
 
-   public ClazzSet getKidClassesAsInterfaceTransitive()
+   protected ClazzSet getKidClassesAsInterfaceTransitive()
    {
       ClazzSet result = new ClazzSet().with(this);
       return result.getKidClassesAsInterfaceTransitive();
@@ -1110,5 +977,17 @@ public class Clazz extends SDMLibClass
    {
       ClazzSet result = new ClazzSet().with(this);
       return result.getInterfacesTransitive();
+   }
+   
+   public Method createMethod(String name, Parameter... parameters)
+   {
+      return new Method().withName(name).withParameters(parameters).withClazz(this);     
+   }
+
+   public Attribute createAttribute(String name, DataType type)
+   {
+      Attribute attribute = new Attribute(name, type);
+      with(attribute);
+      return attribute;
    }
 }

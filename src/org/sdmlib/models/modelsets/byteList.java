@@ -94,6 +94,7 @@ public class byteList extends ArrayList<Byte> implements PropertyChangeInterface
    //==========================================================================
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

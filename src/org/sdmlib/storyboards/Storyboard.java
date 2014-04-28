@@ -53,10 +53,11 @@ import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.creators.GenericObjectSet;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.Filter;
@@ -69,7 +70,7 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.serialization.logic.ConditionMap;
 import org.sdmlib.serialization.logic.ValuesMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
+import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 public class Storyboard implements PropertyChangeInterface
 {
@@ -1225,8 +1226,10 @@ public class Storyboard implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz clazz = new Clazz(className);
+      
+      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate( clazz);
 
-      Parser parser = clazz.getGenerator().getOrCreateParser(rootDir);
+      Parser parser = generator.getOrCreateParser(rootDir);
 
       int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
 

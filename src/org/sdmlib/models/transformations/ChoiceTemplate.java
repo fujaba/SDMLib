@@ -23,10 +23,13 @@ package org.sdmlib.models.transformations;
 
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.transformations.creators.TemplateSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
+
 import java.util.LinkedHashSet;
 
 public class ChoiceTemplate extends Template implements PropertyChangeInterface

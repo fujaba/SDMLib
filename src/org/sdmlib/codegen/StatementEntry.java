@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.codegen.creators.StatementEntrySet;
+import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 

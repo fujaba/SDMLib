@@ -12,29 +12,8 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
-public class GenAttribute
+public class GenAttribute extends Generator<Attribute>
 {
-   private Attribute model;
-
-   public void setModel(Attribute value)
-   {
-      if (this.model != value)
-      {
-         Attribute oldValue = this.model;
-         if (this.model != null)
-         {
-            this.model = null;
-            oldValue.setGenerator(null);
-         }
-         this.model = value;
-         if (value != null)
-         {
-            value.setGenerator(this);
-         }
-      }
-   }
-   
-
    private void insertAttrDeclPlusAccessors(Clazz clazz, Parser parser)
    {
       //    int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName()); //remove
@@ -56,17 +35,16 @@ public class GenAttribute
          return;
 
       String valueCompare = "this.name != value";
-
       if ("String".equals(model.getType()))
       {
          valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-         clazz.getGenerator().insertImport(StrUtil.class.getName()); 
+         getGenerator(clazz).insertImport(StrUtil.class.getName()); 
       }
 
       else if ("Boolean".equals(model.getType()))
       {
          CGUtil.replaceAll(text, "getName()", "isName()");
-         clazz.getGenerator().insertImport(StrUtil.class.getName()); 
+         getGenerator(clazz).insertImport(StrUtil.class.getName()); 
       }
 
       CGUtil.replaceAll(text, "valueCompare", valueCompare);
@@ -85,9 +63,9 @@ public class GenAttribute
       parser.getFileBody().insert(pos, text.toString());
       ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
       for (String typeImport : importClassesFromTypes) {
-         clazz.getGenerator().insertImport(parser, typeImport);
+         getGenerator(clazz).insertImport(parser, typeImport);
       }
-      clazz.getGenerator().setFileHasChanged(true);
+      getGenerator(clazz).setFileHasChanged(true);
 
    }
 
@@ -301,9 +279,8 @@ public class GenAttribute
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase()
                );
-
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator(model.getClazz()).setFileHasChanged(true);
       }
    }
 
@@ -358,7 +335,7 @@ public class GenAttribute
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator(model.getClazz()).setFileHasChanged(true);
       }
    }
 
@@ -392,7 +369,7 @@ public class GenAttribute
 
          parser.getFileBody().insert(pos, text.toString());
          
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator(model.getClazz()).setFileHasChanged(true);
          
          pos = parser.indexOf(Parser.METHOD + ":toString()");
       }
@@ -426,7 +403,7 @@ public class GenAttribute
                );
 
          parser.getFileBody().insert(returnPos, text.toString());
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator(model.getClazz()).setFileHasChanged(true);
       }
    }
    private ArrayList<String> checkImportClassesFromType(DataType value) 
@@ -472,7 +449,7 @@ public class GenAttribute
    }
    private void insertCreateMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
+      String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":create"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -488,10 +465,10 @@ public class GenAttribute
                   "   }\n" +
                "   \n");
 
-         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
+         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -506,14 +483,14 @@ public class GenAttribute
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
       }
    }
 
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
+      String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
 
       String attrNameUpFirstChar = StrUtil.upFirstChar(model.getName());
 
@@ -561,11 +538,11 @@ public class GenAttribute
             "nullValue", nullValue,
             "AttrName", StrUtil.upFirstChar(model.getName()), 
             "AttrType", attrType, 
-            "ModelClass", ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser));
+            "ModelClass", getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -605,7 +582,7 @@ public class GenAttribute
       }
       
       
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
+      String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + "," + attrType + ")";
       int pos = parser.indexOf(key);
@@ -630,10 +607,10 @@ public class GenAttribute
                   "   }\n" +
                "   \n");
 
-         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
+         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -649,14 +626,14 @@ public class GenAttribute
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
       }
    }
 
 
    private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz) 
    {
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
+      String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -680,10 +657,10 @@ public class GenAttribute
                   "   }\n" +
                "   \n");
 
-         ownerClazz.getGenerator().insertImport(parser, AttributeConstraint.class.getName());
+         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getName()) + "PO";
 
-         String modelClass = ownerClazz.getGenerator().shortNameAndImport(ownerClazz.getName(), parser);
+         String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(), parser);
          
          if (ownerClazz.getWrapped())
          {
@@ -699,7 +676,7 @@ public class GenAttribute
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.getGenerator().setPatternObjectFileHasChanged(true);
+         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -850,13 +827,13 @@ public class GenAttribute
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
          // getClazz()
-         ownerClazz.getGenerator().setModelSetFileHasChanged(true);
+         getGenerator(ownerClazz).setModelSetFileHasChanged(true);
 
 
 
          // getClazz()
          for (String setType : importClassesFromTypes) {
-            ownerClazz.getGenerator().insertImport(parser, setType);
+            getGenerator(ownerClazz).insertImport(parser, setType);
          }
 
       }
@@ -913,7 +890,7 @@ public class GenAttribute
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator( model.getClazz()).setFileHasChanged(true);
       }
    }
 
@@ -921,7 +898,7 @@ public class GenAttribute
       if(parser==null){
          return;
       }
-      String attrType = ownerClazz.getGenerator().shortNameAndImport(model.getType().getValue(), parser);
+      String attrType = getGenerator( ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":with"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
       int pos = parser.indexOf(key);
@@ -952,7 +929,7 @@ public class GenAttribute
          // ownerClazz.printFile(true);
          int classEnd = parser.indexOf(Parser.CLASS_END);
          parser.getFileBody().insert(classEnd, text.toString());
-         ownerClazz.getGenerator().setModelSetFileHasChanged(true);         
+         getGenerator( ownerClazz).setModelSetFileHasChanged(true);         
       }
    }
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
@@ -1038,7 +1015,7 @@ public class GenAttribute
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         model.getClazz().getGenerator().setFileHasChanged(true);
+         getGenerator( model.getClazz()).setFileHasChanged(true);
       }
    }
    public GenAttribute generate(String rootDir, String helpersDir)
@@ -1073,7 +1050,7 @@ public class GenAttribute
       Parser parser;
       if (! clazz.getWrapped())
       {
-         parser = clazz.getGenerator().getOrCreateParser(rootDir);
+         parser = getGenerator( clazz).getOrCreateParser(rootDir);
          if (!fromSuperClass)
          {
             insertAttrDeclPlusAccessors(clazz, parser);
@@ -1085,24 +1062,24 @@ public class GenAttribute
             insertCaseInToString(parser);
          }
 
-         clazz.getGenerator().printFile(doGenerate);
+         getGenerator( clazz).printFile(doGenerate);
       }
 
       if ( !clazz.isInterfaze() && clazz.getClassModel().hasFeature(Feature.Serialization))
       {
-         Parser creatorParser = clazz.getGenerator().getOrCreateParserForCreatorClass(helpersDir);
+         Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
 
          insertPropertyInCreatorClass(creatorParser, clazz );
          
-         clazz.getGenerator().printCreatorFile(doGenerate);
+         getGenerator( clazz).printCreatorFile(doGenerate);
       }
 
-      Parser modelSetParser = clazz.getGenerator().getOrCreateParserForModelSetFile(helpersDir);
+      Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
       insertGetterInModelSetClass(modelSetParser, clazz);
       insertSetterInModelSetClass(modelSetParser, clazz);
-      model.getClazz().getGenerator().printModelSetFile(doGenerate);
+      getGenerator( model.getClazz()).printModelSetFile(doGenerate);
 
-      Parser patternObjectParser = clazz.getGenerator().getOrCreateParserForPatternObjectFile(helpersDir);
+      Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
       insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
       insertGetterInPatternObjectClass(patternObjectParser, clazz);
 
@@ -1191,8 +1168,8 @@ public class GenAttribute
          }
          insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
 
-         ownerClazz.getGenerator().insertImport(parser, model.getClazz().getName());
-         ownerClazz.getGenerator().setCreatorFileHasChanged(true);
+         getGenerator( ownerClazz).insertImport(parser, model.getClazz().getName());
+         getGenerator( ownerClazz).setCreatorFileHasChanged(true);
       }
    }
 }

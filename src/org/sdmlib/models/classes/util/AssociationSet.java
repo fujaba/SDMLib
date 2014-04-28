@@ -22,15 +22,17 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.creators.RoleSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
+
    public RoleSet getSource()
    {
       RoleSet result = new RoleSet();
@@ -73,8 +75,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       return this;
    }
 
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -88,6 +89,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Association";
@@ -109,7 +111,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
 
    public AssociationPO startModelPattern()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       AssociationPO patternObject = pattern.hasElementAssociationPO();
       
@@ -126,7 +128,9 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Association>)value);
+         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
+            this.add((Association) i.next());
+         }
       }
       else if (value != null)
       {
@@ -141,7 +145,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
 
    public AssociationPO hasAssociationPO()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       AssociationPO patternObject = pattern.hasElementAssociationPO();
       
@@ -153,12 +157,3 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

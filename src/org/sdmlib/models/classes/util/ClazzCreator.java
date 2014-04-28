@@ -23,8 +23,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_INTERFACES,
       Clazz.PROPERTY_ATTRIBUTES,
       Clazz.PROPERTY_METHODS,
-      Clazz.PROPERTY_SOURCEROLES,
-      Clazz.PROPERTY_TARGETROLES
+      Clazz.PROPERTY_ROLES
    };
    
    @Override
@@ -70,14 +69,9 @@ public class ClazzCreator extends EntityFactory
          return ((Clazz) target).getMethods();
       }
 
-      if (Clazz.PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_ROLES.equalsIgnoreCase(attrName))
       {
-         return ((Clazz) target).getSourceRoles();
-      }
-
-      if (Clazz.PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getTargetRoles();
+         return ((Clazz) target).getRoles();
       }
 
       if (Clazz.PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
@@ -140,7 +134,7 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToAttributes((Attribute) value);
+         ((Clazz)target).withAttributes((Attribute) value);
          return true;
       }
 
@@ -162,33 +156,21 @@ public class ClazzCreator extends EntityFactory
          return true;
       }
 
-      if (Clazz.PROPERTY_SOURCEROLES.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_ROLES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToSourceRoles((Role) value);
+         ((Clazz)target).addToRoles((Role) value);
          return true;
       }
 
-      if ((Clazz.PROPERTY_SOURCEROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Clazz.PROPERTY_ROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).removeFromSourceRoles((Role) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_TARGETROLES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).addToTargetRoles((Role) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_TARGETROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).removeFromTargetRoles((Role) value);
+         ((Clazz)target).removeFromRoles((Role) value);
          return true;
       }
 
       if (Clazz.PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToKidClasses((Clazz) value);
+         ((Clazz)target).withKidClasses((Clazz) value);
          return true;
       }
 

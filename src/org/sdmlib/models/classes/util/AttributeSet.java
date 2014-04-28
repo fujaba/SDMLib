@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
@@ -163,7 +164,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 
    public AttributePO startModelPattern()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       AttributePO patternObject = pattern.hasElementAttributePO();
       
@@ -180,7 +181,9 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Attribute>)value);
+         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
+            this.add((Attribute) i.next());
+         }
       }
       else if (value != null)
       {
@@ -194,7 +197,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 
    public AttributePO hasAttributePO()
    {
-      org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
+      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
       
       AttributePO patternObject = pattern.hasElementAttributePO();
       

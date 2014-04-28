@@ -27,7 +27,7 @@ import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-import org.sdmlib.storyboards.creators.StoryboardStepSet;
+import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 public class StoryboardStep implements PropertyChangeInterface
 {

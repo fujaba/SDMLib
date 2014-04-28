@@ -21,8 +21,7 @@
    
 package org.sdmlib.models.classes;
 
-import org.sdmlib.models.classes.creators.RoleSet;
-import org.sdmlib.models.classes.logic.GenRole;
+import org.sdmlib.models.classes.util.RoleSet;
 
 public class Role extends SDMLibClass
 {
@@ -37,7 +36,6 @@ public class Role extends SDMLibClass
    private String name= null;
    private Clazz clazz= null;
    private String card= R.MANY.toString();
-   private GenRole generator;
 
    @Override
    public String toString()
@@ -48,32 +46,7 @@ public class Role extends SDMLibClass
    	//      _.append(" ").append(this.getKind());
       return "" + name + " " + card;
    }
-   
-   public void setGenerator(GenRole value)
-   {
-      if (this.generator != value)
-      {
-         GenRole oldValue = this.generator;
-         if (this.generator != null)
-         {
-            this.generator = null;
-            oldValue.setModel(null);
-         }
-         this.generator = value;
-         if (value != null)
-         {
-            value.setModel(this);
-         }
-      }
-   }
-   
-   public GenRole getGenerator(){
-      if(generator==null){
-         this.setGenerator(new GenRole());
-      }
-      return generator;
-   }
-   
+ 
    public String labelForRole()
    {
       String result = getName();
@@ -102,14 +75,14 @@ public class Role extends SDMLibClass
          if (this.clazz != null)
          {
             this.clazz = null;
-            oldValue.withoutSourceRoles(this);
+            oldValue.withoutRoles(this);
          }
          
          this.clazz = value;
          
          if (value != null)
          {
-            value.withSourceRoles(this);
+            value.withRoles(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);

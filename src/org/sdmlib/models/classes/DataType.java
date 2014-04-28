@@ -2,7 +2,14 @@ package org.sdmlib.models.classes;
 
 public enum DataType
 {
-   VOID("void"), INT("int"), LONG("long"), DOUBLE("double"), STRING("String"), BOOLEAN("boolean"), Object("Object"), Custom("");
+   VOID("void"), 
+   INT("int"), 
+   LONG("long"), 
+   DOUBLE("double"), 
+   STRING("String"), 
+   BOOLEAN("boolean"), 
+   OBJECT("Object"), 
+   REF("");
    
    private String value;
    DataType(String value){
@@ -22,6 +29,6 @@ public enum DataType
    }
    
    public static DataType ref(String value){
-      return Custom.withValue(value);
+      return REF.withValue(value);
    }
 }
